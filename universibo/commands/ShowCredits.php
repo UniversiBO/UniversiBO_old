@@ -34,7 +34,7 @@ class ShowCredits extends UniversiboCommand {
 		$template->assign('showCredits_langPhpAccelerator','Per ottenere il massimo delle prestazioni viene utilizzato migliorare le prestazioni si è utilizzato il sistema di caching PHP Accelerator.
 [url=http://www.php-accelerator.co.uk/]http://www.php-accelerator.co.uk/[/url]');
 		$template->assign('showCredits_langSmarty','Si è utilizzato il template engine Smarty per scindere la presentazione delle informazioni dalla logica applicativa.
-[url=http://smarty.php.net]smarty.php.net[/url]');
+[url=http://www.smarty.net]www.smarty.net[/url]');
 
 		$template->assign('showCredits_langOthers','In queste pagine abbiamo integrato ed utilizzato tantissimi componenti e moduli PHP frutto delle comunità Open Source.
 Da Pear vengono utilizzati i package DB come database abstraction layer, SOAP per i web services e PhpDocumentor per generare la documentazione
@@ -50,4 +50,3 @@ Il forum è basato su PHPBB a cui sono state apportate piccole modifiche
 	}
 }
 
-?>
