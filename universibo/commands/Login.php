@@ -34,7 +34,7 @@ class Login extends UniversiboCommand {
 			
 			if (!$user->isOspite())
 			{
-				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Il login può essere eseguito solo da utenti che non hanno ancora eseguito l\'accesso','file'=>__FILE__,'line'=>__LINE__));
+				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Il login puï¿½ essere eseguito solo da utenti che non hanno ancora eseguito l\'accesso','file'=>__FILE__,'line'=>__LINE__));
 			}
 			
 			if (! User::isUsernameValid($_POST['f1_username']) )
@@ -60,7 +60,7 @@ class Login extends UniversiboCommand {
 				$_SESSION['referer'] = $referer;
 				FrontController::redirectCommand('InteractiveCommandHandler');
 				
-//				// questa parte è in InteractiveCommandHandler
+//				// questa parte ï¿½ in InteractiveCommandHandler
 //				$userLogin->updateUltimoLogin(time());
 //				$this->setSessionIdUtente($userLogin->getIdUser());
 //				$fc->setStyle($userLogin->getDefaultStyle());
@@ -73,9 +73,9 @@ class Login extends UniversiboCommand {
 //				if ( !strstr($referer, 'forum') && ( !strstr($referer, 'do') || strstr($referer, 'do=ShowHome')  || strstr($referer, 'do=ShowError') || strstr($referer, 'do=Login') || strstr($referer, 'do=RegStudente')))
 //					FrontController::redirectCommand('ShowMyUniversiBO');
 //				else if (strstr($referer, 'forum'))
-//					FrontController::goTo($forum->getMainUri());
+//					FrontController::redirectUri($forum->getMainUri());
 //				else
-//					FrontController::goTo($referer);
+//					FrontController::redirectUri($referer);
 				
 			}
 			$_POST['f1_password'] = '';  //resettata per sicurezza

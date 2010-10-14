@@ -173,7 +173,7 @@ class FrontController {
 			if (!$templateEngine->template_exists($template))
 			{
 				echo $template;
-				Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non è presente il file relativo al template specificato: "'.$template.'"','file'=>__FILE__,'line'=>__LINE__));
+				Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non ï¿½ presente il file relativo al template specificato: "'.$template.'"','file'=>__FILE__,'line'=>__LINE__));
 			}
 			
 			$templateEngine->display($template);
@@ -202,7 +202,7 @@ class FrontController {
 		
 		if ($classValues == null )
 		{
-			Error::throwError(_ERROR_DEFAULT,array('msg'=>'Non è stato definito il plugin richiesto: '.$name ,'file'=>__FILE__,'line'=>__LINE__));
+			Error::throwError(_ERROR_DEFAULT,array('msg'=>'Non ï¿½ stato definito il plugin richiesto: '.$name ,'file'=>__FILE__,'line'=>__LINE__));
 			return;
 		}	
 			
@@ -256,7 +256,7 @@ class FrontController {
 		
 		$url = $request_protocol.'://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'?'.$command;
 		
-		FrontController::goTo($url);
+		FrontController::redirectUri($url);
 	}
 	
 	
@@ -265,14 +265,11 @@ class FrontController {
 	 *
 	 * @param string $destination
 	 */ 
-	function goTo($destination)
+	function redirectUri($destination)
 	{
 		header('Location: '.$destination);
 		exit();
 	}
-
-
-
 
 
 	/**
@@ -401,7 +398,7 @@ class FrontController {
 		}
 
 		if($_GET['do'] == '')
-			Error::throwError(_ERROR_DEFAULT,array('msg'=>'Il comando indicato è vuoto','file'=>__FILE__,'line'=>__LINE__));
+			Error::throwError(_ERROR_DEFAULT,array('msg'=>'Il comando indicato ï¿½ vuoto','file'=>__FILE__,'line'=>__LINE__));
 
 		return $_GET['do'];
 	}
@@ -524,7 +521,7 @@ class FrontController {
 	{
 		$elementsFolder = $this->config->getElementsByTagName('rootFolder');
 		if ($elementsFolder == NULL)
-			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non è specificato l\'elemento rootFolder nel file di config','file'=>__FILE__,'line'=>__LINE__));
+			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non ï¿½ specificato l\'elemento rootFolder nel file di config','file'=>__FILE__,'line'=>__LINE__));
 		$elementFolderItem = $elementsFolder->item(0);
 		$elementFolderChild =& $elementFolderItem->firstChild;
 		$this->rootFolder = $elementFolderChild->nodeValue;
@@ -650,11 +647,11 @@ class FrontController {
 		
 		$templateInfoNodes = $this->config->getElementsByTagName('templateInfo');
 		if ( $templateInfoNodes == NULL )
-			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non è specificato l\'elemento templateInfo nel file di config','file'=>__FILE__,'line'=>__LINE__));
+			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non ï¿½ specificato l\'elemento templateInfo nel file di config','file'=>__FILE__,'line'=>__LINE__));
 		$templateInfoNode = $templateInfoNodes->item(0);
 //		var_dump($templateInfoNode->attributes);
 		if ( $templateInfoNode == NULL )
-			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non è specificato l\'elemento templateInfo nel file di config','file'=>__FILE__,'line'=>__LINE__));
+			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non ï¿½ specificato l\'elemento templateInfo nel file di config','file'=>__FILE__,'line'=>__LINE__));
 	
 		if ( $templateInfoNode->getAttribute('type') != 'Smarty' ) 
 			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Al momento non sono supportati template engines diversi da Smarty','file'=>__FILE__,'line'=>__LINE__));
@@ -664,10 +661,10 @@ class FrontController {
 
 		$templateDirsNodes 	= $templateInfoNode->getElementsByTagName('template_dirs');
 		if ( $templateDirsNodes == NULL )
-			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non è specificato l\'elemento template_dirs nel file di config','file'=>__FILE__,'line'=>__LINE__));
+			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non ï¿½ specificato l\'elemento template_dirs nel file di config','file'=>__FILE__,'line'=>__LINE__));
 		$templateDirsNode	= $templateDirsNodes->item(0);
 		if ( $templateDirsNode == NULL )
-			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non è specificato l\'elemento template_dirs nel file di config','file'=>__FILE__,'line'=>__LINE__));
+			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non ï¿½ specificato l\'elemento template_dirs nel file di config','file'=>__FILE__,'line'=>__LINE__));
 				
 		$figli = $templateDirsNode->childNodes;
 		for( $i=0; $i<$figli->length; $i++ )
@@ -680,10 +677,10 @@ class FrontController {
 
 		$templateStylesNodes = $templateInfoNode->getElementsByTagName('template_styles');
 		if($templateStylesNodes == NULL)
-			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non è specificato l\'elemento template_styles nel file di config','file'=>__FILE__,'line'=>__LINE__));
+			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non ï¿½ specificato l\'elemento template_styles nel file di config','file'=>__FILE__,'line'=>__LINE__));
 		$templateStylesNode	= $templateStylesNodes->item(0);		
 		if($templateStylesNode == NULL)
-			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non è specificato l\'elemento template_styles nel file di config','file'=>__FILE__,'line'=>__LINE__));
+			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non ï¿½ specificato l\'elemento template_styles nel file di config','file'=>__FILE__,'line'=>__LINE__));
 
 		$figli = $templateStylesNode->childNodes;
 		for( $i=0; $i<$figli->length; $i++ )
@@ -846,12 +843,12 @@ class FrontController {
 		$nodes = $this->config->getElementsByTagName('paths');
 		
 		if($nodes == NULL)
-			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non è specificato l\'elemento path nel file di config','file'=>__FILE__,'line'=>__LINE__));
+			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non ï¿½ specificato l\'elemento path nel file di config','file'=>__FILE__,'line'=>__LINE__));
 		
 		$node = $nodes->item(0);	
 		//var_dump($node);
 		if($nodes == NULL)
-			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non è specificato l\'elemento path nel file di config','file'=>__FILE__,'line'=>__LINE__));
+			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non ï¿½ specificato l\'elemento path nel file di config','file'=>__FILE__,'line'=>__LINE__));
 		
 		$figli = &$node->childNodes;
 		for($i=0; $i < $figli->length; $i++)
@@ -949,10 +946,10 @@ class FrontController {
 		}
 
 		if(!isset($this->commandClass))
-			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non è definito l\'attributo class relativo al comando specificato nel file di config','file'=>__FILE__,'line'=>__LINE__));
+			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non ï¿½ definito l\'attributo class relativo al comando specificato nel file di config','file'=>__FILE__,'line'=>__LINE__));
 			
 		if(empty($this->commandClass))
-			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non è specificata la classe relativa al comando spacificato nel file di config','file'=>__FILE__,'line'=>__LINE__));
+			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non ï¿½ specificata la classe relativa al comando spacificato nel file di config','file'=>__FILE__,'line'=>__LINE__));
 	}	
 
 
@@ -1151,4 +1148,3 @@ class FrontController {
 
 
 }
-?>

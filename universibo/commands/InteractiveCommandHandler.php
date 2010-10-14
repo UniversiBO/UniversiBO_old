@@ -54,9 +54,9 @@ class InteractiveCommandHandler extends UniversiboCommand {
 			if ( !strstr($referer, 'forum') && ( !strstr($referer, 'do') || strstr($referer, 'do=ShowHome')  || strstr($referer, 'do=ShowError') || strstr($referer, 'do=Login') || strstr($referer, 'do=RegStudente')))
 				FrontController::redirectCommand('ShowMyUniversiBO');
 			else if (strstr($referer, 'forum'))
-				FrontController::goTo($forum->getMainUri());
+				FrontController::redirectUri($forum->getMainUri());
 			else
-				FrontController::goTo($referer);
+				FrontController::redirectUri($referer);
 		}
 		
 		
@@ -70,11 +70,11 @@ class InteractiveCommandHandler extends UniversiboCommand {
 			
 		$esito = $this->executePlugin($currentStep['className'], $action);
 		
-		//TODO verificare se esito è array?
+		//TODO verificare se esito ï¿½ array?
 		if (isset($esito['error'])) 
 		{			
 			/** 
-			 * @todo mail agli sviluppatori per correggere subito l'errore, altrimenti la gente non si logga più!!
+			 * @todo mail agli sviluppatori per correggere subito l'errore, altrimenti la gente non si logga piï¿½!!
 			 * per il futuro, pensare a come disabilitare in automatico gli InteractiveCommand con errore
 			 */			
 			require_once('Notifica/NotificaItem'.PHP_EXTENSION);
@@ -89,7 +89,7 @@ class InteractiveCommandHandler extends UniversiboCommand {
 
 Probabilmente l\'InteractiveCommand '.$currentStep['className'].' non ha metodi implementati.
 Risolvere subito il problema o disabilitarlo quanto prima,
-perché impedisce il login agli utenti		
+perchï¿½ impedisce il login agli utenti		
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~';
 					
 			$notifica_destinatario = 'mail://'.$frontcontroller->getAppSetting('develEmail');
@@ -105,8 +105,8 @@ perché impedisce il login agli utenti
 			$_SESSION = array();
 			session_destroy();
 			session_start();
-			// TODO messaggio di errore per spiegare che è obbligatorio accettare?
-			FrontController::goTo($referer);
+			// TODO messaggio di errore per spiegare che ï¿½ obbligatorio accettare?
+			FrontController::redirectUri($referer);
 		}	
 		
 		//  Elimino dalla lista gli step cancellati dall'utente e quelli completati con successo
@@ -200,7 +200,7 @@ perché impedisce il login agli utenti
             $list[] = $parentClass;
         }
 //        var_dump($list);
-		// TODO se il while si interrompe per il null, vuol dire che la lista è parziale. Gestirlo in modo diverso?
+		// TODO se il while si interrompe per il null, vuol dire che la lista ï¿½ parziale. Gestirlo in modo diverso?
 		return $list;
 		
 				
@@ -240,7 +240,7 @@ perché impedisce il login agli utenti
 		
 		$query = 'SELECT id_step, nome_classe FROM  	step_log 
 					WHERE id_utente = '.$db->quote( $user->getIdUser() ).
-					' AND  esito_positivo IS NOT NULL '.		// NB suppongo che quelli con esito 'n' siano quelli una-tantum (bassa priorità) rifiutati 
+					' AND  esito_positivo IS NOT NULL '.		// NB suppongo che quelli con esito 'n' siano quelli una-tantum (bassa prioritï¿½) rifiutati 
 					'';					
 		$res =& $db->query($query);
 		if (DB::isError($res)) 
@@ -261,7 +261,7 @@ perché impedisce il login agli utenti
 	}	
 
 	/**
-	 * valuta se la condizione espressa in linguaggio ConditionLanguage è verificata
+	 * valuta se la condizione espressa in linguaggio ConditionLanguage ï¿½ verificata
 	 *
 	 * @param string $CL_code
 	 * @return boolean
