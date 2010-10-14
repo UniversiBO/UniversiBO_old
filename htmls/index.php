@@ -139,7 +139,3 @@ list($usec, $sec) = explode(" ", microtime());
 $page_time_end = ((float)$usec + (float)$sec);
 
 //printf("%01.5f", $page_time_end - $page_time_start);
-
-?>
-
-
