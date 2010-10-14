@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>universibo2devel</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+	</buildSpec>
+	<natures>
+		<nature>net.sourceforge.phpeclipse.phpnature</nature>
+		<nature>org.eclipse.php.core.PHPNature</nature>
+	</natures>
+</projectDescription>

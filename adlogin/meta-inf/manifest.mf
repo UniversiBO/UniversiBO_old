@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Created-By: Ilias Bartolini
+Main-Class: adLogin.ProgramServer
+

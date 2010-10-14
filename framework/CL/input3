@@ -1,0 +1,2 @@
+EVENT nome DEF #SQL[select * from canale where id_canale=1];
+STARTS WHEN $nome;

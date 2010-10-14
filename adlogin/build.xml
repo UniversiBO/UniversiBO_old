@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="AdLogin" default="all">
+
+	<target name="selfdecribe" description="logo of the job">
+		<echo message=" ===== build ===== "/>
+	</target>
+	
+	<target name="setProps" unless="setProps" description="set up the properties">
+<!-- executes only if the property setProps is not set
+If a parent buildfile calls this buildfile, it can set
+the setProps property and override the value of outdir
+-->
+		<property name="outdir" value="."/>
+	</target>
+
+	<target name="init" depends="selfdecribe, setProps" description="init the properties">
+		<tstamp/>
+		<!-- sets the standard DSTAMP, TSTAMP, and TODAY properties
+		according to the default formats-->
+		<property name="build" value="${outdir}/classes"/>
+		<!-- defines the output directory of the Java class files -->
+		<property name="lib" value="${outdir}/jar"/>
+		<!-- lib property defines the directory that holds the
+		common code libraries (JAR files) used for the first application -->
+		<property name="jar_filename" value="${lib}/ThreadTest2.jar"/>
+		<property name="MF_lib" value="./META-INF"/>
+		<!-- defines the directory for the manifest file-->		
+		<property name="src" value="${outdir}/src"/>
+		<property name="docs" value="${outdir}/docs/api"/>
+	</target>
+
+	<target name="prepare" depends="init, clean" description="prepares the output dirs">
+		<mkdir dir="${build}"/>
+	</target>
+
+	<target name="clean" depends="init" description="cleans up the output dirs and jar">
+		<delete dir="${build}"/>
+	</target>
+	
+	<target name="preparedoc" depends="init, cleandoc" description="prepares the doc dir">
+		<mkdir dir="${docs}"/>
+	</target>
+
+	<target name="cleandoc" depends="init" description="cleans up the doc dir">
+		<delete dir="${docs}"/>
+	</target>
+	
+	<target name="preparejar" depends="init, cleanjar" description="prepares the jar dir">
+		<mkdir dir="${lib}"/>
+	</target>
+
+	<target name="cleanjar" depends="init" description="cleans up the jar dir">
+		<delete dir="${lib}"/>
+	</target>
+	
+	<target name="compile" depends="prepare" description="compiles the java sources">
+		<javac srcdir="${src}" destdir="${build}"></javac>
+	</target>
+
+	<target name="package" depends="compile, preparejar" description="package the classes into a jar">
+		<jar destfile="${jar_filename}" basedir="${build}" manifest="${MF_lib}/MANIFEST.MF" />
+	</target>
+
+	<target name="runS" depends="compile" description="execute">
+		<java classname="adLogin.ProgramAdLoginServer" classpath="${build}" fork="yes" />
+	</target>
+
+	<target name="runC" depends="compile" description="execute">
+		<java classname="adLogin.ProgramAdLoginClient" classpath="${build}" fork="yes" />
+	</target>
+
+    	<target name="runJar" depends="cleanjar, preparejar, package" description="execute via jar">
+		<java jar="${jar_filename}" fork="yes">
+			<classpath>
+				<pathelement location="${build}" />
+			</classpath>
+		</java>
+	</target>
+
+	<target name="javadocs" depends="init, cleandoc, preparedoc"  description="document">
+		<javadoc packagenames="Prova" sourcepath="${src}" destdir="${docs}" 
+		 author="true" version="true" use="true" windowtitle="ThreadTest2">
+		</javadoc>
+	</target>
+
+<!--	<target name="test" depends="compile" description="junit test">
+		<junit printsummary="true">
+			<formatter type="xml" usefile="true"/>
+			<batchtest fork="yes">
+				<fileset dir="${build}">
+					<include name="**/Test*.class"/>
+				</fileset>
+			</batchtest>
+
+			<classpath>
+				<pathelement location="${build}"/>
+			</classpath>
+		</junit>
+	</target>
+-->
+
+	<target name="all" depends="clean, compile, javadocs, package" description="performs all the job">
+	</target>
+
+</project>

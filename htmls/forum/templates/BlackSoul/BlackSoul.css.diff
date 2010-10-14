@@ -1,0 +1,32 @@
+*** /home/fab/Desktop/Universibo/forum/forum/black/BlackSoul.css	2005-06-26 13:47:06.000000000 +0200
+--- ./BlackSoul.css	2005-06-26 12:56:56.000000000 +0200
+***************
+*** 4,8 ****
+    http://www.subBlue.com
+  */
+! 
+  
+   /* General page style. The scroll bar colours only visible in IE5.5+ */
+--- 4,25 ----
+    http://www.subBlue.com
+  */
+!  /* add by evaimitico */
+!  
+!  #f2{
+!  display: inline;
+!  }
+!  
+!  #f2 input{
+!  background-color: black;
+!  color: #006699;
+!  padding: 0;
+!  margin: 0;
+!  border: 0 none;
+!  }
+!  
+!  #f2 input:hover{ text-decoration: underline; color: #0077BB; 
+!  cursor: pointer;}
+!  
+!  /* end add*/
+  
+   /* General page style. The scroll bar colours only visible in IE5.5+ */

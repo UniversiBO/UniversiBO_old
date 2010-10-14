@@ -1,0 +1,25 @@
+en,100,Error: No template engine found
+en,101,Error: No template found for template alias %s
+en,102,Error: BaseCommand::getContents() should be overwritten in its subclass
+en,103,Error: Must overwrite execute method in %s or one of the classes used as plugs in templates of %s
+en,104,Error: Error connecting to server because: %s
+en,105,Error: Error selecting database because: %s
+en,106,Error: Config file error %s
+en,107,Error: Alias for path %s not found in config file
+en,108,Error: No node found in config file for plug %s in plugCommands section
+en,109,Error: defaultCommand node not found in config file
+en,110,Error: rootFolder node not found in config file
+en,111,Error: rootURL node not found in config file
+en,112,Error: receivers node not found in config file
+en,113,Error: Cannot find any receiver
+en,114,Error: paths node not found in config file
+en,115,Error: commands node not found in config file
+en,116,Error: Invalid command: %s. No information found in commands section of config file
+en,117,Error: Invalid command: %s(no class node)
+en,118,Error: Invalid command: %s(empty class node)
+en,119,Error: Empty command is invalid
+en,120,Error: Cannot open user language file in %s
+en,1000,Error in MysqlDb library class: The error is: %s
+en,1001,Error in MysqlDb library class: Operation failed in MyslDb library class because: %s
+en,1002,Error in PearDBWrapper: No information found in databaseinfo node
+en,1003,Error in PearDBWrapper: Fatal DB error: %s

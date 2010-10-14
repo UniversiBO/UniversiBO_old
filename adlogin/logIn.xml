@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- esempio di documento XML generato da LogINClient.php -->
+<!DOCTYPE ADLogIn SYSTEM "logIn.dtd">
+<ADLogIn>
+	<user username="michele.piunti" domain="@studio.unibo.it" password="prova" />
+</ADLogIn>

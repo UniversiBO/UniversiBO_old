@@ -1,0 +1,27 @@
+*** /var/www/universibo2devel/htmls/forum/templates/subSilver/subSilver.css	2005-06-22 03:01:35.000000000 +0200
+--- ./subSilver.css	2005-06-22 03:01:40.000000000 +0200
+***************
+*** 5,8 ****
+--- 5,26 ----
+  */
+  
++ /* add by evaimitico */
++ 
++ #f2{
++ display: inline;
++ }
++ 
++ #f2 input{
++ background-color: white;
++ color: rgb(56, 109, 206);
++ padding: 0;
++ margin: 0;
++ border: 0 none;
++ }
++ 
++ #f2 input:hover{ text-decoration: underline; color: rgb(56, 109, 206); 
++ cursor: pointer;}
++ 
++ /* end add*/
+  
+   /* General page style. The scroll bar colours only visible in IE5.5+ */
