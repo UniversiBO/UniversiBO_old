@@ -244,5 +244,3 @@ class AddNewsCanale extends CanaleCommand {
 	}
 
 }
-
-?>

@@ -111,8 +111,8 @@ class User {
 	function isUsernameValid( $username )
 	{
 		$username = trim($username);
-		$username_pattern='^([[:alnum:]אטילעש \._]{1,25})$';
-		return ereg($username_pattern , $username ) && strcasecmp($username, NICK_USER_ELIMINATO) != 0;
+		$username_pattern='/^([[:alnum:]אטילעש \._]{1,25})$/';
+		return preg_match($username_pattern , $username ) && strcasecmp($username, NICK_USER_ELIMINATO) != 0;
 	}
 	
 	
@@ -121,18 +121,16 @@ class User {
 	 *  Verifica se la sintassi della password ? valida.
 	 *  Lunghezza min 5, max 30 caratteri
 	 *
-	 * @static
 	 * @param string $password stringa della password da verificare
 	 * @return boolean
 	 */
-	function isPasswordValid( $password )
+	public static function isPasswordValid( $password )
 	{
-		//$password_pattern='^([[:alnum:]]{5,30})$';
-		//ereg($password_pattern , $password );
+		//$password_pattern='/^([[:alnum:]]{5,30})$/';
+		//preg_match($password_pattern , $password );
 		$length = strlen( $password );
 		return ( $length > 5 && $length < 30 );
 	}
-	 
 	
 	
 	/**
@@ -931,7 +929,7 @@ class User {
 		
 	    while($row = $res->fetchRow())
 		{
-			$collaboratori[] =& new User($row[0], $row[1]);
+			$collaboratori[] = new User($row[0], $row[1]);
 		}	
 		
 		return $collaboratori;	
@@ -982,7 +980,7 @@ class User {
 		}
 		elseif ($id_utente > 0)
 		{
-			$db =& FrontController::getDbConnection('main');
+			$db = FrontController::getDbConnection('main');
 		
 			$query = 'SELECT username, password, email, ultimo_login, ad_username, groups, notifica, phone, default_style, sospeso  FROM utente WHERE id_utente = '.$db->quote($id_utente);
 			$res = $db->query($query);
@@ -994,7 +992,7 @@ class User {
 			if( $rows == 0) {$false = false; return $false;};
 
 			$row = $res->fetchRow();
-			$user =& new User($id_utente, $row[5], $row[0], $row[1], $row[2], $row[6], $row[3], $row[4], $row[7], $row[8], NULL, $row[9]);
+			$user = new User($id_utente, $row[5], $row[0], $row[1], $row[2], $row[6], $row[3], $row[4], $row[7], $row[8], NULL, $row[9]);
 			return $user;
 			
 		}
@@ -1293,5 +1291,3 @@ class User {
 	
 }
 
-
-?>
