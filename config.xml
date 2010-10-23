@@ -416,6 +416,8 @@
 		<antiVirusClamavCmd>/usr/local/bin/clamscan</antiVirusClamavCmd>
 		<antiVirusClamavOpts>--quiet --recursive</antiVirusClamavOpts>
 		
+		<clJavaRequirePath>/var/www/universibo2devel/framework/CL;/var/www/universibo2devel/framework/CL/parser;/var/www/universibo2devel/framework/CL/util;/var/www/universibo2devel/framework/CL/visitor;/var/www/universibo2devel/framework/CL/syntaxtree</clJavaRequirePath>
+		
 	</appSettings>
 	
 </config>
