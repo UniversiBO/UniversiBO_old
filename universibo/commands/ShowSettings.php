@@ -41,23 +41,21 @@ class ShowSettings extends UniversiboCommand
 		
 		if ($utente->isCollaboratore()||$utente->isAdmin())
 		{
-			$template->assign('showSettings_langPreferences',array('[url=index.php?do=ChangePassword]Modifica password[/url]', '[url=]Informazioni forum[/url]','[url=index.php?do=ShowPersonalSettings]Profilo[/url]','[url=index.php?do=ShowUser&id_utente='.$utente->getIdUser().']Modifica MyUniversiBO[/url]','[url=https://posta.studio.unibo.it/horde/?username='.$utente->getADUsername().' type=extern]Posta di ateneo[/url]','[url=index.php?do=ShowContattiDocenti]Docenti da contattare[/url]'));
+			$template->assign('showSettings_langPreferences',array('[url=index.php?do=ChangePassword]Modifica password[/url]', '[url=]Informazioni forum[/url]','[url=index.php?do=ShowPersonalSettings]Profilo[/url]','[url=index.php?do=ShowUser&id_utente='.$utente->getIdUser().']Modifica MyUniversiBO[/url]','[url=https://outlook.com/ type=extern]Posta di ateneo[/url]','[url=index.php?do=ShowContattiDocenti]Docenti da contattare[/url]'));
 		}
 		else
 		{
-			$template->assign('showSettings_langPreferences',array('[url=index.php?do=ChangePassword]Modifica password[/url]', '[url=]Informazioni forum[/url]','[url=index.php?do=ShowPersonalSettings]Profilo[/url]','[url=index.php?do=ShowUser&id_utente='.$utente->getIdUser().']Modifica MyUniversiBO[/url]','[url=https://posta.studio.unibo.it/horde/?username='.$utente->getADUsername().' type=extern]Posta di ateneo[/url]'));
+			$template->assign('showSettings_langPreferences',array('[url=index.php?do=ChangePassword]Modifica password[/url]', '[url=]Informazioni forum[/url]','[url=index.php?do=ShowPersonalSettings]Profilo[/url]','[url=index.php?do=ShowUser&id_utente='.$utente->getIdUser().']Modifica MyUniversiBO[/url]','[url=https://outlook.com/ type=extern]Posta di ateneo[/url]'));
 		}
 
 		$template->assign('showSettings_langTitleAlt','MyUniversiBO');
 		$template->assign('showSettings_langIntro','Ora ti trovi nella tua pagina personale.
 Tramite questa pagina potrai modificare il tuo profilo, le tue impostazioni personali ed avere un accesso veloce e personalizzato alle informazioni scegliendo i contenuti e il loro formato tramite le tue [b]Preferenze[/b].');
 		
-		$template->assign('showSettings_langAdmin',array('[url=https://www.universibo.unibo.it/phpPgAdmin/]DB Postgresql locale[/url]', '[url=https://www.universibo.unibo.it/phporacleadmin/]DB Oracle ateneo[/url]', '[url=https://universibo.ing.unibo.it/phpMyAdmin]DB MySql facoltà[/url]', '[url=index.php?do=RegUser]Iscrivi nuovo utente[/url]'));
+		$template->assign('showSettings_langAdmin',array('[url=https://www.universibo.unibo.it/phpPgAdmin/]DB Postgresql locale[/url]', '[url=index.php?do=RegUser]Iscrivi nuovo utente[/url]'));
 		
 				
 		return 'default';						
 	}
 		
 }
-
-?>
