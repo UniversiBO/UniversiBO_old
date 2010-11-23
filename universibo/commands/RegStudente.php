@@ -2,6 +2,7 @@
 
 require_once ('UniversiboCommand'.PHP_EXTENSION);
 require_once ('ForumApi'.PHP_EXTENSION);
+require_once ('InteractiveCommand/InformativaPrivacyInteractiveCommand'.PHP_EXTENSION);
 
 
 /**
@@ -192,10 +193,10 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore 
 			return 'success';
 			
 		}
-		
+		$testoInformativa = InformativaPrivacyInteractiveCommand::getAttualeInformativaPrivacy ();		
 		// riassegna valori form
 		$template->assign('f4_regolamento',	file_get_contents($fc->getAppSetting('regolamento')));
-		$template->assign('f4_privacy',		file_get_contents($fc->getAppSetting('informativaPrivacy')));
+		$template->assign('f4_privacy',		$testoInformativa['testo']);
 		$template->assign('f4_username',	$f4_username);
 		$template->assign('f4_password',	'');
 		$template->assign('f4_ad_user',		$f4_ad_user);
