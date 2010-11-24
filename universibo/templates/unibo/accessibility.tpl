@@ -40,7 +40,7 @@ sistema operativo che dal vostro <span lang="en">browser</span>, per esempio:
 <tr><td>Galeon/Mozilla/FireFox Linux</td><td>Alt e [accesskey]</td></tr>
 </table>
 {*<dl>
-<dt>IE Windows, IBM Home Page Reader : </dt><dd><alt + [accesskey] + Invio </dd>
+<dt>IE Windows, IBM Home Page Reader : </dt><dd>alt + [accesskey] + Invio </dd>
 <dt>Mozilla, Netscape 6+, K-Meleon, FireFox Windows: </dt><dd>Alt+[accesskey]</dd>
 <dt>Opera 7 Windows, Macintosh, Linux : </dt><dd>Esc + Shift e [accesskey]</dd>
 <dt>MSIE Macintosh : </dt><dd>Ctrl e [accesskey], poi Invio</dd>

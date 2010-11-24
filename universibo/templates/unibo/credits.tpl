@@ -7,7 +7,7 @@
 <hr />
 <table width="100%" border="0" cellspacing="0" cellpadding="4" summary="">
 <tr align="left"><td width="150">&nbsp;</td><td>&nbsp;</td><td width="150">&nbsp;</td></tr>
-<tr align="left"><td colspan="2">{$showCredits_langSO|escape:"htmlall"|bbcode2html|nl2br}</td><td align="right"<img src="img/credits/gnu_linux.gif" width="88" height="31" alt="GNU/Linux Logo" /><br />
+<tr align="left"><td colspan="2">{$showCredits_langSO|escape:"htmlall"|bbcode2html|nl2br}</td><td align="right"><img src="img/credits/gnu_linux.gif" width="88" height="31" alt="GNU/Linux Logo" /><br />
 	<img src="img/credits/slackware.png" width="88" height="31" alt="Slackware Logo" /> </td></tr>
 <tr align="left"><td><img src="img/credits/apache_ssl.gif" width="88" height="31" alt="Apache-SSL Logo" vspace="2" /></td><td colspan="2">{$showCredits_langApache|escape:"htmlall"|bbcode2html|nl2br}</td></tr>
 <tr align="left"><td colspan="2">{$showCredits_langPostgres|escape:"htmlall"|bbcode2html|nl2br}</td><td align="right"><img src="img/credits/postgresql.gif" width="88" height="31" alt="PostgreSQL Logo" vspace="2" /></td></tr>
