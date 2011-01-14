@@ -105,7 +105,3 @@ class _UnitTest_Facolta extends PHPUnit_TestCase
 	}
 
 }
-
-?>
-	
-	
