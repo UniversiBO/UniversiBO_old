@@ -348,8 +348,8 @@
 	<mailerInfo>
 		<!-- leave smtp empty if don't want to use a smtp server -->
 	    <smtp>---pippo.joker.ing.unibo.it</smtp>
-	    <fromAddress>universibo@joker.ing.unibo.it</fromAddress>
-	    <replyToAddress>universibo@joker.ing.unibo.it</replyToAddress>
+	    <fromAddress>universibo@unibo.it</fromAddress>
+	    <replyToAddress>universibo@unibo.it</replyToAddress>
 	    <fromName>UniversiBO</fromName>
 	</mailerInfo>
 	
@@ -402,12 +402,12 @@
 		<programmazioneDidatticaAdmin>Elisa;brain;evaimitico;eagleone</programmazioneDidatticaAdmin>
 		<alertMessage></alertMessage>
 		<defaultStyle>unibo</defaultStyle>
-		<rootEmail>universibo@mail.ing.unibo.it</rootEmail>
-		<develEmail>dev_universibo@mail.ing.unibo.it</develEmail>
-		<infoEmail>info_universibo@calvin.ing.unibo.it</infoEmail>
+		<rootEmail>universibo@unibo.it</rootEmail>
+		<develEmail>dev_universibo@mama.ing.unibo.it</develEmail>
+		<infoEmail>info_universibo@mama.ing.unibo.it</infoEmail>
 		<regolamento>../universibo/files/regolamento.txt</regolamento>
 	<!--	<informativaPrivacy>../universibo/files/informativa_privacy.txt</informativaPrivacy> -->
-		<staffEmail>staff_universibo@calvin.ing.unibo.it</staffEmail>
+		<staffEmail>staff_universibo@mama.ing.unibo.it</staffEmail>
 		<defaultAnnoAccademico>2007</defaultAnnoAccademico>
 		
 		<!--<antiVirusEnable>true</antiVirusEnable>-->

@@ -101,7 +101,7 @@
         <alertMessage></alertMessage>
 		<defaultStyle>unibo</defaultStyle>
 		<rootEmail>universibo@mail.ing.unibo.it</rootEmail>
-		<infoEmail>info_universibo@calvin.ing.unibo.it</infoEmail>
+		<infoEmail>info_universibo@mama.ing.unibo.it</infoEmail>
 		<regolamento>../universibo/files/regolamento.txt</regolamento>
 		<informativaPrivacy>../universibo/files/informativa_privacy.txt</informativaPrivacy>
 		<staffEmail>staff_universibo@calvin.ing.unibo.it</staffEmail>
