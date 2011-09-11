@@ -28,7 +28,7 @@ class ShowContribute extends UniversiboCommand
 		$user = & $this->getSessionUser();
 		
 		$template->assign('contribute_langTitleAlt','Collabora');
-		$template->assign('contribute_langIntro',array('UniversiBo è un sito che nasce dalla collaborazione tra studenti, docenti e strutture universitarie. I docenti sono stati disponibili a dare il loro contributo e li ringraziamo per questo. Ma per permettere che questo portale continui la sua vita occorre che anche gli studenti collaborino.',
+		$template->assign('contribute_langIntro',array('UniversiBO è un sito che nasce dalla collaborazione tra studenti, docenti e strutture universitarie. I docenti sono stati disponibili a dare il loro contributo e li ringraziamo per questo. Ma per permettere che questo portale continui la sua vita occorre che anche gli studenti collaborino.',
       'Se pensate che il servizio che offriamo sia utile e desiderate che continui a essere disponibile per tutti allora aiutateci a rendere questo portale ancora migliore.'));
 		$template->assign('contribute_langTitle','-- Come fare per collaborare? --');
 		$template->assign('contribute_langHowToContribute',array(
