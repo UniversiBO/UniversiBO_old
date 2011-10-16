@@ -105,7 +105,7 @@
 		<regolamento>../universibo/files/regolamento.txt</regolamento>
 		<informativaPrivacy>../universibo/files/informativa_privacy.txt</informativaPrivacy>
 		<staffEmail>staff_universibo@calvin.ing.unibo.it</staffEmail>
-		<defaultAnnoAccademico>2007</defaultAnnoAccademico>
+		<defaultAnnoAccademico>2011</defaultAnnoAccademico>
 		<catalogoFileName>../universibo/files/catalog.xml</catalogoFileName>
 		
 		<antiVirusEnable>true</antiVirusEnable>

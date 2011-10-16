@@ -408,7 +408,7 @@
 		<regolamento>../universibo/files/regolamento.txt</regolamento>
 	<!--	<informativaPrivacy>../universibo/files/informativa_privacy.txt</informativaPrivacy> -->
 		<staffEmail>staff_universibo@mama.ing.unibo.it</staffEmail>
-		<defaultAnnoAccademico>2007</defaultAnnoAccademico>
+		<defaultAnnoAccademico>2011</defaultAnnoAccademico>
 		
 		<!--<antiVirusEnable>true</antiVirusEnable>-->
 		<antiVirusEnable>false</antiVirusEnable>
