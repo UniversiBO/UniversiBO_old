@@ -28,22 +28,22 @@ class ShowContribute extends UniversiboCommand
 		$user = & $this->getSessionUser();
 		
 		$template->assign('contribute_langTitleAlt','Collabora');
-		$template->assign('contribute_langIntro',array('UniversiBO è un sito che nasce dalla collaborazione tra studenti, docenti e strutture universitarie. I docenti sono stati disponibili a dare il loro contributo e li ringraziamo per questo. Ma per permettere che questo portale continui la sua vita occorre che anche gli studenti collaborino.',
+		$template->assign('contribute_langIntro',array('UniversiBO ï¿½ un sito che nasce dalla collaborazione tra studenti, docenti e strutture universitarie. I docenti sono stati disponibili a dare il loro contributo e li ringraziamo per questo. Ma per permettere che questo portale continui la sua vita occorre che anche gli studenti collaborino.',
       'Se pensate che il servizio che offriamo sia utile e desiderate che continui a essere disponibile per tutti allora aiutateci a rendere questo portale ancora migliore.'));
 		$template->assign('contribute_langTitle','-- Come fare per collaborare? --');
 		$template->assign('contribute_langHowToContribute',array(
 		'Non vi chiediamo di dedicare al progetto tutta la vostra vita universitaria! 
-        Le modalità di collaborazione sono tante e ognuna richiede tempi 
-        diversi. Eccovi un breve elenco di ciò che potreste fare per aiutarci:',
+        Le modalitï¿½ di collaborazione sono tante e ognuna richiede tempi 
+        diversi. Eccovi un breve elenco di ciï¿½ che potreste fare per aiutarci:',
       '[list]
         [*]potreste occuparvi di aggiungere [b]contenuti[/b] al sito: 
-          se avete molto tempo potreste scrivere alcune pagine altrimenti è 
+          se avete molto tempo potreste scrivere alcune pagine altrimenti ï¿½ 
           sufficiente che siate solidali con gli altri e rispondiate alle domande 
           che vengono poste nei forum.
         [*]attualmente solo docenti e moderatori possono pubblicare news. Ma 
           se ne conoscete alcune che pensate tutti debbano conoscere potete segnalarle 
           sul forum e invitare i moderatori a pubblicarla come news. 
-        [*]potreste aiutarci con l\'attività di [b]moderazione[/b] e 
+        [*]potreste aiutarci con l\'attivitï¿½ di [b]moderazione[/b] e 
           proporre la vostra candidatura al titolo di moderatore;
         [*]segnalateci ogni errore o problema che riscontrate scrivendo a 
         [url=mailto:'.$frontcontroller->getAppSetting('infoEmail').']'.$frontcontroller->getAppSetting('infoEmail').'[/url]
@@ -51,30 +51,30 @@ class ShowContribute extends UniversiboCommand
         [*]oppure potreste aiutaci nella [b]progettazione[/b]: scrivendo 
           contenuti, scrivendo il codice che genera le pagine, aiutandoci nell\'amministrazione 
           del database, creando immagini grafiche...
-        [*]e se non avete la possibilità di utilizzare il computer potreste 
-          comunque aiutarci attraverso le [b]attività offline[/b]: 
+        [*]e se non avete la possibilitï¿½ di utilizzare il computer potreste 
+          comunque aiutarci attraverso le [b]attivitï¿½ offline[/b]: 
           spargere la voce ai tuoi amici dell\'esistenza del sito(pi? persone 
-          lo frequenteranno, più persone potranno contribuirne alla sua 
+          lo frequenteranno, piï¿½ persone potranno contribuirne alla sua 
           crescita), occuparvi del contatto con le aule, con i docenti...
       [/list]',
 	  'Se quindi vi abbiamo convinto con queste poche e semplici parole e volete 
         collaborare attivamente al progetto compilate questo questionario
-		e vi contatteremo al più presto.'));
+		e vi contatteremo al piï¿½ presto.'));
 		
 		
 		//domande questionario 	
 		$template->assign('question_PersonalInfo', 'Dati personali: '); 
 		$template->assign('question_PersonalInfoData', array('Nome','Cognome','E-mail','Telefono','Corso di Laurea')); 
 		$template->assign('question_q1', 'Saresti disponibile a darci un piccolo contributo(di tempo) per il progetto?'); 
-		$template->assign('question_q1Answers', array('una giornata alla settimana o più;','poche ore alla settimana;','pochi minuti alla settimana;')); 
+		$template->assign('question_q1Answers', array('una giornata alla settimana o piï¿½;','poche ore alla settimana;','pochi minuti alla settimana;')); 
 		$template->assign('question_q2', 'Quanto tempo ti connetti a Internet?'); 
 		$template->assign('question_q2Answers', array('quasi mai;','una volta alla settimana;','una volta al giorno;','vivo connesso;')); 
-		$template->assign('question_q3', 'Quali di queste attività pensi di poter svolgere (anche più di una scelta)?'); 
-		$template->assign('question_q3AnswersMulti', array('attività off-line(contatti con i docenti o studenti, reperimento materiale...);','moderatore  
+		$template->assign('question_q3', 'Quali di queste attivitï¿½ pensi di poter svolgere (anche piï¿½ di una scelta)?'); 
+		$template->assign('question_q3AnswersMulti', array('attivitï¿½ off-line(contatti con i docenti o studenti, reperimento materiale...);','moderatore  
 		(controllare che la gente non scriva cose non permesse...);','scrittura contenuti riguardanti i corsi che frequento;','testare le nuove versioni dei sevizi  
 		provandoli on-line;','elaborazione grafica di immagini (icone, scritte, ecc...);','aiutare nella progettazione e programmazione del sito;')); 
 		$template->assign('question_PersonalNotes', 'Altre informazioni personali:'); 
-		$template->assign('question_Privacy', 'Acconsento al trattamento dei miei dati personali ai sensi della legge sulla privacy 1996 N. 675/96;'); 
+		$template->assign('question_Privacy', 'Acconsento al trattamento dei miei dati personali ai sensi del d. lgs. n. 196/2003;'); 
 		$template->assign('question_Send', 'Invia'); 
 		$template->assign('question_TitleAlt', 'Questionario'); 
 		
@@ -110,35 +110,35 @@ class ShowContribute extends UniversiboCommand
 				 !array_key_exists('f3_cdl', $_POST)||
 				 !array_key_exists('f3_altro', $_POST) ) 
 			{
-				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Il form inviato non è valido','file'=>__FILE__,'line'=>__LINE__ ));
+				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Il form inviato non ï¿½ valido','file'=>__FILE__,'line'=>__LINE__ ));
 				var_dump($f3_corsi_di_laurea);die();
 				$f3_accept = false;
 			}	
 
 			//nome	
 			if ( strlen($_POST['f3_nome']) > 50 ) {
-				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Il nome indicato può essere massimo 50 caratteri','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Il nome indicato puï¿½ essere massimo 50 caratteri','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
 				$f3_accept = false;
 			}	
 			else $q3_nome = $f3_nome = $_POST['f3_nome'];
 
 			//cognome
 			if ( strlen($_POST['f3_cognome']) > 50 ) {
-				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Il cognome indicato può essere massimo 50 caratteri','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Il cognome indicato puï¿½ essere massimo 50 caratteri','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
 				$f3_accept = false;
 			}
 			else $q3_cognome = $f3_cognome = $_POST['f3_cognome'];
 			
 			//telefono
 			if ( (strlen($_POST['f3_tel']) > 50)||!ereg('^([0-9]{1,50})$', $_POST['f3_tel'])) {
-				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Il numero di cellulare indicato può essere massimo 20 cifre','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Il numero di cellulare indicato puï¿½ essere massimo 20 cifre','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
 				$f3_accept = false;
 			}
 			else $q3_tel = $f3_tel = $_POST['f3_tel'];
 			
 			//mail
 			if ( strlen($_POST['f3_mail']) > 50 ) {
-				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'L\' indirizzo e-mail indicato può essere massimo 50 caratteri','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'L\' indirizzo e-mail indicato puï¿½ essere massimo 50 caratteri','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
 				$f3_accept = false;
 			}
 			elseif ( !eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$", $_POST['f3_mail']) ) {
@@ -215,7 +215,7 @@ class ShowContribute extends UniversiboCommand
 			//corso di laurea
 			
 			if ( strlen($_POST['f3_cdl']) > 50 ) {
-				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Il corso di laurea indicato può essere massimo 50 caratteri','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Il corso di laurea indicato puï¿½ essere massimo 50 caratteri','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
 				$f3_accept = false;
 			}
 			else $q3_cdl = $f3_cdl = $_POST['f3_cdl'];
@@ -287,9 +287,9 @@ class ShowContribute extends UniversiboCommand
 				'altre_informazioni: '.$f3_altro."\n\n";
 			
 //			var_dump($mail);die();
-			if(!$mail->Send()) Error::throwError(_ERROR_DEFAULT,array('msg'=>'Il questionario è stato salvato ma è stato impossibile inviare la notifica ai coordinatori', 'file'=>__FILE__, 'line'=>__LINE__));
+			if(!$mail->Send()) Error::throwError(_ERROR_DEFAULT,array('msg'=>'Il questionario ï¿½ stato salvato ma ï¿½ stato impossibile inviare la notifica ai coordinatori', 'file'=>__FILE__, 'line'=>__LINE__));
 			
-			$template->assign('question_thanks',"Grazie per aver compilato il questionario, la tua richiesta è stata inoltrata ai ragazzi che si occupano del contatto dei nuovi collaboratori.\n Verrai ricontattatato da loro non appena possibile");
+			$template->assign('question_thanks',"Grazie per aver compilato il questionario, la tua richiesta ï¿½ stata inoltrata ai ragazzi che si occupano del contatto dei nuovi collaboratori.\n Verrai ricontattatato da loro non appena possibile");
 			return 'questionario_success';
 		}
 		
