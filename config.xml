@@ -341,7 +341,7 @@
 	</commands>
 	
 	<dbInfo type="DB">
-	    <connection identifier="main">pgsql://my_username:my_password@127.0.0.1/universibo2_4</connection>
+	    <connection identifier="main">pgsql://universibo:universibo@127.0.0.1/universibo</connection>
 	    <connection identifier="mysql">mysql://my_username:my_password@host/my_dbname</connection>
 	</dbInfo>
 	
