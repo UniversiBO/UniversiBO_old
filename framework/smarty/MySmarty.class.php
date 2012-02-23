@@ -1,5 +1,4 @@
 <?php
-require_once 'TemplateEngine'.PHP_EXTENSION;
 /**
  * Project:     Smarty: the PHP compiling template engine
  * File:        Smarty.class.php
@@ -15,7 +14,7 @@ require_once 'TemplateEngine'.PHP_EXTENSION;
  * @version 2.6.5-dev
  */
 
-class MySmarty extends Smarty implements TemplateEngine {
+class MySmarty extends Smarty {
 	
 	
     /**
