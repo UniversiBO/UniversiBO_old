@@ -1,5 +1,13 @@
 {
+    "name": "UniversiBO/UniversiBO",
+    "description": "UniversiBO Web Portal",
     "require": {
-        "symfony/symfony": "2.0.10"
-    }
+        "symfony/symfony": "v2.0.10"
+    },
+    "authors": [
+        {
+            "name": "Associazione Universibo",
+            "email": "associazione.universibo@unibo.it"
+        }
+    ]
 }
