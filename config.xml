@@ -335,6 +335,10 @@
 			<pluginCommand name="ProvaInteractiveCommand" class="InteractiveCommand.ProvaInteractiveCommand" restrictedTo="USER_COLLABORATORE,USER_ADMIN"  condition="STARTS WHEN 5 + 4 + 3 + 2 + 1 = 15;" /> 
 			<pluginCommand name="InformativaPrivacyInteractiveCommand" class="InteractiveCommand.InformativaPrivacyInteractiveCommand"/>
 		</InteractiveCommandHandler>
+                
+                <ShowPermalink class="ShowPermalink">
+                    	<response type="template" name="default">permalink_show.tpl</response>
+                </ShowPermalink>
 		
 		<TestUnit class="TestUnit" />
 		<TestTemplate class="TestTemplate" />

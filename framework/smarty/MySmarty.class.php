@@ -1,10 +1,10 @@
 <?php
-
+require_once 'TemplateEngine'.PHP_EXTENSION;
 /**
  * Project:     Smarty: the PHP compiling template engine
  * File:        Smarty.class.php
  *
- * Estensione della normale classe Smarty affinchè i template da mostrare vengano cercati in maniera differenziale:
+ * Estensione della normale classe Smarty affinchï¿½ i template da mostrare vengano cercati in maniera differenziale:
  * si definisce uno stile/cartella default cui cercare se nellla cartella dello stile corrente non si trova il tpl 
  * desiderato
  *
@@ -15,7 +15,7 @@
  * @version 2.6.5-dev
  */
 
-class MySmarty extends Smarty{
+class MySmarty extends Smarty implements TemplateEngine {
 	
 	
     /**
@@ -102,4 +102,3 @@ class MySmarty extends Smarty{
     
 	
 }
-?>

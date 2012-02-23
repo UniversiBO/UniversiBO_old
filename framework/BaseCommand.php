@@ -7,7 +7,7 @@
  * @author  Ilias Bartolini <brain79@virgilio.it>
  * @license {@link http://www.opensource.org/licenses/gpl-license.php}
  */
-class BaseCommand 
+abstract class BaseCommand 
 {
 	
 	/**
@@ -34,11 +34,7 @@ class BaseCommand
 	 *
 	 * @return string template identifier if command uses template engine
 	 */ 
-	function execute()
-	{
-		Error::throwError(_ERROR_CRITICAL,array('msg'=>'Il metodo execute del command deve essere ridefinito','file'=>__FILE__,'line'=>__LINE__) );
-	}
-	
+	public abstract function execute();
 	
 	/**
 	 * Shutdown the command
@@ -78,5 +74,3 @@ class BaseCommand
 
 
 }
-
-?>

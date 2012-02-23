@@ -363,7 +363,7 @@ class NewsItem {
 	 * @param int $id_notizia  id della news
 	 * @return NewsItem 
 	 */
-	 function &selectNewsItem ($id_notizia)
+	 public static function selectNewsItem ($id_notizia)
 	 {
 	 	$id_notizie = array($id_notizia);
 		$news =& NewsItem::selectNewsItems($id_notizie);
@@ -380,10 +380,10 @@ class NewsItem {
 	 * @param array $id_notizie array elenco di id della news
 	 * @return array NewsItems 
 	 */
-	 function &selectNewsItems ($id_notizie)
+	 public static function selectNewsItems ($id_notizie)
 	 {
 	 	//var_dump($id_notizie);
-	 	$db =& FrontController::getDbConnection('main');
+	 	$db = FrontController::getDbConnection('main');
 		
 		if ( count($id_notizie) == 0 )
 		{
