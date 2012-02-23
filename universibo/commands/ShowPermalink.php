@@ -31,7 +31,7 @@ class ShowPermalink extends UniversiboCommand {
         $newsArray['notizia'] = $news->getNotizia();
         $newsArray['data'] = $krono->k_date('%j/%m/%Y - %H:%i', $news->getDataIns());
         //echo $personalizza,"-" ,$ultimo_accesso,"-", $news->getUltimaModifica()," -- ";
-        $newsArray['nuova'] = ($personalizza_not_admin == true && $ultimo_accesso < $news->getUltimaModifica()) ? 'true' : 'false';
+        $newsArray['nuova'] = '';//($personalizza_not_admin == true && $ultimo_accesso < $news->getUltimaModifica()) ? 'true' : 'false';
         $newsArray['autore'] = $news->getUsername();
         $newsArray['autore_link'] = 'ShowUser&id_utente=' . $news->getIdUtente();
         $newsArray['id_autore'] = $news->getIdUtente();
