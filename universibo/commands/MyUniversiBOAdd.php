@@ -22,9 +22,9 @@ class MyUniversiBOAdd extends UniversiboCommand
 	function execute()
 	{
 		
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
-		$utente =& $this->getSessionUser();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
+		$utente = $this->getSessionUser();
 		
 		
 		if($utente->isOspite())
@@ -39,7 +39,7 @@ class MyUniversiBOAdd extends UniversiboCommand
 		$template->assign('common_canaleURI', $canale->showMe());
 		$template->assign('common_langCanaleNome', $canale->getNome());
 		
-		$ruoli =& $utente->getRuoli();
+		$ruoli = $utente->getRuoli();
 		$this->executePlugin('ShowTopic', array('reference' => 'myuniversibo'));
 		
 //		if()
@@ -87,7 +87,7 @@ class MyUniversiBOAdd extends UniversiboCommand
 				
 				if( array_key_exists($id_canale, $ruoli) )
 				{
-					$ruolo =& $ruoli[$id_canale];
+					$ruolo = $ruoli[$id_canale];
 					$ruolo->updateNome($f15_nome);
 					$ruolo->updateTipoNotifica($f15_livello_notifica);
 					$ruolo->setMyUniversiBO(true);
@@ -121,5 +121,3 @@ class MyUniversiBOAdd extends UniversiboCommand
 	}
 	
 }
-
-?>

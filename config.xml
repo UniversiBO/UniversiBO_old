@@ -339,9 +339,10 @@
                 <ShowPermalink class="ShowPermalink">
                     	<response type="template" name="default">permalink_show.tpl</response>
                 </ShowPermalink>
-		
+		<!-- 
 		<TestUnit class="TestUnit" />
 		<TestTemplate class="TestTemplate" />
+		 -->
 	</commands>
 	
 	<dbInfo type="DB">
@@ -421,7 +422,5 @@
 		<antiVirusClamavOpts>--quiet --recursive</antiVirusClamavOpts>
 		
 		<clJavaRequirePath>/var/www/universibo2devel/framework/CL;/var/www/universibo2devel/framework/CL/parser;/var/www/universibo2devel/framework/CL/util;/var/www/universibo2devel/framework/CL/visitor;/var/www/universibo2devel/framework/CL/syntaxtree</clJavaRequirePath>
-		
 	</appSettings>
-	
 </config>

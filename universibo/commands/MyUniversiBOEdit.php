@@ -22,9 +22,9 @@ class MyUniversiBOEdit extends UniversiboCommand
 	function execute()
 	{
 		
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
-		$utente =& $this->getSessionUser();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
+		$utente = $this->getSessionUser();
 		
 		
 		if($utente->isOspite())
@@ -39,11 +39,11 @@ class MyUniversiBOEdit extends UniversiboCommand
 		$template->assign('common_canaleURI', $canale->showMe());
 		$template->assign('common_langCanaleNome', $canale->getNome());
 		
-		$ruoli =& $utente->getRuoli();
+		$ruoli = $utente->getRuoli();
 		if( !array_key_exists($id_canale, $ruoli) )
 			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $utente->getIdUser(), 'msg' => 'Il ruolo richiesto non è presente', 'file' => __FILE__, 'line' => __LINE__));
 		
-		$ruolo =& $ruoli[$id_canale];
+		$ruolo = $ruoli[$id_canale];
 		$this->executePlugin('ShowTopic', array('reference' => 'myuniversibo'));
 		
 		if(array_key_exists($id_canale, $ruoli))
@@ -89,7 +89,7 @@ class MyUniversiBOEdit extends UniversiboCommand
 					$ruolo->updateTipoNotifica($f19_livello_notifica);
 					
 					$ruolo->updateRuolo();
-					$canale =& Canale::retrieveCanale($id_canale);
+					$canale = Canale::retrieveCanale($id_canale);
 					$template->assign('showUser','index.php?do=ShowUser&id_utente='.$utente->getIdUser());
 					if($canale->getTipoCanale() == CANALE_INSEGNAMENTO)
 					{
@@ -116,5 +116,3 @@ class MyUniversiBOEdit extends UniversiboCommand
 	}
 	
 }
-
-?>

@@ -19,13 +19,13 @@ class ScriptIscriviDocenti2 extends UniversiboCommand
 {
 	function execute()
 	{
-		$fc =& $this->getFrontController();
-		$template =& $fc->getTemplateEngine();
-		$db =& $fc->getDbConnection('main');
+		$fc = $this->getFrontController();
+		$template = $fc->getTemplateEngine();
+		$db = $fc->getDbConnection('main');
 		
 		$notifica = NOTIFICA_NONE;
 		
-		$res =& $db->query('SELECT cod_doc, nome_doc, email FROM docente2 WHERE cod_doc NOT IN (SELECT cod_doc FROM docente WHERE 1=1)');
+		$res = $db->query('SELECT cod_doc, nome_doc, email FROM docente2 WHERE cod_doc NOT IN (SELECT cod_doc FROM docente WHERE 1=1)');
 		if (DB::isError($res)) die('select docente2'); 
 		
 		while ( $res->fetchInto($row) )
@@ -100,5 +100,3 @@ class ScriptIscriviDocenti2 extends UniversiboCommand
 		
 	}
 }
-
-?>

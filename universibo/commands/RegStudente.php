@@ -22,10 +22,10 @@ class RegStudente extends UniversiboCommand
 {
 	function execute()
 	{
-		$fc =& $this->getFrontController();
-		$template =& $this->frontController->getTemplateEngine();
+		$fc = $this->getFrontController();
+		$template = $this->frontController->getTemplateEngine();
 		
-		$session_user =& $this->getSessionUser();
+		$session_user = $this->getSessionUser();
 		if (!$session_user->isOspite())
 		{
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'L\'iscrizione può essere richiesta solo da utenti che non hanno ancora eseguito l\'accesso','file'=>__FILE__,'line'=>__LINE__));
@@ -160,7 +160,7 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore 
 			$forum->insertUser($new_user);
 			//	Error::throwError(_ERROR_DEFAULT,'msg'=>'Si ? verificato un errore durente la registrazione dell\'account username '.$q4_username.' mail '.$q4_ad_user,'file'=>__FILE__,'line'=>__LINE__));
 			
-			$mail =& $fc->getMail();
+			$mail = $fc->getMail();
 
 			$mail->AddAddress($new_user->getEmail());
 

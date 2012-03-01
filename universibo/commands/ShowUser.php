@@ -14,16 +14,16 @@ class ShowUser extends UniversiboCommand{
 
 	function execute()
 	{
-		$frontcontroller 	=& $this->getFrontController();
-		$template			=& $frontcontroller->getTemplateEngine();
-		$current_user		=& $this->getSessionUser();
+		$frontcontroller 	= $this->getFrontController();
+		$template			= $frontcontroller->getTemplateEngine();
+		$current_user		= $this->getSessionUser();
 		
 		if (!array_key_exists('id_utente', $_GET) || !ereg('^([0-9]{1,9})$', $_GET['id_utente'] )  )
 		{
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'id dell\'utente richiesto non è valido','file'=>__FILE__,'line'=>__LINE__ ));
 		}
 		$id_user			=  $_GET['id_utente'];
-		$user				=& User::selectUser($id_user);
+		$user				= User::selectUser($id_user);
 		
 		if($current_user->isOspite())
 		{
@@ -41,16 +41,16 @@ class ShowUser extends UniversiboCommand{
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $current_user->getIdUser(), 'msg'=>'Non ti è permesso visualizzare la scheda dell\'utente','file'=>__FILE__,'line'=>__LINE__));
 		}
 		
-		$arrayRuoli	=& $user->getRuoli();
+		$arrayRuoli	= $user->getRuoli();
 		$canali = array();
 		$arrayCanali = array();
 		$keys = array_keys($arrayRuoli);
 		foreach ($keys as $key)
 		{
-			$ruolo =& $arrayRuoli[$key];
+			$ruolo = $arrayRuoli[$key];
 			if ($ruolo->isMyUniversibo())
 			{
-				$canale =& Canale::retrieveCanale($ruolo->getIdCanale());
+				$canale = Canale::retrieveCanale($ruolo->getIdCanale());
 				if ($canale->isGroupAllowed($current_user->getGroups()))
 				{
 					$canali = array();
@@ -86,7 +86,7 @@ class ShowUser extends UniversiboCommand{
 		$template->assign('showUser_UserHomepage','');
 		if ($user->isDocente())
 		{
-			$doc =& Docente::selectDocente($user->getIdUser());
+			$doc = Docente::selectDocente($user->getIdUser());
 			$template->assign('showUser_UserHomepage',$doc->getHomepageDocente());
 		}
 		$template->assign('showSettings','index.php?do=ShowSettings');
@@ -94,6 +94,3 @@ class ShowUser extends UniversiboCommand{
 	}
 
 }
-
-
-?>

@@ -40,15 +40,15 @@
 	</commands>
 	
 	<dbInfo type="DB">
-	    <connection identifier="main">pgsql://my_username:my_password@127.0.0.1/universibo2_4</connection>
+	    <connection identifier="main">pgsql://universibo:universibo@127.0.0.1/universibo</connection>
 	    <connection identifier="mysql">mysql://my_username:my_password@host/my_dbname</connection>
 	</dbInfo>
 	
 	<mailerInfo>
 		<!-- leave smtp empty if don't want to use a smtp server -->
 	    <smtp>---pippo.joker.ing.unibo.it</smtp>
-	    <fromAddress>universibo@joker.ing.unibo.it</fromAddress>
-	    <replyToAddress>universibo@joker.ing.unibo.it</replyToAddress>
+	    <fromAddress>universibo@mama.ing.unibo.it</fromAddress>
+	    <replyToAddress>universibo@mama.ing.unibo.it</replyToAddress>
 	    <fromName>UniversiBO</fromName>
 	</mailerInfo>
 	

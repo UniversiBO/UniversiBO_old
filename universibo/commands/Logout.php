@@ -15,7 +15,7 @@ include ('UniversiboCommand'.PHP_EXTENSION);
 class Logout extends UniversiboCommand {
 	function execute()
 	{
-		$fc =& $this->getFrontController();
+		$fc = $this->getFrontController();
 		
 		if ( array_key_exists('f2_submit',$_POST) )
 		{
@@ -34,5 +34,3 @@ class Logout extends UniversiboCommand {
 
 	}
 }
-
-?>

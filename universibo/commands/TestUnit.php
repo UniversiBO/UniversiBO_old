@@ -69,5 +69,3 @@ class TestUnit extends UniversiboCommand {
  
 	}
 }
-
-?>
