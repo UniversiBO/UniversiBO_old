@@ -267,7 +267,7 @@ class Cdl extends Canale{
 	function & selectCdlAll()
 	{
 	
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 	
 		$query = 'SELECT cod_corso FROM classi_corso WHERE 1 = 1';
 		
@@ -283,7 +283,7 @@ class Cdl extends Canale{
 		while($res->fetchInto($row))
 		{
 			//echo $row[0];
-			if ( ($elencoCdl[] =& Cdl::selectCdlCodice($row[0]) ) === false )
+			if ( ($elencoCdl[] = Cdl::selectCdlCodice($row[0]) ) === false )
 				return false;
 		}
 		
@@ -302,7 +302,7 @@ class Cdl extends Canale{
 	function &selectCdlCanale($id_canale)
 	{
 
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 	
 		$query = 'SELECT tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo,files_studenti_attivo,
 					 a.id_canale, cod_corso, desc_corso, categoria, cod_fac, cod_doc, cat_id FROM canale a , classi_corso b WHERE a.id_canale = b.id_canale AND a.id_canale = '.$db->quote($id_canale);
@@ -316,7 +316,7 @@ class Cdl extends Canale{
 		if( $rows == 0) return false;
 
 		$res->fetchInto($row);
-		$cdl =& new Cdl($row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
+		$cdl = new Cdl($row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
 				$row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S', $row[14], $row[15], $row[16], $row[17], $row[18], $row[19]);
 		
 		return $cdl;
@@ -336,7 +336,7 @@ class Cdl extends Canale{
 	function &selectCdlCodice($cod_cdl)
 	{
 
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 	
 		
 		// LA PRIMA QUERY E' QUELLA CHE VA BENE, MA BISOGNA ALTRIMENTI SISTEMARE IL DB 
@@ -355,7 +355,7 @@ class Cdl extends Canale{
 		if( $rows == 0) return false;
 
 		$res->fetchInto($row);
-		$cdl =& new Cdl($row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
+		$cdl = new Cdl($row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
 				$row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S', $row[14], $row[15], $row[16], $row[17], $row[18], $row[19]);
 		return $cdl;
 
@@ -374,7 +374,7 @@ class Cdl extends Canale{
 	function &selectCdlElencoFacolta($cod_facolta)
 	{
 
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 	
 		$query = 'SELECT tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo,files_studenti_attivo,
 					 a.id_canale, cod_corso, desc_corso, categoria, cod_fac, cod_doc, cat_id FROM canale a , classi_corso b WHERE a.id_canale = b.id_canale
@@ -390,11 +390,11 @@ class Cdl extends Canale{
 		$elenco = array();
 		while (	$res->fetchInto($row) )
 		{
-			$cdl =& new Cdl($row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
+			$cdl = new Cdl($row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
 				$row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S',
 				$row[14], $row[15], $row[16], $row[17], $row[18], $row[19]);
 
-			$elenco[] =& $cdl;
+			$elenco[] = $cdl;
 		}
 		
 		return $elenco;
@@ -457,7 +457,7 @@ class Cdl extends Canale{
 	function updateCdl()
 	{
 		
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
  		$query = 'UPDATE classi_corso SET cat_id = '.$db->quote($this->getForumCatId()).
 					', cod_corso = '.$db->quote($this->getCodiceCdl()).
@@ -479,7 +479,7 @@ class Cdl extends Canale{
 	function insertCdl()
 	{
 		
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		if ($this->insertCanale() != true)
 		{ 

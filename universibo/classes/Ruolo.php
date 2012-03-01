@@ -108,8 +108,8 @@ class Ruolo {
 	{
 		$this->id_utente = $id_utente; 
 		$this->id_canale = $id_canale;
-		$this->user =& $user; //riferimento all'oggetto canale
-		$this->canale =& $canale;  //riferimento all'oggetto user
+		$this->user = $user; //riferimento all'oggetto canale
+		$this->canale = $canale;  //riferimento all'oggetto user
 
 		$this->ultimoAccesso = $ultimo_accesso; 
 		$this->tipoNotifica = $notifica;
@@ -158,7 +158,7 @@ class Ruolo {
 	{
 		if ($this->user == NULL)
 		{
-			$this->user =& User::selectUser($this->getIdUser());
+			$this->user = User::selectUser($this->getIdUser());
 		}
 		return $this->user;
 	}
@@ -174,7 +174,7 @@ class Ruolo {
 	{
 		if ($this->canale == NULL)
 		{
-			$this->canale =& Canale::selectCanale($this->getIdCanale());
+			$this->canale = Canale::selectCanale($this->getIdCanale());
 		}
 		return $this->canale;
 	}
@@ -206,7 +206,7 @@ class Ruolo {
 		
 		if ( $updateDB == true )
 		{
-			$db =& FrontController::getDbConnection('main');
+			$db = FrontController::getDbConnection('main');
 		
 			$query = 'UPDATE utente_canale SET nome = '.$db->quote($nome).' WHERE id_utente = '.$db->quote($this->getIdUser()).' AND id_canale = '.$db->quote($this->getIdCanale());
 			$res = $db->query($query);
@@ -250,7 +250,7 @@ class Ruolo {
 		
 		if ( $updateDB == true )
 		{
-			$db =& FrontController::getDbConnection('main');
+			$db = FrontController::getDbConnection('main');
 		
 			$query = 'UPDATE utente_canale SET ultimo_accesso = '.$db->quote($ultimo_accesso).' WHERE id_utente = '.$db->quote($this->getIdUser()).' AND id_canale = '.$db->quote($this->getIdCanale());
 			$res = $db->query($query);
@@ -316,7 +316,7 @@ class Ruolo {
 		
 		if ( $updateDB == true )
 		{
-			$db =& FrontController::getDbConnection('main');
+			$db = FrontController::getDbConnection('main');
 		
 			$query = 'UPDATE utente_canale SET tipo_notifica = '.$db->quote($tipo_notifica).' WHERE id_utente = '.$db->quote($this->getIdUser()).' AND id_canale = '.$db->quote($this->getIdCanale());
 			$res = $db->query($query);
@@ -360,7 +360,7 @@ class Ruolo {
 		
 		if ( $updateDB == true )
 		{
-			$db =& FrontController::getDbConnection('main');
+			$db = FrontController::getDbConnection('main');
 		
 			$campo_ruolo = ($moderatore) ? RUOLO_MODERATORE : 0 + ($this->isReferente()) ? RUOLO_REFERENTE : 0; 
 			$query = 'UPDATE utente_canale SET ruolo = '.$campo_ruolo.' WHERE id_utente = '.$db->quote($this->getIdUser()).' AND id_canale = '.$db->quote($this->getIdCanale());
@@ -417,7 +417,7 @@ class Ruolo {
 		
 		if ( $updateDB == true )
 		{
-			$db =& FrontController::getDbConnection('main');
+			$db = FrontController::getDbConnection('main');
 		
 			$campo_ruolo = (($this->isModeratore()) ? RUOLO_MODERATORE : 0) + (($referente) ? RUOLO_REFERENTE : 0); 
 			$query = 'UPDATE utente_canale SET ruolo = '.$campo_ruolo.' WHERE id_utente = '.$db->quote($this->getIdUser()).' AND id_canale = '.$db->quote($this->getIdCanale());
@@ -476,7 +476,7 @@ class Ruolo {
 		
 		if ( $updateDB == true )
 		{
-			$db =& FrontController::getDbConnection('main');
+			$db = FrontController::getDbConnection('main');
 		
 			$my_universibo = ($my_universibo) ? 'S' : 'N';
 			
@@ -531,7 +531,7 @@ class Ruolo {
 	 */
 	function &selectRuolo($id_utente, $id_canale)
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 	
 		$query = 'SELECT ultimo_accesso, ruolo, my_universibo, notifica, nome, nascosto FROM utente_canale WHERE id_utente = '.$db->quote($id_utente).' AND id_canale= '.$db->quote($id_canale);
 		$res = $db->query($query);
@@ -543,7 +543,7 @@ class Ruolo {
 		if( $rows = 0) return false;
 
 		$res->fetchInto($row);
-		$ruolo =& new Ruolo($id_utente, $id_canale, $row[4], $row[0], $row[1]==RUOLO_MODERATORE, $row[1]==RUOLO_REFERENTE, $row[2]=='S', $row[3], $row[5]=='S');
+		$ruolo = new Ruolo($id_utente, $id_canale, $row[4], $row[0], $row[1]==RUOLO_MODERATORE, $row[1]==RUOLO_REFERENTE, $row[2]=='S', $row[3], $row[5]=='S');
 		return $ruolo;
 		
 	}
@@ -558,7 +558,7 @@ class Ruolo {
 	 */
 	function &selectUserRuoli($id_utente)
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 	
 		$query = 'SELECT id_canale, ultimo_accesso, ruolo, my_universibo, notifica, nome, nascosto FROM utente_canale WHERE id_utente = '.$db->quote($id_utente);
 		$res = $db->query($query);
@@ -571,7 +571,7 @@ class Ruolo {
 		$ruoli = array();
 		while (	$res->fetchInto($row) )
 		{
-			$ruoli[] =& new Ruolo($id_utente, $row[0], $row[5], $row[1], $row[2]==RUOLO_MODERATORE, $row[2]==RUOLO_REFERENTE, $row[3]=='S', $row[4], $row[6]=='S');
+			$ruoli[] = new Ruolo($id_utente, $row[0], $row[5], $row[1], $row[2]==RUOLO_MODERATORE, $row[2]==RUOLO_REFERENTE, $row[3]=='S', $row[4], $row[6]=='S');
 		}
 		return $ruoli;
 		
@@ -587,7 +587,7 @@ class Ruolo {
 	 */
 	function &selectCanaleRuoli($id_canale)
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 	
 		$query = 'SELECT id_utente, ultimo_accesso, ruolo, my_universibo, notifica, nome, nascosto FROM utente_canale WHERE id_canale = '.$db->quote($id_canale);
 		$res = $db->query($query);
@@ -600,7 +600,7 @@ class Ruolo {
 		$ruoli = array();
 		while (	$res->fetchInto($row) )
 		{
-			$ruoli[] =& new Ruolo($row[0], $id_canale, $row[5], $row[1], $row[2]==RUOLO_MODERATORE, $row[2]==RUOLO_REFERENTE, $row[3]=='S', $row[4], $row[6]=='S');
+			$ruoli[] = new Ruolo($row[0], $id_canale, $row[5], $row[1], $row[2]==RUOLO_MODERATORE, $row[2]==RUOLO_REFERENTE, $row[3]=='S', $row[4], $row[6]=='S');
 		}
 		return $ruoli;
 		
@@ -609,7 +609,7 @@ class Ruolo {
 
 	function updateRuolo()
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		$campo_ruolo = (($this->isModeratore()) ? RUOLO_MODERATORE : 0) + (($this->isReferente()) ? RUOLO_REFERENTE : 0); 
 		$my_universibo = ($this->isMyUniversibo()) ? 'S' : 'N'; 
@@ -641,7 +641,7 @@ class Ruolo {
 	 */
 	function insertRuolo()
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		$campo_ruolo = ($this->isModeratore()) ? RUOLO_MODERATORE : 0 + ($this->isReferente()) ? RUOLO_REFERENTE : 0; 
 		$my_universibo = ($this->isMyUniversibo()) ? 'S' : 'N'; 
@@ -669,7 +669,7 @@ class Ruolo {
 
 	function deleteRuolo()
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		$query = 'DELETE FROM utente_canale WHERE id_utente = '.$db->quote($this->getIdUtente()).' AND id_cananle = '.$db->quote($this->getIdCanale());
 		$res = $db->query($query);
@@ -680,5 +680,3 @@ class Ruolo {
 	}
     
 }
-
-?>
