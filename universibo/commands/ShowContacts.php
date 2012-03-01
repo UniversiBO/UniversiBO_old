@@ -20,9 +20,9 @@ class ShowContacts extends UniversiboCommand {
 	function execute()
 	{
 
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
-		$user =& $this->getSessionUser();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
+		$user = $this->getSessionUser();
 				
 		$template->assign('contacts_langAltTitle', 'Chi Siamo');
         
@@ -30,11 +30,11 @@ class ShowContacts extends UniversiboCommand {
 		$template->assign('contacts_path', $contacts_path);
 
         
-		$infoCollaboratori=& User::selectAllCollaboratori();
+		$infoCollaboratori= User::selectAllCollaboratori();
 		foreach($infoCollaboratori as $collaboratore)
 		{
 			$username = User::getUsernameFromId($collaboratore->getIdUser());
-			$coll =& Collaboratore::selectCollaboratore($collaboratore->getIdUser());
+			$coll = Collaboratore::selectCollaboratore($collaboratore->getIdUser());
 			if(!$coll)
 			{
 				$name = $user->getUsername();
@@ -61,10 +61,10 @@ class ShowContacts extends UniversiboCommand {
 				
 	
 
-		//$db =& FrontController::getDbConnection('main');
+		//$db = FrontController::getDbConnection('main');
 	
 //		$arrayContatti=array();     //l'array di array da passare al template
-//		$collaboratori =& Collaboratore::selectCollaboratoriAll();
+//		$collaboratori = Collaboratore::selectCollaboratoriAll();
 //		$num_collaboratori = count($collaboratori);
 
         //$arrayContatti=array();     //l'array di array da passare al template
@@ -73,9 +73,9 @@ class ShowContacts extends UniversiboCommand {
 		
 		
 	
-	//		$coll =& $collaboratori[1];
-//		$utente =& $coll->getUser();
-//		$username =& $utente->getUsername();
+	//		$coll = $collaboratori[1];
+//		$utente = $coll->getUser();
+//		$username = $utente->getUsername();
 //		$template->assign('primo', $username);
 //		$template->assign('num', $num_collaboratori);
 //		
@@ -84,8 +84,8 @@ class ShowContacts extends UniversiboCommand {
 //		
 //		for($i = 0 ; $i < $num_collaboratori; $i++ )
 //		{
-//			$collaboratore =& $collaboratori[$i];
-//			$curr_user =& $collaboratore->getUser();
+//			$collaboratore = $collaboratori[$i];
+//			$curr_user = $collaboratore->getUser();
 //			$arrayContatti[] = array('username'=>$curr_user->getUsername(),
 //									 'intro'=>$collaboratore->getIntro(),
 //									 'ruolo'=>$collaboratore->getRuolo(),
@@ -105,13 +105,13 @@ class ShowContacts extends UniversiboCommand {
 		asort($collaboratori);
 		$template->assign('contacts_langPersonal', $collaboratori);	
 		
-		$template->assign('contacts_langIntro', 'UniversiBO ï¿½ l\'associazione studentesca universitaria dell\'Ateneo di Bologna che dal settembre 2004 supporta la Web Community degli studenti.
+		$template->assign('contacts_langIntro', 'UniversiBO è l\'associazione studentesca universitaria dell\'Ateneo di Bologna che dal settembre 2004 supporta la Web Community degli studenti.
 
-Attraverso l\'utilizzo di tecnologie OpenSource, UniversiBO si impegna a estendere i confini delle aule delle Facoltï¿½ ponendosi come innovativo luogo d\'incontro virtuale. Grazie alla diffusione e alla condivisione di "informazione", si propone infatti di incentivare gli studenti a partecipare attivamente alla vita universitaria. Desidera inoltre porsi come punto di collegamento tra il corpo docente e il mondo studentesco. Nel contempo promuove e favorisce l\'informatizzazione e la filosofia del Software Libero per l\'Universitï¿½ di Bologna.
+Attraverso l\'utilizzo di tecnologie OpenSource, UniversiBO si impegna a estendere i confini delle aule delle Facoltà ponendosi come innovativo luogo d\'incontro virtuale. Grazie alla diffusione e alla condivisione di "informazione", si propone infatti di incentivare gli studenti a partecipare attivamente alla vita universitaria. Desidera inoltre porsi come punto di collegamento tra il corpo docente e il mondo studentesco. Nel contempo promuove e favorisce l\'informatizzazione e la filosofia del Software Libero per l\'Università di Bologna.
  
 Tutte le richieste di aiuto ed informazioni possono essere rivolte all\'indirizzo info_universibo@mama.ing.unibo.it
 
-UniversiBO nasce nel 2002 dall\'idea di tre studenti. Al momento attuale lo Staff ï¿½ composto invece da circa '.$num_collaboratori.' collaboratori, quasi tutti studenti dell\' Ateneo bolognese.
+UniversiBO nasce nel 2002 dall\'idea di tre studenti. Al momento attuale lo Staff è composto invece da circa '.$num_collaboratori.' collaboratori, quasi tutti studenti dell\' Ateneo bolognese.
 
 Qui di seguito si presentano divisi per ruoli nel caso vogliate contattarli nello specifico per ogni vostra esigenza.');
 
@@ -120,5 +120,3 @@ Qui di seguito si presentano divisi per ruoli nel caso vogliate contattarli nell
 		return 'default';
 	}
 }
-
-?>
