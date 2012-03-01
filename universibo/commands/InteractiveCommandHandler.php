@@ -274,6 +274,3 @@ perch� impedisce il login agli utenti
 	}
 	
 }
-
-
-?>
