@@ -194,7 +194,7 @@ class Canale {
 	 */
 	function getTipoCanaleFromId($id_canale)
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 	
 		$query = 'SELECT tipo_canale FROM canale WHERE id_canale= '.$db->quote($id_canale);
 		$res = $db->query($query);
@@ -247,7 +247,7 @@ class Canale {
 		$this->ultimaModifica = $timestamp;
 		if ( $updateDB == true )
 		{
-			$db =& FrontController::getDbConnection('main');
+			$db = FrontController::getDbConnection('main');
 		
 			$query = 'UPDATE canale SET ultima_modifica = '.$db->quote($timestamp).' WHERE id_canale = '.$db->quote($this->getIdCanale());
 			$res = $db->query($query);
@@ -347,7 +347,7 @@ class Canale {
 	{
 		$this->visite += $visite;
 
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 	
 		$query = 'UPDATE canale SET visite = visite + '.$db->quote($visite).' WHERE id_canale = '.$db->quote($this->getIdCanale());
 		$res = $db->query($query);
@@ -557,7 +557,7 @@ class Canale {
 
 		//$tipo_canale =  Canale::getTipoCanaleFromId ( $this->getRequestIdCanale() );
 
-		$this->requestCanale =& Canale::selectCanale( $this->getRequestIdCanale() );
+		$this->requestCanale = Canale::selectCanale( $this->getRequestIdCanale() );
 			  
 		if ( $this->requestCanale === false ) 
 			Error::throwError(_ERROR_DEFAULT,array('msg'=>'Il canale richiesto non è presente','file'=>__FILE__,'line'=>__LINE__));
@@ -578,7 +578,7 @@ class Canale {
 	 * @param int $id_canale numero identificativo del canale
 	 * @return mixed Canale se eseguita con successo, false se il canale non esiste
 	 */
-	function &retrieveCanale($id_canale, $cache = true)
+	function retrieveCanale($id_canale, $cache = true)
 	{
 		//spalata la cache!!! 
 		//dimezza i tempi di esecuzione!!
@@ -622,7 +622,7 @@ class Canale {
 	 * @param int $id_canale numero identificativo del canale
 	 * @return mixed Canale se eseguita con successo, false se il canale non esiste
 	 */
-	function &factoryCanale($id_canale)
+	function factoryCanale($id_canale)
 	{
 		$canale=Canale::selectCanale($id_canale);
 		return $canale;
@@ -648,10 +648,10 @@ class Canale {
 	 * @param int $id_canale numero identificativo del canale
 	 * @return mixed Canale se eseguita con successo, false se il canale non esiste
 	 */
-	function &selectCanale($id_canale)
+	function selectCanale($id_canale)
 	{
 		/*
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 	
 		$query = 'SELECT tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo FROM canale WHERE id_canale= '.$db->quote($id_canale);
 		$res = $db->query($query);
@@ -663,10 +663,10 @@ class Canale {
 		if( $rows = 0) return false;
 
 		$res->fetchInto($row);
-		$canale =& new Canale($id_canale, $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
+		$canale = new Canale($id_canale, $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
 						 $row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S' );
 		*/
-		$array_canale =& Canale::selectCanali( array( 0 => $id_canale ) );
+		$array_canale = Canale::selectCanali( array( 0 => $id_canale ) );
 		return $array_canale[0];
 		
 	}
@@ -679,9 +679,9 @@ class Canale {
 	 * @param array $elenco_id_canali array contenente i numeri identificativi del canale
 	 * @return mixed array di Canale se eseguita con successo, false se il canale non esiste
 	 */
-	function &selectCanali($elenco_id_canali)
+	function selectCanali($elenco_id_canali)
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 	
 		array_walk($elenco_id_canali, array($db, 'quote'));
 		$canali_comma = implode (' , ',$elenco_id_canali);
@@ -699,7 +699,7 @@ class Canale {
 		while ($res->fetchInto($row))
 		{
 			//var_dump($row);
-			$elenco_canali[] =& new Canale($row[12], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
+			$elenco_canali[] = new Canale($row[12], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
 						 $row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[13]=='S' );
 		}
 		$res->free();
@@ -717,7 +717,7 @@ class Canale {
 	 */
 	function insertCanale()
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 	
 		$this->id_canale = $db->nextID('canale_id_canale');
 		$files_attivo = ( $this->getServizioFiles() ) ? 'S' : 'N';
@@ -775,7 +775,7 @@ class Canale {
 	 */
 	function updateCanale()
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		$files_attivo = ( $this->getServizioFiles() ) ? 'S' : 'N';
 		$news_attivo  = ( $this->getServizioNews()  ) ? 'S' : 'N';
@@ -825,16 +825,16 @@ class Canale {
 	 *
 	 * @return array
 	 */
-	function &getRuoli()
+	function getRuoli()
 	{
 		if ($this->ruoli == NULL)
 		{
 			$this->ruoli = array();
-			$ruoli =& Ruolo::selectCanaleRuoli($this->getIdCanale());
+			$ruoli = Ruolo::selectCanaleRuoli($this->getIdCanale());
 			$num_elementi = count($ruoli);
 			for ($i=0; $i<$num_elementi; $i++)
 			{
-				$this->ruoli[$ruoli[$i]->getIdUser()] =& $ruoli[$i];
+				$this->ruoli[$ruoli[$i]->getIdUser()] = $ruoli[$i];
 			}
 		}
 		//var_dump($this->ruoli);
@@ -853,7 +853,7 @@ class Canale {
 		
 		if ( $id_canale < 0 ) return false;
 		
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT id_canale FROM canale WHERE id_canale = '.$db->quote($id_canale).';';
 		$res = $db->query($query);
@@ -875,9 +875,9 @@ class Canale {
 	 * @param array $tipoCanali array contenente ila tipologia del canale
 	 * @return mixed array di id_canali se eseguita con successo, false se il canale non esiste
 	 */
-	function &selectCanaliTipo($tipoCanale)
+	function selectCanaliTipo($tipoCanale)
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT id_canale FROM canale WHERE tipo_canale = '.$db->quote($tipoCanale);
 		$res = $db->query($query);
@@ -912,6 +912,3 @@ class Canale {
 		return strnatcasecmp($nomea, $nomeb);
 	}	
 }
-
-
-?>

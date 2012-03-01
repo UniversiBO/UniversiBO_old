@@ -12,6 +12,16 @@
 <tr><td rowspan="1" colspan="3">loginAdmin</td></tr>
 </thead><tbody>
 <tr>
+	<td>deleteAllVisibleCookies</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
 	<td>type</td>
 	<td>id=f1_username</td>
 	<td>Fabio84</td>
@@ -33,7 +43,7 @@
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>Il tuo livello di utenza è Admin </td>
+	<td>Il tuo livello di utenza è Admin</td>
 	<td></td>
 </tr>
 <tr>
@@ -48,12 +58,12 @@
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>username: </td>
+	<td>username:</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>password: </td>
+	<td>password:</td>
 	<td></td>
 </tr>
 <tr>
@@ -71,7 +81,6 @@
 	<td>Password smarrita</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>
