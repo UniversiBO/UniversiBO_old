@@ -7,12 +7,10 @@
 $dbms = 'postgres';
 
 $dbhost = '127.0.0.1';
-$dbname = 'universibo2_4';
-$dbuser = 'my_username';
-$dbpasswd = 'my_password';
+$dbname = 'universibo';
+$dbuser = 'universibo';
+$dbpasswd = 'universibo';
 
 $table_prefix = 'phpbb_';
 
 define('PHPBB_INSTALLED', true);
-
-?>
