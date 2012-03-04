@@ -1,7 +1,7 @@
 <IfModule mod_rewrite.c>
 RewriteEngine On
 
-RewriteRule ^landing https://www.facebook.com/UniversiBO [R=302,L]
+RewriteRule ^landing https://www.facebook.com/UniversiBO [L,R=302]
 
 RewriteCond %{HTTP_PORT} 80 [OR]
 RewriteCond %{HTTP_HOST} !^www.universibo.unibo.it$
