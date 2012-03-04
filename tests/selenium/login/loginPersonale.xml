@@ -24,7 +24,7 @@
 <tr>
 	<td>type</td>
 	<td>id=f1_username</td>
-	<td>maurizio.zani</td>
+	<td>mzani</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -38,12 +38,12 @@
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>Benvenuto maurizio.zani</td>
+	<td>Benvenuto mzani</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
-	<td>Il tuo livello di utenza è Personale non docente</td>
+	<td>Il tuo livello di utenza è Personale</td>
 	<td></td>
 </tr>
 <tr>
