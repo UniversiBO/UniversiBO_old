@@ -6,6 +6,7 @@ define('CHIUSO'		,0);
 define('APERTO'		,1);
 define('KILLED'		,2);
 define('CRITIC'		,3);
+define('RETIRED'    ,4);
 
 /**
  * ContattoDocente rappresenta l'insieme di informazioni collegate al 
@@ -49,7 +50,8 @@ define('CRITIC'		,3);
  			CHIUSO => 'chiuso - non ci sono compiti da eseguire',
  			APERTO => 'aperto - ci sono compiti da eseguire',
  			KILLED => 'killed - non ne vuole sapere di universibo',
- 			CRITIC => 'critic - è un pezzo grosso, non è da contattare'
+ 			CRITIC => 'critic - è un pezzo grosso, non è da contattare',
+ 			RETIRED => 'retired - in pensione o deceduto'
  			);
  	
  	function ContattoDocente ($coddoc, $state, $id, $mod, $report) 
@@ -287,4 +289,3 @@ define('CRITIC'		,3);
 		}
 	}
  }
-?>
