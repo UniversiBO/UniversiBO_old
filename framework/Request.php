@@ -15,7 +15,7 @@
  *	$param		associative array containing all the variables of _GET and _POST
  * PUBLIC METHODS
  *  Request()
-*/
+ */
 class Request{
 	var $param=array();
 
@@ -29,7 +29,7 @@ class Request{
 		if ($_GET) {
 			while (list ($k, $v) = each ($_GET)){
 				$this->_createVariable($k,$v);
-			}		
+			}
 		}
 		if ($_POST) {
 			while (list ($k, $v) = each ($_POST)){
@@ -42,13 +42,13 @@ class Request{
 		if(is_array($value)){
 			$this->_createArrayVariable($key,$value);
 		}
-		else{			
+		else{
 			$this->_createNonArrayVariable($key,$value);
-		}	
+		}
 	}
 	function _createNonArrayVariable(&$key,&$value){
-			$this->{$key} = $this->_getProcessedString($value);		
-			array_push ($this->param, $key);			
+		$this->{$key} = $this->_getProcessedString($value);
+		array_push ($this->param, $key);
 	}
 	function _createArrayVariable(&$key,&$values){
 		while (list($arrayKey,$arrayValue)=each($values)){
@@ -60,8 +60,7 @@ class Request{
 	function _getProcessedString(&$value){
 		$value=trim($value);
 		$value=htmlspecialchars($value,ENT_QUOTES);
-		$value=stripcslashes($value);	
+		$value=stripcslashes($value);
 		return $value;
 	}
 }
-?>

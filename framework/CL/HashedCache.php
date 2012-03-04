@@ -18,4 +18,3 @@ class HashedCache
 		self::$lista = array();
 	}
 }
-?>

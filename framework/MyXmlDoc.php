@@ -458,5 +458,3 @@ class NodeDispatcher
 //		else return null;		// @dubbio: oppure lancio errore?
 //	}
 //}
-
-?>

@@ -28,4 +28,3 @@ class PhpExecutor
 		return array(call_user_func_array($f,array_values($in)));
 	}	
 }
-?>

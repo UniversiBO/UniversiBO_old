@@ -60,4 +60,3 @@ class SqlExecutor
 		return call_user_func_array($f,array_values($in));
 	}
 }
-?>

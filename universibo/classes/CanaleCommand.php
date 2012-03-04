@@ -312,5 +312,3 @@ abstract class CanaleCommand extends UniversiboCommand
 //		return $i + 1;
 //	}
 }
-
-?>

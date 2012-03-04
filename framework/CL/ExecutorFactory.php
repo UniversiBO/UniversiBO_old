@@ -34,7 +34,3 @@ class ExecutorFactory
 		return $ret;
 	}
 }
-
-
-
-?>

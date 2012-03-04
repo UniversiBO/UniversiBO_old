@@ -64,6 +64,4 @@ class PluginCommand
 		$fc =& $bc->getFrontController();
 		return $fc->executePlugin($name, $bc, $param);
 	}
-	
-	
 }

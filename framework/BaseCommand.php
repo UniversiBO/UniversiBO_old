@@ -22,9 +22,9 @@ abstract class BaseCommand
 	 *
 	 * @param FrontController $frontController
 	 */ 
-	function initCommand( &$frontController )
+	public function initCommand($frontController )
 	{
-		$this->frontController =& $frontController;
+		$this->frontController = $frontController;
 	}
 	
 	
@@ -40,23 +40,19 @@ abstract class BaseCommand
 	 * 
 	 * This method must be overridden from Commands that need shutdown
 	 */ 
-	function shutdownCommand()
+	public function shutdownCommand()
 	{
-
 	}
-
-
 
 	/**
 	 * Return front controller
 	 *
 	 * @return FrontController
 	 */ 
-	function &getFrontController()
+	public function getFrontController()
 	{
 		return $this->frontController;
 	}
-
 
 	/**
 	 * Executes plugin
@@ -65,9 +61,9 @@ abstract class BaseCommand
 	 * @param mixed $param a parameter handled by PluginCommand 
 	 * @return mixed return value of plugin
 	 */ 
-	function executePlugin($name, $param)
+	public function executePlugin($name, $param)
 	{
-		$fc =& $this->getFrontController();
+		$fc = $this->getFrontController();
 		return $fc->executePlugin($name,$this, $param);
 	}
 }

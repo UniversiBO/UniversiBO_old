@@ -7,4 +7,3 @@ interface IExecutor
 	 */
 	public function run($args);	
 }
-?>
