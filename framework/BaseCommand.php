@@ -9,7 +9,6 @@
  */
 abstract class BaseCommand 
 {
-	
 	/**
 	 * @private
 	 */
@@ -71,6 +70,4 @@ abstract class BaseCommand
 		$fc =& $this->getFrontController();
 		return $fc->executePlugin($name,$this, $param);
 	}
-
-
 }
