@@ -8,10 +8,11 @@
 <body>
 <table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
 <tr><td><b>Test Suite</b></td></tr>
-<tr><td><a href="../loginAdmin.xml">loginAdmin</a></td></tr>
-<tr><td><a href="../loginDocente.xml">loginDocente</a></td></tr>
-<tr><td><a href="../loginStudente.xml">loginStudente</a></td></tr>
-<tr><td><a href="../loginTutor.xml">loginTutor</a></td></tr>
+<tr><td><a href="loginAdmin.xml">loginAdmin</a></td></tr>
+<tr><td><a href="loginDocente.xml">loginDocente</a></td></tr>
+<tr><td><a href="loginStudente.xml">loginStudente</a></td></tr>
+<tr><td><a href="loginTutor.xml">loginTutor</a></td></tr>
+<tr><td><a href="loginPersonale.xml">loginPersonale</a></td></tr>
 </tbody></table>
 </body>
 </html>
