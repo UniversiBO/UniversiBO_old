@@ -6,7 +6,7 @@ define('CHIUSO'		,0);
 define('APERTO'		,1);
 define('KILLED'		,2);
 define('CRITIC'		,3);
-define('RETIRED'    ,4);
+define('INATTIVO'   ,4);
 
 /**
  * ContattoDocente rappresenta l'insieme di informazioni collegate al 
@@ -51,7 +51,7 @@ define('RETIRED'    ,4);
  			APERTO => 'aperto - ci sono compiti da eseguire',
  			KILLED => 'killed - non ne vuole sapere di universibo',
  			CRITIC => 'critic - è un pezzo grosso, non è da contattare',
- 			RETIRED => 'retired - in pensione o deceduto'
+ 			INATTIVO => 'inattivo - non ha corsi attivi nell\'A.A. corrente',
  			);
  	
  	function ContattoDocente ($coddoc, $state, $id, $mod, $report) 
