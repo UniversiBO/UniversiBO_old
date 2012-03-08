@@ -19,12 +19,12 @@ class FileAdd extends UniversiboCommand {
 
 	function execute() {
 		
-		$frontcontroller = & $this->getFrontController();
-		$template = & $frontcontroller->getTemplateEngine();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
 
-		$krono = & $frontcontroller->getKrono();
-		$user = & $this->getSessionUser();
-		$user_ruoli = & $user->getRuoli();
+		$krono = $frontcontroller->getKrono();
+		$user = $this->getSessionUser();
+		$user_ruoli = $user->getRuoli();
 
 		if ($user->isOspite())
 		{
@@ -35,7 +35,7 @@ class FileAdd extends UniversiboCommand {
 			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non ? valido', 'file' => __FILE__, 'line' => __LINE__));
 		}
 
-		$canale = & Canale::retrieveCanale($_GET['id_canale']);
+		$canale = Canale::retrieveCanale($_GET['id_canale']);
 		$id_canale = $canale->getIdCanale();
 		$template->assign('common_canaleURI', $canale->showMe());
 		$template->assign('common_langCanaleNome', $canale->getTitolo());
@@ -65,7 +65,7 @@ class FileAdd extends UniversiboCommand {
 			if (!ereg('^([0-9]{1,9})$', $_GET['id_canale']))
 				Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
 
-			$canale = & Canale::retrieveCanale($_GET['id_canale']);
+			$canale = Canale::retrieveCanale($_GET['id_canale']);
 			
 			if ($canale->getServizioFiles() == false) 
 				Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => "Il servizio files è disattivato", 'file' => __FILE__, 'line' => __LINE__));
@@ -74,17 +74,17 @@ class FileAdd extends UniversiboCommand {
 			$template->assign('common_canaleURI', $canale->showMe());
 			$template->assign('common_langCanaleNome', 'a '.$canale->getTitolo());
 			if (array_key_exists($id_canale, $user_ruoli)) {
-				$ruolo = & $user_ruoli[$id_canale];
+				$ruolo = $user_ruoli[$id_canale];
 	
 				$referente = $ruolo->isReferente();
 				$moderatore = $ruolo->isModeratore();
 			}
 			
 			$elenco_canali = array($id_canale);
-			$f12_canale = & $user->getRuoliInfoGroupedByYear($id_canale);	
+			$f12_canale = $user->getRuoliInfoGroupedByYear($id_canale);	
 		}
 		else
-			$f12_canale = & $user->getRuoliInfoGroupedByYear();
+			$f12_canale = $user->getRuoliInfoGroupedByYear();
 		
 		$f12_accept = false;
 		
