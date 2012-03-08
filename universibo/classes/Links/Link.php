@@ -379,6 +379,6 @@ class Link
 	  	$uri = $request_protocol.'://'.$_SERVER['HTTP_HOST'];
 //	  	var_dump($uri);
 	  	
-	  	return ereg('^'.$uri.'.*$', $this->getUri());		
+	  	return preg_match('/^'.str_replace('/', '\\/', $uri).'.*$/', $this->getUri());		
 	  }
 }

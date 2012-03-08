@@ -67,10 +67,10 @@
 *}
 	{* blocchetto links *}
 {if $showLinks_linksListAvailable|default:"false" =="true"}
-	{include file=Links/show_links.tpl}
+	{include file="Links/show_links.tpl"}
 {/if}	
 {if $showFileStudentiTitoli_langFileAvailableFlag|default:"false" =="true"}
-	{include file=Files/box_show_files_studenti.tpl}
+	{include file="Files/box_show_files_studenti.tpl"}
 {/if}	
 
 

@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 <div class="titoloPagina">
 <h2>{$showAccessibility_langTitleAlt|escape:"htmlall"}</h2>
@@ -61,4 +61,4 @@ nelle le linee guide specificate dal <acronym title="Web Content Accessibility G
  del <acronym title="World Wide Web Consortium">W3C</acronym> e della legge
  legge italiana sull'accessibilit&agrave; del 4/2004.</p>
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

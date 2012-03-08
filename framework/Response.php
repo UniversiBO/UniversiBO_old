@@ -20,32 +20,34 @@
  *
  * @package framework
  * @version 1.0.0
- * @author  Deepak Dutta, Ilias Bartolini
+ * @author Deepak Dutta
+ * @author Ilias Bartolini
+ * @author Davide Bellettini
  * @license {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class Response{
-	var $content;
+class Response {
+    var $content;
 
-	function Response(){
-		ob_start();
-	}
+    public function __construct(){
+        ob_start();
+    }
 
-	function write(&$string){
-		$this->content .=$string;
-	}
+    public function write(&$string){
+        $this->content .=$string;
+    }
 
-	function &getContent(){
-		return ob_get_contents();
-	}
+    public function getContent(){
+        return ob_get_contents();
+    }
 
-	function emptyBuffer(){
-		ob_end_clean();
-	}
+    public function emptyBuffer(){
+        ob_end_clean();
+    }
 
-	function redirect($location) {
-		ob_end_clean();
-		header("Location: $location");
-		exit();
-	}
+    public function redirect($location) {
+        ob_end_clean();
+        header("Location: $location");
+        exit();
+    }
 }

@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 <div id="home">
 <h1>{$home_langWelcome|escape:"htmlall"}</h1>
@@ -14,6 +14,6 @@
 </div>
 
 <hr />					
-{include file=News/latest_news.tpl}
+{include file="News/latest_news.tpl"}
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}
