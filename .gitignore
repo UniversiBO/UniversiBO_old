@@ -1,3 +1,5 @@
+/app/cache/*
+/app/logs/*
 /nbproject
 composer.lock
 vendor
