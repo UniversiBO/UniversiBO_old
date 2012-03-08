@@ -664,7 +664,7 @@ class FileItem {
 		
 		if ( $update_db == true )
 		{
-			$db =& FrontController::getDbConnection('main');
+			$db = FrontController::getDbConnection('main');
 		
 			$query = 'UPDATE file SET download = '.$db->quote($download).' WHERE id_file = '.$db->quote($this->getIdFile());
 			$res = $db->query($query);
@@ -818,13 +818,13 @@ class FileItem {
     function &selectFileCanale($id_canale)
     {
 
-            $db =& FrontController::getDbConnection('main');
+            $db = FrontController::getDbConnection('main');
 
             $query = 'SELECT A.id_file  FROM file A, file_canale B
                                     WHERE A.id_file = B.id_file AND eliminato!='.$db->quote( FILE_ELIMINATO ).
                                     ' AND B.id_canale = '.$db->quote($id_canale).' AND A.data_inserimento < '.$db->quote(time()).
                                     'ORDER BY A.id_categoria, A.data_inserimento DESC';
-            $res =& $db->query($query);
+            $res = $db->query($query);
 
             if (DB::isError($res))
                     Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
@@ -1000,7 +1000,7 @@ class FileItem {
 		$db = & FrontController :: getDbConnection('main');
 
 		$query = 'DELETE FROM file_canale WHERE id_canale='.$db->quote($id_canale).' AND id_file='.$db->quote($this->getIdFile());
-		//? da testare il funzionamento di =&
+		//? da testare il funzionamento di =
 		$res = & $db->query($query);
 
 		if (DB :: isError($res))
@@ -1031,7 +1031,7 @@ class FileItem {
 		$db = & FrontController :: getDbConnection('main');
 
 		$query = 'INSERT INTO file_canale (id_file, id_canale) VALUES ('.$db->quote($this->getIdFile()).','.$db->quote($id_canale).')';
-		//? da testare il funzionamento di =&
+		//? da testare il funzionamento di =
 		$res = $db->query($query);
 		if (DB :: isError($res)) {
 			return false;

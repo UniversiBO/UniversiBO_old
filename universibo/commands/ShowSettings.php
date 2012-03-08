@@ -21,9 +21,9 @@ class ShowSettings extends UniversiboCommand
 {
 	function execute(){
 
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
-		$utente =& $this->getSessionUser();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
+		$utente = $this->getSessionUser();
 				
         if ($utente->isOspite() )
 		{

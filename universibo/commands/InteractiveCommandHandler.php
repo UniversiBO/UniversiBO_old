@@ -20,9 +20,9 @@ class InteractiveCommandHandler extends UniversiboCommand {
 	
 	function execute()
 	{
-		$fc =& $this->getFrontController();
-		$template =& $this->frontController->getTemplateEngine();
-//		$user =& $this->getSessionUser();
+		$fc = $this->getFrontController();
+		$template = $this->frontController->getTemplateEngine();
+//		$user = $this->getSessionUser();
 		
 		//se esiste user in $_SESSION o siamo giunti dal login, o siamo nel bel mezzo di una interazione a step. 
 		// VERIFY decidere se lanciare un errore o meno
@@ -235,14 +235,14 @@ perch� impedisce il login agli utenti
 	 */
 	function getCompletedInteractiveCommandByUser() 
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		$user =  unserialize($_SESSION['user']);
 		
 		$query = 'SELECT id_step, nome_classe FROM  	step_log 
 					WHERE id_utente = '.$db->quote( $user->getIdUser() ).
 					' AND  esito_positivo IS NOT NULL '.		// NB suppongo che quelli con esito 'n' siano quelli una-tantum (bassa priorit�) rifiutati 
 					'';					
-		$res =& $db->query($query);
+		$res = $db->query($query);
 		if (DB::isError($res)) 
 			Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__)); 
 	

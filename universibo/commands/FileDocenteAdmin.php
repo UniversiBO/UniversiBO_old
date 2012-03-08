@@ -79,9 +79,9 @@ class FileDocenteAdmin extends UniversiboCommand {
 		for ($i = 0; $i<$num_canali; $i++)
 		{
 			$id_current_canale = $elenco_canali[$i];
-			$current_canale =& Canale::retrieveCanale($id_current_canale);
+			$current_canale = Canale::retrieveCanale($id_current_canale);
 			$elenco_canali_retrieve[$id_current_canale] = $current_canale;
-			$didatticaCanale =& PrgAttivitaDidattica::factoryCanale($id_current_canale);
+			$didatticaCanale = PrgAttivitaDidattica::factoryCanale($id_current_canale);
 //			var_dump($didatticaCanale);
 			$annoCorso = (count($didatticaCanale) > 0)? $didatticaCanale[0]->getAnnoAccademico() : 'altro';
 			$nome_current_canale = $current_canale->getTitolo();
@@ -165,7 +165,7 @@ class FileDocenteAdmin extends UniversiboCommand {
 					if (!$diritti)
 					{
 						//$user_ruoli[$key]->getIdCanale();
-						$canale =& $elenco_canali_retrieve[$key];
+						$canale = $elenco_canali_retrieve[$key];
 						Error :: throwError (_ERROR_NOTICE, array ('msg' => 'Non possiedi i diritti di inserimento nel canale: '.$canale->getTitolo(), 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 						$f40_accept = false;
 					}
@@ -194,14 +194,14 @@ class FileDocenteAdmin extends UniversiboCommand {
 							if (!in_array($key,$canali_file)) 
 							{ 
 								$newFile->addCanale($key);
-								$canaleTemp =&  Canale::retrieveCanale($key);
+								$canaleTemp =  Canale::retrieveCanale($key);
 								$canaleTemp->setUltimaModifica(time(), true);
 							}
 						
 						}
 						$newFile->updateFileItem();
 						//la metto la notifica? direi di no
-//						$canale =& $elenco_canali_retrieve[$key];
+//						$canale = $elenco_canali_retrieve[$key];
 //						$canale->setUltimaModifica(time(), true);
 //						
 //						
@@ -230,7 +230,7 @@ class FileDocenteAdmin extends UniversiboCommand {
 //Per altri problemi contattare lo staff di UniversiBO
 //'.$frontcontroller->getAppSetting('infoEmail');
 //						
-//						$ruoli_canale =& $canale->getRuoli();
+//						$ruoli_canale = $canale->getRuoli();
 //						foreach ($ruoli_canale as $ruolo_canale)
 //						{
 //									//define('NOTIFICA_NONE'   ,0);

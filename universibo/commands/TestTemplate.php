@@ -17,7 +17,7 @@ require_once ('UniversiboCommand'.PHP_EXTENSION);
 class TestTemplate extends UniversiboCommand {
 	function execute(){
 
-		$template =& $this->frontController->getTemplateEngine();
+		$template = $this->frontController->getTemplateEngine();
 		
 		//var_dump($template);
 		
@@ -111,7 +111,7 @@ class TestTemplate extends UniversiboCommand {
 /*   QUESTA PAGINA E' DA INVENTARE... io gli ho dato una struttura simile a quella dei cdl,
 			solo che sono elencati di vari corsi di laurea invece che gli insegnamenti 
 */
-		$template =& $this->frontController->getTemplateEngine();
+		$template = $this->frontController->getTemplateEngine();
 
 		$fac_listCdl = array(); 	//cat := lista di cdl
 		$fac_listCdl[] =  array('cod'=>'0048' , 'name'=>'ELETTRONICA', 'link'=> 'index.php?do=showCdl&amp;id_cdl=0048&amp;anno_accademico=2003');

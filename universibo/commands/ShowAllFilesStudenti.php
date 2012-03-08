@@ -21,9 +21,9 @@ require_once ('PluginCommand'.PHP_EXTENSION);
  {
  	function execute()
  	{
- 		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
-		$user =& $this->getSessionUser();	
+ 		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
+		$user = $this->getSessionUser();	
 		$arrayFilesStudenti = array();
 		
 		if (!array_key_exists('order', $_GET) || !ereg('^([0-9]{1,9})$', $_GET['order'] ) || ($_GET['order'] > 2) )
@@ -81,13 +81,13 @@ require_once ('PluginCommand'.PHP_EXTENSION);
 		        $group = 'GROUP BY A.id_file';
 		        break;
 		}
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		$query = 'SELECT A.id_file FROM file A, file_studente_commenti B' .
 				 ' WHERE A.id_file = B.id_file and A.eliminato != '.$db->quote(FILE_ELIMINATO).
 				 ' AND B.eliminato != '.$db->quote(COMMENTO_ELIMINATO).
 				 ''.$group.' ORDER BY '.$quale_ordine;
 				 
-		$res =& $db->query($query);
+		$res = $db->query($query);
 		if (DB::isError($res)) 
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__)); 
 	

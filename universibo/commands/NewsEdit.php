@@ -55,7 +55,7 @@ class NewsEdit extends CanaleCommand
 		$autore = ($user->getIdUser() == $news->getIdUtente());
 		
 		//controllo coerenza parametri
-		$canali_news	=& 	$news->getIdCanali();
+		$canali_news	= 	$news->getIdCanali();
 		if (!in_array($id_canale, $canali_news))
 			 Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'I parametri passati non sono coerenti', 'file' => __FILE__, 'line' => __LINE__));
 		
@@ -116,7 +116,7 @@ class NewsEdit extends CanaleCommand
 //			$f8_canale[] = array ('id_canale' => $id_current_canale, 'nome_canale' => $nome_current_canale, 'spunta' => $spunta);
 //		}
 
-		$lista_canali =& $news->getIdCanali();
+		$lista_canali = $news->getIdCanali();
 		$num_canali = count($lista_canali);
 		for ($i = 0; $i < $num_canali; $i ++)
 		{

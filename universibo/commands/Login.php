@@ -18,9 +18,9 @@ require_once ('ForumApi'.PHP_EXTENSION);
 class Login extends UniversiboCommand {
 	function execute()
 	{
-		$fc =& $this->getFrontController();
-		$template =& $this->frontController->getTemplateEngine();
-		$user =& $this->getSessionUser();
+		$fc = $this->getFrontController();
+		$template = $this->frontController->getTemplateEngine();
+		$user = $this->getSessionUser();
 		
 		$referer = (array_key_exists('f1_referer',$_POST)) ? $_POST['f1_referer'] : (array_key_exists('HTTP_REFERER',$_SERVER))? $_SERVER['HTTP_REFERER'] : '';
 		
@@ -94,5 +94,3 @@ class Login extends UniversiboCommand {
 
 	}
 }
-
-?>

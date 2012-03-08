@@ -24,7 +24,7 @@ class ShowHome extends CanaleCommand
 		
 		parent::initCommand( $frontController );
 		
-		$canale =& $this->getRequestCanale();
+		$canale = $this->getRequestCanale();
 		//var_dump($canale);
 		
 		if ( $canale->getTipoCanale() != CANALE_HOME )
@@ -35,8 +35,8 @@ class ShowHome extends CanaleCommand
 
 	function execute()
 	{
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
 		
 		$template->assign('home_langWelcome', 'Benvenuto in UniversiBO!');
 		$template->assign('home_langWhatIs', 'Questa è la nuova versione della community e degli strumenti per la didattica ideato dagli studenti dell\'Università di Bologna.');

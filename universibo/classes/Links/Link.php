@@ -185,7 +185,7 @@ class Link
 	 */
 	function insertLink()
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 	
 		$this->id_link = $db->nextID('link_id_link');
 		
@@ -219,7 +219,7 @@ class Link
 	 function &selectLink ($id_link)
 	 {
 	 	$id_links = array($id_link);
-		$links =& Link::selectLinks($id_links);
+		$links = Link::selectLinks($id_links);
 		if ($links === false) {$ret = false; return $ret;}
 		return $links[0];
 	 }
@@ -236,7 +236,7 @@ class Link
 	 function &selectLinks ($id_links)
 	 {
 	 	
-	 	$db =& FrontController::getDbConnection('main');
+	 	$db = FrontController::getDbConnection('main');
 		
 		if ( count($id_links) == 0 )
 			{ $ret = array(); return $ret;}
@@ -245,7 +245,7 @@ class Link
 		//array_walk($id_notizie, array($db, 'quote'));
 		$values = implode(',',$id_links);
 		$query = 'SELECT id_link, id_canale, uri, label, description, id_utente FROM link WHERE id_link IN ('.$values.')';
-		$res =& $db->query($query);
+		$res = $db->query($query);
 		if (DB::isError($res)) 
 			Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__)); 
 	
@@ -256,7 +256,7 @@ class Link
 	
 		while ( $res->fetchInto($row) )
 		{
-			$link_list[]=& new Link($row[0],$row[1], $row[5],$row[2],$row[3],$row[4]);
+			$link_list[]= new Link($row[0],$row[1], $row[5],$row[2],$row[3],$row[4]);
 		}
 		
 		$res->free();
@@ -272,7 +272,7 @@ class Link
 	 */
 	function updateLink()
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		$query = 'UPDATE link SET uri = '.$db->quote($this->getUri()).
 					' , label = '.$db->quote($this->getLabel()).
@@ -299,7 +299,7 @@ class Link
 	 */
 	function deleteLink()
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		$query = 'DELETE FROM link WHERE id_link= '.$db->quote($this->getIdLink());
 		$res = $db->query($query);
@@ -324,10 +324,10 @@ class Link
 	 function &selectCanaleLinks ($id_canale)
 	 {
 	 	
-	 	$db =& FrontController::getDbConnection('main');
+	 	$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT id_link, id_canale, id_utente, uri, label, description FROM link WHERE id_canale = ('.$db->quote($id_canale).') ORDER BY id_link DESC';
-		$res =& $db->query($query);
+		$res = $db->query($query);
 		if (DB::isError($res)) 
 			Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__)); 
 	
@@ -338,7 +338,7 @@ class Link
 	
 		while ( $res->fetchInto($row) )
 		{
-			$link_list[]=& new Link($row[0],$row[1],$row[2],$row[3],$row[4], $row[5]);
+			$link_list[]= new Link($row[0],$row[1],$row[2],$row[3],$row[4], $row[5]);
 		}
 		
 		$res->free();
@@ -354,7 +354,7 @@ class Link
 	 
 	 function getUsername()
 	 {
-	 	$db =& FrontController::getDbConnection('main');
+	 	$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT username FROM utente WHERE id_utente= '.$db->quote($this->id_utente);
 		$res = $db->query($query);

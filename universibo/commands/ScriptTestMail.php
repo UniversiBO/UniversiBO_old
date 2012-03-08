@@ -18,8 +18,8 @@ class ScriptTestMail extends UniversiboCommand
 	
 	function execute()
 	{
-		$fc =& $this->getFrontController();
-		$template =& $fc->getTemplateEngine();
+		$fc = $this->getFrontController();
+		$template = $fc->getTemplateEngine();
 		
 		$mail = new NotificaMail(1,'prova','prova prova',time(),false, false,'mail://evaimitico@gmail.com');
 

@@ -255,7 +255,7 @@ class Facolta extends Canale{
 	
 	function updateFacolta()
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		$query = 'UPDATE facolta SET cod_fac = '.$db->quote($this->getCodiceFacolta()).
 					', desc_fac = '.$db->quote($this->getNome()).
 					', url_facolta = '.$db->quote($this->getUri()).
@@ -287,7 +287,7 @@ class Facolta extends Canale{
 		global $__facoltaElencoAlfabetico;
 		global $__facoltaElencoCanale;
 
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 	
 		$query = 'SELECT tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo, files_studenti_attivo, a.id_canale, cod_fac, desc_fac, url_facolta FROM canale a , facolta b WHERE a.id_canale = b.id_canale ORDER BY 16';
 		$res = $db->query($query);
@@ -303,12 +303,12 @@ class Facolta extends Canale{
 		if( $rows = 0) { $ret = array(); return $ret;}
 		while (	$res->fetchInto($row) )
 		{
-			$facolta =& new Facolta($row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
+			$facolta = new Facolta($row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
 				$row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S', $row[14], $row[15], $row[16]);
 
-			$__facoltaElencoAlfabetico[] =& $facolta;
-			$__facoltaElencoCodice[$facolta->getCodiceFacolta()] =& $facolta;
-			$__facoltaElencoCanale[$facolta->getIdCanale()] =& $facolta;
+			$__facoltaElencoAlfabetico[] = $facolta;
+			$__facoltaElencoCodice[$facolta->getCodiceFacolta()] = $facolta;
+			$__facoltaElencoCanale[$facolta->getIdCanale()] = $facolta;
 		}
 		$res->free();
 		
@@ -323,7 +323,7 @@ class Facolta extends Canale{
 	 */
 	function insertFacolta()
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		if ($this->insertCanale() != true)
 		{ 

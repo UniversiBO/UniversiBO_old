@@ -31,8 +31,8 @@ class ShowCdl extends CanaleCommand {
 	}
 
 	function execute() {
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
 		
 		//@todo fatto sopra
 		$cdl = & $this -> getRequestCanale();
@@ -47,13 +47,13 @@ class ShowCdl extends CanaleCommand {
 			$anno_accademico = $_GET['anno_accademico'];
 		
 
-		$elencoPrgAttDid =& PrgAttivitaDidattica::selectPrgAttivitaDidatticaElencoCdl($cdl -> getCodiceCdl(), $anno_accademico);
+		$elencoPrgAttDid = PrgAttivitaDidattica::selectPrgAttivitaDidatticaElencoCdl($cdl -> getCodiceCdl(), $anno_accademico);
 		
 		$num_ins = count($elencoPrgAttDid);
 		$insAnnoCorso  = NULL;   //ultimo anno dell'insegnamento precedente
 		$insCiclo = NULL;   //ultimo ciclo dell'insegnamento precedente
 		$cdl_listInsYears = array();    //elenco insegnamenti raggruppati per anni
-		$session_user =& $this->getSessionUser();
+		$session_user = $this->getSessionUser();
 		$session_user_groups = $session_user->getGroups();
 		$cdl_listIns = array();
 		
@@ -61,7 +61,7 @@ class ShowCdl extends CanaleCommand {
 		//3 livelli di innestamento cdl/anno_corso/ciclo/insegnamento
 		for ($i=0; $i < $num_ins; $i++)
 		{
-			$tempPrgAttDid =& $elencoPrgAttDid[$i];
+			$tempPrgAttDid = $elencoPrgAttDid[$i];
 			if ($tempPrgAttDid->isGroupAllowed( $session_user_groups ))
 			{
 				if ( $insAnnoCorso != $tempPrgAttDid->getAnnoCorsoUniversibo() )

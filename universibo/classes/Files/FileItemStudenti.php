@@ -114,7 +114,7 @@ class FileItemStudenti extends FileItem {
 		$db = & FrontController :: getDbConnection('main');
 
 		$query = 'INSERT INTO file_studente_canale (id_file, id_canale) VALUES ('.$db->quote($this->getIdFile()).','.$db->quote($id_canale).')';
-		//? da testare il funzionamento di =&
+		//? da testare il funzionamento di =
 		$res = $db->query($query);
 		if (DB :: isError($res)) {
 			return false;
@@ -139,7 +139,7 @@ class FileItemStudenti extends FileItem {
 		$db = & FrontController :: getDbConnection('main');
 
 		$query = 'DELETE FROM file_studente_canale WHERE id_canale='.$db->quote($id_canale).' AND id_file='.$db->quote($this->getIdFile());
-		//? da testare il funzionamento di =&
+		//? da testare il funzionamento di =
 		$res = & $db->query($query);
 
 		if (DB :: isError($res))

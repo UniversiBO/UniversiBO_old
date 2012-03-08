@@ -18,9 +18,9 @@ class ScriptTestSms extends UniversiboCommand
 	
 	function execute()
 	{
-		$fc =& $this->getFrontController();
-		$template =& $fc->getTemplateEngine();
-		$m =& $fc->getSmsMoby();
+		$fc = $this->getFrontController();
+		$template = $fc->getTemplateEngine();
+		$m = $fc->getSmsMoby();
 		$m->setQualityHigh();
 		$m->setAuthPlain();
 		var_dump($m); 	

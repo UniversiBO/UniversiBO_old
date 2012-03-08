@@ -29,11 +29,11 @@ class ScriptOrdinaForum extends UniversiboCommand
 	{
 		
 		//NB: NON ASTRAE DAL LIVELLO DATABASE, PUO' VALER LA PENA SPOSTARE TUTTA LA FUNZIONE DENTRO ForumApi?!?!?!
-		$fc =& $this->getFrontController();
-		$db =& $fc->getDbConnection('main');
+		$fc = $this->getFrontController();
+		$db = $fc->getDbConnection('main');
 		
 		$query = 'begin';
-		$res =& $db->query($query);
+		$res = $db->query($query);
 		if (DB::isError($res)) die($query); 
 		
 /*
@@ -68,7 +68,7 @@ class ScriptOrdinaForum extends UniversiboCommand
 				{
 					$order++;
 					$query = 'UPDATE phpbb_forums SET forum_order = '.$order.' WHERE forum_id = '.$row[0].';';
-					$res2 =& $db->query($query);
+					$res2 = $db->query($query);
 						if (DB::isError($res2)) die($query); 
 				}
 				
@@ -78,7 +78,7 @@ class ScriptOrdinaForum extends UniversiboCommand
 		}	
 		
 		$query = 'commit';
-		$res =& $db->query($query);
+		$res = $db->query($query);
 		if (DB::isError($res)) die($query); 
 		
 		

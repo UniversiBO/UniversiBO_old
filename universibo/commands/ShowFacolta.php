@@ -31,8 +31,8 @@ class ShowFacolta extends CanaleCommand {
 	}
 
 	function execute() {
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
 		$forum = new ForumApi;
 		
 		//@todo fatto sopra
@@ -40,13 +40,13 @@ class ShowFacolta extends CanaleCommand {
 
 		require_once('Cdl'.PHP_EXTENSION);
 
-		$elencoCdl =& Cdl :: selectCdlElencoFacolta($facolta -> getCodiceFacolta());
+		$elencoCdl = Cdl :: selectCdlElencoFacolta($facolta -> getCodiceFacolta());
 
 		$num_cdl = count($elencoCdl);
 		$cdlType = NULL;
 		$fac_listCdlType = array();
 		$default_anno_accademico = $this->frontController->getAppSetting('defaultAnnoAccademico');
-		$session_user =& $this->getSessionUser();
+		$session_user = $this->getSessionUser();
 		$session_user_groups = $session_user->getGroups();
 
 		//2 livelli di innesstamento facolta/tipocdl/cdl

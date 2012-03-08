@@ -118,7 +118,7 @@ class ErrorHandlers{
 	{
 		
 		
-		$template =& $param['template_engine'];
+		$template = $param['template_engine'];
 		$template->assign('error_notice_present', 'true');
 		
 		if(array_key_exists('log', $param) && $param['log'] == true )

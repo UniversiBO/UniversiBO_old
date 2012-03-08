@@ -24,9 +24,9 @@ class ShowMyUniversiBO extends UniversiboCommand
 	function execute()
 	{
 		
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
-		$utente =& $this->getSessionUser();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
+		$utente = $this->getSessionUser();
 		
 		//procedure per ricavare e mostrare le ultime 5 notizie dei canali a cui si ? iscritto...
 		
@@ -38,15 +38,15 @@ class ShowMyUniversiBO extends UniversiboCommand
 		$arrayIdCanaliNews = array();
 		$arrayIdCanaliFiles = array();
 		$arrayCanali = array();
-		$arrayRuoli =& $utente->getRuoli();
+		$arrayRuoli = $utente->getRuoli();
 		$keys = array_keys($arrayRuoli);
 		foreach ($keys as $key)
 		{
-			$ruolo =& $arrayRuoli[$key];
+			$ruolo = $arrayRuoli[$key];
 			if ($ruolo->isMyUniversibo())
 			{
 							
-				$canale =& Canale::retrieveCanale($ruolo->getIdCanale());
+				$canale = Canale::retrieveCanale($ruolo->getIdCanale());
 				$arrayCanali[] = $key;
 				if ($canale->getServizioNews())
 				{
@@ -85,7 +85,7 @@ class ShowMyUniversiBO extends UniversiboCommand
 	 
 	function getNumFilesCanale($id_canale)
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT count(A.id_file) FROM file A, file_canale B 
 					WHERE A.id_file = B.id_file AND eliminato!='.$db->quote(FILE_ELIMINATO).
@@ -118,12 +118,12 @@ class ShowMyUniversiBO extends UniversiboCommand
 		else 
 			$values = implode(',',$id_canali);
 	 	
-	 	$db =& FrontController::getDbConnection('main');
+	 	$db = FrontController::getDbConnection('main');
 		$query = 'SELECT A.id_file FROM file A, file_canale B 
 					WHERE A.id_file = B.id_file AND eliminato!='.$db->quote( FILE_ELIMINATO ).
 					'AND B.id_canale IN ('.$values.')
 					ORDER BY A.data_inserimento DESC';
-		$res =& $db->limitQuery($query, 0 , $num);
+		$res = $db->limitQuery($query, 0 , $num);
 		if (DB::isError($res)) 
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__)); 
 	
@@ -165,13 +165,13 @@ class ShowMyUniversiBO extends UniversiboCommand
 		else 
 			$values = implode(',',$id_canali);
 	 	
-	 	$db =& FrontController::getDbConnection('main');
+	 	$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT A.id_news FROM news A, news_canale B 
 					WHERE A.id_news = B.id_news AND eliminata!='.$db->quote( NEWS_ELIMINATA ).
 					'AND ( data_scadenza IS NULL OR \''.time().'\' < data_scadenza ) AND B.id_canale IN ('.$values.') 
 					ORDER BY A.data_inserimento DESC';
-		$res =& $db->limitQuery($query, 0 , $num);
+		$res = $db->limitQuery($query, 0 , $num);
 //		var_dump($res);
 //		die();
 		if (DB::isError($res)) 

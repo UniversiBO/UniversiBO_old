@@ -30,12 +30,12 @@ class ShowMyNews extends PluginCommand {
 	{
 		
 		$elenco_id_news		=  $param['id_notizie'];
-		$bc        =& $this->getBaseCommand();
-		$user      =& $bc->getSessionUser();
-		$fc        =& $bc->getFrontController();
-		$template  =& $fc->getTemplateEngine();
-		$krono     =& $fc->getKrono();
-		$user_ruoli =& $user->getRuoli();
+		$bc        = $this->getBaseCommand();
+		$user      = $bc->getSessionUser();
+		$fc        = $bc->getFrontController();
+		$template  = $fc->getTemplateEngine();
+		$krono     = $fc->getKrono();
+		$user_ruoli = $user->getRuoli();
 		$personalizza_not_admin = false;
 
 //		$template->assign('showMyNews_addNewsFlag', 'false');
@@ -58,7 +58,7 @@ class ShowMyNews extends PluginCommand {
 		}
 		
 		//var_dump($elenco_id_news);
-		$elenco_news =& NewsItem::selectNewsItems($elenco_id_news);
+		$elenco_news = NewsItem::selectNewsItems($elenco_id_news);
 		
 		$elenco_news_tpl = array();
 
@@ -69,7 +69,7 @@ class ShowMyNews extends PluginCommand {
 
 			for ($i = 0; $i < $ret_news; $i++)
 			{
-				$news =& $elenco_news[$i];
+				$news = $elenco_news[$i];
 				//var_dump($news);
 				$this_moderatore = ($user->isAdmin() || ($moderatore && $news->getIdUtente()==$user->getIdUser()));
 				

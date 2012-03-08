@@ -22,7 +22,7 @@ class FileShowInfo extends UniversiboCommand {
 		
 		$template = & $frontcontroller->getTemplateEngine();
 		$krono = & $frontcontroller->getKrono();
-		$user =& $this->getSessionUser();		
+		$user = $this->getSessionUser();		
 		
 		if (!array_key_exists('id_file', $_GET) || !ereg('^([0-9]{1,9})$', $_GET['id_file'] )  )
 		{
@@ -31,7 +31,7 @@ class FileShowInfo extends UniversiboCommand {
 		$id_file = $_GET['id_file'];
 		$tipo_file = FileItemStudenti::isFileStudenti($id_file);
 //		
-//		$file =& FileItem::selectFileItem($_GET['id_file']);
+//		$file = FileItem::selectFileItem($_GET['id_file']);
 //		
 //        $directoryFile = $frontcontroller->getAppSetting('filesPath');
 //		$nomeFile = $file->getIdFile().'_'.$file->getNomeFile();
@@ -52,7 +52,7 @@ class FileShowInfo extends UniversiboCommand {
 //		$id_canali = $file->getIdCanali();
 //		foreach($id_canali as $id_canale)
 //		{ 
-//			$canale =& Canale::retrieveCanale($id_canale);
+//			$canale = Canale::retrieveCanale($id_canale);
 //			$canali_tpl[$id_canale] = array();
 //			$canali_tpl[$id_canale]['titolo'] = $canale->getTitolo();
 //			$canali_tpl[$id_canale]['uri'] = $canale->showMe();

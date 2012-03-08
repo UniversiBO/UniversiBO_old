@@ -371,7 +371,7 @@ class InfoDidattica
 	 */
 	function insertInfoDidattica()
 	{				 
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		$query = 'INSERT INTO info_didattica (id_canale, programma, programma_link, testi_consigliati, 
 						testi_consigliati_link, modalita, modalita_link, obiettivi_esame,
@@ -409,7 +409,7 @@ class InfoDidattica
 	 */
 	function updateInfoDidattica()
 	{				 
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		$query = 'UPDATE info_didattica SET '
 					.' programma = '.$db->quote($this->getProgramma())
@@ -445,7 +445,7 @@ class InfoDidattica
 	 */
 	function deleteInfoDidattica()
 	{				 
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		$query = 'DELETE FORM info_didattica  WHERE id_canale = '.$db->quote($this->getIdCanale()); 
 					
@@ -494,7 +494,7 @@ class InfoDidattica
 	 */
 	function &selectInfoDidattica($id_canale)
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT id_canale, programma, programma_link, testi_consigliati, testi_consigliati_link,
 						modalita, modalita_link, obiettivi_esame, obiettivi_esame_link, appelli, appelli_link,

@@ -106,7 +106,7 @@ class FileStudentiComment extends UniversiboCommand {
 //					foreach ($_POST['f26_canale'] as $key => $value)
 //					{
 //						$newFile->addCanale($key);
-//						$canale =& $elenco_canali_retrieve[$key];
+//						$canale = $elenco_canali_retrieve[$key];
 //						$canale->setUltimaModifica(time(), true);
 //						
 //						
@@ -135,7 +135,7 @@ class FileStudentiComment extends UniversiboCommand {
 //Per altri problemi contattare lo staff di UniversiBO
 //'.$frontcontroller->getAppSetting('infoEmail');
 //						
-//						$ruoli_canale =& $canale->getRuoli();
+//						$ruoli_canale = $canale->getRuoli();
 //						foreach ($ruoli_canale as $ruolo_canale)
 //						{
 //									//define('NOTIFICA_NONE'   ,0);

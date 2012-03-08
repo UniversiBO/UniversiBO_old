@@ -296,7 +296,7 @@ class FileAdd extends UniversiboCommand {
 					if (!$diritti)
 					{
 						//$user_ruoli[$key]->getIdCanale();
-						$canale =& Canale::retrieveCanale($key);
+						$canale = Canale::retrieveCanale($key);
 						Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Non possiedi i diritti di inserimento nel canale: '.$canale->getTitolo(), 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 						$f12_accept = false;
 					}
@@ -375,7 +375,7 @@ class FileAdd extends UniversiboCommand {
 					foreach ($_POST['f12_canale'] as $key => $value)
 					{
 						$newFile->addCanale($key);
-						$canale =& Canale::retrieveCanale($key);
+						$canale = Canale::retrieveCanale($key);
 						$canale->setUltimaModifica(time(), true);
 						
 						
@@ -406,7 +406,7 @@ e modifica il tuo profilo personale nella dopo aver eseguito il login
 Per altri problemi contattare lo staff di UniversiBO
 '.$frontcontroller->getAppSetting('infoEmail');
 						
-						$ruoli_canale =& $canale->getRuoli();
+						$ruoli_canale = $canale->getRuoli();
 						foreach ($ruoli_canale as $ruolo_canale)
 						{
 									//define('NOTIFICA_NONE'   ,0);

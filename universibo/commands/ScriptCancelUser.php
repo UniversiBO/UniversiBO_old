@@ -19,13 +19,13 @@ class ScriptCancelUser extends UniversiboCommand
 {
 	function execute()
 	{
-		$fc =& $this->getFrontController();
-		$template =& $fc->getTemplateEngine();
+		$fc = $this->getFrontController();
+		$template = $fc->getTemplateEngine();
 
 		if (!isset($_GET['username'])) {echo 'devi specificare lo username dell\'utente da cancellare'; die; }
 		$nick  = $_GET['username'];
 		if (!User::usernameExists($nick)) {echo 'username inesistente'; die; }
-		$user =& User::selectUserUsername($nick);
+		$user = User::selectUserUsername($nick);
 		$idUtente = $user->getIdUser();
 		$values = StoredInteractionInformationRetriever::getInfoFromIdUtente($idUtente, 'InformativaPrivacyInteractiveCommand', false);
 		
@@ -43,7 +43,7 @@ class ScriptCancelUser extends UniversiboCommand
 		
 		if($esito)
 		{
-			$mail =& $fc->getMail();
+			$mail = $fc->getMail();
 	
 			$mail->AddAddress($user->getEmail());
 	
@@ -79,13 +79,13 @@ class CancellazioneUtente
 	function CancellazioneUtente($idInformativa) 
 	{
 		$this->idInformativa = $idInformativa;
-		$this->db =& FrontController::getDbConnection('main');
+		$this->db = FrontController::getDbConnection('main');
 	}
 	
 	function cancellaUtente( $idUtente) 
 	{ 
 		
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		ignore_user_abort(1);
         $db->autoCommit(false);
         
@@ -113,7 +113,7 @@ class CancellazioneUtente
 	 */
 	function sospendiUtente ($idUtente) 
 	{
-		$user =& User::selectUser($idUtente);
+		$user = User::selectUser($idUtente);
        	if( $user->isDocente() || $user->isTutor() || $user->isCollaboratore() || $user->isAdmin() || $user->isPersonale()  )
 		{
 //			$this->db->rollback();				
@@ -124,7 +124,7 @@ class CancellazioneUtente
        	$user->updateUser();
        	 
 		$query = 'UPDATE utente_canale SET notifica=0 WHERE id_utente='.$this->db->quote($idUtente);
-		$res =& $this->db->query($query);
+		$res = $this->db->query($query);
 		if( DB::isError($res) )
 			return array( 'esito' => false, 'msg' => DB::errorMessage($res)); 
        	return array( 'esito' => true);
@@ -139,7 +139,7 @@ class CancellazioneUtente
 		// TODO valutare bene cosa settare per user_level e per user_rank
 		$query = 'UPDATE phpbb_users SET username = '.$this->db->quote(NICK_USER_ELIMINATO).', user_email = \'\', user_icq = \'\', ' .
 				'user_occ = \'\', user_from = \'\', user_interests = \'\', user_aim = \'\', user_yim = \'\', user_msnm = \'\' WHERE user_id = '. $this->db->quote($idUtente);
-		$res =& $this->db->query($query);
+		$res = $this->db->query($query);
 		if( DB::isError($res) )
 			return array( 'esito' => false, 'msg' => DB::errorMessage($res)); 
 		return array( 'esito' => true);	
@@ -155,7 +155,7 @@ class CancellazioneUtente
 		$sql = 'UPDATE phpbb_posts
 			SET post_username = '.$this->db->quote(NICK_USER_ELIMINATO).' 
 			WHERE poster_id = '.$this->db->quote($idUtente);
-		$res =& $this->db->query($sql);
+		$res = $this->db->query($sql);
 		if( DB::isError($res) )
 			return array( 'esito' => false, 'msg' => DB::errorMessage($res)); 
 		return array( 'esito' => true);
@@ -170,7 +170,7 @@ class CancellazioneUtente
 //		$sql = 'UPDATE phpbb_topics '.
 //			'SET topic_poster = '.$this->db->quote(NICK_USER_ELIMINATO).'   // WARNING!! topic_poster è un id_utente, non uno username!! 
 //			WHERE topic_poster = '.$this->db->quote($idUtente);
-//		$res =& $this->db->query($sql);
+//		$res = $this->db->query($sql);
 //		return (  !DB::isError($res) );
 //	}
 	
@@ -183,7 +183,7 @@ class CancellazioneUtente
 		$sql = 'SELECT group_id, group_name' .
 				' FROM phpbb_groups' .
 				' WHERE group_moderator = '.$this->db->quote($idUtente);
-		$res =& $this->db->query($sql);
+		$res = $this->db->query($sql);
 		if( DB::isError($res) )
 			return array( 'esito' => false, 'msg' => DB::errorMessage($res)); 
 		
@@ -202,7 +202,7 @@ class CancellazioneUtente
 				$sql = 'UPDATE phpbb_groups' .
 						' SET group_moderator = ' . $this->db->quote($id_user) .   /* TODO chi metto come moderatore di default?*/
 						' WHERE group_id = '.  $this->db->quote($groupId);
-				$res =& $this->db->query($sql);
+				$res = $this->db->query($sql);
 				if( DB::isError($res) )
 					return array( 'esito' => false, 'msg' => DB::errorMessage($res)); 
 		
@@ -218,12 +218,12 @@ class CancellazioneUtente
 	 */
 	function _getFirstAdminInGroup ($groupId) 
 	{
-		$list =& User::getIdUsersFromDesiredGroups(array(USER_ADMIN));
+		$list = User::getIdUsersFromDesiredGroups(array(USER_ADMIN));
 		$sql = 'SELECT user_id' .
 				' FROM phpbb_user_group' .
 				' WHERE user_id IN '.$this->db->quote(implode(', ', $list[USER_ADMIN])) . 
 				' AND group_id ='. $this->db->quote($groupId);
-		$res =& $this->db->query($sql);
+		$res = $this->db->query($sql);
 		if( DB::isError($res) || ($res->numRows() == 0))
 			return $list[USER_ADMIN][0];
 		$row = $res->fetchRow();
@@ -240,7 +240,7 @@ class CancellazioneUtente
 		$sql = 'DELETE FROM phpbb_topics_watch' .
 			' WHERE user_id = '.$this->db->quote($idUtente);
 	
-		$res =& $this->db->query($sql);
+		$res = $this->db->query($sql);
 		if( DB::isError($res) )
 			return array( 'esito' => false, 'msg' => DB::errorMessage($res)); 
 		return array( 'esito' => true);
@@ -254,7 +254,7 @@ class CancellazioneUtente
 	{
 		$sql = 'DELETE FROM phpbb_banlist
 			WHERE ban_userid = '.$this->db->quote($idUtente);
-		$res =& $this->db->query($sql);
+		$res = $this->db->query($sql);
 		if( DB::isError($res) )
 			return array( 'esito' => false, 'msg' => DB::errorMessage($res)); 
 		return array( 'esito' => true);
@@ -274,14 +274,14 @@ class CancellazioneUtente
 //	// i figli devono fare l'override di questo metodo
 //	function cancellaUtente( $idUtente) 
 //	{		
-//		$db =& FrontController::getDbConnection('main');
+//		$db = FrontController::getDbConnection('main');
 //		ignore_user_abort(1);
 //        $db->autoCommit(false);
        
 /*=============== sito==================================================*/ 
        	
        	// cancellazione dell'utente per quanto riguarda il sito. 
-//      	$user =& User::selectUser($idUtente);
+//      	$user = User::selectUser($idUtente);
 //       	if( $user->isDocente() || $user->isTutor() || $user->isCollaboratore() || $user->isAdmin() || $user->isPersonale()  )
 //		{
 //			$db->rollback();				
@@ -295,7 +295,7 @@ class CancellazioneUtente
 //		// TODO valutare bene cosa settare per user_level e per user_rank
 //		$query = 'UPDATE phpbb_users SET username = '.$db->quote(NICK_USER_ELIMINATO).', user_email = \'\', user_icq = \'\', ' .
 //				'user_occ = \'\', user_from = \'\', user_interests = \'\', user_aim = \'\', user_yim = \'\', user_msnm = \'\' WHERE user_id = '. $db->quote($idUtente);
-//		$res =& $db->query($query);
+//		$res = $db->query($query);
 //		if(  DB::isError($res) )
 //		{
 ////			var_dump($query); die;
@@ -314,7 +314,7 @@ class CancellazioneUtente
 //		$sql = 'UPDATE phpbb_posts
 //			SET post_username = '.$db->quote(NICK_USER_ELIMINATO).' 
 //			WHERE poster_id = '.$db->quote($idUtente);
-//		$res =& $db->query($sql);
+//		$res = $db->query($sql);
 //		if(  DB::isError($res) )
 //		{
 //			$db->rollback();
@@ -341,7 +341,7 @@ class CancellazioneUtente
 //		$sql = 'SELECT group_id' .
 //				' FROM phpbb_groups' .
 //				' WHERE group_moderator = '.$db->quote($idUtente);
-//		$res =& $db->query($sql);
+//		$res = $db->query($sql);
 //		if( DB::isError($res) )
 //		{
 //			$db->rollback();
@@ -361,7 +361,7 @@ class CancellazioneUtente
 //			$sql = 'UPDATE phpbb_groups' .
 //					' SET group_moderator = ' . $db->quote('609') .   /* TODO chi metto come moderatore di default?*/
 //					' WHERE group_moderator IN ($update_moderator_id)';
-//			$res =& $db->query($sql);
+//			$res = $db->query($sql);
 //			if(  DB::isError($res) )
 //			{
 //				$db->rollback();
@@ -386,7 +386,7 @@ class CancellazioneUtente
 
 //		$sql = 'DELETE FROM phpbb_topics_watch' .
 //				' WHERE user_id = '.$db->quote($idUtente);
-//		$res =& $db->query($sql);
+//		$res = $db->query($sql);
 //		if (  DB::isError($res) )
 //		{
 //			$db->rollback();
@@ -395,7 +395,7 @@ class CancellazioneUtente
 			
 //		$sql = 'DELETE FROM phpbb_banlist
 //			WHERE ban_userid = '.$db->quote($idUtente);
-//		$res =& $db->query($sql);
+//		$res = $db->query($sql);
 //		if (  DB::isError($res) )
 //		{
 //			$db->rollback();

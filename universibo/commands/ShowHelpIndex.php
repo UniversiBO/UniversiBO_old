@@ -16,8 +16,8 @@ require_once ('UniversiboCommand'.PHP_EXTENSION);
  
 class ShowHelpIndex extends UniversiboCommand {
 	function execute(){
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
 		
 		$template -> assign('showHelpIndex_langAltTitle', 'Help');
 		

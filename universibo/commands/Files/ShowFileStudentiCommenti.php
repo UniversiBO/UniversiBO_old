@@ -33,17 +33,17 @@ class ShowFileStudentiCommenti extends PluginCommand {
 //		var_dump($param['id_notizie']);
 //		die();
 		
-		$bc        =& $this->getBaseCommand();
-		$user      =& $bc->getSessionUser();
+		$bc        = $this->getBaseCommand();
+		$user      = $bc->getSessionUser();
 		
-		$fc        =& $bc->getFrontController();
-		$template  =& $fc->getTemplateEngine();
-		$krono     =& $fc->getKrono();
+		$fc        = $bc->getFrontController();
+		$template  = $fc->getTemplateEngine();
+		$krono     = $fc->getKrono();
 
 	    $file = FileItemStudenti::selectFileItem($param['id_file']);
 		$id_canali = $file->getIdCanali();
 		$id_canale = $id_canali[0];
-		$user_ruoli =& $user->getRuoli();
+		$user_ruoli = $user->getRuoli();
 
 		$personalizza_not_admin = false;
 
@@ -53,7 +53,7 @@ class ShowFileStudentiCommenti extends PluginCommand {
 			
 			if (array_key_exists($id_canale, $user_ruoli))
 			{
-				$ruolo =& $user_ruoli[$id_canale];
+				$ruolo = $user_ruoli[$id_canale];
 				
 				$personalizza_not_admin = true;
 				$referente      = $ruolo->isReferente();
@@ -75,7 +75,7 @@ class ShowFileStudentiCommenti extends PluginCommand {
 		$template->assign('showNews_desc', 'Mostra le ultime '.$num_news.' notizie del canale '.$id_canale.' - '.$titolo_canale);
 */
 
-		$elenco_commenti =& CommentoItem::selectCommentiItem($param['id_file']);
+		$elenco_commenti = CommentoItem::selectCommentiItem($param['id_file']);
 		$num_commenti = CommentoItem::quantiCommenti($param['id_file']);
 		$elenco_commenti_tpl = array();
 //		var_dump($elenco_commenti);

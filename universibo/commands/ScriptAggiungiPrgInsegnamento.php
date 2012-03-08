@@ -19,12 +19,12 @@ class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
 {
 	function execute()
 	{
-		$fc =& $this->getFrontController();
-		$template =& $fc->getTemplateEngine();
-		$db =& $fc->getDbConnection('main');
+		$fc = $this->getFrontController();
+		$template = $fc->getTemplateEngine();
+		$db = $fc->getDbConnection('main');
 		
 		$query = 'begin';
-		$res =& $db->query($query);
+		$res = $db->query($query);
 		if (DB::isError($res)) die($query); 
 
 
@@ -38,7 +38,7 @@ class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
 				input_esami_attivi 
 				WHERE 1=1';
 		
-		$res =& $db->query($query);
+		$res = $db->query($query);
 		if (DB::isError($res)) die($query); 
 		
 		echo $num_rows = $res->numRows() ,"\n\n";
@@ -93,7 +93,7 @@ class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
 		
 		
 		$query = 'commit';
-		$res =& $db->query($query);
+		$res = $db->query($query);
 		if (DB::isError($res)) die($query); 
 	}
 }

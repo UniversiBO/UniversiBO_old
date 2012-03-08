@@ -79,14 +79,14 @@ class Insegnamento extends Canale
 
 		//inizializza l'elenco delle attivit? padre/non sdoppiate
 		//var_dump($elenco_attivita);
-		$this->elencoAttivita =& $elenco_attivita;
+		$this->elencoAttivita = $elenco_attivita;
 		$num = count($elenco_attivita);
 		$this->elencoCodiciCDL = array();
 		for ($i = 0; $i < $num; $i++)
 		{
 			if ($elenco_attivita[$i]->isSdoppiato() == false)
 			{
-				$this->elencoAttivitaPadre[] =& $elenco_attivita[$i];
+				$this->elencoAttivitaPadre[] = $elenco_attivita[$i];
 			}
 			$this->elencoCodiciCDL[] = $elenco_attivita[$i]->getCodiceCdl();
 		}
@@ -119,7 +119,7 @@ class Insegnamento extends Canale
 			$num_att = count($this->elencoAttivitaPadre);
 			for ($i = 0; $i < $num_att; $i++)
 			{
-				$app_elenco_attivita =& $this->elencoAttivitaPadre;
+				$app_elenco_attivita = $this->elencoAttivitaPadre;
 				//var_dump($app_elenco_attivita);
 				$nomi[$i]    = $app_elenco_attivita[$i]->getNomeMateriaIns();
 				$b_nomi[$i]  = substr($nomi[$i], 0, -3);    //nome materia meno le ultime 3 lettere
@@ -275,7 +275,7 @@ class Insegnamento extends Canale
 	function &selectInsegnamentoCanale($id_canale)
 	{
 
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 
 		$query = 'SELECT tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo, id_canale, files_studenti_attivo FROM canale WHERE id_canale = '.$db->quote($id_canale).';';
 		$res = $db->query($query);
@@ -289,9 +289,9 @@ class Insegnamento extends Canale
 		if( $rows > 1) Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database: canale insegnamento non unico','file'=>__FILE__,'line'=>__LINE__));
 		if( $rows = 0) return false;
 
-		$elenco_attivita =& PrgAttivitaDidattica::selectPrgAttivitaDidatticaCanale($id_canale);
+		$elenco_attivita = PrgAttivitaDidattica::selectPrgAttivitaDidatticaCanale($id_canale);
 		//var_dump($row);
-		$insegnamento =& new Insegnamento($row[12], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
+		$insegnamento = new Insegnamento($row[12], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
 				$row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[13]=='S',$elenco_attivita);
 
 		return $insegnamento;
@@ -321,7 +321,7 @@ class Insegnamento extends Canale
 	function &selectInsegnamentoCodice( ...tutta la chiave... )
 	{
 
-	$db =& FrontController::getDbConnection('main');
+	$db = FrontController::getDbConnection('main');
 
 	$query = 'SELECT ... WHERE a.id_canale = b.id_canale AND b.cod_corso = '.$db->quote($cod_cdl);
 
@@ -334,7 +334,7 @@ class Insegnamento extends Canale
 	if( $rows == 0) return false;
 
 	$res->fetchInto($row);
-	$insegnamento =& new Insegnamento(  ... $row[16] ...  );
+	$insegnamento = new Insegnamento(  ... $row[16] ...  );
 
 	return $insegnamento;
 

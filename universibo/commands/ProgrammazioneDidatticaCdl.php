@@ -22,10 +22,10 @@ class ProgrammazioneDidatticaCdl extends UniversiboCommand
 {
 	function execute()
 	{
-		$fc =& $this->getFrontController();
-		$template =& $this->frontController->getTemplateEngine();
+		$fc = $this->getFrontController();
+		$template = $this->frontController->getTemplateEngine();
 		
-		$session_user =& $this->getSessionUser();
+		$session_user = $this->getSessionUser();
 		
 		if (!arraY_key_exists('cod_fac',$_GET) || !ereg('^([0-9A-Z]{4})$', $_GET['cod_fac']))
 				Error::throwError(_ERROR_DEFAULT, array ('id_utente' => $session_user->getIdUser(), 'msg' => 'L\'id della facolta\' richiesta non e\' valido', 'file' => __FILE__, 'line' => __LINE__));
@@ -58,7 +58,7 @@ class ProgrammazioneDidatticaCdl extends UniversiboCommand
 			if (!ereg('^([0-9A-Z]{4})$', $cod_cdl))
 				Error::throwError(_ERROR_DEFAULT, array ('id_utente' => $session_user->getIdUser(), 'msg' => 'L\'id della facolta\' richiesta non e\' valido', 'file' => __FILE__, 'line' => __LINE__));
 			
-			$cdl =& Cdl::selectCdlCodice($cod_cdl);
+			$cdl = Cdl::selectCdlCodice($cod_cdl);
 			
 			$cdl->setPermessi($permessi);
 			$cdl->updateCdl();
@@ -66,8 +66,8 @@ class ProgrammazioneDidatticaCdl extends UniversiboCommand
 		
 				
 		
-		$data_retriever =& ProgrammazioneDidatticaDataRetrieverFactory::getProgrammazioneDidatticaDataRetriever("web_service");
-		$elenco_cdl =& $data_retriever->getCorsoListFacolta($codFac);
+		$data_retriever = ProgrammazioneDidatticaDataRetrieverFactory::getProgrammazioneDidatticaDataRetriever("web_service");
+		$elenco_cdl = $data_retriever->getCorsoListFacolta($codFac);
 		$num_cdl = count($elenco_cdl);
 		
 		
@@ -87,7 +87,7 @@ class ProgrammazioneDidatticaCdl extends UniversiboCommand
 		
 		for($i=0; $i<$num_cdl;  $i++)
 		{
-			$cdl_db =& Cdl::selectCdlCodice($elenco_cdl[$i]->codCorso);
+			$cdl_db = Cdl::selectCdlCodice($elenco_cdl[$i]->codCorso);
 			
 			if ($cdl_db === false)
 			{ 

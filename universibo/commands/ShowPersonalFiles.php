@@ -22,9 +22,9 @@ require_once ('PluginCommand'.PHP_EXTENSION);
  {
  	function execute()
  	{
- 		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
-		$user =& $this->getSessionUser();
+ 		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
+		$user = $this->getSessionUser();
 		
 		// controllo che l'utente sia loggato
 		if($user->isOspite())

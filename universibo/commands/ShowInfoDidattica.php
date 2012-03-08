@@ -30,7 +30,7 @@ class ShowInfoDidattica extends UniversiboCommand
 			Error::throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
 		
 		$id_canale = $_GET['id_canale'];
-		$session_user =& $this->getSessionUser();
+		$session_user = $this->getSessionUser();
 		
 		$info_didattica = InfoDidattica::retrieveInfoDidattica($id_canale);
 		$insegnamento = Canale::retrieveCanale($id_canale);

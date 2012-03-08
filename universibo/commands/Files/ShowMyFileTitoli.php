@@ -28,12 +28,12 @@ class ShowMyFileTitoli extends PluginCommand {
 	 */
 	function execute($param)
 	{
-		$elenco_file =& $param['files'];
-		$bc        =& $this->getBaseCommand();
-		$user      =& $bc->getSessionUser();
-		$fc        =& $bc->getFrontController();
-		$template  =& $fc->getTemplateEngine();
-		$krono     =& $fc->getKrono();
+		$elenco_file = $param['files'];
+		$bc        = $this->getBaseCommand();
+		$user      = $bc->getSessionUser();
+		$fc        = $bc->getFrontController();
+		$template  = $fc->getTemplateEngine();
+		$krono     = $fc->getKrono();
 
 		$personalizza   = false;
 		$referente      = false;
@@ -68,7 +68,7 @@ class ShowMyFileTitoli extends PluginCommand {
 			for ($i = 0; $i < $ret_file; $i++)
 			{
 				
-				$file =& $elenco_file[$i];
+				$file = $elenco_file[$i];
 				//var_dump($file);
 				$this_moderatore = ($user->isAdmin() || ($moderatore && $file->getIdUtente()==$user->getIdUser()));
 		
@@ -134,13 +134,13 @@ class ShowMyFileTitoli extends PluginCommand {
 	function &getFileCanale($id_canale)
 	{
 	 	
-	 	$db =& FrontController::getDbConnection('main');
+	 	$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT A.id_file  FROM file A, file_canale B 
 					WHERE A.id_file = B.id_file AND eliminato!='.$db->quote( FILE_ELIMINATO ).
 					' AND B.id_canale = '.$db->quote($id_canale).' AND A.data_inserimento < '.$db->quote(time()). 
 					'ORDER BY A.id_categoria, A.data_inserimento DESC';
-		$res =& $db->query($query);
+		$res = $db->query($query);
 		
 		if (DB::isError($res)) 
 			Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__)); 

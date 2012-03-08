@@ -32,11 +32,11 @@ class ShowTopic extends PluginCommand {
 		
 		$reference  =  $param['reference'];
 
-		$bc        =& $this->getBaseCommand();
-		$frontcontroller =& $bc->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
+		$bc        = $this->getBaseCommand();
+		$frontcontroller = $bc->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
 		
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT titolo FROM help_topic ht WHERE ht.riferimento=\''.$reference.'\'';
 		$res = $db->query($query);

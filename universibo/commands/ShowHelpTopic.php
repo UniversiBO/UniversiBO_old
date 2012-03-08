@@ -19,11 +19,11 @@ class ShowHelpTopic extends UniversiboCommand {
 	function execute()
 	{
 		
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
-//		$bc =& $this->getBaseCommand();
-//		$sessionUser =& $bc->getSessionUser();
-		$sessionUser =& $this->getSessionUser();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
+//		$bc = $this->getBaseCommand();
+//		$sessionUser = $bc->getSessionUser();
+		$sessionUser = $this->getSessionUser();
 		
 		$template -> assign('showHelpTopic_langAltTitle', 'Help');
 
@@ -41,7 +41,7 @@ class ShowHelpTopic extends UniversiboCommand {
 			/**
 			 * @todo l'acesso al DB a questo livello non mi piace... ci sarebbe da inserire un po' di roba in una classetta statica
 			 */
-			$db =& FrontController::getDbConnection('main');
+			$db = FrontController::getDbConnection('main');
 			$query = 'SELECT riferimento FROM help_topic';
 			$res = $db->query($query);
 			if (DB::isError($res)) 

@@ -31,18 +31,18 @@ class ShowFileTitoli extends PluginCommand {
 //		var_dump($param['id_notizie']);
 //		die();
 		
-		$bc        =& $this->getBaseCommand();
-		$user      =& $bc->getSessionUser();
-		$canale    =& $bc->getRequestCanale();
-		$fc        =& $bc->getFrontController();
-		$template  =& $fc->getTemplateEngine();
-		$krono     =& $fc->getKrono();
+		$bc        = $this->getBaseCommand();
+		$user      = $bc->getSessionUser();
+		$canale    = $bc->getRequestCanale();
+		$fc        = $bc->getFrontController();
+		$template  = $fc->getTemplateEngine();
+		$krono     = $fc->getKrono();
 
 
 		$id_canale = $canale->getIdCanale();
 		$titolo_canale =  $canale->getTitolo();
 		$ultima_modifica_canale =  $canale->getUltimaModifica();
-		$user_ruoli =& $user->getRuoli();
+		$user_ruoli = $user->getRuoli();
 
 		$personalizza_not_admin = false;
 
@@ -53,7 +53,7 @@ class ShowFileTitoli extends PluginCommand {
 			
 			if (array_key_exists($id_canale, $user_ruoli))
 			{
-				$ruolo =& $user_ruoli[$id_canale];
+				$ruolo = $user_ruoli[$id_canale];
 				
 				$personalizza_not_admin = true;
 				$referente      = $ruolo->isReferente();
@@ -88,11 +88,11 @@ class ShowFileTitoli extends PluginCommand {
 //		var_dump($elenco_id_news);
 //		die();
 
-		$elenco_id_file =& $this->getFileCanale($id_canale);
+		$elenco_id_file = $this->getFileCanale($id_canale);
 		
 		
 		//var_dump($elenco_id_file); die();
-		$elenco_file =& FileItem::selectFileItems($elenco_id_file);
+		$elenco_file = FileItem::selectFileItems($elenco_id_file);
 		usort($elenco_file, array('ShowFileTitoli','_compareFile'));
 		
 		//var_dump($elenco_file); die();
@@ -110,7 +110,7 @@ class ShowFileTitoli extends PluginCommand {
 			for ($i = 0; $i < $ret_file; $i++)
 			{
 				
-				$file =& $elenco_file[$i];
+				$file = $elenco_file[$i];
 				//var_dump($file);
 				$this_moderatore = ($user->isAdmin() || ($moderatore && $file->getIdUtente()==$user->getIdUser()));
 		
@@ -185,13 +185,13 @@ class ShowFileTitoli extends PluginCommand {
 	function &getFileCanale($id_canale)
 	{
 	 	
-	 	$db =& FrontController::getDbConnection('main');
+	 	$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT A.id_file  FROM file A, file_canale B 
 					WHERE A.id_file = B.id_file AND eliminato!='.$db->quote( FILE_ELIMINATO ).
 					' AND B.id_canale = '.$db->quote($id_canale).' AND A.data_inserimento < '.$db->quote(time()). 
 					'ORDER BY A.id_categoria, A.data_inserimento DESC';
-		$res =& $db->query($query);
+		$res = $db->query($query);
 		
 		if (DB::isError($res)) 
 			Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__)); 

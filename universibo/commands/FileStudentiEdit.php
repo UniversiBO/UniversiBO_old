@@ -78,7 +78,7 @@ class FileStudentiEdit extends UniversiboCommand {
 				$moderatore = $ruolo->isModeratore();
 			}
 			//controllo coerenza parametri
-			$canali_file	=& 	$file->getIdCanali();
+			$canali_file	= 	$file->getIdCanali();
 			if (!in_array($id_canale, $canali_file))
 				 Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'I parametri passati non sono coerenti', 'file' => __FILE__, 'line' => __LINE__));
 			
@@ -115,7 +115,7 @@ class FileStudentiEdit extends UniversiboCommand {
 //		for ($i = 0; $i<$num_canali; $i++)
 //		{
 //			$id_current_canale = $elenco_canali[$i];
-//			$current_canale =& Canale::retrieveCanale($id_current_canale);
+//			$current_canale = Canale::retrieveCanale($id_current_canale);
 //			$nome_current_canale = $current_canale->getTitolo();
 //			$f24_canale[] = array ('nome_canale'=> $nome_current_canale);
 //		}
@@ -354,7 +354,7 @@ class FileStudentiEdit extends UniversiboCommand {
 				
 				foreach ($elenco_canali as $value)
 				{
-					$canale =& Canale::retrieveCanale($value);
+					$canale = Canale::retrieveCanale($value);
 					$canale->setUltimaModifica(time(), true);
 				}
 				

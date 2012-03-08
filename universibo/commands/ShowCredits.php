@@ -18,8 +18,8 @@ require_once ('UniversiboCommand'.PHP_EXTENSION);
 class ShowCredits extends UniversiboCommand {
 	function execute(){
 
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
 		
 		$template->assign('showCredits_langTitleAlt','Credits');
 		$template->assign('showCredits_langIntro','Questo sito è stato realizzato e funziona utilizzando internamente solo software libero e open source e appoggiandosi alle strutture rese disponibili dall\'Ateneo');

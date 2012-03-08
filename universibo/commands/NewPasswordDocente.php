@@ -20,10 +20,10 @@ class NewPasswordDocente extends UniversiboCommand
 {
 	function execute()
 	{
-		$fc =& $this->getFrontController();
-		$template =& $this->frontController->getTemplateEngine();
+		$fc = $this->getFrontController();
+		$template = $this->frontController->getTemplateEngine();
 		
-		$session_user =& $this->getSessionUser();
+		$session_user = $this->getSessionUser();
 		
 		if (!$session_user->isAdmin())
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'La generazione di una nuova password dei docenti è possibile solo ad utenti amministratori.'."\n".'La sessione potrebbe essere scaduta, eseguire il login','file'=>__FILE__,'line'=>__LINE__));

@@ -21,9 +21,9 @@ class RecuperaUsernameStudente extends UniversiboCommand
 	
 	function execute()
 	{
-		$fc =& $this->getFrontController();
-		$template =& $fc->getTemplateEngine();
-		$user =& $this->getSessionUser();
+		$fc = $this->getFrontController();
+		$template = $fc->getTemplateEngine();
+		$user = $this->getSessionUser();
 		
 		if (!$user->isOspite())
 		{
@@ -110,7 +110,7 @@ class RecuperaUsernameStudente extends UniversiboCommand
 			//azioni
 			$id_utente = User::getIdFromADUsername($q32_ad_user);
 			$username = User::getUsernameFromId($id_utente);
-			$user =& User::selectUser($id_utente);						
+			$user = User::selectUser($id_utente);						
 			if ( $user->isEliminato())
 			{
 				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Non esiste alcun utente di Universibo registrato con la mail di ateneo fornita','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));

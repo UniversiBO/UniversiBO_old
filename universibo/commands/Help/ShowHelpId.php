@@ -42,11 +42,11 @@ class ShowHelpId extends PluginCommand {
 			else 	$listid = $listid.', '.$id_help;
 		}
 
-		$bc			     =& $this->getBaseCommand();
-		$frontcontroller =& $bc->getFrontController();
-		$template		 =& $frontcontroller->getTemplateEngine();
+		$bc			     = $this->getBaseCommand();
+		$frontcontroller = $bc->getFrontController();
+		$template		 = $frontcontroller->getTemplateEngine();
 		
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		if ($allFlag === true)
 			$query = 'SELECT id_help, titolo, contenuto FROM help ORDER BY indice';

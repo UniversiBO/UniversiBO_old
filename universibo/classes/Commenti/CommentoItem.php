@@ -155,10 +155,10 @@ class CommentoItem
 	  
 	 function & selectCommentiItem($id_file)
 	 {
-	 	$db =& FrontController::getDbConnection('main');
+	 	$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT id_commento,id_utente,commento,voto FROM file_studente_commenti WHERE id_file='.$db->quote($id_file).' AND eliminato = '.$db->quote(COMMENTO_NOT_ELIMINATO).' ORDER BY voto DESC';
-		$res =& $db->query($query);
+		$res = $db->query($query);
 		
 		if (DB::isError($res)) 
 			Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__)); 
@@ -181,10 +181,10 @@ class CommentoItem
 	  
 	 function & selectCommentoItem($id_commento)
 	 {
-	 	$db =& FrontController::getDbConnection('main');
+	 	$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT id_file,id_utente,commento,voto FROM file_studente_commenti WHERE id_commento='.$db->quote($id_commento).' AND eliminato = '.$db->quote(COMMENTO_NOT_ELIMINATO);
-		$res =& $db->query($query);
+		$res = $db->query($query);
 		
 		if (DB::isError($res)) 
 			Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__)); 
@@ -211,10 +211,10 @@ class CommentoItem
 	function  quantiCommenti($id_file)
 	{
 	 	
-	 	$db =& FrontController::getDbConnection('main');
+	 	$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT count(*) FROM file_studente_commenti WHERE id_file = '.$db->quote($id_file).' AND eliminato = '.$db->quote(COMMENTO_NOT_ELIMINATO).' GROUP BY id_file';
-		$res =& $db->query($query);
+		$res = $db->query($query);
 		
 		if (DB::isError($res)) 
 			Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__)); 
@@ -236,7 +236,7 @@ class CommentoItem
 	 {
 		return User::getUsernameFromId($this->id_utente);
 
-//	 	$db =& FrontController::getDbConnection('main');
+//	 	$db = FrontController::getDbConnection('main');
 //		
 //		$query = 'SELECT username FROM utente WHERE id_utente= '.$db->quote($this->id_utente);
 //		$res = $db->query($query);

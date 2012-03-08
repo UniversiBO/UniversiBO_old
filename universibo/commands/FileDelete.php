@@ -18,14 +18,14 @@ class FileDelete extends UniversiboCommand {
 
 
 	function execute() {
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
 
 		
 		$template->assign('common_canaleURI', 'index.php?do=ShowMyUniversiBO');
 		$template->assign('common_langCanaleNome', 'indietro');
 		
-		$user =& $this->getSessionUser();
+		$user = $this->getSessionUser();
 		
 		$referente = false;
 		$moderatore = false;
@@ -65,7 +65,7 @@ class FileDelete extends UniversiboCommand {
 			}
 			
 			//controllo coerenza parametri
-			$canali_file	=& 	$file->getIdCanali();
+			$canali_file	= 	$file->getIdCanali();
 			if (!in_array($id_canale, $canali_file))
 				 Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'I parametri passati non sono coerenti', 'file' => __FILE__, 'line' => __LINE__));
 				 
@@ -88,7 +88,7 @@ class FileDelete extends UniversiboCommand {
 //			$elenco_canali[] = $user_ruoli[$ruoli_keys[$i]]->getIdCanale();
 //		}
 //		
-		$file_canali =& $file->getIdCanali();
+		$file_canali = $file->getIdCanali();
 		
 		$f14_canale = array();
 		$num_canali = count($file_canali);

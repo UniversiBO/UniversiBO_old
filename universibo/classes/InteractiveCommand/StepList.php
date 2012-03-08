@@ -196,7 +196,7 @@ class StepList
 		for ($i = ($this->lastGoodStep != EMPTY_VALUE) ? $this->lastGoodStep : 0; $i <= $this->currentStep; $i++)
 		{
 //			var_dump($i); echo "\n";
-			$step =& $this->getStep($i);
+			$step = $this->getStep($i);
 			// VERIFY è ammissibile che uno stato sia refused?
 //			var_dump($step); die;
 			if ($step->getState() != STEP_COMPLETATO)

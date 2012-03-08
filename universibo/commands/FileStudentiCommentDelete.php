@@ -34,7 +34,7 @@ class FileStudentiCommentDelete extends UniversiboCommand {
 		}
 		
 		$id_commento = $_GET['id_commento'];
-		$commento =& CommentoItem::selectCommentoItem($id_commento);
+		$commento = CommentoItem::selectCommentoItem($id_commento);
 		$id_utente = $commento->getIdUtente();
 		$id_file_studente = $commento->getIdFileStudente();
 		
@@ -63,8 +63,8 @@ class FileStudentiCommentDelete extends UniversiboCommand {
 				$moderatore = $ruolo->isModeratore();
 			}
 			//controllo coerenza parametri
-			$file =& FileItemStudenti::selectFileItem($id_file_studente);
-			$canali_file	=& 	$file->getIdCanali();
+			$file = FileItemStudenti::selectFileItem($id_file_studente);
+			$canali_file	= 	$file->getIdCanali();
 			
 			//TO DO: perché non funziona il controllo???
 			

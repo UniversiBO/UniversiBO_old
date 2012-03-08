@@ -37,7 +37,7 @@ class NotificaMail extends NotificaItem
 	function send($fc) {
 		
 		//per usare l'SMTPkeepAlive usa il singleton
-		$mail =& $fc->getMail(MAIL_KEEPALIVE_ALIVE);
+		$mail = $fc->getMail(MAIL_KEEPALIVE_ALIVE);
 		
 		$mail->clearAddresses();
 		$mail->AddAddress($this->getIndirizzo());

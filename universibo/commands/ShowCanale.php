@@ -16,8 +16,8 @@ class ShowCanale extends CanaleCommand
 {
 	function execute() 
 	{
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
 		
 		$canale = & $this->getRequestCanale();
 		

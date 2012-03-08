@@ -17,8 +17,8 @@ require_once ('News/NewsItem'.PHP_EXTENSION);
 class NewsShowCanale extends CanaleCommand {
 
 	function execute() {
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
 				
 		$user = & $this->getSessionUser();
 		$canale = & $this->getRequestCanale();
@@ -35,7 +35,7 @@ class NewsShowCanale extends CanaleCommand {
 		{
 			if (array_key_exists($id_canale, $user_ruoli))
 			{
-				$ruolo =& $user_ruoli[$id_canale];
+				$ruolo = $user_ruoli[$id_canale];
 				$referente      = $ruolo->isReferente();
 				$moderatore     = $ruolo->isModeratore();			
 			}
@@ -89,13 +89,13 @@ class NewsShowCanale extends CanaleCommand {
 	function &getLatestNewsCanale($startNum, $qta, $id_canale)
 	{
 	 	
-	 	$db =& FrontController::getDbConnection('main');
+	 	$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT A.id_news FROM news A, news_canale B 
 					WHERE A.id_news = B.id_news AND eliminata!='.$db->quote( NEWS_ELIMINATA ).
 					'AND ( data_scadenza IS NULL OR \''.time().'\' < data_scadenza ) AND B.id_canale = '.$db->quote($id_canale).' 
 					ORDER BY A.data_inserimento DESC';
-		$res =& $db->limitQuery($query, $startNum , $qta);
+		$res = $db->limitQuery($query, $startNum , $qta);
 		
 		if (DB::isError($res)) 
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__)); 
@@ -128,7 +128,7 @@ class NewsShowCanale extends CanaleCommand {
 	function getNumNewsCanale($id_canale)
 	{
 	 	
-	 	$db =& FrontController::getDbConnection('main');
+	 	$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT count(A.id_news) FROM news A, news_canale B 
 					WHERE A.id_news = B.id_news AND eliminata!='.$db->quote(NEWS_ELIMINATA).

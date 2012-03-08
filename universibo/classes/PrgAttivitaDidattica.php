@@ -493,7 +493,7 @@ class PrgAttivitaDidattica extends Canale
 										 $cod_materia_ins, $anno_corso, $anno_corso_ins, $cod_ril, $cod_ate)
 	{
 
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		$anno_accademico = $db->quote( $anno_accademico );
 		$cod_corso = $db->quote( $cod_corso );
@@ -567,13 +567,13 @@ class PrgAttivitaDidattica extends Canale
 		$elenco = array();
 		while (	$res->fetchInto($row) )
 		{
-			$prgAtt =& new PrgAttivitaDidattica( $row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
+			$prgAtt = new PrgAttivitaDidattica( $row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
 				$row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S',
 				$row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21],
 				$row[22], $row[23], $row[24], $row[25], $row[26], $row[27], $row[28], $row[29],
 				$row[30], $row[31], $row[32]=='S' , $row[33]);
 			
-			$elenco[] =& $prgAtt;
+			$elenco[] = $prgAtt;
 		}
 		$res->free();
 		
@@ -593,7 +593,7 @@ class PrgAttivitaDidattica extends Canale
 	function &selectPrgAttivitaDidatticaCanale($id_canale)
 	{
 
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		$id_canale = $db->quote($id_canale);
 		//attenzione!!! ...c'? il distinct anche su sdoppiato!!
@@ -642,13 +642,13 @@ class PrgAttivitaDidattica extends Canale
 		$elenco = array();
 		while (	$res->fetchInto($row) )
 		{
-			$prgAtt =& new PrgAttivitaDidattica( $row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
+			$prgAtt = new PrgAttivitaDidattica( $row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
 				$row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S',
 				$row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21],
 				$row[22], $row[23], $row[24], $row[25], $row[26], $row[27], $row[28], $row[29],
 				$row[30], $row[31], $row[32]=='S' , $row[33]);
 			
-			$elenco[] =& $prgAtt;
+			$elenco[] = $prgAtt;
 		}
 		$res->free();
 		
@@ -666,7 +666,7 @@ class PrgAttivitaDidattica extends Canale
 	function &selectPrgAttivitaDidatticaSdoppiata($id_sdop)
 	{
 
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		$id_sdop = $db->quote($id_sdop);
 		//attenzione!!! ...c'? il distinct anche su sdoppiato!!
@@ -708,7 +708,7 @@ class PrgAttivitaDidattica extends Canale
 		if( $rows == 0) { $ret = array(); return $ret;}
 		
 		$res->fetchInto($row);
-		$prgAtt =& new PrgAttivitaDidattica( $row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
+		$prgAtt = new PrgAttivitaDidattica( $row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
 			$row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S',
 			$row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21],
 			$row[22], $row[23], $row[24], $row[25], $row[26], $row[27], $row[28], $row[29],
@@ -731,7 +731,7 @@ class PrgAttivitaDidattica extends Canale
 	 *
 	function &selectPrgAttivitaDidatticaCodice( ...tutta la chiave... )
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT ... WHERE a.id_canale = b.id_canale AND b.cod_corso = '.$db->quote($cod_cdl);
 		
@@ -744,7 +744,7 @@ class PrgAttivitaDidattica extends Canale
 		if( $rows == 0) return false;
 		
 		$res->fetchInto($row);
-		$prgAtt =& new PrgAttivitaDidattica(  ... $row[16] ...  );
+		$prgAtt = new PrgAttivitaDidattica(  ... $row[16] ...  );
 		
 		return $prgAtt;
 	}
@@ -766,7 +766,7 @@ class PrgAttivitaDidattica extends Canale
 	function &selectPrgAttivitaDidatticaElencoCdl($cod_cdl, $anno_accademico)
 	{
 		
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		$cod_cdl         = $db->quote($cod_cdl);
 		$anno_accademico = $db->quote($anno_accademico);
@@ -826,13 +826,13 @@ class PrgAttivitaDidattica extends Canale
 		$elenco = array();
 		while (	$res->fetchInto($row) )
 		{
-			$prgAtt =& new PrgAttivitaDidattica( $row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
+			$prgAtt = new PrgAttivitaDidattica( $row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
 				$row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S',
 				$row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21],
 				$row[22], $row[23], $row[24], $row[25], $row[26], $row[27], $row[28], $row[29],
 				$row[30], $row[31], $row[32]=='S' , $row[33]);
 			
-			$elenco[] =& $prgAtt;
+			$elenco[] = $prgAtt;
 		}
 		
 		return $elenco;
@@ -843,7 +843,7 @@ class PrgAttivitaDidattica extends Canale
 	 */
 	function updatePrgAttivitaDidattica()
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		if($this->isSdoppiato())
 			$query = 'UPDATE prg_sdoppiamento ' .
@@ -857,7 +857,7 @@ class PrgAttivitaDidattica extends Canale
 					' , cod_doc = '.$db->quote($this->getCodDoc()).
 					' WHERE  id_canale='.$db->quote($this->getIdCanale());
 		
-		$res =& $db->query($query);
+		$res = $db->query($query);
 //		var_dump($query);
 	
 		if (DB::isError($res)) 

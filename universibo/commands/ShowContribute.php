@@ -22,8 +22,8 @@ class ShowContribute extends UniversiboCommand
 {
 	function execute()
 	{
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
 		
 		$user = & $this->getSessionUser();
 		
@@ -244,7 +244,7 @@ class ShowContribute extends UniversiboCommand
 		if ($f3_accept == true)
 		{
 			//salvataggio form
-			$db =& $frontcontroller->getDbConnection('main');
+			$db = $frontcontroller->getDbConnection('main');
 			
 			$q3_idQuestionario = $db->nextID('questionario_id_questionari');
 			$q3_idUtente = $this->getSessionIdUtente();
@@ -259,7 +259,7 @@ class ShowContribute extends UniversiboCommand
 
 			//invio mail notifica
 			$session_user = $this->getSessionUser();
-			$mail =& $frontcontroller->getMail();
+			$mail = $frontcontroller->getMail();
 
 			$riceventi = $frontcontroller->getAppSetting('questionariReceiver');
 			$array_riceventi = explode(';', $riceventi);

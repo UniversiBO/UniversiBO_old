@@ -366,7 +366,7 @@ class NewsItem {
 	 public static function selectNewsItem ($id_notizia)
 	 {
 	 	$id_notizie = array($id_notizia);
-		$news =& NewsItem::selectNewsItems($id_notizie);
+		$news = NewsItem::selectNewsItems($id_notizie);
 		if ($news === false) return false;
 		return $news[0];
 	 }
@@ -402,7 +402,7 @@ class NewsItem {
 //		$query = 'SELECT titolo, notizia, data_inserimento, data_scadenza, flag_urgente, eliminata, A.id_utente, id_news, username, data_modifica FROM news A, utente B WHERE A.id_utente = B.id_utente AND id_news IN ('.$values.') AND eliminata!='.$db->quote(NEWS_ELIMINATA);
 		$query = 'SELECT titolo, notizia, data_inserimento, data_scadenza, flag_urgente, eliminata, A.id_utente, id_news, data_modifica FROM news A WHERE id_news IN ('.$values.') AND eliminata!='.$db->quote(NEWS_ELIMINATA) . ' ORDER BY data_inserimento DESC';
 		//var_dump($query);
-		$res =& $db->query($query);
+		$res = $db->query($query);
 		
 		if (DB::isError($res)) 
 			Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__)); 
@@ -415,7 +415,7 @@ class NewsItem {
 		while ( $res->fetchInto($row) )
 		{
 			$username = User::getUsernameFromId($row[6]);
-			$news_list[] =& new NewsItem($row[7],$row[0],$row[1],$row[2],$row[3],$row[8],($row[4] == NEWS_URGENTE),($row[5] == NEWS_ELIMINATA),$row[6], $username );
+			$news_list[] = new NewsItem($row[7],$row[0],$row[1],$row[2],$row[3],$row[8],($row[4] == NEWS_URGENTE),($row[5] == NEWS_ELIMINATA),$row[6], $username );
 		}
 		
 		$res->free();
@@ -449,10 +449,10 @@ class NewsItem {
  		
  		$id_notizia = $this->getIdNotizia();
 	 	
-	 	$db =& FrontController::getDbConnection('main');
+	 	$db = FrontController::getDbConnection('main');
 	
 		$query = 'SELECT id_canale FROM news_canale WHERE id_news='.$db->quote($id_notizia).' ORDER BY id_canale';
-		$res =& $db->query($query);
+		$res = $db->query($query);
 		
 		if (DB::isError($res)) 
 			Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__)); 
@@ -466,7 +466,7 @@ class NewsItem {
 		
 		$res->free();		
 		
-		$this->elencoIdCanali =& $elenco_id_canale;
+		$this->elencoIdCanali = $elenco_id_canale;
 		
  		return $this->elencoIdCanali;
 		
@@ -481,11 +481,11 @@ class NewsItem {
 	function removeCanale($id_canale)
 	{
 	 	
-	 	$db =& FrontController::getDbConnection('main');
+	 	$db = FrontController::getDbConnection('main');
 		
 		$query = 'DELETE FROM news_canale WHERE id_canale='.$db->quote($id_canale).' AND id_news='.$db->quote($this->getIdNotizia());
-		 //? da testare il funzionamento di =&
-		$res =& $db->query($query);
+		 //? da testare il funzionamento di =
+		$res = $db->query($query);
 		
 		if (DB::isError($res)) 
 			Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__)); 
@@ -514,10 +514,10 @@ class NewsItem {
 	 		//Error::throwError(_ERROR_CRITICAL,array('msg'=>'Il canale selezionato non esiste','file'=>__FILE__,'line'=>__LINE__));
 	 	}
 	 	
-	 	$db =& FrontController::getDbConnection('main');
+	 	$db = FrontController::getDbConnection('main');
 	 	
 /*	 	$query = 'SELECT id_notizia FROM news_canale WHERE id_canale = '.$db->quote($id_canale).' AND id_notizia = '.$db->quote($this->getIdNotizia());
-		$res =& $db->query($query);
+		$res = $db->query($query);
 		
 		if (DB::isError($res)){
 		 	$return = false;
@@ -527,7 +527,7 @@ class NewsItem {
 		if ($res->numRows());
 */		
 		$query = 'INSERT INTO news_canale (id_news, id_canale) VALUES ('.$db->quote($this->getIdNotizia()).','.$db->quote($id_canale).')';
-		 //? da testare il funzionamento di =&
+		 //? da testare il funzionamento di =
 		$res = $db->query($query);
 		if (DB::isError($res)) {
 			return false;
@@ -548,7 +548,7 @@ class NewsItem {
 	 */
 	function insertNewsItem()
 	{				 
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
         ignore_user_abort(1);
         $db->autoCommit(false);
@@ -590,7 +590,7 @@ class NewsItem {
 	 */
 	function updateNewsItem()
 	{				 
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
         ignore_user_abort(1);
         $db->autoCommit(false);
@@ -628,7 +628,7 @@ class NewsItem {
 	
 	function deleteNewsItem() 
 	{
-		$lista_canali =& $this->getIdCanali();
+		$lista_canali = $this->getIdCanali();
 		if(count($lista_canali) == 0)
 		{
 			$this->eliminata = true;

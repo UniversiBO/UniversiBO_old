@@ -21,9 +21,9 @@ class ContattoDocenteAdd extends UniversiboCommand {
 	
 	function execute()
 	{
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
-		$user =& $this->getSessionUser();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
+		$user = $this->getSessionUser();
 		
 		if (!array_key_exists('cod_doc',$_GET) && !ereg( '^([0-9]{1,10})$' , $_GET['cod_doc'] ) ) 
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'utente cercato non è valido','file'=>__FILE__,'line'=>__LINE__)); 
@@ -31,7 +31,7 @@ class ContattoDocenteAdd extends UniversiboCommand {
 		if (!$user->isCollaboratore() && !$user->isAdmin())
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Non hai i diritti necessari per visualizzare la pagina','file'=>__FILE__,'line'=>__LINE__)); 
 		
-		$docente =& Docente::selectDocenteFromCod($_GET['cod_doc']);
+		$docente = Docente::selectDocenteFromCod($_GET['cod_doc']);
 		
 		if (!$docente)
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'utente cercato non è un docente','file'=>__FILE__,'line'=>__LINE__));

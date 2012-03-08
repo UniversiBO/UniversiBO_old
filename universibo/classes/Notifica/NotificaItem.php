@@ -364,7 +364,7 @@ class NotificaItem {
 		
 		while ($res->fetchInto($row)) 
 		{
-			$notifiche_list[] =& NotificaItem::retrieveNotifica($row[0]);
+			$notifiche_list[] = NotificaItem::retrieveNotifica($row[0]);
 		}
 		
 		$res->free();

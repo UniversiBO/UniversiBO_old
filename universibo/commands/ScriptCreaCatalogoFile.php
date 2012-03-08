@@ -22,9 +22,9 @@ class ScriptCreaCatalogoFile extends UniversiboCommand
 {
 	function execute()
 	{
-		$fc =& $this->getFrontController();
-		$template =& $fc->getTemplateEngine();
-		$db =& $fc->getDbConnection('main');
+		$fc = $this->getFrontController();
+		$template = $fc->getTemplateEngine();
+		$db = $fc->getDbConnection('main');
 		
 		$catalogoFilename = $fc->getAppSetting('catalogoFileName');
 		$iterationStep = 300;
@@ -39,7 +39,7 @@ class ScriptCreaCatalogoFile extends UniversiboCommand
 		
 			echo "vecchio" ;		
 			echo " \n" ;
-			$res =& $db->query('SELECT id_file FROM file WHERE password IS NULL AND permessi_download = '.$db->quote(USER_ALL).' AND eliminato !='.$db->quote(FILE_ELIMINATO).' ORDER BY id_file ASC');
+			$res = $db->query('SELECT id_file FROM file WHERE password IS NULL AND permessi_download = '.$db->quote(USER_ALL).' AND eliminato !='.$db->quote(FILE_ELIMINATO).' ORDER BY id_file ASC');
 //			echo 'SELECT id_file FROM file WHERE password IS NULL AND permessi_download = '.$db->quote(USER_ALL).' AND eliminato !='.$db->quote(FILE_ELIMINATO).' ORDER BY id_file ASC';
 			if (DB::isError($res)) 
 				Error :: throwError(_ERROR_DEFAULT, array ('msg' => "Errori nel recupero dei file esistenti", 'file' => __FILE__, 'line' => __LINE__)); 
@@ -73,7 +73,7 @@ class ScriptCreaCatalogoFile extends UniversiboCommand
 			
 			for ( $x = 0; $x <= $num; $x+=$iterationStep)
 			{
-				$files =& FileItem::selectFileItems(array_slice($listaIdFiles,$x,$iterationStep));
+				$files = FileItem::selectFileItems(array_slice($listaIdFiles,$x,$iterationStep));
 //				var_dump($files);
 				if ($x+$iterationStep>$num)
 					$x=$num;

@@ -35,11 +35,11 @@ class ShowLinksExtended extends PluginCommand {
 		
 		$id_canale  =  $param['id_canale'];
 
-		$bc        =& $this->getBaseCommand();
-		$user      =& $bc->getSessionUser();
-		$canale    =& Canale::retrieveCanale($id_canale);
-		$fc        =& $bc->getFrontController();
-		$template  =& $fc->getTemplateEngine();
+		$bc        = $this->getBaseCommand();
+		$user      = $bc->getSessionUser();
+		$canale    = Canale::retrieveCanale($id_canale);
+		$fc        = $bc->getFrontController();
+		$template  = $fc->getTemplateEngine();
 		//BUG strano: se passo per riferimento l'array dei ruoli, si modifica il session user di universibo_command
 		$user_ruoli = $user->getRuoli();
 
@@ -52,7 +52,7 @@ class ShowLinksExtended extends PluginCommand {
 			
 			if (array_key_exists($id_canale, $user_ruoli))
 			{
-				$ruolo =& $user_ruoli[$id_canale];
+				$ruolo = $user_ruoli[$id_canale];
 				
 				$referente      = $ruolo->isReferente();
 				$moderatore     = $ruolo->isModeratore();
@@ -68,14 +68,14 @@ class ShowLinksExtended extends PluginCommand {
 			$ultimo_accesso = $user->getUltimoLogin();
 		}
 	
-		$lista_links =& Link::selectCanaleLinks($id_canale);
+		$lista_links = Link::selectCanaleLinks($id_canale);
 		 
 		$ret_links = count($lista_links);
 		$elenco_links_tpl = array();
 	
 		for ($i = 0; $i < $ret_links; $i++)
 		{
-			$links =& $lista_links[$i];
+			$links = $lista_links[$i];
 			
 			$elenco_links_tpl[$i]['uri']       		= $links->getUri();
 			$elenco_links_tpl[$i]['label']      	= $links->getLabel();

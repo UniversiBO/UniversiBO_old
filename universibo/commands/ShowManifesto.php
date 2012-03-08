@@ -19,8 +19,8 @@ require_once ('UniversiboCommand'.PHP_EXTENSION);
 class ShowManifesto extends UniversiboCommand {
 	function execute(){
 
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
 		
 		$template->assign('manifesto_TitleAlt','Manifesto');
 		$template->assign('manifesto_langQuoteAlt', 'Galileo Galilei: Ma sopra tutte le invezioni stupende qual eminenza di mente fu quella di colui che s\'immaginò di trovar modo di comunicare i suoi più reconditi pensieri a qualsivoglia altra persona, benché distante per lunghissimo intervallo di luogo e di tempo?');

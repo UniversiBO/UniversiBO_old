@@ -73,7 +73,7 @@ define('INATTIVO'   ,4);
 	function &getContattoDocente ($coddoc)
 	{
 		
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 
 		$query = 'SELECT stato, id_utente_assegnato, ultima_modifica, report FROM docente_contatti WHERE cod_doc = '.$db->quote($coddoc);
 		$res = $db->query($query);
@@ -97,7 +97,7 @@ define('INATTIVO'   ,4);
 	 */
 	function getAllContattoDocente()
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 
 		$query = 'SELECT cod_doc, stato, id_utente_assegnato, ultima_modifica, report FROM docente_contatti';
 		$res = $db->query($query);
@@ -191,7 +191,7 @@ define('INATTIVO'   ,4);
 	
 	function updateContattoDocente()
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
         ignore_user_abort(1);
         $db->autoCommit(false);
@@ -223,7 +223,7 @@ define('INATTIVO'   ,4);
 	{
 		$cod = $this->getCodDoc();
 //		echo $cod;		die;
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
         ignore_user_abort(1);
         $db->autoCommit(false);
@@ -270,7 +270,7 @@ define('INATTIVO'   ,4);
 	 */
 	function _checkState()
 	{	
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		if ($this->stato != APERTO && $this->stato != null)
 		{

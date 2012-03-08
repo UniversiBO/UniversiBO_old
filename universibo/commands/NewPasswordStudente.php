@@ -21,9 +21,9 @@ class NewPasswordStudente extends UniversiboCommand
 	
 	function execute()
 	{
-		$fc =& $this->getFrontController();
-		$template =& $this->frontController->getTemplateEngine();
-		$user =& $this->getSessionUser();
+		$fc = $this->getFrontController();
+		$template = $this->frontController->getTemplateEngine();
+		$user = $this->getSessionUser();
 		if (!$user->isOspite())
 		{
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'iscrizione può essere richiesta solo da utenti che non hanno ancora eseguito l\'accesso','file'=>__FILE__,'line'=>__LINE__));
@@ -128,7 +128,7 @@ class NewPasswordStudente extends UniversiboCommand
 			}
 			
 			//controllo corrispondenza usarname-usernamen di ateneo
-			$user =& User::selectUserUsername($q5_username);
+			$user = User::selectUserUsername($q5_username);
 			
 			if ( $user->isEliminato() )
 			{
@@ -154,7 +154,7 @@ class NewPasswordStudente extends UniversiboCommand
 			//	Error::throwError(_ERROR_DEFAULT,'msg'=>'Si è verificato un errore durente la registrazione dell\'account username '.$q5_username.' mail '.$q5_ad_user,'file'=>__FILE__,'line'=>__LINE__));
 			
 			
-			$mail =& $fc->getMail();
+			$mail = $fc->getMail();
 
 			$mail->AddAddress($user->getADUsername());
 

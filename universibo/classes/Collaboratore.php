@@ -154,7 +154,7 @@ class Collaboratore extends User {
 	function &selectCollaboratore($id_utente)
 	{
 		$ret = false;
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 	
 		$query = 'SELECT id_utente,	intro, recapito, obiettivi, foto, ruolo FROM collaboratore WHERE id_utente = '.$db->quote($id_utente);
 		$res = $db->query($query);
@@ -181,7 +181,7 @@ class Collaboratore extends User {
 	function &selectCollaboratoriAll()
 	{
 		
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 	
 		$query = 'SELECT id_utente,	intro, recapito, obiettivi, foto, ruolo FROM collaboratore';
 		$res = $db->query($query);
@@ -208,7 +208,7 @@ class Collaboratore extends User {
 	 */
 	function insertCollaboratoreItem()
 	{				 
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
         ignore_user_abort(1);
         $db->autoCommit(false);

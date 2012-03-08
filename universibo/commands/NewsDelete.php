@@ -20,13 +20,13 @@ class NewsDelete extends CanaleCommand {
 
 
 	function execute() {
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
 
 		
 				
-		$user =& $this->getSessionUser();
-		$canale =& $this->getRequestCanale();
+		$user = $this->getSessionUser();
+		$canale = $this->getRequestCanale();
 		
 		$referente = false;
 		$moderatore = false;
@@ -66,7 +66,7 @@ class NewsDelete extends CanaleCommand {
 		*/		
 		
 		//controllo coerenza parametri
-		$canali_news	=& 	$news->getIdCanali();
+		$canali_news	= 	$news->getIdCanali();
 		if (!in_array($id_canale, $canali_news))
 			 Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'I parametri passati non sono coerenti', 'file' => __FILE__, 'line' => __LINE__));
 		
@@ -82,7 +82,7 @@ class NewsDelete extends CanaleCommand {
 			$elenco_canali[] = $user_ruoli[$ruoli_keys[$i]]->getIdCanale();
 		}
 		
-		$news_canali =& $news->getIdCanali();
+		$news_canali = $news->getIdCanali();
 		/*var_dump($news_canali );
 		die();
 		*/

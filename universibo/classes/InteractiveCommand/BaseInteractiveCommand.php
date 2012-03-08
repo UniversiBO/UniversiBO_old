@@ -95,11 +95,11 @@ class BaseInteractiveCommand extends PluginCommand
 		// VERIFY andrà bene questo costruttore?
 		parent::PluginCommand($baseCommand);
 		
-		$this->systemValues['bc'] 	=& $baseCommand;
-		$this->systemValues['fc'] 	=& $baseCommand->getFrontController();
-//		$this->systemValues['user'] =& $baseCommand->getSessionUser();  // con la modifica delle 19.00 del 14-05-06 a login.php, l'identità dell'utente non è qui
-		$this->systemValues['template'] =& $this->systemValues['fc']->getTemplateEngine();
-		$this->systemValues['krono']	=& $this->systemValues['fc']->getKrono();
+		$this->systemValues['bc'] 	= $baseCommand;
+		$this->systemValues['fc'] 	= $baseCommand->getFrontController();
+//		$this->systemValues['user'] = $baseCommand->getSessionUser();  // con la modifica delle 19.00 del 14-05-06 a login.php, l'identità dell'utente non è qui
+		$this->systemValues['template'] = $this->systemValues['fc']->getTemplateEngine();
+		$this->systemValues['krono']	= $this->systemValues['fc']->getKrono();
 		
 		if (isset($_SESSION['user'])) $this->systemValues['user'] = unserialize($_SESSION['user']);
 		else  Error::throwError(_ERROR_CRITICAL,array('id_utente' => 0,'msg'=>'Si è verificato un errore imprevisto, la preghiamo di avvisare gli amministratori di sistema','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $this->systemValues['template']) );
@@ -156,7 +156,7 @@ class BaseInteractiveCommand extends PluginCommand
 	 * @return string callback name of current step
 	 */
 	function getCurrentCallbackName () {
-		$item =& $this->listaStep->getCurrentStep();
+		$item = $this->listaStep->getCurrentStep();
 		return $item->getCallback();
 	}
 	
@@ -270,9 +270,9 @@ class BaseInteractiveCommand extends PluginCommand
 			return $this->returnErrorState(get_class($this) . ' è uno InteractiveCommand attivo senza callback (o step) implementati; provvedere quanto prima');
 
 		
-		$item =& $this->listaStep->getCurrentStep();
+		$item = $this->listaStep->getCurrentStep();
 //		var_dump($item);
-		if ($param == BACK_ACTION)$item =& $this->listaStep->getPreviousStep();
+		if ($param == BACK_ACTION)$item = $this->listaStep->getPreviousStep();
 //		var_dump($item);
 		$this->doCallback($item);
 		
@@ -287,7 +287,7 @@ class BaseInteractiveCommand extends PluginCommand
 		if ($param == NEXT_ACTION)
 		{
 			$this->cancelled = false; // se l'utente dopo un cancel si ravvede e da un next, allora gli diamo la possibilità di premere cance un'altra volta per sbaglio :)
-			$item =& $this->listaStep->getNextStep();
+			$item = $this->listaStep->getNextStep();
 			$this->doCallback($item);
 		} 
 //		echo time() . "\n";
@@ -305,7 +305,7 @@ class BaseInteractiveCommand extends PluginCommand
 	function storeInteractiveCommandLog ($complete = false) 
 	{
 //		echo 'inizio il log'; die;
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
         ignore_user_abort(1);
         $db->autoCommit(false);
@@ -321,7 +321,7 @@ class BaseInteractiveCommand extends PluginCommand
 					$db->quote(time()).' , '.
 					$db->quote(get_class($this)).' , '.
 					$db->quote($esito).' )'; 
-		$res =& $db->query($query);
+		$res = $db->query($query);
 		if (DB::isError($res)){
 			$db->rollback();
 			Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
@@ -338,7 +338,7 @@ class BaseInteractiveCommand extends PluginCommand
 							$db->quote($callback).' , '.
 							$db->quote($key).' , '.
 							$db->quote($val).' )'; 
-					$res =& $db->query($query);
+					$res = $db->query($query);
 					//var_dump($query);
 					if (DB::isError($res)){
 						$db->rollback();

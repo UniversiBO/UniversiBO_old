@@ -52,11 +52,11 @@ class LinkEdit extends CanaleCommand
 		$autore = ($user->getIdUser() == $link->getIdUtente());
 		
 //		//controllo coerenza parametri
-//		$canali_news	=& 	$news->getIdCanali();
+//		$canali_news	= 	$news->getIdCanali();
 //		if (!in_array($id_canale, $canali_news))
 //			 Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'I parametri passati non sono coerenti', 'file' => __FILE__, 'line' => __LINE__));
 //		
-		$canale_link	=& 	$link->getIdCanale();
+		$canale_link	= 	$link->getIdCanale();
 			if ($id_canale != $canale_link)
 				 Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'I parametri passati non sono coerenti', 'file' => __FILE__, 'line' => __LINE__));
 

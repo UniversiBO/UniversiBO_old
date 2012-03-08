@@ -30,12 +30,12 @@ class ScriptCreaForum extends UniversiboCommand
 		$anno_accademico = $this->anno_accademico;
 		
 		
-		$fc =& $this->getFrontController();
-		$template =& $fc->getTemplateEngine();
-		$db =& $fc->getDbConnection('main');
+		$fc = $this->getFrontController();
+		$template = $fc->getTemplateEngine();
+		$db = $fc->getDbConnection('main');
 		
 		$query = 'begin';
-		$res =& $db->query($query);
+		$res = $db->query($query);
 		if (DB::isError($res)) die($query); 
 		
 		$forum = new ForumApi();
@@ -43,7 +43,7 @@ class ScriptCreaForum extends UniversiboCommand
 		
 		echo 'max_forum_id: ', $max_forum_id, "\n";
 		
-		$cdlAll =& Cdl::selectCdlAll();
+		$cdlAll = Cdl::selectCdlAll();
 		//var_dump($cdlAll);
 		
 		foreach ($cdlAll as $cdl)
@@ -172,7 +172,7 @@ class ScriptCreaForum extends UniversiboCommand
 		//manca chiamare una funzione per ordinare tutti i forum
 		
 		$query = 'commit';
-		$res =& $db->query($query);
+		$res = $db->query($query);
 		if (DB::isError($res)) die($query); 
 		
 		
@@ -186,7 +186,7 @@ class ScriptCreaForum extends UniversiboCommand
 	 */
 	function selectIdUtenteFromCodDoc($cod_doc)
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		$query = 'SELECT id_utente FROM docente WHERE cod_doc = '.$db->quote($cod_doc);
 
 		$res = $db->query($query);
@@ -218,7 +218,7 @@ class ScriptCreaForum extends UniversiboCommand
 		
 		$att = $elencoAtt[0];
 		
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		$query = 'SELECT c.id_canale FROM canale c, prg_insegnamento pi WHERE
 				c.id_canale=pi.id_canale
 				AND c.forum_attivo IS NOT NULL

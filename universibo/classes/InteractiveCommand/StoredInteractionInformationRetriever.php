@@ -12,13 +12,13 @@ class StoredInteractionInformationRetriever
 	 */
 	function getInfoFromIdUtente ($idUtente, $nomeInteractiveCommand, $groupedByCallbackName = false) 
 	{	
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		$query = 'select id_step from step_log where id_utente = '. $db->quote($idUtente).
 				' and nome_classe = '. $db->quote($nomeInteractiveCommand).
 				 ' and esito_positivo = '. $db->quote('S'). ' order by data_ultima_interazione desc';
 //		var_dump($query); die;
-		$res =& $db->query($query);
+		$res = $db->query($query);
 		if (DB::isError($res))
 		{
 			Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
@@ -34,7 +34,7 @@ class StoredInteractionInformationRetriever
 		$res->free();
 		
 		$query = 'select param_name, param_value, callback_name from step_parametri where id_step = '. $db->quote($idStep);
-		$res =& $db->query($query);
+		$res = $db->query($query);
 		if (DB::isError($res))
 		{
 			Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
@@ -61,7 +61,7 @@ class StoredInteractionInformationRetriever
 	 */
 	function getInfoFromUsernameUtente ($username, $nomeInteractiveCommand, $groupedByCallbackName = false) 
 	{	
-		$user =& User::selectUserUsername($username);
+		$user = User::selectUserUsername($username);
 		return StoredInteractionInformationRetriever::getInfoFromIdUtente($user->getIdUser(), $nomeInteractiveCommand, $groupedByCallbackName);
 	}
 	

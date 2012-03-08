@@ -28,12 +28,12 @@ class ShowAllFilesStudentiTitoli extends PluginCommand {
 	 */
 	function execute($param)
 	{
-		$elenco_file =& $param['files'];
-		$bc        =& $this->getBaseCommand();
-		$user      =& $bc->getSessionUser();
-		$fc        =& $bc->getFrontController();
-		$template  =& $fc->getTemplateEngine();
-		$krono     =& $fc->getKrono();
+		$elenco_file = $param['files'];
+		$bc        = $this->getBaseCommand();
+		$user      = $bc->getSessionUser();
+		$fc        = $bc->getFrontController();
+		$template  = $fc->getTemplateEngine();
+		$krono     = $fc->getKrono();
 
 		$personalizza   = false;
 		$referente      = false;
@@ -68,7 +68,7 @@ class ShowAllFilesStudentiTitoli extends PluginCommand {
 			for ($i = 0; $i < $ret_file; $i++)
 			{
 				
-				$file =& $elenco_file[$i];
+				$file = $elenco_file[$i];
 				//var_dump($file);
 				$this_moderatore = ($user->isAdmin() || ($moderatore && $file->getIdUtente()==$user->getIdUser()));
 		

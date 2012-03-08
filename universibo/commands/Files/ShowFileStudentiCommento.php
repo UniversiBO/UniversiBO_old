@@ -33,12 +33,12 @@ class ShowFileStudentiCommento extends PluginCommand {
 //		var_dump($param['id_notizie']);
 //		die();
 		
-		$bc        =& $this->getBaseCommand();
-		$user      =& $bc->getSessionUser();
+		$bc        = $this->getBaseCommand();
+		$user      = $bc->getSessionUser();
 		
-		$fc        =& $bc->getFrontController();
-		$template  =& $fc->getTemplateEngine();
-		$krono     =& $fc->getKrono();
+		$fc        = $bc->getFrontController();
+		$template  = $fc->getTemplateEngine();
+		$krono     = $fc->getKrono();
 
 		
 	
@@ -48,7 +48,7 @@ class ShowFileStudentiCommento extends PluginCommand {
 		$template->assign('showNews_desc', 'Mostra le ultime '.$num_news.' notizie del canale '.$id_canale.' - '.$titolo_canale);
 */
 		
-		$commento =& CommentoItem::selectCommentoItem($param['id_commento']);
+		$commento = CommentoItem::selectCommentoItem($param['id_commento']);
 		$commento_tpl = array();
 //		var_dump($elenco_commenti);
 //	    die();

@@ -21,9 +21,9 @@ class ScriptNotificheSend extends UniversiboCommand
 	function execute()
 	{
 
-		$fc =& $this->getFrontController();
-		$db =& $fc->getDbConnection('main');
-		$user =& $this->getSessionUser();
+		$fc = $this->getFrontController();
+		$db = $fc->getDbConnection('main');
+		$user = $this->getSessionUser();
 		$filePath = $fc->getAppSetting('filesPath');
 		
 		$log_notifica_definition = array(0 => 'time', 1 => 'id_notifica', 2 => 'titolo', 3 => 'destinatario', 4 => 'risultato' );
@@ -38,7 +38,7 @@ class ScriptNotificheSend extends UniversiboCommand
 		
 		flock($fp,LOCK_EX);
 		
-		$notifiche =& NotificaItem::selectNotificheSend();
+		$notifiche = NotificaItem::selectNotificheSend();
 		
 		$num_notifiche = count($notifiche);
 		//var_dump($notifiche);

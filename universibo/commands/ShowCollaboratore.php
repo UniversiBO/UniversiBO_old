@@ -21,21 +21,21 @@ class ShowCollaboratore extends UniversiboCommand  {
 	function execute()
 	{
 
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
-		$user =& $this->getSessionUser();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
+		$user = $this->getSessionUser();
 		if (!array_key_exists('id_coll',$_GET) && !ereg( '^([0-9]{1,10})$' , $_GET['id_coll'] ) ) 
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'utente cercato non è valido','file'=>__FILE__,'line'=>__LINE__)); 
 					
 
 		$contacts_path = $frontcontroller->getAppSetting('contactsPath');
 
-		$collaboratore =& Collaboratore::selectCollaboratore($_GET['id_coll']);
+		$collaboratore = Collaboratore::selectCollaboratore($_GET['id_coll']);
 		
 		if (!$collaboratore)
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Non ci sono informazioni sul collaboratore scelto','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $template));
 		
-		$curr_user =& $collaboratore->getUser();
+		$curr_user = $collaboratore->getUser();
 		if(($user->getIdUser())==($collaboratore->getIdUtente()))
 	       { 
 	       	 $modifica_link = '';

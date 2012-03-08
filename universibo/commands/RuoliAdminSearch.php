@@ -17,10 +17,10 @@ class RuoliAdminSearch extends UniversiboCommand {
 
 
 	function execute() {
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
 
-		$user =& $this->getSessionUser();
+		$user = $this->getSessionUser();
 		
 		$referente = false;
 		
@@ -81,16 +81,16 @@ class RuoliAdminSearch extends UniversiboCommand {
 			
 			if ($f16_accept)
 			{
-				$users_search =& User::selectUsersSearch($f16_username, $f16_email);
+				$users_search = User::selectUsersSearch($f16_username, $f16_email);
 				
 				$users_search_keys = array_keys($users_search);
 				foreach($users_search_keys as $key)
 				{
-					$ruoli_search  =& $users_search[$key]->getRuoli();
+					$ruoli_search  = $users_search[$key]->getRuoli();
 					
 					if(array_key_exists($id_canale, $ruoli_search))
 					{
-						$ruolo_search  =& $ruoli_search[$id_canale];
+						$ruolo_search  = $ruoli_search[$id_canale];
 						
 						$contactUser = array();
 						$contactUser['utente_link']  = 'index.php?do=ShowUser&id_utente='.$users_search[$key]->getIdUser();
@@ -123,15 +123,15 @@ class RuoliAdminSearch extends UniversiboCommand {
 		
 		if (!$f16_accept)
 		{
-			$canale_ruoli =& $canale->getRuoli();
+			$canale_ruoli = $canale->getRuoli();
 			$ruoli_keys = array_keys($canale_ruoli);
 			foreach($ruoli_keys as $key)
 			{
 				if ($canale_ruoli[$key]->isReferente() || $canale_ruoli[$key]->isModeratore() )
 				{
-					$ruoli[] =& $canale_ruoli[$key];
+					$ruoli[] = $canale_ruoli[$key];
 	
-					$user =& User::selectUser($canale_ruoli[$key]->getIdUser());
+					$user = User::selectUser($canale_ruoli[$key]->getIdUser());
 					//var_dump($user);
 					$contactUser = array();
 					$contactUser['utente_link']  = 'index.php?do=ShowUser&id_utente='.$user->getIdUser();

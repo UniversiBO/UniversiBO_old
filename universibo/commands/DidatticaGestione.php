@@ -53,7 +53,7 @@ class DidatticaGestione extends UniversiboCommand{
 		// controllo se è stato scelta un'attività sdoppiata
 		if (array_key_exists('id_sdop', $_GET) && ereg('^([0-9]{1,9})$', $_GET['id_sdop']))
 		{
-			$prg_sdop =& PrgAttivitaDidattica::selectPrgAttivitaDidatticaSdoppiata((int) $_GET['id_sdop']);
+			$prg_sdop = PrgAttivitaDidattica::selectPrgAttivitaDidatticaSdoppiata((int) $_GET['id_sdop']);
 			if ($prg_sdop !== false)
 			{
 				$id_sdop = $_GET['id_sdop'];
@@ -199,13 +199,13 @@ class DidatticaGestione extends UniversiboCommand{
 			
 			if ($f41_accept)
 			{
-				$users_search =& User::selectUsersSearch($f41_username, $f41_email);
+				$users_search = User::selectUsersSearch($f41_username, $f41_email);
 				$listaDocenti = array();
 				
 				foreach($users_search as $v)
 					if ($v->isDocente())
 					{
-						$doc =& Docente::selectDocente($v->getIdUser());
+						$doc = Docente::selectDocente($v->getIdUser());
 						if($doc != false)
 							$listaDocenti[]=array('nome' => $doc->getNomeDoc(), 'codice' => $doc->getCodDoc());
 					}
@@ -245,7 +245,7 @@ class DidatticaGestione extends UniversiboCommand{
 						}
 						else
 						{
-							$channel =& Canale::retrieveCanale($key);
+							$channel = Canale::retrieveCanale($key);
 							$atts = $channel->getElencoAttivitaPadre();
 							$prgs[] = & $atts[0];
  						}
@@ -300,7 +300,7 @@ class DidatticaGestione extends UniversiboCommand{
 			{
 //				var_dump($mods);
 				$failure = false;
-				$db =& FrontController::getDbConnection('main');
+				$db = FrontController::getDbConnection('main');
 				ignore_user_abort(1);
         		$db->autoCommit(false);
 				
@@ -323,8 +323,8 @@ class DidatticaGestione extends UniversiboCommand{
 					//aggiorno il referente della materia in caso di modifica docente
 					if(array_key_exists('doc', $mods[$i]))
 					{
-						$doc =& Docente::selectDocenteFromCod($mods[$i]['doc']['old']);
-						$ruoli =& $doc->getRuoli();
+						$doc = Docente::selectDocenteFromCod($mods[$i]['doc']['old']);
+						$ruoli = $doc->getRuoli();
 						if (array_key_exists($prgs[$i]->getIdCanale(),$ruoli))
 						{
 							//eliminiamo il vecchio referente
@@ -346,8 +346,8 @@ class DidatticaGestione extends UniversiboCommand{
 							unset($ruoli);
 							
 							// aggiungiamo il nuovo referente
-							$doc =& Docente::selectDocenteFromCod($mods[$i]['doc']['new']);
-							$ruoli =& $doc->getRuoli();
+							$doc = Docente::selectDocenteFromCod($mods[$i]['doc']['new']);
+							$ruoli = $doc->getRuoli();
 							if (array_key_exists($prgs[$i]->getIdCanale(),$ruoli))
 							{
 								$r = $ruoli[$prgs[$i]->getIdCanale()];
@@ -428,7 +428,7 @@ class DidatticaGestione extends UniversiboCommand{
 	 */
 	 function  & _getAttivitaFromCanale($id_canale, $prg_exclude = null)
 	 {
-	 	$prgs =& PrgAttivitaDidattica::selectPrgAttivitaDidatticaCanale($id_canale);
+	 	$prgs = PrgAttivitaDidattica::selectPrgAttivitaDidatticaCanale($id_canale);
 	 	$ret = array();
 	 	foreach ($prgs as $prg)
 	 		if ($prg_exclude == null || $prg != $prg_exclude)

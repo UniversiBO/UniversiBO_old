@@ -109,7 +109,7 @@ class Docente extends User {
 	 */
 	function _getDocenteInfo()
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT nome, cognome, prefissonome, sesso, email, descrizionestruttura FROM rub_docente WHERE cod_doc = '.$db->quote($this->getCodDoc());
 		$res = $db->query($query);
@@ -154,7 +154,7 @@ class Docente extends User {
 	function &selectDocente($id, $isCodiceDocente = false)
 	{
 		
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 	
 		$cond = ($isCodiceDocente) ? 'cod_doc = ' : 'id_utente = ';
 		

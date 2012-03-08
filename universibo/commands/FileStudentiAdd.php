@@ -102,7 +102,7 @@ class FileStudentiAdd extends UniversiboCommand {
 //		for ($i = 0; $i<$num_canali; $i++)
 //		{
 //			$id_current_canale = $elenco_canali[$i];
-//			$current_canale =& Canale::retrieveCanale($id_current_canale);
+//			$current_canale = Canale::retrieveCanale($id_current_canale);
 //			$elenco_canali_retrieve[$id_current_canale] = $current_canale;
 //			$nome_current_canale = $current_canale->getTitolo();
 //			$spunta = ($id_canale == $id_current_canale ) ? 'true' :'false';
@@ -390,16 +390,16 @@ class FileStudentiAdd extends UniversiboCommand {
 						
 						//Ricerco solo i referenti/moderatori per il canale
 						
-						$arrayRuoli =& $canale->getRuoli();
+						$arrayRuoli = $canale->getRuoli();
 						$keys = array_keys($arrayRuoli);
 						$arrayEmailRef = array();
 						$i=0;
 						foreach ($keys as $key)
 						{
-							$ruolo =& $arrayRuoli[$key];
+							$ruolo = $arrayRuoli[$key];
 							if ($ruolo->isReferente() || $ruolo->isModeratore())
 							{
-								$user_temp =& User::selectUser($ruolo->getIdUser());
+								$user_temp = User::selectUser($ruolo->getIdUser());
 								//Notifichiamo i professori di un nuovo file studente? Noh...
 							    if($user_temp->isCollaboratore()||$user_temp->isAdmin())
 							    {
@@ -411,7 +411,7 @@ class FileStudentiAdd extends UniversiboCommand {
 						$modFileStudenti = explode(';',$frontcontroller->getAppSetting('modFileStudenti'));
 						foreach ($modFileStudenti as $usernameMod)
 						{
-							$user_temp =& User::selectUserUsername($usernameMod);
+							$user_temp = User::selectUserUsername($usernameMod);
 						    if(! in_array($user_temp->getEmail(), $arrayEmailRef) )
 						    {
 									$arrayEmailRef[$i] = $user_temp->getEmail();
@@ -451,7 +451,7 @@ Link: https://www.universibo.unibo.it/index.php?do=FileShowInfo&id_file='.$newFi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~';
 
 //						
-//						$ruoli_canale =& $canale->getRuoli();
+//						$ruoli_canale = $canale->getRuoli();
 						for ($j=0;$j<$i;$j++)
 						{
 						    $notifica_destinatario = 'mail://'.$arrayEmailRef[$j];

@@ -17,10 +17,10 @@ class RuoliAdminEdit extends UniversiboCommand {
 
 
 	function execute() {
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
 
-		$user =& $this->getSessionUser();
+		$user = $this->getSessionUser();
 		
 		$referente = false;
 		
@@ -38,7 +38,7 @@ class RuoliAdminEdit extends UniversiboCommand {
 		if (!array_key_exists('id_utente', $_GET) || !ereg('^([0-9]{1,9})$', $_GET['id_utente']))
 			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id dell\'utente richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
 		
-		$target_user =& User::selectUser($_GET['id_utente']);
+		$target_user = User::selectUser($_GET['id_utente']);
 		$target_username = $target_user->getUsername(); 
 		$target_userUri = 'index.php?do=ShowUser&id_utente='.$target_user->getIdUser(); 
 		

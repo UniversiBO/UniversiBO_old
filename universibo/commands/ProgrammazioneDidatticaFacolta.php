@@ -22,10 +22,10 @@ class ProgrammazioneDidatticaFacolta extends UniversiboCommand
 {
 	function execute()
 	{
-		$fc =& $this->getFrontController();
-		$template =& $this->frontController->getTemplateEngine();
+		$fc = $this->getFrontController();
+		$template = $this->frontController->getTemplateEngine();
 		
-		$session_user =& $this->getSessionUser();
+		$session_user = $this->getSessionUser();
 		
 		if (!$session_user->isAdmin())
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'La gestione della didattica e\' accessibile solo ad utenti amministratori.'."\n".'La sessione potrebbe essere scaduta, eseguire il login','file'=>__FILE__,'line'=>__LINE__));
@@ -54,7 +54,7 @@ class ProgrammazioneDidatticaFacolta extends UniversiboCommand
 			if (!ereg('^([0-9A-Z]{4})$', $cod_fac))
 				Error::throwError(_ERROR_DEFAULT, array ('id_utente' => $session_user->getIdUser(), 'msg' => 'L\'id della facolta\' richiesta non e\' valido', 'file' => __FILE__, 'line' => __LINE__));
 			
-			$facolta =& Facolta::selectFacoltaCodice($cod_fac);
+			$facolta = Facolta::selectFacoltaCodice($cod_fac);
 			
 			$facolta->setPermessi($permessi);
 			$facolta->updateFacolta();
@@ -62,8 +62,8 @@ class ProgrammazioneDidatticaFacolta extends UniversiboCommand
 		
 		
 		
-		$data_retriever =& ProgrammazioneDidatticaDataRetrieverFactory::getProgrammazioneDidatticaDataRetriever("web_service");
-		$elenco_facolta =& $data_retriever->getFacoltaList();
+		$data_retriever = ProgrammazioneDidatticaDataRetrieverFactory::getProgrammazioneDidatticaDataRetriever("web_service");
+		$elenco_facolta = $data_retriever->getFacoltaList();
 		$num_facolta = count($elenco_facolta);
 		
 		
@@ -83,7 +83,7 @@ class ProgrammazioneDidatticaFacolta extends UniversiboCommand
 		
 		for($i=0; $i<$num_facolta;  $i++)
 		{
-			$facolta_db =& Facolta::selectFacoltaCodice($elenco_facolta[$i]->codFac);
+			$facolta_db = Facolta::selectFacoltaCodice($elenco_facolta[$i]->codFac);
 			
 			if ($facolta_db === false)
 			{ 

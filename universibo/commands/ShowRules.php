@@ -21,7 +21,7 @@ class ShowRules extends UniversiboCommand {
 	function execute()
 	{
 
-		$template =& $this->frontController->getTemplateEngine();
+		$template = $this->frontController->getTemplateEngine();
 		$template->assign('rules_langTitleAlt', 'Regolamento');
 		$template->assign('rules_langServicesRules', file_get_contents($this->frontController->getAppSetting('regolamento')));
 		$template->assign('rules_langPrivacySubTitle', 'INFORMATIVA SULLA PRIVACY');

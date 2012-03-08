@@ -25,9 +25,9 @@ class ShowContattoDocente extends UniversiboCommand {
 	
 	function execute()
 	{
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
-		$user =& $this->getSessionUser();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
+		$user = $this->getSessionUser();
 		
 		if (!array_key_exists('cod_doc',$_GET) && !ereg( '^([0-9]{1,10})$' , $_GET['cod_doc'] ) ) 
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'utente cercato non è valido','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $template)); 
@@ -35,7 +35,7 @@ class ShowContattoDocente extends UniversiboCommand {
 		if (!$user->isCollaboratore() && !$user->isAdmin())
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Non hai i diritti necessari per visualizzare la pagina','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $template)); 
 		
-		$docente =& Docente::selectDocenteFromCod($_GET['cod_doc']);
+		$docente = Docente::selectDocenteFromCod($_GET['cod_doc']);
 		
 		if (!$docente)
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'utente cercato non è un docente','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $template));
@@ -43,18 +43,18 @@ class ShowContattoDocente extends UniversiboCommand {
 		//echo 'qui';
 			
 		$cod_doc	= $docente->getCodDoc();	
-		$contatto 	=& ContattoDocente::getContattoDocente($cod_doc); 
+		$contatto 	= ContattoDocente::getContattoDocente($cod_doc); 
 		
 		if (!$contatto)
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Non esiste contatto di tale docente','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $template));
 		
-		$utente_docente =& $docente->getUser();
+		$utente_docente = $docente->getUser();
 		
 		if (!$utente_docente)
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Non esiste tale utente','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $template));
 //		var_dump($docente);
 		
-		$rub_docente =& $docente->getInfoRubrica();
+		$rub_docente = $docente->getInfoRubrica();
 		
 		$rub_presente = true;
 		
@@ -75,7 +75,7 @@ class ShowContattoDocente extends UniversiboCommand {
 		$info_docente['tel']					= $utente_docente->getPhone();
 		$info_docente['afferente a']			= $rub_docente['descrizionestruttura'];
 		
-		$elenco_ruoli	=& $utente_docente->getRuoli(); 
+		$elenco_ruoli	= $utente_docente->getRuoli(); 
 		
 		$info_ruoli	= array();
 //		var_dump($elenco_ruoli);
@@ -90,7 +90,7 @@ class ShowContattoDocente extends UniversiboCommand {
 //		var_dump($info_ruoli);
 		
 		// TODO mi sa che questa lista è incompleta: cercare user con groups = 4 o = 64
-//		$lista_collabs =& Collaboratore::selectCollaboratoriAll();
+//		$lista_collabs = Collaboratore::selectCollaboratoriAll();
 		$lista_collabs = $this->_getCollaboratoriUniversibo();
 		$table_collab = array();
 //		var_dump($lista_collabs); die;
@@ -172,14 +172,14 @@ Link: '.$frontcontroller->getAppSetting('rootUrl').'/index.php?do='.get_class($t
 			
 			if($notifica_mod)
 			{
-				$notifica_user =& User::selectUser($f35_id_username);
+				$notifica_user = User::selectUser($f35_id_username);
 				$notifica_destinatario = 'mail://'.$notifica_user->getEmail();
 				$notifica = new NotificaItem(0, $notifica_titolo, $notifica_messaggio, $notifica_dataIns, $notifica_urgente, $notifica_eliminata, $notifica_destinatario );
 				$notifica->insertNotificaItem();
 			}
 			
 			//ultima notifica al responsabile contatto docenti
-			$notifica_user =& User::selectUserUsername($frontcontroller->getAppSetting('contattoDocentiAdmin'));
+			$notifica_user = User::selectUserUsername($frontcontroller->getAppSetting('contattoDocentiAdmin'));
 			$notifica_destinatario = 'mail://'.$notifica_user->getEmail();
 			$notifica = new NotificaItem(0, $notifica_titolo, $notifica_messaggio, $notifica_dataIns, $notifica_urgente, $notifica_eliminata, $notifica_destinatario );
 			$notifica->insertNotificaItem();
@@ -207,7 +207,7 @@ Link: '.$frontcontroller->getAppSetting('rootUrl').'/index.php?do='.get_class($t
 	
 	function &_getCollaboratoriUniversibo()
 	{
-		$db =& FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT username, password, email, ultimo_login, ad_username, groups, notifica, phone, default_style, id_utente  FROM utente WHERE groups IN (4,64)';
 		$res = $db->query($query);

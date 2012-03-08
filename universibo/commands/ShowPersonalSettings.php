@@ -23,9 +23,9 @@ class ShowPersonalSettings extends UniversiboCommand
 {
 	function execute()
 	{
-		$fc =& $this->getFrontController();
-		$template =& $this->frontController->getTemplateEngine();
-		$user =& $this->getSessionUser();
+		$fc = $this->getFrontController();
+		$template = $this->frontController->getTemplateEngine();
+		$user = $this->getSessionUser();
 		
 		if ($this->sessionUser->isOspite())
 		{

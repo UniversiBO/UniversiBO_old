@@ -33,11 +33,11 @@ class ShowLinks extends PluginCommand {
 		
 		$num_links  =  $param['num'];
 
-		$bc        =& $this->getBaseCommand();
-		$user      =& $bc->getSessionUser();
-		$canale    =& $bc->getRequestCanale();
-		$fc        =& $bc->getFrontController();
-		$template  =& $fc->getTemplateEngine();
+		$bc        = $this->getBaseCommand();
+		$user      = $bc->getSessionUser();
+		$canale    = $bc->getRequestCanale();
+		$fc        = $bc->getFrontController();
+		$template  = $fc->getTemplateEngine();
 		$user_ruoli = $user->getRuoli();
 	
 		$id_canale = $canale->getIdCanale();
@@ -52,7 +52,7 @@ class ShowLinks extends PluginCommand {
 
 		if (array_key_exists($id_canale, $user_ruoli))
 		{
-			$ruolo =& $user_ruoli[$id_canale];
+			$ruolo = $user_ruoli[$id_canale];
 			$referente      = $ruolo->isReferente();
 			$moderatore     = $ruolo->isModeratore();
 			$ultimo_accesso = $ruolo->getUltimoAccesso();
@@ -61,14 +61,14 @@ class ShowLinks extends PluginCommand {
 		$personalizza = ($referente || $moderatore || $user->isAdmin());
 		
 	
-		$lista_links =& Link::selectCanaleLinks($id_canale);
+		$lista_links = Link::selectCanaleLinks($id_canale);
 		 
 		$ret_links = count($lista_links);
 		$elenco_links_tpl = array();
 	
 		for ($i = 0; $i < $ret_links; $i++)
 		{
-			$link =& $lista_links[$i];
+			$link = $lista_links[$i];
 			
 			$elenco_links_tpl[$i]['uri']       		= $link->getUri();
 			$elenco_links_tpl[$i]['label']      	= $link->getLabel();

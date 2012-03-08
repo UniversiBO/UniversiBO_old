@@ -19,13 +19,13 @@ class ScriptGetLDAPMD5 extends UniversiboCommand
 {
 	function execute()
 	{
-		$fc =& $this->getFrontController();
-		$template =& $fc->getTemplateEngine();
-		$db =& $fc->getDbConnection('main');
-		$user =& $this->getSessionUser();
+		$fc = $this->getFrontController();
+		$template = $fc->getTemplateEngine();
+		$db = $fc->getDbConnection('main');
+		$user = $this->getSessionUser();
 		$filePath = $fc->getAppSetting('filesPath');
 		
-			$db =& FrontController::getDbConnection('main');
+			$db = FrontController::getDbConnection('main');
 		
 			$query = 'SELECT username, password FROM utente WHERE groups IN (4,64)';
 			if ( array_key_exists('user',$_GET))

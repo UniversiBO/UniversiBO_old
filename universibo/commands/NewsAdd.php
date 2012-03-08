@@ -59,7 +59,7 @@ class NewsAdd extends CanaleCommand {
 		$f7_testo = '';
 		$f7_urgente = false;
 		$f7_scadenza = false;
-		$f7_canale =& $user->getRuoliInfoGroupedByYear($id_canale);
+		$f7_canale = $user->getRuoliInfoGroupedByYear($id_canale);
 
 		
 		$f7_accept = false;
@@ -240,7 +240,7 @@ class NewsAdd extends CanaleCommand {
 					if (!$diritti)
 					{
 						//$user_ruoli[$key]->getIdCanale();
-						$canale =& Canale::retrieveCanale($key);
+						$canale = Canale::retrieveCanale($key);
 						Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Non possiedi i diritti di inserimento nel canale: '.$canale->getTitolo(), 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 						$f7_accept = false;
 					}
@@ -266,7 +266,7 @@ class NewsAdd extends CanaleCommand {
 				foreach ($_POST['f7_canale'] as $key => $value)
 				{
 					$notizia->addCanale($key);
-					$add_canale =& Canale::retrieveCanale($key);
+					$add_canale = Canale::retrieveCanale($key);
 					$add_canale->setUltimaModifica(time(), true);
 					
 					
@@ -298,7 +298,7 @@ Per altri problemi contattare lo staff di UniversiBO
 					$notifica_messaggio_sms= 'Novità in '.$add_canale->getNome().' - '.$f7_titolo.' - '.$f7_testo;
 					$notifica_messaggio_sms= substr(substr_replace($notifica_messaggio_sms, '..', 158),0,160);
 					
-					$ruoli_canale =& $add_canale->getRuoli();
+					$ruoli_canale = $add_canale->getRuoli();
 					foreach ($ruoli_canale as $ruolo_canale)
 					{	
 						//la seguente riga l'ho copiata dal diff del deploy precedente 

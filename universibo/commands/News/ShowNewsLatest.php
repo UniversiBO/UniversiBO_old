@@ -33,12 +33,12 @@ class ShowNewsLatest extends PluginCommand {
 		
 		$num_news  =  $param['num'];
 
-		$bc        =& $this->getBaseCommand();
-		$user      =& $bc->getSessionUser();
-		$canale    =& $bc->getRequestCanale();
-		$fc        =& $bc->getFrontController();
-		$template  =& $fc->getTemplateEngine();
-		$krono     =& $fc->getKrono();
+		$bc        = $this->getBaseCommand();
+		$user      = $bc->getSessionUser();
+		$canale    = $bc->getRequestCanale();
+		$fc        = $bc->getFrontController();
+		$template  = $fc->getTemplateEngine();
+		$krono     = $fc->getKrono();
 
 
 		$id_canale = $canale->getIdCanale();
@@ -55,7 +55,7 @@ class ShowNewsLatest extends PluginCommand {
 			
 			if (array_key_exists($id_canale, $user_ruoli))
 			{
-				$ruolo =& $user_ruoli[$id_canale];
+				$ruolo = $user_ruoli[$id_canale];
 				
 				$personalizza_not_admin = true;
 				$referente      = $ruolo->isReferente();
@@ -103,7 +103,7 @@ class ShowNewsLatest extends PluginCommand {
 			}
 		}
 		
-		$elenco_news =& $this->getLatestNewsCanale($num_news, $id_canale);
+		$elenco_news = $this->getLatestNewsCanale($num_news, $id_canale);
 		
 		$elenco_news_tpl = array();
 
@@ -114,7 +114,7 @@ class ShowNewsLatest extends PluginCommand {
 			
 			for ($i = 0; $i < $ret_news; $i++)
 			{
-				$news =& $elenco_news[$i];
+				$news = $elenco_news[$i];
 				$this_moderatore = ($user->isAdmin() || ($moderatore && $news->getIdUtente()==$user->getIdUser()));
 				
                                 $elenco_news_tpl[$i]['id_notizia']   = $news->getIdNotizia();
@@ -165,13 +165,13 @@ class ShowNewsLatest extends PluginCommand {
 	function &getLatestNewsCanale($num, $id_canale)
 	{
 	 	
-	 	$db =& FrontController::getDbConnection('main');
+	 	$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT A.id_news FROM news A, news_canale B 
 					WHERE A.id_news = B.id_news AND eliminata!='.$db->quote( NEWS_ELIMINATA ).
 					'AND ( data_scadenza IS NULL OR \''.time().'\' < data_scadenza ) AND B.id_canale = '.$db->quote($id_canale).' 
 					ORDER BY A.data_inserimento DESC';
-		$res =& $db->limitQuery($query, 0 , $num);
+		$res = $db->limitQuery($query, 0 , $num);
 		
 		if (DB::isError($res)) 
 			Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__)); 
@@ -205,7 +205,7 @@ class ShowNewsLatest extends PluginCommand {
 	function getNumNewsCanale($id_canale)
 	{
 	 	
-	 	$db =& FrontController::getDbConnection('main');
+	 	$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT count(A.id_news) FROM news A, news_canale B 
 					WHERE A.id_news = B.id_news AND eliminata!='.$db->quote(NEWS_ELIMINATA).

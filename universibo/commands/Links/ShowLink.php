@@ -34,13 +34,13 @@ class ShowLink extends PluginCommand {
 //		$id_canale  =  $param['id_canale'];
 		$id_link = $param['id_link'];
 
-		$bc        =& $this->getBaseCommand();
-		$user      =& $bc->getSessionUser();
-		$canale    =& $bc->getRequestCanale();
-//		$canale    =& Canale::retrieveCanale($id_canale);
-		$fc        =& $bc->getFrontController();
-		$template  =& $fc->getTemplateEngine();
-		$user_ruoli =& $user->getRuoli();
+		$bc        = $this->getBaseCommand();
+		$user      = $bc->getSessionUser();
+		$canale    = $bc->getRequestCanale();
+//		$canale    = Canale::retrieveCanale($id_canale);
+		$fc        = $bc->getFrontController();
+		$template  = $fc->getTemplateEngine();
+		$user_ruoli = $user->getRuoli();
 		
 
 		$id_canale = $canale->getIdCanale();
@@ -53,7 +53,7 @@ class ShowLink extends PluginCommand {
 			
 			if (array_key_exists($id_canale, $user_ruoli))
 			{
-				$ruolo =& $user_ruoli[$id_canale];
+				$ruolo = $user_ruoli[$id_canale];
 				
 				$referente      = $ruolo->isReferente();
 				$moderatore     = $ruolo->isModeratore();
@@ -69,7 +69,7 @@ class ShowLink extends PluginCommand {
 			$ultimo_accesso = $user->getUltimoLogin();
 		}
 		
-		$link =& Link::selectLink($id_link);
+		$link = Link::selectLink($id_link);
 		
 		$link_tpl['uri']       		= $link->getUri();
 		$link_tpl['label']      	= $link->getLabel();

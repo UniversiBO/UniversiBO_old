@@ -23,17 +23,17 @@ class ShowFileInfo extends PluginCommand {
 	 */
 	function execute($param) 
 	{
-		$bc        =& $this->getBaseCommand();
-		$user      =& $bc->getSessionUser();
+		$bc        = $this->getBaseCommand();
+		$user      = $bc->getSessionUser();
 		
 		if (!array_key_exists('id_file', $param) || !ereg('^([0-9]{1,9})$', $param['id_file'] )  )
 		{
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'id del file richiesto non è valido','file'=>__FILE__,'line'=>__LINE__ ));
 		}
 				
-		$fc        =& $bc->getFrontController();
-		$template  =& $fc->getTemplateEngine();
-		$krono     =& $fc->getKrono();
+		$fc        = $bc->getFrontController();
+		$template  = $fc->getTemplateEngine();
+		$krono     = $fc->getKrono();
 		
 		
 		$template->assign('common_canaleURI', array_key_exists('HTTP_REFERER', $_SERVER) ? $_SERVER['HTTP_REFERER'] : '' );
@@ -49,9 +49,9 @@ class ShowFileInfo extends PluginCommand {
 		$tipo_file = FileItemStudenti::isFileStudenti($param['id_file']);
 		
 		if ($tipo_file)
-			$file =& FileItemStudenti::selectFileItem($param['id_file']);
+			$file = FileItemStudenti::selectFileItem($param['id_file']);
 		else	
-			$file =& FileItem::selectFileItem($param['id_file']);
+			$file = FileItem::selectFileItem($param['id_file']);
 		//Con questo passaggio dovrei riuscire a verificare se il file che si vuole modificare é un file studente o no
 		//true -> é un file studente
 //		var_dump($tipo_file);
@@ -97,7 +97,7 @@ class ShowFileInfo extends PluginCommand {
 				$moderatore = $ruolo->isModeratore();
 			}
 			//controllo coerenza parametri
-			$canali_file	=& 	$file->getIdCanali();
+			$canali_file	= 	$file->getIdCanali();
 			if (!in_array($id_canale, $canali_file))
 				 Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'I parametri passati non sono coerenti', 'file' => __FILE__, 'line' => __LINE__));
 		}
@@ -139,7 +139,7 @@ class ShowFileInfo extends PluginCommand {
 		$id_canali = $file->getIdCanali();
 		foreach($id_canali as $id_canale)
 		{ 
-			$canale =& Canale::retrieveCanale($id_canale);
+			$canale = Canale::retrieveCanale($id_canale);
 			$canali_tpl[$id_canale] = array();
 			$canali_tpl[$id_canale]['titolo'] = $canale->getTitolo();
 			$canali_tpl[$id_canale]['uri'] = $canale->showMe();

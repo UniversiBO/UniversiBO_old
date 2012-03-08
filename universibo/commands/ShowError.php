@@ -19,8 +19,8 @@ class ShowError extends UniversiboCommand
 	
 	function execute()
 	{
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
 		
 		//if (!array_key_exists('error_param', $_SESSION))
 		//	Error::throwError(_ERROR_CRITICAL,array('msg'=>'Chiamata illegale del comando di errore','log'=>true,'file'=>__FILE__,'line'=>__LINE__));

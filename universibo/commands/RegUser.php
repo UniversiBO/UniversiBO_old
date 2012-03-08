@@ -20,10 +20,10 @@ class RegUser extends UniversiboCommand
 {
 	function execute()
 	{
-		$fc =& $this->getFrontController();
-		$template =& $this->frontController->getTemplateEngine();
+		$fc = $this->getFrontController();
+		$template = $this->frontController->getTemplateEngine();
 		
-		$session_user =& $this->getSessionUser();
+		$session_user = $this->getSessionUser();
 		if (!$session_user->isAdmin())
 		{
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'L\'iscrizione manuale di nuovi utenti può essere effettuata solo da utenti Admin','file'=>__FILE__,'line'=>__LINE__));
@@ -131,7 +131,7 @@ class RegUser extends UniversiboCommand
 			$forum->insertUser($new_user);
 			//	Error::throwError(_ERROR_DEFAULT,'msg'=>'Si è verificato un errore durente la registrazione dell\'account username '.$q34_username.' mail '.$q34_email,'file'=>__FILE__,'line'=>__LINE__));
 			
-			$mail =& $fc->getMail();
+			$mail = $fc->getMail();
 
 			$mail->AddAddress($new_user->getEmail());
 

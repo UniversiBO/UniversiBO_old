@@ -23,9 +23,9 @@ class MyUniversiBORemove extends UniversiboCommand
 	function execute()
 	{
 		
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
-		$utente =& $this->getSessionUser();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
+		$utente = $this->getSessionUser();
 		
 		
 		if($utente->isOspite())
@@ -41,11 +41,11 @@ class MyUniversiBORemove extends UniversiboCommand
 		$template->assign('common_langCanaleNome', $canale->getNome());
 		$template->assign('showUser','index.php?do=ShowUser&id_utente='.$utente->getIdUser());
 		
-		$ruoli =& $utente->getRuoli();
+		$ruoli = $utente->getRuoli();
 		$this->executePlugin('ShowTopic', array('reference' => 'myuniversibo'));
 		if(array_key_exists($id_canale, $ruoli))
 		{
-			$ruolo =& $ruoli[$id_canale];
+			$ruolo = $ruoli[$id_canale];
 			$ruolo->setMyUniversiBO(false, true);
 			
 			$forum = new ForumApi();

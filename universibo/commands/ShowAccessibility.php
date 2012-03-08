@@ -18,8 +18,8 @@ require_once ('UniversiboCommand'.PHP_EXTENSION);
 class ShowAccessibility extends UniversiboCommand {
 	function execute(){
 
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
 		
 		$template->assign('showAccessibility_langTitleAlt','Dichiarazione di accessibilità');
 		$template->assign('showAccessibility_langTesto','');

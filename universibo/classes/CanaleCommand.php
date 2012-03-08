@@ -86,15 +86,15 @@ abstract class CanaleCommand extends UniversiboCommand
 	function _setUpCanaleCanale()
 	{
 		
-		$this->requestCanale =& Canale::retrieveCanale($this->getRequestIdCanale());
+		$this->requestCanale = Canale::retrieveCanale($this->getRequestIdCanale());
 		
-		//$this->requestCanale =& $class_name::factoryCanale( $this->getRequestIdCanale() );
+		//$this->requestCanale = $class_name::factoryCanale( $this->getRequestIdCanale() );
 		
 		if ( $this->requestCanale === false ) 
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>'Il canale richiesto non � presente','file'=>__FILE__,'line'=>__LINE__));
 		
-		$canale =& $this->getRequestCanale();
-		$user =& $this->getSessionUser();
+		$canale = $this->getRequestCanale();
+		$user = $this->getSessionUser();
 		
 		if ( ! $canale->isGroupAllowed( $user->getGroups() ) )
 			Error::throwError(_ERROR_DEFAULT, array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>'Non ti � permesso l\'accesso al canale selezionato, la sessione potrebbe essere scaduta','file'=>__FILE__,'line'=>__LINE__ ) );
@@ -113,16 +113,16 @@ abstract class CanaleCommand extends UniversiboCommand
 	function _setUpTemplateCanale()
 	{
 		
-		$template =& $this->frontController->getTemplateEngine();
+		$template = $this->frontController->getTemplateEngine();
         //var_dump($template);
-		$canale =& $this->getRequestCanale();
+		$canale = $this->getRequestCanale();
 		$id_canale = $this->getRequestIdCanale();
-		$user =& $this->getSessionUser();
+		$user = $this->getSessionUser();
 		
 		$template->assign( 'common_canaleMyUniversiBO', '');
 		if(!$user->isOspite())
 		{
-			$user_ruoli =& $user->getRuoli();
+			$user_ruoli = $user->getRuoli();
 			if (array_key_exists($id_canale, $user_ruoli) && $user_ruoli[$id_canale]->isMyUniversiBO())
 			{
 				$template->assign( 'common_canaleMyUniversiBO', 'remove');
@@ -158,7 +158,7 @@ abstract class CanaleCommand extends UniversiboCommand
 	function updateUltimoAccesso()
 	{
 		$id_canale = $this->getRequestIdCanale();
-		$user =& $this->getSessionUser();
+		$user = $this->getSessionUser();
 		$user_ruoli = $user->getRuoli();
 		
 		if (array_key_exists($id_canale, $user_ruoli))
@@ -177,9 +177,9 @@ abstract class CanaleCommand extends UniversiboCommand
 		
 		if (!$this->isPopup())
 		{		
-			$template =& $this->frontController->getTemplateEngine();
-			$canale =& $this->getRequestCanale();
-			$user =& $this->getSessionUser();
+			$template = $this->frontController->getTemplateEngine();
+			$canale = $this->getRequestCanale();
+			$user = $this->getSessionUser();
 			
 			//informazioni del menu contatti
 			$attivaContatti = $user->isAdmin();
@@ -187,12 +187,12 @@ abstract class CanaleCommand extends UniversiboCommand
 			$attivaModificaDiritti = $user->isAdmin();
 			
 			$arrayPublicUsers = array();
-			$arrayRuoli =& $canale->getRuoli();
+			$arrayRuoli = $canale->getRuoli();
 			//var_dump($arrayRuoli);
 			$keys = array_keys($arrayRuoli);
 			foreach ($keys as $key)
 			{
-				$ruolo =& $arrayRuoli[$key];
+				$ruolo = $arrayRuoli[$key];
 				//var_dump($ruolo);
 				if ($ruolo->isReferente() || $ruolo->isModeratore())
 				{
@@ -201,7 +201,7 @@ abstract class CanaleCommand extends UniversiboCommand
 					if ($ruolo->isReferente() && $ruolo->getIdUser() == $user->getIdUser())
 						$attivaModificaDiritti = true;
 					
-					$user_temp =& User::selectUser($ruolo->getIdUser());
+					$user_temp = User::selectUser($ruolo->getIdUser());
 					//var_dump($user);
 					$contactUser = array();
 					$contactUser['utente_link']  = 'index.php?do=ShowUser&id_utente='.$user_temp->getIdUser();
@@ -244,7 +244,7 @@ abstract class CanaleCommand extends UniversiboCommand
 				if (!$user->isOspite())
 				{
 					$fa = new ForumApi();
-					$id_posts_list 	=&  $fa->getLastPostsForum($user, $canale->getForumForumId());
+					$id_posts_list 	=  $fa->getLastPostsForum($user, $canale->getForumForumId());
 								
 					if ($id_posts_list != false)
 					{

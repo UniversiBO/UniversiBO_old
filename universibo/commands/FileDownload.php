@@ -20,7 +20,7 @@ class FileDownload extends UniversiboCommand {
 	{
 		$frontcontroller = & $this->getFrontController();
 		$template = & $frontcontroller->getTemplateEngine();
-		$user =& $this->getSessionUser();
+		$user = $this->getSessionUser();
 		
 		
 		

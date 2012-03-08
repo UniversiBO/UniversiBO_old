@@ -35,20 +35,20 @@ class ShowNews extends PluginCommand {
 //		var_dump($param['id_notizie']);
 //		die();
 		
-		$bc        =& $this->getBaseCommand();
-		$canale    =& $bc->getRequestCanale();
-		$user      =& $bc->getSessionUser();
-		$fc        =& $bc->getFrontController();
-		$template  =& $fc->getTemplateEngine();
-		$krono     =& $fc->getKrono();
-		$user_ruoli =& $user->getRuoli();
+		$bc        = $this->getBaseCommand();
+		$canale    = $bc->getRequestCanale();
+		$user      = $bc->getSessionUser();
+		$fc        = $bc->getFrontController();
+		$template  = $fc->getTemplateEngine();
+		$krono     = $fc->getKrono();
+		$user_ruoli = $user->getRuoli();
 
 		if($flag_chkDiritti)
 		{
 			$id_canale = $canale->getIdCanale();
 			$titolo_canale =  $canale->getTitolo();
 			$ultima_modifica_canale =  $canale->getUltimaModifica();
-			$canale    =& $bc->getRequestCanale();
+			$canale    = $bc->getRequestCanale();
 		}
 
 		$personalizza_not_admin = false;
@@ -60,7 +60,7 @@ class ShowNews extends PluginCommand {
 			
 			if (array_key_exists($id_canale, $user_ruoli))
 			{
-				$ruolo =& $user_ruoli[$id_canale];
+				$ruolo = $user_ruoli[$id_canale];
 				
 				$personalizza_not_admin = true;
 				$referente      = $ruolo->isReferente();
@@ -104,7 +104,7 @@ class ShowNews extends PluginCommand {
 		}
 		
 		//var_dump($elenco_id_news);
-		$elenco_news =& NewsItem::selectNewsItems($elenco_id_news);
+		$elenco_news = NewsItem::selectNewsItems($elenco_id_news);
 		
 		$elenco_news_tpl = array();
 
@@ -115,7 +115,7 @@ class ShowNews extends PluginCommand {
 
 			for ($i = 0; $i < $ret_news; $i++)
 			{
-				$news =& $elenco_news[$i];
+				$news = $elenco_news[$i];
 				//var_dump($news);
 				$this_moderatore = ($user->isAdmin() || ($moderatore && $news->getIdUtente()==$user->getIdUser()));
 				

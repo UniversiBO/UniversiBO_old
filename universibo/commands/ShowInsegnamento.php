@@ -37,20 +37,20 @@ class ShowInsegnamento extends CanaleCommand
 	
 	function execute() 
 	{
-		$session_user =& $this->getSessionUser();
+		$session_user = $this->getSessionUser();
 		$session_user_groups = $session_user->getGroups();
 		$id_canale = $this->getRequestIdCanale();
-		$insegnamento =& $this->getRequestCanale();
+		$insegnamento = $this->getRequestCanale();
 		
-		$user_ruoli =& $session_user->getRuoli();
+		$user_ruoli = $session_user->getRuoli();
 			
 
 		// ??
 		$insegnamento->getTitolo();
 		//var_dump($insegnamento);
 		
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
 //		echo "qua\n";
 		$array_prg 	= $insegnamento->getElencoAttivitaPadre();
 //		var_dump($prg); die;
@@ -58,7 +58,7 @@ class ShowInsegnamento extends CanaleCommand
 		$coddoc = $array_prg[0]->getCodDoc();
 //		var_dump($coddoc); die;
 		
-		$contatto =& ContattoDocente::getContattoDocente($coddoc);
+		$contatto = ContattoDocente::getContattoDocente($coddoc);
 		
 		$template->assign('ins_ContattoDocenteUri', '' );
 		$template->assign('ins_infoDidEditUri', '' );

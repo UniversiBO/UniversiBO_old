@@ -104,7 +104,7 @@ class WebService_WsDidatticaServerImplService_Didattica extends SOAP_Client
     function &getSdoppiamentiAttivitaDidattica($attivitaPadre) {
         // attivitaPadre is a ComplexType AttivitaDidattica,
         //refer to wsdl for more info
-        $attivitaPadre =& new SOAP_Value('attivitaPadre','{urn:didattica.universibo.unibo.it}AttivitaDidattica',$attivitaPadre);
+        $attivitaPadre = new SOAP_Value('attivitaPadre','{urn:didattica.universibo.unibo.it}AttivitaDidattica',$attivitaPadre);
         return $this->call("getSdoppiamentiAttivitaDidattica",
                         $v = array("attivitaPadre"=>$attivitaPadre),
                         array('namespace'=>'http://didattica.universibo.unibo.it',

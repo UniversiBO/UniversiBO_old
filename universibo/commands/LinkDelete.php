@@ -19,14 +19,14 @@ class LinkDelete extends CanaleCommand {
 
 
 	function execute() {
-		$frontcontroller =& $this->getFrontController();
-		$template =& $frontcontroller->getTemplateEngine();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
 
 		
 		$template->assign('common_canaleURI', 'index.php?do=ShowMyUniversiBO');
 		$template->assign('common_langCanaleNome', 'indietro');
 		
-		$user =& $this->getSessionUser();
+		$user = $this->getSessionUser();
 		
 		$referente = false;
 		$moderatore = false;
@@ -66,7 +66,7 @@ class LinkDelete extends CanaleCommand {
 			}
 			
 			//controllo coerenza parametri
-			$canale_link	=& 	$link->getIdCanale();
+			$canale_link	= 	$link->getIdCanale();
 			if ($id_canale != $canale_link)
 				 Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'I parametri passati non sono coerenti', 'file' => __FILE__, 'line' => __LINE__));
 				 
