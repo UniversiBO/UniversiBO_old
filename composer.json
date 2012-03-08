@@ -2,10 +2,7 @@
     "name": "UniversiBO/UniversiBO",
     "description": "UniversiBO Web Portal",
     "require": {
-        "symfony/symfony": "v2.0.10",
-        "doctrine/doctrine-migrations-bundle": "v1.0.0-beta1",
-        "doctrine/migrations": "dev-master",
-        "ecolinet/zf2": "dev-master"
+        "symfony/symfony": "v2.0.10"
     },
     "authors": [
         {
