@@ -13,7 +13,8 @@ $loader->registerNamespaceFallbacks(array(
 
 $loader->registerPrefixFallbacks(array(
         __DIR__.'/../framework',
-        __DIR__.'/../universibo',
+        __DIR__.'/../universibo/classes',
+        __DIR__.'/../universibo/commands',
 ));
 
 $loader->register();
