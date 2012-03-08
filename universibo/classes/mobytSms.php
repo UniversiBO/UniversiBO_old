@@ -1165,5 +1165,3 @@ class mobytMms
 		return 'OK '.$res;
 	}
 }
-
-?>

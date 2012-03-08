@@ -167,7 +167,7 @@ class Facolta extends Canale{
 	 * @param int $id_canale numero identificativo del canale
 	 * @return mixed Facolta se eseguita con successo, false se il canale non esiste
 	 */
-	function &factoryCanale($id_canale)
+	function factoryCanale($id_canale)
 	{
 		return Facolta::selectFacoltaCanale($id_canale);
 	}
@@ -192,7 +192,7 @@ class Facolta extends Canale{
 	 * @param int $id_canale id_del canale corrispondente alla facolt?
 	 * @return mixed Facolta se eseguita con successo, false se il canale non esiste
 	 */
-	function &selectFacoltaCanale($id_canale)
+	function selectFacoltaCanale($id_canale)
 	{
 		global $__facoltaElencoCanale;
 		
@@ -216,7 +216,7 @@ class Facolta extends Canale{
 	 * @param string $cod_facolta stringa a 4 cifre del codice d'ateneo della facolt?
 	 * @return Facolta
 	 */
-	function &selectFacoltaCodice($cod_facolta)
+	function selectFacoltaCodice($cod_facolta)
 	{
 		global $__facoltaElencoCodice;
 		
@@ -240,7 +240,7 @@ class Facolta extends Canale{
 	 * @param string $cod_facolta stringa a 4 cifre del codice d'ateneo della facolt?
 	 * @return array(Facolta)
 	 */
-	function &selectFacoltaElenco()
+	function selectFacoltaElenco()
 	{
 		global $__facoltaElencoAlfabetico;
 		
@@ -362,4 +362,3 @@ class Facolta extends Canale{
 	 }
 	
 }
-?>

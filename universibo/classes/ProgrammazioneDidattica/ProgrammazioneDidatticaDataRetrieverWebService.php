@@ -46,7 +46,7 @@ class ProgrammazioneDidatticaDataRetrieverWebService extends ProgrammazioneDidat
 	
 	
 	
-	function &getFacoltaList(){
+	function getFacoltaList(){
 		return $this->web_service->getFacoltaList(); 
 	}
 	
@@ -83,5 +83,3 @@ class ProgrammazioneDidatticaDataRetrieverWebService extends ProgrammazioneDidat
 	}
 
 }
-
-?>

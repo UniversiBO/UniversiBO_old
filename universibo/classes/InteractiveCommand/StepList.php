@@ -213,7 +213,7 @@ class StepList
 	 * @access public
 	 * @return Step object of next step to go through if all is ok, last step otherwise
 	 */
-	function & getNextStep () 
+	function  getNextStep () 
 	{
 		$item=(($this->isNextAllowed()) ? $this->currentStep : $this->lastGoodStep) + 1;
 		$this->currentStep = min($this->getLength()-1, $item);
@@ -228,7 +228,7 @@ class StepList
 	 * @access public
 	 * @return Step object of precedent step , first step otherwise
 	 */
-	function & getPreviousStep()
+	function  getPreviousStep()
 	{
 		$this->currentStep -= 1;
 		$this->lastGoodStep = max(EMPTY_VALUE, $this->currentStep - 1);
@@ -242,7 +242,7 @@ class StepList
 	 * @access public
 	 * @return object  current step
 	 */
-	function & getCurrentStep()
+	function  getCurrentStep()
 	{
 		return $this->Lista_step[$this->currentStep];			
 	}
@@ -251,7 +251,7 @@ class StepList
 	 * @access public
 	 * @return mixed array of i-th step, null if invalid index
 	 */
-	function & getFirstStep() 
+	function  getFirstStep() 
 	{
 		$this->currentStep = 0;
 		$this->lastGoodStep = EMPTY_VALUE;  // VERIFY ha senso modificare anche lastGoodStep?
@@ -262,7 +262,7 @@ class StepList
 	 * @access public
 	 * @return mixed array of i-th step, null if invalid index
 	 */
-	function & getLastStep() 
+	function  getLastStep() 
 	{
 		$this->currentStep = $this->getLength();
 		return $this->Lista_step[($this->getLength()) - 1]; 
@@ -302,7 +302,7 @@ class StepList
 	 * @access private
 	 * @return mixed array of i-th step, null if invalid index
 	 */
-	function & getStep($i) 
+	function  getStep($i) 
 	{
 //		var_dump($i);
 //		var_dump($this->Lista_step); die;
@@ -396,5 +396,3 @@ class StepList
 	
 
 }
-
-?>

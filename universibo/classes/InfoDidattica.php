@@ -467,7 +467,7 @@ class InfoDidattica
 	 *
 	 * @return InfoDidattica
 	 */
-	function &retrieveInfoDidattica($id_canale)
+	function retrieveInfoDidattica($id_canale)
 	{
 		$return = InfoDidattica::factoryInfoDidattica($id_canale); 
 		return $return;
@@ -479,7 +479,7 @@ class InfoDidattica
 	 *
 	 * @return InfoDidattica
 	 */
-	function &factoryInfoDidattica($id_canale)
+	function factoryInfoDidattica($id_canale)
 	{
 		$return = InfoDidattica::selectInfoDidattica($id_canale); 
 		return $return;
@@ -492,7 +492,7 @@ class InfoDidattica
 	 *
 	 * @return InfoDidattica
 	 */
-	function &selectInfoDidattica($id_canale)
+	function selectInfoDidattica($id_canale)
 	{
 		$db = FrontController::getDbConnection('main');
 		
@@ -523,4 +523,3 @@ class InfoDidattica
 	}
 	
 }
-?>

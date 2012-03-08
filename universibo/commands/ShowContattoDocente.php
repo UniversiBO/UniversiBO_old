@@ -205,7 +205,7 @@ Link: '.$frontcontroller->getAppSetting('rootUrl').'/index.php?do='.get_class($t
 		return 'default';
 	}	
 	
-	function &_getCollaboratoriUniversibo()
+	function _getCollaboratoriUniversibo()
 	{
 		$db = FrontController::getDbConnection('main');
 		

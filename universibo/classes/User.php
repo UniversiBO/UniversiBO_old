@@ -412,7 +412,7 @@ class User {
 	 *
 	 * @return array
 	 */
-	function &getRuoli()
+	function getRuoli()
 	{
 		if ($this->bookmark == NULL)
 		{
@@ -430,7 +430,7 @@ class User {
 	/**
 	 * Ritorna un array contenente i nomi dei ruoli categorizzati per anno, selezionando l'eventuale canale passato
 	 */
-	function &getRuoliInfoGroupedByYear($id_canale = null)
+	function getRuoliInfoGroupedByYear($id_canale = null)
 	{
 		$user_ruoli = & $this->getRuoli();
 		$elenco_canali = array();
@@ -912,7 +912,7 @@ class User {
 	 * to do
 	 	* @return mixed User se eseguita con successo, false se l'utente non esiste
 	 */
-	function &selectAllCollaboratori()
+	function selectAllCollaboratori()
 	{
 
 		$db = FrontController::getDbConnection('main');
@@ -941,7 +941,7 @@ class User {
 	 * @param array	lista dei ruoli di cui si vogliono sapere gli appartenenti
 	 * @return array array di lista di IdUser per ogni gruppo specificato
 	 */
-	function & getIdUsersFromDesiredGroups($arrayWithDesiredGroupsConstant)
+	function  getIdUsersFromDesiredGroups($arrayWithDesiredGroupsConstant)
 	{
 		$ret = array();
 		if (count($arrayWithDesiredGroupsConstant) == 0)
@@ -970,7 +970,7 @@ class User {
 	 * @param boolean $dbcache se true esegue il pre-caching del bookmark in modo da migliorare le prestazioni
 	 * @return mixed User se eseguita con successo, false se l'utente non esiste
 	 */
-	function &selectUser($id_utente)
+	function selectUser($id_utente)
 	{
 
 		if ($id_utente == 0)
@@ -1009,7 +1009,7 @@ class User {
 	 * @param string $username nome identificativo utente
 	 * @return mixed User se eseguita con successo, false se l'utente non esiste
 	 */
-	function &selectUserUsername($username)
+	function selectUserUsername($username)
 	{
 		$username = trim($username);
 
@@ -1044,7 +1044,7 @@ class User {
 	 * @param string $username nome identificativo utente
 	 * @return array di User
 	 */
-	function &selectUsersSearch($username = '%', $email = '%')
+	function selectUsersSearch($username = '%', $email = '%')
 	{
 
 		$username = trim($username);

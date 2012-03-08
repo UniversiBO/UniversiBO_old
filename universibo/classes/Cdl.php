@@ -239,7 +239,7 @@ class Cdl extends Canale{
 	 * @param int $id_canale numero identificativo del canale
 	 * @return mixed Facolta se eseguita con successo, false se il canale non esiste
 	 */
-	function &factoryCanale($id_canale)
+	function factoryCanale($id_canale)
 	{
 		$return = Cdl::selectCdlCanale($id_canale);
 		return $return;
@@ -264,7 +264,7 @@ class Cdl extends Canale{
 	 * @param boolean $canaliAttivi se restituire solo i Cdl gi? associati ad un canale o tutti
 	 * @return mixed array di Cdl se eseguita con successo, false in caso di errore
 	 */
-	function & selectCdlAll()
+	function  selectCdlAll()
 	{
 	
 		$db = FrontController::getDbConnection('main');
@@ -299,7 +299,7 @@ class Cdl extends Canale{
 	 * @param int $id_canale identificativo su DB del canale corrispondente al corso di laurea
 	 * @return mixed Cdl se eseguita con successo, false se il canale non esiste
 	 */
-	function &selectCdlCanale($id_canale)
+	function selectCdlCanale($id_canale)
 	{
 
 		$db = FrontController::getDbConnection('main');
@@ -333,7 +333,7 @@ class Cdl extends Canale{
 	 * @param string $cod_cdl stringa a 4 cifre del codice d'ateneo del corso di laurea
 	 * @return Facolta
 	 */
-	function &selectCdlCodice($cod_cdl)
+	function selectCdlCodice($cod_cdl)
 	{
 
 		$db = FrontController::getDbConnection('main');
@@ -371,7 +371,7 @@ class Cdl extends Canale{
 	 * @param string $cod_facolta stringa a 4 cifre del codice d'ateneo della facolt?
 	 * @return array(Cdl)
 	 */
-	function &selectCdlElencoFacolta($cod_facolta)
+	function selectCdlElencoFacolta($cod_facolta)
 	{
 
 		$db = FrontController::getDbConnection('main');

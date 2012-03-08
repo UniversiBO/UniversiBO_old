@@ -134,7 +134,7 @@ class Collaboratore extends User {
 	 * @param int $id_utente numero identificativo utente
 	 * @return array Collaboratori
 	 */
-	function &getUser()
+	function getUser()
 	{
 		if ($this->userCache == NULL)
 		{
@@ -151,7 +151,7 @@ class Collaboratore extends User {
 	 * @param int $id_utente numero identificativo utente
 	 * @return array Collaboratori
 	 */
-	function &selectCollaboratore($id_utente)
+	function selectCollaboratore($id_utente)
 	{
 		$ret = false;
 		$db = FrontController::getDbConnection('main');
@@ -178,7 +178,7 @@ class Collaboratore extends User {
 	 * @param int $id_utente numero identificativo utente
 	 * @return array Collaboratori
 	 */
-	function &selectCollaboratoriAll()
+	function selectCollaboratoriAll()
 	{
 		
 		$db = FrontController::getDbConnection('main');
@@ -239,6 +239,3 @@ class Collaboratore extends User {
 
 	
 }
-
-
-?>

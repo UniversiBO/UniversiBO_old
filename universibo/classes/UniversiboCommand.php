@@ -63,7 +63,7 @@ abstract class UniversiboCommand extends BaseCommand {
      *
      * @return User
      */
-    function &getSessionUser() {
+    function getSessionUser() {
         return $this->sessionUser;
     }
 
@@ -541,5 +541,3 @@ abstract class UniversiboCommand extends BaseCommand {
     }
 
 }
-
-?>

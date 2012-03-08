@@ -216,7 +216,7 @@ class Link
 	 * @param int $id_link id del link
 	 * @return Link / false
 	 */
-	 function &selectLink ($id_link)
+	 function selectLink ($id_link)
 	 {
 	 	$id_links = array($id_link);
 		$links = Link::selectLinks($id_links);
@@ -233,7 +233,7 @@ class Link
 	 * @param array $id_links array elenco di id dei link
 	 * @return Link array di Link 
 	 */
-	 function &selectLinks ($id_links)
+	 function selectLinks ($id_links)
 	 {
 	 	
 	 	$db = FrontController::getDbConnection('main');
@@ -321,7 +321,7 @@ class Link
 	 * @param array $id_canale id del canale
 	 * @return Link array di Link 
 	 */
-	 function &selectCanaleLinks ($id_canale)
+	 function selectCanaleLinks ($id_canale)
 	 {
 	 	
 	 	$db = FrontController::getDbConnection('main');
@@ -382,5 +382,3 @@ class Link
 	  	return ereg('^'.$uri.'.*$', $this->getUri());		
 	  }
 }
- 
-?>

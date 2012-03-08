@@ -76,5 +76,3 @@ class ProgrammazioneDidatticaDataRetrieverDatabaseUnibo extends ProgrammazioneDi
 	}
 
 }
-
-?>

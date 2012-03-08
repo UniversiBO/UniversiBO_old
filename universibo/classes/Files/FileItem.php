@@ -815,7 +815,7 @@ class FileItem {
      * @param int $id_canale identificativo su database del canale
      * @return array elenco FileItem , array vuoto se non ci sono file
      */
-    function &selectFileCanale($id_canale)
+    function selectFileCanale($id_canale)
     {
 
             $db = FrontController::getDbConnection('main');
@@ -850,7 +850,7 @@ class FileItem {
 	 * @param int $id_file  id del file
 	 * @return FileItem 
 	 */
-	function & selectFileItem($id_file) {
+	function  selectFileItem($id_file) {
 		$id_files = array ($id_file);
 		$files = & FileItem :: selectFileItems($id_files);
 		if ($files === false)
@@ -866,7 +866,7 @@ class FileItem {
 	 * @param array $id_file array elenco di id dei file
 	 * @return array FileItem 
 	 */
-	function & selectFileItems($id_files) {
+	function  selectFileItems($id_files) {
 
 		$db = & FrontController :: getDbConnection('main');
 
@@ -921,7 +921,7 @@ class FileItem {
 	 * @param boolean $order	ordina i file in ordine decrescente di data
 	 * @return mixed false se non trova file, array di fileItem altrimenti
 	 */
-	function & selectFileItemsByIdUtente($id_utente, $order=false) {
+	function  selectFileItemsByIdUtente($id_utente, $order=false) {
 
 		$db = & FrontController :: getDbConnection('main');
 		
@@ -962,7 +962,7 @@ class FileItem {
 	 *
 	 * @return array	elenco degli id_canale
 	 */
-	function & getIdCanali() {
+	function  getIdCanali() {
 		if ($this->elencoIdCanali != NULL)
 			return $this->elencoIdCanali;
 

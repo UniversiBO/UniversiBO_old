@@ -86,7 +86,7 @@ class NewsShowCanale extends CanaleCommand {
 	 * @param int $id_canale identificativo su database del canale
 	 * @return array elenco NewsItem , false se non ci sono notizie
 	 */
-	function &getLatestNewsCanale($startNum, $qta, $id_canale)
+	function getLatestNewsCanale($startNum, $qta, $id_canale)
 	{
 	 	
 	 	$db = FrontController::getDbConnection('main');

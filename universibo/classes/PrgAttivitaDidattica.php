@@ -474,7 +474,7 @@ class PrgAttivitaDidattica extends Canale
 	 * @param int $id_canale numero identificativo del canale
 	 * @return mixed Facolta se eseguita con successo, false se il canale non esiste
 	 */
-	function &factoryCanale($id_canale)
+	function factoryCanale($id_canale)
 	{
 		return PrgAttivitaDidattica::selectPrgAttivitaDidatticaCanale($id_canale);
 	}
@@ -489,7 +489,7 @@ class PrgAttivitaDidattica extends Canale
 	 * @param int $id_canale identificativo su DB del canale corrispondente al corso di laurea
 	 * @return mixed array di PrgAttivitaDidattica se eseguita con successo, false se il canale non esiste
 	 */
-	function &selectPrgAttivitaDidattica($anno_accademico, $cod_corso, $cod_ind, $cod_ori, $cod_materia, 
+	function selectPrgAttivitaDidattica($anno_accademico, $cod_corso, $cod_ind, $cod_ori, $cod_materia, 
 										 $cod_materia_ins, $anno_corso, $anno_corso_ins, $cod_ril, $cod_ate)
 	{
 
@@ -590,7 +590,7 @@ class PrgAttivitaDidattica extends Canale
 	 * @param int $id_canale identificativo su DB del canale corrispondente al corso di laurea
 	 * @return mixed array di PrgAttivitaDidattica se eseguita con successo, false se il canale non esiste
 	 */
-	function &selectPrgAttivitaDidatticaCanale($id_canale)
+	function selectPrgAttivitaDidatticaCanale($id_canale)
 	{
 
 		$db = FrontController::getDbConnection('main');
@@ -663,7 +663,7 @@ class PrgAttivitaDidattica extends Canale
 	 * @param int $id_sdop identificativo dell'attività sdoppiata
 	 * @return mixed PrgAttivitaDidattica se eseguita con successo, false se il canale non esiste
 	 */
-	function &selectPrgAttivitaDidatticaSdoppiata($id_sdop)
+	function selectPrgAttivitaDidatticaSdoppiata($id_sdop)
 	{
 
 		$db = FrontController::getDbConnection('main');
@@ -729,7 +729,7 @@ class PrgAttivitaDidattica extends Canale
 	 * @param string $cod_cdl stringa a 4 cifre del codice d'ateneo del corso di laurea
 	 * @return Facolta
 	 *
-	function &selectPrgAttivitaDidatticaCodice( ...tutta la chiave... )
+	function selectPrgAttivitaDidatticaCodice( ...tutta la chiave... )
 	{
 		$db = FrontController::getDbConnection('main');
 		
@@ -763,7 +763,7 @@ class PrgAttivitaDidattica extends Canale
 	 * @param int $anno_accademico anno accademico
 	 * @return array(Insegnamento)
 	 */
-	function &selectPrgAttivitaDidatticaElencoCdl($cod_cdl, $anno_accademico)
+	function selectPrgAttivitaDidatticaElencoCdl($cod_cdl, $anno_accademico)
 	{
 		
 		$db = FrontController::getDbConnection('main');
@@ -870,4 +870,3 @@ class PrgAttivitaDidattica extends Canale
 	
 	
 }
-?>

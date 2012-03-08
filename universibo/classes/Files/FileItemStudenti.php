@@ -32,7 +32,7 @@ class FileItemStudenti extends FileItem {
 	 * @param int $id_file  id del file
 	 * @return FileItem 
 	 */
-	function & selectFileItem($id_file) {
+	function  selectFileItem($id_file) {
 		$id_files = array ($id_file);
 		$files = & FileItemStudenti :: selectFileItems($id_files);
 		if ($files === false)
@@ -48,7 +48,7 @@ class FileItemStudenti extends FileItem {
 	 * @param array $id_file array elenco di id dei file
 	 * @return array FileItem 
 	 */
-	function & selectFileItems($id_files) {
+	function  selectFileItems($id_files) {
 
 		$db = & FrontController :: getDbConnection('main');
 
@@ -161,7 +161,7 @@ class FileItemStudenti extends FileItem {
 	 * @return array	elenco degli id_canale
 	 */
 	
-	function & getIdCanali() {
+	function  getIdCanali() {
 		if ($this->elencoIdCanali != null)
 			return $this->elencoIdCanali;
 
@@ -270,5 +270,3 @@ class FileItemStudenti extends FileItem {
 	}
 	
 }
-
-?>

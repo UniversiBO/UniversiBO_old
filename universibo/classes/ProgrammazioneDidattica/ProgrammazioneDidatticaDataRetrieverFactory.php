@@ -23,7 +23,7 @@ class ProgrammazioneDidatticaDataRetrieverFactory
 	 *
 	 * @return ProgrammazioneDidatticaDataRetriever 
 	 */
-	function &getProgrammazioneDidatticaDataRetriever($type)
+	function getProgrammazioneDidatticaDataRetriever($type)
 	{
 		switch ($type){
 			case "web_service" :
@@ -37,5 +37,3 @@ class ProgrammazioneDidatticaDataRetrieverFactory
 	}	
 
 }
-
-?>

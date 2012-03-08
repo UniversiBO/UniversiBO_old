@@ -128,4 +128,3 @@ function smarty_modifier_bbcode2html($message) {
   $message = preg_replace(array_keys($preg), array_values($preg), $message);
   return $message;
 }
-?>

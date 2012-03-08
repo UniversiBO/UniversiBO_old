@@ -153,7 +153,7 @@ class CommentoItem
 	  *
 	  */
 	  
-	 function & selectCommentiItem($id_file)
+	 function  selectCommentiItem($id_file)
 	 {
 	 	$db = FrontController::getDbConnection('main');
 		
@@ -179,7 +179,7 @@ class CommentoItem
 	  *
 	  */
 	  
-	 function & selectCommentoItem($id_commento)
+	 function  selectCommentoItem($id_commento)
 	 {
 	 	$db = FrontController::getDbConnection('main');
 		
@@ -338,5 +338,3 @@ class CommentoItem
 		return $ris[0];
 	}
 }
-
-?>

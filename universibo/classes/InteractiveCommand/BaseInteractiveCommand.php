@@ -357,4 +357,3 @@ class BaseInteractiveCommand extends PluginCommand
 	 */ 
 	 
 }
-?>

@@ -63,7 +63,7 @@ require_once ('PluginCommand'.PHP_EXTENSION);
 		
  	}
  	
- 	function & getAllFiles($order)//c\`era $num
+ 	function  getAllFiles($order)//c\`era $num
 	{ 
 		$quale_ordine = '';
 		$group = '';

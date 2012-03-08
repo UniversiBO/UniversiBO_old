@@ -442,7 +442,7 @@ class NewsItem {
 	 * @static
 	 * @return array	elenco degli id_canale
 	 */
-	function &getIdCanali() 
+	function getIdCanali() 
 	{
 	 	if ($this->elencoIdCanali != NULL) 
 	 		return $this->elencoIdCanali;
@@ -637,6 +637,3 @@ class NewsItem {
 	}
 
 } 
-
-	
-?>

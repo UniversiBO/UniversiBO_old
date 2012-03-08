@@ -33,4 +33,3 @@ class AntiVirusFactory
 			return false;
 	}	
 }
-?>

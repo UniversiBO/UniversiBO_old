@@ -162,7 +162,7 @@ class ShowNewsLatest extends PluginCommand {
 	 * @param int $id_canale identificativo su database del canale
 	 * @return array elenco NewsItem , false se non ci sono notizie
 	 */
-	function &getLatestNewsCanale($num, $id_canale)
+	function getLatestNewsCanale($num, $id_canale)
 	{
 	 	
 	 	$db = FrontController::getDbConnection('main');

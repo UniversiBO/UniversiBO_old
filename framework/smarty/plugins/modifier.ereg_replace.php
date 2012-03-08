@@ -21,5 +21,3 @@ function smarty_modifier_ereg_replace($string, $search, $replace)
 }
 
 /* vim: set expandtab: */
-
-?>

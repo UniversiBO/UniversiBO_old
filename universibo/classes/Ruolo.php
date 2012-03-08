@@ -154,7 +154,7 @@ class Ruolo {
 	 *
 	 * @return User
 	 */
-	function &getUser()
+	function getUser()
 	{
 		if ($this->user == NULL)
 		{
@@ -170,7 +170,7 @@ class Ruolo {
 	 *
 	 * @return Canale
 	 */
-	function &getCanale()
+	function getCanale()
 	{
 		if ($this->canale == NULL)
 		{
@@ -529,7 +529,7 @@ class Ruolo {
 	 * @param int		$id_canale		numero identificativo canale
 	 * @return Ruolo 	false se il ruolo non esiste
 	 */
-	function &selectRuolo($id_utente, $id_canale)
+	function selectRuolo($id_utente, $id_canale)
 	{
 		$db = FrontController::getDbConnection('main');
 	
@@ -556,7 +556,7 @@ class Ruolo {
 	 * @param int		$id_utente		numero identificativo utente
 	 * @return mixed    array di oggetti Ruolo, false se non esistono ruoli
 	 */
-	function &selectUserRuoli($id_utente)
+	function selectUserRuoli($id_utente)
 	{
 		$db = FrontController::getDbConnection('main');
 	
@@ -585,7 +585,7 @@ class Ruolo {
 	 * @param int		$id_canale		numero identificativo del canale
 	 * @return mixed    array di oggetti Ruolo
 	 */
-	function &selectCanaleRuoli($id_canale)
+	function selectCanaleRuoli($id_canale)
 	{
 		$db = FrontController::getDbConnection('main');
 	

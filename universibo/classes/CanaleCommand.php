@@ -56,7 +56,7 @@ abstract class CanaleCommand extends UniversiboCommand
 	 *
 	 * @return Canale
 	 */
-	function &getRequestCanale()
+	function getRequestCanale()
 	{
 		return $this->requestCanale;
 	}

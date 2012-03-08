@@ -182,7 +182,7 @@ class ShowFileTitoli extends PluginCommand {
 	 * @param int $id_canale identificativo su database del canale
 	 * @return array elenco FileItem , array vuoto se non ci sono file
 	 */
-	function &getFileCanale($id_canale)
+	function getFileCanale($id_canale)
 	{
 	 	
 	 	$db = FrontController::getDbConnection('main');

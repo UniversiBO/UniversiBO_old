@@ -29,7 +29,7 @@ class WebService_WsDidatticaServerImplService_Didattica extends SOAP_Client
         $this->SOAP_Client($location, 0);
     }
 
-    function &getFacoltaDesc($codFac) {
+    function getFacoltaDesc($codFac) {
         return $this->call("getFacoltaDesc",
                         $v = array("codFac"=>$codFac),
                         array('namespace'=>'http://didattica.universibo.unibo.it',
@@ -38,7 +38,7 @@ class WebService_WsDidatticaServerImplService_Didattica extends SOAP_Client
                             'use'=>'encoded' ));
     }
 
-    function &getFacolta($codFac) {
+    function getFacolta($codFac) {
         return $this->call("getFacolta",
                         $v = array("codFac"=>$codFac),
                         array('namespace'=>'http://didattica.universibo.unibo.it',
@@ -47,7 +47,7 @@ class WebService_WsDidatticaServerImplService_Didattica extends SOAP_Client
                             'use'=>'encoded' ));
     }
 
-    function &getFacoltaList() {
+    function getFacoltaList() {
         return $this->call("getFacoltaList",
                         $v = null,
                         array('namespace'=>'http://didattica.universibo.unibo.it',
@@ -56,7 +56,7 @@ class WebService_WsDidatticaServerImplService_Didattica extends SOAP_Client
                             'use'=>'encoded' ));
     }
 
-    function &getCorsoListFacolta($codFac) {
+    function getCorsoListFacolta($codFac) {
         return $this->call("getCorsoListFacolta",
                         $v = array("codFac"=>$codFac),
                         array('namespace'=>'http://didattica.universibo.unibo.it',
@@ -65,7 +65,7 @@ class WebService_WsDidatticaServerImplService_Didattica extends SOAP_Client
                             'use'=>'encoded' ));
     }
 
-    function &getMateria($codMateria) {
+    function getMateria($codMateria) {
         return $this->call("getMateria",
                         $v = array("codMateria"=>$codMateria),
                         array('namespace'=>'http://didattica.universibo.unibo.it',
@@ -74,7 +74,7 @@ class WebService_WsDidatticaServerImplService_Didattica extends SOAP_Client
                             'use'=>'encoded' ));
     }
 
-    function &getDocente($codDoc) {
+    function getDocente($codDoc) {
         return $this->call("getDocente",
                         $v = array("codDoc"=>$codDoc),
                         array('namespace'=>'http://didattica.universibo.unibo.it',
@@ -83,7 +83,7 @@ class WebService_WsDidatticaServerImplService_Didattica extends SOAP_Client
                             'use'=>'encoded' ));
     }
 
-    function &getAttivitaDidatticaPadreCorso($codCorso, $annoAccademico) {
+    function getAttivitaDidatticaPadreCorso($codCorso, $annoAccademico) {
         return $this->call("getAttivitaDidatticaPadreCorso",
                         $v = array("codCorso"=>$codCorso, "annoAccademico"=>$annoAccademico),
                         array('namespace'=>'http://didattica.universibo.unibo.it',
@@ -92,7 +92,7 @@ class WebService_WsDidatticaServerImplService_Didattica extends SOAP_Client
                             'use'=>'encoded' ));
     }
 
-    function &getAttivitaDidatticaCorso($codCorso, $annoAccademico) {
+    function getAttivitaDidatticaCorso($codCorso, $annoAccademico) {
         return $this->call("getAttivitaDidatticaCorso",
                         $v = array("codCorso"=>$codCorso, "annoAccademico"=>$annoAccademico),
                         array('namespace'=>'http://didattica.universibo.unibo.it',
@@ -101,7 +101,7 @@ class WebService_WsDidatticaServerImplService_Didattica extends SOAP_Client
                             'use'=>'encoded' ));
     }
 
-    function &getSdoppiamentiAttivitaDidattica($attivitaPadre) {
+    function getSdoppiamentiAttivitaDidattica($attivitaPadre) {
         // attivitaPadre is a ComplexType AttivitaDidattica,
         //refer to wsdl for more info
         $attivitaPadre = new SOAP_Value('attivitaPadre','{urn:didattica.universibo.unibo.it}AttivitaDidattica',$attivitaPadre);
@@ -113,7 +113,7 @@ class WebService_WsDidatticaServerImplService_Didattica extends SOAP_Client
                             'use'=>'encoded' ));
     }
 
-    function &getCorso($codCorso) {
+    function getCorso($codCorso) {
         return $this->call("getCorso",
                         $v = array("codCorso"=>$codCorso),
                         array('namespace'=>'http://didattica.universibo.unibo.it',
@@ -122,5 +122,3 @@ class WebService_WsDidatticaServerImplService_Didattica extends SOAP_Client
                             'use'=>'encoded' ));
     }
 }
-
-?>

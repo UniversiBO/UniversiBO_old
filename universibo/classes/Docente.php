@@ -81,7 +81,7 @@ class Docente extends User {
 	 * @param int $id_utente numero identificativo utente
 	 * @return array Collaboratori
 	 */
-	function &getUser()
+	function getUser()
 	{
 		if ($this->userCache == NULL)
 		{
@@ -95,7 +95,7 @@ class Docente extends User {
 	 * 
 	 * @return array 
 	 */
-	function &getInfoRubrica()
+	function getInfoRubrica()
 	{
 		if ($this->rubricaCache == NULL)
 		{
@@ -151,7 +151,7 @@ class Docente extends User {
 	 * @param int $id numero identificativo utente
 	 * @return array Collaboratori
 	 */
-	function &selectDocente($id, $isCodiceDocente = false)
+	function selectDocente($id, $isCodiceDocente = false)
 	{
 		
 		$db = FrontController::getDbConnection('main');
@@ -174,7 +174,7 @@ class Docente extends User {
 	
 	}
 	
-	function &selectDocenteFromCod($codDoc)
+	function selectDocenteFromCod($codDoc)
 	{
 		$docente = Docente::selectDocente($codDoc, true);
 		return $docente;
@@ -182,6 +182,3 @@ class Docente extends User {
 	
 	
 }
-
-
-?>

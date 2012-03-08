@@ -106,7 +106,7 @@ class ShowMyUniversiBO extends UniversiboCommand
 	 * @return array elenco FileItem , false se non ci sono notizie
 	 */
 	
-	function &getLatestFileCanale($num, $id_canali)
+	function getLatestFileCanale($num, $id_canali)
 	{ 
 		if ( count($id_canali) == 1 ) 
 			$values = $id_canali[0];
@@ -153,7 +153,7 @@ class ShowMyUniversiBO extends UniversiboCommand
 	 * @return array elenco NewsItem , false se non ci sono notizie
 	 */
 	
-	function &getLatestNewsCanale($num, $id_canali)
+	function getLatestNewsCanale($num, $id_canali)
 	{
 		if ( count($id_canali) == 1 ) 
 			$values = $id_canali[0];

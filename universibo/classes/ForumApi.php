@@ -535,7 +535,7 @@ class ForumApi
 	 * cercati gli ultimi post su tutto il forum a cui l'utente ha diritto di accesso 
 	 * @return 	mixed array di array( id degli ultimi messaggi del forum, nome topic) , false se nessun messaggio nuovo
 	 */
-	function &getLastPostsForum($user, $id_forum, $num = 10)
+	function getLastPostsForum($user, $id_forum, $num = 10)
 	{
 		// teoricamente se uno ha accesso al canale ha anche accesso al forum
 		
@@ -588,7 +588,3 @@ class ForumApi
 	 */
 	
 }
-
-
-
-?>

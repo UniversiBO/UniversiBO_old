@@ -70,7 +70,7 @@ define('INATTIVO'   ,4);
 	 *  @param int coddoc è il codice del docente di cui si vuole avere informazioni
 	 *  @return mixed resituisce ContattoDocente se esiste il contatto, false altrimenti
 	 */
-	function &getContattoDocente ($coddoc)
+	function getContattoDocente ($coddoc)
 	{
 		
 		$db = FrontController::getDbConnection('main');

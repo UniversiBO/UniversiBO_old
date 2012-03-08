@@ -182,7 +182,7 @@ class Insegnamento extends Canale
 	 * @param int $id_canale numero identificativo del canale
 	 * @return mixed Facolta se eseguita con successo, false se il canale non esiste
 	 */
-	function &factoryCanale($id_canale)
+	function factoryCanale($id_canale)
 	{
 		$return = Insegnamento::selectInsegnamentoCanale($id_canale);
 		return $return;
@@ -272,7 +272,7 @@ class Insegnamento extends Canale
 	 * @param int $id_canale identificativo su DB del canale corrispondente al corso di laurea
 	 * @return mixed Insegnamento se eseguita con successo, false se il canale non esiste
 	 */
-	function &selectInsegnamentoCanale($id_canale)
+	function selectInsegnamentoCanale($id_canale)
 	{
 
 		$db = FrontController::getDbConnection('main');
@@ -318,7 +318,7 @@ class Insegnamento extends Canale
 	* @param string $cod_cdl stringa a 4 cifre del codice d'ateneo del corso di laurea
 	* @return Facolta
 	*
-	function &selectInsegnamentoCodice( ...tutta la chiave... )
+	function selectInsegnamentoCodice( ...tutta la chiave... )
 	{
 
 	$db = FrontController::getDbConnection('main');
@@ -342,4 +342,3 @@ class Insegnamento extends Canale
 	*/
 
 }
-?>
