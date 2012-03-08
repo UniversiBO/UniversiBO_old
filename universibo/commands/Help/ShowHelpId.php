@@ -75,5 +75,3 @@ class ShowHelpId extends PluginCommand {
 	
 	
 }
-
-?>

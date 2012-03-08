@@ -29,7 +29,6 @@ class ShowTopic extends PluginCommand {
 	 */
 	function execute($param)
 	{
-		
 		$reference  =  $param['reference'];
 
 		$bc        = $this->getBaseCommand();
@@ -76,10 +75,5 @@ class ShowTopic extends PluginCommand {
 		$template->assign('showTopic_topic', $topic);
 		
 		return $topic;
-		
 	}
-	
-	
 }
-
-?>
