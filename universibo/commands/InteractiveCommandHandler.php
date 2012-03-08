@@ -43,7 +43,7 @@ class InteractiveCommandHandler extends UniversiboCommand {
 			$_SESSION = array();
 			session_destroy();
 			session_start();
-			$this->userLogin->updateUltimoLogin(time());
+			$this->userLogin->updateUltimoLogin(time(), true);
 			$this->setSessionIdUtente($this->userLogin->getIdUser());
 			$fc->setStyle($this->userLogin->getDefaultStyle());
 			
