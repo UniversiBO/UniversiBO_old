@@ -48,7 +48,7 @@ class NewsEdit extends CanaleCommand
 			$moderatore = $ruolo->isModeratore();
 		}
 
-		$news = & NewsItem :: selectNewsItem($_GET['id_news']);
+		$news = newsItem :: selectNewsItem($_GET['id_news']);
 		if ($news == false ) 
 			Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id della notizia richiesta '.$_GET['id_news'].' non è valido', 'file' => __FILE__, 'line' => __LINE__));
 		

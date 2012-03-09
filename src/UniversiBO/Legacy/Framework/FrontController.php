@@ -1,6 +1,10 @@
 <?php
 namespace UniversiBO\Legacy\Framework;
 
+define('MAIL_KEEPALIVE_NO', 0);
+define('MAIL_KEEPALIVE_ALIVE', 1);
+define('MAIL_KEEPALIVE_CLOSE', 2);
+
 /**
  * It is a front controller.
  * Instantiate it using a config file and run executeCommand method
@@ -974,7 +978,7 @@ class FrontController
      * @return mixed true, PearDB
      * @access public
      */
-    function &getDbConnection( $identifier, $dsn=NULL )
+    public static function getDbConnection( $identifier, $dsn=NULL )
     {
         static $dsnList = array();
         static $connectionList = array();

@@ -41,13 +41,12 @@ abstract class CanaleCommand extends UniversiboCommand
 			else Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>'il parametro id_canale non � specificato nella richiesta','file'=>__FILE__,'line'=>__LINE__));
 		}
 
-		if (!ereg('^([0-9]+)$', $_GET['id_canale'] ) )
+		if (!preg_match('/^([0-9]+)$/', $_GET['id_canale'] ) )
 		{
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>'il parametro id_canale � sintatticamente non valido','file'=>__FILE__,'line'=>__LINE__));
 		}
 
 		return intval($_GET['id_canale']);
-		
 	}
 
 	

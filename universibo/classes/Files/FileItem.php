@@ -383,6 +383,7 @@ class FileItem {
 	 *
 	 * @param string
 	 * @return string 
+	 * @TODO preg_match
 	 */
 	function normalizzaNomeFile($string) {
 		return ereg_replace('([^a-zA-Z0-9_\.])','_',$string);
@@ -705,6 +706,7 @@ class FileItem {
 	 * Restituisce il tipo di un file su hd tra i tipi ammissibili riconosciuti
 	 *
 	 * @param string $nome_file percorso in cui si trova il file
+	 * @TODO preg_match
 	 */
 	function guessTipo($nome_file) 
 	{
@@ -906,7 +908,7 @@ class FileItem {
 
 		while ($res->fetchInto($row)) {
 			$username = User::getUsernameFromId($row[3]);
-			$files_list[] = & new FileItem($row[0], $row[1], $row[2], $row[3], $row[4], $row[5], $row[6], $row[7], $row[8], $row[9], $row[10], $row[11], $row[12], $row[13], $row[14], $username, $row[15], $row[16], $row[17], $row[18]);
+			$files_list[] = new FileItem($row[0], $row[1], $row[2], $row[3], $row[4], $row[5], $row[6], $row[7], $row[8], $row[9], $row[10], $row[11], $row[12], $row[13], $row[14], $username, $row[15], $row[16], $row[17], $row[18]);
 		}
 
 		$res->free();
@@ -947,7 +949,7 @@ class FileItem {
 
 		while ($res->fetchInto($row)) {
 			$username = User::getUsernameFromId($row[3]);
-			$files_list[] = & new FileItem($row[0], $row[1], $row[2], $row[3], $row[4], $row[5], $row[6], $row[7], $row[8], $row[9], $row[10], $row[11], $row[12], $row[13], $row[14], $username, $row[15], $row[16], $row[17], $row[18]);
+			$files_list[] = new FileItem($row[0], $row[1], $row[2], $row[3], $row[4], $row[5], $row[6], $row[7], $row[8], $row[9], $row[10], $row[11], $row[12], $row[13], $row[14], $username, $row[15], $row[16], $row[17], $row[18]);
 		}
 
 		$res->free();
@@ -968,7 +970,7 @@ class FileItem {
 
 		$id_file = $this->getIdFile();
 
-		$db = & FrontController :: getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 
 		$query = 'SELECT id_canale FROM file_canale WHERE id_file='.$db->quote($id_file).' ORDER BY id_canale';
 		$res = & $db->query($query);

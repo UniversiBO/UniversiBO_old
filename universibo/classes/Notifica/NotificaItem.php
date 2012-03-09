@@ -331,7 +331,7 @@ class NotificaItem {
 		$notifiche_list = array ();
 
 		while ($res->fetchInto($row)) {
-			$notifiche_list[] = & new NotificaItem($row[0], $row[1], $row[2], $row[3], ($row[4] == NOTIFICA_URGENTE), ($row[5] == NOTIFICA_ELIMINATA), $row[6]);
+			$notifiche_list[] = new NotificaItem($row[0], $row[1], $row[2], $row[3], ($row[4] == NOTIFICA_URGENTE), ($row[5] == NOTIFICA_ELIMINATA), $row[6]);
 		}
 
 		$res->free();

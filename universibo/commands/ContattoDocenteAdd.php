@@ -25,7 +25,7 @@ class ContattoDocenteAdd extends UniversiboCommand {
 		$template = $frontcontroller->getTemplateEngine();
 		$user = $this->getSessionUser();
 		
-		if (!array_key_exists('cod_doc',$_GET) && !ereg( '^([0-9]{1,10})$' , $_GET['cod_doc'] ) ) 
+		if (!array_key_exists('cod_doc',$_GET) && !preg_match( '/^([0-9]{1,10})$/' , $_GET['cod_doc'] ) ) 
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'utente cercato non è valido','file'=>__FILE__,'line'=>__LINE__)); 
 		
 		if (!$user->isCollaboratore() && !$user->isAdmin())
@@ -45,7 +45,7 @@ class ContattoDocenteAdd extends UniversiboCommand {
 		$template->assign('common_canaleURI', array_key_exists('HTTP_REFERER', $_SERVER) ? $_SERVER['HTTP_REFERER'] : '' );
 		$template->assign('common_langCanaleNome', 'indietro');
 //		var_dump($_SERVER); die;
-		if (array_key_exists('id_canale',$_GET) && ereg( '^([0-9]{1,9})$' , $_GET['id_canale'] ) ) 
+		if (array_key_exists('id_canale',$_GET) && preg_match( '/^([0-9]{1,9})$/' , $_GET['id_canale'] ) ) 
 		{
 		$canale = & Canale::retrieveCanale($_GET['id_canale']);
 		if($canale)

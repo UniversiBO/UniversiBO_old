@@ -160,7 +160,7 @@ class PrgAttivitaDidattica extends Canale
 	 * @param boolean $sdoppiato
 	 * @return Insegnamento
 	 */
-	public function __construct($id_canale, $permessi, $ultima_modifica, $tipo_canale, $immagine,
+	function PrgAttivitaDidattica($id_canale, $permessi, $ultima_modifica, $tipo_canale, $immagine,
 				 $nome, $visite, $news_attivo, $files_attivo, $forum_attivo,
 				 $forum_forum_id, $forum_group_id, $links_attivo,$files_studenti_attivo, $annoAccademico, $codiceCdl,
 				 $codInd, $codOri, $codMateria, $nomeMateria, $annoCorso,
@@ -169,7 +169,7 @@ class PrgAttivitaDidattica extends Canale
 				 $annoCorsoUniversibo, $sdoppiato, $id_sdop)
 	{
 
-		parent::__construct($id_canale, $permessi, $ultima_modifica, $tipo_canale, $immagine, $nome, $visite,
+		$this->Canale($id_canale, $permessi, $ultima_modifica, $tipo_canale, $immagine, $nome, $visite,
 				 $news_attivo, $files_attivo, $forum_attivo, $forum_forum_id, $forum_group_id, $links_attivo,$files_studenti_attivo);
 				 
 	 	$this->annoAccademico	   = $annoAccademico;

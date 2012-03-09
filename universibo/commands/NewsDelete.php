@@ -57,7 +57,7 @@ class NewsDelete extends CanaleCommand {
 			$moderatore = $ruolo->isModeratore();
 		}
 
-		$news = & NewsItem :: selectNewsItem($_GET['id_news']);
+		$news = newsItem :: selectNewsItem($_GET['id_news']);
 		if ($news === false)
 			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => "La notizia richiesta non è presente su database", 'file' => __FILE__, 'line' => __LINE__));
 		//$news-> getIdCanali();

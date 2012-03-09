@@ -74,12 +74,12 @@ class Cdl extends Canale{
 	 * @param string $forum_cat_id	identificativo categoria del forum
 	 * @return Facolta
 	 */
-	function Cdl($id_canale, $permessi, $ultima_modifica, $tipo_canale, $immagine, $nome, $visite,
+	public function __construct($id_canale, $permessi, $ultima_modifica, $tipo_canale, $immagine, $nome, $visite,
 				 $news_attivo, $files_attivo, $forum_attivo, $forum_forum_id, $forum_group_id, $links_attivo,$files_studenti_attivo,
 				 $cod_cdl, $nome_cdl, $categoria_cdl, $cod_facolta_padre, $cod_doc, $forum_cat_id)
 	{
 
-		$this->Canale($id_canale, $permessi, $ultima_modifica, $tipo_canale, $immagine, $nome, $visite,
+		parent::__construct($id_canale, $permessi, $ultima_modifica, $tipo_canale, $immagine, $nome, $visite,
 				 $news_attivo, $files_attivo, $forum_attivo, $forum_forum_id, $forum_group_id, $links_attivo,$files_studenti_attivo);
 		
 		$this->cdlCodice	= $cod_cdl;

@@ -67,12 +67,11 @@ class Facolta extends Canale{
 	 * @param string $uri_facolta	link al sito internet ufficiale della facolt?
 	 * @return Facolta
 	 */
-	function Facolta($id_canale, $permessi, $ultima_modifica, $tipo_canale, $immagine, $nome, $visite,
+	public function __construct($id_canale, $permessi, $ultima_modifica, $tipo_canale, $immagine, $nome, $visite,
 				 $news_attivo, $files_attivo, $forum_attivo, $forum_forum_id, $forum_group_id, $links_attivo,$files_studenti_attivo,
 				 $cod_facolta, $nome_facolta, $uri_facolta)
 	{
-
-		$this->Canale($id_canale, $permessi, $ultima_modifica, $tipo_canale, $immagine, $nome, $visite,
+		parent::__construct($id_canale, $permessi, $ultima_modifica, $tipo_canale, $immagine, $nome, $visite,
 				 $news_attivo, $files_attivo, $forum_attivo, $forum_forum_id, $forum_group_id, $links_attivo,$files_studenti_attivo);
 		
 		$this->facoltaCodice = $cod_facolta;

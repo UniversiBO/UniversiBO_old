@@ -51,7 +51,7 @@ class DidatticaGestione extends UniversiboCommand{
 		$esamiAlternativi = '';
 
 		// controllo se è stato scelta un'attività sdoppiata
-		if (array_key_exists('id_sdop', $_GET) && ereg('^([0-9]{1,9})$', $_GET['id_sdop']))
+		if (array_key_exists('id_sdop', $_GET) && preg_match('/^([0-9]{1,9})$/', $_GET['id_sdop']))
 		{
 			$prg_sdop = PrgAttivitaDidattica::selectPrgAttivitaDidatticaSdoppiata((int) $_GET['id_sdop']);
 			if ($prg_sdop !== false)

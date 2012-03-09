@@ -51,10 +51,12 @@ class ErrorHandlers{
 
         //$notifiche[$i]->setFallita(true);
 
-        die( 'Errore Critico: '.$param['msg']. '<br />
+        throw new UniversiBO\Exception($param['msg']);
+        
+        /*die( 'Errore Critico: '.$param['msg']. '<br />
                 file: '.$param['file']. '<br />
                 line: '.$param['line']. '<br />
-                log: '.$param['log']. '<br />');
+                log: '.$param['log']. '<br />');*/
 
         //header('Redirect: http://location/error_page.php');
     }

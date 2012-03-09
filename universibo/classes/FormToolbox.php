@@ -180,7 +180,7 @@ class FormToolbox
 	 */	
 	function _checkHour ($hh)
 	{
-		if (!ereg('^([0-9]{1,2})$', $hh))
+		if (!preg_match('/^([0-9]{1,2})$/', $hh))
 			return new Error(_ERROR_NOTICE, array ('msg' => 'Il formato del campo ora di inserimento non è valido'));
 			
 		if ($hh < 0 || $hh > 23) 
@@ -195,7 +195,7 @@ class FormToolbox
 	 */	
 	function _checkMinute ($mm)
 	{
-		if(!ereg('^([0-9]{1,2})$', $mm))
+		if(!preg_match('/^([0-9]{1,2})$/', $mm))
 			return new Error(_ERROR_NOTICE, array ('msg' => 'Il formato del campo minuti di inserimento non è valido'));
 			
 		if($mm < 0 || $mm > 59)
