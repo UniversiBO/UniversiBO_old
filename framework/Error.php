@@ -172,11 +172,11 @@ class Error
         if ( $error_category !== NULL && $param !== NULL )
         {
             $temp_error = new Error($error_category, $param);
-            $_Error_repository[] =& $temp_error;
+            $_Error_repository[] = $temp_error;
         }
         else
         {
-            $_Error_repository[] =& $this;
+            $_Error_repository[] = $this;
         }
 
     }

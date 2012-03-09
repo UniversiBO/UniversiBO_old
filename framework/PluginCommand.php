@@ -46,7 +46,7 @@ class PluginCommand
 	 *
 	 * @return BaseCommand
 	 */ 
-	function &getBaseCommand()
+	function getBaseCommand()
 	{
 		return $this->baseCommand;
 	}
@@ -60,8 +60,8 @@ class PluginCommand
 	 */ 
 	function executePlugin($name, $param)
 	{
-		$bc =& $this->getBaseCommand();
-		$fc =& $bc->getFrontController();
+		$bc = $this->getBaseCommand();
+		$fc = $bc->getFrontController();
 		return $fc->executePlugin($name, $bc, $param);
 	}
 }

@@ -12,7 +12,7 @@ class SqlExecutor
 	public function run($args)
 	{
 //		if (array_key_exists('query',$args)) throw new Exception('query missing');
-//		$res =& $this->db->query($args);
+//		$res = $this->db->query($args);
 //		while ($res->fetchInto($row))
 //		{
 //			$l[]=$row;
@@ -31,7 +31,7 @@ class SqlExecutor
 			
 		$paramString = (count($in)>0)?'$'.implode(',$',array_keys($in)) : '';
 		
-		$in['db'] =& $this->db;
+		$in['db'] = $this->db;
 		
 		$f = HashedCache::fetch('sql_'.$paramString.$query);
 		
@@ -40,7 +40,7 @@ class SqlExecutor
 //			echo "\n".'definisco sql' ."\n";
 			$code='require_once(\'Error.php\');
 			$s = "'.addcslashes($query,'\'').'";
-			$res =& $db->query($s); 
+			$res = $db->query($s); 
 			//var_dump($s);
 			if (DB::isError($res)) 
 			Error::throwError(_ERROR_CRITICAL,array(\'msg\'=>DB::errorMessage($res),\'file\'=>__FILE__,\'line\'=>__LINE__)); 

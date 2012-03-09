@@ -8,11 +8,11 @@ class EntityRetriever
 		$this->entityTable['fc'] =  $froncontroller;
 		$this->entityTable['user'] = $user;
 		if ($user != null)
-			$this->entityTable['ruoli'] =& $user->getRuoli();
+			$this->entityTable['ruoli'] = $user->getRuoli();
 		else 
 			$this->entityTable['ruoli'] = null;
-		$this->entityTable['db'] =& $froncontroller->getDbConnection('main');
-		$this->entityTable['krono'] =& $froncontroller->getKrono();
+		$this->entityTable['db'] = $froncontroller->getDbConnection('main');
+		$this->entityTable['krono'] = $froncontroller->getKrono();
 	}	
 	
 	public function run($args)

@@ -59,7 +59,7 @@ class MultiLanguage
 			return false;
 		} 
 
-		$lang =& $this->messages;
+		$lang = $this->messages;
 		
 		include($full_file_name);
 		
