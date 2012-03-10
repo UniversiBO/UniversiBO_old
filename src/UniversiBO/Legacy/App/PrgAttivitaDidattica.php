@@ -1,4 +1,8 @@
 <?php
+namespace UniversiBO\Legacy\App;
+
+use \FrontController;
+use \DB;
 
 require_once('Canale'.PHP_EXTENSION);
 
