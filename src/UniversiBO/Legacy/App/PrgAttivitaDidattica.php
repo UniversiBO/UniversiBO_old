@@ -3,8 +3,7 @@ namespace UniversiBO\Legacy\App;
 
 use \FrontController;
 use \DB;
-
-require_once('Canale'.PHP_EXTENSION);
+use \Error;
 
 /**
  * PrgAttivitaDidattica class.
