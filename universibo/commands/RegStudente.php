@@ -209,5 +209,3 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore 
 	}
 	
 }
-
-?>

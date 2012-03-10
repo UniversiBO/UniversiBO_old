@@ -1,6 +1,4 @@
 <?php
-namespace UniversiBO\Legacy\Framework;
-
 /*
 +--+ Project Name: KronoClass
 +--+ Version: 0.6

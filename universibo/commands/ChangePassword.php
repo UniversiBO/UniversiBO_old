@@ -129,7 +129,7 @@ class ChangePassword extends UniversiboCommand
 		{
 			$user = User::selectUserUsername($user->getUsername());
 			
-			if ($user->updatePasswordHash(User::passwordHashFunction($q6_new_password1),true) == false)
+			if ($user->updatePassword($q6_new_password1,true) == false)
 				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Si è verificato un errore durante l\'aggiornamento della password relativa allo username '.$q6_username,'file'=>__FILE__,'line'=>__LINE__));
 
 			$forum = new ForumApi();
@@ -160,5 +160,3 @@ class ChangePassword extends UniversiboCommand
 		
 	}
 }
-
-?>

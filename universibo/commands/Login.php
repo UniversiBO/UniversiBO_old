@@ -46,7 +46,7 @@ class Login extends UniversiboCommand {
 			{
 				Error::throwError(_ERROR_NOTICE,array('id_utente' => '0', 'msg'=>'Non esistono utenti con lo username inserito','file'=>__FILE__,'line'=>__LINE__,'log'=>true ,'template_engine'=>&$template ));
 			}
-			elseif( $userLogin->getPasswordHash() != User::passwordHashFunction($_POST['f1_password']) )
+			elseif( !$userLogin->matchesPassword($_POST['f1_password']) )
 			{
 				Error::throwError(_ERROR_NOTICE,array('id_utente' => $userLogin->getIdUser(), 'msg'=>'Password errata','file'=>__FILE__,'line'=>__LINE__,'log'=>true ,'template_engine'=>&$template ));
 			}

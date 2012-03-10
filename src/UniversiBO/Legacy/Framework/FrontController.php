@@ -5,6 +5,13 @@ define('MAIL_KEEPALIVE_NO', 0);
 define('MAIL_KEEPALIVE_ALIVE', 1);
 define('MAIL_KEEPALIVE_CLOSE', 2);
 
+require_once 'DB.php';
+require_once 'Krono.php';
+
+use \DB;
+use \Error;
+use \Krono;
+
 /**
  * It is a front controller.
  * Instantiate it using a config file and run executeCommand method
@@ -111,7 +118,7 @@ class FrontController
      *
      * @param string $configFile filename of FrontController configuration file
      */
-    function FrontController( $receiver ){
+    public function __construct( $receiver ){
 
         require_once('Error'.PHP_EXTENSION);
         require_once('LogHandler'.PHP_EXTENSION);

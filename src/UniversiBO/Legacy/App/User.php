@@ -545,12 +545,10 @@ class User
      * @param string $string
      * @return string
      */
-    function passwordHashFunction($string)
+    public static function passwordHashFunction($string)
     {
         return md5($string);
     }
-
-
 
     /**
      * Ritorna l'hash MD5 della password dell'utente
@@ -561,8 +559,6 @@ class User
     {
         return $this->MD5;
     }
-
-
 
     /**
      * Imposta l'hash della password dell'utente corrente
@@ -591,8 +587,16 @@ class User
         }
         return true;
     }
-
-
+    
+    public function updatePassword($password, $updateDB = false)
+    {
+        return $this->updatePasswordHash(self::passwordHashFunction($password), $updateDB);
+    }
+    
+    public function matchesPassword($password)
+    {
+        return $this->MD5 == self::passwordHashFunction($password);
+    }
 
     /**
      * Imposta il numero di telefono
