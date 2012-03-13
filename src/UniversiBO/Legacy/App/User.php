@@ -838,23 +838,25 @@ class User
      * @param string $username username da ricercare
      * @return boolean
      */
-    function usernameExists( $username )
+    public static function usernameExists( $username )
     {
         $username = trim($username);
 
         $db = \FrontController::getDbConnection('main');
 
-        $query = 'SELECT id_utente FROM utente WHERE username = '.$db->quote($username);
+        $query = 'SELECT id_utente FROM utente WHERE LOWER(username) = '.$db->quote(strtolower($username));
         //		var_dump($query); die;
         $res = $db->query($query);
         if (\DB::isError($res))
             \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         $rows = $res->numRows();
-
+        
+        return $rows == 0;
+/*
         if( $rows == 0) return false;
         elseif( $rows == 1) return true;
         else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
-        return false;
+        return false;*/
     }
 
 
