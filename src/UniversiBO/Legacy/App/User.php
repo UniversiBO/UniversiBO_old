@@ -178,7 +178,7 @@ class User
      * @param array() $bookmark array con elenco dei id_canale dell'utente associati ai rispettivi ruoli
      * @return User
      */
-    public function __construct($id_utente, $groups, $username=NULL, $MD5=NULL, $email=NULL, $notifica=NULL, $ultimo_login=NULL, $AD_username=NULL, $phone='', $defaultStyle='', $bookmark=NULL, $eliminato = USER_NOT_ELIMINATO)
+    public function __construct($id_utente, $groups, $username=NULL, $password=NULL, $email=NULL, $notifica=NULL, $ultimo_login=NULL, $AD_username=NULL, $phone='', $defaultStyle='', $bookmark=NULL, $eliminato = USER_NOT_ELIMINATO)
     {
         $this->id_utente   = $id_utente;
         $this->groups      = $groups;
@@ -186,7 +186,7 @@ class User
         $this->email       = $email;
         $this->ADUsername  = $AD_username;
         $this->ultimoLogin = $ultimo_login;
-        $this->MD5         = $MD5;
+        $this->updatePassword($password);
         $this->notifica    = $notifica;
         $this->phone	   = $phone;
         $this->defaultStyle	= $defaultStyle;

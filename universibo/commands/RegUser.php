@@ -122,7 +122,7 @@ class RegUser extends UniversiboCommand
 			$randomPassword = User::generateRandomPassword();
 			$notifica = ($q34_livello == USER_STUDENTE || $q34_livello == USER_COLLABORATORE || $q34_livello == USER_ADMIN || $q34_livello == USER_TUTOR ) ? NOTIFICA_ALL : NOTIFICA_NONE;
 			
-			$new_user = new User(-1, $q34_livello, $q34_username ,User::passwordHashFunction($randomPassword), $q34_email, $notifica, 0, '', '', $fc->getAppSetting('defaultStyle') );
+			$new_user = new User(-1, $q34_livello, $q34_username ,$randomPassword, $q34_email, $notifica, 0, '', '', $fc->getAppSetting('defaultStyle') );
 			
 			if ($new_user->insertUser() == false)
 				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Si è verificato un errore durente la registrazione dell\'account username '.$q34_username.' mail '.$q34_email,'file'=>__FILE__,'line'=>__LINE__));
