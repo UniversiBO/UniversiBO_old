@@ -1,5 +1,5 @@
 <?php
-require_once('User'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\User;
 
 /**
  * La classe Forum fornisce un'API esterna per le operazioni sul forum PHPBB 2.0.x
@@ -243,7 +243,7 @@ public function insertUser(User $user, $password = null)
     }
 
     $query = 'INSERT INTO '.$this->table_prefix.'users (user_id, user_active, username, user_regdate, user_password, user_session_time, user_session_page, user_lastvisit, user_email, user_icq, user_website, user_occ, user_from, user_interests, user_sig, user_sig_bbcode_uid, user_style, user_aim, user_yim, user_msnm, user_posts, user_new_privmsg, user_unread_privmsg, user_last_privmsg, user_emailtime, user_viewemail, user_attachsig, user_allowhtml, user_allowbbcode, user_allowsmile, user_allow_pm, user_allowavatar, user_allow_viewonline, user_rank, user_avatar, user_avatar_type, user_level, user_lang, user_timezone, user_dateformat, user_notify_pm, user_popup_pm, user_notify, user_actkey, user_newpasswd)
-    VALUES('.$db->quote($user->getIdUser()).', 1, '.$db->quote($user->getUsername()).', '.$db->quote(time()).','.$db->quote($user->getPasswordHash()).', 0, 0, 0,'.$db->quote($user->getEmail()).', \'\', \'\', \'\', \'\', \'\', \'\', \'          \', '.$user_style.', \'\', \'\', \'\', 0, 0, 0, 0, NULL, 0, 1, 0, 1, 1, 1, 1, 1, '.$user_rank.', \'\', 0, '.$user_level.', '.$db->quote('italian').', '.$user_timezone.', '.$db->quote('D d M Y G:i').', '.$user_notify_pm.', '.$user_popup_pm.', 0, \'\', \'\')';
+    VALUES('.$db->quote($user->getIdUser()).', 1, '.$db->quote($user->getUsername()).', '.$db->quote(time()).','.$db->quote(is_null($password) ? $user->getPasswordHash() : md5($password)).', 0, 0, 0,'.$db->quote($user->getEmail()).', \'\', \'\', \'\', \'\', \'\', \'\', \'          \', '.$user_style.', \'\', \'\', \'\', 0, 0, 0, 0, NULL, 0, 1, 0, 1, 1, 1, 1, 1, '.$user_rank.', \'\', 0, '.$user_level.', '.$db->quote('italian').', '.$user_timezone.', '.$db->quote('D d M Y G:i').', '.$user_notify_pm.', '.$user_popup_pm.', 0, \'\', \'\')';
 
     $res = $db->query($query);
     if (DB::isError($res))
@@ -272,24 +272,6 @@ function updateUserStyle(User $user)
 
 }
 
-
-
-/**
- * Modifca la password di un utente sul database del forum dato uno User
- */
-protected function updatePasswordHash(User $user)
-{
-
-    $db = FrontController::getDbConnection($this->database);
-    if ($user->isOspite()) return;
-
-    $query = 'UPDATE '.$this->table_prefix.'users SET user_password = '.$db->quote($user->getPasswordHash()).' WHERE user_id = '.$db->quote($user->getIdUser());
-
-    $res = $db->query($query);
-    if (DB::isError($res))
-        Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-}
 
 public function updatePassword(User $user, $password)
 {
