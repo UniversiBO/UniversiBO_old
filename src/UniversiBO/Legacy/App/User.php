@@ -16,9 +16,8 @@ class User
     var $username = '';
 
     /**
-     * @access private
      */
-    var $MD5 = '';
+    private $password = '';
 
     /**
      * @access private
@@ -70,7 +69,9 @@ class User
      */
     var $eliminato = '';
 
+    private $algoritmo;
 
+    private $salt;
 
     /**
      *  Verifica se la sintassi dello username è valido.
@@ -178,7 +179,7 @@ class User
      * @param array() $bookmark array con elenco dei id_canale dell'utente associati ai rispettivi ruoli
      * @return User
      */
-    public function __construct($id_utente, $groups, $username=NULL, $password=NULL, $email=NULL, $notifica=NULL, $ultimo_login=NULL, $AD_username=NULL, $phone='', $defaultStyle='', $bookmark=NULL, $eliminato = USER_NOT_ELIMINATO)
+    public function __construct($id_utente, $groups, $username=NULL, $password=NULL, $email=NULL, $notifica=NULL, $ultimo_login=NULL, $AD_username=NULL, $phone='', $defaultStyle='', $bookmark=NULL, $eliminato = USER_NOT_ELIMINATO, $hashedPassword = false)
     {
         $this->id_utente   = $id_utente;
         $this->groups      = $groups;
@@ -186,12 +187,18 @@ class User
         $this->email       = $email;
         $this->ADUsername  = $AD_username;
         $this->ultimoLogin = $ultimo_login;
-        $this->updatePassword($password);
         $this->notifica    = $notifica;
         $this->phone	   = $phone;
         $this->defaultStyle	= $defaultStyle;
         $this->bookmark    = $bookmark;
         $this->eliminato	= $eliminato;
+        
+        if($hashedPassword) {
+            $this->password = $password;
+        }
+        else {
+            $this->updatePassword($password);
+        }
     }
 
     /**
@@ -545,9 +552,17 @@ class User
      * @param string $string
      * @return string
      */
-    public static function passwordHashFunction($string)
+    public static function passwordHashFunction($string, $salt = '', $algoritmo = 'md5')
     {
-        return md5($string);
+        $password = $salt.$string;
+
+        switch($algoritmo)
+        {
+            case 'sha1':
+                return sha1($password);
+            default:
+                return md5($password);
+        }
     }
 
     /**
@@ -557,45 +572,47 @@ class User
      */
     function getPasswordHash()
     {
-        return $this->MD5;
+        return $this->password;
     }
 
-    /**
-     * Imposta l'hash della password dell'utente corrente
-     *
-     * @param string $hash stringa della codifica esadecimale dell'hash
-     * @param boolean $updateDB se true e l'id_utente>0 la modifica viene propagata al DB
-     * @return boolean
-     */
-    protected function updatePasswordHash($hash, $updateDB = false)
-    {
-        $this->MD5 = $hash;
-        if ( $updateDB == true )
-        {
-            $db = \FrontController::getDbConnection('main');
-
-            $query = 'UPDATE utente SET password = '.$db->quote($hash).' WHERE id_utente = '.$db->quote($this->getIdUser());
-            $res = $db->query($query);
-            if (\DB::isError($res))
-                \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-            $rows = $db->affectedRows();
-
-            if( $rows == 1) return true;
-            elseif( $rows == 0) return false;
-            else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
-
-        }
-        return true;
-    }
-    
     public function updatePassword($password, $updateDB = false)
     {
-        return $this->updatePasswordHash(self::passwordHashFunction($password), $updateDB);
+        $this->setSalt(self::generateRandomPassword(8));
+        $this->setAlgoritmo('sha1');
+        $this->password = self::passwordHashFunction($password, $this->getSalt(), $this->getAlgoritmo());
+
+        if ( $updateDB == true )
+        {
+        	$db = \FrontController::getDbConnection('main');
+        
+        	$query = 'UPDATE utente SET password = '.$db->quote($this->password).
+        	', salt = '.$db->quote($this->getSalt()).
+        	', algoritmo = '.$db->quote($this->getAlgoritmo()).
+        	' WHERE id_utente = '.$db->quote($this->getIdUser());
+        	
+        	$res = $db->query($query);
+        	if (\DB::isError($res))
+        		\Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        	$rows = $db->affectedRows();
+        
+        	if( $rows == 1) return true;
+        	elseif( $rows == 0) return false;
+        	else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
+        }
+        
+        return true;
     }
-    
+
     public function matchesPassword($password)
     {
-        return $this->MD5 == self::passwordHashFunction($password);
+        $matches = $this->password == self::passwordHashFunction($password, $this->getSalt(), $this->getAlgoritmo());
+
+        if($matches && $this->getAlgoritmo() !== 'sha1')
+        {
+            $this->updatePassword($password, true);
+        }
+
+        return $matches;
     }
 
     /**
@@ -850,10 +867,10 @@ class User
         if (\DB::isError($res))
             \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         $rows = $res->numRows();
-        
+
         return $rows > 0;
-/*
-        if( $rows == 0) return false;
+        /*
+         if( $rows == 0) return false;
         elseif( $rows == 1) return true;
         else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
         return false;*/
@@ -937,7 +954,7 @@ class User
         {
             $db = \FrontController::getDbConnection('main');
 
-            $query = 'SELECT username, password, email, ultimo_login, ad_username, groups, notifica, phone, default_style, sospeso  FROM utente WHERE id_utente = '.$db->quote($id_utente);
+            $query = 'SELECT username, password, email, ultimo_login, ad_username, groups, notifica, phone, default_style, sospeso, algoritmo, salt  FROM utente WHERE id_utente = '.$db->quote($id_utente);
             $res = $db->query($query);
             if (\DB::isError($res))
                 \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
@@ -949,9 +966,10 @@ class User
             };
 
             $row = $res->fetchRow();
-            $user = new User($id_utente, $row[5], $row[0], $row[1], $row[2], $row[6], $row[3], $row[4], $row[7], $row[8], NULL, $row[9]);
+            $user = new User($id_utente, $row[5], $row[0], $row[1], $row[2], $row[6], $row[3], $row[4], $row[7], $row[8], NULL, $row[9], true);
+            $user->setAlgoritmo($row[10]);
+            $user->setSalt($row[11]);
             return $user;
-
         }
     }
 
@@ -970,7 +988,7 @@ class User
 
         $db = \FrontController::getDbConnection('main');
 
-        $query = 'SELECT id_utente, password, email, ultimo_login, ad_username, groups, notifica, phone, default_style, sospeso  FROM utente WHERE username = '.$db->quote($username);
+        $query = 'SELECT id_utente, password, email, ultimo_login, ad_username, groups, notifica, phone, default_style, sospeso, algoritmo, salt  FROM utente WHERE username = '.$db->quote($username);
         $res = $db->query($query);
         if (\DB::isError($res))
             \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
@@ -983,7 +1001,9 @@ class User
         }
 
         $row = $res->fetchRow();
-        $user = new User($row[0], $row[5], $username, $row[1], $row[2], $row[6], $row[3], $row[4], $row[7], $row[8], NULL, $row[9]);
+        $user = new User($row[0], $row[5], $username, $row[1], $row[2], $row[6], $row[3], $row[4], $row[7], $row[8], NULL, $row[9], true);
+        $user->setAlgoritmo($row[10]);
+        $user->setSalt($row[11]);
         return $user;
 
     }
@@ -1006,7 +1026,7 @@ class User
 
         $db = \FrontController::getDbConnection('main');
 
-        $query = 'SELECT id_utente, password, email, ultimo_login, ad_username, groups, notifica, username, phone, default_style, sospeso  FROM utente WHERE username LIKE '.$db->quote($username) .' AND email LIKE '.$db->quote($email);
+        $query = 'SELECT id_utente, password, email, ultimo_login, ad_username, groups, notifica, username, phone, default_style, sospeso, algoritmo, salt  FROM utente WHERE username LIKE '.$db->quote($username) .' AND email LIKE '.$db->quote($email);
         $res = $db->query($query);
         if (\DB::isError($res))
             \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
@@ -1015,13 +1035,12 @@ class User
 
         while($row = $res->fetchRow())
         {
-            $users[] = new User($row[0], $row[5], $row[7], $row[1], $row[2], $row[6], $row[3], $row[4], $row[8], $row[9], NULL, $row[10]);
+            $users[] = new User($row[0], $row[5], $row[7], $row[1], $row[2], $row[6], $row[3], $row[4], $row[8], $row[9], NULL, $row[10], true);
         }
 
         return $users;
 
     }
-
 
 
     /**
@@ -1239,5 +1258,29 @@ class User
             else  die(); \Error::throwError(_ERROR_DEFAULT,array('msg'=>'Risposta del server di autenticazione Active Directory di Ateneo non valida'.$result,'file'=>__FILE__,'line'=>__LINE__));
 
         }
+    }
+
+    public function getAlgoritmo()
+    {
+        return $this->algoritmo;
+    }
+
+    public function setAlgoritmo($algoritmo)
+    {
+        $this->algoritmo = $algoritmo;
+
+        return $this;
+    }
+
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+
+        return $this;
     }
 }
