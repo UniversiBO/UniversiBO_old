@@ -1,4 +1,4 @@
-UPDATE utente SET password='ac28c2b41697aa58a24449437bade547';
+UPDATE utente SET password='ac28c2b41697aa58a24449437bade547', salt = '', algoritmo='md5';
 UPDATE utente SET email='prova@example.com';
 UPDATE utente SET ad_username='prova@studio.unibo.it' WHERE ad_username IS NOT NULL OR ad_username != '' ;
 UPDATE utente SET phone='0000000000' WHERE phone IS NOT NULL OR phone != '' ;
