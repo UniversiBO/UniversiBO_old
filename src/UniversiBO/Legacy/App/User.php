@@ -851,7 +851,7 @@ class User
             \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         $rows = $res->numRows();
         
-        return $rows == 0;
+        return $rows > 0;
 /*
         if( $rows == 0) return false;
         elseif( $rows == 1) return true;
