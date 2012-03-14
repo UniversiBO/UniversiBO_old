@@ -4,6 +4,7 @@ namespace UniversiBO\Legacy\App;
 
 class User
 {
+    const ALGORITMO_DEFAULT = 'sha256';
 
     /**
      * @access private
@@ -558,6 +559,8 @@ class User
 
         switch($algoritmo)
         {
+            case 'sha256':
+                return hash($algoritmo, $password);
             case 'sha1':
                 return sha1($password);
             default:
@@ -578,7 +581,7 @@ class User
     public function updatePassword($password, $updateDB = false)
     {
         $this->setSalt(self::generateRandomPassword(8));
-        $this->setAlgoritmo('sha1');
+        $this->setAlgoritmo(self::ALGORITMO_DEFAULT);
         $this->password = self::passwordHashFunction($password, $this->getSalt(), $this->getAlgoritmo());
 
         if ( $updateDB == true )
@@ -607,7 +610,7 @@ class User
     {
         $matches = $this->password == self::passwordHashFunction($password, $this->getSalt(), $this->getAlgoritmo());
 
-        if($matches && $this->getAlgoritmo() !== 'sha1')
+        if($matches && $this->getAlgoritmo() !== self::ALGORITMO_DEFAULT)
         {
             $this->updatePassword($password, true);
         }
