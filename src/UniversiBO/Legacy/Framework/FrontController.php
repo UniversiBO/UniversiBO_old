@@ -955,10 +955,10 @@ class FrontController
     				}
 
     				if(!isset($this->commandClass))
-    				    \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non ï¿½ definito l\'attributo class relativo al comando specificato nel file di config','file'=>__FILE__,'line'=>__LINE__));
+    				    \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non è definito l\'attributo class relativo al comando specificato nel file di config','file'=>__FILE__,'line'=>__LINE__));
 
     				if(empty($this->commandClass))
-    				    \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non ï¿½ specificata la classe relativa al comando spacificato nel file di config','file'=>__FILE__,'line'=>__LINE__));
+    				    \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non è specificata la classe relativa al comando spacificato nel file di config','file'=>__FILE__,'line'=>__LINE__));
     }
 
 

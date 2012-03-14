@@ -69,11 +69,11 @@ class NewPasswordDocente extends UniversiboCommand
 			
 			$randomPassword = User::generateRandomPassword();
 			
-			if ($docente->updatePasswordHash(User::passwordHashFunction($randomPassword),true) == false)
+			if ($docente->updatePassword($randomPassword,true) == false)
 				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Si è verificato un errore durante l\'aggiornamento della password','file'=>__FILE__,'line'=>__LINE__));
 			
 			$forum = new ForumApi();
-			$forum->updatePasswordHash($docente);
+			$forum->updatePassword($docente, $randomPassword);
 			//	Error::throwError(_ERROR_DEFAULT,array('msg'=>'Si ? verificato un errore durante la modifica della password sul forum relativa allo username '.$q6_username,'file'=>__FILE__,'line'=>__LINE__));
 			
 			$template->assign('newPasswordDocente_thanks',"La password è stata cambiata con successo.\n");

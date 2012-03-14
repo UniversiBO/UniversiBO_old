@@ -146,11 +146,11 @@ class NewPasswordStudente extends UniversiboCommand
 			//azioni
 			$randomPassword = User::generateRandomPassword();
 			
-			if ($user->updatePasswordHash(User::passwordHashFunction($randomPassword),true) == false)
+			if ($user->updatePassword($randomPassword,true) == false)
 				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Si è verificato un errore durante l\'aggiornamento della password relativa allo username '.$q5_username.' mail '.$q5_ad_user,'file'=>__FILE__,'line'=>__LINE__));
 
 			$forum = new ForumApi();
-			$forum->updatePasswordHash($user);
+			$forum->updatePassword($randomPassword);
 			//	Error::throwError(_ERROR_DEFAULT,'msg'=>'Si è verificato un errore durente la registrazione dell\'account username '.$q5_username.' mail '.$q5_ad_user,'file'=>__FILE__,'line'=>__LINE__));
 			
 			

@@ -567,7 +567,7 @@ class User
      * @param boolean $updateDB se true e l'id_utente>0 la modifica viene propagata al DB
      * @return boolean
      */
-    function updatePasswordHash($hash, $updateDB = false)
+    protected function updatePasswordHash($hash, $updateDB = false)
     {
         $this->MD5 = $hash;
         if ( $updateDB == true )
