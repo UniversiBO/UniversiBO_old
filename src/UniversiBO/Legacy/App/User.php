@@ -192,7 +192,7 @@ class User
         $this->defaultStyle	= $defaultStyle;
         $this->bookmark    = $bookmark;
         $this->eliminato	= $eliminato;
-        
+
         if($hashedPassword) {
             $this->password = $password;
         }
@@ -583,23 +583,23 @@ class User
 
         if ( $updateDB == true )
         {
-        	$db = \FrontController::getDbConnection('main');
-        
-        	$query = 'UPDATE utente SET password = '.$db->quote($this->password).
-        	', salt = '.$db->quote($this->getSalt()).
-        	', algoritmo = '.$db->quote($this->getAlgoritmo()).
-        	' WHERE id_utente = '.$db->quote($this->getIdUser());
-        	
-        	$res = $db->query($query);
-        	if (\DB::isError($res))
-        		\Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        	$rows = $db->affectedRows();
-        
-        	if( $rows == 1) return true;
-        	elseif( $rows == 0) return false;
-        	else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
+            $db = \FrontController::getDbConnection('main');
+
+            $query = 'UPDATE utente SET password = '.$db->quote($this->password).
+            ', salt = '.$db->quote($this->getSalt()).
+            ', algoritmo = '.$db->quote($this->getAlgoritmo()).
+            ' WHERE id_utente = '.$db->quote($this->getIdUser());
+             
+            $res = $db->query($query);
+            if (\DB::isError($res))
+                \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $rows = $db->affectedRows();
+
+            if( $rows == 1) return true;
+            elseif( $rows == 0) return false;
+            else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
         }
-        
+
         return true;
     }
 
@@ -1069,7 +1069,7 @@ class User
             $utente_ban = ( $this->isBanned() ) ? 'S' : 'N';
             $utente_eliminato = ( $this->isEliminato() ) ? USER_ELIMINATO : USER_NOT_ELIMINATO;
 
-            $query = 'INSERT INTO utente (id_utente, username, password, email, notifica, ultimo_login, ad_username, groups, ban, phone, sospeso, default_style) VALUES '.
+            $query = 'INSERT INTO utente (id_utente, username, password, email, notifica, ultimo_login, ad_username, groups, ban, phone, sospeso, default_style, algoritmo, salt) VALUES '.
                     '( '.$db->quote($this->getIdUser()).' , '.
                     $db->quote($this->getUsername()).' , '.
                     $db->quote($this->getPasswordHash()).' , '.
@@ -1081,7 +1081,9 @@ class User
                     $db->quote($utente_ban).' , '.
                     $db->quote($this->getPhone()).' , '.
                     $db->quote($utente_eliminato).' , '.
-                    $db->quote($this->getDefaultStyle()).' )';
+                    $db->quote($this->getDefaultStyle()).' , '.
+                    $db->quote($this->getAlgoritmo()).' , '.
+                    $db->quote($this->getSalt()).' )';
             $res = $db->query($query);
 
             if (\DB::isError($res))
@@ -1124,6 +1126,8 @@ class User
         ', default_style = '.$db->quote($this->getDefaultStyle()).
         ', sospeso = '.$db->quote($utente_eliminato).
         ', ban = '.$db->quote($utente_ban).
+        ', algoritmo = '.$db->quote($this->getAlgoritmo()).
+        ', salt = '.$db->quote($this->getSalt()).
         ' WHERE id_utente = '.$db->quote($this->getIdUser());
 
         $res = $db->query($query);
