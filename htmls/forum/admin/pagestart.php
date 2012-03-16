@@ -52,10 +52,10 @@ if ($HTTP_GET_VARS['sid'] != $userdata['session_id'])
 	redirect("index.$phpEx?sid=" . $userdata['session_id']);
 }
 
-if (!$userdata['session_admin'])
+/*if (!$userdata['session_admin'])
 {
 	redirect(append_sid("login2.$phpEx?redirect=admin/index.$phpEx&admin=1", true));
-}
+}*/
 
 if (empty($no_page_header))
 {
@@ -63,5 +63,3 @@ if (empty($no_page_header))
 	// needed in the calling script.
 	include('./page_header_admin.'.$phpEx);
 }
-
-?>
