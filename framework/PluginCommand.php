@@ -24,9 +24,9 @@ class PluginCommand
 	 * 
 	 * @param BaseCommand $baseCommand BaseCommand chiamante del plugin
 	 */ 
-	function PluginCommand( &$baseCommand)
+	public function __construct($baseCommand)
 	{
-		$this->baseCommand =& $baseCommand;
+		$this->baseCommand = $baseCommand;
 	}
 	
 	
@@ -34,8 +34,9 @@ class PluginCommand
 	 * Abstract method must be overridden from sons-classes
 	 *
 	 * @param mixed $param optional parameter, must be handled from the chosen implementation of PluginCommand
+	 * @todo make abstract
 	 */ 
-	function execute($param=NULL)
+	public function execute($param=NULL)
 	{
 		Error::throwError(_ERROR_CRITICAL,array('msg'=>'Il metodo execute del command deve essere ridefinito','file'=>__FILE__,'line'=>__LINE__) );
 	}
@@ -46,7 +47,7 @@ class PluginCommand
 	 *
 	 * @return BaseCommand
 	 */ 
-	function getBaseCommand()
+	public function getBaseCommand()
 	{
 		return $this->baseCommand;
 	}
@@ -58,7 +59,7 @@ class PluginCommand
 	 * @param mixed $param a parameter handled by PluginCommand 
 	 * @return mixed return value of plugin
 	 */ 
-	function executePlugin($name, $param)
+	public function executePlugin($name, $param)
 	{
 		$bc = $this->getBaseCommand();
 		$fc = $bc->getFrontController();
