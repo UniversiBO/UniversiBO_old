@@ -4,7 +4,7 @@ namespace UniversiBO\Legacy\App;
 
 class User
 {
-    const ALGORITMO_DEFAULT = 'sha256';
+    const ALGORITMO_DEFAULT = 'sha1';
 
     /**
      * @access private
