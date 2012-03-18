@@ -529,5 +529,3 @@ class DidatticaGestione extends UniversiboCommand{
 	}
 	
 }
-
-?>
