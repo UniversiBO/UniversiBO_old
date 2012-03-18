@@ -10,9 +10,9 @@
 abstract class BaseCommand 
 {
 	/**
-	 * @private
+	 * @var \FrontController
 	 */
-	var $frontController;
+	protected $frontController;
 
 	/**
 	 * Initializes the base command link to front controller

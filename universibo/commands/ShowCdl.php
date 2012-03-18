@@ -41,7 +41,7 @@ class ShowCdl extends CanaleCommand {
 		
 		if ( !array_key_exists('anno_accademico', $_GET) )
 			$anno_accademico = $this->frontController->getAppSetting('defaultAnnoAccademico');
-		elseif( !ereg( '^([0-9]{4})$', $_GET['anno_accademico'] ) )
+		elseif( !preg_match( '/^([0-9]{4})$/', $_GET['anno_accademico'] ) )
 			Error::throwError(_ERROR_DEFAULT, array('id_utente' => $this->sessionUser->getIdUser(), 'msg' => 'L\'anno accademico richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
 		else 
 			$anno_accademico = $_GET['anno_accademico'];

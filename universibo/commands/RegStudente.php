@@ -151,7 +151,7 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore 
 			$randomPassword = User::generateRandomPassword();
 			$notifica = NOTIFICA_ALL;
 			
-			$new_user = new User(-1, USER_STUDENTE, $q4_username ,$randomPassword, $q4_ad_user, $notifica, 0, $q4_ad_user, '', $fc->getAppSetting('defaultStyle') );
+			$new_user = new User(-1, User::STUDENTE, $q4_username ,$randomPassword, $q4_ad_user, $notifica, 0, $q4_ad_user, '', $fc->getAppSetting('defaultStyle') );
 			
 			if ($new_user->insertUser() == false)
 				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Si è verificato un errore durente la registrazione dell\'account username '.$q4_username.' mail '.$q4_ad_user,'file'=>__FILE__,'line'=>__LINE__));

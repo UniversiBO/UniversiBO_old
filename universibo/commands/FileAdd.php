@@ -1,4 +1,5 @@
 <?php    
+use UniversiBO\Legacy\App\User;
 
 require_once ('UniversiboCommand'.PHP_EXTENSION);
 require_once ('Files/FileItem'.PHP_EXTENSION);
@@ -251,7 +252,7 @@ class FileAdd extends UniversiboCommand {
 			}
 			elseif ( $user->isAdmin() ) 
 			{
-				if ($_POST['f12_permessi_download'] < 0 || $_POST['f12_permessi_download'] > USER_ALL )
+				if ($_POST['f12_permessi_download'] < 0 || $_POST['f12_permessi_download'] > User::ALL )
 				{
 					Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il valore dei diritti di download non è ammessibile', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' =>& $template));
 					$f12_accept = false;
@@ -260,7 +261,7 @@ class FileAdd extends UniversiboCommand {
 			}
 			else 
 			{	
-				if ($_POST['f12_permessi_download'] != USER_ALL && $_POST['f12_permessi_download'] != (USER_STUDENTE | USER_DOCENTE | USER_TUTOR | USER_PERSONALE | USER_COLLABORATORE | USER_ADMIN ) )
+				if ($_POST['f12_permessi_download'] != User::ALL && $_POST['f12_permessi_download'] != (User::STUDENTE | User::DOCENTE | User::TUTOR | User::PERSONALE | User::COLLABORATORE | USER_ADMIN ) )
 				{
 					Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il valore dei diritti di download non è ammessibile', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' =>& $template));
 					$f12_accept = false;
@@ -283,7 +284,7 @@ class FileAdd extends UniversiboCommand {
 			if (array_key_exists('id_canale', $_GET))
 				$f12_permessi_visualizza = $canale->getPermessi();
 			else 
-				$f12_permessi_visualizza = USER_ALL;
+				$f12_permessi_visualizza = User::ALL;
 			// eventualmente dare la possibilità all'admin di metterli diversamente
 			
 			

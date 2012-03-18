@@ -1,5 +1,7 @@
 <?php    
 
+use UniversiBO\Legacy\App\User;
+
 require_once ('CanaleCommand'.PHP_EXTENSION);
 require_once ('Files/FileItem'.PHP_EXTENSION);
 require_once ('Files/FileItemStudenti'.PHP_EXTENSION);
@@ -19,15 +21,15 @@ class FileStudentiEdit extends UniversiboCommand {
 
 	function execute() {
 		
-		$frontcontroller = & $this->getFrontController();
-		$template = & $frontcontroller->getTemplateEngine();
+		$frontcontroller = $this->getFrontController();
+		$template = $frontcontroller->getTemplateEngine();
 				
-		$krono = & $frontcontroller->getKrono();
+		$krono = $frontcontroller->getKrono();
 		
-		$user = & $this->getSessionUser();
-		$user_ruoli = & $user->getRuoli();
+		$user = $this->getSessionUser();
+		$user_ruoli = $user->getRuoli();
 		
-		if (!array_key_exists('id_file', $_GET) || !ereg('^([0-9]{1,9})$', $_GET['id_file']))
+		if (!array_key_exists('id_file', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_file']))
 		{
 			Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'L\'id del file richiesto non é valido', 'file' => __FILE__, 'line' => __LINE__));
 		}
@@ -300,7 +302,7 @@ class FileStudentiEdit extends UniversiboCommand {
 			}
 			elseif ( $user->isAdmin() ) 
 			{
-				if ($_POST['f24_permessi_download'] < 0 || $_POST['f24_permessi_download'] > USER_ALL )
+				if ($_POST['f24_permessi_download'] < 0 || $_POST['f24_permessi_download'] > User::ALL )
 				{
 					Error :: throwError(_ERROR_NOTICE, array ('msg' => 'Il valore dei diritti di download non è ammessibile', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' =>& $template));
 					$f24_accept = false;
@@ -309,7 +311,7 @@ class FileStudentiEdit extends UniversiboCommand {
 			}
 			else 
 			{
-				if ($_POST['f24_permessi_download'] != USER_ALL && $_POST['f24_permessi_download'] != (USER_STUDENTE | USER_DOCENTE | USER_TUTOR | USER_PERSONALE | USER_COLLABORATORE | USER_ADMIN ) )
+				if ($_POST['f24_permessi_download'] != User::ALL && $_POST['f24_permessi_download'] != (User::STUDENTE | User::DOCENTE | User::TUTOR | User::PERSONALE | User::COLLABORATORE | User::ADMIN ) )
 				{
 					Error :: throwError(_ERROR_NOTICE, array ('msg' => 'Il valore dei diritti di download non è ammissibile', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' =>& $template));
 					$f24_accept = false;
@@ -327,7 +329,7 @@ class FileStudentiEdit extends UniversiboCommand {
 			if (array_key_exists('id_canale', $_GET))
 				$f24_permessi_visualizza = $canale->getPermessi();
 			else 
-				$f24_permessi_visualizza = USER_ALL;
+				$f24_permessi_visualizza = User::ALL;
 			// eventualmente dare la possibilit? all'admin di metterli diversamente
 			
 			

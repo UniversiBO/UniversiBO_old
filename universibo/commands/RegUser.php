@@ -1,4 +1,6 @@
 <?php
+use UniversiBO\Legacy\App\User;
+
 require_once('User'.PHP_EXTENSION);
 require_once ('UniversiboCommand'.PHP_EXTENSION);
 require_once ('ForumApi'.PHP_EXTENSION);
@@ -96,18 +98,18 @@ class RegUser extends UniversiboCommand
 				Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Il livello inserito è vuoto','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
 				$f34_accept = false;
 			}
-//			elseif ( $_POST['f34_livello'] != USER_STUDENTE &&
-//					 $_POST['f34_livello'] != USER_COLLABORATORE &&
-//					 $_POST['f34_livello'] != USER_TUTOR &&
-//					 $_POST['f34_livello'] != USER_DOCENTE &&
-//					 $_POST['f34_livello'] != USER_ADMIN &&
-//					 $_POST['f34_livello'] != USER_PERSONALE ) 
+//			elseif ( $_POST['f34_livello'] != User::STUDENTE &&
+//					 $_POST['f34_livello'] != User::COLLABORATORE &&
+//					 $_POST['f34_livello'] != User::TUTOR &&
+//					 $_POST['f34_livello'] != User::DOCENTE &&
+//					 $_POST['f34_livello'] != User::ADMIN &&
+//					 $_POST['f34_livello'] != User::PERSONALE ) 
 //			{
-			elseif ( $_POST['f34_livello'] != USER_STUDENTE &&
-					 $_POST['f34_livello'] != USER_COLLABORATORE &&
-					 $_POST['f34_livello'] != USER_TUTOR &&
-					 $_POST['f34_livello'] != USER_ADMIN &&
-					 $_POST['f34_livello'] != USER_PERSONALE ) 
+			elseif ( $_POST['f34_livello'] != User::STUDENTE &&
+					 $_POST['f34_livello'] != User::COLLABORATORE &&
+					 $_POST['f34_livello'] != User::TUTOR &&
+					 $_POST['f34_livello'] != User::ADMIN &&
+					 $_POST['f34_livello'] != User::PERSONALE ) 
 			{
 				Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Il livello inserito non è tra quelli ammissibili','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
 				$f34_accept = false;
@@ -120,7 +122,7 @@ class RegUser extends UniversiboCommand
 		{
 			//controllo active directory
 			$randomPassword = User::generateRandomPassword();
-			$notifica = ($q34_livello == USER_STUDENTE || $q34_livello == USER_COLLABORATORE || $q34_livello == USER_ADMIN || $q34_livello == USER_TUTOR ) ? NOTIFICA_ALL : NOTIFICA_NONE;
+			$notifica = ($q34_livello == User::STUDENTE || $q34_livello == User::COLLABORATORE || $q34_livello == User::ADMIN || $q34_livello == User::TUTOR ) ? NOTIFICA_ALL : NOTIFICA_NONE;
 			
 			$new_user = new User(-1, $q34_livello, $q34_username ,$randomPassword, $q34_email, $notifica, 0, '', '', $fc->getAppSetting('defaultStyle') );
 			
@@ -167,7 +169,7 @@ class RegUser extends UniversiboCommand
 		$array_nomi = User::groupsNames();
 		foreach($array_nomi as $key => $value)
 		{
-			if ($key != USER_OSPITE && $key != USER_DOCENTE)
+			if ($key != User::OSPITE && $key != User::DOCENTE)
 				$array_livelli[$key] = $value; 
 		}
 		// riassegna valori form
@@ -182,5 +184,3 @@ class RegUser extends UniversiboCommand
 	}
 	
 }
-
-?>

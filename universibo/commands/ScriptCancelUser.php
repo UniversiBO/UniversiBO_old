@@ -137,7 +137,7 @@ class CancellazioneUtente
 	function anonimizeForumUser ($idUtente) 
 	{
 		// TODO valutare bene cosa settare per user_level e per user_rank
-		$query = 'UPDATE phpbb_users SET username = '.$this->db->quote(NICK_USER_ELIMINATO).', user_email = \'\', user_icq = \'\', ' .
+		$query = 'UPDATE phpbb_users SET username = '.$this->db->quote(User::NICK_ELIMINATO).', user_email = \'\', user_icq = \'\', ' .
 				'user_occ = \'\', user_from = \'\', user_interests = \'\', user_aim = \'\', user_yim = \'\', user_msnm = \'\' WHERE user_id = '. $this->db->quote($idUtente);
 		$res = $this->db->query($query);
 		if( DB::isError($res) )
@@ -153,7 +153,7 @@ class CancellazioneUtente
 	function anonimizeUserPosts($idUtente) 
 	{
 		$sql = 'UPDATE phpbb_posts
-			SET post_username = '.$this->db->quote(NICK_USER_ELIMINATO).' 
+			SET post_username = '.$this->db->quote(User::NICK_ELIMINATO).' 
 			WHERE poster_id = '.$this->db->quote($idUtente);
 		$res = $this->db->query($sql);
 		if( DB::isError($res) )
@@ -168,7 +168,7 @@ class CancellazioneUtente
 //	function anonimizeUserTopic ($idUtente) 
 //	{
 //		$sql = 'UPDATE phpbb_topics '.
-//			'SET topic_poster = '.$this->db->quote(NICK_USER_ELIMINATO).'   // WARNING!! topic_poster è un id_utente, non uno username!! 
+//			'SET topic_poster = '.$this->db->quote(User::NICK_ELIMINATO).'   // WARNING!! topic_poster è un id_utente, non uno username!! 
 //			WHERE topic_poster = '.$this->db->quote($idUtente);
 //		$res = $this->db->query($sql);
 //		return (  !DB::isError($res) );
@@ -293,7 +293,7 @@ class CancellazioneUtente
 /*=============== FORUM==================================================*/
 		
 //		// TODO valutare bene cosa settare per user_level e per user_rank
-//		$query = 'UPDATE phpbb_users SET username = '.$db->quote(NICK_USER_ELIMINATO).', user_email = \'\', user_icq = \'\', ' .
+//		$query = 'UPDATE phpbb_users SET username = '.$db->quote(User::NICK_ELIMINATO).', user_email = \'\', user_icq = \'\', ' .
 //				'user_occ = \'\', user_from = \'\', user_interests = \'\', user_aim = \'\', user_yim = \'\', user_msnm = \'\' WHERE user_id = '. $db->quote($idUtente);
 //		$res = $db->query($query);
 //		if(  DB::isError($res) )
@@ -312,7 +312,7 @@ class CancellazioneUtente
 
 //		// elimino il nome utente dai post
 //		$sql = 'UPDATE phpbb_posts
-//			SET post_username = '.$db->quote(NICK_USER_ELIMINATO).' 
+//			SET post_username = '.$db->quote(User::NICK_ELIMINATO).' 
 //			WHERE poster_id = '.$db->quote($idUtente);
 //		$res = $db->query($sql);
 //		if(  DB::isError($res) )

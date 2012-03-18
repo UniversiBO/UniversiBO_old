@@ -1,6 +1,6 @@
 <?php
+use UniversiBO\Legacy\App\User;
 
-require_once('User' . PHP_EXTENSION);
 require_once('Canale' . PHP_EXTENSION);
 require_once('Ruolo' . PHP_EXTENSION);
 
@@ -20,9 +20,8 @@ abstract class UniversiboCommand extends BaseCommand {
 
     /**
      * User
-     * @private 
      */
-    var $sessionUser;
+    private $sessionUser;
 
     /**
      * Restituisce l'id_utente del dello user nella sessione corrente
@@ -129,7 +128,7 @@ abstract class UniversiboCommand extends BaseCommand {
     function _setUpUserUniversibo() {
 
         if (!$this->sessionUserExists()) {
-            $this->sessionUser = new User(0, USER_OSPITE);
+            $this->sessionUser = new User(0, User::OSPITE);
             $this->setSessionIdUtente(0);
         } elseif ($this->getSessionIdUtente() >= 0) {
             $this->sessionUser = & User::selectUser($this->getSessionIdUtente());
@@ -168,7 +167,8 @@ abstract class UniversiboCommand extends BaseCommand {
 
         $template->assign('common_templateBaseDir', $templateInfo['web_dir'] . $templateInfo['styles'][$templateInfo['template_name']]);
 
-        $temp_template_list = $this->frontController->templateEngine['styles'];
+        $tpsettings = $this->frontController->getTemplateEngineSettings();
+        $temp_template_list = $tpsettings['styles'];
         $template_list = array();
         $i = 0;
         foreach ($temp_template_list as $key => $value) {

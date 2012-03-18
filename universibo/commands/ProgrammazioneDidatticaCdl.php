@@ -5,6 +5,7 @@ require_once ('ProgrammazioneDidattica/ProgrammazioneDidatticaDataRetrieverFacto
 require_once ('Facolta'.PHP_EXTENSION);
 require_once ('Cdl'.PHP_EXTENSION);
 
+use UniversiBO\Legacy\App\User;
 
 /**
  * ChangePassword is an extension of UniversiboCommand class.
@@ -43,12 +44,12 @@ class ProgrammazioneDidatticaCdl extends UniversiboCommand
 			if (array_key_exists('f25_submit_publish', $_POST))
 			{
 				$keys = array_keys($_POST['f25_submit_publish']);
-				$permessi = USER_ALL;
+				$permessi = User::ALL;
 			}	
 			else 
 			{
 				$keys = array_keys($_POST['f25_submit_hide']);
-				$permessi = USER_NONE;
+				$permessi = User::NONE;
 			}	
 			
 			if (count($keys) == 0) 
@@ -98,7 +99,7 @@ class ProgrammazioneDidatticaCdl extends UniversiboCommand
 				{
 					$presidente =  ($elenco_cdl[$i]->codDocPresidente == '000000') ? null : $elenco_cdl[$i]->codDocPresidente ;
 					
-					$new_cdl = new Cdl(0, USER_NONE, time(), CANALE_CDL, '', '', 0,
+					$new_cdl = new Cdl(0, User::NONE, time(), CANALE_CDL, '', '', 0,
 												true, false, false, null, null, true, false,
 												$elenco_cdl[$i]->codCorso, $elenco_cdl[$i]->descCorso, 
 												Cdl::translateCategoriaCdl($elenco_cdl[$i]->tipoCorso), 
@@ -116,7 +117,7 @@ class ProgrammazioneDidatticaCdl extends UniversiboCommand
 			else
 			{
 				$cdl_attiva = 'true';
-				if ($cdl_db->getPermessi() == USER_NONE)
+				if ($cdl_db->getPermessi() == User::NONE)
 					$public = 'false';
 				else
 					$public = 'true';

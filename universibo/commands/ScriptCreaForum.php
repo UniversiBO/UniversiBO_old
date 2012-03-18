@@ -66,7 +66,7 @@ class ScriptCreaForum extends UniversiboCommand
 			// creo forum cdl se ? attivo su universibo
 			$id_utente = $this->selectIdUtenteFromCodDoc($cdl->getCodDocente()); //presidente cdl pu? essere null
 			
-			if ($cdl->isGroupAllowed(USER_OSPITE) && $cdl->getServizioForum()==false)
+			if ($cdl->isGroupAllowed(User::OSPITE) && $cdl->getServizioForum()==false)
 			{
 				$forum_id = $forum->addForum($cdl->getCodiceCdl().' - '.ucwords(strtolower($cdl->getNome())), 
 							'Forum riservato alla discussione generale sul CdL '.$cdl->getCodiceCdl(), $cat_id);
@@ -92,7 +92,7 @@ class ScriptCreaForum extends UniversiboCommand
 				echo ' > ','aggiornato il canale con il nuovo forum e categoria: ',$forum_id,"\n";
 				
 			}
-			elseif ($cdl->isGroupAllowed(USER_OSPITE))
+			elseif ($cdl->isGroupAllowed(User::OSPITE))
 				echo ' > ','forum cdl gia\' presente: ',$cdl->getForumForumId(),' - '.$cdl->getForumGroupId()."\n";
 			
 			
@@ -103,7 +103,7 @@ class ScriptCreaForum extends UniversiboCommand
 			{
 				//AAHHH qui la cache di Canale potrebbe restituire dei casini, non la posso usare,
 				// PrgAttivit? ed Insegnamento hanno gli stessi id_canali
-				if (!$prg_att->isSdoppiato() && $prg_att->isGroupAllowed(USER_OSPITE)  && $prg_att->getServizioForum()==false)
+				if (!$prg_att->isSdoppiato() && $prg_att->isGroupAllowed(User::OSPITE)  && $prg_att->getServizioForum()==false)
 				{
 					$insegnamento = Insegnamento::selectInsegnamentoCanale($prg_att->getIdCanale());
 					echo '   - ',$insegnamento->getIdCanale(),' - '.str_replace("\n",' ',$insegnamento->getNome()),"\n";
@@ -114,7 +114,7 @@ class ScriptCreaForum extends UniversiboCommand
 						//creo nuovo forum
 						$id_docente = $this->selectIdUtenteFromCodDoc($prg_att->getCodDoc()); 
 						
-						if ($insegnamento->isGroupAllowed(USER_OSPITE) && $insegnamento->getServizioForum()==false)
+						if ($insegnamento->isGroupAllowed(User::OSPITE) && $insegnamento->getServizioForum()==false)
 						{
 							$ins_forum_id = $forum->addForum($insegnamento->getNome(),'', $cat_id);
 							$insegnamento->setForumForumId($ins_forum_id);

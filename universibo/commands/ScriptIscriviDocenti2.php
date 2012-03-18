@@ -1,5 +1,4 @@
 <?php
-
 require_once ('UniversiboCommand'.PHP_EXTENSION);
 
 
@@ -38,7 +37,7 @@ class ScriptIscriviDocenti2 extends UniversiboCommand
 				$randomPassword = User::generateRandomPassword();
 				//$pippo = $fc->getAppSetting('defaultStyle');
 				//var_dump($pippo);
-				$new_user = new User(-1, USER_DOCENTE, $username ,$randomPassword, $row[2], $notifica, 0, '', '', $fc->getAppSetting('defaultStyle') );
+				$new_user = new User(-1, User::DOCENTE, $username ,$randomPassword, $row[2], $notifica, 0, '', '', $fc->getAppSetting('defaultStyle') );
 				
 				if ($new_user->insertUser() == false)
 					die('Errore inserimento: username '.$username.' | mail '.$row[2]);

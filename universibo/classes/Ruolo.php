@@ -1,6 +1,6 @@
 <?php
+use UniversiBO\Legacy\App\User;
 
-require_once('User'.PHP_EXTENSION);
 require_once('Canale'.PHP_EXTENSION);
 
 define('RUOLO_NONE'        ,0);

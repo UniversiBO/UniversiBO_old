@@ -1,4 +1,5 @@
 <?php  
+use UniversiBO\Legacy\App\User;
 
 require_once('Files/FileKeyWords'.PHP_EXTENSION);
 

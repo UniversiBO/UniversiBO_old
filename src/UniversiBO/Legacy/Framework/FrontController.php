@@ -34,82 +34,82 @@ class FrontController
     /**
      * @access private
      */
-    var $configFile;
+    private $configFile;
 
     /**
      * @access private
      */
-    var $config;
+    private $config;
 
     /**
      * @access private
      */
-    var $rootFolder;
+    private $rootFolder;
 
     /**
      * @access private
      */
-    var $rootUrl = '';
+    private $rootUrl = '';
 
     /**
      * @access private
      */
-    var $receiverId;
+    private $receiverId;
 
     /**
      * @access private
      */
-    var $defaultCommand;
+    private $defaultCommand;
 
     /**
      * @access private
      */
-    var $commandClass;
+    private $commandClass;
 
     /**
      * @access private
      */
-    var $paths;
+    private $paths;
 
     /**
      * @access private
      */
-    var $receivers;
+    private $receivers;
 
     /**
      * @access private
      */
-    var $commandTemplate;
+    private $commandTemplate;
 
     /**
      * @access private
      */
-    var $appSettings;
+    private $appSettings;
 
     /**
      * @access private
      */
-    var $mailerInfo = array();
+    private $mailerInfo = array();
 
     /**
      * @access private
      */
-    var $smsMobyInfo = array();
+    private $smsMobyInfo = array();
 
     /**
      * @access private
      */
-    var $languageInfo = array();
+    private $languageInfo = array();
 
     /**
      * @access private
      */
-    var $plugins;
+    private $plugins;
 
     /**
      * @access private
      */
-    var $templateEngine;
+    private $templateEngine;
 
 
 
@@ -1055,7 +1055,11 @@ class FrontController
         }
     }
 
-
+    
+    public function getTemplateEngineSettings()
+    {
+        return $this->templateEngine;
+    }
 
     /**
      * Factory method that creates a PhpMailer Mail object

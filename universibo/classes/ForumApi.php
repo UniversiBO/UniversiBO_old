@@ -46,7 +46,7 @@ class ForumApi implements UniversiBO\ForumBundle\Integration\ForumApi
      * Ranks e livelli da assegnare agli utenti inizialmente
      * @access private
      */
-    var $defaultRanks = array(USER_STUDENTE => 0, USER_COLLABORATORE => 9, USER_TUTOR => 10, USER_DOCENTE => 11, USER_PERSONALE => 12, USER_ADMIN =>  1);
+    var $defaultRanks = array(User::STUDENTE => 0, User::COLLABORATORE => 9, User::TUTOR => 10, User::DOCENTE => 11, User::PERSONALE => 12, User::ADMIN =>  1);
 
 
     /**
@@ -223,7 +223,7 @@ public function insertUser(User $user, $password = null)
     if ($user->isOspite()) return;
 
     $groups = $user->getGroups();
-    if ( $groups != USER_OSPITE && $groups != USER_STUDENTE && $groups != USER_COLLABORATORE && $groups != USER_TUTOR && $groups != USER_DOCENTE && $groups != USER_PERSONALE && $groups != USER_ADMIN ) return;
+    if ( $groups != User::OSPITE && $groups != User::STUDENTE && $groups != User::COLLABORATORE && $groups != User::TUTOR && $groups != User::DOCENTE && $groups != User::PERSONALE && $groups != User::ADMIN ) return;
     // @todo renderla funzionante anche per utenti che appartengono a pi? gruppi
 
     $user_style = $this->defaultUserStyle[$user->getDefaultStyle()];

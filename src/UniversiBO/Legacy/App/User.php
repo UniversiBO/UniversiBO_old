@@ -2,9 +2,31 @@
 
 namespace UniversiBO\Legacy\App;
 
+/**
+ * User class
+ *
+ * @version 2.0.0
+ * @author Ilias Bartolini <brain79@virgilio.it>
+ * @author Davide Bellettini
+ * @license GPL, <{@link http://www.opensource.org/licenses/gpl-license.php}>
+ * @copyright CopyLeft UniversiBO 2001-2003
+ */
 class User
 {
     const ALGORITMO_DEFAULT = 'sha1';
+
+    const NONE = 0;
+    const OSPITE = 1;
+    const STUDENTE = 2;
+    const COLLABORATORE =4;
+    const TUTOR = 8;
+    const DOCENTE = 16;
+    const PERSONALE = 32;
+    const ADMIN = 64;
+    const ALL = 127;
+    const ELIMINATO = 'S';
+    const NOT_ELIMINATO = 'N';
+    const NICK_ELIMINATO = 'ex-utente';
 
     /**
      * @access private
@@ -85,7 +107,7 @@ class User
     {
         $username = trim($username);
         $username_pattern='/^([[:alnum:]אטילעש \._]{1,25})$/';
-        return preg_match($username_pattern , $username ) && strcasecmp($username, NICK_USER_ELIMINATO) != 0;
+        return preg_match($username_pattern , $username ) && strcasecmp($username, self::NICK_ELIMINATO) != 0;
     }
 
     /**
@@ -141,24 +163,24 @@ class User
         if ( $singolare == true )
         {
             return array(
-                    USER_OSPITE		=> "Ospite",
-                    USER_STUDENTE		=> "Studente",
-                    USER_COLLABORATORE	=> "Collaboratore",
-                    USER_TUTOR			=> "Tutor",
-                    USER_DOCENTE		=> "Docente",
-                    USER_PERSONALE		=> "Personale non docente",
-                    USER_ADMIN			=> "Admin");
+                    self::OSPITE		=> "Ospite",
+                    self::STUDENTE		=> "Studente",
+                    self::COLLABORATORE	=> "Collaboratore",
+                    self::TUTOR			=> "Tutor",
+                    self::DOCENTE		=> "Docente",
+                    self::PERSONALE		=> "Personale non docente",
+                    self::ADMIN			=> "Admin");
         }
         else
         {
             return array(
-                    USER_OSPITE     => "Ospiti",
-                    USER_STUDENTE   => "Studenti",
-                    USER_COLLABORATORE => "Collaboratori",
-                    USER_TUTOR      => "Tutor",
-                    USER_DOCENTE    => "Docenti",
-                    USER_PERSONALE  => "Personale non docente",
-                    USER_ADMIN      => "Admin");
+                    self::OSPITE     => "Ospiti",
+                    self::STUDENTE   => "Studenti",
+                    self::COLLABORATORE => "Collaboratori",
+                    self::TUTOR      => "Tutor",
+                    self::DOCENTE    => "Docenti",
+                    self::PERSONALE  => "Personale non docente",
+                    self::ADMIN      => "Admin");
         }
     }
 
@@ -180,7 +202,7 @@ class User
      * @param array() $bookmark array con elenco dei id_canale dell'utente associati ai rispettivi ruoli
      * @return User
      */
-    public function __construct($id_utente, $groups, $username=NULL, $password=NULL, $email=NULL, $notifica=NULL, $ultimo_login=NULL, $AD_username=NULL, $phone='', $defaultStyle='', $bookmark=NULL, $eliminato = USER_NOT_ELIMINATO, $hashedPassword = false)
+    public function __construct($id_utente, $groups, $username=NULL, $password=NULL, $email=NULL, $notifica=NULL, $ultimo_login=NULL, $AD_username=NULL, $phone='', $defaultStyle='', $bookmark=NULL, $eliminato = self::NOT_ELIMINATO, $hashedPassword = false)
     {
         $this->id_utente   = $id_utente;
         $this->groups      = $groups;
@@ -292,7 +314,7 @@ class User
     /**
      * Ritorna lo OR bit a bit dei gruppi di appartenenza dello User
      *
-     * es:  USER_STUDENTE|USER_ADMIN  =  2|64  =  66
+     * es:  self::STUDENTE|self::ADMIN  =  2|64  =  66
      *
      * @return int
      */
@@ -524,24 +546,24 @@ class User
         {
 
     			  			return array(
-    			  			        USER_OSPITE		=> "Ospite",
-    			  			        USER_STUDENTE		=> "Studente",
-    			  			        USER_COLLABORATORE	=> "Studente",
-    			  			        USER_TUTOR			=> "Tutor",
-    			  			        USER_DOCENTE		=> "Docente",
-    			  			        USER_PERSONALE		=> "Personale non docente",
-    			  			        USER_ADMIN			=> "Studente");
+    			  			        self::OSPITE		=> "Ospite",
+    			  			        self::STUDENTE		=> "Studente",
+    			  			        self::COLLABORATORE	=> "Studente",
+    			  			        self::TUTOR			=> "Tutor",
+    			  			        self::DOCENTE		=> "Docente",
+    			  			        self::PERSONALE		=> "Personale non docente",
+    			  			        self::ADMIN			=> "Studente");
         }
         else
         {
             return array(
-                    USER_OSPITE        => "Ospiti",
-                    USER_STUDENTE      => "Studenti",
-                    USER_COLLABORATORE => "Studenti",
-                    USER_TUTOR         => "Tutor",
-                    USER_DOCENTE       => "Docenti",
-                    USER_PERSONALE     => "Personale non docente",
-                    USER_ADMIN         => "Studenti");
+                    self::OSPITE        => "Ospiti",
+                    self::STUDENTE      => "Studenti",
+                    self::COLLABORATORE => "Studenti",
+                    self::TUTOR         => "Tutor",
+                    self::DOCENTE       => "Docenti",
+                    self::PERSONALE     => "Personale non docente",
+                    self::ADMIN         => "Studenti");
         }
     }
 
@@ -672,7 +694,7 @@ class User
      */
     function isEliminato()
     {
-        return $this->eliminato == USER_ELIMINATO;
+        return $this->eliminato == self::ELIMINATO;
     }
 
 
@@ -684,7 +706,7 @@ class User
      */
     function setEliminato($elimina = true)
     {
-        return ($this->eliminato = ($elimina) ? USER_ELIMINATO : USER_NOT_ELIMINATO);
+        return ($this->eliminato = ($elimina) ? self::ELIMINATO : self::NOT_ELIMINATO);
     }
 
     /**
@@ -697,7 +719,7 @@ class User
     {
         if ( $groups == NULL ) $groups = $this->getGroups();
 
-        return (boolean) ( (int)$groups & (int)USER_ADMIN );
+        return (boolean) ( (int)$groups & (int)self::ADMIN );
     }
 
 
@@ -712,7 +734,7 @@ class User
     {
         if ( $groups == NULL ) $groups = $this->getGroups();
 
-        return (boolean) ( (int)$groups & (int)USER_PERSONALE );
+        return (boolean) ( (int)$groups & (int)self::PERSONALE );
     }
 
 
@@ -728,7 +750,7 @@ class User
     {
         if ( $groups == NULL ) $groups = $this->getGroups();
 
-        return (boolean) ( (int)$groups & (int)USER_DOCENTE );
+        return (boolean) ( (int)$groups & (int)self::DOCENTE );
     }
 
 
@@ -744,7 +766,7 @@ class User
     {
         if ( $groups == NULL ) $groups = $this->getGroups();
 
-        return (boolean) ( $groups & USER_TUTOR );
+        return (boolean) ( $groups & self::TUTOR );
     }
 
 
@@ -760,7 +782,7 @@ class User
     {
         if ( $groups == NULL ) $groups = $this->getGroups();
 
-        return (boolean) ( (int)$groups & (int)USER_COLLABORATORE );
+        return (boolean) ( (int)$groups & (int)self::COLLABORATORE );
     }
 
 
@@ -776,7 +798,7 @@ class User
     {
         if ( $groups == NULL ) $groups = $this->getGroups();
 
-        return (boolean) ( $groups & USER_STUDENTE );
+        return (boolean) ( $groups & self::STUDENTE );
     }
 
 
@@ -793,7 +815,7 @@ class User
     {
         if ( $groups == NULL ) $groups = $this->getGroups();
 
-        if ( $groups == USER_OSPITE ) return true;
+        if ( $groups == self::OSPITE ) return true;
         return false;
     }
 
@@ -809,16 +831,16 @@ class User
      */
     function getUserGroupsNames( $singolare = true )
     {
-        $nomi_gruppi = User::groupsNames($singolare);
+        $nomi_gruppi = self::groupsNames($singolare);
         $return = array();
 
-        if ($this->isOspite())			$return[]=$nomi_gruppi[USER_OSPITE];
-        if ($this->isStudente())		$return[]=$nomi_gruppi[USER_STUDENTE];
-        if ($this->isCollaboratore())	$return[]=$nomi_gruppi[USER_COLLABORATORE];
-        if ($this->isTutor())			$return[]=$nomi_gruppi[USER_TUTOR];
-        if ($this->isDocente())			$return[]=$nomi_gruppi[USER_DOCENTE];
-        if ($this->isPersonale())		$return[]=$nomi_gruppi[USER_PERSONALE];
-        if ($this->isAdmin())			$return[]=$nomi_gruppi[USER_ADMIN];
+        if ($this->isOspite())			$return[]=$nomi_gruppi[self::OSPITE];
+        if ($this->isStudente())		$return[]=$nomi_gruppi[self::STUDENTE];
+        if ($this->isCollaboratore())	$return[]=$nomi_gruppi[self::COLLABORATORE];
+        if ($this->isTutor())			$return[]=$nomi_gruppi[self::TUTOR];
+        if ($this->isDocente())			$return[]=$nomi_gruppi[self::DOCENTE];
+        if ($this->isPersonale())		$return[]=$nomi_gruppi[self::PERSONALE];
+        if ($this->isAdmin())			$return[]=$nomi_gruppi[self::ADMIN];
 
         return $return;
 
@@ -836,16 +858,16 @@ class User
      */
     function getUserPublicGroupName( $singolare = true )
     {
-        $nomi_gruppi = User::publicGroupsName($singolare);
+        $nomi_gruppi = self::publicGroupsName($singolare);
 
 
-        if ($this->isOspite())			return $nomi_gruppi[USER_OSPITE];
-        if ($this->isStudente())		return $nomi_gruppi[USER_STUDENTE];
-        if ($this->isCollaboratore())	return $nomi_gruppi[USER_COLLABORATORE];
-        if ($this->isTutor())			return $nomi_gruppi[USER_TUTOR];
-        if ($this->isDocente())			return $nomi_gruppi[USER_DOCENTE];
-        if ($this->isPersonale())		return $nomi_gruppi[USER_PERSONALE];
-        if ($this->isAdmin())			return $nomi_gruppi[USER_ADMIN];
+        if ($this->isOspite())			return $nomi_gruppi[self::OSPITE];
+        if ($this->isStudente())		return $nomi_gruppi[self::STUDENTE];
+        if ($this->isCollaboratore())	return $nomi_gruppi[self::COLLABORATORE];
+        if ($this->isTutor())			return $nomi_gruppi[self::TUTOR];
+        if ($this->isDocente())			return $nomi_gruppi[self::DOCENTE];
+        if ($this->isPersonale())		return $nomi_gruppi[self::PERSONALE];
+        if ($this->isAdmin())			return $nomi_gruppi[self::ADMIN];
 
     }
 
@@ -892,7 +914,7 @@ class User
 
         $db = \FrontController::getDbConnection('main');
 
-        $query = 'SELECT id_utente, groups FROM utente WHERE groups > 2 AND groups!= 8 AND groups != 16 AND groups!= 32 AND sospeso = '.$db->quote(USER_NOT_ELIMINATO);
+        $query = 'SELECT id_utente, groups FROM utente WHERE groups > 2 AND groups!= 8 AND groups != 16 AND groups!= 32 AND sospeso = '.$db->quote(self::NOT_ELIMINATO);
         $res = $db->query($query);
         if (\DB::isError($res))
             \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
@@ -950,7 +972,7 @@ class User
 
         if ($id_utente == 0)
         {
-            $user = new User(0,USER_OSPITE);
+            $user = new User(0,self::OSPITE);
             return $user;
         }
         elseif ($id_utente > 0)
@@ -1070,7 +1092,7 @@ class User
         {
             $this->id_utente = $db->nextID('utente_id_utente');
             $utente_ban = ( $this->isBanned() ) ? 'S' : 'N';
-            $utente_eliminato = ( $this->isEliminato() ) ? USER_ELIMINATO : USER_NOT_ELIMINATO;
+            $utente_eliminato = ( $this->isEliminato() ) ? self::ELIMINATO : self::NOT_ELIMINATO;
 
             $query = 'INSERT INTO utente (id_utente, username, password, email, notifica, ultimo_login, ad_username, groups, ban, phone, sospeso, default_style, algoritmo, salt) VALUES '.
                     '( '.$db->quote($this->getIdUser()).' , '.
@@ -1116,7 +1138,7 @@ class User
     {
         $db = \FrontController::getDbConnection('main');
         $utente_ban = ( $this->isBanned() ) ? 'S' : 'N';
-        $utente_eliminato = ( $this->isEliminato() ) ? USER_ELIMINATO : USER_NOT_ELIMINATO;
+        $utente_eliminato = ( $this->isEliminato() ) ? self::ELIMINATO : self::NOT_ELIMINATO;
 
         $query = 'UPDATE utente SET username = '.$db->quote($this->getUsername()).
         ', password = '.$db->quote($this->getPasswordHash()).

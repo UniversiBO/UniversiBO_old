@@ -1,4 +1,5 @@
 <?php
+use UniversiBO\Legacy\App\User;
 
 /**
  * CommentoItem class
@@ -12,6 +13,7 @@
  * @author Fabio Crisci <fabioc83@yahoo.it>
  * @author Daniele Tiles
  * @author Fabrizio Pinto
+ * @author Davide Bellettini
  * @license GPL, @link http://www.opensource.org/licenses/gpl-license.php
  * @copyright CopyLeft UniversiBO 2001-2003
  */
@@ -55,7 +57,7 @@ class CommentoItem
 	 * @param $voto proposto per un file studente
 	 */
 	
-	function CommentoItem($id_commento,$id_file_studente,$id_utente,$commento,$voto,$eliminato)
+	public function __construct($id_commento,$id_file_studente,$id_utente,$commento,$voto,$eliminato)
 	{
 		$this->id_commento = $id_commento;
 		$this->id_file_studente = $id_file_studente;
@@ -167,7 +169,7 @@ class CommentoItem
 	
 		while ( $res->fetchInto($row) )
 		{
-			$commenti_list[]= &new CommentoItem($row[0],$id_file,$row[1],$row[2],$row[3],COMMENTO_NOT_ELIMINATO);
+			$commenti_list[]= new CommentoItem($row[0],$id_file,$row[1],$row[2],$row[3],COMMENTO_NOT_ELIMINATO);
 		}
 		
 		$res->free();
@@ -192,7 +194,7 @@ class CommentoItem
 	
 		if($res->fetchInto($row) )
 		{
-			$commenti= &new CommentoItem($id_commento,$row[0],$row[1],$row[2],$row[3],COMMENTO_NOT_ELIMINATO);
+			$commenti= new CommentoItem($id_commento,$row[0],$row[1],$row[2],$row[3],COMMENTO_NOT_ELIMINATO);
 		}
 		else return false;
 		

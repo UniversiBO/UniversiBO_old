@@ -39,7 +39,7 @@ class ShowFileInfo extends PluginCommand {
 		$template->assign('common_canaleURI', array_key_exists('HTTP_REFERER', $_SERVER) ? $_SERVER['HTTP_REFERER'] : '' );
 		$template->assign('common_langCanaleNome', 'indietro');
 		
-//		if (array_key_exists('id_canale', $param) && ereg('^([0-9]{1,9})$', $param['id_canale']))
+//		if (array_key_exists('id_canale', $param) && preg_match('/^([0-9]{1,9})$/', $param['id_canale']))
 //		{
 //			$canale = & Canale::retrieveCanale($param['id_canale']);
 //			$template->assign('common_canaleURI', $canale->showMe());

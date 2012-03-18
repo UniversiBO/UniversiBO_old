@@ -1,4 +1,5 @@
 <?php
+use UniversiBO\Legacy\App\User;
 
 define('NEWS_ELIMINATA','S');
 define('NEWS_NOT_ELIMINATA','N');

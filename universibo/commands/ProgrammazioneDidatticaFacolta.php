@@ -5,6 +5,7 @@ require_once ('ProgrammazioneDidattica/ProgrammazioneDidatticaDataRetrieverFacto
 //require_once ('ProgrammazioneDidattica/ProgrammazioneDidatticaAddDocente'.PHP_EXTENSION);
 require_once ('Facolta'.PHP_EXTENSION);
 
+use UniversiBO\Legacy\App\User;
 
 /**
  * ChangePassword is an extension of UniversiboCommand class.
@@ -39,12 +40,12 @@ class ProgrammazioneDidatticaFacolta extends UniversiboCommand
 			if (array_key_exists('f24_submit_publish', $_POST))
 			{
 				$keys = array_keys($_POST['f24_submit_publish']);
-				$permessi = USER_ALL;
+				$permessi = User::ALL;
 			}	
 			else 
 			{
 				$keys = array_keys($_POST['f24_submit_hide']);
-				$permessi = USER_NONE;
+				$permessi = User::NONE;
 			}	
 			
 			if (count($keys) == 0) 
@@ -92,7 +93,7 @@ class ProgrammazioneDidatticaFacolta extends UniversiboCommand
 				
 				if (in_array($elenco_facolta[$i]->codFac,$keys_nuovi_cod_fac))
 				{
-					$new_facolta = new Facolta(0, USER_NONE, time(), CANALE_FACOLTA, '', '', 0,
+					$new_facolta = new Facolta(0, User::NONE, time(), CANALE_FACOLTA, '', '', 0,
 												true, false, false, null, null, true, false,
 												$elenco_facolta[$i]->codFac, $elenco_facolta[$i]->descFac, '');
 												/** @todo Facolta ancora non gestisce il Preside */
@@ -114,7 +115,7 @@ class ProgrammazioneDidatticaFacolta extends UniversiboCommand
 			else
 			{
 				$facolta_attiva = 'true';
-				if ($facolta_db->getPermessi() == USER_NONE)
+				if ($facolta_db->getPermessi() == User::NONE)
 					$public = 'false';
 				else
 					$public = 'true';

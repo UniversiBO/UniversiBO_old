@@ -1,5 +1,7 @@
 <?php
 
+use UniversiBO\Legacy\App\User;
+
 require_once ('UniversiboCommand'.PHP_EXTENSION);
 require_once('Files/FileItem'.PHP_EXTENSION);
 require_once('Files/FileItemStudenti'.PHP_EXTENSION);
@@ -39,8 +41,8 @@ class ScriptCreaCatalogoFile extends UniversiboCommand
 		
 			echo "vecchio" ;		
 			echo " \n" ;
-			$res = $db->query('SELECT id_file FROM file WHERE password IS NULL AND permessi_download = '.$db->quote(USER_ALL).' AND eliminato !='.$db->quote(FILE_ELIMINATO).' ORDER BY id_file ASC');
-//			echo 'SELECT id_file FROM file WHERE password IS NULL AND permessi_download = '.$db->quote(USER_ALL).' AND eliminato !='.$db->quote(FILE_ELIMINATO).' ORDER BY id_file ASC';
+			$res = $db->query('SELECT id_file FROM file WHERE password IS NULL AND permessi_download = '.$db->quote(User::ALL).' AND eliminato !='.$db->quote(FILE_ELIMINATO).' ORDER BY id_file ASC');
+//			echo 'SELECT id_file FROM file WHERE password IS NULL AND permessi_download = '.$db->quote(User::ALL).' AND eliminato !='.$db->quote(FILE_ELIMINATO).' ORDER BY id_file ASC';
 			if (DB::isError($res)) 
 				Error :: throwError(_ERROR_DEFAULT, array ('msg' => "Errori nel recupero dei file esistenti", 'file' => __FILE__, 'line' => __LINE__)); 
 			
