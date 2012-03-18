@@ -1,6 +1,6 @@
 #!/bin/sh
-BASEDIR=/home/apache/universibo
-USER=root
+BASEDIR=/var/www/universibo
+USER=apache
 GROUP=apache
 
 chown ${USER}.${GROUP} $BASEDIR -R
@@ -12,6 +12,7 @@ chmod g+w $BASEDIR/htmls/forum/images/avatars
 # gli utenti del sito devono poter inviare le loro foto
 chmod g+w $BASEDIR/htmls/img/contacts
 # notifiche non ancora inviate
+touch $BASEDIR/universibo/notifiche.lock
 chmod g+w $BASEDIR/universibo/notifiche.lock
 # log...
 chmod g+w $BASEDIR/universibo/log-universibo
