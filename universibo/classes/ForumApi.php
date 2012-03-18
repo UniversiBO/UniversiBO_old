@@ -310,43 +310,39 @@ function updateUserEmail(User $user)
  *
  * @static
  */
-public function addUserGroup(User $user, $group)
+public function addUserGroup($userId, $group)
 {
-
     $db = FrontController::getDbConnection($this->database);
 
-    $query = 'SELECT * FROM '.$this->table_prefix.'user_group WHERE group_id = '.$db->quote($group).' AND user_id = '.$db->quote($user);
+    $query = 'SELECT * FROM '.$this->table_prefix.'user_group WHERE group_id = '.$db->quote($group).' AND user_id = '.$db->quote($userId);
     $res = $db->query($query);
     if (DB::isError($res))
         Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
     if ($res->numRows() > 0 ) return;
 
-    $query = 'INSERT INTO '.$this->table_prefix.'user_group (group_id, user_id, user_pending) VALUES ('.$db->quote($group).', '.$db->quote($user).', 0)';
+    $query = 'INSERT INTO '.$this->table_prefix.'user_group (group_id, user_id, user_pending) VALUES ('.$db->quote($group).', '.$db->quote($userId).', 0)';
 
     $res = $db->query($query);
     if (DB::isError($res))
         Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
 }
-
 
 /**
  * Remove un utente ad un gruppo di moderazione sul database del forum
  *
  * @static
  */
-function removeUserGroup(User $user, $group)
+function removeUserGroup($userId, $group)
 {
 
     $db = FrontController::getDbConnection($this->database);
 
-    $query = 'DELETE FROM '.$this->table_prefix.'user_group WHERE group_id = '.$db->quote($group).' AND user_id = '.$db->quote($user);
+    $query = 'DELETE FROM '.$this->table_prefix.'user_group WHERE group_id = '.$db->quote($group).' AND user_id = '.$db->quote($userId);
 
     $res = $db->query($query);
     if (DB::isError($res))
         Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
 }
 
 

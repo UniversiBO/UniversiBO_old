@@ -13,8 +13,8 @@ interface ForumDBApi
     public function updateUserStyle(User $user);
     public function updatePassword(User $user, $password);
     public function updateUserEmail(User $user);
-    public function addUserGroup(User $user, $group);
-    public function removeUserGroup(User $user, $group);
+    public function addUserGroup($userId, $group);
+    public function removeUserGroup($userId, $group);
     public function addGroup($title, $desc, $id_owner);
     public function addGroupForumPrivilegies($forum_id, $group_id);
     public function getMaxForumId();

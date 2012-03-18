@@ -61,5 +61,3 @@ class MyUniversiBORemove extends UniversiboCommand
 	}
 	
 }
-
-?>
