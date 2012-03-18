@@ -37,5 +37,6 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
         self::assertTrue($this->isTextPresent('Registrazione studenti'));
         self::assertTrue($this->isTextPresent('Username smarrito'));
         self::assertTrue($this->isTextPresent('Password smarrita'));
+        self::assertTrue($this->isTextPresent('I servizi personalizzati sono disponibili solo agli utenti che hanno effettuato il login'));
     }
 }
