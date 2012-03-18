@@ -149,7 +149,7 @@ class Error
     {
         global $_Error_handlers;
         if ( $error_category === NULL ) $error_category = $this->error_category;
-        if ( $param === NULL ) $param = $this->param;
+        if ( $param === NULL ) $param =& $this->param;
         return call_user_func( $_Error_handlers[$error_category], $param );
     }
 
