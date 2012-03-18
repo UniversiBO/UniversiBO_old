@@ -35,7 +35,7 @@ class NewsDelete extends CanaleCommand {
 		$id_canale = $canale->getIdCanale();
 	
 		
-		if (!array_key_exists('id_news', $_GET) || !ereg('^([0-9]{1,9})$', $_GET['id_news'] )  )
+		if (!array_key_exists('id_news', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_news'] )  )
 		{
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'id della notizia richiesta non è valido','file'=>__FILE__,'line'=>__LINE__ ));
 		}

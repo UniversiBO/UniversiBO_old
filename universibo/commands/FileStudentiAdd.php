@@ -32,7 +32,7 @@ class FileStudentiAdd extends UniversiboCommand {
 		{
 			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => "Per questa operazione bisogna essere registrati\n la sessione potrebbe essere terminata", 'file' => __FILE__, 'line' => __LINE__));
 		}		
-/*		if (!array_key_exists('id_canale', $_GET) || !ereg('^([0-9]{1,9})$', $_GET['id_canale']))
+/*		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
 		{
 			Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non ? valido', 'file' => __FILE__, 'line' => __LINE__));
 		}
@@ -64,7 +64,7 @@ class FileStudentiAdd extends UniversiboCommand {
 				
 		if (array_key_exists('id_canale', $_GET))
 		{
-			if (!ereg('^([0-9]{1,9})$', $_GET['id_canale']))
+			if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
 				Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
 
 			$canale = & Canale::retrieveCanale($_GET['id_canale']);
@@ -262,7 +262,7 @@ class FileStudentiAdd extends UniversiboCommand {
 			}
 			
 			//permessi_download	
-			if (!ereg('^([0-9]{1,9})$', $_POST['f23_categoria'])) 
+			if (!preg_match('/^([0-9]{1,9})$/', $_POST['f23_categoria'])) 
 			{
 				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo categoria non é ammissibile', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 				$f23_accept = false;

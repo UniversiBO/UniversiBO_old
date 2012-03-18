@@ -77,7 +77,7 @@ class FileShowInfo extends UniversiboCommand {
 //		$template->assign('fileShowInfo_canali', $canali_tpl);
 //		$template->assign('fileShowInfo_paroleChiave', $file->getParoleChiave());
 //		
-		if (array_key_exists('id_canale', $_GET) && ereg('^([0-9]{1,9})$', $_GET['id_canale']))
+		if (array_key_exists('id_canale', $_GET) && preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
 			$this->executePlugin('ShowFileInfo', array( 'id_file' => $_GET['id_file'], 'id_canale' => $_GET['id_canale']) );
 		else
 			$this->executePlugin('ShowFileInfo', array( 'id_file' => $_GET['id_file'] ) );

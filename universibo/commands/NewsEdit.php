@@ -32,7 +32,7 @@ class NewsEdit extends CanaleCommand
 		$referente = false;
 		$moderatore = false;
 
-		if (!array_key_exists('id_news', $_GET) || !ereg('^([0-9]{1,9})$', $_GET['id_news']))
+		if (!array_key_exists('id_news', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_news']))
 		{
 			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id della notizia richiesta '.$_GET['id_news'].' non è valido', 'file' => __FILE__, 'line' => __LINE__));
 		}
@@ -341,7 +341,7 @@ class NewsEdit extends CanaleCommand
 //					$diritti = $user->isAdmin() || (array_key_exists($key, $user_ruoli) && ($user_ruoli[$key]->isReferente() || $user_ruoli[$key]->isModeratore()));
 //					if (!$diritti)
 //					{
-//						if(!ereg('^([0-9]{1,9})$', $key))
+//						if(!preg_match('/^([0-9]{1,9})$/', $key))
 //						{
 //							Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'Il form inviato non ? valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => true));
 //						}

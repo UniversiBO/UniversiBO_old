@@ -80,9 +80,9 @@ class DidatticaGestione extends UniversiboCommand{
 		
 		// controllo canale scelto
 //		if (array_key_exists('id_canale', $_GET))
-		if (array_key_exists('id_canale', $_GET) && ereg('^([0-9]{1,9})$', $_GET['id_canale']))
+		if (array_key_exists('id_canale', $_GET) && preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
 		{
-//			if (!ereg('^([0-9]{1,9})$', $_GET['id_canale']))
+//			if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
 //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
 
 			if ( Canale::getTipoCanaleFromId($_GET['id_canale']) == CANALE_INSEGNAMENTO)
@@ -128,9 +128,9 @@ class DidatticaGestione extends UniversiboCommand{
 
 		// controllo facoltà scelta
 //		if (array_key_exists('id_fac', $_GET))
-		if (array_key_exists('id_fac', $_GET) && ereg('^([0-9]{1,9})$', $_GET['id_fac']))
+		if (array_key_exists('id_fac', $_GET) && preg_match('/^([0-9]{1,9})$/', $_GET['id_fac']))
 		{
-//			if (!ereg('^([0-9]{1,9})$', $_GET['id_fac']))
+//			if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_fac']))
 //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id della facoltà richiesta non è valido', 'file' => __FILE__, 'line' => __LINE__));
 
 				
@@ -144,9 +144,9 @@ class DidatticaGestione extends UniversiboCommand{
 						
 		// controllo cdl						
 //		if (array_key_exists('id_cdl', $_GET))
-		if (array_key_exists('id_cdl', $_GET) && ereg('^([0-9]{1,9})$', $_GET['id_cdl']))
+		if (array_key_exists('id_cdl', $_GET) && preg_match('/^([0-9]{1,9})$/', $_GET['id_cdl']))
 		{
-//			if (!ereg('^([0-9]{1,9})$', $_GET['id_cdl']))
+//			if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_cdl']))
 //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
 
 			
@@ -255,7 +255,7 @@ class DidatticaGestione extends UniversiboCommand{
 				$mods = array();
 				if (array_key_exists('codice docente', $tmpEdit))
 				{
-					if (!ereg('^([0-9]{1,9})$', $tmpEdit['codice docente']) || Docente::selectDocenteFromCod(intval($tmpEdit['codice docente'])))
+					if (!preg_match('/^([0-9]{1,9})$/', $tmpEdit['codice docente']) || Docente::selectDocenteFromCod(intval($tmpEdit['codice docente'])))
 					{
 						Error :: throwError (_ERROR_NOTICE, array ('msg' => 'Codice docente invalido, nessuna modifica effettuata', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 						$f41_accept = false;

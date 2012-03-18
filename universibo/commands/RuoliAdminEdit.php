@@ -29,13 +29,13 @@ class RuoliAdminEdit extends UniversiboCommand {
 		$arrayPublicUsers = array();
 		
 							
-		if (!array_key_exists('id_canale', $_GET) || !ereg('^([0-9]{1,9})$', $_GET['id_canale']))
+		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
 			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
 			
 		$canale = & Canale::retrieveCanale($_GET['id_canale']);
 		$id_canale = $canale->getIdCanale();
 		
-		if (!array_key_exists('id_utente', $_GET) || !ereg('^([0-9]{1,9})$', $_GET['id_utente']))
+		if (!array_key_exists('id_utente', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_utente']))
 			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id dell\'utente richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
 		
 		$target_user = User::selectUser($_GET['id_utente']);

@@ -45,7 +45,7 @@ class FileStudentiEdit extends UniversiboCommand {
 		$template->assign('common_langCanaleNome', 'a '.$canale->getTitolo());
 		
 		
-//		if (!array_key_exists('id_canale', $_GET) || !ereg('^([0-9]{1,9})$', $_GET['id_canale']))
+//		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
 //		{
 //			Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
 //		}
@@ -63,7 +63,7 @@ class FileStudentiEdit extends UniversiboCommand {
 			
 		if (array_key_exists('id_canale', $_GET))
 		{
-			if (!ereg('^([0-9]{1,9})$', $_GET['id_canale']))
+			if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
 				Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non é valido', 'file' => __FILE__, 'line' => __LINE__));
 
 			$canale = & Canale::retrieveCanale($_GET['id_canale']);
@@ -267,7 +267,7 @@ class FileStudentiEdit extends UniversiboCommand {
 			}
 			
 			//categoria	
-			if (!ereg('^([0-9]{1,9})$', $_POST['f24_categoria'])) 
+			if (!preg_match('/^([0-9]{1,9})$/', $_POST['f24_categoria'])) 
 			{
 				Error :: throwError(_ERROR_NOTICE, array ('msg' => 'Il formato del campo categoria non è ammissibile', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 				$f24_accept = false;
@@ -281,7 +281,7 @@ class FileStudentiEdit extends UniversiboCommand {
 			
 			
 			//tipi	
-			if (!ereg('^([0-9]{1,9})$', $_POST['f24_tipo'])) 
+			if (!preg_match('/^([0-9]{1,9})$/', $_POST['f24_tipo'])) 
 			{
 				Error :: throwError(_ERROR_NOTICE, array ('msg' => 'Il formato del campo tipo non é ammissibile', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 				$f24_accept = false;

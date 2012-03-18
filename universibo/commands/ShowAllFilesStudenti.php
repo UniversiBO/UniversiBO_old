@@ -26,7 +26,7 @@ require_once ('PluginCommand'.PHP_EXTENSION);
 		$user = $this->getSessionUser();	
 		$arrayFilesStudenti = array();
 		
-		if (!array_key_exists('order', $_GET) || !ereg('^([0-9]{1,9})$', $_GET['order'] ) || ($_GET['order'] > 2) )
+		if (!array_key_exists('order', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['order'] ) || ($_GET['order'] > 2) )
 		{
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'ordine richiesto non è valido','file'=>__FILE__,'line'=>__LINE__ ));
 		}

@@ -30,7 +30,7 @@ class FileDocenteAdmin extends UniversiboCommand {
 		{
 			Error :: throwError (_ERROR_DEFAULT, array ('msg' => "Non hai i diritti necessari per accedere a questa pagina\n la sessione potrebbe essere terminata", 'file' => __FILE__, 'line' => __LINE__));
 		}		
-/*		if (!array_key_exists('id_canale', $_GET) || !ereg('^([0-9]{1,9})$', $_GET['id_canale']))
+/*		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
 		{
 			Error :: throw (_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
 		}
@@ -52,7 +52,7 @@ class FileDocenteAdmin extends UniversiboCommand {
 		$id_canale = '';	
 		if (array_key_exists('id_canale', $_GET))
 		{
-			if (!ereg('^([0-9]{1,9})$', $_GET['id_canale']))
+			if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
 				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
 
 			$canale = & Canale::retrieveCanale($_GET['id_canale']);

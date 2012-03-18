@@ -26,7 +26,7 @@ class ShowInfoDidattica extends UniversiboCommand
 		$user = & $this->getSessionUser();
 		$user_ruoli = & $user->getRuoli();
 			
-		if (!array_key_exists('id_canale', $_GET) || !ereg('^([0-9]{1,9})$', $_GET['id_canale']))
+		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
 			Error::throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
 		
 		$id_canale = $_GET['id_canale'];

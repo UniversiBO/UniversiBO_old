@@ -33,7 +33,7 @@ class NewPasswordDocente extends UniversiboCommand
 		if (!in_array($session_user->getUsername(), $username_allowed ))
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'La generazione di una nuova password dei docenti è possibile solo a '.implode(', ',$username_allowed)."\n".'La sessione potrebbe essere scaduta, eseguire il login','file'=>__FILE__,'line'=>__LINE__));
 		
-		if ( !array_key_exists('id_utente', $_GET)  || !ereg('^([0-9]{1,9})$', $_GET['id_utente']))
+		if ( !array_key_exists('id_utente', $_GET)  || !preg_match('/^([0-9]{1,9})$/', $_GET['id_utente']))
 			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $session_user->getIdUser(), 'msg' => 'L\'id dell\'utente richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
 
 		$docente = User::selectUser($_GET['id_utente']);

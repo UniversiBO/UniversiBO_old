@@ -28,7 +28,7 @@ class FileEdit extends UniversiboCommand {
 		$user = & $this->getSessionUser();
 		$user_ruoli = & $user->getRuoli();
 		
-		if (!array_key_exists('id_file', $_GET) || !ereg('^([0-9]{1,9})$', $_GET['id_file']))
+		if (!array_key_exists('id_file', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_file']))
 		{
 			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del file richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
 		}
@@ -39,7 +39,7 @@ class FileEdit extends UniversiboCommand {
 		$template->assign('fileEdit_fileUri', 'index.php?do=FileShowInfo&id_file='.$file->getIdFile());
 		
 		
-//		if (!array_key_exists('id_canale', $_GET) || !ereg('^([0-9]{1,9})$', $_GET['id_canale']))
+//		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
 //		{
 //			Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non ? valido', 'file' => __FILE__, 'line' => __LINE__));
 //		}
@@ -57,7 +57,7 @@ class FileEdit extends UniversiboCommand {
 			
 		if (array_key_exists('id_canale', $_GET))
 		{
-			if (!ereg('^([0-9]{1,9})$', $_GET['id_canale']))
+			if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
 				Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
 
 			$canale = & Canale::retrieveCanale($_GET['id_canale']);
@@ -263,7 +263,7 @@ class FileEdit extends UniversiboCommand {
 			}
 			
 			//categoria	
-			if (!ereg('^([0-9]{1,9})$', $_POST['f13_categoria'])) 
+			if (!preg_match('/^([0-9]{1,9})$/', $_POST['f13_categoria'])) 
 			{
 				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo categoria non è ammissibile', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 				$f13_accept = false;
@@ -277,7 +277,7 @@ class FileEdit extends UniversiboCommand {
 			
 			
 			//tipi	
-			if (!ereg('^([0-9]{1,9})$', $_POST['f13_tipo'])) 
+			if (!preg_match('/^([0-9]{1,9})$/', $_POST['f13_tipo'])) 
 			{
 				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo tipo non è ammissibile', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 				$f13_accept = false;

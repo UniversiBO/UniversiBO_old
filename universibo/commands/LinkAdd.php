@@ -29,7 +29,7 @@ class LinkAdd extends UniversiboCommand {
 		{
 			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => "Per questa operazione bisogna essere registrati\n la sessione potrebbe essere terminata", 'file' => __FILE__, 'line' => __LINE__));
 		}		
-/*		if (!array_key_exists('id_canale', $_GET) || !ereg('^([0-9]{1,9})$', $_GET['id_canale']))
+/*		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
 		{
 			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non ? valido', 'file' => __FILE__, 'line' => __LINE__));
 		}
@@ -55,7 +55,7 @@ class LinkAdd extends UniversiboCommand {
 		if (!array_key_exists('id_canale', $_GET))
 			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Devi specificare un id del canale', 'file' => __FILE__, 'line' => __LINE__));
 		
-		if (!ereg('^([0-9]{1,9})$', $_GET['id_canale']))
+		if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
 			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
 
 		$canale = & Canale::retrieveCanale($_GET['id_canale']);

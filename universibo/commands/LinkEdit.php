@@ -32,7 +32,7 @@ class LinkEdit extends CanaleCommand
 		$referente = false;
 		$moderatore = false;
 
-		if (!array_key_exists('id_link', $_GET) || !ereg('^([0-9]{1,9})$', $_GET['id_link']))
+		if (!array_key_exists('id_link', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_link']))
 		{
 			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del link richiesta non è	valido', 'file' => __FILE__, 'line' => __LINE__));
 		}

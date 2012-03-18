@@ -31,7 +31,7 @@ class FileStudentiComment extends UniversiboCommand {
 		{
 			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => "Per questa operazione bisogna essere registrati\n la sessione potrebbe essere terminata", 'file' => __FILE__, 'line' => __LINE__));
 		}		
-		if (!array_key_exists('id_file', $_GET) || !ereg('^([0-9]{1,9})$', $_GET['id_file']))
+		if (!array_key_exists('id_file', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_file']))
 		{
 			Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'L\'id del file richiesto non é valido', 'file' => __FILE__, 'line' => __LINE__));
 		}
