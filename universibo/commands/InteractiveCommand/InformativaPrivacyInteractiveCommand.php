@@ -14,8 +14,8 @@ require_once ('InteractiveCommand/BaseInteractiveCommand'.PHP_EXTENSION);
  
 class InformativaPrivacyInteractiveCommand extends BaseInteractiveCommand
 {
-	function InformativaPrivacyInteractiveCommand (&$baseCommand) {
-		parent::BaseInteractiveCommand($baseCommand);
+	public function __construct ($baseCommand) {
+		parent::__construct($baseCommand);
 		
 		// Da qui si può personalizzare il contenuto che comparirà. Meglio qui o direttamente nel tpl? ah, se avessimo risolto il problema dei testi ..
 		$this->priority = HIGH_INTERACTION;

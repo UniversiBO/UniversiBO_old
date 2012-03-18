@@ -8,8 +8,10 @@
 
 	<testsuites>
 		<testsuite name="Project Test Suite">
-			<directory>../src/*/*Bundle/Tests</directory>
+			<!-- <directory>../src/*/*Bundle/Tests</directory>
 			<directory>../src/*/Bundle/*Bundle/Tests</directory>
+			-->
+			<directory>../src/UniversiBO/Legacy/Tests</directory>
 		</testsuite>
 	</testsuites>
 
@@ -19,10 +21,12 @@
 		<whitelist>
 			<directory>../src</directory>
 			<exclude>
+			<!-- 
 				<directory>../src/*/*Bundle/Resources</directory>
 				<directory>../src/*/*Bundle/Tests</directory>
 				<directory>../src/*/Bundle/*Bundle/Resources</directory>
 				<directory>../src/*/Bundle/*Bundle/Tests</directory>
+			-->
 			</exclude>
 		</whitelist>
 	</filter>

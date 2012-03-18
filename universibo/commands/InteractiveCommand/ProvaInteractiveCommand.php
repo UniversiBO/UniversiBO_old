@@ -14,8 +14,8 @@ require_once ('InteractiveCommand/BaseInteractiveCommand'.PHP_EXTENSION);
  
 class ProvaInteractiveCommand extends BaseInteractiveCommand
 {
-	function ProvaInteractiveCommand (&$baseCommand) {
-		parent::BaseInteractiveCommand($baseCommand);
+	public function __construct ($baseCommand) {
+		parent::__construct($baseCommand);
 //		$this->priority = HIGH_INTERACTION;
 		$this->title = 'ecco il titolo personalizzato';
 		// modificate la seguente variabile se non va bene il mess di default

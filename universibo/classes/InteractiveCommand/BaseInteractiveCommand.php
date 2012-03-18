@@ -90,10 +90,10 @@ class BaseInteractiveCommand extends PluginCommand
 	 * 
 	 * @return void
 	 */
-	function BaseInteractiveCommand(&$baseCommand)
+	public function __construct($baseCommand)
 	{
 		// VERIFY andrà bene questo costruttore?
-		parent::PluginCommand($baseCommand);
+		parent::__construct($baseCommand);
 		
 		$this->systemValues['bc'] 	= $baseCommand;
 		$this->systemValues['fc'] 	= $baseCommand->getFrontController();
