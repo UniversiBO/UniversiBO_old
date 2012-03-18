@@ -132,7 +132,7 @@ class FileAdd extends UniversiboCommand {
 			
 			$checkdate_ins = true;
 			//data_ins_gg
-			if (!ereg('^([0-9]{1,2})$', $_POST['f12_data_ins_gg'])) {
+			if (!preg_match('/^([0-9]{1,2})$/', $_POST['f12_data_ins_gg'])) {
 				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo giorno di inserimento non \u00e8 valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 				$f12_accept = false;
 				$checkdate_ins = false;
@@ -140,7 +140,7 @@ class FileAdd extends UniversiboCommand {
 				$f12_data_ins_gg = $_POST['f12_data_ins_gg'];
 
 			//f12_data_ins_mm
-			if (!ereg('^([0-9]{1,2})$', $_POST['f12_data_ins_mm'])) {
+			if (!preg_match('/^([0-9]{1,2})$/', $_POST['f12_data_ins_mm'])) {
 				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo mese di inserimento non è valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 				$f12_accept = false;
 				$checkdate_ins = false;
@@ -148,7 +148,7 @@ class FileAdd extends UniversiboCommand {
 				$f12_data_ins_mm = $_POST['f12_data_ins_mm'];
 
 			//f12_data_ins_aa
-			if (!ereg('^([0-9]{4})$', $_POST['f12_data_ins_aa'])) {
+			if (!preg_match('/^([0-9]{4})$/', $_POST['f12_data_ins_aa'])) {
 				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo anno di inserimento non è valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 				$f12_accept = false;
 				$checkdate_ins = false;
@@ -161,7 +161,7 @@ class FileAdd extends UniversiboCommand {
 				$f12_data_ins_aa = $_POST['f12_data_ins_aa'];
 
 			//f12_data_ins_ora
-			if (!ereg('^([0-9]{1,2})$', $_POST['f12_data_ins_ora'])) {
+			if (!preg_match('/^([0-9]{1,2})$/', $_POST['f12_data_ins_ora'])) {
 				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo ora di inserimento non \u00e8 valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 				$f12_accept = false;
 			}
@@ -172,7 +172,7 @@ class FileAdd extends UniversiboCommand {
 				$f12_data_ins_ora = $_POST['f12_data_ins_ora'];
 
 			//f12_data_ins_min
-			if (!ereg('^([0-9]{1,2})$', $_POST['f12_data_ins_min'])) {
+			if (!preg_match('/^([0-9]{1,2})$/', $_POST['f12_data_ins_min'])) {
 				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo minuto di inserimento non è valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 				$f12_accept = false;
 			}
@@ -245,7 +245,7 @@ class FileAdd extends UniversiboCommand {
 			else $f12_categoria = $_POST['f12_categoria'];
 			
 			//permessi_download	
-			if (!ereg('^([0-9]{1,3})$', $_POST['f12_permessi_download'])) 
+			if (!preg_match('/^([0-9]{1,3})$/', $_POST['f12_permessi_download'])) 
 			{
 				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'I permessi di download non sono validi', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 				$f12_accept = false;

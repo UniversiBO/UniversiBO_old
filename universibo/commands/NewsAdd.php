@@ -85,7 +85,7 @@ class NewsAdd extends CanaleCommand {
 			
 			$checkdate_ins = true;
 			//data_ins_gg
-			if (!ereg('^([0-9]{1,2})$', $_POST['f7_data_ins_gg'])) {
+			if (!preg_match('/^([0-9]{1,2})$/', $_POST['f7_data_ins_gg'])) {
 				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo giorno di inserimento non \u00e8 valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 				$f7_accept = false;
 				$checkdate_ins = false;
@@ -93,7 +93,7 @@ class NewsAdd extends CanaleCommand {
 				$f7_data_ins_gg = $_POST['f7_data_ins_gg'];
 
 			//f7_data_ins_mm
-			if (!ereg('^([0-9]{1,2})$', $_POST['f7_data_ins_mm'])) {
+			if (!preg_match('/^([0-9]{1,2})$/', $_POST['f7_data_ins_mm'])) {
 				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo mese di inserimento non è valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 				$f7_accept = false;
 				$checkdate_ins = false;
@@ -114,7 +114,7 @@ class NewsAdd extends CanaleCommand {
 				$f7_data_ins_aa = $_POST['f7_data_ins_aa'];
 
 			//f7_data_ins_ora
-			if (!ereg('^([0-9]{1,2})$', $_POST['f7_data_ins_ora'])) {
+			if (!preg_match('/^([0-9]{1,2})$/', $_POST['f7_data_ins_ora'])) {
 				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo ora di inserimento non \u00e8 valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 				$f7_accept = false;
 			}
@@ -125,7 +125,7 @@ class NewsAdd extends CanaleCommand {
 				$f7_data_ins_ora = $_POST['f7_data_ins_ora'];
 
 			//f7_data_ins_min
-			if (!ereg('^([0-9]{1,2})$', $_POST['f7_data_ins_min'])) {
+			if (!preg_match('/^([0-9]{1,2})$/', $_POST['f7_data_ins_min'])) {
 				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo minuto di inserimento non è valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 				$f7_accept = false;
 			}
@@ -149,7 +149,7 @@ class NewsAdd extends CanaleCommand {
 				$f7_scadenza = true;
 				$checkdate_scad = true;
 				//data_scad_gg
-				if (!ereg('^([0-9]{1,2})$', $_POST['f7_data_scad_gg'])) {
+				if (!preg_match('/^([0-9]{1,2})$/', $_POST['f7_data_scad_gg'])) {
 					Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo giorno di inserimento non \u00e8 valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 					$f7_accept = false;
 					$checkdate_scad = false;
@@ -157,7 +157,7 @@ class NewsAdd extends CanaleCommand {
 					$f7_data_scad_gg = $_POST['f7_data_scad_gg'];
 
 				//f7_data_scad_mm
-				if (!ereg('^([0-9]{1,2})$', $_POST['f7_data_scad_mm'])) {
+				if (!preg_match('/^([0-9]{1,2})$/', $_POST['f7_data_scad_mm'])) {
 					Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo mese di inserimento non \u00e8 valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 					$f7_accept = false;
 					$checkdate_scad = false;
@@ -178,7 +178,7 @@ class NewsAdd extends CanaleCommand {
 					$f7_data_scad_aa = $_POST['f7_data_scad_aa'];
 
 				//f7_data_scad_ora
-				if (!ereg('^([0-9]{1,2})$', $_POST['f7_data_scad_ora'])) {
+				if (!preg_match('/^([0-9]{1,2})$/', $_POST['f7_data_scad_ora'])) {
 					Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo ora di inserimento non \u00e8 valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 					$f7_accept = false;
 				}
@@ -189,7 +189,7 @@ class NewsAdd extends CanaleCommand {
 					$f7_data_scad_ora = $_POST['f7_data_scad_ora'];
 
 				//f7_data_scad_min
-				if (!ereg('^([0-9]{1,2})$', $_POST['f7_data_scad_min'])) {
+				if (!preg_match('/^([0-9]{1,2})$/', $_POST['f7_data_scad_min'])) {
 					Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo minuto di inserimento non \u00e8 valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 					$f7_accept = false;
 				}

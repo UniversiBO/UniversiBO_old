@@ -268,7 +268,7 @@ class DidatticaGestione extends UniversiboCommand{
 				}			
 				if (array_key_exists('ciclo', $tmpEdit))
 				{
-					if (!ereg('^([0-4,E]{1})$', $tmpEdit['ciclo']))
+					if (!preg_match('/^([0-4,E]{1})$/', $tmpEdit['ciclo']))
 					{
 						Error :: throwError (_ERROR_NOTICE, array ('msg' => 'Ciclo invalido, nessuna modifica effettuata', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 						$f41_accept = false;
@@ -282,7 +282,7 @@ class DidatticaGestione extends UniversiboCommand{
 				if (array_key_exists('anno', $tmpEdit))
 				{
 					// l'anno può essere 0 per gli esami opzionali di economia
-					if (!ereg('^([0-5]{1})$', $tmpEdit['anno']) || Docente::selectDocenteFromCod($tmpEdit['anno']))
+					if (!preg_match('/^([0-5]{1})$/', $tmpEdit['anno']) || Docente::selectDocenteFromCod($tmpEdit['anno']))
 					{
 						Error :: throwError (_ERROR_NOTICE, array ('msg' => 'Anno invalido, nessuna modifica effettuata', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 						$f41_accept = false;

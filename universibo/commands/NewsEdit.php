@@ -155,7 +155,7 @@ class NewsEdit extends CanaleCommand
 
 			$checkdate_ins = true;
 			//data_ins_gg
-			if (!ereg('^([0-9]{1,2})$', $_POST['f8_data_ins_gg']))
+			if (!preg_match('/^([0-9]{1,2})$/', $_POST['f8_data_ins_gg']))
 			{
 				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo giorno di inserimento non è valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 				$f8_accept = false;
@@ -165,7 +165,7 @@ class NewsEdit extends CanaleCommand
 				$f8_data_ins_gg = $_POST['f8_data_ins_gg'];
 
 			//f8_data_ins_mm
-			if (!ereg('^([0-9]{1,2})$', $_POST['f8_data_ins_mm']))
+			if (!preg_match('/^([0-9]{1,2})$/', $_POST['f8_data_ins_mm']))
 			{
 				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo mese di inserimento non è valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 				$f8_accept = false;
@@ -191,7 +191,7 @@ class NewsEdit extends CanaleCommand
 				$f8_data_ins_aa = $_POST['f8_data_ins_aa'];
 
 			//f8_data_ins_ora
-			if (!ereg('^([0-9]{1,2})$', $_POST['f8_data_ins_ora']))
+			if (!preg_match('/^([0-9]{1,2})$/', $_POST['f8_data_ins_ora']))
 			{
 				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo ora di inserimento non \u00e8 valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 				$f8_accept = false;
@@ -205,7 +205,7 @@ class NewsEdit extends CanaleCommand
 				$f8_data_ins_ora = $_POST['f8_data_ins_ora'];
 
 			//f8_data_ins_min
-			if (!ereg('^([0-9]{1,2})$', $_POST['f8_data_ins_min']))
+			if (!preg_match('/^([0-9]{1,2})$/', $_POST['f8_data_ins_min']))
 			{
 				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo minuto di inserimento non è valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 				$f8_accept = false;
@@ -233,7 +233,7 @@ class NewsEdit extends CanaleCommand
 				$f8_scadenza = true;
 				$checkdate_scad = true;
 				//data_scad_gg
-				if (!ereg('^([0-9]{1,2})$', $_POST['f8_data_scad_gg']))
+				if (!preg_match('/^([0-9]{1,2})$/', $_POST['f8_data_scad_gg']))
 				{
 					Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo giorno di inserimento non \u00e8 valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 					$f8_accept = false;
@@ -243,7 +243,7 @@ class NewsEdit extends CanaleCommand
 					$f8_data_scad_gg = $_POST['f8_data_scad_gg'];
 
 				//f8_data_scad_mm
-				if (!ereg('^([0-9]{1,2})$', $_POST['f8_data_scad_mm']))
+				if (!preg_match('/^([0-9]{1,2})$/', $_POST['f8_data_scad_mm']))
 				{
 					Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo mese di inserimento non \u00e8 valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 					$f8_accept = false;
@@ -269,7 +269,7 @@ class NewsEdit extends CanaleCommand
 					$f8_data_scad_aa = $_POST['f8_data_scad_aa'];
 
 				//f8_data_scad_ora
-				if (!ereg('^([0-9]{1,2})$', $_POST['f8_data_scad_ora']))
+				if (!preg_match('/^([0-9]{1,2})$/', $_POST['f8_data_scad_ora']))
 				{
 					Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo ora di inserimento non \u00e8 valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 					$f8_accept = false;
@@ -283,7 +283,7 @@ class NewsEdit extends CanaleCommand
 					$f8_data_scad_ora = $_POST['f8_data_scad_ora'];
 
 				//f8_data_scad_min
-				if (!ereg('^([0-9]{1,2})$', $_POST['f8_data_scad_min']))
+				if (!preg_match('/^([0-9]{1,2})$/', $_POST['f8_data_scad_min']))
 				{
 					Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo minuto di inserimento non \u00e8 valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 					$f8_accept = false;

@@ -70,7 +70,7 @@ class NewPasswordStudente extends UniversiboCommand
 				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Lo username di ateneo indicato può essere massimo 30 caratteri','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
 				$f5_accept = false;
 			}
-			elseif(ereg('@studio\.unibo\.it$',$_POST['f5_ad_user'])){
+			elseif(preg_match('/@studio\.unibo\.it$/',$_POST['f5_ad_user'])){
 				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Non inserire il suffisso "@studio.unibo.it" nella email di ateneo','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
 				$f5_accept = false;
 			}
