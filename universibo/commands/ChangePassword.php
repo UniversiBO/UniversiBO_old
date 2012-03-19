@@ -1,4 +1,5 @@
 <?php
+use UniversiBO\Legacy\App\User;
 
 require_once ('UniversiboCommand'.PHP_EXTENSION);
 require_once ('ForumApi'.PHP_EXTENSION);
