@@ -1,6 +1,10 @@
 <?php
 namespace UniversiBO\Legacy\Tests;
 
+/**
+ * Parent class for all Selenium tests in UniversiBO
+ * @author Davide Bellettini <davide.bellettini@gmail.com>
+ */
 abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
 {
     protected function setUp()
