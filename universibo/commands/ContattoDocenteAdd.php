@@ -61,4 +61,3 @@ class ContattoDocenteAdd extends UniversiboCommand {
 		return 'default';
 	}	
 }
-?>
