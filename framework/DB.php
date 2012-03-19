@@ -891,7 +891,11 @@ class DB_Error extends PEAR_Error
                               $mode, $level, $debuginfo);
         }
     }
-
+    
+    public function __toString()
+    {
+    	return $this->getMessage();
+    }
     // }}}
 }
 
