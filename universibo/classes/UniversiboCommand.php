@@ -21,7 +21,7 @@ abstract class UniversiboCommand extends BaseCommand {
     /**
      * User
      */
-    private $sessionUser;
+    protected $sessionUser;
 
     /**
      * Restituisce l'id_utente del dello user nella sessione corrente
