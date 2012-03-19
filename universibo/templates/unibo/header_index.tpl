@@ -11,6 +11,18 @@
 <meta lang="it" name="description" content="{$common_metaDescription|escape:"htmlall"}" />
 {#styleSheet#}
 {#script#}
+{literal}
+<style type="text/css">
+input.gsc-input {
+    border-color: #BBBBBB;
+}
+input.gsc-search-button {
+    border-color: #000000;
+    background-color: #333333;
+}
+</style>
+<link rel="stylesheet" href="https://www.google.com/cse/style/look/default.css" type="text/css" />
+{/literal}
 {#favIcon#}
 {*<!--[if IE]><style type="text/css">#header ul.hide {ldelim}display: none !important;{rdelim}</style><![endif]-->*}
 </head> 
@@ -81,16 +93,6 @@
         customSearchControl.draw('cse-search-form', options);
         }, true);
     </script>
-    <style type="text/css">
-    input.gsc-input {
-        border-color: #BBBBBB;
-    }
-    input.gsc-search-button {
-        border-color: #000000;
-        background-color: #333333;
-    }
-    </style>
-    <link rel="stylesheet" href="https://www.google.com/cse/style/look/default.css" type="text/css" />          
     {/literal}
 	{* END GOOGLE CUSTOM SEARCH ENGINE *}
 	{if $common_alert != ""}
