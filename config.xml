@@ -84,9 +84,11 @@
 		<ShowCollaboratore class="ShowCollaboratore">
 			<response type="template" name="default">tabellina_contatto.tpl</response>
 		</ShowCollaboratore>
+		<!-- 
 		<ShowQuestions class="ShowQuestions">
 			<response type="template" name="default">questionario.tpl</response>
 		</ShowQuestions>
+		 -->
 		<ShowRules class="ShowRules">
 			<response type="template" name="default">regolamento.tpl</response>
 		</ShowRules>
