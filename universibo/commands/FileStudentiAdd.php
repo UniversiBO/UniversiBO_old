@@ -506,5 +506,3 @@ Link: https://www.universibo.unibo.it/index.php?do=FileShowInfo&id_file='.$newFi
 	}
 
 }
-
-?>

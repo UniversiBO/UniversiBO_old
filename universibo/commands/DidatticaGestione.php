@@ -527,5 +527,4 @@ class DidatticaGestione extends UniversiboCommand{
 			$mods[$index] = $m;
 		}
 	}
-	
 }

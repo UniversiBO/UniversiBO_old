@@ -48,5 +48,3 @@ class ScriptGetLDAPMD5 extends UniversiboCommand
 			$res->free();
 	}
 }
-
-?>

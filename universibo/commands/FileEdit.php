@@ -417,7 +417,4 @@ class FileEdit extends UniversiboCommand {
 		return 'default';
 
 	}
-
 }
-
-?>

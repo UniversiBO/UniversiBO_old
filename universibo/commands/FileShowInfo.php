@@ -93,5 +93,3 @@ class FileShowInfo extends UniversiboCommand {
 	}
 
 }
-
-?>
