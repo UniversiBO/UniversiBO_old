@@ -22,7 +22,7 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
             $this->clickAndWait('name=action');
         }
         
-        self::assertTrue($this->isTextPresent('Benvenuto '.$username));
+        self::assertTrue($this->isTextPresent('Benvenuto '.$username), 'Welcome text must be present');
     }
     
     private function checkLevel($level)
