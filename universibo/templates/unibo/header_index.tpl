@@ -69,7 +69,7 @@
 	{* BEGIN GOOGLE CUSTOM SEARCH ENGINE *}
 	{literal}
     <div id="cse-search-form" style="width: 100%;">Loading</div>
-    <script src="http://www.google.it/jsapi" type="text/javascript"></script>
+    <script src="https://www.google.it/jsapi" type="text/javascript"></script>
     <script type="text/javascript"> 
         google.load('search', '1', {language : 'it', style : google.loader.themes.MINIMALIST});
         google.setOnLoadCallback(function() {
@@ -77,7 +77,7 @@
         '004918876912573860674:6qxsvlkuxlo', customSearchOptions);
         customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
         var options = new google.search.DrawOptions();
-        options.enableSearchboxOnly("http://www.google.it/cse?cx=004918876912573860674:6qxsvlkuxlo");
+        options.enableSearchboxOnly("https://www.google.it/cse?cx=004918876912573860674:6qxsvlkuxlo");
         customSearchControl.draw('cse-search-form', options);
         }, true);
     </script>
@@ -90,7 +90,7 @@
         background-color: #333333;
     }
     </style>
-    <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />          
+    <link rel="stylesheet" href="https://www.google.com/cse/style/look/default.css" type="text/css" />          
     {/literal}
 	{* END GOOGLE CUSTOM SEARCH ENGINE *}
 	{if $common_alert != ""}
