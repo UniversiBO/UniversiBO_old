@@ -29,7 +29,7 @@ class ShowCredits extends UniversiboCommand {
 [url=http://www.apache.org]www.apache.org[/url]');
 		$template->assign('showCredits_langPostgres','Come database server locale per il mantenimento e trattamento dei dati viene utilizzato PostgreSQL
 [url=http://www.postgresql.org]www.postgresql.org[/url]');
-		$template->assign('showCredits_langPhp','Il motore utilizzato per creare e scrivere le pagine di questo sito è basato su PHP4, il codice sorgente di queste pagine è scritto da studenti volontari ed è disponibile con licenza GPL.
+		$template->assign('showCredits_langPhp','Il motore utilizzato per creare e scrivere le pagine di questo sito è basato su PHP 5.3.x, il codice sorgente di queste pagine è scritto da studenti volontari ed è disponibile con licenza GPL.
 [url=http://www.php.net]www.php.net[/url]');
 		$template->assign('showCredits_langPhpAccelerator','Per ottenere il massimo delle prestazioni viene utilizzato migliorare le prestazioni si è utilizzato il sistema di caching PHP Accelerator.
 [url=http://www.php-accelerator.co.uk/]http://www.php-accelerator.co.uk/[/url]');
