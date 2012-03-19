@@ -1,7 +1,7 @@
 <?php
 namespace UniversiBO\Legacy\Tests;
 
-class ShowAccessibility extends UniversiBOSeleniumTestCase
+class ShowAccessibilityTest extends UniversiBOSeleniumTestCase
 {
     protected function setUp()
     {

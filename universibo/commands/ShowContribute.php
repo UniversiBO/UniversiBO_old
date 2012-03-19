@@ -25,7 +25,7 @@ class ShowContribute extends UniversiboCommand
 		$frontcontroller = $this->getFrontController();
 		$template = $frontcontroller->getTemplateEngine();
 		
-		$user = & $this->getSessionUser();
+		$user = $this->getSessionUser();
 		
 		$template->assign('contribute_langTitleAlt','Collabora');
 		$template->assign('contribute_langIntro',array('UniversiBO è un sito che nasce dalla collaborazione tra studenti, docenti e strutture universitarie. I docenti sono stati disponibili a dare il loro contributo e li ringraziamo per questo. Ma per permettere che questo portale continui la sua vita occorre che anche gli studenti collaborino.',
@@ -298,5 +298,3 @@ class ShowContribute extends UniversiboCommand
 	}
 	
 }
-
-?>
