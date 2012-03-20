@@ -13,8 +13,9 @@ $loader->registerNamespaces(array(
         'Doctrine\\DBAL'   => __DIR__.'/../vendor/doctrine/dbal/lib',
         'Doctrine\\ORM'   => __DIR__.'/../vendor/doctrine/orm/lib',
         'Monolog'          => __DIR__.'/../vendor/monolog/monolog/src',
-        //        'Assetic'          => __DIR__.'/../vendor/assetic/src',
-//        'Metadata'         => __DIR__.'/../vendor/metadata/src',
+        'Assetic'          => __DIR__.'/../vendor/kriswallsmith/assetic/src',
+        'Symfony\\Bundle\\AsseticBundle'          => __DIR__.'/../vendor/symfony/assetic-bundle',
+        //        'Metadata'         => __DIR__.'/../vendor/metadata/src',
 ));
 $loader->registerPrefixes(array(
 //        'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',
