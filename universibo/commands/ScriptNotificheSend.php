@@ -84,8 +84,4 @@ class ScriptNotificheSend extends UniversiboCommand
 		// rialsciare lock
 		
 	}
-	
-	
 }
-
-?>

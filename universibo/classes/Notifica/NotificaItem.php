@@ -1,7 +1,5 @@
 <?php  
 
-
-
 define('NOTIFICA_ELIMINATA', 'S');
 define('NOTIFICA_NOT_ELIMINATA', 'N');
 
@@ -349,11 +347,11 @@ class NotificaItem {
 	function selectNotificheSend() 
 	{
 		//var_dump($id_notifiche);
-		$db = & FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		
-		$query = 'SELECT id_notifica FROM notifica WHERE timestamp < '.$db->quote(time()).' AND eliminata!='.$db->quote(NOTIFICA_ELIMINATA);
+		$query = 'SELECT id_notifica FROM notifica WHERE timestamp < '.$db->quote(time()).' AND eliminata='.$db->quote(NOTIFICA_NOT_ELIMINATA);
 		//var_dump($query);
-		$res = & $db->query($query);
+		$res = $db->query($query);
 		
 		//echo $query;
 		
@@ -481,7 +479,4 @@ class NotificaItem {
 		return $ret;
 	
 	}
-
-		
-	
 }
