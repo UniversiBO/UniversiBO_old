@@ -1,5 +1,5 @@
 <?php
-namespace UniversiBO\ForumBundle\Integration;
+namespace UniversiBO\Bundle\ForumBundle\Integration;
 
 /**
  * @author Davide Bellettini

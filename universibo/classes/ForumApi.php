@@ -15,7 +15,7 @@ use UniversiBO\Legacy\App\User;
  * @copyright CopyLeft UniversiBO 2001-2003
  */
 
-class ForumApi implements UniversiBO\ForumBundle\Integration\ForumApi
+class ForumApi implements UniversiBO\Bundle\ForumBundle\Integration\ForumApi
 {
 
     /**

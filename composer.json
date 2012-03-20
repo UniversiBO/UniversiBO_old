@@ -2,7 +2,9 @@
     "name": "UniversiBO/UniversiBO",
     "description": "UniversiBO Web Portal",
     "require": {
-        "symfony/symfony": "v2.0.10"
+        "symfony/symfony": "v2.0.12",
+        "doctrine/orm": "2.1.x-dev",
+        "sensio/generator-bundle": "2.0-dev"
     },
     "authors": [
         {
