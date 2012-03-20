@@ -1,5 +1,6 @@
 /app/cache/*
 /app/logs/*
 /nbproject
+/universibo/file-universibo
 composer.lock
 vendor
