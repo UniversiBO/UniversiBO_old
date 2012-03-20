@@ -218,14 +218,14 @@ class CancellazioneUtente
 	 */
 	function _getFirstAdminInGroup ($groupId) 
 	{
-		$list = User::getIdUsersFromDesiredGroups(array(USER_ADMIN));
+		$list = User::getIdUsersFromDesiredGroups(array(User::ADMIN));
 		$sql = 'SELECT user_id' .
 				' FROM phpbb_user_group' .
-				' WHERE user_id IN '.$this->db->quote(implode(', ', $list[USER_ADMIN])) . 
+				' WHERE user_id IN '.$this->db->quote(implode(', ', $list[User::ADMIN])) . 
 				' AND group_id ='. $this->db->quote($groupId);
 		$res = $this->db->query($sql);
 		if( DB::isError($res) || ($res->numRows() == 0))
-			return $list[USER_ADMIN][0];
+			return $list[User::ADMIN][0];
 		$row = $res->fetchRow();
 		$res->free();
 		return $row[0];		

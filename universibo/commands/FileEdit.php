@@ -307,7 +307,7 @@ class FileEdit extends UniversiboCommand {
 			}
 			else 
 			{
-				if ($_POST['f13_permessi_download'] != User::ALL && $_POST['f13_permessi_download'] != (User::STUDENTE | User::DOCENTE | User::TUTOR | User::PERSONALE | User::COLLABORATORE | USER_ADMIN ) )
+				if ($_POST['f13_permessi_download'] != User::ALL && $_POST['f13_permessi_download'] != (User::STUDENTE | User::DOCENTE | User::TUTOR | User::PERSONALE | User::COLLABORATORE | USER::ADMIN ) )
 				{
 					Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il valore dei diritti di download non è ammissibile', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' =>& $template));
 					$f13_accept = false;

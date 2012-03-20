@@ -261,7 +261,7 @@ class FileAdd extends UniversiboCommand {
             }
             else
             {
-                if ($_POST['f12_permessi_download'] != User::ALL && $_POST['f12_permessi_download'] != (User::STUDENTE | User::DOCENTE | User::TUTOR | User::PERSONALE | User::COLLABORATORE | USER_ADMIN ) )
+                if ($_POST['f12_permessi_download'] != User::ALL && $_POST['f12_permessi_download'] != (User::STUDENTE | User::DOCENTE | User::TUTOR | User::PERSONALE | User::COLLABORATORE | User::ADMIN ) )
                 {
                     Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il valore dei diritti di download non è ammessibile', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' =>& $template));
                     $f12_accept = false;
