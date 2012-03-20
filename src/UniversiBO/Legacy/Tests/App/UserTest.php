@@ -19,4 +19,9 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         self::assertEquals(0, $this->_user->getIdUser());
     }
+
+    public function testGroupsGetter()
+    {
+        self::assertEquals(User::ADMIN, $this->_user->getGroups());
+    }
 }
