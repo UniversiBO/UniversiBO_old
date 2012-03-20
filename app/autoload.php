@@ -11,7 +11,7 @@ $loader->registerNamespaces(array(
         'Sensio\\Bundle\\FrameworkExtraBundle' => __DIR__.'/../vendor/sensio/framework-extra-bundle',
         'Sensio\\Bundle\\GeneratorBundle'      => __DIR__.'/../vendor/sensio/generator-bundle',
 
-        //        'JMS'              => __DIR__.'/../vendor/bundles',
+        //        'JMS'              => __DIR__.'/../vendor/jms/bundles',
         'Doctrine\\Common' => __DIR__.'/../vendor/doctrine/common/lib',
         'Doctrine\\DBAL'   => __DIR__.'/../vendor/doctrine/dbal/lib',
         'Doctrine\\ORM'   => __DIR__.'/../vendor/doctrine/orm/lib',
