@@ -6,7 +6,9 @@
         "symfony/assetic-bundle": "2.0-dev",
         "doctrine/orm": "2.1.x-dev",
         "sensio/generator-bundle": "2.0-dev",
-        "sensio/framework-extra-bundle": "2.0-dev"
+        "sensio/framework-extra-bundle": "2.0-dev",
+        "jms/metadata": "1.1.1",
+        "jms/security-extra-bundle": "1.1.0",
     },
     "authors": [
         {
