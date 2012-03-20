@@ -1,5 +1,5 @@
 <?php
-namespace UniversiBO\Legacy\Tests;
+namespace UniversiBO\Legacy\Tests\Selenium;
 
 /**
  * Parent class for all Selenium tests in UniversiBO

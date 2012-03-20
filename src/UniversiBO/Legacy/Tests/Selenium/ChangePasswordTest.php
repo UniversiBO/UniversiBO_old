@@ -1,5 +1,5 @@
 <?php
-namespace UniversiBO\Legacy\Tests;
+namespace UniversiBO\Legacy\Tests\Selenium;
 
 class ChangePasswordTest extends UniversiBOSeleniumTestCase
 {
