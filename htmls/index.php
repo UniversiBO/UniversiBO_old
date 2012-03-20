@@ -105,11 +105,6 @@ class Receiver {
         {
             set_magic_quotes_runtime(0);
         }
-
-        //php files extension, can ben modified to externally hide php files
-        define ('PHP_EXTENSION', '.php');
-
-
     }
 
 

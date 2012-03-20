@@ -1,4 +1,5 @@
 <?php
+define('PHP_EXTENSION', '.php');
 
 use Symfony\Component\ClassLoader\UniversalClassLoader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
