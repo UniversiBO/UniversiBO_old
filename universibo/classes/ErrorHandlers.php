@@ -117,7 +117,7 @@ class ErrorHandlers{
      *					"template_engine"=>"Riferimento all'oggetto template engine"
      * 					)
      */
-    function notice_handler(&$param)
+    function notice_handler($param)
     {
 
 
