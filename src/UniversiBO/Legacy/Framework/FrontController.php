@@ -5,9 +5,6 @@ define('MAIL_KEEPALIVE_NO', 0);
 define('MAIL_KEEPALIVE_ALIVE', 1);
 define('MAIL_KEEPALIVE_CLOSE', 2);
 
-require_once 'DB.php';
-require_once 'Krono.php';
-
 use \DB;
 use \Error;
 use \Krono;

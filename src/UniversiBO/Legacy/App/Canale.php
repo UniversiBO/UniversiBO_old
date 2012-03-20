@@ -1,8 +1,6 @@
 <?php
 namespace UniversiBO\Legacy\App;
 
-require_once('Ruolo'.PHP_EXTENSION);
-
 define('CANALE_DEFAULT'      ,1);
 define('CANALE_HOME'         ,2);
 define('CANALE_FACOLTA'      ,3);

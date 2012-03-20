@@ -7,13 +7,13 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 $loader = new UniversalClassLoader();
 $loader->registerNamespaces(array(
         'Symfony'          => array(__DIR__.'/../vendor/symfony/symfony/src', __DIR__.'/../vendor/bundles'),
-//        'Sensio'           => __DIR__.'/../vendor/bundles',
+        //        'Sensio'           => __DIR__.'/../vendor/bundles',
 //        'JMS'              => __DIR__.'/../vendor/bundles',
         'Doctrine\\Common' => __DIR__.'/../vendor/doctrine/common/lib',
         'Doctrine\\DBAL'   => __DIR__.'/../vendor/doctrine/dbal/lib',
-//        'Doctrine'         => __DIR__.'/../vendor/doctrine/doctrine/lib',
+        //        'Doctrine'         => __DIR__.'/../vendor/doctrine/doctrine/lib',
         'Monolog'          => __DIR__.'/../vendor/monolog/monolog/src',
-//        'Assetic'          => __DIR__.'/../vendor/assetic/src',
+        //        'Assetic'          => __DIR__.'/../vendor/assetic/src',
 //        'Metadata'         => __DIR__.'/../vendor/metadata/src',
 ));
 $loader->registerPrefixes(array(
@@ -27,10 +27,13 @@ if (!function_exists('intl_get_error_code')) {
 
     $loader->registerPrefixFallbacks(array(
             __DIR__.'/../vendor/symfony/symfony/src/Symfony/Component/Locale/Resources/stubs',
-            __DIR__.'/../framework',
-            __DIR__.'/../universibo/classes',
-            __DIR__.'/../universibo/commands',));
+    ));
 }
+
+$loader->registerPrefixFallbacks(array(
+        __DIR__.'/../framework',
+        __DIR__.'/../universibo/classes',
+        __DIR__.'/../universibo/commands',));
 
 $loader->registerNamespaceFallbacks(array(
         __DIR__.'/../src',
