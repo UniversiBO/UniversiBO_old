@@ -6,15 +6,18 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 
 $loader = new UniversalClassLoader();
 $loader->registerNamespaces(array(
-        'Symfony'          => array(__DIR__.'/../vendor/symfony/symfony/src', __DIR__.'/../vendor/bundles'),
-        'Sensio'           => __DIR__.'/../vendor/sensio/generator-bundle',
+        'Symfony\\Bundle\\AsseticBundle'          => __DIR__.'/../vendor/symfony/assetic-bundle',
+        'Symfony'          => __DIR__.'/../vendor/symfony/symfony/src',
+        'Sensio\\Bundle\\FrameworkExtraBundle' => __DIR__.'/../vendor/sensio/framework-extra-bundle',
+        'Sensio\\Bundle\\GeneratorBundle'      => __DIR__.'/../vendor/sensio/generator-bundle',
+
         //        'JMS'              => __DIR__.'/../vendor/bundles',
         'Doctrine\\Common' => __DIR__.'/../vendor/doctrine/common/lib',
         'Doctrine\\DBAL'   => __DIR__.'/../vendor/doctrine/dbal/lib',
         'Doctrine\\ORM'   => __DIR__.'/../vendor/doctrine/orm/lib',
         'Monolog'          => __DIR__.'/../vendor/monolog/monolog/src',
         'Assetic'          => __DIR__.'/../vendor/kriswallsmith/assetic/src',
-        'Symfony\\Bundle\\AsseticBundle'          => __DIR__.'/../vendor/symfony/assetic-bundle',
+
         //        'Metadata'         => __DIR__.'/../vendor/metadata/src',
 ));
 $loader->registerPrefixes(array(
