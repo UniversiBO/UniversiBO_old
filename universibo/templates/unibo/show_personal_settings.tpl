@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 <div class="titoloPagina">
 <h2>Profilo</h2>
 </div>
@@ -28,4 +28,4 @@
 	<p>Il servizio SMS viene fornito grazie al contributo dell'Alma Mater Studiorum</p>
 </form>
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

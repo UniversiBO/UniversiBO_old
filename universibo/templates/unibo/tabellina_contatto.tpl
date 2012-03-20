@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 		
 {include file=avviso_notice.tpl}
 
@@ -26,5 +26,5 @@
 
 <p><a href="{$common_contactsUri|escape:"htmlall"}">Torna&nbsp;al&nbsp;{$common_contacts}</a></p>
 
-{include file=footer_index.tpl}	
+{include file="footer_index.tpl"}	
  

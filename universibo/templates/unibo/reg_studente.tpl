@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 <h2>Registrazione Studenti</h2>
 
@@ -26,4 +26,4 @@
 <hr />
 {include file=Help/topic.tpl showTopic_topic=$showTopic_topic idsu=$showTopic_topic.reference}
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

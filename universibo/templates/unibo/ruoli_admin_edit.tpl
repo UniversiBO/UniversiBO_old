@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 {include file=avviso_notice.tpl}
 <div class="titoloPagina">
 <h2>{$ruoliAdminEdit_langAction|escape:"htmlall"|nl2br}</h2>
@@ -20,4 +20,4 @@
 
 <p><a href="{$common_canaleURI|escape:"htmlall"|nl2br}">Torna {$common_langCanaleNome|escape:"htmlall"|nl2br}</a></p>
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

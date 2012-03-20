@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 <div class="titoloPagina">
 <h2>{$ShowContattiDocenti_titolo}</h2>
 <div class="comandi"><a href="{$ShowContattiDocenti_addContattoURI|escape:"htmlall"}">{$ShowContattiDocenti_addContatto|escape:"htmlall"}</a></div>
@@ -13,4 +13,4 @@
 {/foreach}
 </table>
 </div>
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

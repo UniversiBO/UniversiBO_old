@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 <div class="titoloPagina">
 <h2>Utente: {$showUserNickname}</h2>
@@ -26,4 +26,4 @@
 </table>
 	</div>
 </p>
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

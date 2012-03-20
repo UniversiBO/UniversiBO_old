@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 <div class="titoloPagina">
 <h2>Modifica la notizia</h2>
@@ -7,4 +7,4 @@
 <p>{$NewsEdit_langSuccess|escape:"htmlall"}</p>
 <p><a href="{$common_canaleURI|escape:"htmlall"}">Torna&nbsp;a&nbsp;{$common_langCanaleNome}</a></p>
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

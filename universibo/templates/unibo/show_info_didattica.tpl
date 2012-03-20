@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 <div class="titoloPagina">
 <h2>{$infoDid_title|escape:"htmlall"|nl2br}</h2>
@@ -50,4 +50,4 @@
 --
 <p>{$infoDid_langAppelliUniwex|escape:"htmlall"|nl2br}</p>
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

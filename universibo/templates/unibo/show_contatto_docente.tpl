@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 <h2>{$ShowContattoDocente_titolo}</h2>
 
@@ -42,4 +42,4 @@
 </div>
 </form>
   
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

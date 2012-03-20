@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 Gestione Corsi di Laurea
 <form method="post">
 <table>
@@ -25,4 +25,4 @@ Gestione Corsi di Laurea
 <input type="submit" name="f25_submit" value="Attiva" />
 
 </form>
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

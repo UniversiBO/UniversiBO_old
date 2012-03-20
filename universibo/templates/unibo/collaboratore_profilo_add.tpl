@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 <div class="titoloPagina">
 <h2>Inserisci il tuo profilo</h2>
@@ -33,4 +33,4 @@
 	<p><input class="submit" type="submit" id="f36_submit" name="f36_submit" size="20" value="Invia"/></p>
 </form>
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

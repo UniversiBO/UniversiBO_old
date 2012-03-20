@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 <div class="titoloPagina">
 <h2>Login errato!</h2>
@@ -17,4 +17,4 @@
 <p>Se non ricordi piu' il tuo username, <a href="index.php?do=RecuperaUsernameStudente">recupera il tuo username</a>
 <br />Se non ricordi piu' la tua password, <a href="index.php?do=NewPasswordStudente">ripristina una nuova password</a><p>
 		
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

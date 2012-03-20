@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 <div class="titoloPagina">
 <h2>Tutti i Files Studenti presenti su UniversiBO <br />
@@ -13,4 +13,4 @@
 <a href="{$showAllFilesStudenti_url2|escape:"htmall"}">{$showAllFilesStudenti_lang2|escape:"htmall"}</a>
 </p>
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

@@ -1,7 +1,7 @@
 {if $common_pageType == "index"}
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 {elseif $common_pageType == "popup"}
-{include file=header_popup.tpl}
+{include file="header_popup.tpl"}
 {/if}
 {include file=avviso_notice.tpl}
 <table width="90%" border="0" cellspacing="0" cellpadding="0" summary="" align="center">
@@ -49,7 +49,7 @@
 <table width="90%" border="0" cellspacing="0" cellpadding="0" summary="" align="center"><tr><td bgcolor="#000099" align="left"><img src="tpl/black/rule_piccoloL.gif" width="200" height="2" alt="" /></td><td bgcolor="#000099" align="right"><img src="tpl/black/rule_piccoloR.gif" width="200" height="2" alt="" /></td></tr></table> 
 </td></tr>
 {if $common_pageType == "index"}
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}
 {elseif $common_pageType == "popup"}
-{include file=footer_popup.tpl}
+{include file="footer_popup.tpl"}
 {/if}

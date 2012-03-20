@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 {include file=avviso_notice.tpl}
 
@@ -11,5 +11,5 @@
 <p> {$rules_langPrivacy|escape:"htmlall"|bbcode2html|nl2br} </p>
 <h4>{$rules_langForum|escape:"htmlall"}</h4>
 <p> {$rules_langForumRules|escape:"htmlall"|bbcode2html} </p>
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}
 

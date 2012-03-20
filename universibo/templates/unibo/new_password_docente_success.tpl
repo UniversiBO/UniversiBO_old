@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 <div class="titoloPagina">
 <h2>Cambio password docenti</h2>
 </div>
@@ -8,4 +8,4 @@
 
 <h2>Password inviata con successo<h2>
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

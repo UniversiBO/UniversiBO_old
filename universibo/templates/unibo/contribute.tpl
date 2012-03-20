@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 <h2>Collabora</h2>
 {foreach from=$contribute_langIntro item=temp_intro}
@@ -12,4 +12,4 @@
 <hr />
 
 {include file=questionario.tpl}
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

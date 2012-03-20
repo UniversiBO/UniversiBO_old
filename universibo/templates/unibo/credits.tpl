@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 {include file=avviso_notice.tpl}
 
@@ -23,4 +23,4 @@
 	<img src="img/credits/valid-wcag1AA.png" width="88" height="31" alt="Valid WAI-AA Logo" vspace="2" /><br /></td><td colspan="2">{$showCredits_langW3c|escape:"htmlall"|bbcode2html|nl2br}</td></tr>
 </table>
 <br />
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

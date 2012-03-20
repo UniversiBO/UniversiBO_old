@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 <h2>Recupera Password</h2>
 {include file=avviso_notice.tpl}
 
@@ -14,4 +14,4 @@
 	<p>{$newPasswordStudente_langHelp|escape:"htmlall"|bbcode2html|nl2br}</p>
 </form>
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

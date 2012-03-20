@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 <div class="titoloPagina">
 <h2>Cancella il commento</h2>
@@ -8,4 +8,4 @@
 
 <p><a href="{$common_canaleURI|escape:"htmlall"}">Torna&nbsp;{$common_langCanaleNome}</a></p>
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

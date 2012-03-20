@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 Gestione Facolt&agrave;
 <form method="post">
 <table>
@@ -25,4 +25,4 @@ Gestione Facolt&agrave;
 <input type="submit" name="f24_submit" value="Attiva" />
 
 </form>
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

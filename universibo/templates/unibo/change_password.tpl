@@ -1,5 +1,5 @@
-{include file=header_index.tpl}
-{include file=avviso_notice.tpl}
+{include file="header_index.tpl"}
+{include file="avviso_notice.tpl"}
 <h2>Modifica Password</h2>
 
 <form action="index.php?do=ChangePassword&amp;{$common_pageTypeExt|escape:"htmlall"}" id="f6" method="post">
@@ -16,4 +16,4 @@
 	<p>{$changePassword_langHelp|escape:"htmlall"|bbcode2html|nl2br}</p>
 </form>
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

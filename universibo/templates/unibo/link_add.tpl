@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 <div class="titoloPagina">
 <h2>Aggiungi un nuovo link</h2>
 </div>
@@ -17,4 +17,4 @@
 
 <hr />
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

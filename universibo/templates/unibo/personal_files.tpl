@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 <div class="titoloPagina">
 <h2>{$ShowPersonalFiles_langTitle|escape:"htmall"}
@@ -21,4 +21,4 @@
 </p>
 *}
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

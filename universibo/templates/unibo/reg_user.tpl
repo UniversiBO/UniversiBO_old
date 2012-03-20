@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 <h2>Registrazione Utenti</h2>
 
@@ -20,4 +20,4 @@
 	</table>
 </form>
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

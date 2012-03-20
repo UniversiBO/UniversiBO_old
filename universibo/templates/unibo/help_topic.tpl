@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 {include file=avviso_notice.tpl}
 
@@ -16,4 +16,4 @@
 {foreach from=$showHelpTopic_topics item=temp_topic}
 	{include file=Help/topic.tpl showTopic_topic=$temp_topic idsu=$temp_topic.reference}
 {/foreach}
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

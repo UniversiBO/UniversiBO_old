@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 <div class="titoloPagina">
 <h2>{$showCanale_titolo|escape:"htmlall"}</h2>
@@ -15,4 +15,4 @@
 	{include file=Files/show_file_titoli.tpl}
 {/if}
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

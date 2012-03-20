@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 <div class="titoloPagina">
 <h2>Cancella il file</h2>
 </div>
@@ -14,4 +14,4 @@ Sei sicuro di voler cancellare questo file?
 <p><a href="{$common_canaleURI|escape:"htmlall"}">Torna&nbsp;{$common_langCanaleNome|escape:"htmlall"}</a></p>
 {include file=Help/topic.tpl showTopic_topic=$showTopic_topic idsu=$showTopic_topic.reference}
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

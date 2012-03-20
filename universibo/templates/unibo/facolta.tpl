@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 {include file=avviso_notice.tpl}
 
@@ -23,4 +23,4 @@
 <hr />
 {include file=News/latest_news.tpl}
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

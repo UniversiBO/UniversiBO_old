@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 <div class="titoloPagina">
 <h2>Benvenuto!</h2>
@@ -7,4 +7,4 @@
 
 <p>{$newPasswordStudente_thanks|escape:"htmlall"|bbcode2html|nl2br}</p>
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

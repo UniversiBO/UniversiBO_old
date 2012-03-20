@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 <div id="statistiche">
 <h2>{$ShowStatistiche_titolo}</h2>
@@ -22,4 +22,4 @@
 </div>
 
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

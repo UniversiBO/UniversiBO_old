@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 <div class="titoloPagina">
 <h2>Cambio password docenti</h2>
 </div>
@@ -12,4 +12,4 @@
 <input class="submit" type="submit" name="f21_submit" id="f21_submit" value="Invia">
 </form>
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

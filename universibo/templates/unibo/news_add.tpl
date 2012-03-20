@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 <div class="titoloPagina">
 <h2>Aggiungi una nuova notizia</h2>
@@ -52,4 +52,4 @@
 {include file=Help/topic.tpl showTopic_topic=$showTopic_topic idsu=$showTopic_topic.reference}
 <hr />
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

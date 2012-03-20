@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 <table width="95%" border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr>
@@ -8,4 +8,4 @@
 	</tr>
 </table>
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

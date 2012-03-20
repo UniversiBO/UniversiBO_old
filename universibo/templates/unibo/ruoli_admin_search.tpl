@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 <div class="titoloPagina">
 <h2>{$ruoliAdminSearch_langAction|escape:"htmlall"|nl2br}</h2>
@@ -27,4 +27,4 @@
 <p><a href=" Torna {$common_canaleURI|escape:"htmlall"|nl2br}">Torna {$common_langCanaleNome|escape:"htmlall"|nl2br}</a></p>
 <hr />
 <p>{include file=Help/topic.tpl showTopic_topic=$showTopic_topic idsu=$showTopic_topic.reference}</p>
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}

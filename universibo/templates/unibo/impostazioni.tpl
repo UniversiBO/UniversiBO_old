@@ -1,4 +1,4 @@
-{include file=header_index.tpl}
+{include file="header_index.tpl"}
 
 {include file=avviso_notice.tpl}
 
@@ -15,4 +15,4 @@
 {include file=tabellina_due_colonne.tpl arrayToShow=$showSettings_langAdmin}
 {/if}
 
-{include file=footer_index.tpl}
+{include file="footer_index.tpl"}
