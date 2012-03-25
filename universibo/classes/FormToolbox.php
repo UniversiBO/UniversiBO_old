@@ -125,7 +125,7 @@ class FormToolbox
 		if (strlen($text) > $limit)
 			return new Error(_ERROR_NOTICE, array ('msg' => 'Il testo inserito deve essere inferiore ai '.$limit.' caratteri'));
 		
-		if (!optional && $text == '') 
+		if (!$optional && $text == '') 
 			return new Error(_ERROR_NOTICE, array ('msg' => 'Bisogna inserire obbligatoriamente il testo nel campo'));
 			
 		return true;
