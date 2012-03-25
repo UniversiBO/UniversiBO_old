@@ -24,7 +24,7 @@ require_once('SOAP/Client.php');
 
 class WebService_WsDidatticaServerImplService_Didattica extends SOAP_Client
 {
-    function WebService_WsDidatticaServerImplService_Didattica($location)
+    public function __construct($location)
     {
         $this->SOAP_Client($location, 0);
     }

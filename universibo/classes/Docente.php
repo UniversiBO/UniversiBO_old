@@ -40,7 +40,7 @@ class Docente extends User {
 	 */
 	var $rubricaCache = null;
 	
-	function Docente($id_utente, $cod_doc, $nome_doc, $rubrica = null )
+	public function __construct($id_utente, $cod_doc, $nome_doc, $rubrica = null )
 	{
 		$this->id_utente	= $id_utente;
 		$this->codDoc		= $cod_doc;

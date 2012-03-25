@@ -23,7 +23,7 @@ class ProgrammazioneDidatticaDataRetrieverWebService extends ProgrammazioneDidat
 	
 	var $web_service;
 	
-	function ProgrammazioneDidatticaDataRetrieverWebService()
+	public function __construct()
 	{
 		$this->web_service = new WebService_WsDidatticaServerImplService_Didattica("https://localhost:8443/axis/services/Didattica");
 		

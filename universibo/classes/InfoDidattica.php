@@ -75,7 +75,7 @@ class InfoDidattica
 	 */
 	var $orario_ics_link = '';
 	
-	function InfoDidattica($id_canale, $programma, $programma_link, $testi_consigliati, 
+	public function __construct($id_canale, $programma, $programma_link, $testi_consigliati, 
 						$testi_consigliati_link, $modalita, $modalita_link, $obiettivi_esame,
 						$obiettivi_esame_link, $appelli, $appelli_link, $homepage_alternativa_link, $orario_ics_link)
 	{

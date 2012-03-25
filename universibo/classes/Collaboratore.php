@@ -56,7 +56,7 @@ class Collaboratore extends User {
 	var $fotoDefault = 'no_foto.png'; 
 
 
-	function Collaboratore($id_utente, $intro, $recapito, $obiettivi, $foto, $ruolo )
+	public function __construct($id_utente, $intro, $recapito, $obiettivi, $foto, $ruolo )
 	{
 		$this->id_utente	= $id_utente;
 		$this->intro		= $intro;

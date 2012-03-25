@@ -49,7 +49,7 @@ class Link
 	 * @param string $description 	testo descrittivo della risorsa puntata dal link
 	 * @return Link
 	 */
-	function Link($id_link, $id_canale, $id_utente, $uri, $label, $description)
+	public function __construct($id_link, $id_canale, $id_utente, $uri, $label, $description)
 	{
 		$this->id_link = $id_link;
 		$this->id_canale = $id_canale;
@@ -58,8 +58,6 @@ class Link
 		$this->label = $label;
 		$this->description = $description;  
 	}
-
-
 
 	/**
 	 * Ritorna l'id_link
