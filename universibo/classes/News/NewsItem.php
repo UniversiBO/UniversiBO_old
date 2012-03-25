@@ -115,7 +115,7 @@ class NewsItem {
      * @return NewsItem
      */
 
-    function NewsItem($id_notizia, $titolo, $notizia, $dataIns, $dataScadenza, $ultimaModifica, $urgente, $eliminata, $id_utente, $username)
+    public function __construct($id_notizia, $titolo, $notizia, $dataIns, $dataScadenza, $ultimaModifica, $urgente, $eliminata, $id_utente, $username)
     {
         $this->id_notizia     = $id_notizia;
         $this->titolo         = $titolo;

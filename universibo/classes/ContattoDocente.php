@@ -54,7 +54,7 @@ define('INATTIVO'   ,4);
  			INATTIVO => 'inattivo - non ha corsi attivi nell\'A.A. corrente',
  			);
  	
- 	function ContattoDocente ($coddoc, $state, $id, $mod, $report) 
+ 	public function __construct($coddoc, $state, $id, $mod, $report) 
  	{
 		$this->cod_doc 	= $coddoc;
 		$this->stato	= $state;

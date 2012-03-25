@@ -19,22 +19,18 @@ require_once ('Notifica/NotificaItem'.PHP_EXTENSION);
 
 class NotificaMail extends NotificaItem 
 {
-
-	
-	function NotificaMail ($id_notifica, $titolo, $messaggio, $dataIns, $urgente, $eliminata, $destinatario) 
+	public function __construct ($id_notifica, $titolo, $messaggio, $dataIns, $urgente, $eliminata, $destinatario) 
 	{
 		//$id_notifica, $titolo, $messaggio, $dataIns, $urgente, $eliminata, $destinatario
-		parent::NotificaItem($id_notifica, $titolo, $messaggio, $dataIns, $urgente, $eliminata, $destinatario);
+		parent::__construct($id_notifica, $titolo, $messaggio, $dataIns, $urgente, $eliminata, $destinatario);
 	}
-	
-	
 	
 	/**
 	* Overwrite the send (abstract) function of the base class
 	* 
 	* @return boolean true "success" or false "failed"
 	*/
-	function send($fc) {
+	public function send($fc) {
 		
 		//per usare l'SMTPkeepAlive usa il singleton
 		$mail = $fc->getMail(MAIL_KEEPALIVE_ALIVE);
@@ -55,8 +51,7 @@ class NotificaMail extends NotificaItem
 		}
 	}
 	
-	
-	function factoryNotifica($id_notifica)
+	public static function factoryNotifica($id_notifica)
 	{
 		$not = NotificaItem::selectNotifica($id_notifica);
 		$ret = new NotificaMail($not->getIdNotifica(), $not->getTitolo(), $not->getMessaggio(), $not->getTimestamp(), $not->isUrgente(), $not->isEliminata(), $not->getDestinatario());

@@ -78,7 +78,7 @@ class NotificaItem {
 	 * @return NewsItem
 	 */
 
-	function NotificaItem($id_notifica, $titolo, $messaggio, $dataIns, $urgente, $eliminata, $destinatario) 
+	public function __construct($id_notifica, $titolo, $messaggio, $dataIns, $urgente, $eliminata, $destinatario) 
 	{
 		$this->id_notifica = $id_notifica;
 		$this->titolo = $titolo;

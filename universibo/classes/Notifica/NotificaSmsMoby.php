@@ -21,13 +21,11 @@ require_once('mobytSms'.PHP_EXTENSION);
 class NotificaSmsMoby extends NotificaItem 
 {
 	
-	function NotificaSmsMoby ($id_notifica, $titolo, $messaggio, $dataIns, $urgente, $eliminata, $destinatario) 
+	public function __construct ($id_notifica, $titolo, $messaggio, $dataIns, $urgente, $eliminata, $destinatario) 
 	{
 		//$id_notifica, $titolo, $messaggio, $dataIns, $urgente, $eliminata, $destinatario
-		parent::NotificaItem($id_notifica, $titolo, $messaggio, $dataIns, $urgente, $eliminata, $destinatario);
+		parent::__construct($id_notifica, $titolo, $messaggio, $dataIns, $urgente, $eliminata, $destinatario);
 	}
-	
-	
 	
 	/**
 	* Overwrite the send (abstract) function of the base class
