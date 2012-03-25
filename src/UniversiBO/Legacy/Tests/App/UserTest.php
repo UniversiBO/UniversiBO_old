@@ -24,4 +24,9 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         self::assertEquals(User::ADMIN, $this->_user->getGroups());
     }
+
+    public function getRoles()
+    {
+        self::assertEquals(array('ROLE_ADMIN'), $this->_user->getGroups());
+    }
 }

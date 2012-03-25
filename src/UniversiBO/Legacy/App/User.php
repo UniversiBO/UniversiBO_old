@@ -11,7 +11,9 @@ namespace UniversiBO\Legacy\App;
  * @license GPL, <{@link http://www.opensource.org/licenses/gpl-license.php}>
  * @copyright CopyLeft UniversiBO 2001-2003
  */
-class User
+use Symfony\Component\Security\Core\User\UserInterface;
+
+class User implements UserInterface
 {
     const ALGORITMO_DEFAULT = 'sha1';
 
@@ -95,6 +97,16 @@ class User
     private $algoritmo;
 
     private $salt;
+
+    private static $roleConversions = array(
+            self::ADMIN         => 'ROLE_ADMIN',
+            self::COLLABORATORE => 'ROLE_COLLABORATOR',
+            self::DOCENTE       => 'ROLE_PROFESSOR',
+            self::OSPITE        => 'ROLE_GUEST',
+            self::PERSONALE     => 'ROLE_STAFF',
+            self::STUDENTE      => 'ROLE_STUDENT',
+            self::TUTOR         => 'ROLE_TUTOR',
+    );
 
     /**
      *  Verifica se la sintassi dello username è valido.
@@ -323,6 +335,23 @@ class User
         return $this->groups;
     }
 
+    public function getRoles()
+    {
+        $roles = array();
+
+        foreach(self::$roleConversions as $old => $new)
+        {
+            if($this->groups | $old)
+            {
+                $roles[] = $new;
+            }
+        }
+
+        return $roles;
+    }
+
+    public function eraseCredentials() {
+    }
 
 
     /**
@@ -593,9 +622,15 @@ class User
     /**
      * Ritorna l'hash MD5 della password dell'utente
      *
+     * @deprecated
      * @return string
      */
-    function getPasswordHash()
+    public function getPasswordHash()
+    {
+        return $this->getPassword();
+    }
+
+    public function getPassword()
     {
         return $this->password;
     }
@@ -1311,5 +1346,14 @@ class User
         $this->salt = $salt;
 
         return $this;
+    }
+
+    /**
+     * @TODO implement method
+     * @see Symfony\Component\Security\Core\User.UserInterface::equals()
+     */
+    public function equals(UserInterface $user)
+    {
+        return false;
     }
 }
