@@ -29,12 +29,6 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
         self::assertTrue($this->isTextPresent('Benvenuto '.$username), 'Welcome text must be present');
     }
     
-    private function checkLevel($level)
-    {
-        self::assertTrue($this->isTextPresent('Il tuo livello di utenza'));
-        self::assertTrue($this->isTextPresent($level));
-    }
-    
     protected function logout()
     {
         $this->clickAndWait('name=f2_submit');
