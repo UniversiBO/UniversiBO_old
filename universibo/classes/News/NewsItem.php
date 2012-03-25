@@ -1,12 +1,6 @@
 <?php
 use UniversiBO\Legacy\App\User;
 
-define('NEWS_ELIMINATA','S');
-define('NEWS_NOT_ELIMINATA','N');
-
-
-define('NEWS_URGENTE','S');
-define('NEWS_NOT_URGENTE','N');
 
 /**
  *
@@ -25,6 +19,10 @@ define('NEWS_NOT_URGENTE','N');
 
 
 class NewsItem {
+    const ELIMINATA = 'S';
+    const NOT_ELIMINATA = 'N';
+    const URGENTE = 'S';
+    const NOT_URGENTE = 'N';
 
     //	/**
     //	 * ? costante per il valore del flag per le notizie eliminate
@@ -635,3 +633,9 @@ class NewsItem {
         }
     }
 }
+
+define('NEWS_ELIMINATA', NewsItem::ELIMINATA);
+define('NEWS_NOT_ELIMINATA', NewsItem::NOT_ELIMINATA);
+
+define('NEWS_URGENTE', NewsItem::URGENTE);
+define('NEWS_NOT_URGENTE', NewsItem::NOT_URGENTE);
