@@ -15,7 +15,7 @@ class Clamav
 	
 	var $cmd  = '';
 	
-	function Clamav($cmd, $opts){
+	public function __construct($cmd, $opts){
 		$this->cmd = $cmd;
 		$this->opts = $opts;
 	}
