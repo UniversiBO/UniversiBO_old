@@ -171,7 +171,7 @@ class FileItem {
      * @return FileItem
      */
 
-    function FileItem($id_file, $permessi_download, $permessi_visualizza, $id_utente, $titolo, $descrizione, $data_inserimento, $data_modifica, $dimensione, $download, $nome_file, $id_categoria, $id_tipo_file, $hash_file, $password, $username, $categoria_desc, $tipo_desc, $tipo_icona, $tipo_info /*, $eliminato*/)
+    public function __construct($id_file, $permessi_download, $permessi_visualizza, $id_utente, $titolo, $descrizione, $data_inserimento, $data_modifica, $dimensione, $download, $nome_file, $id_categoria, $id_tipo_file, $hash_file, $password, $username, $categoria_desc, $tipo_desc, $tipo_icona, $tipo_info /*, $eliminato*/)
     {
         $this->id_file = $id_file;
         $this->permessi_download = $permessi_download;

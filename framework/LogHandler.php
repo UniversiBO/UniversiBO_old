@@ -43,7 +43,7 @@ class LogHandler{
 	 * @param string $type_indentifier log type identifier for this handler object
 	 * @param array $type_definition ordered array of column names/types to add in CSV file
 	 */
-	function LogHandler($type_indentifier, $logging_path, $type_definition)
+	public function __construct($type_indentifier, $logging_path, $type_definition)
 	{
 		$this->identifier = $type_indentifier;
 		$this->path = $logging_path;

@@ -45,7 +45,7 @@ class Error
      *             example: array('msg'=>'this is yet another error message','file'=>__FILE__,'line'=>__LINE__)
      *             error handlers functions must be able to handle $param type.
      */
-    function Error($error_category, $param = array())
+    public function __construct($error_category, $param = array())
     {
         $this->error_category = $error_category;
         $this->param = $param;

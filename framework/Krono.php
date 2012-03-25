@@ -119,7 +119,7 @@ class Krono
 	*   @param char $separator Character to use as date separator
 	*   @return void
 	*/
-	function Krono($lan='it', $date_format='it', $separator='/')
+	public function __construct($lan='it', $date_format='it', $separator='/')
 	{
 		$this->day_name_ext=
 		array(
