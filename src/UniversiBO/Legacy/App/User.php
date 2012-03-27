@@ -577,12 +577,12 @@ class User implements UserInterface
         {
             return array(
                     self::OSPITE		=> "Ospite",
-    			  	self::STUDENTE		=> "Studente",
-    			  	self::COLLABORATORE	=> "Studente",
-    			  	self::TUTOR			=> "Tutor",
-    			  	self::DOCENTE		=> "Docente",
-    			  	self::PERSONALE		=> "Personale non docente",
-    			  	self::ADMIN			=> "Studente");
+                    self::STUDENTE		=> "Studente",
+                    self::COLLABORATORE	=> "Studente",
+                    self::TUTOR			=> "Tutor",
+                    self::DOCENTE		=> "Docente",
+                    self::PERSONALE		=> "Personale non docente",
+                    self::ADMIN			=> "Studente");
         }
         else
         {
@@ -1271,33 +1271,10 @@ class User implements UserInterface
      * @param string $ad_password password dell'utente
      * @return boolean
      */
-    public static function activeDirectoryLogin($ad_username, $ad_domain, $ad_password, $adl_host, $adl_port )
+    public static function activeDirectoryLogin($username, $domain, $password, $host, $port)
     {
-        @$javaADLoginSock = fsockopen($adl_host,    # the host of the server
-                $adl_port,    # the port to use
-                $errno,   # error number if any
-                $errstr,  # error message if any
-                3);   # give up after 5 secs
-
-        if ( $javaADLoginSock == false )
-        {
-            \Error::throwError(_ERROR_DEFAULT,array('msg'=>'Impossibile connettersi al server di autenticazione Active Directory di Ateneo, provare più tardi oppure segnalare l\'inconveniente allo staff','file'=>__FILE__,'line'=>__LINE__));
-        }
-        else
-        {
-            $xml_request = '<?xml version="1.0" encoding="UTF-8"?><ADLogIn><user username="'. mb_convert_encoding($ad_username, "UTF-8", "ISO-8859-1") .'" domain="'. mb_convert_encoding( $ad_domain , "UTF-8", "ISO-8859-1") . '" password="'. mb_convert_encoding( $ad_password , "UTF-8", "ISO-8859-1") . '" /></ADLogIn>';
-            fputs ($javaADLoginSock, $xml_request."\n");
-
-            $reply = fgets ($javaADLoginSock,4);
-
-            fclose($javaADLoginSock);
-
-            $result = substr($reply,0,2);
-            if ($result == 'NO') return false;		// 'Autenticazione fallita';
-            elseif ($result == 'OK') return true;	// 'Autenticazione corretta';
-            else  die(); \Error::throwError(_ERROR_DEFAULT,array('msg'=>'Risposta del server di autenticazione Active Directory di Ateneo non valida'.$result,'file'=>__FILE__,'line'=>__LINE__));
-
-        }
+        $login = new ActiveDirectoryLogin($host, $port);
+        return $login->authenticate($username, $domain, $password);
     }
 
     public function getAlgoritmo()
