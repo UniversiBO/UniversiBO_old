@@ -1189,14 +1189,13 @@ class User implements UserInterface
      * Restituisce true se l'utente dell'active directory ? gi? registrato sul DB
      *
      * @static
-     * @param string $ad_username username da ricercare
+     * @deprecated
+     * @param string $adUsername username da ricercare
      * @return boolean
      */
-    function activeDirectoryUsernameExists( $ad_username)
+    public static function activeDirectoryUsernameExists($adUsername)
     {
-        $db = \FrontController::getDbConnection('main');
-
-        $repository = new DBUserRepository($db);
+        $repository = new DBUserRepository(\FrontController::getDbConnection('main'));
         return $repository->activeDirectoryUsernameExists($adUsername);
     }
 
