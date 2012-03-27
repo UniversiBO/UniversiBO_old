@@ -125,18 +125,16 @@ class User implements UserInterface
     }
 
     /**
-     *  Verifica se la sintassi della password ? valida.
-     *  Lunghezza min 5, max 30 caratteri
+     * Verifica se la sintassi della password ? valida.
+     * Lunghezza min 5, max 30 caratteri
      *
+     * @deprecated
      * @param string $password stringa della password da verificare
      * @return boolean
      */
-    public static function isPasswordValid( $password )
+    public static function isPasswordValid($password)
     {
-        //$password_pattern='/^([[:alnum:]]{5,30})$/';
-        //preg_match($password_pattern , $password );
-        $length = strlen( $password );
-        return ( $length > 5 && $length < 30 );
+        return PasswordUtil::isPasswordValid($password);
     }
 
     /**
@@ -146,23 +144,7 @@ class User implements UserInterface
      */
     public static function generateRandomPassword($length = 8)
     {
-        $chars = array( 'a', 'A', 'b', 'B', 'c', 'C', 'd', 'D', 'e', 'E', 'f', 'F', 'g', 'G', 'h', 'H', 'i', 'I', 'j', 'J',  'k', 'K', 'l', 'L', 'm', 'M', 'n', 'N', 'o', 'O', 'p', 'P', 'q', 'Q', 'r', 'R', 's', 'S', 't', 'T',  'u', 'U', 'v', 'V', 'w', 'W', 'x', 'X', 'y', 'Y', 'z', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0');
-        $max_chars = count($chars) - 1;
-
-        $hash = md5(microtime());
-        $loWord = substr($hash, -8);
-        $seed = hexdec($loWord);
-        $seed &= 0x7fffffff;
-
-        mt_srand( $seed );
-
-        $rand_str = '';
-        for($i = 0; $i < $length; $i++)
-        {
-            $rand_str = $rand_str . $chars[mt_rand(0, $max_chars)];
-        }
-
-        return $rand_str;
+        return PasswordUtil::generateRandomPassword($length);
     }
 
     /**
@@ -605,17 +587,7 @@ class User implements UserInterface
      */
     public static function passwordHashFunction($string, $salt = '', $algoritmo = 'md5')
     {
-        $password = $salt.$string;
-
-        switch($algoritmo)
-        {
-            case 'sha256':
-                return hash($algoritmo, $password);
-            case 'sha1':
-                return sha1($password);
-            default:
-                return md5($password);
-        }
+        return PasswordUtil::passwordHashFunction($string, $salt, $algoritmo);
     }
 
     /**
@@ -1242,24 +1214,15 @@ class User implements UserInterface
     /**
      * Restituisce il nick dello user avendo l'id
      *
+     * @deprecated
      * @param $id_user id dello user
      * @return il nickname
      */
 
-    function getUsernameFromId($id_user)
+    public static function getUsernameFromId($id)
     {
-        $db = \FrontController::getDbConnection('main');
-
-        $query = 'SELECT username FROM utente WHERE id_utente= '.$db->quote($id_user);
-        $res = $db->query($query);
-        if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        $rows = $res->numRows();
-        if( $rows == 0)
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non esiste un utente con questo id_user: '.$id_user,'file'=>__FILE__,'line'=>__LINE__));
-        $res->fetchInto($row);
-        $res->free();
-        return $row[0];
+        $repository = new DBUserRepository(\FrontController::getDbConnection('main'));
+        return $repository->getUsernameFromId($id);
     }
 
     /**

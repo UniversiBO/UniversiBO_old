@@ -71,4 +71,24 @@ class DBUserRepository
         else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
         return false;
     }
+    
+    /**
+     * @param int $id
+     * @return string
+     */
+    public function getUsernameFromId($id)
+    {
+        $db = $this->db;
+        
+        $query = 'SELECT username FROM utente WHERE id_utente= '.$db->quote($id);
+        $res = $db->query($query);
+        if (\DB::isError($res))
+        	\Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        $rows = $res->numRows();
+        if( $rows == 0)
+        	\Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non esiste un utente con questo id_user: '.$id_user,'file'=>__FILE__,'line'=>__LINE__));
+        $res->fetchInto($row);
+        $res->free();
+        return $row[0];
+    }
 }
