@@ -10,6 +10,9 @@ namespace UniversiBO\Legacy\App;
  */
 class DBUserRepository
 {
+    /**
+     * @var \DB_common
+     */
     private $db;
 
     /**

@@ -575,15 +575,14 @@ class User implements UserInterface
     {
         if ( $singolare == true )
         {
-
-    			  			return array(
-    			  			        self::OSPITE		=> "Ospite",
-    			  			        self::STUDENTE		=> "Studente",
-    			  			        self::COLLABORATORE	=> "Studente",
-    			  			        self::TUTOR			=> "Tutor",
-    			  			        self::DOCENTE		=> "Docente",
-    			  			        self::PERSONALE		=> "Personale non docente",
-    			  			        self::ADMIN			=> "Studente");
+            return array(
+                    self::OSPITE		=> "Ospite",
+    			  	self::STUDENTE		=> "Studente",
+    			  	self::COLLABORATORE	=> "Studente",
+    			  	self::TUTOR			=> "Tutor",
+    			  	self::DOCENTE		=> "Docente",
+    			  	self::PERSONALE		=> "Personale non docente",
+    			  	self::ADMIN			=> "Studente");
         }
         else
         {
@@ -597,8 +596,6 @@ class User implements UserInterface
                     self::ADMIN         => "Studenti");
         }
     }
-
-
 
     /**
      * Ritorna l'hash sicuro di una stringa
@@ -1198,7 +1195,7 @@ class User implements UserInterface
     function activeDirectoryUsernameExists( $ad_username)
     {
         $db = \FrontController::getDbConnection('main');
-        
+
         $repository = new DBUserRepository($db);
         return $repository->activeDirectoryUsernameExists($adUsername);
     }
