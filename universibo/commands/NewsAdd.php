@@ -101,7 +101,7 @@ class NewsAdd extends CanaleCommand {
 				$f7_data_ins_mm = $_POST['f7_data_ins_mm'];
 
 			//f7_data_ins_aa
-			if (!ereg('^([0-9]{4})$', $_POST['f7_data_ins_aa'])) {
+			if (!preg_match('/^([0-9]{4})$/', $_POST['f7_data_ins_aa'])) {
 				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo anno di inserimento non è valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 				$f7_accept = false;
 				$checkdate_ins = false;

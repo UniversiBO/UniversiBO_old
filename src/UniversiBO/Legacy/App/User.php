@@ -2,6 +2,8 @@
 
 namespace UniversiBO\Legacy\App;
 
+use \PrgAttivitaDidattica;
+
 /**
  * User class
  *
