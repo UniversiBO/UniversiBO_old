@@ -1,4 +1,6 @@
 <?php
+namespace UniversiBO\Legacy\Framework;
+
 /**
  * Multilanguage class, handles dictionary for multilanguage
  * messages support.

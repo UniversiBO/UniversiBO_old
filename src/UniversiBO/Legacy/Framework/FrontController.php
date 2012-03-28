@@ -116,11 +116,7 @@ class FrontController
      * @param string $configFile filename of FrontController configuration file
      */
     public function __construct( $receiver ){
-
-        require_once('Error'.PHP_EXTENSION);
-        require_once('LogHandler'.PHP_EXTENSION);
         //		include_once('XmlDoc'.PHP_EXTENSION);
-        require_once('XmlDOMFactory'.PHP_EXTENSION);
 
         $this->receiverIdentifier = $receiver->getIdentifier();
 
