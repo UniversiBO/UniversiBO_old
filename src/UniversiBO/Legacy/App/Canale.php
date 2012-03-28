@@ -531,7 +531,7 @@ class Canale {
         //$tipo_canale =  Canale::getTipoCanaleFromId ( $this->getRequestIdCanale() );
 
         $this->requestCanale = Canale::selectCanale( $this->getRequestIdCanale() );
-        	
+         
         if ( $this->requestCanale === false )
             \Error::throwError(_ERROR_DEFAULT,array('msg'=>'Il canale richiesto non è presente','file'=>__FILE__,'line'=>__LINE__));
 
@@ -646,12 +646,7 @@ class Canale {
     public function insertCanale()
     {
         return self::getRepository()->insert($this);
-        
-
-        
     }
-
-
 
     /**
      * Aggiorna il contenuto su DB riguardante le informazioni del canale
@@ -697,7 +692,7 @@ class Canale {
     function canaleExists($id_canale){
 
         if ( $id_canale < 0 ) return false;
-        
+
         return self::getRepository()->idExists($id_canale);
     }
 
