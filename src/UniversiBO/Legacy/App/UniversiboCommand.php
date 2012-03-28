@@ -2,7 +2,6 @@
 namespace UniversiBO\Legacy\App;
 
 use UniversiBO\Legacy\Framework\BaseCommand;
-use \Canale;
 use \Error;
 use \Facolta;
 use \ForumApi;
