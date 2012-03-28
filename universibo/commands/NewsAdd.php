@@ -19,9 +19,9 @@ class NewsAdd extends CanaleCommand {
 
 	function execute() {
 
-		$user = & $this->getSessionUser();
-		$canale = & $this->getRequestCanale();
-		$user_ruoli = & $user->getRuoli();
+		$user = $this->getSessionUser();
+		$canale = $this->getRequestCanale();
+		$user_ruoli = $user->getRuoli();
 		$id_canale = $canale->getIdCanale();
 //		var_dump($user_ruoli);die;
 		$referente = false;
@@ -43,7 +43,7 @@ class NewsAdd extends CanaleCommand {
 		$frontcontroller = & $this->getFrontController();
 		$template = & $frontcontroller->getTemplateEngine();
 
-		$krono = & $frontcontroller->getKrono();
+		$krono = $frontcontroller->getKrono();
 
 		// valori default form
 		$f7_titolo = '';
@@ -363,6 +363,5 @@ Per altri problemi contattare lo staff di UniversiBO
 		
 		
 		return 'default';
-
 	}
 }
