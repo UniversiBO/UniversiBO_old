@@ -10,6 +10,7 @@ class ShowMyUniversiBOTest extends UniversiBOSeleniumTestCase
     
     public function testLoggedOut()
     {
+        $this->deleteAllVisibleCookies();
         $this->open('/index.php?do=ShowMyUniversiBO');
         self::assertTrue($this->isTextPresent('Error!', 'Error message must be present'));
     }
