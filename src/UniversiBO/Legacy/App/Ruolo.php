@@ -85,6 +85,10 @@ class Ruolo {
     var $nascosto = false;
 
 
+    /**
+     * @var DBRuoloRepository
+     */
+    private static $repository;
 
     /**
      * Crea un oggetto Ruolo
@@ -194,33 +198,26 @@ class Ruolo {
     /**
      * Imposta il nome del canale corrente specificato dal'utente
      *
+     * @deprecated
      * @param string $nome nome del canale corrente specificato dal'utente
      * @param boolean $updateDB se true la modifica viene propagata al DB
      * @return boolean true se avvenuta con successo
      */
-    function updateNome($nome, $updateDB = false)
+    public function updateNome($nome, $updateDB = false)
     {
-        $this->nome = $nome;
+        $this->setNome($nome);
 
-        if ( $updateDB == true )
-        {
-            $db = FrontController::getDbConnection('main');
-
-            $query = 'UPDATE utente_canale SET nome = '.$db->quote($nome).' WHERE id_utente = '.$db->quote($this->getIdUser()).' AND id_canale = '.$db->quote($this->getIdCanale());
-            $res = $db->query($query);
-            if (DB::isError($res))
-                Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-            $rows = $db->affectedRows();
-
-            if( $rows == 1) return true;
-            elseif( $rows == 0) return false;
-            else Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database: ruolo non unico','file'=>__FILE__,'line'=>__LINE__));
-            return false;
+        if($updateDB) {
+            return self::getRepository()->updateNome($this);
         }
 
         return true;
     }
 
+    public function setNome($nome)
+    {
+        $this->nome = $nome;
+    }
 
 
     /**
@@ -233,39 +230,28 @@ class Ruolo {
         return $this->ultimoAccesso;
     }
 
-
-
     /**
      * Imposta l'ultimo accesso dell'utente al canale
-     *
+     * @deprecated
      * @param int $ultimo_accesso timestamp dell'ultimo accesso
      * @param boolean $updateDB se true la modifica viene propagata al DB
      * @return boolean true se avvenuta con successo
      */
-    function updateUltimoAccesso($ultimo_accesso, $updateDB = false)
+    public function updateUltimoAccesso($ultimoAccesso, $updateDB = false)
     {
-        $this->ultimoAccesso = $ultimo_accesso;
+        $this->setUltimoAccesso($ultimoAccesso);
 
-        if ( $updateDB == true )
-        {
-            $db = FrontController::getDbConnection('main');
-
-            $query = 'UPDATE utente_canale SET ultimo_accesso = '.$db->quote($ultimo_accesso).' WHERE id_utente = '.$db->quote($this->getIdUser()).' AND id_canale = '.$db->quote($this->getIdCanale());
-            $res = $db->query($query);
-            if (DB::isError($res))
-                Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-            $rows = $db->affectedRows();
-
-            if( $rows == 1) return true;
-            elseif( $rows == 0) return false;
-            else Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database: ruolo non unico','file'=>__FILE__,'line'=>__LINE__));
-            return false;
+        if($updateDB) {
+            return self::getRepository()->updateUltimoAccesso($this);
         }
 
         return true;
     }
 
-
+    public function setUltimoAccesso($ultimoAccesso)
+    {
+        $this->ultimoAccesso = $ultimoAccesso;
+    }
 
     /**
      * restituisce il livello di notifica dell'utente nel canale corrente
@@ -303,35 +289,28 @@ class Ruolo {
      * define('NOTIFICA_NONE'   ,0);
      * define('NOTIFICA_URGENT' ,1);
      * define('NOTIFICA_ALL'    ,2);
-     *
+     * 
+     * @deprecated
      * @param int $tipo_notifica livello di notifica
      * @param boolean $updateDB se true la modifica viene propagata al DB
      * @return boolean true se avvenuta con successo
      */
-    function updateTipoNotifica($tipo_notifica, $updateDB = false)
+    public function updateTipoNotifica($tipoNotifica, $updateDB = false)
     {
-        $this->tipoNotifica = $tipo_notifica;
-
-        if ( $updateDB == true )
-        {
-            $db = FrontController::getDbConnection('main');
-
-            $query = 'UPDATE utente_canale SET tipo_notifica = '.$db->quote($tipo_notifica).' WHERE id_utente = '.$db->quote($this->getIdUser()).' AND id_canale = '.$db->quote($this->getIdCanale());
-            $res = $db->query($query);
-            if (DB::isError($res))
-                Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-            $rows = $db->affectedRows();
-
-            if( $rows == 1) return true;
-            elseif( $rows == 0) return false;
-            else Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database: ruolo non unico','file'=>__FILE__,'line'=>__LINE__));
-            return false;
+        $this->setTipoNotifica($tipoNotifica);
+        
+        if($updateDB) {
+            return self::getRepository()->updateTipoNotifica($this);
         }
 
         return true;
     }
 
 
+    public function setTipoNotifica($tipoNotifica)
+    {
+        $this->tipoNotifica = $tipoNotifica;
+    }
 
     /**
      * Verifica se nel ruolo corrente l'utente ? moderatore del cananle
@@ -343,8 +322,6 @@ class Ruolo {
         return $this->moderatore;
     }
 
-
-
     /**
      * Imposta i diritti di moderatore nel ruolo
      *
@@ -354,29 +331,20 @@ class Ruolo {
      */
     function updateSetModeratore($moderatore, $updateDB = false)
     {
-        $this->moderatore = $moderatore;
-
-        if ( $updateDB == true )
-        {
-            $db = FrontController::getDbConnection('main');
-
-            $campo_ruolo = ($moderatore) ? RUOLO_MODERATORE : 0 + ($this->isReferente()) ? RUOLO_REFERENTE : 0;
-            $query = 'UPDATE utente_canale SET ruolo = '.$campo_ruolo.' WHERE id_utente = '.$db->quote($this->getIdUser()).' AND id_canale = '.$db->quote($this->getIdCanale());
-            $res = $db->query($query);
-            if (DB::isError($res))
-                Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-            $rows = $db->affectedRows();
-
-            if( $rows == 1) return true;
-            elseif( $rows == 0) return false;
-            else Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database: ruolo non unico','file'=>__FILE__,'line'=>__LINE__));
-            return false;
+        $this->setModeratore($moderatore);
+        
+        if($updateDB) {
+            return self::getRepository()->updateModeratore($this);
         }
 
         return true;
     }
 
 
+    public function setModeratore($moderatore)
+    {
+        $this->moderatore = $moderatore;
+    }
 
     /**
      * Verifica se nel ruolo corrente l'utente ? referente del canale
@@ -477,7 +445,7 @@ class Ruolo {
             $db = FrontController::getDbConnection('main');
 
             $my_universibo = ($my_universibo) ? 'S' : 'N';
-            	
+             
             $query = 'UPDATE utente_canale SET my_universibo = '.$db->quote($my_universibo).' WHERE id_utente = '.$db->quote($this->getIdUser()).' AND id_canale = '.$db->quote($this->getIdCanale());
             $res = $db->query($query);
             if (DB::isError($res))
@@ -641,42 +609,25 @@ class Ruolo {
      *
      * @return boolean true se avvenua con successo, altrimenti false e throws Error object
      */
-    function insertRuolo()
+    public function insertRuolo()
     {
-        $db = FrontController::getDbConnection('main');
-
-        $campo_ruolo = ($this->isModeratore()) ? RUOLO_MODERATORE : 0 + ($this->isReferente()) ? RUOLO_REFERENTE : 0;
-        $my_universibo = ($this->isMyUniversibo()) ? 'S' : 'N';
-        $nascosto = ($this->isNascosto()) ? 'S' : 'N';
-
-        $query = 'INSERT INTO utente_canale(id_utente, id_canale, ultimo_accesso, ruolo, my_universibo, notifica, nome, nascosto) VALUES ( '.
-                $db->quote($this->id_utente).' , '.
-                $db->quote($this->id_canale).' , '.
-                $db->quote($this->ultimoAccesso).' , '.
-                $db->quote($campo_ruolo).' , '.
-                $db->quote($my_universibo).' , '.
-                $db->quote($this->getTipoNotifica()).' , '.
-                $db->quote($this->getNome()).' , '.
-                $db->quote($nascosto).' )';
-
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        return true;
-
+        return self::getRepository()->insert($this);
     }
 
-    function deleteRuolo()
+    public function deleteRuolo()
     {
-        $db = FrontController::getDbConnection('main');
-
-        $query = 'DELETE FROM utente_canale WHERE id_utente = '.$db->quote($this->getIdUtente()).' AND id_canale = '.$db->quote($this->getIdCanale());
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        return true;
+        return self::getRepository()->delete($this);
     }
 
+    /**
+     * @return DBRuoloRepository
+     */
+    private static function getRepository()
+    {
+        if(is_null(self::$repository))
+        {
+            self::$repository = new DBRuoloRepository(FrontController::getDbConnection('main'));
+        }
+        return self::$repository;
+    }
 }
