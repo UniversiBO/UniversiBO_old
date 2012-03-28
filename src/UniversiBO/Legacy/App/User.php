@@ -110,6 +110,8 @@ class User implements UserInterface
             self::TUTOR         => 'ROLE_TUTOR',
     );
 
+    private static $repository = null;
+
     /**
      *  Verifica se la sintassi dello username è valido.
      *  Sono permessi fino a 25 caratteri: alfanumerici, lettere accentate, spazi, punti, underscore
@@ -125,18 +127,16 @@ class User implements UserInterface
     }
 
     /**
-     *  Verifica se la sintassi della password ? valida.
-     *  Lunghezza min 5, max 30 caratteri
+     * Verifica se la sintassi della password ? valida.
+     * Lunghezza min 5, max 30 caratteri
      *
+     * @deprecated
      * @param string $password stringa della password da verificare
      * @return boolean
      */
-    public static function isPasswordValid( $password )
+    public static function isPasswordValid($password)
     {
-        //$password_pattern='/^([[:alnum:]]{5,30})$/';
-        //preg_match($password_pattern , $password );
-        $length = strlen( $password );
-        return ( $length > 5 && $length < 30 );
+        return PasswordUtil::isPasswordValid($password);
     }
 
     /**
@@ -146,23 +146,7 @@ class User implements UserInterface
      */
     public static function generateRandomPassword($length = 8)
     {
-        $chars = array( 'a', 'A', 'b', 'B', 'c', 'C', 'd', 'D', 'e', 'E', 'f', 'F', 'g', 'G', 'h', 'H', 'i', 'I', 'j', 'J',  'k', 'K', 'l', 'L', 'm', 'M', 'n', 'N', 'o', 'O', 'p', 'P', 'q', 'Q', 'r', 'R', 's', 'S', 't', 'T',  'u', 'U', 'v', 'V', 'w', 'W', 'x', 'X', 'y', 'Y', 'z', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0');
-        $max_chars = count($chars) - 1;
-
-        $hash = md5(microtime());
-        $loWord = substr($hash, -8);
-        $seed = hexdec($loWord);
-        $seed &= 0x7fffffff;
-
-        mt_srand( $seed );
-
-        $rand_str = '';
-        for($i = 0; $i < $length; $i++)
-        {
-            $rand_str = $rand_str . $chars[mt_rand(0, $max_chars)];
-        }
-
-        return $rand_str;
+        return PasswordUtil::generateRandomPassword($length);
     }
 
     /**
@@ -255,7 +239,7 @@ class User implements UserInterface
      *
      * @return string
      */
-    function getLivelloNotifica()
+    public function getLivelloNotifica()
     {
         return $this->notifica;
     }
@@ -265,7 +249,7 @@ class User implements UserInterface
      *
      * @param string $notifica il livello da impostare
      */
-    function setLivelloNotifica($notifica)
+    public function setLivelloNotifica($notifica)
     {
         $this->notifica = $notifica;
     }
@@ -276,19 +260,22 @@ class User implements UserInterface
     	*
     	* @return int
     	*/
-    function getIdUser()
+    public function getIdUser()
     {
         return $this->id_utente;
     }
 
-
+    public function setIdUser($id)
+    {
+        $this->id_utente = $id;
+    }
 
     /**
      * Ritorna la email dello User
      *
      * @return int
      */
-    function getEmail()
+    public function getEmail()
     {
         return $this->email;
     }
@@ -302,27 +289,21 @@ class User implements UserInterface
      * @param boolean $updateDB se true e l'id_utente>0 la modifica viene propagata al DB
      * @return boolean
      */
-    function updateEmail($email, $updateDB = false)
+    public function updateEmail($email, $updateDB = false)
     {
-        $this->email = $email;
-        if ( $updateDB == true )
-        {
-            $db = \FrontController::getDbConnection('main');
+        $this->setEmail($email);
 
-            $query = 'UPDATE utente SET email = '.$db->quote($email).' WHERE id_utente = '.$db->quote($this->getIdUser());
-            $res = $db->query($query);
-            if (\DB::isError($res))
-                \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-            $rows = $db->affectedRows();
-
-            if( $rows == 1) return true;
-            elseif( $rows == 0) return false;
-            else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
-            return false;
+        if($updateDB) {
+            return self::getRepository()->updateEmail($this);
         }
+
         return true;
     }
 
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
 
 
     /**
@@ -332,7 +313,7 @@ class User implements UserInterface
      *
      * @return int
      */
-    function getGroups()
+    public function getGroups()
     {
         return $this->groups;
     }
@@ -359,29 +340,25 @@ class User implements UserInterface
     /**
      * Imposta il gruppo di appartenenza dello User
      *
+     * @deprecated
      * @param int $groups nuovo gruppo da impostare
      * @param boolean $updateDB se true e l'id_utente>0 la modifica viene propagata al DB
      * @return boolean
      */
-    function updateGroups($groups, $updateDB = false)
+    public function updateGroups($groups, $updateDB = false)
     {
-        return $this->groups;
-        if ( $updateDB == true )
-        {
-            $db = \FrontController::getDbConnection('main');
+        $this->setGroups($groups);
 
-            $query = 'UPDATE utente SET groups = '.$db->quote($groups).' WHERE id_utente = '.$db->quote($this->getIdUser());
-            $res = $db->query($query);
-            if (\DB::isError($res))
-                \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-            $rows = $db->affectedRows();
-
-            if( $rows == 1) return true;
-            elseif( $rows == 0) return false;
-            else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
-            return false;
+        if($updateDB) {
+            return self::getRepository()->updateGroups($this);
         }
+
         return true;
+    }
+
+    public function setGroups($groups)
+    {
+        $this->groups = $groups;
     }
 
     /**
@@ -401,27 +378,22 @@ class User implements UserInterface
      * @param boolean $updateDB se true e l'id_utente>0 la modifica viene propagata al DB
      * @return boolean
      */
-    function updateUltimoLogin($ultimoLogin, $updateDB = false)
+    public function updateUltimoLogin($ultimoLogin, $updateDB = false)
     {
-        $this->ultimoLogin = $ultimoLogin;
-        if ( $updateDB == true )
-        {
-            $db = \FrontController::getDbConnection('main');
+        $this->setUltimoLogin($ultimoLogin);
 
-            $query = 'UPDATE utente SET ultimo_login = '.$db->quote($ultimoLogin).' WHERE id_utente = '.$db->quote($this->getIdUser());
-            $res = $db->query($query);
-            if (\DB::isError($res))
-                \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-            $rows = $db->affectedRows();
-
-            if( $rows == 1) return true;
-            elseif( $rows == 0) return false;
-            else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
-            return false;
+        if($updateDB) {
+            return self::getRepository()->updateUltimoLogin($this);
         }
+
         return true;
     }
 
+
+    public function setUltimoLogin($ultimoLogin)
+    {
+        $this->ultimoLogin = $ultimoLogin;
+    }
 
 
     /**
@@ -429,7 +401,7 @@ class User implements UserInterface
      *
      * @return array
      */
-    function getRuoli()
+    public function getRuoli()
     {
         if ($this->bookmark == NULL)
         {
@@ -447,18 +419,20 @@ class User implements UserInterface
     /**
      * Ritorna un array contenente i nomi dei ruoli categorizzati per anno, selezionando l'eventuale canale passato
      */
-    function getRuoliInfoGroupedByYear($id_canale = null)
+    public function getRuoliInfoGroupedByYear($id_canale = null)
     {
         $user_ruoli = & $this->getRuoli();
         $elenco_canali = array();
         $found = ($id_canale == null);
         foreach ($user_ruoli as $r)
         {
-    			  			if ($this->isAdmin() || $r->isReferente())
-    			  			{
-    			  			    $elenco_canali[] = $r->getIdCanale();
-    			  			    if (!$found && $r->getIdCanale() == $id_canale) $found = true;
-    			  			}
+            if ($this->isAdmin() || $r->isReferente()) {
+                $elenco_canali[] = $r->getIdCanale();
+
+                if (!$found && $r->getIdCanale() == $id_canale) {
+                    $found = true;
+                }
+            }
         }
 
         if(!$found && $this->isAdmin()) $elenco_canali[] = $id_canale;
@@ -467,16 +441,17 @@ class User implements UserInterface
 
         foreach ($elenco_canali as $id_current_canale)
         {
-    			  			$current_canale = Canale::retrieveCanale($id_current_canale);
-    			  			$elenco_canali_retrieve[$id_current_canale] = $current_canale;
-    			  			$didatticaCanale = PrgAttivitaDidattica::factoryCanale($id_current_canale);
-    			  			//			var_dump($didatticaCanale);
-    			  			$annoCorso = (count($didatticaCanale) > 0)?
-    			  			$didatticaCanale[0]->getAnnoAccademico() : 'altro';
-    			  			$nome_current_canale = $current_canale->getTitolo();
-    			  			$f7_canale[$annoCorso][$id_current_canale] =
-    			  			array(	'nome' => $nome_current_canale,
-    			  			        'spunta' => ($id_canale != null && $id_current_canale == $id_canale)? 'true' : 'false');
+            $current_canale = Canale::retrieveCanale($id_current_canale);
+            $elenco_canali_retrieve[$id_current_canale] = $current_canale;
+            $didatticaCanale = PrgAttivitaDidattica::factoryCanale($id_current_canale);
+            //			var_dump($didatticaCanale);
+            $annoCorso = (count($didatticaCanale) > 0)?
+            $didatticaCanale[0]->getAnnoAccademico() : 'altro';
+            $nome_current_canale = $current_canale->getTitolo();
+            $f7_canale[$annoCorso][$id_current_canale] = array(
+                    'nome' => $nome_current_canale,
+                    'spunta' => ($id_canale != null && $id_current_canale == $id_canale)? 'true' : 'false'
+            );
         }
         krsort($f7_canale);
         $tot = count($f7_canale);
@@ -485,8 +460,6 @@ class User implements UserInterface
             //			var_dump($f7_canale[$i]);
             uasort($f7_canale[$list_keys[$i]], array('User','_compareCanale'));
         return $f7_canale;
-
-
     }
 
     /**
@@ -505,12 +478,10 @@ class User implements UserInterface
      *
      * @return string
      */
-    function getADUsername()
+    public function getADUsername()
     {
         return $this->ADUsername;
     }
-
-
 
     /**
      * Imposta lo username dell'ActiveDirectory di ateneo associato all'utente corrente
@@ -519,35 +490,29 @@ class User implements UserInterface
      * @param boolean $updateDB se true e l'id_utente>0 la modifica viene propagata al DB
      * @return boolean
      */
-    function updateADUsername($ADUsername, $updateDB = false)
+    public function updateADUsername($ADUsername, $updateDB = false)
     {
-        $this->ADUsername = $ADUsername;
-        if ( $updateDB == true )
-        {
-    			  			$db = \FrontController::getDbConnection('main');
+        $this->setADUsername($ADUsername);
 
-    			  			$query = 'UPDATE utente SET ad_username = '.$db->quote($this->ADUsername).' WHERE id_utente = '.$db->quote($this->getIdUser());
-    			  			$res = $db->query($query);
-    			  			if (\DB::isError($res))
-    			  			    \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-    			  			$rows = $db->affectedRows();
-
-    			  			if( $rows == 1) return true;
-    			  			elseif( $rows == 0) return false;
-    			  			else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
-    			  			return false;
+        if($updateDB) {
+            return self::getRepository()->updateADUsername($this);
         }
+
         return true;
     }
 
 
+    public function setADUsername($ADUsername)
+    {
+        $this->ADUsername = $ADUsername;
+    }
 
     /**
      * Ritorna la stringa con il numero di telefono
      *
      * @return string
      */
-    function getPhone()
+    public function getPhone()
     {
         return $this->phone;
     }
@@ -557,12 +522,10 @@ class User implements UserInterface
      *
      * @return string
      */
-    function getDefaultStyle()
+    public function getDefaultStyle()
     {
         return $this->defaultStyle;
     }
-
-
 
     /**
      * Restituisce il nome del gruppo da usare nel blocchetto contatti
@@ -575,15 +538,14 @@ class User implements UserInterface
     {
         if ( $singolare == true )
         {
-
-    			  			return array(
-    			  			        self::OSPITE		=> "Ospite",
-    			  			        self::STUDENTE		=> "Studente",
-    			  			        self::COLLABORATORE	=> "Studente",
-    			  			        self::TUTOR			=> "Tutor",
-    			  			        self::DOCENTE		=> "Docente",
-    			  			        self::PERSONALE		=> "Personale non docente",
-    			  			        self::ADMIN			=> "Studente");
+            return array(
+                    self::OSPITE		=> "Ospite",
+                    self::STUDENTE		=> "Studente",
+                    self::COLLABORATORE	=> "Studente",
+                    self::TUTOR			=> "Tutor",
+                    self::DOCENTE		=> "Docente",
+                    self::PERSONALE		=> "Personale non docente",
+                    self::ADMIN			=> "Studente");
         }
         else
         {
@@ -598,8 +560,6 @@ class User implements UserInterface
         }
     }
 
-
-
     /**
      * Ritorna l'hash sicuro di una stringa
      *
@@ -608,17 +568,7 @@ class User implements UserInterface
      */
     public static function passwordHashFunction($string, $salt = '', $algoritmo = 'md5')
     {
-        $password = $salt.$string;
-
-        switch($algoritmo)
-        {
-            case 'sha256':
-                return hash($algoritmo, $password);
-            case 'sha1':
-                return sha1($password);
-            default:
-                return md5($password);
-        }
+        return PasswordUtil::passwordHashFunction($string, $salt, $algoritmo);
     }
 
     /**
@@ -639,30 +589,25 @@ class User implements UserInterface
 
     public function updatePassword($password, $updateDB = false)
     {
-        $this->setSalt(self::generateRandomPassword(8));
-        $this->setAlgoritmo(self::ALGORITMO_DEFAULT);
-        $this->password = self::passwordHashFunction($password, $this->getSalt(), $this->getAlgoritmo());
+        $this->setNewPassword($password);
 
-        if ( $updateDB == true )
-        {
-            $db = \FrontController::getDbConnection('main');
-
-            $query = 'UPDATE utente SET password = '.$db->quote($this->password).
-            ', salt = '.$db->quote($this->getSalt()).
-            ', algoritmo = '.$db->quote($this->getAlgoritmo()).
-            ' WHERE id_utente = '.$db->quote($this->getIdUser());
-             
-            $res = $db->query($query);
-            if (\DB::isError($res))
-                \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-            $rows = $db->affectedRows();
-
-            if( $rows == 1) return true;
-            elseif( $rows == 0) return false;
-            else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
+        if($updateDB) {
+            return self::getRepository()->updatePassword($this);
         }
 
         return true;
+    }
+
+    public function setNewPassword($password)
+    {
+        $this->setSalt(self::generateRandomPassword(8));
+        $this->setAlgoritmo(self::ALGORITMO_DEFAULT);
+        $this->setPassword(PasswordUtil::passwordHashFunction($password, $this->getSalt(), $this->getAlgoritmo()));
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
     }
 
     public function matchesPassword($password)
@@ -683,7 +628,7 @@ class User implements UserInterface
      * @param boolean $phome il numero di telefono
      * @return boolean
      */
-    function setPhone($phome)
+    public function setPhone($phome)
     {
         $this->phone = $phome;
     }
@@ -695,7 +640,7 @@ class User implements UserInterface
      * @param boolean $defaultStyle nome del template di default
      * @return boolean
      */
-    function setDefaultStyle($defaultStyle)
+    public function setDefaultStyle($defaultStyle)
     {
         $this->defaultStyle = $defaultStyle;
     }
@@ -707,7 +652,7 @@ class User implements UserInterface
      * @param boolean $ban true se l'utente non ha accesso, false se l'utente ha accesso
      * @return boolean
      */
-    function setBan($ban)
+    public function setBan($ban)
     {
         $this->ban = $ban;
     }
@@ -729,7 +674,7 @@ class User implements UserInterface
      *
      * @return boolean
      */
-    function isEliminato()
+    public function isEliminato()
     {
         return $this->eliminato == self::ELIMINATO;
     }
@@ -741,7 +686,7 @@ class User implements UserInterface
      *
      * @return boolean
      */
-    function setEliminato($elimina = true)
+    public function setEliminato($elimina = true)
     {
         return ($this->eliminato = ($elimina) ? self::ELIMINATO : self::NOT_ELIMINATO);
     }
@@ -783,7 +728,7 @@ class User implements UserInterface
      * @static
      * @return boolean
      */
-    function isDocente( $groups = NULL )
+    public function isDocente( $groups = NULL )
     {
         if ( $groups == NULL ) $groups = $this->getGroups();
 
@@ -799,7 +744,7 @@ class User implements UserInterface
      * @static
      * @return boolean
      */
-    function isTutor( $groups = NULL )
+    public function isTutor( $groups = NULL )
     {
         if ( $groups == NULL ) $groups = $this->getGroups();
 
@@ -815,7 +760,7 @@ class User implements UserInterface
      * @static
      * @return boolean
      */
-    function isCollaboratore( $groups = NULL )
+    public function isCollaboratore( $groups = NULL )
     {
         if ( $groups == NULL ) $groups = $this->getGroups();
 
@@ -831,7 +776,7 @@ class User implements UserInterface
      * @static
      * @return boolean
      */
-    function isStudente( $groups = NULL )
+    public function isStudente( $groups = NULL )
     {
         if ( $groups == NULL ) $groups = $this->getGroups();
 
@@ -848,7 +793,7 @@ class User implements UserInterface
      * @static
      * @return boolean
      */
-    function isOspite( $groups = NULL )
+    public function isOspite( $groups = NULL )
     {
         if ( $groups == NULL ) $groups = $this->getGroups();
 
@@ -866,7 +811,7 @@ class User implements UserInterface
      * @param boolean $singolare
      * @return array
      */
-    function getUserGroupsNames( $singolare = true )
+    public function getUserGroupsNames( $singolare = true )
     {
         $nomi_gruppi = self::groupsNames($singolare);
         $return = array();
@@ -893,7 +838,7 @@ class User implements UserInterface
      * @param boolean $singolare
      * @return array
      */
-    function getUserPublicGroupName( $singolare = true )
+    public function getUserPublicGroupName( $singolare = true )
     {
         $nomi_gruppi = self::publicGroupsName($singolare);
 
@@ -905,9 +850,7 @@ class User implements UserInterface
         if ($this->isDocente())			return $nomi_gruppi[self::DOCENTE];
         if ($this->isPersonale())		return $nomi_gruppi[self::PERSONALE];
         if ($this->isAdmin())			return $nomi_gruppi[self::ADMIN];
-
     }
-
 
 
     /**
@@ -917,25 +860,9 @@ class User implements UserInterface
      * @param string $username username da ricercare
      * @return boolean
      */
-    public static function usernameExists( $username )
+    public static function usernameExists($username)
     {
-        $username = trim($username);
-
-        $db = \FrontController::getDbConnection('main');
-
-        $query = 'SELECT id_utente FROM utente WHERE LOWER(username) = '.$db->quote(strtolower($username));
-        //		var_dump($query); die;
-        $res = $db->query($query);
-        if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        $rows = $res->numRows();
-
-        return $rows > 0;
-        /*
-         if( $rows == 0) return false;
-        elseif( $rows == 1) return true;
-        else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
-        return false;*/
+        return self::getRepository()->usernameExists($username);
     }
 
 
@@ -946,67 +873,33 @@ class User implements UserInterface
      * to do
          * @return mixed User se eseguita con successo, false se l'utente non esiste
      */
-    function selectAllCollaboratori()
+    public function selectAllCollaboratori()
     {
-
-        $db = \FrontController::getDbConnection('main');
-
-        $query = 'SELECT id_utente, groups FROM utente WHERE groups > 2 AND groups!= 8 AND groups != 16 AND groups!= 32 AND sospeso = '.$db->quote(self::NOT_ELIMINATO);
-        $res = $db->query($query);
-        if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-
-        $rows = $res->numRows();
-
-        $collaboratori = array();
-
-        while($row = $res->fetchRow())
-        {
-            $collaboratori[] = new User($row[0], $row[1]);
-        }
-
-        return $collaboratori;
+        return self::getRepository()->findCollaboratori();
     }
 
-
     /**
-     * @static
      * @param array	lista dei ruoli di cui si vogliono sapere gli appartenenti
      * @return array array di lista di IdUser per ogni gruppo specificato
      */
-    function  getIdUsersFromDesiredGroups($arrayWithDesiredGroupsConstant)
+    public static function getIdUsersFromDesiredGroups($arrayWithDesiredGroupsConstant)
     {
-        $ret = array();
-        if (count($arrayWithDesiredGroupsConstant) == 0)
-            return $ret;
+        if(!is_array($arrayWithDesiredGroupsConstant) || count($arrayWithDesiredGroupsConstant) === 0)
+            return array();
 
-        $db = \FrontController::getDbConnection('main');
-        $groups = implode(', ', $arrayWithDesiredGroupsConstant);
-        $query = 'SELECT id_utente, groups FROM utente WHERE groups IN '.$db->quote($groups);
-        $res = $db->query($query);
-        if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        while ($row = $res->fetchRow())
-            $ret[$row[1]][] = $row[0];
-
-        return $ret;
+        return self::getRepository()->getIdUsersFromDesiredGroups($arrayWithDesiredGroupsConstant);
     }
-
-
 
     /**
      * Crea un oggetto utente dato il suo numero identificativo id_utente del database, 0 se si vuole creare un utente ospite
      *
-     * @static
+     * @deprecated
      * @param int $id_utente numero identificativo utente
      * @param boolean $dbcache se true esegue il pre-caching del bookmark in modo da migliorare le prestazioni
      * @return mixed User se eseguita con successo, false se l'utente non esiste
      */
-    function selectUser($id_utente)
+    public static function selectUser($id_utente)
     {
-
         if ($id_utente == 0)
         {
             $user = new User(0,self::OSPITE);
@@ -1014,216 +907,66 @@ class User implements UserInterface
         }
         elseif ($id_utente > 0)
         {
-            $db = \FrontController::getDbConnection('main');
-
-            $query = 'SELECT username, password, email, ultimo_login, ad_username, groups, notifica, phone, default_style, sospeso, algoritmo, salt  FROM utente WHERE id_utente = '.$db->quote($id_utente);
-            $res = $db->query($query);
-            if (\DB::isError($res))
-                \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-            $rows = $res->numRows();
-            if( $rows > 1) \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
-            if( $rows == 0) {
-                $false = false; return $false;
-            };
-
-            $row = $res->fetchRow();
-            $user = new User($id_utente, $row[5], $row[0], $row[1], $row[2], $row[6], $row[3], $row[4], $row[7], $row[8], NULL, $row[9], true);
-            $user->setAlgoritmo($row[10]);
-            $user->setSalt($row[11]);
-            return $user;
+            return self::getRepository()->find($id_utente);
         }
     }
-
-
 
     /**
      * Crea un oggetto utente dato il suo usernamedel database
      *
-     * @static
      * @param string $username nome identificativo utente
      * @return mixed User se eseguita con successo, false se l'utente non esiste
      */
-    function selectUserUsername($username)
+    public static function selectUserUsername($username)
     {
-        $username = trim($username);
-
-        $db = \FrontController::getDbConnection('main');
-
-        $query = 'SELECT id_utente, password, email, ultimo_login, ad_username, groups, notifica, phone, default_style, sospeso, algoritmo, salt  FROM utente WHERE username = '.$db->quote($username);
-        $res = $db->query($query);
-        if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        $rows = $res->numRows();
-        if( $rows > 1) \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
-        if( $rows == 0) {
-            $false=false;
-            return $false;
-        }
-
-        $row = $res->fetchRow();
-        $user = new User($row[0], $row[5], $username, $row[1], $row[2], $row[6], $row[3], $row[4], $row[7], $row[8], NULL, $row[9], true);
-        $user->setAlgoritmo($row[10]);
-        $user->setSalt($row[11]);
-        return $user;
-
+        return self::getRepository()->findByUsername(trim($username));
     }
-
-
 
     /**
      * Ritorna un array di oggetti utente che rispettano entrambe le stringhe di ricerca (AND)
      * Possono essere usati _ e % come caratteri spaciali
      *
-     * @static
+     * @deprecated
      * @param string $username nome identificativo utente
      * @param string $username nome identificativo utente
      * @return array di User
      */
-    function selectUsersSearch($username = '%', $email = '%')
+    public static function selectUsersSearch($username = '%', $email = '%')
     {
-
-        $username = trim($username);
-
-        $db = \FrontController::getDbConnection('main');
-
-        $query = 'SELECT id_utente, password, email, ultimo_login, ad_username, groups, notifica, username, phone, default_style, sospeso, algoritmo, salt  FROM utente WHERE username LIKE '.$db->quote($username) .' AND email LIKE '.$db->quote($email);
-        $res = $db->query($query);
-        if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        $users = array();
-
-        while($row = $res->fetchRow())
-        {
-            $users[] = new User($row[0], $row[5], $row[7], $row[1], $row[2], $row[6], $row[3], $row[4], $row[8], $row[9], NULL, $row[10], true);
-        }
-
-        return $users;
-
+        return self::getRepository()->findLike(trim($username), $email);
     }
-
 
     /**
      * Inserisce su DB le informazioni riguardanti un nuovo utente
      *
      * @return boolean true se avvenua con successo, altrimenti Error object
      */
-    function insertUser()
+    public function insertUser()
     {
-        $db = \FrontController::getDbConnection('main');
-
-        ignore_user_abort(1);
-        $db->autoCommit(false);
-
-        $query = 'SELECT id_utente FROM utente WHERE username = '.$db->quote($this->getUsername() );
-        $res = $db->query($query);
-        $rows = $res->numRows();
-
-        if( $rows > 0)
-        {
-            $return = false;
-        }
-        else
-        {
-            $this->id_utente = $db->nextID('utente_id_utente');
-            $utente_ban = ( $this->isBanned() ) ? 'S' : 'N';
-            $utente_eliminato = ( $this->isEliminato() ) ? self::ELIMINATO : self::NOT_ELIMINATO;
-
-            $query = 'INSERT INTO utente (id_utente, username, password, email, notifica, ultimo_login, ad_username, groups, ban, phone, sospeso, default_style, algoritmo, salt) VALUES '.
-                    '( '.$db->quote($this->getIdUser()).' , '.
-                    $db->quote($this->getUsername()).' , '.
-                    $db->quote($this->getPasswordHash()).' , '.
-                    $db->quote($this->getEmail()).' , '.
-                    $db->quote($this->getLivelloNotifica()).' , '.
-                    $db->quote($this->getUltimoLogin()).' , '.
-                    $db->quote($this->getADUsername()).' , '.
-                    $db->quote($this->getGroups()).' , '.
-                    $db->quote($utente_ban).' , '.
-                    $db->quote($this->getPhone()).' , '.
-                    $db->quote($utente_eliminato).' , '.
-                    $db->quote($this->getDefaultStyle()).' , '.
-                    $db->quote($this->getAlgoritmo()).' , '.
-                    $db->quote($this->getSalt()).' )';
-            $res = $db->query($query);
-
-            if (\DB::isError($res))
-            {
-                $db->rollback();
-                \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-            }
-            $db->commit();
-
-            $return = true;
-        }
-
-        $db->autoCommit(true);
-        ignore_user_abort(0);
-
-        return $return;
+        return self::getRepository()->insertUser($this);
     }
-
-
 
     /**
      * Aggiorna il contenuto su DB riguardante le informazioni utente
      *
      * @return boolean true se avvenua con successo, altrimenti false e throws Error object
      */
-    function updateUser()
+    public function updateUser()
     {
-        $db = \FrontController::getDbConnection('main');
-        $utente_ban = ( $this->isBanned() ) ? 'S' : 'N';
-        $utente_eliminato = ( $this->isEliminato() ) ? self::ELIMINATO : self::NOT_ELIMINATO;
-
-        $query = 'UPDATE utente SET username = '.$db->quote($this->getUsername()).
-        ', password = '.$db->quote($this->getPasswordHash()).
-        ', email = '.$db->quote($this->getEmail()).
-        ', notifica = '.$db->quote($this->getLivelloNotifica()).
-        ', ultimo_login = '.$db->quote($this->getUltimoLogin()).
-        ', ad_username = '.$db->quote($this->getADUsername()).
-        ', groups = '.$db->quote($this->getGroups()).
-        ', phone = '.$db->quote($this->getPhone()).
-        ', default_style = '.$db->quote($this->getDefaultStyle()).
-        ', sospeso = '.$db->quote($utente_eliminato).
-        ', ban = '.$db->quote($utente_ban).
-        ', algoritmo = '.$db->quote($this->getAlgoritmo()).
-        ', salt = '.$db->quote($this->getSalt()).
-        ' WHERE id_utente = '.$db->quote($this->getIdUser());
-
-        $res = $db->query($query);
-        if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        $rows = $db->affectedRows();
-
-        if( $rows == 1) return true;
-        elseif( $rows == 0) return false;
-        else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
+        return self::getRepository()->updateUser($this);
     }
-
 
     /**
      * Restituisce true se l'utente dell'active directory ? gi? registrato sul DB
      *
      * @static
-     * @param string $ad_username username da ricercare
+     * @deprecated
+     * @param string $adUsername username da ricercare
      * @return boolean
      */
-    function activeDirectoryUsernameExists( $ad_username)
+    public static function activeDirectoryUsernameExists($adUsername)
     {
-        $db = \FrontController::getDbConnection('main');
-
-        $query = 'SELECT id_utente FROM utente WHERE ad_username = '.$db->quote($ad_username);
-        $res = $db->query($query);
-        if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        $rows = $res->numRows();
-
-        if( $rows == 0) return false;
-        elseif( $rows == 1) return true;
-        else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
-        return false;
+        return self::getRepository()->activeDirectoryUsernameExists($adUsername);
     }
 
     /**
@@ -1232,26 +975,9 @@ class User implements UserInterface
      * @param string $ad_username username AD dell'utente
      * @return mixed l'id utente se lo trova, altrimenti false
      */
-    function getIdFromADUsername( $ad_username )
+    public static function getIdFromADUsername($adUsername)
     {
-        $db = \FrontController::getDbConnection('main');
-
-        $query = 'SELECT id_utente FROM utente WHERE ad_username = '.$db->quote($ad_username);
-        $res = $db->query($query);
-        if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        $rows = $res->numRows();
-
-        if( $rows == 0) return false;
-        elseif( $rows == 1)
-        {
-            $row = $res->fetchRow();
-            return $row[0];
-        }
-        else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
-
-        return false;
-
+        return self::getRepository()->getIdFromADUsername($adUsername);
     }
 
     /**
@@ -1261,7 +987,7 @@ class User implements UserInterface
      * @param int $groups gruppi di cui si vuole verificare l'accesso
      * @return boolean
      */
-    function isGroupAllowed($groups)
+    public function isGroupAllowed($groups)
     {
         return (boolean) ((int)$this->groups & (int)$groups);
     }
@@ -1269,24 +995,14 @@ class User implements UserInterface
     /**
      * Restituisce il nick dello user avendo l'id
      *
+     * @deprecated
      * @param $id_user id dello user
      * @return il nickname
      */
 
-    function getUsernameFromId($id_user)
+    public static function getUsernameFromId($id)
     {
-        $db = \FrontController::getDbConnection('main');
-
-        $query = 'SELECT username FROM utente WHERE id_utente= '.$db->quote($id_user);
-        $res = $db->query($query);
-        if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        $rows = $res->numRows();
-        if( $rows == 0)
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non esiste un utente con questo id_user: '.$id_user,'file'=>__FILE__,'line'=>__LINE__));
-        $res->fetchInto($row);
-        $res->free();
-        return $row[0];
+        return self::getRepository()->getUsernameFromId($id);
     }
 
     /**
@@ -1297,33 +1013,10 @@ class User implements UserInterface
      * @param string $ad_password password dell'utente
      * @return boolean
      */
-    public static function activeDirectoryLogin($ad_username, $ad_domain, $ad_password, $adl_host, $adl_port )
+    public static function activeDirectoryLogin($username, $domain, $password, $host, $port)
     {
-        @$javaADLoginSock = fsockopen($adl_host,    # the host of the server
-                $adl_port,    # the port to use
-                $errno,   # error number if any
-                $errstr,  # error message if any
-                3);   # give up after 5 secs
-
-        if ( $javaADLoginSock == false )
-        {
-            \Error::throwError(_ERROR_DEFAULT,array('msg'=>'Impossibile connettersi al server di autenticazione Active Directory di Ateneo, provare più tardi oppure segnalare l\'inconveniente allo staff','file'=>__FILE__,'line'=>__LINE__));
-        }
-        else
-        {
-            $xml_request = '<?xml version="1.0" encoding="UTF-8"?><ADLogIn><user username="'. mb_convert_encoding($ad_username, "UTF-8", "ISO-8859-1") .'" domain="'. mb_convert_encoding( $ad_domain , "UTF-8", "ISO-8859-1") . '" password="'. mb_convert_encoding( $ad_password , "UTF-8", "ISO-8859-1") . '" /></ADLogIn>';
-            fputs ($javaADLoginSock, $xml_request."\n");
-
-            $reply = fgets ($javaADLoginSock,4);
-
-            fclose($javaADLoginSock);
-
-            $result = substr($reply,0,2);
-            if ($result == 'NO') return false;		// 'Autenticazione fallita';
-            elseif ($result == 'OK') return true;	// 'Autenticazione corretta';
-            else  die(); \Error::throwError(_ERROR_DEFAULT,array('msg'=>'Risposta del server di autenticazione Active Directory di Ateneo non valida'.$result,'file'=>__FILE__,'line'=>__LINE__));
-
-        }
+        $login = new ActiveDirectoryLogin($host, $port);
+        return $login->authenticate($username, $domain, $password);
     }
 
     public function getAlgoritmo()
@@ -1357,5 +1050,17 @@ class User implements UserInterface
     public function equals(UserInterface $user)
     {
         return false;
+    }
+
+    /**
+     * @return DBUserRepository
+     */
+    private static function getRepository()
+    {
+        if(is_null(self::$repository))
+        {
+            self::$repository = new DBUserRepository(\FrontController::getDbConnection('main'));
+        }
+        return self::$repository;
     }
 }
