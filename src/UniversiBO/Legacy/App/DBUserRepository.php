@@ -286,11 +286,100 @@ class DBUserRepository extends DBRepository
 
     public function find($id)
     {
+        $db = $this->getDb();
 
+        $query = 'SELECT username, password, email, ultimo_login, ad_username, groups, notifica, phone, default_style, sospeso, algoritmo, salt  FROM utente WHERE id_utente = '.$db->quote($id);
+        $res = $db->query($query);
+        if (\DB::isError($res))
+            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+
+        $rows = $res->numRows();
+        if( $rows > 1) \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
+        if( $rows == 0) {
+            return false;
+        }
+
+        $row = $res->fetchRow();
+        $user = new User($id, $row[5], $row[0], $row[1], $row[2], $row[6], $row[3], $row[4], $row[7], $row[8], NULL, $row[9], true);
+        $user->setAlgoritmo($row[10]);
+        $user->setSalt($row[11]);
+        return $user;
     }
 
     public function findByUsername($username)
     {
+        $db = $this->getDb();
 
+        $query = 'SELECT id_utente, password, email, ultimo_login, ad_username, groups, notifica, phone, default_style, sospeso, algoritmo, salt  FROM utente WHERE username = '.$db->quote($username);
+        $res = $db->query($query);
+        if (\DB::isError($res))
+            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+
+        $rows = $res->numRows();
+        if( $rows > 1) \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
+        if( $rows == 0) {
+            $false=false;
+            return $false;
+        }
+
+        $row = $res->fetchRow();
+        $user = new User($row[0], $row[5], $username, $row[1], $row[2], $row[6], $row[3], $row[4], $row[7], $row[8], NULL, $row[9], true);
+        $user->setAlgoritmo($row[10]);
+        $user->setSalt($row[11]);
+        return $user;
+    }
+
+    public function getIdUsersFromDesiredGroups(array $arrayWithDesiredGroupsConstant)
+    {
+        if(count($arrayWithDesiredGroupsConstant) === 0)
+            return array();
+
+        $db = $this->getDb();
+
+        $groups = implode(', ', $arrayWithDesiredGroupsConstant);
+        $query = 'SELECT id_utente, groups FROM utente WHERE groups IN '.$db->quote($groups);
+        $res = $db->query($query);
+        if (\DB::isError($res))
+            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+
+        while ($row = $res->fetchRow())
+            $ret[$row[1]][] = $row[0];
+
+        return $ret;
+    }
+
+    public function updateGroups(User $user)
+    {
+        $db = $this->getDb();
+
+        $query = 'UPDATE utente SET groups = '.$db->quote($user->getGroups()).' WHERE id_utente = '.$db->quote($user->getIdUser());
+        $res = $db->query($query);
+        if (\DB::isError($res))
+            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        $rows = $db->affectedRows();
+
+        if( $rows == 1) return true;
+        elseif( $rows == 0) return false;
+        else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
+        return false;
+    }
+
+    public function findLike($username = '%', $email = '%')
+    {
+        $db = $this->getDb();
+
+        $query = 'SELECT id_utente, password, email, ultimo_login, ad_username, groups, notifica, username, phone, default_style, sospeso, algoritmo, salt  FROM utente WHERE username LIKE '.$db->quote($username) .' AND email LIKE '.$db->quote($email);
+        $res = $db->query($query);
+        if (\DB::isError($res))
+            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+
+        $users = array();
+
+        while($row = $res->fetchRow())
+        {
+            $users[] = new User($row[0], $row[5], $row[7], $row[1], $row[2], $row[6], $row[3], $row[4], $row[8], $row[9], NULL, $row[10], true);
+        }
+
+        return $users;
     }
 }

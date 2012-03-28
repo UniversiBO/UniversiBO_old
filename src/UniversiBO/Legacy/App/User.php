@@ -239,7 +239,7 @@ class User implements UserInterface
      *
      * @return string
      */
-    function getLivelloNotifica()
+    public function getLivelloNotifica()
     {
         return $this->notifica;
     }
@@ -249,7 +249,7 @@ class User implements UserInterface
      *
      * @param string $notifica il livello da impostare
      */
-    function setLivelloNotifica($notifica)
+    public function setLivelloNotifica($notifica)
     {
         $this->notifica = $notifica;
     }
@@ -275,7 +275,7 @@ class User implements UserInterface
      *
      * @return int
      */
-    function getEmail()
+    public function getEmail()
     {
         return $this->email;
     }
@@ -289,7 +289,7 @@ class User implements UserInterface
      * @param boolean $updateDB se true e l'id_utente>0 la modifica viene propagata al DB
      * @return boolean
      */
-    function updateEmail($email, $updateDB = false)
+    public function updateEmail($email, $updateDB = false)
     {
         $this->setEmail($email);
 
@@ -313,7 +313,7 @@ class User implements UserInterface
      *
      * @return int
      */
-    function getGroups()
+    public function getGroups()
     {
         return $this->groups;
     }
@@ -340,29 +340,25 @@ class User implements UserInterface
     /**
      * Imposta il gruppo di appartenenza dello User
      *
+     * @deprecated
      * @param int $groups nuovo gruppo da impostare
      * @param boolean $updateDB se true e l'id_utente>0 la modifica viene propagata al DB
      * @return boolean
      */
-    function updateGroups($groups, $updateDB = false)
+    public function updateGroups($groups, $updateDB = false)
     {
-        return $this->groups; // ?????
-        if ( $updateDB == true )
-        {
-            $db = \FrontController::getDbConnection('main');
+        $this->setGroups($groups);
 
-            $query = 'UPDATE utente SET groups = '.$db->quote($groups).' WHERE id_utente = '.$db->quote($this->getIdUser());
-            $res = $db->query($query);
-            if (\DB::isError($res))
-                \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-            $rows = $db->affectedRows();
-
-            if( $rows == 1) return true;
-            elseif( $rows == 0) return false;
-            else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
-            return false;
+        if($updateDB) {
+            return self::getRepository()->updateGroups($this);
         }
+
         return true;
+    }
+
+    public function setGroups($groups)
+    {
+        $this->groups = $groups;
     }
 
     /**
@@ -405,7 +401,7 @@ class User implements UserInterface
      *
      * @return array
      */
-    function getRuoli()
+    public function getRuoli()
     {
         if ($this->bookmark == NULL)
         {
@@ -423,7 +419,7 @@ class User implements UserInterface
     /**
      * Ritorna un array contenente i nomi dei ruoli categorizzati per anno, selezionando l'eventuale canale passato
      */
-    function getRuoliInfoGroupedByYear($id_canale = null)
+    public function getRuoliInfoGroupedByYear($id_canale = null)
     {
         $user_ruoli = & $this->getRuoli();
         $elenco_canali = array();
@@ -445,16 +441,17 @@ class User implements UserInterface
 
         foreach ($elenco_canali as $id_current_canale)
         {
-    			  			$current_canale = Canale::retrieveCanale($id_current_canale);
-    			  			$elenco_canali_retrieve[$id_current_canale] = $current_canale;
-    			  			$didatticaCanale = PrgAttivitaDidattica::factoryCanale($id_current_canale);
-    			  			//			var_dump($didatticaCanale);
-    			  			$annoCorso = (count($didatticaCanale) > 0)?
-    			  			$didatticaCanale[0]->getAnnoAccademico() : 'altro';
-    			  			$nome_current_canale = $current_canale->getTitolo();
-    			  			$f7_canale[$annoCorso][$id_current_canale] =
-    			  			array(	'nome' => $nome_current_canale,
-    			  			        'spunta' => ($id_canale != null && $id_current_canale == $id_canale)? 'true' : 'false');
+            $current_canale = Canale::retrieveCanale($id_current_canale);
+            $elenco_canali_retrieve[$id_current_canale] = $current_canale;
+            $didatticaCanale = PrgAttivitaDidattica::factoryCanale($id_current_canale);
+            //			var_dump($didatticaCanale);
+            $annoCorso = (count($didatticaCanale) > 0)?
+            $didatticaCanale[0]->getAnnoAccademico() : 'altro';
+            $nome_current_canale = $current_canale->getTitolo();
+            $f7_canale[$annoCorso][$id_current_canale] = array(
+                    'nome' => $nome_current_canale,
+                    'spunta' => ($id_canale != null && $id_current_canale == $id_canale)? 'true' : 'false'
+            );
         }
         krsort($f7_canale);
         $tot = count($f7_canale);
@@ -631,7 +628,7 @@ class User implements UserInterface
      * @param boolean $phome il numero di telefono
      * @return boolean
      */
-    function setPhone($phome)
+    public function setPhone($phome)
     {
         $this->phone = $phome;
     }
@@ -643,7 +640,7 @@ class User implements UserInterface
      * @param boolean $defaultStyle nome del template di default
      * @return boolean
      */
-    function setDefaultStyle($defaultStyle)
+    public function setDefaultStyle($defaultStyle)
     {
         $this->defaultStyle = $defaultStyle;
     }
@@ -655,7 +652,7 @@ class User implements UserInterface
      * @param boolean $ban true se l'utente non ha accesso, false se l'utente ha accesso
      * @return boolean
      */
-    function setBan($ban)
+    public function setBan($ban)
     {
         $this->ban = $ban;
     }
@@ -677,7 +674,7 @@ class User implements UserInterface
      *
      * @return boolean
      */
-    function isEliminato()
+    public function isEliminato()
     {
         return $this->eliminato == self::ELIMINATO;
     }
@@ -689,7 +686,7 @@ class User implements UserInterface
      *
      * @return boolean
      */
-    function setEliminato($elimina = true)
+    public function setEliminato($elimina = true)
     {
         return ($this->eliminato = ($elimina) ? self::ELIMINATO : self::NOT_ELIMINATO);
     }
@@ -731,7 +728,7 @@ class User implements UserInterface
      * @static
      * @return boolean
      */
-    function isDocente( $groups = NULL )
+    public function isDocente( $groups = NULL )
     {
         if ( $groups == NULL ) $groups = $this->getGroups();
 
@@ -747,7 +744,7 @@ class User implements UserInterface
      * @static
      * @return boolean
      */
-    function isTutor( $groups = NULL )
+    public function isTutor( $groups = NULL )
     {
         if ( $groups == NULL ) $groups = $this->getGroups();
 
@@ -763,7 +760,7 @@ class User implements UserInterface
      * @static
      * @return boolean
      */
-    function isCollaboratore( $groups = NULL )
+    public function isCollaboratore( $groups = NULL )
     {
         if ( $groups == NULL ) $groups = $this->getGroups();
 
@@ -779,7 +776,7 @@ class User implements UserInterface
      * @static
      * @return boolean
      */
-    function isStudente( $groups = NULL )
+    public function isStudente( $groups = NULL )
     {
         if ( $groups == NULL ) $groups = $this->getGroups();
 
@@ -796,7 +793,7 @@ class User implements UserInterface
      * @static
      * @return boolean
      */
-    function isOspite( $groups = NULL )
+    public function isOspite( $groups = NULL )
     {
         if ( $groups == NULL ) $groups = $this->getGroups();
 
@@ -814,7 +811,7 @@ class User implements UserInterface
      * @param boolean $singolare
      * @return array
      */
-    function getUserGroupsNames( $singolare = true )
+    public function getUserGroupsNames( $singolare = true )
     {
         $nomi_gruppi = self::groupsNames($singolare);
         $return = array();
@@ -841,7 +838,7 @@ class User implements UserInterface
      * @param boolean $singolare
      * @return array
      */
-    function getUserPublicGroupName( $singolare = true )
+    public function getUserPublicGroupName( $singolare = true )
     {
         $nomi_gruppi = self::publicGroupsName($singolare);
 
@@ -881,44 +878,28 @@ class User implements UserInterface
         return self::getRepository()->findCollaboratori();
     }
 
-
     /**
-     * @static
      * @param array	lista dei ruoli di cui si vogliono sapere gli appartenenti
      * @return array array di lista di IdUser per ogni gruppo specificato
      */
-    function  getIdUsersFromDesiredGroups($arrayWithDesiredGroupsConstant)
+    public static function getIdUsersFromDesiredGroups($arrayWithDesiredGroupsConstant)
     {
-        $ret = array();
-        if (count($arrayWithDesiredGroupsConstant) == 0)
-            return $ret;
+        if(!is_array($arrayWithDesiredGroupsConstant) || count($arrayWithDesiredGroupsConstant) === 0)
+            return array();
 
-        $db = \FrontController::getDbConnection('main');
-        $groups = implode(', ', $arrayWithDesiredGroupsConstant);
-        $query = 'SELECT id_utente, groups FROM utente WHERE groups IN '.$db->quote($groups);
-        $res = $db->query($query);
-        if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        while ($row = $res->fetchRow())
-            $ret[$row[1]][] = $row[0];
-
-        return $ret;
+        return self::getRepository()->getIdUsersFromDesiredGroups($arrayWithDesiredGroupsConstant);
     }
-
-
 
     /**
      * Crea un oggetto utente dato il suo numero identificativo id_utente del database, 0 se si vuole creare un utente ospite
      *
-     * @static
+     * @deprecated
      * @param int $id_utente numero identificativo utente
      * @param boolean $dbcache se true esegue il pre-caching del bookmark in modo da migliorare le prestazioni
      * @return mixed User se eseguita con successo, false se l'utente non esiste
      */
-    function selectUser($id_utente)
+    public static function selectUser($id_utente)
     {
-
         if ($id_utente == 0)
         {
             $user = new User(0,self::OSPITE);
@@ -926,96 +907,34 @@ class User implements UserInterface
         }
         elseif ($id_utente > 0)
         {
-            $db = \FrontController::getDbConnection('main');
-
-            $query = 'SELECT username, password, email, ultimo_login, ad_username, groups, notifica, phone, default_style, sospeso, algoritmo, salt  FROM utente WHERE id_utente = '.$db->quote($id_utente);
-            $res = $db->query($query);
-            if (\DB::isError($res))
-                \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-            $rows = $res->numRows();
-            if( $rows > 1) \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
-            if( $rows == 0) {
-                $false = false; return $false;
-            };
-
-            $row = $res->fetchRow();
-            $user = new User($id_utente, $row[5], $row[0], $row[1], $row[2], $row[6], $row[3], $row[4], $row[7], $row[8], NULL, $row[9], true);
-            $user->setAlgoritmo($row[10]);
-            $user->setSalt($row[11]);
-            return $user;
+            return self::getRepository()->find($id_utente);
         }
     }
-
-
 
     /**
      * Crea un oggetto utente dato il suo usernamedel database
      *
-     * @static
      * @param string $username nome identificativo utente
      * @return mixed User se eseguita con successo, false se l'utente non esiste
      */
-    function selectUserUsername($username)
+    public static function selectUserUsername($username)
     {
-        $username = trim($username);
-
-        $db = \FrontController::getDbConnection('main');
-
-        $query = 'SELECT id_utente, password, email, ultimo_login, ad_username, groups, notifica, phone, default_style, sospeso, algoritmo, salt  FROM utente WHERE username = '.$db->quote($username);
-        $res = $db->query($query);
-        if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        $rows = $res->numRows();
-        if( $rows > 1) \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
-        if( $rows == 0) {
-            $false=false;
-            return $false;
-        }
-
-        $row = $res->fetchRow();
-        $user = new User($row[0], $row[5], $username, $row[1], $row[2], $row[6], $row[3], $row[4], $row[7], $row[8], NULL, $row[9], true);
-        $user->setAlgoritmo($row[10]);
-        $user->setSalt($row[11]);
-        return $user;
-
+        return self::getRepository()->findByUsername(trim($username));
     }
-
-
 
     /**
      * Ritorna un array di oggetti utente che rispettano entrambe le stringhe di ricerca (AND)
      * Possono essere usati _ e % come caratteri spaciali
      *
-     * @static
+     * @deprecated
      * @param string $username nome identificativo utente
      * @param string $username nome identificativo utente
      * @return array di User
      */
-    function selectUsersSearch($username = '%', $email = '%')
+    public static function selectUsersSearch($username = '%', $email = '%')
     {
-
-        $username = trim($username);
-
-        $db = \FrontController::getDbConnection('main');
-
-        $query = 'SELECT id_utente, password, email, ultimo_login, ad_username, groups, notifica, username, phone, default_style, sospeso, algoritmo, salt  FROM utente WHERE username LIKE '.$db->quote($username) .' AND email LIKE '.$db->quote($email);
-        $res = $db->query($query);
-        if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        $users = array();
-
-        while($row = $res->fetchRow())
-        {
-            $users[] = new User($row[0], $row[5], $row[7], $row[1], $row[2], $row[6], $row[3], $row[4], $row[8], $row[9], NULL, $row[10], true);
-        }
-
-        return $users;
-
+        return self::getRepository()->findLike(trim($username), $email);
     }
-
 
     /**
      * Inserisce su DB le informazioni riguardanti un nuovo utente
@@ -1027,18 +946,15 @@ class User implements UserInterface
         return self::getRepository()->insertUser($this);
     }
 
-
-
     /**
      * Aggiorna il contenuto su DB riguardante le informazioni utente
      *
      * @return boolean true se avvenua con successo, altrimenti false e throws Error object
      */
-    function updateUser()
+    public function updateUser()
     {
         return self::getRepository()->updateUser($this);
     }
-
 
     /**
      * Restituisce true se l'utente dell'active directory ? gi? registrato sul DB
@@ -1071,7 +987,7 @@ class User implements UserInterface
      * @param int $groups gruppi di cui si vuole verificare l'accesso
      * @return boolean
      */
-    function isGroupAllowed($groups)
+    public function isGroupAllowed($groups)
     {
         return (boolean) ((int)$this->groups & (int)$groups);
     }
