@@ -712,10 +712,8 @@ class Canale {
 
     /**
      * compara per nome due canali
-     *
-     * @static
      */
-    function compareByName($a, $b)
+    public static function compareByName($a, $b)
     {
         $nomea = strtolower($a['nome']);
         $nomeb = strtolower($b['nome']);
