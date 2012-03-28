@@ -7,7 +7,6 @@ use UniversiBO\Legacy\Framework\BaseCommand;
 use \Error;
 use \Facolta;
 use \ForumApi;
-use \Ruolo;
 
 /**
  * UniversiboCommand is the abstract super class of all command classes
