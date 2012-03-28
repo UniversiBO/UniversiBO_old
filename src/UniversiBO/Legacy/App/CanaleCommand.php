@@ -1,6 +1,8 @@
 <?php
 namespace UniversiBO\Legacy\App;
 
+use UniversiBO\Legacy\Framework\FrontController;
+
 abstract class CanaleCommand extends UniversiboCommand
 {
     /**
