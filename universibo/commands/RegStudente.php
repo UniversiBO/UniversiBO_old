@@ -1,9 +1,8 @@
 <?php
 
-require_once ('UniversiboCommand'.PHP_EXTENSION);
-require_once ('ForumApi'.PHP_EXTENSION);
-require_once ('InteractiveCommand/InformativaPrivacyInteractiveCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\UniversiboCommand;
 
+require_once 'InteractiveCommand/InformativaPrivacyInteractiveCommand'.PHP_EXTENSION;
 
 /**
  * RegStudente is an extension of UniversiboCommand class.
@@ -18,7 +17,7 @@ require_once ('InteractiveCommand/InformativaPrivacyInteractiveCommand'.PHP_EXTE
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
  
-class RegStudente extends UniversiboCommand 
+class RegStudente extends UniversiboCommand
 {
 	function execute()
 	{
@@ -207,5 +206,4 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore 
 		return 'default';
 		
 	}
-	
 }

@@ -1,7 +1,5 @@
 <?php
 
-require_once ('UniversiboCommand'.PHP_EXTENSION);
-
 /**
  * ShowQuestions is an extension of UniversiboCommand class.
  *
@@ -15,6 +13,8 @@ require_once ('UniversiboCommand'.PHP_EXTENSION);
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
  
+use UniversiBO\Legacy\App\UniversiboCommand;
+
 class ShowQuestions extends UniversiboCommand {
 	function execute(){
 

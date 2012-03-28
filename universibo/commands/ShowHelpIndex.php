@@ -1,6 +1,5 @@
 <?php
-
-require_once ('UniversiboCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
  * ShowHelpIndex is an extension of UniversiboCommand class.
@@ -13,7 +12,6 @@ require_once ('UniversiboCommand'.PHP_EXTENSION);
  * @author Fabrizio Pinto
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
- 
 class ShowHelpIndex extends UniversiboCommand {
 	function execute(){
 		$frontcontroller = $this->getFrontController();
@@ -26,7 +24,3 @@ class ShowHelpIndex extends UniversiboCommand {
 		return 'default';
 	}
 }  
- 
- 
- 
-?> 

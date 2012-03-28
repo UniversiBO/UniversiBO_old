@@ -1,9 +1,9 @@
 <?php
 
-require_once ('PluginCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\UniversiboCommand;
+
 require_once ('News/ShowNewsLatest'.PHP_EXTENSION);
 require_once ('Files/FileItem'.PHP_EXTENSION);
-require_once  ('UniversiboCommand'.PHP_EXTENSION);
 
 /**
  * ShowMyUniversiBO is an extension of UniversiboCommand class.

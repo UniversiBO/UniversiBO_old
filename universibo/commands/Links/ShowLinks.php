@@ -1,7 +1,6 @@
 <?php
+use UniversiBO\Legacy\Framework\PluginCommand;
 
-
-require_once ('PluginCommand'.PHP_EXTENSION);
 require_once ('Links/Link'.PHP_EXTENSION);
 
 /**

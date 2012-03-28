@@ -1,7 +1,5 @@
 <?php 
-
-require_once ('CanaleCommand'.PHP_EXTENSION);
-require_once ('InfoDidattica'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
  * ShowCdl: mostra un corso di laurea
@@ -14,7 +12,7 @@ require_once ('InfoDidattica'.PHP_EXTENSION);
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class ShowInfoDidattica extends UniversiboCommand 
+class ShowInfoDidattica extends UniversiboCommand
 {
 
 	function execute() 

@@ -1,6 +1,5 @@
 <?php 
-
-require_once ('CanaleCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
  * LinksAdminSearch: permette la ricerca di links all'interno di un canale 

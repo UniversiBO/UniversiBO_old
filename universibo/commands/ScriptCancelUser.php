@@ -1,8 +1,7 @@
 <?php
+use UniversiBO\Legacy\App\UniversiboCommand;
 
-require_once ('UniversiboCommand'.PHP_EXTENSION);
-require_once ('InteractiveCommand/StoredInteractionInformationRetriever'.PHP_EXTENSION);
-
+require_once 'InteractiveCommand/StoredInteractionInformationRetriever'.PHP_EXTENSION;
 
 /**
  *
@@ -14,7 +13,6 @@ require_once ('InteractiveCommand/StoredInteractionInformationRetriever'.PHP_EXT
  * @author Fabrizio Pinto
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
- 
 class ScriptCancelUser extends UniversiboCommand 
 {
 	function execute()
@@ -446,5 +444,3 @@ class CancellazioneUtente
 //		
 //	}
 //}
-
-?>

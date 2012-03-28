@@ -1,6 +1,6 @@
 <?php
 
-include ('UniversiboCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
  * Manages Users Logout actions
@@ -11,7 +11,6 @@ include ('UniversiboCommand'.PHP_EXTENSION);
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
- 
 class Logout extends UniversiboCommand {
 	function execute()
 	{
@@ -23,7 +22,6 @@ class Logout extends UniversiboCommand {
 			
 			$fc->setStyle($fc->getAppSetting('defaultStyle'));
 			
-			require_once('ForumApi'.PHP_EXTENSION);
 			$forum = new ForumApi();
 			$forum->logout();
 		}
@@ -31,6 +29,5 @@ class Logout extends UniversiboCommand {
 		FrontController::redirectCommand();
 				
 		return;
-
 	}
 }

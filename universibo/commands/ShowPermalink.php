@@ -1,7 +1,8 @@
 <?php
 
+use UniversiBO\Legacy\App\UniversiboCommand;
+
 require_once 'News/NewsItem' . PHP_EXTENSION;
-require_once 'UniversiboCommand' . PHP_EXTENSION;
 
 /**
  * @author Davide Bellettini <davide.bellettini@gmail.com>

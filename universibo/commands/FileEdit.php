@@ -1,8 +1,8 @@
 <?php    
 
+use UniversiBO\Legacy\App\UniversiboCommand;
 use UniversiBO\Legacy\App\User;
 
-require_once ('CanaleCommand'.PHP_EXTENSION);
 require_once ('Files/FileItem'.PHP_EXTENSION);
 
 /**

@@ -1,7 +1,7 @@
 <?php    
+use UniversiBO\Legacy\App\UniversiboCommand;
 use UniversiBO\Legacy\App\User;
 
-require_once ('UniversiboCommand'.PHP_EXTENSION);
 require_once ('Files/FileItem'.PHP_EXTENSION);
 require_once ('AntiVirus/AntiVirusFactory'.PHP_EXTENSION);
 

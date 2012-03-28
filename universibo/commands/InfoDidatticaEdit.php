@@ -1,7 +1,5 @@
 <?php 
-
-require_once ('CanaleCommand'.PHP_EXTENSION);
-require_once ('InfoDidattica'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
  * ShowCdl: mostra un corso di laurea
@@ -220,5 +218,3 @@ class InfoDidatticaEdit extends UniversiboCommand
 	}
 
 }
-
-?>

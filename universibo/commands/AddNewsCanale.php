@@ -1,6 +1,6 @@
 <?php   
 
-require_once ('CanaleCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\CanaleCommand;
 
 /**
  * AddNewsCanale: aggiunge una notizia, mostra il form e gestisce l'inserimento

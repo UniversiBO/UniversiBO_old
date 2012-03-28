@@ -1,11 +1,7 @@
 <?php
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 //NB: NON ASTRAE DAL LIVELLO DATABASE, PUO' VALER LA PENA SPOSTARE TUTTA LA FUNZIONE DENTRO ForumApi?!?!?!
-
-require_once ('UniversiboCommand'.PHP_EXTENSION);
-require_once ('Cdl'.PHP_EXTENSION);
-require_once ('ForumApi'.PHP_EXTENSION);
-
 
 /**
  * ScriptOrdinaForum is an extension of UniversiboCommand class.
@@ -19,8 +15,7 @@ require_once ('ForumApi'.PHP_EXTENSION);
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
- 
-class ScriptOrdinaForum extends UniversiboCommand 
+class ScriptOrdinaForum extends UniversiboCommand
 {
 	
 	//NB: NON ASTRAE DAL LIVELLO DATABASE, PUO' VALER LA PENA SPOSTARE TUTTA LA FUNZIONE DENTRO ForumApi?!?!?!
@@ -71,19 +66,11 @@ class ScriptOrdinaForum extends UniversiboCommand
 					$res2 = $db->query($query);
 						if (DB::isError($res2)) die($query); 
 				}
-				
-				
-				
 			}
 		}	
 		
 		$query = 'commit';
 		$res = $db->query($query);
 		if (DB::isError($res)) die($query); 
-		
-		
 	}
-	
 }
-
-?>

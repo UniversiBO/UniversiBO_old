@@ -1,13 +1,7 @@
 <?php
+use UniversiBO\Legacy\App\UniversiboCommand;
 
-require_once ('UniversiboCommand'.PHP_EXTENSION);
-require_once ('Docente'.PHP_EXTENSION);
-require_once ('Canale'.PHP_EXTENSION);
-require_once ('User'.PHP_EXTENSION);
-require_once ('Collaboratore'.PHP_EXTENSION);
-require_once ('ContattoDocente'.PHP_EXTENSION);
 require_once('Notifica/NotificaItem'.PHP_EXTENSION);
-
 
 /**
  * ShowContacts is an extension of UniversiboCommand class.
@@ -231,4 +225,3 @@ Link: '.$frontcontroller->getAppSetting('rootUrl').'/index.php?do='.get_class($t
 	}
 	
 }
-?>

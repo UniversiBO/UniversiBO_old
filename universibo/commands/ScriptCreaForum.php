@@ -1,11 +1,5 @@
 <?php
-
-require_once ('UniversiboCommand'.PHP_EXTENSION);
-require_once ('Cdl'.PHP_EXTENSION);
-require_once ('Insegnamento'.PHP_EXTENSION);
-require_once ('PrgAttivitaDidattica'.PHP_EXTENSION);
-require_once ('ForumApi'.PHP_EXTENSION);
-
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
  * ChangePassword is an extension of UniversiboCommand class.
@@ -19,10 +13,9 @@ require_once ('ForumApi'.PHP_EXTENSION);
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
- 
-class ScriptCreaForum extends UniversiboCommand 
+class ScriptCreaForum extends UniversiboCommand
 {
-	var $anno_accademico = 2007;
+	var $anno_accademico = 2011;
 	
 	function execute()
 	{
@@ -199,7 +192,6 @@ class ScriptCreaForum extends UniversiboCommand
 		$res->fetchInto($row);
 			
 		return $row[0];
-		
 	}
 	
 	
@@ -248,5 +240,3 @@ class ScriptCreaForum extends UniversiboCommand
 	
 	}	
 }
-
-?>

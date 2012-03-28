@@ -1,7 +1,8 @@
 <?php 
 
-require_once ('CanaleCommand'.PHP_EXTENSION);
-require_once ('Links/Link'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\CanaleCommand;
+
+require_once 'Links/Link'.PHP_EXTENSION;
 
 /**
  * LinkDelete: elimina un link, mostra il form e gestisce la cancellazione 
@@ -92,7 +93,4 @@ class LinkDelete extends CanaleCommand {
 		$this->executePlugin('ShowLink', array( 'id_link' => $_GET['id_link'], 'id_canale' => $_GET['id_canale']) );
 		return 'default';
 	}
-
 }
-
-?>

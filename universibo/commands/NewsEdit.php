@@ -1,6 +1,7 @@
 <?php      
 
-require_once ('CanaleCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\CanaleCommand;
+
 require_once ('News/NewsItem'.PHP_EXTENSION);
 
 /**
@@ -437,5 +438,3 @@ class NewsEdit extends CanaleCommand
 	}
 
 }
-
-?>

@@ -1,7 +1,5 @@
 <?php    
-
-require_once ('UniversiboCommand'.PHP_EXTENSION);
-require_once ('Collaboratore'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
  * CollaboratoreProfiloAdd: si occupa dell'inserimento del profilo di un collaboratore

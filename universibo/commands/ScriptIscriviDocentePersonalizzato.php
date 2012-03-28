@@ -1,5 +1,5 @@
 <?php
-require_once ('UniversiboCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
  * ScriptIscriviDocentePersonalizzato is an extension of UniversiboCommand class.
@@ -15,9 +15,9 @@ require_once ('UniversiboCommand'.PHP_EXTENSION);
 
 class ScriptIscriviDocentePersonalizzato extends UniversiboCommand {
 	function execute() {
-		$fc = & $this->getFrontController();
+		$fc = $this->getFrontController();
 		$template = & $fc->getTemplateEngine();
-		$db = & $fc->getDbConnection('main');
+		$db = $fc->getDbConnection('main');
 
 		$notifica = NOTIFICA_NONE;
 
@@ -84,6 +84,3 @@ class ScriptIscriviDocentePersonalizzato extends UniversiboCommand {
 
 	}
 }
-?>
-                                
-

@@ -1,8 +1,5 @@
 <?php
-
-require_once ('UniversiboCommand'.PHP_EXTENSION);
-require_once ('Cdl'.PHP_EXTENSION);
-require_once ('Facolta'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
  * ShowContributes is an extension of UniversiboCommand class.
@@ -17,10 +14,9 @@ require_once ('Facolta'.PHP_EXTENSION);
  * @author Daniele Tiles
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
- 
-class ShowContribute extends UniversiboCommand 
+class ShowContribute extends UniversiboCommand
 {
-	function execute()
+	public function execute()
 	{
 		$frontcontroller = $this->getFrontController();
 		$template = $frontcontroller->getTemplateEngine();
@@ -296,5 +292,4 @@ class ShowContribute extends UniversiboCommand
 		return 'default';
 		
 	}
-	
 }

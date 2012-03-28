@@ -1,10 +1,6 @@
 <?php
+use UniversiBO\Legacy\App\UniversiboCommand;
 use UniversiBO\Legacy\App\User;
-
-require_once('User'.PHP_EXTENSION);
-require_once ('UniversiboCommand'.PHP_EXTENSION);
-require_once ('ForumApi'.PHP_EXTENSION);
-
 
 /**
  * RegStudente is an extension of UniversiboCommand class.
@@ -18,7 +14,7 @@ require_once ('ForumApi'.PHP_EXTENSION);
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
  
-class RegUser extends UniversiboCommand 
+class RegUser extends UniversiboCommand
 {
 	function execute()
 	{
@@ -182,5 +178,4 @@ class RegUser extends UniversiboCommand
 		return 'default';
 		
 	}
-	
 }

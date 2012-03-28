@@ -1,5 +1,6 @@
 <?php
-require_once ('PluginCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\Framework\PluginCommand;
+
 require_once('InteractiveCommand/StepList'.PHP_EXTENSION);
 
 define('CALLBACK', 'call_');

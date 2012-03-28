@@ -1,12 +1,5 @@
 <?php
-
-require_once ('UniversiboCommand'.PHP_EXTENSION);
-require_once ('Docente'.PHP_EXTENSION);
-require_once ('Canale'.PHP_EXTENSION);
-require_once ('User'.PHP_EXTENSION);
-require_once ('Collaboratore'.PHP_EXTENSION);
-require_once ('ContattoDocente'.PHP_EXTENSION);
-
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
  * ShowContacts is an extension of UniversiboCommand class.
@@ -19,7 +12,6 @@ require_once ('ContattoDocente'.PHP_EXTENSION);
  * @author Fabrizio Pinto
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
- 
 class ShowContattiDocenti extends UniversiboCommand {
 	
 	function execute()
@@ -66,5 +58,3 @@ class ShowContattiDocenti extends UniversiboCommand {
 	}
 	
 }
-
-?>

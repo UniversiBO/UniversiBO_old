@@ -1,18 +1,12 @@
 <?php
-
-require_once ('UniversiboCommand'.PHP_EXTENSION);
-require_once ('mobytSms'.PHP_EXTENSION);
-
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
- *
- *
  * @package universibo
  * @subpackage commands
  * @version 2.0.0
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
- 
 class ScriptTestSms extends UniversiboCommand 
 {
 	
@@ -72,5 +66,3 @@ class ScriptTestSms extends UniversiboCommand
 	//	echo $m->sendSms('+393334708204','prova');
 	}	
 }
-
-?>

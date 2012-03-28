@@ -1,7 +1,9 @@
 <?php
 namespace UniversiBO\Legacy\App;
 
+use UniversiBO\Legacy\Framework\FrontController;
 use UniversiBO\Legacy\Framework\BaseCommand;
+
 use \Error;
 use \Facolta;
 use \ForumApi;
@@ -72,7 +74,7 @@ abstract class UniversiboCommand extends BaseCommand {
     /**
      * Inizializza l' UniversiboCommand ridefinisce l'init() del BaseCommand.
      */
-    function initCommand(&$frontController) {
+    function initCommand(FrontController $frontController) {
         parent::initCommand($frontController);
 
         $template = & $frontController->getTemplateEngine();

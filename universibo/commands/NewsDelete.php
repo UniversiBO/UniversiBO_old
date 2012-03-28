@@ -1,7 +1,8 @@
 <?php 
 
-require_once ('CanaleCommand'.PHP_EXTENSION);
-require_once ('News/NewsItem'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\CanaleCommand;
+
+require_once 'News/NewsItem'.PHP_EXTENSION;
 
 /**
  * NewsDelete: elimina una notizia, mostra il form e gestisce la cancellazione 

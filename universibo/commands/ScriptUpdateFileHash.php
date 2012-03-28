@@ -1,7 +1,5 @@
 <?php
-
-require_once ('UniversiboCommand'.PHP_EXTENSION);
-
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
  * ChangePassword is an extension of UniversiboCommand class.
@@ -14,7 +12,6 @@ require_once ('UniversiboCommand'.PHP_EXTENSION);
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
- 
 class ScriptUpdateFileHash extends UniversiboCommand 
 {
 	function execute()

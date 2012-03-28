@@ -1,19 +1,15 @@
 <?php
+use UniversiBO\Legacy\App\UniversiboCommand;
 
-require_once ('UniversiboCommand'.PHP_EXTENSION);
 require_once ('Notifica/NotificaMail'.PHP_EXTENSION);
 
-
 /**
- *
- *
  * @package universibo
  * @subpackage commands
  * @version 2.0.0
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
- 
-class ScriptTestMail extends UniversiboCommand 
+class ScriptTestMail extends UniversiboCommand
 {
 	
 	function execute()
@@ -27,5 +23,3 @@ class ScriptTestMail extends UniversiboCommand
 		echo $mail->getError();	
 	}	
 }
-
-?>

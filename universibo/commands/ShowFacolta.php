@@ -1,6 +1,6 @@
 <?php 
-
-require_once ('CanaleCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\CanaleCommand;
+use UniversiBO\Legacy\Framework\FrontController;
 
 /**
  * ShowFacolta: mostra una facolt?
@@ -12,13 +12,12 @@ require_once ('CanaleCommand'.PHP_EXTENSION);
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
-
 class ShowFacolta extends CanaleCommand {
 
 	/** 
 	 * Inizializza il comando ShowFacolta ridefinisce l'initCommand() di CanaleCommand
 	 */
-	function initCommand(& $frontController) {
+	function initCommand(FrontController $frontController) {
 
 		parent :: initCommand($frontController);
 
@@ -113,5 +112,3 @@ class ShowFacolta extends CanaleCommand {
 	}
 
 }
-
-?>

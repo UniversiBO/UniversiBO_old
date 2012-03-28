@@ -1,6 +1,5 @@
 <?php
-
-require_once ('UniversiboCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
  * ShowCredits is an extension of UniversiboCommand class.
@@ -27,5 +26,3 @@ class ShowAccessibility extends UniversiboCommand {
 		return 'default';						
 	}
 }
-
-?>

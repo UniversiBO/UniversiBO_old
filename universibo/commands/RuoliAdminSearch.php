@@ -1,6 +1,5 @@
 <?php 
-
-require_once ('CanaleCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
  * RuoliAdminSearch: permette la ricerca di ruoli all'interno di un canale 
@@ -12,7 +11,6 @@ require_once ('CanaleCommand'.PHP_EXTENSION);
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
-
 class RuoliAdminSearch extends UniversiboCommand {
 
 

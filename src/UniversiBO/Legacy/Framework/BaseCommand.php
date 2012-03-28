@@ -24,7 +24,7 @@ abstract class BaseCommand
      *
      * @param FrontController $frontController
      */
-    public function initCommand($frontController )
+    public function initCommand(FrontController $frontController )
     {
         $this->frontController = $frontController;
     }

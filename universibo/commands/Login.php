@@ -1,8 +1,6 @@
 <?php
+use UniversiBO\Legacy\App\UniversiboCommand;
 use UniversiBO\Legacy\App\User;
-
-require_once ('UniversiboCommand'.PHP_EXTENSION);
-require_once ('ForumApi'.PHP_EXTENSION);
 
 /**
  * Login is an extension of UniversiboCommand class.

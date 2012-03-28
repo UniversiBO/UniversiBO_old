@@ -1,7 +1,7 @@
 <?php    
 
-require_once ('UniversiboCommand'.PHP_EXTENSION);
-require_once ('PrgAttivitaDidattica'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\UniversiboCommand;
+
 require_once ('Files/FileItem'.PHP_EXTENSION);
 
 /**

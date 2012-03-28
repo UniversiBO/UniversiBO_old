@@ -1,8 +1,5 @@
 <?php
-
-require_once ('UniversiboCommand'.PHP_EXTENSION);
-require_once ('ForumApi'.PHP_EXTENSION);
-
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
  * RecuperaUsernameStudente is an extension of UniversiboCommand class.
@@ -15,7 +12,6 @@ require_once ('ForumApi'.PHP_EXTENSION);
  * @author Fabrizio Pinto
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
- 
 class RecuperaUsernameStudente extends UniversiboCommand 
 {
 	
@@ -155,5 +151,3 @@ class RecuperaUsernameStudente extends UniversiboCommand
 		
 	}
 }
-
-?>

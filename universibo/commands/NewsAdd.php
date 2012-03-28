@@ -1,6 +1,7 @@
 <?php    
 
-require_once ('CanaleCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\CanaleCommand;
+
 require_once ('News/NewsItem'.PHP_EXTENSION);
 
 /**
@@ -364,5 +365,4 @@ Per altri problemi contattare lo staff di UniversiBO
 		return 'default';
 
 	}
-
 }

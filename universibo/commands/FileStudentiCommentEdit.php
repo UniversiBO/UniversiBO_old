@@ -1,6 +1,7 @@
 <?php
 
-require_once ('CanaleCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\UniversiboCommand;
+
 require_once ('Files/FileItemStudenti'.PHP_EXTENSION);
 require_once ('Commenti/CommentoItem'.PHP_EXTENSION);
 
@@ -139,4 +140,3 @@ class FileStudentiCommentEdit extends UniversiboCommand {
 	}
 
 }
-?>

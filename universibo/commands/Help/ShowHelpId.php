@@ -1,6 +1,6 @@
 <?php
 
-require_once ('PluginCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\Framework\PluginCommand;
 
 /**
  * ShowHelpId ? un'implementazione di PluginCommand.

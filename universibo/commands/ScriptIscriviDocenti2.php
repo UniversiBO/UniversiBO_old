@@ -1,6 +1,5 @@
 <?php
-require_once ('UniversiboCommand'.PHP_EXTENSION);
-
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
  * ScriptIscriviDocenti2 is an extension of UniversiboCommand class.
@@ -13,8 +12,7 @@ require_once ('UniversiboCommand'.PHP_EXTENSION);
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
- 
-class ScriptIscriviDocenti2 extends UniversiboCommand 
+class ScriptIscriviDocenti2 extends UniversiboCommand
 {
 	function execute()
 	{

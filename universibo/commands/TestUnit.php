@@ -1,7 +1,5 @@
 <?php
 
-require_once ('UniversiboCommand'.PHP_EXTENSION);
-
 /**
  * UnitTest command class
  *
@@ -18,6 +16,7 @@ require_once ('UniversiboCommand'.PHP_EXTENSION);
  * @copyright CopyLeft UniversiBO 2001-2003
  */
 
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 class TestUnit extends UniversiboCommand {
 	function execute()

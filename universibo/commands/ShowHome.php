@@ -1,6 +1,6 @@
 <?php
-
-require_once ('CanaleCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\Framework\FrontController;
+use UniversiBO\Legacy\App\CanaleCommand;
 
 /**
  * ShowHome: mostra la homepage
@@ -11,29 +11,24 @@ require_once ('CanaleCommand'.PHP_EXTENSION);
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
-
-
-class ShowHome extends CanaleCommand 
+class ShowHome extends CanaleCommand
 {
 	
 	/** 
 	 * Inizializza il comando ShowHome ridefinisce l'initCommand() di CanaleCommand
 	 */
-	function initCommand( &$frontController )
+	public function initCommand(FrontController $frontController)
 	{
-		
-		parent::initCommand( $frontController );
+		parent::initCommand($frontController);
 		
 		$canale = $this->getRequestCanale();
 		//var_dump($canale);
 		
 		if ( $canale->getTipoCanale() != CANALE_HOME )
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>'Il tipo canale richiesto non corrisponde al comando selezionato','file'=>__FILE__,'line'=>__LINE__));
-		
 	}
 
-
-	function execute()
+	public function execute()
 	{
 		$frontcontroller = $this->getFrontController();
 		$template = $frontcontroller->getTemplateEngine();
@@ -49,7 +44,4 @@ class ShowHome extends CanaleCommand
 		
 		return 'default';
 	}
-	
 }
-
-?>

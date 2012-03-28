@@ -1,6 +1,5 @@
 <?php
-
-require_once ('UniversiboCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
  * ShowError: mostra una pagina con la descrizione dell'errore per gli ErrorDefault
@@ -12,11 +11,8 @@ require_once ('UniversiboCommand'.PHP_EXTENSION);
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  * @todo implementare il log degli errori tramite il LogHandler.
  */
-
-
 class ShowError extends UniversiboCommand 
 {
-	
 	function execute()
 	{
 		$frontcontroller = $this->getFrontController();
@@ -31,7 +27,4 @@ class ShowError extends UniversiboCommand
 		
 		return 'default';
 	}
-
 }
-
-?>

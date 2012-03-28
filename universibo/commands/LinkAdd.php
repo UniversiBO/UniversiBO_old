@@ -1,6 +1,7 @@
 <?php    
 
-require_once ('UniversiboCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\UniversiboCommand;
+
 require_once ('Links/Link'.PHP_EXTENSION);
 
 /**
@@ -134,6 +135,4 @@ class LinkAdd extends UniversiboCommand {
 		return 'default';
 	
 	}
-	
 }	
-	?>

@@ -1,7 +1,7 @@
 <?php    
+use UniversiBO\Legacy\App\CanaleCommand;
 
-require_once ('CanaleCommand'.PHP_EXTENSION);
-require_once ('News/NewsItem'.PHP_EXTENSION);
+require_once 'News/NewsItem'.PHP_EXTENSION;
 
 /**
  * NewsAdd: si occupa dell'inserimento di una news in un canale
@@ -13,7 +13,6 @@ require_once ('News/NewsItem'.PHP_EXTENSION);
  * @author Daniele Tiles
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
-
 class NewsShowCanale extends CanaleCommand {
 
 	function execute() {
@@ -74,8 +73,6 @@ class NewsShowCanale extends CanaleCommand {
 		$this->executePlugin('ShowTopic', array('reference' => 'newsutenti'));		
 
 		return 'default';
-		
-		
 	}
 	
 	/**
@@ -88,7 +85,6 @@ class NewsShowCanale extends CanaleCommand {
 	 */
 	function getLatestNewsCanale($startNum, $qta, $id_canale)
 	{
-	 	
 	 	$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT A.id_news FROM news A, news_canale B 
@@ -114,7 +110,6 @@ class NewsShowCanale extends CanaleCommand {
 		$res->free();
 		//var_dump($id_news_list);
 		return $id_news_list;
-		
 	}
 	
 	
@@ -127,7 +122,6 @@ class NewsShowCanale extends CanaleCommand {
 	 */
 	function getNumNewsCanale($id_canale)
 	{
-	 	
 	 	$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT count(A.id_news) FROM news A, news_canale B 
@@ -138,10 +132,5 @@ class NewsShowCanale extends CanaleCommand {
 			Error::throwError(_ERROR_CRITICAL,array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__)); 
 		
 		return $res;
-		
 	}
-	
-
 }
-
-?>

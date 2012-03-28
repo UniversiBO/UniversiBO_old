@@ -1,6 +1,5 @@
 <?php 
-
-require_once ('CanaleCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\CanaleCommand;
 
 /**
  * ShowCanale: mostra un canale
@@ -11,8 +10,7 @@ require_once ('CanaleCommand'.PHP_EXTENSION);
  * @author Fabrizio Pinto
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
-
-class ShowCanale extends CanaleCommand 
+class ShowCanale extends CanaleCommand
 {
 	function execute() 
 	{

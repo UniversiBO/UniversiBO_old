@@ -1,9 +1,6 @@
 <?php
 
-require_once ('UniversiboCommand'.PHP_EXTENSION);
-require_once ('Docente'.PHP_EXTENSION);
-require_once ('ContattoDocente'.PHP_EXTENSION);
-
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
  * ContattoDocenteAdd is an extension of UniversiboCommand class.

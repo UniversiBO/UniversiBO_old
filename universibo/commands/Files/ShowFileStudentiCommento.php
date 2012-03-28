@@ -1,6 +1,7 @@
 <?php
 
-require_once ('PluginCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\Framework\PluginCommand;
+
 require_once ('Files/FileItemStudenti'.PHP_EXTENSION);
 require_once ('Commenti/CommentoItem'.PHP_EXTENSION);
 

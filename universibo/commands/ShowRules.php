@@ -1,6 +1,7 @@
 <?php
 
-require_once ('UniversiboCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\UniversiboCommand;
+
 require_once ('InteractiveCommand/InformativaPrivacyInteractiveCommand'.PHP_EXTENSION);
 
 

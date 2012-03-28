@@ -1,8 +1,8 @@
 <?php    
 
+use UniversiBO\Legacy\App\UniversiboCommand;
 use UniversiBO\Legacy\App\User;
 
-require_once ('UniversiboCommand'.PHP_EXTENSION);
 require_once ('Files/FileItemStudenti'.PHP_EXTENSION);
 require_once ('AntiVirus/AntiVirusFactory'.PHP_EXTENSION);
 
@@ -504,5 +504,4 @@ Link: https://www.universibo.unibo.it/index.php?do=FileShowInfo&id_file='.$newFi
 		return 'default';
 
 	}
-
 }

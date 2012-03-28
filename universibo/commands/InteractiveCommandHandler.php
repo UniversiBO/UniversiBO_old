@@ -1,7 +1,8 @@
 <?php
 
-require_once ('UniversiboCommand'.PHP_EXTENSION);
-require_once('InteractiveCommand/BaseInteractiveCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\UniversiboCommand;
+
+require_once 'InteractiveCommand/BaseInteractiveCommand'.PHP_EXTENSION;
 
 /**
  * InteractiveCommandHandler is an extension of UniversiboCommand class.

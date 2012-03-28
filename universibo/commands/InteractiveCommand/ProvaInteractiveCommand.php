@@ -56,4 +56,3 @@ class ProvaInteractiveCommand extends BaseInteractiveCommand
 		}
 	}
 }
-?>

@@ -1,11 +1,9 @@
 <?php
+use UniversiBO\Legacy\App\UniversiboCommand;
+use UniversiBO\Legacy\App\User;
 
-require_once ('UniversiboCommand'.PHP_EXTENSION);
 require_once ('ProgrammazioneDidattica/ProgrammazioneDidatticaDataRetrieverFactory'.PHP_EXTENSION);
 //require_once ('ProgrammazioneDidattica/ProgrammazioneDidatticaAddDocente'.PHP_EXTENSION);
-require_once ('Facolta'.PHP_EXTENSION);
-
-use UniversiBO\Legacy\App\User;
 
 /**
  * ChangePassword is an extension of UniversiboCommand class.
@@ -18,7 +16,6 @@ use UniversiBO\Legacy\App\User;
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
- 
 class ProgrammazioneDidatticaFacolta extends UniversiboCommand 
 {
 	function execute()
@@ -130,5 +127,3 @@ class ProgrammazioneDidatticaFacolta extends UniversiboCommand
 		
 	}
 }
-
-?>

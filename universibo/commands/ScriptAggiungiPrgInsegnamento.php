@@ -1,6 +1,5 @@
 <?php
-
-require_once ('UniversiboCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 
 /**
@@ -97,5 +96,3 @@ class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
 		if (DB::isError($res)) die($query); 
 	}
 }
-
-?>

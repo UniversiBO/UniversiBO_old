@@ -1,6 +1,6 @@
 <?php
 
-require_once ('UniversiboCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
  * Comando per testare i template i fase di sviluppo, in questo file vengono inserite
@@ -182,4 +182,3 @@ class TestTemplate extends UniversiboCommand {
 		return 'default';						
 	}
 }
-?>

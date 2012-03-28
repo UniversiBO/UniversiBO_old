@@ -1,8 +1,7 @@
 <?php
+use UniversiBO\Legacy\App\UniversiboCommand;
 
-require_once ('UniversiboCommand'.PHP_EXTENSION);
-require_once ('Notifica/NotificaItem'.PHP_EXTENSION);
-
+require_once 'Notifica/NotificaItem'.PHP_EXTENSION;
 
 /**
  * ScriptNotificheSendis an extension of UniversiboCommand class.
@@ -15,8 +14,7 @@ require_once ('Notifica/NotificaItem'.PHP_EXTENSION);
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
- 
-class ScriptNotificheSend extends UniversiboCommand 
+class ScriptNotificheSend extends UniversiboCommand
 {
 	function execute()
 	{

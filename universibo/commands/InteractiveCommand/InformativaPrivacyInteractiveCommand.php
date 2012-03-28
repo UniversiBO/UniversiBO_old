@@ -1,6 +1,6 @@
 <?php
 
-require_once ('InteractiveCommand/BaseInteractiveCommand'.PHP_EXTENSION);
+require_once 'InteractiveCommand/BaseInteractiveCommand'.PHP_EXTENSION;
 
 /**
  * InformativaPrivacyInteractiveCommand is an extension of BaseInteractiveCommand class.
@@ -85,4 +85,3 @@ class InformativaPrivacyInteractiveCommand extends BaseInteractiveCommand
 		return $list;
 	}
 }
-?>

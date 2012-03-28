@@ -1,13 +1,6 @@
 <?php    
 
-require_once ('Facolta'.PHP_EXTENSION);
-require_once ('Cdl'.PHP_EXTENSION);
-require_once ('Insegnamento'.PHP_EXTENSION);
-require_once ('Docente'.PHP_EXTENSION);
-require_once ('User'.PHP_EXTENSION);
-
-require_once ('PrgAttivitaDidattica'.PHP_EXTENSION);
-require_once ('UniversiboCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
  * -DidatticaGestione: per le correzioni didattiche
@@ -19,7 +12,7 @@ require_once ('UniversiboCommand'.PHP_EXTENSION);
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class DidatticaGestione extends UniversiboCommand{
+class DidatticaGestione extends UniversiboCommand {
 
     function execute() {
 

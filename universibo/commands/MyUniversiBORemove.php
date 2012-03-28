@@ -1,8 +1,5 @@
 <?php
-
-require_once  ('UniversiboCommand'.PHP_EXTENSION);
-require_once  ('ForumApi'.PHP_EXTENSION);
-
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
  * ShowMyUniversiBO is an extension of UniversiboCommand class.
@@ -57,7 +54,5 @@ class MyUniversiBORemove extends UniversiboCommand
 		{
 			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $utente->getIdUser(), 'msg' => 'E\' impossibile trovare la pagina nel tuo elenco di MyUniversiBO', 'file' => __FILE__, 'line' => __LINE__));
 		}
-		
 	}
-	
 }

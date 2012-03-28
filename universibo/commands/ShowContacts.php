@@ -1,7 +1,5 @@
 <?php
-
-require_once ('UniversiboCommand'.PHP_EXTENSION);
-require_once ('Collaboratore'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
  * ShowContacts is an extension of UniversiboCommand class.
@@ -15,7 +13,6 @@ require_once ('Collaboratore'.PHP_EXTENSION);
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
- 
 class ShowContacts extends UniversiboCommand {
 	function execute()
 	{

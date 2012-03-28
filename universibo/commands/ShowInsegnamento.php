@@ -1,9 +1,7 @@
 <?php 
 
-require_once ('CanaleCommand'.PHP_EXTENSION);
-require_once ('InfoDidattica'.PHP_EXTENSION);
-require_once ('ContattoDocente'.PHP_EXTENSION);
-require_once ('ForumApi'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\CanaleCommand;
+use UniversiBO\Legacy\Framework\FrontController;
 
 /**
  * ShowCdl: mostra un corso di laurea
@@ -18,11 +16,10 @@ require_once ('ForumApi'.PHP_EXTENSION);
 
 class ShowInsegnamento extends CanaleCommand 
 {
-
 	/**
 	 * Inizializza il comando ShowInsegnamento ridefinisce l'initCommand() di CanaleCommand
 	 */
-	function initCommand(& $frontController) 
+	function initCommand(FrontController $frontController) 
 	{
 		parent::initCommand($frontController);
 		
@@ -32,8 +29,6 @@ class ShowInsegnamento extends CanaleCommand
 		if ($canale->getTipoCanale() != CANALE_INSEGNAMENTO)
 			Error::throwError(_ERROR_DEFAULT, array('id_utente' => $this->sessionUser->getIdUser(), 'msg' => 'Il tipo canale richiesto non corrisponde al comando selezionato', 'file' => __FILE__, 'line' => __LINE__));
 	}
-	
-	
 	
 	function execute() 
 	{
@@ -159,5 +154,3 @@ testi consigliati[/url]';
 	}
 
 }
-
-?>

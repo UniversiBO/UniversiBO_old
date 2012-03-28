@@ -1,7 +1,5 @@
 <?php
-
-require_once  ('UniversiboCommand'.PHP_EXTENSION);
-require_once  ('CanaleCommand'.PHP_EXTENSION);
+use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
  * ShowMyUniversiBO is an extension of UniversiboCommand class.
