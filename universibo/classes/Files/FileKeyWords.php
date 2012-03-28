@@ -1,5 +1,5 @@
 <?php  
-
+use UniversiBO\Legacy\Framework\FrontController;
 /**
  *
  * FileItem class
@@ -90,7 +90,7 @@ class FileKeyWords{
 	 */
 	function addKeyWord($id_file, $keyword) 
 	{
-		$db = & FrontController::getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 		$query = 'INSERT INTO file_keywords(id_file, keyword) VALUES ('.$db->quote($id_file).' , '.$db->quote($keyword) .');';
 		$res = & $db->query($query);
 

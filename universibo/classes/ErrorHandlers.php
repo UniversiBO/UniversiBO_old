@@ -1,5 +1,7 @@
 <?php
 
+use UniversiBO\Legacy\Framework\FrontController;
+
 require_once 'Error'.PHP_EXTENSION;
 require_once('LogHandler'.PHP_EXTENSION);
 

@@ -1,5 +1,7 @@
 <?php    
 
+use UniversiBO\Legacy\Framework\FrontController;
+
 use UniversiBO\Legacy\App\UniversiboCommand;
 use UniversiBO\Legacy\App\User;
 

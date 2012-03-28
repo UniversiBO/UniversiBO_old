@@ -1,5 +1,7 @@
 <?php
 
+use UniversiBO\Legacy\Framework\FrontController;
+
 require_once 'InteractiveCommand/BaseInteractiveCommand'.PHP_EXTENSION;
 
 /**

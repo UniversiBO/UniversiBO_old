@@ -251,14 +251,14 @@ class FrontController
     {
         $request_protocol = (array_key_exists('HTTPS',$_SERVER) && $_SERVER['HTTPS']=='on') ? 'https' : 'http';
 
-      		if ( $command != '' )
-      		{
-      		    $command = 'do='.$command;
-      		}
+        if ( $command != '' )
+        {
+            $command = 'do='.$command;
+        }
 
-      		$url = $request_protocol.'://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'?'.$command;
+      	$url = $request_protocol.'://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'?'.$command;
 
-      		FrontController::redirectUri($url);
+      	self::redirectUri($url);
     }
 
 
@@ -1048,7 +1048,7 @@ class FrontController
         }
     }
 
-    
+
     public function getTemplateEngineSettings()
     {
         return $this->templateEngine;
@@ -1107,7 +1107,7 @@ class FrontController
             $mail -> IsHTML(false);
             $mail -> AddReplyTo($this->mailerInfo['replyToAddress'], $this->mailerInfo['fromName']);
         }
-        
+
         return $mail;
     }
 

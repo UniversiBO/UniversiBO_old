@@ -1,4 +1,6 @@
 <?php    
+use UniversiBO\Legacy\Framework\FrontController;
+
 use UniversiBO\Legacy\App\CanaleCommand;
 
 require_once 'News/NewsItem'.PHP_EXTENSION;

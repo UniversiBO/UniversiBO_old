@@ -1,4 +1,5 @@
 <?php
+use UniversiBO\Legacy\Framework\FrontController;
 use UniversiBO\Legacy\Framework\PluginCommand;
 
 require_once('InteractiveCommand/StepList'.PHP_EXTENSION);

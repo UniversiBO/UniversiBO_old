@@ -2,6 +2,8 @@
 
 namespace UniversiBO\Legacy\App;
 
+use UniversiBO\Legacy\Framework\FrontController;
+
 use \PrgAttivitaDidattica;
 
 /**
@@ -1059,7 +1061,7 @@ class User implements UserInterface
     {
         if(is_null(self::$repository))
         {
-            self::$repository = new DBUserRepository(\FrontController::getDbConnection('main'));
+            self::$repository = new DBUserRepository(FrontController::getDbConnection('main'));
         }
         return self::$repository;
     }

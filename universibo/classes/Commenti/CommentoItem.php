@@ -1,4 +1,5 @@
 <?php
+use UniversiBO\Legacy\Framework\FrontController;
 use UniversiBO\Legacy\App\User;
 
 /**
@@ -328,10 +329,10 @@ class CommentoItem
 	{
 		$flag = false;
 		
-		$db = & FrontController :: getDbConnection('main');
+		$db = FrontController :: getDbConnection('main');
 
 		$query = 'SELECT id_commento FROM file_studente_commenti WHERE id_file ='.$db->quote($id_file).' AND id_utente = '.$db->quote($id_utente).' AND eliminato = '.$db->quote(COMMENTO_NOT_ELIMINATO).'GROUP BY id_file,id_utente,id_commento';
-		$res = & $db->query($query);
+		$res = $db->query($query);
 
 		if (DB :: isError($res))
 			Error :: throwError(_ERROR_DEFAULT, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));

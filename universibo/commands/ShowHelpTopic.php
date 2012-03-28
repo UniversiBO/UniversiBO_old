@@ -1,4 +1,6 @@
 <?php
+use UniversiBO\Legacy\Framework\FrontController;
+
 use UniversiBO\Legacy\App\UniversiboCommand;
 
 /**
@@ -39,7 +41,7 @@ class ShowHelpTopic extends UniversiboCommand {
             /**
              * @todo l'acesso al DB a questo livello non mi piace... ci sarebbe da inserire un po' di roba in una classetta statica
              */
-            $db = FrontController::getDbConnection('main');
+            $db = $frontcontroller->getDbConnection('main');
             $query = 'SELECT riferimento FROM help_topic';
             $res = $db->query($query);
             if (DB::isError($res))

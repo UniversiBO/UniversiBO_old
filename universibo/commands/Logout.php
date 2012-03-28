@@ -26,7 +26,7 @@ class Logout extends UniversiboCommand {
 			$forum->logout();
 		}
 		
-		FrontController::redirectCommand();
+		$fc->redirectCommand();
 				
 		return;
 	}

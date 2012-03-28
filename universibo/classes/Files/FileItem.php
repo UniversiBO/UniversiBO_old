@@ -1,4 +1,6 @@
 <?php  
+use UniversiBO\Legacy\Framework\FrontController;
+
 use UniversiBO\Legacy\App\User;
 
 require_once('Files/FileKeyWords'.PHP_EXTENSION);
@@ -791,10 +793,10 @@ class FileItem {
         if ($categorie != NULL)
             return $categorie;
 
-        $db = & FrontController::getDbConnection('main');
+        $db = FrontController::getDbConnection('main');
 
         $query = 'SELECT id_file_categoria, descrizione FROM file_categoria';
-        $res = & $db->query($query);
+        $res = $db->query($query);
 
         if (DB :: isError($res))
             Error::throwError(_ERROR_DEFAULT, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
@@ -870,7 +872,7 @@ class FileItem {
      */
     function  selectFileItems($id_files) {
 
-        $db = & FrontController :: getDbConnection('main');
+        $db =  FrontController::getDbConnection('main');
 
         if (count($id_files) == 0)	{
             $return = array(); return $return;
@@ -927,7 +929,7 @@ class FileItem {
      */
     function  selectFileItemsByIdUtente($id_utente, $order=false) {
 
-        $db = & FrontController :: getDbConnection('main');
+        $db = FrontController :: getDbConnection('main');
 
         $query = 'SELECT id_file, permessi_download, permessi_visualizza, A.id_utente, titolo,
         A.descrizione, data_inserimento, data_modifica, dimensione, download,

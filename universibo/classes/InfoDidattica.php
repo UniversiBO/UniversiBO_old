@@ -1,5 +1,7 @@
 <?php
 
+use UniversiBO\Legacy\Framework\FrontController;
+
 require_once('Canale'.PHP_EXTENSION);
 require_once('Insegnamento'.PHP_EXTENSION);
 require_once('PrgAttivitaDidattica'.PHP_EXTENSION);

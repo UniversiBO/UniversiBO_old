@@ -12,7 +12,7 @@ namespace UniversiBO\Legacy\Framework;
 abstract class BaseCommand
 {
     /**
-     * @var \FrontController
+     * @var FrontController
      */
     protected $frontController;
 

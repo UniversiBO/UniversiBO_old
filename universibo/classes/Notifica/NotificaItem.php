@@ -1,5 +1,7 @@
 <?php  
 
+use UniversiBO\Legacy\Framework\FrontController;
+
 define('NOTIFICA_ELIMINATA', 'S');
 define('NOTIFICA_NOT_ELIMINATA', 'N');
 
@@ -302,7 +304,7 @@ class NotificaItem {
 	 */
 	function  selectNotifiche($id_notifiche) {
 		//var_dump($id_notifiche);
-		$db = & FrontController :: getDbConnection('main');
+		$db = FrontController::getDbConnection('main');
 
 		if (count($id_notifiche) == 0)
 			return array ();
@@ -379,7 +381,7 @@ class NotificaItem {
 	*/
 
 	function insertNotificaItem() {
-		$db = & FrontController :: getDbConnection('main');
+		$db = FrontController :: getDbConnection('main');
 
 		ignore_user_abort(1);
 		$db->autoCommit(false);
@@ -412,7 +414,7 @@ class NotificaItem {
 	 */
 	function updateNotificaItem() 
 	{
-		$db = & FrontController :: getDbConnection('main');
+		$db = FrontController :: getDbConnection('main');
 
 		ignore_user_abort(1);
 		$db->autoCommit(false);

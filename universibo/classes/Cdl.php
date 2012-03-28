@@ -1,5 +1,7 @@
 <?php
 
+use UniversiBO\Legacy\Framework\FrontController;
+
 require_once('Canale'.PHP_EXTENSION);
 
 define('CDL_NUOVO_ORDINAMENTO'   ,1);

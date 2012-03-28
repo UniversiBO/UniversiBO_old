@@ -1,5 +1,7 @@
 <?php
 
+use UniversiBO\Legacy\Framework\FrontController;
+
 require_once('User'.PHP_EXTENSION);
 
 /**
@@ -153,7 +155,6 @@ class Docente extends User {
 	 */
 	function selectDocente($id, $isCodiceDocente = false)
 	{
-		
 		$db = FrontController::getDbConnection('main');
 	
 		$cond = ($isCodiceDocente) ? 'cod_doc = ' : 'id_utente = ';

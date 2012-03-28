@@ -15,7 +15,7 @@ class ShowStatistiche extends UniversiboCommand {
             Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => "Non hai i diritti necessari per visualizzare la pagina", 'file' => __FILE__, 'line' => __LINE__));
         }
         	
-        $db = FrontController::getDbConnection('main');
+        $db = $frontcontroller->getDbConnection('main');
         $query = 'SELECT file_inseriti_giorno.mese, file_inseriti_giorno.anno, sum(file_inseriti_giorno.totale_file) AS file_mese
         FROM file_inseriti_giorno
         GROUP BY file_inseriti_giorno.anno, file_inseriti_giorno.mese

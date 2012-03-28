@@ -1,5 +1,7 @@
 <?php  
 
+use UniversiBO\Legacy\Framework\FrontController;
+
 require_once('Files/FileKeyWords'.PHP_EXTENSION);
 require_once('Files/FileItem'.PHP_EXTENSION);
 require_once('Commenti/CommentoItem'.PHP_EXTENSION);
@@ -50,7 +52,7 @@ class FileItemStudenti extends FileItem {
 	 */
 	function  selectFileItems($id_files) {
 
-		$db = & FrontController :: getDbConnection('main');
+		$db = & FrontController::getDbConnection('main');
 
 		if (count($id_files) == 0)	{$return = array(); return $return; }
 

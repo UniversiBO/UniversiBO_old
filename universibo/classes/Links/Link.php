@@ -1,4 +1,5 @@
 <?php
+use UniversiBO\Legacy\Framework\FrontController;
 
 /**
  * Link class
@@ -8,7 +9,6 @@
  * @author Ilias Bartolini <i.bartolini@reply.it>
  * @license GPL, @link http://www.opensource.org/licenses/gpl-license.php
  */
- 
 class Link
 {
 
