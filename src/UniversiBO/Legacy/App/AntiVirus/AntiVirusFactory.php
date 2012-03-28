@@ -1,4 +1,7 @@
 <?php
+namespace UniversiBO\Legacy\App\AntiVirus;
+
+use UniversiBO\Legacy\Framework\FrontController;
 /**
  *
  * @package universibo
@@ -6,18 +9,14 @@
  * @license GPL, http://www.opensource.org/licenses/gpl-license.php
  * @copyright CopyLeft UniversiBO 2001-2005
  */
-
 class AntiVirusFactory
 {
-    public static function getAntiVirus($fc)
+    public static function getAntiVirus(FrontController $fc)
     {
-
         if ( $fc->getAppSetting('antiVirusEnable') == 'true' )
         {
             if ($fc->getAppSetting('antiVirusType') == 'clamav' )
             {
-                require_once('AntiVirus/Clamav'.PHP_EXTENSION);
-
                 $cmd = $fc->getAppSetting('antiVirusClamavCmd');
                 $opts = $fc->getAppSetting('antiVirusClamavOpts');
 

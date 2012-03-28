@@ -7,8 +7,6 @@
 
 
 require_once 'PHPUnit'.PHP_EXTENSION;
-require_once 'AntiVirus/Clamav'.PHP_EXTENSION;
-require_once 'AntiVirus/AntiVirusFactory'.PHP_EXTENSION;
 
 
 /**

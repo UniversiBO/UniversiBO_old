@@ -1,11 +1,10 @@
 <?php    
-use UniversiBO\Legacy\Framework\FrontController;
-
+use UniversiBO\Legacy\App\AntiVirus\AntiVirusFactory;
 use UniversiBO\Legacy\App\UniversiboCommand;
 use UniversiBO\Legacy\App\User;
+use UniversiBO\Legacy\Framework\FrontController;
 
 require_once ('Files/FileItem'.PHP_EXTENSION);
-require_once ('AntiVirus/AntiVirusFactory'.PHP_EXTENSION);
 
 /**
  * FileAdd: si occupa dell'inserimento di un file in un canale

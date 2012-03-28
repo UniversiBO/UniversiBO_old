@@ -671,7 +671,7 @@ class Ruolo {
     {
         $db = FrontController::getDbConnection('main');
 
-        $query = 'DELETE FROM utente_canale WHERE id_utente = '.$db->quote($this->getIdUtente()).' AND id_cananle = '.$db->quote($this->getIdCanale());
+        $query = 'DELETE FROM utente_canale WHERE id_utente = '.$db->quote($this->getIdUtente()).' AND id_canale = '.$db->quote($this->getIdCanale());
         $res = $db->query($query);
         if (DB::isError($res))
             Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
