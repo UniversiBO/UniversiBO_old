@@ -727,7 +727,7 @@ class Canale {
     {
         if(is_null(self::$repository))
         {
-            self::$repository = new DBCanaleRepository(\FrontController::getDbConnection('main'));
+            self::$repository = new DBCanaleRepository(FrontController::getDbConnection('main'));
         }
         return self::$repository;
     }

@@ -1,4 +1,6 @@
 <?php
+use UniversiBO\Legacy\Framework\FrontController;
+
 require_once __DIR__.'/../app/bootstrap.php.cache';
 require_once __DIR__.'/../app/autoload.php';
 
@@ -116,7 +118,6 @@ class Receiver {
     {
         $this->_setPhpEnvirorment();
 
-        require_once('FrontController'.PHP_EXTENSION);
         $fc= new FrontController($this);
 
         $fc->setConfig( $this->configFile );
