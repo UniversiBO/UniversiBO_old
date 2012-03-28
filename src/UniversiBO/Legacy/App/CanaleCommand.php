@@ -2,6 +2,8 @@
 namespace UniversiBO\Legacy\App;
 
 use UniversiBO\Legacy\Framework\FrontController;
+use \ForumApi;
+use \Error;
 
 abstract class CanaleCommand extends UniversiboCommand
 {
