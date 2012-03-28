@@ -1,9 +1,7 @@
 <?php
 
 use UniversiBO\Legacy\Framework\FrontController;
-
-require_once 'Error'.PHP_EXTENSION;
-require_once('LogHandler'.PHP_EXTENSION);
+use UniversiBO\Legacy\Framework\LogHandler;
 
 /**
  * Definisce gli handler da utilizzare per la classe Error,
@@ -17,7 +15,7 @@ require_once('LogHandler'.PHP_EXTENSION);
  * @todo implementare le operazioni sul LogHandler
  */
 
-class ErrorHandlers{
+class ErrorHandlers {
 
     /**
      * Handler per errori di categoria ERROR_CRITICAL

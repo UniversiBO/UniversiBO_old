@@ -1,4 +1,5 @@
 <?php 
+namespace UniversiBO\Legacy\Framework;
 
 /**
  * Writes logs file to preserve important information about  
@@ -18,7 +19,7 @@
  */
 
 
-class LogHandler{
+class LogHandler {
 	
 	var $csv_text_delimiter = '"';
 	

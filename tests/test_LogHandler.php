@@ -17,7 +17,7 @@
 									  5 => 'line',
 									  6 => 'description' );
 		
-		$errorLog = new LogHandler('error',$this->paths['logs'],$log_error_definition); 
+		$errorLog = new UniversiBO\Legacy\Framework\LogHandler('error',$this->paths['logs'],$log_error_definition); 
 		
 		$a = time();
 		$b = $_SERVER['REMOTE_ADDR'];

@@ -26,7 +26,7 @@ class ScriptNotificheSend extends UniversiboCommand
 		
 		$log_notifica_definition = array(0 => 'time', 1 => 'id_notifica', 2 => 'titolo', 3 => 'destinatario', 4 => 'risultato' );
 		
-		$notifLog = new LogHandler('notifica',$fc->getAppSetting('logs'),$log_notifica_definition); 
+		$notifLog = new UniversiBO\Legacy\Framework\LogHandler('notifica',$fc->getAppSetting('logs'),$log_notifica_definition); 
 		
 
 		//acquisire lock
