@@ -1,4 +1,6 @@
 <?php
+use UniversiBO\Legacy\App\Ruolo;
+
 use UniversiBO\Legacy\Framework\FrontController;
 
 require_once __DIR__.'/../app/bootstrap.php.cache';
@@ -7,6 +9,8 @@ require_once __DIR__.'/../app/autoload.php';
 //list($usec, $sec) = explode(" ", microtime());
 //$page_time_start = ((float)$usec + (float)$sec);
 
+// TODO hack orrendo per caricare ruolo e le relative costanti
+$a = Ruolo::NONE;
 
 /**
  * The receiver.
