@@ -14,6 +14,13 @@ class InfoController extends Controller
      */
     public function rulesAction()
     {
-        return array();
-    }
+        $path = realpath(__DIR__.'/../../../../../universibo/files');
+        $rules = $path . '/regolamento.txt';
+        $privacy = $path .'/informativa_privacy.txt';
+        
+        $privacyContent = file_get_contents($privacy);
+        $privacyContent = mb_convert_encoding($privacyContent, 'utf-8', 'iso-8859-1');
+        
+        return array('privacy' => $privacyContent, 'rules' => file_get_contents($rules));
+    } 
 }

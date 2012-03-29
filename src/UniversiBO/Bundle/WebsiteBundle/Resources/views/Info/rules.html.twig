@@ -1,5 +1,9 @@
 {% extends 'UniversiBOWebsiteBundle::base.html.twig' %}
 {% block title %}UniversiBO v3 :: Home{% endblock %}
 {% block content %}
-<h2>Regolamento</h2>
+<h2>REGOLAMENTO PER L'UTILIZZO DEI SERVIZI</h2>
+<h3>Università di Bologna</h3>
+<p>{{ rules | nl2br}}</p>
+<h3>Informativa sulla privacy</h3>
+<p>{{ privacy | nl2br }}</p>
 {% endblock %}
