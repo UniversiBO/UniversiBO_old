@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>{% block title %}UniversiBO3{% endblock %}</title>
+<title>{% block title %}UniversiBO - La community degli studenti per gli studenti{% endblock %}</title>
 <link href="{{ asset('bundles/universibowebsite/css/screen.css') }}" rel="stylesheet" type="text/css" />
 <meta http-equiv="content-type" content="text/html; charset=utf8"/>
 </head>
@@ -10,26 +10,23 @@
   <div id="header">
     <div id="header-left-container" class="container">
       <div id="header-left">
-        LOGO
+        <a href="{{ url('homepage') }}"><img src="{{ asset('bundles/universibowebsite/images/logo.png') }}" alt="logo"/></a>
       </div>
     </div>
     <div id="header-middle-container" class="container">
       <div id="header-middle">
-        <h1>UniversiBO</h1>
-        <h2>La community degli studenti per gli studenti</h2>
+        <img src="{{ asset('tpl/unibo/logo_default.gif') }}" alt="logo"/>
       </div>
     </div>
     <div id="header-right-container" class="container">
       <div id="header-right">
-        {{"now"|date('d F Y')}}
+        {{"now"|date('d F Y - H:i')}}
       </div>
     </div>
     <br style="clear: both"/>
   </div>
   <div id="menubar">
     <ul>
-      <li><a href="{{ url('homepage') }}">Homepage</a></li>
-      <li>|</li>
       <li><a href="/forum/">Forum</a></li>
 	  <li>|</li>
       <li><a href="#">Progetti</a></li>
@@ -59,8 +56,8 @@
   </div>
   <br style="clear: both"/>
   <div id="footer">
-    <hr/>
     <div id="disclaimer">
+      <hr/>
       <p>Le informazioni contenute nel sito non hanno carattere di ufficialità.</p>
       <p>I contenuti sono mantenuti in maniera volontaria dai partecipanti alla comunità di studenti e docenti di UniversiBO. L'Università di Bologna - Alma Mater Studiorum non può essere considerata legalmente responsabile di alcun contenuto di questo sito.</p>
 	  <p>Ogni marchio citato in queste pagine appartiene al legittimo proprietario.Con il contenuto delle pagine appartenenti a questo sito non si è voluto ledere i diritti di nessuno, quindi nel malaugurato caso che questo possa essere avvenuto, vi invitiamo a contattarci affinchè le parti in discussione vengano eliminate o chiarite.</p>
