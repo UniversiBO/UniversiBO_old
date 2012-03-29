@@ -1,4 +1,8 @@
 <?php
+use UniversiBO\Legacy\App\Constants;
+
+use UniversiBO\Legacy\App\PasswordUtil;
+
 use UniversiBO\Legacy\App\UniversiboCommand;
 use UniversiBO\Legacy\App\User;
 
@@ -117,8 +121,8 @@ class RegUser extends UniversiboCommand
 		if ( $f34_accept == true )
 		{
 			//controllo active directory
-			$randomPassword = User::generateRandomPassword();
-			$notifica = ($q34_livello == User::STUDENTE || $q34_livello == User::COLLABORATORE || $q34_livello == User::ADMIN || $q34_livello == User::TUTOR ) ? NOTIFICA_ALL : NOTIFICA_NONE;
+			$randomPassword = PasswordUtil::generateRandomPassword();
+			$notifica = ($q34_livello == User::STUDENTE || $q34_livello == User::COLLABORATORE || $q34_livello == User::ADMIN || $q34_livello == User::TUTOR ) ? Constants::NOTIFICA_ALL : Constants::NOTIFICA_NONE;
 			
 			$new_user = new User(-1, $q34_livello, $q34_username ,$randomPassword, $q34_email, $notifica, 0, '', '', $fc->getAppSetting('defaultStyle') );
 			

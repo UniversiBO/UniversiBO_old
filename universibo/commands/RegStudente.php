@@ -1,5 +1,7 @@
 <?php
 
+use UniversiBO\Legacy\App\Constants;
+
 use UniversiBO\Legacy\App\UniversiboCommand;
 
 require_once 'InteractiveCommand/InformativaPrivacyInteractiveCommand'.PHP_EXTENSION;
@@ -148,7 +150,7 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore 
 			}
 			
 			$randomPassword = User::generateRandomPassword();
-			$notifica = NOTIFICA_ALL;
+			$notifica = Constants::NOTIFICA_ALL;
 			
 			$new_user = new User(-1, User::STUDENTE, $q4_username ,$randomPassword, $q4_ad_user, $notifica, 0, $q4_ad_user, '', $fc->getAppSetting('defaultStyle') );
 			

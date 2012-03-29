@@ -5,10 +5,6 @@ use UniversiBO\Legacy\Framework\FrontController;
 use \DB;
 use \Error;
 
-define('RUOLO_NONE'        ,0);
-define('RUOLO_MODERATORE'  ,1);
-define('RUOLO_REFERENTE'   ,2);
-
 define('NOTIFICA_NONE'   ,0);
 define('NOTIFICA_URGENT' ,1);
 define('NOTIFICA_ALL'    ,2);
@@ -28,6 +24,10 @@ define('NOTIFICA_ALL'    ,2);
  * @copyright CopyLeft UniversiBO 2001-2003
  */
 class Ruolo {
+
+    const NONE = 0;
+    const MODERATORE = 1;
+    const REFERENTE = 2;
 
     /**
      * @access private
@@ -289,7 +289,7 @@ class Ruolo {
      * define('NOTIFICA_NONE'   ,0);
      * define('NOTIFICA_URGENT' ,1);
      * define('NOTIFICA_ALL'    ,2);
-     * 
+     *
      * @deprecated
      * @param int $tipo_notifica livello di notifica
      * @param boolean $updateDB se true la modifica viene propagata al DB
@@ -298,7 +298,7 @@ class Ruolo {
     public function updateTipoNotifica($tipoNotifica, $updateDB = false)
     {
         $this->setTipoNotifica($tipoNotifica);
-        
+
         if($updateDB) {
             return self::getRepository()->updateTipoNotifica($this);
         }
@@ -332,7 +332,7 @@ class Ruolo {
     function updateSetModeratore($moderatore, $updateDB = false)
     {
         $this->setModeratore($moderatore);
-        
+
         if($updateDB) {
             return self::getRepository()->updateModeratore($this);
         }
@@ -631,3 +631,7 @@ class Ruolo {
         return self::$repository;
     }
 }
+
+define('RUOLO_NONE'        ,Ruolo::NONE);
+define('RUOLO_MODERATORE'  ,Ruolo::MODERATORE);
+define('RUOLO_REFERENTE'   ,Ruolo::REFERENTE);
