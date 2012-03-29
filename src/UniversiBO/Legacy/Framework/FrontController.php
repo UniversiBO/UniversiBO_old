@@ -116,6 +116,11 @@ class FrontController
     private $container;
 
     /**
+     * @var DBConnectionFactory
+     */
+    private static $connectionFactory;
+
+    /**
      * Constuctor of front controller object based upon $configFile
      *
      * @param string $configFile filename of FrontController configuration file
@@ -626,6 +631,8 @@ class FrontController
         $num =& $connections->length;
         //		var_dump($connections);
 
+        self::$connectionFactory = new DBConnectionFactory();
+
         for( $i=0; $i<$num; $i++ )
         {
             $singleConnection = $connections->item($i);
@@ -636,7 +643,7 @@ class FrontController
                 //			var_dump($singleConnection->attributes);
                 $charData =& $singleConnection->firstChild->nodeValue;
 
-                $this->getDbConnection( $identifier, $charData );
+                self::$connectionFactory->registerDSN($identifier, $charData);
             }
         }
 
@@ -993,32 +1000,14 @@ class FrontController
      * @return mixed true, PearDB
      * @access public
      */
-    public static function getDbConnection( $identifier, $dsn=NULL )
+    public static function getDbConnection($identifier)
     {
-        static $dsnList = array();
-        static $connectionList = array();
+        $conn = self::$connectionFactory->getConnection($identifier);
 
-        if ( $dsn !==NULL )
-        {
-            $dsnList[$identifier]=$dsn;
-            $true=true; //to avoid notice about return by reference
-            return $true; //dsn "added" correcly
-            //if an open connection dsn is modified
-            //modification doesn't take effect
-        }
-        elseif( array_key_exists($identifier, $dsnList) )
-        {
-            if( !array_key_exists($identifier, $connectionList) )
-            {
-                $connectionList[$identifier] = \DB::connect( $dsnList[$identifier] );
-                if (\DB::isError($connectionList[$identifier]))
-                    \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($connectionList[$identifier]),'file'=>__FILE__,'line'=>__LINE__));
-            }
-            return $connectionList[$identifier];
-             
-        }
-        else return \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Uso errato dell\'interfaccia di accesso al Database','file'=>__FILE__,'line'=>__LINE__));
+        if(!$conn instanceof \DB_common)
+            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Uso errato dell\'interfaccia di accesso al Database','file'=>__FILE__,'line'=>__LINE__));
 
+        return $conn;
     }
 
     /**
