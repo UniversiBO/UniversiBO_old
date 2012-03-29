@@ -5,6 +5,7 @@ define('MAIL_KEEPALIVE_NO', 0);
 define('MAIL_KEEPALIVE_ALIVE', 1);
 define('MAIL_KEEPALIVE_CLOSE', 2);
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use \DB;
 use \Error;
 use \Krono;
@@ -109,6 +110,10 @@ class FrontController
     private $templateEngine;
 
 
+    /**
+     * @var ContainerBuilder
+     */
+    private $container;
 
     /**
      * Constuctor of front controller object based upon $configFile
@@ -116,6 +121,8 @@ class FrontController
      * @param string $configFile filename of FrontController configuration file
      */
     public function __construct( $receiver ){
+        $this->container = new ContainerBuilder();
+
         //		include_once('XmlDoc'.PHP_EXTENSION);
 
         $this->receiverIdentifier = $receiver->getIdentifier();
@@ -133,7 +140,6 @@ class FrontController
         //		$this->import("Response");
         //		$this->request=new Request();
         //		$this->response=new Response();
-
     }
 
 
@@ -256,9 +262,9 @@ class FrontController
             $command = 'do='.$command;
         }
 
-      	$url = $request_protocol.'://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'?'.$command;
+        $url = $request_protocol.'://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'?'.$command;
 
-      	self::redirectUri($url);
+        self::redirectUri($url);
     }
 
 
@@ -478,7 +484,6 @@ class FrontController
        	//		var_dump($this); die();
 
        	unset($this->config);
-
     }
 
 
@@ -763,6 +768,11 @@ class FrontController
             if ($aSetting->nodeType == XML_ELEMENT_NODE)
                 $this->smsMobyInfo[$aSetting->tagName] = $aSetting->firstChild->nodeValue;
         }
+
+        $this->container -> register('mobytsms', 'mobytSms')
+        -> addArgument($this->smsMobyInfo['username'])
+        -> addArgument($this->smsMobyInfo['password'])
+        -> setProperty('from', $this->smsMobyInfo['fromName']);
     }
 
 
@@ -792,6 +802,11 @@ class FrontController
         //linguaggio corrente inpostato uguale a quello di default
         //inserire la possibilit? di cambiarlo a run time.
         $this->languageInfo['lang'] = $this->languageInfo['lang_default'];
+
+        $this->container->register('krono', 'Krono')
+        ->addArgument($this->languageInfo['lang'])
+        ->addArgument($this->languageInfo['lang'])
+        ->addArgument($this->languageInfo['date_separator']);
     }
 
 
@@ -1130,8 +1145,6 @@ class FrontController
         return $sms;
     }
 
-
-
     /**
      * Factory method that creates a Kronos object based on the config language info
      *
@@ -1140,6 +1153,6 @@ class FrontController
      */
     public function getKrono()
     {
-        return new Krono($this->languageInfo['lang'],$this->languageInfo['lang'],$this->languageInfo['date_separator']);
+        return $this->container->get('krono');
     }
 }

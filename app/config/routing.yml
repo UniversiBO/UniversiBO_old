@@ -1,5 +1,5 @@
-UniversiBOCoreBundle:
-    resource: "@UniversiBOCoreBundle/Controller/"
+UniversiBOWebsiteBundle:
+    resource: "@UniversiBOWebsiteBundle/Controller/"
     type:     annotation
     prefix:   /
 
