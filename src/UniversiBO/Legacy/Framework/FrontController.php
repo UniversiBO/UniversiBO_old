@@ -641,12 +641,11 @@ class FrontController
                 $identifier = $singleConnection->getAttribute('identifier');
                 //$identifier =& $attributo->nodeValue;
                 //			var_dump($singleConnection->attributes);
-                $charData =& $singleConnection->firstChild->nodeValue;
-
+                $charData = $singleConnection->firstChild->nodeValue;
+                
                 self::$connectionFactory->registerDSN($identifier, $charData);
             }
         }
-
     }
 
 
