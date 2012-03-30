@@ -1,4 +1,9 @@
 <?php 
+namespace UniversiBO\Bundle\LegacyBundle\Command;
+
+use \Cdl;
+use \Error;
+use \ForumApi;
 use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
@@ -36,8 +41,6 @@ class ShowFacolta extends CanaleCommand {
 		
 		//@todo fatto sopra
 		$facolta = & $this -> getRequestCanale();
-
-		require_once('Cdl'.PHP_EXTENSION);
 
 		$elencoCdl = Cdl :: selectCdlElencoFacolta($facolta -> getCodiceFacolta());
 

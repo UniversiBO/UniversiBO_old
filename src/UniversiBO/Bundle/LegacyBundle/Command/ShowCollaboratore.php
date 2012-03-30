@@ -1,4 +1,8 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command;
+
+use \Collaboratore;
+use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -22,7 +26,7 @@ class ShowCollaboratore extends UniversiboCommand  {
 		$template = $frontcontroller->getTemplateEngine();
 		$user = $this->getSessionUser();
 		if (!array_key_exists('id_coll',$_GET) && !ereg( '^([0-9]{1,10})$' , $_GET['id_coll'] ) ) 
-			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'utente cercato non è valido','file'=>__FILE__,'line'=>__LINE__)); 
+			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'utente cercato non ï¿½ valido','file'=>__FILE__,'line'=>__LINE__)); 
 					
 
 		$contacts_path = $frontcontroller->getAppSetting('contactsPath');

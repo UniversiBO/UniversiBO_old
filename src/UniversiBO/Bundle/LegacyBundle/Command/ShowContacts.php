@@ -1,4 +1,8 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command;
+
+use \Collaboratore;
+use UniversiBO\Bundle\LegacyBundle\App\User;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -102,13 +106,13 @@ class ShowContacts extends UniversiboCommand {
 		asort($collaboratori);
 		$template->assign('contacts_langPersonal', $collaboratori);	
 		
-		$template->assign('contacts_langIntro', 'UniversiBO Ë l\'associazione studentesca universitaria dell\'Ateneo di Bologna che dal settembre 2004 supporta la Web Community degli studenti.
+		$template->assignUnicode('contacts_langIntro', 'UniversiBO √® l\'associazione studentesca universitaria dell\'Ateneo di Bologna che dal settembre 2004 supporta la Web Community degli studenti.
 
-Attraverso l\'utilizzo di tecnologie OpenSource, UniversiBO si impegna a estendere i confini delle aule delle Facolt‡ ponendosi come innovativo luogo d\'incontro virtuale. Grazie alla diffusione e alla condivisione di "informazione", si propone infatti di incentivare gli studenti a partecipare attivamente alla vita universitaria. Desidera inoltre porsi come punto di collegamento tra il corpo docente e il mondo studentesco. Nel contempo promuove e favorisce l\'informatizzazione e la filosofia del Software Libero per l\'Universit‡ di Bologna.
+Attraverso l\'utilizzo di tecnologie OpenSource, UniversiBO si impegna a estendere i confini delle aule delle Facolt√† ponendosi come innovativo luogo d\'incontro virtuale. Grazie alla diffusione e alla condivisione di "informazione", si propone infatti di incentivare gli studenti a partecipare attivamente alla vita universitaria. Desidera inoltre porsi come punto di collegamento tra il corpo docente e il mondo studentesco. Nel contempo promuove e favorisce l\'informatizzazione e la filosofia del Software Libero per l\'Universit√† di Bologna.
  
 Tutte le richieste di aiuto ed informazioni possono essere rivolte all\'indirizzo info_universibo@mama.ing.unibo.it
 
-UniversiBO nasce nel 2002 dall\'idea di tre studenti. Al momento attuale lo Staff Ë composto invece da circa '.$num_collaboratori.' collaboratori, quasi tutti studenti dell\' Ateneo bolognese.
+UniversiBO nasce nel 2002 dall\'idea di tre studenti. Al momento attuale lo Staff √® composto invece da circa '.$num_collaboratori.' collaboratori, quasi tutti studenti dell\' Ateneo bolognese.
 
 Qui di seguito si presentano divisi per ruoli nel caso vogliate contattarli nello specifico per ogni vostra esigenza.');
 

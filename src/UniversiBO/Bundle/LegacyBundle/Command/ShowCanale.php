@@ -1,4 +1,6 @@
 <?php 
+namespace UniversiBO\Bundle\LegacyBundle\Command;
+
 use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
 
 /**
@@ -19,7 +21,7 @@ class ShowCanale extends CanaleCommand
 		
 		$canale = & $this->getRequestCanale();
 		
-		// controllare se è settato il nome e l'immagine?
+		// controllare se ï¿½ settato il nome e l'immagine?
 		$template->assign('showCanale_titolo', $canale->getNome());
 		$template->assign('showCanale_img', $canale->getImmagine());
 		//var_dump($canale->getImmagine());
@@ -49,7 +51,4 @@ class ShowCanale extends CanaleCommand
 		
 		return 'default';
 	}
-
 }
-
-?>
