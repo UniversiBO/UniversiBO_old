@@ -1,12 +1,9 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command\News;
 
-use \NewsItem;
-
 use UniversiBO\Bundle\LegacyBundle\App\Canale;
+use UniversiBO\Bundle\LegacyBundle\App\News\NewsItem;
 use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
-
-require_once ('News/NewsItem'.PHP_EXTENSION);
 
 /**
  * ShowMyNews � un'implementazione di PluginCommand.
@@ -119,6 +116,4 @@ class ShowMyNews extends PluginCommand {
 		
 		$template->assign('showMyNews_newsList', $elenco_news_tpl);
 	}
-	
-
 }

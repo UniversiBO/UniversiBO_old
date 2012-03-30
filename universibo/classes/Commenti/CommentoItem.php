@@ -19,11 +19,10 @@ use UniversiBO\Bundle\LegacyBundle\App\User;
  * @copyright CopyLeft UniversiBO 2001-2003
  */
  
-define('COMMENTO_ELIMINATO', 'S');
-define('COMMENTO_NOT_ELIMINATO', 'N');
-
 class CommentoItem
 {
+    const ELIMINATO = 'S';
+    const NOT_ELIMINATO = 'N';
 	/**
 	 * @private
 	 */
@@ -48,7 +47,7 @@ class CommentoItem
 	/**
 	 * @private
 	 */
-	var $eliminato = COMMENTO_NOT_ELIMINATO;
+	var $eliminato = self::NOT_ELIMINATO;
 	
 	/**
 	 * Crea un oggetto CommentoItem
@@ -160,7 +159,7 @@ class CommentoItem
 	 {
 	 	$db = FrontController::getDbConnection('main');
 		
-		$query = 'SELECT id_commento,id_utente,commento,voto FROM file_studente_commenti WHERE id_file='.$db->quote($id_file).' AND eliminato = '.$db->quote(COMMENTO_NOT_ELIMINATO).' ORDER BY voto DESC';
+		$query = 'SELECT id_commento,id_utente,commento,voto FROM file_studente_commenti WHERE id_file='.$db->quote($id_file).' AND eliminato = '.$db->quote(self::NOT_ELIMINATO).' ORDER BY voto DESC';
 		$res = $db->query($query);
 		
 		if (DB::isError($res)) 
@@ -170,7 +169,7 @@ class CommentoItem
 	
 		while ( $res->fetchInto($row) )
 		{
-			$commenti_list[]= new CommentoItem($row[0],$id_file,$row[1],$row[2],$row[3],COMMENTO_NOT_ELIMINATO);
+			$commenti_list[]= new CommentoItem($row[0],$id_file,$row[1],$row[2],$row[3],self::NOT_ELIMINATO);
 		}
 		
 		$res->free();
@@ -186,7 +185,7 @@ class CommentoItem
 	 {
 	 	$db = FrontController::getDbConnection('main');
 		
-		$query = 'SELECT id_file,id_utente,commento,voto FROM file_studente_commenti WHERE id_commento='.$db->quote($id_commento).' AND eliminato = '.$db->quote(COMMENTO_NOT_ELIMINATO);
+		$query = 'SELECT id_file,id_utente,commento,voto FROM file_studente_commenti WHERE id_commento='.$db->quote($id_commento).' AND eliminato = '.$db->quote(self::NOT_ELIMINATO);
 		$res = $db->query($query);
 		
 		if (DB::isError($res)) 
@@ -195,7 +194,7 @@ class CommentoItem
 	
 		if($res->fetchInto($row) )
 		{
-			$commenti= new CommentoItem($id_commento,$row[0],$row[1],$row[2],$row[3],COMMENTO_NOT_ELIMINATO);
+			$commenti= new CommentoItem($id_commento,$row[0],$row[1],$row[2],$row[3],self::NOT_ELIMINATO);
 		}
 		else return false;
 		
@@ -216,7 +215,7 @@ class CommentoItem
 	 	
 	 	$db = FrontController::getDbConnection('main');
 		
-		$query = 'SELECT count(*) FROM file_studente_commenti WHERE id_file = '.$db->quote($id_file).' AND eliminato = '.$db->quote(COMMENTO_NOT_ELIMINATO).' GROUP BY id_file';
+		$query = 'SELECT count(*) FROM file_studente_commenti WHERE id_file = '.$db->quote($id_file).' AND eliminato = '.$db->quote(self::NOT_ELIMINATO).' GROUP BY id_file';
 		$res = $db->query($query);
 		
 		if (DB::isError($res)) 
@@ -265,7 +264,7 @@ class CommentoItem
 		$next_id = $db->nextID('file_studente_commenti_id_commento');
 		$this->id_commento=$next_id;
 		$return = true;
-        $query = 'INSERT INTO file_studente_commenti (id_commento,id_file,id_utente,commento,voto,eliminato) VALUES ('.$next_id.','.$db->quote($id_file_studente).','.$db->quote($id_utente).','.$db->quote($commento).','.$db->quote($voto).','.$db->quote(COMMENTO_NOT_ELIMINATO).')';
+        $query = 'INSERT INTO file_studente_commenti (id_commento,id_file,id_utente,commento,voto,eliminato) VALUES ('.$next_id.','.$db->quote($id_file_studente).','.$db->quote($id_utente).','.$db->quote($commento).','.$db->quote($voto).','.$db->quote(self::NOT_ELIMINATO).')';
 		$res = $db->query($query);
 		if (DB :: isError($res))
 			{				
@@ -307,7 +306,7 @@ class CommentoItem
 	  		$db = FrontController::getDbConnection('main');
 		ignore_user_abort(1);
 		$return = true;
-        $query = 'UPDATE file_studente_commenti SET eliminato = '.$db->quote(COMMENTO_ELIMINATO).'WHERE id_commento='.$db->quote($id_commento);
+        $query = 'UPDATE file_studente_commenti SET eliminato = '.$db->quote(self::ELIMINATO).'WHERE id_commento='.$db->quote($id_commento);
 		$res = $db->query($query);
 		if (DB :: isError($res))
 			{				
@@ -319,19 +318,18 @@ class CommentoItem
 		return $return;
 	  }
 	  /**
-	 * Questa funzione verifica se esiste giá un commento inserito dall'utente
+	 * Questa funzione verifica se esiste giÃ  un commento inserito dall'utente
 	 * 
 	 * @param $id_file, $id_utente id del file e dell'utente
 	 * @return un valore booleano
 	 */
-	
 	function  esisteCommento($id_file,$id_utente)
 	{
 		$flag = false;
 		
 		$db = FrontController :: getDbConnection('main');
 
-		$query = 'SELECT id_commento FROM file_studente_commenti WHERE id_file ='.$db->quote($id_file).' AND id_utente = '.$db->quote($id_utente).' AND eliminato = '.$db->quote(COMMENTO_NOT_ELIMINATO).'GROUP BY id_file,id_utente,id_commento';
+		$query = 'SELECT id_commento FROM file_studente_commenti WHERE id_file ='.$db->quote($id_file).' AND id_utente = '.$db->quote($id_utente).' AND eliminato = '.$db->quote(self::NOT_ELIMINATO).'GROUP BY id_file,id_utente,id_commento';
 		$res = $db->query($query);
 
 		if (DB :: isError($res))
@@ -341,3 +339,6 @@ class CommentoItem
 		return $ris[0];
 	}
 }
+
+define('COMMENTO_ELIMINATO', CommentoItem::ELIMINATO);
+define('COMMENTO_NOT_ELIMINATO', CommentoItem::NOT_ELIMINATO);

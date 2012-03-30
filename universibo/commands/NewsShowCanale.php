@@ -1,9 +1,9 @@
 <?php    
+use UniversiBO\Bundle\LegacyBundle\App\News\NewsItem;
+
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
 use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
-
-require_once 'News/NewsItem'.PHP_EXTENSION;
 
 /**
  * NewsAdd: si occupa dell'inserimento di una news in un canale
@@ -90,7 +90,7 @@ class NewsShowCanale extends CanaleCommand {
 	 	$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT A.id_news FROM news A, news_canale B 
-					WHERE A.id_news = B.id_news AND eliminata!='.$db->quote( NEWS_ELIMINATA ).
+					WHERE A.id_news = B.id_news AND eliminata!='.$db->quote( NewsItem::ELIMINATA ).
 					'AND ( data_scadenza IS NULL OR \''.time().'\' < data_scadenza ) AND B.id_canale = '.$db->quote($id_canale).' 
 					ORDER BY A.data_inserimento DESC';
 		$res = $db->limitQuery($query, $startNum , $qta);
@@ -127,7 +127,7 @@ class NewsShowCanale extends CanaleCommand {
 	 	$db = FrontController::getDbConnection('main');
 		
 		$query = 'SELECT count(A.id_news) FROM news A, news_canale B 
-					WHERE A.id_news = B.id_news AND eliminata!='.$db->quote(NEWS_ELIMINATA).
+					WHERE A.id_news = B.id_news AND eliminata!='.$db->quote(NewsItem::ELIMINATA).
 					'AND ( data_scadenza IS NULL OR \''.time().'\' < data_scadenza ) AND B.id_canale = '.$db->quote($id_canale).'';
 		$res = $db->getOne($query);
 		if (DB::isError($res)) 

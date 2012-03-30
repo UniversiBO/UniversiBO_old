@@ -1,8 +1,8 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command;
 
+use UniversiBO\Bundle\LegacyBundle\App\News\NewsItem;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
-
-require_once 'News/NewsItem' . PHP_EXTENSION;
 
 /**
  * @author Davide Bellettini <davide.bellettini@gmail.com>
@@ -49,5 +49,4 @@ class ShowPermalink extends UniversiboCommand {
         
         return $newsArray;
     }
-
 }

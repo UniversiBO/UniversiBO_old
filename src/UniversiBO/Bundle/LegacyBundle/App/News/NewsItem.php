@@ -1,6 +1,10 @@
 <?php
-use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
+namespace UniversiBO\Bundle\LegacyBundle\App\News;
 
+use \DB;
+use \Error;
+
+use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\App\User;
 
 
@@ -398,8 +402,8 @@ class NewsItem {
         else
             $values = implode(',',$id_notizie);
 
-        //		$query = 'SELECT titolo, notizia, data_inserimento, data_scadenza, flag_urgente, eliminata, A.id_utente, id_news, username, data_modifica FROM news A, utente B WHERE A.id_utente = B.id_utente AND id_news IN ('.$values.') AND eliminata!='.$db->quote(NEWS_ELIMINATA);
-        $query = 'SELECT titolo, notizia, data_inserimento, data_scadenza, flag_urgente, eliminata, A.id_utente, id_news, data_modifica FROM news A WHERE id_news IN ('.$values.') AND eliminata!='.$db->quote(NEWS_ELIMINATA) . ' ORDER BY data_inserimento DESC';
+        //		$query = 'SELECT titolo, notizia, data_inserimento, data_scadenza, flag_urgente, eliminata, A.id_utente, id_news, username, data_modifica FROM news A, utente B WHERE A.id_utente = B.id_utente AND id_news IN ('.$values.') AND eliminata!='.$db->quote(NewsItem::ELIMINATA);
+        $query = 'SELECT titolo, notizia, data_inserimento, data_scadenza, flag_urgente, eliminata, A.id_utente, id_news, data_modifica FROM news A WHERE id_news IN ('.$values.') AND eliminata!='.$db->quote(NewsItem::ELIMINATA) . ' ORDER BY data_inserimento DESC';
         //var_dump($query);
         $res = $db->query($query);
 
@@ -414,7 +418,7 @@ class NewsItem {
         while ( $res->fetchInto($row) )
         {
             $username = User::getUsernameFromId($row[6]);
-            $news_list[] = new NewsItem($row[7],$row[0],$row[1],$row[2],$row[3],$row[8],($row[4] == NEWS_URGENTE),($row[5] == NEWS_ELIMINATA),$row[6], $username );
+            $news_list[] = new NewsItem($row[7],$row[0],$row[1],$row[2],$row[3],$row[8],($row[4] == self::URGENTE),($row[5] == NewsItem::ELIMINATA),$row[6], $username );
         }
 
         $res->free();
@@ -554,8 +558,8 @@ class NewsItem {
         $next_id = $db->nextID('news_id_news');
         $return = true;
         $scadenza = ($this->getDataScadenza() == NULL) ? ' NULL ' : $db->quote($this->getDataScadenza());
-        $eliminata = ($this->isEliminata()) ? NEWS_ELIMINATA : NEWS_NOT_ELIMINATA;
-        $flag_urgente = ($this->isUrgente()) ? NEWS_URGENTE : NEWS_NOT_URGENTE;
+        $eliminata = ($this->isEliminata()) ? NewsItem::ELIMINATA : self::NOT_ELIMINATA;
+        $flag_urgente = ($this->isUrgente()) ? self::URGENTE : self::NOT_URGENTE;
         $query = 'INSERT INTO news (id_news, titolo, data_inserimento, data_scadenza, notizia, id_utente, eliminata, flag_urgente, data_modifica) VALUES '.
                 '( '.$next_id.' , '.
                 $db->quote($this->getTitolo()).' , '.
@@ -595,8 +599,8 @@ class NewsItem {
         $db->autoCommit(false);
         $return = true;
         $scadenza = ($this->getDataScadenza() == NULL) ? ' NULL ' : $db->quote($this->getDataScadenza());
-        $flag_urgente = ($this->isUrgente()) ? NEWS_URGENTE : NEWS_NOT_URGENTE;
-        $deleted = ($this->isEliminata()) ? NEWS_ELIMINATA : NEWS_NOT_ELIMINATA;
+        $flag_urgente = ($this->isUrgente()) ? self::URGENTE : self::NOT_URGENTE;
+        $deleted = ($this->isEliminata()) ? NewsItem::ELIMINATA : self::NOT_ELIMINATA;
         $query = 'UPDATE news SET titolo = '.$db->quote($this->getTitolo())
         .' , data_inserimento = '.$db->quote($this->getDataIns())
         .' , data_scadenza = '.$scadenza
@@ -635,9 +639,3 @@ class NewsItem {
         }
     }
 }
-
-define('NEWS_ELIMINATA', NewsItem::ELIMINATA);
-define('NEWS_NOT_ELIMINATA', NewsItem::NOT_ELIMINATA);
-
-define('NEWS_URGENTE', NewsItem::URGENTE);
-define('NEWS_NOT_URGENTE', NewsItem::NOT_URGENTE);

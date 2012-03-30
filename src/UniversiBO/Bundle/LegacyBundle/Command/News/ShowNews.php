@@ -1,11 +1,8 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command\News;
 
-use \NewsItem;
-
+use UniversiBO\Bundle\LegacyBundle\App\News\NewsItem;
 use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
-
-require_once ('News/NewsItem'.PHP_EXTENSION);
 
 /**
  * ShowNews � un'implementazione di PluginCommand.
