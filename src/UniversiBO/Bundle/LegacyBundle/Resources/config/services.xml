@@ -37,5 +37,11 @@
 			<argument>%adlogin_host%</argument>
 			<argument>%adlogin_port%</argument>
 		</service>
+		
+		<service id="universibo_legacy.message.sms" class="mobytSms">
+			<argument>%sms_user%</argument>
+			<argument>%sms_password%</argument>
+			<argument>%sms_from%</argument>
+		</service>
 	</services>
 </container>
