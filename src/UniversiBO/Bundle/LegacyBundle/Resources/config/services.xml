@@ -8,7 +8,7 @@
 			class="UniversiBO\Bundle\LegacyBundle\Framework\DBConnectionFactory">
 			<call method="registerDSN">
 				<argument>main</argument>
-				<argument>pgsql://%database_user%:%database_password%@%database_host%/%database_name%</argument>
+				<argument>%database_pear_driver%://%database_user%:%database_password%@%database_host%/%database_name%</argument>
 			</call>
 		</service>
 
@@ -17,13 +17,23 @@
 			<argument>main</argument>
 		</service>
 
+		<service id="universibo_legacy.repository.canale"
+			class="UniversiBO\Bundle\LegacyBundle\App\DBCanaleRepository">
+			<argument type="service" id="universibo_legacy.db.connection.main" />
+		</service>
+		
+		<service id="universibo_legacy.repository.ruolo"
+			class="UniversiBO\Bundle\LegacyBundle\App\DBRuoloRepository">
+			<argument type="service" id="universibo_legacy.db.connection.main" />
+		</service>
+
 		<service id="universibo_legacy.repository.user"
 			class="UniversiBO\Bundle\LegacyBundle\App\DBUserRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />
 		</service>
 
 		<service id="universibo_legacy.auth.ldap"
-			class="UniversiBO\Bundle\LegacyBundle\App\ActiveDirectoryLogin">
+			class="UniversiBO\Bundle\LegacyBundle\Auth\ActiveDirectoryLogin">
 			<argument>%adlogin_host%</argument>
 			<argument>%adlogin_port%</argument>
 		</service>

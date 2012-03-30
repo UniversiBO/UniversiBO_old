@@ -1,6 +1,6 @@
 <?php
 
-namespace UniversiBO\Bundle\LegacyBundle\App;
+namespace UniversiBO\Bundle\LegacyBundle\Auth;
 
 /**
  * Active Directory Login Handler

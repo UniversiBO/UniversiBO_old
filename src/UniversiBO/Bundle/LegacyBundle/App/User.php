@@ -2,7 +2,10 @@
 
 namespace UniversiBO\Bundle\LegacyBundle\App;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
+use UniversiBO\Bundle\LegacyBundle\Auth\ActiveDirectoryLogin;
 
 use \PrgAttivitaDidattica;
 
@@ -15,7 +18,7 @@ use \PrgAttivitaDidattica;
  * @license GPL, <{@link http://www.opensource.org/licenses/gpl-license.php}>
  * @copyright CopyLeft UniversiBO 2001-2003
  */
-use Symfony\Component\Security\Core\User\UserInterface;
+
 
 class User implements UserInterface, \Serializable
 {
