@@ -30,7 +30,7 @@ class ShowLink extends PluginCommand {
 	 *  - 'num' il numero di link da visualizzare
 	 *	  es: array('num'=>5) 
 	 */
-	function execute($param)
+	public function execute($param = array())
 	{
 		
 //		$id_canale  =  $param['id_canale'];

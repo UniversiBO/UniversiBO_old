@@ -34,9 +34,8 @@ class ShowLinksExtended extends PluginCommand {
 	 *  - 'id_canale' l'id del canale
 	 *	  es: array('num'=>5) 
 	 */
-	function execute($param)
+	public function execute($param = array())
 	{
-		
 		$id_canale  =  $param['id_canale'];
 
 		$bc        = $this->getBaseCommand();

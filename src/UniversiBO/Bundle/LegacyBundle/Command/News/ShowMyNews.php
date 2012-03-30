@@ -28,9 +28,8 @@ class ShowMyNews extends PluginCommand {
 	 *  un array di id notizie da visualizzare
 	 *	  es: array('id_notizia'=>5) 
 	 */
-	function execute($param)
+	public function execute($param = array())
 	{
-		
 		$elenco_id_news		=  $param['id_notizie'];
 		$bc        = $this->getBaseCommand();
 		$user      = $bc->getSessionUser();

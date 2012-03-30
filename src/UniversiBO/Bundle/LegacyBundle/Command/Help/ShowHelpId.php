@@ -34,7 +34,7 @@ class ShowHelpId extends PluginCommand {
 	 *	se viene passato 0  come parametro mostra tutti gli argomenti	
 	 *  NB 0 non pu? essere l'id di una notizia
 	 */
-	function execute($param = array())
+	public function execute($param = array())
 	{
 		$allFlag	= false;
 		$listid		= '';

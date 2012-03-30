@@ -32,9 +32,8 @@ class ShowNewsLatest extends PluginCommand {
 	 *  - 'num' il numero di notizie da visualizzare
 	 *	  es: array('num'=>5) 
 	 */
-	function execute($param)
+	public function execute($param=array())
 	{
-		
 		$num_news  =  $param['num'];
 
 		$bc        = $this->getBaseCommand();
