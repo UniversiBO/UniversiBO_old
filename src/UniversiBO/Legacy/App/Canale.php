@@ -8,7 +8,7 @@ define('CANALE_CDL'          ,4);
 define('CANALE_INSEGNAMENTO' ,5);
 //define('CANALE_ESAME_ECO'    ,6);
 
-use UniversiBO\Legacy\Framework\FrontController;
+use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use \Error;
 use \DB;
 

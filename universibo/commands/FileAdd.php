@@ -2,7 +2,7 @@
 use UniversiBO\Legacy\App\AntiVirus\AntiVirusFactory;
 use UniversiBO\Legacy\App\UniversiboCommand;
 use UniversiBO\Legacy\App\User;
-use UniversiBO\Legacy\Framework\FrontController;
+use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
 require_once ('Files/FileItem'.PHP_EXTENSION);
 

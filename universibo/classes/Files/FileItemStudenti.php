@@ -1,6 +1,6 @@
 <?php  
 
-use UniversiBO\Legacy\Framework\FrontController;
+use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
 require_once('Files/FileKeyWords'.PHP_EXTENSION);
 require_once('Files/FileItem'.PHP_EXTENSION);

@@ -1,6 +1,6 @@
 <?php
 
-namespace UniversiBO\Legacy\Framework;
+namespace UniversiBO\Bundle\LegacyBundle\Framework;
 
 /**
  * Class Response

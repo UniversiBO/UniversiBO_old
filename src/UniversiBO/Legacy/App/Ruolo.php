@@ -1,7 +1,7 @@
 <?php
 namespace UniversiBO\Legacy\App;
 
-use UniversiBO\Legacy\Framework\FrontController;
+use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use \DB;
 use \Error;
 

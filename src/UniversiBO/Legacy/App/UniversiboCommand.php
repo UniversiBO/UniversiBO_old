@@ -1,8 +1,8 @@
 <?php
 namespace UniversiBO\Legacy\App;
 
-use UniversiBO\Legacy\Framework\FrontController;
-use UniversiBO\Legacy\Framework\BaseCommand;
+use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
+use UniversiBO\Bundle\LegacyBundle\Framework\BaseCommand;
 
 use \Error;
 use \Facolta;

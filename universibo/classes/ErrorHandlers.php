@@ -1,7 +1,7 @@
 <?php
 
-use UniversiBO\Legacy\Framework\FrontController;
-use UniversiBO\Legacy\Framework\LogHandler;
+use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
+use UniversiBO\Bundle\LegacyBundle\Framework\LogHandler;
 
 /**
  * Definisce gli handler da utilizzare per la classe Error,

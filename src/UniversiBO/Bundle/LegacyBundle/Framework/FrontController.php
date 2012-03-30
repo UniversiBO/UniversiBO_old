@@ -1,5 +1,5 @@
 <?php
-namespace UniversiBO\Legacy\Framework;
+namespace UniversiBO\Bundle\LegacyBundle\Framework;
 
 define('MAIL_KEEPALIVE_NO', 0);
 define('MAIL_KEEPALIVE_ALIVE', 1);
@@ -186,7 +186,7 @@ class FrontController
             if (!$templateEngine->template_exists($template))
             {
                 echo $template;
-                \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non è presente il file relativo al template specificato: "'.$template.'"','file'=>__FILE__,'line'=>__LINE__));
+                \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non ï¿½ presente il file relativo al template specificato: "'.$template.'"','file'=>__FILE__,'line'=>__LINE__));
             }
              
             $templateEngine->display($template);
@@ -215,7 +215,7 @@ class FrontController
 
         if ($classValues == null )
         {
-            \Error::throwError(_ERROR_DEFAULT,array('msg'=>'Non è stato definito il plugin richiesto: '.$name ,'file'=>__FILE__,'line'=>__LINE__));
+            \Error::throwError(_ERROR_DEFAULT,array('msg'=>'Non ï¿½ stato definito il plugin richiesto: '.$name ,'file'=>__FILE__,'line'=>__LINE__));
             return;
         }
 
@@ -969,10 +969,10 @@ class FrontController
     				}
 
     				if(!isset($this->commandClass))
-    				    \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non è definito l\'attributo class relativo al comando specificato nel file di config','file'=>__FILE__,'line'=>__LINE__));
+    				    \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non ï¿½ definito l\'attributo class relativo al comando specificato nel file di config','file'=>__FILE__,'line'=>__LINE__));
 
     				if(empty($this->commandClass))
-    				    \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non è specificata la classe relativa al comando spacificato nel file di config','file'=>__FILE__,'line'=>__LINE__));
+    				    \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non ï¿½ specificata la classe relativa al comando spacificato nel file di config','file'=>__FILE__,'line'=>__LINE__));
     }
 
 

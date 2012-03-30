@@ -1,5 +1,5 @@
 <?php
-use UniversiBO\Legacy\Framework\FrontController;
+use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
 require_once __DIR__.'/../app/bootstrap.php.cache';
 require_once __DIR__.'/../app/autoload.php';

@@ -1,5 +1,5 @@
 <?php
-namespace UniversiBO\Legacy\Framework;
+namespace UniversiBO\Bundle\LegacyBundle\Framework;
 
 /**
  * PluginCommand is the abstract super class of all plugin command classes.

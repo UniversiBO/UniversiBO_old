@@ -1,5 +1,5 @@
 <?php
-namespace UniversiBO\Legacy\Framework;
+namespace UniversiBO\Bundle\LegacyBundle\Framework;
 
 /**
  * Multilanguage class, handles dictionary for multilanguage

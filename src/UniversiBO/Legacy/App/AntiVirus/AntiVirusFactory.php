@@ -1,7 +1,7 @@
 <?php
 namespace UniversiBO\Legacy\App\AntiVirus;
 
-use UniversiBO\Legacy\Framework\FrontController;
+use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 /**
  *
  * @package universibo

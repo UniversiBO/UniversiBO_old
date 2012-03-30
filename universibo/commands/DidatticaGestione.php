@@ -1,6 +1,6 @@
 <?php    
 
-use UniversiBO\Legacy\Framework\FrontController;
+use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
 use UniversiBO\Legacy\App\UniversiboCommand;
 
@@ -460,7 +460,7 @@ class DidatticaGestione extends UniversiboCommand {
         $desc = '';
         foreach(array('doc','ciclo','anno') as $k)
             $desc .= (array_key_exists($k,$modified))? $k.' '.$modified[$k]['old'].' -> '.$modified[$k]['new'].'; ' :'';
-        $log = new UniversiBO\Legacy\Framework\LogHandler('modificaDidattica','../universibo/log-universibo/',$log_definition);
+        $log = new UniversiBO\Bundle\LegacyBundle\Framework\LogHandler('modificaDidattica','../universibo/log-universibo/',$log_definition);
 
         $log_array = array( 'timestamp'  => time(),
                 'date'  => date("Y-m-d",time()),

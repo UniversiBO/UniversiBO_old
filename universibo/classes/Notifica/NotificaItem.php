@@ -1,6 +1,6 @@
 <?php  
 
-use UniversiBO\Legacy\Framework\FrontController;
+use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
 define('NOTIFICA_ELIMINATA', 'S');
 define('NOTIFICA_NOT_ELIMINATA', 'N');

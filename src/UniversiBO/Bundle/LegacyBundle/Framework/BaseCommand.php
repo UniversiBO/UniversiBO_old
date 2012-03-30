@@ -1,5 +1,5 @@
 <?php
-namespace UniversiBO\Legacy\Framework;
+namespace UniversiBO\Bundle\LegacyBundle\Framework;
 
 /**
  * BaseCommand is the abstract super class of all command classes.

@@ -1,6 +1,6 @@
 <?php 
 use UniversiBO\Legacy\App\CanaleCommand;
-use UniversiBO\Legacy\Framework\FrontController;
+use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
  * ShowFacolta: mostra una facolt?

@@ -1,5 +1,5 @@
 <?php
-use UniversiBO\Legacy\Framework\FrontController;
+use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
  * Classe per recuperare le informazioni memorizzate nelle interazioni con gli utenti

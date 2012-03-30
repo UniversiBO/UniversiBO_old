@@ -1,5 +1,5 @@
 <?php
-use UniversiBO\Legacy\Framework\FrontController;
+use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
  * Link class
