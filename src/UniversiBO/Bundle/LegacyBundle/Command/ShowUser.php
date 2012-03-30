@@ -1,6 +1,11 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command;
 
+use \Docente;
+use \Error;
+use UniversiBO\Bundle\LegacyBundle\App\Canale;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\App\User;
 
 /**
  *Questa classe consente la visualizzazione e la possibile modifica
@@ -18,25 +23,25 @@ class ShowUser extends UniversiboCommand{
 
         if (!array_key_exists('id_utente', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_utente'] )  )
         {
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'id dell\'utente richiesto non è valido','file'=>__FILE__,'line'=>__LINE__ ));
+            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'id dell\'utente richiesto non ï¿½ valido','file'=>__FILE__,'line'=>__LINE__ ));
         }
         $id_user			=  $_GET['id_utente'];
         $user				= User::selectUser($id_user);
 
         if($current_user->isOspite())
         {
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $current_user->getIdUser(), 'msg'=>'Le schede degli utenti sono visualizzabili solo se si è registrati','file'=>__FILE__,'line'=>__LINE__));
+            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $current_user->getIdUser(), 'msg'=>'Le schede degli utenti sono visualizzabili solo se si ï¿½ registrati','file'=>__FILE__,'line'=>__LINE__));
         }
 
         if(!$user || $user->isEliminato())
         {
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $current_user->getIdUser(), 'msg'=>'L\'utente cercato non è valido','file'=>__FILE__,'line'=>__LINE__));
+            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $current_user->getIdUser(), 'msg'=>'L\'utente cercato non ï¿½ valido','file'=>__FILE__,'line'=>__LINE__));
         }
 
 
         if(!$current_user->isAdmin() && !$user->isDocente() && !$user->isTutor()  && $current_user->getIdUser() != $user->getIdUser())
         {
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $current_user->getIdUser(), 'msg'=>'Non ti è permesso visualizzare la scheda dell\'utente','file'=>__FILE__,'line'=>__LINE__));
+            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $current_user->getIdUser(), 'msg'=>'Non ti ï¿½ permesso visualizzare la scheda dell\'utente','file'=>__FILE__,'line'=>__LINE__));
         }
 
         $arrayRuoli	= $user->getRuoli();
