@@ -162,11 +162,17 @@ class FrontController
     function executeCommand(){
         //$command_request=$this->getCommandRequest();
         $command_class=$this->getCommandClass();
-        require_once($this->paths['commands'].'/'.$command_class.PHP_EXTENSION);
+        $bundleClass = 'UniversiBO\\Bundle\\LegacyBundle\\Command\\'.$command_class;
+        
+        if(class_exists($bundleClass)) {
+            $command_class = $bundleClass;            
+        } else {
+            require_once($this->paths['commands'].'/'.$command_class.PHP_EXTENSION);
+        }
+        
         /**
          * @todo mettere controllo sull'avvenuta inclusione, altrimenti errore critico
          */
-
         $command = new $command_class;
 
         $command->initCommand($this);

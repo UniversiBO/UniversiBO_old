@@ -1,4 +1,8 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command;
+
+use \Error;
+
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
 
@@ -34,8 +38,8 @@ class ShowHome extends CanaleCommand
 		$template = $frontcontroller->getTemplateEngine();
 		
 		$template->assign('home_langWelcome', 'Benvenuto in UniversiBO!');
-		$template->assign('home_langWhatIs', 'Questa è la nuova versione della community e degli strumenti per la didattica ideato dagli studenti dell\'Università di Bologna.');
-		$template->assign('home_langMission', 'L\'obiettivo verso cui è tracciata la rotta delle iniziative e dei servizi che trovate su questo portale è di "aiutare gli studenti ad aiutarsi tra loro", fornire un punto di riferimento centralizzato in cui prelevare tutte le informazioni didattiche riguardanti i propri corsi di studio e offrire un mezzo di interazione semplice e veloce con i docenti che partecipano all\'iniziativa.');
+		$template->assignUnicode('home_langWhatIs', 'Questa Ã¨ la nuova versione della community e degli strumenti per la didattica ideato dagli studenti dell\'UniversitÃ  di Bologna.');
+		$template->assignUnicode('home_langMission', 'L\'obiettivo verso cui Ã¨ tracciata la rotta delle iniziative e dei servizi che trovate su questo portale Ã¨ di "aiutare gli studenti ad aiutarsi tra loro", fornire un punto di riferimento centralizzato in cui prelevare tutte le informazioni didattiche riguardanti i propri corsi di studio e offrire un mezzo di interazione semplice e veloce con i docenti che partecipano all\'iniziativa.');
 		
 		$this->executePlugin('ShowNewsLatest', array( 'num' => 4 ) );
 		
