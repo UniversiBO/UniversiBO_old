@@ -1,128 +1,5 @@
 <?php
-
-
-define('STEP_COMPLETATO', 3);
-define('STEP_RIFIUTATO', 2);  // VERIFY mi sa che è inutile questo valore
-define('STEP_VISITATO', 1);
-define('STEP_NONVISITATO', 0);
-
-class Step
-{
-	/**
-	 * @access private
-	 */
-	var $callback;
-
-	/**
-	 * @access private
-	 */
-	var $state=STEP_NONVISITATO;
-	
-	
-	/**
-	 * is a cache for form values
-	 * @access private
-	 */
-	var $values=array();
-	
-	/**
-	 * @author Pinto
-	 * @access public
-	 * @param string callback name of function associated with the step
-	 */
-	function Step ($callback) 
-	{
-		$this->callback = $callback;
-	}
-	
-	/**
-	 * @access public
-	 * @return array all step values
-	 */	
-	function logMe()
-	{
-		return $this->values;
-	}
-	
-	/**
-	 * @author Pinto
-	 * @access public
-	 */
-	function getCallback () 
-	{
-		return $this->callback;
-	}
-	
-	/**
-	 * @author Pinto
-	 * @access public
-	 */
-	function getState() 
-	{
-		return $this->state;
-	}
-	
-	/**
-	 * @author Pinto
-	 * @access public
-	 */
-	function getValues() 
-	{
-		return $this->values;
-	}
-	
-	
-	/**
-	 * @author Pinto
-	 * @access public
-	 * @return boolean true se l'update è stato effettuato
-	 */
-	function setValues($array) 
-	{
-		if (!is_array($array)) return false;
-		$this->values = $array;
-		return true;
-	}
-	
-	/**
-	 * @author Pinto
-	 * @access public
-	 */
-	function resetStep()
-	{
-		$this->state	= STEP_NONVISITATO;
-	}
-	
-	/**
-	 * @author Pinto
-	 * @access public
-	 */
-	function completeStep()
-	{
-		$this->state	= STEP_COMPLETATO;
-	}
-	
-	/**
-	 * @author Pinto
-	 * @access public
-	 */
-	function visitedStep()
-	{
-		$this->state	= STEP_VISITATO;
-	}
-	
-	/**
-	 * @author Pinto
-	 * @access public
-	 */
-	function refusedStep()
-	{
-		$this->state	= STEP_RIFIUTATO;
-	}
-
-}
-
-define('EMPTY_VALUE', -1);
+namespace UniversiBO\Bundle\LegacyBundle\App\InteractiveCommand;
 
 /**
  * Rappresenta una lista di step. Contiene le informazioni relative necessarie 
@@ -137,6 +14,7 @@ define('EMPTY_VALUE', -1);
 
 class StepList 
 {
+    const EMPTY_VALUE = -1;
 	/**
 	 * Lista_step
 	 * @access private
@@ -149,10 +27,10 @@ class StepList
 	var $currentStep = 0;
 	
 	/**
-	 * se vale -1 vuol dire che non c'è alcuno step completo
+	 * se vale -1 vuol dire che non c'Ã¨ alcuno step completo
 	 * @access private
 	 */
-	var $lastGoodStep = EMPTY_VALUE;
+	var $lastGoodStep = self::EMPTY_VALUE;
 	
 	/**
 	 * @access private
@@ -164,7 +42,7 @@ class StepList
 	 * @access public
 	 * @param array steps array di stringhe con i nomi delle callback
 	 */ 
-  	function StepList($steps = null) 
+  	public function __construct($steps = null) 
   	{
 		$this->Lista_step = array();
 				
@@ -193,15 +71,15 @@ class StepList
 	 */
 	function isNextAllowed()
 	{
-		for ($i = ($this->lastGoodStep != EMPTY_VALUE) ? $this->lastGoodStep : 0; $i <= $this->currentStep; $i++)
+		for ($i = ($this->lastGoodStep != self::EMPTY_VALUE) ? $this->lastGoodStep : 0; $i <= $this->currentStep; $i++)
 		{
 //			var_dump($i); echo "\n";
 			$step = $this->getStep($i);
-			// VERIFY è ammissibile che uno stato sia refused?
+			// VERIFY ï¿½ ammissibile che uno stato sia refused?
 //			var_dump($step); die;
-			if ($step->getState() != STEP_COMPLETATO)
+			if ($step->getState() != Step::COMPLETATO)
 			{
-				$this->lastGoodStep = max(EMPTY_VALUE, $i - 1);
+				$this->lastGoodStep = max(self::EMPTY_VALUE, $i - 1);
 				return false;
 			}
 		}
@@ -231,7 +109,7 @@ class StepList
 	function  getPreviousStep()
 	{
 		$this->currentStep -= 1;
-		$this->lastGoodStep = max(EMPTY_VALUE, $this->currentStep - 1);
+		$this->lastGoodStep = max(self::EMPTY_VALUE, $this->currentStep - 1);
 		if ($this->isValidIndex($this->currentStep))
 			return $this->Lista_step[$this->currentStep];
 		else
@@ -254,7 +132,7 @@ class StepList
 	function  getFirstStep() 
 	{
 		$this->currentStep = 0;
-		$this->lastGoodStep = EMPTY_VALUE;  // VERIFY ha senso modificare anche lastGoodStep?
+		$this->lastGoodStep = self::EMPTY_VALUE;  // VERIFY ha senso modificare anche lastGoodStep?
 		return $this->Lista_step[0]; 
 	}
 	
@@ -344,7 +222,7 @@ class StepList
 	 */
 	function resetInternalPointer()
 	{	
-		$this->lastGoodStep = EMPTY_VALUE;
+		$this->lastGoodStep = self::EMPTY_VALUE;
 		$this->currentStep = 0;
 	}
 		
@@ -374,7 +252,7 @@ class StepList
 //	 * @access private
 //	 * @param int idStep numero dello step
 //	 * @param bool esito esito della callback 
-//	 * @return bool false se esito non è booleano		
+//	 * @return bool false se esito non ï¿½ booleano		
 //	 */
 //	function setEsitoStep($idStep, $esito = true)
 //	{
@@ -396,3 +274,4 @@ class StepList
 	
 
 }
+define('EMPTY_VALUE', StepList::EMPTY_VALUE);

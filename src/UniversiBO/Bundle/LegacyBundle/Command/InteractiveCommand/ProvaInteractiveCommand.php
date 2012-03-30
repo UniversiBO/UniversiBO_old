@@ -1,7 +1,7 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command\InteractiveCommand;
 
-require_once ('InteractiveCommand/BaseInteractiveCommand'.PHP_EXTENSION);
-
+use UniversiBO\Bundle\LegacyBundle\App\InteractiveCommand\BaseInteractiveCommand;
 /**
  * ProvaInteractiveCommand is an extension of BaseInteractiveCommand class.
  *
@@ -11,7 +11,6 @@ require_once ('InteractiveCommand/BaseInteractiveCommand'.PHP_EXTENSION);
  * @author Fabrizio Pinto <evaimitico@gmail.com>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
- 
 class ProvaInteractiveCommand extends BaseInteractiveCommand
 {
 	public function __construct ($baseCommand) {
@@ -19,7 +18,7 @@ class ProvaInteractiveCommand extends BaseInteractiveCommand
 //		$this->priority = HIGH_INTERACTION;
 		$this->title = 'ecco il titolo personalizzato';
 		// modificate la seguente variabile se non va bene il mess di default
-		//$this->msgOnCancelByUser = 'ecco il messaggio personalizzato in caso di cancel, quando la priorità è alta. Fate buon uso di questo strumento';
+		//$this->msgOnCancelByUser = 'ecco il messaggio personalizzato in caso di cancel, quando la prioritÃ  Ã¨ alta. Fate buon uso di questo strumento';
 	}
 	
 	function call_example ( & $item) {
@@ -32,7 +31,7 @@ class ProvaInteractiveCommand extends BaseInteractiveCommand
 		{
 			// TODO postback
 			
-			//per lanciare un error_notice si può fare direttamente:
+			//per lanciare un error_notice si puÃ² fare direttamente:
 			// $this->errore($messaggio_di_errore);
 			
 			// supponiamo che l'utente abbia modificato i valori

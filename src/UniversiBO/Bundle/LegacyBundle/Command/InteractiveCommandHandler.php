@@ -1,11 +1,17 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command;
+
+use \DB;
+use \Error;
+use \NotificaItem;
+use \ForumApi;
+use \CLInterpreter;
 
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
-
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
-require_once 'InteractiveCommand/BaseInteractiveCommand'.PHP_EXTENSION;
-
+// hack per caricare le costanti
+class_exists('UniversiBO\Bundle\LegacyBundle\App\InteractiveCommand\BaseInteractiveCommand');
 /**
  * InteractiveCommandHandler is an extension of UniversiboCommand class.
  *
@@ -17,13 +23,12 @@ require_once 'InteractiveCommand/BaseInteractiveCommand'.PHP_EXTENSION;
  * @author Fabrizio Pinto <evaimitico@gmail.com>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
- 
 class InteractiveCommandHandler extends UniversiboCommand {
 	private $userLogin = null;
 	
 	function execute()
 	{
-		$fc = $this->getFrontController();
+		$frontcontroller = $fc = $this->getFrontController();
 		$template = $this->frontController->getTemplateEngine();
 //		$user = $this->getSessionUser();
 		
@@ -72,7 +77,12 @@ class InteractiveCommandHandler extends UniversiboCommand {
 		if (! $this->isAllowedInteractionForActualUser($this->userLogin, $currentStep))
 			$this->updateActiveSteps($activeSteps);	
 			
-		$esito = $this->executePlugin($currentStep['className'], $action);
+		$pieces = preg_split('/\\\\/', $currentStep['className']);
+		$pluginName = array_pop($pieces);
+		
+		$esito = $this->executePlugin($pluginName, $action);
+		/*var_dump($esito);
+		die;*/
 		
 		//TODO verificare se esito � array?
 		if (isset($esito['error'])) 
@@ -173,43 +183,37 @@ perch� impedisce il login agli utenti
 		$steps = array();
 		foreach ($list as $item)
 		{
-			include_once('InteractiveCommand/' . $item['className'] . PHP_EXTENSION);
-			if (in_array('BaseInteractiveCommand', $this->get_all_ancerstors_of_class($item['className'])) ||
-				in_array('baseinteractivecommand', $this->get_all_ancerstors_of_class($item['className']))) 
-					if(empty($item['condition']) || $this->evaluateCondition($item['condition']))
-						$steps[] = $item;
+            if(empty($item['condition']) || $this->evaluateCondition($item['condition']))
+				$steps[] = $item;
 //			var_dump($item);
 //			var_dump(get_parent_class($item)); die;
 		}
 //		var_dump($steps); die;
 		return $steps;
 	}
-	
-	/**
-	 * @author Pinto
-	 * @access private
-	 * @return array list of ancestor (almeno quelli che riesce a trovare)
-	 */
-	function get_all_ancerstors_of_class ($class) {
-		$list = array();
-//		$ancestor = get_parent_class($class);
-//		while ($ancestor != null && $ancestor != 'stdClass' )
-//		{
-//			$list[] 	= $ancestor;
-//			$ancestor 	= get_parent_class($ancestor);
-//		}
-		// versione alternativa migliore. PS servira' il controllo != da stdClass?
-		$parentClass = $class;
-		while(is_string($parentClass = get_parent_class($parentClass)) && strcasecmp($parentClass, 'stdClass') != 0) {
-            $list[] = $parentClass;
-        }
-//        var_dump($list);
-		// TODO se il while si interrompe per il null, vuol dire che la lista � parziale. Gestirlo in modo diverso?
-		return $list;
-		
-				
-		
-	}
+
+// 	/**
+// 	 * @author Pinto
+// 	 * @access private
+// 	 * @return array list of ancestor (almeno quelli che riesce a trovare)
+// 	 */
+// 	function get_all_ancerstors_of_class ($class) {
+// 		$list = array();
+// //		$ancestor = get_parent_class($class);
+// //		while ($ancestor != null && $ancestor != 'stdClass' )
+// //		{
+// //			$list[] 	= $ancestor;
+// //			$ancestor 	= get_parent_class($ancestor);
+// //		}
+// 		// versione alternativa migliore. PS servira' il controllo != da stdClass?
+// 		$parentClass = $class;
+// 		while(is_string($parentClass = get_parent_class($parentClass)) && strcasecmp($parentClass, 'stdClass') != 0) {
+//             $list[] = $parentClass;
+//         }
+// //        var_dump($list);
+// 		// TODO se il while si interrompe per il null, vuol dire che la lista � parziale. Gestirlo in modo diverso?
+// 		return $list;
+// 	}
 	
 	
 	/**
@@ -222,8 +226,12 @@ perch� impedisce il login agli utenti
 		// TODO: migliorare il confronto
 		$allSteps 	= $this->getAllInteractiveCommand();
 		$stepsDone 	= $this->getCompletedInteractiveCommandByUser();
-//		var_dump($allSteps);
-//		var_dump($stepsDone); die;
+		
+// 		echo '<pre>';
+// 		var_dump($allSteps);
+// 		var_dump($stepsDone);
+// 		echo '</pre>'; 
+// 		die;
 		$ret = array();
 		foreach ($allSteps as $i)
 			if (!in_array($i['className'], $stepsDone))
@@ -276,5 +284,4 @@ perch� impedisce il login agli utenti
 		CLInterpreter::init($this->getFrontController(), $this->userLogin);
 		return CLInterpreter::execMe($CL_code);
 	}
-	
 }

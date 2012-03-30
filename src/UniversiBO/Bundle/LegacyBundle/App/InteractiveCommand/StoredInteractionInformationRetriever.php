@@ -1,4 +1,6 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\App\InteractiveCommand;
+
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
@@ -29,8 +31,8 @@ class StoredInteractionInformationRetriever
 		$rows = $res->numRows();		
 		if( $rows = 0) return array();
 		
-		// VERIFY è possibile che la select dia più valori, ovvero che l'utente abbia fatto più volte lo stesso InteractiveCommand? si, se supponiamo 
-		// per esempio che un utente debba approvare più informative per la privacy. 
+		// VERIFY ï¿½ possibile che la select dia piï¿½ valori, ovvero che l'utente abbia fatto piï¿½ volte lo stesso InteractiveCommand? si, se supponiamo 
+		// per esempio che un utente debba approvare piï¿½ informative per la privacy. 
 		$row = $res->fetchRow();
 		$idStep = $row[0];
 		$res->free();

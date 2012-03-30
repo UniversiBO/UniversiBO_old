@@ -1,8 +1,11 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command\InteractiveCommand;
 
+use UniversiBO\Bundle\LegacyBundle\App\InteractiveCommand\BaseInteractiveCommand;
+
+use \DB;
+use \Error;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
-
-require_once 'InteractiveCommand/BaseInteractiveCommand'.PHP_EXTENSION;
 
 /**
  * InformativaPrivacyInteractiveCommand is an extension of BaseInteractiveCommand class.
@@ -19,7 +22,7 @@ class InformativaPrivacyInteractiveCommand extends BaseInteractiveCommand
 	public function __construct ($baseCommand) {
 		parent::__construct($baseCommand);
 		
-		// Da qui si può personalizzare il contenuto che comparirà. Meglio qui o direttamente nel tpl? ah, se avessimo risolto il problema dei testi ..
+		// Da qui si puï¿½ personalizzare il contenuto che comparirï¿½. Meglio qui o direttamente nel tpl? ah, se avessimo risolto il problema dei testi ..
 		$this->priority = HIGH_INTERACTION;
 		$this->title = 'Informativa sulla privacy';
 		$this->navigationLang['next'] = 'accetta';
@@ -68,7 +71,7 @@ class InformativaPrivacyInteractiveCommand extends BaseInteractiveCommand
 		$query = 'SELECT id_informativa, testo FROM  informativa 
 					WHERE data_pubblicazione <= '.$db->quote( time() ).
 					' AND  (data_fine IS NULL OR data_fine > '.$db->quote( time() ).')' .
-							'ORDER BY id_informativa DESC';  // VERIFY così possiamo già pianificare quando una certa informativa scadrà
+							'ORDER BY id_informativa DESC';  // VERIFY cosï¿½ possiamo giï¿½ pianificare quando una certa informativa scadrï¿½
 										
 		$res = $db->query($query);
 		if (DB::isError($res)) 
