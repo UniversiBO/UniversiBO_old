@@ -1,11 +1,15 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command\Links;
+
+use \Canale;
+use \Link;
 
 use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
 
 require_once ('Links/Link'.PHP_EXTENSION);
 
 /**
- * ShowLinksExtended è un'implementazione di PluginCommand.
+ * ShowLinksExtended Ã¨ un'implementazione di PluginCommand.
  *
  * Mostra i link 
  * Il BaseCommand che chiama questo plugin deve essere un'implementazione di UniversiBOCommand.
@@ -98,7 +102,4 @@ class ShowLinksExtended extends PluginCommand {
 		$template->assign('showLinksExtended_linksListAvailable', ((count($elenco_links_tpl) > 0) || $personalizza));
 		//var_dump($user);
 	}
-		
 }
-
-?>

@@ -1,10 +1,13 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command\Links;
+
+use \Link;
 use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
 
 require_once ('Links/Link'.PHP_EXTENSION);
 
 /**
- * ShowLinks è un'implementazione di PluginCommand.
+ * ShowLinks Ã¨ un'implementazione di PluginCommand.
  *
  * Mostra i link 
  * Il BaseCommand che chiama questo plugin deve essere un'implementazione di CanaleCommand.
@@ -85,7 +88,4 @@ class ShowLinks extends PluginCommand {
 		$template->assign('showLinks_linksAdminLabel', 'Gestione links');
 		$template->assign('showLinks_linksPersonalizza', ($personalizza) ? 'true' : 'false');
 	}
-		
 }
-
-?>

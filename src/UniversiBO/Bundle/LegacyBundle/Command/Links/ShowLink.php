@@ -1,12 +1,13 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command\Links;
 
-
+use \Link;
 use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
 
 require_once ('Links/Link'.PHP_EXTENSION);
 
 /**
- * ShowLink è un'implementazione di PluginCommand.
+ * ShowLink Ã¨ un'implementazione di PluginCommand.
  *
  * Mostra i link 
  * Il BaseCommand che chiama questo plugin deve essere un'implementazione di CanaleCommand.
@@ -80,9 +81,5 @@ class ShowLink extends PluginCommand {
 	
 
 		$template->assign('showSingleLink', $link_tpl);	
-		
 	}
-		
 }
-
-?>
