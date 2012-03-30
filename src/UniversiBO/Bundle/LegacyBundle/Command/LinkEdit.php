@@ -1,7 +1,10 @@
 <?php      
-use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
+namespace UniversiBO\Bundle\LegacyBundle\Command;
 
-require_once ('Links/Link'.PHP_EXTENSION);
+use \DB;
+use \Error;
+use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
+use UniversiBO\Bundle\LegacyBundle\App\Links\Link;
 
 /**
  * NewsEdit: si occupa della modifica di una news in un canale
@@ -13,7 +16,6 @@ require_once ('Links/Link'.PHP_EXTENSION);
  * @author Fabrizio Pinto
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
-
 class LinkEdit extends CanaleCommand
 {
 
@@ -34,10 +36,10 @@ class LinkEdit extends CanaleCommand
 
         if (!array_key_exists('id_link', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_link']))
         {
-            Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del link richiesta non è	valido', 'file' => __FILE__, 'line' => __LINE__));
+            Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del link richiesta non ï¿½	valido', 'file' => __FILE__, 'line' => __LINE__));
         }
         if ($canale->getServizioLinks() == false)
-            Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => "Il servizio link è disattivato", 'file' => __FILE__, 'line' => __LINE__));
+            Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => "Il servizio link ï¿½ disattivato", 'file' => __FILE__, 'line' => __LINE__));
 
 
         if (array_key_exists($id_canale, $user_ruoli))
@@ -105,7 +107,7 @@ class LinkEdit extends CanaleCommand
             $f31_accept = true;
 
             if (!array_key_exists('f31_URI', $_POST) || !array_key_exists('f31_Label', $_POST) || !array_key_exists('f31_Description', $_POST))
-                Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il form inviato non è valido', 'file' => __FILE__, 'line' => __LINE__));
+                Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il form inviato non ï¿½ valido', 'file' => __FILE__, 'line' => __LINE__));
             	
             $f31_URI = $_POST['f31_URI'];
             $f31_Description = $_POST['f31_Description'];

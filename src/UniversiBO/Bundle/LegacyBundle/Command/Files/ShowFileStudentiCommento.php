@@ -1,12 +1,12 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command\Files;
 
+use UniversiBO\Bundle\LegacyBundle\App\Commenti\CommentoItem;
+use UniversiBO\Bundle\LegacyBundle\App\Files\FileItemStudenti;
 use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
 
-require_once ('Files/FileItemStudenti'.PHP_EXTENSION);
-require_once ('Commenti/CommentoItem'.PHP_EXTENSION);
-
 /**
- * ShowFileStudentiCommenti é un'implementazione di PluginCommand.
+ * ShowFileStudentiCommenti Ã¨ un'implementazione di PluginCommand.
  *
  * Mostra i file del canale
  * Il BaseCommand che chiama questo plugin deve essere un'implementazione di CanaleCommand.
@@ -18,7 +18,6 @@ require_once ('Commenti/CommentoItem'.PHP_EXTENSION);
  * @author Fabrizio Pinto
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
- 
 class ShowFileStudentiCommento extends PluginCommand {
 	
 	//todo: rivedere la questione diritti per uno studente...

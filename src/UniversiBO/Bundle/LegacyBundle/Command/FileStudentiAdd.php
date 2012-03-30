@@ -1,9 +1,13 @@
 <?php    
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
+use UniversiBO\Bundle\LegacyBundle\App\Notifica\NotificaItem;
+
 use \DB;
 use \Error;
 
+use UniversiBO\Bundle\LegacyBundle\App\Canale;
+use UniversiBO\Bundle\LegacyBundle\App\Files\FileItem;
 use UniversiBO\Bundle\LegacyBundle\App\Files\FileItemStudenti;
 use UniversiBO\Bundle\LegacyBundle\App\AntiVirus\AntiVirusFactory;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
@@ -181,7 +185,7 @@ class FileStudentiAdd extends UniversiboCommand {
 				$f23_data_ins_mm = $_POST['f23_data_ins_mm'];
 
 			//f23_data_ins_aa
-			if (!ereg('^([0-9]{4})$', $_POST['f23_data_ins_aa'])) {
+			if (!preg_match('/^([0-9]{4})$/', $_POST['f23_data_ins_aa'])) {
 				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il formato del campo anno di inserimento non � valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 				$f23_accept = false;
 				$checkdate_ins = false;
@@ -278,7 +282,7 @@ class FileStudentiAdd extends UniversiboCommand {
 			else $f23_categoria = $_POST['f23_categoria'];
 			
 			//permessi_download	
-			if (!ereg('^([0-9]{1,3})$', $_POST['f23_permessi_download'])) 
+			if (!preg_match('/^([0-9]{1,3})$/', $_POST['f23_permessi_download'])) 
 			{
 				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'I permessi di download non sono validi', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 				$f23_accept = false;
@@ -436,7 +440,6 @@ class FileStudentiAdd extends UniversiboCommand {
 						//correttezza legale del file
 						
 						//notifiche
-						require_once('Notifica/NotificaItem'.PHP_EXTENSION);
 						$notifica_titolo = 'Nuovo file studente inserito in '.$canale->getNome();
 						$notifica_titolo = substr($notifica_titolo,0 , 199);
 						$notifica_dataIns = $f23_data_inserimento;

@@ -1,8 +1,11 @@
 <?php 
+namespace UniversiBO\Bundle\LegacyBundle\Command;
 
+use \DB;
+use \Error;
+use UniversiBO\Bundle\LegacyBundle\App\Canale;
 use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
-
-require_once 'Links/Link'.PHP_EXTENSION;
+use UniversiBO\Bundle\LegacyBundle\App\Links\Link;
 
 /**
  * LinkDelete: elimina un link, mostra il form e gestisce la cancellazione 
@@ -36,24 +39,24 @@ class LinkDelete extends CanaleCommand {
 		
 		if (!array_key_exists('id_link', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_link'] )  )
 		{
-			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'id del link richiesto non è valido','file'=>__FILE__,'line'=>__LINE__ ));
+			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'id del link richiesto non ï¿½ valido','file'=>__FILE__,'line'=>__LINE__ ));
 		}
 			
 		$link = & Link::selectLink($_GET['id_link']);
 		if ($link === false)
-			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il link richiesto non è presente su database', 'file' => __FILE__, 'line' => __LINE__));
+			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il link richiesto non ï¿½ presente su database', 'file' => __FILE__, 'line' => __LINE__));
 			
 		$autore = ($user->getIdUser() == $link->getIdUtente());
 							
 		if (array_key_exists('id_canale', $_GET))
 		{
 			if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
-				Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
+				Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non ï¿½ valido', 'file' => __FILE__, 'line' => __LINE__));
 
 			$canale = & Canale::retrieveCanale($_GET['id_canale']);
 			
 			if ($canale->getServizioLinks() == false) 
-				Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il servizio links è disattivato', 'file' => __FILE__, 'line' => __LINE__));
+				Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il servizio links ï¿½ disattivato', 'file' => __FILE__, 'line' => __LINE__));
 		
 			$id_canale = $canale->getIdCanale();
 			$template->assign('common_canaleURI', $canale->showMe());
@@ -84,7 +87,7 @@ class LinkDelete extends CanaleCommand {
 		{
 			if($link->deleteLink())
 			{
-				$template->assign('f30_langAction',"Il link è stato eliminato correttamente");
+				$template->assign('f30_langAction',"Il link ï¿½ stato eliminato correttamente");
 				return 'success';
 			}	
 		}

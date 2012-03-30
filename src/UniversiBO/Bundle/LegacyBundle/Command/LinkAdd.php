@@ -1,8 +1,13 @@
 <?php    
+namespace UniversiBO\Bundle\LegacyBundle\Command;
 
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
-require_once ('Links/Link'.PHP_EXTENSION);
+use \DB;
+use \Error;
+use UniversiBO\Bundle\LegacyBundle\App\Canale;
+use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
+use UniversiBO\Bundle\LegacyBundle\App\Links\Link;
 
 /**
  * LinkAdd: si occupa dell'inserimento di un link in un canale
@@ -57,12 +62,12 @@ class LinkAdd extends UniversiboCommand {
 			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Devi specificare un id del canale', 'file' => __FILE__, 'line' => __LINE__));
 		
 		if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
-			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
+			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non ï¿½ valido', 'file' => __FILE__, 'line' => __LINE__));
 
 		$canale = & Canale::retrieveCanale($_GET['id_canale']);
 		
 		if ($canale->getServizioLinks() == false) 
-			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => "Il servizio links è disattivato", 'file' => __FILE__, 'line' => __LINE__));
+			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => "Il servizio links ï¿½ disattivato", 'file' => __FILE__, 'line' => __LINE__));
 	
 		$id_canale = $canale->getIdCanale();
 		$template->assign('common_canaleURI', $canale->showMe());
@@ -81,13 +86,13 @@ class LinkAdd extends UniversiboCommand {
 			$f29_accept = true;
 	
 			if (!array_key_exists('f29_URI', $_POST) || !array_key_exists('f29_Label', $_POST) || !array_key_exists('f29_Description', $_POST))
-				Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il form inviato non è valido', 'file' => __FILE__, 'line' => __LINE__));
+				Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il form inviato non ï¿½ valido', 'file' => __FILE__, 'line' => __LINE__));
 			
 			$f29_URI = $_POST['f29_URI'];
 			$f29_Description = $_POST['f29_Description'];
 			$f29_Label = $_POST['f29_Label'];
 				
-			if (!ereg('(^(http(s)?|ftp)://|^.{0}$)', $f29_URI))
+			if (!preg_match('/^(http(s)?|ftp)://|^.{0}$/', $f29_URI))
 			{
 				$f29_accept = false;
 				$f29_URI = 'http://';

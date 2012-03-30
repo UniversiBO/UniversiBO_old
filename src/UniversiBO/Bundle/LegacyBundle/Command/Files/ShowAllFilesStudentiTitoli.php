@@ -1,8 +1,9 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command\Files;
 
+use UniversiBO\Bundle\LegacyBundle\App\Canale;
+use UniversiBO\Bundle\LegacyBundle\App\Files\FileItemStudenti;
 use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
-
-require_once ('Files/FileItemStudenti'.PHP_EXTENSION);
 
 /**
  * ShowAllFilesStudentiTitoli e` un'implementazione di PluginCommand.
@@ -123,10 +124,7 @@ class ShowAllFilesStudentiTitoli extends PluginCommand {
 			}
 		}
 		$template->assign('showAllFilesStudentiTitoli_fileList', $file_tpl);
-		
-		
 	}
-	
 	
 	/**
 	 * Ordina la struttura dei file
@@ -141,9 +139,4 @@ class ShowAllFilesStudentiTitoli extends PluginCommand {
 //		if ($a->getDataInserimento() < $b->getDataInserimento()) return +1;
 //		if ($a->getDataInserimento() > $b->getDataInserimento()) return -1;
 	}
-	
-	
-	
 }
-
-?>

@@ -1,4 +1,9 @@
-<?php 
+<?php
+namespace UniversiBO\Bundle\LegacyBundle\Command;
+
+use \DB;
+use \Error;
+use UniversiBO\Bundle\LegacyBundle\App\Canale;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -32,7 +37,7 @@ class LinksAdmin extends UniversiboCommand {
 		
 							
 		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
-			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
+			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non e` valido', 'file' => __FILE__, 'line' => __LINE__));
 			
 		$canale = & Canale::retrieveCanale($_GET['id_canale']);
 		$id_canale = $canale->getIdCanale();
@@ -46,13 +51,8 @@ class LinksAdmin extends UniversiboCommand {
 			$referente = $ruolo->isReferente();
 		}
 		
-		
 		if (!$user->isAdmin() && !$referente )
 			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => "Non hai i diritti per modificare i diritti degli utenti su questa pagina.\nLa sessione potrebbe essere scaduta.", 'file' => __FILE__, 'line' => __LINE__));
-		
-		
-		
-		
 		
 
 //		$f16_accept = false;
@@ -167,8 +167,4 @@ class LinksAdmin extends UniversiboCommand {
 		
 		return 'default';
 	}
-	
-
 }
-
-?>

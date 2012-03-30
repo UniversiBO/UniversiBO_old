@@ -738,7 +738,7 @@ class FileItem {
         {
             // @TODO cambiare database
             //echo '['.$value.'-'.ereg($value, $nome_file).']';
-            if ( ereg($value, $nome_file) )
+            if ( @ereg($value, $nome_file) )
                 return $key;
         }
 

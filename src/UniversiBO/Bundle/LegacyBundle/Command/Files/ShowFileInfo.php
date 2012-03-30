@@ -1,9 +1,10 @@
 <?php    
+namespace UniversiBO\Bundle\LegacyBundle\Command\Files;
 
+use UniversiBO\Bundle\LegacyBundle\App\Canale;
+use UniversiBO\Bundle\LegacyBundle\App\Files\FileItemStudenti;
+use UniversiBO\Bundle\LegacyBundle\App\Files\FileItem;
 use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
-
-require_once ('Files/FileItem'.PHP_EXTENSION);
-require_once ('Files/FileItemStudenti'.PHP_EXTENSION);
 
 /**
  * ShowFileInfo: mostra tutte le informazioni correlate ad un file
@@ -14,7 +15,6 @@ require_once ('Files/FileItemStudenti'.PHP_EXTENSION);
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
-
 class ShowFileInfo extends PluginCommand {
 	
 	/**
@@ -29,7 +29,7 @@ class ShowFileInfo extends PluginCommand {
 		
 		if (!array_key_exists('id_file', $param) || !preg_match('/^([0-9]{1,9})$/', $param['id_file'] )  )
 		{
-			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'id del file richiesto non è valido','file'=>__FILE__,'line'=>__LINE__ ));
+			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'id del file richiesto non ï¿½ valido','file'=>__FILE__,'line'=>__LINE__ ));
 		}
 				
 		$fc        = $bc->getFrontController();
@@ -53,20 +53,20 @@ class ShowFileInfo extends PluginCommand {
 			$file = FileItemStudenti::selectFileItem($param['id_file']);
 		else	
 			$file = FileItem::selectFileItem($param['id_file']);
-		//Con questo passaggio dovrei riuscire a verificare se il file che si vuole modificare é un file studente o no
-		//true -> é un file studente
+		//Con questo passaggio dovrei riuscire a verificare se il file che si vuole modificare ï¿½ un file studente o no
+		//true -> ï¿½ un file studente
 //		var_dump($tipo_file);
 //		die();
 		
 		if ($file === false)
-			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => "Il file richiesto non è presente su database", 'file' => __FILE__, 'line' => __LINE__));
+			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => "Il file richiesto non ï¿½ presente su database", 'file' => __FILE__, 'line' => __LINE__));
 		
 		//var_dump($file);
         $directoryFile = $fc->getAppSetting('filesPath');
 		$nomeFile = $file->getIdFile().'_'.$file->getNomeFile();
 		
 		if (!$user->isGroupAllowed( $file->getPermessiVisualizza() ) )
-			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Non è permesso visualizzare il file.
+			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Non ï¿½ permesso visualizzare il file.
 			Non possiedi i diritti necessari, la sessione potrebbe essere scaduta.', 'file' => __FILE__, 'line' => __LINE__, 'log' => true));
 
 		$template->assign('showFileInfo_editFlag', 'false');
@@ -78,11 +78,11 @@ class ShowFileInfo extends PluginCommand {
 		if (array_key_exists('id_canale', $_GET))
 		{
 			if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
-				Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non é valido', 'file' => __FILE__, 'line' => __LINE__));
+				Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non ï¿½ valido', 'file' => __FILE__, 'line' => __LINE__));
 
 			$canale = & Canale::retrieveCanale($_GET['id_canale']);
 			if ($canale->getServizioFiles() == false) 
-				Error :: throwError(_ERROR_DEFAULT, array ('msg' => "Il servizio files é disattivato", 'file' => __FILE__, 'line' => __LINE__));
+				Error :: throwError(_ERROR_DEFAULT, array ('msg' => "Il servizio files ï¿½ disattivato", 'file' => __FILE__, 'line' => __LINE__));
 					
 			$id_canale = $canale->getIdCanale();
 			
