@@ -1,4 +1,6 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command;
+
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -20,7 +22,7 @@ class ShowAccessibility extends UniversiboCommand {
 		$frontcontroller = $this->getFrontController();
 		$template = $frontcontroller->getTemplateEngine();
 		
-		$template->assign('showAccessibility_langTitleAlt','Dichiarazione di accessibilità');
+		$template->assignUnicode('showAccessibility_langTitleAlt','Dichiarazione di accessibilitÃ ');
 		$template->assign('showAccessibility_langTesto','');
 						
 		return 'default';						

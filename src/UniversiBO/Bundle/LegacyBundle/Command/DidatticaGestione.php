@@ -1,7 +1,12 @@
 <?php    
+namespace UniversiBO\Bundle\LegacyBundle\Command; 
 
+use \Error;
+use \Cdl;
+use \Facolta;
+use \PrgAttivitaDidattica;
+use UniversiBO\Bundle\LegacyBundle\App\Canale;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
-
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -25,7 +30,7 @@ class DidatticaGestione extends UniversiboCommand {
         $user = & $this->getSessionUser();
         $user_ruoli = & $user->getRuoli();
 
-        if (!$user->isAdmin())		// TODO far sì che specifici utenti siano autorizzati (da file di conf)
+        if (!$user->isAdmin())		// TODO far sï¿½ che specifici utenti siano autorizzati (da file di conf)
         {
             Error :: throwError (_ERROR_DEFAULT, array ('msg' => "Non hai i diritti necessari per accedere a questa pagina\n la sessione potrebbe essere terminata", 'file' => __FILE__, 'line' => __LINE__));
         }
@@ -45,7 +50,7 @@ class DidatticaGestione extends UniversiboCommand {
 
         $esamiAlternativi = '';
 
-        // controllo se è stato scelta un'attività sdoppiata
+        // controllo se ï¿½ stato scelta un'attivitï¿½ sdoppiata
         if (array_key_exists('id_sdop', $_GET) && preg_match('/^([0-9]{1,9})$/', $_GET['id_sdop']))
         {
             $prg_sdop = PrgAttivitaDidattica::selectPrgAttivitaDidatticaSdoppiata((int) $_GET['id_sdop']);
@@ -61,7 +66,7 @@ class DidatticaGestione extends UniversiboCommand {
                 $f41_cur_sel['ciclo'] = $prg_sdop->getTipoCiclo();
                 $f41_cur_sel['anno'] = $prg_sdop->getAnnoCorsoUniversibo();
                 $f41_cur_sel['cdl'] = $cdl->getTitolo() . ' - ' .$prg_sdop->getCodiceCdl();
-                $f41_cur_sel['facoltà'] = $fac->getTitolo();
+                $f41_cur_sel['facolta'] = $fac->getTitolo();
                 $f41_cur_sel['status'] = 'sdoppiato';
                 	
                 $f41_edit_sel['ciclo'] = $prg_sdop->getTipoCiclo();
@@ -78,7 +83,7 @@ class DidatticaGestione extends UniversiboCommand {
         if (array_key_exists('id_canale', $_GET) && preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
         {
             //			if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
-                //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
+                //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non ï¿½ valido', 'file' => __FILE__, 'line' => __LINE__));
 
             if ( Canale::getTipoCanaleFromId($_GET['id_canale']) == CANALE_INSEGNAMENTO)
             {
@@ -96,7 +101,7 @@ class DidatticaGestione extends UniversiboCommand {
                     $f41_cur_sel['ciclo'] = $prg->getTipoCiclo();
                     $f41_cur_sel['anno'] = $prg->getAnnoCorsoUniversibo();
                     $f41_cur_sel['cdl'] = $cdl->getTitolo() . ' - ' . $prg->getCodiceCdl();
-                    $f41_cur_sel['facoltà'] = $fac->getTitolo();
+                    $f41_cur_sel['facolta'] = $fac->getTitolo();
                     	
                     $f41_edit_sel['ciclo'] = $prg->getTipoCiclo();
                     $f41_edit_sel['anno'] = $prg->getAnnoCorsoUniversibo();
@@ -109,7 +114,7 @@ class DidatticaGestione extends UniversiboCommand {
                     $esamiAlternativi = DidatticaGestione::_getAttivitaFromCanale($id_canale,$prg_sdop);
                 //				$esamiAlternativi = DidatticaGestione::_getAttivitaFromCanale($id_canale);
                 if (count($esamiAlternativi) == 0) $esamiAlternativi = '';
-                // la modifica del docente è permessa solo quando è insegnamento padre e  non è attivo il forum dell'insegnamento
+                // la modifica del docente ï¿½ permessa solo quando ï¿½ insegnamento padre e  non ï¿½ attivo il forum dell'insegnamento
                 if(!array_key_exists('id_sdop', $_GET) &&
                         ($canale->getForumForumId() == null ||$canale->getForumForumId() == 0)
                 )
@@ -121,19 +126,19 @@ class DidatticaGestione extends UniversiboCommand {
         }
 
 
-        // controllo facoltà scelta
+        // controllo facoltï¿½ scelta
         //		if (array_key_exists('id_fac', $_GET))
         if (array_key_exists('id_fac', $_GET) && preg_match('/^([0-9]{1,9})$/', $_GET['id_fac']))
         {
             //			if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_fac']))
-                //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id della facoltà richiesta non è valido', 'file' => __FILE__, 'line' => __LINE__));
+                //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id della facoltï¿½ richiesta non ï¿½ valido', 'file' => __FILE__, 'line' => __LINE__));
 
 
             if ( Canale::getTipoCanaleFromId($_GET['id_fac']) == CANALE_FACOLTA)
             {
                 $fac = & Canale::retrieveCanale(intval($_GET['id_fac']));
                 $id_facolta = $fac->getIdCanale();
-                $f41_cur_sel['facoltà'] = $fac->getTitolo();
+                $f41_cur_sel['facolta'] = $fac->getTitolo();
             }
         }
 
@@ -142,13 +147,13 @@ class DidatticaGestione extends UniversiboCommand {
         if (array_key_exists('id_cdl', $_GET) && preg_match('/^([0-9]{1,9})$/', $_GET['id_cdl']))
         {
             //			if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_cdl']))
-                //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
+                //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non ï¿½ valido', 'file' => __FILE__, 'line' => __LINE__));
 
             	
             if ( Canale::getTipoCanaleFromId($_GET['id_cdl']) == CANALE_CDL)
             {
                 $cdl = & Canale::retrieveCanale(intval($_GET['id_cdl']));
-                // controllo coerenza tra facoltà, cdl e insegnamento
+                // controllo coerenza tra facoltï¿½, cdl e insegnamento
                 if($id_facolta != '')
                     if($cdl->getCodiceFacoltaPadre() == $fac->getCodiceFacolta())
                     if($id_canale == '' || in_array($cdl->getCodiceCdl(),$canale->getElencoCodiciCdl()))
@@ -159,7 +164,7 @@ class DidatticaGestione extends UniversiboCommand {
                     else
                     {
                         $id_facolta = '';
-                        unset($f41_cur_sel['facoltà']);
+                        unset($f41_cur_sel['facolta']);
                     }
             }
         }
@@ -172,7 +177,7 @@ class DidatticaGestione extends UniversiboCommand {
         {
             	
             if (!array_key_exists('f41_username', $_POST) || !array_key_exists('f41_email', $_POST) )
-                Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'La ricerca docente effettuata non è valida', 'file' => __FILE__, 'line' => __LINE__));
+                Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'La ricerca docente effettuata non ï¿½ valida', 'file' => __FILE__, 'line' => __LINE__));
             	
             $f41_accept = true;
             	
@@ -210,7 +215,7 @@ class DidatticaGestione extends UniversiboCommand {
         }
 
         $f41_accept = false;
-        // submit della modifica delle attività
+        // submit della modifica delle attivitï¿½
         if (array_key_exists('f41_submit', $_POST) && $id_canale != '' )
         {
             $f41_accept = true;
@@ -276,7 +281,7 @@ class DidatticaGestione extends UniversiboCommand {
                     }
                     if (array_key_exists('anno', $tmpEdit))
                     {
-                        // l'anno può essere 0 per gli esami opzionali di economia
+                        // l'anno puï¿½ essere 0 per gli esami opzionali di economia
                         if (!preg_match('/^([0-5]{1})$/', $tmpEdit['anno']) || Docente::selectDocenteFromCod($tmpEdit['anno']))
                         {
                             Error :: throwError (_ERROR_NOTICE, array ('msg' => 'Anno invalido, nessuna modifica effettuata', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
@@ -419,7 +424,7 @@ class DidatticaGestione extends UniversiboCommand {
 
 
     /**
-     * Recupera le attività associate ad un insegnamento, escludendo un eventuale attività
+     * Recupera le attivitï¿½ associate ad un insegnamento, escludendo un eventuale attivitï¿½
      */
     function  & _getAttivitaFromCanale($id_canale, $prg_exclude = null)
     {
@@ -487,7 +492,7 @@ class DidatticaGestione extends UniversiboCommand {
 
     /**
      * modifica prg e tiene traccia delle modifiche in $mods
-     * @param type string  può essere doc, ciclo, anno
+     * @param type string  puï¿½ essere doc, ciclo, anno
      */
     function _updateVal(& $prg,$index, & $mods, $val, $type, & $template)
     {
