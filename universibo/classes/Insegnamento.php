@@ -2,14 +2,11 @@
 
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
-require_once('Canale'.PHP_EXTENSION);
-require_once('PrgAttivitaDidattica'.PHP_EXTENSION);
-
 /**
  * Insegnamento class.
  *
  * Modella un insegnamento e le informazioni associate.
- * Ad un insegnamento possono essere associate da 1 a n attività didattiche (PrgAttivitaDidattica).
+ * Ad un insegnamento possono essere associate da 1 a n attivitï¿½ didattiche (PrgAttivitaDidattica).
  *
  * @package universibo
  * @version 2.0.0

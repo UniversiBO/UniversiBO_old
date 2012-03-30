@@ -2,8 +2,6 @@
 
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
-require_once('Canale'.PHP_EXTENSION);
-
 global $__facoltaElencoCodice;
 global $__facoltaElencoAlfabetico;
 global $__facoltaElencoCanale;
@@ -27,7 +25,7 @@ $facoltaElencoCanale     = NULL;
  * @copyright CopyLeft UniversiBO 2001-2003
  */
 
-class Facolta extends Canale{
+class Facolta extends Canale {
 	
 	/**
 	 * @private

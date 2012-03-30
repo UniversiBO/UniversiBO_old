@@ -2,8 +2,6 @@
 
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
-require_once('Canale'.PHP_EXTENSION);
-
 define('CDL_NUOVO_ORDINAMENTO'   ,1);
 define('CDL_SPECIALISTICA'       ,2);
 define('CDL_VECCHIO_ORDINAMENTO' ,3);
@@ -23,7 +21,7 @@ define('CDL_VECCHIO_ORDINAMENTO' ,3);
  * @copyright CopyLeft UniversiBO 2001-2003
  */
 
-class Cdl extends Canale{
+class Cdl extends Canale {
 	
 	/**
 	 * @private
@@ -188,7 +186,7 @@ class Cdl extends Canale{
 	}
 
 	/**
-	 * Restituisce il codice della facoltà a cui afferisce il cdl
+	 * Restituisce il codice della facoltï¿½ a cui afferisce il cdl
 	 *
 	 * @return string
 	 */
@@ -199,8 +197,8 @@ class Cdl extends Canale{
 
 
 	/**
-	 * Imposta il codice della facoltà a cui afferisce il cdl
-	 * @todo bisogna estendere a più facoltà perchè la relazione è n-n e non 1-n
+	 * Imposta il codice della facoltï¿½ a cui afferisce il cdl
+	 * @todo bisogna estendere a piï¿½ facoltï¿½ perchï¿½ la relazione ï¿½ n-n e non 1-n
 	 *
 	 * @return string
 	 */
