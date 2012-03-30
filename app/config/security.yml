@@ -24,7 +24,7 @@ security:
         logoutAfter:
             pattern:  ^/logoutAfter$
             security: false
-        forcelogin:
+        personal:
             pattern: ^/
             legacy: true
             form_login:

@@ -1,9 +1,9 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command;
+
+use UniversiBO\Bundle\LegacyBundle\Command\InteractiveCommand\InformativaPrivacyInteractiveCommand;
 
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
-
-require_once ('InteractiveCommand/InformativaPrivacyInteractiveCommand'.PHP_EXTENSION);
-
 
 /**
  * ShowRules is an extension of UniversiboCommand class.
@@ -30,48 +30,48 @@ class ShowRules extends UniversiboCommand {
 		$testoInformativa = InformativaPrivacyInteractiveCommand::getAttualeInformativaPrivacy ();										
 		$template->assign('rules_langPrivacy', $testoInformativa['testo']);
 		$template->assign('rules_langTitle', 'REGOLAMENTO PER L\'UTILIZZO DEI SERVIZI');
-		$template->assign('rules_langFacSubtitle', 'Università di Bologna');
+		$template->assignUnicode('rules_langFacSubtitle', 'UniversitÃ  di Bologna');
 
 		$template->assign('rules_langForum', 'NORME PER L\'UTILIZZO DEL FORUM');
-		$template->assign('rules_langForumRules', 'Se avete domande da fare o, ancora meglio, se avete qualcosa 
+		$template->assignUnicode('rules_langForumRules', 'Se avete domande da fare o, ancora meglio, se avete qualcosa 
       da comunicare non esitate ad usufruire del forum facendo attenzione a 
       rispettare le seguenti regole e consigli:
       
     [list]
       [*]se volete porre una domanda, controllate bene che l\'informazione cercata 
-        non sia già presente all\'interno del sito o che non sia già 
+        non sia giÃ  presente all\'interno del sito o che non sia giÃ  
         stata posta in un vecchio messaggio; 
       [*]i messaggi vengono raggruppati in discussioni(topic): per cui se rispondete 
-        ad un messaggio, il vostro verrà visualizzato subito al di sotto 
+        ad un messaggio, il vostro verrï¿½ visualizzato subito al di sotto 
         del precedente. Per facilitare a tutti la navigazione tra i diversi 
-        topic ciò che più conta è che il primo a postare 
+        topic ciÃ² che piÃ¹ conta Ã¨ che il primo a postare 
         un messaggio utilizzi un titolo opportuno e significativo. 
-     [*]quando possibile cercate di rispondere all\'interno di un topic già 
+     [*]quando possibile cercate di rispondere all\'interno di un topic giÃ  
         iniziato; 
      [*]evitate di scrivere messaggi troppo lunghi, altrimenti potreste rischiare 
         che nessuno li legga; 
       [*]se volete fare delle critiche non siate offensivi e fate in modo che 
         siano costruttive; 
-        [*]non postate lo stesso messaggio più volte; 
+        [*]non postate lo stesso messaggio piÃ¹ volte; 
         [*]se possibile non riportare il messaggio a cui rispondi, casomai, quando 
           servisse, riporta solo una frase; 
         [*]non usate esclusivamente lettere maiuscole(usare maiuscole significa 
           gridare). 
       [/list]
       
-      Sul Forum è assolutamente vietato:
+      Sul Forum Ã¨ assolutamente vietato:
       
       [list]
         [*]postare messaggi offensivi; 
-        [*]postare messaggi contenenti volgarità contrari alla morale 
+        [*]postare messaggi contenenti volgaritÃ  contrari alla morale 
           pubblica, messaggi politici/razziali, messaggi con contenuto osceno, 
           pornografico, ecc.; 
         [*]postare messaggi illeciti o link di siti illegali (pirateria, hacking, 
           pornografia); 
-        [*]postare messaggi con qualsiasi forma di spam o pubblicità. 
+        [*]postare messaggi con qualsiasi forma di spam o pubblicitÃ . 
       [/list]
       
-      Il compito dei moderatori sarà quello di garantire il rispetto 
+      Il compito dei moderatori sarÃ  quello di garantire il rispetto 
         assoluto delle regole e di consentire il corretto svolgimento delle discussioni. 
         Per cui potranno:
         
@@ -80,7 +80,7 @@ class ShowRules extends UniversiboCommand {
           di un civile e razionale dibattito.  
         [*]cancellare o modificare, senza alcun preavviso, un messaggio ritenuto 
           offensivo o comunque non consono allo spirito del forum. 
-        [*]cancellare messaggi identici ripetuti più volte; 
+        [*]cancellare messaggi identici ripetuti piÃ¹ volte; 
          intervenire a loro insindacabile giudizio. 
       [/list]
       
@@ -91,14 +91,11 @@ class ShowRules extends UniversiboCommand {
         del forum-->.
         
       
-       Siete invitati a segnalare ai moderatori eventuali irregolarità 
+       Siete invitati a segnalare ai moderatori eventuali irregolaritÃ  
         di determinati messaggi.
         
       ');
 
 		return 'default';
 	}
-
 }
-
-?>
