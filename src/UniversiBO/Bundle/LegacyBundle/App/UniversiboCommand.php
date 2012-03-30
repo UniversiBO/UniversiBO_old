@@ -218,7 +218,7 @@ abstract class UniversiboCommand extends BaseCommand {
         $template->assign('common_universibo', 'UniversiBO');
         $template->assignUnicode('common_metaKeywords', 'universibo, università, facoltà, studenti, bologna, professori, lezioni, materiale didattico, didattica, corsi, studio, studi, novit�, appunti, dispense, lucidi, esercizi, esami, temi d\'esame, orari lezione, ingegneria, economia, ateneo');
         $template->assign('common_metaDescription', 'Il portale dedicato agli studenti universitari di Bologna');
-        $template->assign('common_title', 'UniversiBO: la community degli studenti dell\'Università di Bologna');
+        $template->assignUnicode('common_title', 'UniversiBO: la community degli studenti dell\'Università di Bologna');
         $template->assign('common_langNewWindow', 'apre una nuova finestra');
 
         //krono
@@ -338,7 +338,7 @@ abstract class UniversiboCommand extends BaseCommand {
             $template->assign('common_userLivello', $session_user->getUserGroupsNames());
 
             $template->assign('common_langWelcomeMsg', 'Benvenuto');
-            $template->assign('common_langUserLivello', 'Il tuo livello di utenza è');
+            $template->assignUnicode('common_langUserLivello', 'Il tuo livello di utenza è');
         }
 
         $template->assign('common_settings', 'Impostazioni personali');
