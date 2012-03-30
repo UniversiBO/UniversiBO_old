@@ -32,7 +32,7 @@ class ShowTopic extends PluginCommand {
 	 *  - 'reference' il riferimento degli argomenti da visualizzare
 	 *	  es: array('reference'=>'pippo') 
 	 */
-	function execute($param)
+	public function execute($param = array())
 	{
 		$reference  =  $param['reference'];
 
