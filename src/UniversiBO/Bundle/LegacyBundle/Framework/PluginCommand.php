@@ -37,7 +37,7 @@ class PluginCommand
 	 * @param mixed $param optional parameter, must be handled from the chosen implementation of PluginCommand
 	 * @todo make abstract
 	 */ 
-	public function execute($param=NULL)
+	public function execute($param=null)
 	{
 		Error::throwError(_ERROR_CRITICAL,array('msg'=>'Il metodo execute del command deve essere ridefinito','file'=>__FILE__,'line'=>__LINE__) );
 	}
