@@ -530,7 +530,7 @@ function getLastPostsForum(User $user, $id_forum, $num = 10)
 {
     // teoricamente se uno ha accesso al canale ha anche accesso al forum
 
-    // controllo post più recenti dell'ultimo accesso
+    // controllo post piÃ¹ recenti dell'ultimo accesso
 
 
     $db = FrontController::getDbConnection($this->database);
@@ -540,9 +540,11 @@ function getLastPostsForum(User $user, $id_forum, $num = 10)
     $query = 'SELECT t.topic_title, min(p.post_id) FROM '.$this->table_prefix.'posts p, '.$this->table_prefix.'topics t
     WHERE t.topic_id = p.topic_id
     AND p.forum_id = '.$db->quote($id_forum).'
-    AND p.post_id IN (SELECT pp.post_id FROM '.$this->table_prefix.'posts pp WHERE t.topic_id = pp.topic_id AND pp.post_time > '.$ultimo_login.' ORDER BY pp.post_time ASC)
+    AND p.post_id IN (SELECT pp.post_id FROM '.$this->table_prefix.'posts pp WHERE t.topic_id = pp.topic_id ORDER BY pp.post_time ASC)
     GROUP BY t.topic_title
     ORDER BY max(p.post_id) DESC';
+    
+    // rimosso  AND pp.post_time > '.$ultimo_login.'
 
     //var_dump($db);
     //
