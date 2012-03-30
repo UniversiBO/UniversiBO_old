@@ -160,9 +160,6 @@ class FrontController
      * @access public
      */
     function executeCommand(){
-
-        include_once ('BaseCommand'.PHP_EXTENSION);
-
         //$command_request=$this->getCommandRequest();
         $command_class=$this->getCommandClass();
         require_once($this->paths['commands'].'/'.$command_class.PHP_EXTENSION);
@@ -208,9 +205,6 @@ class FrontController
      * @access public
      */
     function executePlugin($name, &$base_command, $param=NULL){
-
-        include_once ('PluginCommand'.PHP_EXTENSION);
-
         $classValues = $this->getPluginClass($name);
 
         if ($classValues == null )
@@ -225,11 +219,15 @@ class FrontController
         //		$class_name = $explodedPc[count($explodedPc)-1];
         //
         //		require_once($this->paths['commands'].$file_namepath.PHP_EXTENSION);
-        require_once($this->paths['commands'].$classValues['nameWithPath'].PHP_EXTENSION);
-        $plugin = new $classValues['className']($base_command);
+        
+        if(class_exists($classValues['bundleClass'])) {
+            $plugin = new $classValues['bundleClass']($base_command);
+        } else {
+            require_once($this->paths['commands'].$classValues['nameWithPath'].PHP_EXTENSION);
+            $plugin = new $classValues['className']($base_command);
+        }
 
         return $plugin->execute($param);
-
     }
 
     /**
@@ -291,17 +289,10 @@ class FrontController
      * @return string
      * @access public
      */
-    function getCommandClass()
+    public function getCommandClass()
     {
-       	$cc=&$this->commandClass;
-       	$explodedCC=explode(".",$cc);
-       	//$theSize=count($explodedCC);
-       	//if($theSize==1) return $explodedCC[0];
-       	//else return $explodedCC[$theSize-1];
-       	return implode("/",$explodedCC);
+        return str_replace('.', '\\', $this->commandClass);
     }
-
-
 
     /**
      * Returns the plugin command class associated in config file
@@ -316,8 +307,7 @@ class FrontController
        	{
        	    return null;
        	}
-       	$ret = $this->_parsePluginInfo($this->plugins[$name]);
-       	return $ret;
+       	return $this->_parsePluginInfo($this->plugins[$name]);
     }
 
     /**
@@ -336,6 +326,7 @@ class FrontController
        	$ret['restrictedTo'] = (isset($plugin['restrictedTo']))? $plugin['restrictedTo'] : '';
        	$ret['condition'] = (isset($plugin['condition']))? $plugin['condition'] : '';
        	$ret['restrictedTo'] = str_replace(' ', '', $ret['restrictedTo']);
+       	$ret['bundleClass'] = 'UniversiBO\\Bundle\\LegacyBundle\\Command\\' . str_replace('.', '\\', $pc);
 
        	$ret['restrictedTo'] = ($ret['restrictedTo'] != '') ? explode(',', $ret['restrictedTo']) : array();
 

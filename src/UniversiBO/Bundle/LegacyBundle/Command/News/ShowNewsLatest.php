@@ -1,10 +1,14 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command\News;
+
+use \DB;
+use \Error;
+use \NewsItem;
 
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
-
 use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
 
-require_once ('News/NewsItem'.PHP_EXTENSION);
+require_once 'News/NewsItem'.PHP_EXTENSION;
 
 /**
  * ShowNewsLatest ? un'implementazione di PluginCommand.
@@ -219,8 +223,4 @@ class ShowNewsLatest extends PluginCommand {
 		return $res;
 		
 	}
-	
-	
 }
-
-?>

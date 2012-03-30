@@ -1,8 +1,6 @@
 <?php
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
-require_once ('News/ShowNewsLatest'.PHP_EXTENSION);
-
 /**
  * ShowSettings is an extension of UniversiboCommand class.
  *
@@ -57,5 +55,4 @@ Tramite questa pagina potrai modificare il tuo profilo, le tue impostazioni pers
 				
 		return 'default';						
 	}
-		
 }

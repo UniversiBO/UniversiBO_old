@@ -1,11 +1,15 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command\News;
 
+use \NewsItem;
+
+use UniversiBO\Bundle\LegacyBundle\App\Canale;
 use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
 
 require_once ('News/NewsItem'.PHP_EXTENSION);
 
 /**
- * ShowMyNews è un'implementazione di PluginCommand.
+ * ShowMyNews ï¿½ un'implementazione di PluginCommand.
  *
  * Mostra le notizie $id_notizia.
  * Nel paramentro di ingresso del deve essere specificato il numero di notizie da visualizzare.

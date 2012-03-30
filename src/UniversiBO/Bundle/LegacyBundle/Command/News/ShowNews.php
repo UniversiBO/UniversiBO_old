@@ -1,11 +1,14 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command\News;
+
+use \NewsItem;
 
 use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
 
 require_once ('News/NewsItem'.PHP_EXTENSION);
 
 /**
- * ShowNews è un'implementazione di PluginCommand.
+ * ShowNews ï¿½ un'implementazione di PluginCommand.
  *
  * Mostra la notizia $id_notizia.
  * Il BaseCommand che chiama questo plugin deve essere un'implementazione di CanaleCommand.
@@ -155,10 +158,4 @@ class ShowNews extends PluginCommand {
 
 		
 	}
-	
-	
-
-	
 }
-
-?>

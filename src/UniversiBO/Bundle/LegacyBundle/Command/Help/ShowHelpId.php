@@ -1,7 +1,10 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command\Help;
+
+use \Error;
+use \DB;
 
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
-
 use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
 
 /**
