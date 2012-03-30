@@ -1,4 +1,10 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command;
+
+use \ContattoDocente;
+use \Docente;
+use \Error;
+
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -41,10 +47,10 @@ class ShowContattiDocenti extends UniversiboCommand {
 								 );
 			}
 		}
-		usort($elenco, array('ShowContattiDocenti','_compareDocenti'));
+		usort($elenco, array($this,'_compareDocenti'));
 //		var_dump($elenco);
 		$template->assign('ShowContattiDocenti_contatti', $elenco);
-		$template->assign('ShowContattiDocenti_titolo', 'Docenti assegnati per l\'attività offline');
+		$template->assignUnicode('ShowContattiDocenti_titolo', 'Docenti assegnati per l\'attivitÃ  offline');
 //		$template->assign('ShowContattiDocenti_addContatto', 'Aggiungi un docente da assegnare');
 //		$template->assign('ShowContattiDocenti_addContattoURI', 'index.php?do=ContattoDocenteAdd');
 		

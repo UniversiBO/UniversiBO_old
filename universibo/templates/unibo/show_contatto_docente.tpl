@@ -7,7 +7,7 @@
 <table width="100%" border="1" cellspacing="0" cellpadding="0" summary="" align="center">
 <tr><th align="center" colspan=2>Info</th></tr>
 {foreach from=$ShowContattoDocente_info_docente key=temp_key item=temp_info}
-<tr><td>{$temp_key|escape:"htmlall"|ereg_replace:" ":"&nbsp;"}:</td><td>{$temp_info|escape:"htmlall"}</td></tr>
+<tr><td>{$temp_key|escape:"htmlall"|regex_replace:"/ /":"&nbsp;"}:</td><td>{$temp_info|escape:"htmlall"}</td></tr>
 {/foreach}
 <tr><td colspan="2">&nbsp;</td></tr>
 {foreach from=$ShowContattoDocente_info_ruoli key=temp_key item=temp_ruoli}
@@ -19,7 +19,7 @@
 <table width="98%" border="1" cellspacing="0" cellpadding="0" summary="" align="center">
 <tr><th align="center" colspan=2>Informazioni contatto</th></tr>
 {foreach from=$ShowContattoDocente_contatto key=temp_key item=temp_contatto}
-<tr><td>{$temp_key|escape:"htmlall"|ereg_replace:" ":"&nbsp;"}:</td><td>{$temp_contatto|escape:"htmlall"|nl2br}</td></tr>
+<tr><td>{$temp_key|escape:"htmlall"|regex_replace:"/ /":"&nbsp;"}:</td><td>{$temp_contatto|escape:"htmlall"|nl2br}</td></tr>
 {/foreach}
 </table>
 </div>

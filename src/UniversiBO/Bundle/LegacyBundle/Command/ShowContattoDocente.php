@@ -1,10 +1,14 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command;
+
+use \ContattoDocente;
+use \DB;
+use \Docente;
+use \Error;
+use UniversiBO\Bundle\LegacyBundle\App\Canale;
+use UniversiBO\Bundle\LegacyBundle\App\User;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
-
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
-
-require_once('Notifica/NotificaItem'.PHP_EXTENSION);
-
 /**
  * ShowContacts is an extension of UniversiboCommand class.
  *
@@ -26,7 +30,7 @@ class ShowContattoDocente extends UniversiboCommand {
 		$user = $this->getSessionUser();
 		
 		if (!array_key_exists('cod_doc',$_GET) && !ereg( '^([0-9]{1,10})$' , $_GET['cod_doc'] ) ) 
-			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'utente cercato non è valido','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $template)); 
+			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'utente cercato non ï¿½ valido','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $template)); 
 		
 		if (!$user->isCollaboratore() && !$user->isAdmin())
 			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Non hai i diritti necessari per visualizzare la pagina','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $template)); 
@@ -34,7 +38,7 @@ class ShowContattoDocente extends UniversiboCommand {
 		$docente = Docente::selectDocenteFromCod($_GET['cod_doc']);
 		
 		if (!$docente)
-			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'utente cercato non è un docente','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $template));
+			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'utente cercato non ï¿½ un docente','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $template));
 		
 		//echo 'qui';
 			
@@ -85,7 +89,7 @@ class ShowContattoDocente extends UniversiboCommand {
 		}
 //		var_dump($info_ruoli);
 		
-		// TODO mi sa che questa lista è incompleta: cercare user con groups = 4 o = 64
+		// TODO mi sa che questa lista ï¿½ incompleta: cercare user con groups = 4 o = 64
 //		$lista_collabs = Collaboratore::selectCollaboratoriAll();
 		$lista_collabs = $this->_getCollaboratoriUniversibo();
 		$table_collab = array();
@@ -101,7 +105,7 @@ class ShowContattoDocente extends UniversiboCommand {
 //		var_dump($table_collab); die;
 		
 		
-		uasort($table_collab, array('ShowContattoDocente','_compareUsername'));
+		uasort($table_collab, array($this,'_compareUsername'));
 		
 		// valori default form
 		
@@ -121,10 +125,10 @@ class ShowContattoDocente extends UniversiboCommand {
 		{
 			
 			if ( !array_key_exists('f35_stato', $_POST) || ! array_key_exists( $_POST['f35_stato'], $f35_stati))
-				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Il form inviato non è valido','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $template));
+				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Il form inviato non ï¿½ valido','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $template));
 
 			if (!array_key_exists('f35_id_username', $_POST) || !array_key_exists( $_POST['f35_id_username'], $f35_collab_list))
-				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Il form inviato non è valido','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $template));
+				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Il form inviato non ï¿½ valido','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $template));
 
 			$f35_stato	= $_POST['f35_stato'];
 			$f35_id_username	= $_POST['f35_id_username'];
@@ -195,7 +199,7 @@ Link: '.$frontcontroller->getAppSetting('rootUrl').'/index.php?do='.get_class($t
 														'report' => $contatto->getReport()
 														));
 
-		// TODO da attivare quando sarà aggiunto l'argomento nell'help
+		// TODO da attivare quando sarï¿½ aggiunto l'argomento nell'help
 		//$this->executePlugin('ShowTopic', array('reference' => 'contattodocenti'));
 		
 		return 'default';

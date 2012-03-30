@@ -2,11 +2,9 @@
 
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
-require_once('User'.PHP_EXTENSION);
-
 /**
  * Docente class, modella le informazioni relative ai docenti
- * A dir la verit‡ non so perchË estende User @see Collaboratore
+ * A dir la verit√† non so perch√© estende User @see Collaboratore
  *
  * @package universibo
  * @version 2.0.0
@@ -153,7 +151,7 @@ class Docente extends User {
 	 * @param int $id numero identificativo utente
 	 * @return array Collaboratori
 	 */
-	function selectDocente($id, $isCodiceDocente = false)
+	public static function selectDocente($id, $isCodiceDocente = false)
 	{
 		$db = FrontController::getDbConnection('main');
 	
@@ -175,11 +173,8 @@ class Docente extends User {
 	
 	}
 	
-	function selectDocenteFromCod($codDoc)
+	public static function selectDocenteFromCod($codDoc)
 	{
-		$docente = Docente::selectDocente($codDoc, true);
-		return $docente;
+		return self::selectDocente($codDoc, true);
 	}
-	
-	
 }
