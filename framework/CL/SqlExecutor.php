@@ -4,7 +4,7 @@ class SqlExecutor
 {
 	var $db;
 	
-	function SqlExecutor($conn)
+	public function __construct($conn)
 	{	
 		$this->db = $conn;
 	}	

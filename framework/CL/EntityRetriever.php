@@ -3,7 +3,7 @@ class EntityRetriever
 {
 	var $entityTable = array();
 	
-	function EntityRetriever($froncontroller,$user)
+	public function __constructor($froncontroller,$user)
 	{	
 		$this->entityTable['fc'] =  $froncontroller;
 		$this->entityTable['user'] = $user;

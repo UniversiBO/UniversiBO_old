@@ -14,18 +14,17 @@ class CLVisitor
    	var $esito = false;
    	// stack
    	var $st;
-   	// segnala se almeno una start condition è false
+   	// segnala se almeno una start condition Ã¨ false
    	private $stop = false;
    	
 	/**
 	 * Costruttore
 	 *
-	 * @param boolean $trace attiva la tracciabilità delle chiamate
+	 * @param boolean $trace attiva la tracciabilitÃ  delle chiamate
 	 * @param boolean $debug attiva il debug dell'interprete
-	 * @param integer $verbose imposta la verbosità del debug
-	 * @return CLVisitor
+	 * @param integer $verbose imposta la verbositÃ  del debug
 	 */
-	function CLVisitor($ops = null, $var = null, $trace = false, $debug = false, $verbose = 1)
+	public function __construct($ops = null, $var = null, $trace = false, $debug = false, $verbose = 1)
 	{
 		$this->st = new Stack();
 		if ($ops!= null) $this->listaOps = $ops;
@@ -71,7 +70,7 @@ class CLVisitor
 	 **************************************************************************/
 	
 	/**
-	 * recupera le entità attualmente definite e quelle di base del framework
+	 * recupera le entitï¿½ attualmente definite e quelle di base del framework
 	 * 
 	 * @param	string	identifier	
 	 * @return 	object
@@ -100,7 +99,7 @@ class CLVisitor
 
    
 	/**
-    * metodo per l'interpretazione degli operatori in accordo alla loro priorità ed associatività
+    * metodo per l'interpretazione degli operatori in accordo alla loro prioritï¿½ ed associativitï¿½
     *
     * @param Operator $currentOp 
     * @param term $rightTerm nodo AST
@@ -109,7 +108,7 @@ class CLVisitor
     * @param int $length
     * @param NodeListOptional $nodeList 
     * @access private
-    * @return mixed null o Operator se il prossimo nodo da visitare non è più il succesivo del precedente
+    * @return mixed null o Operator se il prossimo nodo da visitare non ï¿½ piï¿½ il succesivo del precedente
     */
    function exploreNextOp($currentOp, $rightTerm, $i, &$lastOp, $length,&$nodeList)
    {
@@ -117,8 +116,8 @@ class CLVisitor
    		// TODO NB in caso di errore bisogna svuotare lo stack degli elementi aggiunti (rollback sullo stack?) ? mm se si interrompe la visita non serve svuotare lo stack
    		if(!$currentOp->isBinary())
    		{
-   			$this->semanticError("L'operatore $currentOp->nome non è binario", $currentOp->referrer);
-   			return $null; // TODO se semanticError interrompe il flusso di esecuzione, allora questo return è ridondante
+   			$this->semanticError("L'operatore $currentOp->nome non ï¿½ binario", $currentOp->referrer);
+   			return $null; // TODO se semanticError interrompe il flusso di esecuzione, allora questo return ï¿½ ridondante
    		}
    		
    		$this->debug('ExploreNextOp: index '.$i.' length '.$length.' sto per chiamare '. $this->node2string($rightTerm),2);
@@ -131,7 +130,7 @@ class CLVisitor
    		else if($i > $length-1)
    		{
    			$this->semanticError('Indice non valido', $currentOp->referrer);
-   			return $null; // TODO se semanticError interrompe il flusso di esecuzione, allora questo return è ridondante
+   			return $null; // TODO se semanticError interrompe il flusso di esecuzione, allora questo return ï¿½ ridondante
    		}	
    		
    		$i_next = $i+1;
@@ -201,7 +200,7 @@ class CLVisitor
 	{
 		$input = array();
 		$chiavi = $op->inputFormat->getMask();
-		for ($i = $op->nIn -1; $i >= 0; $i--) // NB così facendo suppongo che i parametri da sostituire partano da 1 a N
+		for ($i = $op->nIn -1; $i >= 0; $i--) // NB cosï¿½ facendo suppongo che i parametri da sostituire partano da 1 a N
 			$input[$chiavi[$i]] = ($op->inputFormat->isGrouped($chiavi[$i])) ? $this->st->groupedPop() :$this->st->pop(); 
 		$s='';
 		foreach($input as $k => $t)
@@ -209,7 +208,7 @@ class CLVisitor
 //			$this->debug('OP: '.$op.' CALCOLO: ' . $t, 2); 
 //		if (!$op->inputFormat->checkFormatByName($input))
 //			$this->semanticError('input di '.$op->nome .' non valido',$op->referrer);
-		//NB le sostituzioni vengono fatte secondo l'ordine di creazione degli array input e pattern. E' importante partire dai numeri più grandi e decrescere
+		//NB le sostituzioni vengono fatte secondo l'ordine di creazione degli array input e pattern. E' importante partire dai numeri piï¿½ grandi e decrescere
 		$this->debug('OP: '.$op->nome.' CALCOLO: ' . $s, -1); 
 		$this->execMe($op->executor, array('input' => $input, 'codice' => $op->codice, 'outMask' => $op->outputFormat->getMask())); 
 		if($filtro != null) 
@@ -230,7 +229,7 @@ class CLVisitor
 	/**
 	 * Stampa l'errore semantico riscontrato nel parsing
 	 * @param message l'errore riscontrato
-	 * @param n	il nodo dell'AST in cui si è riscontrato l'errore
+	 * @param n	il nodo dell'AST in cui si ï¿½ riscontrato l'errore
 	 */
 	function semanticError($message, $n = null)
 	{
@@ -250,7 +249,7 @@ class CLVisitor
 	 **************************************************************************/
 	
 	/**
-	 * Helper per interfacciarsi a php/Java bridge e mantenere il codice più leggibile
+	 * Helper per interfacciarsi a php/Java bridge e mantenere il codice piï¿½ leggibile
 	 *
 	 * @access private
 	 * @return php/java bridge object
@@ -310,7 +309,7 @@ class CLVisitor
 	 * Metodo che stampa nell'output le volute informazioni di debug, in accordo al livello desiderato
 	 *
 	 * @param string $s informazione di debug
-	 * @param int $v livello di debug cui è associata l'informazione di debug
+	 * @param int $v livello di debug cui ï¿½ associata l'informazione di debug
 	 * @param string $prefix prefisso per contraddistinguere meglio le informazioni nell'output di debug
 	 * @access private
 	 */
@@ -385,7 +384,7 @@ class CLVisitor
 //		$this->debug($this->st->debug(),1); 
 	}
 
-	/****************************** DA QUI IN GIÙ TUTTI ACCESS PRIVATE  *********************************/
+	/****************************** DA QUI IN GIï¿½ TUTTI ACCESS PRIVATE  *********************************/
 
 	/**
 	 * va bene sia per NodeList che per NodeListOptional
@@ -438,8 +437,8 @@ class CLVisitor
     */
 	 function visitEventDef ($t){
 		if (array_key_exists(md5($this->node2string($t->f1,true)), $this->listaVariabili ))
-			$this->semanticError("Variabile già esistente", $t);
-		$this->listaVariabili[md5($this->node2string($t->f1,true))] = $t->f3; // TODO verificare che key è
+			$this->semanticError("Variabile giï¿½ esistente", $t);
+		$this->listaVariabili[md5($this->node2string($t->f1,true))] = $t->f3; // TODO verificare che key ï¿½
 		$this->debug('VAR:'. count($this->listaVariabili),1);
 	 }
 
@@ -488,7 +487,7 @@ class CLVisitor
     */
 	function visitOpDef ($t){
 		if (array_key_exists(md5($this->node2string($t->f2,true)), $this->listaOps ))
-			$this->semanticError("Operatore già esistente", $t); 
+			$this->semanticError("Operatore giï¿½ esistente", $t); 
 		$t->f9->accept($this->callMe());
 		$in = $this->st->pop();
 		$t->f12->accept($this->callMe());
@@ -640,7 +639,7 @@ class CLVisitor
 	   {
 	   		case 0: // $VARIABILE
 		        if (!array_key_exists(md5($this->node2string($s->elementAt(1),true)),$this->listaVariabili))  
-		    		$this->semanticError("La variabile " . $this->node2string($s->elementAt(1)) . " non è stata definita", $n);
+		    		$this->semanticError("La variabile " . $this->node2string($s->elementAt(1)) . " non ï¿½ stata definita", $n);
 		    	$this->listaVariabili[md5($this->node2string($s->elementAt(1),true))]->accept($this->callMe());
       			break;
       		case 1: //NAMESPACE
@@ -674,7 +673,7 @@ class CLVisitor
 	      						}
 	      				}
 	      				if (!method_exists($o,$method)) 
-	      					$this->semanticError('ENTITY: il metodo '. $method . ' non è definito per '.get_class($o),$n);
+	      					$this->semanticError('ENTITY: il metodo '. $method . ' non ï¿½ definito per '.get_class($o),$n);
 	      				$this->st->push(call_user_func_array(array(&$o,$method),$args));
 	      			}
       			}
@@ -836,7 +835,7 @@ class Stack
 
 class Operator
 {
-	// TODO NB documentare i valori che ho scelto per l'associatività
+	// TODO NB documentare i valori che ho scelto per l'associativitÃ 
 	const LEFT_ASSOCIATION = 0;
 	const RIGHT_ASSOCIATION = 1;
 	
@@ -857,7 +856,7 @@ class Operator
 	 */
 	private $referrer; 
 
-	function Operator(	
+	function __construct(	
 				ParamListFormat $inputFormat,
 				ParamListFormat $outputFormat,
 				$priorita,
@@ -932,7 +931,7 @@ class ParamListFormat
 	private $list;
 	private $reverseLookup;
 	
-	function ParamListFormat()
+	public function __construct()
 	{
 		$this->list = array();
 		$this->reverseLookup = array();
@@ -1079,10 +1078,10 @@ class ParamListFormat
 	 */
 	static public function filterValues($values, ParamListFormat $filter, ParamListFormat $output)
 	{
-		// VERIFY lo metto qui il check su $values o suppongo che chi lo passi lo abbia già verificato?
-		// è una esplorazione depthfirst.. va bene? direi di sì, perché tanto i livelli sono per forza limitati
-		// TODO così non va bene... perché nel caso di array con formato potrei aver ridotto i parametri cui sono interessato...
-		// TODO se io ho un parametro grouped, è impossibile pensare che abbia mantenuto il nome del param come chiave!?!? ma forse se è grouped, vuol dire che è un array di val associati ad una certa chiave
+		// VERIFY lo metto qui il check su $values o suppongo che chi lo passi lo abbia giï¿½ verificato?
+		// ï¿½ una esplorazione depthfirst.. va bene? direi di sï¿½, perchï¿½ tanto i livelli sono per forza limitati
+		// TODO cosï¿½ non va bene... perchï¿½ nel caso di array con formato potrei aver ridotto i parametri cui sono interessato...
+		// TODO se io ho un parametro grouped, ï¿½ impossibile pensare che abbia mantenuto il nome del param come chiave!?!? ma forse se ï¿½ grouped, vuol dire che ï¿½ un array di val associati ad una certa chiave
 //		echo "\n[FILTRO] $filter $output $values \n"; 
 //		var_dump($values);
 		if(!$output->isSupersetOf($filter))
