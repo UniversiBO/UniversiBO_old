@@ -248,7 +248,7 @@ class BaseInteractiveCommand extends PluginCommand
      * @param array $param
      * @return mixed true if all InteractiveCommand callbacks are ok, false if cancelled by user, null otherwise
      */
-    function execute($param)
+    function execute($param = array())
     {
         //		var_dump($this); die;
         // check if current session user is the one who started the InteractiveCommand
