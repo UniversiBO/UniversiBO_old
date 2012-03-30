@@ -216,9 +216,9 @@ abstract class UniversiboCommand extends BaseCommand {
 
         //generali
         $template->assign('common_universibo', 'UniversiBO');
-        $template->assign('common_metaKeywords', 'universibo, universit�, facolt�, studenti, bologna, professori, lezioni, materiale didattico, didattica, corsi, studio, studi, novit�, appunti, dispense, lucidi, esercizi, esami, temi d\'esame, orari lezione, ingegneria, economia, ateneo');
+        $template->assignUnicode('common_metaKeywords', 'universibo, università, facoltà, studenti, bologna, professori, lezioni, materiale didattico, didattica, corsi, studio, studi, novit�, appunti, dispense, lucidi, esercizi, esami, temi d\'esame, orari lezione, ingegneria, economia, ateneo');
         $template->assign('common_metaDescription', 'Il portale dedicato agli studenti universitari di Bologna');
-        $template->assign('common_title', 'UniversiBO: la community degli studenti dell\'Universit� di Bologna');
+        $template->assign('common_title', 'UniversiBO: la community degli studenti dell\'Università di Bologna');
         $template->assign('common_langNewWindow', 'apre una nuova finestra');
 
         //krono
@@ -338,7 +338,7 @@ abstract class UniversiboCommand extends BaseCommand {
             $template->assign('common_userLivello', $session_user->getUserGroupsNames());
 
             $template->assign('common_langWelcomeMsg', 'Benvenuto');
-            $template->assign('common_langUserLivello', 'Il tuo livello di utenza �');
+            $template->assign('common_langUserLivello', 'Il tuo livello di utenza è');
         }
 
         $template->assign('common_settings', 'Impostazioni personali');
@@ -347,7 +347,7 @@ abstract class UniversiboCommand extends BaseCommand {
         $template->assign('common_myUniversiBO', 'ShowMyUniversiBO');
         $template->assign('common_myUniversiBOUri', 'index.php?do=ShowMyUniversiBO');
 
-        $template->assign('common_fac', 'Facolt�');
+        $template->assignUnicode('common_fac', 'Facoltà');
         require_once('Facolta' . PHP_EXTENSION);
         $elenco_facolta = & Facolta::selectFacoltaElenco();
         //var_dump($elenco_facolta);
@@ -407,7 +407,7 @@ abstract class UniversiboCommand extends BaseCommand {
         $template->assign('common_contributeUri', 'index.php?do=ShowContribute');
         $template->assign('common_credits', 'Credits');
         $template->assign('common_creditsUri', 'index.php?do=ShowCredits');
-        $template->assign('common_accessibility', 'Accessibilit�');
+        $template->assignUnicode('common_accessibility', 'Accessibilità');
         $template->assign('common_accessibilityUri', 'index.php?do=ShowAccessibility');
 
         $template->assign('common_manifesto', 'Manifesto');
@@ -419,10 +419,10 @@ abstract class UniversiboCommand extends BaseCommand {
         //$template->assign('common_projectUri', 'http://universibo.sourceforge.net/');
 
 
-        $template->assign('common_disclaimer', array('Le informazioni contenute nel sito non hanno carattere di ufficialit�.',
-                'I contenuti sono mantenuti in maniera volontaria dai partecipanti alla comunit� di studenti e docenti di UniversiBO. L\'Universit� di Bologna - Alma Mater Studiorum non pu� essere considerata legalmente responsabile di alcun contenuto di questo sito.',
+        $template->assignUnicode('common_disclaimer', array('Le informazioni contenute nel sito non hanno carattere di ufficialità.',
+                'I contenuti sono mantenuti in maniera volontaria dai partecipanti alla comunità di studenti e docenti di UniversiBO. L\'Università di Bologna - Alma Mater Studiorum non può essere considerata legalmente responsabile di alcun contenuto di questo sito.',
                 'Ogni marchio citato in queste pagine appartiene al legittimo proprietario.' .
-                'Con il contenuto delle pagine appartenenti a questo sito non si � voluto ledere i diritti di nessuno, quindi nel malaugurato caso che questo possa essere avvenuto, vi invitiamo a contattarci affinch� le parti in discussione vengano eliminate o chiarite.'));
+                'Con il contenuto delle pagine appartenenti a questo sito non si è voluto ledere i diritti di nessuno, quindi nel malaugurato caso che questo possa essere avvenuto, vi invitiamo a contattarci affinch� le parti in discussione vengano eliminate o chiarite.'));
 
         $template->assign('common_isSetVisite', 'N');
 
@@ -543,5 +543,4 @@ abstract class UniversiboCommand extends BaseCommand {
         if ($a['label'] > $b['label'])
             return +1;
     }
-
 }

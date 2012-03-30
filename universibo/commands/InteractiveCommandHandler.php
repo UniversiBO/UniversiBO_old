@@ -54,8 +54,9 @@ class InteractiveCommandHandler extends UniversiboCommand {
 			$forum = new ForumApi();
 			$forum->login($this->userLogin);
 			
-			if ( !strstr($referer, 'forum') && ( !strstr($referer, 'do') || strstr($referer, 'do=ShowHome')  || strstr($referer, 'do=ShowError') || strstr($referer, 'do=Login') || strstr($referer, 'do=RegStudente')))
+			if ( !strstr($referer, 'forum')&& ( !strstr($referer, 'do') || strstr($referer, 'do=ShowHome')  || strstr($referer, 'do=ShowError') || strstr($referer, 'do=Login') || strstr($referer, 'do=RegStudente'))) {
 				FrontController::redirectCommand('ShowMyUniversiBO');
+			}
 			else if (strstr($referer, 'forum'))
 				FrontController::redirectUri($forum->getMainUri());
 			else

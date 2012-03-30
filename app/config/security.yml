@@ -21,11 +21,17 @@ security:
         login:
             pattern:  ^/login$
             security: false
+        logoutAfter:
+            pattern:  ^/logoutAfter$
+            security: false
         forcelogin:
             pattern: ^/
             legacy: true
             form_login:
                 login_path: /login
+            logout:
+                path:   /logout
+                target: /logoutAfter
 
 #        secured_area:
 #            pattern:    ^/demo/secured/
