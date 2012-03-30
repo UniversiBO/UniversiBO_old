@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+	<services>
+		<service id="universibo_legacy.db.factory" class="UniversiBO\Legacy\Framework\DBConnectionFactory">
+			<call method="registerDSN">
+				<argument>main</argument>
+				<argument>pgsql://%database_user%:%database_password%@%database_host%/%database_name%</argument>
+			</call>
+		</service>
+
+		<service id="universibo_legacy.db.connection.main" class="DB_common"
+			factory-service="universibo_legacy.db.factory" factory-method="getConnection">
+			<argument>main</argument>
+		</service>
+
+		<service id="universibo_legacy.repository.user" class="UniversiBO\Legacy\App\DBUserRepository">
+			<argument type="service" id="universibo_legacy.db.connection.main" />
+		</service>
+	</services>
+</container>

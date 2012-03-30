@@ -193,7 +193,7 @@ class DB_mysql extends DB_common
     function connect($dsn, $persistent = false)
     {
         if (!PEAR::loadExtension('mysql')) {
-            return $this->raiseError(DB_ERROR_EXTENSION_NOT_FOUND);
+            return $this->raiseDBError(DB_ERROR_EXTENSION_NOT_FOUND);
         }
 
         $this->dsn = $dsn;
@@ -244,11 +244,11 @@ class DB_mysql extends DB_common
 
         if (!$this->connection) {
             if (($err = @mysql_error()) != '') {
-                return $this->raiseError(DB_ERROR_CONNECT_FAILED,
+                return $this->raiseDBError(DB_ERROR_CONNECT_FAILED,
                                          null, null, null, 
                                          $err);
             } else {
-                return $this->raiseError(DB_ERROR_CONNECT_FAILED,
+                return $this->raiseDBError(DB_ERROR_CONNECT_FAILED,
                                          null, null, null,
                                          $php_errormsg);
             }
@@ -598,7 +598,7 @@ class DB_mysql extends DB_common
                 // it and return 1 and obtain a user-level lock
                 $result = $this->getOne("SELECT GET_LOCK('${seqname}_lock',10)");
                 if (DB::isError($result)) {
-                    return $this->raiseError($result);
+                    return $this->raiseDBError($result);
                 }
                 if ($result == 0) {
                     // Failed to get the lock
@@ -608,14 +608,14 @@ class DB_mysql extends DB_common
                 // add the default value
                 $result = $this->query("REPLACE INTO ${seqname} (id) VALUES (0)");
                 if (DB::isError($result)) {
-                    return $this->raiseError($result);
+                    return $this->raiseDBError($result);
                 }
 
                 // Release the lock
                 $result = $this->getOne('SELECT RELEASE_LOCK('
                                         . "'${seqname}_lock')");
                 if (DB::isError($result)) {
-                    return $this->raiseError($result);
+                    return $this->raiseDBError($result);
                 }
                 // We know what the result will be, so no need to try again
                 return 1;
@@ -626,7 +626,7 @@ class DB_mysql extends DB_common
                 // ONDEMAND TABLE CREATION
                 $result = $this->createSequence($seq_name);
                 if (DB::isError($result)) {
-                    return $this->raiseError($result);
+                    return $this->raiseDBError($result);
                 } else {
                     $repeat = 1;
                 }
@@ -638,13 +638,13 @@ class DB_mysql extends DB_common
                 // see _BCsequence() comment
                 $result = $this->_BCsequence($seqname);
                 if (DB::isError($result)) {
-                    return $this->raiseError($result);
+                    return $this->raiseDBError($result);
                 }
                 $repeat = 1;
             }
         } while ($repeat);
 
-        return $this->raiseError($result);
+        return $this->raiseDBError($result);
     }
 
     // }}}
@@ -889,7 +889,7 @@ class DB_mysql extends DB_common
             }
             $errno = $this->errorCode(mysql_errno($this->connection));
         }
-        return $this->raiseError($errno, null, null, null,
+        return $this->raiseDBError($errno, null, null, null,
                                  @mysql_errno($this->connection) . ' ** ' .
                                  @mysql_error($this->connection));
     }

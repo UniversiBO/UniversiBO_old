@@ -17,7 +17,7 @@ use \PrgAttivitaDidattica;
  */
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     const ALGORITMO_DEFAULT = 'sha1';
 
@@ -1051,7 +1051,10 @@ class User implements UserInterface
      */
     public function equals(UserInterface $user)
     {
-        return false;
+        $equals = $user->getUsername() === $this->getUsername();
+        $equals = $equals && $user->getPassword() === $this->getPassword();
+
+        return $equals;
     }
 
     /**
@@ -1064,5 +1067,34 @@ class User implements UserInterface
             self::$repository = new DBUserRepository(FrontController::getDbConnection('main'));
         }
         return self::$repository;
+    }
+
+    public function serialize()
+    {
+        $data = array(
+                'id_utente'    => $this->id_utente,
+                'username'     => $this->username,
+                'password'     => $this->password,
+                'ultimoLogin'  => $this->ultimoLogin,
+                'bookmark'     => $this->bookmark,
+                'ADUsername'   => $this->ADUsername,
+                'groups'       => $this->groups,
+                'notifica'     => $this->notifica,
+                'ban'          => $this->ban,
+                'phone'        => $this->phone,
+                'defaultStyle' => $this->defaultStyle,
+                'eliminato'    => $this->eliminato,
+                'algoritmo'    => $this->algoritmo,
+                'salt'         => $this->salt
+        );
+
+        return serialize($data);
+    }
+
+    public function unserialize($data)
+    {
+        foreach(unserialize($data) as $key => $value) {
+            $this->$key = $value;
+        }
     }
 }

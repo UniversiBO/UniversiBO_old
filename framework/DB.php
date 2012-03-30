@@ -27,7 +27,7 @@
 /**
  * Obtain the PEAR class so it can be extended from
  */
-require_once __DIR__.'/PEAR.php';
+require_once __DIR__.'/PEAR.php'; //needed even with autoloader
 
 
 // {{{ constants
@@ -449,13 +449,13 @@ class DB
         if (!is_array($options)) {
             $options = array('persistent' => $options);
         }
-
+        /* handled by autoloader
         if (isset($options['debug']) && $options['debug'] >= 2) {
             // expose php errors with sufficient debug level
             include_once "DB/{$type}.php";
         } else {
             @include_once "DB/{$type}.php";
-        }
+        }*/
 
         $classname = "DB_${type}";
 
@@ -515,7 +515,7 @@ class DB
      *
      * @uses DB::parseDSN(), DB_common::setOption(), PEAR::isError()
      */
-    function &connect($dsn, $options = array())
+    public static function connect($dsn, $options = array())
     {
         $dsninfo = DB::parseDSN($dsn);
         $type = $dsninfo['phptype'];
@@ -528,12 +528,14 @@ class DB
             $options = array('persistent' => $options);
         }
 
+        /*
+         * handled by autoloader
         if (isset($options['debug']) && $options['debug'] >= 2) {
             // expose php errors with sufficient debug level
             include_once "DB/${type}.php";
         } else {
             @include_once "DB/${type}.php";
-        }
+        }*/
 
         $classname = "DB_${type}";
         if (!class_exists($classname)) {
@@ -585,7 +587,7 @@ class DB
      *
      * @return bool  whether $value is DB_Error object
      */
-    function isError($value)
+    public static function isError($value)
     {
         return is_a($value, 'DB_Error');
     }
@@ -621,7 +623,7 @@ class DB
      *
      * @return boolean  whether $query is a data manipulation query
      */
-    function isManip($query)
+    public static function isManip($query)
     {
         $manips = 'INSERT|UPDATE|DELETE|REPLACE|'
                 . 'CREATE|DROP|'
@@ -726,7 +728,7 @@ class DB
      *  + username: User name for login
      *  + password: Password for login
      */
-    function parseDSN($dsn)
+    public static function parseDSN($dsn)
     {
         $parsed = array(
             'phptype'  => false,

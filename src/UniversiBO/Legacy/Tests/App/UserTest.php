@@ -29,4 +29,14 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         self::assertEquals(array('ROLE_ADMIN'), $this->_user->getGroups());
     }
+
+    public function testEquals()
+    {
+        $this->markTestIncomplete('Should test equals');
+    }
+
+    public function testSerialize()
+    {
+        $this->markTestIncomplete('Should test serialization');
+    }
 }

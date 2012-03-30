@@ -2,13 +2,16 @@
 
 namespace UniversiBO\Legacy\App;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 /**
  * User repository
  *
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBUserRepository extends DBRepository
+class DBUserRepository extends DBRepository implements UserProviderInterface
 {
     /**
      * Class constructor
@@ -381,5 +384,20 @@ class DBUserRepository extends DBRepository
         }
 
         return $users;
+    }
+
+    public function loadUserByUsername($username)
+    {
+        return $this->findByUsername($username);
+    }
+
+    public function refreshUser(UserInterface $user)
+    {
+        return $this->loadUserByUsername($user->getUsername());
+    }
+
+    public function supportsClass($class)
+    {
+        return 'UniversiBO\\Legacy\\App\\User' === $class;
     }
 }

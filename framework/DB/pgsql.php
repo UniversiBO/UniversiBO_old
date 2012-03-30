@@ -28,7 +28,7 @@
 /**
  * Obtain the DB_common class so it can be extended from
  */
-require_once 'DB/common.php';
+//require_once 'DB/common.php'; handled by autoloader
 
 /**
  * The methods PEAR DB uses to interact with PHP's pgsql extension
@@ -209,7 +209,7 @@ class DB_pgsql extends DB_common
     function connect($dsn, $persistent = false)
     {
         if (!PEAR::loadExtension('pgsql')) {
-            return $this->raiseError(DB_ERROR_EXTENSION_NOT_FOUND);
+            return $this->raiseDBError(DB_ERROR_EXTENSION_NOT_FOUND);
         }
 
         $this->dsn = $dsn;
@@ -284,7 +284,7 @@ class DB_pgsql extends DB_common
         }
 
         if (!$this->connection) {
-            return $this->raiseError(DB_ERROR_CONNECT_FAILED,
+            return $this->raiseDBError(DB_ERROR_CONNECT_FAILED,
                                      null, null, null,
                                      $php_errormsg);
         }
@@ -465,7 +465,7 @@ class DB_pgsql extends DB_common
      * @deprecated  Deprecated in release 1.6.0
      * @internal
      */
-    function quote($str)
+    function quote($str = null)
     {
         return $this->quoteSmart($str);
     }
@@ -684,14 +684,14 @@ class DB_pgsql extends DB_common
                 $result = $this->createSequence($seq_name);
                 $this->popErrorHandling();
                 if (DB::isError($result)) {
-                    return $this->raiseError($result);
+                    return $this->raiseDBError($result);
                 }
             } else {
                 $repeat = false;
             }
         } while ($repeat);
         if (DB::isError($result)) {
-            return $this->raiseError($result);
+            return $this->raiseDBError($result);
         }
         $arr = $result->fetchRow(DB_FETCHMODE_ORDERED);
         $result->free();
@@ -782,7 +782,7 @@ class DB_pgsql extends DB_common
         if ($errno === null) {
             $errno = $this->errorCode($native);
         }
-        return $this->raiseError($errno, null, null, null, $native);
+        return $this->raiseDBError($errno, null, null, null, $native);
     }
 
     // }}}

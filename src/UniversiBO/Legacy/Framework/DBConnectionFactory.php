@@ -29,9 +29,9 @@ class DBConnectionFactory
 
     private function createConnection($id) {
         $conn = DB::connect($this->dsn[$id]);
-
+        
         if(DB::isError($conn)) {
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($conn),'file'=>__FILE__,'line'=>__LINE__));
+            Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($conn),'file'=>__FILE__,'line'=>__LINE__));
         }
 
         return $conn;
