@@ -1,6 +1,6 @@
 <?php
-use UniversiBO\Legacy\App\UniversiboCommand;
-use UniversiBO\Legacy\App\User;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\App\User;
 
 require_once 'ProgrammazioneDidattica/ProgrammazioneDidatticaDataRetrieverFactory'.PHP_EXTENSION;
 

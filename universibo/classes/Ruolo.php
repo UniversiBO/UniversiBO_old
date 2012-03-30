@@ -3,4 +3,4 @@
 /**
  * @deprecated
  */
-class Ruolo extends UniversiBO\Legacy\App\Ruolo {}
+class Ruolo extends UniversiBO\Bundle\LegacyBundle\App\Ruolo {}

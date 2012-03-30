@@ -15,6 +15,6 @@
  * @copyright CopyLeft UniversiBO 2001-2003
  */
 
-abstract class CanaleCommand extends UniversiBO\Legacy\App\CanaleCommand
+abstract class CanaleCommand extends UniversiBO\Bundle\LegacyBundle\App\CanaleCommand
 {
 }

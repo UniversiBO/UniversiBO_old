@@ -1,5 +1,5 @@
 <?php      
-use UniversiBO\Legacy\App\CanaleCommand;
+use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
 
 require_once ('Links/Link'.PHP_EXTENSION);
 

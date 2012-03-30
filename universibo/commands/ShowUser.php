@@ -1,6 +1,6 @@
 <?php
 
-use UniversiBO\Legacy\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
  *Questa classe consente la visualizzazione e la possibile modifica

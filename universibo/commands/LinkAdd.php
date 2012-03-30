@@ -1,6 +1,6 @@
 <?php    
 
-use UniversiBO\Legacy\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 require_once ('Links/Link'.PHP_EXTENSION);
 

@@ -2,7 +2,7 @@
 
 namespace UniversiBO\Bundle\ForumBundle\Integration;
 
-use UniversiBO\Legacy\App\User;
+use UniversiBO\Bundle\LegacyBundle\App\User;
 
 /**
  * @author Davide Bellettini

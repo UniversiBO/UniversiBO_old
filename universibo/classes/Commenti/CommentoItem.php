@@ -1,6 +1,6 @@
 <?php
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
-use UniversiBO\Legacy\App\User;
+use UniversiBO\Bundle\LegacyBundle\App\User;
 
 /**
  * CommentoItem class

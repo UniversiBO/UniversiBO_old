@@ -1,6 +1,6 @@
 <?php 
 
-namespace UniversiBO\Legacy\App;
+namespace UniversiBO\Bundle\LegacyBundle\App;
 
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
@@ -115,7 +115,7 @@ class User implements UserInterface, \Serializable
     private static $repository = null;
 
     /**
-     *  Verifica se la sintassi dello username è valido.
+     *  Verifica se la sintassi dello username ï¿½ valido.
      *  Sono permessi fino a 25 caratteri: alfanumerici, lettere accentate, spazi, punti, underscore
      *
      * @param string $username stringa dello username da verificare
@@ -124,7 +124,7 @@ class User implements UserInterface, \Serializable
     public static function isUsernameValid( $username )
     {
         $username = trim($username);
-        $username_pattern='/^([[:alnum:]àèéìòù \._]{1,25})$/';
+        $username_pattern='/^([[:alnum:]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ \._]{1,25})$/';
         return preg_match($username_pattern , $username ) && strcasecmp($username, self::NICK_ELIMINATO) != 0;
     }
 

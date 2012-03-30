@@ -1,6 +1,6 @@
 <?php   
 
-use UniversiBO\Legacy\App\CanaleCommand;
+use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
 
 /**
  * AddNewsCanale: aggiunge una notizia, mostra il form e gestisce l'inserimento

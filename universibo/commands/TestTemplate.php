@@ -1,6 +1,6 @@
 <?php
 
-use UniversiBO\Legacy\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
  * Comando per testare i template i fase di sviluppo, in questo file vengono inserite

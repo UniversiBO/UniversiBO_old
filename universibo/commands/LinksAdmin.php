@@ -1,5 +1,5 @@
 <?php 
-use UniversiBO\Legacy\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
  * LinksAdminSearch: permette la ricerca di links all'interno di un canale 

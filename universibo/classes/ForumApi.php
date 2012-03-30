@@ -1,7 +1,7 @@
 <?php
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
-use UniversiBO\Legacy\App\User;
+use UniversiBO\Bundle\LegacyBundle\App\User;
 
 /**
  * La classe Forum fornisce un'API esterna per le operazioni sul forum PHPBB 2.0.x

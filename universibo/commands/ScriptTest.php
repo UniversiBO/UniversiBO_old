@@ -1,6 +1,6 @@
 <?php
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
-use UniversiBO\Legacy\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
  * @package universibo

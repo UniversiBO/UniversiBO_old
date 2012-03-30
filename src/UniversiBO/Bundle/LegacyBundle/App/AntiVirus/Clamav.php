@@ -1,5 +1,5 @@
 <?php
-namespace UniversiBO\Legacy\App\AntiVirus;
+namespace UniversiBO\Bundle\LegacyBundle\App\AntiVirus;
 
 /**
  * Classe antivirus per clamav

@@ -1,5 +1,5 @@
 <?php
-use UniversiBO\Legacy\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
  * ShowContacts is an extension of UniversiboCommand class.

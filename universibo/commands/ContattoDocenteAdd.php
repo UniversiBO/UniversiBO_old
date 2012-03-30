@@ -1,6 +1,6 @@
 <?php
 
-use UniversiBO\Legacy\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
  * ContattoDocenteAdd is an extension of UniversiboCommand class.

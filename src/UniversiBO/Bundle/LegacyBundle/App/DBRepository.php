@@ -1,6 +1,6 @@
 <?php
 
-namespace UniversiBO\Legacy\App;
+namespace UniversiBO\Bundle\LegacyBundle\App;
 
 abstract class DBRepository
 {

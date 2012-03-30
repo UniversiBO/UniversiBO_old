@@ -1,3 +1,3 @@
 <?php
-abstract class UniversiboCommand extends UniversiBO\Legacy\App\UniversiboCommand {
+abstract class UniversiboCommand extends UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand {
 }

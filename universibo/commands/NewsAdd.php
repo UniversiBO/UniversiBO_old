@@ -1,6 +1,6 @@
 <?php    
 
-use UniversiBO\Legacy\App\CanaleCommand;
+use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
 
 require_once ('News/NewsItem'.PHP_EXTENSION);
 

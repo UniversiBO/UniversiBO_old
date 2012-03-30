@@ -1,5 +1,5 @@
 <?php 
-use UniversiBO\Legacy\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
  * RuoliAdminSearch: permette la ricerca di ruoli all'interno di un canale 

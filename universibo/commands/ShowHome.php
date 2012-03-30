@@ -1,6 +1,6 @@
 <?php
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
-use UniversiBO\Legacy\App\CanaleCommand;
+use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
 
 /**
  * ShowHome: mostra la homepage

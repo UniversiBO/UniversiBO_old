@@ -1,5 +1,5 @@
 <?php    
-use UniversiBO\Legacy\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
  * CollaboratoreProfiloAdd: si occupa dell'inserimento del profilo di un collaboratore

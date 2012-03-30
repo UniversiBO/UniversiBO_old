@@ -1,5 +1,5 @@
 <?php
-use UniversiBO\Legacy\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
  * ScriptIscriviDocentePersonalizzato is an extension of UniversiboCommand class.

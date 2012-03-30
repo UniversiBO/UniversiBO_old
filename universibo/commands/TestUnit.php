@@ -16,7 +16,7 @@
  * @copyright CopyLeft UniversiBO 2001-2003
  */
 
-use UniversiBO\Legacy\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 class TestUnit extends UniversiboCommand {
 	function execute()

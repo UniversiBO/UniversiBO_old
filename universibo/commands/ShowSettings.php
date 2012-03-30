@@ -1,5 +1,5 @@
 <?php
-use UniversiBO\Legacy\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 require_once ('News/ShowNewsLatest'.PHP_EXTENSION);
 

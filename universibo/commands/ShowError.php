@@ -1,5 +1,5 @@
 <?php
-use UniversiBO\Legacy\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
  * ShowError: mostra una pagina con la descrizione dell'errore per gli ErrorDefault

@@ -1,8 +1,8 @@
 <?php
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
-use UniversiBO\Legacy\App\UniversiboCommand;
-use UniversiBO\Legacy\App\User;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\App\User;
 
 /**
  * Login is an extension of UniversiboCommand class.

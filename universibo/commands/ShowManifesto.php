@@ -14,7 +14,7 @@
  */
 
 
-use UniversiBO\Legacy\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 class ShowManifesto extends UniversiboCommand {
 	function execute(){

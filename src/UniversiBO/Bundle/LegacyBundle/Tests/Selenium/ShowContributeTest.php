@@ -1,5 +1,5 @@
 <?php
-namespace UniversiBO\Legacy\Tests\Selenium;
+namespace UniversiBO\Bundle\LegacyBundle\Tests\Selenium;
 
 class ShowContributeTest extends UniversiBOSeleniumTestCase
 {

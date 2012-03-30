@@ -1,6 +1,6 @@
 <?php
 
-namespace UniversiBO\Legacy\App;
+namespace UniversiBO\Bundle\LegacyBundle\App;
 
 /**
  * Active Directory Login Handler
@@ -48,7 +48,7 @@ class ActiveDirectoryLogin
 
         if ( $javaADLoginSock == false )
         {
-            \Error::throwError(_ERROR_DEFAULT,array('msg'=>'Impossibile connettersi al server di autenticazione Active Directory di Ateneo, provare più tardi oppure segnalare l\'inconveniente allo staff','file'=>__FILE__,'line'=>__LINE__));
+            \Error::throwError(_ERROR_DEFAULT,array('msg'=>'Impossibile connettersi al server di autenticazione Active Directory di Ateneo, provare piï¿½ tardi oppure segnalare l\'inconveniente allo staff','file'=>__FILE__,'line'=>__LINE__));
         }
         else
         {

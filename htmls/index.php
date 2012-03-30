@@ -1,5 +1,5 @@
 <?php
-use UniversiBO\Legacy\App\Ruolo;
+use UniversiBO\Bundle\LegacyBundle\App\Ruolo;
 
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 

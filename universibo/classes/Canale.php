@@ -3,6 +3,6 @@
 /**
  * @deprecated
  */
-class Canale extends UniversiBO\Legacy\App\Canale 
+class Canale extends UniversiBO\Bundle\LegacyBundle\App\Canale 
 {
 }

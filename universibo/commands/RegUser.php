@@ -1,10 +1,10 @@
 <?php
-use UniversiBO\Legacy\App\Constants;
+use UniversiBO\Bundle\LegacyBundle\App\Constants;
 
-use UniversiBO\Legacy\App\PasswordUtil;
+use UniversiBO\Bundle\LegacyBundle\App\PasswordUtil;
 
-use UniversiBO\Legacy\App\UniversiboCommand;
-use UniversiBO\Legacy\App\User;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\App\User;
 
 /**
  * RegStudente is an extension of UniversiboCommand class.

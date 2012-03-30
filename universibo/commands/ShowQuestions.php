@@ -13,7 +13,7 @@
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
  
-use UniversiBO\Legacy\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 class ShowQuestions extends UniversiboCommand {
 	function execute(){

@@ -1,5 +1,5 @@
 <?php 
-use UniversiBO\Legacy\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
  * RuoliAdminEdit: modifica il ruolo di un utente in un canale 
