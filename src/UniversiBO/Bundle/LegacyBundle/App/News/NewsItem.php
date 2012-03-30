@@ -1,6 +1,8 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\App\News;
 
+use UniversiBO\Bundle\LegacyBundle\App\Canale;
+
 use \DB;
 use \Error;
 

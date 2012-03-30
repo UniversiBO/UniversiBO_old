@@ -394,7 +394,7 @@
 		<adLoginHost>127.0.0.1</adLoginHost>
 		<version>2.2.2</version>
 		<adLoginPort>1525</adLoginPort>
-		<logs>../universibo/log-universibo/</logs>
+		<logs>../app/logs</logs>
 		<notificheLock>../universibo/notifiche.lock</notificheLock>
 		<contactsPath>img/contacts/</contactsPath>
 		<langFile>/location/of/userLanguageFile.txt</langFile>
@@ -422,7 +422,5 @@
 		<antiVirusType>clamav</antiVirusType>
 		<antiVirusClamavCmd>/usr/local/bin/clamscan</antiVirusClamavCmd>
 		<antiVirusClamavOpts>--quiet --recursive</antiVirusClamavOpts>
-		
-		<clJavaRequirePath>/var/www/universibo2devel/framework/CL;/var/www/universibo2devel/framework/CL/parser;/var/www/universibo2devel/framework/CL/util;/var/www/universibo2devel/framework/CL/visitor;/var/www/universibo2devel/framework/CL/syntaxtree</clJavaRequirePath>
 	</appSettings>
 </config>

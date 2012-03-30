@@ -1,10 +1,8 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command\Links;
 
-use \Link;
+use UniversiBO\Bundle\LegacyBundle\App\Links\Link;
 use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
-
-require_once ('Links/Link'.PHP_EXTENSION);
 
 /**
  * ShowLink è un'implementazione di PluginCommand.
@@ -21,8 +19,6 @@ require_once ('Links/Link'.PHP_EXTENSION);
  */
  
 class ShowLink extends PluginCommand {
-	
-	
 	/**
 	 * Esegue il plugin
 	 *

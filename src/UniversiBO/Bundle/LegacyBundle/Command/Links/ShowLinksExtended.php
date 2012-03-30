@@ -1,12 +1,10 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command\Links;
 
-use \Canale;
-use \Link;
+use UniversiBO\Bundle\LegacyBundle\App\Canale;
 
+use UniversiBO\Bundle\LegacyBundle\App\Links\Link;
 use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
-
-require_once ('Links/Link'.PHP_EXTENSION);
 
 /**
  * ShowLinksExtended è un'implementazione di PluginCommand.
