@@ -11,8 +11,17 @@ class LoginController extends Controller
     /**
      * @Route("/login",name="login")
      */
-    public function indexAction()
+    public function loginAction()
     {
         return $this->redirect('/index.php?do=Login&symfony=1');
+    }
+    
+    /**
+     * @Route("/logout",name="logout")
+     */
+    public function logoutAction()
+    {
+        $this->get('request')->getSession()->invalidate();
+        return $this->redirect('/index.php?do=Logout&symfony=1');
     }
 }

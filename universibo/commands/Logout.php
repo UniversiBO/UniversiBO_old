@@ -16,7 +16,7 @@ class Logout extends UniversiboCommand {
 	{
 		$fc = $this->getFrontController();
 		
-		if ( array_key_exists('f2_submit',$_POST) )
+		if ( array_key_exists('f2_submit',$_POST) || (array_key_exists('symfony',$_GET) && $_GET['symfony']))
 		{
 			$this->setSessionIdUtente(0);
 			
