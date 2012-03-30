@@ -113,7 +113,7 @@ class LinkEdit extends CanaleCommand
             $f31_Description = $_POST['f31_Description'];
             $f31_Label = $_POST['f31_Label'];
 
-            if (!ereg('(^(http(s)?|ftp)://|^.{0}$)', $f31_URI))
+            if (!preg_match('/^(http(s)?|ftp):\\/\\/|^.{0}$/', $f31_URI))
             {
                 $f31_accept = false;
                 $f31_URI = 'http://';

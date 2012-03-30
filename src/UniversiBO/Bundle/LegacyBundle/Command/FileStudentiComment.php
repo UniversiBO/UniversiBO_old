@@ -91,7 +91,7 @@ class FileStudentiComment extends UniversiboCommand {
 			}
 			
 			//voto
-			if (!ereg('^([0-5]{1})$', $_POST['f26_voto'])) {
+			if (!preg_match('/^([0-5]{1})$/', $_POST['f26_voto'])) {
 				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Voto non valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
 				$f26_accept = false;
 			} else
@@ -181,7 +181,4 @@ class FileStudentiComment extends UniversiboCommand {
 		return 'default';
 
 	}
-	
-	
-
 }

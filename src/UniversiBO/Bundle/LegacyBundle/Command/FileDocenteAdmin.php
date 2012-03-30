@@ -3,6 +3,8 @@ namespace UniversiBO\Bundle\LegacyBundle\Command;
 
 use \DB;
 use \Error;
+use \PrgAttivitaDidattica;
+use UniversiBO\Bundle\LegacyBundle\App\Canale;
 use UniversiBO\Bundle\LegacyBundle\App\Files\FileItem;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
@@ -90,7 +92,7 @@ class FileDocenteAdmin extends UniversiboCommand {
             $f40_canale[$annoCorso][$id_current_canale] = array('nome' => $nome_current_canale, 'spunta' => ($id_current_canale == $id_canale)? 'true' : 'false');
             $listaFile = array();
             $lista = & FileItem::selectFileItems(FileItem::selectFileCanale($id_current_canale));
-            usort($lista, array('FileDocenteAdmin','_compareFile'));
+            usort($lista, array($this,'_compareFile'));
             foreach ($lista as $file)
                 $listaFile[$file->getIdFile()] = array('nome' => $file->getTitolo(), 'spunta' => 'false');
             if (count($listaFile) > 0) $f40_files[$nome_current_canale] = $listaFile;
@@ -101,7 +103,7 @@ class FileDocenteAdmin extends UniversiboCommand {
         $list_keys = array_keys($f40_canale);
         for($i=0; $i<$tot; $i++)
         //			var_dump($f40_canale[$i]);
-            uasort($f40_canale[$list_keys[$i]], array('FileDocenteAdmin','_compareCanale'));
+            uasort($f40_canale[$list_keys[$i]], array($this,'_compareCanale'));
 
         //		var_dump($f40_files); die;
         $f40_accept = false;

@@ -1,6 +1,8 @@
 <?php  
 namespace UniversiBO\Bundle\LegacyBundle\App\Files;
 
+use UniversiBO\Bundle\LegacyBundle\App\Canale;
+
 use \DB;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
@@ -1030,7 +1032,7 @@ class FileItem {
     function addCanale($id_canale) {
         $return = true;
 
-        if (!Canale :: canaleExists($id_canale)) {
+        if (!Canale::canaleExists($id_canale)) {
             return false;
             //Error::throwError(_ERROR_CRITICAL,array('msg'=>'Il canale selezionato non esiste','file'=>__FILE__,'line'=>__LINE__));
         }

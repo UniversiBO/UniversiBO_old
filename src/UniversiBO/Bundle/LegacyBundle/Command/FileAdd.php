@@ -1,12 +1,14 @@
 <?php    
-use UniversiBO\Bundle\LegacyBundle\App\Files\FileItem;
+namespace UniversiBO\Bundle\LegacyBundle\Command;
 
 use \DB;
 use \Error;
+use UniversiBO\Bundle\LegacyBundle\App\Canale;
 use UniversiBO\Bundle\LegacyBundle\App\AntiVirus\AntiVirusFactory;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 use UniversiBO\Bundle\LegacyBundle\App\User;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
+use UniversiBO\Bundle\LegacyBundle\App\Files\FileItem;
 
 /**
  * FileAdd: si occupa dell'inserimento di un file in un canale

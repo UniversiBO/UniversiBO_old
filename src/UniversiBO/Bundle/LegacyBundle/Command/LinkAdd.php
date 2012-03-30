@@ -92,7 +92,7 @@ class LinkAdd extends UniversiboCommand {
 			$f29_Description = $_POST['f29_Description'];
 			$f29_Label = $_POST['f29_Label'];
 				
-			if (!preg_match('/^(http(s)?|ftp)://|^.{0}$/', $f29_URI))
+			if (!preg_match('/^(http(s)?|ftp):\\/\\/|^.{0}$/', $f29_URI))
 			{
 				$f29_accept = false;
 				$f29_URI = 'http://';

@@ -3,7 +3,7 @@
  * Project:     Smarty: the PHP compiling template engine
  * File:        Smarty.class.php
  *
- * Estensione della normale classe Smarty affinché i template da mostrare vengano cercati in maniera differenziale:
+ * Estensione della normale classe Smarty affinchÃ© i template da mostrare vengano cercati in maniera differenziale:
  * si definisce uno stile/cartella default cui cercare se nellla cartella dello stile corrente non si trova il tpl 
  * desiderato
  *
@@ -24,7 +24,7 @@ class MySmarty extends Smarty {
      */
     var $default_template_dir    =  'templates';
     
-    function assignUnicode($tpl_var, $value)
+    public function assignUnicode($tpl_var, $value)
     {
         $this->assign($tpl_var, $this->utf8ToLatin1($value));
     }
