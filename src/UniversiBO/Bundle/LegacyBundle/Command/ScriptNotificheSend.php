@@ -1,7 +1,9 @@
 <?php
-use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
+namespace UniversiBO\Bundle\LegacyBundle\Command;
 
-require_once 'Notifica/NotificaItem'.PHP_EXTENSION;
+use UniversiBO\Bundle\LegacyBundle\App\Notifica\NotificaItem;
+use UniversiBO\Bundle\LegacyBundle\Framework\LogHandler;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
  * ScriptNotificheSendis an extension of UniversiboCommand class.
@@ -18,7 +20,6 @@ class ScriptNotificheSend extends UniversiboCommand
 {
 	function execute()
 	{
-
 		$fc = $this->getFrontController();
 		$db = $fc->getDbConnection('main');
 		$user = $this->getSessionUser();
@@ -26,7 +27,7 @@ class ScriptNotificheSend extends UniversiboCommand
 		
 		$log_notifica_definition = array(0 => 'time', 1 => 'id_notifica', 2 => 'titolo', 3 => 'destinatario', 4 => 'risultato' );
 		
-		$notifLog = new UniversiBO\Bundle\LegacyBundle\Framework\LogHandler('notifica',$fc->getAppSetting('logs'),$log_notifica_definition); 
+		$notifLog = new LogHandler('notifica',$fc->getAppSetting('logs'),$log_notifica_definition); 
 		
 
 		//acquisire lock
