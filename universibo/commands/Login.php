@@ -32,7 +32,6 @@ class Login extends UniversiboCommand {
 		
 		if ( array_key_exists('f1_submit',$_POST) )
 		{
-			
 			if (!$user->isOspite())
 			{
 				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Il login può essere eseguito solo da utenti che non hanno ancora eseguito l\'accesso','file'=>__FILE__,'line'=>__LINE__));
@@ -93,5 +92,10 @@ class Login extends UniversiboCommand {
 		$template->assign('f1_password_value','');
 		return ;
 
+	}
+	
+	private function isSymfony()
+	{
+	    return array_key_exists('symfony', $_GET) && $_GET['symfony'];
 	}
 }

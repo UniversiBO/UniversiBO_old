@@ -21,7 +21,7 @@
 			class="UniversiBO\Bundle\LegacyBundle\App\DBCanaleRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />
 		</service>
-		
+
 		<service id="universibo_legacy.repository.ruolo"
 			class="UniversiBO\Bundle\LegacyBundle\App\DBRuoloRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />
@@ -37,7 +37,20 @@
 			<argument>%adlogin_host%</argument>
 			<argument>%adlogin_port%</argument>
 		</service>
-		
+
+		<service id="universibo_legacy.security.authentication.provider"
+			class="UniversiBO\Bundle\LegacyBundle\Auth\UniversiBOProvider"
+			public="false">
+			<argument type="service" id="universibo_legacy.repository.user" />
+		</service>
+
+		<service id="universibo_legacy.security.authentication.listener"
+			class="UniversiBO\Bundle\LegacyBundle\Auth\UniversiBOListener"
+			public="false">
+			<argument type="service" id="security.context" />
+			<argument type="service" id="security.authentication.manager" />
+		</service>
+
 		<service id="universibo_legacy.message.sms" class="mobytSms">
 			<argument>%sms_user%</argument>
 			<argument>%sms_password%</argument>
