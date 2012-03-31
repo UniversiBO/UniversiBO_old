@@ -1,8 +1,9 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\App;
 
+use \DB;
+use \Error;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
-
-require_once('User'.PHP_EXTENSION);
 
 /**
  * Collaboratore class, modella le informazioni relative ai collaboratori
@@ -217,7 +218,7 @@ class Collaboratore extends User {
 		$return = true;
 		
 		
-		//todo fare inserimento solo se non già presente
+		//todo fare inserimento solo se non giï¿½ presente
 		$query = 'INSERT INTO collaboratore (id_utente, intro, recapito, obiettivi, foto, ruolo) VALUES '.
 					'( '.
 					$db->quote($this->getIdUtente()).' , '.

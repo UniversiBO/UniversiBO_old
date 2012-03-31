@@ -1,9 +1,13 @@
 <?php
-use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
+namespace UniversiBO\Bundle\LegacyBundle\Command;
 
+use \DB;
+use \Error;
+use UniversiBO\Bundle\LegacyBundle\App\User;
+use UniversiBO\Bundle\LegacyBundle\App\InteractiveCommand\StoredInteractionInformationRetriever;
+use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
-require_once 'InteractiveCommand/StoredInteractionInformationRetriever'.PHP_EXTENSION;
 
 /**
  *
@@ -76,7 +80,7 @@ class CancellazioneUtente
 	var $idInformativa;
 	
 	// costruttore
-	function CancellazioneUtente($idInformativa) 
+	function __construct($idInformativa) 
 	{
 		$this->idInformativa = $idInformativa;
 		$this->db = FrontController::getDbConnection('main');
@@ -95,7 +99,7 @@ class CancellazioneUtente
 			if ($ret['esito'] === false)
 			{
 				$db->rollback();				
-				Error::throwError(_ERROR_CRITICAL,array('msg'=>'Si è verificato un errore: ' . $ret['msg'] ."\n".'Ripristino della situazione iniziale','file'=>__FILE__,'line'=>__LINE__));
+				Error::throwError(_ERROR_CRITICAL,array('msg'=>'Si ï¿½ verificato un errore: ' . $ret['msg'] ."\n".'Ripristino della situazione iniziale','file'=>__FILE__,'line'=>__LINE__));
 				return false;
 			}
 		}
@@ -168,7 +172,7 @@ class CancellazioneUtente
 //	function anonimizeUserTopic ($idUtente) 
 //	{
 //		$sql = 'UPDATE phpbb_topics '.
-//			'SET topic_poster = '.$this->db->quote(User::NICK_ELIMINATO).'   // WARNING!! topic_poster è un id_utente, non uno username!! 
+//			'SET topic_poster = '.$this->db->quote(User::NICK_ELIMINATO).'   // WARNING!! topic_poster ï¿½ un id_utente, non uno username!! 
 //			WHERE topic_poster = '.$this->db->quote($idUtente);
 //		$res = $this->db->query($sql);
 //		return (  !DB::isError($res) );
@@ -303,7 +307,7 @@ class CancellazioneUtente
 //			Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 //		}
 
-// 		non abbiamo utenti che costituiscono gruppo a sé
+// 		non abbiamo utenti che costituiscono gruppo a sï¿½
 //			$sql = 'SELECT g.group_id 
 //				FROM phpbb_user_group ug, phpbb_groups g  
 //				WHERE ug.user_id = '.$db->quote($idUtente).' 

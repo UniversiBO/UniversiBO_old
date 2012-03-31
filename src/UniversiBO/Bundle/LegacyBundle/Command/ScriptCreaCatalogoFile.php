@@ -1,9 +1,13 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command;
+
+use \DB;
+use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 use UniversiBO\Bundle\LegacyBundle\App\User;
+use UniversiBO\Bundle\LegacyBundle\App\Files\FileItemStudenti;
+use UniversiBO\Bundle\LegacyBundle\App\Files\FileItem;
 
-require_once('Files/FileItem'.PHP_EXTENSION);
-require_once('Files/FileItemStudenti'.PHP_EXTENSION);
 /**
  * ScriptCreaCatalogoFile is an extension of UniversiboCommand class.
  *
@@ -27,7 +31,7 @@ class ScriptCreaCatalogoFile extends UniversiboCommand
 
         $catalogoFilename = $fc->getAppSetting('catalogoFileName');
         $iterationStep = 300;
-        // TODO far sì che urlfile prenda valori da appsetting
+        // TODO far sÃ¬ che urlfile prenda valori da appsetting
         $urlFile="https://www.universibo.unibo.it/index.php?do=FileDownload&id_file=";
         $faculty='FACOLTA';
         $university='UNIVERSITA';

@@ -1,5 +1,8 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command;
 
+use \DB;
+use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -7,6 +10,7 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
  *
  * Si occupa della modifica della password di un utente
  *
+ * @todo obsoleto
  * @package universibo
  * @subpackage commands
  * @version 2.0.0

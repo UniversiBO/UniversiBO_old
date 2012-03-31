@@ -1,6 +1,12 @@
 <?php
-use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
+namespace UniversiBO\Bundle\LegacyBundle\Command;
 
+use UniversiBO\Bundle\LegacyBundle\App\Insegnamento;
+
+use \DB;
+use \Error;
+use UniversiBO\Bundle\LegacyBundle\App\Cdl;
+use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**

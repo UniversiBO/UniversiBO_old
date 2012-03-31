@@ -1,4 +1,11 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command;
+
+use \DB;
+use \Error;
+use UniversiBO\Bundle\LegacyBundle\App\Constants;
+use UniversiBO\Bundle\LegacyBundle\App\ForumApi;
+use UniversiBO\Bundle\LegacyBundle\App\User;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -20,7 +27,7 @@ class ScriptIscriviDocenti2 extends UniversiboCommand
 		$template = $fc->getTemplateEngine();
 		$db = $fc->getDbConnection('main');
 		
-		$notifica = NOTIFICA_NONE;
+		$notifica = Constants::NOTIFICA_NONE;
 		
 		$res = $db->query('SELECT cod_doc, nome_doc, email FROM docente2 WHERE cod_doc NOT IN (SELECT cod_doc FROM docente WHERE 1=1)');
 		if (DB::isError($res)) die('select docente2'); 
@@ -61,7 +68,7 @@ class ScriptIscriviDocenti2 extends UniversiboCommand
 
                 $mail->Body = "Gentile docente,\n".
 					"Le abbiamo creato un account su UniversiBO.\n\n".
-					"Il progetto portato avanti dalla comunità degli studenti dell'università di Bologna collaborando con le strutture di Ateneo, si propone la realizzazione di un sito web in grado di raccogliere ed integrare le informazioni ora disponibili in una moltitudine di siti e permettere lo scambio e la condivisione tra docenti e studenti di informazioni su temi attinenti principalmente la didattica.\n\n".
+					"Il progetto portato avanti dalla comunita` degli studenti dell'universita` di Bologna collaborando con le strutture di Ateneo, si propone la realizzazione di un sito web in grado di raccogliere ed integrare le informazioni ora disponibili in una moltitudine di siti e permettere lo scambio e la condivisione tra docenti e studenti di informazioni su temi attinenti principalmente la didattica.\n\n".
 					"Per accedere al sito utilizzi l'indirizzo ".$fc->getAppSetting('rootUrl')."\n\n".
 					"Le informazioni per permetterle l'accesso ai servizi offerti sono:\n".
 					"Username: ".$username."\n".
@@ -75,7 +82,7 @@ class ScriptIscriviDocenti2 extends UniversiboCommand
 					"- Inserire una raccolta di link verso siti esterni contenenti informazioni attinenti al suo insegnamento\n".
 					"- Interagire attivamente con gli studenti attraverso il forum\n".
 					"Come usare questi servizi lo trova spiegato nella sezione \"Help\" .\n".
-					"Attraverso il sito è disponibile una funzionalità che le permette inoltre di delegare queste attivita' anche ad altri utenti iscritti al sito di sua scelta.\n".
+					"Attraverso il sito e` disponibile una funzionalita` che le permette inoltre di delegare queste attivita' anche ad altri utenti iscritti al sito di sua scelta.\n".
 					"Se vuole iscrivere dei suoi \"assistenti\" risponda a questa mail con i loro nomi e indirizzi email ed uno username di loro gradimento.\n".
 					"Provvederemo ad iscriverli al piu' presto e a dar loro i diritti opportuni nelle sue pagine.\n\n".
 					"Per qualsiasi problema non esiti a contattarci\n".

@@ -1,7 +1,8 @@
 <?php
-use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
+namespace UniversiBO\Bundle\LegacyBundle\Command;
 
-require_once ('Notifica/NotificaMail'.PHP_EXTENSION);
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\App\Notifica\NotificaMail;
 
 /**
  * @package universibo
