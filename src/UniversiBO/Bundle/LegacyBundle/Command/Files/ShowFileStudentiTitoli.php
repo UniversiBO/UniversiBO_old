@@ -33,7 +33,7 @@ class ShowFileStudentiTitoli extends PluginCommand {
 	 *
 	 * @param array $param nessu parametro  
 	 */
-	function execute($param)
+	public function execute($param = array())
 	{
 		//$flag_chkDiritti	=  $param['chk_diritti'];
 //		var_dump($param['id_notizie']);

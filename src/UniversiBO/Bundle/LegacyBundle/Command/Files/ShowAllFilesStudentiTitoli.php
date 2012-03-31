@@ -28,7 +28,7 @@ class ShowAllFilesStudentiTitoli extends PluginCommand {
 	 *
 	 * @param array $param nessu parametro  
 	 */
-	function execute($param)
+	public function execute($param = array())
 	{
 		$elenco_file = $param['files'];
 		$bc        = $this->getBaseCommand();

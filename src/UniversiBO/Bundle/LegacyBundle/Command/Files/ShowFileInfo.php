@@ -22,7 +22,7 @@ class ShowFileInfo extends PluginCommand {
 	 *
 	 * @param array $param id_file obbligatorio, id_canale facoltativo  
 	 */
-	function execute($param) 
+	public function execute($param = array()) 
 	{
 		$bc        = $this->getBaseCommand();
 		$user      = $bc->getSessionUser();

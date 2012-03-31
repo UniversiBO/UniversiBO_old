@@ -9,7 +9,7 @@ use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
 
 /**
- * ShowMyFileTitoli ? un'implementazione di PluginCommand.
+ * ShowMyFileTitoli è un'implementazione di PluginCommand.
  *
  * Mostra i file del canale
  * Il BaseCommand che chiama questo plugin deve essere un'implementazione di CanaleCommand.
@@ -31,7 +31,7 @@ class ShowMyFileTitoli extends PluginCommand {
 	 *
 	 * @param array $param nessu parametro  
 	 */
-	function execute($param)
+	public function execute($param = array())
 	{
 		$elenco_file = $param['files'];
 		$bc        = $this->getBaseCommand();
