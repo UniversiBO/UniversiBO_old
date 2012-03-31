@@ -211,5 +211,6 @@ class Error
         return false;
 
     }
-
 }
+
+class_exists('ErrorHandlers');
