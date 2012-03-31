@@ -1,3 +1,8 @@
+UniversiBODidacticsBundle:
+    resource: "@UniversiBODidacticsBundle/Controller/"
+    type:     annotation
+    prefix:   /admin/didactics
+
 UniversiBOWebsiteBundle:
     resource: "@UniversiBOWebsiteBundle/Controller/"
     type:     annotation
