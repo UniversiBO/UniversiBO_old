@@ -5,7 +5,6 @@
         "symfony/symfony": "v2.0.12",
         "symfony/assetic-bundle": "2.0-dev",
         "doctrine/orm": "2.1.x-dev",
-        "doctrine/doctrine-migrations-bundle": "dev-master",
         "sensio/generator-bundle": "2.0-dev",
         "sensio/framework-extra-bundle": "2.0-dev",
         "jms/metadata": "1.1.1",

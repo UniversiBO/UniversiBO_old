@@ -14,6 +14,7 @@ $loader->registerNamespaces(array(
         'JMS\\AopBundle'                       => __DIR__.'/../vendor/jms/aop-bundle',
         'JMS\\SecurityExtraBundle'             => __DIR__.'/../vendor/jms/security-extra-bundle',
         'Doctrine\\Common'                     => __DIR__.'/../vendor/doctrine/common/lib',
+        'Doctrine\\DBAL\\Migrations'           => __DIR__.'/../vendor/doctrine/migrations/lib',
         'Doctrine\\DBAL'                       => __DIR__.'/../vendor/doctrine/dbal/lib',
         'Doctrine\\ORM'                        => __DIR__.'/../vendor/doctrine/orm/lib',
         'Monolog'                              => __DIR__.'/../vendor/monolog/monolog/src',
