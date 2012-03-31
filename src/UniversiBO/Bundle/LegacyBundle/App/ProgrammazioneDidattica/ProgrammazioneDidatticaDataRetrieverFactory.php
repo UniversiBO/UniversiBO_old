@@ -1,4 +1,5 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\App\ProgrammazioneDidattica;
 
 /**
  * ProgrammazioneDidatticaDataRetrieverFactory.
@@ -20,10 +21,9 @@ class ProgrammazioneDidatticaDataRetrieverFactory
 {
 	/**
 	 * @param string $type tipo di DataRetriever da utilizzare: "web_service", "database_unibo"
-	 *
 	 * @return ProgrammazioneDidatticaDataRetriever 
 	 */
-	function getProgrammazioneDidatticaDataRetriever($type)
+	public static function getProgrammazioneDidaticaDataRetriever($type)
 	{
 		switch ($type){
 			case "web_service" :
@@ -33,7 +33,5 @@ class ProgrammazioneDidatticaDataRetrieverFactory
 				require_once("ProgrammazioneDidattica/ProgrammazioneDidatticaDataRetrieverDatabaseUnibo".PHP_EXTENSION);
 				return new ProgrammazioneDidatticaDataRetrieverDatabaseUnibo();
 		}
-
 	}	
-
 }

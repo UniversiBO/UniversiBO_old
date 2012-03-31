@@ -1,13 +1,12 @@
 <?php
-
-require_once ('ProgrammazioneDidattica/ProgrammazioneDidatticaDataRetriever'.PHP_EXTENSION);
+namespace UniversiBO\Bundle\LegacyBundle\App\ProgrammazioneDidattica;
 
 /**
  * ProgrammazioneDidatticaDataRetrieverDatabaseUnibo
  *
  * Preleva le informazioni della programmazione didattica da un database.
- * l'identificativo della connessione usata è programmazione_didattica
- * lo scehma del database utilizzato per l'inserimento dei dati è quello 
+ * l'identificativo della connessione usata Ã¨ programmazione_didattica
+ * lo schema del database utilizzato per l'inserimento dei dati Ã¨ quello 
  * presente in dbms/tipo_db/input_schema_programmazione_didattica.sql
  *
  * @package universibo
@@ -16,9 +15,7 @@ require_once ('ProgrammazioneDidattica/ProgrammazioneDidatticaDataRetriever'.PHP
  * @license GPL, @link http://www.opensource.org/licenses/gpl-license.php
  * @copyright CopyLeft UniversiBO 2001-2004
  */
-
-
-class ProgrammazioneDidatticaDataRetrieverDatabaseUnibo extends ProgrammazioneDidatticaDataRetriever
+class ProgrammazioneDidatticaDataRetrieverDatabaseUnibo implements ProgrammazioneDidatticaDataRetriever
 {
 	
 	function getFacoltaList(){

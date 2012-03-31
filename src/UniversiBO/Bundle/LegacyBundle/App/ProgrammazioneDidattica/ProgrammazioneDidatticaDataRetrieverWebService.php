@@ -1,15 +1,15 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\App\ProgrammazioneDidattica;
 
-require_once('WebService_WsDidatticaServerImplService_Didattica'.PHP_EXTENSION);
-require_once ('ProgrammazioneDidattica/ProgrammazioneDidatticaDataRetriever'.PHP_EXTENSION);
+require_once 'WebService_WsDidatticaServerImplService_Didattica'.PHP_EXTENSION;
 
 /**
  * ProgrammazioneDidatticaDataRetrieverWebService
  *
  * Preleva le informazioni della programmazione didattica da un webservice.
  * Ha il compito di fare da wrapper alla stub del WebService
- * l'identificativo della connessione usata è programmazione_didattica
- * lo scehma del database utilizzato per l'inserimento dei dati è quello 
+ * l'identificativo della connessione usata Ã¨ programmazione_didattica
+ * lo scehma del database utilizzato per l'inserimento dei dati Ã¨ quello 
  * presente in dbms/tipo_db/input_schema_programmazione_didattica.sql
  *
  * @package universibo
@@ -18,9 +18,8 @@ require_once ('ProgrammazioneDidattica/ProgrammazioneDidatticaDataRetriever'.PHP
  * @license GPL, @link http://www.opensource.org/licenses/gpl-license.php
  * @copyright CopyLeft UniversiBO 2001-2004
  */
-class ProgrammazioneDidatticaDataRetrieverWebService extends ProgrammazioneDidatticaDataRetriever
+class ProgrammazioneDidatticaDataRetrieverWebService implements ProgrammazioneDidatticaDataRetriever
 {
-	
 	var $web_service;
 	
 	public function __construct()
