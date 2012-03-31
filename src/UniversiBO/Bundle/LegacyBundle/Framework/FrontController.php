@@ -1,6 +1,8 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Framework;
 
+use UniversiBO\Bundle\LegacyBundle\App\ErrorHandlers;
+
 define('MAIL_KEEPALIVE_NO', 0);
 define('MAIL_KEEPALIVE_ALIVE', 1);
 define('MAIL_KEEPALIVE_CLOSE', 2);
@@ -512,14 +514,12 @@ class FrontController
 
     /**
      * Defines error categories, sets the error handlers
-     * @access private
      */
-    function _setErrorHandler()
+    private function _setErrorHandler()
     {
-       	//Error Handlers class must/can be defined from the application
-       	require_once('ErrorHandlers'.PHP_EXTENSION);
+        $handlers = new ErrorHandlers();
+        $handlers->register();
     }
-
 
     /**
      * Sets the RootFolder
@@ -530,7 +530,7 @@ class FrontController
     {
        	$elementsFolder = $this->config->getElementsByTagName('rootFolder');
        	if ($elementsFolder == NULL)
-       	    \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non � specificato l\'elemento rootFolder nel file di config','file'=>__FILE__,'line'=>__LINE__));
+       	    \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` specificato l\'elemento rootFolder nel file di config','file'=>__FILE__,'line'=>__LINE__));
        	$elementFolderItem = $elementsFolder->item(0);
        	$elementFolderChild =& $elementFolderItem->firstChild;
        	$this->rootFolder = $elementFolderChild->nodeValue;

@@ -561,24 +561,22 @@ class Canale {
 
         $tipo_canale =  Canale::getTipoCanaleFromId ( $id_canale );
         if ($tipo_canale === false )
-            Error::throwError(_ERROR_DEFAULT,array('msg'=>'Il canale richiesto non � presente','file'=>__FILE__,'line'=>__LINE__));
+            Error::throwError(_ERROR_DEFAULT,array('msg'=>'Il canale richiesto non e` presente','file'=>__FILE__,'line'=>__LINE__));
 
-        $dispatch_array = array (	CANALE_DEFAULT      => 'Canale',
-                CANALE_HOME         => 'Canale',
-                CANALE_FACOLTA      => 'Facolta',
-                CANALE_CDL          => 'Cdl',
-                CANALE_INSEGNAMENTO => 'Insegnamento');
+        $dispatch_array = array (
+                CANALE_DEFAULT      => 'UniversiBO\\Bundle\\LegacyBundle\\App\\Canale',
+                CANALE_HOME         => 'UniversiBO\\Bundle\\LegacyBundle\\App\\Canale',
+                CANALE_FACOLTA      => 'UniversiBO\\Bundle\\LegacyBundle\\App\\Facolta',
+                CANALE_CDL          => 'UniversiBO\\Bundle\\LegacyBundle\\App\\Cdl',
+                CANALE_INSEGNAMENTO => 'UniversiBO\\Bundle\\LegacyBundle\\App\\Insegnamento');
 
 
         if (!array_key_exists($tipo_canale, $dispatch_array))
         {
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>'Il tipo di canale richiesto su database non � valido, contattare lo staff - '.var_dump($id_canale).var_dump($tipo_canale),'file'=>__FILE__,'line'=>__LINE__));
+            Error::throwError(_ERROR_CRITICAL,array('msg'=>'Il tipo di canale richiesto su database non e` valido, contattare lo staff - '.var_dump($id_canale).var_dump($tipo_canale),'file'=>__FILE__,'line'=>__LINE__));
         }
 
         $class_name = $dispatch_array[$tipo_canale];
-
-        require_once($class_name.PHP_EXTENSION);
-
         $cache_canali[$id_canale] = call_user_func(array($class_name,'factoryCanale'), $id_canale);
 
         return $cache_canali[$id_canale];
@@ -670,7 +668,7 @@ class Canale {
         if ($this->ruoli == NULL)
         {
             $this->ruoli = array();
-            $ruoli = \Ruolo::selectCanaleRuoli($this->getIdCanale());
+            $ruoli = Ruolo::selectCanaleRuoli($this->getIdCanale());
             $num_elementi = count($ruoli);
             for ($i=0; $i<$num_elementi; $i++)
             {

@@ -37,4 +37,16 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
         self::assertTrue($this->isTextPresent('Password smarrita'));
         self::assertTrue($this->isTextPresent('I servizi personalizzati sono disponibili solo agli utenti che hanno effettuato il login'));
     }
+    
+    protected function assertSentence($sentence)
+    {
+        $this->assertSentences(array($sentence));
+    }
+    
+    protected function assertSentences(array $sentences)
+    {
+        foreach($sentences as $sentence) {
+        	self::assertTrue($this->isTextPresent($sentence), 'Text: "'.$sentence.'" should be present.');
+        }
+    }
 }

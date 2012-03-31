@@ -3,11 +3,10 @@ namespace UniversiBO\Bundle\LegacyBundle\Command;
 
 use \DB;
 use \Error;
-use \ForumApi;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
+use UniversiBO\Bundle\LegacyBundle\App\ForumApi;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 use UniversiBO\Bundle\LegacyBundle\App\User;
-
 /**
  * Login is an extension of UniversiboCommand class.
  *

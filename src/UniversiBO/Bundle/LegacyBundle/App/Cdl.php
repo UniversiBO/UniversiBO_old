@@ -1,5 +1,8 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\App;
 
+use \DB;
+use \Error;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
 define('CDL_NUOVO_ORDINAMENTO'   ,1);

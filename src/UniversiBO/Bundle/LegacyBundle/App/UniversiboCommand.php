@@ -1,13 +1,11 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\App;
 
+use UniversiBO\Bundle\LegacyBundle\App\Facolta;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\Framework\BaseCommand;
 
 use \Error;
-use \Facolta;
-use \ForumApi;
-
 /**
  * UniversiboCommand is the abstract super class of all command classes
  * used in the universibo application.
@@ -286,7 +284,7 @@ abstract class UniversiboCommand extends BaseCommand {
                 }
             }
             //ordina $arrayCanali
-            usort($arrayCanali, array('UniversiboCommand', '_compareMyUniversiBO'));
+            usort($arrayCanali, array($this, '_compareMyUniversiBO'));
         }
 
 
@@ -390,7 +388,7 @@ abstract class UniversiboCommand extends BaseCommand {
             $common_servicesLinks[] = array('uri' => 'index.php?do=ShowStatistiche', 'tipo' => '', 'label' => 'Statistiche');
         }
 
-        usort($common_servicesLinks, array('UniversiboCommand', '_compareServices'));
+        usort($common_servicesLinks, array($this, '_compareServices'));
         $template->assign('common_servicesLinks', $common_servicesLinks);
 
 

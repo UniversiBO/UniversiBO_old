@@ -1,8 +1,9 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\App;
 
+use \DB;
+use \Error;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
-
-require_once('User'.PHP_EXTENSION);
 
 define('CHIUSO'		,0);
 define('APERTO'		,1);
@@ -52,7 +53,7 @@ define('INATTIVO'   ,4);
  			CHIUSO => 'chiuso - non ci sono compiti da eseguire',
  			APERTO => 'aperto - ci sono compiti da eseguire',
  			KILLED => 'killed - non ne vuole sapere di universibo',
- 			CRITIC => 'critic - è un pezzo grosso, non è da contattare',
+ 			CRITIC => 'critic - ï¿½ un pezzo grosso, non ï¿½ da contattare',
  			INATTIVO => 'inattivo - non ha corsi attivi nell\'A.A. corrente',
  			);
  	
@@ -69,7 +70,7 @@ define('INATTIVO'   ,4);
 	 * resituisce il contattoDocente corrispondente al Docente
 	 * 
 	 *	@static
-	 *  @param int coddoc è il codice del docente di cui si vuole avere informazioni
+	 *  @param int coddoc Ã¨ il codice del docente di cui si vuole avere informazioni
 	 *  @return mixed resituisce ContattoDocente se esiste il contatto, false altrimenti
 	 */
 	function getContattoDocente ($coddoc)

@@ -1,7 +1,7 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
-use \ForumApi;
+use UniversiBO\Bundle\LegacyBundle\App\ForumApi;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**

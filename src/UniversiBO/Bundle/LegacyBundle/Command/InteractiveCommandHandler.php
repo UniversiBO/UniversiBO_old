@@ -1,10 +1,13 @@
 <?php
+
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
 use \DB;
 use \Error;
-use \NotificaItem;
-use \ForumApi;
+
+use UniversiBO\Bundle\LegacyBundle\App\ForumApi;
+use UniversiBO\Bundle\LegacyBundle\App\Notifica\NotificaItem;
+
 use \CLInterpreter;
 
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
@@ -55,7 +58,6 @@ class InteractiveCommandHandler extends UniversiboCommand {
 			$this->setSessionIdUtente($this->userLogin->getIdUser());
 			$fc->setStyle($this->userLogin->getDefaultStyle());
 			
-			require_once ('ForumApi'.PHP_EXTENSION);
 			$forum = new ForumApi();
 			$forum->login($this->userLogin);
 			
@@ -91,7 +93,6 @@ class InteractiveCommandHandler extends UniversiboCommand {
 			 * @todo mail agli sviluppatori per correggere subito l'errore, altrimenti la gente non si logga pi�!!
 			 * per il futuro, pensare a come disabilitare in automatico gli InteractiveCommand con errore
 			 */			
-			require_once('Notifica/NotificaItem'.PHP_EXTENSION);
 			$notifica_titolo_long = 'WARNING: l\'InteractiveCommand '.$currentStep['className'].' e\' errato';
 			$notifica_titolo = substr($notifica_titolo_long, 0 , 199);
 			$notifica_dataIns = time();

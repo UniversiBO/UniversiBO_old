@@ -1,14 +1,10 @@
 <?php 
-
 namespace UniversiBO\Bundle\LegacyBundle\App;
 
+use UniversiBO\Bundle\LegacyBundle\App\PrgAttivitaDidattica;
 use Symfony\Component\Security\Core\User\UserInterface;
-
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\Auth\ActiveDirectoryLogin;
-
-use \PrgAttivitaDidattica;
-
 /**
  * User class
  *
@@ -411,7 +407,7 @@ class User implements UserInterface, \Serializable
         if ($this->bookmark == NULL)
         {
             $this->bookmark = array();
-            $ruoli = \Ruolo::selectUserRuoli($this->getIdUser());
+            $ruoli = Ruolo::selectUserRuoli($this->getIdUser());
             $num_elementi = count($ruoli);
             for ($i=0; $i<$num_elementi; $i++)
             {
@@ -463,7 +459,7 @@ class User implements UserInterface, \Serializable
         $list_keys = array_keys($f7_canale);
         for($i=0; $i<$tot; $i++)
             //			var_dump($f7_canale[$i]);
-            uasort($f7_canale[$list_keys[$i]], array('User','_compareCanale'));
+            uasort($f7_canale[$list_keys[$i]], array($this,'_compareCanale'));
         return $f7_canale;
     }
 

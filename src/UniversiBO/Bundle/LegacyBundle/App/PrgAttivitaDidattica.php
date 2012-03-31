@@ -1,9 +1,9 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\App;
 
+use \DB;
+use \Error;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
-
-require_once('Canale'.PHP_EXTENSION);
-
 /**
  * PrgAttivitaDidattica class.
  *
@@ -118,7 +118,7 @@ class PrgAttivitaDidattica extends Canale
     var $sdoppiato;
     	
     /**
-     * null se attività padre, id_sdop se attività sdoppiato (integer)
+     * null se attivitï¿½ padre, id_sdop se attivitï¿½ sdoppiato (integer)
      * @private
      */
     var $id_sdop;
@@ -455,7 +455,7 @@ class PrgAttivitaDidattica extends Canale
 
 
     /**
-     * Restituisce l'id_sdop se attività sdoppiata, null altrimenti
+     * Restituisce l'id_sdop se attivitï¿½ sdoppiata, null altrimenti
      *
      * @return string
      */
@@ -662,11 +662,11 @@ class PrgAttivitaDidattica extends Canale
     }
 
     /**
-     * Seleziona da database e restituisce l'attività didattica sdoppiata
+     * Seleziona da database e restituisce l'attivitï¿½ didattica sdoppiata
      * con id id_sdop
      *
      * @static
-     * @param int $id_sdop identificativo dell'attività sdoppiata
+     * @param int $id_sdop identificativo dell'attivitï¿½ sdoppiata
      * @return mixed PrgAttivitaDidattica se eseguita con successo, false se il canale non esiste
      */
     function selectPrgAttivitaDidatticaSdoppiata($id_sdop)

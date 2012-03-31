@@ -1,5 +1,7 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\App;
 
+use \Error;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\Framework\LogHandler;
 
@@ -16,6 +18,9 @@ use UniversiBO\Bundle\LegacyBundle\Framework\LogHandler;
  */
 
 class ErrorHandlers {
+    const LEVEL_DEFAULT = 0;
+    const LEVEL_CRITICAL = 1;
+    const LEVEL_NOTICE = 1;
 
     /**
      * Handler per errori di categoria ERROR_CRITICAL
@@ -65,7 +70,7 @@ class ErrorHandlers {
      * Redirige il browser ad una pagina dell'applicazione in cui viene mostrato il messaggio di errore
      *
      * @param $param mixed,array() Tipo restituito da chi cattura l'errore,
-     * questo handler ? in grado di gestire un parametro array avente la seguente struttura
+     * questo handler ? in grado di gestire un parametro arrequireray avente la seguente struttura
      * $param = array(  "msg"=>"messaggio di errore da mostrare",
      * 					"file"=>"file in cui ? avvenuto l'errore",
      * 					"line"=>"linea di codice in cui ? avvenuto l'errore",
@@ -127,7 +132,7 @@ class ErrorHandlers {
             $log_definition = array(0 => 'timestamp', 1 => 'date', 2 => 'time', 3 => 'error_level', 4 => 'file', 5 => 'line', 6 => 'messaggio' );
 
             $log = new LogHandler('error','../universibo/log-universibo/',$log_definition);
-            	
+             
             $log_array = array( 'timestamp'  => time(),
                     'date'  => date("Y-m-d",time()),
                     'time'  => date("H:i",time()),
@@ -143,7 +148,7 @@ class ErrorHandlers {
          $current_error = $template->get_template_vars('error_notice');
          if ($current_error == NULL)
          {
-         $current_error = array();
+         $current_error = array();require
          }
          $current_error[] = $param['msg'];
          $template->assign('error_notice', $current_error);
@@ -158,14 +163,15 @@ class ErrorHandlers {
          template engine: ',$param['template_engine'], '<br />';
          */
     }
-
+    
+    public function register()
+    {
+        Error::setHandler(self::LEVEL_DEFAULT, array($this, 'default_handler'));
+        Error::setHandler(self::LEVEL_CRITICAL, array($this, 'critical_handler'));
+        Error::setHandler(self::LEVEL_NOTICE, array($this, 'notice_handler'));
+    }
 }
 
-define('_ERROR_DEFAULT',0);
-define('_ERROR_CRITICAL',1);
-define('_ERROR_NOTICE',2);
-
-Error::setHandler(_ERROR_CRITICAL,array('ErrorHandlers','critical_handler'));
-Error::setHandler(_ERROR_DEFAULT,array('ErrorHandlers','default_handler'));
-Error::setHandler(_ERROR_NOTICE,array('ErrorHandlers','notice_handler'));
-
+define('_ERROR_DEFAULT'  ,ErrorHandlers::LEVEL_DEFAULT);
+define('_ERROR_CRITICAL' ,ErrorHandlers::LEVEL_CRITICAL);
+define('_ERROR_NOTICE'   ,ErrorHandlers::LEVEL_NOTICE);

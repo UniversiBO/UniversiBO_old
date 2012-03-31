@@ -1,7 +1,11 @@
 <?php
-use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
+namespace UniversiBO\Bundle\LegacyBundle\App;
 
+use \DB;
+use \Error;
+use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\App\User;
+use UniversiBO\Bundle\ForumBundle\Integration\ForumApi as ForumApiInterface;
 
 /**
  * La classe Forum fornisce un'API esterna per le operazioni sul forum PHPBB 2.0.x
@@ -17,7 +21,7 @@ use UniversiBO\Bundle\LegacyBundle\App\User;
  * @copyright CopyLeft UniversiBO 2001-2003
  */
 
-class ForumApi implements UniversiBO\Bundle\ForumBundle\Integration\ForumApi
+class ForumApi implements ForumApiInterface
 {
 
     /**

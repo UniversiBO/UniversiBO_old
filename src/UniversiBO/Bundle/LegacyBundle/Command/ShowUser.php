@@ -1,9 +1,9 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
-use \Docente;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\Canale;
+use UniversiBO\Bundle\LegacyBundle\App\Docente;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 use UniversiBO\Bundle\LegacyBundle\App\User;
 
@@ -30,18 +30,18 @@ class ShowUser extends UniversiboCommand{
 
         if($current_user->isOspite())
         {
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $current_user->getIdUser(), 'msg'=>'Le schede degli utenti sono visualizzabili solo se si � registrati','file'=>__FILE__,'line'=>__LINE__));
+            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $current_user->getIdUser(), 'msg'=>'Le schede degli utenti sono visualizzabili solo se si e` registrati','file'=>__FILE__,'line'=>__LINE__));
         }
 
         if(!$user || $user->isEliminato())
         {
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $current_user->getIdUser(), 'msg'=>'L\'utente cercato non � valido','file'=>__FILE__,'line'=>__LINE__));
+            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $current_user->getIdUser(), 'msg'=>'L\'utente cercato non e` valido','file'=>__FILE__,'line'=>__LINE__));
         }
 
 
         if(!$current_user->isAdmin() && !$user->isDocente() && !$user->isTutor()  && $current_user->getIdUser() != $user->getIdUser())
         {
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $current_user->getIdUser(), 'msg'=>'Non ti � permesso visualizzare la scheda dell\'utente','file'=>__FILE__,'line'=>__LINE__));
+            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $current_user->getIdUser(), 'msg'=>'Non ti e` permesso visualizzare la scheda dell\'utente','file'=>__FILE__,'line'=>__LINE__));
         }
 
         $arrayRuoli	= $user->getRuoli();
@@ -67,7 +67,7 @@ class ShowUser extends UniversiboCommand{
                 }
             }
         }
-        usort($arrayCanali, array('UniversiboCommand','_compareMyUniversiBO'));
+        usort($arrayCanali, array($this,'_compareMyUniversiBO'));
         $email = $user->getEmail();
         $template->assign('showUserLivelli', implode(', ',$user->getUserGroupsNames()));
 

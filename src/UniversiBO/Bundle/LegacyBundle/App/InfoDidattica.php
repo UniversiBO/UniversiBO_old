@@ -1,10 +1,9 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\App;
 
+use \DB;
+use \Error;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
-
-require_once('Canale'.PHP_EXTENSION);
-require_once('Insegnamento'.PHP_EXTENSION);
-require_once('PrgAttivitaDidattica'.PHP_EXTENSION);
 
 /**
  * InfoDidattica class.

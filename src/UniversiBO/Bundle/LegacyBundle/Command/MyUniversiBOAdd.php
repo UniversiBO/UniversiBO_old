@@ -1,6 +1,10 @@
 <?php
-use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
+namespace UniversiBO\Bundle\LegacyBundle\Command;
 
+use \Error;
+use UniversiBO\Bundle\LegacyBundle\App\Canale;
+use UniversiBO\Bundle\LegacyBundle\App\Ruolo;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 /**
  * ShowMyUniversiBO is an extension of UniversiboCommand class.
  *
@@ -26,11 +30,11 @@ class MyUniversiBOAdd extends UniversiboCommand
 		
 		
 		if($utente->isOspite())
-			Error::throwError(_ERROR_DEFAULT, array('id_utente' => $utente->getIdUser(), 'msg' => "Non è permesso ad utenti non registrati eseguire questa operazione.\n La sessione potrebbe essere scaduta", 'file' => __FILE__, 'line' => __LINE__));
+			Error::throwError(_ERROR_DEFAULT, array('id_utente' => $utente->getIdUser(), 'msg' => "Non ï¿½ permesso ad utenti non registrati eseguire questa operazione.\n La sessione potrebbe essere scaduta", 'file' => __FILE__, 'line' => __LINE__));
 
 		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
 		{
-			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $utente->getIdUser(), 'msg' => 'L\'id del canale richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
+			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $utente->getIdUser(), 'msg' => 'L\'id del canale richiesto non ï¿½ valido', 'file' => __FILE__, 'line' => __LINE__));
 		}
 		$id_canale = $_GET['id_canale'];
 		$canale = & Canale::retrieveCanale($id_canale);
@@ -59,13 +63,13 @@ class MyUniversiBOAdd extends UniversiboCommand
 			$f15_accept = true;
 			if(!array_key_exists('f15_nome', $_POST) || !array_key_exists('f15_livello_notifica', $_POST) )
 			{
-				Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $utente->getIdUser(), 'msg' => 'Il form inviato non è valido', 'file' => __FILE__, 'line' => __LINE__));
+				Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $utente->getIdUser(), 'msg' => 'Il form inviato non ï¿½ valido', 'file' => __FILE__, 'line' => __LINE__));
 				$f15_accept = false;
 			}	
 			
 			if(!array_key_exists($_POST['f15_livello_notifica'], $f15_livelli_notifica) )
 			{
-				Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $utente->getIdUser(), 'msg' => 'Il livello di notifica scelto non è valido', 'file' => __FILE__, 'line' => __LINE__));
+				Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $utente->getIdUser(), 'msg' => 'Il livello di notifica scelto non ï¿½ valido', 'file' => __FILE__, 'line' => __LINE__));
 				$f15_accept = false;
 			}
 			else

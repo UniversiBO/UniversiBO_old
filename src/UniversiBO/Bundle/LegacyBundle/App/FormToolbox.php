@@ -1,4 +1,5 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\App;
 
 define('FORM_MAIL' 	    	,1);
 define('FORM_TEXT'  		,2);
@@ -11,7 +12,7 @@ define('FORM_MIN'			,7);
 // username?
 // password?
 // title?
-// può essere utile  definire più tipi di FORM_XXX in modo da dare messaggi di errore più pertinenti..
+// puï¿½ essere utile  definire piï¿½ tipi di FORM_XXX in modo da dare messaggi di errore piï¿½ pertinenti..
 // decidere se resituire un oggetto error oppure una stringa con il messaggio di errore
 
 
@@ -33,8 +34,8 @@ class FormToolbox
 	 * Verifica i parametri secondo i tipi definiti come costanti
 	 * 
 	 * @param array params 	array di array contenente i parametri da verificare, ogni singola voce array contiene: 
-	 * 						1. param => parametro	2. type => costante FORM_XXX	[3. limit => eventuale limite opzionale] [4 option => il parametro può essere vuoto o nullo]
-	 * 						Ps la data è da passare in un unico array contenente gg mm aa
+	 * 						1. param => parametro	2. type => costante FORM_XXX	[3. limit => eventuale limite opzionale] [4 option => il parametro puï¿½ essere vuoto o nullo]
+	 * 						Ps la data ï¿½ da passare in un unico array contenente gg mm aa
 	 * @return mixed true se tutti i parametri sono ok, altrimenti ritorna un oggetto errore
 	 * @access public
 	 */
@@ -95,7 +96,7 @@ class FormToolbox
 		
 		if (!(mktime($ins_hh, $ins_min, "0", $data_ins['mm'], $data_ins['gg'], $data_ins['aa']) < 
 				mktime($scad_hh, $scad_min, "0", $data_scad['mm'], $data_scad['gg'], $data_scad['aa'])))
-			return new Error(_ERROR_NOTICE, array ('msg' => 'La data di scadenza non può essere precedente alla data di inserimento'));
+			return new Error(_ERROR_NOTICE, array ('msg' => 'La data di scadenza non puï¿½ essere precedente alla data di inserimento'));
 		
 		return true;		
 	}
@@ -106,7 +107,7 @@ class FormToolbox
 
 	/**
 	 * @access private
-	 * @return boolean true se il valore è corretto
+	 * @return boolean true se il valore ï¿½ corretto
 	 */	
 	function _checkEmail ($mail)
 	{
@@ -116,7 +117,7 @@ class FormToolbox
 	
 	/**
 	 * @access private
-	 * @return boolean true se il valore è corretto
+	 * @return boolean true se il valore ï¿½ corretto
 	 */	
 	function _checkText ($text, $limit = 25, $optional = false)
 	{
@@ -133,7 +134,7 @@ class FormToolbox
 	
 //	/**
 //	 * @access private
-//	 * @return boolean true se il valore è corretto
+//	 * @return boolean true se il valore ï¿½ corretto
 //	 */	
 //	function _checkDay ($dd)
 //	{
@@ -143,7 +144,7 @@ class FormToolbox
 //	
 //	/**
 //	 * @access private
-//	 * @return boolean true se il valore è corretto
+//	 * @return boolean true se il valore ï¿½ corretto
 //	 */	
 //	function _checkMonth ($mm)
 //	{
@@ -153,7 +154,7 @@ class FormToolbox
 //	
 //	/**
 //	 * @access private
-//	 * @return boolean true se il valore è corretto
+//	 * @return boolean true se il valore ï¿½ corretto
 //	 */	
 //	function _checkYear ($yy)
 //	{
@@ -163,7 +164,7 @@ class FormToolbox
 	
 	/**
 	 * @access private
-	 * @return boolean true se il valore è corretto
+	 * @return boolean true se il valore ï¿½ corretto
 	 */	
 	function _checkDate ($date)
 	{
@@ -176,12 +177,12 @@ class FormToolbox
 	
 	/**
 	 * @access private
-	 * @return boolean true se il valore è corretto
+	 * @return boolean true se il valore ï¿½ corretto
 	 */	
 	function _checkHour ($hh)
 	{
 		if (!preg_match('/^([0-9]{1,2})$/', $hh))
-			return new Error(_ERROR_NOTICE, array ('msg' => 'Il formato del campo ora di inserimento non è valido'));
+			return new Error(_ERROR_NOTICE, array ('msg' => 'Il formato del campo ora di inserimento non ï¿½ valido'));
 			
 		if ($hh < 0 || $hh > 23) 
 			return new Error(_ERROR_NOTICE, array ('msg' => 'Il campo ora di inserimento deve essere compreso tra 0 e 23'));
@@ -191,12 +192,12 @@ class FormToolbox
 	
 	/**
 	 * @access private
-	 * @return boolean true se il valore è corretto
+	 * @return boolean true se il valore ï¿½ corretto
 	 */	
 	function _checkMinute ($mm)
 	{
 		if(!preg_match('/^([0-9]{1,2})$/', $mm))
-			return new Error(_ERROR_NOTICE, array ('msg' => 'Il formato del campo minuti di inserimento non è valido'));
+			return new Error(_ERROR_NOTICE, array ('msg' => 'Il formato del campo minuti di inserimento non ï¿½ valido'));
 			
 		if($mm < 0 || $mm > 59)
 			return new Error(_ERROR_NOTICE, array ('msg' => 'Il campo minuti di inserimento deve essere compreso tra 0 e 59'));

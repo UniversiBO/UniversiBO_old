@@ -1,9 +1,9 @@
 <?php 
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
-use \Cdl;
 use \Error;
-use \ForumApi;
+use UniversiBO\Bundle\LegacyBundle\App\ForumApi;
+use UniversiBO\Bundle\LegacyBundle\App\Cdl;
 use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 

@@ -104,14 +104,13 @@ class Error
     /**
      * Static method that defines current error handler callback function, for given error category
      *
-     * @static
      * @param int $error_category see the predefined error category constants
      * @param mixed $handler_function can be a string
      *               example: 'my_function_name'
      *				or an array to use class methods
      *               example: array('MyClassName','myMethodName')
      */
-    function setHandler($error_category, $handler_function)
+    public static function setHandler($error_category, $handler_function)
     {
         global $_Error_handlers;
         $_Error_handlers[$error_category] = $handler_function;

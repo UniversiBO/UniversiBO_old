@@ -1,13 +1,14 @@
 <?php 
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
+use UniversiBO\Bundle\LegacyBundle\App\PrgAttivitaDidattica;
+
 use \Error;
-use \PrgAttivitaDidattica;
-use \ForumApi;
-use \Facolta;
+
+use UniversiBO\Bundle\LegacyBundle\App\Facolta;
+use UniversiBO\Bundle\LegacyBundle\App\ForumApi;
 use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
-
 /**
  * ShowCdl: mostra un corso di laurea
  * Mostra i collegamenti a tutti gli insegnamenti attivi nel corso di laurea
@@ -40,8 +41,6 @@ class ShowCdl extends CanaleCommand {
 
         //@todo fatto sopra
         $cdl = & $this -> getRequestCanale();
-
-        require_once('PrgAttivitaDidattica'.PHP_EXTENSION);
 
         if ( !array_key_exists('anno_accademico', $_GET) )
             $anno_accademico = $this->frontController->getAppSetting('defaultAnnoAccademico');

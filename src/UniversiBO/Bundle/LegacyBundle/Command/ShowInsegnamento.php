@@ -1,6 +1,12 @@
 <?php 
+namespace UniversiBO\Bundle\LegacyBundle\Command;
 
+use \DB;
+use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
+use UniversiBO\Bundle\LegacyBundle\App\InfoDidattica;
+use UniversiBO\Bundle\LegacyBundle\App\ContattoDocente;
+use UniversiBO\Bundle\LegacyBundle\App\ForumApi;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
@@ -108,11 +114,11 @@ testi consigliati[/url]';
 			'';
 
 		if ($info_didattica->getModalitaLink() == '' && $info_didattica->getModalita() == '' )
-			$modalita = 'Modalità d\'esame';
+			$modalita = 'Modalitï¿½ d\'esame';
 		elseif ($info_didattica->getModalitaLink() != '' && $info_didattica->getModalita() == '' )
-			$modalita = '[url='.$info_didattica->getModalitaLink().']Modalità d\'esame[/url]';
+			$modalita = '[url='.$info_didattica->getModalitaLink().']Modalitï¿½ d\'esame[/url]';
 		else
-			$modalita = '[url=index.php?do=ShowInfoDidattica&id_canale='.$id_canale.'#modalita]Modalità d\'esame[/url]';
+			$modalita = '[url=index.php?do=ShowInfoDidattica&id_canale='.$id_canale.'#modalita]Modalitï¿½ d\'esame[/url]';
 		
 		
 		if ($info_didattica->getAppelliLink() == '' && $info_didattica->getAppelli() == '' )
