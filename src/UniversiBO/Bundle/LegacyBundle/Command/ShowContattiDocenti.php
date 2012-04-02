@@ -1,10 +1,10 @@
 <?php
+
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
-use \ContattoDocente;
-use \Docente;
 use \Error;
-
+use UniversiBO\Bundle\LegacyBundle\App\ContattoDocente;
+use UniversiBO\Bundle\LegacyBundle\App\Docente;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
