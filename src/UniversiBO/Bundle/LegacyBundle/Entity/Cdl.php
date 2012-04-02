@@ -238,14 +238,12 @@ class Cdl extends Canale {
 	 * Ridefinisce il factory method della classe padre per restituire un oggetto
 	 * del tipo Cdl
 	 *
-	 * @static
 	 * @param int $id_canale numero identificativo del canale
 	 * @return mixed Facolta se eseguita con successo, false se il canale non esiste
 	 */
-	function factoryCanale($id_canale)
+	public static function factoryCanale($id_canale)
 	{
-		$return = Cdl::selectCdlCanale($id_canale);
-		return $return;
+		return self ::selectCdlCanale($id_canale);
 	}
 	
 
@@ -263,67 +261,26 @@ class Cdl extends Canale {
 	/**
 	 * Seleziona da database e restituisce l'elenco di tutti gli oggetti Cdl corso di laurea 
 	 * 
-	 * @static
+	 * @deprecated
 	 * @param boolean $canaliAttivi se restituire solo i Cdl gi? associati ad un canale o tutti
 	 * @return mixed array di Cdl se eseguita con successo, false in caso di errore
 	 */
-	function  selectCdlAll()
+	public static function selectCdlAll()
 	{
-	
-		$db = FrontController::getDbConnection('main');
-	
-		$query = 'SELECT cod_corso FROM classi_corso WHERE 1 = 1';
-		
-		$res = $db->query($query);
-		if (DB::isError($res))
-		{
-			Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__)); 
-			return false;
-		}
-		
-		$elencoCdl = array();
-		
-		while($res->fetchInto($row))
-		{
-			//echo $row[0];
-			if ( ($elencoCdl[] = Cdl::selectCdlCodice($row[0]) ) === false )
-				return false;
-		}
-		
-		return $elencoCdl;
-
+	    return self::getRepository()->findAll();
 	}
 
 	/**
 	 * Seleziona da database e restituisce l'oggetto corso di laurea 
 	 * corrispondente al codice id_canale 
 	 * 
-	 * @static
+	 * @deprecated
 	 * @param int $id_canale identificativo su DB del canale corrispondente al corso di laurea
 	 * @return mixed Cdl se eseguita con successo, false se il canale non esiste
 	 */
-	function selectCdlCanale($id_canale)
+	public static function selectCdlCanale($idCanale)
 	{
-
-		$db = FrontController::getDbConnection('main');
-	
-		$query = 'SELECT tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo,files_studenti_attivo,
-					 a.id_canale, cod_corso, desc_corso, categoria, cod_fac, cod_doc, cat_id FROM canale a , classi_corso b WHERE a.id_canale = b.id_canale AND a.id_canale = '.$db->quote($id_canale);
-
-		$res = $db->query($query);
-		if (DB::isError($res))
-			Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__)); 
-//		var_dump($res);
-		$rows = $res->numRows();
-		
-		if( $rows == 0) return false;
-
-		$res->fetchInto($row);
-		$cdl = new Cdl($row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
-				$row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S', $row[14], $row[15], $row[16], $row[17], $row[18], $row[19]);
-		
-		return $cdl;
-
+	    return self::getRepository()->findByIdCanale($idCanale);
 	}
 	
 	
@@ -332,36 +289,13 @@ class Cdl extends Canale {
 	 * Seleziona da database e restituisce l'oggetto Cdl 
 	 * corrispondente al codice $cod_cdl 
 	 * 
-	 * @static
+	 * @deprecated
 	 * @param string $cod_cdl stringa a 4 cifre del codice d'ateneo del corso di laurea
 	 * @return Facolta
 	 */
-	function selectCdlCodice($cod_cdl)
+	public static function selectCdlCodice($codice)
 	{
-
-		$db = FrontController::getDbConnection('main');
-	
-		
-		// LA PRIMA QUERY E' QUELLA CHE VA BENE, MA BISOGNA ALTRIMENTI SISTEMARE IL DB 
-			//E VERIFICARE CHE METTENDO DIRITTI = 0 IL CANALE NON VENGA VISUALIZZATO
-		//$query = 'SELECT tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo,
-		//			 a.id_canale, cod_corso, desc_corso, categoria, cod_fac, cod_doc, cat_id FROM canale a , classi_corso b WHERE a.id_canale = b.id_canale AND b.cod_corso = '.$db->quote($cod_cdl);
-					 
-		$query = 'SELECT tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo,files_studenti_attivo,
-                                         a.id_canale, cod_corso, desc_corso, categoria, cod_fac, cod_doc, cat_id FROM  classi_corso b LEFT OUTER JOIN canale a ON a.id_canale = b.id_canale WHERE b.cod_corso = '.$db->quote($cod_cdl);			 
-		$res = $db->query($query);
-		if (DB::isError($res))
-			Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__)); 
-	
-		$rows = $res->numRows();
-
-		if( $rows == 0) return false;
-
-		$res->fetchInto($row);
-		$cdl = new Cdl($row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
-				$row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S', $row[14], $row[15], $row[16], $row[17], $row[18], $row[19]);
-		return $cdl;
-
+	    return self::getRepository()->findByCodice($codice);
 	}
 	
 
@@ -370,37 +304,13 @@ class Cdl extends Canale {
 	 * Seleziona da database e restituisce un'array contenente l'elenco 
 	 * in ordine alfabetico di tutti i cdl appartenenti alla facolt? data 
 	 * 
-	 * @static
+	 * @deprecated
 	 * @param string $cod_facolta stringa a 4 cifre del codice d'ateneo della facolt?
 	 * @return array(Cdl)
 	 */
-	function selectCdlElencoFacolta($cod_facolta)
+	public static function selectCdlElencoFacolta($codiceFacolta)
 	{
-
-		$db = FrontController::getDbConnection('main');
-	
-		$query = 'SELECT tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo,files_studenti_attivo,
-					 a.id_canale, cod_corso, desc_corso, categoria, cod_fac, cod_doc, cat_id FROM canale a , classi_corso b WHERE a.id_canale = b.id_canale
-					 AND b.cod_fac = '.$db->quote($cod_facolta).' ORDER BY 17 , 15 ';
-
-		$res = $db->query($query);
-		if (DB::isError($res))
-			Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__)); 
-	
-		$rows = $res->numRows();
-
-		if( $rows == 0) { $ret = array(); return $ret;}
-		$elenco = array();
-		while (	$res->fetchInto($row) )
-		{
-			$cdl = new Cdl($row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
-				$row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S',
-				$row[14], $row[15], $row[16], $row[17], $row[18], $row[19]);
-
-			$elenco[] = $cdl;
-		}
-		
-		return $elenco;
+		return self::getRepository()->findByFacolta($codiceFacolta);
 	}
 	
 	/** 
@@ -408,7 +318,7 @@ class Cdl extends Canale {
 	 *	
 	 * @return string URI del command 
 	 */
-	 function getShowUri()
+	 public function getShowUri()
 	 {
 	 	return 'index.php?do=ShowCdl&id_canale='.$this->getIdCanale();
 	 }
@@ -457,53 +367,34 @@ class Cdl extends Canale {
 	}
 	
 	
-	function updateCdl()
+	public function updateCdl()
 	{
-		
-		$db = FrontController::getDbConnection('main');
-		
- 		$query = 'UPDATE classi_corso SET cat_id = '.$db->quote($this->getForumCatId()).
-					', cod_corso = '.$db->quote($this->getCodiceCdl()).
-					', desc_corso = '.$db->quote($this->getNome()).
-					', cod_fac = '.$db->quote($this->getCodiceFacoltaPadre()).
-					', categoria = '.$db->quote($this->getCategoriaCdl()).
-					', cod_doc =' .$db->quote($this->getCodDocente()).
-				' WHERE id_canale = '.$db->quote($this->getIdCanale());
-		
-		$res = $db->query($query);
-//		$rows =  $db->affectedRows();
-		if (DB::isError($res))
-			Error::throwError(_ERROR_DEFAULT,array('msg'=>$query,'file'=>__FILE__,'line'=>__LINE__)); 
-		
-		$this->updateCanale();
+	    self::getRepository()->update($this);
+	    // TODO pensare come gestire la cosa
+	    $this->updateCanale();
 	}
 
 
-	function insertCdl()
+	public function insertCdl()
 	{
-		
-		$db = FrontController::getDbConnection('main');
-		
-		if ($this->insertCanale() != true)
-		{ 
-			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore inserimento Canale','file'=>__FILE__,'line'=>__LINE__));
-			return false;
+	    if ($this->insertCanale() != true)
+	    {
+	    	Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore inserimento Canale','file'=>__FILE__,'line'=>__LINE__));
+	    	return false;
+	    }
+	    
+		return self::getRepository()->insert($this);
+	}
+	
+	/**
+	 * @return DBCdlRepository
+	 */
+	private static function getRepository()
+	{
+		if(is_null(self::$repository))
+		{
+			self::$repository = new DBCdlRepository(FrontController::getDbConnection('main'));
 		}
-		
-		$query = 'INSERT INTO classi_corso (cod_corso, desc_corso, categoria, cod_doc, cod_fac, id_canale) VALUES ('.
-					$db->quote($this->getCodiceCdl()).' , '.
-					$db->quote($this->getNome()).' , '.
-					$db->quote($this->getCategoriaCdl()).' , '.
-					$db->quote($this->getCodDocente()).' , '.
-					$db->quote($this->getCodiceFacoltaPadre()).' , '.
-					$db->quote($this->getIdCanale()).' )';
-		$res = $db->query($query);
-		if (DB::isError($res))
-		{ 
-			Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-			return false;
-		}
-		
-		return true;
+		return self::$repository;
 	}
 }
