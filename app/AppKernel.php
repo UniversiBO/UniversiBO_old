@@ -20,6 +20,7 @@ class AppKernel extends Kernel
                 new UniversiBO\Bundle\WebsiteBundle\UniversiBOWebsiteBundle(),
                 new UniversiBO\Bundle\LegacyBundle\UniversiBOLegacyBundle(),
                 new UniversiBO\Bundle\DidacticsBundle\UniversiBODidacticsBundle(),
+            new UniversiBO\Bundle\LifeChatBundle\UniversiBOLifeChatBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
