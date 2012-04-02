@@ -1,13 +1,13 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\App\News;
 
-use UniversiBO\Bundle\LegacyBundle\App\Canale;
+use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
 
 use \DB;
 use \Error;
 
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
-use UniversiBO\Bundle\LegacyBundle\App\User;
+use UniversiBO\Bundle\LegacyBundle\Entity\User;
 
 
 /**

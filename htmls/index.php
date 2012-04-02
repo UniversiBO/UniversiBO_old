@@ -1,6 +1,5 @@
 <?php
-use UniversiBO\Bundle\LegacyBundle\App\Ruolo;
-
+use UniversiBO\Bundle\LegacyBundle\Entity\Ruolo;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
 require_once __DIR__.'/../app/bootstrap.php.cache';
@@ -10,7 +9,7 @@ require_once __DIR__.'/../app/autoload.php';
 //$page_time_start = ((float)$usec + (float)$sec);
 
 // TODO hack orrendo per caricare ruolo e le relative costanti
-$a = Ruolo::NONE;
+class_exists('UniversiBO\\Bundle\\LegacyBundle\\Entity\\Ruolo');
 
 /**
  * The receiver.

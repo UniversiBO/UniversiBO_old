@@ -2,8 +2,8 @@
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
 use \Error;
-use UniversiBO\Bundle\LegacyBundle\App\Canale;
-use UniversiBO\Bundle\LegacyBundle\App\Ruolo;
+use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
+use UniversiBO\Bundle\LegacyBundle\Entity\Ruolo;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 /**
  * ShowMyUniversiBO is an extension of UniversiboCommand class.

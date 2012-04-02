@@ -5,7 +5,7 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 use \DB;
 use \Error;
-use UniversiBO\Bundle\LegacyBundle\App\Canale;
+use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
 use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
 use UniversiBO\Bundle\LegacyBundle\App\Links\Link;
 

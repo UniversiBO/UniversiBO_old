@@ -1,11 +1,11 @@
 <?php 
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
-use UniversiBO\Bundle\LegacyBundle\App\PrgAttivitaDidattica;
+use UniversiBO\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
 
 use \Error;
 
-use UniversiBO\Bundle\LegacyBundle\App\Facolta;
+use UniversiBO\Bundle\LegacyBundle\Entity\Facolta;
 use UniversiBO\Bundle\LegacyBundle\App\ForumApi;
 use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;

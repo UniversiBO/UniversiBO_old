@@ -1,7 +1,7 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Tests\App;
 
-use UniversiBO\Bundle\LegacyBundle\App\User;
+use UniversiBO\Bundle\LegacyBundle\Entity\User;
 
 class UserTest extends \PHPUnit_Framework_TestCase
 {

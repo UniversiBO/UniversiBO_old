@@ -1,10 +1,13 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\App;
 
-use UniversiBO\Bundle\LegacyBundle\App\Facolta;
+use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
+use UniversiBO\Bundle\LegacyBundle\Entity\Facolta;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\Framework\BaseCommand;
+use UniversiBO\Bundle\LegacyBundle\Entity\User;
 
+use \DB;
 use \Error;
 /**
  * UniversiboCommand is the abstract super class of all command classes
@@ -64,7 +67,7 @@ abstract class UniversiboCommand extends BaseCommand {
      *
      * @return User
      */
-    function getSessionUser() {
+    public function getSessionUser() {
         return $this->sessionUser;
     }
 
@@ -346,8 +349,7 @@ abstract class UniversiboCommand extends BaseCommand {
         $template->assign('common_myUniversiBOUri', 'index.php?do=ShowMyUniversiBO');
 
         $template->assignUnicode('common_fac', 'Facoltà');
-        require_once('Facolta' . PHP_EXTENSION);
-        $elenco_facolta = & Facolta::selectFacoltaElenco();
+        $elenco_facolta = & Facolta ::selectFacoltaElenco();
         //var_dump($elenco_facolta);
 
         $num_facolta = count($elenco_facolta);

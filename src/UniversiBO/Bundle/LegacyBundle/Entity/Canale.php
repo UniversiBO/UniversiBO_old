@@ -1,5 +1,5 @@
 <?php
-namespace UniversiBO\Bundle\LegacyBundle\App;
+namespace UniversiBO\Bundle\LegacyBundle\Entity;
 
 define('CANALE_DEFAULT'      ,1);
 define('CANALE_HOME'         ,2);
@@ -8,9 +8,10 @@ define('CANALE_CDL'          ,4);
 define('CANALE_INSEGNAMENTO' ,5);
 //define('CANALE_ESAME_ECO'    ,6);
 
-use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
-use \Error;
+
 use \DB;
+use \Error;
+use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
  * Canale class.
@@ -564,11 +565,11 @@ class Canale {
             Error::throwError(_ERROR_DEFAULT,array('msg'=>'Il canale richiesto non e` presente','file'=>__FILE__,'line'=>__LINE__));
 
         $dispatch_array = array (
-                CANALE_DEFAULT      => 'UniversiBO\\Bundle\\LegacyBundle\\App\\Canale',
-                CANALE_HOME         => 'UniversiBO\\Bundle\\LegacyBundle\\App\\Canale',
-                CANALE_FACOLTA      => 'UniversiBO\\Bundle\\LegacyBundle\\App\\Facolta',
-                CANALE_CDL          => 'UniversiBO\\Bundle\\LegacyBundle\\App\\Cdl',
-                CANALE_INSEGNAMENTO => 'UniversiBO\\Bundle\\LegacyBundle\\App\\Insegnamento');
+                CANALE_DEFAULT      => __NAMESPACE__.'\\Canale',
+                CANALE_HOME         => __NAMESPACE__.'\\Canale',
+                CANALE_FACOLTA      => __NAMESPACE__.'\\Facolta',
+                CANALE_CDL          => __NAMESPACE__.'\\Cdl',
+                CANALE_INSEGNAMENTO => __NAMESPACE__.'\\Insegnamento');
 
 
         if (!array_key_exists($tipo_canale, $dispatch_array))

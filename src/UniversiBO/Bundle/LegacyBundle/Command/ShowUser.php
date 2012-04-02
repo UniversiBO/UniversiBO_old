@@ -2,10 +2,10 @@
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
 use \Error;
-use UniversiBO\Bundle\LegacyBundle\App\Canale;
-use UniversiBO\Bundle\LegacyBundle\App\Docente;
+use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
+use UniversiBO\Bundle\LegacyBundle\Entity\Docente;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
-use UniversiBO\Bundle\LegacyBundle\App\User;
+use UniversiBO\Bundle\LegacyBundle\Entity\User;
 
 /**
  *Questa classe consente la visualizzazione e la possibile modifica

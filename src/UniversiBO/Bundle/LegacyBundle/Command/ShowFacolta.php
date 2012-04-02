@@ -3,7 +3,7 @@ namespace UniversiBO\Bundle\LegacyBundle\Command;
 
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\ForumApi;
-use UniversiBO\Bundle\LegacyBundle\App\Cdl;
+use UniversiBO\Bundle\LegacyBundle\Entity\Cdl;
 use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 

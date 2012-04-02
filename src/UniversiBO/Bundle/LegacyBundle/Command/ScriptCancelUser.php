@@ -3,7 +3,7 @@ namespace UniversiBO\Bundle\LegacyBundle\Command;
 
 use \DB;
 use \Error;
-use UniversiBO\Bundle\LegacyBundle\App\User;
+use UniversiBO\Bundle\LegacyBundle\Entity\User;
 use UniversiBO\Bundle\LegacyBundle\App\InteractiveCommand\StoredInteractionInformationRetriever;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;

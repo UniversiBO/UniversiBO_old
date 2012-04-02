@@ -1,5 +1,5 @@
 <?php
-namespace UniversiBO\Bundle\LegacyBundle\App;
+namespace UniversiBO\Bundle\LegacyBundle\Entity;
 
 use \DB;
 use \Error;

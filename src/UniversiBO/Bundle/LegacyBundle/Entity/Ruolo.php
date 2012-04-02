@@ -1,5 +1,5 @@
 <?php
-namespace UniversiBO\Bundle\LegacyBundle\App;
+namespace UniversiBO\Bundle\LegacyBundle\Entity;
 
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use \DB;
@@ -368,8 +368,6 @@ class Ruolo {
         return $this->nascosto;
     }
 
-
-
     /**
      * Imposta i diritti di referente nel ruolo
      *
@@ -377,32 +375,22 @@ class Ruolo {
      * @param	boolean	$updateDB se true la modifica viene propagata al DB
      * @return	boolean	true se avvenuta con successo
      */
-    function updateSetReferente($referente, $updateDB = false)
+    public function updateSetReferente($referente, $updateDB = false)
     {
-        $this->referente = $referente;
-
-        if ( $updateDB == true )
-        {
-            $db = FrontController::getDbConnection('main');
-
-            $campo_ruolo = (($this->isModeratore()) ? RUOLO_MODERATORE : 0) + (($referente) ? RUOLO_REFERENTE : 0);
-            $query = 'UPDATE utente_canale SET ruolo = '.$campo_ruolo.' WHERE id_utente = '.$db->quote($this->getIdUser()).' AND id_canale = '.$db->quote($this->getIdCanale());
-            $res = $db->query($query);
-            if (DB::isError($res))
-                Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-            $rows = $db->affectedRows();
-
-            if( $rows == 1) return true;
-            elseif( $rows == 0) return false;
-            else Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database: ruolo non unico','file'=>__FILE__,'line'=>__LINE__));
-            return false;
+        $this->setReferente($referente);
+        
+        if($updateDB) {
+            return self::getRepository()->updateReferente($this);
         }
 
         return true;
     }
-
-
-
+    
+    public function setReferente($referente)
+    {
+        $this->referente = $referente;
+    }
+    
     /**
      * Verifica se nel ruolo corrente l'utente ? tra i canali scelti dall'utente
      *

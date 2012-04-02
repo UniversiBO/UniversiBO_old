@@ -3,10 +3,10 @@ namespace UniversiBO\Bundle\LegacyBundle\Command;
 
 use \DB;
 use \Error;
-use UniversiBO\Bundle\LegacyBundle\App\Canale;
-use UniversiBO\Bundle\LegacyBundle\App\ContattoDocente;
-use UniversiBO\Bundle\LegacyBundle\App\Docente;
-use UniversiBO\Bundle\LegacyBundle\App\User;
+use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
+use UniversiBO\Bundle\LegacyBundle\Entity\ContattoDocente;
+use UniversiBO\Bundle\LegacyBundle\Entity\Docente;
+use UniversiBO\Bundle\LegacyBundle\Entity\User;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 /**

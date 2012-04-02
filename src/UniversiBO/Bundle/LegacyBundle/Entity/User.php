@@ -1,10 +1,10 @@
 <?php 
-namespace UniversiBO\Bundle\LegacyBundle\App;
+namespace UniversiBO\Bundle\LegacyBundle\Entity;
 
-use UniversiBO\Bundle\LegacyBundle\App\PrgAttivitaDidattica;
 use Symfony\Component\Security\Core\User\UserInterface;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\Auth\ActiveDirectoryLogin;
+use UniversiBO\Bundle\LegacyBundle\Auth\PasswordUtil;
 /**
  * User class
  *
@@ -14,8 +14,6 @@ use UniversiBO\Bundle\LegacyBundle\Auth\ActiveDirectoryLogin;
  * @license GPL, <{@link http://www.opensource.org/licenses/gpl-license.php}>
  * @copyright CopyLeft UniversiBO 2001-2003
  */
-
-
 class User implements UserInterface, \Serializable
 {
     const ALGORITMO_DEFAULT = 'sha1';

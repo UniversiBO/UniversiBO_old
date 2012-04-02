@@ -5,7 +5,7 @@ use \DB;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\Constants;
 use UniversiBO\Bundle\LegacyBundle\App\ForumApi;
-use UniversiBO\Bundle\LegacyBundle\App\User;
+use UniversiBO\Bundle\LegacyBundle\Entity\User;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**

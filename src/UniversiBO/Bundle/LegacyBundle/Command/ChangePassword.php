@@ -3,7 +3,7 @@ namespace UniversiBO\Bundle\LegacyBundle\Command;
 
 use UniversiBO\Bundle\LegacyBundle\App\ForumApi;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
-use UniversiBO\Bundle\LegacyBundle\App\User;
+use UniversiBO\Bundle\LegacyBundle\Entity\User;
 
 /**
  * ChangePassword is an extension of UniversiboCommand class.

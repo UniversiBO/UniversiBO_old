@@ -4,7 +4,7 @@ namespace UniversiBO\Bundle\LegacyBundle\App;
 use \DB;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
-use UniversiBO\Bundle\LegacyBundle\App\User;
+use UniversiBO\Bundle\LegacyBundle\Entity\User;
 use UniversiBO\Bundle\LegacyBundle\Forum\ForumApi as ForumApiInterface;
 
 /**

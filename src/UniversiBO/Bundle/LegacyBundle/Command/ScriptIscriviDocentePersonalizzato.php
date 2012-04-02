@@ -4,7 +4,7 @@ namespace UniversiBO\Bundle\LegacyBundle\Command;
 use \DB;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
-use UniversiBO\Bundle\LegacyBundle\App\User;
+use UniversiBO\Bundle\LegacyBundle\Entity\User;
 
 /**
  * ScriptIscriviDocentePersonalizzato is an extension of UniversiboCommand class.

@@ -18,17 +18,17 @@
 		</service>
 
 		<service id="universibo_legacy.repository.canale"
-			class="UniversiBO\Bundle\LegacyBundle\App\DBCanaleRepository">
+			class="UniversiBO\Bundle\LegacyBundle\Entity\DBCanaleRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />
 		</service>
 
 		<service id="universibo_legacy.repository.ruolo"
-			class="UniversiBO\Bundle\LegacyBundle\App\DBRuoloRepository">
+			class="UniversiBO\Bundle\LegacyBundle\Entity\DBRuoloRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />
 		</service>
 
 		<service id="universibo_legacy.repository.user"
-			class="UniversiBO\Bundle\LegacyBundle\App\DBUserRepository">
+			class="UniversiBO\Bundle\LegacyBundle\Entity\DBUserRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />
 		</service>
 

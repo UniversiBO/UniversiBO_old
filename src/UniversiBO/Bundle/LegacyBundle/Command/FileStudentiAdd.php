@@ -6,13 +6,13 @@ use UniversiBO\Bundle\LegacyBundle\App\Notifica\NotificaItem;
 use \DB;
 use \Error;
 
-use UniversiBO\Bundle\LegacyBundle\App\Canale;
+use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
 use UniversiBO\Bundle\LegacyBundle\App\Files\FileItem;
 use UniversiBO\Bundle\LegacyBundle\App\Files\FileItemStudenti;
 use UniversiBO\Bundle\LegacyBundle\App\AntiVirus\AntiVirusFactory;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
-use UniversiBO\Bundle\LegacyBundle\App\User;
+use UniversiBO\Bundle\LegacyBundle\Entity\User;
 
 /**
  * FileStudentiAdd: si occupa dell'inserimento di un file studente in un canale

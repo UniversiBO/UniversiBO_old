@@ -4,7 +4,7 @@ namespace UniversiBO\Bundle\LegacyBundle\Command;
 use \DB;
 use \Error;
 
-use UniversiBO\Bundle\LegacyBundle\App\Canale;
+use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
 use UniversiBO\Bundle\LegacyBundle\App\Commenti\CommentoItem;
 use UniversiBO\Bundle\LegacyBundle\App\Files\FileItemStudenti;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;

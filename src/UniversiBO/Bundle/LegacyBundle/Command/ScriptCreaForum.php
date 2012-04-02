@@ -5,7 +5,7 @@ use UniversiBO\Bundle\LegacyBundle\App\Insegnamento;
 
 use \DB;
 use \Error;
-use UniversiBO\Bundle\LegacyBundle\App\Cdl;
+use UniversiBO\Bundle\LegacyBundle\Entity\Cdl;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 

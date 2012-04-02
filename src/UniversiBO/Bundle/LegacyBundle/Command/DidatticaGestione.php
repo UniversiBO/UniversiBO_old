@@ -5,7 +5,7 @@ use \Error;
 use \Cdl;
 use \Facolta;
 use \PrgAttivitaDidattica;
-use UniversiBO\Bundle\LegacyBundle\App\Canale;
+use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 

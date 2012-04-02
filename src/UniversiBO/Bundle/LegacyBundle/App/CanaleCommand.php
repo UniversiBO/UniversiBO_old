@@ -1,6 +1,11 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\App;
 
+use UniversiBO\Bundle\LegacyBundle\Entity\Cdl;
+
+use UniversiBO\Bundle\LegacyBundle\Entity\User;
+
+use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use \Error;
 /**

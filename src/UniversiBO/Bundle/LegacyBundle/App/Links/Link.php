@@ -372,10 +372,10 @@ class Link
 	 }
 	 
 	 /**
-	  * La funzione verifica se il link � interno o meno
+	  * La funzione verifica se il link è interno o meno
 	  * @return boolean 
 	  */
-	  function isInternalLink()
+	  public function isInternalLink()
 	  {
 	  	$request_protocol = (array_key_exists('HTTPS',$_SERVER) && $_SERVER['HTTPS']=='on')? 'https':'http';
 	  	$uri = $request_protocol.'://'.$_SERVER['HTTP_HOST'];
