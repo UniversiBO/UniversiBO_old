@@ -589,16 +589,13 @@ class Canale {
      * Questo metodo viene ridefinito nelle sottoclassi per restituire un oggetto
      * del tipo corrispondente
      *
-     * @static
      * @param int $id_canale numero identificativo del canale
      * @return mixed Canale se eseguita con successo, false se il canale non esiste
      */
-    function factoryCanale($id_canale)
+    public static function factoryCanale($id_canale)
     {
-        $canale=Canale::selectCanale($id_canale);
-        return $canale;
+        return self::selectCanale($id_canale);
     }
-
 
     /**
      * Restituisce l'uri/link che mostra un canale

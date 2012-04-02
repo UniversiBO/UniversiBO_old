@@ -472,20 +472,17 @@ class PrgAttivitaDidattica extends Canale
      * Ridefinisce il factory method della classe padre per restituire un oggetto
      * del tipo PrgAttivitaDidattica
      *
-     * @static
      * @param int $id_canale numero identificativo del canale
      * @return mixed Facolta se eseguita con successo, false se il canale non esiste
      */
-    function factoryCanale($id_canale)
+    public static function factoryCanale($id_canale)
     {
-        return PrgAttivitaDidattica::selectPrgAttivitaDidatticaCanale($id_canale);
+        return self::selectPrgAttivitaDidatticaCanale($id_canale);
     }
 
-
-
     /**
-     * Seleziona da database un'array di attivit? didattiche il cui primo elemento
-     * ? quello corrispondendete alla chiave indicata, e i successivi sono tutti i suoi sdoppiati
+     * Seleziona da database un'array di attività didattiche il cui primo elemento
+     * è quello corrispondendete alla chiave indicata, e i successivi sono tutti i suoi sdoppiati
      *
      * @static
      * @param int $id_canale identificativo su DB del canale corrispondente al corso di laurea

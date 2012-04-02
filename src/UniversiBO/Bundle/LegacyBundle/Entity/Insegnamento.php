@@ -180,14 +180,12 @@ class Insegnamento extends Canale
      * Ridefinisce il factory method della classe padre per restituire un oggetto
      * del tipo Insegnamento
      *
-     * @static
      * @param int $id_canale numero identificativo del canale
      * @return mixed Facolta se eseguita con successo, false se il canale non esiste
      */
-    function factoryCanale($id_canale)
+    public static function factoryCanale($id_canale)
     {
-        $return = Insegnamento::selectInsegnamentoCanale($id_canale);
-        return $return;
+        return self::selectInsegnamentoCanale($id_canale);
     }
 
 
