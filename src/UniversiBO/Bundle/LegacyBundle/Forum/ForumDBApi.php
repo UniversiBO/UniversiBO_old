@@ -1,6 +1,5 @@
 <?php
-
-namespace UniversiBO\Bundle\ForumBundle\Integration;
+namespace UniversiBO\Bundle\LegacyBundle\Forum;
 
 use UniversiBO\Bundle\LegacyBundle\App\User;
 

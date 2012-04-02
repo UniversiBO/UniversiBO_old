@@ -5,7 +5,7 @@ use \DB;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\App\User;
-use UniversiBO\Bundle\ForumBundle\Integration\ForumApi as ForumApiInterface;
+use UniversiBO\Bundle\LegacyBundle\Forum\ForumApi as ForumApiInterface;
 
 /**
  * La classe Forum fornisce un'API esterna per le operazioni sul forum PHPBB 2.0.x
