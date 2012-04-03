@@ -863,12 +863,12 @@ class FrontController
         $nodes = $this->config->getElementsByTagName('paths');
 
         if($nodes == NULL)
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non � specificato l\'elemento path nel file di config','file'=>__FILE__,'line'=>__LINE__));
+            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` specificato l\'elemento path nel file di config','file'=>__FILE__,'line'=>__LINE__));
 
         $node = $nodes->item(0);
         //var_dump($node);
         if($nodes == NULL)
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non � specificato l\'elemento path nel file di config','file'=>__FILE__,'line'=>__LINE__));
+            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` specificato l\'elemento path nel file di config','file'=>__FILE__,'line'=>__LINE__));
 
         $figli = &$node->childNodes;
         for($i=0; $i < $figli->length; $i++)
@@ -938,7 +938,7 @@ class FrontController
                 break;
             }
         }
-        if($commandNode == NULL)
+        if(!isset($commandNode) ||is_null($commandNode))
             \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non esiste il comando '.$commandString.' nel file di config','file'=>__FILE__,'line'=>__LINE__));
 
     				$this->commandClass = $commandNode->getAttribute('class');

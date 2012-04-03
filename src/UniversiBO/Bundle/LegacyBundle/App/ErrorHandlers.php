@@ -20,7 +20,7 @@ use UniversiBO\Bundle\LegacyBundle\Framework\LogHandler;
 class ErrorHandlers {
     const LEVEL_DEFAULT = 0;
     const LEVEL_CRITICAL = 1;
-    const LEVEL_NOTICE = 1;
+    const LEVEL_NOTICE = 2;
 
     /**
      * Handler per errori di categoria ERROR_CRITICAL
