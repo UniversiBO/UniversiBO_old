@@ -18,34 +18,17 @@ security:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        login:
-            pattern:  ^/login$
-            security: false
-        logoutAfter:
-            pattern:  ^/logoutAfter$
-            security: false
-        personal:
+        secured_area:
             pattern: ^/
             legacy: true
+            anonymous: ~
             form_login:
                 login_path: /login
             logout:
                 path:   /logout
                 target: /logoutAfter
 
-#        secured_area:
-#            pattern:    ^/demo/secured/
-#            form_login:
-#                check_path: /demo/secured/login_check
-#                login_path: /demo/secured/login
-#            logout:
-#                path:   /demo/secured/logout
-#                target: /demo/
-#            #anonymous: ~
-#            #http_basic:
-#            #    realm: "Secured Demo Area"
-
     access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-        #- { path: ^/_internal, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/my, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/admin, roles: ROLE_ADMIN }

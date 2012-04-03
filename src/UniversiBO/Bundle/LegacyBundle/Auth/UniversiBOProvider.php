@@ -1,11 +1,13 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Auth;
 
+use UniversiBO\Bundle\LegacyBundle\Entity\DBUserRepository;
+
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
-use UniversiBO\Bundle\LegacyBundle\App\DBUserRepository;
+use UniversiBO\Bundle\LegacyBundle\Entity\CanaleDBUserRepository;
 
 use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
 
