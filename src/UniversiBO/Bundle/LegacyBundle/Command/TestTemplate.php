@@ -1,5 +1,7 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command;
 
+use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -35,9 +37,9 @@ class TestTemplate extends UniversiboCommand {
 		$template->assign('common_longDate', '23 Agosto 2003');
 		$template->assign('common_shortDate', '23/07/2003');
 		$template->assign('common_time', '15:53');
-		$template->assign('common_metaKeywords', 'universibo, università, facoltà, studenti, bologna, professori, lezioni, materiale didattico, didattica, corsi, studio, studi, novità, appunti, dispense, lucidi, esercizi, esami, temi d\'esame, orari lezione, ingegneria, economia, ateneo');
+		$template->assign('common_metaKeywords', 'universibo, universitï¿½, facoltï¿½, studenti, bologna, professori, lezioni, materiale didattico, didattica, corsi, studio, studi, novitï¿½, appunti, dispense, lucidi, esercizi, esami, temi d\'esame, orari lezione, ingegneria, economia, ateneo');
 		$template->assign('common_metaDescription', 'Il portale dedicato agli studenti universitari di Bologna');
-		$template->assign('common_alert', 'Il sito è momentaneamente accessibile in sola lettura per attività di manutenzione');
+		$template->assign('common_alert', 'Il sito ï¿½ momentaneamente accessibile in sola lettura per attivitï¿½ di manutenzione');
 		$template->assign('common_title', 'Titolo della pagina');
 */
 		//...nell'UniversiBO command
@@ -51,12 +53,12 @@ class TestTemplate extends UniversiboCommand {
 		$template->assign('common_setHomepage', 'Imposta Homepage');
 		$template->assign('common_addBookmarks', 'Aggiungi ai preferiti');
 
-		$template->assign('common_fac', 'Facoltà');
+		$template->assign('common_fac', 'Facoltï¿½');
 		$common_facLinks = array();
 		$common_facLinks[] = array ('label'=>'Ingegneria', 'uri'=>'http://www.example.com'); 
 		$common_facLinks[] = array ('label'=>'Economia', 'uri'=>'http://www.example.com'); 
-		$common_facLinks[] = array ('label'=>'Nome facoltà1', 'uri'=>'http://www.example.com'); 
-		$common_facLinks[] = array ('label'=>'Nome facoltà2', 'uri'=>'http://www.example.com'); 
+		$common_facLinks[] = array ('label'=>'Nome facoltï¿½1', 'uri'=>'http://www.example.com'); 
+		$common_facLinks[] = array ('label'=>'Nome facoltï¿½2', 'uri'=>'http://www.example.com'); 
 		$template->assign('common_facLinks', $common_facLinks);
 
 		$template->assign('common_services', 'Servizi');
@@ -93,21 +95,21 @@ class TestTemplate extends UniversiboCommand {
 
 
 		$template->assign('common_disclaimer', 'Ogni marchio citato in questa pagina appartiene al legittimo proprietario.'.
-												'Con il contenuto delle pagine appartenenti a questo sito non si è voluto ledere i diritti di nessuno, quindi nel malaugurato caso che questo possa essere avvenuto, vi invitiamo a contattarci affinchè le parti in discussione vengano eliminate o chiarite.');
+												'Con il contenuto delle pagine appartenenti a questo sito non si ï¿½ voluto ledere i diritti di nessuno, quindi nel malaugurato caso che questo possa essere avvenuto, vi invitiamo a contattarci affinchï¿½ le parti in discussione vengano eliminate o chiarite.');
 */
 		
 //-------------------- HOME
 /*
 		$template->assign('home_langWelcome', 'Benvenuto in UniversiBO!');
-		$template->assign('home_langWhatIs', 'Questo è il nuovo portale per la didattica, dedicato agli studenti dell\'università di Bologna.');
-		$template->assign('home_langMission', 'L\'obiettivo verso cui è tracciata la rotta delle iniziative e dei servizi che trovate su questo portale è di "aiutare gli studenti ad aiutarsi tra loro", fornirgli un punto di riferimento centralizzato in cui prelevare tutte le informazioni didattiche riguardanti i propri corsi di studio e offrire un mezzo di interazione semplice e veloce con i docenti che partecipano all\'iniziativa.');
+		$template->assign('home_langWhatIs', 'Questo ï¿½ il nuovo portale per la didattica, dedicato agli studenti dell\'universitï¿½ di Bologna.');
+		$template->assign('home_langMission', 'L\'obiettivo verso cui ï¿½ tracciata la rotta delle iniziative e dei servizi che trovate su questo portale ï¿½ di "aiutare gli studenti ad aiutarsi tra loro", fornirgli un punto di riferimento centralizzato in cui prelevare tutte le informazioni didattiche riguardanti i propri corsi di studio e offrire un mezzo di interazione semplice e veloce con i docenti che partecipano all\'iniziativa.');
 */
 		//...home_news... DA DEFINIRE ...include news.tpl
 		
 		//$template->display('home.tpl');
 
 	
-//-------------------- FAC (Facoltà)
+//-------------------- FAC (Facoltï¿½)
 /*   QUESTA PAGINA E' DA INVENTARE... io gli ho dato una struttura simile a quella dei cdl,
 			solo che sono elencati di vari corsi di laurea invece che gli insegnamenti 
 */
@@ -173,7 +175,7 @@ class TestTemplate extends UniversiboCommand {
 
 		//...cdl_news... DA DEFINIRE ...include news.tpl
 
-		$template->assign('home_mission', 'L\'obiettivo verso cui è tracciata la rotta delle iniziative e dei servizi che trovate su questo portale è di "aiutare gli studenti ad aiutarsi tra loro", fornirgli un punto di riferimento centralizzato in cui prelevare tutte le informazioni didattiche riguardanti i propri corsi di studio e offrire un mezzo di interazione semplice e veloce con i docenti che partecipano all\'iniziativa.');
+		$template->assign('home_mission', 'L\'obiettivo verso cui ï¿½ tracciata la rotta delle iniziative e dei servizi che trovate su questo portale ï¿½ di "aiutare gli studenti ad aiutarsi tra loro", fornirgli un punto di riferimento centralizzato in cui prelevare tutte le informazioni didattiche riguardanti i propri corsi di studio e offrire un mezzo di interazione semplice e veloce con i docenti che partecipano all\'iniziativa.');
 
 		$template->display('cdl.tpl');
 		

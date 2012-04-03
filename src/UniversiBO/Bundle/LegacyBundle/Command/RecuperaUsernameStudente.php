@@ -1,6 +1,10 @@
 <?php
-use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
+namespace UniversiBO\Bundle\LegacyBundle\Command;
 
+use \DB;
+use \Error;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\Entity\User;
 /**
  * RecuperaUsernameStudente is an extension of UniversiboCommand class.
  *
@@ -23,7 +27,7 @@ class RecuperaUsernameStudente extends UniversiboCommand
 		
 		if (!$user->isOspite())
 		{
-			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Il recupero dell\'username può essere richiesto solo da utenti che non hanno ancora eseguito l\'accesso','file'=>__FILE__,'line'=>__LINE__));
+			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Il recupero dell\'username puo` essere richiesto solo da utenti che non hanno ancora eseguito l\'accesso','file'=>__FILE__,'line'=>__LINE__));
 		}
 
 		$template->assign('recuperaUsernameStudente_langNewPasswordAlt','Recupera Username');
@@ -31,8 +35,8 @@ class RecuperaUsernameStudente extends UniversiboCommand
 		$template->assign('recuperaUsernameStudente_langPassword','Password:');
 		$template->assign('recuperaUsernameStudente_domain','@studio.unibo.it');
 		$template->assign('recuperaUsernameStudente_langInfo','Gli studenti che hanno smarrito la password di accesso ad UniversiBO possono ottenerne una nuova, ricevendola all\'e-mail di ateneo utilizzata al momento dell\'iscrizione.');
-		$template->assign('recuperaUsernameStudente_langHelp','Per qualsiasi problema o spiegazioni contattate lo staff all\'indirizzo [email]'.$fc->getAppSetting('infoEmail').'[/email].'."\n".
-							'In ogni caso non comunicate mai le vostre password di ateneo, lo staff non è tenuto a conoscerle');
+		$template->assignUnicode('recuperaUsernameStudente_langHelp','Per qualsiasi problema o spiegazioni contattate lo staff all\'indirizzo [email]'.$fc->getAppSetting('infoEmail').'[/email].'."\n".
+							'In ogni caso non comunicate mai le vostre password di ateneo, lo staff non Ã¨ tenuto a conoscerle');
 		$template->assign('f32_submit',		'Invia');			
 
 		// valori default form
@@ -49,7 +53,7 @@ class RecuperaUsernameStudente extends UniversiboCommand
 			if ( !array_key_exists('f32_password', $_POST) ||
 				 !array_key_exists('f32_ad_user', $_POST) ) 
 			{
-				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Il form inviato non è valido','file'=>__FILE__,'line'=>__LINE__ ));
+				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Il form inviato non e` valido','file'=>__FILE__,'line'=>__LINE__ ));
 				$f32_accept = false;
 			}
 			
@@ -59,7 +63,7 @@ class RecuperaUsernameStudente extends UniversiboCommand
 				$f32_accept = false;
 			}
 			elseif ( strlen($_POST['f32_ad_user']) > 30 ) {
-				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Lo username di ateneo indicato può essere massimo 30 caratteri','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Lo username di ateneo indicato puo` essere massimo 30 caratteri','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
 				$f32_accept = false;
 			}
 			elseif(ereg('@studio\.unibo\.it$',$_POST['f32_ad_user'])){
@@ -67,7 +71,7 @@ class RecuperaUsernameStudente extends UniversiboCommand
 				$f32_accept = false;
 			}
 			elseif(!eregi('^([[:alnum:]])+\.[[[:alnum:]]+$',$_POST['f32_ad_user'])){
-				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'La mail di ateneo inserita '.$_POST['f32_ad_user'].' non è sintatticamente valida','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'La mail di ateneo inserita '.$_POST['f32_ad_user'].' non e` sintatticamente valida','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
 				$f32_accept = false;
 			}
 			elseif(!User::activeDirectoryUsernameExists($_POST['f32_ad_user'].'@studio.unibo.it')){
@@ -85,7 +89,7 @@ class RecuperaUsernameStudente extends UniversiboCommand
 				$f32_accept = false;
 			}
 			elseif ( strlen($_POST['f32_password']) > 50 ){
-				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'La lunghezza massima della password accettata dal sistema è di massimo 50 caratteri','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'La lunghezza massima della password accettata dal sistema ï¿½ di massimo 50 caratteri','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
 				$f32_accept = false;
 			}
 			else $q32_password = $f32_password = $_POST['f32_password'];
@@ -126,14 +130,14 @@ class RecuperaUsernameStudente extends UniversiboCommand
 				"Qualora avessi ricevuto questa e-mail per errore, segnalalo rispondendo a questo messaggio";
 			
 			
-			$msg = "Non è stato possibile inviarti lo username tramite e-mail\n".
+			$msg = "Non e` stato possibile inviarti lo username tramite e-mail\n".
 				"Le informazioni per permetterti l'accesso ai servizi offerti da UniversiBO sono:\n".
 				"Username: ".$username."\n";
 			
 			if(!$mail->Send())
 				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>$msg, 'file'=>__FILE__, 'line'=>__LINE__));
 			
-			$template->assign('recuperaUsernameStudente_thanks',"La tua richiesta è stata inoltrata e a breve riceverai le informazioni al tuo indirizzo e-mail di ateneo\n".
+			$template->assignUnicode('recuperaUsernameStudente_thanks',"La tua richiesta Ã¨ stata inoltrata e a breve riceverai le informazioni al tuo indirizzo e-mail di ateneo\n".
 								'Per qualsiasi problema o spiegazioni contatta lo staff all\'indirizzo [email]'.$fc->getAppSetting('infoEmail').'[/email].');
 			
 			$mail->Body = '';

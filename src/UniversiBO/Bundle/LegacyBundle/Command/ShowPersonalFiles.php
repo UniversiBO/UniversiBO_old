@@ -1,8 +1,10 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command;
 
+use UniversiBO\Bundle\LegacyBundle\App\Files\FileItem;
+
+use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
-
-require_once 'Files/FileItemStudenti'.PHP_EXTENSION;
 
 /**
  * ShowAllFilesStudenti e\' un comando che permette di visualizzare tutti i
@@ -27,7 +29,7 @@ class ShowPersonalFiles extends UniversiboCommand
 
         // controllo che l'utente sia loggato
         if($user->isOspite())
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'La pagina è visualizzabile solo dopo aver fatto il login. La vostra sessione potrebbe essere scaduta.','file'=>__FILE__,'line'=>__LINE__ ));
+            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'La pagina e` visualizzabile solo dopo aver fatto il login. La vostra sessione potrebbe essere scaduta.','file'=>__FILE__,'line'=>__LINE__ ));
 
         $idUtente = $user->getIdUser();
 

@@ -1,4 +1,11 @@
 <?php 
+namespace UniversiBO\Bundle\LegacyBundle\Command;
+
+use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
+
+use UniversiBO\Bundle\LegacyBundle\Entity\InfoDidattica;
+
+use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -25,7 +32,7 @@ class ShowInfoDidattica extends UniversiboCommand
 		$user_ruoli = & $user->getRuoli();
 			
 		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
-			Error::throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
+			Error::throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non e` valido', 'file' => __FILE__, 'line' => __LINE__));
 		
 		$id_canale = $_GET['id_canale'];
 		$session_user = $this->getSessionUser();
@@ -62,7 +69,7 @@ class ShowInfoDidattica extends UniversiboCommand
 		$template->assign('infoDid_obiettiviInfo', $obiettiviInfo );
 		
 		$template->assign('infoDid_langProgrammaInfo', 'Programma d\'esame' );
-		$template->assign('infoDid_langProgrammaLink', 'Il programma d\'esame può essere consultato anche a questo link' );
+		$template->assignUnicode('infoDid_langProgrammaLink', 'Il programma d\'esame puÃ² essere consultato anche a questo link' );
 		$template->assign('infoDid_programmaLink', $programmaLink );
 		$template->assign('infoDid_programmaInfo', $programmaInfo );
 		
@@ -71,8 +78,8 @@ class ShowInfoDidattica extends UniversiboCommand
 		$template->assign('infoDid_materialeLink', $materialeLink );
 		$template->assign('infoDid_materialeInfo', $materialeInfo );
 		
-		$template->assign('infoDid_langModalitaInfo', 'Modalità d\'esame' );
-		$template->assign('infoDid_langModalitaLink', 'Le modalità d\'esame possono essere consultati anche a questo link');
+		$template->assignUnicode('infoDid_langModalitaInfo', 'ModalitÃ  d\'esame' );
+		$template->assignUnicode('infoDid_langModalitaLink', 'Le modalitÃ  d\'esame possono essere consultati anche a questo link');
 		$template->assign('infoDid_modalitaLink', $modalitaLink );
 		$template->assign('infoDid_modalitaInfo', $modalitaInfo );
 		
@@ -80,7 +87,7 @@ class ShowInfoDidattica extends UniversiboCommand
 		$template->assign('infoDid_langAppelliLink', 'Gli appelli d\'esame possono essere consultati anche a questo link');
 		$template->assign('infoDid_appelliLink', $appelliLink );
 		$template->assign('infoDid_appelliInfo', $appelliInfo );
-		$template->assign('infoDid_langAppelliUniwex', 'Ci scusiamo con gli utenti ma al momento non è più possibile visualizzare le informazioni riguardanti gli appelli d\'esame riportati su Uniwex');
+		$template->assignUnicode('infoDid_langAppelliUniwex', 'Ci scusiamo con gli utenti ma al momento non Ã¨ piÃ¹ possibile visualizzare le informazioni riguardanti gli appelli d\'esame riportati su Uniwex');
 		
 		
 		//$this->executePlugin('ShowNewsLatest', array( 'num' => 5  ));

@@ -1,6 +1,10 @@
 <?php 
-use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
+namespace UniversiBO\Bundle\LegacyBundle\Command;
 
+use \Error;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
+use UniversiBO\Bundle\LegacyBundle\Entity\InfoDidattica;
 /**
  * ShowCdl: mostra un corso di laurea
  * Mostra i collegamenti a tutti gli insegnamenti attivi nel corso di laurea
@@ -200,7 +204,7 @@ class InfoDidatticaEdit extends UniversiboCommand
 		$template->assign('f18_materialeInfo', $f18_materialeInfo );
 		
 		$template->assign('infoDid_langModalitaInfo', 'Modalit? d\'esame' );
-		$template->assign('infoDid_langModalitaLink', 'Link a pagina esterna alternativa con modalità d\'esame');
+		$template->assignUnicode('infoDid_langModalitaLink', 'Link a pagina esterna alternativa con modalitÃ  d\'esame');
 		$template->assign('f18_modalitaLink', $f18_modalitaLink );
 		$template->assign('f18_modalitaInfo', $f18_modalitaInfo );
 		
@@ -208,7 +212,7 @@ class InfoDidatticaEdit extends UniversiboCommand
 		$template->assign('infoDid_langAppelliLink', 'Link a pagina esterna alternativa con appelli d\'esame');
 		$template->assign('f18_appelliLink', $f18_appelliLink );
 		$template->assign('f18_appelliInfo', $f18_appelliInfo );
-		$template->assign('infoDid_langAppelliUniwex', 'Ci scusiamo con gli utenti ma al momento non è più possibile visualizzare le informazioni riguardanti gli appelli d\'esame riportati su Uniwex');
+		$template->assign('infoDid_langAppelliUniwex', 'Ci scusiamo con gli utenti ma al momento non Ã¨ piÃ¹ possibile visualizzare le informazioni riguardanti gli appelli d\'esame riportati su Uniwex');
 		$template->assign('f18_orarioIcsLink', $f18_orarioIcsLink );
 		$template->assign('infoDid_langOrarioLink', 'Link alla versione iCalendar dell\'orario dell\'insegnamento' );
 		

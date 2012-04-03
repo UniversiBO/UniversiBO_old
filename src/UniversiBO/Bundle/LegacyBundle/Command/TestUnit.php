@@ -1,11 +1,14 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command;
 
+use \Error;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 /**
  * UnitTest command class
  *
  * E' integrata ed utilizza il framework per avere accesso alle funzionalit?
  * del framework stesso necessarie al corretto funzionamento della maggiorparte delle
- * entit? da testare che sono ad esso accoppiate.
+ * entità da testare che sono ad esso accoppiate.
  *
  * @package universibo
  * @subpackage tests
@@ -15,8 +18,6 @@
  * @license GPL, <{@link http://www.opensource.org/licenses/gpl-license.php}>
  * @copyright CopyLeft UniversiBO 2001-2003
  */
-
-use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 class TestUnit extends UniversiboCommand {
 	function execute()

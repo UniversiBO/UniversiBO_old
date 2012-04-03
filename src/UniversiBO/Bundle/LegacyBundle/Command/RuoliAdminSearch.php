@@ -1,4 +1,11 @@
 <?php 
+namespace UniversiBO\Bundle\LegacyBundle\Command;
+
+use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
+
+use UniversiBO\Bundle\LegacyBundle\Entity\User;
+
+use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -28,7 +35,7 @@ class RuoliAdminSearch extends UniversiboCommand {
 		
 							
 		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
-			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
+			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non ï¿½ valido', 'file' => __FILE__, 'line' => __LINE__));
 			
 		$canale = & Canale::retrieveCanale($_GET['id_canale']);
 		$id_canale = $canale->getIdCanale();
@@ -57,7 +64,7 @@ class RuoliAdminSearch extends UniversiboCommand {
 		{
 			
 			if (!array_key_exists('f16_username', $_POST) || !array_key_exists('f16_email', $_POST) )
-				Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il form inviato non è valido', 'file' => __FILE__, 'line' => __LINE__));
+				Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il form inviato non ï¿½ valido', 'file' => __FILE__, 'line' => __LINE__));
 			
 			$f16_accept = true;
 				 
@@ -157,13 +164,8 @@ class RuoliAdminSearch extends UniversiboCommand {
 		$template->assign('ruoliAdminSearch_langAction', "Modifica i diritti nella pagina\n".$canale->getTitolo());
 		$template->assign('ruoliAdminSearch_langSearch', "Cerca un altro utente");
 		
-		
-		
 		$this->executePlugin('ShowTopic', array('reference' => 'ruoliadmin'));
 		
 		return 'default';
 	}
-
 }
-
-?>

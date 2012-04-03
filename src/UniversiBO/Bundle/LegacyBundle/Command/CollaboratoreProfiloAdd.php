@@ -1,5 +1,9 @@
-<?php    
+<?php
+namespace UniversiBO\Bundle\LegacyBundle\Command;
+
+use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\Entity\Collaboratore;
 
 /**
  * CollaboratoreProfiloAdd: si occupa dell'inserimento del profilo di un collaboratore
@@ -25,7 +29,7 @@ class CollaboratoreProfiloAdd extends UniversiboCommand {
         $id_coll = $_GET['id_coll'];
 
         if (!($user->isAdmin() || ($user->getIdUser() == $id_coll)))
-            Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => "Non hai i diritti per inserire una notizia\n La sessione potrebbe essere scaduta", 'file' => __FILE__, 'line' => __LINE__));
+            Error::throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => "Non hai i diritti per inserire una notizia\n La sessione potrebbe essere scaduta", 'file' => __FILE__, 'line' => __LINE__));
 
         $frontcontroller = & $this->getFrontController();
         $template = & $frontcontroller->getTemplateEngine();
@@ -37,7 +41,6 @@ class CollaboratoreProfiloAdd extends UniversiboCommand {
         $f36_recapito = '';
         $f36_intro = '';
         $f36_obiettivi = '';
-
 
         /*
          //come fo a prendere l'uri dove si trova l'utente?
@@ -62,7 +65,7 @@ class CollaboratoreProfiloAdd extends UniversiboCommand {
             $f36_accept = true;
 
             if (!array_key_exists('f36_ruolo', $_POST) || !array_key_exists('f36_intro', $_POST) || !array_key_exists('f36_obiettivi', $_POST)) {
-                Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il form inviato non è valido', 'file' => __FILE__, 'line' => __LINE__));
+                Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il form inviato non e` valido', 'file' => __FILE__, 'line' => __LINE__));
                 $f36_accept = false;
             }
 
@@ -112,7 +115,6 @@ class CollaboratoreProfiloAdd extends UniversiboCommand {
 
                 //id_news = 0 per inserimento, $id_canali array dei canali in cui inserire
                 $collaboratore = new Collaboratore($user->getIdUser(), $f36_intro, $f36_recapito, $f36_obiettivi, $f36_foto, $f36_ruolo);
-
                 $collaboratore->insertCollaboratoreItem();
                  
                 //$num_canali = count($f7_canale);
@@ -121,8 +123,6 @@ class CollaboratoreProfiloAdd extends UniversiboCommand {
 
 
             } //end if (array_key_exists('f7_submit', $_POST))
-
-
         }
         $template->assign('f36_foto', $f36_foto);
         $template->assign('f36_ruolo', $f36_ruolo);
