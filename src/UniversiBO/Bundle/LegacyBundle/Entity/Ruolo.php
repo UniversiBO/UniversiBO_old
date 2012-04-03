@@ -415,8 +415,6 @@ class Ruolo {
         $this->setMyUniversibo(true, $updateDB);   //non l'ho capita, non ricorda che fa! ma funziona!?
     }
 
-
-
     /**
      * Imposta la selezione preferiti MyUniversibo relativo all'utente (che spiegazione del cavolo)
      *
@@ -424,28 +422,14 @@ class Ruolo {
      * @param	boolean	$updateDB se true la modifica viene propagata al DB
      * @return	boolean	true se avvenuta con successo
      */
-    function setMyUniversibo($my_universibo, $updateDB = false)
+    public function setMyUniversibo($my_universibo, $updateDB = false)
     {
         $this->myUniversibo = $my_universibo;
-
-        if ( $updateDB == true )
-        {
-            $db = FrontController::getDbConnection('main');
-
-            $my_universibo = ($my_universibo) ? 'S' : 'N';
-             
-            $query = 'UPDATE utente_canale SET my_universibo = '.$db->quote($my_universibo).' WHERE id_utente = '.$db->quote($this->getIdUser()).' AND id_canale = '.$db->quote($this->getIdCanale());
-            $res = $db->query($query);
-            if (DB::isError($res))
-                Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-            $rows = $db->affectedRows();
-
-            if( $rows == 1) return true;
-            elseif( $rows == 0) return false;
-            else Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database: ruolo non unico','file'=>__FILE__,'line'=>__LINE__));
-            return false;
+        
+        if($updateDB) {
+            return self::getRepository()->updateMyUniversibo($this);
         }
-
+        
         return true;
     }
 

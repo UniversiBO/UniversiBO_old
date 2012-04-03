@@ -41,7 +41,7 @@ class DBContattoDocenteRepository extends DBRepository
         }
         
         $row = $res->fetchRow();
-        return new ContattoDocente($coddoc, $row[0], $row[1], $row[2], $row[3]);
+        return new ContattoDocente($codDocente, $row[0], $row[1], $row[2], $row[3]);
     }
     
     /**

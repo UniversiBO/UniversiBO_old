@@ -55,7 +55,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
     {
         $db = $this->getDb();
 
-        $query = 'SELECT id_utente FROM utente WHERE ad_username = '.$db->quote($adUsername);
+        $query = 'SELECT id_utente FROM utente WHERE sospeso = '.$db->quote('N').' AND ad_username = '.$db->quote($adUsername);
         $res = $db->query($query);
 
         if (\DB::isError($res)) {

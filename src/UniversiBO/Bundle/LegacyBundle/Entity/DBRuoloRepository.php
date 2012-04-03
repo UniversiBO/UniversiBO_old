@@ -62,7 +62,7 @@ class DBRuoloRepository extends DBRepository
     {
         $db = $this->getDb();
 
-        $query = 'UPDATE utente_canale SET nome = '.$db->quote($ruolo->getNome()).' WHERE id_utente = '.$db->quote($this->getIdUser()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
+        $query = 'UPDATE utente_canale SET nome = '.$db->quote($ruolo->getNome()).' WHERE id_utente = '.$db->quote($ruolo->getIdUser()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
         $res = $db->query($query);
         if (DB::isError($res))
             Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
@@ -128,7 +128,25 @@ class DBRuoloRepository extends DBRepository
         $db = $this->getDb();
         
         $campo_ruolo = (($ruolo->isModeratore()) ? Ruolo::MODERATORE : 0) + (($ruolo->isReferente()) ? Ruolo::REFERENTE : 0);
-        $query = 'UPDATE utente_canale SET ruolo = '.$campo_ruolo.' WHERE id_utente = '.$db->quote($this->getIdUser()).' AND id_canale = '.$db->quote($this->getIdCanale());
+        $query = 'UPDATE utente_canale SET ruolo = '.$campo_ruolo.' WHERE id_utente = '.$db->quote($ruolo->getIdUser()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
+        $res = $db->query($query);
+        if (DB::isError($res))
+        	Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        $rows = $db->affectedRows();
+        
+        if( $rows == 1) return true;
+        elseif( $rows == 0) return false;
+        else Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database: ruolo non unico','file'=>__FILE__,'line'=>__LINE__));
+        return false;
+    }
+    
+    public function updateMyUniversibo(Ruolo $ruolo)
+    {
+        $db = $this->getDb();
+        
+        $my_universibo = ($ruolo->isMyUniversibo()) ? 'S' : 'N';
+         
+        $query = 'UPDATE utente_canale SET my_universibo = '.$db->quote($my_universibo).' WHERE id_utente = '.$db->quote($ruolo->getIdUser()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
         $res = $db->query($query);
         if (DB::isError($res))
         	Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
