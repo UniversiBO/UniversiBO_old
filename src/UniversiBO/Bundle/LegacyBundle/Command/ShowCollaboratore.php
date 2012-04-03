@@ -67,5 +67,3 @@ class ShowCollaboratore extends UniversiboCommand  {
 		return 'default';
 	}
 }
-
-?>
