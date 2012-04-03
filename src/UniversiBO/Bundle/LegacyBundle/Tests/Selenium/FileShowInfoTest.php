@@ -1,7 +1,7 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Tests\Selenium;
 
-class ShowFileInfoTest extends UniversiBOSeleniumTestCase
+class FileShowInfoTest extends UniversiBOSeleniumTestCase
 {
     protected function setUp()
     {
@@ -17,7 +17,7 @@ class ShowFileInfoTest extends UniversiBOSeleniumTestCase
                 'Descrizione/abstract: robots SEO',
         );
         
-        $this->open('/index.php?do=FileShowInfo&id_file=15051&id_canale=10434');
+        $this->openCommand('FileShowInfo','&id_file=15051&id_canale=10434');
         
         $this->assertSentences($sentences);
     }
