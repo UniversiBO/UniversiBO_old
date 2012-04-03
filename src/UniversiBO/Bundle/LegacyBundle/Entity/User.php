@@ -121,7 +121,7 @@ class User implements UserInterface, \Serializable
     public static function isUsernameValid( $username )
     {
         $username = trim($username);
-        $username_pattern='/^([[:alnum:]������ \._]{1,25})$/';
+        $username_pattern=mb_convert_encoding('/^([[:alnum:]àèéìòù \._]{1,25})$/', 'iso-8859-1', 'utf-8');
         return preg_match($username_pattern , $username ) && strcasecmp($username, self::NICK_ELIMINATO) != 0;
     }
 

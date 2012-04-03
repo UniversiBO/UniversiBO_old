@@ -21,6 +21,21 @@
 			class="UniversiBO\Bundle\LegacyBundle\Entity\DBCanaleRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />
 		</service>
+		
+		<service id="universibo_legacy.repository.cdl"
+			class="UniversiBO\Bundle\LegacyBundle\Entity\DBCdlRepository">
+			<argument type="service" id="universibo_legacy.db.connection.main" />
+		</service>
+		
+		<service id="universibo_legacy.repository.collaboratore"
+			class="UniversiBO\Bundle\LegacyBundle\Entity\DBCollaboratoreRepository">
+			<argument type="service" id="universibo_legacy.db.connection.main" />
+		</service>
+		
+		<service id="universibo_legacy.repository.contatto_docente"
+			class="UniversiBO\Bundle\LegacyBundle\Entity\DBContattoDocenteRepository">
+			<argument type="service" id="universibo_legacy.db.connection.main" />
+		</service>
 
 		<service id="universibo_legacy.repository.ruolo"
 			class="UniversiBO\Bundle\LegacyBundle\Entity\DBRuoloRepository">
