@@ -134,6 +134,8 @@ class DBCdlRepository extends DBRepository
      */
     public function update(Cdl $cdl)
     {
+        $db = $this->getDb();
+        
         $query = 'UPDATE classi_corso SET cat_id = '.$db->quote($cdl->getForumCatId()).
         ', cod_corso = '.$db->quote($cdl->getCodiceCdl()).
         ', desc_corso = '.$db->quote($cdl->getNome()).
@@ -150,6 +152,8 @@ class DBCdlRepository extends DBRepository
     
     public function insert(Cdl $cdl)
     {
+        $db = $this->getDb();
+        
         $query = 'INSERT INTO classi_corso (cod_corso, desc_corso, categoria, cod_doc, cod_fac, id_canale) VALUES ('.
         		$db->quote($cdl->getCodiceCdl()).' , '.
         		$db->quote($cdl->getNome()).' , '.

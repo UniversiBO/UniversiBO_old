@@ -28,6 +28,8 @@ class DBContattoDocenteRepository extends DBRepository
      */
     public function findByCodDocente($codDocente)
     {
+        $db = $this->getDb();
+        
         $query = 'SELECT stato, id_utente_assegnato, ultima_modifica, report FROM docente_contatti WHERE cod_doc = '.$db->quote($codDocente);
         $res = $db->query($query);
         if (DB::isError($res))
@@ -105,6 +107,8 @@ class DBContattoDocenteRepository extends DBRepository
      */
     public function insert(ContattoDocente $contattoDocente)
     {
+        $db = $this->getDb();
+        
         $cod = $this->getCodDoc();
         ignore_user_abort(1);
         $db->autoCommit(false);
