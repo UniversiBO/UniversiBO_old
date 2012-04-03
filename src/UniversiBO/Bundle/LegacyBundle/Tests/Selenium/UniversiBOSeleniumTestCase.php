@@ -38,6 +38,12 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
         self::assertTrue($this->isTextPresent('I servizi personalizzati sono disponibili solo agli utenti che hanno effettuato il login'));
     }
     
+    protected function openCommand($do, $params = '')
+    {
+        $this->open('/index.php?do='.$do.$params);
+        self::assertTrue(preg_match('/UniversiBO/', $this->getTitle()) !== false, 'UniversiBO should be present in title');
+    }
+    
     protected function assertSentence($sentence)
     {
         $this->assertSentences(array($sentence));

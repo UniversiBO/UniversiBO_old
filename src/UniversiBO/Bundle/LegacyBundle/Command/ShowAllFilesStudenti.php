@@ -1,10 +1,17 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command;
+
+use UniversiBO\Bundle\LegacyBundle\App\Commenti\CommentoItem;
+
+use UniversiBO\Bundle\LegacyBundle\App\Files\FileItem;
+
+use \DB;
+use \Error;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\App\Files\FileItemStudenti;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
-use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
-require_once ('Files/FileItemStudenti'.PHP_EXTENSION);
-require_once ('Commenti/CommentoItem'.PHP_EXTENSION);
 /**
  * ShowAllFilesStudenti e\' un comando che permette di visualizzare tutti i 
  * files studenti presenti su UniversiBO 
@@ -28,7 +35,7 @@ require_once ('Commenti/CommentoItem'.PHP_EXTENSION);
 		
 		if (!array_key_exists('order', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['order'] ) || ($_GET['order'] > 2) )
 		{
-			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'ordine richiesto non è valido','file'=>__FILE__,'line'=>__LINE__ ));
+			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'ordine richiesto non e` valido','file'=>__FILE__,'line'=>__LINE__ ));
 		}
 		$order = $_GET['order'];
 		
@@ -83,8 +90,8 @@ require_once ('Commenti/CommentoItem'.PHP_EXTENSION);
 		}
 		$db = FrontController::getDbConnection('main');
 		$query = 'SELECT A.id_file FROM file A, file_studente_commenti B' .
-				 ' WHERE A.id_file = B.id_file and A.eliminato != '.$db->quote(FILE_ELIMINATO).
-				 ' AND B.eliminato != '.$db->quote(COMMENTO_ELIMINATO).
+				 ' WHERE A.id_file = B.id_file and A.eliminato != '.$db->quote(FileItem::ELIMINATO).
+				 ' AND B.eliminato != '.$db->quote(CommentoItem::ELIMINATO).
 				 ''.$group.' ORDER BY '.$quale_ordine;
 				 
 		$res = $db->query($query);
@@ -109,5 +116,3 @@ require_once ('Commenti/CommentoItem'.PHP_EXTENSION);
 		
 	}
  }
-
-?>
