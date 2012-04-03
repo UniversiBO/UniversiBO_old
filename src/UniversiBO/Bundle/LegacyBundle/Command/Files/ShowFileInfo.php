@@ -1,6 +1,7 @@
 <?php    
 namespace UniversiBO\Bundle\LegacyBundle\Command\Files;
 
+use \Error;
 use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
 use UniversiBO\Bundle\LegacyBundle\App\Files\FileItemStudenti;
 use UniversiBO\Bundle\LegacyBundle\App\Files\FileItem;
