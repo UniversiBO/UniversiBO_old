@@ -323,7 +323,7 @@ class User implements UserInterface, \Serializable
 
         foreach(self::$roleConversions as $old => $new)
         {
-            if($this->groups | $old)
+            if(0 !== ($this->groups & $old))
             {
                 $roles[] = $new;
             }
