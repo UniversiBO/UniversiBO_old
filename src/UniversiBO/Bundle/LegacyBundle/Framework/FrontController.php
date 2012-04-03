@@ -191,7 +191,7 @@ class FrontController
             if (!$templateEngine->template_exists($template))
             {
                 echo $template;
-                \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non � presente il file relativo al template specificato: "'.$template.'"','file'=>__FILE__,'line'=>__LINE__));
+                \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` presente il file relativo al template specificato: "'.$template.'"','file'=>__FILE__,'line'=>__LINE__));
             }
              
             $templateEngine->display($template);
@@ -217,7 +217,7 @@ class FrontController
 
         if ($classValues == null )
         {
-            \Error::throwError(_ERROR_DEFAULT,array('msg'=>'Non � stato definito il plugin richiesto: '.$name ,'file'=>__FILE__,'line'=>__LINE__));
+            \Error::throwError(_ERROR_DEFAULT,array('msg'=>'Non e` stato definito il plugin richiesto: '.$name ,'file'=>__FILE__,'line'=>__LINE__));
             return;
         }
 
