@@ -1,4 +1,8 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command;
+
+use \DB;
+use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -22,23 +26,21 @@ class NewPasswordDocente extends UniversiboCommand
 		$session_user = $this->getSessionUser();
 		
 		if (!$session_user->isAdmin())
-			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'La generazione di una nuova password dei docenti è possibile solo ad utenti amministratori.'."\n".'La sessione potrebbe essere scaduta, eseguire il login','file'=>__FILE__,'line'=>__LINE__));
+			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'La generazione di una nuova password dei docenti e` possibile solo ad utenti amministratori.'."\n".'La sessione potrebbe essere scaduta, eseguire il login','file'=>__FILE__,'line'=>__LINE__));
 		
 		
 		$username_allowed = explode(';',$fc->getAppSetting('passwordDocentiAdmin'));
 		if (!in_array($session_user->getUsername(), $username_allowed ))
-			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'La generazione di una nuova password dei docenti è possibile solo a '.implode(', ',$username_allowed)."\n".'La sessione potrebbe essere scaduta, eseguire il login','file'=>__FILE__,'line'=>__LINE__));
+			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'La generazione di una nuova password dei docenti e` possibile solo a '.implode(', ',$username_allowed)."\n".'La sessione potrebbe essere scaduta, eseguire il login','file'=>__FILE__,'line'=>__LINE__));
 		
 		if ( !array_key_exists('id_utente', $_GET)  || !preg_match('/^([0-9]{1,9})$/', $_GET['id_utente']))
-			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $session_user->getIdUser(), 'msg' => 'L\'id dell\'utente richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
+			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $session_user->getIdUser(), 'msg' => 'L\'id dell\'utente richiesto non e` valido', 'file' => __FILE__, 'line' => __LINE__));
 
 		$docente = User::selectUser($_GET['id_utente']);
 		
 		if ($docente === false || ($docente->isDocente() == false &&  $docente->isTutor() == false))
 			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $session_user->getIdUser(), 'msg' => 'L\'id dell\'utente richiesto non appartiene ad un docente o ad un tutor', 'file' => __FILE__, 'line' => __LINE__));
 		
-		
-
 		$livelli = implode(', ',$docente->getUserGroupsNames());
 		$username = $docente->getUsername();
 		$email =  $docente->getEmail();
@@ -66,13 +68,13 @@ class NewPasswordDocente extends UniversiboCommand
 			$randomPassword = User::generateRandomPassword();
 			
 			if ($docente->updatePassword($randomPassword,true) == false)
-				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Si è verificato un errore durante l\'aggiornamento della password','file'=>__FILE__,'line'=>__LINE__));
+				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Si e` verificato un errore durante l\'aggiornamento della password','file'=>__FILE__,'line'=>__LINE__));
 			
 			$forum = new ForumApi();
 			$forum->updatePassword($docente, $randomPassword);
 			//	Error::throwError(_ERROR_DEFAULT,array('msg'=>'Si ? verificato un errore durante la modifica della password sul forum relativa allo username '.$q6_username,'file'=>__FILE__,'line'=>__LINE__));
 			
-			$template->assign('newPasswordDocente_thanks',"La password è stata cambiata con successo.\n");
+			$template->assignUnicode('newPasswordDocente_thanks',"La password Ã¨ stata cambiata con successo.\n");
 			
 			
 			$mail = $fc->getMail();
@@ -105,7 +107,7 @@ class NewPasswordDocente extends UniversiboCommand
 				;
 
 			if(!$mail->Send()) 
-				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Attenzione!!! La password è stata aggiornata su database ma potrebbe essersi verificato un errore durante la spedizione dell\'email!!'."\nPassword: $randomPassword",'file'=>__FILE__,'line'=>__LINE__));
+				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Attenzione!!! La password e` stata aggiornata su database ma potrebbe essersi verificato un errore durante la spedizione dell\'email!!'."\nPassword: $randomPassword",'file'=>__FILE__,'line'=>__LINE__));
  			
 			return 'success';
 			
