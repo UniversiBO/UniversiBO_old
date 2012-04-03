@@ -178,9 +178,10 @@ class Collaboratore extends User {
     /**
 	 * Inserisce il profilo di un nuovo collaboratore sul DB
 	 *
+	 * @deprecated
 	 * @return	 boolean true se avvenua con successo, altrimenti Error object
 	 */
-	public function insertCollaboratoreItem()
+	public static function insertCollaboratoreItem()
 	{		
 	    return self::getRepository()->insert($this);
 	}
