@@ -1,7 +1,8 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
-use \Collaboratore;
+use UniversiBO\Bundle\LegacyBundle\Entity\Collaboratore;
+
 use UniversiBO\Bundle\LegacyBundle\Entity\User;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
