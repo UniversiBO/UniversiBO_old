@@ -16,6 +16,10 @@ use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
  */
 
 class Collaboratore extends User {
+    /**
+     * @var DBCdlRepository
+     */
+    private static $repository;
 	
 	/**
 	 * @access private
@@ -133,7 +137,7 @@ class Collaboratore extends User {
 	/**
 	 * Ritorna Preleva tutti i collaboratori dal database
 	 *
-	 * @static
+	 * @todo non si capisce una mazza
 	 * @param int $id_utente numero identificativo utente
 	 * @return array Collaboratori
 	 */
@@ -150,58 +154,25 @@ class Collaboratore extends User {
 	/**
 	 * Ritorna un collaboratori dato l'id_utente del database
 	 *
-	 * @static
+	 * @deprecated
 	 * @param int $id_utente numero identificativo utente
 	 * @return array Collaboratori
 	 */
-	function selectCollaboratore($id_utente)
+	public static function selectCollaboratore($id)
 	{
-		$ret = false;
-		$db = FrontController::getDbConnection('main');
-	
-		$query = 'SELECT id_utente,	intro, recapito, obiettivi, foto, ruolo FROM collaboratore WHERE id_utente = '.$db->quote($id_utente);
-		$res = $db->query($query);
-		if (DB::isError($res)) 
-			Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__)); 
-	
-		$rows = $res->numRows();
-		if( $rows == 0) return $ret;
-
-		$row = $res->fetchRow();
-		$collaboratore = new Collaboratore($row[0], $row[1], $row[2], $row[3], $row[4], $row[5]);
-		
-		return $collaboratore;
-	
+	    return self::getRepository()->find($id);
 	}
 	
 	/**
 	 * Preleva tutti i collaboratori dal database
 	 *
-	 * @static
+	 * @deprecated
 	 * @param int $id_utente numero identificativo utente
 	 * @return array Collaboratori
 	 */
-	function selectCollaboratoriAll()
+	public static function selectCollaboratoriAll()
 	{
-		
-		$db = FrontController::getDbConnection('main');
-	
-		$query = 'SELECT id_utente,	intro, recapito, obiettivi, foto, ruolo FROM collaboratore';
-		$res = $db->query($query);
-		if (DB::isError($res)) 
-			Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__)); 
-	
-		$rows = $res->numRows();
-		
-		$collaboratori = array();
-
-		while($row = $res->fetchRow())
-		{
-			$collaboratori[] = new Collaboratore($row[0], $row[1], $row[2], $row[3], $row[4], $row[5]);
-		}
-		
-		return $collaboratori;
-	
+	    return self::getRepository()->findAll();
 	}
 	
     /**
@@ -209,36 +180,20 @@ class Collaboratore extends User {
 	 *
 	 * @return	 boolean true se avvenua con successo, altrimenti Error object
 	 */
-	function insertCollaboratoreItem()
-	{				 
-		$db = FrontController::getDbConnection('main');
-		
-        ignore_user_abort(1);
-        $db->autoCommit(false);
-		$return = true;
-		
-		
-		//todo fare inserimento solo se non gi� presente
-		$query = 'INSERT INTO collaboratore (id_utente, intro, recapito, obiettivi, foto, ruolo) VALUES '.
-					'( '.
-					$db->quote($this->getIdUtente()).' , '.
-					$db->quote($this->getIntro()).' , '.
-					$db->quote($this->getRecapito()).' , '.
-					$db->quote($this->getObiettivi()).' , '.
-					$db->quote($this->getFotoFilename()).' , '.
-					$db->quote($this->getRuolo()).' )';
-					 
-		$res = $db->query($query);
-		//var_dump($query);
-		if (DB::isError($res)){
-			$db->rollback();
-			Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-		}
-		
-		$db->commit();
-		$db->autoCommit(true);
-		ignore_user_abort(0);
+	public function insertCollaboratoreItem()
+	{		
+	    return self::getRepository()->insert($this);
 	}
 
-	
+	/**
+	 * @return DBCollaboratoreRepository
+	 */
+	private static function getRepository()
+	{
+		if(is_null(self::$repository))
+		{
+			self::$repository = new DBCollaboratoreRepository(FrontController::getDbConnection('main'));
+		}
+		return self::$repository;
+	}
 }
