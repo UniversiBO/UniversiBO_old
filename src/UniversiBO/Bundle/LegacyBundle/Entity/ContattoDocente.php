@@ -20,6 +20,7 @@ class ContattoDocente {
     const CHIUSO = 0;
     const APERTO = 1;
     const KILLED = 2;
+    const CRITIC = 3;
     const INATTIVO = 4;
      
     /**
@@ -184,7 +185,7 @@ class ContattoDocente {
     {
         if(is_null(self::$repository))
         {
-            self::$repository = new DBCdlRepository(FrontController::getDbConnection('main'));
+            self::$repository = new DBContattoDocenteRepository(FrontController::getDbConnection('main'));
         }
         return self::$repository;
     }
