@@ -1,10 +1,9 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
-use \Collaboratore;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
-
+use UniversiBO\Bundle\LegacyBundle\Entity\Collaboratore;
 /**
  * ShowContacts is an extension of UniversiboCommand class.
  *
@@ -21,7 +20,6 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 class ShowCollaboratore extends UniversiboCommand  {
 	function execute()
 	{
-
 		$frontcontroller = $this->getFrontController();
 		$template = $frontcontroller->getTemplateEngine();
 		$user = $this->getSessionUser();
