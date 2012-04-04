@@ -5,7 +5,7 @@ use \DB;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\Files\FileItem;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
-
+use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
 /**
  * NewsDelete: elimina una notizia, mostra il form e gestisce la cancellazione
  *
