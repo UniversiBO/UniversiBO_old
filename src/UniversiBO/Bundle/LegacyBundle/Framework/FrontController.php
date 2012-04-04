@@ -775,7 +775,7 @@ class FrontController
         $this->container -> register('mobytsms', 'mobytSms')
         -> addArgument($this->smsMobyInfo['username'])
         -> addArgument($this->smsMobyInfo['password'])
-        -> setProperty('from', $this->smsMobyInfo['fromName']);
+        -> addArgument($this->smsMobyInfo['fromName']);
     }
 
 
@@ -1122,12 +1122,7 @@ class FrontController
 
     function getSmsMoby()
     {
-        require_once('mobytSms'.PHP_EXTENSION);
-
-        $sms = new \mobytSms($this->smsMobyInfo['username'], $this->smsMobyInfo['password']);
-        $sms->setFrom($this->smsMobyInfo['fromName']);
-
-        return $sms;
+        return $this->container->get('mobytsms');
     }
 
     /**
