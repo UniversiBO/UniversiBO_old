@@ -88,11 +88,11 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore
 				$f4_accept = false;
 			}
 			elseif(!eregi('^([[:alnum:]])+\.[[[:alnum:]]+$',$_POST['f4_ad_user'])){
-				Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>"La mail di ateneo ".$_POST['f4_ad_user']."@studio.unibo.it appartiene ad un utente gi� registrato.\nProbabilmente sei gi� registrato, utilizza la pagina Password Smarrita per recuperare la password",'file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+				Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>"La mail di ateneo ".$_POST['f4_ad_user']."@studio.unibo.it appartiene ad un utente gia` registrato.\nProbabilmente sei gia` registrato, utilizza la pagina Password Smarrita per recuperare la password",'file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
 				$f4_accept = false;
 			}
 			elseif(User::activeDirectoryUsernameExists($_POST['f4_ad_user'].'@studio.unibo.it')){
-				Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'La mail di ateneo '.$_POST['f4_ad_user'].'@studio.unibo.it'.' appartiene ad un utente gi� registrato o non � pi� autorizzata','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+				Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'La mail di ateneo '.$_POST['f4_ad_user'].'@studio.unibo.it'.' appartiene ad un utente gia` registrato o non e` piu` autorizzata','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
 				$f4_accept = false;
 			}
 			else
