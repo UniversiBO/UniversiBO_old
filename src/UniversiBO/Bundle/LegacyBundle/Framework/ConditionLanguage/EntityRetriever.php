@@ -1,7 +1,7 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage;
 
-class EntityRetriever
+class EntityRetriever implements IExecutor
 {
 	var $entityTable = array();
 	

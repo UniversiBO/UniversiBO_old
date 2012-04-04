@@ -1064,8 +1064,6 @@ class FrontController
 
     public function getMail($keepAlive = MAIL_KEEPALIVE_NO)
     {
-        require_once('PHPMailer'.PHP_EXTENSION);
-
         static $singleton = null;
         $mail = null;
          

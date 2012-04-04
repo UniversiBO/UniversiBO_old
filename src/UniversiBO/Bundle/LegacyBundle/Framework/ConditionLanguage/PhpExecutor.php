@@ -3,6 +3,20 @@ namespace UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage;
 
 class PhpExecutor
 {
+    /**
+     * @var HashedCache
+     */
+    private $cache;
+    
+    public function __construct(HashedCache $cache = null)
+    {
+        if(is_null($cache)) {
+            $cache = HashedCache::getInstance();
+        }
+        
+        $this->cache = $cache;
+    }
+    
 	public function run($args)
 	{
 //		if (array_key_exists('codice',$args)) throw new Exception('manca il parametro codice');
@@ -16,14 +30,14 @@ class PhpExecutor
 		//var_dump($paramString);die;
 //		foreach ($in as $t)
 //			echo $t . ' '.((is_object($t))?'true' : 'false'); die;
-		$f = HashedCache::fetch('php_'.$paramString.$code);
+		$f = $this->cache->fetch('php_'.$paramString.$code);
 		
 		if ($f == null)
 		{
 			// TODO check se esiste una istruzione di return ed eventualmente aggiugnerla
 			$f = create_function($paramString,$code);
 //			var_dump($code);die;
-			HashedCache::store('php_'.$paramString.$code, $f);
+			$this->cache->store('php_'.$paramString.$code, $f);
 		}
 		
 		return array(call_user_func_array($f,array_values($in)));

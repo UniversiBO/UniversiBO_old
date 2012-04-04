@@ -1,13 +1,24 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage;
 
+use \DB_common;
+
 class SqlExecutor implements IExecutor
 {
-	var $db;
+    /**
+     * @var DB_common
+     */
+	private $db;
 	
-	public function __construct($conn)
+	public function __construct(DB_common $conn, HashedCache $cache = null)
 	{	
 		$this->db = $conn;
+		
+		if($cache === null) {
+		    $cache = HashedCache::getInstance();
+		}
+		
+		$this->cache = $cache;
 	}	
 	
 	public function run($args)
@@ -34,13 +45,13 @@ class SqlExecutor implements IExecutor
 		
 		$in['db'] = $this->db;
 		
-		$f = HashedCache::fetch('sql_'.$paramString.$query);
+		$f = $this->cache->fetch('sql_'.$paramString.$query);
 		
+		// TODO replace with closures?
 		if ($f == null)
 		{
 //			echo "\n".'definisco sql' ."\n";
-			$code='require_once(\'Error.php\');
-			$s = "'.addcslashes($query,'\'').'";
+			$code='$s = "'.addcslashes($query,'\'').'";
 			$res = $db->query($s); 
 			//var_dump($s);
 			if (DB::isError($res)) 
@@ -55,7 +66,7 @@ class SqlExecutor implements IExecutor
 			if ($paramString != '') $paramString .= ',';
 			$f = create_function($paramString.'&$db',$code);
 			//var_dump($query); die;
-			HashedCache::store('sql_'.$paramString.$query, $f);
+			$this->cache->store('sql_'.$paramString.$query, $f);
 		}
 //		echo "\ninvoco\n";
 		return call_user_func_array($f,array_values($in));

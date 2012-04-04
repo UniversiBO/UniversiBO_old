@@ -17,21 +17,33 @@
 			<argument>main</argument>
 		</service>
 
+		<service id="universibo_legacy.cl.cache"
+			class="UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage\HashedCache" />
+		<service id="universibo_legacy.cl.executor.php"
+			class="UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage\PHPExecutor">
+			<argument type="service" id="universibo_legacy.cl.cache" />
+		</service>
+		<service id="universibo_legacy.cl.executor.sql"
+			class="UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage\SQLExecutor">
+			<argument type="service" id="universibo_legacy.db.connection.main" />
+			<argument type="service" id="universibo_legacy.cl.cache" />
+		</service>
+
 		<service id="universibo_legacy.repository.canale"
 			class="UniversiBO\Bundle\LegacyBundle\Entity\DBCanaleRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />
 		</service>
-		
+
 		<service id="universibo_legacy.repository.cdl"
 			class="UniversiBO\Bundle\LegacyBundle\Entity\DBCdlRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />
 		</service>
-		
+
 		<service id="universibo_legacy.repository.collaboratore"
 			class="UniversiBO\Bundle\LegacyBundle\Entity\DBCollaboratoreRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />
 		</service>
-		
+
 		<service id="universibo_legacy.repository.contatto_docente"
 			class="UniversiBO\Bundle\LegacyBundle\Entity\DBContattoDocenteRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />

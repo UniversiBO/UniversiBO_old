@@ -1,6 +1,7 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
+use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\News\NewsItem;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 

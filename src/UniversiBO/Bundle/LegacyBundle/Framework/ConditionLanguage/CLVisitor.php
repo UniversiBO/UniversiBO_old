@@ -25,9 +25,12 @@ class CLVisitor
 	 * @param boolean $debug attiva il debug dell'interprete
 	 * @param integer $verbose imposta la verbosità del debug
 	 */
-	public function __construct($ops = null, $var = null, $trace = false, $debug = false, $verbose = 1)
+	public function __construct($ops = null, $var = null, $trace = false, $debug = false, $verbose = 1, $bridge = null)
 	{
-	    JavaBridge::getInstance()->load();
+	    if(!$bridge instanceof JavaBridge) {
+	        $bridge = JavaBridge::getInstance();
+	    }
+	    $bridge->load();
 	    
 		$this->st = new Stack();
 		if ($ops!= null) $this->listaOps = $ops;

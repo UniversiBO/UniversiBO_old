@@ -3,20 +3,38 @@ namespace UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage;
 
 class HashedCache
 {
-	static $lista = array();
+    /**
+     * @var HashedCache
+     */
+    private static $instance;
+    
+	private $lista = array();
 		
-	static function fetch($name)
+	public function fetch($name)
 	{
-		return (array_key_exists(md5($name),self::$lista)) ? self::$lista[md5($name)] : null;
+		return (array_key_exists(md5($name),$this->lista)) ? $this->lista[md5($name)] : null;
 	}
 	
-	static function store($name, $value)
+	public function store($name, $value)
 	{
-		self::$lista[md5($name)] = $value;
+		$this->lista[md5($name)] = $value;
 	}
 	
-	static function clear()
+	public function clear()
 	{
-		self::$lista = array();
+		$this->lista = array();
+	}
+	
+	/**
+	 * @deprecated use only in legacy code
+	 * @return HashedCache
+	 */
+	public static function getInstance()
+	{
+	    if(is_null(self::$instance)) {
+	        self::$instance = new self();
+	    }
+	    
+	    return self::$instance;
 	}
 }

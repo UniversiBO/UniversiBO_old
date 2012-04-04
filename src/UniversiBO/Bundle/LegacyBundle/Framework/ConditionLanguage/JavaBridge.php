@@ -13,7 +13,7 @@ class JavaBridge
     /**
      * @var JavaBridge
      */
-    private static $instance;
+    private static $instance = null;
     
     /**
      * @var boolean
