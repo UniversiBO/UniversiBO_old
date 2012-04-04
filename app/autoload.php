@@ -37,8 +37,7 @@ if (!function_exists('intl_get_error_code')) {
 
 $loader->registerPrefixFallbacks(array(
         __DIR__.'/../framework',
-        __DIR__.'/../universibo/classes',
-        __DIR__.'/../universibo/commands',));
+));
 
 $loader->registerNamespaceFallbacks(array(
         __DIR__.'/../src',
