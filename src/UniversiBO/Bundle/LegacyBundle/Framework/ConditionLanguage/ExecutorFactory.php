@@ -1,4 +1,7 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage;
+
+
 class ExecutorFactory
 {
 	static $exs = array();

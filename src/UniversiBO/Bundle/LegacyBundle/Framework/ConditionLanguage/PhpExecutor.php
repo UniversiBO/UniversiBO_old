@@ -1,5 +1,6 @@
 <?php
-require_once('HashedCache.php');
+namespace UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage;
+
 class PhpExecutor
 {
 	public function run($args)

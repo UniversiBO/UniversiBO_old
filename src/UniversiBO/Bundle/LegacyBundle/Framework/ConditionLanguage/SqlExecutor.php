@@ -1,6 +1,7 @@
 <?php
-require_once('HashedCache.php');
-class SqlExecutor
+namespace UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage;
+
+class SqlExecutor implements IExecutor
 {
 	var $db;
 	

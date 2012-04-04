@@ -1,5 +1,4 @@
 <?php
-
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
 use \DB;
@@ -7,9 +6,7 @@ use \Error;
 
 use UniversiBO\Bundle\LegacyBundle\App\ForumApi;
 use UniversiBO\Bundle\LegacyBundle\App\Notifica\NotificaItem;
-
-use \CLInterpreter;
-
+use UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage\CLInterpreter;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
@@ -104,7 +101,7 @@ class InteractiveCommandHandler extends UniversiboCommand {
 
 Probabilmente l\'InteractiveCommand '.$currentStep['className'].' non ha metodi implementati.
 Risolvere subito il problema o disabilitarlo quanto prima,
-perch� impedisce il login agli utenti		
+perche` impedisce il login agli utenti		
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~';
 					
 			$notifica_destinatario = 'mail://'.$frontcontroller->getAppSetting('develEmail');
@@ -281,7 +278,6 @@ perch� impedisce il login agli utenti
 	 */
 	function evaluateCondition($CL_code)
 	{
-		require_once('CL/CLInterpreter'.PHP_EXTENSION);
 		CLInterpreter::init($this->getFrontController(), $this->userLogin);
 		return CLInterpreter::execMe($CL_code);
 	}

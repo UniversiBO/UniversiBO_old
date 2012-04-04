@@ -1,4 +1,6 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage;
+
 interface IExecutor
 {
 	/**

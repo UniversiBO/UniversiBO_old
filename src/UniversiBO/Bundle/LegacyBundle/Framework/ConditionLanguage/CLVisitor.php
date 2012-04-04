@@ -1,6 +1,7 @@
 <?php
-require_once("http://localhost:8080/JavaBridge/java/Java.inc");
-require_once('ExecutorFactory.php');
+namespace UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage;
+
+use \JavaClass;
 
 class CLVisitor
 {
@@ -26,6 +27,8 @@ class CLVisitor
 	 */
 	public function __construct($ops = null, $var = null, $trace = false, $debug = false, $verbose = 1)
 	{
+	    JavaBridge::getInstance()->load();
+	    
 		$this->st = new Stack();
 		if ($ops!= null) $this->listaOps = $ops;
 		if ($var!= null) $this->listaVariabili = $var;
@@ -70,7 +73,7 @@ class CLVisitor
 	 **************************************************************************/
 	
 	/**
-	 * recupera le entit� attualmente definite e quelle di base del framework
+	 * recupera le entità attualmente definite e quelle di base del framework
 	 * 
 	 * @param	string	identifier	
 	 * @return 	object
@@ -229,7 +232,7 @@ class CLVisitor
 	/**
 	 * Stampa l'errore semantico riscontrato nel parsing
 	 * @param message l'errore riscontrato
-	 * @param n	il nodo dell'AST in cui si � riscontrato l'errore
+	 * @param n	il nodo dell'AST in cui si è riscontrato l'errore
 	 */
 	function semanticError($message, $n = null)
 	{
@@ -249,7 +252,7 @@ class CLVisitor
 	 **************************************************************************/
 	
 	/**
-	 * Helper per interfacciarsi a php/Java bridge e mantenere il codice pi� leggibile
+	 * Helper per interfacciarsi a php/Java bridge e mantenere il codice più leggibile
 	 *
 	 * @access private
 	 * @return php/java bridge object
@@ -750,379 +753,5 @@ class CLVisitor
 			$this->st->push($ret); 
 		}
 		  
-	}
-}
-
-class Stack
-{
-
-	private $_innerStack = array();
-	private $groupedValuesTrace = array();
-	private $groupedLength = 0;
-	var $length = 0;
-	
-	function pop() 
-	{
-		if ($this->length == 0) return;
-		$this->length--; 
-		$this->_removeFromGroupedValues(1);
-		return array_pop($this->_innerStack);
-	}
-	
-	function push($a,$count = true) {array_push($this->_innerStack, $a); $this->length++; if($count) $this->_addGroupedValues(1);}
-	
-	function groupedPush($arrayOfValues)
-	{
-		foreach($arrayOfValues as $val)
-			$this->push($val,false);
-		$this->_addGroupedValues(count($arrayOfValues));
-	}
-	
-	function groupedPop()
-	{
-		if($this->groupedLength == 0) return;
-		$this->groupedLength--;
-		$this->length -= $this->groupedValuesTrace[$this->groupedLength];
-		return array_splice($this->_innerStack, - $this->groupedValuesTrace[$this->groupedLength]);
-	}
-	
-	function svuota() {$this->_innerStack = array(); $this->length = 0; $this->groupedValuesTrace = array(); $this->groupedLength = 0;} 
-	
-	function debug() 
-	{ 
-		$s ="STACK: Length ".$this->length;
-		foreach ($this->_innerStack as $i)
-		{
-			$s .= " Elem ";
-			if (is_object($i) &&  method_exists($i,"toString"))
-				$s .= $i->toString();
-			else if(is_object($i))
-				$s .= get_class($i);
-			else if(is_bool($i))
-				$s .= ($i) ? 'true':'false';
-			else if(is_array($i))
-				$s .= print_r($i, true);
-			else
-				$s .= $i;
-		}
-		$s .= "\n";
-		return $s;
-	}
-
-	function _addGroupedValues($num)
-	{
-		$this->groupedValuesTrace[] = $num;
-		$this->groupedLength++;
-	}
-	
-	function _removeFromGroupedValues($num)
-	{
-		if($this->groupedLength == 0) {echo 'errore '.$num."\n"; return;}
-		while( $this->groupedValuesTrace[($this->groupedLength)-1] <= $num)
-		{
-			$num -= $this->groupedValuesTrace[($this->groupedLength)-1];
-			array_pop($this->groupedValuesTrace);
-			$this->groupedLength--;
-			if($num <= 0 || $this->groupedLength <=0) return;
-		}
-		
-		if($num > 0 && $this->groupedLength > 0)
-			$this->groupedValuesTrace[($this->groupedLength)-1] -= $num;
-	}
-	
-}
-
-
-class Operator
-{
-	// TODO NB documentare i valori che ho scelto per l'associatività
-	const LEFT_ASSOCIATION = 0;
-	const RIGHT_ASSOCIATION = 1;
-	
-	
-	private $nome;
-	private $nIn;
-	private $inputFormat;
-	private $nOut;
-	private $outputFormat;
-	private $priorita;
-	private $associativita;
-	private $executor;
-	private $codice;
-	/**
-	 * riferimento al nodo AST corrispondente all'operazione
-	 *
-	 * @var unknown_type
-	 */
-	private $referrer; 
-
-	function __construct(	
-				ParamListFormat $inputFormat,
-				ParamListFormat $outputFormat,
-				$priorita,
-				$associativita,
-				$executor,
-				$codice,
-				$nome,
-				& $ref
-				)
-	{
-		$this->nIn = $inputFormat->getParamNum();
-		$this->inputFormat = $inputFormat;
-		$this->nOut = $outputFormat->getParamNum();
-		$this->outputFormat = $outputFormat;
-		$this->priorita = $priorita;
-		$this->associativita = $associativita;
-		$this->executor = $executor;
-		$this->codice = $codice;
-		$this->nome = strtolower($nome);
-		$this->referrer = $ref;
-	}
-	
-	public function __get($nomeVar)
-	{
-		if(isset($this->$nomeVar)) return $this->$nomeVar;
-	}
-	
-	public function getId()
-	{
-		return md5($this->nome);
-	}
-	
-					
-	public function isMajorPriorityTo(Operator $o)
-	{ return $this->priorita > $o->priorita; }
-
-	public function isEqualPriorityTo(Operator $o)
-	{ return $this->priorita == $o->priorita; }
-	
-	public function isBinary()
-	{return $this->nIn == 2; }
-	
-	public function isLeftAssociative()
-	{ 
-		return $this->associativita == self::LEFT_ASSOCIATION; 
-	}
-	
-
-	public function isRightAssociative()
-	{
-		return $this->associativita == self::RIGHT_ASSOCIATION; 
-	}
-	
-	static public function translateNameToId($name)
-	{ return  md5($name); }
-	
-	public function toString()
-	{ return $this->__toString(); }
-	
-	public function __toString()
-	{
-		$s = 'key : '.self::translateNameToId($this->nome).' ; ';
-		foreach($this as $name => $property)
-			if($name != 'referrer')
-				$s .= $name.' : '.$property.' || ';
-		return $s;
-	}
-}
-
-class ParamListFormat
-{
-	private $list;
-	private $reverseLookup;
-	
-	public function __construct()
-	{
-		$this->list = array();
-		$this->reverseLookup = array();
-	}
-	
-	/**
-	 * Aggiunge un parametro alla lista
-	 *
-	 * @param string $name
-	 * @param boolean $isArray
-	 * @param integer $position
-	 * @return boolean indica l'avvenuto inserimento
-	 */
-	public function addParam($name, $isStruct = false, $isGrouped = false, $nestedList = null) 
-	{
-			if(array_key_exists($name, $this->list)) return false;
-			$this->list[$name] = array('nome' => $name, 'struct' => $isStruct, 'grouped' => $isGrouped, 'structDesc' => $nestedList);
-			$this->reverseLookup[$name] = count($this->list) - 1;
-			return true; 
-	}
-	
-	public function getIndex($key)
-	{
-		if(!array_key_exists($key, $this->reverseLookup)) return false;
-		return $this->reverseLookup[$key];
-	}
-	
-	public function isGrouped($nome)
-	{
-		return $this->list[$nome]['grouped'];
-	}
-	
-	public function parseElemString($s)
-	{
-		$s = substr($s,0,strlen($s)-1);
-		list($pos, $nome, $isStruct) = explode(':',$s);
-		$ret = array();
-		$ret[$pos] = array('nome' => $nome, 'struct' => $isStruct);
-		return $ret; 
-	}
-	
-	/**
-	 * ritorna un array con le chiavi degli output presenti
-	 *
-	 * @return array
-	 */
-	public function getMask()
-	{
-		return array_keys($this->list);
-	}
-	
-	/**
-	 * controlla che la lista di parametri passati corrisponda al formato settato
-	 *
-	 * @param array $argumentList
-	 * @return boolean
-	 */
-	public function checkFormatByPosition($argumentList)
-	{
-		$tot = count($this->list);
-		if (!is_array($argumentList)) return false;
-		
-		for ($i=0; $i < $tot; $i++)
-			if($this->list[$i]['struct'])
-			{
-				if(!is_array($argumentList[$i])) return false;
-				if ($this->list[$i]['structDesc'] != null)
-					foreach($argumentList[$i] as $k)
-						if(!$this->list[$i]['structDesc']->checkFormatByPosition($k)) return false;
-			}
-			else if(is_array($argumentList[$i])) return false;
-		 
-		return true;
-	}
-	
-	/**
-	 * controlla che la lista di parametri passati corrisponda al formato settato
-	 *
-	 * @param array $argumentList array associativo nomeParametro => valoreParametro
-	 * @return boolean
-	 */
-	public function checkFormatByName($argumentList)
-	{
-		//var_dump($argumentList); var_dump($this->list);die;
-		if (!is_array($argumentList)) return false;
-		
-		foreach ($argumentList as $name => $value)
-		{
-			if(!array_key_exists($name,$this->list)) return false;
-			if($this->list[$name]['struct']) 
-			{
-				if(!is_array($value)) return false;
-				if ($this->list[$i]['structDesc'] != null)
-					foreach($value as $k)
-						if(!$this->list[$name]['structDesc']->checkFormatByPosition($k)) return false;
-			}
-			else if(is_array($value)) return false;
-		}
-		return true;
-	}
-	
-	/**
-	 * restituisce true se l'istanza corrente contiene tutti gli elementi di $f
-	 *
-	 * @param ParamListFormat $f
-	 * @return boolean
-	 */
-	private function isSupersetOf(ParamListFormat $f)
-	{
-		$keys = $f->getMask();
-		foreach($keys as $k)
-			if(!array_key_exists($k,$this->list)) return false;
-			
-		return true;
-	}
-
-	private function getChilds($associative = false)
-	{
-		$childs = array();
-		if($associative)
-		{
-			foreach($this->list as $i)
-				if($i['struct'])
-					$childs[$i['nome'] ] = $i['structDesc'];
-		}
-		else
-		{
-			foreach($this->list as $i)
-			
-				if($i['struct'])
-					$childs[$this->reverseLookup[$i['nome']]] = $i['structDesc'];
-		}
-		return $childs;
-	}
-
-	
-	/**
-	 * filtra l'output dell'istanza attuale in accordo al formato desiderato
-	 *
-	 * @param array $values valori di output NB suppongo chiavi numeriche
-	 * @param ParamListFormat $filter formato desiderato in uscita
-	 * @param ParamListFormat $output formato dell'output
-	 * @return array	output filtrato
-	 */
-	static public function filterValues($values, ParamListFormat $filter, ParamListFormat $output)
-	{
-		// VERIFY lo metto qui il check su $values o suppongo che chi lo passi lo abbia gi� verificato?
-		// � una esplorazione depthfirst.. va bene? direi di s�, perch� tanto i livelli sono per forza limitati
-		// TODO cos� non va bene... perch� nel caso di array con formato potrei aver ridotto i parametri cui sono interessato...
-		// TODO se io ho un parametro grouped, � impossibile pensare che abbia mantenuto il nome del param come chiave!?!? ma forse se � grouped, vuol dire che � un array di val associati ad una certa chiave
-//		echo "\n[FILTRO] $filter $output $values \n"; 
-//		var_dump($values);
-		if(!$output->isSupersetOf($filter))
-		{
-			$rami=$output->getChilds();
-//			var_dump($rami); die();
-			foreach($rami as $k => $v)
-			{
-				$ret = self::filterValues($values[$k],$filter,$v);
-				if($ret !== false) return $ret; 
-			}
-			return false; // se son qui vuol dire che nessun ramo soddisfa il filtro
-		}
-		
-		$ret = array();
-		$wantedParam = $filter->getMask();
-		foreach($wantedParam as $p)
-			$ret[$p] = ($output->list[$p]['struct'] == false) 
-						? $values[$output->getIndex($p)] 
-						: (self::filterValues($values[$output->getIndex($p)],$filter->list[$p]['structDesc'],$output->list[$p]['structDesc']));
-		return $ret;
-	}
-	
-
-
-	public function getParamNum()
-	{
-		return count($this->list);
-	}
-	
-	public function toString()
-	{
-		return $this->__toString();
-	}
-	
-	public function __toString()
-	{
-		$s = '#';
-		foreach ($this->list as $key => $elem)
-			$s .= $key .':'. $elem['nome'] . (($elem['struct'])?'('. $elem['structDesc'].')':'') .';' ;
-		
-		return $s.'#';
 	}
 }

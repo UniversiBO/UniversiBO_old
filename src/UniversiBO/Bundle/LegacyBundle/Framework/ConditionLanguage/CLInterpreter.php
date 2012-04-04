@@ -1,9 +1,8 @@
 <?php
-// per includere il supporto al php-java bridge. per evitare questo occorre compilare la versione che funziona senza java.
-require_once("http://localhost:8080/JavaBridge/java/Java.inc");
-$base = dirname(__FILE__);
-java_require("$base;$base/parser;$base/util;$base/visitor;$base/syntaxtree");
-require_once('CLVisitor.php');
+namespace UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage;
+
+use \Java;
+use \JavaClass;
 
 class CLInterpreter
 {
@@ -13,20 +12,18 @@ class CLInterpreter
 
 	function init($fc,$user = null)
 	{
-		require_once('PhpExecutor.php');
-		require_once('SqlExecutor.php');
-		require_once('EntityRetriever.php');
-		require_once('ExecutorFactory.php');
-
+	    $base = UNIVERSIBO_ROOT . '/framework/CL';
+	    JavaBridge::getInstance()->load()->javaRequire("$base;$base/parser;$base/util;$base/visitor;$base/syntaxtree");
+	    
 		if (!isset(self::$parser))
 		{
 			$list['php'] = new PhpExecutor();
-			$list['sql'] = new SqlExecutor($fc->getDbConnection('main')); // TODO sarà il modo giusto per ottenere il rif al db??
+			$list['sql'] = new SqlExecutor($fc->getDbConnection('main')); // TODO sarï¿½ il modo giusto per ottenere il rif al db??
 			$list['entity'] = new EntityRetriever($fc,$user); // TODO quando l'utente diventa autenticato? problemi?
 			ExecutorFactory::init($list);
 			self::$opsTable = null;
 			self::$varTable = null;
-			self::execMe(file_get_contents('../framework/CL/core_operation.txt'));
+			self::execMe(file_get_contents($base.'/core_operation.txt'));
 		}
 	}
 

@@ -1,27 +1,27 @@
 Receiver:
-- inizializza e invoca l'interprete (CLInterpreter) [per il momento. andrà spostato InteractionCommandHandler]
+- inizializza e invoca l'interprete (CLInterpreter) [per il momento. andrÃ  spostato InteractionCommandHandler]
 
 CLInterpreter
-- inizializza la lista di executor e il CLVisitor [NB al momento ogni parsing è come se fosse in un mondo a se stanti (variabili ed entità locali alla chiamata. mi va bene così? o voglio uno scope globale? <-- si potrebbe passare come parametro del costruttore la tabella delle variabilie quella degli operatori]
+- inizializza la lista di executor e il CLVisitor [NB al momento ogni parsing Ã¨ come se fosse in un mondo a se stanti (variabili ed entitï¿½ locali alla chiamata. mi va bene cosï¿½? o voglio uno scope globale? <-- si potrebbe passare come parametro del costruttore la tabella delle variabilie quella degli operatori]
 - chiama il parser java e passa l'AST a CLVisitor
 
 CLVisitor
 - visita l'AST 
 - valuta le istruzioni appoggiandosi ad uno stack per calcolare i risultati
-- segnala gli errori semantici [TODO al momento in caso di errore semantico si interrompe. Magari spostare la  responsabilità dell'errore ad una classe esterna, in modo che essa possa implementare politiche più consone: es considerare non attivabile l'interactiveCommand associato e
+- segnala gli errori semantici [TODO al momento in caso di errore semantico si interrompe. Magari spostare la  responsabilitï¿½ dell'errore ad una classe esterna, in modo che essa possa implementare politiche piï¿½ consone: es considerare non attivabile l'interactiveCommand associato e
 segnalare agli sviluppatori l'errore di sintassi/semantica] <-- lancio eccezione? NB se non si interrompe la visita, bisogna sistemare lo stack nel caso l'errore sia stato sollevato in exploreNextOp
 
-*NB qual è la differenza tra calcola e execMe? execMe valuta il body di un namespace, calcola un operatore
-** NB al momento l'associazione tra namespace ed executor è cablata nel codice
+*NB qual ï¿½ la differenza tra calcola e execMe? execMe valuta il body di un namespace, calcola un operatore
+** NB al momento l'associazione tra namespace ed executor ï¿½ cablata nel codice
 
 
 ExecutorFactory
 - effettua il dispatch al giusto Executor. serve per ridurre l'accoppiamento tra CLVisitor e i vari Executor
 
 Stack
-- classe che rappresenta uno stack. é locale a CLVisitor 
+- classe che rappresenta uno stack. ï¿½ locale a CLVisitor 
 
-NB le funzionalità di debug sono spalmate su CLVisitor e su stack. Creare una classe esterna con questo compito?
+NB le funzionalitï¿½ di debug sono spalmate su CLVisitor e su stack. Creare una classe esterna con questo compito?
 
 ==================
 lista()  --> inteso come array (un unico argomento quindi per i vari operatori)
@@ -30,11 +30,11 @@ lista()  --> inteso come array (un unico argomento quindi per i vari operatori)
 ==================
 
 DEFINIZIONE DI OPERATORE
-OP(NomeOperatore, livello priorità, associatività) IN $par1, $par2{} OUT $z DEF #NomeNamespace [ ....codice ... ]
+OP(NomeOperatore, livello prioritï¿½, associativitï¿½) IN $par1, $par2{} OUT $z DEF #NomeNamespace [ ....codice ... ]
 
-NB in codice ci si aspetta di trovare delle stringhe del tipo ' #X ' dove X sta per numero da 1 in sù.. sono dei parametri posizionali che corrispondono agli input	PS Per adesso non considero gli 	spazi nel pattern
+NB in codice ci si aspetta di trovare delle stringhe del tipo ' #X ' dove X sta per numero da 1 in sï¿½.. sono dei parametri posizionali che corrispondono agli input	PS Per adesso non considero gli 	spazi nel pattern
 
-*NB per adesso il n° di param di out non è usato né considerato.. i valori di output li metto in un array e poi li appoggio sullo stack? mi devo aspettare una lista di nomi?
+*NB per adesso il nï¿½ di param di out non ï¿½ usato nï¿½ considerato.. i valori di output li metto in un array e poi li appoggio sullo stack? mi devo aspettare una lista di nomi?
 
 nella definizione di op, potrei imporre una lista di nomi di param di input ed una lista di nomi di param di output
 
