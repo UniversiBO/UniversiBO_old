@@ -5,9 +5,9 @@ use UniversiBO\Bundle\LegacyBundle\Entity\User;
 
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\Constants;
+use UniversiBO\Bundle\LegacyBundle\App\ForumApi;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 use UniversiBO\Bundle\LegacyBundle\Command\InteractiveCommand\InformativaPrivacyInteractiveCommand;
-
 /**
  * RegStudente is an extension of UniversiboCommand class.
  *
