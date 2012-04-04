@@ -1,10 +1,12 @@
 <?php
+namespace UniversiBO\Bundle\LegacyBundle\Command;
+
+use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\Constants;
-
-use UniversiBO\Bundle\LegacyBundle\App\PasswordUtil;
-
+use UniversiBO\Bundle\LegacyBundle\App\ForumApi;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 use UniversiBO\Bundle\LegacyBundle\App\User;
+use UniversiBO\Bundle\LegacyBundle\Auth\PasswordUtil;
 
 /**
  * RegStudente is an extension of UniversiboCommand class.
@@ -28,7 +30,7 @@ class RegUser extends UniversiboCommand
 		$session_user = $this->getSessionUser();
 		if (!$session_user->isAdmin())
 		{
-			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'L\'iscrizione manuale di nuovi utenti può essere effettuata solo da utenti Admin','file'=>__FILE__,'line'=>__LINE__));
+			Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'L\'iscrizione manuale di nuovi utenti puï¿½ essere effettuata solo da utenti Admin','file'=>__FILE__,'line'=>__LINE__));
 		}
 		
 		$template->assign('f34_submit',		'Registra');
@@ -50,7 +52,7 @@ class RegUser extends UniversiboCommand
 				 !array_key_exists('f34_email', $_POST) ||
 				 !array_key_exists('f34_livello', $_POST) ) 
 			{
-				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Il form inviato non è valido','file'=>__FILE__,'line'=>__LINE__ ));
+				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Il form inviato non ï¿½ valido','file'=>__FILE__,'line'=>__LINE__ ));
 				$f34_accept = false;
 			}
 			
@@ -60,11 +62,11 @@ class RegUser extends UniversiboCommand
 				$f34_accept = false;
 			}
 			elseif(!eregi('^([[:alnum:]_\-])+(\.([[:alnum:]_\-])+)*@([[:alnum:]_\-])+(\.([[:alnum:]_\-])+)*$',$_POST['f34_email'])){
-				Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'La mail di ateneo inserita '.$_POST['f34_email'].' non è sintatticamente valida','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+				Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'La mail di ateneo inserita '.$_POST['f34_email'].' non ï¿½ sintatticamente valida','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
 				$f34_accept = false;
 			}
 			elseif(User::activeDirectoryUsernameExists($_POST['f34_email'])){
-				Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'La mail '.$_POST['f34_email'].' appartiene ad un utente già registrato','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+				Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'La mail '.$_POST['f34_email'].' appartiene ad un utente giï¿½ registrato','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
 				$f34_accept = false;
 			}
 			else
@@ -88,14 +90,14 @@ class RegUser extends UniversiboCommand
 				$f34_accept = false;
 			}
 			elseif ( User::usernameExists( $_POST['f34_username'] ) ){
-				Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Lo username richiesto è già stato registrato da un altro utente','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+				Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Lo username richiesto ï¿½ giï¿½ stato registrato da un altro utente','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
 				$f34_accept = false;
 			}
 			else $q34_username = $f34_username = $_POST['f34_username'];
 			
 			//livello
 			if ( $_POST['f34_livello'] == '' ) {
-				Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Il livello inserito è vuoto','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+				Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Il livello inserito ï¿½ vuoto','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
 				$f34_accept = false;
 			}
 //			elseif ( $_POST['f34_livello'] != User::STUDENTE &&
@@ -111,7 +113,7 @@ class RegUser extends UniversiboCommand
 					 $_POST['f34_livello'] != User::ADMIN &&
 					 $_POST['f34_livello'] != User::PERSONALE ) 
 			{
-				Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Il livello inserito non è tra quelli ammissibili','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+				Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Il livello inserito non ï¿½ tra quelli ammissibili','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
 				$f34_accept = false;
 			}
 			else $q34_livello = $f34_livello = $_POST['f34_livello'];
@@ -127,11 +129,11 @@ class RegUser extends UniversiboCommand
 			$new_user = new User(-1, $q34_livello, $q34_username ,$randomPassword, $q34_email, $notifica, 0, '', '', $fc->getAppSetting('defaultStyle') );
 			
 			if ($new_user->insertUser() == false)
-				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Si è verificato un errore durente la registrazione dell\'account username '.$q34_username.' mail '.$q34_email,'file'=>__FILE__,'line'=>__LINE__));
+				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Si ï¿½ verificato un errore durente la registrazione dell\'account username '.$q34_username.' mail '.$q34_email,'file'=>__FILE__,'line'=>__LINE__));
 
 			$forum = new ForumApi();
 			$forum->insertUser($new_user);
-			//	Error::throwError(_ERROR_DEFAULT,'msg'=>'Si è verificato un errore durente la registrazione dell\'account username '.$q34_username.' mail '.$q34_email,'file'=>__FILE__,'line'=>__LINE__));
+			//	Error::throwError(_ERROR_DEFAULT,'msg'=>'Si ï¿½ verificato un errore durente la registrazione dell\'account username '.$q34_username.' mail '.$q34_email,'file'=>__FILE__,'line'=>__LINE__));
 			
 			$mail = $fc->getMail();
 
@@ -146,14 +148,14 @@ class RegUser extends UniversiboCommand
 				 "Questa password e' stata generata in modo casuale: sul sito  e' disponibile nella pagina delle tue impostazioni personali la funzionalita' per poterla cambiare a tuo piacimento\n\n".
 				 "Qualora avessi ricevuto questa e-mail per errore, segnalalo rispondendo a questo messaggio";
 			
-			$msg = "L'iscrizione è stata registrata con successo ma non è stato possibile inviarti la password tramite e-mail\n".
+			$msg = "L'iscrizione e` stata registrata con successo ma non e` stato possibile inviarti la password tramite e-mail\n".
 				 "Le informazioni per permetterti l'accesso ai servizi offerti da UniversiBO sono:\n".
 				 "Username: ".$new_user->getUsername()."\n".
 				 "Password: ".$randomPassword."\n\n";
 			
 			if(!$mail->Send()) Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>$msg, 'file'=>__FILE__, 'line'=>__LINE__));
 			
-			$template->assign('regStudente_thanks',"Benvenuto \"".$new_user->getUsername()."\"!!\n \nL'iscrizione è stata registrata con successo.\nLe informazioni per permetterti l'accesso ai servizi offerti dal portale sono state inviate al tuo indirizzo e-mail di ateneo\n".
+			$template->assign('regStudente_thanks',"Benvenuto \"".$new_user->getUsername()."\"!!\n \nL'iscrizione e` stata registrata con successo.\nLe informazioni per permetterti l'accesso ai servizi offerti dal portale sono state inviate al tuo indirizzo e-mail di ateneo\n".
 									'Per qualsiasi problema o spiegazioni contatta lo staff all\'indirizzo [email]'.$fc->getAppSetting('infoEmail').'[/email].');
 			
 			//elimino la password
@@ -180,6 +182,5 @@ class RegUser extends UniversiboCommand
 		$template->assign('f34_submit',		'Registra');
 		
 		return 'default';
-		
 	}
 }
