@@ -470,14 +470,14 @@ class NotificaItem {
 		//ocio che non sia un destinatario di piu' parole. il destinatario non pu? contenere "://"		
 		$p = strtolower($not->getProtocollo() );
 		
-		$arrayClassi = array(	'mail' => 'NotificaMail', 
-								'sms' => 'NotificaSmsMoby');
+		$ns = __NAMESPACE__;
+		$arrayClassi = array(	'mail' => $ns.'\\NotificaMail', 
+								'sms' => $ns.'\\NotificaSmsMoby');
 		
 		$className = $arrayClassi[$p];
 		//es: NotificaMail
 		//es: NotificaSms
 		
-		require_once($className.PHP_EXTENSION);
 		echo $className;
 		$ret = call_user_func(array($className,'factoryNotifica'), $id);
 		return $ret;
