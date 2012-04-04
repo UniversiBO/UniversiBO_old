@@ -113,7 +113,7 @@ class RegUser extends UniversiboCommand
 					 $_POST['f34_livello'] != User::ADMIN &&
 					 $_POST['f34_livello'] != User::PERSONALE ) 
 			{
-				Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Il livello inserito non � tra quelli ammissibili','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+				Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Il livello inserito non e` tra quelli ammissibili','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
 				$f34_accept = false;
 			}
 			else $q34_livello = $f34_livello = $_POST['f34_livello'];
@@ -129,7 +129,7 @@ class RegUser extends UniversiboCommand
 			$new_user = new User(-1, $q34_livello, $q34_username ,$randomPassword, $q34_email, $notifica, 0, '', '', $fc->getAppSetting('defaultStyle') );
 			
 			if ($new_user->insertUser() == false)
-				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Si � verificato un errore durente la registrazione dell\'account username '.$q34_username.' mail '.$q34_email,'file'=>__FILE__,'line'=>__LINE__));
+				Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Si e` verificato un errore durente la registrazione dell\'account username '.$q34_username.' mail '.$q34_email,'file'=>__FILE__,'line'=>__LINE__));
 
 			$forum = new ForumApi();
 			$forum->insertUser($new_user);
