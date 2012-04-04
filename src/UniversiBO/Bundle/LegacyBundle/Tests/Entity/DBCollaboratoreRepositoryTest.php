@@ -3,7 +3,7 @@ namespace UniversiBO\Bundle\LegacyBundle\Tests\Entity;
 
 use UniversiBO\Bundle\LegacyBundle\Entity\DBCollaboratoreRepository;
 
-class DBUserRepositoryTest extends DBRepositoryTest
+class DBCollaboratoreRepositoryTest extends DBRepositoryTest
 {
     /**
      * @var DBCollaboratoreRepository
