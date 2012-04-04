@@ -1,5 +1,5 @@
 <?php
-namespace UniversiBO\Bundle\LegacyBundle\Tests\App;
+namespace UniversiBO\Bundle\LegacyBundle\Tests\Entity;
 
 use UniversiBO\Bundle\LegacyBundle\Entity\User;
 

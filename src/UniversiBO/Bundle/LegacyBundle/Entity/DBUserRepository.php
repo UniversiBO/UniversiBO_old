@@ -395,9 +395,20 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
     {
         return $this->loadUserByUsername($user->getUsername());
     }
+    
+    public function delete(User $user)
+    {
+        $db = $this->getDb();
+        
+        $query = 'UPDATE utente SET sospeso ='.$db->quote(User::ELIMINATO).' WHERE id_utente ='.$db->quote($user->getIdUser());
+        
+        $res = $db->query($query);
+        if (\DB::isError($res))
+        	\Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+    }
 
     public function supportsClass($class)
     {
-        return 'UniversiBO\\Legacy\\App\\User' === $class;
+        return 'UniversiBO\\Bundle\\LegacyBundle\\Entity\\User' === $class;
     }
 }

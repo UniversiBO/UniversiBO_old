@@ -1,11 +1,10 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
-use \ForumApi;
 use \Error;
-use \Ruolo;
+use UniversiBO\Bundle\LegacyBundle\App\ForumApi;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
-
+use UniversiBO\Bundle\LegacyBundle\Entity\Ruolo;
 /**
  * ShowPersonalSettings is an extension of UniversiboCommand class.
  *
@@ -19,7 +18,6 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
  * @author Daniele Tiles 
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
- 
 class ShowPersonalSettings extends UniversiboCommand 
 {
 	function execute()

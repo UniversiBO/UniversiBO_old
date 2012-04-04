@@ -211,5 +211,3 @@ class Error
 
     }
 }
-
-class_exists('ErrorHandlers');
