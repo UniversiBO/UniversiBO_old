@@ -29,7 +29,8 @@ class DBUserRepositoryTest extends DBRepositoryTest
     {
         $user = $this->repository->findByUsername('SbiellONE');
         $this->repository->delete($user);
-        
-        self::assertFalse($this->repository->findByUsername('SbiellONE'));
+        self::assertTrue($user->isEliminato(), 'isEliminato directly');
+        $user = $this->repository->findByUsername('SbiellONE');
+        self::assertTrue($user->isEliminato(), 'isEliminato after reload');
     }
 }

@@ -405,6 +405,8 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $res = $db->query($query);
         if (\DB::isError($res))
         	\Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        
+        $user->setEliminato(true);
     }
 
     public function supportsClass($class)

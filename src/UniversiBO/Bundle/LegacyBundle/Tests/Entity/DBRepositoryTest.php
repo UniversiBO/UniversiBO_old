@@ -7,12 +7,12 @@ use UniversiBO\Bundle\LegacyBundle\App\ErrorHandlers;
 abstract class DBRepositoryTest extends \PHPUnit_Framework_TestCase
 {
     const TEST_DSN = 'pgsql://universibo:universibo@127.0.0.1/universibo';
-    
+
     /**
      * @var \DB_pgsql
      */
     protected $db;
-    
+
     public static function setUpBeforeClass()
     {
         Error::setHandler(ErrorHandlers::LEVEL_CRITICAL, function ($param) {
@@ -23,15 +23,25 @@ abstract class DBRepositoryTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->db = \DB::connect(self::TEST_DSN);
+
+        if(\DB::isError($this->db)) {
+            $this->markTestSkipped('No DB available');
+        }
+
+        $this->db->autocommit(false);
     }
-    
+
     protected function assertPreConditions()
     {
-        self::assertInstanceOf('DB_common', $this->db);
+
     }
-    
+
     protected function tearDown()
     {
-        $this->db->disconnect();
+        if($this->db instanceof \DB_common)
+        {
+            $this->db->rollback();
+            $this->db->disconnect();
+        }
     }
 }
