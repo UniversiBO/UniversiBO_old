@@ -64,9 +64,4 @@ class _UnitTest_Collaboratore extends PHPUnit_TestCase
 		$this->assertEquals('81_brain.jpg', $collaboratore->getFotoFilename());
 		$this->assertEquals('fondatore - progettista software', $collaboratore->getRuolo());
 	}
-
 }
-
-?>
-	
-	
