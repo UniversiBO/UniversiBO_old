@@ -772,7 +772,7 @@ class FrontController
                 $this->smsMobyInfo[$aSetting->tagName] = $aSetting->firstChild->nodeValue;
         }
 
-        $this->container -> register('mobytsms', 'mobytSms')
+        $this->container -> register('mobytsms', '\\mobytSms')
         -> addArgument($this->smsMobyInfo['username'])
         -> addArgument($this->smsMobyInfo['password'])
         -> addArgument($this->smsMobyInfo['fromName']);
@@ -966,10 +966,10 @@ class FrontController
     				}
 
     				if(!isset($this->commandClass))
-    				    \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non � definito l\'attributo class relativo al comando specificato nel file di config','file'=>__FILE__,'line'=>__LINE__));
+    				    \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` definito l\'attributo class relativo al comando specificato nel file di config','file'=>__FILE__,'line'=>__LINE__));
 
     				if(empty($this->commandClass))
-    				    \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non � specificata la classe relativa al comando spacificato nel file di config','file'=>__FILE__,'line'=>__LINE__));
+    				    \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` specificata la classe relativa al comando spacificato nel file di config','file'=>__FILE__,'line'=>__LINE__));
     }
 
 
