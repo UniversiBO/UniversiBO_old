@@ -1,6 +1,8 @@
 <?php    
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
+use UniversiBO\Bundle\LegacyBundle\App\Notifica\NotificaItem;
+
 use \DB;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
@@ -384,9 +386,7 @@ class FileAdd extends UniversiboCommand {
                             $canale = Canale::retrieveCanale($key);
                             $canale->setUltimaModifica(time(), true);
 
-
                             //notifiche
-                            require_once('Notifica/NotificaItem'.PHP_EXTENSION);
                             $notifica_titolo = 'Nuovo file inserito in '.$canale->getNome();
                             $notifica_titolo = substr($notifica_titolo,0 , 199);
                             $notifica_dataIns = $f12_data_inserimento;
