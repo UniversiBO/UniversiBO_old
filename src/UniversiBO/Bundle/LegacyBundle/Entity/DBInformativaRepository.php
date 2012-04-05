@@ -11,20 +11,21 @@ class DBInformativaRepository extends DBRepository
 {
     /**
      * @param int $time
-     * @return array
+     * @return Informativa
      */
     public function findByTime($time)
     {
         $db = $this->getDb();
         
-        $query = 'SELECT id_informativa, testo FROM  informativa
+        $query = 'SELECT id_informativa, data_pubblicazione, data_fine, testo FROM  informativa
         WHERE data_pubblicazione <= '.$db->quote( $time ).
         ' AND  (data_fine IS NULL OR data_fine > '.$db->quote( $time ).')' .
         'ORDER BY id_informativa DESC';  // VERIFY così possiamo già pianificare quando una certa informativa scadrà
         
         $res = $db->query($query);
-        if (DB::isError($res))
-        	Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        if (DB::isError($res)) {
+            $this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        }
         
         $rows = $res->numRows();
         
@@ -32,10 +33,20 @@ class DBInformativaRepository extends DBRepository
         
         $list = array();
         $res->fetchInto($row);
-        $list['id_info'] = $row[0];
-        $list['testo']= $row[1];
         $res->free();
         
-        return $list;
+        return $this->rowToInformativa($row);
+    }
+    
+    private function rowToInformativa($row)
+    {
+        $informativa = new Informativa();
+        
+        $informativa->setId($row[0]);
+        $informativa->setDataPubblicazione($row[1]);
+        $informativa->setDataFine($row[2]);
+        $informativa->setTesto($row[3]);
+        
+        return $informativa;
     }
 }

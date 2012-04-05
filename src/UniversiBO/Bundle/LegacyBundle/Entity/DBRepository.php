@@ -27,7 +27,12 @@ abstract class DBRepository
         return $this->db;
     }
 
-    protected function errorOrException($level, $param)
+    /**
+     * @param string $level (name of the constant)
+     * @param mixed $param
+     * @throws Exception
+     */
+    protected function throwError($level, $param)
     {
         if(is_null($levelValue = constant($level))) {
             throw new Exception($param['msg']);

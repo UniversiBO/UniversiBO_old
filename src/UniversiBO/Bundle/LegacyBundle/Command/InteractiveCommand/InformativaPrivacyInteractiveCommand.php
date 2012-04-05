@@ -68,6 +68,11 @@ class InformativaPrivacyInteractiveCommand extends BaseInteractiveCommand
 	private function getAttualeInformativaPrivacy () 
 	{
 		$repository = new DBInformativaRepository(FrontController::getDbConnection('main'));
-		return $repository->findByTime(time());
+		$informativa = $repository->findByTime(time());
+		
+		return array(
+		        'id_info' => $informativa->getId(),
+		        'testo'=> $informativa->getTesto()
+		);
 	}
 }

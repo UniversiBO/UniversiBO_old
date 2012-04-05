@@ -231,9 +231,12 @@ perche` impedisce il login agli utenti
 // 		echo '</pre>'; 
 // 		die;
 		$ret = array();
-		foreach ($allSteps as $i)
-			if (!in_array($i['className'], $stepsDone))
+		foreach ($allSteps as $i) {
+		    // TODO questa è una porcata immane
+			if (!in_array(addslashes($i['bundleClass']), $stepsDone)) {
 				$ret[] = $i;
+			}
+		}
 				
 		return $ret;
 	}
