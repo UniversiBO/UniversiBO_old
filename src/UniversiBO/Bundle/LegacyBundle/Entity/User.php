@@ -859,9 +859,9 @@ class User implements UserInterface, \Serializable
      * @param string $username username da ricercare
      * @return boolean
      */
-    public static function usernameExists($username)
+    public static function usernameExists($username, $caseSensitive = false)
     {
-        return self::getRepository()->usernameExists($username);
+        return self::getRepository()->usernameExists($username, $caseSensitive);
     }
 
 
