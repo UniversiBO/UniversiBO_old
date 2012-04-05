@@ -433,8 +433,6 @@ class Ruolo {
         return true;
     }
 
-
-
     /**
      * Verifica se un ruolo esiste nel database
      *
@@ -443,49 +441,22 @@ class Ruolo {
      * @param int		$id_canale		numero identificativo canale
      * @return boolean	false se il ruolo non esiste
      */
-    function ruoloExists($id_utente, $id_canale)
+    public function ruoloExists($id_utente, $id_canale)
     {
-        $query = 'SELECT id_utente, id_canale FROM utente_canale WHERE id_utente = '.$db->quote($id_utente).' AND id_canale= '.$db->quote($id_canale);
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        $rows = $res->numRows();
-        if( $rows >= 1)
-        {
-            return false;
-        }
-        return true;
+        return self::getRepository()->exists($id_utente, $id_utente);
     }
-
-
 
     /**
      * Preleva un ruolo da database
      *
-     * @static
      * @param int		$id_utente		numero identificativo utente
      * @param int		$id_canale		numero identificativo canale
      * @return Ruolo 	false se il ruolo non esiste
      */
-    function selectRuolo($id_utente, $id_canale)
+    public static function selectRuolo($id_utente, $id_canale)
     {
-        $db = FrontController::getDbConnection('main');
-
-        $query = 'SELECT ultimo_accesso, ruolo, my_universibo, notifica, nome, nascosto FROM utente_canale WHERE id_utente = '.$db->quote($id_utente).' AND id_canale= '.$db->quote($id_canale);
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        $rows = $res->numRows();
-        if( $rows > 1) Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database: ruolo non unico','file'=>__FILE__,'line'=>__LINE__));
-        if( $rows = 0) return false;
-
-        $res->fetchInto($row);
-        $ruolo = new Ruolo($id_utente, $id_canale, $row[4], $row[0], $row[1]==RUOLO_MODERATORE, $row[1]==RUOLO_REFERENTE, $row[2]=='S', $row[3], $row[5]=='S');
-        return $ruolo;
-
+        return self::getRepository()->find($id_utente, $id_canale);
     }
-
 
     /**
      * Preleva tutti i ruoli di un utente da database
@@ -494,87 +465,29 @@ class Ruolo {
      * @param int		$id_utente		numero identificativo utente
      * @return mixed    array di oggetti Ruolo, false se non esistono ruoli
      */
-    function selectUserRuoli($id_utente)
+    public function selectUserRuoli($idUtente)
     {
-        $db = FrontController::getDbConnection('main');
-
-        $query = 'SELECT id_canale, ultimo_accesso, ruolo, my_universibo, notifica, nome, nascosto FROM utente_canale WHERE id_utente = '.$db->quote($id_utente);
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        $rows = $res->numRows();
-        if( $rows = 0) {
-            $ret = array(); return $ret;
-        }
-
-        $ruoli = array();
-        while (	$res->fetchInto($row) )
-        {
-            $ruoli[] = new Ruolo($id_utente, $row[0], $row[5], $row[1], $row[2]==RUOLO_MODERATORE, $row[2]==RUOLO_REFERENTE, $row[3]=='S', $row[4], $row[6]=='S');
-        }
-        return $ruoli;
-
+        return self::getRepository()->findByIdUtente($idUtente);
     }
 
 
     /**
      * Preleva tutti i ruoli di un canale da database
      *
-     * @static
+     * @deprecated
      * @param int		$id_canale		numero identificativo del canale
      * @return mixed    array di oggetti Ruolo
      */
-    function selectCanaleRuoli($id_canale)
+    public static function selectCanaleRuoli($id_canale)
     {
-        $db = FrontController::getDbConnection('main');
-
-        $query = 'SELECT id_utente, ultimo_accesso, ruolo, my_universibo, notifica, nome, nascosto FROM utente_canale WHERE id_canale = '.$db->quote($id_canale);
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        $rows = $res->numRows();
-        if( $rows = 0) {
-            $ret = array(); return $ret;
-        }
-
-        $ruoli = array();
-        while (	$res->fetchInto($row) )
-        {
-            $ruoli[] = new Ruolo($row[0], $id_canale, $row[5], $row[1], $row[2]==RUOLO_MODERATORE, $row[2]==RUOLO_REFERENTE, $row[3]=='S', $row[4], $row[6]=='S');
-        }
-        return $ruoli;
-
+        return self::getRepository()->findByIdCanale($id_canale);
     }
 
 
-    function updateRuolo()
+    public function updateRuolo()
     {
-        $db = FrontController::getDbConnection('main');
-
-        $campo_ruolo = (($this->isModeratore()) ? RUOLO_MODERATORE : 0) + (($this->isReferente()) ? RUOLO_REFERENTE : 0);
-        $my_universibo = ($this->isMyUniversibo()) ? 'S' : 'N';
-        $nascosto = ($this->isNascosto()) ? 'S' : 'N';
-
-        $query = 'UPDATE utente_canale SET ultimo_accesso = '.$db->quote($this->ultimoAccesso).
-        ', ruolo = '.$db->quote($campo_ruolo).
-        ', my_universibo = '.$db->quote($my_universibo).
-        ', notifica = '.$db->quote($this->getTipoNotifica()).
-        ', nome = '.$db->quote($this->getNome()).
-        ', nascosto = '.$db->quote($nascosto).'
-        WHERE id_utente = '.$db->quote($this->id_utente).
-        ' AND id_canale = '.$db->quote($this->id_canale);
-
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        return true;
-
+        return self::getRepository()->update($this);
     }
-
-
 
     /**
      * Inserisce un ruolo nel database, se il ruolo esiste gi? ritorna false
