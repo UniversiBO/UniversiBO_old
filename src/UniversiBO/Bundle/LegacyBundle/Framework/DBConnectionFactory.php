@@ -1,6 +1,8 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Framework;
 
+use JMS\AopBundle\Exception\Exception;
+
 use \DB;
 use \Error;
 
@@ -31,7 +33,11 @@ class DBConnectionFactory
         $conn = DB::connect($this->dsn[$id]);
         
         if(DB::isError($conn)) {
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($conn),'file'=>__FILE__,'line'=>__LINE__));
+            if(defined('_ERROR_CRITICAL')) {
+                Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($conn),'file'=>__FILE__,'line'=>__LINE__));
+            }
+            
+            throw new Exception(DB::errorMessage($conn));
         }
 
         return $conn;
