@@ -18,6 +18,8 @@ class CLVisitor
    	// segnala se almeno una start condition è false
    	private $stop = false;
    	
+   	private $executorFactory;
+   	
 	/**
 	 * Costruttore
 	 *
@@ -25,12 +27,9 @@ class CLVisitor
 	 * @param boolean $debug attiva il debug dell'interprete
 	 * @param integer $verbose imposta la verbosità del debug
 	 */
-	public function __construct($ops = null, $var = null, $trace = false, $debug = false, $verbose = 1, $bridge = null)
+	public function __construct(ExecutorFactory $executorFactory, $ops = null, $var = null, $trace = false, $debug = false, $verbose = 1)
 	{
-	    if(!$bridge instanceof JavaBridge) {
-	        $bridge = JavaBridge::getInstance();
-	    }
-	    $bridge->load();
+	    $this->executorFactory = $executorFactory;
 	    
 		$this->st = new Stack();
 		if ($ops!= null) $this->listaOps = $ops;
@@ -97,10 +96,9 @@ class CLVisitor
 	 */
 	function execMe($executor, $codice)
 	{
-		$ret = ExecutorFactory::dispatch(strtolower($executor),$codice);
+		$ret = $this->executorFactory->dispatch(strtolower($executor),$codice);
 		$this->debug('Executor: '.$executor.' Codice: '.$codice.' Esito: '.print_r($ret,true)."\n",1);
 		$this->st->groupedPush($ret);  
-
 	}
 
    
