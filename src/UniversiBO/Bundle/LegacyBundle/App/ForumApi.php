@@ -3,6 +3,7 @@ namespace UniversiBO\Bundle\LegacyBundle\App;
 
 use \DB;
 use \Error;
+use \Krono;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\Entity\User;
 use UniversiBO\Bundle\LegacyBundle\Forum\ForumApi as ForumApiInterface;
@@ -236,7 +237,6 @@ public function insertUser(User $user, $password = null)
     $user_rank  = $this->defaultRanks[$groups];
     $user_level = ( $user->isAdmin() == true ) ? 1 : ( $user->isCollaboratore() == true ) ? 2 : 0 ;
 
-    require_once('Krono'.PHP_EXTENSION);
     $user_timezone =  (Krono::_is_daylight(time()) == true) ? 2 : 1;
 
     if ($user->isDocente() || $user->isTutor()){

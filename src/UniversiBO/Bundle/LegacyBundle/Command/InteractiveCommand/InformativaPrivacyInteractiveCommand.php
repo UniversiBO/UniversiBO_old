@@ -1,6 +1,8 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command\InteractiveCommand;
 
+use UniversiBO\Bundle\LegacyBundle\Entity\DBInformativaRepository;
+
 use UniversiBO\Bundle\LegacyBundle\App\InteractiveCommand\BaseInteractiveCommand;
 
 use \DB;
@@ -61,32 +63,11 @@ class InformativaPrivacyInteractiveCommand extends BaseInteractiveCommand
 	
 	/**
 	 * @author Pinto
-	 * @access private
 	 * @return array 'id_info' => id, 'testo' => text dell'informativa corrente
 	 */
-	function getAttualeInformativaPrivacy () 
+	private function getAttualeInformativaPrivacy () 
 	{
-		$db = FrontController::getDbConnection('main');
-		
-		$query = 'SELECT id_informativa, testo FROM  informativa 
-					WHERE data_pubblicazione <= '.$db->quote( time() ).
-					' AND  (data_fine IS NULL OR data_fine > '.$db->quote( time() ).')' .
-							'ORDER BY id_informativa DESC';  // VERIFY cos� possiamo gi� pianificare quando una certa informativa scadr�
-										
-		$res = $db->query($query);
-		if (DB::isError($res)) 
-			Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__)); 
-	
-		$rows = $res->numRows();
-		
-		if( $rows = 0) return array();
-				
-		$list = array();	
-		$res->fetchInto($row);
-		$list['id_info'] = $row[0];
-		$list['testo']= $row[1];
-		$res->free();
-				
-		return $list;
+		$repository = new DBInformativaRepository(FrontController::getDbConnection('main'));
+		return $repository->findByTime(time());
 	}
 }
