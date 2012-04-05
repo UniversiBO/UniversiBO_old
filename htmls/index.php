@@ -1,6 +1,4 @@
 <?php
-define('UNIVERSIBO_ROOT', realpath(__DIR__.'/..'));
-
 use UniversiBO\Bundle\LegacyBundle\Entity\Ruolo;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 

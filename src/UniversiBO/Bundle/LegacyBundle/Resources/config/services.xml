@@ -3,6 +3,10 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+	<parameters>
+		<parameter key="universibo_root" type="constant">UNIVERSIBO_ROOT</parameter>
+	</parameters>
+
 	<services>
 		<service id="universibo_legacy.db.factory"
 			class="UniversiBO\Bundle\LegacyBundle\Framework\DBConnectionFactory">
@@ -17,23 +21,49 @@
 			<argument>main</argument>
 		</service>
 
-		<service id="universibo_legacy.cl.cache"
+		<service id="universibo_legacy.cl.javabridge" public="false"
+			class="UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage\JavaBridge" />
+
+		<service id="universibo_legacy.cl.cache" public="false"
 			class="UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage\HashedCache" />
-		<service id="universibo_legacy.cl.executor.php"
-			class="UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage\PHPExecutor">
+		<service id="universibo_legacy.cl.executor.php" public="false"
+			class="UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage\PhpExecutor">
 			<argument type="service" id="universibo_legacy.cl.cache" />
 		</service>
-		<service id="universibo_legacy.cl.executor.sql"
-			class="UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage\SQLExecutor">
+		<service id="universibo_legacy.cl.executor.sql" public="false"
+			class="UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage\SqlExecutor">
 			<argument type="service" id="universibo_legacy.db.connection.main" />
 			<argument type="service" id="universibo_legacy.cl.cache" />
 		</service>
 
-		<service id="universibo_legacy.cl.executor.entity"
+		<service id="universibo_legacy.cl.executor.entity" public="false"
 			class="UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage\EntityRetrieverSf2">
 			<argument type="service" id="universibo_legacy.db.connection.main" />
 			<argument type="service" id="security.context" />
 			<argument type="service" id="universibo_legacy.krono" />
+		</service>
+
+		<service id="universibo_legacy.cl.executor.factory" public="false"
+			class="UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage\ExecutorFactory">
+			<call method="register">
+				<argument>php</argument>
+				<argument type="service" id="universibo_legacy.cl.executor.php" />
+			</call>
+			<call method="register">
+				<argument>sql</argument>
+				<argument type="service" id="universibo_legacy.cl.executor.sql" />
+			</call>
+			<call method="register">
+				<argument>entity</argument>
+				<argument type="service" id="universibo_legacy.cl.executor.entity" />
+			</call>
+		</service>
+		
+		<service id="universibo_legacy.cl.interpreter"
+			class="UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage\CLInterpreter">
+			<argument type="service" id="universibo_legacy.cl.executor.factory" />
+			<argument type="service" id="universibo_legacy.cl.javabridge" />
+			<argument>%universibo_root%/framework/CL</argument>
 		</service>
 
 		<service id="universibo_legacy.krono" class="Krono">

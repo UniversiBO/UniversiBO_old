@@ -14,6 +14,7 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+        $int = $this->get('universibo_legacy.cl.interpreter');
         return array();
     }
 }

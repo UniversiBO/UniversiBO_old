@@ -1,5 +1,6 @@
 <?php
 define('PHP_EXTENSION', '.php');
+define('UNIVERSIBO_ROOT', realpath(__DIR__.'/..'));
 
 use Symfony\Component\ClassLoader\UniversalClassLoader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
