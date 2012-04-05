@@ -23,9 +23,8 @@ class JavaBridge
         if(!class_exists('Java')) {
             // TODO it's an ugly hack
             @include_once self::URI;
-            
-            if(!class_exists('Java'))
-            {
+
+            if(!class_exists('Java')) {
                 throw new \Exception('Java extension not loaded');
             }
         }
