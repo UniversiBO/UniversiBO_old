@@ -65,7 +65,7 @@ class InformativaPrivacyInteractiveCommand extends BaseInteractiveCommand
 	 * @author Pinto
 	 * @return array 'id_info' => id, 'testo' => text dell'informativa corrente
 	 */
-	private function getAttualeInformativaPrivacy () 
+	public static function getAttualeInformativaPrivacy () 
 	{
 		$repository = new DBInformativaRepository(FrontController::getDbConnection('main'));
 		$informativa = $repository->findByTime(time());

@@ -4,7 +4,7 @@ namespace UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage;
 use \Java;
 use \JavaClass;
 
-class CLInterpreter
+class LegacyCLInterpreter
 {
 	static $parser;
 	static $opsTable;
