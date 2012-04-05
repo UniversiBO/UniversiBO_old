@@ -28,12 +28,16 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
      * @param string $username
      * @return boolean
      */
-    public function usernameExists($username)
+    public function usernameExists($username, $caseSensitive = false)
     {
         $username = trim($username);
         $db = $this->getDb();
 
-        $query = 'SELECT id_utente FROM utente WHERE LOWER(username) = '.$db->quote(strtolower($username));
+        if($caseSensitive) {
+            $query = 'SELECT id_utente FROM utente WHERE username = '.$db->quote($username);
+        } else {
+            $query = 'SELECT id_utente FROM utente WHERE LOWER(username) = '.$db->quote(strtolower($username));
+        }
 
         $res = $db->query($query);
         if (\DB::isError($res)) {

@@ -109,7 +109,7 @@ class NewPasswordStudente extends UniversiboCommand
 				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Nello username sono permessi fino a 25 caratteri alfanumerici con lettere accentate, spazi, punti, underscore','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
 				$f5_accept = false;
 			}
-			elseif ( !User::usernameExists( $_POST['f5_username'] ) ){
+			elseif ( !User::usernameExists( $_POST['f5_username'], true) ){
 				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Lo username richiesto non e` registrato da nessun utente','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
 				$f5_accept = false;
 			}
