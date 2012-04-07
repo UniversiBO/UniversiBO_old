@@ -2,62 +2,38 @@
 <html>
 <head>
 <title>{% block title %}UniversiBO - La community degli studenti per gli studenti{% endblock %}</title>
+<link href="{{ asset('bundles/universibowebsite/css/yui/cssbase-min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bundles/universibowebsite/css/yui/grids-min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('bundles/universibowebsite/css/screen.css') }}" rel="stylesheet" type="text/css" />
 <meta http-equiv="content-type" content="text/html; charset=utf8"/>
 </head>
 <body>
-<div id="main">
+<div id="container">
   <div id="header">
-    <div id="header-left-container" class="container">
-      <div id="header-left">
-        <a href="{{ url('homepage') }}"><img src="{{ asset('bundles/universibowebsite/images/logo.png') }}" alt="logo"/></a>
-      </div>
-    </div>
-    <div id="header-middle-container" class="container">
-      <div id="header-middle">
-        <img src="{{ asset('tpl/unibo/logo_default.gif') }}" alt="logo"/>
-      </div>
-    </div>
-    <div id="header-right-container" class="container">
-      <div id="header-right">
-        {{"now"|date('d F Y - H:i')}}
-      </div>
-    </div>
-    <br style="clear: both"/>
+  <h1>UniversiBO</h1>
   </div>
-  <div id="menubar">
+  <div id="top-menu">
     <ul>
-      <li><a href="#">Help</a></li>
-      <li>|</li>
-      <li><a href="/forum/">Forum</a></li>
-	  <li>|</li>
-	  <li><a href="{{ url('staff_index') }}">Chi Siamo</a></li>
-	  <li>|</li>
-      <li><a href="#">Collabora</a></li>
-      <li>|</li>
+      <li><a href="{{ url('homepage') }}">Home</a></li>
       <li><a href="{{ url('info_rules') }}">Regolamento</a></li>
     </ul>
   </div>
-  <div id="left-container" class="container">
-    <div id="left" class="sidebar">
-    Left
+  <div id="main" class="yui3-g">
+  {% block main %}
+    <div id="left" class="yui3-u-1-5">
     </div>
-  </div>
-  <div id="content-container" class="container">
-    <div id="content">
+    <div id="content" class="yui3-u-3-5">
     {% block content %}
     {% endblock %}
     </div>
-  </div>
-  <div id="right-container" class="container">
-    <div id="right" class="sidebar">
-    Right
+    <div id="right" class="yui3-1-5">
     </div>
+  {% endblock %}
   </div>
-  <br style="clear: both"/>
-  <div id="footer">
-    <div id="disclaimer">
-      <hr/>
+  <div id="footer" class="yui3-g">
+    <hr/>
+    <div class="yui3-u-1-4">ciao</div>
+    <div id="disclaimer" class="yui3-u-3-4">
       <p>Le informazioni contenute nel sito non hanno carattere di ufficialità.</p>
       <p>I contenuti sono mantenuti in maniera volontaria dai partecipanti alla comunità di studenti e docenti di UniversiBO. L'Università di Bologna - Alma Mater Studiorum non può essere considerata legalmente responsabile di alcun contenuto di questo sito.</p>
 	  <p>Ogni marchio citato in queste pagine appartiene al legittimo proprietario.Con il contenuto delle pagine appartenenti a questo sito non si è voluto ledere i diritti di nessuno, quindi nel malaugurato caso che questo possa essere avvenuto, vi invitiamo a contattarci affinchè le parti in discussione vengano eliminate o chiarite.</p>
