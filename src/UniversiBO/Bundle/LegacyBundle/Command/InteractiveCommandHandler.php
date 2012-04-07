@@ -232,8 +232,7 @@ perche` impedisce il login agli utenti
 // 		die;
 		$ret = array();
 		foreach ($allSteps as $i) {
-		    // TODO questa è una porcata immane
-			if (!in_array(addslashes($i['bundleClass']), $stepsDone)) {
+			if (!in_array($i['bundleClass'], $stepsDone)) {
 				$ret[] = $i;
 			}
 		}
@@ -266,7 +265,8 @@ perche` impedisce il login agli utenti
 		$list = array();	
 		while ( $res->fetchInto($row) )
 		{
-			$list[$row[0]]= $row[1];
+		    // TODO this replace is really ugly
+			$list[$row[0]]= str_replace('\\\\', '\\',$row[1]);
 		}		
 		$res->free();
 				
