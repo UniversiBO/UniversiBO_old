@@ -4,7 +4,7 @@ namespace UniversiBO\Bundle\LegacyBundle\Command\News;
 use \DB;
 use \Error;
 
-use UniversiBO\Bundle\LegacyBundle\App\News\NewsItem;
+use UniversiBO\Bundle\LegacyBundle\Entity\News\NewsItem;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
 

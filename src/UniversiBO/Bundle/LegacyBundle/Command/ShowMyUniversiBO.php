@@ -8,7 +8,7 @@ use \Error;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 use UniversiBO\Bundle\LegacyBundle\App\Files\FileItem;
-use UniversiBO\Bundle\LegacyBundle\App\News\NewsItem;
+use UniversiBO\Bundle\LegacyBundle\Entity\News\NewsItem;
 
 /**
  * ShowMyUniversiBO is an extension of UniversiboCommand class.

@@ -6,7 +6,7 @@ use \Error;
 
 use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
 use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
-use UniversiBO\Bundle\LegacyBundle\App\News\NewsItem;
+use UniversiBO\Bundle\LegacyBundle\Entity\News\NewsItem;
 use UniversiBO\Bundle\LegacyBundle\App\Notifica\NotificaItem;
 /**
  * NewsAdd: si occupa dell'inserimento di una news in un canale

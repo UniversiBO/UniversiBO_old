@@ -2,7 +2,7 @@
 namespace UniversiBO\Bundle\LegacyBundle\Command\News;
 
 use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
-use UniversiBO\Bundle\LegacyBundle\App\News\NewsItem;
+use UniversiBO\Bundle\LegacyBundle\Entity\News\NewsItem;
 use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
 
 /**

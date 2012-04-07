@@ -1,5 +1,5 @@
 <?php
-namespace UniversiBO\Bundle\LegacyBundle\App\News;
+namespace UniversiBO\Bundle\LegacyBundle\Entity\News;
 
 use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
 
@@ -38,6 +38,11 @@ class NewsItem {
     //	 * @private
     //	 */
     //	var $ELIMINATA='S';
+    
+    /**
+     * @var DBNewsItemRepository
+     */
+    private static $repository;
 
     /**
      * @private
@@ -385,50 +390,10 @@ class NewsItem {
      * @param array $id_notizie array elenco di id della news
      * @return array NewsItems
      */
-    public static function selectNewsItems ($id_notizie)
+    public static function selectNewsItems (array $ids)
     {
-        //var_dump($id_notizie);
-        $db = FrontController::getDbConnection('main');
-
-        if ( count($id_notizie) == 0 )
-        {
-            $array = array();
-            return $array;
-        }
-
-        //esegue $db->quote() su ogni elemento dell'array
-        //array_walk($id_notizie, array($db, 'quote'));
-
-        if ( count($id_notizie) == 1 )
-            $values = $id_notizie[0];
-        else
-            $values = implode(',',$id_notizie);
-
-        //		$query = 'SELECT titolo, notizia, data_inserimento, data_scadenza, flag_urgente, eliminata, A.id_utente, id_news, username, data_modifica FROM news A, utente B WHERE A.id_utente = B.id_utente AND id_news IN ('.$values.') AND eliminata!='.$db->quote(NewsItem::ELIMINATA);
-        $query = 'SELECT titolo, notizia, data_inserimento, data_scadenza, flag_urgente, eliminata, A.id_utente, id_news, data_modifica FROM news A WHERE id_news IN ('.$values.') AND eliminata!='.$db->quote(NewsItem::ELIMINATA) . ' ORDER BY data_inserimento DESC';
-        //var_dump($query);
-        $res = $db->query($query);
-
-        if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        $rows = $res->numRows();
-
-        if( $rows == 0) return false;
-        $news_list = array();
-
-        while ( $res->fetchInto($row) )
-        {
-            $username = User::getUsernameFromId($row[6]);
-            $news_list[] = new NewsItem($row[7],$row[0],$row[1],$row[2],$row[3],$row[8],($row[4] == self::URGENTE),($row[5] == NewsItem::ELIMINATA),$row[6], $username );
-        }
-
-        $res->free();
-
-        return $news_list;
+        return self::getRepository()->findMany($ids);
     }
-
-
 
     /**
      * Verifica se la notizia ? scaduta
@@ -639,5 +604,17 @@ class NewsItem {
             $this->eliminata = true;
             $this->updateNewsItem();
         }
+    }
+    
+    /**
+     * @return DBNewsItemRepository
+     */
+    private static function getRepository()
+    {
+    	if(is_null(self::$repository))
+    	{
+    		self::$repository = new DBNewsItemRepository(FrontController::getDbConnection('main'));
+    	}
+    	return self::$repository;
     }
 }
