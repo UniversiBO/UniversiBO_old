@@ -4,6 +4,7 @@ namespace UniversiBO\Bundle\LegacyBundle\Command;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
+use UniversiBO\Bundle\LegacyBundle\Entity\User;
 
 /**
  * RuoliAdminEdit: modifica il ruolo di un utente in un canale 
@@ -32,13 +33,13 @@ class RuoliAdminEdit extends UniversiboCommand {
 		
 							
 		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
-			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non � valido', 'file' => __FILE__, 'line' => __LINE__));
+			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non e` valido', 'file' => __FILE__, 'line' => __LINE__));
 			
 		$canale = Canale::retrieveCanale($_GET['id_canale']);
 		$id_canale = $canale->getIdCanale();
 		
 		if (!array_key_exists('id_utente', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_utente']))
-			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id dell\'utente richiesto non � valido', 'file' => __FILE__, 'line' => __LINE__));
+			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id dell\'utente richiesto non e` valido', 'file' => __FILE__, 'line' => __LINE__));
 		
 		$target_user = User::selectUser($_GET['id_utente']);
 		$target_username = $target_user->getUsername(); 
