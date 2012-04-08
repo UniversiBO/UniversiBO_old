@@ -4,6 +4,7 @@ namespace UniversiBO\Bundle\LegacyBundle\Command;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
+use UniversiBO\Bundle\LegacyBundle\Entity\Ruolo;
 use UniversiBO\Bundle\LegacyBundle\Entity\User;
 
 /**
