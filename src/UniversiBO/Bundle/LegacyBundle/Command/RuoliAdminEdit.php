@@ -1,4 +1,7 @@
 <?php 
+namespace UniversiBO\Bundle\LegacyBundle\Command;
+
+use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -28,13 +31,13 @@ class RuoliAdminEdit extends UniversiboCommand {
 		
 							
 		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
-			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
+			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non ï¿½ valido', 'file' => __FILE__, 'line' => __LINE__));
 			
 		$canale = & Canale::retrieveCanale($_GET['id_canale']);
 		$id_canale = $canale->getIdCanale();
 		
 		if (!array_key_exists('id_utente', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_utente']))
-			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id dell\'utente richiesto non è valido', 'file' => __FILE__, 'line' => __LINE__));
+			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id dell\'utente richiesto non ï¿½ valido', 'file' => __FILE__, 'line' => __LINE__));
 		
 		$target_user = User::selectUser($_GET['id_utente']);
 		$target_username = $target_user->getUsername(); 
@@ -53,7 +56,7 @@ class RuoliAdminEdit extends UniversiboCommand {
 			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => "Non hai i diritti per modificare i diritti degli utenti su questa pagina.\nLa sessione potrebbe essere scaduta.", 'file' => __FILE__, 'line' => __LINE__));
 		
 		if (!$user->isAdmin() && $user->getIdUser() == $target_user->getIdUser() )
-			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Non è permesso modificare i propri diritti in una pagina', 'file' => __FILE__, 'line' => __LINE__));
+			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Non ï¿½ permesso modificare i propri diritti in una pagina', 'file' => __FILE__, 'line' => __LINE__));
 		
 		$target_ruoli = $target_user->getRuoli(); 
 		if (!array_key_exists($id_canale, $target_ruoli))
@@ -69,10 +72,10 @@ class RuoliAdminEdit extends UniversiboCommand {
 		{
 			
 			if (!array_key_exists('f17_livello', $_POST) )
-				Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il form inviato non è valido', 'file' => __FILE__, 'line' => __LINE__));
+				Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il form inviato non ï¿½ valido', 'file' => __FILE__, 'line' => __LINE__));
 			
 			if ($_POST['f17_livello'] != 'none' && $_POST['f17_livello'] != 'M' && $_POST['f17_livello'] != 'R' )
-				Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il form inviato non è valido', 'file' => __FILE__, 'line' => __LINE__));
+				Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il form inviato non ï¿½ valido', 'file' => __FILE__, 'line' => __LINE__));
 			
 			if ($target_ruolo == null)
 			{
