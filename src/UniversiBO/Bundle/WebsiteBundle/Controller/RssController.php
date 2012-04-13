@@ -20,17 +20,19 @@ class RssController extends Controller
         $canaleRepo = $this->get('universibo_legacy.repository.canale');
         $canale = $canaleRepo->find($idCanale);
         
-        
         $feed = new Feed();
         $feed->setTitle($nome = $canale->getNome());
         $feed->setDescription('Feed Canale '.$nome);
-        $feed->setLink('https://www.universibo.unibo.it/');
+        $feed->setLink($this->generateUrl('rss', array('idCanale' => $idCanale), true));
         
         $newsRepository = $this->get('universibo_legacy.repository.news.news_item');
         $news = $newsRepository->findByCanale($idCanale);
         $news = is_array($news) ? $news : array();
         
         foreach($news as $item) {
+            $entry = $feed->createEntry();
+            $entry->setTitle($item->getTitolo());
+            $feed->addEntry($entry);
         }
         
         $response = new Response();
