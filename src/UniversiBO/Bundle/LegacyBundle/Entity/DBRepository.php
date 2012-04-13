@@ -34,10 +34,10 @@ abstract class DBRepository
      */
     protected function throwError($level, $param)
     {
-        if(is_null($levelValue = constant($level))) {
+        if(!defined($level)) {
             throw new Exception($param['msg']);
         }
 
-        Error::throwError($levelValue, $param);
+        Error::throwError(constant($level), $param);
     }
 }

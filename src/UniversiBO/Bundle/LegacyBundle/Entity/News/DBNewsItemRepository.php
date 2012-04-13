@@ -64,4 +64,47 @@ class DBNewsItemRepository extends DBRepository
         
         return $news_list;
     }
+    
+    public function findByCanale($id)
+    {
+        $db = $this->getDb();
+        
+        $sql = '';
+        $sql .= 'SELECT n.titolo, ';
+        $sql .= '       n.notizia, ';
+        $sql .= '       n.data_inserimento, ';
+        $sql .= '       n.data_scadenza, ';
+        $sql .= '       n.flag_urgente, ';
+        $sql .= '       n.eliminata, ';
+        $sql .= '       u.username, ';
+        $sql .= '       n.id_news, ';
+        $sql .= '       n.data_modifica, ';
+        $sql .= '       n.id_utente ';
+        $sql .= '    FROM news n';
+        $sql .= '    INNER JOIN news_canale nc';
+        $sql .= '        ON nc.id_news = n.id_news';
+        $sql .= '    INNER JOIN utente u';
+        $sql .= '        ON u.id_utente = n.id_utente';
+        $sql .= '    WHERE nc.id_canale = '.$db->quote($id);
+        $sql .= '        AND n.eliminata = '.$db->quote(NewsItem::NOT_ELIMINATA);
+        $sql .= '        AND n.data_inserimento <= '.$db->quote(time());
+        $sql .= '    ORDER BY data_inserimento DESC';
+        
+        $res = $db->query($sql);
+        
+        if(DB::isError($res)) {
+            $this->throwError('_ERROR_DEFAULT', array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        }
+        
+        $news = array();
+        while($res->fetchInto($row)) {
+            $userRepository = new DBUserRepository($db);
+
+            $news[] = new NewsItem($row[7],$row[0],$row[1],$row[2],$row[3],$row[8],($row[4] == NewsItem::URGENTE),($row[5] == NewsItem::ELIMINATA),$row[6], $row[9]);
+        }
+        
+        $res->free();
+        
+        return $news;
+    }
 }

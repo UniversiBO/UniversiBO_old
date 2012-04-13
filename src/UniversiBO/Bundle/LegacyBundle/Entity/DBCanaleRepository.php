@@ -52,6 +52,12 @@ class DBCanaleRepository extends DBRepository
         else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database canali: id non unico','file'=>__FILE__,'line'=>__LINE__));
         return false;
     }
+    
+    public function find($idCanale)
+    {
+        $result = $this->findManyById(array($idCanale));
+        return is_array($result) ? $result[0] : $result;
+    }
 
     public function findManyById(array $idCanale)
     {
