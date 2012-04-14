@@ -518,39 +518,7 @@ class NewsItem {
      */
     function insertNewsItem()
     {
-        $db = FrontController::getDbConnection('main');
-
-        ignore_user_abort(1);
-        $db->autoCommit(false);
-        $next_id = $db->nextID('news_id_news');
-        $return = true;
-        $scadenza = ($this->getDataScadenza() == NULL) ? ' NULL ' : $db->quote($this->getDataScadenza());
-        $eliminata = ($this->isEliminata()) ? NewsItem::ELIMINATA : self::NOT_ELIMINATA;
-        $flag_urgente = ($this->isUrgente()) ? self::URGENTE : self::NOT_URGENTE;
-        $query = 'INSERT INTO news (id_news, titolo, data_inserimento, data_scadenza, notizia, id_utente, eliminata, flag_urgente, data_modifica) VALUES '.
-                '( '.$next_id.' , '.
-                $db->quote($this->getTitolo()).' , '.
-                $db->quote($this->getDataIns()).' , '.
-                $scadenza.' , '.
-                $db->quote($this->getNotizia()).' , '.
-                $db->quote($this->getIdUtente()).' , '.
-                $db->quote($eliminata).' , '.
-                $db->quote($flag_urgente).' , '.
-                $db->quote($this->getUltimaModifica()).' )';
-        $res = $db->query($query);
-        //var_dump($query);
-        if (DB::isError($res)){
-            $db->rollback();
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        }
-
-        $this->setIdNotizia($next_id);
-
-        $db->commit();
-        $db->autoCommit(true);
-        ignore_user_abort(0);
-
-        return $return;
+        return self::getRepository()->insert($this);
     }
 
     /**
