@@ -13,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class RssController extends Controller
 {
     /**
+     * @todo ACL
      * @Route("/rss/{idCanale}",name="rss")
      */
     public function indexAction($idCanale)
@@ -29,14 +30,19 @@ class RssController extends Controller
         $news = $newsRepository->findByCanale($idCanale);
         $news = is_array($news) ? $news : array();
         
+        $context = $this->get('router')->getContext();
+        
+        $base = $context->getScheme() . '://' . $context->getHost() .'/index.php?do=ShowPermalink&id_notizia=';
+        
         foreach($news as $item) {
             $entry = $feed->createEntry();
             $entry->setTitle($item->getTitolo());
+            $entry->setLink($base . $item->getIdNotizia());
             $feed->addEntry($entry);
         }
         
         $response = new Response();
-        $response->headers->set('Content-Type', 'text/xml; charset=ISO-8859-1');
+        $response->headers->set('Content-Type', 'application/rss+xml; charset=ISO-8859-1');
         $response->setContent($feed->export('rss'));
         
         return $response;
