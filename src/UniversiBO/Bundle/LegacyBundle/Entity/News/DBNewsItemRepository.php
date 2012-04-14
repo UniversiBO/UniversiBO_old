@@ -121,8 +121,8 @@ class DBNewsItemRepository extends DBRepository
         $next_id = $db->nextID('news_id_news');
         $return = true;
         $scadenza = ($newsItem->getDataScadenza() == NULL) ? ' NULL ' : $db->quote($newsItem->getDataScadenza());
-        $eliminata = ($newsItem->isEliminata()) ? NewsItem::ELIMINATA : self::NOT_ELIMINATA;
-        $flag_urgente = ($newsItem->isUrgente()) ? self::URGENTE : self::NOT_URGENTE;
+        $eliminata = ($newsItem->isEliminata()) ? NewsItem::ELIMINATA : NewsItem::NOT_ELIMINATA;
+        $flag_urgente = ($newsItem->isUrgente()) ? NewsItem::URGENTE : NewsItem::NOT_URGENTE;
         $query = 'INSERT INTO news (id_news, titolo, data_inserimento, data_scadenza, notizia, id_utente, eliminata, flag_urgente, data_modifica) VALUES '.
         		'( '.$next_id.' , '.
         		$db->quote($newsItem->getTitolo()).' , '.
