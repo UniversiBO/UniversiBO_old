@@ -2,6 +2,8 @@
 
 namespace UniversiBO\Bundle\WebsiteBundle\Controller;
 
+use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
+
 use Zend\Feed\Writer\Feed;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +16,8 @@ class RssController extends Controller
 {
     /**
      * @todo ACL
-     * @Route("/rss/{idCanale}",name="rss")
+     * @todo manage Facoltà
+     * @Route("/rss/{idCanale}",name="rss",requirements = {"idCanale" = "\d+"})
      */
     public function indexAction($idCanale)
     {
@@ -22,12 +25,12 @@ class RssController extends Controller
         $canale = $canaleRepo->find($idCanale);
         
         $feed = new Feed();
-        $feed->setTitle($nome = $canale->getNome());
+        $feed->setTitle($nome = mb_convert_encoding($canale->getNome(), 'utf-8', 'iso-8859-1'));
         $feed->setDescription('Feed Canale '.$nome);
         $feed->setLink($this->generateUrl('rss', array('idCanale' => $idCanale), true));
         
         $newsRepository = $this->get('universibo_legacy.repository.news.news_item');
-        $news = $newsRepository->findByCanale($idCanale);
+        $news = $newsRepository->findByCanale($idCanale, 20);
         $news = is_array($news) ? $news : array();
         
         $context = $this->get('router')->getContext();
@@ -36,13 +39,13 @@ class RssController extends Controller
         
         foreach($news as $item) {
             $entry = $feed->createEntry();
-            $entry->setTitle($item->getTitolo());
+            $entry->setTitle(mb_convert_encoding($item->getTitolo(), 'utf-8','iso-8859-1'));
             $entry->setLink($base . $item->getIdNotizia());
             $feed->addEntry($entry);
         }
         
         $response = new Response();
-        $response->headers->set('Content-Type', 'application/rss+xml; charset=ISO-8859-1');
+        $response->headers->set('Content-Type', 'application/rss+xml; charset=utf-8');
         $response->setContent($feed->export('rss'));
         
         return $response;

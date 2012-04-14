@@ -65,7 +65,7 @@ class DBNewsItemRepository extends DBRepository
         return $news_list;
     }
     
-    public function findByCanale($id)
+    public function findByCanale($id, $limit = null)
     {
         $db = $this->getDb();
         
@@ -89,6 +89,10 @@ class DBNewsItemRepository extends DBRepository
         $sql .= '        AND n.eliminata = '.$db->quote(NewsItem::NOT_ELIMINATA);
         $sql .= '        AND n.data_inserimento <= '.$db->quote(time());
         $sql .= '    ORDER BY data_inserimento DESC';
+        
+        if(is_int($limit)) {
+            $sql .= ' LIMIT '.intval($limit);
+        }
         
         $res = $db->query($sql);
         
