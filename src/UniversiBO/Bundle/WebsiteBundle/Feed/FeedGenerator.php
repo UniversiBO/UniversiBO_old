@@ -67,6 +67,9 @@ class FeedGenerator
         $entry->setLink($base . $item->getIdNotizia());
         $entry->addAuthor(mb_convert_encoding($item->getUsername(), 'utf-8','iso-8859-1'));
         $entry->setContent(mb_convert_encoding($item->getNotizia(), 'utf-8','iso-8859-1'));
+        $entry->setDateCreated($item->getDataIns());
+        $entry->setDateModified($item->getUltimaModifica());
+        
         $feed->addEntry($entry);
     }
 }
