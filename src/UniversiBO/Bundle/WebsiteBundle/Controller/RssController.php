@@ -24,25 +24,13 @@ class RssController extends Controller
         $canaleRepo = $this->get('universibo_legacy.repository.canale');
         $canale = $canaleRepo->find($idCanale);
         
-        $feed = new Feed();
-        $feed->setTitle($nome = mb_convert_encoding($canale->getNome(), 'utf-8', 'iso-8859-1'));
-        $feed->setDescription('Feed Canale '.$nome);
-        $feed->setLink($this->generateUrl('rss', array('idCanale' => $idCanale), true));
-        
-        $newsRepository = $this->get('universibo_legacy.repository.news.news_item');
-        $news = $newsRepository->findByCanale($idCanale, 20);
-        $news = is_array($news) ? $news : array();
-        
-        $context = $this->get('router')->getContext();
-        
-        $base = $context->getScheme() . '://' . $context->getHost() .'/index.php?do=ShowPermalink&id_notizia=';
-        
-        foreach($news as $item) {
-            $entry = $feed->createEntry();
-            $entry->setTitle(mb_convert_encoding($item->getTitolo(), 'utf-8','iso-8859-1'));
-            $entry->setLink($base . $item->getIdNotizia());
-            $feed->addEntry($entry);
+        if(!$canale instanceof Canale) {
+            throw $this->createNotFoundException('Canale not found');
         }
+        
+        $generator = $this->get('universibo_website.feed.feed_generator');
+        
+        $feed = $generator->generateFeed($canale, $this->get('router'));
         
         $response = new Response();
         $response->headers->set('Content-Type', 'application/rss+xml; charset=utf-8');
