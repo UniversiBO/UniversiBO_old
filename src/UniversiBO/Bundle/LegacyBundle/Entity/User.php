@@ -230,8 +230,19 @@ class User implements UserInterface, \Serializable
     {
         return $this->username;
     }
-
-
+    
+    /**
+     * Username setter
+     * 
+     * @param string $username
+     * @return \UniversiBO\Bundle\LegacyBundle\Entity\User
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+        
+        return $this;
+    }
 
     /**
      * Ritorna il livello di notifica dei messaggi
