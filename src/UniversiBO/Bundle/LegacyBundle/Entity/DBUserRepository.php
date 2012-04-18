@@ -41,7 +41,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
 
         $res = $db->query($query);
         if (\DB::isError($res)) {
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         }
 
         $rows = $res->numRows();
@@ -63,14 +63,14 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $res = $db->query($query);
 
         if (\DB::isError($res)) {
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         }
 
         $rows = $res->numRows();
 
         if( $rows == 0) return false;
         elseif( $rows == 1) return true;
-        else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
+        else $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
         return false;
     }
 
@@ -85,10 +85,10 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $query = 'SELECT username FROM utente WHERE id_utente= '.$db->quote($id);
         $res = $db->query($query);
         if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         $rows = $res->numRows();
         if( $rows == 0)
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non esiste un utente con questo id_user: '.$id_user,'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_CRITICAL',array('msg'=>'Non esiste un utente con questo id_user: '.$id_user,'file'=>__FILE__,'line'=>__LINE__));
         $res->fetchInto($row);
         $res->free();
         return $row[0];
@@ -101,7 +101,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $query = 'SELECT id_utente FROM utente WHERE ad_username = '.$db->quote($adUsername);
         $res = $db->query($query);
         if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         $rows = $res->numRows();
 
         if( $rows == 0) return false;
@@ -110,7 +110,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
             $row = $res->fetchRow();
             return $row[0];
         }
-        else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
+        else $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
     }
 
     /**
@@ -159,7 +159,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
             if (\DB::isError($res))
             {
                 $db->rollback();
-                \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+                $this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
             }
             $db->commit();
 
@@ -196,12 +196,12 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
 
         $res = $db->query($query);
         if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         $rows = $db->affectedRows();
 
         if( $rows == 1) return true;
         elseif( $rows == 0) return false;
-        else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
+        else $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
     }
 
     public function updateEmail(User $user)
@@ -211,12 +211,12 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $query = 'UPDATE utente SET email = '.$db->quote($user->getEmail()).' WHERE id_utente = '.$db->quote($user->getIdUser());
         $res = $db->query($query);
         if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         $rows = $db->affectedRows();
 
         if( $rows == 1) return true;
         elseif( $rows == 0) return false;
-        else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
+        else $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
         return false;
     }
 
@@ -227,12 +227,12 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $query = 'UPDATE utente SET ultimo_login = '.$db->quote($user->getUltimoLogin()).' WHERE id_utente = '.$db->quote($user->getIdUser());
         $res = $db->query($query);
         if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         $rows = $db->affectedRows();
 
         if( $rows == 1) return true;
         elseif( $rows == 0) return false;
-        else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
+        else $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
         return false;
     }
 
@@ -243,12 +243,12 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $query = 'UPDATE utente SET ad_username = '.$db->quote($user->getADUsername()).' WHERE id_utente = '.$db->quote($user->getIdUser());
         $res = $db->query($query);
         if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         $rows = $db->affectedRows();
 
         if( $rows == 1) return true;
         elseif( $rows == 0) return false;
-        else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
+        else $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
         return false;
     }
 
@@ -263,12 +263,12 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
          
         $res = $db->query($query);
         if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         $rows = $db->affectedRows();
 
         if( $rows == 1) return true;
         elseif( $rows == 0) return false;
-        else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
+        else $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
     }
 
     public function findCollaboratori()
@@ -277,7 +277,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $query = 'SELECT id_utente, groups FROM utente WHERE groups > 2 AND groups!= 8 AND groups != 16 AND groups!= 32 AND sospeso = '.$db->quote(User::NOT_ELIMINATO);
         $res = $db->query($query);
         if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
         $rows = $res->numRows();
 
@@ -298,10 +298,10 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $query = 'SELECT username, password, email, ultimo_login, ad_username, groups, notifica, phone, default_style, sospeso, algoritmo, salt  FROM utente WHERE id_utente = '.$db->quote($id);
         $res = $db->query($query);
         if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
         $rows = $res->numRows();
-        if( $rows > 1) \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
+        if( $rows > 1) $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
         if( $rows == 0) {
             return false;
         }
@@ -320,10 +320,10 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $query = 'SELECT id_utente, password, email, ultimo_login, ad_username, groups, notifica, phone, default_style, sospeso, algoritmo, salt  FROM utente WHERE username = '.$db->quote($username);
         $res = $db->query($query);
         if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
         $rows = $res->numRows();
-        if( $rows > 1) \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
+        if( $rows > 1) $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
         if( $rows == 0) {
             $false=false;
             return $false;
@@ -347,7 +347,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $query = 'SELECT id_utente, groups FROM utente WHERE groups IN '.$db->quote($groups);
         $res = $db->query($query);
         if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
         while ($row = $res->fetchRow())
             $ret[$row[1]][] = $row[0];
@@ -362,12 +362,12 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $query = 'UPDATE utente SET groups = '.$db->quote($user->getGroups()).' WHERE id_utente = '.$db->quote($user->getIdUser());
         $res = $db->query($query);
         if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         $rows = $db->affectedRows();
 
         if( $rows == 1) return true;
         elseif( $rows == 0) return false;
-        else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
+        else $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database utenti: username non unico','file'=>__FILE__,'line'=>__LINE__));
         return false;
     }
 
@@ -378,7 +378,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $query = 'SELECT id_utente, password, email, ultimo_login, ad_username, groups, notifica, username, phone, default_style, sospeso, algoritmo, salt  FROM utente WHERE username LIKE '.$db->quote($username) .' AND email LIKE '.$db->quote($email);
         $res = $db->query($query);
         if (\DB::isError($res))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
         $users = array();
 
@@ -408,9 +408,31 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         
         $res = $db->query($query);
         if (\DB::isError($res))
-        	\Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        	$this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         
         $user->setEliminato(true);
+    }
+    
+    public function renameUser(User $user, $newUsername)
+    {
+        $db = $this->getDb();
+        $db->autocommit(false);
+        
+        $query = 'UPDATE utente SET username = ' . $db->quote($newUsername). ' WHERE id_utente = '.$user->getIdUser();
+        
+        if (\DB::isError($res)) {
+        	$this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        }
+        
+        $query = 'UPDATE phpbb_users SET username = ' . $db->quote($newUsername). ' WHERE username = '.$db->quote($user->getUsername());
+        
+        if (\DB::isError($res)) {
+        	$this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        }
+        
+        $db->commit();
+        
+        $user->setUsername($newUsername);
     }
 
     public function supportsClass($class)
