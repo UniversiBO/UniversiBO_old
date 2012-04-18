@@ -48,7 +48,7 @@ class ScriptIscriviDocenti2 extends UniversiboCommand
 					die('Errore inserimento: username '.$username.' | mail '.$row[2]);
 				
 				$forum = new ForumApi();
-				$forum->insertUser($new_user);
+				$forum->insertUser($new_user,$randomPassword);
 				
 				$query3 = 'INSERT INTO docente (id_utente, cod_doc, nome_doc) VALUES ('.$new_user->getIdUser().','. $db->quote($row[0]) .','.$db->quote($row[1]).')';
 				$res3 = $db->query($query3);
@@ -96,8 +96,6 @@ class ScriptIscriviDocenti2 extends UniversiboCommand
 			{
 				echo $username.' - non iscritto'."\n";
 			}
-			
-			
 		}
 		
 		$res->free();
