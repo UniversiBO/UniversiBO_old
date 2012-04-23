@@ -157,7 +157,7 @@ class DBContattoDocenteRepository extends DBRepository
     {
     	$db = $this->getDb();
     
-    	if ($this->stato != APERTO && $this->stato != null)
+    	if ($contattoDocente->getStato() != APERTO && $contattoDocente->getStato() != null)
     	{
     		$time	= time();
     		$query	= 'UPDATE docente SET '
