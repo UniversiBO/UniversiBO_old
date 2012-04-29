@@ -1,12 +1,16 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
-use UniversiBO\Bundle\LegacyBundle\App\Insegnamento;
-
 use \DB;
 use \Error;
+
 use UniversiBO\Bundle\LegacyBundle\Entity\Cdl;
+use UniversiBO\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
+
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
+
+use UniversiBO\Bundle\LegacyBundle\App\ForumApi;
+use UniversiBO\Bundle\LegacyBundle\App\Insegnamento;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -25,9 +29,8 @@ class ScriptCreaForum extends UniversiboCommand
 {
 	var $anno_accademico = 2011;
 	
-	function execute()
+	public function execute()
 	{
-		
 		$anno_accademico = $this->anno_accademico;
 		
 		
