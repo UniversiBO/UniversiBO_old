@@ -245,13 +245,13 @@ class DidatticaGestione extends UniversiboCommand {
                         {
                             list($id_channel,$id_sdoppiamento) = explode('#', $key);
                             //							var_dump($key); var_dump($id_sdoppiamento); die;
-                            $prgs[] = & PrgAttivitaDidattica::selectPrgAttivitaDidatticaSdoppiata((int) $id_sdoppiamento);
+                            $prgs[] = PrgAttivitaDidattica::selectPrgAttivitaDidatticaSdoppiata((int) $id_sdoppiamento);
                         }
                         else
                         {
                             $channel = Canale::retrieveCanale($key);
                             $atts = $channel->getElencoAttivitaPadre();
-                            $prgs[] = & $atts[0];
+                            $prgs[] = $atts[0];
                         }
 
                     }
