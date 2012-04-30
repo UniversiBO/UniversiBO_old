@@ -1,5 +1,7 @@
 <?php
 namespace UniversiBO\Bundle\WebsiteBundle\Command;
+use Symfony\Bundle\DoctrineBundle\Registry;
+
 use UniversiBO\Bundle\LegacyBundle\Entity\DBUserRepository;
 use UniversiBO\Bundle\LegacyBundle\Entity\User;
 
@@ -51,14 +53,34 @@ class BatchRenameCommand extends ContainerAwareCommand
 
         $repository = $this->get('universibo_legacy.repository.user');
 
+        $doctrine = $this->get('doctrine');
+        $em = $doctrine->getEntityManager();
+        $batchRenameRepo = $doctrine
+                ->getRepository(
+                        'UniversiBO\\Bundle\\LegacyBundle\\Entity\\BatchRename');
         
+        $em->beginTransaction();
+
+        foreach ($batchRenameRepo->findByStatus('pending') as $current) {
+            $user = $repository->find($current->getId());
+            $oldUsername = $user->getUsername();
+            
+            $this->renameUser($repository, $user);
+            $this->verboseMessage('Renamed user '.$oldUsername.' to '.$user->getUsername(), $output);
+            
+            $current->setStatus('renamed');
+            $em->merge($current);
+        }
 
         if ($input->getOption('pretend')) {
             $this->verboseMessage('Rolling back transaction', $output);
             $db->rollback();
+            $em->rollback();
         } else {
             $this->verboseMessage('Committing transaction', $output);
             $db->commit();
+            $em->flush();
+            $em->commit();
         }
     }
 

@@ -562,6 +562,8 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
 
         $query = 'UPDATE utente SET username = ' . $db->quote($newUsername)
                 . ' WHERE id_utente = ' . $user->getIdUser();
+        
+        $res = $db->query($query);
 
         if (\DB::isError($res)) {
             $this
@@ -573,6 +575,8 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $query = 'UPDATE phpbb_users SET username = '
                 . $db->quote($newUsername) . ' WHERE username = '
                 . $db->quote($user->getUsername());
+        
+        $res = $db->query($query);
 
         if (\DB::isError($res)) {
             $this
