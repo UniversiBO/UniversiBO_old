@@ -30,8 +30,7 @@ class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
 		$res = $db->query($query);
 		if (DB::isError($res)) die($query); 
 
-
-		$anno_accademico = 2007;
+		$anno_accademico = 2011;
 
 
 		$query = 'SELECT anno_accademico, cod_corso, cod_ind, cod_ori, cod_materia, 
@@ -69,7 +68,7 @@ class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
 				echo "$id_canale \n";
 				
 				$query4 = 'INSERT INTO canale(id_canale,tipo_canale,nome_canale,immagine,visite,ultima_modifica,permessi_groups,files_attivo,news_attivo
-				,forum_attivo,id_forum,group_id,links_attivo,files_studenti_attivo) VALUES ( '.$id_canale.',5,\'\',\'\',0,'.time().',68,\'S\',\'S\',\'N\',0,0,\'S\',\'S\');';
+				,forum_attivo,id_forum,group_id,links_attivo,files_studenti_attivo) VALUES ( '.$id_canale.',5,\'\',\'\',0,'.time().',127,\'S\',\'S\',\'N\',0,0,\'S\',\'S\');';
 				
 				$res4= $db->query($query4);
 				if (DB::isError($res4)) die($query4);
