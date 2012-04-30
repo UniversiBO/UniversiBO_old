@@ -6,6 +6,7 @@ use \Error;
 
 use UniversiBO\Bundle\LegacyBundle\Entity\Cdl;
 use UniversiBO\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
+use UniversiBO\Bundle\LegacyBundle\Entity\User;
 
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
@@ -32,7 +33,6 @@ class ScriptCreaForum extends UniversiboCommand
 	public function execute()
 	{
 		$anno_accademico = $this->anno_accademico;
-		
 		
 		$fc = $this->getFrontController();
 		$template = $fc->getTemplateEngine();
