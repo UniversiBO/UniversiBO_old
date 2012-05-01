@@ -21,9 +21,7 @@ $loader->registerNamespaces(array(
         'Monolog'                              => __DIR__.'/../vendor/monolog/monolog/src',
         'Assetic'                              => __DIR__.'/../vendor/kriswallsmith/assetic/src',
         'Metadata'                             => __DIR__.'/../vendor/jms/metadata/src',
-        'Zend\\Feed'                           => __DIR__.'/../vendor/brikou/zend_feed',
-        'Zend\\Loader'                         => __DIR__.'/../vendor/brikou/zend_loader',
-        'Zend\\Stdlib'                         => __DIR__.'/../vendor/brikou/zend_stdlib',
+        'Zend'                                 => __DIR__.'/../vendor/zendframework/zendframework/library',
 ));
 $loader->registerPrefixes(array(
 //        'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',
