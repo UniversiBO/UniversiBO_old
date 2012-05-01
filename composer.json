@@ -11,6 +11,7 @@
         "jms/security-extra-bundle": "1.1.0",
         "brikou/zend_feed": "dev-master",
         "brikou/zend_loader": "dev-master",
+        "brikou/zend_stdlib": "dev-master",
         "friendsofsymfony/oauth-server-bundle": "1.1.1"
     },
     "authors": [
