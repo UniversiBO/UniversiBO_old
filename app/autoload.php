@@ -22,6 +22,7 @@ $loader->registerNamespaces(array(
         'Assetic'                              => __DIR__.'/../vendor/kriswallsmith/assetic/src',
         'Metadata'                             => __DIR__.'/../vendor/jms/metadata/src',
         'Zend\\Feed'                           => __DIR__.'/../vendor/brikou/zend_feed',
+        'Zend\\Loader'                         => __DIR__.'/../vendor/brikou/zend_loader',
 ));
 $loader->registerPrefixes(array(
 //        'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',
