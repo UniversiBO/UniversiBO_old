@@ -1,7 +1,7 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Framework;
 
-use JMS\AopBundle\Exception\Exception;
+use \Exception;
 
 use \DB;
 use \Error;

@@ -21,7 +21,7 @@ $loader->registerNamespaces(array(
         'Monolog'                              => __DIR__.'/../vendor/monolog/monolog/src',
         'Assetic'                              => __DIR__.'/../vendor/kriswallsmith/assetic/src',
         'Metadata'                             => __DIR__.'/../vendor/jms/metadata/src',
-        'Zend'                                 => __DIR__.'/../vendor/ecolinet/zf2/library',
+        'Zend\\Feed'                           => __DIR__.'/../vendor/brikou/zend_feed/library',
 ));
 $loader->registerPrefixes(array(
 //        'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',
