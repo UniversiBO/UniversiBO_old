@@ -91,6 +91,11 @@
 			class="UniversiBO\Bundle\LegacyBundle\Entity\DBContattoDocenteRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />
 		</service>
+		
+		<service id="universibo_legacy.repository.docente"
+			class="UniversiBO\Bundle\LegacyBundle\Entity\DBDocenteRepository">
+			<argument type="service" id="universibo_legacy.db.connection.main" />
+		</service>
 
 		<service id="universibo_legacy.repository.informativa"
 			class="UniversiBO\Bundle\LegacyBundle\Entity\DBInformativaRepository">

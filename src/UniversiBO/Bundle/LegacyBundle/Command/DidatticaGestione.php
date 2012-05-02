@@ -3,6 +3,8 @@ namespace UniversiBO\Bundle\LegacyBundle\Command;
 
 use \Error;
 
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
+
 use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
 use UniversiBO\Bundle\LegacyBundle\Entity\Cdl;
 use UniversiBO\Bundle\LegacyBundle\Entity\Docente;
@@ -11,7 +13,7 @@ use UniversiBO\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
 use UniversiBO\Bundle\LegacyBundle\Entity\User;
 
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
-use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
+use UniversiBO\Bundle\LegacyBundle\Framework\LogHandler;
 
 /**
  * -DidatticaGestione: per le correzioni didattiche
@@ -27,12 +29,12 @@ class DidatticaGestione extends UniversiboCommand {
 
     function execute() {
 
-        $frontcontroller = & $this->getFrontController();
-        $template = & $frontcontroller->getTemplateEngine();
+        $frontcontroller = $this->getFrontController();
+        $template = $frontcontroller->getTemplateEngine();
 
-        $krono = & $frontcontroller->getKrono();
-        $user = & $this->getSessionUser();
-        $user_ruoli = & $user->getRuoli();
+        $krono = $frontcontroller->getKrono();
+        $user = $this->getSessionUser();
+        $user_ruoli = $user->getRuoli();
 
         if (!$user->isAdmin())		// TODO far s� che specifici utenti siano autorizzati (da file di conf)
         {
@@ -62,8 +64,8 @@ class DidatticaGestione extends UniversiboCommand {
             {
                 $id_sdop = $_GET['id_sdop'];
                 $edit = 'true';
-                $cdl = & Cdl::selectCdlCodice($prg_sdop->getCodiceCdl());
-                $fac = & Facolta::selectFacoltaCodice($cdl->getCodiceFacoltaPadre());
+                $cdl = Cdl::selectCdlCodice($prg_sdop->getCodiceCdl());
+                $fac = Facolta::selectFacoltaCodice($cdl->getCodiceFacoltaPadre());
                 $f41_cur_sel['insegnamento'] = $prg_sdop->getNome();
                 $f41_cur_sel['docente'] = $prg_sdop->getNomeDoc();
                 $f41_cur_sel['codice docente'] = $prg_sdop->getCodDoc();
@@ -469,7 +471,8 @@ class DidatticaGestione extends UniversiboCommand {
         $desc = '';
         foreach(array('doc','ciclo','anno') as $k)
             $desc .= (array_key_exists($k,$modified))? $k.' '.$modified[$k]['old'].' -> '.$modified[$k]['new'].'; ' :'';
-        $log = new UniversiBO\Bundle\LegacyBundle\Framework\LogHandler('modificaDidattica','../universibo/log-universibo/',$log_definition);
+        
+        $log = new LogHandler('modificaDidattica','../universibo/log-universibo/',$log_definition);
 
         $log_array = array( 'timestamp'  => time(),
                 'date'  => date("Y-m-d",time()),
