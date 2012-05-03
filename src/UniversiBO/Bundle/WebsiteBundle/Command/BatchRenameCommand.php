@@ -112,7 +112,7 @@ EOD;
                          ->setSubject('Cambio Username UniversiBO')
                          ->setFrom('associazione.universibo@unibo.it')
                          ->setTo($item['to'])->setBody(trim($text));
-                $mailer->sendMessage($message);
+                $mailer->send($message);
             }
 
             $this->verboseMessage($text, $output);
