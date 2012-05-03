@@ -116,7 +116,7 @@ EOD;
                     $mailer->sendMessage($message);
                 }
 
-                $this->verboseMsessage($text);
+                $this->verboseMessage($text, $output);
             }
         }
     }
