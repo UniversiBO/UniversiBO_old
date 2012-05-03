@@ -89,13 +89,14 @@ class BatchRenameCommand extends ContainerAwareCommand
             $db->commit();
             $em->flush();
             $em->commit();
+        }
 
-            $mailer = $this->get('mailer');
+        $mailer = $this->get('mailer');
 
-            foreach ($email as $item) {
-                list($old, $new, $to) = $item;
+        foreach ($email as $item) {
+            list($old, $new, $to) = $item;
 
-                $text = <<<EOD
+            $text = <<<EOD
 Ciao $old,
 
 Come precedentemente comunicato in data 26 marzo abbiamo provveduto a modificare il tuo nome utente.
@@ -107,17 +108,16 @@ Lo Staff di UniversiBO
 https://www.universibo.unibo.it/
 http://www.facebook.com/UniversiBO
 EOD;
+
+            if (!$this->getOption('pretend')) {
                 $message = \Swift_Message::newInstance()
-                        ->setSubject('Cambio Username UniversiBO')
-                        ->setFrom('associazione.universibo@unibo.it')
-                        ->setTo($to)->setBody(trim($text));
-
-                if (!$this->getOption('pretend')) {
-                    $mailer->sendMessage($message);
-                }
-
-                $this->verboseMessage($text, $output);
+                         ->setSubject('Cambio Username UniversiBO')
+                         ->setFrom('associazione.universibo@unibo.it')
+                         ->setTo($to)->setBody(trim($text));
+                $mailer->sendMessage($message);
             }
+
+            $this->verboseMessage($text, $output);
         }
     }
 
