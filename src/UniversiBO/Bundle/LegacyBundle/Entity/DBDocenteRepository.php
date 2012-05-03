@@ -31,7 +31,7 @@ class DBDocenteRepository extends DBRepository
         return $this->findBy('id_utente', $id);
     }
 
-    public function findBy($field, $value)
+    public function findBy($field, $id)
     {
         $db = $this->getDb();
 
