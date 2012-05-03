@@ -58,16 +58,24 @@ class BatchRenameCommand extends ContainerAwareCommand
         $batchRenameRepo = $doctrine
                 ->getRepository(
                         'UniversiBO\\Bundle\\LegacyBundle\\Entity\\BatchRename');
-        
+
         $em->beginTransaction();
+
+        $email = array();
 
         foreach ($batchRenameRepo->findByStatus('pending') as $current) {
             $user = $repository->find($current->getId());
             $oldUsername = $user->getUsername();
-            
+
             $this->renameUser($repository, $user);
-            $this->verboseMessage('Renamed user '.$oldUsername.' to '.$user->getUsername(), $output);
-            
+            $this
+                    ->verboseMessage(
+                            'Renamed user ' . $oldUsername . ' to '
+                                    . $user->getUsername(), $output);
+            $email[] = array('old' => $oldUsername,
+                    'new' => $user->getUsername(),
+                    'to' => array($user->getADUsername(), $user->getEmail()));
+
             $current->setStatus('renamed');
             $em->merge($current);
         }
@@ -81,6 +89,35 @@ class BatchRenameCommand extends ContainerAwareCommand
             $db->commit();
             $em->flush();
             $em->commit();
+
+            $mailer = $this->get('mailer');
+
+            foreach ($email as $item) {
+                list($old, $new, $to) = $item;
+
+                $text = <<<EOD
+Ciao $old,
+
+Come precedentemente comunicato in data 26 marzo abbiamo provveduto a modificare il tuo nome utente.
+Il tuo nuovo nome utente è $new.
+
+Per qualsiasi dubbio non esitare a contattarci all'indirizzo info_universibo@mama.ing.unibo.it
+Lo Staff di UniversiBO
+
+https://www.universibo.unibo.it/
+http://www.facebook.com/UniversiBO
+EOD;
+                $message = \Swift_Message::newInstance()
+                        ->setSubject('Cambio Username UniversiBO')
+                        ->setFrom('associazione.universibo@unibo.it')
+                        ->setTo($to)->setBody(trim($text));
+
+                if (!$this->getOption('pretend')) {
+                    $mailer->sendMessage($message);
+                }
+
+                $this->verboseMsessage($text);
+            }
         }
     }
 
