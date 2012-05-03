@@ -94,13 +94,11 @@ class BatchRenameCommand extends ContainerAwareCommand
         $mailer = $this->get('mailer');
 
         foreach ($email as $item) {
-            list($old, $new, $to) = $item;
-
             $text = <<<EOD
-Ciao $old,
+Ciao {$item['old']},
 
 Come precedentemente comunicato in data 26 marzo abbiamo provveduto a modificare il tuo nome utente.
-Il tuo nuovo nome utente è $new.
+Il tuo nuovo nome utente è {$item['new']}.
 
 Per qualsiasi dubbio non esitare a contattarci all'indirizzo info_universibo@mama.ing.unibo.it
 Lo Staff di UniversiBO
@@ -109,11 +107,11 @@ https://www.universibo.unibo.it/
 http://www.facebook.com/UniversiBO
 EOD;
 
-            if (!$this->getOption('pretend')) {
+            if (!$input->getOption('pretend')) {
                 $message = \Swift_Message::newInstance()
                          ->setSubject('Cambio Username UniversiBO')
                          ->setFrom('associazione.universibo@unibo.it')
-                         ->setTo($to)->setBody(trim($text));
+                         ->setTo($item['to'])->setBody(trim($text));
                 $mailer->sendMessage($message);
             }
 
