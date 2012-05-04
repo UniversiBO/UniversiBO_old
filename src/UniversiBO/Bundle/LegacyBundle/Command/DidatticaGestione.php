@@ -261,7 +261,7 @@ class DidatticaGestione extends UniversiboCommand {
                     $mods = array();
                     if (array_key_exists('codice docente', $tmpEdit))
                     {
-                        if (!preg_match('/^([0-9]{1,9})$/', $tmpEdit['codice docente']) || Docente::selectDocenteFromCod(intval($tmpEdit['codice docente'])))
+                        if (!preg_match('/^([0-9]{1,9})$/', $tmpEdit['codice docente']) || !Docente::selectDocenteFromCod($tmpEdit['codice docente']))
                         {
                             Error :: throwError (_ERROR_NOTICE, array ('msg' => 'Codice docente invalido, nessuna modifica effettuata', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
                             $f41_accept = false;
