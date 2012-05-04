@@ -4,16 +4,15 @@ namespace UniversiBO\Bundle\LegacyBundle\Command;
 use \DB;
 use \Error;
 
+use UniversiBO\Bundle\LegacyBundle\App\ForumApi;
+use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
+
 use UniversiBO\Bundle\LegacyBundle\Entity\Cdl;
+use UniversiBO\Bundle\LegacyBundle\Entity\Insegnamento;
 use UniversiBO\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
 use UniversiBO\Bundle\LegacyBundle\Entity\User;
 
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
-
-use UniversiBO\Bundle\LegacyBundle\App\ForumApi;
-use UniversiBO\Bundle\LegacyBundle\App\Insegnamento;
-use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
-
 /**
  * ChangePassword is an extension of UniversiboCommand class.
  *
