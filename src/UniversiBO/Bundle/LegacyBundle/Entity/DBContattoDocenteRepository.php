@@ -52,7 +52,9 @@ class DBContattoDocenteRepository extends DBRepository
     {
         $db = $this->getDb();
         
-        $query = 'SELECT cod_doc, stato, id_utente_assegnato, ultima_modifica, report FROM docente_contatti';
+        $query = 'SELECT cod_doc, stato, id_utente_assegnato, ultima_modifica, report FROM docente_contatti ';
+        $query.= 'WHERE eliminato = '.$db->quote(ContattoDocente::NOT_ELIMINATO);
+        
         $res = $db->query($query);
         if (DB::isError($res))
         	Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));

@@ -9,6 +9,7 @@ use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
  * ContattoDocente rappresenta l'insieme di informazioni collegate al
  * contatto di un docente
  *
+ * @todo eliminato accessors
  * @package universibo
  * @subpackage class
  * @version 2.2.0
@@ -22,6 +23,8 @@ class ContattoDocente {
     const KILLED = 2;
     const CRITIC = 3;
     const INATTIVO = 4;
+    const ELIMINATO = 'S';
+    const NOT_ELIMINATO = 'N';
      
     /**
      * @var DBContattoDocenteRepository
