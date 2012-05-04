@@ -61,10 +61,10 @@ class ShowFacolta extends CanaleCommand {
 					$cdlType = $elencoCdl[$i]->getCategoriaCdl();
 					switch ($cdlType)
 					{
-						case 1: $name = 'CORSI DI LAUREA TRIENNALI'; break;
+						case 1: $name = 'CORSI DI LAUREA TRIENNALE'; break;
 						case 2: $name = 'CORSI DI LAUREA SPECIALISTICA'; break;
 						case 3: $name = 'CORSI DI LAUREA VECCHIO ORDINAMENTO'; break;
-						case 4: $name = 'CORSI DI LAUREA (DM 270/04)'; break;
+						case 4: $name = 'CORSI DI LAUREA TRIENNALE NUOVO ORDINAMENTO'; break;
 						case 5: $name = 'CORSI DI LAUREA MAGISTRALE'; break;
 						case 6: $name = 'CORSI DI LAUREA MAGISTRALE A CICLO UNICO'; break;
 						case 7: $name = 'CORSI DI LAUREA SPECIALISTICA A CICLO UNICO'; break;
