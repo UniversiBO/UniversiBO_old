@@ -132,29 +132,14 @@ class Docente extends User
 
         $row = $res->fetchRow();
 
-        //		// in PHP5
-        //		$rubrica = array_combine(array(nome, cognome, prefissonome, sesso, email, descrizionestruttura),$row);
-        $rubrica = $this
-                ->_unisciArray(
-                        array('nome', 'cognome', 'prefissonome', 'sesso',
-                                'email', 'descrizionestruttura'), $row);
+        $rubrica = array_combine(
+                array('nome', 'cognome', 'prefissonome', 'sesso', 'email',
+                        'descrizionestruttura'), $row);
 
         $res->free();
 
         return $rubrica;
 
-    }
-
-    function _unisciArray($key, $values)
-    {
-        $tot = count($key);
-        $newArray = array();
-        for ($i = 0; $i < $tot; $i++) {
-            $indice = $key[$i];
-            $newArray[$indice] = $values[$i];
-        }
-        //		var_dump($key);
-        return $newArray;
     }
 
     /**
@@ -166,7 +151,8 @@ class Docente extends User
      */
     public static function selectDocente($id, $isCodiceDocente = false)
     {
-        return self::getRepository()->findBy($isCodiceDocente ? 'cod_doc' : 'id_utente', $id);
+        return self::getRepository()
+                ->findBy($isCodiceDocente ? 'cod_doc' : 'id_utente', $id);
     }
 
     public static function selectDocenteFromCod($codDoc)
