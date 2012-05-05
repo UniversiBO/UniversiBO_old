@@ -72,7 +72,6 @@ class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
 				
 				$res4= $db->query($query4);
 				if (DB::isError($res4)) die($query4);
-				 
 				
 				$query5 = 'INSERT INTO prg_insegnamento (anno_accademico,cod_corso,cod_ind,cod_ori,cod_materia,anno_corso,cod_materia_ins,
 				anno_corso_ins,cod_ril,cod_modulo,cod_doc,flag_titolare_modulo,id_canale,cod_orario,tipo_ciclo,cod_ate,anno_corso_universibo)
@@ -89,10 +88,7 @@ class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
 				$res7= $db->query($query7);
 				if (DB::isError($res7)) die($query7);
 			}
-			
-				
 		}
-		
 		
 		$query = 'commit';
 		$res = $db->query($query);
