@@ -1,5 +1,5 @@
 #!/bin/sh
-BASEDIR=/var/www/universibo
+BASEDIR=/var/www/universibo/current
 USER=apache
 GROUP=apache
 
