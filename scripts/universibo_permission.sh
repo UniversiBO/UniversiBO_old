@@ -3,9 +3,9 @@ BASEDIR=/var/www/universibo/current
 USER=apache
 GROUP=apache
 
-chown ${USER}.${GROUP} $BASEDIR -R
-find $BASEDIR -type f -exec chmod 640 {} \;
-find $BASEDIR -type d -exec chmod 750 {} \;
+chown ${USER}.${GROUP} $BASEDIR/ -R
+find $BASEDIR/ -type f -exec chmod 640 {} \;
+find $BASEDIR/ -type d -exec chmod 750 {} \;
 
 # gli utenti devono poter caricare le immagini per il forum
 chmod g+w $BASEDIR/htmls/forum/images/avatars
