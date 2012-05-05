@@ -15,9 +15,9 @@ chmod g+w $BASEDIR/current/htmls/img/contacts
 touch $BASEDIR/current/universibo/notifiche.lock
 chmod g+w $BASEDIR/current/universibo/notifiche.lock
 # log...
-chmod g+w $BASEDIR/current/universibo/log-universibo
+chmod g+w $BASEDIR/shared/universibo/log-universibo
 # dispense etc etc
-chmod g+w $BASEDIR/current/universibo/file-universibo
+chmod g+w $BASEDIR/shared/universibo/file-universibo
 # output di smarty, per il template
 chmod g+w $BASEDIR/current/universibo/templates_compile/black
 chmod g+w $BASEDIR/current/universibo/templates_compile/simple
