@@ -1,4 +1,5 @@
 app/cache
+app/config/deploy.rb
 app/logs
 nbproject
 universibo/file-universibo
