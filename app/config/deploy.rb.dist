@@ -16,7 +16,7 @@ role :app,        domain                         # This may be the same as your 
 role :db,         domain, :primary => true       # This is where Rails migrations will run
 
 set  :shared_files,    ["app/config/parameters.ini", "composer.lock", "config.xml", "config_cli.xml", web_path + "/forum/config.php"]
-set  :shared_children, [app_path + "/logs", web_path + "/img/contacts", web_path + "/forum/images/avatars","universibo/file-universibo", "universibo/log-universibo", "vendor"]
+set  :shared_children, [app_path + "/logs", web_path + "/.htaccess", web_path + "/img/contacts", web_path + "/forum/images/avatars","universibo/file-universibo", "universibo/log-universibo", "vendor"]
 
 set  :update_vendors, false
 set  :use_composer,   true
