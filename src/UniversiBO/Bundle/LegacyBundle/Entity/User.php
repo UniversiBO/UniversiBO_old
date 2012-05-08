@@ -1,6 +1,5 @@
-<?php 
+<?php
 namespace UniversiBO\Bundle\LegacyBundle\Entity;
-
 use Symfony\Component\Security\Core\User\UserInterface;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\Auth\ActiveDirectoryLogin;
@@ -21,7 +20,7 @@ class User implements UserInterface, \Serializable
     const NONE = 0;
     const OSPITE = 1;
     const STUDENTE = 2;
-    const COLLABORATORE =4;
+    const COLLABORATORE = 4;
     const TUTOR = 8;
     const DOCENTE = 16;
     const PERSONALE = 32;
@@ -100,14 +99,12 @@ class User implements UserInterface, \Serializable
     private $salt;
 
     private static $roleConversions = array(
-            self::ADMIN         => 'ROLE_ADMIN',
+            self::ADMIN => 'ROLE_ADMIN',
             self::COLLABORATORE => 'ROLE_COLLABORATOR',
-            self::DOCENTE       => 'ROLE_PROFESSOR',
-            self::OSPITE        => 'ROLE_GUEST',
-            self::PERSONALE     => 'ROLE_STAFF',
-            self::STUDENTE      => 'ROLE_STUDENT',
-            self::TUTOR         => 'ROLE_TUTOR',
-    );
+            self::DOCENTE => 'ROLE_PROFESSOR',
+            self::OSPITE => 'ROLE_GUEST', self::PERSONALE => 'ROLE_STAFF',
+            self::STUDENTE => 'ROLE_STUDENT',
+            self::TUTOR => 'ROLE_TUTOR',);
 
     private static $repository = null;
 
@@ -118,11 +115,13 @@ class User implements UserInterface, \Serializable
      * @param string $username stringa dello username da verificare
      * @return boolean
      */
-    public static function isUsernameValid( $username )
+    public static function isUsernameValid($username)
     {
         $username = trim($username);
-        $username_pattern=mb_convert_encoding('/^([[:alnum:]àèéìòù \._]{1,25})$/', 'iso-8859-1', 'utf-8');
-        return preg_match($username_pattern , $username ) && strcasecmp($username, self::NICK_ELIMINATO) != 0;
+        $username_pattern = mb_convert_encoding(
+                '/^([[:alnum:]àèéìòù \._]{1,25})$/', 'iso-8859-1', 'utf-8');
+        return preg_match($username_pattern, $username)
+                && strcasecmp($username, self::NICK_ELIMINATO) != 0;
     }
 
     /**
@@ -149,35 +148,28 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-    	* Restituisce l'array associativo del codice dei gruppi e
-    	* della corrispettiva stringa descrittiva.
-    	*
-    	* @param boolean $singolare
-    	* @return array
-    	*/
-    public static function groupsNames( $singolare = true )
+     * Restituisce l'array associativo del codice dei gruppi e
+     * della corrispettiva stringa descrittiva.
+     *
+     * @param boolean $singolare
+     * @return array
+     */
+    public static function groupsNames($singolare = true)
     {
-        if ( $singolare == true )
-        {
-            return array(
-                    self::OSPITE		=> "Ospite",
-                    self::STUDENTE		=> "Studente",
-                    self::COLLABORATORE	=> "Collaboratore",
-                    self::TUTOR			=> "Tutor",
-                    self::DOCENTE		=> "Docente",
-                    self::PERSONALE		=> "Personale non docente",
-                    self::ADMIN			=> "Admin");
-        }
-        else
-        {
-            return array(
-                    self::OSPITE     => "Ospiti",
-                    self::STUDENTE   => "Studenti",
+        if ($singolare == true) {
+            return array(self::OSPITE => "Ospite",
+                    self::STUDENTE => "Studente",
+                    self::COLLABORATORE => "Collaboratore",
+                    self::TUTOR => "Tutor", self::DOCENTE => "Docente",
+                    self::PERSONALE => "Personale non docente",
+                    self::ADMIN => "Admin");
+        } else {
+            return array(self::OSPITE => "Ospiti",
+                    self::STUDENTE => "Studenti",
                     self::COLLABORATORE => "Collaboratori",
-                    self::TUTOR      => "Tutor",
-                    self::DOCENTE    => "Docenti",
-                    self::PERSONALE  => "Personale non docente",
-                    self::ADMIN      => "Admin");
+                    self::TUTOR => "Tutor", self::DOCENTE => "Docenti",
+                    self::PERSONALE => "Personale non docente",
+                    self::ADMIN => "Admin");
         }
     }
 
@@ -199,24 +191,27 @@ class User implements UserInterface, \Serializable
      * @param array() $bookmark array con elenco dei id_canale dell'utente associati ai rispettivi ruoli
      * @return User
      */
-    public function __construct($id_utente, $groups, $username=NULL, $password=NULL, $email=NULL, $notifica=NULL, $ultimo_login=NULL, $AD_username=NULL, $phone='', $defaultStyle='', $bookmark=NULL, $eliminato = self::NOT_ELIMINATO, $hashedPassword = false)
+    public function __construct($id_utente, $groups, $username = NULL,
+            $password = NULL, $email = NULL, $notifica = NULL,
+            $ultimo_login = NULL, $AD_username = NULL, $phone = '',
+            $defaultStyle = '', $bookmark = NULL,
+            $eliminato = self::NOT_ELIMINATO, $hashedPassword = false)
     {
-        $this->id_utente   = $id_utente;
-        $this->groups      = $groups;
-        $this->username    = trim($username);
-        $this->email       = $email;
-        $this->ADUsername  = $AD_username;
+        $this->id_utente = $id_utente;
+        $this->groups = $groups;
+        $this->username = trim($username);
+        $this->email = $email;
+        $this->ADUsername = $AD_username;
         $this->ultimoLogin = $ultimo_login;
-        $this->notifica    = $notifica;
-        $this->phone	   = $phone;
-        $this->defaultStyle	= $defaultStyle;
-        $this->bookmark    = $bookmark;
-        $this->eliminato	= $eliminato;
+        $this->notifica = $notifica;
+        $this->phone = $phone;
+        $this->defaultStyle = $defaultStyle;
+        $this->bookmark = $bookmark;
+        $this->eliminato = $eliminato;
 
-        if($hashedPassword) {
+        if ($hashedPassword) {
             $this->password = $password;
-        }
-        else {
+        } else {
             $this->updatePassword($password);
         }
     }
@@ -230,7 +225,7 @@ class User implements UserInterface, \Serializable
     {
         return $this->username;
     }
-    
+
     /**
      * Username setter
      * 
@@ -240,7 +235,7 @@ class User implements UserInterface, \Serializable
     public function setUsername($username)
     {
         $this->username = $username;
-        
+
         return $this;
     }
 
@@ -264,12 +259,11 @@ class User implements UserInterface, \Serializable
         $this->notifica = $notifica;
     }
 
-
     /**
-    	* Ritorna l'ID dello User nel database
-    	*
-    	* @return int
-    	*/
+     * Ritorna l'ID dello User nel database
+     *
+     * @return int
+     */
     public function getIdUser()
     {
         return $this->id_utente;
@@ -290,8 +284,6 @@ class User implements UserInterface, \Serializable
         return $this->email;
     }
 
-
-
     /**
      * Imposta la email dello User
      *
@@ -303,7 +295,7 @@ class User implements UserInterface, \Serializable
     {
         $this->setEmail($email);
 
-        if($updateDB) {
+        if ($updateDB) {
             return self::getRepository()->updateEmail($this);
         }
 
@@ -314,7 +306,6 @@ class User implements UserInterface, \Serializable
     {
         $this->email = $email;
     }
-
 
     /**
      * Ritorna lo OR bit a bit dei gruppi di appartenenza dello User
@@ -332,10 +323,8 @@ class User implements UserInterface, \Serializable
     {
         $roles = array();
 
-        foreach(self::$roleConversions as $old => $new)
-        {
-            if(0 !== ($this->groups & $old))
-            {
+        foreach (self::$roleConversions as $old => $new) {
+            if (0 !== ($this->groups & $old)) {
                 $roles[] = $new;
             }
         }
@@ -343,9 +332,9 @@ class User implements UserInterface, \Serializable
         return $roles;
     }
 
-    public function eraseCredentials() {
+    public function eraseCredentials()
+    {
     }
-
 
     /**
      * Imposta il gruppo di appartenenza dello User
@@ -359,7 +348,7 @@ class User implements UserInterface, \Serializable
     {
         $this->setGroups($groups);
 
-        if($updateDB) {
+        if ($updateDB) {
             return self::getRepository()->updateGroups($this);
         }
 
@@ -392,19 +381,17 @@ class User implements UserInterface, \Serializable
     {
         $this->setUltimoLogin($ultimoLogin);
 
-        if($updateDB) {
+        if ($updateDB) {
             return self::getRepository()->updateUltimoLogin($this);
         }
 
         return true;
     }
 
-
     public function setUltimoLogin($ultimoLogin)
     {
         $this->ultimoLogin = $ultimoLogin;
     }
-
 
     /**
      * Ritorna un array contenente gli oggetti Ruolo associati ai canali dell'utente
@@ -413,13 +400,11 @@ class User implements UserInterface, \Serializable
      */
     public function getRuoli()
     {
-        if ($this->bookmark == NULL)
-        {
+        if ($this->bookmark == NULL) {
             $this->bookmark = array();
             $ruoli = Ruolo::selectUserRuoli($this->getIdUser());
             $num_elementi = count($ruoli);
-            for ($i=0; $i<$num_elementi; $i++)
-            {
+            for ($i = 0; $i < $num_elementi; $i++) {
                 $this->bookmark[$ruoli[$i]->getIdCanale()] = $ruoli[$i];
             }
         }
@@ -431,11 +416,10 @@ class User implements UserInterface, \Serializable
      */
     public function getRuoliInfoGroupedByYear($id_canale = null)
     {
-        $user_ruoli = & $this->getRuoli();
+        $user_ruoli = &$this->getRuoli();
         $elenco_canali = array();
         $found = ($id_canale == null);
-        foreach ($user_ruoli as $r)
-        {
+        foreach ($user_ruoli as $r) {
             if ($this->isAdmin() || $r->isReferente()) {
                 $elenco_canali[] = $r->getIdCanale();
 
@@ -445,30 +429,32 @@ class User implements UserInterface, \Serializable
             }
         }
 
-        if(!$found && $this->isAdmin()) $elenco_canali[] = $id_canale;
+        if (!$found && $this->isAdmin())
+            $elenco_canali[] = $id_canale;
 
         $elenco_canali_retrieve = array();
 
-        foreach ($elenco_canali as $id_current_canale)
-        {
+        foreach ($elenco_canali as $id_current_canale) {
             $current_canale = Canale::retrieveCanale($id_current_canale);
             $elenco_canali_retrieve[$id_current_canale] = $current_canale;
-            $didatticaCanale = PrgAttivitaDidattica::factoryCanale($id_current_canale);
+            $didatticaCanale = PrgAttivitaDidattica::factoryCanale(
+                    $id_current_canale);
             //			var_dump($didatticaCanale);
-            $annoCorso = (count($didatticaCanale) > 0)?
-            $didatticaCanale[0]->getAnnoAccademico() : 'altro';
+            $annoCorso = (count($didatticaCanale) > 0) ? $didatticaCanale[0]
+                            ->getAnnoAccademico() : 'altro';
             $nome_current_canale = $current_canale->getTitolo();
             $f7_canale[$annoCorso][$id_current_canale] = array(
                     'nome' => $nome_current_canale,
-                    'spunta' => ($id_canale != null && $id_current_canale == $id_canale)? 'true' : 'false'
-            );
+                    'spunta' => ($id_canale != null
+                            && $id_current_canale == $id_canale) ? 'true'
+                            : 'false');
         }
         krsort($f7_canale);
         $tot = count($f7_canale);
         $list_keys = array_keys($f7_canale);
-        for($i=0; $i<$tot; $i++)
-            //			var_dump($f7_canale[$i]);
-            uasort($f7_canale[$list_keys[$i]], array($this,'_compareCanale'));
+        for ($i = 0; $i < $tot; $i++)
+        //			var_dump($f7_canale[$i]);
+            uasort($f7_canale[$list_keys[$i]], array($this, '_compareCanale'));
         return $f7_canale;
     }
 
@@ -504,13 +490,12 @@ class User implements UserInterface, \Serializable
     {
         $this->setADUsername($ADUsername);
 
-        if($updateDB) {
+        if ($updateDB) {
             return self::getRepository()->updateADUsername($this);
         }
 
         return true;
     }
-
 
     public function setADUsername($ADUsername)
     {
@@ -544,29 +529,22 @@ class User implements UserInterface, \Serializable
      * @param boolean $singolare
      * @return array
      */
-    public static function publicGroupsName( $singolare = true )
+    public static function publicGroupsName($singolare = true)
     {
-        if ( $singolare == true )
-        {
-            return array(
-                    self::OSPITE		=> "Ospite",
-                    self::STUDENTE		=> "Studente",
-                    self::COLLABORATORE	=> "Studente",
-                    self::TUTOR			=> "Tutor",
-                    self::DOCENTE		=> "Docente",
-                    self::PERSONALE		=> "Personale non docente",
-                    self::ADMIN			=> "Studente");
-        }
-        else
-        {
-            return array(
-                    self::OSPITE        => "Ospiti",
-                    self::STUDENTE      => "Studenti",
+        if ($singolare == true) {
+            return array(self::OSPITE => "Ospite",
+                    self::STUDENTE => "Studente",
+                    self::COLLABORATORE => "Studente",
+                    self::TUTOR => "Tutor", self::DOCENTE => "Docente",
+                    self::PERSONALE => "Personale non docente",
+                    self::ADMIN => "Studente");
+        } else {
+            return array(self::OSPITE => "Ospiti",
+                    self::STUDENTE => "Studenti",
                     self::COLLABORATORE => "Studenti",
-                    self::TUTOR         => "Tutor",
-                    self::DOCENTE       => "Docenti",
-                    self::PERSONALE     => "Personale non docente",
-                    self::ADMIN         => "Studenti");
+                    self::TUTOR => "Tutor", self::DOCENTE => "Docenti",
+                    self::PERSONALE => "Personale non docente",
+                    self::ADMIN => "Studenti");
         }
     }
 
@@ -576,7 +554,8 @@ class User implements UserInterface, \Serializable
      * @param string $string
      * @return string
      */
-    public static function passwordHashFunction($string, $salt = '', $algoritmo = 'md5')
+    public static function passwordHashFunction($string, $salt = '',
+            $algoritmo = 'md5')
     {
         return PasswordUtil::passwordHashFunction($string, $salt, $algoritmo);
     }
@@ -608,7 +587,7 @@ class User implements UserInterface, \Serializable
     {
         $this->setNewPassword($password);
 
-        if($updateDB) {
+        if ($updateDB) {
             return self::getRepository()->updatePassword($this);
         }
 
@@ -619,7 +598,10 @@ class User implements UserInterface, \Serializable
     {
         $this->setSalt(self::generateRandomPassword(8));
         $this->setAlgoritmo(self::ALGORITMO_DEFAULT);
-        $this->setPassword(PasswordUtil::passwordHashFunction($password, $this->getSalt(), $this->getAlgoritmo()));
+        $this
+                ->setPassword(
+                        PasswordUtil::passwordHashFunction($password,
+                                $this->getSalt(), $this->getAlgoritmo()));
     }
 
     public function setPassword($password)
@@ -627,13 +609,14 @@ class User implements UserInterface, \Serializable
         $this->password = $password;
     }
 
-    public function matchesPassword($password)
+    public function matchesPassword($password, $updateDB = false)
     {
-        $matches = $this->password == self::passwordHashFunction($password, $this->getSalt(), $this->getAlgoritmo());
+        $matches = $this->password
+                == self::passwordHashFunction($password, $this->getSalt(),
+                        $this->getAlgoritmo());
 
-        if($matches && $this->getAlgoritmo() !== self::ALGORITMO_DEFAULT)
-        {
-            $this->updatePassword($password, true);
+        if ($matches && $this->getAlgoritmo() !== self::ALGORITMO_DEFAULT) {
+            $this->updatePassword($password, $updateDB);
         }
 
         return $matches;
@@ -650,7 +633,6 @@ class User implements UserInterface, \Serializable
         $this->phone = $phome;
     }
 
-
     /**
      * Imposta il nome del template di default
      *
@@ -662,7 +644,6 @@ class User implements UserInterface, \Serializable
         $this->defaultStyle = $defaultStyle;
     }
 
-
     /**
      * Imposta i diritti per l'accesso ai servizi di interazione
      *
@@ -673,7 +654,6 @@ class User implements UserInterface, \Serializable
     {
         $this->ban = $ban;
     }
-
 
     /**
      * Ritorna true se ad un utente ? impedito l'accesso ai servizi di interazione,
@@ -696,7 +676,6 @@ class User implements UserInterface, \Serializable
         return $this->eliminato == self::ELIMINATO;
     }
 
-
     /**
      * Imposta l'utente come eliminato. NB questa modifica non viene salvata
      * automaticamente nel db. Bisogna invocare updateUser
@@ -705,7 +684,8 @@ class User implements UserInterface, \Serializable
      */
     public function setEliminato($elimina = true)
     {
-        return ($this->eliminato = ($elimina) ? self::ELIMINATO : self::NOT_ELIMINATO);
+        return ($this->eliminato = ($elimina) ? self::ELIMINATO
+                : self::NOT_ELIMINATO);
     }
 
     /**
@@ -714,14 +694,13 @@ class User implements UserInterface, \Serializable
      *
      * @return boolean
      */
-    public function isAdmin( $groups = NULL )
+    public function isAdmin($groups = NULL)
     {
-        if ( $groups == NULL ) $groups = $this->getGroups();
+        if ($groups == NULL)
+            $groups = $this->getGroups();
 
-        return (boolean) ( (int)$groups & (int)self::ADMIN );
+        return (boolean) ((int) $groups & (int) self::ADMIN);
     }
-
-
 
     /**
      * Se chiamata senza parametri ritorna true se l'utente corrente appartiene al gruppo Personale.
@@ -729,14 +708,13 @@ class User implements UserInterface, \Serializable
      *
      * @return boolean
      */
-    public function isPersonale( $groups = NULL )
+    public function isPersonale($groups = NULL)
     {
-        if ( $groups == NULL ) $groups = $this->getGroups();
+        if ($groups == NULL)
+            $groups = $this->getGroups();
 
-        return (boolean) ( (int)$groups & (int)self::PERSONALE );
+        return (boolean) ((int) $groups & (int) self::PERSONALE);
     }
-
-
 
     /**
      * Se chiamata senza parametri ritorna true se l'utente corrente appartiene al gruppo Docente.
@@ -745,14 +723,13 @@ class User implements UserInterface, \Serializable
      * @static
      * @return boolean
      */
-    public function isDocente( $groups = NULL )
+    public function isDocente($groups = NULL)
     {
-        if ( $groups == NULL ) $groups = $this->getGroups();
+        if ($groups == NULL)
+            $groups = $this->getGroups();
 
-        return (boolean) ( (int)$groups & (int)self::DOCENTE );
+        return (boolean) ((int) $groups & (int) self::DOCENTE);
     }
-
-
 
     /**
      * Se chiamata senza parametri ritorna true se l'utente corrente appartiene al gruppo Tutor.
@@ -761,14 +738,13 @@ class User implements UserInterface, \Serializable
      * @static
      * @return boolean
      */
-    public function isTutor( $groups = NULL )
+    public function isTutor($groups = NULL)
     {
-        if ( $groups == NULL ) $groups = $this->getGroups();
+        if ($groups == NULL)
+            $groups = $this->getGroups();
 
-        return (boolean) ( $groups & self::TUTOR );
+        return (boolean) ($groups & self::TUTOR);
     }
-
-
 
     /**
      * Se chiamata senza parametri ritorna true se l'utente corrente appartiene al gruppo Moderatori.
@@ -777,14 +753,13 @@ class User implements UserInterface, \Serializable
      * @static
      * @return boolean
      */
-    public function isCollaboratore( $groups = NULL )
+    public function isCollaboratore($groups = NULL)
     {
-        if ( $groups == NULL ) $groups = $this->getGroups();
+        if ($groups == NULL)
+            $groups = $this->getGroups();
 
-        return (boolean) ( (int)$groups & (int)self::COLLABORATORE );
+        return (boolean) ((int) $groups & (int) self::COLLABORATORE);
     }
-
-
 
     /**
      * Se chiamata senza parametri ritorna true se l'utente corrente appartiene al gruppo Studenter.
@@ -793,14 +768,13 @@ class User implements UserInterface, \Serializable
      * @static
      * @return boolean
      */
-    public function isStudente( $groups = NULL )
+    public function isStudente($groups = NULL)
     {
-        if ( $groups == NULL ) $groups = $this->getGroups();
+        if ($groups == NULL)
+            $groups = $this->getGroups();
 
-        return (boolean) ( $groups & self::STUDENTE );
+        return (boolean) ($groups & self::STUDENTE);
     }
-
-
 
     /**
      * Se chiamata senza parametri ritorna true se l'utente corrente appartiene al gruppo Ospite.
@@ -810,15 +784,15 @@ class User implements UserInterface, \Serializable
      * @static
      * @return boolean
      */
-    public function isOspite( $groups = NULL )
+    public function isOspite($groups = NULL)
     {
-        if ( $groups == NULL ) $groups = $this->getGroups();
+        if ($groups == NULL)
+            $groups = $this->getGroups();
 
-        if ( $groups == self::OSPITE ) return true;
+        if ($groups == self::OSPITE)
+            return true;
         return false;
     }
-
-
 
     /**
      * Restituisce l'array dell'elenco dei nomi dei gruppi
@@ -828,25 +802,30 @@ class User implements UserInterface, \Serializable
      * @param boolean $singolare
      * @return array
      */
-    public function getUserGroupsNames( $singolare = true )
+    public function getUserGroupsNames($singolare = true)
     {
         $nomi_gruppi = self::groupsNames($singolare);
         $return = array();
 
-        if ($this->isOspite())			$return[]=$nomi_gruppi[self::OSPITE];
-        if ($this->isStudente())		$return[]=$nomi_gruppi[self::STUDENTE];
-        if ($this->isCollaboratore())	$return[]=$nomi_gruppi[self::COLLABORATORE];
-        if ($this->isTutor())			$return[]=$nomi_gruppi[self::TUTOR];
-        if ($this->isDocente())			$return[]=$nomi_gruppi[self::DOCENTE];
-        if ($this->isPersonale())		$return[]=$nomi_gruppi[self::PERSONALE];
-        if ($this->isAdmin())			$return[]=$nomi_gruppi[self::ADMIN];
+        if ($this->isOspite())
+            $return[] = $nomi_gruppi[self::OSPITE];
+        if ($this->isStudente())
+            $return[] = $nomi_gruppi[self::STUDENTE];
+        if ($this->isCollaboratore())
+            $return[] = $nomi_gruppi[self::COLLABORATORE];
+        if ($this->isTutor())
+            $return[] = $nomi_gruppi[self::TUTOR];
+        if ($this->isDocente())
+            $return[] = $nomi_gruppi[self::DOCENTE];
+        if ($this->isPersonale())
+            $return[] = $nomi_gruppi[self::PERSONALE];
+        if ($this->isAdmin())
+            $return[] = $nomi_gruppi[self::ADMIN];
 
         return $return;
 
     }
 
-
-
     /**
      * Restituisce l'array dell'elenco dei nomi dei gruppi
      * a cui appartiene una persona
@@ -855,20 +834,25 @@ class User implements UserInterface, \Serializable
      * @param boolean $singolare
      * @return array
      */
-    public function getUserPublicGroupName( $singolare = true )
+    public function getUserPublicGroupName($singolare = true)
     {
         $nomi_gruppi = self::publicGroupsName($singolare);
 
-
-        if ($this->isOspite())			return $nomi_gruppi[self::OSPITE];
-        if ($this->isStudente())		return $nomi_gruppi[self::STUDENTE];
-        if ($this->isCollaboratore())	return $nomi_gruppi[self::COLLABORATORE];
-        if ($this->isTutor())			return $nomi_gruppi[self::TUTOR];
-        if ($this->isDocente())			return $nomi_gruppi[self::DOCENTE];
-        if ($this->isPersonale())		return $nomi_gruppi[self::PERSONALE];
-        if ($this->isAdmin())			return $nomi_gruppi[self::ADMIN];
+        if ($this->isOspite())
+            return $nomi_gruppi[self::OSPITE];
+        if ($this->isStudente())
+            return $nomi_gruppi[self::STUDENTE];
+        if ($this->isCollaboratore())
+            return $nomi_gruppi[self::COLLABORATORE];
+        if ($this->isTutor())
+            return $nomi_gruppi[self::TUTOR];
+        if ($this->isDocente())
+            return $nomi_gruppi[self::DOCENTE];
+        if ($this->isPersonale())
+            return $nomi_gruppi[self::PERSONALE];
+        if ($this->isAdmin())
+            return $nomi_gruppi[self::ADMIN];
     }
-
 
     /**
      * Restituisce true se lo username specificato ? gi? registrato sul DB
@@ -882,13 +866,12 @@ class User implements UserInterface, \Serializable
         return self::getRepository()->usernameExists($username, $caseSensitive);
     }
 
-
     /**
      * Crea un oggetto utente collaboratore
      *
      * @static
      * to do
-         * @return mixed User se eseguita con successo, false se l'utente non esiste
+     * @return mixed User se eseguita con successo, false se l'utente non esiste
      */
     public function selectAllCollaboratori()
     {
@@ -899,12 +882,15 @@ class User implements UserInterface, \Serializable
      * @param array	lista dei ruoli di cui si vogliono sapere gli appartenenti
      * @return array array di lista di IdUser per ogni gruppo specificato
      */
-    public static function getIdUsersFromDesiredGroups($arrayWithDesiredGroupsConstant)
+    public static function getIdUsersFromDesiredGroups(
+            $arrayWithDesiredGroupsConstant)
     {
-        if(!is_array($arrayWithDesiredGroupsConstant) || count($arrayWithDesiredGroupsConstant) === 0)
+        if (!is_array($arrayWithDesiredGroupsConstant)
+                || count($arrayWithDesiredGroupsConstant) === 0)
             return array();
 
-        return self::getRepository()->getIdUsersFromDesiredGroups($arrayWithDesiredGroupsConstant);
+        return self::getRepository()
+                ->getIdUsersFromDesiredGroups($arrayWithDesiredGroupsConstant);
     }
 
     /**
@@ -917,13 +903,10 @@ class User implements UserInterface, \Serializable
      */
     public static function selectUser($id_utente)
     {
-        if ($id_utente == 0)
-        {
-            $user = new User(0,self::OSPITE);
+        if ($id_utente == 0) {
+            $user = new User(0, self::OSPITE);
             return $user;
-        }
-        elseif ($id_utente > 0)
-        {
+        } elseif ($id_utente > 0) {
             return self::getRepository()->find($id_utente);
         }
     }
@@ -983,7 +966,8 @@ class User implements UserInterface, \Serializable
      */
     public static function activeDirectoryUsernameExists($adUsername)
     {
-        return self::getRepository()->activeDirectoryUsernameExists($adUsername);
+        return self::getRepository()
+                ->activeDirectoryUsernameExists($adUsername);
     }
 
     /**
@@ -1006,7 +990,7 @@ class User implements UserInterface, \Serializable
      */
     public function isGroupAllowed($groups)
     {
-        return (boolean) ((int)$this->groups & (int)$groups);
+        return (boolean) ((int) $this->groups & (int) $groups);
     }
 
     /**
@@ -1030,7 +1014,8 @@ class User implements UserInterface, \Serializable
      * @param string $ad_password password dell'utente
      * @return boolean
      */
-    public static function activeDirectoryLogin($username, $domain, $password, $host, $port)
+    public static function activeDirectoryLogin($username, $domain, $password,
+            $host, $port)
     {
         $login = new ActiveDirectoryLogin($host, $port);
         return $login->authenticate($username, $domain, $password);
@@ -1077,38 +1062,33 @@ class User implements UserInterface, \Serializable
      */
     private static function getRepository()
     {
-        if(is_null(self::$repository))
-        {
-            self::$repository = new DBUserRepository(FrontController::getDbConnection('main'));
+        if (is_null(self::$repository)) {
+            self::$repository = new DBUserRepository(
+                    FrontController::getDbConnection('main'));
         }
         return self::$repository;
     }
 
     public function serialize()
     {
-        $data = array(
-                'id_utente'    => $this->id_utente,
-                'username'     => $this->username,
-                'password'     => $this->password,
-                'ultimoLogin'  => $this->ultimoLogin,
-                'bookmark'     => $this->bookmark,
-                'ADUsername'   => $this->ADUsername,
-                'groups'       => $this->groups,
-                'notifica'     => $this->notifica,
-                'ban'          => $this->ban,
-                'phone'        => $this->phone,
+        $data = array('id_utente' => $this->id_utente,
+                'username' => $this->username,
+                'password' => $this->password,
+                'ultimoLogin' => $this->ultimoLogin,
+                'bookmark' => $this->bookmark,
+                'ADUsername' => $this->ADUsername,
+                'groups' => $this->groups, 'notifica' => $this->notifica,
+                'ban' => $this->ban, 'phone' => $this->phone,
                 'defaultStyle' => $this->defaultStyle,
-                'eliminato'    => $this->eliminato,
-                'algoritmo'    => $this->algoritmo,
-                'salt'         => $this->salt
-        );
+                'eliminato' => $this->eliminato,
+                'algoritmo' => $this->algoritmo, 'salt' => $this->salt);
 
         return serialize($data);
     }
 
     public function unserialize($data)
     {
-        foreach(unserialize($data) as $key => $value) {
+        foreach (unserialize($data) as $key => $value) {
             $this->$key = $value;
         }
     }

@@ -34,7 +34,7 @@ class InteractiveCommandHandler extends UniversiboCommand {
 		
 		//se esiste user in $_SESSION o siamo giunti dal login, o siamo nel bel mezzo di una interazione a step. 
 		// VERIFY decidere se lanciare un errore o meno
-		if(!isset($_SESSION['user'])) FrontController::redirectCommand();
+		if(!isset($_SESSION['user'])) $fc->redirectCommand();
 		$this->userLogin = unserialize($_SESSION['user']);
 
 		$referer = (array_key_exists('referer',$_SESSION)) ? 
@@ -59,12 +59,12 @@ class InteractiveCommandHandler extends UniversiboCommand {
 			$forum->login($this->userLogin);
 			
 			if ( !strstr($referer, 'forum')&& ( !strstr($referer, 'do') || strstr($referer, 'do=ShowHome')  || strstr($referer, 'do=ShowError') || strstr($referer, 'do=Login') || strstr($referer, 'do=RegStudente'))) {
-				FrontController::redirectCommand('ShowMyUniversiBO');
+				$fc->redirectCommand('ShowMyUniversiBO');
 			}
 			else if (strstr($referer, 'forum'))
-				FrontController::redirectUri($forum->getMainUri());
+				$fc->redirectUri($forum->getMainUri());
 			else
-				FrontController::redirectUri($referer);
+				$fc->redirectUri($referer);
 		}
 		
 		
@@ -118,7 +118,7 @@ perche` impedisce il login agli utenti
 			session_destroy();
 			session_start();
 			// TODO messaggio di errore per spiegare che � obbligatorio accettare?
-			FrontController::redirectUri($referer);
+			$fc->redirectUri($referer);
 		}	
 		
 		//  Elimino dalla lista gli step cancellati dall'utente e quelli completati con successo
@@ -147,7 +147,7 @@ perche` impedisce il login agli utenti
 	{
 		unset($activeSteps[key($activeSteps)]);
 		$_SESSION['activeSteps'] = $activeSteps;
-		FrontController::redirectCommand('InteractiveCommandHandler');
+		$this->getFrontController()->redirectCommand('InteractiveCommandHandler');
 	}
 	
 	/**
@@ -247,7 +247,7 @@ perche` impedisce il login agli utenti
 	 */
 	function getCompletedInteractiveCommandByUser() 
 	{
-		$db = FrontController::getDbConnection('main');
+		$db = $this->getFrontController()->getDbConnection('main');
 		$user =  unserialize($_SESSION['user']);
 		
 		$query = 'SELECT id_step, nome_classe FROM  	step_log 
