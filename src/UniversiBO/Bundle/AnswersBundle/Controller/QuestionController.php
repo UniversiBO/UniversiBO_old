@@ -1,7 +1,6 @@
 <?php
 
 namespace UniversiBO\Bundle\AnswersBundle\Controller;
-
 use UniversiBO\Bundle\AnswersBundle\Entity\Question;
 
 use UniversiBO\Bundle\AnswersBundle\Form\QuestionType;
@@ -21,7 +20,7 @@ class QuestionController extends Controller
         $form = $this->createForm(new QuestionType());
         return array('form' => $form->createView());
     }
-    
+
     /**
      * @Route("/question/create", name="ua_question_create")
      * @Template()
@@ -30,5 +29,11 @@ class QuestionController extends Controller
     {
         $question = new Question();
         $form = $this->createForm(new QuestionType(), $question);
+
+        $form->bindRequest($this->getRequest());
+        
+        if ($form->isValid()) {
+
+        }
     }
 }

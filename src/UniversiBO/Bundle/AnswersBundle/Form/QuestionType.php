@@ -9,10 +9,9 @@ class QuestionType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-                ->add('category', 'choice',
-                        array('choices' => array('ciao', 'mondo'),
-                                'multiple' => false))->add('title')
-                ->add('description');
+                ->add('category', 'entity',
+                        array('class' => 'UniversiBOAnswersBundle:Category'))
+                ->add('title')->add('description', 'textarea');
     }
 
     public function getName()
