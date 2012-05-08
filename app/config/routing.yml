@@ -1,3 +1,8 @@
+UniversiBOAnswersBundle:
+    resource: "@UniversiBOAnswersBundle/Controller/"
+    type:     annotation
+    prefix:   /answers
+
 UniversiBOLifeChatBundle:
     resource: "@UniversiBOLifeChatBundle/Controller/"
     type:     annotation

@@ -21,6 +21,7 @@ class AppKernel extends Kernel
                 new UniversiBO\Bundle\LegacyBundle\UniversiBOLegacyBundle(),
                 new UniversiBO\Bundle\DidacticsBundle\UniversiBODidacticsBundle(),
             new UniversiBO\Bundle\LifeChatBundle\UniversiBOLifeChatBundle(),
+            new UniversiBO\Bundle\AnswersBundle\UniversiBOAnswersBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
