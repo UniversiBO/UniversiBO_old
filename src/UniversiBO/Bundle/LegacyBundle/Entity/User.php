@@ -584,7 +584,7 @@ class User implements UserInterface, \Serializable
     /**
      * Ritorna l'hash MD5 della password dell'utente
      *
-     * @deprecated
+     * @deprecated use {getPassword()} instead
      * @return string
      */
     public function getPasswordHash()
@@ -597,6 +597,13 @@ class User implements UserInterface, \Serializable
         return $this->password;
     }
 
+    /**
+     * @todo make it Legacy Free
+     * 
+     * @param string $password
+     * @param boolean $updateDB
+     * @return boolean
+     */
     public function updatePassword($password, $updateDB = false)
     {
         $this->setNewPassword($password);
