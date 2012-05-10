@@ -7,8 +7,7 @@ class AppKernel extends Kernel
 {
     public function registerBundles()
     {
-        $bundles = array(
-                new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+        $bundles = array(new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
                 new Symfony\Bundle\SecurityBundle\SecurityBundle(),
                 new Symfony\Bundle\TwigBundle\TwigBundle(),
                 new Symfony\Bundle\MonologBundle\MonologBundle(),
@@ -19,10 +18,7 @@ class AppKernel extends Kernel
                 //new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
                 new UniversiBO\Bundle\WebsiteBundle\UniversiBOWebsiteBundle(),
                 new UniversiBO\Bundle\LegacyBundle\UniversiBOLegacyBundle(),
-                new UniversiBO\Bundle\DidacticsBundle\UniversiBODidacticsBundle(),
-            new UniversiBO\Bundle\LifeChatBundle\UniversiBOLifeChatBundle(),
-            new UniversiBO\Bundle\AnswersBundle\UniversiBOAnswersBundle(),
-        );
+                new UniversiBO\Bundle\DidacticsBundle\UniversiBODidacticsBundle(),);
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
@@ -35,6 +31,7 @@ class AppKernel extends Kernel
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
+        $loader->load(__DIR__ . '/config/config_' . $this->getEnvironment()
+                        . '.yml');
     }
 }

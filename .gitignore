@@ -5,6 +5,6 @@ app/logs
 app/phpunit.xml
 nbproject
 universibo/file-universibo
-htmls/bundles
+/htmls/bundles
 composer.lock
 vendor
