@@ -422,7 +422,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
     {
         $db = $this->getDb();
 
-        $query = 'SELECT id_utente, password, email, ultimo_login, ad_username, groups, notifica, phone, default_style, sospeso, algoritmo, salt  FROM utente WHERE username = '
+        $query = 'SELECT id_utente, password, email, ultimo_login, ad_username, groups, notifica, phone, default_style, sospeso, algoritmo, salt  FROM utente WHERE username ILIKE '
                 . $db->quote($username);
         $res = $db->query($query);
         if (\DB::isError($res))
