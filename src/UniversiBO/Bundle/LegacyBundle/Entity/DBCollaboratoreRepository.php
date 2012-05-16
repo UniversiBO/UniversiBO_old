@@ -1,5 +1,6 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Entity;
+use Zend\GData\App\Extension\Icon;
 
 use \DB;
 use \Error;
@@ -26,39 +27,59 @@ class DBCollaboratoreRepository extends DBRepository
     {
         $db = $this->getDb();
 
-        $query = 'SELECT id_utente,	intro, recapito, obiettivi, foto, ruolo FROM collaboratore WHERE id_utente = '.$db->quote($id);
+        $query = 'SELECT id_utente,	intro, recapito, obiettivi, foto, ruolo FROM collaboratore WHERE id_utente = '
+                . $db->quote($id);
         $res = $db->query($query);
         if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            Error::throwError(_ERROR_CRITICAL,
+                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
+                            'line' => __LINE__));
 
         $rows = $res->numRows();
-        if( $rows == 0) return false;
+        if ($rows == 0)
+            return false;
 
-        $row = $res->fetchRow();
-        $collaboratore = new Collaboratore($row[0], $row[1], $row[2], $row[3], $row[4], $row[5]);
+        $row = $this->fetchRow($res);
 
+        $collaboratore = new Collaboratore($row[0], $row[1], $row[2], $row[3],
+                $row[4], $row[5]);
 
+        $userRepo = new DBUserRepository($db);
+
+        if (($user = $userRepo->find($collaboratore->getIdUser())) instanceof User) {
+            $collaboratore->setUser($user);
+        }
+        
         return $collaboratore;
     }
 
-    public function findAll()
+    public function findAll($shownOnly = false)
     {
         $db = $this->getDb();
 
+        $userRepo = new DBUserRepository($db);
+
         $query = 'SELECT id_utente,	intro, recapito, obiettivi, foto, ruolo FROM collaboratore';
+
+        if ($shownOnly) {
+            $query .= ' WHERE show = ' . $db->quote('Y');
+        }
+
         $res = $db->query($query);
         if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            Error::throwError(_ERROR_CRITICAL,
+                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
+                            'line' => __LINE__));
 
         $rows = $res->numRows();
 
         $collaboratori = array();
 
-        while($row = $res->fetchRow())
-        {
-            $collaboratori[] = new Collaboratore($row[0], $row[1], $row[2], $row[3], $row[4], $row[5]);
+        while ($row = $this->fetchRow($res)) {
+            $collaboratori[] = $collab = new Collaboratore($row[0], $row[1],
+                    $row[2], $row[3], $row[4], $row[5]);
+            $collab->setUser($userRepo->find($collab->getIdUser()));
         }
-
 
         return $collaboratori;
     }
@@ -70,20 +91,22 @@ class DBCollaboratoreRepository extends DBRepository
         $return = true;
 
         //TODO fare inserimento solo se non già presente
-        $query = 'INSERT INTO collaboratore (id_utente, intro, recapito, obiettivi, foto, ruolo) VALUES '.
-                '( '.
-                $db->quote($collaboratore->getIdUtente()).' , '.
-                $db->quote($collaboratore->getIntro()).' , '.
-                $db->quote($collaboratore->getRecapito()).' , '.
-                $db->quote($collaboratore->getObiettivi()).' , '.
-                $db->quote($collaboratore->getFotoFilename()).' , '.
-                $db->quote($collaboratore->getRuolo()).' )';
+        $query = 'INSERT INTO collaboratore (id_utente, intro, recapito, obiettivi, foto, ruolo) VALUES '
+                . '( ' . $db->quote($collaboratore->getIdUtente()) . ' , '
+                . $db->quote($collaboratore->getIntro()) . ' , '
+                . $db->quote($collaboratore->getRecapito()) . ' , '
+                . $db->quote($collaboratore->getObiettivi()) . ' , '
+                . $db->quote($collaboratore->getFotoFilename()) . ' , '
+                . $db->quote($collaboratore->getRuolo()) . ' )';
 
         $res = $db->query($query);
         //var_dump($query);
-        if (DB::isError($res)){
+        if (DB::isError($res)) {
             $db->rollback();
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this
+                    ->throwError('_ERROR_CRITICAL',
+                            array('msg' => DB::errorMessage($res),
+                                    'file' => __FILE__, 'line' => __LINE__));
         }
 
         $db->commit();

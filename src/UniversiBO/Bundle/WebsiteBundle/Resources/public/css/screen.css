@@ -15,6 +15,31 @@ a {
 	color: #248;
 }
 
+.staffbox-head {
+	text-align: center;
+}
+
+.staffbox,.staffbox-home {
+	border: 1px solid;
+	margin-bottom: 10px;
+}
+
+.staffbox-home {
+	width: 200px;
+	height: 220px;
+	float: left;
+	margin-right: 5px;
+}
+
+.staffbox-img {
+	float: left;
+	margin-right: 10px;
+}
+
+.staffbox-picture {
+	display: inline;
+}
+
 .rulebox {
 	font-size: small;
 	padding: 4px;
@@ -23,7 +48,7 @@ a {
 	overflow-y: scroll;
 	background-color: #FFF;
 	color: #000;
-	border: 1px dashed;
+	border: 1px solid;
 	overflow-y: scroll;
 }
 
@@ -34,7 +59,7 @@ a {
 	margin: 5px;
 }
 
-.sidebox-head {
+.sidebox-head,.staffbox-head {
 	border-bottom: 1px solid;
 }
 
@@ -53,18 +78,13 @@ a {
 	text-decoration: none;
 }
 
+#top-menu a:hover {
+	color: #bbd;
+	text-decoration: none;
+}
+
 #spacer {
 	height: 30px;
-}
-
-#home-main h3 {
-	margin: 5px;
-	padding: 5px;
-	text-align: center;
-}
-
-#home-main p {
-	padding: 5px;
 }
 
 #header,#footer,.sidebox-head,#home-main h3 {
@@ -103,8 +123,7 @@ a {
 	font-weight: bold;
 	padding: 8px;
 	height: 10px;
-	border: 1px black dotted;
-	border-radius: 12px;
+	border: 1px black solid;
 	background-color: #25C;
 }
 

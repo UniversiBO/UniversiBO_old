@@ -1,0 +1,1 @@
+ALTER TABLE "collaboratore" ADD COLUMN "show" character(1) NOT NULL DEFAULT 'N';
