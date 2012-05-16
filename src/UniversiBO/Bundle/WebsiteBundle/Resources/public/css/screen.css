@@ -19,7 +19,7 @@ a {
 	text-align: center;
 }
 
-.staffbox, .staffbox-home {
+.staffbox,.staffbox-home {
 	border: 1px solid;
 	margin-bottom: 10px;
 }
@@ -36,7 +36,7 @@ a {
 	margin-right: 10px;
 }
 
-.staffbox-picture{
+.staffbox-picture {
 	display: inline;
 }
 
@@ -75,6 +75,11 @@ a {
 
 #header a,#top-menu a {
 	color: #eef;
+	text-decoration: none;
+}
+
+#top-menu a:hover {
+	color: #bbd;
 	text-decoration: none;
 }
 

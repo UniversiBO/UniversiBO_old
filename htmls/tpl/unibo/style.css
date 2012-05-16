@@ -1,5 +1,4 @@
-body
-{
+body {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	background: white;
 	font-size: 13px;
@@ -8,65 +7,65 @@ body
 }
 
 /* si gentile con netscape*/
-p, td, ul, ol, ul, li, dl, dt, dd, a
-{
+p,td,ul,ol,ul,li,dl,dt,dd,a {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 13px;
 }
 
 /* usato anche nelle liste javascript */
-li .selectedItem
-{
+li .selectedItem {
 	background: url("freccia.gif") no-repeat;
-	background-position: -.3em .3em 
+	background-position: -.3em .3em
 }
 
-hr
-{
+hr {
 	border-style: none;
 	border-top: dotted 2px #999;
 	margin: 30px 0 10px;
 }
-a {color: #386dce; /*padding: 1px; border: 1px;*/}
-a:hover, a:focus {color: #00e;}
 
-img
-{
+a {
+	color: #386dce; /*padding: 1px; border: 1px;*/
+}
+
+a:hover,a:focus {
+	color: #00e;
+}
+
+img {
 	margin: 0;
 	border: 0 none;
 	padding: 0;
 }
 
-h4
-{
+h4 {
 	font-size: 13px;
 }
 
-form input{
+form input {
 	font-size: 11px;
 	height: 13px;
 	border: solid 1px #999;
 }
 
-form textarea{
+form textarea {
 	font-size: 11px;
 	height: 80px;
 	width: 350px;
 	border: solid 1px #999;
 }
 
-form input.submit{
+form input.submit {
 	font-size: 11px;
 	height: 17px;
 	border: solid 1px #999;
 }
 
-form fieldset 
-{
+form fieldset {
 	margin: 12px 0;
 }
-form p
-{
+
+form p {
 	vertical-align: top;
 	clear: both;
 }
@@ -77,8 +76,7 @@ form fieldset .casella
 	text-align: left;
 	display: inline;	
 }*/
-form .label
-{
+form .label {
 	float: left;
 	width: 90px;
 	padding-right: 15px !important;
@@ -87,20 +85,16 @@ form .label
 }
 
 /**
- *	Tips per accessibilità
+ *	Tips per accessibilitï¿½
  */
-
-.hide
-{
+.hide {
 	display: none !important;
 }
 
 /** 
  *	Testata
  */
-
-#header
-{
+#header {
 	background: #0006c2;
 	padding: 0;
 	margin: 0;
@@ -108,36 +102,36 @@ form .label
 	float: left;
 	width: 100%;
 }
-td>#header		/* questa regola viene ignorata da exploder*/
-{
+
+td>#header /* questa regola viene ignorata da exploder*/ {
 	min-width: 715px;
 }
 
-#header a img
-{
+#header a img {
 	background: white;
 	margin: 0 !important;
-	border: 0 none !important;position: absolute;
+	border: 0 none !important;
+	position: absolute;
 	left: 0;
 	top: 0;
 }
-#header #logo
-{
+
+#header #logo {
 	margin: 0 !important;
-	border: 0 none !important;position: relative;
+	border: 0 none !important;
+	position: relative;
 	left: 200px;
 	top: 0;
 }
 
-#header p, #header a, #menubar p, #menubar a
-{
+#header p,#header a,#menubar p,#menubar a {
 	color: #fff;
 	clear: none;
 	display: inline;
 	padding: 0;
 	margin: 0 !important;
 	border: 0 none !important;
-	font-size: 10px ;
+	font-size: 10px;
 }
 
 /*#Info
@@ -149,33 +143,28 @@ td>#header		/* questa regola viene ignorata da exploder*/
 	font-weight: bold;
 }
 */
-
-#menubar
-{
+#menubar {
 	clear: left;
 	background: #888;
 	margin: 0;
 	padding: 2px 0 4px;
 	width: 100%;
-	vertical-align: middle;	
+	vertical-align: middle;
 }
 
-#menubar a:hover, #menubar a:focus
-{
+#menubar a:hover,#menubar a:focus {
 	background-color: #faffa0;
 	color: #386dce;
 	/*border: 1px solid #707700;*/
 }
 
-#Menu
-{
+#Menu {
 	position: relative;
 	left: 202px;
 	font-weight: bold;
 }
 
-#header .TimeInfo
-{
+#header .TimeInfo {
 	font-size: 11px;
 	position: absolute;
 	right: 10px;
@@ -183,37 +172,31 @@ td>#header		/* questa regola viene ignorata da exploder*/
 	padding: 3px 2px 0 0;
 }
 
-
-#header ul.hide
-{
+#header ul.hide {
 	position: absolute;
 	left: 810px;
 	display: block !important;
 	top: 2px;
 	padding: .7em 0;
-	list-style-type: none !important; 
+	list-style-type: none !important;
 	color: #0006c2 !important;
 	background: #0006c2 !important;
 	/*overflow: visible;*/
 }
 
-#header ul.hide a, #header ul.hide li
-{
-	/*overflow: visible;*/
+#header ul.hide a,#header ul.hide li { /*overflow: visible;*/
 	font-size: 0px;
 	color: #0006c2 !important;
 	background: #0006c2 !important;
 }
 
-#header ul.hide a:hover
-{
+#header ul.hide a:hover {
 	/*Con la seguente regola il mouse dovrebbe mostrare sempre lo stesso puntatore
-	anche se però c'è un po' di flickering in firefox*/
+	anche se perï¿½ c'ï¿½ un po' di flickering in firefox*/
 	cursor: default;
 }
 
-#header ul.hide a:focus
-{
+#header ul.hide a:focus {
 	display: block;
 	font-size: 11px;
 	color: #0006c2 !important;
@@ -223,54 +206,47 @@ td>#header		/* questa regola viene ignorata da exploder*/
 /** 
  *	Menu navigazione
  */
-
-#leftmenu
-{
+#leftmenu {
 	width: 200px;
 	background: white url(pixel.gif) repeat;
 	padding: 1.4em 0 0;
-	border-bottom:dotted 2px #999;
+	border-bottom: dotted 2px #999;
 }
-	
-td.evidenzia{
+
+td.evidenzia {
 	border-right: solid 1px #999;
 }
 
-#leftmenu a
-{
+#leftmenu a {
 	color: #333;
 	font-size: 11px;
 	text-decoration: none;
 	display: block !important;
-	width: 100%;	
+	width: 100%;
 }
 
-#leftmenu a:hover, #leftmenu a:focus
-{
+#leftmenu a:hover,#leftmenu a:focus {
 	background-color: #ccc;
 }
 
-#leftmenu li
-{
+#leftmenu li {
 	margin-left: 20px;
 	margin-bottom: 2px;
 	font-size: 11px;
 }
 
-#Qui
-{
+#Qui {
 	margin-left: 0 !important;
 	overflow: visible;
 	width: 100%;
 	background: #ccc url(navig_freccia.gif) no-repeat left;
 }
-#leftmenu li#Qui a
-{
+
+#leftmenu li#Qui a {
 	margin-left: 20px;
 }
 
-#leftmenu ul
-{
+#leftmenu ul {
 	list-style-type: none;
 	padding: 0 0 2px;
 	margin: 0 0 4px;
@@ -278,60 +254,51 @@ td.evidenzia{
 	border-bottom: dotted 2px #999;
 }
 
-#leftmenu ul li ul li a, #leftmenu ul li ul li, #leftmenu ul li ul
-{
+#leftmenu ul li ul li a,#leftmenu ul li ul li,#leftmenu ul li ul {
 	font-weight: normal;
 	margin-left: 0;
-	border-bottom: 0; 
+	border-bottom: 0;
 	padding: 1px 0;
 }
 
-.lastElemento
-{
+.lastElemento {
 	border: 0 !important;
 	margin-bottom: 0 !important;
 }
 
-
-#rightmenu
-{
+#rightmenu {
 	margin-right: 10px;
-	padding: 0;/*
+	padding: 0; /*
 	width: 170px;*/
 }
 
-#versione
-{
+#versione {
 	text-align: center;
 	color: #666;
 }
 /**
  * Pagina centrale
  */
-
-#seiIn
-{
+#seiIn {
 	display: block;
 	margin: .4em 0 0 .3em;
-	padding:0;
+	padding: 0;
 	font-size: 11px;
 	color: #333;
 }
-#seiIn a
-{
+
+#seiIn a {
 	color: #333;
 	font-style: oblique;
 }
 
-#content
-{
+#content {
 	margin: 10px 20px 10px 30px;
 	text-align: center;
 	padding: 0;
 }
 
-#content h1
-{
+#content h1 {
 	display: block;
 	font-size: 15px;
 	font-weight: bold;
@@ -340,9 +307,7 @@ td.evidenzia{
 	margin: 3px;
 }
 
-#content h2, #content h2 a
-{
-/*	margin-top: 30px;
+#content h2,#content h2 a { /*	margin-top: 30px;
 	border-top: dotted 2px #999;
 	padding-top: 10px;*/
 	display: block;
@@ -352,38 +317,39 @@ td.evidenzia{
 	clear: left;
 	color: #386dce;
 	text-align: left;
-	font-family: Georgia, "New Century Schoolbook", "Bitstream Vera Serif", Utopia, "Times New Roman", times, serif;
+	font-family: Georgia, "New Century Schoolbook", "Bitstream Vera Serif",
+		Utopia, "Times New Roman", times, serif;
 }
-#content>h2, #content>h2 a {margin-left: 5%;}
-#content th
-{
+
+#content>h2,#content>h2 a {
+	margin-left: 5%;
+}
+
+#content th {
 	background-color: #ccc;
 	padding: 2px 4px;
 }
 
-#content span p
-{
-	margin: 4px; 
-	padding: 0; 
+#content span p {
+	margin: 4px;
+	padding: 0;
 }
 
-#content #home
-{
+#content #home {
 	margin: 20px 0;
 	padding: 2px;
 	text-align: left;
 }
 
-#content p, #content li
-{
+#content p,#content li {
 	clear: left;
 	margin: 10px 4px;
 	display: block;
 	text-align: left;
 }
 
-#content a:hover, #content a:focus, .box .contenuto a:hover, .box .contenuto a:focus, #content .navbar input:hover, #content .navbar input:focus 
-{
+#content a:hover,#content a:focus,.box .contenuto a:hover,.box .contenuto a:focus,#content .navbar input:hover,#content .navbar input:focus
+	{
 	background-color: #faffa0 !important;
 	/*border: 1px solid #707700;*/
 }
@@ -393,40 +359,44 @@ td.evidenzia{
  *
  */
 #content .navbar {
-	overflow: hidden;   /* queste due regole servono per contenere i float all'interno del navbar*/
+	overflow: hidden;
+	/* queste due regole servono per contenere i float all'interno del navbar*/
 	width: 100%;
-	font-size: 13px; 
+	font-size: 13px;
 }
-#content .navbar a, #content .navbar input{
+
+#content .navbar a,#content .navbar input {
 	display: block;
 	float: left;
 }
 
-#content .navbar a, #content .navbar input{
+#content .navbar a,#content .navbar input {
 	font-size: 13px;
-	color: #386dce; 
+	color: #386dce;
 	text-decoration: underline !important;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	background-color: white;
 	height: 1.35em !important;
 	line-height: normal !important;
-	white-space: normal ;
+	white-space: normal;
 	cursor: pointer;
-	cursor: hand; /* questo è aggiunto per visualizzare la manina in explorer*/
+	cursor: hand;
+	/* questo ï¿½ aggiunto per visualizzare la manina in explorer*/
 	padding: 0;
 	margin: 0;
-	margin-right: 1ex !important; 
-	border: 0 none; 
--moz-appearance: none !important;
--moz-user-select: auto !important;
--moz-box-sizing: content-box !important;
+	margin-right: 1ex !important;
+	border: 0 none;
+	-moz-appearance: none !important;
+	-moz-user-select: auto !important;
+	-moz-box-sizing: content-box !important;
 }
 
 /* end navbar */
+#content ul,#content li {
+	list-style-type: square !important;
+}
 
-#content ul, #content li { list-style-type: square !important; }
-.evidenzia
-{
+.evidenzia {
 	background-color: #d9e5ff !important;
 }
 
@@ -434,9 +404,7 @@ td.evidenzia{
  * Box vari
  *
  */
-
-.news, .elenco, .chi_siamo, .file_info, .elencoFile, .boxCommento
-{
+.news,.elenco,.chi_siamo,.file_info,.elencoFile,.boxCommento {
 	font-size: 11px !important;
 	margin: 2em 0 0;
 	display: block;
@@ -444,43 +412,55 @@ td.evidenzia{
 	border: solid 1px #999;
 	text-align: left;
 }
-.news, .file_info { width: 90%; margin: 2em 0 0; background-color: #eff3fc;}
-#content>.news, #content>.file_info {margin: 2em 5% 0;}
-.news, .chi_siamo, .file_info { padding: 0 0 4px; }
-.elenco, .elencoFile { padding: 0; }
-.elenco p, .elencoFile p { padding: 2px 4px !important; }
-.elenco div, .elencoFile div
-{
+
+.news,.file_info {
+	width: 90%;
+	margin: 2em 0 0;
+	background-color: #eff3fc;
+}
+
+#content>.news,#content>.file_info {
+	margin: 2em 5% 0;
+}
+
+.news,.chi_siamo,.file_info {
+	padding: 0 0 4px;
+}
+
+.elenco,.elencoFile {
+	padding: 0;
+}
+
+.elenco p,.elencoFile p {
+	padding: 2px 4px !important;
+}
+
+.elenco div,.elencoFile div {
 	border-bottom: dotted 2px #999;
 }
 
-.boxCommenti
-{
+.boxCommenti {
 	border: solid 1px #999;
 	margin: 30px 5%;
 }
 
-.boxCommenti p, .boxCommenti a
-{
+.boxCommenti p,.boxCommenti a {
 	font-size: 11px !important;
 }
 
-.boxCommento
-{
+.boxCommento {
 	border: dotted 1px #999;
 	background-color: #f3f7fd;
 	padding: 0px 4px !important;
 	margin: 5px;
 }
 
-.boxCommento p, .boxCommento a
-{
+.boxCommento p,.boxCommento a {
 	font-size: 11px !important;
 	margin: 0.4em !important;
 }
 
-.commento
-{
+.commento {
 	text-align: left;
 	margin: -1.6em 8em 0;
 	font-size: 11px !important;
@@ -490,60 +470,56 @@ td.evidenzia{
 {
 	width: 90%;
 }*/
-.elencoFile span { text-align: right;}
+.elencoFile span {
+	text-align: right;
+}
 
-.odd
-{
+.odd {
 	background-color: #eff3fc;
 	margin: 0 !important;
 	padding: 2px 0 !important;
 }
-.even
-{
+
+.even {
 	margin: 0 !important;
 	padding: 2px 0 !important;
 }
 
-.news p, .news a, .news li, .news h3, .news td, .elenco p, .elenco a, .elenco li, .elenco h3, .elenco td, .chi_siamo p, .chi_siamo a, .chi_siamo li, .chi_siamo h3, .chi_siamo td, .file_info p, .file_info a, .file_info li, .file_info h3, .file_info td, .elencoFile p, .elencoFile a, .elencoFile li, .elencoFile h3, .elencoFile td
-{
+.news p,.news a,.news li,.news h3,.news td,.elenco p,.elenco a,.elenco li,.elenco h3,.elenco td,.chi_siamo p,.chi_siamo a,.chi_siamo li,.chi_siamo h3,.chi_siamo td,.file_info p,.file_info a,.file_info li,.file_info h3,.file_info td,.elencoFile p,.elencoFile a,.elencoFile li,.elencoFile h3,.elencoFile td
+	{
 	font-size: 11px;
 }
 
-.work p, .work a, .work li, .work h3
-{
+.work p,.work a,.work li,.work h3 {
 	font-size: 11px;
 }
 
-.news h3, .work  h3, .file_info h3, div.elencoFile th
-{
+.news h3,.work  h3,.file_info h3,div.elencoFile th {
 	background-color: #d9e5ff !important;
 	color: #333;
 	margin: 0 0 2px;
 	padding: 2px;
 }
-.elenco h3
-{
+
+.elenco h3 {
 	background-color: #d9e5ff;
 	color: #333;
 	margin: 0;
 	padding: 2px;
 }
 
-.news p, .work p, .box p, .elenco p
-{
+.news p,.work p,.box p,.elenco p {
 	float: none !important;
 	margin: 0 2px;
 	padding: 0;
 	line-height: 1.3;
 }
 
-.news table
-{
- 	width: 100%;
+.news table {
+	width: 100%;
 }
 
-.news .piePagina
-{
+.news .piePagina {
 	float: right;
 	display: inline;
 	padding-right: 4px
@@ -560,8 +536,8 @@ td.evidenzia{
 }
 */
 
-/*.news ul,.news li,*/.news a, .box a
-{
+/*.news ul,.news li,*/
+.news a,.box a {
 	display: inline;
 }
 
@@ -571,10 +547,7 @@ td.evidenzia{
 	margin-top: 2px;
 }
 */
-
-
-.work 
-{
+.work {
 	border: solid 1px #999;
 	padding: 0;
 	margin: 0.33%;
@@ -585,14 +558,12 @@ td.evidenzia{
 	width: 32%;
 }
 
-#content>.work
-{
+#content>.work {
 	margin: 0.537%;
 	width: 32%;
 }
 
-.box
-{
+.box {
 	font-size: 10px;
 	border: solid 1px #999;
 	padding: 0;
@@ -600,53 +571,47 @@ td.evidenzia{
 	margin: 15px 8px;
 }
 
-.box div.contenuto
-{
+.box div.contenuto {
 	margin: 6px;
 }
 
-.box form input, .box form label{
+.box form input,.box form label {
 	margin: 2px;
 	text-align: center;
 	font-size: 10px;
 	vertical-align: text-top;
 }
 
-.box form label{
+.box form label {
 	font-weight: bold;
 }
 
-.box form{
+.box form {
 	text-align: center;
 	margin: 4px;
 }
 
-.box p, .box a, .box li, .box h3
-{
+.box p,.box a,.box li,.box h3 {
 	font-size: 10px !important;
 }
 
-.box p, .box a, .box ul, .box span
-{
+.box p,.box a,.box ul,.box span {
 	margin: 4px 2px !important;
 }
 
-.box h3
-{
+.box h3 {
 	margin: 0;
 	padding: 2px;
 	color: white;
 	background-color: #386dce;
 }
 
-.box h3 a:hover, .box h3 a:focus
-{
+.box h3 a:hover,.box h3 a:focus {
 	background-color: #faffa0; /* messo tutto*/
 	color: #386dce !important;
 }
 
-.box p, .box a
-{
+.box p,.box a {
 	font-weight: bold;
 }
 /*
@@ -655,23 +620,23 @@ td.evidenzia{
 	padding: 0;
 	margin: 0;
 }*/
-.box a
-{
-	padding: 1px; border: 1px; margin: 0;
+.box a {
+	padding: 1px;
+	border: 1px;
+	margin: 0;
 }
-.box h3 a, .work h3 a,.news h3 a
-{
+
+.box h3 a,.work h3 a,.news h3 a {
 	color: white !important;
 }
-.box span
-{
+
+.box span {
 	color: #666;
 	margin: 0;
 }
 
-.backlink
-{
-	margin-top:3px;
+.backlink {
+	margin-top: 3px;
 	/*padding:2px 2px 2px 0;*/
 	width: 100%;
 	text-align: right;
@@ -679,60 +644,65 @@ td.evidenzia{
 }
 
 .box .Feriali {
-	font-size: 10px; color: #000;
-}
-.box .Festivi, .Domeniche {
-	font-size: 10px; color: #d00;
-}
-.box .Oggi {
-	font-size: 10px; background-color: #9cd;
-}
-.box .Piccolo {
-	font-size: 10px; color: #fff; 
+	font-size: 10px;
+	color: #000;
 }
 
-#footer
-{
+.box .Festivi,.Domeniche {
+	font-size: 10px;
+	color: #d00;
+}
+
+.box .Oggi {
+	font-size: 10px;
+	background-color: #9cd;
+}
+
+.box .Piccolo {
+	font-size: 10px;
+	color: #fff;
+}
+
+#footer {
 	border-top: dotted 2px #999;
 	margin: 40px 10px 0 20px;
 	padding: 15px 180px 0 5px;
 	color: #666;
 }
 
-#footer p
-{
+#footer p {
 	font-size: 10px;
 	margin: 0;
 	margin-bottom: 7px;
 	padding: 0;
 }
 
-#alert {color: red;}
-
-#error
-{
+#alert {
 	color: red;
-	background:red;
+}
+
+#error {
+	color: red;
+	background: red;
 	margin-bottom: 25px;
 	padding: 2px;
 }
+
 #error p {
 	padding: 1px;
 	margin: 1px;
 	background: white;
 }
-.actions
-{
+
+.actions {
 	margin-top: 5px;
 }
 
-#content .longText
-{
+#content .longText {
 	text-align: justify;
 }
 
-.tbl2col
-{
+.tbl2col {
 	font-size: 11px;
 	margin: 2em 0;
 	display: block;
@@ -741,82 +711,84 @@ td.evidenzia{
 	border-bottom: solid 3px #777;
 	padding: 0;
 }
-#content>.tbl2col { margin: 2em 10%; }
 
-.tbl2col table
-{
-	font-size: 11px;
-	border-color:  #999 !important;
-	border-collapse: collapse;
-	width: 100%;	
+#content>.tbl2col {
+	margin: 2em 10%;
 }
-.tbl2col p, .tbl2col a { 
+
+.tbl2col table {
+	font-size: 11px;
+	border-color: #999 !important;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.tbl2col p,.tbl2col a {
 	text-align: center !important;
 	font-size: 12px;
 	font-weight: bold;
 }
 
-.titolo /* da chi è usato?*/
-{
+.titolo /* da chi ï¿½ usato?*/ {
 	padding: 0;
 	margin: 40px 0 !important;
 }
-.titoloPagina p, .titoloPagina a, .titoloPagina h1, .titoloPagina h2, .titoloPagina h4
-{ 
+
+.titoloPagina p,.titoloPagina a,.titoloPagina h1,.titoloPagina h2,.titoloPagina h4
+	{
 	text-align: center !important;
 	width: auto;
 }
-.titoloPagina a
-{
+
+.titoloPagina a {
 	font-size: 11px !important;
 	display: inline;
 }
-.titoloPagina h2, .titoloPagina h4 { margin-left: 0 !important;}
 
-.titoloPagina
-{
+.titoloPagina h2,.titoloPagina h4 {
+	margin-left: 0 !important;
+}
+
+.titoloPagina {
 	margin-bottom: 30px;
 }
-.chi_siamo div
-{
+
+.chi_siamo div {
 	background: white url(pixel.gif) repeat;
 }
-.chi_siamo h3
-{
+
+.chi_siamo h3 {
 	margin: 0;
 	padding: 2px;
 	background-color: #ccc;
 }
-.chi_siamo span
-{
+
+.chi_siamo span {
 	color: #386dce;
 	font-weight: bold;
 }
 
-
-#browserkeys th{
+#browserkeys th {
 	font-size: 11px;
 	background-color: #d9e5ff;
 }
 
-#browserkeys td{
+#browserkeys td {
 	font-size: 11px;
 	background-color: #eff3fc;
 }
 
-#accesskeys th{
+#accesskeys th {
 	font-size: 11px;
 	background-color: #d9e5ff;
 }
 
-#accesskeys td{
+#accesskeys td {
 	font-size: 11px;
 	background-color: #eff3fc;
 }
 
-
-.elencoTopic
-{
+.elencoTopic {
 	font-size: 11px;
 	margin: 2em 0;
 	display: block;
@@ -825,101 +797,102 @@ td.evidenzia{
 	padding: 0;
 	width: 76%;
 }
-#content>.elencoTopic { margin: 2em 12%; }
 
-.elencoTopic p
-{
+#content>.elencoTopic {
+	margin: 2em 12%;
+}
+
+.elencoTopic p {
 	font-size: 12px;
-}	
-.elencoTopic .even
-{
+}
+
+.elencoTopic .even {
 	background-color: #efefef;
 }
-.elencoTopic .odd
-{
+
+.elencoTopic .odd {
 	background-color: #f8f8f8;
 }
-.help_generale h3
-{
+
+.help_generale h3 {
 	color: #386dce;
 	text-align: left !important;
 	font-size: 12px;
 }
-.help_generale p, .help_generale a, .help_generale li, .help_generale ul, .help_generale
-{
+
+.help_generale p,.help_generale a,.help_generale li,.help_generale ul,.help_generale
+	{
 	text-align: left;
 	font-size: 12px;
 }
-.help_generale div
-{
+
+.help_generale div {
 	text-align: right;
 }
 
-.comandi a, .comandi p
-{	
-	font-size: 11px;	
+.comandi a,.comandi p {
+	font-size: 11px;
 	display: inline !important;
 }
-.comandi { font-size: 11px; text-align: center;}
-#content p.comandi {margin-left: 3%; }
-span>p.comandi {margin-left: 5% !important;}
 
+.comandi {
+	font-size: 11px;
+	text-align: center;
+}
+
+#content p.comandi {
+	margin-left: 3%;
+}
+
+span>p.comandi {
+	margin-left: 5% !important;
+}
 
 /*
  * liste espandibili:
  */
-.domenabled .explodableList
-{
-        position:relative;
+.domenabled .explodableList {
+	position: relative;
 }
 
-.domenabled ul.explodableList,
-.domenabled ul.explodableList li,
-.domenabled ul.explodableList ul
-{
-        list-style-type:none;
-        margin:0;
-        padding:0;
+.domenabled ul.explodableList,.domenabled ul.explodableList li,.domenabled ul.explodableList ul
+	{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
 }
 
-.domenabled ul.explodableList ul.hidden
-{
-  top:0px;
-  left:-2000px;
-  position:absolute;
+.domenabled ul.explodableList ul.hidden {
+	top: 0px;
+	left: -2000px;
+	position: absolute;
 }
 
-.domenabled ul.explodableList ul.shown
-{
-display:block;
-position:static;
+.domenabled ul.explodableList ul.shown {
+	display: block;
+	position: static;
 }
 
-.domenabled .explodableList a.open
-{
-        background:url(minus.png) no-repeat 0 50% #eee;
-        padding-right:0px;
-        padding-left:20px;
+.domenabled .explodableList a.open {
+	background: url(minus.png) no-repeat 0 50% #eee;
+	padding-right: 0px;
+	padding-left: 20px;
 }
 
-
-.domenabled .explodableList .shown li
-{
-        padding-left:10px;
+.domenabled .explodableList .shown li {
+	padding-left: 10px;
 }
 
-.domenabled .explodableList a.parent
-{
-        background:url(plus.png) no-repeat #fff 0 50%;
-        padding-right:0px;
-        padding-left:20px;
+.domenabled .explodableList a.parent {
+	background: url(plus.png) no-repeat #fff 0 50%;
+	padding-right: 0px;
+	padding-left: 20px;
 }
 
-.domenabled ul.explodableList li a
-{
-        color:#000;
-        /*display:block;*/
-        text-decoration:none;
+.domenabled ul.explodableList li a {
+	color: #000;
+	/*display:block;*/
+	text-decoration: none;
 }
 
 /*
@@ -929,41 +902,39 @@ position:static;
 /** 
  *    STATISTICHE
  *************************/
- 
 #statistiche li {
 	text-align: center;
 	text-decoration: inherit;
 	width: 50%;
 }
 
+#statistiche  ul {
+	border-bottom: thick;
+}
 
-#statistiche  ul{
-	
-	
-        border-bottom: thick; 	    	
-	}
 #statistiche li span {
 	border: 1px groove blue;
 	text-shadow: aqua;
-	
 	background: white;
 	padding: 2px 4px;
 	width: 80px;
-	display: block; 
-	float: left; 
+	display: block;
+	float: left;
 	text-align: center;
 }
 
-#statistiche li.header 
-{
+#statistiche li.header {
 	font-weight: bold;
-	font-family:  verdana;
+	font-family: verdana;
 	text-transform: uppercase;
 	color: black;
-	
 }
 
-#statistiche .header span 
-{
+#statistiche .header span {
 	background: white;
+}
+
+#informativa {
+	height: 300px;
+	overflow: auto;
 }
