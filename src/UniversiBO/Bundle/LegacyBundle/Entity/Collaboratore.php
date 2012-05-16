@@ -42,9 +42,9 @@ class Collaboratore extends User {
     var $recapito;
 
     /**
-     * @access private
+     * @var string
      */
-    var $obiettivi;
+    private $obiettivi;
 
     /**
      * @access private
@@ -52,9 +52,9 @@ class Collaboratore extends User {
     var $foto;
 
     /**
-     * @access private
+     * @var User
      */
-    var $userCache = NULL;
+    private $user;
 
     /**
      * @final
@@ -132,7 +132,11 @@ class Collaboratore extends User {
     {
         $this->foto = $foto;
     }
-
+    
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+    }
 
     /**
      * Ritorna Preleva tutti i collaboratori dal database
@@ -143,12 +147,7 @@ class Collaboratore extends User {
      */
     function getUser()
     {
-        if ($this->userCache == NULL)
-        {
-            $this->userCache = User::selectUser($this->getIdUtente());
-        }
-
-        return $this->userCache;
+        return $this->user;
     }
 
 
