@@ -8,6 +8,12 @@ UniversiBOWebsiteBundle:
     type:     annotation
     prefix:   /
 
+UniversiBOAnswersBundle:
+    resource: "@UniversiBOAnswersBundle/Controller/"
+    type:     annotation
+    prefix:   /answers
+
+
 # Internal routing configuration to handle ESI
 #_internal:
 #   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"

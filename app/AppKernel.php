@@ -18,7 +18,9 @@ class AppKernel extends Kernel
                 //new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
                 new UniversiBO\Bundle\WebsiteBundle\UniversiBOWebsiteBundle(),
                 new UniversiBO\Bundle\LegacyBundle\UniversiBOLegacyBundle(),
-                new UniversiBO\Bundle\DidacticsBundle\UniversiBODidacticsBundle(),);
+                new UniversiBO\Bundle\DidacticsBundle\UniversiBODidacticsBundle(),
+                new UniversiBO\Bundle\AnswersBundle\UniversiBOAnswersBundle(),
+                );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();

@@ -7,6 +7,7 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 
 $loader = new UniversalClassLoader();
 $loader->registerNamespaces(array(
+        'UniversiBO\\Bundle\\AnswersBundle'    => __DIR__.'/../vendor/universibo/universibo-answers-bundle',
         'Symfony\\Bundle\\AsseticBundle'       => __DIR__.'/../vendor/symfony/assetic-bundle',
         'Symfony'                              => __DIR__.'/../vendor/symfony/symfony/src',
         'Sensio\\Bundle\\FrameworkExtraBundle' => __DIR__.'/../vendor/sensio/framework-extra-bundle',
