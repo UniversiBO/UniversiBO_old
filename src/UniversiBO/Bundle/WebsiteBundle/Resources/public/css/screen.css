@@ -10,6 +10,11 @@ body {
 	color: #124;
 }
 
+a {
+	text-decoration: none;
+	color: #248;
+}
+
 .rulebox {
 	font-size: small;
 	padding: 4px;
