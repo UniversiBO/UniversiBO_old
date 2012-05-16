@@ -18,8 +18,11 @@ class Logout extends UniversiboCommand
     {
         $fc = $this->getFrontController();
 
+        $sf = false;
+
         if (array_key_exists('f2_submit', $_POST)
-                || (array_key_exists('symfony', $_GET) && $_GET['symfony'])) {
+                || (array_key_exists('symfony', $_GET)
+                        && ($sf = $_GET['symfony']))) {
             $this->setSessionIdUtente(0);
 
             $fc->setStyle($fc->getAppSetting('defaultStyle'));
@@ -27,9 +30,14 @@ class Logout extends UniversiboCommand
             $forum = new ForumApi();
             $forum->logout();
         }
+        
+        session_destroy();
+        session_start();
 
-        $fc->redirectCommand();
-
-        return;
+        if ($sf) {
+            $fc->redirectUri($sf);
+        } else {
+            $fc->redirectCommand();
+        }
     }
 }

@@ -37,15 +37,15 @@ class Login extends UniversiboCommand
         else
             Error::throwError(_ERROR_NOTICE,
                     array('id_utente' => $user->getIdUser(),
-                            'msg' => 'Username non inserito', 'file' => __FILE__,
-                            'line' => __LINE__, 'log' => false,
-                            'template_engine' => &$template));
+                            'msg' => 'Username non inserito',
+                            'file' => __FILE__, 'line' => __LINE__,
+                            'log' => false, 'template_engine' => &$template));
 
         if (array_key_exists('f1_submit', $_POST)) {
             if (!$user->isOspite()) {
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il login pu� essere eseguito solo da utenti che non hanno ancora eseguito l\'accesso',
+                                'msg' => 'Il login puo` essere eseguito solo da utenti che non hanno ancora eseguito l\'accesso',
                                 'file' => __FILE__, 'line' => __LINE__));
             }
 
@@ -54,7 +54,8 @@ class Login extends UniversiboCommand
                         array('id_utente' => $user->getIdUser(),
                                 'msg' => 'Username non valido',
                                 'file' => __FILE__, 'line' => __LINE__,
-                                'log' => false, 'template_engine' => &$template));
+                                'log' => false,
+                                'template_engine' => &$template));
 
             $userLogin = User::selectUserUsername($_POST['f1_username']);
 
@@ -73,6 +74,13 @@ class Login extends UniversiboCommand
             } else {
                 session_destroy();
                 session_start();
+                
+                if ($this->isSymfony()) {
+                	$_SESSION['symfony'] = $_REQUEST['symfony'];
+                } else {
+                	$_SESSION['symfony'] = null;
+                }
+                
                 $_POST['f1_password'] = ''; //resettata per sicurezza
                 $_SESSION['user'] = array();
                 $_SESSION['user'] = serialize($userLogin);
@@ -116,6 +124,6 @@ class Login extends UniversiboCommand
 
     private function isSymfony()
     {
-        return array_key_exists('symfony', $_GET) && $_GET['symfony'];
+        return array_key_exists('symfony', $_REQUEST) && $_REQUEST['symfony'];
     }
 }
