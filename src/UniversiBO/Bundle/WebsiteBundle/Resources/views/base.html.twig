@@ -10,12 +10,18 @@
 <body>
 <div id="container">
   <div id="header">
-  <h1>UniversiBO</h1>
+      <a href="{{ url('homepage') }}">
+          <img src="{{ asset('bundles/universibowebsite/images/logo-top.png') }}" alt="logo"/>
+          <h1 id="h1-name">UniversiBO 3.0</h1>
+          </span>
+      </a>
   </div>
   <div id="top-menu">
     <ul>
-      <li><a href="{{ url('homepage') }}">Home</a></li>
+      <li><a href="/forum/">Forum</a></li>
+      <li><a href="#">Chi siamo</a></li>
       <li><a href="{{ url('info_rules') }}">Regolamento</a></li>
+      <li><a href="/v2.php">UniversiBO 2</a></li>
     </ul>
   </div>
   <div id="main" class="yui3-g">

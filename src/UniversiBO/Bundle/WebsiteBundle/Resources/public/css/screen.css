@@ -2,29 +2,74 @@
 
 body {
 	margin: auto;
+	font-family: sans-serif;
+	background-color: #eef0f5;
+	background-image: url('/bundles/universibowebsite/images/gradient-main.png');
+	background-repeat: repeat-x;
+	color: #124;
+}
+
+#h1-name {
+	font-size: 60px;
+	display: inline;
+	padding-bottom: 10px;
+}
+
+#header a,#top-menu a {
+	color: #eef;
+	text-decoration: none;
+}
+
+#spacer {
+	height: 30px;
+}
+
+#header, #footer{
+	background-color: #92aace;
 }
 
 #header {
 	height: 130px;
-	color: #CCCCFF;
 	padding: 5px;
-	background-color: #0006c2;
+	background-image:
+		url('/bundles/universibowebsite/images/gradient-top.png');
+	background-repeat: repeat-x;
 }
 
 #disclaimer {
 	font-size: 75%;
 }
 
+#top-menu {
+	background-color: #1b4f9d;
+	height: 50px;
+	background-repeat: repeat-x;
+}
+
 #top-menu ul {
-	padding: 2px;
+	margin-top: 0px;
+	padding: 5px;
+	padding-top: 15px;
 	list-style: none;
 	margin-left: 2px;
+	list-style: none;
 }
 
 #top-menu li {
 	display: inline;
+	font-weight: bold;
 	padding: 8px;
 	height: 10px;
-	border: 1px black solid;
-	border-radius: 15px;
+	border: 1px black dotted;
+	border-radius: 12px;
+	background-color: #25C;
+}
+
+#footer hr {
+	border: none;
+	border-top: 1px dotted grey;
+}
+
+#main {
+	padding-left: 5px;
 }
