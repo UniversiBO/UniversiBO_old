@@ -58,8 +58,8 @@ SELECT setval('help_id_help_seq', (SELECT MAX(id_help) FROM help) +1);
 INSERT INTO help (titolo,contenuto,ultima_modifica,indice) VALUES ('Cos\'? il servizio files studenti?','E\' un servizio che d? la possibilit? di inserire dei files (appunti, lucidi, ecc...) relativi ad un insegnamento, a tutti gli studenti registrati. Non ? da confondere con il servizio che permette al professore l\'inserimento di un file nel proprio insegnamento: i file inseriti dal professore appaiono sempre in basso alla pagina dell\'insegnamento, mentre i file inseriti dagli studenti sono visualizzati nel box "Contributi degli studenti" sulla colonna destra della pagina.',1117109715,310);
 
 INSERT INTO help (titolo,contenuto,ultima_modifica,indice) VALUES ('Come faccio ad inserire un file studenti?','Il procedimento per caricare un file sul sito ? questo:
-[list=1][*][url=index.php?do=ShowHelp#id10]Accedere al sito col proprio nome utente[/url] (username).
-[*][url=index.php?do=ShowHelp#id3]Andare nella pagina[/url] in cui si desidera inserire il file.
+[list=1][*][url=v2.php?do=ShowHelp#id10]Accedere al sito col proprio nome utente[/url] (username).
+[*][url=v2.php?do=ShowHelp#id3]Andare nella pagina[/url] in cui si desidera inserire il file.
 [*]Cliccare la voce "Inserisci il tuo contributo" nel nel box "Contributi degli studenti", apparir? una nuova pagina "Aggiungi un nuovo file" nella quale dovrai completare i seguenti campi:
 [list][*][b]File[/b]:  inserire il percorso interno al tuo computer del file che vuoi caricare, puoi aiutarti con il pulsante "Sfoglia" (o \'Browse\') e cercare la cartella del pc in cui ? contenuto il file, selezionarlo e cliccare su \'Apri\' (o \'Open\', a seconda del sistema operativo utilizzato).  Per rendere pi? veloce il processo di upload (e conseguentemente di download da parte degli utenti che desidereranno scaricare il file sul loro computer) ? consigliabile comprimere il file prima di inviarlo.
 NB: si pu? caricare [b]un solo file alla volta[/b], quindi per mettere on line pi? files bisogna ripetere la procedura.
@@ -79,7 +79,7 @@ INSERT INTO help (titolo,contenuto,ultima_modifica,indice) VALUES ('Come faccio 
 Se si ? in possesso dei diritti, per effettuare questa operazione bisogna seguire i seguenti passi:
 [list=1][*]Cliccare sul nome del file che si vuole modificare all\'interno del Box [u]\'Contributi degli studenti\'[/u]; 
 [*]Si passer? a una pagina con le informazioni relative al file, per effettuare le modifiche  ? sufficiente cliccare sul pulsante [u]\'Modifica\'[/u];
-[*]Verr? visualizzata la pagina di modifica analoga a quella di [url=index.php?do=ShowHelp#id37]inserimento del file[/url] i cui campi contengono le informazioni del precedente inserimento. 
+[*]Verr? visualizzata la pagina di modifica analoga a quella di [url=v2.php?do=ShowHelp#id37]inserimento del file[/url] i cui campi contengono le informazioni del precedente inserimento. 
 [*]Effettuate le modifiche necessarie, ? sufficiente cliccare sul pulsante [u]\'Invia\'[/u] in basso alla pagina.
 [*]Se la procedura ? stata completata con successo, verr? visualizzata una pagina di conferma della corretta modifica del file. Per tornare ai dettagli del file cliccare sul link [u]\'torna ai dettagli del file\'[/u][/list]
 ',1117109715,330);

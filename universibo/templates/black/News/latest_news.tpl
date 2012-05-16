@@ -17,7 +17,7 @@
 {*<script type="text/javascript" language="JavaScript"><!--
 document.write("<a href=\"javascript:universiboPopup('{$showNewsLatest_langNewsShowOthersUri|escape:"htmlall"|nl2br}&amp;pageType=popup');\">{$showNewsLatest_langNewsShowOthers|escape:"htmlall"|bbcode2html|nl2br}<\/a>");
 --></script>
-<noscript><a href="index.php?do={$showNewsLatest_langNewsShowOthersUri|escape:"htmlall"}" target="_popup">{$showNewsLatest_langNewsShowOthers|escape:"htmlall"|bbcode2html|nl2br}</a></noscript>*}
+<noscript><a href="v2.php?do={$showNewsLatest_langNewsShowOthersUri|escape:"htmlall"}" target="_popup">{$showNewsLatest_langNewsShowOthers|escape:"htmlall"|bbcode2html|nl2br}</a></noscript>*}
 <a href="{$showNewsLatest_langNewsShowOthersUri|escape:"htmlall"}">{$showNewsLatest_langNewsShowOthers|escape:"htmlall"|bbcode2html|nl2br}</a>
 {/if}
 </td>

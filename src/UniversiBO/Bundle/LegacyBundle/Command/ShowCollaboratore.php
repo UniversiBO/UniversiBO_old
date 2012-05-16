@@ -60,7 +60,7 @@ class ShowCollaboratore extends UniversiboCommand
                 'id_utente' => $collaboratore->getIdUtente(),
                 'modifica_link' => $modifica_link, 'modifica' => $modifica);
 
-        $template->assignUnicode('collaboratore', $arrayContatti);
+        $template->assign('collaboratore', $arrayContatti);
 
         $template
                 ->assign('collaboratore_langAltTitle', 'Scheda Informativa di');

@@ -12,16 +12,6 @@ use \Error;
  */
 class DBCollaboratoreRepository extends DBRepository
 {
-    /**
-     * Class constructor
-     *
-     * @param \DB_common $db
-     */
-    public function __construct(\DB_common $db)
-    {
-        parent::__construct($db);
-    }
-
     public function find($id)
     {
         $db = $this->getDb();

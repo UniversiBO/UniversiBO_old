@@ -9,13 +9,13 @@
 	<table><tr><td>
 	<span class="actions">
 		{if $modifica!="" && $elimina!=""}&nbsp;&nbsp;&nbsp;<img src="tpl/unibo/news_edt.gif" width="15" height="15" alt="modifica" />
-		<a href="index.php?do={$modifica_link|escape:"htmlall"}">{$modifica|escape:"htmlall"|nl2br}</a>
+		<a href="v2.php?do={$modifica_link|escape:"htmlall"}">{$modifica|escape:"htmlall"|nl2br}</a>
 		&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;<img src="tpl/unibo/file_del.gif" width="15" height="15" alt="elimina" />
-		<a href="index.php?do={$elimina_link|escape:"htmlall"}">{$elimina|escape:"htmlall"|bbcode2html|nl2br}</a>
+		<a href="v2.php?do={$elimina_link|escape:"htmlall"}">{$elimina|escape:"htmlall"|bbcode2html|nl2br}</a>
 		{/if}
 	</span></td><td>
 	<div class="piePagina">
-		{$data|escape:"htmlall"|nl2br}&nbsp;|&nbsp;<a href="index.php?do={$autore_link|escape:"htmlall"}">{$autore|escape:"htmlall"}</a>&nbsp;|&nbsp;<a href="index.php?do=ShowPermalink&amp;id_notizia={$id_notizia}">permalink</a>
+		{$data|escape:"htmlall"|nl2br}&nbsp;|&nbsp;<a href="v2.php?do={$autore_link|escape:"htmlall"}">{$autore|escape:"htmlall"}</a>&nbsp;|&nbsp;<a href="v2.php?do=ShowPermalink&amp;id_notizia={$id_notizia}">permalink</a>
 	</div>
 	</td></tr></table>
 </div>

@@ -10,16 +10,6 @@ namespace UniversiBO\Bundle\LegacyBundle\Entity;
  */
 class DBCanaleRepository extends DBRepository
 {
-    /**
-     * Class constructor
-     *
-     * @param \DB_common $db
-     */
-    public function __construct(\DB_common $db)
-    {
-        parent::__construct($db);
-    }
-
     public function getTipoCanaleFromId($id_canale)
     {
         $db = $this->getDb();

@@ -7,7 +7,7 @@ Gestione Facolt&agrave;
 <tr>
 
 <td align="left">
-{if $facolta_curr.attiva=='true'}<a href="index.php?do=ProgrammazioneDidatticaCdl&amp;cod_fac={$facolta_curr.cod_fac}">{$facolta_curr.cod_fac} - {$facolta_curr.desc_fac}</a>{else}{$facolta_curr.cod_fac} - {$facolta_curr.desc_fac}{/if}</td>
+{if $facolta_curr.attiva=='true'}<a href="v2.php?do=ProgrammazioneDidatticaCdl&amp;cod_fac={$facolta_curr.cod_fac}">{$facolta_curr.cod_fac} - {$facolta_curr.desc_fac}</a>{else}{$facolta_curr.cod_fac} - {$facolta_curr.desc_fac}{/if}</td>
 
 <td>{$facolta_curr.cod_doc_preside}</td>
 

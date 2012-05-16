@@ -4,7 +4,7 @@
 
 {include file=avviso_notice.tpl}
 
-<form action="index.php?do=RegStudente&amp;{$common_pageTypeExt|escape:"htmlall"}" id="f4" method="post">
+<form action="v2.php?do=RegStudente&amp;{$common_pageTypeExt|escape:"htmlall"}" id="f4" method="post">
 	<p>{$regStudente_langInfoReg|escape:"htmlall"|bbcode2html|nl2br}</p>
 	<table width="100%" border="0" cellspacing="0" cellpadding="2" summary="">
 	<tr align="left"><td>&nbsp;<label for="f4_ad_user">{$regStudente_langMail|escape:"htmlall"}</label>&nbsp;</td>

@@ -14,16 +14,6 @@ use \Error;
 class DBCdlRepository extends DBRepository
 {
     /**
-     * Class constructor
-     *
-     * @param \DB_common $db
-     */
-    public function __construct(\DB_common $db)
-    {
-        parent::__construct($db);
-    }
-
-    /**
      * @return boolean|Cdl[]
      */
     public function findAll()

@@ -6,7 +6,7 @@
 <table width="95%" border="0" cellspacing="0" cellpadding="0" summary="" align="center">
 <tr><td><img src="tpl/black/recupera_username_18.gif" width="215" height="22" alt="{$recuperaUsernameStudente_langNewPasswordAlt|escape:"htmall"}" /></td></tr>
 <tr><td class="Normal">
-<form action="index.php?do=RecuperaUsernameStudente&amp;{$common_pageTypeExt|escape:"htmlall"}" id="f5" method="post">
+<form action="v2.php?do=RecuperaUsernameStudente&amp;{$common_pageTypeExt|escape:"htmlall"}" id="f5" method="post">
 <table width="100%" cellspacing="0" cellpadding="0" border="0" summary="">
 <tr><td class="Normal" colspan="2">&nbsp;<br />{$recuperaUsernameStudente_langInfoNewPassword|escape:"htmlall"|bbcode2html|nl2br}</td></tr>
 <tr>

@@ -7,7 +7,7 @@
 <tr>
 <td class="Normal">
 
-<form action="index.php?do=pAddNews#gotof7" id="f7" method="post">
+<form action="v2.php?do=pAddNews#gotof7" id="f7" method="post">
 
 <table width="90%" align="center" class="Normal" summary="">
 <tr>

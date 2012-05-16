@@ -14,7 +14,7 @@
 	<p><input class="submit" name="f1_submit" type="submit" value="Entra" onsubmit="document.form1.f1_resolution.value = screen.width;" /></p>
 </form>
 {* valutare se mettere nell'help *}
-<p>Se non ricordi piu' il tuo username, <a href="index.php?do=RecuperaUsernameStudente">recupera il tuo username</a>
-<br />Se non ricordi piu' la tua password, <a href="index.php?do=NewPasswordStudente">ripristina una nuova password</a><p>
+<p>Se non ricordi piu' il tuo username, <a href="v2.php?do=RecuperaUsernameStudente">recupera il tuo username</a>
+<br />Se non ricordi piu' la tua password, <a href="v2.php?do=NewPasswordStudente">ripristina una nuova password</a><p>
 		
 {include file="footer_index.tpl"}

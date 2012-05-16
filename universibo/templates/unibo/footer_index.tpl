@@ -5,7 +5,7 @@
 		{if $common_userLoggedIn=='false'}
 		<h3>Login</h3>
 		<div class="contenuto">
-			<form action="index.php?do=Login" name="form1_a" id="f1" method="post">
+			<form action="v2.php?do=Login" name="form1_a" id="f1" method="post">
 				<label for="f1_username">username: </label><br />
 				<input id ="f1_username" name="f1_username" maxlength="25" type="text" size="15" tabindex="1" /><br />
 				<label for="f1_password">password: </label><br />
@@ -13,13 +13,13 @@
 				<input type="hidden" name="f1_resolution" value="" />
 				<input class="submit" name="f1_submit" type="submit" value="Login" tabindex="3" onclick="document.form1_a.f1_resolution.value = screen.width;" /><br />
 			</form>
-			<a href="index.php?do=RegStudente">Registrazione studenti</a><br />
-			<a href="index.php?do=RecuperaUsernameStudente">Username smarrito</a><br />
-			<a href="index.php?do=NewPasswordStudente">Password smarrita</a><br />
+			<a href="v2.php?do=RegStudente">Registrazione studenti</a><br />
+			<a href="v2.php?do=RecuperaUsernameStudente">Username smarrito</a><br />
+			<a href="v2.php?do=NewPasswordStudente">Password smarrita</a><br />
 		{else}
 		<h3>Logout</h3>
 		<div class="contenuto">
-			<form action="index.php?do=Logout" name="form2" id="f2" method="post">
+			<form action="v2.php?do=Logout" name="form2" id="f2" method="post">
 			<p>{$common_langWelcomeMsg|escape:"htmlall"|bbcode2html|nl2br} {$common_userUsername|escape:"htmlall"}<br />
 			{$common_langUserLivello|escape:"htmlall"|bbcode2html|nl2br} {foreach from=$common_userLivello item=temp_nomeLivello}{$temp_nomeLivello|escape:"htmlall"} {/foreach}<br />
 			&nbsp;<br />

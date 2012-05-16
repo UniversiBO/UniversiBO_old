@@ -13,23 +13,13 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 class DBUserRepository extends DBRepository implements UserProviderInterface
 {
     /**
-     * Class constructor
-     *
-     * @param \DB_common $db
-     */
-    public function __construct(\DB_common $db)
-    {
-        parent::__construct($db);
-    }
-
-    /**
      * Tells if a username exists
      * @param string $username
      * @return boolean
      */
     public function usernameExists($username, $caseSensitive = false)
     {
-        $username = trim($username);
+        $username = $this->convertIfNeeded($username);
         $db = $this->getDb();
 
         if ($caseSensitive) {

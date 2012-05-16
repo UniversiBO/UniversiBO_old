@@ -11,16 +11,6 @@ use \DB;
 class DBFacoltaRepository extends DBRepository
 {
     /**
-     * Class constructor
-     *
-     * @param \DB_common $db
-     */
-    public function __construct(\DB_common $db)
-    {
-        parent::__construct($db);
-    }
-
-    /**
      * @return Facolta[]
      */
     public function findAll()

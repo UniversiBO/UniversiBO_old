@@ -21,7 +21,7 @@ abstract class DBRepository
      *
      * @param \DB_common $db
      */
-    public function __construct(\DB_common $db, $convert = true)
+    public function __construct(\DB_common $db, $convert = false)
     {
         $this->db = $db;
         $this->convert = $convert;
@@ -61,6 +61,15 @@ abstract class DBRepository
     protected function isConvert()
     {
         return $this->convert;
+    }
+    
+    protected function convertIfNeeded($item)
+    {
+        if($this->isConvert()) {
+            return self::convertToUtf8($item);
+        }
+        
+        return $item;
     }
 
     public static function convertToUtf8($item, $from = 'iso-8859-1')

@@ -30,18 +30,18 @@ class MyUniversiBOAdd extends UniversiboCommand
         if ($utente->isOspite())
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $utente->getIdUser(),
-                            'msg' => "Non � permesso ad utenti non registrati eseguire questa operazione.\n La sessione potrebbe essere scaduta",
+                            'msg' => "Non e` permesso ad utenti non registrati eseguire questa operazione.\n La sessione potrebbe essere scaduta",
                             'file' => __FILE__, 'line' => __LINE__));
 
         if (!array_key_exists('id_canale', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $utente->getIdUser(),
-                            'msg' => 'L\'id del canale richiesto non � valido',
+                            'msg' => 'L\'id del canale richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
         $id_canale = $_GET['id_canale'];
-        $canale = &Canale::retrieveCanale($id_canale);
+        $canale = Canale::retrieveCanale($id_canale);
         $template->assign('common_canaleURI', $canale->showMe());
         $template->assign('common_langCanaleNome', $canale->getNome());
 
@@ -69,7 +69,7 @@ class MyUniversiBOAdd extends UniversiboCommand
                     || !array_key_exists('f15_livello_notifica', $_POST)) {
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $utente->getIdUser(),
-                                'msg' => 'Il form inviato non � valido',
+                                'msg' => 'Il form inviato non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
                 $f15_accept = false;
             }
@@ -78,7 +78,7 @@ class MyUniversiBOAdd extends UniversiboCommand
                     $f15_livelli_notifica)) {
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $utente->getIdUser(),
-                                'msg' => 'Il livello di notifica scelto non � valido',
+                                'msg' => 'Il livello di notifica scelto non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
                 $f15_accept = false;
             } else

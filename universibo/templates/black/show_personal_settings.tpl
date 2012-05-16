@@ -8,7 +8,7 @@
 <img src="tpl/black/impostazioni_personali.gif" width="200" height="22" alt="Impostazioni personali" /></p>
 </td></tr>
 <tr align="center"><td class="Normal">
-<form action="index.php?do=ShowPersonalSettings&amp;{$common_pageTypeExt|escape:"htmlall"}" id="f20" method="post">
+<form action="v2.php?do=ShowPersonalSettings&amp;{$common_pageTypeExt|escape:"htmlall"}" id="f20" method="post">
 <table width="100%" cellspacing="0" cellpadding="0" border="0" summary="">
 <tr><td class="Normal" colspan="2">&nbsp;<br />{$showPersonalSettings_langInfoChangeSettings|escape:"htmlall"|bbcode2html|nl2br}</td></tr>
 <tr>

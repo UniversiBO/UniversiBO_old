@@ -26,7 +26,7 @@
   <tr> 
   
   <td class="News" align="right">{$data|escape:"htmlall"|nl2br}<br />
-<a href="index.php?do={$autore_link|escape:"htmlall"}">{$autore|escape:"htmlall"}</a>
+<a href="v2.php?do={$autore_link|escape:"htmlall"}">{$autore|escape:"htmlall"}</a>
 </td></tr></table>
 </td>
 </tr>
@@ -48,10 +48,10 @@
 
 <td class="Piccolo"  align="left" valign="top">  
   {if $modifica!=""}&nbsp;&nbsp;&nbsp;<img src="tpl/black/news_edt.gif" width="15" height="15" alt="modifica" />
-<a href="index.php?do={$modifica_link|escape:"htmlall"}">{$modifica|escape:"htmlall"|nl2br}</a>
+<a href="v2.php?do={$modifica_link|escape:"htmlall"}">{$modifica|escape:"htmlall"|nl2br}</a>
 {/if}
 {if $elimina!=""}&nbsp;&nbsp;&nbsp;<img src="tpl/black/news_del.gif" width="15" height="15" alt="elimina" />
-<a href="index.php?do={$elimina_link|escape:"htmlall"}">{$elimina|escape:"htmlall"|bbcode2html|nl2br}</a>
+<a href="v2.php?do={$elimina_link|escape:"htmlall"}">{$elimina|escape:"htmlall"|bbcode2html|nl2br}</a>
 {/if}&nbsp;
 </td>
 

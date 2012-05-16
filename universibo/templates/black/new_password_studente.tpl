@@ -6,7 +6,7 @@
 <table width="95%" border="0" cellspacing="0" cellpadding="0" summary="" align="center">
 <tr><td><img src="tpl/black/recupera_password_18.gif" width="215" height="22" alt="{$newPasswordStudente_langNewPasswordAlt|escape:"htmall"}" /></td></tr>
 <tr><td class="Normal">
-<form action="index.php?do=NewPasswordStudente&amp;{$common_pageTypeExt|escape:"htmlall"}" id="f5" method="post">
+<form action="v2.php?do=NewPasswordStudente&amp;{$common_pageTypeExt|escape:"htmlall"}" id="f5" method="post">
 <table width="100%" cellspacing="0" cellpadding="0" border="0" summary="">
 <tr><td class="Normal" colspan="2">&nbsp;<br />{$newPasswordStudente_langInfoNewPassword|escape:"htmlall"|bbcode2html|nl2br}</td></tr>
 <tr>

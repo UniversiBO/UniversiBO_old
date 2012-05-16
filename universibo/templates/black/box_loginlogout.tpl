@@ -1,6 +1,6 @@
 {include file=box_begin.tpl}
 {if $common_userLoggedIn=='false'}
-<form action="index.php?do=Login" name="form1_a" id="form1_a" method="post">
+<form action="v2.php?do=Login" name="form1_a" id="form1_a" method="post">
 <table width="90%"  border="0" cellspacing="0" cellpadding="0" align="center" summary="">
 <tr> 
 <td><img src="tpl/black/login_18.gif" width="69" height="22" alt="Login" /></td>
@@ -15,24 +15,24 @@
 <td class="Menu">&nbsp;<br />
 <!--
 <script type="text/javascript" language="JavaScript">
-document.write("<a href=\"javascript:universiboPopup('index.php?do=RegStudente&amp;pageType=popup');\" ><font color=\"#FF0000\">Registrazione Studenti<\/font><\/a><br />");
+document.write("<a href=\"javascript:universiboPopup('v2.php?do=RegStudente&amp;pageType=popup');\" ><font color=\"#FF0000\">Registrazione Studenti<\/font><\/a><br />");
 </script>
 <noscript>
 -->
-<a href="index.php?do=RegStudente"><font color="#FF0000">Registrazione studenti</font></a><br />
+<a href="v2.php?do=RegStudente"><font color="#FF0000">Registrazione studenti</font></a><br />
 <!--
 </noscript>
 <script type="text/javascript" language="JavaScript">
-document.write("<a href=\"javascript:universiboPopup('index.php?do=NewPasswordStudente&amp;pageType=popup');\">Password smarrita...<\/a><br \/>");
+document.write("<a href=\"javascript:universiboPopup('v2.php?do=NewPasswordStudente&amp;pageType=popup');\">Password smarrita...<\/a><br \/>");
 </script>
 <noscript>-->
-<a href="index.php?do=RecuperaUsernameStudente">Username smarrito</a><br />
-<a href="index.php?do=NewPasswordStudente">Password smarrita</a><br />
+<a href="v2.php?do=RecuperaUsernameStudente">Username smarrito</a><br />
+<a href="v2.php?do=NewPasswordStudente">Password smarrita</a><br />
 <!--</noscript>-->
 </td></tr>
 </table></form>
 {else}
-<form action="index.php?do=Logout" name="form2" id="form2" method="post">
+<form action="v2.php?do=Logout" name="form2" id="form2" method="post">
 <table width="100%" border="0" cellspacing="0" cellpadding="0" summary="">
 <tr><td class="Normal" valign="middle" align="center">&nbsp;<br />
 {$common_langWelcomeMsg|escape:"htmlall"|bbcode2html|nl2br} <font class="NormalC">{$common_userUsername|escape:"htmlall"}</font><br />
