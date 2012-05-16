@@ -57,7 +57,17 @@ a {
 	height: 30px;
 }
 
-#header,#footer,.sidebox-head {
+#home-main h3 {
+	margin: 5px;
+	padding: 5px;
+	text-align: center;
+}
+
+#home-main p {
+	padding: 5px;
+}
+
+#header,#footer,.sidebox-head,#home-main h3 {
 	background-color: #92aace;
 }
 
