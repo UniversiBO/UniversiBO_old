@@ -85,7 +85,7 @@ class ShowFileTitoli extends PluginCommand
         }
         /*
                 $canale_news = $this->getNumNewsCanale($id_canale);
-        
+
                 $template->assign('showNews_desc', 'Mostra le ultime '.$num_news.' notizie del canale '.$id_canale.' - '.$titolo_canale);
          */
         //		var_dump($elenco_id_news);
@@ -231,12 +231,16 @@ class ShowFileTitoli extends PluginCommand
     function _compareFile($a, $b)
     {
         if ($a->getIdCategoria() > $b->getIdCategoria())
+
             return +1;
         if ($a->getIdCategoria() < $b->getIdCategoria())
+
             return -1;
         if ($a->getDataInserimento() < $b->getDataInserimento())
+
             return +1;
         if ($a->getDataInserimento() > $b->getDataInserimento())
+
             return -1;
     }
 

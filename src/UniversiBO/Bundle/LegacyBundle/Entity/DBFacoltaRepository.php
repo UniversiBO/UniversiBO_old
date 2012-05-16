@@ -1,7 +1,6 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Entity;
 use \DB;
-use \Error;
 
 /**
  * Facolta repository

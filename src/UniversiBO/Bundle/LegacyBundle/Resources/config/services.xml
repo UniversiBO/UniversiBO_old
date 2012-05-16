@@ -96,7 +96,7 @@
 			class="UniversiBO\Bundle\LegacyBundle\Entity\DBDocenteRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />
 		</service>
-		
+
 		<service id="universibo_legacy.repository.facolta"
 			class="UniversiBO\Bundle\LegacyBundle\Entity\DBFacoltaRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />
