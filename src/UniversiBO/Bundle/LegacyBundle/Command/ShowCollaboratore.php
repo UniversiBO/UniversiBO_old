@@ -27,7 +27,7 @@ class ShowCollaboratore extends UniversiboCommand
                 && !ereg('^([0-9]{1,10})$', $_GET['id_coll']))
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
-                            'msg' => 'L\'utente cercato non � valido',
+                            'msg' => 'L\'utente cercato non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
 
         $contacts_path = $frontcontroller->getAppSetting('contactsPath');
@@ -60,7 +60,7 @@ class ShowCollaboratore extends UniversiboCommand
                 'id_utente' => $collaboratore->getIdUtente(),
                 'modifica_link' => $modifica_link, 'modifica' => $modifica);
 
-        $template->assign('collaboratore', $arrayContatti);
+        $template->assignUnicode('collaboratore', $arrayContatti);
 
         $template
                 ->assign('collaboratore_langAltTitle', 'Scheda Informativa di');
