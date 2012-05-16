@@ -46,15 +46,37 @@ abstract class DBRepository
         Error::throwError(constant($level), $param);
     }
 
-    protected function convertRowToUtf8(&$row)
+    protected function fetchRow(\DB_result $res)
     {
-        array_walk($row,
-                function (&$item, $key)
-                {
-                    if (gettype($item) === 'string') {
-                        $item = mb_convert_encoding($item, 'utf-8',
-                                'iso-8859-1');
-                    }
-                });
+        $row = $res->fetchRow();
+
+        if ($this->convert) {
+            $row = self::convertToUtf8($row);
+        }
+        
+        return $row;
+    }
+    
+    protected function isConvert()
+    {
+        return $this->convert;
+    }
+
+    public static function convertToUtf8($item, $from = 'iso-8859-1')
+    {
+        if (is_array($item)) {
+            array_walk($item,
+                    function (&$item, $key)
+                    {
+                        $item = DBRepository::convertToUtf8($item);
+                    });
+            return $item;
+        }
+
+        if (gettype($item) === 'string') {
+            return mb_convert_encoding($item, 'utf-8', $from);
+        }
+
+        return $item;
     }
 }

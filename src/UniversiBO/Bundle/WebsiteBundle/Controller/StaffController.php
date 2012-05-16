@@ -1,6 +1,10 @@
 <?php
 
 namespace UniversiBO\Bundle\WebsiteBundle\Controller;
+use UniversiBO\Bundle\LegacyBundle\Entity\Collaboratore;
+
+use UniversiBO\Bundle\LegacyBundle\Entity\User;
+
 use UniversiBO\Bundle\LegacyBundle\Entity\DBCollaboratoreRepository;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -34,7 +38,16 @@ class StaffController extends Controller
         $cRepo = $this->get('universibo_legacy.repository.collaboratore');
 
         $user = $uRepo->findByUsername($username);
+        if(!$user instanceof User) {
+            throw $this->createNotFoundException('User not found');
+        }
+        
+        $contact = $cRepo->find($user->getIdUser());
+        
+        if(!$contact instanceof Collaboratore) {
+            throw $this->createNotFoundException('Staff not found');
+        }
 
-        return array('person' => $cRepo->find($user->getIdUser()));
+        return array('person' => $contact);
     }
 }

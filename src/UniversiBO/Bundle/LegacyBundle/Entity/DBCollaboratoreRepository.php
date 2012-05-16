@@ -39,13 +39,17 @@ class DBCollaboratoreRepository extends DBRepository
         if ($rows == 0)
             return false;
 
-        $row = $res->fetchRow();
-        $this->convertRowToUtf8($row);
+        $row = $this->fetchRow($res);
+
         $collaboratore = new Collaboratore($row[0], $row[1], $row[2], $row[3],
                 $row[4], $row[5]);
 
         $userRepo = new DBUserRepository($db);
-        $collaboratore->setUser($userRepo->find($collaboratore->getIdUser()));
+
+        if (($user = $userRepo->find($collaboratore->getIdUser())) instanceof User) {
+            $collaboratore->setUser($user);
+        }
+        
         return $collaboratore;
     }
 
@@ -71,8 +75,7 @@ class DBCollaboratoreRepository extends DBRepository
 
         $collaboratori = array();
 
-        while ($row = $res->fetchRow()) {
-            $this->convertRowToUtf8($row);
+        while ($row = $this->fetchRow($res)) {
             $collaboratori[] = $collab = new Collaboratore($row[0], $row[1],
                     $row[2], $row[3], $row[4], $row[5]);
             $collab->setUser($userRepo->find($collab->getIdUser()));
