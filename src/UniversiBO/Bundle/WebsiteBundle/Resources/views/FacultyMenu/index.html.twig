@@ -1,0 +1,8 @@
+<h3>Facoltà</h3>
+<ul>
+{% for item in facolta %}
+  <li>{{ item.getNome() }}</li>
+{% else %}
+Nessuna facoltà
+{% endfor %}
+</ul>

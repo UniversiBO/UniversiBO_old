@@ -1,6 +1,5 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Entity;
-
 use \DB;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
@@ -9,10 +8,9 @@ global $__facoltaElencoCodice;
 global $__facoltaElencoAlfabetico;
 global $__facoltaElencoCanale;
 
-$facoltaElencoCodice     = NULL;
+$facoltaElencoCodice = NULL;
 $facoltaElencoAlfabetico = NULL;
-$facoltaElencoCanale     = NULL;
-
+$facoltaElencoCanale = NULL;
 
 /**
  * Facolta class.
@@ -28,7 +26,8 @@ $facoltaElencoCanale     = NULL;
  * @copyright CopyLeft UniversiBO 2001-2003
  */
 
-class Facolta extends Canale {
+class Facolta extends Canale
+{
 
     /**
      * @private
@@ -43,8 +42,10 @@ class Facolta extends Canale {
      */
     var $facoltaUri = '';
 
-
-
+    /**
+     * @var DBFacoltaRepository
+     */
+    private static $repository;
 
     /**
      * Crea un oggetto facolta
@@ -70,19 +71,21 @@ class Facolta extends Canale {
      * @param string  $uri_facolta	link         al sito internet ufficiale della facolt?
      * @return Facolta
      */
-    public function __construct($id_canale, $permessi, $ultima_modifica, $tipo_canale, $immagine, $nome, $visite,
-                 $news_attivo, $files_attivo, $forum_attivo, $forum_forum_id, $forum_group_id, $links_attivo,$files_studenti_attivo,
-                 $cod_facolta, $nome_facolta, $uri_facolta)
+    public function __construct($id_canale, $permessi, $ultima_modifica,
+            $tipo_canale, $immagine, $nome, $visite, $news_attivo,
+            $files_attivo, $forum_attivo, $forum_forum_id, $forum_group_id,
+            $links_attivo, $files_studenti_attivo, $cod_facolta, $nome_facolta,
+            $uri_facolta)
     {
-        parent::__construct($id_canale, $permessi, $ultima_modifica, $tipo_canale, $immagine, $nome, $visite,
-                 $news_attivo, $files_attivo, $forum_attivo, $forum_forum_id, $forum_group_id, $links_attivo,$files_studenti_attivo);
+        parent::__construct($id_canale, $permessi, $ultima_modifica,
+                $tipo_canale, $immagine, $nome, $visite, $news_attivo,
+                $files_attivo, $forum_attivo, $forum_forum_id, $forum_group_id,
+                $links_attivo, $files_studenti_attivo);
 
         $this->facoltaCodice = $cod_facolta;
-        $this->facoltaNome   = $nome_facolta;
-        $this->facoltaUri    = $uri_facolta;
+        $this->facoltaNome = $nome_facolta;
+        $this->facoltaUri = $uri_facolta;
     }
-
-
 
     /**
      * Restituisce il nome della facolt?
@@ -104,7 +107,6 @@ class Facolta extends Canale {
         $this->facoltaNome = $nome_fac;
     }
 
-
     /**
      * Restituisce il titolo/nome completo della facolt?
      *
@@ -112,10 +114,8 @@ class Facolta extends Canale {
      */
     function getTitolo()
     {
-        return "FACOLTA' DI \n".$this->getNome();
+        return "FACOLTA' DI \n" . $this->getNome();
     }
-
-
 
     /**
      * Restituisce il link alla homepage ufficiale della facolt?
@@ -126,7 +126,6 @@ class Facolta extends Canale {
     {
         return $this->facoltaUri;
     }
-
 
     /**
      * Imposta il link alla homepage ufficiale della facolt?
@@ -149,7 +148,6 @@ class Facolta extends Canale {
         return $this->facoltaCodice;
     }
 
-
     /**
      * Imposta il codice di ateneo a 4 cifre della facolt?
      * @param string $cod_fac es: ingegneria -> '0021'
@@ -158,7 +156,6 @@ class Facolta extends Canale {
     {
         $this->facoltaCodice = $cod_fac;
     }
-
 
     /**
      * Crea un oggetto facolta dato il suo numero identificativo id_canale
@@ -173,7 +170,6 @@ class Facolta extends Canale {
         return Facolta::selectFacoltaCanale($id_canale);
     }
 
-
     /**
      * Restituisce l'uri/link che mostra un canale
      *
@@ -181,9 +177,8 @@ class Facolta extends Canale {
      */
     function showMe()
     {
-        return 'index.php?do=ShowFacolta&id_canale='.$this->id_canale;
+        return 'index.php?do=ShowFacolta&id_canale=' . $this->id_canale;
     }
-
 
     /**
      * Seleziona da database e restituisce l'oggetto facolt?
@@ -197,18 +192,15 @@ class Facolta extends Canale {
     {
         global $__facoltaElencoCanale;
 
-        if ( $__facoltaElencoCanale == NULL )
-        {
+        if ($__facoltaElencoCanale == NULL) {
             Facolta::_selectFacolta();
         }
 
-        if ( !array_key_exists($id_canale,$__facoltaElencoCanale) ) return false;
-
+        if (!array_key_exists($id_canale, $__facoltaElencoCanale))
+            return false;
 
         return $__facoltaElencoCanale[$id_canale];
     }
-
-
 
     /**
      * Seleziona da database e restituisce l'oggetto facolt?
@@ -222,18 +214,15 @@ class Facolta extends Canale {
     {
         global $__facoltaElencoCodice;
 
-        if ( $__facoltaElencoCodice == NULL )
-        {
+        if ($__facoltaElencoCodice == NULL) {
             Facolta::_selectFacolta();
         }
 
-        if ( !array_key_exists($cod_facolta,$__facoltaElencoCodice) ) return false;
-
+        if (!array_key_exists($cod_facolta, $__facoltaElencoCodice))
+            return false;
 
         return $__facoltaElencoCodice[$cod_facolta];
     }
-
-
 
     /**
      * Seleziona da database e restituisce un'array contenente l'elenco
@@ -247,31 +236,20 @@ class Facolta extends Canale {
     {
         global $__facoltaElencoAlfabetico;
 
-        if ( $__facoltaElencoAlfabetico == NULL )
-        {
-            Facolta::_selectFacolta();
+        if ($__facoltaElencoAlfabetico == NULL) {
+            self::_selectFacolta();
         }
-
 
         return $__facoltaElencoAlfabetico;
     }
 
-
-    function updateFacolta()
+    /**
+     * @deprecated
+     */
+    public function updateFacolta()
     {
-        $db = FrontController::getDbConnection('main');
-        $query = 'UPDATE facolta SET cod_fac = '.$db->quote($this->getCodiceFacolta()).
-                    ', desc_fac = '.$db->quote($this->getNome()).
-                    ', url_facolta = '.$db->quote($this->getUri()).
-                ' WHERE id_canale = '.$db->quote($this->getIdCanale());
-
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,array('msg'=>$query,'file'=>__FILE__,'line'=>__LINE__));
-
-        $this->updateCanale();
+        $this->getRepository()->update($this);
     }
-
 
     /**
      * Siccome nella maggiorparte delle chiamate viene eseguito l'accesso a tutte le
@@ -280,46 +258,28 @@ class Facolta extends Canale {
      * alleggerire i futuri accessi a DB implementando di fatto insieme ai metodi
      * select*() i meccanismi di un metodo singleton factory
      *
-     * @static
-     * @private
+     * @deprecated
      * @return none
      */
-    function _selectFacolta()
+    private static function _selectFacolta()
     {
 
         global $__facoltaElencoCodice;
         global $__facoltaElencoAlfabetico;
         global $__facoltaElencoCanale;
 
-        $db = FrontController::getDbConnection('main');
-
-        $query = 'SELECT tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo, files_studenti_attivo, a.id_canale, cod_fac, desc_fac, url_facolta FROM canale a , facolta b WHERE a.id_canale = b.id_canale ORDER BY 16';
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        $rows = $res->numRows();
-
         $__facoltaElencoAlfabetico = array();
-        $__facoltaElencoCanale     = array();
-        $__facoltaElencoCodice     = array();
+        $__facoltaElencoCanale = array();
+        $__facoltaElencoCodice = array();
 
-        if( $rows = 0) { $ret = array(); return $ret;}
-        while (	$res->fetchInto($row) )
-        {
-            $facolta = new Facolta($row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
-                $row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S', $row[14], $row[15], $row[16]);
-
+        foreach (self::getRepository()->findAll() as $facolta) {
             $__facoltaElencoAlfabetico[] = $facolta;
             $__facoltaElencoCodice[$facolta->getCodiceFacolta()] = $facolta;
             $__facoltaElencoCanale[$facolta->getIdCanale()] = $facolta;
         }
-        $res->free();
-
     }
 
-
-        /**
+    /**
      * Inserisce su Db le informazioni riguardanti un NUOVO canale
      *
      * @param int $id_canale numero identificativo utente
@@ -329,43 +289,53 @@ class Facolta extends Canale {
     {
         $db = FrontController::getDbConnection('main');
 
-        if ($this->insertCanale() != true)
-        {
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore inserimento Canale','file'=>__FILE__,'line'=>__LINE__));
+        if ($this->insertCanale() != true) {
+            Error::throwError(_ERROR_CRITICAL,
+                    array('msg' => 'Errore inserimento Canale',
+                            'file' => __FILE__, 'line' => __LINE__));
 
             return false;
         }
 
-        $query = 'INSERT INTO facolta (cod_fac, desc_fac, url_facolta, id_canale) VALUES ('.
-                    $db->quote($this->getCodiceFacolta()).' , '.
-                    $db->quote($this->getNome()).' , '.
-                    $db->quote($this->getUri()).' , '.
-                    $db->quote($this->getIdCanale()).' )';
+        $query = 'INSERT INTO facolta (cod_fac, desc_fac, url_facolta, id_canale) VALUES ('
+                . $db->quote($this->getCodiceFacolta()) . ' , '
+                . $db->quote($this->getNome()) . ' , '
+                . $db->quote($this->getUri()) . ' , '
+                . $db->quote($this->getIdCanale()) . ' )';
         $res = $db->query($query);
-        if (DB::isError($res))
-        {
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        if (DB::isError($res)) {
+            Error::throwError(_ERROR_CRITICAL,
+                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
+                            'line' => __LINE__));
 
             return false;
         }
 
         Facolta::_selectFacolta();
 
-
         return true;
     }
-
-
-
 
     /**
      * Restituisce l'uri del command che visulizza il canale
      *
      * @return string URI del command
      */
-     function getShowUri()
-     {
-         return 'index.php?do=ShowFacolta&id_canale='.$this->getIdCanale();
-     }
+    function getShowUri()
+    {
+        return 'index.php?do=ShowFacolta&id_canale=' . $this->getIdCanale();
+    }
 
+    /**
+     * @return DBFacoltaRepository
+     */
+    private static function getRepository()
+    {
+        if (is_null(self::$repository)) {
+            self::$repository = new DBFacoltaRepository(
+                    FrontController::getDbConnection('main'));
+        }
+
+        return self::$repository;
+    }
 }
