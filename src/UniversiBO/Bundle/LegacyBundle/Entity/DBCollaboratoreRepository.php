@@ -64,7 +64,7 @@ class DBCollaboratoreRepository extends DBRepository
         if ($shownOnly) {
             $query .= ' WHERE show = ' . $db->quote('Y');
         }
-
+        
         $res = $db->query($query);
         if (DB::isError($res))
             Error::throwError(_ERROR_CRITICAL,
@@ -80,7 +80,7 @@ class DBCollaboratoreRepository extends DBRepository
                     $row[2], $row[3], $row[4], $row[5]);
             $collab->setUser($userRepo->find($collab->getIdUser()));
         }
-
+        
         return $collaboratori;
     }
 
