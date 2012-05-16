@@ -1,0 +1,13 @@
+<div class="sidebox">
+<div class="sidebox-head">
+Info utente
+</div>
+<div class="sidebox-content">
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+<p>Benvenuto {{ app.user.username }}!</p>
+<p><a href="/v2.php?do=Logout&symfony=1">Logout</a></p>
+{% else %}
+<p><a href="/v2.php?do=Login&symfony=1">Login</a></p>
+{% endif %}
+</div>
+</div>

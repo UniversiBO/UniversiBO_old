@@ -4,9 +4,37 @@ body {
 	margin: auto;
 	font-family: sans-serif;
 	background-color: #eef0f5;
-	background-image: url('/bundles/universibowebsite/images/gradient-main.png');
+	background-image:
+		url('/bundles/universibowebsite/images/gradient-main.png');
 	background-repeat: repeat-x;
 	color: #124;
+}
+
+.rulebox {
+	font-size: small;
+	padding: 4px;
+	height: 250px;
+	overflow-x: none;
+	overflow-y: scroll;
+	background-color: #FFF;
+	color: #000;
+	border: 1px dashed;
+	overflow-y: scroll;
+}
+
+.sidebox {
+	font-size: small;
+	margin: 5px;
+	border: 1px solid;
+	margin: 5px;
+}
+
+.sidebox-head {
+	border-bottom: 1px solid;
+}
+
+.sidebox-head,.sidebox-content {
+	padding: 5px;
 }
 
 #h1-name {
@@ -24,7 +52,7 @@ body {
 	height: 30px;
 }
 
-#header, #footer{
+#header,#footer,.sidebox-head {
 	background-color: #92aace;
 }
 

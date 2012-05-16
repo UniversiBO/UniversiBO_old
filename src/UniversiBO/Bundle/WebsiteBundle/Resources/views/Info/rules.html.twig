@@ -1,12 +1,17 @@
 {% extends 'UniversiBOWebsiteBundle::base.html.twig' %}
 {% block title %}UniversiBO v3 :: Home{% endblock %}
 {% block content %}
-<h2>REGOLAMENTO PER L'UTILIZZO DEI SERVIZI</h2>
+<h2>Regolamento per l'utilizzo dei servizi</h2>
 <h3>Università di Bologna</h3>
+<div class="rulebox">
 <p>{{ rules | nl2br}}</p>
+</div>
 <h3>Informativa sulla privacy</h3>
+<div class="rulebox">
 <p>{{ privacy | nl2br }}</p>
+</div>
 <h3>Forum</h3>
+<div class="rulebox">
 <p>Se avete domande da fare o, ancora meglio, se avete qualcosa da comunicare non esitate ad usufruire del forum facendo attenzione a rispettare le seguenti regole e consigli:</p>
 <ul>
   <li>se volete porre una domanda, controllate bene che l'informazione cercata non sia già presente all'interno del sito o che non sia già stata posta in un vecchio messaggio;</li>
@@ -32,4 +37,5 @@
   <li>cancellare messaggi identici ripetuti più volte; intervenire a loro insindacabile giudizio.
 </ul>
 <p>Contestazioni sull'operato dei moderatori effettuate sul forum saranno prontamente chiuse o eliminate. Spiegazioni e critiche (non in chiave polemica) rivolte a moderatori e amministratori sono accette ma solo ed esclusivamente in forma privata (via mail)<!-- o tramite il messenger del forum-->. Siete invitati a segnalare ai moderatori eventuali irregolarità di determinati messaggi.</p>
+</div>
 {% endblock %}
