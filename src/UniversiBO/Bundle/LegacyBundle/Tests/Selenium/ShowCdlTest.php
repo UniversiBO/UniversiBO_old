@@ -14,7 +14,7 @@ class ShowCdlTest extends UniversiBOSeleniumTestCase
                 'CORSO DI LAUREA DI ECONOMIA AZIENDALE - 0891',
         );
 
-        $this->open('/index.php?do=ShowCdl&id_canale=6172');
+        $this->open('/v2.php?do=ShowCdl&id_canale=6172');
 
         foreach($sentences as $sentence) {
             self::assertTrue($this->isTextPresent($sentence));

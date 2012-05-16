@@ -61,11 +61,11 @@ class FileStudentiComment extends UniversiboCommand
                             'Esiste gi� un tuo commento a questo file.');
             $template
                     ->assign('common_canaleURI',
-                            'index.php?do=FileShowInfo&id_file=' . $id_file
+                            'v2.php?do=FileShowInfo&id_file=' . $id_file
                                     . '&id_canale=' . $canali[0]);
             $template
                     ->assign('FilesStudentiComment_modifica',
-                            'index.php?do=FileStudentiCommentEdit&id_commento='
+                            'v2.php?do=FileStudentiCommentEdit&id_commento='
                                     . $id_commento . '&id_canale=' . $canali[0]);
             $template->assign('esiste_CommentoItem', 'true');
 
@@ -191,7 +191,7 @@ class FileStudentiComment extends UniversiboCommand
                                 'Il tuo commento � stato inserito con successo.');
                 $template
                         ->assign('common_canaleURI',
-                                'index.php?do=FileShowInfo&id_file=' . $id_file
+                                'v2.php?do=FileShowInfo&id_file=' . $id_file
                                         . '&id_canale=' . $canali[0]);
 
                 return 'success';

@@ -43,7 +43,7 @@ class ShowContattiDocenti extends UniversiboCommand
                 $doc = Docente::selectDocenteFromCod($contatto->getCodDoc());
                 //				if (!$doc) {var_dump($contatto); die;}
                 $elenco[] = array('nome' => $doc->getNomeDoc(),
-                        'URI' => 'index.php?do=ShowContattoDocente&cod_doc='
+                        'URI' => 'v2.php?do=ShowContattoDocente&cod_doc='
                                 . $doc->getCodDoc(),
                         'stato' => $contatto->getStatoDesc(),
                         'codStato' => $contatto->getStato());
@@ -56,7 +56,7 @@ class ShowContattiDocenti extends UniversiboCommand
                 ->assignUnicode('ShowContattiDocenti_titolo',
                         'Docenti assegnati per l\'attività offline');
         //		$template->assign('ShowContattiDocenti_addContatto', 'Aggiungi un docente da assegnare');
-        //		$template->assign('ShowContattiDocenti_addContattoURI', 'index.php?do=ContattoDocenteAdd');
+        //		$template->assign('ShowContattiDocenti_addContattoURI', 'v2.php?do=ContattoDocenteAdd');
 
         return 'default';
     }

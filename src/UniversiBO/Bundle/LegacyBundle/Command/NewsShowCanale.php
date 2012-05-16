@@ -47,7 +47,7 @@ class NewsShowCanale extends CanaleCommand {
             {
                 $template->assign('NewsShowCanale_addNewsFlag', 'true');
                 $template->assign('NewsShowCanale_addNews', 'Scrivi nuova notizia');
-                $template->assign('NewsShowCanale_addNewsUri', 'index.php?do=NewsAdd&id_canale='.$id_canale);
+                $template->assign('NewsShowCanale_addNewsUri', 'v2.php?do=NewsAdd&id_canale='.$id_canale);
             }
         }
 
@@ -63,7 +63,7 @@ class NewsShowCanale extends CanaleCommand {
             $start = 0;
             for ($i = 1; $i <= $num_pagine; $i++)
             {
-                $n_pag_list[$i] = array('URI' => 'index.php?do=NewsShowCanale&id_canale='.$id_canale.'&inizio='.$start.'&qta='.$quantita, 'current' => ($_GET['inizio'] == $start) ? 'true' : 'false');
+                $n_pag_list[$i] = array('URI' => 'v2.php?do=NewsShowCanale&id_canale='.$id_canale.'&inizio='.$start.'&qta='.$quantita, 'current' => ($_GET['inizio'] == $start) ? 'true' : 'false');
                 $start 	= $start + $quantita;
             }
             $template->assign('NewsShowCanale_numPagine', $n_pag_list);

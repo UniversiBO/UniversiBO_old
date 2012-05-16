@@ -11,7 +11,7 @@ class FileDocenteAdminTest extends UniversiBOSeleniumTestCase
     public function testSimple()
     {
         $this->login('brain');
-        $this->open('/index.php?do=FileDocenteAdmin&id_canale=1417');
+        $this->open('/v2.php?do=FileDocenteAdmin&id_canale=1417');
         $this->assertSentences(array(
                 'Gestione file',
                 'Seleziona i file da copiare',

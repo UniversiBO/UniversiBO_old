@@ -31,7 +31,7 @@ class ScriptCreaCatalogoFile extends UniversiboCommand
         $catalogoFilename = $fc->getAppSetting('catalogoFileName');
         $iterationStep = 300;
         // TODO far sì che urlfile prenda valori da appsetting
-        $urlFile="https://www.universibo.unibo.it/index.php?do=FileDownload&id_file=";
+        $urlFile="https://www.universibo.unibo.it/v2.php?do=FileDownload&id_file=";
         $faculty='FACOLTA';
         $university='UNIVERSITA';
 

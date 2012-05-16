@@ -12,7 +12,7 @@ class LoginController extends Controller
      */
     public function loginAction()
     {
-        return $this->redirect('/index.php?do=Login&symfony=1&referer='.$this->generateUrl('homepage'));
+        return $this->redirect('/v2.php?do=Login&symfony=1&referer='.$this->generateUrl('homepage'));
     }
 
     /**
@@ -20,6 +20,6 @@ class LoginController extends Controller
      */
     public function logoutAfterAction()
     {
-        return $this->redirect('/index.php?do=Logout&symfony=1');
+        return $this->redirect('/v2.php?do=Logout&symfony=1');
     }
 }

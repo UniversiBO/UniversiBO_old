@@ -81,7 +81,7 @@ class ShowLinksExtended extends PluginCommand {
             $elenco_links_tpl[$i]['uri']       		= $links->getUri();
             $elenco_links_tpl[$i]['label']      	= $links->getLabel();
             $elenco_links_tpl[$i]['description']    = $links->getDescription();
-            $elenco_links_tpl[$i]['userlink']    = 'index.php?do=ShowUser&id_utente='.$links->getIdUtente();
+            $elenco_links_tpl[$i]['userlink']    = 'v2.php?do=ShowUser&id_utente='.$links->getIdUtente();
             $elenco_links_tpl[$i]['user']    = $links->getUsername();
 
             $elenco_links_tpl[$i]['tipo'] = ($links->isInternalLink()) ? "interno" : "esterno";
@@ -89,9 +89,9 @@ class ShowLinksExtended extends PluginCommand {
             if (($user->isAdmin() || $referente || ($moderatore && $links->getIdUtente()==$user->getIdUser())))
             {
                 $elenco_links_tpl[$i]['modifica']="Modifica";
-                $elenco_links_tpl[$i]['modifica_link_uri'] = 'index.php?do=LinkEdit&id_link='.$links->getIdLink().'&id_canale='.$links->getIdCanale();
+                $elenco_links_tpl[$i]['modifica_link_uri'] = 'v2.php?do=LinkEdit&id_link='.$links->getIdLink().'&id_canale='.$links->getIdCanale();
                 $elenco_links_tpl[$i]['elimina']="Cancella";
-                $elenco_links_tpl[$i]['elimina_link_uri'] = 'index.php?do=LinkDelete&id_link='.$links->getIdLink().'&id_canale='.$links->getIdCanale();
+                $elenco_links_tpl[$i]['elimina_link_uri'] = 'v2.php?do=LinkDelete&id_link='.$links->getIdLink().'&id_canale='.$links->getIdCanale();
             }
         }
 

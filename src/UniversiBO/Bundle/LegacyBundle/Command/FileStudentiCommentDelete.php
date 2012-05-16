@@ -121,7 +121,7 @@ class FileStudentiCommentDelete extends UniversiboCommand
                 CommentoItem::deleteCommentoItem($id_commento);
                 $template
                         ->assign('common_canaleURI',
-                                'index.php?do=FileShowInfo&id_file='
+                                'v2.php?do=FileShowInfo&id_file='
                                         . $id_file_studente . '&id_canale='
                                         . $id_canale);
 

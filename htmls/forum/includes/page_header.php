@@ -73,7 +73,7 @@ $template->set_filenames(array(
 if ( $userdata['session_logged_in'] )
 {
 	$method		= 'post';
-	$u_action	= '../index.php?do=Logout'; 	
+	$u_action	= '../v2.php?do=Logout'; 	
 	$u_login_logout = 'login.'.$phpEx.'?logout=true&amp;sid=' . $userdata['session_id'];
 	$l_login_logout = $lang['Logout'] . ' [ ' . $userdata['username'] . ' ]';
 }
@@ -411,7 +411,7 @@ $template->assign_vars(array(
 	'S_CONTENT_DIR_RIGHT' => $lang['RIGHT'],
 	'S_TIMEZONE' => sprintf($lang['All_times'], $l_timezone),
 //	'S_LOGIN_ACTION' => append_sid('login.'.$phpEx),
-	'S_LOGIN_ACTION' => '../index.php?do=Login',
+	'S_LOGIN_ACTION' => '../v2.php?do=Login',
 
 	'T_HEAD_STYLESHEET' => $theme['head_stylesheet'],
 	'T_BODY_BACKGROUND' => $theme['body_background'],

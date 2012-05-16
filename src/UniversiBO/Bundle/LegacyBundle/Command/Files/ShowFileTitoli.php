@@ -69,12 +69,12 @@ class ShowFileTitoli extends PluginCommand
                                 'Invia un nuovo file');
                 $template
                         ->assign('showFileTitoli_addFileUri',
-                                'index.php?do=FileAdd&id_canale=' . $id_canale);
+                                'v2.php?do=FileAdd&id_canale=' . $id_canale);
                 $template->assign('showFileTitoli_adminFileFlag', 'true');
                 $template->assign('showFileTitoli_adminFile', 'Gestione file');
                 $template
                         ->assign('showFileTitoli_adminFileUri',
-                                'index.php?do=FileDocenteAdmin&id_canale='
+                                'v2.php?do=FileDocenteAdmin&id_canale='
                                         . $id_canale);
             }
         } else {
@@ -129,7 +129,7 @@ class ShowFileTitoli extends PluginCommand
                             && $ultimo_accesso < $file->getDataModifica()) ? 'true'
                             : 'false';
                     $file_tpl['autore'] = $file->getUsername();
-                    $file_tpl['autore_link'] = 'index.php?do=ShowUser&id_utente='
+                    $file_tpl['autore_link'] = 'v2.php?do=ShowUser&id_utente='
                             . $file->getIdUtente();
                     $file_tpl['id_autore'] = $file->getIdUtente();
                     $file_tpl['modifica'] = '';
@@ -139,11 +139,11 @@ class ShowFileTitoli extends PluginCommand
                     //if ( ($user->isAdmin() || $referente || $this_moderatore)  && $flag_chkDiritti)
                     if (($user->isAdmin() || $referente || $this_moderatore)) {
                         $file_tpl['modifica'] = 'Modifica';
-                        $file_tpl['modifica_link'] = 'index.php?do=FileEdit&id_file='
+                        $file_tpl['modifica_link'] = 'v2.php?do=FileEdit&id_file='
                                 . $file->getIdFile() . '&id_canale='
                                 . $id_canale;
                         $file_tpl['elimina'] = 'Elimina';
-                        $file_tpl['elimina_link'] = 'index.php?do=FileDelete&id_file='
+                        $file_tpl['elimina_link'] = 'v2.php?do=FileDelete&id_file='
                                 . $file->getIdFile() . '&id_canale='
                                 . $id_canale;
                     }
@@ -152,10 +152,10 @@ class ShowFileTitoli extends PluginCommand
                     //					$file_tpl['download_uri'] = '';
                     //					$permessi_download = $file->getPermessiDownload();
                     //					if ($user->isGroupAllowed($permessi_download))
-                    $file_tpl['download_uri'] = 'index.php?do=FileDownload&id_file='
+                    $file_tpl['download_uri'] = 'v2.php?do=FileDownload&id_file='
                             . $file->getIdFile() . '&id_canale=' . $id_canale;
                     $file_tpl['categoria'] = $file->getCategoriaDesc();
-                    $file_tpl['show_info_uri'] = 'index.php?do=FileShowInfo&id_file='
+                    $file_tpl['show_info_uri'] = 'v2.php?do=FileShowInfo&id_file='
                             . $file->getIdFile() . '&id_canale=' . $id_canale;
 
                     if (!array_key_exists($file->getIdCategoria(),

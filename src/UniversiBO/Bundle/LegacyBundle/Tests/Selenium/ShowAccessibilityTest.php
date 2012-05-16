@@ -16,7 +16,7 @@ class ShowAccessibilityTest extends UniversiBOSeleniumTestCase
                 'vai al forum',
         );
 
-        $this->open('/index.php?do=ShowAccessibility');
+        $this->open('/v2.php?do=ShowAccessibility');
 
         foreach($sentences as $sentence) {
             self::assertTrue($this->isTextPresent($sentence));

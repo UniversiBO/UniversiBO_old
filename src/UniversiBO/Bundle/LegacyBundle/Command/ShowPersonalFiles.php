@@ -42,11 +42,11 @@ class ShowPersonalFiles extends UniversiboCommand
             $files[$item->getIdFile()] = array('nome' => $item->getNomeFile(),
                     'data' => $item->getDataInserimento(),
                     'dimensione' => $item->getDimensione(),
-                    'editUri' => 'index.php?do=FileEdit&id_file='
+                    'editUri' => 'v2.php?do=FileEdit&id_file='
                             . $item->getIdFile(),
-                    'deleteUri' => 'index.php?do=FileDelete&id_file='
+                    'deleteUri' => 'v2.php?do=FileDelete&id_file='
                             . $item->getIdFile(),
-                    'downloadUri' => 'index.php?do=FileDelete&id_file='
+                    'downloadUri' => 'v2.php?do=FileDelete&id_file='
                             . $item->getIdFile());
 
         $template->assign('ShowPersonalFiles_listaFile', $files);

@@ -126,13 +126,13 @@ abstract class CanaleCommand extends UniversiboCommand
             {
                 $template->assign( 'common_canaleMyUniversiBO', 'remove');
                 $template->assign( 'common_langCanaleMyUniversiBO', 'Rimuovi questa pagina da MyUniversiBO');
-                $template->assign( 'common_canaleMyUniversiBOUri', 'index.php?do=MyUniversiBORemove&id_canale='.$canale->getIdCanale());
+                $template->assign( 'common_canaleMyUniversiBOUri', 'v2.php?do=MyUniversiBORemove&id_canale='.$canale->getIdCanale());
             }
             else
             {
                 $template->assign( 'common_canaleMyUniversiBO', 'add');
                 $template->assign( 'common_langCanaleMyUniversiBO', 'Aggiungi questa pagina a MyUniversiBO');
-                $template->assign( 'common_canaleMyUniversiBOUri', 'index.php?do=MyUniversiBOAdd&id_canale='.$canale->getIdCanale());
+                $template->assign( 'common_canaleMyUniversiBOUri', 'v2.php?do=MyUniversiBOAdd&id_canale='.$canale->getIdCanale());
             }
         }
         else
@@ -203,7 +203,7 @@ abstract class CanaleCommand extends UniversiboCommand
                     $user_temp = User::selectUser($ruolo->getIdUser());
                     //var_dump($user);
                     $contactUser = array();
-                    $contactUser['utente_link']  = 'index.php?do=ShowUser&id_utente='.$user_temp->getIdUser();
+                    $contactUser['utente_link']  = 'v2.php?do=ShowUser&id_utente='.$user_temp->getIdUser();
                     $contactUser['nome']  = $user_temp->getUserPublicGroupName();
                     $contactUser['label'] = $user_temp->getUsername();
                     $contactUser['ruolo'] = ($ruolo->isReferente()) ? 'R' :  (($ruolo->isModeratore()) ? 'M' : 'none');
@@ -226,7 +226,7 @@ abstract class CanaleCommand extends UniversiboCommand
                 $template->assign('common_langContactsCanale', 'Contatti');
                 //$template->assign('common_contactsCanale', $arrayUsers);
                 $template->assign('common_contactsCanale', $arrayPublicUsers);
-                $template->assign('common_contactsEdit', array('label' => 'Modifica diritti', 'uri' => 'index.php?do=RuoliAdminSearch&id_canale='.$canale->getIdCanale() ) ) ;
+                $template->assign('common_contactsEdit', array('label' => 'Modifica diritti', 'uri' => 'v2.php?do=RuoliAdminSearch&id_canale='.$canale->getIdCanale() ) ) ;
                 $template->assign('common_contactsEditAvailable', ($attivaModificaDiritti) ? 'true' : 'false');
 
                 $template->assign('common_langLinksCanale', 'Links');

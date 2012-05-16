@@ -71,9 +71,9 @@ class ShowUser extends UniversiboCommand
                                     ->getNomeMyUniversibo();
                     $canali['ruolo'] = ($ruolo->isReferente()) ? 'R'
                             : (($ruolo->isModeratore()) ? 'M' : 'none');
-                    $canali['modifica'] = 'index.php?do=MyUniversiBOEdit&id_canale='
+                    $canali['modifica'] = 'v2.php?do=MyUniversiBOEdit&id_canale='
                             . $ruolo->getIdCanale();
-                    $canali['rimuovi'] = 'index.php?do=MyUniversiBORemove&id_canale='
+                    $canali['rimuovi'] = 'v2.php?do=MyUniversiBORemove&id_canale='
                             . $ruolo->getIdCanale();
                     $arrayCanali[] = $canali;
                 }
@@ -106,7 +106,7 @@ class ShowUser extends UniversiboCommand
                     ->assign('showUser_UserHomepage',
                             $doc->getHomepageDocente());
         }
-        $template->assign('showSettings', 'index.php?do=ShowSettings');
+        $template->assign('showSettings', 'v2.php?do=ShowSettings');
 
         return 'default';
     }

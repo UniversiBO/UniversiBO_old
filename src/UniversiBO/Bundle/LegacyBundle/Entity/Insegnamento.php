@@ -196,7 +196,7 @@ class Insegnamento extends Canale
      */
     function showMe()
     {
-        return 'index.php?do=ShowInsegnamento&id_canale='.$this->id_canale;
+        return 'v2.php?do=ShowInsegnamento&id_canale='.$this->id_canale;
     }
 
 
@@ -306,7 +306,7 @@ class Insegnamento extends Canale
      */
     //	 function getShowUri()
     //	 {
-    //	 	return 'index.php?do=ShowInsegnamento&id_canale='.$this->getIdCanale();
+    //	 	return 'v2.php?do=ShowInsegnamento&id_canale='.$this->getIdCanale();
         //	 }
 
 

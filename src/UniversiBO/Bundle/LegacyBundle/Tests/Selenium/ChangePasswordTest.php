@@ -23,7 +23,7 @@ class ChangePasswordTest extends UniversiBOSeleniumTestCase
 
     private function changePassword($username, $oldPassword, $newPassword)
     {
-        $this->open('/index.php?do=ChangePassword');
+        $this->open('/v2.php?do=ChangePassword');
 
         $this->type('name=f6_old_password', $oldPassword);
         $this->type('name=f6_new_password1', $newPassword);

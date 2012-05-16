@@ -68,13 +68,13 @@ class ShowInsegnamento extends CanaleCommand
                         && $user_ruoli[$id_canale]->isReferente())) {
             $template
                     ->assign('ins_infoDidEdit',
-                            'index.php?do=InfoDidatticaEdit&id_canale='
+                            'v2.php?do=InfoDidatticaEdit&id_canale='
                                     . $id_canale);
             if ($session_user->isAdmin() || $session_user->isCollaboratore())
                 if (!$contatto) {
                     $template
                             ->assign('ins_ContattoDocenteUri',
-                                    'index.php?do=ContattoDocenteAdd&cod_doc='
+                                    'v2.php?do=ContattoDocenteAdd&cod_doc='
                                             . $coddoc . '&id_canale='
                                             . $id_canale);
                     $template
@@ -83,7 +83,7 @@ class ShowInsegnamento extends CanaleCommand
                 } else {
                     $template
                             ->assign('ins_ContattoDocenteUri',
-                                    'index.php?do=ShowContattoDocente&cod_doc='
+                                    'v2.php?do=ShowContattoDocente&cod_doc='
                                             . $coddoc . '&id_canale='
                                             . $id_canale);
                     $template
@@ -109,7 +109,7 @@ class ShowInsegnamento extends CanaleCommand
             $obiettivi = '[url=' . $info_didattica->getObiettiviEsameLink()
                     . ']Obiettivi del corso[/url]';
         else
-            $obiettivi = '[url=index.php?do=ShowInfoDidattica&id_canale='
+            $obiettivi = '[url=v2.php?do=ShowInfoDidattica&id_canale='
                     . $id_canale . '#obiettivi]Obiettivi del corso[/url]';
 
         if ($info_didattica->getProgrammaLink() == ''
@@ -120,7 +120,7 @@ class ShowInsegnamento extends CanaleCommand
             $programma = '[url=' . $info_didattica->getProgrammaLink()
                     . ']Programma d\'esame[/url]';
         else
-            $programma = '[url=index.php?do=ShowInfoDidattica&id_canale='
+            $programma = '[url=v2.php?do=ShowInfoDidattica&id_canale='
                     . $id_canale . '#programma]Programma d\'esame[/url]';
 
         if ($info_didattica->getTestiConsigliatiLink() == ''
@@ -133,7 +133,7 @@ testi consigliati';
                     . ']Materiale didattico e
 testi consigliati[/url]';
         else
-            $materiale = '[url=index.php?do=ShowInfoDidattica&id_canale='
+            $materiale = '[url=v2.php?do=ShowInfoDidattica&id_canale='
                     . $id_canale
                     . '#modalita]Materiale didattico e
 testi consigliati[/url]';
@@ -147,7 +147,7 @@ testi consigliati[/url]';
             $modalita = '[url=' . $info_didattica->getModalitaLink()
                     . ']Modalità d\'esame[/url]';
         else
-            $modalita = '[url=index.php?do=ShowInfoDidattica&id_canale='
+            $modalita = '[url=v2.php?do=ShowInfoDidattica&id_canale='
                     . $id_canale . '#modalita]Modalità d\'esame[/url]';
 
         if ($info_didattica->getAppelliLink() == ''
@@ -158,7 +158,7 @@ testi consigliati[/url]';
             $appelli = '[url=' . $info_didattica->getAppelliLink()
                     . ']Appelli d\'esame[/url]';
         else
-            $appelli = '[url=index.php?do=ShowInfoDidattica&id_canale='
+            $appelli = '[url=v2.php?do=ShowInfoDidattica&id_canale='
                     . $id_canale . '#appelli]Appelli d\'esame[/url]';
 
         $orario = '[url=#]Orario delle lezioni[/url]';

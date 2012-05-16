@@ -11,7 +11,7 @@ class ShowCcontattiDocentiTest extends UniversiBOSeleniumTestCase
     public function testSimple()
     {
         $this->login('brain');
-        $this->open('/index.php?do=ShowContattiDocenti');
+        $this->open('/v2.php?do=ShowContattiDocenti');
 
         $sentences = array (
                 'FERRI MASSIMO',

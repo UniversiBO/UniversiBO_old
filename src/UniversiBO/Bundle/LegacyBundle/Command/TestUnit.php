@@ -48,7 +48,7 @@ class TestUnit extends UniversiboCommand
         //	        if ( ('_UnitTest_' == substr($file, 0, 10)) && (substr($file, -4)==PHP_EXTENSION) &&
         //	        		($test_name == NULL || $test_name == substr(substr($file, 10), 0, -4) ) )
         //	        {
-        //	        	echo '<a href="index.php?do=TestUnit&amp;test_name='.substr(substr($file, 10), 0, -4).'">'.$file,' - ',substr($file, 10, -4),'</a>';
+        //	        	echo '<a href="v2.php?do=TestUnit&amp;test_name='.substr(substr($file, 10), 0, -4).'">'.$file,' - ',substr($file, 10, -4),'</a>';
         //				include ($file);
         //				$suite  = new PHPUnit_TestSuite(substr($file, 0, -4));
         //				$result = PHPUnit::run($suite);

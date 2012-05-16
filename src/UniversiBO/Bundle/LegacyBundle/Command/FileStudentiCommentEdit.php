@@ -146,7 +146,7 @@ class FileStudentiCommentEdit extends UniversiboCommand
                         $f27_voto);
                 $template
                         ->assign('common_canaleURI',
-                                'index.php?do=FileShowInfo&id_file='
+                                'v2.php?do=FileShowInfo&id_file='
                                         . $id_file_studente . '&id_canale='
                                         . $id_canale);
 

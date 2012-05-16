@@ -11,7 +11,7 @@ class ShowCcontattoDocenteTest extends UniversiBOSeleniumTestCase
     public function testShow()
     {
         $this->login('brain');
-        $this->open('/index.php?do=ShowContattoDocente&cod_doc=012179');
+        $this->open('/v2.php?do=ShowContattoDocente&cod_doc=012179');
 
         $sentences = array (
                 'Prof. Pier Paolo Abbati Marescotti',

@@ -70,7 +70,7 @@ class ShowNewsLatest extends PluginCommand {
             {
                 $template->assign('showNewsLatest_addNewsFlag', 'true');
                 $template->assign('showNewsLatest_addNews', 'Scrivi nuova notizia');
-                $template->assign('showNewsLatest_addNewsUri', 'index.php?do=NewsAdd&id_canale='.$id_canale);
+                $template->assign('showNewsLatest_addNewsUri', 'v2.php?do=NewsAdd&id_canale='.$id_canale);
             }
         }
         else
@@ -98,7 +98,7 @@ class ShowNewsLatest extends PluginCommand {
             if ( $canale_news > $num_news )
             {
                 $template->assign('showNewsLatest_langNewsShowOthers', 'Mostra tutte le news');
-                $template->assign('showNewsLatest_langNewsShowOthersUri', 'index.php?do=NewsShowCanale&id_canale='.$id_canale.'&inizio=0&qta=10');
+                $template->assign('showNewsLatest_langNewsShowOthersUri', 'v2.php?do=NewsShowCanale&id_canale='.$id_canale.'&inizio=0&qta=10');
             }
             else
             {

@@ -198,7 +198,7 @@ abstract class UniversiboCommand extends BaseCommand {
         @ $template->assign('common_shortUri', $_SERVER['REQUEST_URI']);
 
         $template->assign('common_homepage', 'Homepage');
-        $template->assign('common_homepageUri', 'index.php?do=ShowHome');
+        $template->assign('common_homepageUri', 'v2.php?do=ShowHome');
 
         $forum = new ForumApi();
         $template->assign('common_forum', 'Forum');
@@ -206,7 +206,7 @@ abstract class UniversiboCommand extends BaseCommand {
         $template->assign('common_forumUri', $forum->getMainUri());
 
         $template->assign('common_homepage', 'Homepage');
-        $template->assign('common_homepageUri', 'index.php?do=ShowHome');
+        $template->assign('common_homepageUri', 'v2.php?do=ShowHome');
 
         $template->assign('common_rootEmail', $fc->getAppSetting('rootEmail'));
         $template->assign('common_infoEmail', $fc->getAppSetting('infoEmail'));
@@ -341,10 +341,10 @@ abstract class UniversiboCommand extends BaseCommand {
         }
 
         $template->assign('common_settings', 'Impostazioni personali');
-        $template->assign('common_settingsUri', 'index.php?do=ShowSettings');
+        $template->assign('common_settingsUri', 'v2.php?do=ShowSettings');
 
         $template->assign('common_myUniversiBO', 'ShowMyUniversiBO');
-        $template->assign('common_myUniversiBOUri', 'index.php?do=ShowMyUniversiBO');
+        $template->assign('common_myUniversiBOUri', 'v2.php?do=ShowMyUniversiBO');
 
         $template->assignUnicode('common_fac', 'Facoltà');
         $elenco_facolta = & Facolta ::selectFacoltaElenco();
@@ -358,7 +358,7 @@ abstract class UniversiboCommand extends BaseCommand {
         for ($i = 0; $i < $num_facolta; $i++) {
             if ($elenco_facolta[$i]->isGroupAllowed($session_user_groups)) {
                 $common_facLinks[$i] = array();
-                $common_facLinks[$i]['uri'] = 'index.php?do=ShowFacolta&id_canale=' . $elenco_facolta[$i]->getIdCanale();
+                $common_facLinks[$i]['uri'] = 'v2.php?do=ShowFacolta&id_canale=' . $elenco_facolta[$i]->getIdCanale();
                 $common_facLinks[$i]['label'] = $elenco_facolta[$i]->getNome();
             }
         }
@@ -384,8 +384,8 @@ abstract class UniversiboCommand extends BaseCommand {
             }
         }
         if ($session_user->isAdmin() || $session_user->isCollaboratore()) {
-            $common_servicesLinks[] = array('uri' => 'index.php?do=ShowContattiDocenti', 'tipo' => '', 'label' => 'Contatto dei docenti');
-            $common_servicesLinks[] = array('uri' => 'index.php?do=ShowStatistiche', 'tipo' => '', 'label' => 'Statistiche');
+            $common_servicesLinks[] = array('uri' => 'v2.php?do=ShowContattiDocenti', 'tipo' => '', 'label' => 'Contatto dei docenti');
+            $common_servicesLinks[] = array('uri' => 'v2.php?do=ShowStatistiche', 'tipo' => '', 'label' => 'Statistiche');
         }
 
         usort($common_servicesLinks, array($this, '_compareServices'));
@@ -394,22 +394,22 @@ abstract class UniversiboCommand extends BaseCommand {
 
         $template->assign('common_info', 'Informazioni');
         $template->assign('common_help', 'Help');
-        $template->assign('common_helpUri', 'index.php?do=ShowHelp');
+        $template->assign('common_helpUri', 'v2.php?do=ShowHelp');
         $template->assign('common_helpByTopic', 'Help per argomenti');
-        $template->assign('common_helpByTopicUri', 'index.php?do=ShowHelpTopic');
+        $template->assign('common_helpByTopicUri', 'v2.php?do=ShowHelpTopic');
         $template->assign('common_rules', 'Regolamento');
-        $template->assign('common_rulesUri', 'index.php?do=ShowRules');
+        $template->assign('common_rulesUri', 'v2.php?do=ShowRules');
         $template->assign('common_contacts', 'Chi siamo');
-        $template->assign('common_contactsUri', 'index.php?do=ShowContacts');
+        $template->assign('common_contactsUri', 'v2.php?do=ShowContacts');
         $template->assign('common_contribute', 'Collabora');
-        $template->assign('common_contributeUri', 'index.php?do=ShowContribute');
+        $template->assign('common_contributeUri', 'v2.php?do=ShowContribute');
         $template->assign('common_credits', 'Credits');
-        $template->assign('common_creditsUri', 'index.php?do=ShowCredits');
+        $template->assign('common_creditsUri', 'v2.php?do=ShowCredits');
         $template->assignUnicode('common_accessibility', 'Accessibilità');
-        $template->assign('common_accessibilityUri', 'index.php?do=ShowAccessibility');
+        $template->assign('common_accessibilityUri', 'v2.php?do=ShowAccessibility');
 
         $template->assign('common_manifesto', 'Manifesto');
-        $template->assign('common_manifestoUri', 'index.php?do=ShowManifesto');
+        $template->assign('common_manifestoUri', 'v2.php?do=ShowManifesto');
 
         $template->assign('common_docSf', 'Documentazione');
         $template->assign('common_docSfUri', 'https://wiki.universibo.unibo.it/');
@@ -475,7 +475,7 @@ abstract class UniversiboCommand extends BaseCommand {
         $template->assign('common_calendarWeekDays', array('L', 'M', 'M', 'G', 'V', 'S', 'D'));
         $template->assign('common_calendar', $tpl_mese);
         $template->assign('common_langCalendar', 'Calendario');
-        $common_calendarLink = array('label' => $krono->k_date('%F'), 'uri' => 'index.php?do=ShowCalendar&month=' . $krono->k_date('%n'));
+        $common_calendarLink = array('label' => $krono->k_date('%F'), 'uri' => 'v2.php?do=ShowCalendar&month=' . $krono->k_date('%n'));
         $template->assign('common_calendarLink', $common_calendarLink);
         $template->assign('common_version', $this->frontController->getAppSetting('version'));
     }

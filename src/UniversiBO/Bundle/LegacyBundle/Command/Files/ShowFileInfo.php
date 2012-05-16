@@ -132,23 +132,23 @@ class ShowFileInfo extends PluginCommand
             if ($tipo_file) {
                 $template
                         ->assign('showFileInfo_editUri',
-                                'index.php?do=FileStudentiEdit&id_file='
+                                'v2.php?do=FileStudentiEdit&id_file='
                                         . $file->getIdFile()
                                         . $parametro_canale);
                 $template
                         ->assign('showFileInfo_deleteUri',
-                                'index.php?do=FileStudentiDelete&id_file='
+                                'v2.php?do=FileStudentiDelete&id_file='
                                         . $file->getIdFile()
                                         . $parametro_canale);
             } else {
                 $template
                         ->assign('showFileInfo_editUri',
-                                'index.php?do=FileEdit&id_file='
+                                'v2.php?do=FileEdit&id_file='
                                         . $file->getIdFile()
                                         . $parametro_canale);
                 $template
                         ->assign('showFileInfo_deleteUri',
-                                'index.php?do=FileDelete&id_file='
+                                'v2.php?do=FileDelete&id_file='
                                         . $file->getIdFile()
                                         . $parametro_canale);
             }
@@ -165,7 +165,7 @@ class ShowFileInfo extends PluginCommand
             $template->assign('showFileInfo_voto', $voto);
             $template
                     ->assign('showFileInfo_addComment',
-                            'index.php?do=FileStudentiComment&id_file='
+                            'v2.php?do=FileStudentiComment&id_file='
                                     . $file->getIdFile());
         }
 
@@ -180,20 +180,20 @@ class ShowFileInfo extends PluginCommand
 
         $template
                 ->assign('showFileInfo_downloadUri',
-                        'index.php?do=FileDownload&id_file='
+                        'v2.php?do=FileDownload&id_file='
                                 . $file->getIdFile() . $parametro_canale);
         $template->assign('showFileInfo_langDelete', 'Elimina');
         $template->assign('showFileInfo_langDownload', 'Scarica');
         $template->assign('showFileInfo_langEdit', 'Modifica');
         $template
                 ->assign('showFileInfo_uri',
-                        'index.php?do=showFileInfo&id_file='
+                        'v2.php?do=showFileInfo&id_file='
                                 . $file->getIdFile() . $parametro_canale);
         $template->assign('showFileInfo_titolo', $file->getTitolo());
         $template->assign('showFileInfo_descrizione', $file->getDescrizione());
         $template
                 ->assign('showFileInfo_userLink',
-                        'index.php?do=ShowUser&id_utente='
+                        'v2.php?do=ShowUser&id_utente='
                                 . $file->getIdUtente());
         $template->assign('showFileInfo_username', $file->getUsername());
         $template

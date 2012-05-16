@@ -70,19 +70,19 @@ class TestTemplate extends UniversiboCommand
 
                 $template->assign('common_info', 'Informazioni');
                 $template->assign('common_help', 'Help');
-                $template->assign('common_helpUri', 'index.php?do=ShowHelp');
+                $template->assign('common_helpUri', 'v2.php?do=ShowHelp');
                 $template->assign('common_rules', 'Regolamento');
-                $template->assign('common_rulesUri', 'index.php?do=ShowRules');
+                $template->assign('common_rulesUri', 'v2.php?do=ShowRules');
                 $template->assign('common_contacts', 'Contatti - (chi siamo)');
-                $template->assign('common_contactsUri', 'index.php?do=ShowContacts');
+                $template->assign('common_contactsUri', 'v2.php?do=ShowContacts');
                 $template->assign('common_contribute', 'Collabora');
-                $template->assign('common_contributeUri', 'index.php?do=ShowContribute');
+                $template->assign('common_contributeUri', 'v2.php?do=ShowContribute');
 
                 $template->assign('common_manifesto', 'Manifesto');
-                $template->assign('common_manifestoUri', 'index.php?do=ShowManifesto');
+                $template->assign('common_manifestoUri', 'v2.php?do=ShowManifesto');
 
                 $template->assign('common_calendar', 'Calendario');
-                $common_calendarLink = array ('label'=>'Agosto', 'uri'=>'index.php?do=ShowCalendar&amp;month=8');
+                $common_calendarLink = array ('label'=>'Agosto', 'uri'=>'v2.php?do=ShowCalendar&amp;month=8');
                 $template->assign('common_calendarLink', $common_calendarLink);
 
                 $template->assign('common_docUri', 'http://nikita.ing.unibo.it/~eagleone/documentazione_progetto/');
@@ -114,14 +114,14 @@ class TestTemplate extends UniversiboCommand
 
         $fac_listCdl = array(); //cat := lista di cdl
         $fac_listCdl[] = array('cod' => '0048', 'name' => 'ELETTRONICA',
-                'link' => 'index.php?do=showCdl&amp;id_cdl=0048&amp;anno_accademico=2003');
+                'link' => 'v2.php?do=showCdl&amp;id_cdl=0048&amp;anno_accademico=2003');
         $fac_listCdl[] = array('cod' => '0049', 'name' => 'GESTIONALE',
-                'link' => 'index.php?do=showCdl&amp;id_cdl=0049&amp;anno_accademico=2003');
+                'link' => 'v2.php?do=showCdl&amp;id_cdl=0049&amp;anno_accademico=2003');
         $fac_listCdl[] = array('cod' => '0050',
                 'name' => 'DEI PROCESSI GESTIONALI',
-                'link' => 'index.php?do=showCdl&amp;id_cdl=0050&amp;anno_accademico=2003');
+                'link' => 'v2.php?do=showCdl&amp;id_cdl=0050&amp;anno_accademico=2003');
         $fac_listCdl[] = array('cod' => '0051', 'name' => 'INFORMATICA',
-                'link' => 'index.php?do=showCdl&amp;id_cdl=0051&amp;anno_accademico=2003');
+                'link' => 'v2.php?do=showCdl&amp;id_cdl=0051&amp;anno_accademico=2003');
 
         $fac_listCdlType = array(); //fac := lista categorie degli anni di cdl
         $fac_listCdlType[] = array('cod' => 'L',
@@ -157,9 +157,9 @@ class TestTemplate extends UniversiboCommand
                 $template->assign('cdl_prevAA', '2002/2003');
 
                 $cdl_cicle[] = array(); //ciclo := lista di corsi
-                $cdl_cicle[] = array('name'='CALCOLATORI ELETTRONICI L-A', 'teacher' => 'NERI GIOVANNI', 'link' => 'index.php?do=ShowCourse&amp;id_argomento=56');
-                $cdl_cicle[] = array('name'='COMUNICAZIONI ELETTRICHE L-A', 'teacher' => 'CAINI CARLO', 'link' => 'index.php?do=ShowCourse&amp;id_argomento=59');
-                $cdl_cicle[] = array('name'='SISTEMI OPERATIVI L-A', 'teacher' => 'CIAMPOLINI ANNA', 'link' => 'index.php?do=ShowCourse&amp;id_argomento=56');
+                $cdl_cicle[] = array('name'='CALCOLATORI ELETTRONICI L-A', 'teacher' => 'NERI GIOVANNI', 'link' => 'v2.php?do=ShowCourse&amp;id_argomento=56');
+                $cdl_cicle[] = array('name'='COMUNICAZIONI ELETTRICHE L-A', 'teacher' => 'CAINI CARLO', 'link' => 'v2.php?do=ShowCourse&amp;id_argomento=59');
+                $cdl_cicle[] = array('name'='SISTEMI OPERATIVI L-A', 'teacher' => 'CIAMPOLINI ANNA', 'link' => 'v2.php?do=ShowCourse&amp;id_argomento=56');
 
                 $cdl_year[] = array(); //anno di corso := lista di cicli
                 $cdl_year[] = array('cod'=>1 , 'name'='Primo', 'list'=> $cdl_cicle);
