@@ -1,7 +1,6 @@
 <?php
 
 namespace UniversiBO\Bundle\LegacyBundle\Command;
-
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\Entity\ContattoDocente;
 use UniversiBO\Bundle\LegacyBundle\Entity\Docente;
@@ -18,7 +17,8 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
  * @author Fabrizio Pinto
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
-class ShowContattiDocenti extends UniversiboCommand {
+class ShowContattiDocenti extends UniversiboCommand
+{
 
     function execute()
     {
@@ -27,41 +27,48 @@ class ShowContattiDocenti extends UniversiboCommand {
         $user = $this->getSessionUser();
 
         if (!$user->isCollaboratore() && !$user->isAdmin())
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Non hai i diritti necessari per visualizzare la pagina','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $template));
+            Error::throwError(_ERROR_DEFAULT,
+                    array('id_utente' => $user->getIdUser(),
+                            'msg' => 'Non hai i diritti necessari per visualizzare la pagina',
+                            'file' => __FILE__, 'line' => __LINE__,
+                            'template_engine' => &$template));
 
         $lista_contatti = ContattoDocente::getAllContattoDocente();
 
         $elenco = array();
 
-        if ($lista_contatti)
-        {
+        if ($lista_contatti) {
 
-            foreach ($lista_contatti as $contatto)
-            {
+            foreach ($lista_contatti as $contatto) {
                 $doc = Docente::selectDocenteFromCod($contatto->getCodDoc());
-//				if (!$doc) {var_dump($contatto); die;}
-                $elenco[] = array('nome'	=> $doc->getNomeDoc(),
-                                  'URI'		=> 'index.php?do=ShowContattoDocente&cod_doc='.$doc->getCodDoc(),
-                                  'stato'	=> $contatto->getStatoDesc(),
-                                  'codStato'=> $contatto->getStato()
-                                 );
+                //				if (!$doc) {var_dump($contatto); die;}
+                $elenco[] = array('nome' => $doc->getNomeDoc(),
+                        'URI' => 'index.php?do=ShowContattoDocente&cod_doc='
+                                . $doc->getCodDoc(),
+                        'stato' => $contatto->getStatoDesc(),
+                        'codStato' => $contatto->getStato());
             }
         }
-        usort($elenco, array($this,'_compareDocenti'));
-//		var_dump($elenco);
+        usort($elenco, array($this, '_compareDocenti'));
+        //		var_dump($elenco);
         $template->assign('ShowContattiDocenti_contatti', $elenco);
-        $template->assignUnicode('ShowContattiDocenti_titolo', 'Docenti assegnati per l\'attività offline');
-//		$template->assign('ShowContattiDocenti_addContatto', 'Aggiungi un docente da assegnare');
-//		$template->assign('ShowContattiDocenti_addContattoURI', 'index.php?do=ContattoDocenteAdd');
-
+        $template
+                ->assignUnicode('ShowContattiDocenti_titolo',
+                        'Docenti assegnati per l\'attività offline');
+        //		$template->assign('ShowContattiDocenti_addContatto', 'Aggiungi un docente da assegnare');
+        //		$template->assign('ShowContattiDocenti_addContattoURI', 'index.php?do=ContattoDocenteAdd');
 
         return 'default';
     }
 
     function _compareDocenti($a, $b)
     {
-        if (strnatcmp($a['nome'], $b['nome']) > 0) return +1;
-        else return -1;
+        if (strnatcmp($a['nome'], $b['nome']) > 0)
+
+            return +1;
+        else
+
+            return -1;
     }
 
 }

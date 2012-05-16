@@ -1,6 +1,5 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command;
-
 use UniversiBO\Bundle\LegacyBundle\Command\InteractiveCommand\InformativaPrivacyInteractiveCommand;
 
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
@@ -18,22 +17,35 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class ShowRules extends UniversiboCommand {
+class ShowRules extends UniversiboCommand
+{
     function execute()
     {
 
         $template = $this->frontController->getTemplateEngine();
         $template->assign('rules_langTitleAlt', 'Regolamento');
-        $template->assign('rules_langServicesRules', file_get_contents($this->frontController->getAppSetting('regolamento')));
-        $template->assign('rules_langPrivacySubTitle', 'INFORMATIVA SULLA PRIVACY');
+        $template
+                ->assign('rules_langServicesRules',
+                        file_get_contents(
+                                $this->frontController
+                                        ->getAppSetting('regolamento')));
+        $template
+                ->assign('rules_langPrivacySubTitle',
+                        'INFORMATIVA SULLA PRIVACY');
         // TODO bisogna trovare un buon posto da cui recuperare l'informativa
-        $testoInformativa = InformativaPrivacyInteractiveCommand::getAttualeInformativaPrivacy ();
+        $testoInformativa = InformativaPrivacyInteractiveCommand::getAttualeInformativaPrivacy();
         $template->assign('rules_langPrivacy', $testoInformativa['testo']);
-        $template->assign('rules_langTitle', 'REGOLAMENTO PER L\'UTILIZZO DEI SERVIZI');
-        $template->assignUnicode('rules_langFacSubtitle', 'Università di Bologna');
+        $template
+                ->assign('rules_langTitle',
+                        'REGOLAMENTO PER L\'UTILIZZO DEI SERVIZI');
+        $template
+                ->assignUnicode('rules_langFacSubtitle',
+                        'Università di Bologna');
 
         $template->assign('rules_langForum', 'NORME PER L\'UTILIZZO DEL FORUM');
-        $template->assignUnicode('rules_langForumRules', 'Se avete domande da fare o, ancora meglio, se avete qualcosa
+        $template
+                ->assignUnicode('rules_langForumRules',
+                        'Se avete domande da fare o, ancora meglio, se avete qualcosa
       da comunicare non esitate ad usufruire del forum facendo attenzione a
       rispettare le seguenti regole e consigli:
 
@@ -89,7 +101,6 @@ class ShowRules extends UniversiboCommand {
         polemica) rivolte a moderatori e amministratori sono accette ma solo ed
         esclusivamente in forma privata (via mail)<!-- o tramite il messenger
         del forum-->.
-
 
        Siete invitati a segnalare ai moderatori eventuali irregolarità
         di determinati messaggi.

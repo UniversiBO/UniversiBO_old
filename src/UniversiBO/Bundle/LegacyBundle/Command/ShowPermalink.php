@@ -1,6 +1,5 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command;
-
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\Entity\News\NewsItem;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
@@ -8,12 +7,18 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 /**
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
-class ShowPermalink extends UniversiboCommand {
+class ShowPermalink extends UniversiboCommand
+{
 
-    public function execute() {
-        if (!array_key_exists('id_notizia', $_GET) || !preg_match('/^[0-9]+$/', $id_notizia = $_GET['id_notizia'])) {
+    public function execute()
+    {
+        if (!array_key_exists('id_notizia', $_GET)
+                || !preg_match('/^[0-9]+$/', $id_notizia = $_GET['id_notizia'])) {
             $user = $this->getSessionUser();
-            Error::throwError(_ERROR_DEFAULT, array('id_utente' => $user->getIdUser(), 'msg' => 'ID news non valido', 'file' => __FILE__, 'line' => __LINE__));
+            Error::throwError(_ERROR_DEFAULT,
+                    array('id_utente' => $user->getIdUser(),
+                            'msg' => 'ID news non valido', 'file' => __FILE__,
+                            'line' => __LINE__));
         }
 
         $news = NewsItem::selectNewsItem($id_notizia);
@@ -22,7 +27,8 @@ class ShowPermalink extends UniversiboCommand {
         $template->assign('news', $this->_newsToArray($news));
     }
 
-    private function _newsToArray(NewsItem $news) {
+    private function _newsToArray(NewsItem $news)
+    {
         $user = $this->getSessionUser();
         $krono = $this->getFrontController()->getKrono();
 
@@ -31,11 +37,13 @@ class ShowPermalink extends UniversiboCommand {
         $newsArray['id_notizia'] = $news->getIdNotizia();
         $newsArray['titolo'] = $news->getTitolo();
         $newsArray['notizia'] = $news->getNotizia();
-        $newsArray['data'] = $krono->k_date('%j/%m/%Y - %H:%i', $news->getDataIns());
+        $newsArray['data'] = $krono
+                ->k_date('%j/%m/%Y - %H:%i', $news->getDataIns());
         //echo $personalizza,"-" ,$ultimo_accesso,"-", $news->getUltimaModifica()," -- ";
         $newsArray['nuova'] = '';//($personalizza_not_admin == true && $ultimo_accesso < $news->getUltimaModifica()) ? 'true' : 'false';
         $newsArray['autore'] = $news->getUsername();
-        $newsArray['autore_link'] = 'ShowUser&id_utente=' . $news->getIdUtente();
+        $newsArray['autore_link'] = 'ShowUser&id_utente='
+                . $news->getIdUtente();
         $newsArray['id_autore'] = $news->getIdUtente();
 
         $newsArray['scadenza'] = '';
@@ -47,7 +55,6 @@ class ShowPermalink extends UniversiboCommand {
         $newsArray['modifica_link'] = '';
         $newsArray['elimina'] = '';
         $newsArray['elimina_link'] = '';
-
 
         return $newsArray;
     }

@@ -1,6 +1,5 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command;
-
 use UniversiBO\Bundle\LegacyBundle\App\Files\FileItem;
 
 use \Error;
@@ -28,25 +27,31 @@ class ShowPersonalFiles extends UniversiboCommand
         $user = $this->getSessionUser();
 
         // controllo che l'utente sia loggato
-        if($user->isOspite())
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'La pagina e` visualizzabile solo dopo aver fatto il login. La vostra sessione potrebbe essere scaduta.','file'=>__FILE__,'line'=>__LINE__ ));
+        if ($user->isOspite())
+            Error::throwError(_ERROR_DEFAULT,
+                    array('id_utente' => $user->getIdUser(),
+                            'msg' => 'La pagina e` visualizzabile solo dopo aver fatto il login. La vostra sessione potrebbe essere scaduta.',
+                            'file' => __FILE__, 'line' => __LINE__));
 
         $idUtente = $user->getIdUser();
 
-        $listaFile = & FileItem::selectFileItemsByIdUtente($idUtente, true);
+        $listaFile = &FileItem::selectFileItemsByIdUtente($idUtente, true);
 
         $files = array();
         foreach ($listaFile as &$item)
-            $files[$item->getIdFile()] = array ('nome' => $item->getNomeFile(),
+            $files[$item->getIdFile()] = array('nome' => $item->getNomeFile(),
                     'data' => $item->getDataInserimento(),
-                    'dimensione'=> $item->getDimensione(),
-                    'editUri' => 'index.php?do=FileEdit&id_file='.$item->getIdFile(),
-                    'deleteUri' => 'index.php?do=FileDelete&id_file='.$item->getIdFile(),
-                    'downloadUri' => 'index.php?do=FileDelete&id_file='.$item->getIdFile()
-            );
+                    'dimensione' => $item->getDimensione(),
+                    'editUri' => 'index.php?do=FileEdit&id_file='
+                            . $item->getIdFile(),
+                    'deleteUri' => 'index.php?do=FileDelete&id_file='
+                            . $item->getIdFile(),
+                    'downloadUri' => 'index.php?do=FileDelete&id_file='
+                            . $item->getIdFile());
 
         $template->assign('ShowPersonalFiles_listaFile', $files);
-        $template->assign('ShowPersonalFiles_langTitle', 'Gestisci i tuoi file');
+        $template
+                ->assign('ShowPersonalFiles_langTitle', 'Gestisci i tuoi file');
 
     }
 }

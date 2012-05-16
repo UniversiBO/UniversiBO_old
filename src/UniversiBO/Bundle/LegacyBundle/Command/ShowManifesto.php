@@ -1,6 +1,5 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command;
-
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -15,15 +14,21 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
-class ShowManifesto extends UniversiboCommand {
-    function execute(){
+class ShowManifesto extends UniversiboCommand
+{
+    function execute()
+    {
 
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 
-        $template->assign('manifesto_TitleAlt','Manifesto');
-        $template->assign('manifesto_langQuoteAlt', 'Galileo Galilei: Ma sopra tutte le invezioni stupende qual eminenza di mente fu quella di colui che s\'immaginò di trovar modo di comunicare i suoi più reconditi pensieri a qualsivoglia altra persona, benché distante per lunghissimo intervallo di luogo e di tempo?');
-        $template->assignUnicode('manifesto_langWhatIsIt', 'Forse l\'avrete banalmente già notato, ma lo scopo di questo sito è quello di aiutare una specie animale che da tempo immemorabile s\'inerpica tutte le mattine per una salitella ai piedi dei colli Bolognesi... si tratta dello studente d\'ingegneria.
+        $template->assign('manifesto_TitleAlt', 'Manifesto');
+        $template
+                ->assign('manifesto_langQuoteAlt',
+                        'Galileo Galilei: Ma sopra tutte le invezioni stupende qual eminenza di mente fu quella di colui che s\'immaginò di trovar modo di comunicare i suoi più reconditi pensieri a qualsivoglia altra persona, benché distante per lunghissimo intervallo di luogo e di tempo?');
+        $template
+                ->assignUnicode('manifesto_langWhatIsIt',
+                        'Forse l\'avrete banalmente già notato, ma lo scopo di questo sito è quello di aiutare una specie animale che da tempo immemorabile s\'inerpica tutte le mattine per una salitella ai piedi dei colli Bolognesi... si tratta dello studente d\'ingegneria.
 
 Non si sa cosa li spinga tutti i giorni a compiere queste fatiche... fatto sta che mediamente dopo quasi una decina d\'anni abbandona questi luoghi... non si sa dove vadano e il più triste dei particolari è che nemmeno loro sanno cosa cercare una volta usciti! ...e finiscono solo col chiedersi perché vi siano entrati.
 
@@ -51,7 +56,6 @@ In una strana giornata, piovigginava leggermente con il sole che ancora faceva c
 Però dopo un po\' mi si presentò una simpatica rondinella, mi disse: "Erano giorni che avevo una fame terribile... sai, vengo da un lungo viaggio. Per fortuna che è passata da questa parti una farfalla che era tanto felice e faceva tanto chiasso che non ho potuto non notarla... davvero un buon pasto!".
 ');
         $template->assign('manifesto_Author', 'brain');
-
 
         return 'default';
     }
