@@ -1,6 +1,5 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Entity;
-use Zend\GData\App\Extension\Icon;
 
 use \DB;
 use \Error;
@@ -37,6 +36,7 @@ class DBCollaboratoreRepository extends DBRepository
 
         $rows = $res->numRows();
         if ($rows == 0)
+
             return false;
 
         $row = $this->fetchRow($res);
@@ -49,7 +49,8 @@ class DBCollaboratoreRepository extends DBRepository
         if (($user = $userRepo->find($collaboratore->getIdUser())) instanceof User) {
             $collaboratore->setUser($user);
         }
-        
+
+
         return $collaboratore;
     }
 
@@ -64,7 +65,7 @@ class DBCollaboratoreRepository extends DBRepository
         if ($shownOnly) {
             $query .= ' WHERE show = ' . $db->quote('Y');
         }
-        
+
         $res = $db->query($query);
         if (DB::isError($res))
             Error::throwError(_ERROR_CRITICAL,
@@ -80,7 +81,8 @@ class DBCollaboratoreRepository extends DBRepository
                     $row[2], $row[3], $row[4], $row[5]);
             $collab->setUser($userRepo->find($collab->getIdUser()));
         }
-        
+
+
         return $collaboratori;
     }
 

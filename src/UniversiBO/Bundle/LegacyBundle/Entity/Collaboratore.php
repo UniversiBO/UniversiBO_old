@@ -132,7 +132,7 @@ class Collaboratore extends User {
     {
         $this->foto = $foto;
     }
-    
+
     public function setUser(User $user)
     {
         $this->user = $user;

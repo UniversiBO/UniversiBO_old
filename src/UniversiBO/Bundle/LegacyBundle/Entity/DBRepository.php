@@ -53,10 +53,11 @@ abstract class DBRepository
         if ($this->convert) {
             $row = self::convertToUtf8($row);
         }
-        
+
+
         return $row;
     }
-    
+
     protected function isConvert()
     {
         return $this->convert;
@@ -70,6 +71,7 @@ abstract class DBRepository
                     {
                         $item = DBRepository::convertToUtf8($item);
                     });
+
             return $item;
         }
 

@@ -443,7 +443,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         if($this->isConvert()) {
             $username = self::convertToUtf8($username);
         }
-            
+
         $db = $this->getDb();
 
         $query = 'SELECT id_utente, password, email, ultimo_login, ad_username, groups, notifica, phone, default_style, sospeso, algoritmo, salt  FROM utente WHERE username ILIKE '
