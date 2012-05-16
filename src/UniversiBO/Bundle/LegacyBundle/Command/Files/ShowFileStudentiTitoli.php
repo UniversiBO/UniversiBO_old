@@ -194,7 +194,7 @@ class ShowFileStudentiTitoli extends PluginCommand {
     function getFileCanale($id_canale)
     {
 
-     	$db = FrontController::getDbConnection('main');
+         $db = FrontController::getDbConnection('main');
 
         $query = 'SELECT A.id_file  FROM file A, file_studente_canale B
                     WHERE A.id_file = B.id_file AND eliminato!='.$db->quote( FILE_ELIMINATO ).

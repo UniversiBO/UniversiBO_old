@@ -37,13 +37,13 @@ class ShowCollaboratore extends UniversiboCommand  {
         $curr_user = $collaboratore->getUser();
         if(($user->getIdUser())==($collaboratore->getIdUtente()))
            {
-           	 $modifica_link = '';
-           	 $modifica = "modifica";
+                $modifica_link = '';
+                $modifica = "modifica";
            }
         else
            {
-           	 $modifica_link = '';
-           	 $modifica = "";
+                $modifica_link = '';
+                $modifica = "";
            }
 
         $arrayContatti = array('username'=>$curr_user->getUsername(),

@@ -46,17 +46,17 @@ use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
             case 0:
                 $template->assign('showAllFilesStudenti_titoloPagina','ordinati per nome');
                 $template->assign('showAllFilesStudenti_url1','index.php?do=ShowAllFilesStudenti&order=1');
-            	$template->assign('showAllFilesStudenti_lang1','Mostra i Files Studenti ordinati per data di inserimento');
-            	$template->assign('showAllFilesStudenti_url2','index.php?do=ShowAllFilesStudenti&order=2');
-            	$template->assign('showAllFilesStudenti_lang2','Mostra i Files Studenti ordinati per voto medio');
-            	break;
+                $template->assign('showAllFilesStudenti_lang1','Mostra i Files Studenti ordinati per data di inserimento');
+                $template->assign('showAllFilesStudenti_url2','index.php?do=ShowAllFilesStudenti&order=2');
+                $template->assign('showAllFilesStudenti_lang2','Mostra i Files Studenti ordinati per voto medio');
+                break;
 
             case 1:
                 $template->assign('showAllFilesStudenti_titoloPagina','ordinati per data di inserimento');
                 $template->assign('showAllFilesStudenti_url1','index.php?do=ShowAllFilesStudenti&order=0');
                 $template->assign('showAllFilesStudenti_lang1','Mostra i Files Studenti ordinati per nome');
                 $template->assign('showAllFilesStudenti_url2','index.php?do=ShowAllFilesStudenti&order=2');
-            	$template->assign('showAllFilesStudenti_lang2','Mostra i Files Studenti ordinati per voto medio');
+                $template->assign('showAllFilesStudenti_lang2','Mostra i Files Studenti ordinati per voto medio');
                 break;
 
             case 2:
@@ -64,7 +64,7 @@ use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
                 $template->assign('showAllFilesStudenti_url1','index.php?do=ShowAllFilesStudenti&order=0');
                 $template->assign('showAllFilesStudenti_lang1','Mostra i Files Studenti ordinati per nome');
                 $template->assign('showAllFilesStudenti_url2','index.php?do=ShowAllFilesStudenti&order=1');
-            	$template->assign('showAllFilesStudenti_lang2','Mostra i Files Studenti ordinati per data di inserimento');
+                $template->assign('showAllFilesStudenti_lang2','Mostra i Files Studenti ordinati per data di inserimento');
                 break;
         }
 
@@ -81,8 +81,8 @@ use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
                 $quale_ordine = 'A.titolo';
                 break;
             case 1:
-            	$quale_ordine = 'A.data_inserimento DESC';
-            	break;
+                $quale_ordine = 'A.data_inserimento DESC';
+                break;
             case 2:
                 $quale_ordine = 'avg(B.voto) DESC';
                 $group = 'GROUP BY A.id_file';

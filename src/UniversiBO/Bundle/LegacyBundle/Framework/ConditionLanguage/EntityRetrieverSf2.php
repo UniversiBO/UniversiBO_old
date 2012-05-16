@@ -39,7 +39,7 @@ class EntityRetrieverSf2 implements IExecutor
         };
 
         $this->entityTable['krono'] = function() use($krono) {
-        	return $krono;
+            return $krono;
         };
     }
 

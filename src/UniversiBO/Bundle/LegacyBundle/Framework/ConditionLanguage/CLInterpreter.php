@@ -58,10 +58,10 @@ class CLInterpreter
     private function initParser($codice)
     {
         if(!isset($this->parser)) {
-        	$this->parser = new Java('parser.CLParser', new Java('java.io.StringReader',$codice));
+            $this->parser = new Java('parser.CLParser', new Java('java.io.StringReader',$codice));
         }
         else {
-        	$this->parser->ReInit(new Java('java.io.StringReader',$codice));
+            $this->parser->ReInit(new Java('java.io.StringReader',$codice));
         }
     }
 }

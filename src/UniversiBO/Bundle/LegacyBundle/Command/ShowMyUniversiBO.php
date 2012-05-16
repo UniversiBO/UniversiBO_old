@@ -125,7 +125,7 @@ class ShowMyUniversiBO extends UniversiboCommand
         else
             $values = implode(',',$id_canali);
 
-     	$db = FrontController::getDbConnection('main');
+         $db = FrontController::getDbConnection('main');
         $query = 'SELECT A.id_file FROM file A, file_canale B
                     WHERE A.id_file = B.id_file AND eliminato!='.$db->quote( FileItem::ELIMINATO ).
                     'AND B.id_canale IN ('.$values.')
@@ -174,7 +174,7 @@ class ShowMyUniversiBO extends UniversiboCommand
         else
             $values = implode(',',$id_canali);
 
-     	$db = FrontController::getDbConnection('main');
+         $db = FrontController::getDbConnection('main');
 
         $query = 'SELECT A.id_news FROM news A, news_canale B
                     WHERE A.id_news = B.id_news AND eliminata!='.$db->quote( NewsItem::ELIMINATA ).

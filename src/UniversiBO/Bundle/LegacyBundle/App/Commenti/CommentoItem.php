@@ -90,7 +90,7 @@ class CommentoItem
 
      function getIdFileStudente()
      {
-     	return $this->id_file_studente;
+         return $this->id_file_studente;
      }
 
      /**
@@ -99,7 +99,7 @@ class CommentoItem
 
      function setIdFileStudente($id_file_studente)
      {
-     	$this->id_file_studente = $id_file_studente;
+         $this->id_file_studente = $id_file_studente;
      }
 
      /**
@@ -108,7 +108,7 @@ class CommentoItem
 
      function getIdUtente()
      {
-     	return $this->id_utente;
+         return $this->id_utente;
      }
 
      /**
@@ -117,7 +117,7 @@ class CommentoItem
 
      function setIdUtente($id_utente)
      {
-     	$this->id_utente = $id_utente;
+         $this->id_utente = $id_utente;
      }
 
      /**
@@ -126,7 +126,7 @@ class CommentoItem
 
      function getCommento()
      {
-     	return $this->commento;
+         return $this->commento;
      }
 
      /**
@@ -135,7 +135,7 @@ class CommentoItem
 
      function setCommento($commento)
      {
-     	$this->commento = $commento;
+         $this->commento = $commento;
      }
 
      /**
@@ -144,7 +144,7 @@ class CommentoItem
 
      function getVoto()
      {
-     	return $this->voto;
+         return $this->voto;
      }
 
      /**
@@ -153,7 +153,7 @@ class CommentoItem
 
      function setVoto($voto)
      {
-     	$this->voto = $voto;
+         $this->voto = $voto;
      }
 
      /**
@@ -162,7 +162,7 @@ class CommentoItem
 
      function  selectCommentiItem($id_file)
      {
-     	$db = FrontController::getDbConnection('main');
+         $db = FrontController::getDbConnection('main');
 
         $query = 'SELECT id_commento,id_utente,commento,voto FROM file_studente_commenti WHERE id_file='.$db->quote($id_file).' AND eliminato = '.$db->quote(self::NOT_ELIMINATO).' ORDER BY voto DESC';
         $res = $db->query($query);
@@ -189,7 +189,7 @@ class CommentoItem
 
      function  selectCommentoItem($id_commento)
      {
-     	$db = FrontController::getDbConnection('main');
+         $db = FrontController::getDbConnection('main');
 
         $query = 'SELECT id_file,id_utente,commento,voto FROM file_studente_commenti WHERE id_commento='.$db->quote($id_commento).' AND eliminato = '.$db->quote(self::NOT_ELIMINATO);
         $res = $db->query($query);
@@ -220,7 +220,7 @@ class CommentoItem
     function  quantiCommenti($id_file)
     {
 
-     	$db = FrontController::getDbConnection('main');
+         $db = FrontController::getDbConnection('main');
 
         $query = 'SELECT count(*) FROM file_studente_commenti WHERE id_file = '.$db->quote($id_file).' AND eliminato = '.$db->quote(self::NOT_ELIMINATO).' GROUP BY id_file';
         $res = $db->query($query);
@@ -267,7 +267,7 @@ class CommentoItem
 
      function  insertCommentoItem($id_file_studente,$id_utente,$commento,$voto)
      {
-     	$db = FrontController::getDbConnection('main');
+         $db = FrontController::getDbConnection('main');
         ignore_user_abort(1);
         $next_id = $db->nextID('file_studente_commenti_id_commento');
         $this->id_commento=$next_id;
@@ -291,7 +291,7 @@ class CommentoItem
 
      function  updateCommentoItem($id_commento,$commento,$voto)
      {
-     	$db = FrontController::getDbConnection('main');
+         $db = FrontController::getDbConnection('main');
         ignore_user_abort(1);
         $return = true;
         $query = 'UPDATE file_studente_commenti SET commento='.$db->quote($commento).', voto= '.$db->quote($voto).' WHERE id_commento='.$db->quote($id_commento);
@@ -313,7 +313,7 @@ class CommentoItem
 
       function  deleteCommentoItem($id_commento)
       {
-      		$db = FrontController::getDbConnection('main');
+              $db = FrontController::getDbConnection('main');
         ignore_user_abort(1);
         $return = true;
         $query = 'UPDATE file_studente_commenti SET eliminato = '.$db->quote(self::ELIMINATO).'WHERE id_commento='.$db->quote($id_commento);

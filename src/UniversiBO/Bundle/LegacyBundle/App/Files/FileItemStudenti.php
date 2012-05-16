@@ -244,7 +244,7 @@ class FileItemStudenti extends FileItem {
 
       function deleteAllCommenti()
       {
-      	$db = FrontController::getDbConnection('main');
+          $db = FrontController::getDbConnection('main');
         ignore_user_abort(1);
         $return = true;
         $query = 'UPDATE file_studente_commenti SET eliminato = '.$db->quote(CommentoItem::ELIMINATO).'WHERE id_file='.$db->quote($this->id_file);

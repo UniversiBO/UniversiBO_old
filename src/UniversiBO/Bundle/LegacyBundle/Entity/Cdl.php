@@ -325,7 +325,7 @@ class Cdl extends Canale {
      */
      public function getShowUri()
      {
-     	return 'index.php?do=ShowCdl&id_canale='.$this->getIdCanale();
+         return 'index.php?do=ShowCdl&id_canale='.$this->getIdCanale();
      }
 
     /**
@@ -384,8 +384,9 @@ class Cdl extends Canale {
     {
         if ($this->insertCanale() != true)
         {
-        	Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore inserimento Canale','file'=>__FILE__,'line'=>__LINE__));
-        	return false;
+            Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore inserimento Canale','file'=>__FILE__,'line'=>__LINE__));
+
+            return false;
         }
 
 

@@ -365,7 +365,7 @@ class Facolta extends Canale {
      */
      function getShowUri()
      {
-     	return 'index.php?do=ShowFacolta&id_canale='.$this->getIdCanale();
+         return 'index.php?do=ShowFacolta&id_canale='.$this->getIdCanale();
      }
 
 }

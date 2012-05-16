@@ -162,9 +162,10 @@ class CLVisitor
                            )
                        )
                    {
-       				// calcola poi il precedente
-       				$ret = array( 'op' => $nextOp, 'indice' => $i_next);
-       				return $ret;
+                       // calcola poi il precedente
+                       $ret = array( 'op' => $nextOp, 'indice' => $i_next);
+
+                       return $ret;
                    }
                    else
                        // calcola poi il successivo
@@ -573,11 +574,11 @@ class CLVisitor
                 $t->elementAt(0)->accept($this->callMe());
                 if ($t->elementAt(1)->present())
                 {
-                	$s = $t->elementAt(1)->elementAt(0); //var_dump($this->node2string($s->elementAt(0)));die;
-                	$last = null;
+                    $s = $t->elementAt(1)->elementAt(0); //var_dump($this->node2string($s->elementAt(0)));die;
+                    $last = null;
                     $this->exploreNextOp($this->getOp($s->elementAt(0)),$s->elementAt(1),0, $last,$t->elementAt(1)->size(),$t->elementAt(1));
                 }
-       			break;
+                   break;
             case 1:
                 $filter = null;
                 if ($t->elementAt(4)->present())
@@ -588,10 +589,10 @@ class CLVisitor
                 $t->elementAt(2)->accept($this->callMe());
                 if($t->elementAt(3)->present())
                     for ($i = 0; $i < $t->elementAt(3)->size(); $i++)
-          			{
-          				$tmp = $t->elementAt(3)->elementAt($i);
+                      {
+                          $tmp = $t->elementAt(3)->elementAt($i);
                         $tmp->elementAt(1)->accept($this->callMe());
-          			}
+                      }
                 $this->calcola($this->getOp($t->elementAt(0)),$filter);
                 break;
             default:
@@ -649,10 +650,10 @@ class CLVisitor
 
        switch ($n->f0->which)
        {
-       		case 0: // $VARIABILE
+               case 0: // $VARIABILE
                 if (!array_key_exists(md5($this->node2string($s->elementAt(1),true)),$this->listaVariabili))
-            		$this->semanticError("La variabile " . $this->node2string($s->elementAt(1)) . " non � stata definita", $n);
-            	$this->listaVariabili[md5($this->node2string($s->elementAt(1),true))]->accept($this->callMe());
+                    $this->semanticError("La variabile " . $this->node2string($s->elementAt(1)) . " non � stata definita", $n);
+                $this->listaVariabili[md5($this->node2string($s->elementAt(1),true))]->accept($this->callMe());
                   break;
               case 1: //NAMESPACE
               case 2: //ELEM
@@ -667,27 +668,27 @@ class CLVisitor
                   $list = $s->elementAt(2);
                   if($list->present())
                   {
-          			for ($i = 0; $i < $list->size(); $i++)
-          			{
-          				$tmp = $list->elementAt($i);
-          				$method = $this->node2string($tmp->elementAt(1));
-          				$args = array();
-          				$listaArgs = $tmp->elementAt(3);
-          				if ($listaArgs->present())
-          				{
-          					$listaArgs = $listaArgs->node;
-          					$args[] = $this->node2string($listaArgs->elementAt(0));
-          					if ($listaArgs->elementAt(1)->present())
-          						for ($j = 0; $j < $listaArgs->size(); $j++)
-          						{
-          							$listaArgs->elementAt($j)->elementAt(1)->accept($this->callMe());
-          							$args[] = $this->st->pop();
-          						}
-          				}
-          				if (!method_exists($o,$method))
-          					$this->semanticError('ENTITY: il metodo '. $method . ' non � definito per '.get_class($o),$n);
-          				$this->st->push(call_user_func_array(array(&$o,$method),$args));
-          			}
+                      for ($i = 0; $i < $list->size(); $i++)
+                      {
+                          $tmp = $list->elementAt($i);
+                          $method = $this->node2string($tmp->elementAt(1));
+                          $args = array();
+                          $listaArgs = $tmp->elementAt(3);
+                          if ($listaArgs->present())
+                          {
+                              $listaArgs = $listaArgs->node;
+                              $args[] = $this->node2string($listaArgs->elementAt(0));
+                              if ($listaArgs->elementAt(1)->present())
+                                  for ($j = 0; $j < $listaArgs->size(); $j++)
+                                  {
+                                      $listaArgs->elementAt($j)->elementAt(1)->accept($this->callMe());
+                                      $args[] = $this->st->pop();
+                                  }
+                          }
+                          if (!method_exists($o,$method))
+                              $this->semanticError('ENTITY: il metodo '. $method . ' non � definito per '.get_class($o),$n);
+                          $this->st->push(call_user_func_array(array(&$o,$method),$args));
+                      }
                   }
                   else
                       $this->st->push($o);

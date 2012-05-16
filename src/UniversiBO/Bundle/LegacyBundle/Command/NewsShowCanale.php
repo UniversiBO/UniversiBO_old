@@ -89,7 +89,7 @@ class NewsShowCanale extends CanaleCommand {
      */
     function getLatestNewsCanale($startNum, $qta, $id_canale)
     {
-     	$db = FrontController::getDbConnection('main');
+         $db = FrontController::getDbConnection('main');
 
         $query = 'SELECT A.id_news FROM news A, news_canale B
                     WHERE A.id_news = B.id_news AND eliminata!='.$db->quote( NewsItem::ELIMINATA ).
@@ -126,7 +126,7 @@ class NewsShowCanale extends CanaleCommand {
      */
     function getNumNewsCanale($id_canale)
     {
-     	$db = FrontController::getDbConnection('main');
+         $db = FrontController::getDbConnection('main');
 
         $query = 'SELECT count(A.id_news) FROM news A, news_canale B
                     WHERE A.id_news = B.id_news AND eliminata!='.$db->quote(NewsItem::ELIMINATA).

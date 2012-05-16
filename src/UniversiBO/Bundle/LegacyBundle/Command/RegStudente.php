@@ -175,8 +175,8 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore
                  "Username: ".$new_user->getUsername()."\n".
                  "Password: ".$randomPassword."\n\n".
                  "Questa password e' stata generata in modo casuale: sul sito  e' disponibile nella pagina delle tue impostazioni personali la funzionalita' per poterla cambiare a tuo piacimento\n\n".
-         		 "Dopo aver fatto il login puoi, modificare il tuo profilo personale per l'inoltro delle News dei tuoi esami preferiti in e-mail\n".
-         		 "Se desideri collaborare al progetto UniversiBO compila il questionario all'indirizzo ".$fc->getAppSetting('rootUrl')."/index.php?do=ShowContribute \n\n".
+                  "Dopo aver fatto il login puoi, modificare il tuo profilo personale per l'inoltro delle News dei tuoi esami preferiti in e-mail\n".
+                  "Se desideri collaborare al progetto UniversiBO compila il questionario all'indirizzo ".$fc->getAppSetting('rootUrl')."/index.php?do=ShowContribute \n\n".
                  "Qualora avessi ricevuto questa e-mail per errore, segnalalo rispondendo a questo messaggio";
 
             $msg = "L'iscrizione e` stata registrata con successo ma non e` stato possibile inviarti la password tramite e-mail\n".
