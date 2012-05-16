@@ -20,4 +20,5 @@ set  :shared_children, [app_path + "/logs", web_path + "/img/contacts", web_path
 
 set  :update_vendors, false
 set  :use_composer,   true
+set  :use_sudo,       false
 set  :keep_releases,  3
