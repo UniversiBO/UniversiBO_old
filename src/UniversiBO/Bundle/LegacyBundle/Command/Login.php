@@ -1,7 +1,6 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
-use \DB;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\App\ForumApi;
@@ -43,12 +42,12 @@ class Login extends UniversiboCommand {
             {
                 Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Il login pu� essere eseguito solo da utenti che non hanno ancora eseguito l\'accesso','file'=>__FILE__,'line'=>__LINE__));
             }
-            	
+
             if (! User::isUsernameValid($_POST['f1_username']) )
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Username non valido','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
-            	
+
             $userLogin = User::selectUserUsername($_POST['f1_username']);
-            	
+
             if ($userLogin === false || $userLogin->isEliminato() )
             {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => '0', 'msg'=>'Non esistono utenti con lo username inserito','file'=>__FILE__,'line'=>__LINE__,'log'=>true ,'template_engine'=>&$template ));
@@ -89,7 +88,7 @@ class Login extends UniversiboCommand {
 
         }
 
-        	
+
         $f1_username = (array_key_exists('f1_username', $_POST)) ? '' : $_POST['f1_username'] = '';
         $f1_password = '';
 
@@ -97,6 +96,7 @@ class Login extends UniversiboCommand {
         $template->assign('f1_referer_value',$referer);
         $template->assign('f1_username_value',$_POST['f1_username']);
         $template->assign('f1_password_value','');
+
         return ;
 
     }

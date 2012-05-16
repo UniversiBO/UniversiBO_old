@@ -16,14 +16,14 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 class ShowManifesto extends UniversiboCommand {
-	function execute(){
+    function execute(){
 
-		$frontcontroller = $this->getFrontController();
-		$template = $frontcontroller->getTemplateEngine();
-		
-		$template->assign('manifesto_TitleAlt','Manifesto');
-		$template->assign('manifesto_langQuoteAlt', 'Galileo Galilei: Ma sopra tutte le invezioni stupende qual eminenza di mente fu quella di colui che s\'immaginò di trovar modo di comunicare i suoi più reconditi pensieri a qualsivoglia altra persona, benché distante per lunghissimo intervallo di luogo e di tempo?');
-		$template->assignUnicode('manifesto_langWhatIsIt', 'Forse l\'avrete banalmente già notato, ma lo scopo di questo sito è quello di aiutare una specie animale che da tempo immemorabile s\'inerpica tutte le mattine per una salitella ai piedi dei colli Bolognesi... si tratta dello studente d\'ingegneria.
+        $frontcontroller = $this->getFrontController();
+        $template = $frontcontroller->getTemplateEngine();
+
+        $template->assign('manifesto_TitleAlt','Manifesto');
+        $template->assign('manifesto_langQuoteAlt', 'Galileo Galilei: Ma sopra tutte le invezioni stupende qual eminenza di mente fu quella di colui che s\'immaginò di trovar modo di comunicare i suoi più reconditi pensieri a qualsivoglia altra persona, benché distante per lunghissimo intervallo di luogo e di tempo?');
+        $template->assignUnicode('manifesto_langWhatIsIt', 'Forse l\'avrete banalmente già notato, ma lo scopo di questo sito è quello di aiutare una specie animale che da tempo immemorabile s\'inerpica tutte le mattine per una salitella ai piedi dei colli Bolognesi... si tratta dello studente d\'ingegneria.
 
 Non si sa cosa li spinga tutti i giorni a compiere queste fatiche... fatto sta che mediamente dopo quasi una decina d\'anni abbandona questi luoghi... non si sa dove vadano e il più triste dei particolari è che nemmeno loro sanno cosa cercare una volta usciti! ...e finiscono solo col chiedersi perché vi siano entrati.
 
@@ -38,7 +38,7 @@ Questa persona tracciava degli strani segni su una superficie nera, e parlava ..
 Per fortuna un giorno lei si addormentò e quando si svegliò gli spuntarono due stupende ali variopinte che le permisero di volare via dalla sua gabbia.
 Era libera! Finalmente libera!
 Ed era felice! Finalmente felice, di potersene stare in quel bel giardino all\'aria aperta.
-Finalmente poteva girare in tutte le direzioni senza farsi influenzare da chi le diceva di scegliere la via di destra, sinistra o dritto al centro... se solo voleva poteva tornarsene indietro infischiandosene di tutto!! 
+Finalmente poteva girare in tutte le direzioni senza farsi influenzare da chi le diceva di scegliere la via di destra, sinistra o dritto al centro... se solo voleva poteva tornarsene indietro infischiandosene di tutto!!
 Ma il fatto che tutti quegli ingegneri se ne stessero là dentro la turbava un po\'.
 A quel punto mi regalò la sua idea: "Perché non ricopi anche tu quegli strani disegni? Fai in modo che tutti possano copiarseli con poca fatica, così quei poveri ingegneri se ne potranno andare prima dalla loro gabbia e potranno essere come me che volo felice per questo giardino".
 
@@ -50,8 +50,9 @@ In una strana giornata, piovigginava leggermente con il sole che ancora faceva c
 ...non riuscii a trovarla, e stanco mi rimisi a sedere sulla panchina.
 Però dopo un po\' mi si presentò una simpatica rondinella, mi disse: "Erano giorni che avevo una fame terribile... sai, vengo da un lungo viaggio. Per fortuna che è passata da questa parti una farfalla che era tanto felice e faceva tanto chiasso che non ho potuto non notarla... davvero un buon pasto!".
 ');
-		$template->assign('manifesto_Author', 'brain');
-		
-		return 'default';						
-	}
+        $template->assign('manifesto_Author', 'brain');
+
+
+        return 'default';
+    }
 }

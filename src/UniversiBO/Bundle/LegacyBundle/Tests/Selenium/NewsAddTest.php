@@ -11,13 +11,13 @@ class NewsAddTest extends UniversiBOSeleniumTestCase
     public function testInsertNews()
     {
         $this->login('lgalli');
-        
+
         $this->open('/index.php?do=NewsAdd&id_canale=11162');
-        
+
         $this->type('name=f7_titolo', 'News title');
         $this->type('name=f7_testo', 'News text');
         $this->clickAndWait('name=f7_submit');
-        
+
         self::assertTrue($this->isTextPresent('inserita con successo.'), 'Checking for text "inserita con successo."');
     }
 }

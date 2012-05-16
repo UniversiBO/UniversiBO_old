@@ -31,26 +31,26 @@ namespace UniversiBO\Bundle\LegacyBundle\Framework;
 class Response
 {
     private $content;
-    
+
     public function __construct(){
-    	ob_start();
+        ob_start();
     }
-    
+
     public function write(&$string){
-    	$this->content .=$string;
+        $this->content .=$string;
     }
-    
+
     public function getContent(){
-    	return ob_get_contents();
+        return ob_get_contents();
     }
-    
+
     public function emptyBuffer(){
-    	ob_end_clean();
+        ob_end_clean();
     }
-    
+
     public function redirect($location) {
-    	ob_end_clean();
-    	header("Location: $location");
-    	exit();
+        ob_end_clean();
+        header("Location: $location");
+        exit();
     }
 }

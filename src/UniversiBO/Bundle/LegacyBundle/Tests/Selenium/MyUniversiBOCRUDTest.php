@@ -14,7 +14,7 @@ class MyUniversiBOCRUDTest extends UniversiBOSeleniumTestCase
         $this->open('/index.php?do=MyUniversiBOAdd&id_canale=23');
         $this->assertSentences(array('permesso ad utenti non registrati eseguire questa operazione. La sessione potrebbe essere scaduta'));
     }
-    
+
     public function testAdd()
     {
         $this->login('brain');
@@ -23,16 +23,16 @@ class MyUniversiBOCRUDTest extends UniversiBOSeleniumTestCase
         $this->clickAndWait('name=f15_submit');
         $this->assertSentences(array('stata inserita con successo'));
     }
-    
+
     public function testEdit()
     {
-    	$this->login('brain');
-    	$this->open('/index.php?do=MyUniversiBOEdit&id_canale=23');
-    	$this->assertSentences(array('Modifica una pagina del tuo MyUniversiBO'));
-    	$this->clickAndWait('name=f19_submit');
-    	$this->assertSentences(array('stata modificata con successo'));
+        $this->login('brain');
+        $this->open('/index.php?do=MyUniversiBOEdit&id_canale=23');
+        $this->assertSentences(array('Modifica una pagina del tuo MyUniversiBO'));
+        $this->clickAndWait('name=f19_submit');
+        $this->assertSentences(array('stata modificata con successo'));
     }
-    
+
     public function testRemove()
     {
         $this->login('brain');

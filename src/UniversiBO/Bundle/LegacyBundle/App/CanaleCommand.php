@@ -1,7 +1,6 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\App;
 
-use UniversiBO\Bundle\LegacyBundle\Entity\Cdl;
 
 use UniversiBO\Bundle\LegacyBundle\Entity\User;
 
@@ -180,12 +179,12 @@ abstract class CanaleCommand extends UniversiboCommand
             $template = $this->frontController->getTemplateEngine();
             $canale = $this->getRequestCanale();
             $user = $this->getSessionUser();
-             
+
             //informazioni del menu contatti
             $attivaContatti = $user->isAdmin();
-             
+
             $attivaModificaDiritti = $user->isAdmin();
-             
+
             $arrayPublicUsers = array();
             $arrayRuoli = $canale->getRuoli();
             //var_dump($arrayRuoli);
@@ -197,10 +196,10 @@ abstract class CanaleCommand extends UniversiboCommand
                 if ($ruolo->isReferente() || $ruolo->isModeratore())
                 {
                     $attivaContatti = true;
-                    	
+
                     if ($ruolo->isReferente() && $ruolo->getIdUser() == $user->getIdUser())
                         $attivaModificaDiritti = true;
-                    	
+
                     $user_temp = User::selectUser($ruolo->getIdUser());
                     //var_dump($user);
                     $contactUser = array();
@@ -215,7 +214,7 @@ abstract class CanaleCommand extends UniversiboCommand
             }
             //ordina $arrayCanali
             //usort($arrayUsers, array('CanaleCommand','_compareMyUniversiBO'));
-             
+
             //assegna al template
             if ($attivaContatti)
             {
@@ -232,8 +231,8 @@ abstract class CanaleCommand extends UniversiboCommand
 
                 $template->assign('common_langLinksCanale', 'Links');
             }
-             
-             
+
+
             //$template->assign('common_contactsCanaleAvailable', 'false');
 
             // elenco post nuovi contestuale al canale
@@ -292,6 +291,7 @@ abstract class CanaleCommand extends UniversiboCommand
             case 'Studenti': $posB = 3; break;
         }
         if ($posA==$posB)
+
             return strcmp($b["label"], $a["label"]);
         return ($posA < $posB) ? 1 : -1;
     }

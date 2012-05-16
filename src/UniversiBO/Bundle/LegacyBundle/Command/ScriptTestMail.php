@@ -12,15 +12,15 @@ use UniversiBO\Bundle\LegacyBundle\App\Notifica\NotificaMail;
  */
 class ScriptTestMail extends UniversiboCommand
 {
-	
-	function execute()
-	{
-		$fc = $this->getFrontController();
-		$template = $fc->getTemplateEngine();
-		
-		$mail = new NotificaMail(1,'prova','prova prova',time(),false, false,'mail://evaimitico@gmail.com');
 
-		var_dump($mail->send($fc));
-		echo $mail->getError();	
-	}	
+    function execute()
+    {
+        $fc = $this->getFrontController();
+        $template = $fc->getTemplateEngine();
+
+        $mail = new NotificaMail(1,'prova','prova prova',time(),false, false,'mail://evaimitico@gmail.com');
+
+        var_dump($mail->send($fc));
+        echo $mail->getError();
+    }
 }

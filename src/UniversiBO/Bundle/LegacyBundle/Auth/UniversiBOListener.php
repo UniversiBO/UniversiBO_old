@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface;
 use Symfony\Component\Security\Http\Firewall\ListenerInterface;
-use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;
 
 class UniversiBOListener implements ListenerInterface
 {
@@ -40,10 +39,10 @@ class UniversiBOListener implements ListenerInterface
 
             try {
                 $returnValue = $this->authenticationManager->authenticate($token);
-                
+
                 if ($returnValue instanceof TokenInterface) {
                     return $this->securityContext->setToken($returnValue);
-                } else if ($returnValue instanceof Response) {
+                } elseif ($returnValue instanceof Response) {
                     return $event->setResponse($returnValue);
                 }
             } catch (AuthenticationException $e) {

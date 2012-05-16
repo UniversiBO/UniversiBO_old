@@ -31,72 +31,72 @@ class PrgAttivitaDidattica extends Canale
      * @private
      */
     var $codiceCdl; //(cod_corso)
-    	
+
     /**
      * @private
      */
     var $codInd;
-    	
+
     /**
      * @private
      */
     var $codOri;
-    	
+
     /**
      * @private
      */
     var $codMateria;
-    	
+
     /**
      * @private
      */
     var $nomeMateria;
-    	
+
     /**
      * @private
      */
     var $annoCorso;
-    	
+
     /**
      * @private
      */
     var $codMateriaIns;
-    	
+
     /**
      * @private
      */
     var $nomeMateriaIns;
-    	
+
     /**
      * @private
      */
     var $annoCorsoIns;
-    	
+
     /**
      * @private
      */
     var $codRil;
-    	
+
     /**
      * @private
      */
     var $codModulo;
-    	
+
     /**
      * @private
      */
     var $codDoc;
-    	
+
     /**
      * @private
      */
     var $nomeDoc;
-    	
+
     /**
      * @private
      */
     var $flagTitolareModulo;
-    	
+
     /**
      * @private
      */
@@ -116,30 +116,30 @@ class PrgAttivitaDidattica extends Canale
      * @private
      */
     var $sdoppiato;
-    	
+
     /**
      * null se attivit� padre, id_sdop se attivit� sdoppiato (integer)
      * @private
      */
     var $id_sdop;
-    	
+
 
     /**
      * Crea un oggetto PrgAttivitaDidattica
      *
-     * @param int     $id_canale 		identificativo del canale su database
-     * @param int     $permessi 		privilegi di accesso gruppi {@see User}
-     * @param int     $ultima_modifica 	timestamp
-     * @param int     $tipo_canale 	 	vedi definizione dei tipi sopra
-     * @param string  $immagine			uri dell'immagine relativo alla cartella del template
-     * @param string  $nome				nome del canale
-     * @param int     $visite			numero visite effettuate sul canale
-     * @param boolean $news_attivo		se true il servizio notizie ? attivo
-     * @param boolean $files_attivo		se true il servizio false ? attivo
-     * @param boolean $forum_attivo		se true il servizio forum ? attivo
+     * @param int     $id_canale         		identificativo del canale su database
+     * @param int     $permessi          		privilegi di accesso gruppi {@see User}
+     * @param int     $ultima_modifica   	timestamp
+     * @param int     $tipo_canale       	 	vedi definizione dei tipi sopra
+     * @param string  $immagine			uri    dell'immagine relativo alla cartella del template
+     * @param string  $nome				nome      del canale
+     * @param int     $visite			numero   visite effettuate sul canale
+     * @param boolean $news_attivo		se   true il servizio notizie ? attivo
+     * @param boolean $files_attivo		se  true il servizio false ? attivo
+     * @param boolean $forum_attivo		se  true il servizio forum ? attivo
      * @param int     $forum_forum_id	se forum_attivo ? true indica l'identificativo del forum su database
      * @param int     $forum_group_id	se forum_attivo ? true indica l'identificativo del grupop moderatori del forum su database
-     * @param boolean $links_attivo 	se true il servizio links ? attivo
+     * @param boolean $links_attivo      	se true il servizio links ? attivo
      *
      * @param int	  $annoAccademico
      * @param string  $codiceCdl
@@ -154,7 +154,7 @@ class PrgAttivitaDidattica extends Canale
      * @param string  $codRil
      * @param string  $codModulo
      * @param string  $codDoc
-     * @param string  $nomeDoc  //questo sar? da cambiare in futuro qualora si voglia riferire un oggetto docente
+     * @param string $nomeDoc //questo sar? da cambiare in futuro qualora si voglia riferire un oggetto docente
      * @param string  $flagTitolareModulo
      * @param string  $tipoCiclo
      * @param string  $codAte
@@ -173,7 +173,7 @@ class PrgAttivitaDidattica extends Canale
 
         parent::__construct($id_canale, $permessi, $ultima_modifica, $tipo_canale, $immagine, $nome, $visite,
                 $news_attivo, $files_attivo, $forum_attivo, $forum_forum_id, $forum_group_id, $links_attivo,$files_studenti_attivo);
-        	
+
         $this->annoAccademico	   = $annoAccademico;
         $this->codiceCdl		   = $codiceCdl;
         $this->codInd			   = $codInd;
@@ -573,7 +573,7 @@ class PrgAttivitaDidattica extends Canale
                     $row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21],
                     $row[22], $row[23], $row[24], $row[25], $row[26], $row[27], $row[28], $row[29],
                     $row[30], $row[31], $row[32]=='S' , $row[33]);
-            	
+
             $elenco[] = $prgAtt;
         }
         $res->free();
@@ -650,7 +650,7 @@ class PrgAttivitaDidattica extends Canale
                     $row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21],
                     $row[22], $row[23], $row[24], $row[25], $row[26], $row[27], $row[28], $row[29],
                     $row[30], $row[31], $row[32]=='S' , $row[33]);
-            	
+
             $elenco[] = $prgAtt;
         }
         $res->free();
@@ -677,7 +677,7 @@ class PrgAttivitaDidattica extends Canale
         FROM (
         SELECT DISTINCT ON (id_canale, anno_accademico, cod_corso, cod_materia, anno_corso, cod_materia_ins, anno_corso_ins, cod_ril, cod_doc, tipo_ciclo, cod_ate, anno_corso_universibo) *
         FROM (
-        	
+
         SELECT c.tipo_canale, c.nome_canale, c.immagine, c.visite, c.ultima_modifica, c.permessi_groups, c.files_attivo, c.news_attivo, c.forum_attivo, c.id_forum, c.group_id, c.links_attivo,c.files_studenti_attivo, c.id_canale, s.anno_accademico, s.cod_corso, s.cod_ind, s.cod_ori, s.cod_materia, m1.desc_materia, i.anno_corso, s.cod_materia_ins, m2.desc_materia AS desc_materia_ins, s.anno_corso_ins, s.cod_ril, i.cod_modulo, i.cod_doc, d.nome_doc, i.flag_titolare_modulo, s.tipo_ciclo, s.cod_ate, s.anno_corso_universibo, id_sdop
         FROM canale c, prg_insegnamento i, prg_sdoppiamento s, classi_materie m1, classi_materie m2, docente d
         WHERE c.id_canale = i.id_canale
@@ -718,7 +718,7 @@ class PrgAttivitaDidattica extends Canale
                 $row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21],
                 $row[22], $row[23], $row[24], $row[25], $row[26], $row[27], $row[28], $row[29],
                 $row[30], $row[31], true, $row[32] );
-        	
+
         $res->free();
 
         return $prgAtt;
@@ -818,6 +818,7 @@ class PrgAttivitaDidattica extends Canale
         if (DB::isError($res))
         {
             Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+
             return false;
         }
 
@@ -826,6 +827,7 @@ class PrgAttivitaDidattica extends Canale
         if( $rows == 0)
         {
             $array = array();
+
             return $array;
         }
         $elenco = array();
@@ -836,7 +838,7 @@ class PrgAttivitaDidattica extends Canale
                     $row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21],
                     $row[22], $row[23], $row[24], $row[25], $row[26], $row[27], $row[28], $row[29],
                     $row[30], $row[31], $row[32]=='S' , $row[33]);
-            	
+
             $elenco[] = $prgAtt;
         }
 

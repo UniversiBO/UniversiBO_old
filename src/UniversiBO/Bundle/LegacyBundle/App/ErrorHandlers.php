@@ -132,7 +132,7 @@ class ErrorHandlers {
             $log_definition = array(0 => 'timestamp', 1 => 'date', 2 => 'time', 3 => 'error_level', 4 => 'file', 5 => 'line', 6 => 'messaggio' );
 
             $log = new LogHandler('error','../universibo/log-universibo/',$log_definition);
-             
+
             $log_array = array( 'timestamp'  => time(),
                     'date'  => date("Y-m-d",time()),
                     'time'  => date("H:i",time()),
@@ -163,7 +163,7 @@ class ErrorHandlers {
          template engine: ',$param['template_engine'], '<br />';
          */
     }
-    
+
     public function register()
     {
         Error::setHandler(self::LEVEL_DEFAULT, array($this, 'default_handler'));

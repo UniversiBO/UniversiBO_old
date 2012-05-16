@@ -21,7 +21,7 @@ class ShowHelpTopicTest extends UniversiBOSeleniumTestCase
                 'Voglio inserire una notizia su UniversiBO: come posso fare?',
                 'Modificare un insegnamento e cercare un codice docente (solo admin e collaboratori)'
         );
-        
+
         $this->open('/index.php?do=ShowHelpTopic');
 
         foreach($sentences as $sentence) {

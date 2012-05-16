@@ -34,6 +34,7 @@ class DBCanaleRepository extends DBRepository
         if( $rows = 0) return false;
 
         $res->fetchInto($row);
+
         return $row[0];
     }
 
@@ -50,12 +51,14 @@ class DBCanaleRepository extends DBRepository
         if( $rows == 1) return true;
         elseif( $rows == 0) return false;
         else \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database canali: id non unico','file'=>__FILE__,'line'=>__LINE__));
+
         return false;
     }
-    
+
     public function find($idCanale)
     {
         $result = $this->findManyById(array($idCanale));
+
         return is_array($result) ? $result[0] : $result;
     }
 
@@ -169,7 +172,7 @@ class DBCanaleRepository extends DBRepository
             $forum_forum_id = NULL ;
             $forum_group_id = NULL ;
         }
-         
+
 
         $query = 'INSERT INTO canale (id_canale, tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo, files_studenti_attivo) VALUES ('.
                 $db->quote($canale->getIdCanale()).' , '.
@@ -190,6 +193,7 @@ class DBCanaleRepository extends DBRepository
         if (\DB::isError($res))
         {
             Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+
             return false;
         }
 
@@ -231,7 +235,7 @@ class DBCanaleRepository extends DBRepository
         ' , group_id = '.$db->quote($forum_group_id).
         ' , links_attivo = '.$db->quote($links_attivo).
         ' , files_studenti_attivo = '.$db->quote($files_studenti_attivo).' WHERE id_canale ='.$db->quote($canale->getIdCanale());
-         
+
         $res = $db->query($query);
         if (\DB::isError($res))
             \Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));

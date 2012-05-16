@@ -1,7 +1,6 @@
-<?php    
+<?php
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
-use \DB;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
 use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
@@ -60,14 +59,14 @@ class FileDocenteAdmin extends UniversiboCommand {
                 Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non � valido', 'file' => __FILE__, 'line' => __LINE__));
 
             $canale = & Canale::retrieveCanale($_GET['id_canale']);
-            	
+
             if ($canale->getServizioFiles() == false)
                 Error :: throwError (_ERROR_DEFAULT, array ('msg' => "Il servizio files � disattivato", 'file' => __FILE__, 'line' => __LINE__));
 
             $id_canale = $canale->getIdCanale();
             $template->assign('common_canaleURI', $canale->showMe());
             $template->assign('common_langCanaleNome', 'a '.$canale->getTitolo());
-            	
+
         }
 
         $ruoli_keys = array_keys($user_ruoli);
@@ -77,7 +76,7 @@ class FileDocenteAdmin extends UniversiboCommand {
             if ($user->isAdmin() || $user_ruoli[$ruoli_keys[$i]]->isReferente())
                 $elenco_canali[] = $user_ruoli[$ruoli_keys[$i]]->getIdCanale();
         }
-        	
+
         $elenco_canali_retrieve = array();
         $num_canali = count($elenco_canali);
         for ($i = 0; $i<$num_canali; $i++)
@@ -113,7 +112,7 @@ class FileDocenteAdmin extends UniversiboCommand {
             $f40_accept = true;
             $f40_canali_inserimento = array();
             $f40_file_inserimento = array();
-            	
+
             //			if ( !array_key_exists('f40_files', $_POST) ||
             //				 !array_key_exists('f40_canale', $_POST) )
                 //			{
@@ -121,7 +120,7 @@ class FileDocenteAdmin extends UniversiboCommand {
                 //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'Il form inviato non � valido', 'file' => __FILE__, 'line' => __LINE__));
                 //				$f40_accept = false;
                 //			}
-                	
+
                 if (!array_key_exists('f40_files', $_POST) || count($_POST['f40_files']) == 0)
                 {
                     Error :: throwError (_ERROR_NOTICE, array ('msg' => 'Bisogna selezionare almeno un file', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
@@ -153,7 +152,7 @@ class FileDocenteAdmin extends UniversiboCommand {
                             $f40_file_inserimento[$key] = $fileTemp;
                     }
                 }
-                	
+
                 if (!array_key_exists('f40_canale', $_POST) || count($_POST['f40_canale']) == 0)
                 {
                     Error :: throwError (_ERROR_NOTICE, array ('msg' => 'Bisogna selezionare almeno una pagina', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
@@ -173,7 +172,7 @@ class FileDocenteAdmin extends UniversiboCommand {
                             Error :: throwError (_ERROR_NOTICE, array ('msg' => 'Non possiedi i diritti di inserimento nel canale: '.$canale->getTitolo(), 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
                             $f40_accept = false;
                         }
-                        	
+
                         $f40_canali_inserimento[] = $key;
                     }
                 }
@@ -298,7 +297,8 @@ class FileDocenteAdmin extends UniversiboCommand {
 
         // TODO aggiungere l'help
         // $this->executePlugin('ShowTopic', array('reference' => 'filescollabs'));
-        	
+
+
         return 'default';
 
     }
@@ -314,6 +314,7 @@ class FileDocenteAdmin extends UniversiboCommand {
     {
         $nomea = strtolower($a['nome']);
         $nomeb = strtolower($b['nome']);
+
         return strnatcasecmp($nomea, $nomeb);
     }
 

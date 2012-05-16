@@ -13,7 +13,7 @@ class ChangePasswordTest extends UniversiBOSeleniumTestCase
         $this->login($username='brain', $oldPassword='padrino');
         $this->changePassword($username, $oldPassword, $newPassword='madrina');
         $this->logout();
-         
+
         $this->login($username, $newPassword);
         $this->changePassword($username, $newPassword, $oldPassword);
         $this->logout();

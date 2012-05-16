@@ -7,43 +7,43 @@ class LoginTest extends UniversiBOSeleniumTestCase
     {
         parent::setUp();
     }
-    
+
     public function testLoginAdmin()
     {
-    	$this->login('brain');
-    	$this->checkLevel('Admin');
-    	$this->logout();
+        $this->login('brain');
+        $this->checkLevel('Admin');
+        $this->logout();
     }
-    
-    
+
+
     public function testLoginDocente()
     {
-    	$this->login('edenti');
-    	$this->checkLevel('Docente');
-    	$this->logout();
+        $this->login('edenti');
+        $this->checkLevel('Docente');
+        $this->logout();
     }
-    
+
     public function testLoginPersonale()
     {
         $this->login('maurizio.zani');
         $this->checkLevel('Personale non docente');
         $this->logout();
     }
-    
+
     public function testLoginStudente()
     {
-    	$this->login('Dece');
-    	$this->checkLevel('Studente');
-    	$this->logout();
+        $this->login('Dece');
+        $this->checkLevel('Studente');
+        $this->logout();
     }
 
     public function testLoginTutor()
     {
-    	$this->login('dtiles');
-    	$this->checkLevel('Tutor');
-    	$this->logout();
+        $this->login('dtiles');
+        $this->checkLevel('Tutor');
+        $this->logout();
     }
-    
+
     private function checkLevel($level)
     {
         self::assertTrue($this->isTextPresent('Il tuo livello di utenza'));

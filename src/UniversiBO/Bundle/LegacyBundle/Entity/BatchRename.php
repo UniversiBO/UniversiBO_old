@@ -31,7 +31,7 @@ class BatchRename
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -51,7 +51,7 @@ class BatchRename
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {

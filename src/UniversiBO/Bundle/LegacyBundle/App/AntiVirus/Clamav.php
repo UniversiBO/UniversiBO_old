@@ -12,35 +12,35 @@ namespace UniversiBO\Bundle\LegacyBundle\App\AntiVirus;
 
 class Clamav
 {
-	
-	var $opts = '';
-	
-	var $cmd  = '';
-	
-	public function __construct($cmd, $opts){
-		$this->cmd = $cmd;
-		$this->opts = $opts;
-	}
 
-	/**
-	 * @return true se ci sono virus, false se _non_ ci sono virus
-	 */
-	function checkFile($filename)
-	{
-		$filename = escapeshellarg($filename);
-		
-		$fullCommand =  $this->cmd.' '.$this->opts.' '.$filename;
-		
-		$output = array();
-		unset($output);
-		$returnval = null;
-		
-		exec ( $fullCommand, $output, $returnval );
-		//var_dump($returnval);
-		//var_dump($fullCommand);
-		
-		if ($returnval == 1) return true;
-		if ($returnval == 0) return false;
-		
-	}	
+    var $opts = '';
+
+    var $cmd  = '';
+
+    public function __construct($cmd, $opts){
+        $this->cmd = $cmd;
+        $this->opts = $opts;
+    }
+
+    /**
+     * @return true se ci sono virus, false se _non_ ci sono virus
+     */
+    function checkFile($filename)
+    {
+        $filename = escapeshellarg($filename);
+
+        $fullCommand =  $this->cmd.' '.$this->opts.' '.$filename;
+
+        $output = array();
+        unset($output);
+        $returnval = null;
+
+        exec ( $fullCommand, $output, $returnval );
+        //var_dump($returnval);
+        //var_dump($fullCommand);
+
+        if ($returnval == 1) return true;
+        if ($returnval == 0) return false;
+
+    }
 }

@@ -5,7 +5,6 @@ use \DB;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 use UniversiBO\Bundle\LegacyBundle\Entity\User;
-use UniversiBO\Bundle\LegacyBundle\App\Files\FileItemStudenti;
 use UniversiBO\Bundle\LegacyBundle\App\Files\FileItem;
 
 /**
@@ -46,10 +45,10 @@ class ScriptCreaCatalogoFile extends UniversiboCommand
             //			echo 'SELECT id_file FROM file WHERE password IS NULL AND permessi_download = '.$db->quote(User::ALL).' AND eliminato !='.$db->quote(FILE_ELIMINATO).' ORDER BY id_file ASC';
             if (DB::isError($res))
                 Error :: throwError(_ERROR_DEFAULT, array ('msg' => "Errori nel recupero dei file esistenti", 'file' => __FILE__, 'line' => __LINE__));
-             
+
             $num = $res->numRows();
             //			var_dump($num);
-             
+
             //			$doc = new_xmldoc('1.0');
             //			$root = $doc->add_root('catalog');
             //			$root->new_child('university',UNIVERSITY_NAME);
@@ -59,7 +58,7 @@ class ScriptCreaCatalogoFile extends UniversiboCommand
             $fp=@fopen('catalog.xml','w');
             fwrite($fp,'');
             fclose($fp);
-             
+
             $fp = @fopen('catalog.xml','a');
             fwrite($fp,'<?xml version="1.0"?>');
             fwrite($fp,"\n");
@@ -69,21 +68,21 @@ class ScriptCreaCatalogoFile extends UniversiboCommand
             fwrite($fp,"\n");
             fwrite($fp,'<faculty>'.$faculty.'</faculty>');
             fwrite($fp,"\n");
-             
+
             while($res->fetchInto($row))
                 $listaIdFiles[] = $row[0];
             $res->free();
-             
+
             for ( $x = 0; $x <= $num; $x+=$iterationStep)
             {
                 $files = FileItem::selectFileItems(array_slice($listaIdFiles,$x,$iterationStep));
                 //				var_dump($files);
                 if ($x+$iterationStep>$num)
                     $x=$num;
-                 
+
                 if ($files === false)
                     Error :: throwError(_ERROR_DEFAULT, array ('msg' => "Errori nel recupero dei file esistenti", 'file' => __FILE__, 'line' => __LINE__));
-                 
+
                 foreach($files as $file){
                     fwrite($fp,'<download>');
                     fwrite($fp,'<id>'.$file->getIdFile().'</id>');

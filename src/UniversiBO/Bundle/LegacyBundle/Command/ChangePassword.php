@@ -48,7 +48,7 @@ class ChangePassword extends UniversiboCommand
         if ( array_key_exists('f6_submit', $_POST)  )
         {
             $f6_accept = true;
-             
+
             //			//var_dump($_POST);
             //			if ( !array_key_exists('f6_username', $_POST) ||
             //				 !array_key_exists('f6_old_password', $_POST) ||
@@ -61,8 +61,8 @@ class ChangePassword extends UniversiboCommand
                 Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Il form inviato non � valido','file'=>__FILE__,'line'=>__LINE__ ));
                 $f6_accept = false;
             }
-             
-             
+
+
             //			//username
             //			if ( $_POST['f6_username'] == '' ) {
                 //				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Inserire il proprio username','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
@@ -93,7 +93,7 @@ class ChangePassword extends UniversiboCommand
                 $f6_accept = false;
             }
             else $q6_old_password = $f6_old_password = $_POST['f6_old_password'];
-             
+
             //new password 1
             if ( $_POST['f6_new_password1'] == '' ) {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Inserire la nuova password','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
@@ -104,7 +104,7 @@ class ChangePassword extends UniversiboCommand
                 $f6_accept = false;
             }
             else $q6_new_password1 = $f6_new_password1 = $_POST['f6_new_password1'];
-             
+
             //new password 2
             if ( $_POST['f6_new_password2'] == '' ) {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Inserire la conferma della nuova password','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
@@ -115,38 +115,39 @@ class ChangePassword extends UniversiboCommand
                 $f6_accept = false;
             }
             else $q6_new_password2 = $f6_new_password2 = $_POST['f6_new_password2'];
-             
+
             //new password 1&2
             if ( $_POST['f6_new_password1'] != $_POST['f6_new_password2']  ) {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Le nuove password inserite non sono uguali, fare attenzione ad errori di battitura','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $q6_new_password2 = $f6_new_password2 = $q6_new_password1 = $f6_new_password1 = '';
                 $f6_accept = false;
             }
-             
+
         }
 
         if ( $f6_accept == true )
         {
             $user = User::selectUserUsername($user->getUsername());
-             
+
             if ($user->updatePassword($q6_new_password1,true) == false)
                 Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Si e` verificato un errore durante l\'aggiornamento della password relativa allo username '.$q6_username,'file'=>__FILE__,'line'=>__LINE__));
 
             $forum = new ForumApi();
             $forum->updatePassword($user, $q6_new_password1);
             //	Error::throwError(_ERROR_DEFAULT,array('msg'=>'Si e` verificato un errore durante la modifica della password sul forum relativa allo username '.$q6_username,'file'=>__FILE__,'line'=>__LINE__));
-             
+
             $template->assignUnicode('changePassword_thanks',"La password è stata cambiata con successo, si consiglia di testarne il corretto funzionamento.\n".
                     'Per qualsiasi problema o spiegazioni contatta lo staff all\'indirizzo [email]'.$fc->getAppSetting('infoEmail').'[/email].');
-             
+
             //elimino la password
             $q6_new_password1 = '';
             $q6_new_password2 = '';
             $f6_new_password1 = '';
             $f6_new_password2 = '';
-             
+
+
             return 'success';
-             
+
         }
 
         // riassegna valori form

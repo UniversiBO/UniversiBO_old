@@ -2,7 +2,6 @@
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
 use \DB;
-use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 //NB: NON ASTRAE DAL LIVELLO DATABASE, PUO' VALER LA PENA SPOSTARE TUTTA LA FUNZIONE DENTRO ForumApi?!?!?!
@@ -21,60 +20,60 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
  */
 class ScriptOrdinaForum extends UniversiboCommand
 {
-	
-	//NB: NON ASTRAE DAL LIVELLO DATABASE, PUO' VALER LA PENA SPOSTARE TUTTA LA FUNZIONE DENTRO ForumApi?!?!?!
-	
-	function execute()
-	{
-		
-		//NB: NON ASTRAE DAL LIVELLO DATABASE, PUO' VALER LA PENA SPOSTARE TUTTA LA FUNZIONE DENTRO ForumApi?!?!?!
-		$fc = $this->getFrontController();
-		$db = $fc->getDbConnection('main');
-		
-		$query = 'begin';
-		$res = $db->query($query);
-		if (DB::isError($res)) die($query); 
-		
-/*
-		$forum = new ForumApi();
-		$max_forum_id = $forum->getMaxForumId();
-		
-		echo 'max_forum_id: ', $max_forum_id, "\n";
-*/		
-		$cdlAll = Cdl::selectCdlAll();
-		//var_dump($cdlAll);
-		
-		foreach ($cdlAll as $cdl)
-		{
-			echo $cdl->getCodiceCdl(),' - ', $cdl->getTitolo(),"\n";
-			
-			// creo categoria
-			if (! $cdl->getForumCatId()==''){
-				$cat_id = $cdl->getForumCatId();
-				
-				//NB: NON ASTRAE DAL LIVELLO DATABASE, PUO' VALER LA PENA SPOSTARE TUTTA LA FUNZIONE DENTRO ForumApi?!?!?!
-				$query = 'SELECT forum_id 
-							FROM phpbb_forums 
-							WHERE cat_id = '.$db->quote($cat_id).' 
-							ORDER BY forum_name';
-				
-				$res = $db->query($query);
-					if (DB::isError($res)) die($query); 
 
-				$order = 0;
-				//var_dump($res);
-				while ( $res->fetchInto($row) )
-				{
-					$order++;
-					$query = 'UPDATE phpbb_forums SET forum_order = '.$order.' WHERE forum_id = '.$row[0].';';
-					$res2 = $db->query($query);
-						if (DB::isError($res2)) die($query); 
-				}
-			}
-		}	
-		
-		$query = 'commit';
-		$res = $db->query($query);
-		if (DB::isError($res)) die($query); 
-	}
+    //NB: NON ASTRAE DAL LIVELLO DATABASE, PUO' VALER LA PENA SPOSTARE TUTTA LA FUNZIONE DENTRO ForumApi?!?!?!
+
+    function execute()
+    {
+
+        //NB: NON ASTRAE DAL LIVELLO DATABASE, PUO' VALER LA PENA SPOSTARE TUTTA LA FUNZIONE DENTRO ForumApi?!?!?!
+        $fc = $this->getFrontController();
+        $db = $fc->getDbConnection('main');
+
+        $query = 'begin';
+        $res = $db->query($query);
+        if (DB::isError($res)) die($query);
+
+/*
+        $forum = new ForumApi();
+        $max_forum_id = $forum->getMaxForumId();
+
+        echo 'max_forum_id: ', $max_forum_id, "\n";
+*/
+        $cdlAll = Cdl::selectCdlAll();
+        //var_dump($cdlAll);
+
+        foreach ($cdlAll as $cdl)
+        {
+            echo $cdl->getCodiceCdl(),' - ', $cdl->getTitolo(),"\n";
+
+            // creo categoria
+            if (! $cdl->getForumCatId()==''){
+                $cat_id = $cdl->getForumCatId();
+
+                //NB: NON ASTRAE DAL LIVELLO DATABASE, PUO' VALER LA PENA SPOSTARE TUTTA LA FUNZIONE DENTRO ForumApi?!?!?!
+                $query = 'SELECT forum_id
+                            FROM phpbb_forums
+                            WHERE cat_id = '.$db->quote($cat_id).'
+                            ORDER BY forum_name';
+
+                $res = $db->query($query);
+                    if (DB::isError($res)) die($query);
+
+                $order = 0;
+                //var_dump($res);
+                while ( $res->fetchInto($row) )
+                {
+                    $order++;
+                    $query = 'UPDATE phpbb_forums SET forum_order = '.$order.' WHERE forum_id = '.$row[0].';';
+                    $res2 = $db->query($query);
+                        if (DB::isError($res2)) die($query);
+                }
+            }
+        }
+
+        $query = 'commit';
+        $res = $db->query($query);
+        if (DB::isError($res)) die($query);
+    }
 }

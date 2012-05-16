@@ -1,7 +1,6 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Entity;
 use \DB;
-use \Error;
 
 /**
  * Canale repository
@@ -51,6 +50,7 @@ class DBDocenteRepository extends DBRepository
         $rows = $res->numRows();
         if ($rows == 0) {
             $ret = false;
+
             return $ret;
         }
 

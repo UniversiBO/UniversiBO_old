@@ -25,9 +25,9 @@ class ShowPermalink extends UniversiboCommand {
     private function _newsToArray(NewsItem $news) {
         $user = $this->getSessionUser();
         $krono = $this->getFrontController()->getKrono();
-        
+
         $newsArray = array();
-        
+
         $newsArray['id_notizia'] = $news->getIdNotizia();
         $newsArray['titolo'] = $news->getTitolo();
         $newsArray['notizia'] = $news->getNotizia();
@@ -47,7 +47,8 @@ class ShowPermalink extends UniversiboCommand {
         $newsArray['modifica_link'] = '';
         $newsArray['elimina'] = '';
         $newsArray['elimina_link'] = '';
-        
+
+
         return $newsArray;
     }
 }

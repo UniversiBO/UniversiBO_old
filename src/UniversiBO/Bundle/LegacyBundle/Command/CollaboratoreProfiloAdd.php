@@ -79,8 +79,8 @@ class CollaboratoreProfiloAdd extends UniversiboCommand {
                 $f36_accept = false;
             } else
                 $f36_ruolo = $_POST['f36_ruolo'];
-             
-             
+
+
             //intro
             if ($_POST['f36_intro'] == '') {
                 Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'intro del profilo deve essere inserito obbligatoriamente', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
@@ -104,19 +104,19 @@ class CollaboratoreProfiloAdd extends UniversiboCommand {
             if (array_key_exists('f36_email', $_POST)) {
                 $f36_email = $_POST['f36_email'];
             }
-             
+
             //recapito
             if (array_key_exists('f36_recapito', $_POST)) {
                 $f36_recapito = $_POST['f36_recapito'];
             }
-             
+
             //esecuzione operazioni accettazione del form
             if ($f36_accept == true) {
 
                 //id_news = 0 per inserimento, $id_canali array dei canali in cui inserire
                 $collaboratore = new Collaboratore($user->getIdUser(), $f36_intro, $f36_recapito, $f36_obiettivi, $f36_foto, $f36_ruolo);
                 $collaboratore->insertCollaboratoreItem();
-                 
+
                 //$num_canali = count($f7_canale);
                 //var_dump($f7_canale);
                 //var_dump($_POST['f7_canale']);

@@ -154,9 +154,9 @@ class PHPUnit_GUI_HTML
 
         $exception = $failure->thrownException();
         // a serialized string starts with a 'character:decimal:{'
-		// if so we try to unserialize it
-		// this piece of the regular expression is for detecting a serialized
-		// type like 'a:3:' for an array with three element or an object i.e. 'O:12:"class":3'
+        // if so we try to unserialize it
+        // this piece of the regular expression is for detecting a serialized
+        // type like 'a:3:' for an array with three element or an object i.e. 'O:12:"class":3'
         $serialized = '(\w:\d+:(?:"[^"]+":\d+:)?\{.*\})';
         // Spaces might make a diff, so we shall show them properly (since a
         // user agent ignores them).
@@ -190,6 +190,7 @@ class PHPUnit_GUI_HTML
     function _preparePassedTests($passed)
     {
         $ret['testName'] = $passed->getName();
+
         return $ret;
     }
 
@@ -197,6 +198,7 @@ class PHPUnit_GUI_HTML
     {
         $ret['testName'] = $error->getName();
         $ret['message'] = $error->toString();
+
         return $ret;
     }
 

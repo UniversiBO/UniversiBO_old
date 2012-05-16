@@ -120,6 +120,7 @@ class User implements UserInterface, \Serializable
         $username = trim($username);
         $username_pattern = mb_convert_encoding(
                 '/^([[:alnum:]àèéìòù \._]{1,25})$/', 'iso-8859-1', 'utf-8');
+
         return preg_match($username_pattern, $username)
                 && strcasecmp($username, self::NICK_ELIMINATO) != 0;
     }
@@ -181,14 +182,14 @@ class User implements UserInterface, \Serializable
      * factory selectUser
      *
      * @see selectUser
-     * @param int $id_utente numero identificativo utente, -1 non registrato du DB, 0 utente ospite
-     * @param int $groups nuovo gruppo da impostare
-     * @param string $username username dell'utente
-     * @param string $MD5 hash MD5 della password utente
-     * @param string $email indirizzo e-mail dell'utente
-     * @param int $ultimo_login timestamp dell'utlimo login all'interno del sito
-     * @param string $AD_username username dell'active directory di ateneo dell'utente
-     * @param array() $bookmark array con elenco dei id_canale dell'utente associati ai rispettivi ruoli
+     * @param int     $id_utente    numero identificativo utente, -1 non registrato du DB, 0 utente ospite
+     * @param int     $groups       nuovo gruppo da impostare
+     * @param string  $username     username dell'utente
+     * @param string  $MD5          hash MD5 della password utente
+     * @param string  $email        indirizzo e-mail dell'utente
+     * @param int     $ultimo_login timestamp dell'utlimo login all'interno del sito
+     * @param string  $AD_username  username dell'active directory di ateneo dell'utente
+     * @param array() $bookmark     array con elenco dei id_canale dell'utente associati ai rispettivi ruoli
      * @return User
      */
     public function __construct($id_utente, $groups, $username = NULL,
@@ -228,7 +229,7 @@ class User implements UserInterface, \Serializable
 
     /**
      * Username setter
-     * 
+     *
      * @param string $username
      * @return \UniversiBO\Bundle\LegacyBundle\Entity\User
      */
@@ -287,7 +288,7 @@ class User implements UserInterface, \Serializable
     /**
      * Imposta la email dello User
      *
-     * @param string $email nuova email da impostare
+     * @param string  $email    nuova email da impostare
      * @param boolean $updateDB se true e l'id_utente>0 la modifica viene propagata al DB
      * @return boolean
      */
@@ -340,7 +341,7 @@ class User implements UserInterface, \Serializable
      * Imposta il gruppo di appartenenza dello User
      *
      * @deprecated
-     * @param int $groups nuovo gruppo da impostare
+     * @param int     $groups   nuovo gruppo da impostare
      * @param boolean $updateDB se true e l'id_utente>0 la modifica viene propagata al DB
      * @return boolean
      */
@@ -373,8 +374,8 @@ class User implements UserInterface, \Serializable
     /**
      * Imposta il timestamp dell'ultimo login dello User
      *
-     * @param int $ultimoLogin timestamp dell'ultimo login da impostare
-     * @param boolean $updateDB se true e l'id_utente>0 la modifica viene propagata al DB
+     * @param int     $ultimoLogin timestamp dell'ultimo login da impostare
+     * @param boolean $updateDB    se true e l'id_utente>0 la modifica viene propagata al DB
      * @return boolean
      */
     public function updateUltimoLogin($ultimoLogin, $updateDB = false)
@@ -408,6 +409,7 @@ class User implements UserInterface, \Serializable
                 $this->bookmark[$ruoli[$i]->getIdCanale()] = $ruoli[$i];
             }
         }
+
         return $this->bookmark;
     }
 
@@ -455,6 +457,7 @@ class User implements UserInterface, \Serializable
         for ($i = 0; $i < $tot; $i++)
         //			var_dump($f7_canale[$i]);
             uasort($f7_canale[$list_keys[$i]], array($this, '_compareCanale'));
+
         return $f7_canale;
     }
 
@@ -466,6 +469,7 @@ class User implements UserInterface, \Serializable
     {
         $nomea = strtolower($a['nome']);
         $nomeb = strtolower($b['nome']);
+
         return strnatcasecmp($nomea, $nomeb);
     }
 
@@ -482,8 +486,8 @@ class User implements UserInterface, \Serializable
     /**
      * Imposta lo username dell'ActiveDirectory di ateneo associato all'utente corrente
      *
-     * @param string $ADUsername username dell'ActiveDirectory di ateneo da impostare
-     * @param boolean $updateDB se true e l'id_utente>0 la modifica viene propagata al DB
+     * @param string  $ADUsername username dell'ActiveDirectory di ateneo da impostare
+     * @param boolean $updateDB   se true e l'id_utente>0 la modifica viene propagata al DB
      * @return boolean
      */
     public function updateADUsername($ADUsername, $updateDB = false)
@@ -578,7 +582,7 @@ class User implements UserInterface, \Serializable
 
     /**
      * @todo make it Legacy Free
-     * 
+     *
      * @param string $password
      * @param boolean $updateDB
      * @return boolean
@@ -790,6 +794,7 @@ class User implements UserInterface, \Serializable
             $groups = $this->getGroups();
 
         if ($groups == self::OSPITE)
+
             return true;
         return false;
     }
@@ -839,18 +844,25 @@ class User implements UserInterface, \Serializable
         $nomi_gruppi = self::publicGroupsName($singolare);
 
         if ($this->isOspite())
+
             return $nomi_gruppi[self::OSPITE];
         if ($this->isStudente())
+
             return $nomi_gruppi[self::STUDENTE];
         if ($this->isCollaboratore())
+
             return $nomi_gruppi[self::COLLABORATORE];
         if ($this->isTutor())
+
             return $nomi_gruppi[self::TUTOR];
         if ($this->isDocente())
+
             return $nomi_gruppi[self::DOCENTE];
         if ($this->isPersonale())
+
             return $nomi_gruppi[self::PERSONALE];
         if ($this->isAdmin())
+
             return $nomi_gruppi[self::ADMIN];
     }
 
@@ -887,6 +899,7 @@ class User implements UserInterface, \Serializable
     {
         if (!is_array($arrayWithDesiredGroupsConstant)
                 || count($arrayWithDesiredGroupsConstant) === 0)
+
             return array();
 
         return self::getRepository()
@@ -897,14 +910,15 @@ class User implements UserInterface, \Serializable
      * Crea un oggetto utente dato il suo numero identificativo id_utente del database, 0 se si vuole creare un utente ospite
      *
      * @deprecated
-     * @param int $id_utente numero identificativo utente
-     * @param boolean $dbcache se true esegue il pre-caching del bookmark in modo da migliorare le prestazioni
+     * @param int     $id_utente numero identificativo utente
+     * @param boolean $dbcache   se true esegue il pre-caching del bookmark in modo da migliorare le prestazioni
      * @return mixed User se eseguita con successo, false se l'utente non esiste
      */
     public static function selectUser($id_utente)
     {
         if ($id_utente == 0) {
             $user = new User(0, self::OSPITE);
+
             return $user;
         } elseif ($id_utente > 0) {
             return self::getRepository()->find($id_utente);
@@ -1010,7 +1024,7 @@ class User implements UserInterface, \Serializable
      * Restituisce true se l'utente viene autenticato con successo sull'active directory di ateneo
      *
      * @param string $ad_username username utente
-     * @param string $ad_domain dominio dell'active directory
+     * @param string $ad_domain   dominio dell'active directory
      * @param string $ad_password password dell'utente
      * @return boolean
      */
@@ -1018,6 +1032,7 @@ class User implements UserInterface, \Serializable
             $host, $port)
     {
         $login = new ActiveDirectoryLogin($host, $port);
+
         return $login->authenticate($username, $domain, $password);
     }
 
@@ -1066,6 +1081,7 @@ class User implements UserInterface, \Serializable
             self::$repository = new DBUserRepository(
                     FrontController::getDbConnection('main'));
         }
+
         return self::$repository;
     }
 

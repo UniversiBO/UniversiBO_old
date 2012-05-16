@@ -283,7 +283,7 @@ class PHPUnit_TestResult {
 
         return $result;
     }
-    
+
     /**
     * Returns a Html colored Table representation of the test result.
     *
@@ -306,8 +306,9 @@ class PHPUnit_TestResult {
             $result = $result.'<tr bgcolor="#ff2222"><td>'.$failedTest->toString().'</td></tr>';
         }
 
-		$result.='</table>';
-		return $result;
+        $result.='</table>';
+
+        return $result;
     }
 
     /**

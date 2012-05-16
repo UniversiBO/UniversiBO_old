@@ -15,16 +15,17 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
- 
-class ShowAccessibility extends UniversiboCommand {
-	function execute(){
 
-		$frontcontroller = $this->getFrontController();
-		$template = $frontcontroller->getTemplateEngine();
-		
-		$template->assignUnicode('showAccessibility_langTitleAlt','Dichiarazione di accessibilità');
-		$template->assign('showAccessibility_langTesto','');
-						
-		return 'default';						
-	}
+class ShowAccessibility extends UniversiboCommand {
+    function execute(){
+
+        $frontcontroller = $this->getFrontController();
+        $template = $frontcontroller->getTemplateEngine();
+
+        $template->assignUnicode('showAccessibility_langTitleAlt','Dichiarazione di accessibilità');
+        $template->assign('showAccessibility_langTesto','');
+
+
+        return 'default';
+    }
 }

@@ -1,19 +1,19 @@
 <?php
 /*
 * StringTest.php
-* 
+*
 * suite di test per la classe String
-*/ 
+*/
 
 
 /*
-* classe PHPUnit 
+* classe PHPUnit
 */
 require_once 'PHPUnit.php';
 
 
 /*
-* classe da testare 
+* classe da testare
 */
 require_once 'StringEsempioUsoPhpUnit.php';
 

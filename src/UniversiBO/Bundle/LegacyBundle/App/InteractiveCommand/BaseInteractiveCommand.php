@@ -132,13 +132,13 @@ class BaseInteractiveCommand extends PluginCommand
     {
         $reflection = new \ReflectionClass($this);
         $callback = array();
-         
+
         foreach($reflection->getMethods() as $method)
         {
             $name = $method->getName();
-            
+
             if (strncasecmp($name, CALLBACK, strlen(CALLBACK)) === 0) {
-            	$callback[] = $name;
+                $callback[] = $name;
             }
         }
 
@@ -168,6 +168,7 @@ class BaseInteractiveCommand extends PluginCommand
      */
     function getCurrentCallbackName () {
         $item = $this->listaStep->getCurrentStep();
+
         return $item->getCallback();
     }
 
@@ -218,7 +219,8 @@ class BaseInteractiveCommand extends PluginCommand
             unset($nav['back']);
         if ($this->listaStep->isLastStep($i))
             $nav['next'] = $this->navigationLastNextLang;
-         
+
+
         return array('stepName' => $this->getCurrentCallbackName(),
                 'complete' => $complete,
                 'priority' => $this->priority,
@@ -273,11 +275,13 @@ class BaseInteractiveCommand extends PluginCommand
                 unset($_SESSION['lista']);
                 if ($this->getPriority()  == LOW_INTERACTION)
                     $this->storeInteractiveCommandLog(false);
+
                 return $this->returnState(false, true);
             }
         }
 
         if ($this->listaStep->getLength() == 0)
+
             return $this->returnErrorState(get_class($this) . ' e` uno InteractiveCommand attivo senza callback (o step) implementati; provvedere quanto prima');
 
 
@@ -292,6 +296,7 @@ class BaseInteractiveCommand extends PluginCommand
             $this->storeInteractiveCommandLog(true);
             unset($_SESSION['idUtenteStep']);
             unset($_SESSION['lista']);
+
             return $this->returnState(true);
         }
 

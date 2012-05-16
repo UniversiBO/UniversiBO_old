@@ -1,11 +1,9 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
-use \DB;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\Commenti\CommentoItem;
 use UniversiBO\Bundle\LegacyBundle\App\Files\FileItemStudenti;
-use UniversiBO\Bundle\LegacyBundle\App\Files\FileItem;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -21,98 +19,99 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 class FileStudentiComment extends UniversiboCommand {
 
-	function execute() {
-		
-		$frontcontroller = & $this->getFrontController();
-		$template = & $frontcontroller->getTemplateEngine();
+    function execute() {
 
-		$krono = & $frontcontroller->getKrono();
-		$user = & $this->getSessionUser();
-		$user_ruoli = & $user->getRuoli();
+        $frontcontroller = & $this->getFrontController();
+        $template = & $frontcontroller->getTemplateEngine();
 
-		if ($user->isOspite())
-		{
-			Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => "Per questa operazione bisogna essere registrati\n la sessione potrebbe essere terminata", 'file' => __FILE__, 'line' => __LINE__));
-		}		
-		if (!array_key_exists('id_file', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_file']))
-		{
-			Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'L\'id del file richiesto non � valido', 'file' => __FILE__, 'line' => __LINE__));
-		}
-		$file = & FileItemStudenti::selectFileItem($_GET['id_file']);
-		if ($file === false)
-			Error :: throwError(_ERROR_DEFAULT, array ('msg' => "Il file richiesto non � presente su database", 'file' => __FILE__, 'line' => __LINE__));
-		
-		//Controllo che non esista gi� un commento da parte di questo utente
-		$template->assign('esiste_CommentoItem','false');
-		$id_file = $_GET['id_file'];
-		$id_commento = CommentoItem::esisteCommento($id_file,$user->getIdUser());
-		if($id_commento!=NULL)
-		{   $canali = $file->getIdCanali();
-			
-			$template->assign('FileStudentiComment_ris','Esiste gi� un tuo commento a questo file.');
-			$template->assign('common_canaleURI','index.php?do=FileShowInfo&id_file='.$id_file.'&id_canale='.$canali[0]);
-			$template->assign('FilesStudentiComment_modifica','index.php?do=FileStudentiCommentEdit&id_commento='.$id_commento.'&id_canale='.$canali[0]);
-			$template->assign('esiste_CommentoItem','true');
-			return 'success';
-		}
-		
-		$template->assign('common_canaleURI', array_key_exists('HTTP_REFERER', $_SERVER) ? $_SERVER['HTTP_REFERER'] : '' );
-		$template->assign('common_langCanaleNome', 'indietro');
-		$id_file = $_GET['id_file'];
+        $krono = & $frontcontroller->getKrono();
+        $user = & $this->getSessionUser();
+        $user_ruoli = & $user->getRuoli();
 
-		// valori default form
-		$f26_commento = '';
-		$f26_voto = '';					
-				
-		$f26_accept = false;
-		
-		if (array_key_exists('f26_submit', $_POST)) 
-		{
-			$f26_accept = true;
+        if ($user->isOspite())
+        {
+            Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => "Per questa operazione bisogna essere registrati\n la sessione potrebbe essere terminata", 'file' => __FILE__, 'line' => __LINE__));
+        }
+        if (!array_key_exists('id_file', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_file']))
+        {
+            Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'L\'id del file richiesto non � valido', 'file' => __FILE__, 'line' => __LINE__));
+        }
+        $file = & FileItemStudenti::selectFileItem($_GET['id_file']);
+        if ($file === false)
+            Error :: throwError(_ERROR_DEFAULT, array ('msg' => "Il file richiesto non � presente su database", 'file' => __FILE__, 'line' => __LINE__));
 
-			if ( !array_key_exists('f26_commento', $_POST) || 
-			 !array_key_exists('f26_voto', $_POST)) 
-			{
-				//var_dump($_POST);die();
-				Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il form inviato non � valido', 'file' => __FILE__, 'line' => __LINE__));
-				$f26_accept = false;
-			}
-			
-			
-			//commento
-			if(trim($_POST['f26_commento']) == '')
-			{
-				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Inserisci un commento', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
-				$f26_accept = false;
-			}
-			else
-			{
-				$f26_commento = $_POST['f26_commento'];
-			}
-			
-			//voto
-			if (!preg_match('/^([0-5]{1})$/', $_POST['f26_voto'])) {
-				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Voto non valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
-				$f26_accept = false;
-			} else
-				$f26_voto = $_POST['f26_voto'];
-			
-			
-			
-			//esecuzione operazioni accettazione del form
-			if ($f26_accept == true) 
-			{
-				
-				CommentoItem::insertCommentoItem($id_file,$user->getIdUser(),$f26_commento,$f26_voto);
-//				
+        //Controllo che non esista gi� un commento da parte di questo utente
+        $template->assign('esiste_CommentoItem','false');
+        $id_file = $_GET['id_file'];
+        $id_commento = CommentoItem::esisteCommento($id_file,$user->getIdUser());
+        if($id_commento!=NULL)
+        {   $canali = $file->getIdCanali();
+
+            $template->assign('FileStudentiComment_ris','Esiste gi� un tuo commento a questo file.');
+            $template->assign('common_canaleURI','index.php?do=FileShowInfo&id_file='.$id_file.'&id_canale='.$canali[0]);
+            $template->assign('FilesStudentiComment_modifica','index.php?do=FileStudentiCommentEdit&id_commento='.$id_commento.'&id_canale='.$canali[0]);
+            $template->assign('esiste_CommentoItem','true');
+
+            return 'success';
+        }
+
+        $template->assign('common_canaleURI', array_key_exists('HTTP_REFERER', $_SERVER) ? $_SERVER['HTTP_REFERER'] : '' );
+        $template->assign('common_langCanaleNome', 'indietro');
+        $id_file = $_GET['id_file'];
+
+        // valori default form
+        $f26_commento = '';
+        $f26_voto = '';
+
+        $f26_accept = false;
+
+        if (array_key_exists('f26_submit', $_POST))
+        {
+            $f26_accept = true;
+
+            if ( !array_key_exists('f26_commento', $_POST) ||
+             !array_key_exists('f26_voto', $_POST))
+            {
+                //var_dump($_POST);die();
+                Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il form inviato non � valido', 'file' => __FILE__, 'line' => __LINE__));
+                $f26_accept = false;
+            }
+
+
+            //commento
+            if(trim($_POST['f26_commento']) == '')
+            {
+                Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Inserisci un commento', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
+                $f26_accept = false;
+            }
+            else
+            {
+                $f26_commento = $_POST['f26_commento'];
+            }
+
+            //voto
+            if (!preg_match('/^([0-5]{1})$/', $_POST['f26_voto'])) {
+                Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Voto non valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
+                $f26_accept = false;
+            } else
+                $f26_voto = $_POST['f26_voto'];
+
+
+
+            //esecuzione operazioni accettazione del form
+            if ($f26_accept == true)
+            {
+
+                CommentoItem::insertCommentoItem($id_file,$user->getIdUser(),$f26_commento,$f26_voto);
+//
 //				if (array_key_exists('f26_canale', $_POST))
 //					foreach ($_POST['f26_canale'] as $key => $value)
 //					{
 //						$newFile->addCanale($key);
 //						$canale = $elenco_canali_retrieve[$key];
 //						$canale->setUltimaModifica(time(), true);
-//						
-//						
+//
+//
 //						//notifiche
 //						require_once('Notifica/NotificaItem'.PHP_EXTENSION);
 //						$notifica_titolo = 'Nuovo file inserito in '.$canale->getNome();
@@ -120,7 +119,7 @@ class FileStudentiComment extends UniversiboCommand {
 //						$notifica_dataIns = $f26_data_inserimento;
 //						$notifica_urgente = false;
 //						$notifica_eliminata = false;
-//						$notifica_messaggio = 
+//						$notifica_messaggio =
 //'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //Titolo File: '.$f26_titolo.'
 //
@@ -133,11 +132,11 @@ class FileStudentiComment extends UniversiboCommand {
 //Informazioni per la cancellazione:
 //
 //Per rimuoverti, vai all\'indirizzo:
-//'.$frontcontroller->getAppSetting('rootUrl').' 
+//'.$frontcontroller->getAppSetting('rootUrl').'
 //e modifica il tuo profilo personale nella dopo aver eseguito il login
 //Per altri problemi contattare lo staff di UniversiBO
 //'.$frontcontroller->getAppSetting('infoEmail');
-//						
+//
 //						$ruoli_canale = $canale->getRuoli();
 //						foreach ($ruoli_canale as $ruolo_canale)
 //						{
@@ -148,37 +147,38 @@ class FileStudentiComment extends UniversiboCommand {
 //							{
 //								$notifica_user = $ruolo_canale->getUser();
 //								$notifica_destinatario = 'mail://'.$notifica_user->getEmail();
-//								
+//
 //								$notifica = new NotificaItem(0, $notifica_titolo, $notifica_messaggio, $notifica_dataIns, $notifica_urgente, $notifica_eliminata, $notifica_destinatario );
 //								$notifica->insertNotificaItem();
 //							}
 //						}
-//						
+//
 //						//ultima notifica all'archivio
 //						$notifica_destinatario = 'mail://'.$frontcontroller->getAppSetting('rootEmail');;
-//						
+//
 //						$notifica = new NotificaItem(0, $notifica_titolo, $notifica_messaggio, $notifica_dataIns, $notifica_urgente, $notifica_eliminata, $notifica_destinatario );
 //						$notifica->insertNotificaItem();
-//						
+//
 //					}
-				
-				
-				$canali = $file->getIdCanali();
-				$template->assign('FileStudentiComment_ris','Il tuo commento � stato inserito con successo.');
-				$template->assign('common_canaleURI','index.php?do=FileShowInfo&id_file='.$id_file.'&id_canale='.$canali[0]);
-				return 'success';
-			}
 
-		} 
-		//end if (array_key_exists('f26_submit', $_POST))
 
-		
-		// resta da sistemare qui sotto, fare il form e fare debugging
-		
-		$template->assign('f26_commento', $f26_commento);
-		$template->assign('f26_voto', $f26_voto);
+                $canali = $file->getIdCanali();
+                $template->assign('FileStudentiComment_ris','Il tuo commento � stato inserito con successo.');
+                $template->assign('common_canaleURI','index.php?do=FileShowInfo&id_file='.$id_file.'&id_canale='.$canali[0]);
 
-		return 'default';
+                return 'success';
+            }
 
-	}
+        }
+        //end if (array_key_exists('f26_submit', $_POST))
+
+
+        // resta da sistemare qui sotto, fare il form e fare debugging
+
+        $template->assign('f26_commento', $f26_commento);
+        $template->assign('f26_voto', $f26_voto);
+
+        return 'default';
+
+    }
 }

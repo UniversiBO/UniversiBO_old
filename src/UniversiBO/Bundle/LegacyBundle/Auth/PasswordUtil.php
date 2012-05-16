@@ -19,6 +19,7 @@ class PasswordUtil
         //$password_pattern='/^([[:alnum:]]{5,30})$/';
         //preg_match($password_pattern , $password );
         $length = strlen( $password );
+
         return ( $length > 5 && $length < 30 );
     }
 
@@ -47,7 +48,7 @@ class PasswordUtil
 
         return $rand_str;
     }
-    
+
     /**
      * Ritorna l'hash sicuro di una stringa
      *
@@ -56,16 +57,16 @@ class PasswordUtil
      */
     public static function passwordHashFunction($string, $salt = '', $algoritmo = 'md5')
     {
-    	$password = $salt.$string;
-    
-    	switch($algoritmo)
-    	{
-    		case 'sha256':
-    			return hash($algoritmo, $password);
-    		case 'sha1':
-    			return sha1($password);
-    		default:
-    			return md5($password);
-    	}
+        $password = $salt.$string;
+
+        switch($algoritmo)
+        {
+            case 'sha256':
+                return hash($algoritmo, $password);
+            case 'sha1':
+                return sha1($password);
+            default:
+                return md5($password);
+        }
     }
 }

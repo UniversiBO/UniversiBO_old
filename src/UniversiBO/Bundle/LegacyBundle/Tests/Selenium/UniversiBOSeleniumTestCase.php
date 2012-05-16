@@ -12,7 +12,7 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
         $this->setBrowser('*firefox');
         $this->setBrowserUrl('http://www.universibo.local/');
     }
-    
+
     protected function login($username, $password = 'padrino')
     {
         $this->deleteAllVisibleCookies();
@@ -20,15 +20,15 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
         $this->type('id=f1_username', $username);
         $this->type('id=f1_password', $password);
         $this->clickAndWait('name=f1_submit');
-        
+
         if($this->isTextPresent('Informativa sulla privacy'))
         {
             $this->clickAndWait('name=action');
         }
-        
+
         self::assertTrue($this->isTextPresent('Benvenuto '.$username), 'Welcome text must be present');
     }
-    
+
     protected function logout()
     {
         $this->clickAndWait('name=f2_submit');
@@ -37,22 +37,22 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
         self::assertTrue($this->isTextPresent('Password smarrita'));
         self::assertTrue($this->isTextPresent('I servizi personalizzati sono disponibili solo agli utenti che hanno effettuato il login'));
     }
-    
+
     protected function openCommand($do, $params = '')
     {
         $this->open('/index.php?do='.$do.$params);
         self::assertTrue(preg_match('/UniversiBO/', $this->getTitle()) !== false, 'UniversiBO should be present in title');
     }
-    
+
     protected function assertSentence($sentence)
     {
         $this->assertSentences(array($sentence));
     }
-    
+
     protected function assertSentences(array $sentences)
     {
         foreach($sentences as $sentence) {
-        	self::assertTrue($this->isTextPresent($sentence), 'Text: "'.$sentence.'" should be present.');
+            self::assertTrue($this->isTextPresent($sentence), 'Text: "'.$sentence.'" should be present.');
         }
     }
 }

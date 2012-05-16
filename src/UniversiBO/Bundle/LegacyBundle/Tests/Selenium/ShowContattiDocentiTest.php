@@ -12,12 +12,12 @@ class ShowCcontattiDocentiTest extends UniversiBOSeleniumTestCase
     {
         $this->login('brain');
         $this->open('/index.php?do=ShowContattiDocenti');
-        
+
         $sentences = array (
-        		'FERRI MASSIMO',
-        		'VITALE ANTONIO',
+                'FERRI MASSIMO',
+                'FERRARI EMILIO',
         );
-        
+
         $this->assertSentences($sentences);
     }
 }

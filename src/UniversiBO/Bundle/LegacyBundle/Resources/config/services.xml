@@ -58,7 +58,7 @@
 				<argument type="service" id="universibo_legacy.cl.executor.entity" />
 			</call>
 		</service>
-		
+
 		<service id="universibo_legacy.cl.interpreter"
 			class="UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage\CLInterpreter">
 			<argument type="service" id="universibo_legacy.cl.executor.factory" />
@@ -91,7 +91,7 @@
 			class="UniversiBO\Bundle\LegacyBundle\Entity\DBContattoDocenteRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />
 		</service>
-		
+
 		<service id="universibo_legacy.repository.docente"
 			class="UniversiBO\Bundle\LegacyBundle\Entity\DBDocenteRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />
@@ -101,7 +101,7 @@
 			class="UniversiBO\Bundle\LegacyBundle\Entity\DBInformativaRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />
 		</service>
-		
+
 		<service id="universibo_legacy.repository.news.news_item"
 			class="UniversiBO\Bundle\LegacyBundle\Entity\News\DBNewsItemRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />

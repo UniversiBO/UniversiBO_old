@@ -29,21 +29,21 @@
  *   <?php
  *   require_once 'PHPUnit/Skeleton.php';
  *   $ps = new PHPUnit_Skeleton('PHPUnit_Skeleton', 'PHPUnit/Skeleton.php');
- *   
+ *
  *   // Generate the test class.
  *   // Default settings will not include any parent class methods, but
  *   // will include private methods.
  *   $ps->createTestClass();
- *   
+ *
  *   // Write the new test class to file.
  *   // By default, code to run the test will be included.
  *   $ps->writeTestClass();
  *   ?>
- *   
+ *
  * Now open the skeleton class and fill in the details.
- * If you run the test as is, all tests will fail and 
+ * If you run the test as is, all tests will fail and
  * you will see plenty of undefined constant errors.
- *   
+ *
  * @author      Scott Mattocks <scott@crisscott.com>
  * @copyright   Copyright &copy; 2002-2004 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license     http://www.php.net/license/3_0.txt The PHP License, Version 3.0
@@ -94,7 +94,7 @@ class PHPUnit_Skeleton {
      * @access public
      * @param  string  $className
      * @param  string  $classPath
-     * @param  boolean $includeParents Wheter to include the parent's methods in the test.
+     * @param boolean $includeParents Wheter to include the parent's methods in the test.
      * @return void
      */
     function PHPUnit_Skeleton($className, $classPath, $includeParents = FALSE, $includePrivate = TRUE) {
@@ -354,14 +354,15 @@ class PHPUnit_Skeleton {
      * the test appended to the bottom of the file.
      *
      * @access public
-     * @param  string  $destination The directory to write the file to.
-     * @param  boolean $addTest     Wheter to add the test running code.
+     * @param string  $destination The directory to write the file to.
+     * @param boolean $addTest     Wheter to add the test running code.
      * @return void
      */
     function writeTestClass($destination = './', $addTest = TRUE) {
         // Check for something to write to file.
         if (!isset($this->testClass)) {
             $this->_handleErrors('Noting to write.', PHPUS_WARNING);
+
             return;
         }
 
@@ -389,8 +390,8 @@ class PHPUnit_Skeleton {
      * handling method. (PEAR_ErrorStack)
      *
      * @access private
-     * @param  string  $message The error message.
-     * @param  integer $type    An indication of the severity of the error.
+     * @param string  $message The error message.
+     * @param integer $type    An indication of the severity of the error.
      * @return void             Code may cause PHP to exit.
      */
     function _handleErrors($message, $type = E_USER_ERROR) {

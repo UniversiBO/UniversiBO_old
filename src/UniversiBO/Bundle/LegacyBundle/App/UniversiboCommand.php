@@ -7,7 +7,6 @@ use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\Framework\BaseCommand;
 use UniversiBO\Bundle\LegacyBundle\Entity\User;
 
-use \DB;
 use \Error;
 /**
  * UniversiboCommand is the abstract super class of all command classes
@@ -517,16 +516,22 @@ abstract class UniversiboCommand extends BaseCommand {
      */
     function _compareMyUniversiBO($a, $b) {
         if ($a['tipo'] < $b['tipo'])
+
             return +1;
         if ($a['tipo'] > $b['tipo'])
+
             return -1;
         if ($a['label'] < $b['label'])
+
             return -1;
         if ($a['label'] > $b['label'])
+
             return +1;
         if ($a['ruolo'] < $b['ruolo'])
+
             return -1;
         if ($a['ruolo'] > $b['ruolo'])
+
             return +1;
     }
 
@@ -538,8 +543,10 @@ abstract class UniversiboCommand extends BaseCommand {
      */
     function _compareServices($a, $b) {
         if ($a['label'] < $b['label'])
+
             return -1;
         if ($a['label'] > $b['label'])
+
             return +1;
     }
 }

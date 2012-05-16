@@ -1,20 +1,18 @@
 <?php
 namespace UniversiBO\Bundle\WebsiteBundle\Command;
-use Symfony\Bundle\DoctrineBundle\Registry;
 
 use UniversiBO\Bundle\LegacyBundle\Entity\DBUserRepository;
 use UniversiBO\Bundle\LegacyBundle\Entity\User;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Batch rename users
- * 
+ *
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
 class BatchRenameCommand extends ContainerAwareCommand
@@ -132,7 +130,7 @@ EOD;
 
     /**
      * Prints a message only if verbose
-     * 
+     *
      * @param string $message
      * @param OutputInterface $output
      */

@@ -1,8 +1,6 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Entity;
 
-use \DB;
-use \Error;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
@@ -25,7 +23,7 @@ class ContattoDocente {
     const INATTIVO = 4;
     const ELIMINATO = 'S';
     const NOT_ELIMINATO = 'N';
-     
+
     /**
      * @var DBContattoDocenteRepository
      */
@@ -62,7 +60,7 @@ class ContattoDocente {
             self::KILLED => 'killed - non ne vuole sapere di universibo',
             self::CRITIC => 'critic - è un pezzo grosso, non è da contattare',
             self::INATTIVO => 'inattivo - non ha corsi attivi nell\'A.A. corrente',
- 			);
+             );
 
     public function __construct($coddoc, $state, $id, $mod, $report)
     {
@@ -180,7 +178,7 @@ class ContattoDocente {
     {
         return self::getRepository()->insert($this);
     }
-    
+
     /**
      * @return DBContattoDocenteRepository
      */
@@ -190,6 +188,7 @@ class ContattoDocente {
         {
             self::$repository = new DBContattoDocenteRepository(FrontController::getDbConnection('main'));
         }
+
         return self::$repository;
     }
 }

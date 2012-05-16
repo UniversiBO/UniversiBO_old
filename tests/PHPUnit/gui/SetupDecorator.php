@@ -135,7 +135,7 @@ class PHPUnit_GUI_SetupDecorator
                 if (is_file($filename) && $match) {
 //                    $className = str_replace(DIRECTORY_SEPARATOR, '_', substr(str_replace($rootDir, '', $filename), 1));
 //					$className = basename($className,'.php');   // remove php-extension
-					$className = basename($file,'.php');   // remove php-extension
+                    $className = basename($file,'.php');   // remove php-extension
                     $files[$className] = $filename;
                 }
                 if ($file!='.' && $file!='..' && is_dir($filename) && $recurse) {
@@ -144,6 +144,7 @@ class PHPUnit_GUI_SetupDecorator
             }
             closedir($dp);
         }
+
         return $files;
     }
 }

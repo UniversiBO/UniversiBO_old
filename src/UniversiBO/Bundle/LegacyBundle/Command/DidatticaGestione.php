@@ -1,5 +1,5 @@
-<?php    
-namespace UniversiBO\Bundle\LegacyBundle\Command; 
+<?php
+namespace UniversiBO\Bundle\LegacyBundle\Command;
 
 use \Error;
 
@@ -74,7 +74,7 @@ class DidatticaGestione extends UniversiboCommand {
                 $f41_cur_sel['cdl'] = $cdl->getTitolo() . ' - ' .$prg_sdop->getCodiceCdl();
                 $f41_cur_sel['facolta'] = $fac->getTitolo();
                 $f41_cur_sel['status'] = 'sdoppiato';
-                	
+
                 $f41_edit_sel['ciclo'] = $prg_sdop->getTipoCiclo();
                 $f41_edit_sel['anno'] = $prg_sdop->getAnnoCorsoUniversibo();
                 $f41_edit_sel['codice docente'] = $prg_sdop->getCodDoc();
@@ -108,12 +108,12 @@ class DidatticaGestione extends UniversiboCommand {
                     $f41_cur_sel['anno'] = $prg->getAnnoCorsoUniversibo();
                     $f41_cur_sel['cdl'] = $cdl->getTitolo() . ' - ' . $prg->getCodiceCdl();
                     $f41_cur_sel['facolta'] = $fac->getTitolo();
-                    	
+
                     $f41_edit_sel['ciclo'] = $prg->getTipoCiclo();
                     $f41_edit_sel['anno'] = $prg->getAnnoCorsoUniversibo();
                     $f41_edit_sel['codice docente'] = $prg->getCodDoc();
                     $edit = 'true';
-                    	
+
                     $esamiAlternativi = DidatticaGestione::_getAttivitaFromCanale($id_canale,$prg);
                 }
                 else
@@ -155,7 +155,7 @@ class DidatticaGestione extends UniversiboCommand {
             //			if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_cdl']))
                 //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non � valido', 'file' => __FILE__, 'line' => __LINE__));
 
-            	
+
             if ( Canale::getTipoCanaleFromId($_GET['id_cdl']) == CANALE_CDL)
             {
                 $cdl = & Canale::retrieveCanale(intval($_GET['id_cdl']));
@@ -174,25 +174,25 @@ class DidatticaGestione extends UniversiboCommand {
                     }
             }
         }
-        	
+
         $f41_accept = false;
         $listaDocenti = '';
 
         //submit della ricerca docente
         if (array_key_exists('f41_search', $_POST)  )
         {
-            	
+
             if (!array_key_exists('f41_username', $_POST) || !array_key_exists('f41_email', $_POST) )
                 Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'La ricerca docente effettuata non � valida', 'file' => __FILE__, 'line' => __LINE__));
-            	
+
             $f41_accept = true;
-            	
+
             if ($_POST['f41_username'] == '' && $_POST['f41_email'] == '')
             {
                 Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Specificare almeno uno dei due criteri di ricerca docente', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
                 $f41_accept = false;
             }
-            	
+
             if ($_POST['f41_username'] == '')
                 $f41_username = '%';
             else
@@ -202,7 +202,7 @@ class DidatticaGestione extends UniversiboCommand {
                 $f41_email = '%';
             else
                 $f41_email = $_POST['f41_email'];
-            	
+
             if ($f41_accept)
             {
                 $users_search = User::selectUsersSearch($f41_username, $f41_email);
@@ -217,7 +217,7 @@ class DidatticaGestione extends UniversiboCommand {
                     }
                     if(count($listaDocenti) == 0) $listaDocenti = '';
             }
-            	
+
         }
 
         $f41_accept = false;
@@ -270,7 +270,7 @@ class DidatticaGestione extends UniversiboCommand {
                             for($i = 0; $i < $tot; $i++)
                             //$prgs[$i]->setCodDoc($tmpEdit['codice docente']);
                             $this->_updateVal($prgs[$i],$i, $mods, $tmpEdit['codice docente'], 'doc', $template);
-                        	
+
                     }
                     if (array_key_exists('ciclo', $tmpEdit))
                     {
@@ -300,7 +300,7 @@ class DidatticaGestione extends UniversiboCommand {
                     }
 
             }
-            	
+
             //esecuzione operazioni accettazione del form
             if ($f41_accept == true)
             {
@@ -346,11 +346,11 @@ class DidatticaGestione extends UniversiboCommand {
                                 $db->rollback();
                                 break;
                             }
-                            	
+
                             unset($doc);
                             unset($r);
                             unset($ruoli);
-                            	
+
                             // aggiungiamo il nuovo referente
                             $doc = Docente::selectDocenteFromCod($mods[$i]['doc']['new']);
                             $ruoli = $doc->getRuoli();
@@ -376,7 +376,7 @@ class DidatticaGestione extends UniversiboCommand {
                                 $ruolo->insertRuolo();
                             }
                         }
-                        	
+
 
                     }
                 }
@@ -388,6 +388,7 @@ class DidatticaGestione extends UniversiboCommand {
                 if ($failure)
                 {
                     Error :: throwError (_ERROR_NOTICE, array ('msg' => 'Errore DB, nessuna modifica effettuata', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
+
                     return 'default';
                 }
 
@@ -409,7 +410,8 @@ class DidatticaGestione extends UniversiboCommand {
         $template->assign('DidatticaGestione_docs', $listaDocenti);
 
         $this->executePlugin('ShowTopic', array('reference' => 'didatticagestione'));
-        	
+
+
         return 'default';
 
     }
@@ -425,6 +427,7 @@ class DidatticaGestione extends UniversiboCommand {
     {
         $nomea = strtolower($a['nome']);
         $nomeb = strtolower($b['nome']);
+
         return strnatcasecmp($nomea, $nomeb);
     }
 
@@ -462,6 +465,7 @@ class DidatticaGestione extends UniversiboCommand {
                         'uri'		=> $uri
                 );
             }
+
             return $ret;
     }
 
@@ -471,7 +475,7 @@ class DidatticaGestione extends UniversiboCommand {
         $desc = '';
         foreach(array('doc','ciclo','anno') as $k)
             $desc .= (array_key_exists($k,$modified))? $k.' '.$modified[$k]['old'].' -> '.$modified[$k]['new'].'; ' :'';
-        
+
         $log = new LogHandler('modificaDidattica','../universibo/log-universibo/',$log_definition);
 
         $log_array = array( 'timestamp'  => time(),
@@ -494,6 +498,7 @@ class DidatticaGestione extends UniversiboCommand {
         if ($id_cdl != null) $ret .= '&id_cdl='.$id_cdl;
         if ($id_facolta != null) $ret .= '&id_fac='.$id_facolta;
         if ($id_sdop != null) $ret .= '&id_sdop='.$id_sdop;
+
         return $ret;
     }
 
@@ -504,7 +509,7 @@ class DidatticaGestione extends UniversiboCommand {
     function _updateVal(& $prg,$index, & $mods, $val, $type, & $template)
     {
         switch ($type) {
-            	
+
             case 'doc':
                 $get = 'getCodDoc';
                 $set = 'setCodDoc';
@@ -521,7 +526,7 @@ class DidatticaGestione extends UniversiboCommand {
             default:
                 Error :: throwError (_ERROR_CRITICAL, array ('msg' => 'Errore dei programmatori', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' =>  $template));
                 break;
-                	
+
         }
 
         $old = $prg->$get();

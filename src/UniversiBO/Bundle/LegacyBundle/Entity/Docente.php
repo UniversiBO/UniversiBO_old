@@ -95,19 +95,21 @@ class Docente extends User
         if ($this->userCache == NULL) {
             $this->userCache = User::selectUser($this->getIdUtente());
         }
+
         return $this->userCache;
     }
 
     /**
      * Ritorna le info del docente prese dalla rubrica
-     * 
-     * @return array 
+     *
+     * @return array
      */
     function getInfoRubrica()
     {
         if ($this->rubricaCache == NULL) {
             $this->rubricaCache = $this->_getDocenteInfo();
         }
+
         return $this->rubricaCache;
     }
 
@@ -128,6 +130,7 @@ class Docente extends User
 
         $rows = $res->numRows();
         if ($rows == 0)
+
             return false;
 
         $row = $res->fetchRow();
@@ -169,6 +172,7 @@ class Docente extends User
             self::$repository = new DBDocenteRepository(
                     FrontController::getDbConnection('main'));
         }
+
         return self::$repository;
     }
 }

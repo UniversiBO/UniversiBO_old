@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * UniversiBO\Bundle\DidacticsBundle\Entity\Subject
- * 
+ *
  * @todo nextval('did_subjects_id_seq'::regclass)
- * 
+ *
  * @ORM\Table(name="did_subjects")
  * @ORM\Entity(repositoryClass="UniversiBO\Bundle\DidacticsBundle\Entity\SubjectRepository")
  */
@@ -41,7 +41,7 @@ class Subject
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -61,7 +61,7 @@ class Subject
     /**
      * Get code
      *
-     * @return string 
+     * @return string
      */
     public function getCode()
     {
@@ -81,7 +81,7 @@ class Subject
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {

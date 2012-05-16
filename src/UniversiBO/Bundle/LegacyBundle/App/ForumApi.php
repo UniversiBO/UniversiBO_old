@@ -68,6 +68,7 @@ class ForumApi implements ForumApiInterface
     function _encodeIp($dotquad_ip)
     {
         $ip_sep = explode('.', $dotquad_ip);
+
         return sprintf('%02x%02x%02x%02x', $ip_sep[0], $ip_sep[1], $ip_sep[2], $ip_sep[3]);
     }
 
@@ -79,6 +80,7 @@ class ForumApi implements ForumApiInterface
     {
         //echo $_SESSION['phpbb_sid'];
         if (array_key_exists('phpbb_sid', $_SESSION) && $_SESSION['phpbb_sid']!='') return 'sid='.$_SESSION['phpbb_sid'];
+
         return '';
     }
 
@@ -88,6 +90,7 @@ class ForumApi implements ForumApiInterface
     function getOnlySid()
     {
         $sid = $_SESSION['phpbb_sid'];
+
         return $sid;
     }
 
@@ -155,12 +158,12 @@ class ForumApi implements ForumApiInterface
         $res = $db->query($query);
         if (DB::isError($res))
             Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        	
+
         $query = 'SELECT user_session_time FROM '.$this->table_prefix.'users WHERE user_id = '.$user->getIdUser();
         $res = $db->query($query);
         if (DB::isError($res))
             Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        	
+
         $res->fetchInto($row);
 
         $query = 'UPDATE '.$this->table_prefix.'users SET user_lastvisit = '.$row[0].' WHERE user_id = '.$user->getIdUser();
@@ -283,9 +286,9 @@ public function updatePassword(User $user, $password)
 {
     $db = FrontController::getDbConnection($this->database);
     if ($user->isOspite()) return;
-     
+
     $query = 'UPDATE '.$this->table_prefix.'users SET user_password = '.$db->quote(md5($password)).' WHERE user_id = '.$db->quote($user->getIdUser());
-     
+
     $res = $db->query($query);
     if (DB::isError($res))
         Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
@@ -547,7 +550,7 @@ function getLastPostsForum(User $user, $id_forum, $num = 10)
     AND p.post_id IN (SELECT pp.post_id FROM '.$this->table_prefix.'posts pp WHERE t.topic_id = pp.topic_id ORDER BY pp.post_time ASC)
     GROUP BY t.topic_title
     ORDER BY max(p.post_id) DESC';
-    
+
     // rimosso  AND pp.post_time > '.$ultimo_login.'
 
     //var_dump($db);

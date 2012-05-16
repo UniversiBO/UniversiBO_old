@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class RssController extends Controller
 {
@@ -23,19 +22,20 @@ class RssController extends Controller
     {
         $canaleRepo = $this->get('universibo_legacy.repository.canale');
         $canale = $canaleRepo->find($idCanale);
-        
+
         if(!$canale instanceof Canale) {
             throw $this->createNotFoundException('Canale not found');
         }
-        
+
         $generator = $this->get('universibo_website.feed.feed_generator');
-        
+
         $feed = $generator->generateFeed($canale, $this->get('router'));
-        
+
         $response = new Response();
         $response->headers->set('Content-Type', 'application/rss+xml; charset=utf-8');
         $response->setContent($feed->export('rss'));
-        
+
+
         return $response;
     }
 }

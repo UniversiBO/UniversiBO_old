@@ -162,6 +162,7 @@ class Ruolo {
         {
             $this->user = User::selectUser($this->getIdUser());
         }
+
         return $this->user;
     }
 
@@ -178,6 +179,7 @@ class Ruolo {
         {
             $this->canale = Canale::selectCanale($this->getIdCanale());
         }
+
         return $this->canale;
     }
 
@@ -199,7 +201,7 @@ class Ruolo {
      * Imposta il nome del canale corrente specificato dal'utente
      *
      * @deprecated
-     * @param string $nome nome del canale corrente specificato dal'utente
+     * @param string  $nome     nome del canale corrente specificato dal'utente
      * @param boolean $updateDB se true la modifica viene propagata al DB
      * @return boolean true se avvenuta con successo
      */
@@ -233,8 +235,8 @@ class Ruolo {
     /**
      * Imposta l'ultimo accesso dell'utente al canale
      * @deprecated
-     * @param int $ultimo_accesso timestamp dell'ultimo accesso
-     * @param boolean $updateDB se true la modifica viene propagata al DB
+     * @param int     $ultimo_accesso timestamp dell'ultimo accesso
+     * @param boolean $updateDB       se true la modifica viene propagata al DB
      * @return boolean true se avvenuta con successo
      */
     public function updateUltimoAccesso($ultimoAccesso, $updateDB = false)
@@ -291,8 +293,8 @@ class Ruolo {
      * define('NOTIFICA_ALL'    ,2);
      *
      * @deprecated
-     * @param int $tipo_notifica livello di notifica
-     * @param boolean $updateDB se true la modifica viene propagata al DB
+     * @param int     $tipo_notifica livello di notifica
+     * @param boolean $updateDB      se true la modifica viene propagata al DB
      * @return boolean true se avvenuta con successo
      */
     public function updateTipoNotifica($tipoNotifica, $updateDB = false)
@@ -378,19 +380,19 @@ class Ruolo {
     public function updateSetReferente($referente, $updateDB = false)
     {
         $this->setReferente($referente);
-        
+
         if($updateDB) {
             return self::getRepository()->updateReferente($this);
         }
 
         return true;
     }
-    
+
     public function setReferente($referente)
     {
         $this->referente = $referente;
     }
-    
+
     /**
      * Verifica se nel ruolo corrente l'utente ? tra i canali scelti dall'utente
      *
@@ -425,11 +427,12 @@ class Ruolo {
     public function setMyUniversibo($my_universibo, $updateDB = false)
     {
         $this->myUniversibo = $my_universibo;
-        
+
         if($updateDB) {
             return self::getRepository()->updateMyUniversibo($this);
         }
-        
+
+
         return true;
     }
 
@@ -513,6 +516,7 @@ class Ruolo {
         {
             self::$repository = new DBRuoloRepository(FrontController::getDbConnection('main'));
         }
+
         return self::$repository;
     }
 }

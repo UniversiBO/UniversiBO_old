@@ -1,8 +1,6 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage;
 
-use \Java;
-use \JavaClass;
 
 class LegacyCLInterpreter
 {
@@ -14,11 +12,11 @@ class LegacyCLInterpreter
     public static function init($fc,$user = null)
     {
         $executorFactory = new ExecutorFactory();
-         
+
         $executorFactory->register('php', new PhpExecutor());
         $executorFactory->register('sql', new SqlExecutor($fc->getDbConnection('main')));
         $executorFactory->register('entity', new EntityRetriever($fc,$user));
-         
+
         self::$interpreter = new CLInterpreter($executorFactory, JavaBridge::getInstance(), UNIVERSIBO_ROOT . '/framework/CL', array_key_exists('dl', $_GET) ? $_GET['dl'] : -1);
     }
 

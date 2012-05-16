@@ -33,7 +33,7 @@ interface ProgrammazioneDidatticaDataRetriever
 
     /**
      * @param string $codCorso
-     * @return Corso 
+     * @return Corso
      */
     public function getCorso($codCorso);
 
@@ -45,27 +45,27 @@ interface ProgrammazioneDidatticaDataRetriever
 
     /**
      * @param string $codDoc
-     * @return  Docente 
+     * @return  Docente
      */
     public function getDocente($codDoc);
 
     /**
      * @param string $codCorso
      * @param int $annoAccademico
-     * @return AttivitaDidattica[] 
+     * @return AttivitaDidattica[]
      */
     public function getAttivitaDidatticaPadreCorso($codCorso, $annoAccademico);
 
     /**
      * @param string $codCorso
      * @param int $annoAccademico
-     * @return AttivitaDidattica[] 
+     * @return AttivitaDidattica[]
      */
     public function getAttivitaDidatticaCorso($codCorso, $annoAccademico);
 
     /**
      * @param AttivitaDidattica $attivitaPadre
-     * @return AttivitaDidattica[] 
+     * @return AttivitaDidattica[]
      */
     public function getSdoppiamentiAttivitaDidattica($attivitaPadre);
 }

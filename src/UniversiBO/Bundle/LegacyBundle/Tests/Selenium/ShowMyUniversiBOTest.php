@@ -7,14 +7,14 @@ class ShowMyUniversiBOTest extends UniversiBOSeleniumTestCase
     {
         parent::setUp();
     }
-    
+
     public function testLoggedOut()
     {
         $this->deleteAllVisibleCookies();
         $this->open('/index.php?do=ShowMyUniversiBO');
         self::assertTrue($this->isTextPresent('Error!', 'Error message must be present'));
     }
-    
+
     public function testLoggedIn()
     {
         $this->login('brain');

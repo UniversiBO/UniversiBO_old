@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
 use UniversiBO\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
@@ -71,14 +71,14 @@ class ShowCdl extends CanaleCommand {
                 {
                     $insAnnoCorso = $tempPrgAttDid->getAnnoCorsoUniversibo();
                     $insCiclo = NULL; //$elencoPrgAttDid[$i]->getTipoCiclo();
-                    	
+
                     $cdl_listIns[$insAnnoCorso] = array('anno' => $insAnnoCorso, 'name' => 'anno '.$insAnnoCorso, 'list' => array() );
                 }
 
                 if ( $insCiclo != $tempPrgAttDid->getTipoCiclo() )
                 {
                     $insCiclo = $tempPrgAttDid->getTipoCiclo();
-                    	
+
                     $cdl_listIns[$insAnnoCorso]['list'][$insCiclo] = array('ciclo' => $insCiclo, 'name' => 'Ciclo '.$insCiclo, 'list' => array() );
                 }
                 $allowEdit = ($session_user->isAdmin() || $session_user->isCollaboratore() );

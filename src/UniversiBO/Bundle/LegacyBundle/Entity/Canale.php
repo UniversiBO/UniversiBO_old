@@ -103,19 +103,19 @@ class Canale {
      *
      * @see factoryCanale
      * @see selectCanale
-     * @param int $id_canale 		identificativo del canae su database
-     * @param int $permessi 		privilegi di accesso gruppi {@see User}
-     * @param int $ultima_modifica 	timestamp
-     * @param int $tipo_canale 	 	vedi definizione dei tipi sopra
-     * @param string  $immagine		uri dell'immagine relativo alla cartella del template
-     * @param string $nome			nome del canale
-     * @param int $visite			numero visite effettuate sul canale
-     * @param boolean $news_attivo	se true il servizio notizie ? attivo
-     * @param boolean $files_attivo	se true il servizio false ? attivo
-     * @param boolean $forum_attivo	se true il servizio forum ? attivo
-     * @param int $forum_forum_id	se forum_attivo ? true indica l'identificativo del forum su database
-     * @param int $forum_group_id	se forum_attivo ? true indica l'identificativo del grupop moderatori del forum su database
-     * @param boolean $links_attivo se true il servizio links ? attivo
+     * @param int     $id_canale         		identificativo del canae su database
+     * @param int     $permessi          		privilegi di accesso gruppi {@see User}
+     * @param int     $ultima_modifica   	timestamp
+     * @param int     $tipo_canale       	 	vedi definizione dei tipi sopra
+     * @param string  $immagine		uri     dell'immagine relativo alla cartella del template
+     * @param string  $nome			nome       del canale
+     * @param int     $visite			numero   visite effettuate sul canale
+     * @param boolean $news_attivo	se    true il servizio notizie ? attivo
+     * @param boolean $files_attivo	se   true il servizio false ? attivo
+     * @param boolean $forum_attivo	se   true il servizio forum ? attivo
+     * @param int     $forum_forum_id	se forum_attivo ? true indica l'identificativo del forum su database
+     * @param int     $forum_group_id	se forum_attivo ? true indica l'identificativo del grupop moderatori del forum su database
+     * @param boolean $links_attivo      se true il servizio links ? attivo
      * @return Canale
      */
     public function __construct($id_canale, $permessi, $ultima_modifica, $tipo_canale, $immagine, $nome, $visite,
@@ -532,7 +532,7 @@ class Canale {
         //$tipo_canale =  Canale::getTipoCanaleFromId ( $this->getRequestIdCanale() );
 
         $this->requestCanale = Canale::selectCanale( $this->getRequestIdCanale() );
-         
+
         if ( $this->requestCanale === false )
             \Error::throwError(_ERROR_DEFAULT,array('msg'=>'Il canale richiesto non � presente','file'=>__FILE__,'line'=>__LINE__));
 
@@ -558,6 +558,7 @@ class Canale {
         static $cache_canali = array();
 
         if ($cache == true && array_key_exists($id_canale, $cache_canali))
+
             return $cache_canali[$id_canale];
 
         $tipo_canale =  Canale::getTipoCanaleFromId ( $id_canale );
@@ -618,6 +619,7 @@ class Canale {
     public static function selectCanale($id_canale)
     {
         $array_canale = Canale::selectCanali( array( 0 => $id_canale ) );
+
         return $array_canale[0];
     }
 
@@ -713,6 +715,7 @@ class Canale {
     {
         $nomea = strtolower($a['nome']);
         $nomeb = strtolower($b['nome']);
+
         return strnatcasecmp($nomea, $nomeb);
     }
 
@@ -725,6 +728,7 @@ class Canale {
         {
             self::$repository = new DBCanaleRepository(FrontController::getDbConnection('main'));
         }
+
         return self::$repository;
     }
 }

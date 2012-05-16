@@ -12,15 +12,15 @@ class ShowCcontattoDocenteTest extends UniversiBOSeleniumTestCase
     {
         $this->login('brain');
         $this->open('/index.php?do=ShowContattoDocente&cod_doc=012179');
-        
+
         $sentences = array (
-        		'Prof. Pier Paolo Abbati Marescotti',
-        		'pier.abbati@unibo.it',
+                'Prof. Pier Paolo Abbati Marescotti',
+                'pier.abbati@unibo.it',
         );
-        
+
         $this->assertSentences($sentences);
     }
-    
+
     public function testUpdate()
     {
         $this->markTestIncomplete();

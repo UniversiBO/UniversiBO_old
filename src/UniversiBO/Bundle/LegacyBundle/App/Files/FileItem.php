@@ -1,4 +1,4 @@
-<?php  
+<?php
 namespace UniversiBO\Bundle\LegacyBundle\App\Files;
 
 use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
@@ -167,12 +167,12 @@ class FileItem {
      * Crea un oggetto FileItem con i parametri passati
      *
      *
-     * @param  int $id_file id del file
-     * @param  string $titolo titolo del file
-     * @param  string $descrizione descrizione completa del file
-     * @param  int $dimensione dimensione in kb del file
-     * @param  int $permessi_download categoria utenti ai quali ? permesso il download
-     * @param  boolean $eliminato flag stato del file
+     * @param int     $id_file           id del file
+     * @param string  $titolo            titolo del file
+     * @param string  $descrizione       descrizione completa del file
+     * @param int     $dimensione        dimensione in kb del file
+     * @param int     $permessi_download categoria utenti ai quali ? permesso il download
+     * @param boolean $eliminato         flag stato del file
      * @return FileItem
      */
 
@@ -444,6 +444,7 @@ class FileItem {
     function setParoleChiave($paroleChiave) {
         FileKeyWords::updateFileKeyWords($this->getIdFile(), $paroleChiave);
         $this->paroleChiave = $paroleChiave;
+
         return $this->paroleChiave;
     }
 
@@ -719,21 +720,21 @@ class FileItem {
         if ($tipi_regex == NULL)
         {
             $db = & FrontController::getDbConnection('main');
-             
+
             $query = 'SELECT id_file_tipo, pattern_riconoscimento FROM file_tipo WHERE id_file_tipo != 1';
             $res = & $db->query($query);
-             
+
             if (DB :: isError($res))
                 Error::throwError(_ERROR_DEFAULT, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
-             
+
             $tipi_regex = array ();
 
             while ($res->fetchInto($row)) {
                 $tipi_regex[$row[0]] = $row[1];
             }
-             
+
             $res->free();
-             
+
         }
         //echo $nome_file;
         foreach($tipi_regex as $key => $value)
@@ -741,6 +742,7 @@ class FileItem {
             // @TODO cambiare database
             //echo '['.$value.'-'.ereg($value, $nome_file).']';
             if ( @ereg($value, $nome_file) )
+
                 return $key;
         }
 
@@ -760,6 +762,7 @@ class FileItem {
         static $tipi = NULL;
 
         if ($tipi != NULL)
+
             return $tipi;
 
         $db = & FrontController::getDbConnection('main');
@@ -794,6 +797,7 @@ class FileItem {
         static $categorie = NULL;
 
         if ($categorie != NULL)
+
             return $categorie;
 
         $db = FrontController::getDbConnection('main');
@@ -854,13 +858,14 @@ class FileItem {
      * Recupera un file dal database
      *
      * @static
-     * @param int $id_file  id del file
+     * @param int $id_file id del file
      * @return FileItem
      */
     function  selectFileItem($id_file) {
         $id_files = array ($id_file);
         $files = & FileItem :: selectFileItems($id_files);
         if ($files === false)
+
             return false;
         return $files[0];
     }
@@ -910,6 +915,7 @@ class FileItem {
         $rows = $res->numRows();
 
         if ($rows == 0)
+
             return false;
         $files_list = array ();
 
@@ -926,7 +932,7 @@ class FileItem {
     /**
      * restituisce tutti i file caricati da un determinato utente
      *
-     * @param int $id_utente NB deve essere un id valido, fate il check prima di invocare il metodo
+     * @param int     $id_utente    NB deve essere un id valido, fate il check prima di invocare il metodo
      * @param boolean $order	ordina i file in ordine decrescente di data
      * @return mixed false se non trova file, array di fileItem altrimenti
      */
@@ -951,6 +957,7 @@ class FileItem {
         $rows = $res->numRows();
 
         if ($rows == 0)
+
             return false;
         $files_list = array ();
 
@@ -973,6 +980,7 @@ class FileItem {
      */
     function  getIdCanali() {
         if ($this->elencoIdCanali != NULL)
+
             return $this->elencoIdCanali;
 
         $id_file = $this->getIdFile();
@@ -1002,7 +1010,7 @@ class FileItem {
     /**
      * rimuove il file dal canale specificato
      *
-     * @param int $id_canale   identificativo del canale
+     * @param int $id_canale identificativo del canale
      */
     function removeCanale($id_canale) {
 
@@ -1026,7 +1034,7 @@ class FileItem {
     /**
      * aggiunge il file al canale specificato
      *
-     * @param int $id_canale   identificativo del canale
+     * @param int $id_canale identificativo del canale
      * @return boolean  true se esito positivo
      */
     function addCanale($id_canale) {
@@ -1131,6 +1139,7 @@ class FileItem {
         $db->commit();
         $db->autoCommit(true);
         ignore_user_abort(0);
+
         return $return;
     }
 
@@ -1153,8 +1162,10 @@ class FileItem {
                 $db->rollback();
                 Error :: throwError(_ERROR_CRITICAL, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
             }
+
             return true;
         }
+
         return false;
     }
 }

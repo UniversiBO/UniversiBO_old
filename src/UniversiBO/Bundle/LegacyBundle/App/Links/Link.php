@@ -41,12 +41,12 @@ class Link
     var $description = '';
 
     /**
-     * Crea un oggetto link 
+     * Crea un oggetto link
      *
-     * @param int $id_link 			identificativo del link su database
-     * @param int $id_canale 		identificativo del canale a cui si riferisce il link
-     * @param string $uri 			uniform resurce identifier (link)
-     * @param string $label 	 	testo del link (di solito quello tra <a>...</a>)
+     * @param int    $id_link     			identificativo del link su database
+     * @param int    $id_canale   		identificativo del canale a cui si riferisce il link
+     * @param string $uri         			uniform resurce identifier (link)
+     * @param string $label       	 	testo del link (di solito quello tra <a>...</a>)
      * @param string $description 	testo descrittivo della risorsa puntata dal link
      * @return Link
      */
@@ -72,7 +72,7 @@ class Link
     }
 
     /**
-     * Ritorna l'id_canale 
+     * Ritorna l'id_canale
      *
      * @return int
      */
@@ -82,7 +82,7 @@ class Link
     }
 
     /**
-     * Ritorna l'id_canale 
+     * Ritorna l'id_canale
      *
      * @return int
      */
@@ -190,6 +190,7 @@ class Link
             Error::throwError(_ERROR_CRITICAL,
                     array('msg' => DB::errorMessage($res), 'file' => __FILE__,
                             'line' => __LINE__));
+
             return false;
         }
 
@@ -209,8 +210,10 @@ class Link
         $links = Link::selectLinks($id_links);
         if ($links === false) {
             $ret = false;
+
             return $ret;
         }
+
         return $links[0];
     }
 
@@ -219,7 +222,7 @@ class Link
      *
      * @static
      * @param array $id_links array elenco di id dei link
-     * @return Link array di Link 
+     * @return Link array di Link
      */
     function selectLinks($id_links)
     {
@@ -228,6 +231,7 @@ class Link
 
         if (count($id_links) == 0) {
             $ret = array();
+
             return $ret;
         }
 
@@ -246,6 +250,7 @@ class Link
 
         if ($rows == 0) {
             $ret = false;
+
             return $ret;
         }
         $link_list = array();
@@ -285,8 +290,10 @@ class Link
         $rows = $db->affectedRows();
 
         if ($rows == 1)
+
             return true;
         elseif ($rows == 0)
+
             return false;
         else
             Error::throwError(_ERROR_CRITICAL,
@@ -313,8 +320,10 @@ class Link
         $rows = $db->affectedRows();
 
         if ($rows == 1)
+
             return true;
         elseif ($rows == 0)
+
             return false;
         else
             Error::throwError(_ERROR_CRITICAL,
@@ -327,7 +336,7 @@ class Link
      *
      * @static
      * @param array $id_canale id del canale
-     * @return Link array di Link 
+     * @return Link array di Link
      */
     function selectCanaleLinks($id_canale)
     {
@@ -345,6 +354,7 @@ class Link
         $rows = $res->numRows();
 
         if ($rows = 0)
+
             return false;
         $link_list = array();
 
@@ -382,13 +392,14 @@ class Link
                             'file' => __FILE__, 'line' => __LINE__));
         $res->fetchInto($row);
         $res->free();
+
         return $row[0];
 
     }
 
     /**
      * La funzione verifica se il link è interno o meno
-     * @return boolean 
+     * @return boolean
      */
     public function isInternalLink()
     {

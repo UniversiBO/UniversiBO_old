@@ -17,8 +17,9 @@ class InfoController extends Controller
         $id = 'universibo_legacy.repository.informativa';
         $privacyContent = $this->get($id)->findByTime(time())->getTesto();
         $privacyContent = mb_convert_encoding($privacyContent, 'utf-8', 'iso-8859-1');
-        
-        $rules = UNIVERSIBO_ROOT . '/universibo/files/regolamento.txt';        
+
+        $rules = UNIVERSIBO_ROOT . '/universibo/files/regolamento.txt';
+
         return array('privacy' => $privacyContent, 'rules' => file_get_contents($rules));
-    } 
+    }
 }

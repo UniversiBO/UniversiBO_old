@@ -22,8 +22,10 @@ class AntiVirusFactory
 
                 return new Clamav($cmd, $opts);
             }
+
             return false;
         }
+
         return false;
     }
 }

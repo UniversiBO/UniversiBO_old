@@ -59,13 +59,14 @@ abstract class BaseCommand
     /**
      * Executes plugin
      *
-     * @param string $name identifier name for this plugin
-     * @param mixed $param a parameter handled by PluginCommand
+     * @param string $name  identifier name for this plugin
+     * @param mixed  $param a parameter handled by PluginCommand
      * @return mixed return value of plugin
      */
     public function executePlugin($name, $param)
     {
         $fc = $this->getFrontController();
+
         return $fc->executePlugin($name,$this, $param);
     }
 }

@@ -78,8 +78,10 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $rows = $res->numRows();
 
         if ($rows == 0)
+
             return false;
         elseif ($rows == 1)
+
             return true;
         else
             $this
@@ -87,6 +89,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
                             array(
                                     'msg' => 'Errore generale database utenti: username non unico',
                                     'file' => __FILE__, 'line' => __LINE__));
+
         return false;
     }
 
@@ -116,6 +119,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
                                     'line' => __LINE__));
         $res->fetchInto($row);
         $res->free();
+
         return $row[0];
     }
 
@@ -134,9 +138,11 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $rows = $res->numRows();
 
         if ($rows == 0)
+
             return false;
         elseif ($rows == 1) {
             $row = $res->fetchRow();
+
             return $row[0];
         } else
             $this
@@ -239,8 +245,10 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $rows = $db->affectedRows();
 
         if ($rows == 1)
+
             return true;
         elseif ($rows == 0)
+
             return false;
         else
             $this
@@ -265,8 +273,10 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $rows = $db->affectedRows();
 
         if ($rows == 1)
+
             return true;
         elseif ($rows == 0)
+
             return false;
         else
             $this
@@ -274,6 +284,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
                             array(
                                     'msg' => 'Errore generale database utenti: username non unico',
                                     'file' => __FILE__, 'line' => __LINE__));
+
         return false;
     }
 
@@ -293,8 +304,10 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $rows = $db->affectedRows();
 
         if ($rows == 1)
+
             return true;
         elseif ($rows == 0)
+
             return false;
         else
             $this
@@ -302,6 +315,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
                             array(
                                     'msg' => 'Errore generale database utenti: username non unico',
                                     'file' => __FILE__, 'line' => __LINE__));
+
         return false;
     }
 
@@ -321,8 +335,10 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $rows = $db->affectedRows();
 
         if ($rows == 1)
+
             return true;
         elseif ($rows == 0)
+
             return false;
         else
             $this
@@ -330,6 +346,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
                             array(
                                     'msg' => 'Errore generale database utenti: username non unico',
                                     'file' => __FILE__, 'line' => __LINE__));
+
         return false;
     }
 
@@ -352,8 +369,10 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $rows = $db->affectedRows();
 
         if ($rows == 1)
+
             return true;
         elseif ($rows == 0)
+
             return false;
         else
             $this
@@ -415,6 +434,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
                 $row[3], $row[4], $row[7], $row[8], NULL, $row[9], true);
         $user->setAlgoritmo($row[10]);
         $user->setSalt($row[11]);
+
         return $user;
     }
 
@@ -440,6 +460,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
                                     'file' => __FILE__, 'line' => __LINE__));
         if ($rows == 0) {
             $false = false;
+
             return $false;
         }
 
@@ -449,6 +470,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
                 true);
         $user->setAlgoritmo($row[10]);
         $user->setSalt($row[11]);
+
         return $user;
     }
 
@@ -456,6 +478,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
             array $arrayWithDesiredGroupsConstant)
     {
         if (count($arrayWithDesiredGroupsConstant) === 0)
+
             return array();
 
         $db = $this->getDb();
@@ -491,8 +514,10 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $rows = $db->affectedRows();
 
         if ($rows == 1)
+
             return true;
         elseif ($rows == 0)
+
             return false;
         else
             $this
@@ -500,6 +525,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
                             array(
                                     'msg' => 'Errore generale database utenti: username non unico',
                                     'file' => __FILE__, 'line' => __LINE__));
+
         return false;
     }
 
@@ -562,7 +588,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
 
         $query = 'UPDATE utente SET username = ' . $db->quote($newUsername)
                 . ' WHERE id_utente = ' . $user->getIdUser();
-        
+
         $res = $db->query($query);
 
         if (\DB::isError($res)) {
@@ -575,7 +601,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $query = 'UPDATE phpbb_users SET username = '
                 . $db->quote($newUsername) . ' WHERE username = '
                 . $db->quote($user->getUsername());
-        
+
         $res = $db->query($query);
 
         if (\DB::isError($res)) {
@@ -602,8 +628,9 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         }
 
         $i = 1;
-        
+
         while($this->usernameExists($newUsername = $wantedUsername . $i++));
+
         return $newUsername;
     }
 }

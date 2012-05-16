@@ -1,9 +1,8 @@
-<?php    
+<?php
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
 use UniversiBO\Bundle\LegacyBundle\App\Notifica\NotificaItem;
 
-use \DB;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
 use UniversiBO\Bundle\LegacyBundle\App\AntiVirus\AntiVirusFactory;
@@ -67,14 +66,14 @@ class FileAdd extends UniversiboCommand {
         $f12_password = null;
 
         $elenco_canali = array();
-         
+
         if (array_key_exists('id_canale', $_GET))
         {
             if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
                 Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non � valido', 'file' => __FILE__, 'line' => __LINE__));
 
             $canale = Canale::retrieveCanale($_GET['id_canale']);
-             
+
             if ($canale->getServizioFiles() == false)
                 Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => "Il servizio files � disattivato", 'file' => __FILE__, 'line' => __LINE__));
 
@@ -87,7 +86,7 @@ class FileAdd extends UniversiboCommand {
                 $referente = $ruolo->isReferente();
                 $moderatore = $ruolo->isModeratore();
             }
-             
+
             $elenco_canali = array($id_canale);
             $f12_canale = $user->getRuoliInfoGroupedByYear($id_canale);
         }
@@ -119,8 +118,8 @@ class FileAdd extends UniversiboCommand {
                 Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il form inviato non � valido', 'file' => __FILE__, 'line' => __LINE__));
                 $f12_accept = false;
             }
-             
-             
+
+
             //titolo
             if (strlen($_POST['f12_titolo']) > 150) {
                 Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il titolo deve essere inferiore ai 150 caratteri', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
@@ -131,12 +130,12 @@ class FileAdd extends UniversiboCommand {
                 $f12_accept = false;
             } else
                 $f12_titolo = $_POST['f12_titolo'];
-             
-             
+
+
             //abstract
             $f12_abstract = $_POST['f12_abstract'];
-             
-             
+
+
             $checkdate_ins = true;
             //data_ins_gg
             if (!preg_match('/^([0-9]{1,2})$/', $_POST['f12_data_ins_gg'])) {
@@ -194,9 +193,9 @@ class FileAdd extends UniversiboCommand {
                 Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'La data di inserimento specificata non esiste', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
                 $f12_accept = false;
             }
-             
+
             $f12_data_inserimento = mktime($_POST['f12_data_ins_ora'], $_POST['f12_data_ins_min'], "0", $_POST['f12_data_ins_mm'], $_POST['f12_data_ins_gg'], $_POST['f12_data_ins_aa']);
-             
+
             //abstract
             if (strlen($_POST['f12_abstract']) > 3000) {
                 Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'La descrizione/abstract del file deve essere inferiore ai 3000 caratteri', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
@@ -237,7 +236,7 @@ class FileAdd extends UniversiboCommand {
                     }
                 }
             }
-             
+
             //permessi_download
             if (!preg_match('/^([0-9]{1,9})$/', $_POST['f12_categoria']))
             {
@@ -250,7 +249,7 @@ class FileAdd extends UniversiboCommand {
                 $f12_accept = false;
             }
             else $f12_categoria = $_POST['f12_categoria'];
-             
+
             //permessi_download
             if (!preg_match('/^([0-9]{1,3})$/', $_POST['f12_permessi_download']))
             {
@@ -275,7 +274,7 @@ class FileAdd extends UniversiboCommand {
                 }
                 $f12_permessi_download = $_POST['f12_permessi_download'];
             }
-             
+
             //password non necessita controlli
             if ($_POST['f12_password'] != $_POST['f12_password_confirm'])
             {
@@ -293,8 +292,8 @@ class FileAdd extends UniversiboCommand {
             else
                 $f12_permessi_visualizza = User::ALL;
             // eventualmente dare la possibilit� all'admin di metterli diversamente
-             
-             
+
+
             $f12_canali_inserimento = array();
             //controllo i diritti_su_tutti_i_canali su cui si vuole fare l'inserimento
             if (array_key_exists('f12_canale', $_POST))
@@ -308,10 +307,10 @@ class FileAdd extends UniversiboCommand {
                         Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Non possiedi i diritti di inserimento nel canale: '.$canale->getTitolo(), 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
                         $f12_accept = false;
                     }
-                     
+
                     $f12_canali_inserimento = $_POST['f12_canale'];
                 }
-                 
+
 
                 //modifica aggiunta per compatibilit� bug explorer con PHP4.3.11 e successivi
                 $_FILES['f12_file']['name'] = str_replace('\\', '/', $_FILES['f12_file']['name']);
@@ -334,9 +333,9 @@ class FileAdd extends UniversiboCommand {
                     Error :: throwError(_ERROR_NOTICE, array('id_utente' => $user->getIdUser(), 'msg' => 'Non e\' stato inviato nessun file', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
                     $f12_accept = false;
                 }
-                 
-                 
-                 
+
+
+
                 //esecuzione operazioni accettazione del form
                 if ($f12_accept == true)
                 {
@@ -468,6 +467,7 @@ class FileAdd extends UniversiboCommand {
         $template->assign('f12_data_ins_min', $krono->k_date('%i',$f12_data_inserimento));
 
         $this->executePlugin('ShowTopic', array('reference' => 'filescollabs'));
+
         return 'default';
 
     }

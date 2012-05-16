@@ -12,34 +12,34 @@ require_once('Error'.PHP_EXTENSION);
  */
 
 
- 
-//some example callback handler functions... 
+
+//some example callback handler functions...
 function my_function($param)
 {
-	echo 'Errore critico!!! ',$param['msg'], '<br />
-	file: ',$param['file'], '<br />
-	line: ',$param['line'], '<br />
-	log: ',$param['log'], '<br />';
-	
-	//die('esecuzione interrotta');
+    echo 'Errore critico!!! ',$param['msg'], '<br />
+    file: ',$param['file'], '<br />
+    line: ',$param['line'], '<br />
+    log: ',$param['log'], '<br />';
+
+    //die('esecuzione interrotta');
 }
 
 class handlers{
-	function my_method($param)
-	{
-		echo 'Errore: ',$param['msg'], '<br />
-		file: ',$param['file'], '<br />
-		line: ',$param['line'], '<br />
-		log: ',$param['log'], '<br />';
+    function my_method($param)
+    {
+        echo 'Errore: ',$param['msg'], '<br />
+        file: ',$param['file'], '<br />
+        line: ',$param['line'], '<br />
+        log: ',$param['log'], '<br />';
 
-		//die();
-		//header('Redirect: http://location/error_page.php');
-	}
+        //die();
+        //header('Redirect: http://location/error_page.php');
+    }
 }
 
 function my_function2($param)
 {
-	return 'Attenzione: '.$param['msg'].'<br /><br />';
+    return 'Attenzione: '.$param['msg'].'<br /><br />';
 }
 
 
@@ -72,7 +72,7 @@ $mio_errore->collect();
 //retrieving of all previously collected _ERROR_NOTICE and throwing them
 while ( ($current_error = Error::retrieve(_ERROR_NOTICE)) !== false )
 {
-	echo $current_error->throwError();
+    echo $current_error->throwError();
 }
 
 ?>

@@ -3,7 +3,6 @@ namespace UniversiBO\Bundle\LegacyBundle\Command;
 
 use \DB;
 use \Error;
-use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -34,7 +33,7 @@ class ShowHelpTopic extends UniversiboCommand {
          * @todo queste info andrebbero in una classetta statica per l'help
          */
         $ref_pattern='^([:alnum:]{1,32})$';
-        	
+
         $references = array();
 
         $topics = array();
@@ -49,7 +48,7 @@ class ShowHelpTopic extends UniversiboCommand {
             $res = $db->query($query);
             if (DB::isError($res))
                 Error::throwError(_ERROR_CRITICAL,array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-            	
+
             while($res->fetchInto($row))
             {
                 $references[] = $row[0];

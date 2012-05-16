@@ -93,6 +93,7 @@ class ShowUser extends UniversiboCommand{
             $template->assign('showUser_UserHomepage',$doc->getHomepageDocente());
         }
         $template->assign('showSettings','index.php?do=ShowSettings');
+
         return 'default';
     }
 

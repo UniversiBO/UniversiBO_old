@@ -62,6 +62,7 @@ class ScriptTest extends UniversiboCommand
     {
 
         if ($a['dist'] == $b['dist'])
+
             return 0;
         return ($a['dist'] < $b['dist']) ? -1 : 1;
 
