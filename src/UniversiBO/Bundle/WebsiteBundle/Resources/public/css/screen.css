@@ -1,5 +1,11 @@
 @CHARSET "UTF-8";
 
+/*
+ * PALETTE
+ * #92aace
+ * #124 (dark blue)
+ */
+
 body {
 	margin: auto;
 	font-family: sans-serif;
@@ -119,12 +125,14 @@ a {
 }
 
 #top-menu li {
+	margin: 2px;
 	display: inline;
 	font-weight: bold;
 	padding: 8px;
 	height: 10px;
-	border: 1px solid;
-	background-color: #25C;
+	background-image:
+		url('/bundles/universibowebsite/images/gradient-menu.png');
+	background-repeat: repeat-x;
 }
 
 #footer hr {
@@ -147,4 +155,8 @@ a {
 
 #f1 {
 	text-align: center;
+}
+
+#top-menu li, input {
+	border-radius: 5px;
 }
