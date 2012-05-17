@@ -2,10 +2,12 @@
 
 /*
  * PALETTE
- * #92aace
- * #124 (dark blue)
+ * #92aace (for box headers)
+ * #124 (dark blue, for text)
+ * #248 (for links and box borders)
+ * #eef (almost white)
+ * #bbd (for a:hover)
  */
-
 body {
 	margin: auto;
 	font-family: sans-serif;
@@ -25,8 +27,16 @@ a {
 	text-align: center;
 }
 
+.staffbox,.staffbox-home,.sidebox,.sidebox-head,.staffbox-head {
+	border: 1px solid #248;
+}
+
+.sidebox-head,.staffbox-head {
+	border: none;
+	border-bottom: inherit;
+}
+
 .staffbox,.staffbox-home {
-	border: 1px solid;
 	margin-bottom: 10px;
 }
 
@@ -52,21 +62,15 @@ a {
 	height: 250px;
 	overflow-x: none;
 	overflow-y: scroll;
-	background-color: #FFF;
-	color: #000;
-	border: 1px solid;
+	background-color: #eef;
+	color: #124;
+	border: 1px solid #248;
 	overflow-y: scroll;
 }
 
 .sidebox {
 	font-size: small;
 	margin: 5px;
-	border: 1px solid;
-	margin: 5px;
-}
-
-.sidebox-head,.staffbox-head {
-	border-bottom: 1px solid;
 }
 
 .sidebox-head,.sidebox-content {
@@ -125,6 +129,7 @@ a {
 }
 
 #top-menu li {
+	border: 1px solid #eef;
 	margin: 2px;
 	display: inline;
 	font-weight: bold;
@@ -133,11 +138,6 @@ a {
 	background-image:
 		url('/bundles/universibowebsite/images/gradient-menu.png');
 	background-repeat: repeat-x;
-}
-
-#footer hr {
-	border: none;
-	border-top: 1px dotted grey;
 }
 
 #main {
@@ -157,6 +157,6 @@ a {
 	text-align: center;
 }
 
-#top-menu li, input, .homebox h3 {
+#top-menu li,input,.homebox h3 {
 	border-radius: 5px;
 }
