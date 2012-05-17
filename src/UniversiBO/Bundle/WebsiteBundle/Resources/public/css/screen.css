@@ -23,6 +23,14 @@ a {
 	color: #248;
 }
 
+.side-list {
+	margin-left: 0;
+}
+
+.side-list-item {
+	list-style: disc;
+}
+
 .staffbox-head {
 	text-align: center;
 }
