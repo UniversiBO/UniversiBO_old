@@ -157,6 +157,6 @@ a {
 	text-align: center;
 }
 
-#top-menu li, input {
+#top-menu li, input, .homebox h3 {
 	border-radius: 5px;
 }
