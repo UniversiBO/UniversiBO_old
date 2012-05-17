@@ -23,7 +23,7 @@ class DBCanaleRepository extends DBRepository
         if( $rows > 1) \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore generale database: canale non unico','file'=>__FILE__,'line'=>__LINE__));
         if( $rows = 0) return false;
 
-        $res->fetchInto($row);
+        $row = $this->fetchRow($res);
 
         return $row[0];
     }
@@ -69,7 +69,7 @@ class DBCanaleRepository extends DBRepository
         if( $rows == 0) return false;
 
         $elenco_canali = array();
-        while ($res->fetchInto($row))
+        while ($row = $this->fetchRow($res))
         {
             //var_dump($row);
             $elenco_canali[] = new Canale($row[12], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
@@ -93,7 +93,7 @@ class DBCanaleRepository extends DBRepository
         if( $rows == 0) return false;
 
         $elenco_canali = array();
-        while ($res->fetchInto($row))
+        while ($row = $this->fetchRow($res))
         {
             //var_dump($row);
             $elenco_canali[] = $row[0];
@@ -126,7 +126,7 @@ class DBCanaleRepository extends DBRepository
         if($ok) {
             $query = 'SELECT visite FROM canale WHERE id_canale = '.$db->quote($canale->getIdCanale());
             $res = $db->query($query);
-            $res->fetchInto($row);
+            $row = $this->fetchRow($res);
 
             if (\DB::isError($res)) {
                 \Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));

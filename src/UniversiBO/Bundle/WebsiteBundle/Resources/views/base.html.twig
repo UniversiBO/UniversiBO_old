@@ -28,10 +28,10 @@
   <div id="main" class="yui3-g">
   {% block main %}
     <div id="left" class="yui3-u-1-5">
-      Servizi
       <ul>
         <li><a href="{{ path('homepage') }}">Home</a></li>
       </ul>
+      {% render 'UniversiBOWebsiteBundle:FacultyMenu:index' %}
     </div>
     <div id="content" class="yui3-u-3-5">
     {% block content %}

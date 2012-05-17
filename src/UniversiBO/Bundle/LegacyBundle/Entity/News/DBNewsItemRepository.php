@@ -16,16 +16,6 @@ use \DB;
  */
 class DBNewsItemRepository extends DBRepository
 {
-    /**
-     * Class constructor
-     *
-     * @param \DB_common $db
-     */
-    public function __construct(\DB_common $db)
-    {
-        parent::__construct($db);
-    }
-
     public function findMany(array $ids)
     {
         if(count($ids) === 0) {
@@ -51,7 +41,7 @@ class DBNewsItemRepository extends DBRepository
         if( $rows == 0) return false;
         $news_list = array();
 
-        while ($res->fetchInto($row)) {
+        while ($row = $this->fetchRow($res)) {
             $userRepository = new DBUserRepository($db);
             $username = $userRepository->getUsernameFromId($row[6]);
 
@@ -100,7 +90,7 @@ class DBNewsItemRepository extends DBRepository
         }
 
         $news = array();
-        while($res->fetchInto($row)) {
+        while($row = $this->fetchRow($res)) {
             $userRepository = new DBUserRepository($db);
 
             $news[] = new NewsItem($row[7],$row[0],$row[1],$row[2],$row[3],$row[8],($row[4] == NewsItem::URGENTE),($row[5] == NewsItem::ELIMINATA),$row[9], $row[6]);

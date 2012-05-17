@@ -45,7 +45,7 @@ class FeedGenerator
         $idCanale = $canale->getIdCanale();
 
         $feed = new Feed();
-        $feed->setTitle($nome = mb_convert_encoding($canale->getNome(), 'utf-8', 'iso-8859-1'));
+        $feed->setTitle($nome = $canale->getNome());
         $feed->setDescription('Feed Canale '.$nome);
         $feed->setLink($router->generate('rss', array('idCanale' => $idCanale), true));
 
@@ -64,10 +64,10 @@ class FeedGenerator
     private function newsToEntry(Feed $feed, NewsItem $item, $base)
     {
         $entry = $feed->createEntry();
-        $entry->setTitle(mb_convert_encoding($item->getTitolo(), 'utf-8','iso-8859-1'));
+        $entry->setTitle($item->getTitolo());
         $entry->setLink($base . $item->getIdNotizia());
-        $entry->addAuthor(mb_convert_encoding($item->getUsername(), 'utf-8','iso-8859-1'));
-        $entry->setContent(mb_convert_encoding($item->getNotizia(), 'utf-8','iso-8859-1'));
+        $entry->addAuthor(array('name' => $item->getUsername()));
+        $entry->setContent($item->getNotizia());
         $entry->setDateCreated($item->getDataIns());
         $entry->setDateModified($item->getUltimaModifica());
 

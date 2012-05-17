@@ -100,7 +100,7 @@ a {
 #header,#footer,.sidebox-head,.staffbox-head,#home-main h3 {
 	background-color: #92aace;
 }
-
+DataManager.\u003c.ctor\u003eb__0() in \\\\cern.ch\\dfs\\Users\\g\\glaser\\Documents\\Visual Studio 2010\\Projects\\PSIrradWeb\\PSIrradWeb\\Data\\Manager\\DAQDataManager.cs:line 26\r\n at PSIrradWeb.Data.Lazy.LazyReference`1.get_Value() in \\\\cern.ch\\dfs\\Users\\g\\glaser\\Documents\\Visual Studio 2010\\Projects\\PSIrradWeb\\PSIrradWeb.Data\\Lazy\\LazyReference.cs:line 30\r\n at PSIrradWeb.Data.Manager.DAQDataManager..ctor(IDataSource bpmDataSource, IDataSource daqDataSource) in \\\\cern.ch\\dfs\\Users\\g\\glaser\\Documents\\Visual Studio 2010\\Projects\\PSIrradWeb\\PSIrrad
 #header {
 	height: 130px;
 	padding: 5px;

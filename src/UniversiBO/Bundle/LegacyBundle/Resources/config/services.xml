@@ -156,5 +156,10 @@
 			<argument>%sms_password%</argument>
 			<argument>%sms_from%</argument>
 		</service>
+
+		<service id="universibo_legacy.acl"
+			class="UniversiBO\Bundle\LegacyBundle\Auth\UniversiBOAcl">
+			<argument type="service" id="universibo_legacy.repository.ruolo" />
+		</service>
 	</services>
 </container>
