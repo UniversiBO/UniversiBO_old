@@ -74,13 +74,13 @@ class Login extends UniversiboCommand
             } else {
                 session_destroy();
                 session_start();
-                
+
                 if ($this->isSymfony()) {
-                	$_SESSION['symfony'] = $_REQUEST['symfony'];
+                    $_SESSION['symfony'] = $_REQUEST['symfony'];
                 } else {
-                	$_SESSION['symfony'] = null;
+                    $_SESSION['symfony'] = null;
                 }
-                
+
                 $_POST['f1_password'] = ''; //resettata per sicurezza
                 $_SESSION['user'] = array();
                 $_SESSION['user'] = serialize($userLogin);

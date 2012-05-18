@@ -62,13 +62,14 @@ abstract class DBRepository
     {
         return $this->convert;
     }
-    
+
     protected function convertIfNeeded($item)
     {
         if($this->isConvert()) {
             return self::convertToUtf8($item);
         }
-        
+
+
         return $item;
     }
 

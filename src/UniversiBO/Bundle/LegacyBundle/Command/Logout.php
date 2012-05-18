@@ -30,7 +30,7 @@ class Logout extends UniversiboCommand
             $forum = new ForumApi();
             $forum->logout();
         }
-        
+
         session_destroy();
         session_start();
 

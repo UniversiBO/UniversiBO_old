@@ -22,10 +22,10 @@ class LoginController extends Controller
     {
         return $this->redirect('/v2.php?do=Logout&symfony='.$this->generateUrl('homepage'));
     }
-    
+
     /**
      * Fake implementation
-     * @Route("/logout", name="logout") 
+     * @Route("/logout", name="logout")
      */
     public function logoutAction()
     {

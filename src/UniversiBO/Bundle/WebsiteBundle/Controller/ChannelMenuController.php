@@ -1,7 +1,6 @@
 <?php
 
 namespace UniversiBO\Bundle\WebsiteBundle\Controller;
-use UniversiBO\Bundle\LegacyBundle\Auth\UniversiBOAcl;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -21,12 +20,13 @@ class ChannelMenuController extends Controller
         {
             $repo = $that->get('universibo_legacy.repository.canale');
             $ids = $repo->findManyByType(1);
+
             return $repo->findManyById($ids);
         };
-        
+
         $this->handlers[3] = function () use ($that)
         {
-        	return $that->get('universibo_legacy.repository.facolta')->findAll();
+            return $that->get('universibo_legacy.repository.facolta')->findAll();
         };
     }
 

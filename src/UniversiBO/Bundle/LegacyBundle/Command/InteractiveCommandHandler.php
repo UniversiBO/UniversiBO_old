@@ -49,10 +49,10 @@ class InteractiveCommandHandler extends UniversiboCommand
         //		var_dump($activeSteps); die;
         if (count($activeSteps) == 0) {
             $sf = false;
-            
+
             if (array_key_exists('symfony', $_SESSION) && !is_null($_SESSION['symfony'])) {
-            	$sf = $_SESSION['symfony'];
-            	$_SESSION['symfony'] = null;
+                $sf = $_SESSION['symfony'];
+                $_SESSION['symfony'] = null;
             }
             // completo il login dell'utente
             $_SESSION = array();
@@ -201,6 +201,7 @@ perche` impedisce il login agli utenti
     {
         //		var_dump($activeStep); die;
         if (empty($activeStep['restrictedTo']))
+
             return true;
         // nessun gruppo particolare specificato
 
@@ -306,6 +307,7 @@ perche` impedisce il login agli utenti
         $rows = $res->numRows();
 
         if ($rows = 0)
+
             return array();
 
         $list = array();
