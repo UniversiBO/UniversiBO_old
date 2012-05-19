@@ -45,8 +45,8 @@ class FeedGenerator
         $idCanale = $canale->getIdCanale();
 
         $feed = new Feed();
-        $feed->setTitle($nome = $canale->getNome());
-        $feed->setDescription('Feed Canale ' . $nome);
+        $feed->setTitle($nome = $canale->getTitolo());
+        $feed->setDescription('Feed ' . $nome);
         $feed
                 ->setLink(
                         $router

@@ -175,6 +175,7 @@ DataManager.\u003c.ctor\u003eb__0() in \\\\cern.ch\\dfs\\Users\\g\\glaser\\Docum
 
 /* BEGIN NEWS */
 .news {
+	font-size: smaller;
 	border: 1px solid;
 	margin-bottom: 5px;
 	border-radius: 5px;
@@ -186,7 +187,7 @@ DataManager.\u003c.ctor\u003eb__0() in \\\\cern.ch\\dfs\\Users\\g\\glaser\\Docum
 
 .news-title {
 	border-radius-top: 5px;
-	font-size: large;
+	font-size: small;
 	font-weight: bold;
 	background-color: #92aace;
 }

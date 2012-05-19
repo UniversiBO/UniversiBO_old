@@ -30,17 +30,17 @@ class Facolta extends Canale
 {
 
     /**
-     * @private
+     * @var string
      */
-    var $facoltaCodice = '';
+    private $facoltaCodice = '';
     /**
-     * @private
+     * @var string
      */
-    var $facoltaNome = '';
+    private $facoltaNome = '';
     /**
-     * @private
+     * @var string
      */
-    var $facoltaUri = '';
+    private $facoltaUri = '';
 
     /**
      * @var DBFacoltaRepository
