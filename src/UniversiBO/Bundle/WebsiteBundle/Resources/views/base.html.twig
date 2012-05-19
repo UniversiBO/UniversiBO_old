@@ -30,6 +30,10 @@
     <div id="left" class="yui3-u-1-5">
       {% render 'UniversiBOWebsiteBundle:ChannelMenu:index' with {'type' : 3, 'title' : 'Facoltà', 'route': 'faculty_show'} %}
       {% render 'UniversiBOWebsiteBundle:ChannelMenu:index' with {'type' : 1, 'title' : 'Servizi'} %}
+      <h3>Informazioni</h3>
+      <ul class="side-list">
+        <li class="side-list-item"><a href="{{ path('info_rules')}}">Regolamento</a></li>
+      </ul>
     </div>
     <div id="content" class="yui3-u-3-5">
     {% block content %}
