@@ -24,25 +24,27 @@ class ChannelController extends Controller
     {
         $acl = $this->get('universibo_legacy.acl');
         $channelRepo = $this->get('universibo_legacy.repository.canale');
-        
+
         $scontext = $this->get('security.context');
-        
+
         $user = $scontext->isGranted('IS_AUTHENTICATED_FULLY') ? $scontext
         ->getToken()->getUser() : null;
-        
+
         $channel = $channelRepo->find($id);
-        
+
         if(!$channel instanceof Canale) {
             throw $this->createNotFoundException('Channel not found');
         }
-        
+
         if (!$acl->canRead($user, $channel)) {
             $response = new Response();
             $response->setStatusCode(403);
             $response->setContent('403 Forbidden');
+
             return $response;
         }
-        
+
+
         return array('channel' => $channel);
     }
 }

@@ -19,9 +19,10 @@ class DBNewsItemRepository extends DBRepository
     public function find($id)
     {
         $result = $this->findMany(array($id));
+
         return is_array($result) ? $result[0] : $result;
     }
-    
+
     public function findMany(array $ids)
     {
         if(count($ids) === 0) {
@@ -63,7 +64,7 @@ class DBNewsItemRepository extends DBRepository
     public function findByCanale($id, $limit = null, $expired = false)
     {
         $db = $this->getDb();
-        
+
 
         $sql = '';
         $sql .= 'SELECT n.titolo, ';
@@ -84,11 +85,11 @@ class DBNewsItemRepository extends DBRepository
         $sql .= '    WHERE nc.id_canale = '.$db->quote($id);
         $sql .= '        AND n.eliminata = '.$db->quote(NewsItem::NOT_ELIMINATA);
         $sql .= '        AND n.data_inserimento <= '.$db->quote($now = time());
-        
+
         if(!$expired) {
             $sql .= '    AND (n.data_scadenza >= '.$db->quote($now) .' OR n.data_scadenza IS NULL)';
         }
-        
+
         $sql .= '    ORDER BY data_inserimento DESC';
 
         if(is_int($limit)) {

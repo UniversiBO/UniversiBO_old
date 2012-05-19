@@ -15,7 +15,7 @@ class RssController extends Controller
     /**
      * @todo ACL
      * @todo manage Facoltà
-     * 
+     *
      * @Route("/rss/{idCanale}",name="rss",requirements = {"idCanale" = "\d+"})
      */
     public function indexAction($idCanale)

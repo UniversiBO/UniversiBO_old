@@ -4,7 +4,6 @@ namespace UniversiBO\Bundle\WebsiteBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\CommentBundle\Entity\Comment as BaseComment;
 use FOS\CommentBundle\Model\ThreadInterface;
-use FOS\CommentBundle\Model\SignedCommentInterface;
 
 /**
  * @ORM\Entity
