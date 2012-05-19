@@ -14,6 +14,7 @@
       <a href="{{ path('homepage') }}">
           <img src="{{ asset('bundles/universibowebsite/images/logo-top.png') }}" alt="logo"/>
           <h1 id="h1-name">UniversiBO 3.0</h1>
+          <span>BETA</span>
       </a>
   </div>
   <div id="top-menu">
@@ -39,7 +40,8 @@
     {% endblock %}
     </div>
     <div id="right" class="yui3-u-1-5">
-    {% render 'UniversiBOWebsiteBundle:UserInfo:index' %}
+    {#% render 'UniversiBOWebsiteBundle:Search:box' %#}
+    {% render 'UniversiBOWebsiteBundle:UserInfo:index' %}    
     </div>
   {% endblock %}
   </div>
