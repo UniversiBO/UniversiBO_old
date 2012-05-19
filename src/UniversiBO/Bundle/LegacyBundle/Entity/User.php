@@ -109,7 +109,7 @@ class User implements UserInterface, \Serializable
     private static $repository = null;
 
     /**
-     *  Verifica se la sintassi dello username � valido.
+     *  Verifica se la sintassi dello username e` valido.
      *  Sono permessi fino a 25 caratteri: alfanumerici, lettere accentate, spazi, punti, underscore
      *
      * @param string $username stringa dello username da verificare

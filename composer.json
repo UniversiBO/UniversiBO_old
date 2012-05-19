@@ -11,6 +11,8 @@
         "jms/metadata": "1.1.1",
         "jms/security-extra-bundle": "1.1.0",
         "friendsofsymfony/oauth-server-bundle": "1.1.1",
+        "friendsofsymfony/comment-bundle": "1.0.0",
+        "friendsofsymfony/rest-bundle": "0.6.0",
         "zendframework/zendframework": "2.0.x-dev"
     },
     "authors": [

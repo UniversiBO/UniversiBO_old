@@ -23,6 +23,10 @@ a {
 	color: #248;
 }
 
+img {
+	border: 0;
+}
+
 .side-list {
 	margin-left: 0;
 }
@@ -168,3 +172,27 @@ DataManager.\u003c.ctor\u003eb__0() in \\\\cern.ch\\dfs\\Users\\g\\glaser\\Docum
 #top-menu li,input,.homebox h3 {
 	border-radius: 5px;
 }
+
+/* BEGIN NEWS */
+.news {
+	border: 1px solid;
+	margin-bottom: 5px;
+	border-radius: 5px;
+}
+
+.news-title, .news-footer, .news-body {
+	padding: 5px;
+}
+
+.news-title {
+	border-radius-top: 5px;
+	font-size: large;
+	font-weight: bold;
+	background-color: #92aace;
+}
+
+.news-footer-right {
+	text-align: right;	
+}
+
+/* END NEWS */

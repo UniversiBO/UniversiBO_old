@@ -15,6 +15,7 @@ $loader->registerNamespaces(array(
         'CG'                                   => __DIR__.'/../vendor/jms/cg/src',
         'JMS\\AopBundle'                       => __DIR__.'/../vendor/jms/aop-bundle',
         'JMS\\SecurityExtraBundle'             => __DIR__.'/../vendor/jms/security-extra-bundle',
+        'JMS\\SerializerBundle'                => __DIR__.'/../vendor/jms/serializer-bundle',
         'Doctrine\\Common'                     => __DIR__.'/../vendor/doctrine/common/lib',
         'Doctrine\\DBAL\\Migrations'           => __DIR__.'/../vendor/doctrine/migrations/lib',
         'Doctrine\\DBAL'                       => __DIR__.'/../vendor/doctrine/dbal/lib',
@@ -23,6 +24,9 @@ $loader->registerNamespaces(array(
         'Assetic'                              => __DIR__.'/../vendor/kriswallsmith/assetic/src',
         'Metadata'                             => __DIR__.'/../vendor/jms/metadata/src',
         'Zend'                                 => __DIR__.'/../vendor/zendframework/zendframework/library',
+        'FOS\\CommentBundle'                   => __DIR__.'/../vendor/friendsofsymfony/comment-bundle',
+        'FOS\\RestBundle'                      => __DIR__.'/../vendor/friendsofsymfony/rest-bundle',
+        'FOS\\Rest'                            => __DIR__.'/../vendor/friendsofsymfony/rest',
 ));
 $loader->registerPrefixes(array(
 //        'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',

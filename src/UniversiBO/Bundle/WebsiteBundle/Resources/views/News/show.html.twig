@@ -1,0 +1,5 @@
+{% extends 'UniversiBOWebsiteBundle::base.html.twig' %}
+{% block content %}
+<br/>
+{% include 'UniversiBOWebsiteBundle:News:single.html.twig' with {news: news} %}
+{% endblock %}
