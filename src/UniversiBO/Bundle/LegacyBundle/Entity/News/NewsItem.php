@@ -368,7 +368,7 @@ class NewsItem {
     /**
      * Recupera una notizia dal database
      *
-     * @static
+     * @deprecated
      * @param int $id_notizia id della news
      * @return NewsItem
      */
@@ -386,7 +386,7 @@ class NewsItem {
     /**
      * Recupera un elenco di notizie dal database
      *
-     * @static
+     * @deprecated
      * @param array $id_notizie array elenco di id della news
      * @return array NewsItems
      */

@@ -63,6 +63,7 @@ class DBNewsItemRepository extends DBRepository
     public function findByCanale($id, $limit = null, $expired = false)
     {
         $db = $this->getDb();
+        
 
         $sql = '';
         $sql .= 'SELECT n.titolo, ';
@@ -85,7 +86,7 @@ class DBNewsItemRepository extends DBRepository
         $sql .= '        AND n.data_inserimento <= '.$db->quote($now = time());
         
         if(!$expired) {
-            $sql .= '    AND n.data_scadenza >= '.$db->quote($now);
+            $sql .= '    AND (n.data_scadenza >= '.$db->quote($now) .' OR n.data_scadenza IS NULL)';
         }
         
         $sql .= '    ORDER BY data_inserimento DESC';

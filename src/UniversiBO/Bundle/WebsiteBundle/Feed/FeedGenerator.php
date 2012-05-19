@@ -51,8 +51,7 @@ class FeedGenerator
                 ->setLink(
                         $router
                                 ->generate('rss',
-                                        array('idCanale' => $idCanale,
-                                                'legacy' => $legacy), true));
+                                        array('idCanale' => $idCanale), true));
 
         $newsRepository = $this->repository;
         $news = $newsRepository->findByCanale($idCanale, 20);
@@ -75,8 +74,7 @@ class FeedGenerator
         if ($legacy) {
             $link = $base . $id;
         } else {
-            $link = $router
-                    ->generate('news_show', array('id' => $id), true);
+            $link = $router->generate('news_show', array('id' => $id), true);
         }
 
         $entry->setLink($link);

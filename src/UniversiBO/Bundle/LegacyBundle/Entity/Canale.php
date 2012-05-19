@@ -52,7 +52,7 @@ class Canale {
     /**
      * @private
      */
-    var $nome = '';
+    private $nome = '';
     /**
      * @private
      */

@@ -1,7 +1,7 @@
 <h3>{{ title }}</h3>
 <ul id="faculty-list" class="side-list">
 {% for item in channels %}
-  <li class="side-list-item">{{ item.getNome() }}</li>
+  <li class="side-list-item"><a href="{{ path(route, {id: item.idCanale}) }}">{{ item.getNome() }}</a></li>
 {% else %}
 Nessuna facoltà
 {% endfor %}

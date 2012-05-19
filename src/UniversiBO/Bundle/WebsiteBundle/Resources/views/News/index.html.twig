@@ -1,3 +1,5 @@
 {% for item in news %}
 {% include 'UniversiBOWebsiteBundle:News:single.html.twig' with {news: item} %}
+{% else %}
+<p>Non ci sono notizie in questo canale.</p>
 {% endfor %}

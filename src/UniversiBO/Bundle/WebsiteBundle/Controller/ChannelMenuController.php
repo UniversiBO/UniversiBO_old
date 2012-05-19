@@ -33,7 +33,7 @@ class ChannelMenuController extends Controller
     /**
      * @Template()
      */
-    public function indexAction($type, $title)
+    public function indexAction($type, $title, $route='channel_show')
     {
         $allowed = array();
 
@@ -54,6 +54,6 @@ class ChannelMenuController extends Controller
             }
         }
 
-        return array('channels' => $allowed, 'title' => $title);
+        return array('channels' => $allowed, 'title' => $title, 'route' => $route);
     }
 }
