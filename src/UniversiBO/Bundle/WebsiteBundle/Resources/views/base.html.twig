@@ -10,21 +10,7 @@
 </head>
 <body>
 <div id="container">
-  <div id="header">
-      <a href="{{ path('homepage') }}">
-          <img src="{{ asset('bundles/universibowebsite/images/logo-top.png') }}" alt="logo"/>
-          <h1 id="h1-name">UniversiBO 3.0</h1>
-          <span>BETA</span>
-      </a>
-  </div>
-  <div id="top-menu">
-    <ul>
-      <li><a href="{{ path('homepage') }}">Home</a></li>
-      <li><a href="{{ path('staff_index') }}">Staff</a></li>
-      <li><a href="/forum/">Forum</a></li>
-      <li><a href="/v2.php">UniversiBO 2</a></li>
-    </ul>
-  </div>
+  {% render 'UniversiBOWebsiteBundle:Default:header' %}
   <div id="main" class="yui3-g">
   {% block main %}
     <div id="left" class="yui3-u-1-5">

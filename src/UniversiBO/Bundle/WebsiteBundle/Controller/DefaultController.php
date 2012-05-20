@@ -17,6 +17,13 @@ class DefaultController extends Controller
         return array();
     }
     
+    public function headerAction()
+    {
+    	$response = $this->render('UniversiBOWebsiteBundle:Default:header.html.twig');
+    	$response->setMaxAge(3600);
+    	return $response;
+    }
+    
     public function footerAction()
     {
     	$response = $this->render('UniversiBOWebsiteBundle:Default:footer.html.twig');
