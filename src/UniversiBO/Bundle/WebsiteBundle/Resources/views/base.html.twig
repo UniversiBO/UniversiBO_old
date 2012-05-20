@@ -5,6 +5,7 @@
 <link href="{{ asset('bundles/universibowebsite/css/yui/cssbase-min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('bundles/universibowebsite/css/yui/grids-min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('bundles/universibowebsite/css/screen.css') }}" rel="stylesheet" type="text/css" />
+{% include 'UniversiBOWebsiteBundle::google-cse-head.html.twig' %}
 <meta http-equiv="content-type" content="text/html; charset=utf8"/>
 {% block rss %}{% endblock %}
 </head>
@@ -22,6 +23,7 @@
       </ul>
     </div>
     <div id="content" class="yui3-u-3-5">
+    {% include 'UniversiBOWebsiteBundle::google-cse-form.html.twig' %}
     {% block content %}
     {% endblock %}
     </div>
