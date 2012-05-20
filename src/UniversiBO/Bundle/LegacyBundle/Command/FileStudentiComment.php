@@ -2,7 +2,7 @@
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\Commenti\CommentoItem;
-use UniversiBO\Bundle\LegacyBundle\App\Files\FileItemStudenti;
+use UniversiBO\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**

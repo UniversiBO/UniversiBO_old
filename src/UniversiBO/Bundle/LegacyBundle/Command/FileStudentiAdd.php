@@ -5,8 +5,8 @@ use UniversiBO\Bundle\LegacyBundle\App\Notifica\NotificaItem;
 use \Error;
 
 use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
-use UniversiBO\Bundle\LegacyBundle\App\Files\FileItem;
-use UniversiBO\Bundle\LegacyBundle\App\Files\FileItemStudenti;
+use UniversiBO\Bundle\LegacyBundle\Entity\Files\FileItem;
+use UniversiBO\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
 use UniversiBO\Bundle\LegacyBundle\App\AntiVirus\AntiVirusFactory;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;

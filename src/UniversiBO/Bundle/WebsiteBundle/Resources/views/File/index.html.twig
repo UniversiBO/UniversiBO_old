@@ -1,0 +1,29 @@
+<h3>File</h3>
+{% for name, category in files %}
+  <h4>{{ name }}</h4>
+  <div class="yui3-g file-list">
+  {% for item in category %}
+  <div class="file-row-{{ cycle(['even','odd'], loop.index) }}" style="clear:both">
+    <div class="yui3-u-1-8 file-column file-date">
+      {{ item.dataInserimento | date('d/m/Y') }}
+    </div>
+    <div class="yui3-u-5-8 file-column file-title">
+      <a href="/v2.php?do=FileShowInfo&amp;id_file={{ item.idFile }}">{{ item.titolo }}</a>
+    </div>
+    <div class="yui3-u-1-8 file-column file-username">
+      {{ item.username }}
+    </div>
+    <div class="yui3-u-1-12 file-column file-size">
+      {{ item.dimensione }} kB
+    </div>
+    <div class="yui3-u-1-24 file-column file-icon">
+      <a href="/v2.php?do=FileDownload&amp;id_file={{ item.idFile }}">
+        <img src="{{ asset('tpl/unibo/file_download.gif') }}" alt="Download"/>
+      </a>
+    </div>
+  </div>
+  {% endfor %}
+  </div>
+{% else %}
+<div class="yui-u-1">Non ci sono file in questo canale.</div>
+{% endfor %}

@@ -5,7 +5,7 @@ use \DB;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 use UniversiBO\Bundle\LegacyBundle\Entity\User;
-use UniversiBO\Bundle\LegacyBundle\App\Files\FileItem;
+use UniversiBO\Bundle\LegacyBundle\Entity\Files\FileItem;
 
 /**
  * ScriptCreaCatalogoFile is an extension of UniversiboCommand class.

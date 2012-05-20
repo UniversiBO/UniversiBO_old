@@ -1,6 +1,6 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command\Files;
-use UniversiBO\Bundle\LegacyBundle\App\Files\FileItem;
+use UniversiBO\Bundle\LegacyBundle\Entity\Files\FileItem;
 
 use \DB;
 use \Error;

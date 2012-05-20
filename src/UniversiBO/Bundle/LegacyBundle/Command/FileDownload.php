@@ -1,7 +1,7 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 use \Error;
-use UniversiBO\Bundle\LegacyBundle\App\Files\FileItem;
+use UniversiBO\Bundle\LegacyBundle\Entity\Files\FileItem;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**

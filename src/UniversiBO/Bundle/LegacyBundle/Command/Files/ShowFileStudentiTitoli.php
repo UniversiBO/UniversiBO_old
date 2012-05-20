@@ -1,11 +1,11 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command\Files;
 
-use UniversiBO\Bundle\LegacyBundle\App\Files\FileItemStudenti;
+use UniversiBO\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
 
 use \DB;
 use \Error;
-use UniversiBO\Bundle\LegacyBundle\App\Files\FileItem;
+use UniversiBO\Bundle\LegacyBundle\Entity\Files\FileItem;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
 

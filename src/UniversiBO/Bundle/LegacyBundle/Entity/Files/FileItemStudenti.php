@@ -1,5 +1,5 @@
 <?php
-namespace UniversiBO\Bundle\LegacyBundle\App\Files;
+namespace UniversiBO\Bundle\LegacyBundle\Entity\Files;
 
 use \DB;
 use \Error;
@@ -53,8 +53,7 @@ class FileItemStudenti extends FileItem {
      * @param array $id_file array elenco di id dei file
      * @return array FileItem
      */
-    function  selectFileItems($id_files) {
-
+    public static function selectFileItems($id_files) {
         $db = & FrontController::getDbConnection('main');
 
         if (count($id_files) == 0)	{$return = array(); return $return; }

@@ -7,4 +7,5 @@
 <h2>{{ channel.getTitolo() }}</h2>
 <h3>News</h3>
 {% render 'UniversiBOWebsiteBundle:News:index' with {'limit': 4, 'channelId': channel.idCanale} %}
+{% render 'UniversiBOWebsiteBundle:File:index' with {'channelId': channel.idCanale} %}
 {% endblock %}

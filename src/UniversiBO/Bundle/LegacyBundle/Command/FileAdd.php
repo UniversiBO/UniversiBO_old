@@ -8,7 +8,7 @@ use UniversiBO\Bundle\LegacyBundle\App\AntiVirus\AntiVirusFactory;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 use UniversiBO\Bundle\LegacyBundle\Entity\User;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
-use UniversiBO\Bundle\LegacyBundle\App\Files\FileItem;
+use UniversiBO\Bundle\LegacyBundle\Entity\Files\FileItem;
 
 /**
  * FileAdd: si occupa dell'inserimento di un file in un canale
