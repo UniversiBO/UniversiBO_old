@@ -75,6 +75,9 @@ class DBFileItemRepository extends DBRepository
         FROM file A, file_categoria C, file_tipo D
         WHERE A.id_categoria = C.id_file_categoria AND id_tipo_file = D.id_file_tipo AND A.id_file  IN ('
                 . $values . ') AND eliminato!=' . $db->quote(FILE_ELIMINATO);
+        
+        $query .= ' ORDER BY C.id_file_categoria, data_inserimento DESC';
+        
         $res = &$db->query($query);
 
         //echo $query;
