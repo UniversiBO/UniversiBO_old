@@ -1,9 +1,6 @@
 <?php
 
 namespace UniversiBO\Bundle\WebsiteBundle\Controller;
-
-
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -19,10 +16,7 @@ class NewsController extends Controller
     {
         $newsRepo = $this->get('universibo_legacy.repository.news.news_item');
 
-        $response = $this->render('UniversiBOWebsiteBundle:News:index.html.twig', array('news' => $newsRepo->findByCanale($channelId, $limit)));
-        $response->setSharedMaxAge(30);
-
-        return $response;
+        return array('news' => $newsRepo->findByCanale($channelId, $limit));
     }
 
     /**
@@ -32,6 +26,7 @@ class NewsController extends Controller
     public function showAction($id)
     {
         $newsRepo = $this->get('universibo_legacy.repository.news.news_item');
+
         return array('news' => $newsRepo->find($id));
     }
 }
