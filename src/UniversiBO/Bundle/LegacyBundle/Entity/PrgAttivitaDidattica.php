@@ -127,21 +127,21 @@ class PrgAttivitaDidattica extends Canale
     /**
      * Crea un oggetto PrgAttivitaDidattica
      *
-     * @param int     $id_canale         		identificativo del canale su database
-     * @param int     $permessi          		privilegi di accesso gruppi {@see User}
-     * @param int     $ultima_modifica   	timestamp
-     * @param int     $tipo_canale       	 	vedi definizione dei tipi sopra
-     * @param string  $immagine			uri    dell'immagine relativo alla cartella del template
-     * @param string  $nome				nome      del canale
-     * @param int     $visite			numero   visite effettuate sul canale
-     * @param boolean $news_attivo		se   true il servizio notizie ? attivo
-     * @param boolean $files_attivo		se  true il servizio false ? attivo
-     * @param boolean $forum_attivo		se  true il servizio forum ? attivo
-     * @param int     $forum_forum_id	se forum_attivo ? true indica l'identificativo del forum su database
-     * @param int     $forum_group_id	se forum_attivo ? true indica l'identificativo del grupop moderatori del forum su database
-     * @param boolean $links_attivo      	se true il servizio links ? attivo
+     * @param int     $id_canale       identificativo del canale su database
+     * @param int     $permessi        privilegi di accesso gruppi {@see User}
+     * @param int     $ultima_modifica timestamp
+     * @param int     $tipo_canale     vedi definizione dei tipi sopra
+     * @param string  $immagine        uri    dell'immagine relativo alla cartella del template
+     * @param string  $nome            nome      del canale
+     * @param int     $visite          numero   visite effettuate sul canale
+     * @param boolean $news_attivo     se   true il servizio notizie ? attivo
+     * @param boolean $files_attivo    se  true il servizio false ? attivo
+     * @param boolean $forum_attivo    se  true il servizio forum ? attivo
+     * @param int     $forum_forum_id  se forum_attivo ? true indica l'identificativo del forum su database
+     * @param int     $forum_group_id  se forum_attivo ? true indica l'identificativo del grupop moderatori del forum su database
+     * @param boolean $links_attivo    se true il servizio links ? attivo
      *
-     * @param int	  $annoAccademico
+     * @param int     $annoAccademico
      * @param string  $codiceCdl
      * @param string  $codInd
      * @param string  $codOri
@@ -154,7 +154,7 @@ class PrgAttivitaDidattica extends Canale
      * @param string  $codRil
      * @param string  $codModulo
      * @param string  $codDoc
-     * @param string $nomeDoc //questo sar? da cambiare in futuro qualora si voglia riferire un oggetto docente
+     * @param string  $nomeDoc             //questo sar? da cambiare in futuro qualora si voglia riferire un oggetto docente
      * @param string  $flagTitolareModulo
      * @param string  $tipoCiclo
      * @param string  $codAte

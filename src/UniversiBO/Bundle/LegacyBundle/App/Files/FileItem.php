@@ -932,8 +932,8 @@ class FileItem {
     /**
      * restituisce tutti i file caricati da un determinato utente
      *
-     * @param int     $id_utente    NB deve essere un id valido, fate il check prima di invocare il metodo
-     * @param boolean $order	ordina i file in ordine decrescente di data
+     * @param int     $id_utente NB deve essere un id valido, fate il check prima di invocare il metodo
+     * @param boolean $order     ordina i file in ordine decrescente di data
      * @return mixed false se non trova file, array di fileItem altrimenti
      */
     function  selectFileItemsByIdUtente($id_utente, $order=false) {
@@ -1065,7 +1065,7 @@ class FileItem {
     /**
      * Inserisce un file sul DB
      *
-     * @param	 array 	$array_id_canali 	elenco dei canali in cui bisogna inserire il file. Se non si passa un canale si recupera quello corrente.
+     * @param array $array_id_canali elenco dei canali in cui bisogna inserire il file. Se non si passa un canale si recupera quello corrente.
      * @return	 boolean true se avvenua con successo, altrimenti Error object
      */
     function insertFileItem() {

@@ -583,7 +583,7 @@ class User implements UserInterface, \Serializable
     /**
      * @todo make it Legacy Free
      *
-     * @param string $password
+     * @param string  $password
      * @param boolean $updateDB
      * @return boolean
      */

@@ -34,7 +34,7 @@ abstract class DBRepository
 
     /**
      * @param string $level (name of the constant)
-     * @param mixed $param
+     * @param mixed  $param
      * @throws Exception
      */
     protected function throwError($level, $param)

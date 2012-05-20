@@ -207,7 +207,7 @@ class BaseInteractiveCommand extends PluginCommand
     /**
      * @author fab
      * @access private
-     * @param string $name
+     * @param string  $name
      * @param boolean $complete
      * @return array	 array with useful values for InteractiveCommandHandler
      */
@@ -233,7 +233,7 @@ class BaseInteractiveCommand extends PluginCommand
     /**
      * @author fab
      * @access private
-     * @param string $name
+     * @param string  $name
      * @param boolean $complete
      * @return array	 array with useful values for InteractiveCommandHandler
      */

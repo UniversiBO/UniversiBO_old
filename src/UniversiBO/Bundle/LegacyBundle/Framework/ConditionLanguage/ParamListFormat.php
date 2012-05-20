@@ -15,7 +15,7 @@ class ParamListFormat
     /**
      * Aggiunge un parametro alla lista
      *
-     * @param string $name
+     * @param string  $name
      * @param boolean $isArray
      * @param integer $position
      * @return boolean indica l'avvenuto inserimento

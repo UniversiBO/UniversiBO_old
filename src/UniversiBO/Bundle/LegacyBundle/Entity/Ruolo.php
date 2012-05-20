@@ -94,16 +94,16 @@ class Ruolo {
      * Crea un oggetto Ruolo
      *
      * @see selectRuolo
-     * @param int		$id_utente		numero identificativo utente
-     * @param int		$id_canale		numero identificativo canale
-     * @param string	$nome nome		identificativo del ruolo (stringa personalizzata dall'utente per identificare il canale)
-     * @param int		$ultimo_accesso	timestamp dell'ultimo accesso al canale da parete dell'utente
-     * @param boolean	$moderatore		true se l'utente possiede diritti di moderatore sul canale
-     * @param boolean	$referente		true se l'utente possiede diritti di referente sul canale
-     * @param boolean	$my_universibo	true se l'utente ha inserito il canale tra i suoi preferiti
-     * @param boolean	$nascosto		se il ruolo ? nascosto o visibile da tutti
-     * @param User 		$user			riferimento all'oggetto User
-     * @param Canale 	$canale			riferimento all'oggetto Canale
+     * @param int     $id_utente      numero identificativo utente
+     * @param int     $id_canale      numero identificativo canale
+     * @param string  $nome           nome		identificativo del ruolo (stringa personalizzata dall'utente per identificare il canale)
+     * @param int     $ultimo_accesso timestamp dell'ultimo accesso al canale da parete dell'utente
+     * @param boolean $moderatore     true se l'utente possiede diritti di moderatore sul canale
+     * @param boolean $referente      true se l'utente possiede diritti di referente sul canale
+     * @param boolean $my_universibo  true se l'utente ha inserito il canale tra i suoi preferiti
+     * @param boolean $nascosto       se il ruolo ? nascosto o visibile da tutti
+     * @param User    $user           riferimento all'oggetto User
+     * @param Canale  $canale         riferimento all'oggetto Canale
      * @return Ruolo
      */
 
@@ -327,8 +327,8 @@ class Ruolo {
     /**
      * Imposta i diritti di moderatore nel ruolo
      *
-     * @param	boolean	$moderatore livello di notifica
-     * @param	boolean	$updateDB se true la modifica viene propagata al DB
+     * @param boolean $moderatore livello di notifica
+     * @param boolean $updateDB   se true la modifica viene propagata al DB
      * @return	boolean	true se avvenuta con successo
      */
     function updateSetModeratore($moderatore, $updateDB = false)
@@ -373,8 +373,8 @@ class Ruolo {
     /**
      * Imposta i diritti di referente nel ruolo
      *
-     * @param	boolean	$referente livello di notifica
-     * @param	boolean	$updateDB se true la modifica viene propagata al DB
+     * @param boolean $referente livello di notifica
+     * @param boolean $updateDB  se true la modifica viene propagata al DB
      * @return	boolean	true se avvenuta con successo
      */
     public function updateSetReferente($referente, $updateDB = false)
@@ -408,8 +408,8 @@ class Ruolo {
     /**
      * Aggiunge il canale
      *
-     * @param	boolean	$referente livello di notifica
-     * @param	boolean	$updateDB se true la modifica viene propagata al DB
+     * @param boolean $referente livello di notifica
+     * @param boolean $updateDB  se true la modifica viene propagata al DB
      * @return	boolean	true se avvenuta con successo
      */
     function updateAddMyUniversibo($updateDB = false)
@@ -420,8 +420,8 @@ class Ruolo {
     /**
      * Imposta la selezione preferiti MyUniversibo relativo all'utente (che spiegazione del cavolo)
      *
-     * @param	boolean	$my_universibo livello di notifica
-     * @param	boolean	$updateDB se true la modifica viene propagata al DB
+     * @param boolean $my_universibo livello di notifica
+     * @param boolean $updateDB      se true la modifica viene propagata al DB
      * @return	boolean	true se avvenuta con successo
      */
     public function setMyUniversibo($my_universibo, $updateDB = false)
@@ -440,8 +440,8 @@ class Ruolo {
      * Verifica se un ruolo esiste nel database
      *
      * @static
-     * @param int		$id_utente		numero identificativo utente
-     * @param int		$id_canale		numero identificativo canale
+     * @param int $id_utente numero identificativo utente
+     * @param int $id_canale numero identificativo canale
      * @return boolean	false se il ruolo non esiste
      */
     public function ruoloExists($id_utente, $id_canale)
@@ -452,8 +452,8 @@ class Ruolo {
     /**
      * Preleva un ruolo da database
      *
-     * @param int		$id_utente		numero identificativo utente
-     * @param int		$id_canale		numero identificativo canale
+     * @param int $id_utente numero identificativo utente
+     * @param int $id_canale numero identificativo canale
      * @return Ruolo 	false se il ruolo non esiste
      */
     public static function selectRuolo($id_utente, $id_canale)
@@ -465,7 +465,7 @@ class Ruolo {
      * Preleva tutti i ruoli di un utente da database
      *
      * @static
-     * @param int		$id_utente		numero identificativo utente
+     * @param int $id_utente numero identificativo utente
      * @return mixed    array di oggetti Ruolo, false se non esistono ruoli
      */
     public function selectUserRuoli($idUtente)
@@ -478,7 +478,7 @@ class Ruolo {
      * Preleva tutti i ruoli di un canale da database
      *
      * @deprecated
-     * @param int		$id_canale		numero identificativo del canale
+     * @param int $id_canale numero identificativo del canale
      * @return mixed    array di oggetti Ruolo
      */
     public static function selectCanaleRuoli($id_canale)

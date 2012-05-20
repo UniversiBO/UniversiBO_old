@@ -92,8 +92,8 @@ class CLVisitor
     /**
      * Interpreta il body di un namespace
      *
-     * @param string $executor     nome del namespace
-     * @param array  $codice	array cosituito da: 'input' => array associativo dei parametri, 'codice' => string con il codice
+     * @param string $executor nome del namespace
+     * @param array  $codice   array cosituito da: 'input' => array associativo dei parametri, 'codice' => string con il codice
      * @access private
      */
     function execMe($executor, $codice)
@@ -204,7 +204,7 @@ class CLVisitor
     /**
      * Esegue l'operazione rischiesta. NB si assume che i parametri necessari siano nello stack
      *
-     * @param  Operator $op
+     * @param Operator $op
      * @access private
      */
     function calcola(Operator $op, $filtro = null)

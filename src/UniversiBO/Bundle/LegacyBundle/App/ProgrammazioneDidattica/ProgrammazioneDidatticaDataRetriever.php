@@ -51,14 +51,14 @@ interface ProgrammazioneDidatticaDataRetriever
 
     /**
      * @param string $codCorso
-     * @param int $annoAccademico
+     * @param int    $annoAccademico
      * @return AttivitaDidattica[]
      */
     public function getAttivitaDidatticaPadreCorso($codCorso, $annoAccademico);
 
     /**
      * @param string $codCorso
-     * @param int $annoAccademico
+     * @param int    $annoAccademico
      * @return AttivitaDidattica[]
      */
     public function getAttivitaDidatticaCorso($codCorso, $annoAccademico);

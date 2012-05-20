@@ -3,7 +3,6 @@
 namespace UniversiBO\Bundle\WebsiteBundle\Controller;
 use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
 
-use Zend\Feed\Writer\Feed;
 
 use Symfony\Component\HttpFoundation\Response;
 

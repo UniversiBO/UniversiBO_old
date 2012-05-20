@@ -103,19 +103,19 @@ class Canale {
      *
      * @see factoryCanale
      * @see selectCanale
-     * @param int     $id_canale         		identificativo del canae su database
-     * @param int     $permessi          		privilegi di accesso gruppi {@see User}
-     * @param int     $ultima_modifica   	timestamp
-     * @param int     $tipo_canale       	 	vedi definizione dei tipi sopra
-     * @param string  $immagine		uri     dell'immagine relativo alla cartella del template
-     * @param string  $nome			nome       del canale
-     * @param int     $visite			numero   visite effettuate sul canale
-     * @param boolean $news_attivo	se    true il servizio notizie ? attivo
-     * @param boolean $files_attivo	se   true il servizio false ? attivo
-     * @param boolean $forum_attivo	se   true il servizio forum ? attivo
-     * @param int     $forum_forum_id	se forum_attivo ? true indica l'identificativo del forum su database
-     * @param int     $forum_group_id	se forum_attivo ? true indica l'identificativo del grupop moderatori del forum su database
-     * @param boolean $links_attivo      se true il servizio links ? attivo
+     * @param int     $id_canale       identificativo del canae su database
+     * @param int     $permessi        privilegi di accesso gruppi {@see User}
+     * @param int     $ultima_modifica timestamp
+     * @param int     $tipo_canale     vedi definizione dei tipi sopra
+     * @param string  $immagine        uri     dell'immagine relativo alla cartella del template
+     * @param string  $nome            nome       del canale
+     * @param int     $visite          numero   visite effettuate sul canale
+     * @param boolean $news_attivo     se    true il servizio notizie ? attivo
+     * @param boolean $files_attivo    se   true il servizio false ? attivo
+     * @param boolean $forum_attivo    se   true il servizio forum ? attivo
+     * @param int     $forum_forum_id  se forum_attivo ? true indica l'identificativo del forum su database
+     * @param int     $forum_group_id  se forum_attivo ? true indica l'identificativo del grupop moderatori del forum su database
+     * @param boolean $links_attivo    se true il servizio links ? attivo
      * @return Canale
      */
     public function __construct($id_canale, $permessi, $ultima_modifica, $tipo_canale, $immagine, $nome, $visite,
@@ -233,7 +233,7 @@ class Canale {
      *
      * @todo implementare propagazione DB
      * @param boolean $attiva_files
-     * @param boolean $updateDB se true la modifica viene propagata al DB
+     * @param boolean $updateDB     se true la modifica viene propagata al DB
      * @return boolean
      */
     public function setUltimaModifica($timestamp, $updateDB = false)
@@ -355,7 +355,7 @@ class Canale {
      *
      * @todo implementare propagazione DB
      * @param boolean $attiva_files
-     * @param boolean $updateDB se true la modifica viene propagata al DB
+     * @param boolean $updateDB     se true la modifica viene propagata al DB
      * @return boolean
      */
     function setServizioNews($attiva_news, $updateDB = false)
@@ -383,7 +383,7 @@ class Canale {
      *
      * @todo implementare propagazione DB
      * @param boolean $attiva_files
-     * @param boolean $updateDB se true la modifica viene propagata al DB
+     * @param boolean $updateDB     se true la modifica viene propagata al DB
      * @return boolean
      */
     function setServizioFiles($attiva_files, $updateDB = false)
@@ -411,7 +411,7 @@ class Canale {
      *
      * @todo implementare propagazione DB
      * @param boolean $attiva_links
-     * @param boolean $updateDB se true la modifica viene propagata al DB
+     * @param boolean $updateDB     se true la modifica viene propagata al DB
      * @return boolean
      */
     function setServizioLinks($attiva_links, $updateDB = false)
@@ -437,7 +437,7 @@ class Canale {
      *
      * @todo implementare propagazione DB
      * @param boolean $attiva_files
-     * @param boolean $updateDB se true la modifica viene propagata al DB
+     * @param boolean $updateDB     se true la modifica viene propagata al DB
      * @return boolean
      */
     function setServizioFilesStudenti($attiva_files_studenti, $updateDB = false)
@@ -465,7 +465,7 @@ class Canale {
      *
      * @todo implementare propagazione DB
      * @param boolean $attiva_links
-     * @param boolean $updateDB se true la modifica viene propagata al DB
+     * @param boolean $updateDB     se true la modifica viene propagata al DB
      * @return boolean
      */
     function setServizioForum($attiva_forum, $updateDB = false)
@@ -684,7 +684,7 @@ class Canale {
      *
      * @static
      *
-     * @param int $id_canale	id del canale da controllare
+     * @param int $id_canale id del canale da controllare
      * @return boolean true se esiste tale canale
      */
     function canaleExists($id_canale){

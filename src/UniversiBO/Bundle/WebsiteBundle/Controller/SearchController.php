@@ -2,7 +2,6 @@
 
 namespace UniversiBO\Bundle\WebsiteBundle\Controller;
 
-use Zend\Search\Lucene\Lucene;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -22,7 +21,7 @@ class SearchController extends Controller
     {
         return array();
     }
-    
+
     /**
      * @Template()
      * @Method("get")
@@ -31,9 +30,10 @@ class SearchController extends Controller
     public function searchAction()
     {
         $query = $this->getRequest()->query->get('query', '');
-        
+
         $path = $this->get('kernel')->getRootDir() . '/data/lucene';
-        
+
+
         return array();
     }
 }

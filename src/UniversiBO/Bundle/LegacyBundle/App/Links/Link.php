@@ -43,11 +43,11 @@ class Link
     /**
      * Crea un oggetto link
      *
-     * @param int    $id_link     			identificativo del link su database
-     * @param int    $id_canale   		identificativo del canale a cui si riferisce il link
-     * @param string $uri         			uniform resurce identifier (link)
-     * @param string $label       	 	testo del link (di solito quello tra <a>...</a>)
-     * @param string $description 	testo descrittivo della risorsa puntata dal link
+     * @param int    $id_link     identificativo del link su database
+     * @param int    $id_canale   identificativo del canale a cui si riferisce il link
+     * @param string $uri         uniform resurce identifier (link)
+     * @param string $label       testo del link (di solito quello tra <a>...</a>)
+     * @param string $description testo descrittivo della risorsa puntata dal link
      * @return Link
      */
     public function __construct($id_link, $id_canale, $id_utente, $uri, $label,

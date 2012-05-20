@@ -10,7 +10,6 @@ use Zend\Search\Lucene\Lucene;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -29,7 +28,7 @@ class LuceneBuildIndexCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      */
     protected function initialize(InputInterface $input,
@@ -41,22 +40,22 @@ class LuceneBuildIndexCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      * @throws \LogicException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $repository = $this->get('universibo_legacy.repository.news.newsitem');
-        
+
         $index = Lucene::create($this->get('kernel')->getRootDir().'/data/lucene');
-        
+
         foreach($repository->findAll() as $news) {
             $doc = new Document();
 
             $doc->addField(Field::text('title', $news->getTitolo()));
             $doc->addField(Field::text('content', $news->getNotizia()));
-            
+
             $index->addDocument($doc);
         }
     }
@@ -69,7 +68,7 @@ class LuceneBuildIndexCommand extends ContainerAwareCommand
     /**
      * Prints a message only if verbose
      *
-     * @param string $message
+     * @param string          $message
      * @param OutputInterface $output
      */
     private function verboseMessage($message, OutputInterface $output)

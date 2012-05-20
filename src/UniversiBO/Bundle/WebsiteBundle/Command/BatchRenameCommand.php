@@ -27,7 +27,7 @@ class BatchRenameCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      */
     protected function initialize(InputInterface $input,
@@ -39,7 +39,7 @@ class BatchRenameCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      * @throws \LogicException
      */
@@ -131,7 +131,7 @@ EOD;
     /**
      * Prints a message only if verbose
      *
-     * @param string $message
+     * @param string          $message
      * @param OutputInterface $output
      */
     private function verboseMessage($message, OutputInterface $output)

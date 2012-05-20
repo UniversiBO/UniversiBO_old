@@ -92,8 +92,8 @@ class PHPUnit_Skeleton {
      * to test is accessible.
      *
      * @access public
-     * @param  string  $className
-     * @param  string  $classPath
+     * @param string  $className
+     * @param string  $classPath
      * @param boolean $includeParents Wheter to include the parent's methods in the test.
      * @return void
      */
@@ -118,7 +118,7 @@ class PHPUnit_Skeleton {
      * instantiated. This method lets you set that file.
      *
      * @access public
-     * @param  string $configPath
+     * @param string $configPath
      * @return void
      */
     function setConfigFile($configFile) {
