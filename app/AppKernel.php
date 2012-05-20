@@ -17,6 +17,7 @@ class AppKernel extends Kernel
                 new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
                 new FOS\CommentBundle\FOSCommentBundle(),
                 new FOS\RestBundle\FOSRestBundle(),
+                //new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
                 new JMS\SerializerBundle\JMSSerializerBundle($this),
                 //new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
                 new UniversiBO\Bundle\WebsiteBundle\UniversiBOWebsiteBundle(),

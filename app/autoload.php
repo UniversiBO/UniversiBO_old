@@ -25,8 +25,9 @@ $loader->registerNamespaces(array(
         'Metadata'                             => __DIR__.'/../vendor/jms/metadata/src',
         'Zend'                                 => __DIR__.'/../vendor/zendframework/zendframework/library',
         'FOS\\CommentBundle'                   => __DIR__.'/../vendor/friendsofsymfony/comment-bundle',
-        'FOS\\RestBundle'                      => __DIR__.'/../vendor/friendsofsymfony/rest-bundle',
+        'FOS\\OAuthServerBundle'               => __DIR__.'/../vendor/friendsofsymfony/oauth-server-bundle',
         'FOS\\Rest'                            => __DIR__.'/../vendor/friendsofsymfony/rest',
+        'FOS\\RestBundle'                      => __DIR__.'/../vendor/friendsofsymfony/rest-bundle',
 ));
 $loader->registerPrefixes(array(
 //        'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',
