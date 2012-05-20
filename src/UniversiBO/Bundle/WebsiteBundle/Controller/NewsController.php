@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class NewsController extends Controller
 {
     /**
+     * @Template()
      */
     public function indexAction($channelId, $limit = null)
     {
