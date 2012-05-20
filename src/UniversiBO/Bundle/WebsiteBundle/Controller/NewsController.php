@@ -20,7 +20,7 @@ class NewsController extends Controller
         $newsRepo = $this->get('universibo_legacy.repository.news.news_item');
 
         $response = $this->render('UniversiBOWebsiteBundle:News:index.html.twig', array('news' => $newsRepo->findByCanale($channelId, $limit)));
-        $response->setSharedMaxAge(300);
+        $response->setSharedMaxAge(30);
 
         return $response;
     }
@@ -32,8 +32,6 @@ class NewsController extends Controller
     public function showAction($id)
     {
         $newsRepo = $this->get('universibo_legacy.repository.news.news_item');
-
-
         return array('news' => $newsRepo->find($id));
     }
 }
