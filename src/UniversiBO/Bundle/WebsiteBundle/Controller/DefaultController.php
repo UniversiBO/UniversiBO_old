@@ -16,18 +16,20 @@ class DefaultController extends Controller
     {
         return array();
     }
-    
+
     public function headerAction()
     {
-    	$response = $this->render('UniversiBOWebsiteBundle:Default:header.html.twig');
-    	$response->setMaxAge(3600);
-    	return $response;
+        $response = $this->render('UniversiBOWebsiteBundle:Default:header.html.twig');
+        $response->setSharedMaxAge(3600);
+
+        return $response;
     }
-    
+
     public function footerAction()
     {
-    	$response = $this->render('UniversiBOWebsiteBundle:Default:footer.html.twig');
-    	$response->setMaxAge(86400);
-    	return $response;
+        $response = $this->render('UniversiBOWebsiteBundle:Default:footer.html.twig');
+        $response->setSharedMaxAge(86400);
+
+        return $response;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command;
+use UniversiBO\Bundle\LegacyBundle\Entity\News\NewsItem;
+
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
 use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
@@ -38,13 +40,13 @@ class NewsEdit extends CanaleCommand
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
                             'msg' => 'L\'id della notizia richiesta '
-                                    . $_GET['id_news'] . ' non � valido',
+                                    . $_GET['id_news'] . ' non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
         if ($canale->getServizioNews() == false)
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
-                            'msg' => "Il servizio news � disattivato",
+                            'msg' => "Il servizio news e` disattivato",
                             'file' => __FILE__, 'line' => __LINE__));
 
         if (array_key_exists($id_canale, $user_ruoli)) {
@@ -54,12 +56,12 @@ class NewsEdit extends CanaleCommand
             $moderatore = $ruolo->isModeratore();
         }
 
-        $news = newsItem::selectNewsItem($_GET['id_news']);
+        $news = NewsItem::selectNewsItem($_GET['id_news']);
         if ($news == false)
             Error::throwError(_ERROR_DEFAULT,
                     array(
                             'msg' => 'L\'id della notizia richiesta '
-                                    . $_GET['id_news'] . ' non � valido',
+                                    . $_GET['id_news'] . ' non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
 
         $autore = ($user->getIdUser() == $news->getIdUtente());
