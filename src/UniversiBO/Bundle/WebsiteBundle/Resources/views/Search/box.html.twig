@@ -4,7 +4,7 @@ Ricerca
 </div>
 <div class="sidebox-content">
 <form action="{{ path('search_search') }}" id="searchform-top" method="get">
-  <input id="searchform-top-query" name="query" maxlength="25" type="text" size="15"/>
+  <input id="searchform-top-query" name="query" maxlength="25" type="text" size="15" value="{{ searchQuery | default('') }}" />
   <input class="submit" name="submit" type="submit" value="Cerca"/>
 </form>
 </div>

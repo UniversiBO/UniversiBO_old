@@ -715,8 +715,10 @@ class FileItem
             $rows = $db->affectedRows();
 
             if ($rows == 1)
+
                 return true;
             elseif ($rows == 0)
+
                 return false;
             else
                 Error::throwError(_ERROR_CRITICAL,
@@ -783,6 +785,7 @@ class FileItem
             // @TODO cambiare database
             //echo '['.$value.'-'.ereg($value, $nome_file).']';
             if (@ereg($value, $nome_file))
+
                 return $key;
         }
 
@@ -801,6 +804,7 @@ class FileItem
         static $tipi = NULL;
 
         if ($tipi != NULL)
+
             return $tipi;
 
         $db = &FrontController::getDbConnection('main');
@@ -835,6 +839,7 @@ class FileItem
         static $categorie = NULL;
 
         if ($categorie != NULL)
+
             return $categorie;
 
         $db = FrontController::getDbConnection('main');
@@ -882,6 +887,7 @@ class FileItem
         $id_files = array($id_file);
         $files = &FileItem::selectFileItems($id_files);
         if ($files === false)
+
             return false;
         return $files[0];
     }
@@ -898,7 +904,7 @@ class FileItem
     {
         return self::getRepository()->findManyById($id_files);
     }
-    
+
     /**
      * restituisce tutti i file caricati da un determinato utente
      *
@@ -932,6 +938,7 @@ class FileItem
         $rows = $res->numRows();
 
         if ($rows == 0)
+
             return false;
         $files_list = array();
 
@@ -957,6 +964,7 @@ class FileItem
     function getIdCanali()
     {
         if ($this->elencoIdCanali != NULL)
+
             return $this->elencoIdCanali;
 
         $id_file = $this->getIdFile();

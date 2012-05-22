@@ -11,18 +11,27 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class FileController extends Controller
 {
     /**
-     * @Template()
      */
     public function indexAction($channelId)
     {
         $fileRepo = $this->get('universibo_legacy.repository.files.file_item');
-        
+        return $this->getMyResponse($fileRepo->findByChannel($channelId));
+    }
+    
+    public function byIdsAction(array $ids)
+    {
+        $fileRepo = $this->get('universibo_legacy.repository.files.file_item');
+        return $this->getMyResponse($fileRepo->findManyById($ids));
+    }
+    
+    private function getMyResponse(array $fileObj)
+    {
         $files = array();
         
-        foreach ($fileRepo->findByChannel($channelId) as $file) {
-            $files[$file->getCategoriaDesc()][] = $file;
+        foreach ($fileObj as $file) {
+        	$files[$file->getCategoriaDesc()][] = $file;
         }
         
-        return array('files' => $files);
+        return $this->render('UniversiBOWebsiteBundle:File:index.html.twig',array('files' => $files));
     }
 }

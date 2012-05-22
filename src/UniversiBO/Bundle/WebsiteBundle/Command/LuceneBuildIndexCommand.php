@@ -1,6 +1,10 @@
 <?php
 namespace UniversiBO\Bundle\WebsiteBundle\Command;
 
+use Zend\Search\Lucene\SearchIndexInterface;
+
+use Symfony\Tests\Component\Routing\Fixtures\AnnotatedClasses\FooClass;
+
 use Zend\Search\Lucene\Document\Field;
 
 use Zend\Search\Lucene\Document;
@@ -46,18 +50,13 @@ class LuceneBuildIndexCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $repository = $this->get('universibo_legacy.repository.news.newsitem');
-
-        $index = Lucene::create($this->get('kernel')->getRootDir().'/data/lucene');
-
-        foreach($repository->findAll() as $news) {
-            $doc = new Document();
-
-            $doc->addField(Field::text('title', $news->getTitolo()));
-            $doc->addField(Field::text('content', $news->getNotizia()));
-
-            $index->addDocument($doc);
+        $index = $this->get('universibo_website.search.lucene');
+        foreach($index as $item) {
+            $index->delete($item->id);
         }
+        
+        $this->buildFile($index);
+        $this->buildNews($index);
     }
 
     protected function get($id)
@@ -77,4 +76,38 @@ class LuceneBuildIndexCommand extends ContainerAwareCommand
             $output->writeln($message);
         }
     }
+    
+    private function buildFile(SearchIndexInterface $index)
+    {
+        $repository = $this->get('universibo_legacy.repository.files.file_item');
+        
+        foreach($repository->findAll() as $file) {
+        	$doc = new Document();
+        
+        	$doc->addField(Field::unStored('title', $file->getTitolo()));
+        	$doc->addField(Field::unStored('username', $file->getUsername()));
+        	$doc->addField(Field::unIndexed('dbId', $file->getIdFile()));
+        	$doc->addField(Field::unIndexed('type', 'file'));
+        
+        	$index->addDocument($doc);
+        }
+    }
+    
+    private function buildNews(SearchIndexInterface $index)
+    {
+        $repository = $this->get('universibo_legacy.repository.news.newsitem');
+        
+        foreach($repository->findAll() as $news) {
+        	$doc = new Document();
+        
+        	$doc->addField(Field::unStored('title', $news->getTitolo()));
+        	$doc->addField(Field::unStored('username', $news->getUsername()));
+        	$doc->addField(Field::unStored('content', $news->getNotizia()));
+        	$doc->addField(Field::unIndexed('dbId', $news->getIdNotizia()));
+        	$doc->addField(Field::unIndexed('type', 'news'));
+        
+        	$index->addDocument($doc);
+        }
+    }
 }
+

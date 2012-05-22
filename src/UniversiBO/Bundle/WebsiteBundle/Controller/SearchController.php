@@ -3,6 +3,7 @@
 namespace UniversiBO\Bundle\WebsiteBundle\Controller;
 
 
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -30,10 +31,22 @@ class SearchController extends Controller
     public function searchAction()
     {
         $query = $this->getRequest()->query->get('query', '');
+        $index = $this->get('universibo_website.search.lucene');
 
-        $path = $this->get('kernel')->getRootDir() . '/data/lucene';
+        $news = array();
+        $files = array();
+        
+        foreach($index->find($query) as $hit) {
+            switch($hit->type) {
+                case 'news':
+                    $news[] = $hit->dbId;
+                    break;
+                case 'file':
+                    $files[] = $hit->dbId;
+                    break;
+            }
+        }
 
-
-        return array();
+        return array('news' => $news, 'files' => $files, 'searchQuery' => $query);
     }
 }
