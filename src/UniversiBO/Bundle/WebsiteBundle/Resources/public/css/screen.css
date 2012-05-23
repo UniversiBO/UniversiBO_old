@@ -33,7 +33,7 @@ img {
 
 .side-list-item {
 	list-style: disc;
-	font-size:small;
+	font-size: small;
 }
 
 .staffbox-head {
@@ -117,6 +117,7 @@ img {
 #header {
 	height: 130px;
 	padding: 5px;
+	padding-left: 40px;
 	background-image:
 		url('/bundles/universibowebsite/images/gradient-top.png');
 	background-repeat: repeat-x;
@@ -127,6 +128,7 @@ img {
 }
 
 #top-menu {
+	padding-left: 30px;
 	background-color: #1b4f9d;
 	height: 50px;
 	background-repeat: repeat-x;
@@ -144,6 +146,7 @@ img {
 #top-menu li {
 	border: 1px solid #eef;
 	margin: 2px;
+	margin-right: 5px;
 	display: inline;
 	font-weight: bold;
 	padding: 8px;
@@ -182,7 +185,7 @@ img {
 	border-radius: 5px;
 }
 
-.news-title, .news-footer, .news-body {
+.news-title,.news-footer,.news-body {
 	padding: 5px;
 }
 
@@ -194,13 +197,12 @@ img {
 }
 
 .news-footer-right {
-	text-align: right;	
+	text-align: right;
 }
 
 /* END NEWS */
 
 /* BEGIN FILES */
-
 .file-column {
 	font-size: smaller;
 }
