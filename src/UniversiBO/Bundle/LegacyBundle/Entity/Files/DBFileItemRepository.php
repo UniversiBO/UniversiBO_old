@@ -111,57 +111,59 @@ class DBFileItemRepository extends DBRepository
 
         return $files_list;
     }
-    
+
     public function findAll()
     {
-    	$db = $this->getDb();
-    
-    	//		$query = 'SELECT id_file, permessi_download, permessi_visualizza, A.id_utente, titolo,
-    	//						 A.descrizione, data_inserimento, data_modifica, dimensione, download,
-    	//						 nome_file, A.id_categoria, id_tipo_file, hash_file, A.password,
-    	//						 username, C.descrizione, D.descrizione, D.icona, D.info_aggiuntive
-    	//						 FROM file A, utente B, file_categoria C, file_tipo D
-    	//						 WHERE A.id_utente = B.id_utente AND A.id_categoria = C.id_file_categoria AND id_tipo_file = D.id_file_tipo AND A.id_file  IN ('.$values.') AND eliminato!='.$db->quote(FILE_ELIMINATO);
-    	$query = 'SELECT id_file, permessi_download, permessi_visualizza, A.id_utente, titolo,
-    	A.descrizione, data_inserimento, data_modifica, dimensione, download,
-    	nome_file, A.id_categoria, id_tipo_file, hash_file, A.password,
-    	C.descrizione, D.descrizione, D.icona, D.info_aggiuntive
-    	FROM file A, file_categoria C, file_tipo D
-    	WHERE A.id_categoria = C.id_file_categoria AND id_tipo_file = D.id_file_tipo AND eliminato=' . $db->quote(FileItem::NOT_ELIMINATO);
-    
-    	$query .= ' ORDER BY C.id_file_categoria, data_inserimento DESC';
-    
-    	$res = &$db->query($query);
-    
-    	//echo $query;
-    
-    	if (DB::isError($res)) {
-    		$this
-    		->throwError('_ERROR_CRITICAL',
-    				array('msg' => DB::errorMessage($res),
-    						'file' => __FILE__, 'line' => __LINE__));
-    	}
-    
-    	$rows = $res->numRows();
-    
-    	if ($rows == 0)
-    
-    		return false;
-    	$files_list = array();
-    
-    	$userRepo = new DBUserRepository($db);
-    
-    	while ($row = $this->fetchRow($res)) {
-    		$username = $userRepo->getUsernameFromId($row[3]);
-    
-    		$files_list[] = new FileItem($row[0], $row[1], $row[2], $row[3],
-    				$row[4], $row[5], $row[6], $row[7], $row[8], $row[9],
-    				$row[10], $row[11], $row[12], $row[13], $row[14],
-    				$username, $row[15], $row[16], $row[17], $row[18]);
-    	}
-    
-    	$res->free();
-    
-    	return $files_list;
+        $db = $this->getDb();
+
+        //		$query = 'SELECT id_file, permessi_download, permessi_visualizza, A.id_utente, titolo,
+        //						 A.descrizione, data_inserimento, data_modifica, dimensione, download,
+        //						 nome_file, A.id_categoria, id_tipo_file, hash_file, A.password,
+        //						 username, C.descrizione, D.descrizione, D.icona, D.info_aggiuntive
+        //						 FROM file A, utente B, file_categoria C, file_tipo D
+        //						 WHERE A.id_utente = B.id_utente AND A.id_categoria = C.id_file_categoria AND id_tipo_file = D.id_file_tipo AND A.id_file  IN ('.$values.') AND eliminato!='.$db->quote(FILE_ELIMINATO);
+        $query = 'SELECT id_file, permessi_download, permessi_visualizza, A.id_utente, titolo,
+        A.descrizione, data_inserimento, data_modifica, dimensione, download,
+        nome_file, A.id_categoria, id_tipo_file, hash_file, A.password,
+        C.descrizione, D.descrizione, D.icona, D.info_aggiuntive
+        FROM file A, file_categoria C, file_tipo D
+        WHERE A.id_categoria = C.id_file_categoria AND id_tipo_file = D.id_file_tipo AND eliminato=' . $db->quote(FileItem::NOT_ELIMINATO);
+
+        $query .= ' ORDER BY C.id_file_categoria, data_inserimento DESC';
+
+        $res = &$db->query($query);
+
+        //echo $query;
+
+        if (DB::isError($res)) {
+            $this
+            ->throwError('_ERROR_CRITICAL',
+                    array('msg' => DB::errorMessage($res),
+                            'file' => __FILE__, 'line' => __LINE__));
+        }
+
+        $rows = $res->numRows();
+
+        if ($rows == 0)
+
+
+            return false;
+        $files_list = array();
+
+        $userRepo = new DBUserRepository($db);
+
+        while ($row = $this->fetchRow($res)) {
+            $username = $userRepo->getUsernameFromId($row[3]);
+
+            $files_list[] = new FileItem($row[0], $row[1], $row[2], $row[3],
+                    $row[4], $row[5], $row[6], $row[7], $row[8], $row[9],
+                    $row[10], $row[11], $row[12], $row[13], $row[14],
+                    $username, $row[15], $row[16], $row[17], $row[18]);
+        }
+
+        $res->free();
+
+
+        return $files_list;
     }
 }

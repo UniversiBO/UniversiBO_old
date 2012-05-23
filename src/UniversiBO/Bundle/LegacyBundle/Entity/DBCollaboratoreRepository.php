@@ -20,7 +20,7 @@ class DBCollaboratoreRepository extends DBRepository
                 . $db->quote($id);
         $res = $db->query($query);
         if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,
+            $this->throwError('_ERROR_CRITICAL',
                     array('msg' => DB::errorMessage($res), 'file' => __FILE__,
                             'line' => __LINE__));
 
@@ -58,7 +58,7 @@ class DBCollaboratoreRepository extends DBRepository
 
         $res = $db->query($query);
         if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,
+            $this->throwError('_ERROR_CRITICAL',
                     array('msg' => DB::errorMessage($res), 'file' => __FILE__,
                             'line' => __LINE__));
 

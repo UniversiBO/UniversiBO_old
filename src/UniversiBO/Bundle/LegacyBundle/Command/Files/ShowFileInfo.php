@@ -32,7 +32,7 @@ class ShowFileInfo extends PluginCommand
                 || !preg_match('/^([0-9]{1,9})$/', $param['id_file'])) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
-                            'msg' => 'L\'id del file richiesto non � valido',
+                            'msg' => 'L\'id del file richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
 
@@ -67,7 +67,7 @@ class ShowFileInfo extends PluginCommand
         if ($file === false)
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
-                            'msg' => "Il file richiesto non � presente su database",
+                            'msg' => "Il file richiesto non e` presente su database",
                             'file' => __FILE__, 'line' => __LINE__));
 
         //var_dump($file);
@@ -77,7 +77,7 @@ class ShowFileInfo extends PluginCommand
         if (!$user->isGroupAllowed($file->getPermessiVisualizza()))
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
-                            'msg' => 'Non � permesso visualizzare il file.
+                            'msg' => 'Non e` permesso visualizzare il file.
             Non possiedi i diritti necessari, la sessione potrebbe essere scaduta.',
                             'file' => __FILE__, 'line' => __LINE__,
                             'log' => true));

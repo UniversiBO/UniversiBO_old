@@ -1,6 +1,8 @@
 <?php
 
 namespace UniversiBO\Bundle\LegacyBundle\Auth;
+use UniversiBO\Bundle\LegacyBundle\Entity\Files\FileItem;
+
 use UniversiBO\Bundle\LegacyBundle\Entity\DBRuoloRepository;
 use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
 use UniversiBO\Bundle\LegacyBundle\Entity\User;
@@ -22,6 +24,8 @@ class UniversiBOAcl
 
         $this->handlers[self::BASE . 'Canale']['read'] = array($this,
                 'canaleReadHandler');
+        $this->handlers[self::BASE . 'Files\\FileItem']['read'] = array($this,
+                'fileReadHandler');
     }
 
     public function canRead(User $user = null, $object)
@@ -37,7 +41,7 @@ class UniversiBOAcl
     public function canDoAction($action, User $user = null, $object)
     {
         foreach ($this->handlers as $key => $handler) {
-            if ($object instanceof $key) {
+            if ($object instanceof $key && array_key_exists($action, $handler)) {
                 return call_user_func($handler[$action], $user, $object);
             }
         }
@@ -45,14 +49,18 @@ class UniversiBOAcl
         return false;
     }
 
+    private function fileReadHandler(User $user = null, FileItem $file)
+    {
+        return ($file->getPermessiVisualizza() & $this->getGroups($user)) !== 0;
+    }
+
     private function canaleReadHandler(User $user = null, Canale $canale)
     {
-        $groups = is_null($user) ? User::OSPITE : $user->getGroups();
+        return ($canale->getPermessi() & $this->getGroups($user)) !== 0;
+    }
 
-        if (($canale->getPermessi() & $groups) !== 0) {
-            return true;
-        }
-
-        return false;
+    private function getGroups(User $user = null)
+    {
+        return is_null($user) ? User::OSPITE : $user->getGroups();
     }
 }

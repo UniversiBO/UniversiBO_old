@@ -3,7 +3,6 @@ namespace UniversiBO\Bundle\WebsiteBundle\Command;
 
 use Zend\Search\Lucene\SearchIndexInterface;
 
-use Symfony\Tests\Component\Routing\Fixtures\AnnotatedClasses\FooClass;
 
 use Zend\Search\Lucene\Document\Field;
 
@@ -54,7 +53,7 @@ class LuceneBuildIndexCommand extends ContainerAwareCommand
         foreach($index as $item) {
             $index->delete($item->id);
         }
-        
+
         $this->buildFile($index);
         $this->buildNews($index);
     }
@@ -76,37 +75,37 @@ class LuceneBuildIndexCommand extends ContainerAwareCommand
             $output->writeln($message);
         }
     }
-    
+
     private function buildFile(SearchIndexInterface $index)
     {
         $repository = $this->get('universibo_legacy.repository.files.file_item');
-        
+
         foreach($repository->findAll() as $file) {
-        	$doc = new Document();
-        
-        	$doc->addField(Field::unStored('title', $file->getTitolo()));
-        	$doc->addField(Field::unStored('username', $file->getUsername()));
-        	$doc->addField(Field::unIndexed('dbId', $file->getIdFile()));
-        	$doc->addField(Field::unIndexed('type', 'file'));
-        
-        	$index->addDocument($doc);
+            $doc = new Document();
+
+            $doc->addField(Field::unStored('title', $file->getTitolo()));
+            $doc->addField(Field::unStored('username', $file->getUsername()));
+            $doc->addField(Field::unIndexed('dbId', $file->getIdFile()));
+            $doc->addField(Field::unIndexed('type', 'file'));
+
+            $index->addDocument($doc);
         }
     }
-    
+
     private function buildNews(SearchIndexInterface $index)
     {
         $repository = $this->get('universibo_legacy.repository.news.newsitem');
-        
+
         foreach($repository->findAll() as $news) {
-        	$doc = new Document();
-        
-        	$doc->addField(Field::unStored('title', $news->getTitolo()));
-        	$doc->addField(Field::unStored('username', $news->getUsername()));
-        	$doc->addField(Field::unStored('content', $news->getNotizia()));
-        	$doc->addField(Field::unIndexed('dbId', $news->getIdNotizia()));
-        	$doc->addField(Field::unIndexed('type', 'news'));
-        
-        	$index->addDocument($doc);
+            $doc = new Document();
+
+            $doc->addField(Field::unStored('title', $news->getTitolo()));
+            $doc->addField(Field::unStored('username', $news->getUsername()));
+            $doc->addField(Field::unStored('content', $news->getNotizia()));
+            $doc->addField(Field::unIndexed('dbId', $news->getIdNotizia()));
+            $doc->addField(Field::unIndexed('type', 'news'));
+
+            $index->addDocument($doc);
         }
     }
 }

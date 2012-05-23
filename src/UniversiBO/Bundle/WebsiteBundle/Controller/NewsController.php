@@ -19,12 +19,13 @@ class NewsController extends Controller
 
         return array('news' => $newsRepo->findByCanale($channelId, $limit));
     }
-    
+
     public function byIdsAction(array $ids)
     {
         $newsRepo = $this->get('universibo_legacy.repository.news.news_item');
         $news = $newsRepo->findMany($ids);
-        
+
+
         return $this->render('UniversiBOWebsiteBundle:News:index.html.twig', array('news' => $news));
     }
 

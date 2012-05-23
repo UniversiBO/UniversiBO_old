@@ -35,7 +35,7 @@ class SearchController extends Controller
 
         $news = array();
         $files = array();
-        
+
         foreach($index->find($query) as $hit) {
             switch($hit->type) {
                 case 'news':

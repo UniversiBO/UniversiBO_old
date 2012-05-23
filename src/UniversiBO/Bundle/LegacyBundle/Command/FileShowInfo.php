@@ -20,17 +20,17 @@ class FileShowInfo extends UniversiboCommand
 
     function execute()
     {
-        $frontcontroller = &$this->getFrontController();
+        $frontcontroller = $this->getFrontController();
 
-        $template = &$frontcontroller->getTemplateEngine();
-        $krono = &$frontcontroller->getKrono();
+        $template = $frontcontroller->getTemplateEngine();
+        $krono = $frontcontroller->getKrono();
         $user = $this->getSessionUser();
 
         if (!array_key_exists('id_file', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_file'])) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
-                            'msg' => 'L\'id del file richiesto non � valido',
+                            'msg' => 'L\'id del file richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
         $id_file = $_GET['id_file'];
