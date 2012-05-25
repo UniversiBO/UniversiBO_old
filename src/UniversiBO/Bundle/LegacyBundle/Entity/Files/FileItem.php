@@ -872,7 +872,7 @@ class FileItem
      */
     public static function selectFileCanale($id_canale)
     {
-        return self::getRepository()->findByChannel($id_canale);
+        return self::getRepository()->findIdByChannel($id_canale);
     }
 
     /**
@@ -896,7 +896,7 @@ class FileItem
      * Recupera un elenco di file dal database
      * non ritorna i files eliminati
      *
-     * @static
+     * @deprecated
      * @param array $id_file array elenco di id dei file
      * @return array FileItem
      */

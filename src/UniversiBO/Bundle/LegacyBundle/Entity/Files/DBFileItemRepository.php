@@ -16,7 +16,7 @@ class DBFileItemRepository extends DBRepository
     public function findByChannel($channelId)
     {
         $ids = $this->findIdByChannel($channelId);
-        return is_array($ids) ? $this->findManyById() : $ids;
+        return is_array($ids) ? $this->findManyById($ids) : $ids;
     }
 
     public function findIdByChannel($channelId)
