@@ -872,7 +872,7 @@ class FileItem
      */
     public static function selectFileCanale($id_canale)
     {
-        return self::getRepository()->findByCanale($id_canale);
+        return self::getRepository()->findByChannel($id_canale);
     }
 
     /**
