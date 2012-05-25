@@ -1,13 +1,6 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Entity;
 
-define('CANALE_DEFAULT'      ,1);
-define('CANALE_HOME'         ,2);
-define('CANALE_FACOLTA'      ,3);
-define('CANALE_CDL'          ,4);
-define('CANALE_INSEGNAMENTO' ,5);
-//define('CANALE_ESAME_ECO'    ,6);
-
 
 use \DB;
 use \Error;
@@ -29,6 +22,12 @@ use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
  */
 
 class Canale {
+    const CDEFAULT = 1;
+    const HOME = 2;
+    const FACOLTA = 3;
+    const CDL = 4;
+    const INSEGNAMENTO = 5;
+    
     /**
      * @private
      */
@@ -732,3 +731,11 @@ class Canale {
         return self::$repository;
     }
 }
+
+define('CANALE_DEFAULT'      ,Canale::CDEFAULT);
+define('CANALE_HOME'         ,Canale::HOME);
+define('CANALE_FACOLTA'      ,Canale::FACOLTA);
+define('CANALE_CDL'          ,Canale::CDL);
+define('CANALE_INSEGNAMENTO' ,Canale::INSEGNAMENTO);
+//define('CANALE_ESAME_ECO'    ,6);
+

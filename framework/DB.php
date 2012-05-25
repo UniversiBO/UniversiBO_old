@@ -589,7 +589,7 @@ class DB
      */
     public static function isError($value)
     {
-        return is_a($value, 'DB_Error');
+        return $value instanceof DB_Error;
     }
 
     // }}}

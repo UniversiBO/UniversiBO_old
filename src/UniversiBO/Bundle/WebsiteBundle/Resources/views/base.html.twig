@@ -30,6 +30,9 @@
     <div id="right" class="yui3-u-1-5">
     {% render 'UniversiBOWebsiteBundle:Search:box' with { searchQuery : searchQuery | default('')} %}
     {% render 'UniversiBOWebsiteBundle:UserInfo:index' %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+      {% render 'UniversiBOWebsiteBundle:MyUniversiBO:box'%}
+    {% endif %}
     </div>
   {% endblock %}
   </div>
