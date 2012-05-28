@@ -24,7 +24,7 @@ class ChannelMenuController extends Controller
 
         $channelRepo = $this->get('universibo_legacy.repository.canale2');
 
-        foreach ($channelRepo->findManyByType($type) as $key => $item) {
+        foreach ($channelRepo->findManyByType($type) as $item) {
             if ($acl->canRead($user, $item)) {
                 $allowed[] = $item;
             }

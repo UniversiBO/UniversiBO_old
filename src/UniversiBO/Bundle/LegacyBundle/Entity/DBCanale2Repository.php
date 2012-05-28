@@ -11,10 +11,19 @@ namespace UniversiBO\Bundle\LegacyBundle\Entity;
 class DBCanale2Repository extends DBRepository
 {
 
+    /**
+     * @var DBCanaleRepository
+     */
     private $channelRepository;
 
+    /**
+     * @var DBCdlRepository
+     */
     private $cdlRepository;
 
+    /**
+     * @var DBFacoltaRepository
+     */
     private $facultyRepository;
 
     /**
@@ -24,7 +33,7 @@ class DBCanale2Repository extends DBRepository
      * @param DBCanaleRepository  $channelRepository
      * @param DBCdlRepository     $cdlRepository
      * @param DBFacoltaRepository $facultyRepository
-     * @param unknown_type        $convert
+     * @param boolean        $convert
      */
     public function __construct(\DB_common $db,
             DBCanaleRepository $channelRepository,
@@ -46,7 +55,8 @@ class DBCanale2Repository extends DBRepository
             case Canale::CDL:
                 return $this->cdlRepository->findAll();
             default:
-                return $this->channelRepository->findManyByType($type);
+                $ids = $this->channelRepository->findManyByType($type);
+                return $this->channelRepository->findManyById($ids);
         }
     }
 
