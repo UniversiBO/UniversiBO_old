@@ -3,7 +3,7 @@
     "description": "UniversiBO Web Portal",
     "require": {
         "universibo/universibo-answers-bundle": "dev-master",
-        "symfony/symfony": "v2.0.13",
+        "symfony/symfony": "v2.0.14",
         "symfony/assetic-bundle": "2.0.x-dev",
         "doctrine/orm": "2.1.x-dev",
         "sensio/generator-bundle": "2.0.x-dev",
