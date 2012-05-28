@@ -6,7 +6,6 @@
         "symfony/symfony": "v2.0.14",
         "symfony/assetic-bundle": "2.0.x-dev",
         "doctrine/orm": "2.1.x-dev",
-        "sensio/distribution-bundle": "2.0.x-dev",
         "sensio/generator-bundle": "2.0.x-dev",
         "sensio/framework-extra-bundle": "2.0.x-dev",
         "jms/metadata": "1.1.1",
