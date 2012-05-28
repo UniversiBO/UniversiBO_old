@@ -1,11 +1,13 @@
 <?php
+require_once __DIR__.'/../vendor/symfony/symfony/src/Symfony/Component/ClassLoader/ApcUniversalClassLoader.php';
+
+use Symfony\Component\ClassLoader\ApcUniversalClassLoader;
+use Doctrine\Common\Annotations\AnnotationRegistry;
+
 define('PHP_EXTENSION', '.php');
 define('UNIVERSIBO_ROOT', realpath(__DIR__.'/..'));
 
-use Symfony\Component\ClassLoader\UniversalClassLoader;
-use Doctrine\Common\Annotations\AnnotationRegistry;
-
-$loader = new UniversalClassLoader();
+$loader = new ApcUniversalClassLoader('u3_class');
 $loader->registerNamespaces(array(
         'UniversiBO\\Bundle\\AnswersBundle'    => __DIR__.'/../vendor/universibo/universibo-answers-bundle',
         'Symfony\\Bundle\\AsseticBundle'       => __DIR__.'/../vendor/symfony/assetic-bundle',
