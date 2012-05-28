@@ -27,7 +27,7 @@ class Canale {
     const FACOLTA = 3;
     const CDL = 4;
     const INSEGNAMENTO = 5;
-    
+
     /**
      * @private
      */

@@ -5,7 +5,6 @@ namespace UniversiBO\Bundle\WebsiteBundle\Controller;
 
 
 
-use UniversiBO\Bundle\LegacyBundle\Route\ChannelRouter;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 

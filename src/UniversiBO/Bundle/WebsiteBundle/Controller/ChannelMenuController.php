@@ -1,7 +1,6 @@
 <?php
 
 namespace UniversiBO\Bundle\WebsiteBundle\Controller;
-use UniversiBO\Bundle\LegacyBundle\Entity\DBCanale2Repository;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
