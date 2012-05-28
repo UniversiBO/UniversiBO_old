@@ -1,5 +1,7 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command;
+use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
+
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
 use UniversiBO\Bundle\LegacyBundle\Entity\InfoDidattica;
@@ -30,11 +32,12 @@ class ShowInsegnamento extends CanaleCommand
         $canale = &$this->getRequestCanale();
         //var_dump($canale);
 
-        if ($canale->getTipoCanale() != CANALE_INSEGNAMENTO)
+        if ($canale->getTipoCanale() !== Canale::INSEGNAMENTO) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $this->sessionUser->getIdUser(),
                             'msg' => 'Il tipo canale richiesto non corrisponde al comando selezionato',
                             'file' => __FILE__, 'line' => __LINE__));
+        }
     }
 
     function execute()
