@@ -23,7 +23,7 @@ class ChannelController extends Controller
     public function showAction($id)
     {
         $acl = $this->get('universibo_legacy.acl');
-        $channelRepo = $this->get('universibo_legacy.repository.canale');
+        $channelRepo = $this->get('universibo_legacy.repository.canale2');
 
         $scontext = $this->get('security.context');
 

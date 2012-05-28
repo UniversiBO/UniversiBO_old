@@ -54,6 +54,7 @@ class DBCanale2Repository extends DBRepository
                 return $this->facultyRepository->findAll();
             case Canale::CDL:
                 return $this->cdlRepository->findAll();
+            case Canale::INSEGNAMENTO:    
             default:
                 $ids = $this->channelRepository->findManyByType($type);
                 return $this->channelRepository->findManyById($ids);
@@ -73,9 +74,9 @@ class DBCanale2Repository extends DBRepository
 
         $row = $this->fetchRow($res);
         switch ($row[0]) {
-            case CANALE_FACOLTA:
+            case Canale::FACOLTA:
                 return $this->facultyRepository->find($id);
-            case CANALE_CDL:
+            case Canale::CDL:
                 return $this->cdlRepository->find($id);
             default:
                 return $this->channelRepository->find($id);
