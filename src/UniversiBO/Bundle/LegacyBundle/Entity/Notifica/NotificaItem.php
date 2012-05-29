@@ -296,12 +296,7 @@ class NotificaItem
      */
     public static function selectNotifica($id_notifica)
     {
-        $id_notizie = array($id_notifica);
-        $notifica = &NotificaItem::selectNotifiche($id_notizie);
-        if ($notifica === false)
-
-            return false;
-        return $notifica[0];
+        return self::getRepository()->find($id_notifica);
     }
 
     /**
@@ -312,47 +307,7 @@ class NotificaItem
      */
     public static function selectNotifiche($id_notifiche)
     {
-        //var_dump($id_notifiche);
-        $db = FrontController::getDbConnection('main');
-
-        if (count($id_notifiche) == 0)
-
-            return array();
-
-        //esegue $db->quote() su ogni elemento dell'array
-        //array_walk($id_notifiche, array($db, 'quote'));
-
-        if (count($id_notifiche) == 1)
-            $values = $id_notifiche[0];
-        else
-            $values = implode(',', $id_notifiche);
-        //function NotificaItem($id_notifica, $titolo, $messaggio, $dataIns, $urgente, $eliminata, $destinatario)
-        $query = 'SELECT id_notifica, titolo, messaggio, timestamp, urgente, eliminata, destinatario FROM notifica WHERE id_notifica in ('
-                . $values . ') AND eliminata!=' . $db->quote(self::ELIMINATA);
-        //var_dump($query);
-        $res = &$db->query($query);
-
-        if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-
-        $rows = $res->numRows();
-
-        if ($rows == 0)
-
-            return false;
-        $notifiche_list = array();
-
-        while ($res->fetchInto($row)) {
-            $notifiche_list[] = new NotificaItem($row[0], $row[1], $row[2],
-                    $row[3], ($row[4] == self::URGENTE),
-                    ($row[5] == self::ELIMINATA), $row[6]);
-        }
-
-        $res->free();
-        //var_dump($notifiche_list);
-        return $notifiche_list;
+        return self::getRepository()->findMany($id_notifiche);
     }
 
     /**
@@ -398,39 +353,11 @@ class NotificaItem
 
     function insertNotificaItem()
     {
-        $db = FrontController::getDbConnection('main');
-
         ignore_user_abort(1);
-        $db->autoCommit(false);
-        $next_id = $db->nextID('notifica_id_notifica');
-        $return = true;
-        $eliminata = ($this->isEliminata()) ? self::ELIMINATA
-                : self::NOT_ELIMINATA;
-        $urgente = ($this->isUrgente()) ? self::URGENTE : self::NOT_URGENTE;
-        //id_notifica urgente messaggio titolo timestamp destinatario eliminata
-
-        $query = 'INSERT INTO notifica (id_notifica, urgente, messaggio, titolo, timestamp, destinatario, eliminata) VALUES '
-                . '( ' . $next_id . ' , ' . $db->quote($urgente) . ' , '
-                . $db->quote($this->getMessaggio()) . ' , '
-                . $db->quote($this->getTitolo()) . ' , '
-                . $db->quote($this->getDataIns()) . ' , '
-                . $db->quote($this->getDestinatario()) . ' , '
-                . $db->quote($eliminata) . ' ) ';
-        //echo $query;
-        $res = $db->query($query);
-        //var_dump($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            Error::throwError(_ERROR_CRITICAL,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-        }
-
-        $this->setIdNotifica($next_id);
-
-        $db->commit();
-        $db->autoCommit(true);
+        $result = self::getRepository()->insert($this);
         ignore_user_abort(0);
+        
+        return $result;
     }
 
     /**
@@ -456,7 +383,7 @@ class NotificaItem
     function deleteNotificaItem()
     {
         $this->eliminata = true;
-        $this->updateNotificaItem();
+        $this->getRepository()->update($this);
     }
 
     /**
