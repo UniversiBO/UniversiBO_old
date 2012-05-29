@@ -77,9 +77,15 @@
 			<argument type="service" id="universibo_legacy.message.sms" />
 		</service>
 
+		<service id="universibo_legacy.notification.sender.swift"
+			public="false" class="UniversiBO\Bundle\LegacyBundle\Notification\SwiftMailerSender">
+			<argument type="service" id="mailer" />
+		</service>
+
 		<service id="universibo_legacy.notification.sender"
 			 class="UniversiBO\Bundle\LegacyBundle\Notification\SenderChain">
 			 <call method="register">
+			 	<argument type="service" id="universibo_legacy.notification.sender.swift"/>
 			 	<argument type="service" id="universibo_legacy.notification.sender.mobyt"/>
 			 </call>
 		</service>
@@ -155,6 +161,12 @@
 
 		<service id="universibo_legacy.repository.news.news_item"
 			class="UniversiBO\Bundle\LegacyBundle\Entity\News\DBNewsItemRepository">
+			<argument type="service" id="universibo_legacy.db.connection.main" />
+			<argument>true</argument>
+		</service>
+
+		<service id="universibo_legacy.repository.notifica.notifica_item"
+			class="UniversiBO\Bundle\LegacyBundle\Entity\Notifica\DBNotificaItemRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />
 			<argument>true</argument>
 		</service>

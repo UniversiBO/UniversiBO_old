@@ -1,6 +1,7 @@
 <?php
 namespace UniversiBO\Bundle\WebsiteBundle\Command;
 
+
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 use Symfony\Component\Console\Input\InputInterface;
@@ -40,5 +41,33 @@ class NotificationsSendCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $lock = $this->get('kernel')->getRootDir() . '/data/notifications.lock';
+
+        if (!is_resource($fp = fopen($lock, 'a'))) {
+            throw new \Exception('Cannot open lock file: ' . $lock);
+        }
+
+        flock($fp, LOCK_EX);
+
+        $repo = $this
+                ->get('universibo_legacy.repository.notifica.notifica_item');
+        $sender = $this->get('universibo_legacy.notification.sender');
+
+        foreach ($repo->findToSend() as $notification) {
+            try {
+                $sender->send($notification);
+                $notification->setDeleted(true);
+                $repo->update($notification);
+            } catch (Exception $e) {
+            }
+        }
+
+        flock($fp, LOCK_UN);
+        fclose($fp);
+    }
+
+    private function get($id)
+    {
+        return $this->getContainer()->get($id);
     }
 }

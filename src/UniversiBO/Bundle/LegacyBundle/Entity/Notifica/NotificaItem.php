@@ -356,7 +356,8 @@ class NotificaItem
         ignore_user_abort(1);
         $result = self::getRepository()->insert($this);
         ignore_user_abort(0);
-        
+
+
         return $result;
     }
 
