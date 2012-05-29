@@ -25,7 +25,7 @@ class DBCdlRepository extends DBRepository
         $res = $db->query($query);
         if (DB::isError($res))
         {
-            Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
             return false;
         }
@@ -52,7 +52,7 @@ class DBCdlRepository extends DBRepository
 
         $res = $db->query($query);
         if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         //		var_dump($res);
         $rows = $res->numRows();
 
@@ -77,7 +77,7 @@ class DBCdlRepository extends DBRepository
         a.id_canale, cod_corso, desc_corso, categoria, cod_fac, cod_doc, cat_id FROM  classi_corso b LEFT OUTER JOIN canale a ON a.id_canale = b.id_canale WHERE b.cod_corso = '.$db->quote($codice);
         $res = $db->query($query);
         if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
         $rows = $res->numRows();
 
@@ -100,7 +100,7 @@ class DBCdlRepository extends DBRepository
 
         $res = $db->query($query);
         if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
         $rows = $res->numRows();
 
@@ -142,7 +142,7 @@ class DBCdlRepository extends DBRepository
         $res = $db->query($query);
         //		$rows =  $db->affectedRows();
         if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,array('msg'=>$query,'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_DEFAULT',array('msg'=>$query,'file'=>__FILE__,'line'=>__LINE__));
     }
 
     public function insert(Cdl $cdl)
