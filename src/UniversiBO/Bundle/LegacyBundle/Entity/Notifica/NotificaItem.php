@@ -158,7 +158,10 @@ class NotificaItem
      * @param $fc FrontController
      * @return boolean true if sent succesfull else false
      */
-    public abstract function send(FrontController $fc);
+    public function send(FrontController $fc) 
+    {
+        return false;
+    }
 
     /**
      * Recupera l'id della notifica
