@@ -151,18 +151,12 @@ class NotificaItem {
         return $this->urgente;
     }
 
-
-     /**
+    /**
      * Overwrite the Send function of the base class
-     * @abstract
      * @param $fc FrontController
      * @return boolean true if sent succesfull else false
      */
-    function send($fc)
-    {
-        Error::throwError(_ERROR_CRITICAL,array('msg'=>'Il metodo send della notifica deve essere implementato','file'=>__FILE__,'line'=>__LINE__) );
-    }
-
+    public abstract function send(FrontController $fc);
 
 
     /**

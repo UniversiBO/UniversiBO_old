@@ -16,6 +16,10 @@ namespace UniversiBO\Bundle\LegacyBundle\Entity\Notifica;
  * @copyright CopyLeft UniversiBO 2001-2003
  */
 
+use UniversiBO\Bundle\LegacyBundle\Notification\PHPMailerSender;
+
+use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
+
 class NotificaMail extends NotificaItem
 {
     public function __construct ($id_notifica, $titolo, $messaggio, $dataIns, $urgente, $eliminata, $destinatario)
@@ -29,24 +33,16 @@ class NotificaMail extends NotificaItem
     *
     * @return boolean true "success" or false "failed"
     */
-    public function send($fc) {
+    public function send(FrontController $fc) {
 
         //per usare l'SMTPkeepAlive usa il singleton
-        $mail = $fc->getMail(MAIL_KEEPALIVE_ALIVE);
-
-        $mail->clearAddresses();
-        $mail->AddAddress($this->getIndirizzo());
-
-        $mail->Subject = str_replace( "\n"," - ",  '[UniversiBO] '.$this->getTitolo());
-        $mail->Body = $this->getMessaggio();
-
-        /**
-         * @todo fare la mail urgente se $this->isUrgente()
-         */
-        if (!$mail->send())
-        {
-            $this->error = $mail->ErrorInfo;
-
+        $mailer = $fc->getMail(MAIL_KEEPALIVE_ALIVE);
+        $sender = new PHPMailerSender($mailer);
+        
+        try {
+            $sender->send($this);
+            return true;
+        } catch (SenderException $e) {
             return false;
         }
     }
