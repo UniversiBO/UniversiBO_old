@@ -200,11 +200,10 @@ class Link
     /**
      * Recupera un link
      *
-     * @static
      * @param int $id_link id del link
      * @return Link / false
      */
-    function selectLink($id_link)
+    public static function selectLink($id_link)
     {
         $id_links = array($id_link);
         $links = Link::selectLinks($id_links);
@@ -220,11 +219,10 @@ class Link
     /**
      * Recupera un elenco di link dal database
      *
-     * @static
      * @param array $id_links array elenco di id dei link
      * @return Link array di Link
      */
-    function selectLinks($id_links)
+    public static function selectLinks($id_links)
     {
 
         $db = FrontController::getDbConnection('main');
@@ -334,11 +332,10 @@ class Link
     /**
      * Recupera un elenco di link riferiti ad un canale dal database
      *
-     * @static
      * @param array $id_canale id del canale
      * @return Link array di Link
      */
-    function selectCanaleLinks($id_canale)
+    public static function selectCanaleLinks($id_canale)
     {
 
         $db = FrontController::getDbConnection('main');
