@@ -32,7 +32,7 @@ class ShowInsegnamento extends CanaleCommand
         $canale = &$this->getRequestCanale();
         //var_dump($canale);
 
-        if ($canale->getTipoCanale() !== Canale::INSEGNAMENTO) {
+        if ($canale->getTipoCanale() != Canale::INSEGNAMENTO) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $this->sessionUser->getIdUser(),
                             'msg' => 'Il tipo canale richiesto non corrisponde al comando selezionato',
