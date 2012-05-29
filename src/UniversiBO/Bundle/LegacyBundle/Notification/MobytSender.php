@@ -1,5 +1,8 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Notification;
+
+use UniversiBO\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
+
 /**
  * SMS Notification Sender
  *
