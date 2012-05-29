@@ -58,7 +58,8 @@ class NotificationsSendCommand extends ContainerAwareCommand
                 $sender->send($notification);
                 $notification->setDeleted(true);
                 $repo->update($notification);
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
+                $output->writeln('Exception: '.$e->getMessage());
             }
         }
 
