@@ -2,7 +2,7 @@
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
-use UniversiBO\Bundle\LegacyBundle\App\Links\Link;
+use UniversiBO\Bundle\LegacyBundle\Entity\Links\Link;
 
 /**
  * NewsEdit: si occupa della modifica di una news in un canale

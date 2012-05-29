@@ -4,7 +4,7 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
-use UniversiBO\Bundle\LegacyBundle\App\Links\Link;
+use UniversiBO\Bundle\LegacyBundle\Entity\Links\Link;
 
 /**
  * LinkAdd: si occupa dell'inserimento di un link in un canale

@@ -3,7 +3,7 @@ namespace UniversiBO\Bundle\LegacyBundle\Command\Links;
 
 use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
 
-use UniversiBO\Bundle\LegacyBundle\App\Links\Link;
+use UniversiBO\Bundle\LegacyBundle\Entity\Links\Link;
 use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
 
 /**

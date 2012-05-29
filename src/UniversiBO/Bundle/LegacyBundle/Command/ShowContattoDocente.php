@@ -6,7 +6,7 @@ use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
 use UniversiBO\Bundle\LegacyBundle\Entity\ContattoDocente;
 use UniversiBO\Bundle\LegacyBundle\Entity\Docente;
 use UniversiBO\Bundle\LegacyBundle\Entity\User;
-use UniversiBO\Bundle\LegacyBundle\App\Notifica\NotificaItem;
+use UniversiBO\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 /**

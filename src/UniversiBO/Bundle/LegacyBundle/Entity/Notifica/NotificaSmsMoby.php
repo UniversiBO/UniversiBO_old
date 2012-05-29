@@ -1,23 +1,22 @@
 <?php
-namespace UniversiBO\Bundle\LegacyBundle\App\Notifica;
+namespace UniversiBO\Bundle\LegacyBundle\Entity\Notifica;
 
 /**
  *
- * NotificaMail class
+ * NotificaSmsMoby class
  *
- * Rappresenta una singola Notifica di tipo Mail.
+ * Rappresenta una singola Notifica di tipo Sms.
  *
- * @package universibo
- * @subpackage Notifica
+ * @package Notifica
  * @version 2.0.0
  * @author GNU/Mel <gnu.mel@gmail.com>
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, @link http://www.opensource.org/licenses/gpl-license.php
  * @copyright CopyLeft UniversiBO 2001-2003
  */
-
-class NotificaMail extends NotificaItem
+class NotificaSmsMoby extends NotificaItem
 {
+
     public function __construct ($id_notifica, $titolo, $messaggio, $dataIns, $urgente, $eliminata, $destinatario)
     {
         //$id_notifica, $titolo, $messaggio, $dataIns, $urgente, $eliminata, $destinatario
@@ -29,34 +28,29 @@ class NotificaMail extends NotificaItem
     *
     * @return boolean true "success" or false "failed"
     */
-    public function send($fc) {
+    function send($fc) {
+        // impediamo l'invio di sms pi� vecchi di 7 gg
+        $time = time();
+        $setteGiorni = 7 * 24 * 3600;
+        if(($time -$setteGiorni) > $this->getTimestamp()) return true;
 
         //per usare l'SMTPkeepAlive usa il singleton
-        $mail = $fc->getMail(MAIL_KEEPALIVE_ALIVE);
+        $sms = $fc->getSmsMoby();
 
-        $mail->clearAddresses();
-        $mail->AddAddress($this->getIndirizzo());
+        $result = $sms->sendSms($this->getIndirizzo(), $this->getMessaggio());
 
-        $mail->Subject = str_replace( "\n"," - ",  '[UniversiBO] '.$this->getTitolo());
-        $mail->Body = $this->getMessaggio();
-
-        /**
-         * @todo fare la mail urgente se $this->isUrgente()
-         */
-        if (!$mail->send())
-        {
-            $this->error = $mail->ErrorInfo;
+        if (substr($result, 0, 2) != 'OK')
 
             return false;
-        }
     }
 
-    public function factoryNotifica($id_notifica)
+
+    function factoryNotifica($id_notifica)
     {
         $not = NotificaItem::selectNotifica($id_notifica);
-        $ret = new NotificaMail($not->getIdNotifica(), $not->getTitolo(), $not->getMessaggio(), $not->getTimestamp(), $not->isUrgente(), $not->isEliminata(), $not->getDestinatario());
+        $ret =  new NotificaSmsMoby($not->getIdNotifica(), $not->getTitolo(), $not->getMessaggio(), $not->getTimestamp(), $not->isUrgente(), $not->isEliminata(), $not->getDestinatario());
 
-         return $ret;
+        return $ret;
         //$notif=NotificaMail::selectNotifica($id_notifica);
         //$notifMail=new NotificaMail($notif,$fc);
         //return $notifMail;

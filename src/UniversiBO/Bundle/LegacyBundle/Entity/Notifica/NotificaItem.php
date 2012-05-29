@@ -1,5 +1,5 @@
 <?php
-namespace UniversiBO\Bundle\LegacyBundle\App\Notifica;
+namespace UniversiBO\Bundle\LegacyBundle\Entity\Notifica;
 
 use \DB;
 use \Error;

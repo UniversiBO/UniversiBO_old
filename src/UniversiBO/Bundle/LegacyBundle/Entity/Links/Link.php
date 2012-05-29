@@ -1,5 +1,5 @@
 <?php
-namespace UniversiBO\Bundle\LegacyBundle\App\Links;
+namespace UniversiBO\Bundle\LegacyBundle\Entity\Links;
 use \DB;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;

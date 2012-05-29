@@ -2,7 +2,7 @@
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
-use UniversiBO\Bundle\LegacyBundle\App\Notifica\NotificaMail;
+use UniversiBO\Bundle\LegacyBundle\Entity\Notifica\NotificaMail;
 
 /**
  * @package universibo

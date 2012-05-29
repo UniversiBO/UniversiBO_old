@@ -3,7 +3,7 @@ namespace UniversiBO\Bundle\LegacyBundle\Command;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
 use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
-use UniversiBO\Bundle\LegacyBundle\App\Links\Link;
+use UniversiBO\Bundle\LegacyBundle\Entity\Links\Link;
 
 /**
  * LinkDelete: elimina un link, mostra il form e gestisce la cancellazione

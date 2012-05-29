@@ -1,7 +1,7 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command;
 
-use UniversiBO\Bundle\LegacyBundle\App\Commenti\CommentoItem;
+use UniversiBO\Bundle\LegacyBundle\Entity\Commenti\CommentoItem;
 
 use UniversiBO\Bundle\LegacyBundle\Entity\Files\FileItem;
 
