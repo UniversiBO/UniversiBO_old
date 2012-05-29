@@ -32,10 +32,10 @@ class DBCdlRepository extends DBRepository
 
         $elencoCdl = array();
 
-        while($res->fetchInto($row))
+        while($row = $this->fetchRow($res))
         {
             //echo $row[0];
-            if ( ($elencoCdl[] = Cdl::selectCdlCodice($row[0]) ) === false )
+            if ( ($elencoCdl[] = $this->findByCodice($row[0]) ) === false )
 
                 return false;
         }
@@ -58,7 +58,7 @@ class DBCdlRepository extends DBRepository
 
         if( $rows == 0) return false;
 
-        $res->fetchInto($row);
+        $row = $this->fetchRow($res);
 
         return new Cdl($row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
                 $row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S', $row[14], $row[15], $row[16], $row[17], $row[18], $row[19]);
@@ -83,7 +83,7 @@ class DBCdlRepository extends DBRepository
 
         if( $rows == 0) return false;
 
-        $res->fetchInto($row);
+        $row = $this->fetchRow($res);
         $cdl = new Cdl($row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
                 $row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S', $row[14], $row[15], $row[16], $row[17], $row[18], $row[19]);
 
@@ -108,7 +108,7 @@ class DBCdlRepository extends DBRepository
             $ret = array(); return $ret;
         }
         $elenco = array();
-        while (	$res->fetchInto($row) )
+        while (	$row = $this->fetchRow($res) )
         {
             $cdl = new Cdl($row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
                     $row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S',
@@ -159,7 +159,7 @@ class DBCdlRepository extends DBRepository
         $res = $db->query($query);
         if (DB::isError($res))
         {
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
             return false;
         }
