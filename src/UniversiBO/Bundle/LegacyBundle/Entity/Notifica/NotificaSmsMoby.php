@@ -47,6 +47,7 @@ class NotificaSmsMoby extends NotificaItem
     public static function factoryNotifica($id_notifica)
     {
         $not = NotificaItem::selectNotifica($id_notifica);
+
         return new NotificaSmsMoby($not->getIdNotifica(), $not->getTitolo(), $not->getMessaggio(), $not->getTimestamp(), $not->isUrgente(), $not->isEliminata(), $not->getDestinatario());
     }
 }

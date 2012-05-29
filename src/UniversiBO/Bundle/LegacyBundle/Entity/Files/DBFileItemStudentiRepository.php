@@ -1,8 +1,6 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Entity\Files;
-use UniversiBO\Bundle\LegacyBundle\Entity\DBUserRepository;
 
-use \DB;
 use UniversiBO\Bundle\LegacyBundle\Entity\DBRepository;
 
 /**

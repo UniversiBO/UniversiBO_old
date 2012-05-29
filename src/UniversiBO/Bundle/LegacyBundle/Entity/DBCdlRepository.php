@@ -3,7 +3,6 @@
 namespace UniversiBO\Bundle\LegacyBundle\Entity;
 
 use \DB;
-use \Error;
 
 /**
  * Canale repository
