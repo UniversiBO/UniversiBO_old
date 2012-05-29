@@ -44,15 +44,9 @@ class NotificaSmsMoby extends NotificaItem
             return false;
     }
 
-
-    function factoryNotifica($id_notifica)
+    public static function factoryNotifica($id_notifica)
     {
         $not = NotificaItem::selectNotifica($id_notifica);
-        $ret =  new NotificaSmsMoby($not->getIdNotifica(), $not->getTitolo(), $not->getMessaggio(), $not->getTimestamp(), $not->isUrgente(), $not->isEliminata(), $not->getDestinatario());
-
-        return $ret;
-        //$notif=NotificaMail::selectNotifica($id_notifica);
-        //$notifMail=new NotificaMail($notif,$fc);
-        //return $notifMail;
+        return new NotificaSmsMoby($not->getIdNotifica(), $not->getTitolo(), $not->getMessaggio(), $not->getTimestamp(), $not->isUrgente(), $not->isEliminata(), $not->getDestinatario());
     }
 }

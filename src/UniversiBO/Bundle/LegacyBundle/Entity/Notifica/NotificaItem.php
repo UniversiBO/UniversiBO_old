@@ -287,11 +287,10 @@ class NotificaItem {
     /**
      * Recupera una notifica dal database
      *
-     * @static
      * @param int $id_notifica id della news
      * @return NewsItem
      */
-    function  selectNotifica($id_notifica) {
+    public static function  selectNotifica($id_notifica) {
         $id_notizie = array ($id_notifica);
         $notifica = & NotificaItem::selectNotifiche($id_notizie);
         if ($notifica === false)
@@ -303,11 +302,10 @@ class NotificaItem {
     /**
      * Recupera un elenco di notizie dal database
      *
-     * @static
      * @param array $id_notifiche array elenco di id della news
      * @return array NotificaItems
      */
-    function  selectNotifiche($id_notifiche) {
+    public static function selectNotifiche($id_notifiche) {
         //var_dump($id_notifiche);
         $db = FrontController::getDbConnection('main');
 
@@ -350,10 +348,9 @@ class NotificaItem {
     /**
      * Recupera un l'elenco di notizie da spedire dal database
      *
-     * @static
      * @return array di oggetti che implemetano l'interfaccia NotificaItem
      */
-    function selectNotificheSend()
+    public static function selectNotificheSend()
     {
         //var_dump($id_notifiche);
         $db = FrontController::getDbConnection('main');
@@ -458,7 +455,7 @@ class NotificaItem {
      *
      * @return NotificaItem costruttore stile factory.
      */
-    function factoryNotifica($id_notifica)	{
+    public static function factoryNotifica($id_notifica)	{
         return NotificaItem::selectNotifica($id_notifica);
     }
 
@@ -467,7 +464,7 @@ class NotificaItem {
      *
      * @return NotificaItem Oggetto sottoclasse di NotificaItem.
      */
-    function retrieveNotifica($id) {
+    public static function retrieveNotifica($id) {
         $not = NotificaItem::selectNotifica($id);
 
         //es: sms://3351359443

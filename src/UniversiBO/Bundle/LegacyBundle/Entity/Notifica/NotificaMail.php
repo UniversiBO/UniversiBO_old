@@ -51,7 +51,7 @@ class NotificaMail extends NotificaItem
         }
     }
 
-    public function factoryNotifica($id_notifica)
+    public static function factoryNotifica($id_notifica)
     {
         $not = NotificaItem::selectNotifica($id_notifica);
         $ret = new NotificaMail($not->getIdNotifica(), $not->getTitolo(), $not->getMessaggio(), $not->getTimestamp(), $not->isUrgente(), $not->isEliminata(), $not->getDestinatario());
