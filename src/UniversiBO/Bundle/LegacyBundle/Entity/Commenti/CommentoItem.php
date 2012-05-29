@@ -1,5 +1,5 @@
 <?php
-namespace UniversiBO\Bundle\LegacyBundle\App\Commenti;
+namespace UniversiBO\Bundle\LegacyBundle\Entity\Commenti;
 
 use \DB;
 use \Error;
