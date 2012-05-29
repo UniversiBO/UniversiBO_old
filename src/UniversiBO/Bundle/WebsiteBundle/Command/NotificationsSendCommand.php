@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
-class NotificationSendCommand extends ContainerAwareCommand
+class NotificationsSendCommand extends ContainerAwareCommand
 {
     private $verbose;
 
