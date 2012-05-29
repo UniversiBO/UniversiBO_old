@@ -4,7 +4,7 @@ use UniversiBO\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
 
 /**
  * Notifier sender chain
- * 
+ *
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
 class SenderChain implements Sender
@@ -48,7 +48,7 @@ class SenderChain implements Sender
                 return $sender->send($notification);
             }
         }
-        
+
         throw new \InvalidArgumentException('Protocol not supported');
     }
 }

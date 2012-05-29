@@ -5,7 +5,7 @@ use UniversiBO\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
 
 /**
  * Base class for senders
- * 
+ *
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
 abstract class AbstractSender implements Sender
@@ -18,6 +18,6 @@ abstract class AbstractSender implements Sender
 
         return $this->doSend($notification);
     }
-    
+
     protected abstract function doSend(NotificaItem $notification);
 }

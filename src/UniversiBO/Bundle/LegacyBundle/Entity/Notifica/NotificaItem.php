@@ -158,7 +158,7 @@ class NotificaItem
      * @param $fc FrontController
      * @return boolean true if sent succesfull else false
      */
-    public function send(FrontController $fc) 
+    public function send(FrontController $fc)
     {
         return false;
     }
@@ -271,7 +271,7 @@ class NotificaItem
      *
      * Imposta l'id della notifica
      *
-     * @param  int $id_notifica id della news
+     * @param int $id_notifica id della news
      */
     function setIdNotifica($id_notifica)
     {
@@ -299,6 +299,7 @@ class NotificaItem
         $id_notizie = array($id_notifica);
         $notifica = &NotificaItem::selectNotifiche($id_notizie);
         if ($notifica === false)
+
             return false;
         return $notifica[0];
     }
@@ -315,6 +316,7 @@ class NotificaItem
         $db = FrontController::getDbConnection('main');
 
         if (count($id_notifiche) == 0)
+
             return array();
 
         //esegue $db->quote() su ogni elemento dell'array
@@ -338,6 +340,7 @@ class NotificaItem
         $rows = $res->numRows();
 
         if ($rows == 0)
+
             return false;
         $notifiche_list = array();
 
@@ -389,7 +392,7 @@ class NotificaItem
     /**
      * Inserisce una notifica sul DB
      *
-     * @param	 array 	$array_id_canali 	elenco dei canali in cui bisogna inserire la notifica. Se non si passa un canale si recupera quello corrente.
+     * @param array $array_id_canali elenco dei canali in cui bisogna inserire la notifica. Se non si passa un canale si recupera quello corrente.
      * @return	 boolean true se avvenua con successo, altrimenti Error object
      */
 
@@ -438,11 +441,12 @@ class NotificaItem
     function updateNotificaItem()
     {
         ignore_user_abort(1);
-        
+
         $return = self::getRepository()->update($this);
-        
+
         ignore_user_abort(0);
-        
+
+
         return $return;
     }
 

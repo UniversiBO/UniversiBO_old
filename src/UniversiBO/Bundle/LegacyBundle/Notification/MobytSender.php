@@ -2,7 +2,7 @@
 namespace UniversiBO\Bundle\LegacyBundle\Notification;
 /**
  * SMS Notification Sender
- * 
+ *
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
 class MobytSender extends AbstractSender
@@ -24,9 +24,9 @@ class MobytSender extends AbstractSender
     private $ttl;
 
     /**
-     * Class constructor 
+     * Class constructor
      * @param \mobytSms $mobyt
-     * @param int $ttl
+     * @param int       $ttl
      */
     public function __construct(\mobytSms $mobyt, $ttl = self::DEFAULT_TTL)
     {
@@ -45,12 +45,12 @@ class MobytSender extends AbstractSender
                 ->sendSms($notification->getIndirizzo(),
                         $notification->getMessaggio());
 
-        
+
         if('OK' !== substr($result, 0, 2)) {
             throw new SenderException('Error: '.$result);
         }
     }
-    
+
     public function supports(NotificaItem $notification)
     {
         return 'sms' === $notification->getProtocollo();

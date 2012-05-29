@@ -72,6 +72,18 @@
 			<argument>/</argument>
 		</service>
 
+		<service id="universibo_legacy.notification.sender.mobyt"
+			public="false" class="UniversiBO\Bundle\LegacyBundle\Notification\MobytSender">
+			<argument type="service" id="universibo_legacy.message.sms" />
+		</service>
+
+		<service id="universibo_legacy.notification.sender"
+			 class="UniversiBO\Bundle\LegacyBundle\Notification\SenderChain">
+			 <call method="register">
+			 	<argument type="service" id="universibo_legacy.notification.sender.mobyt"/>
+			 </call>
+		</service>
+
 		<service id="universibo_legacy.repository.canale"
 			class="UniversiBO\Bundle\LegacyBundle\Entity\DBCanaleRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />

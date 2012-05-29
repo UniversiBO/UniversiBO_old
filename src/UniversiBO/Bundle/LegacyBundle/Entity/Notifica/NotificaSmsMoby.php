@@ -36,9 +36,10 @@ class NotificaSmsMoby extends NotificaItem
     public function send(FrontController $fc)
     {
         $sender = new MobytSender($fc->getSmsMoby());
-        
+
         try {
             $sender->send($this);
+
             return true;
         } catch (SenderException $e) {
             return false;

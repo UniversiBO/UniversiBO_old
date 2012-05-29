@@ -38,9 +38,10 @@ class NotificaMail extends NotificaItem
         //per usare l'SMTPkeepAlive usa il singleton
         $mailer = $fc->getMail(MAIL_KEEPALIVE_ALIVE);
         $sender = new PHPMailerSender($mailer);
-        
+
         try {
             $sender->send($this);
+
             return true;
         } catch (SenderException $e) {
             return false;
