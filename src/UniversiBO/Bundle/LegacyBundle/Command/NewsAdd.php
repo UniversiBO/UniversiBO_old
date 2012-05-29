@@ -41,7 +41,7 @@ class NewsAdd extends CanaleCommand
         if ($canale->getServizioNews() == false)
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
-                            'msg' => "Il servizio news � disattivato",
+                            'msg' => "Il servizio news e` disattivato",
                             'file' => __FILE__, 'line' => __LINE__));
 
         if (!($user->isAdmin() || $referente || $moderatore))
@@ -452,13 +452,14 @@ e modifica il tuo profilo personale nella dopo aver eseguito il login
 Per altri problemi contattare lo staff di UniversiBO
 ' . $frontcontroller->getAppSetting('infoEmail');
 
-                    $notifica_messaggio_sms = 'Novit� in '
+                    $notifica_messaggio_sms = mb_convert_encoding('Novità', 'iso-8859-1', 'utf-8'). ' in '
                             . $add_canale->getNome() . ' - ' . $f7_titolo
                             . ' - ' . $f7_testo;
                     $notifica_messaggio_sms = substr(
                             substr_replace($notifica_messaggio_sms, '..', 158),
                             0, 160);
-
+                    
+                    
                     $ruoli_canale = $add_canale->getRuoli();
                     foreach ($ruoli_canale as $ruolo_canale) {
                         //la seguente riga l'ho copiata dal diff del deploy precedente
