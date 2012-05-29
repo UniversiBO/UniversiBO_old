@@ -214,6 +214,7 @@ class Insegnamento extends Canale
     public function getNome()
     {
         if ($this->isNomeSet())
+
             return parent::getNome();
 
         return $this->insegnamentoNome;
@@ -296,39 +297,41 @@ class Insegnamento extends Canale
      *
     function selectInsegnamentoCodice( ...tutta la chiave... )
     {
-    
+
     $db = FrontController::getDbConnection('main');
-    
+
     $query = 'SELECT ... WHERE a.id_canale = b.id_canale AND b.cod_corso = '.$db->quote($cod_cdl);
-    
+
     $res = $db->query($query);
     if (DB::isError($res))
         Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-    
+
     $rows = $res->numRows();
-    
+
     if( $rows == 0) return false;
-    
+
     $res->fetchInto($row);
     $insegnamento = new Insegnamento(  ... $row[16] ...  );
-    
+
+
     return $insegnamento;
-    
+
     }
      */
-    
-    
+
+
     /**
      * @return DBInsegnamentoRepository
      */
     private static function getRepository()
     {
-    	if (is_null(self::$repository)) {
-    		self::$repository = new DBInsegnamentoRepository(
-    				FrontController::getDbConnection('main'));
-    	}
-    
-    	return self::$repository;
+        if (is_null(self::$repository)) {
+            self::$repository = new DBInsegnamentoRepository(
+                    FrontController::getDbConnection('main'));
+        }
+
+
+        return self::$repository;
     }
 
 }

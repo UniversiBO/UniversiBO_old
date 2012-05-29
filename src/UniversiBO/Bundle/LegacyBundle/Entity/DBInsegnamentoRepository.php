@@ -2,7 +2,6 @@
 
 namespace UniversiBO\Bundle\LegacyBundle\Entity;
 use \DB;
-use \Error;
 
 /**
  * Canale repository
@@ -37,14 +36,16 @@ class DBInsegnamentoRepository extends DBRepository
                                     'msg' => 'Errore generale database: canale insegnamento non unico',
                                     'file' => __FILE__, 'line' => __LINE__));
         }
-        
+
         if ($rows = 0)
+
             return false;
 
         $attRepo = new DBPrgAttivitaDidatticaRepository($db);
-        
+
         $elenco_attivita = $attRepo->findByChannelId($channelId);
-        
+
+
         return new Insegnamento($row[12], $row[5], $row[4], $row[0],
                 $row[2], $row[1], $row[3], $row[7] == 'S', $row[6] == 'S',
                 $row[8] == 'S', $row[9], $row[10], $row[11] == 'S',

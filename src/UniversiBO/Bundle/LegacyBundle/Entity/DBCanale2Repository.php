@@ -33,7 +33,7 @@ class DBCanale2Repository extends DBRepository
      * @param DBCanaleRepository  $channelRepository
      * @param DBCdlRepository     $cdlRepository
      * @param DBFacoltaRepository $facultyRepository
-     * @param boolean        $convert
+     * @param boolean             $convert
      */
     public function __construct(\DB_common $db,
             DBCanaleRepository $channelRepository,
@@ -54,9 +54,10 @@ class DBCanale2Repository extends DBRepository
                 return $this->facultyRepository->findAll();
             case Canale::CDL:
                 return $this->cdlRepository->findAll();
-            case Canale::INSEGNAMENTO:    
+            case Canale::INSEGNAMENTO:
             default:
                 $ids = $this->channelRepository->findManyByType($type);
+
                 return $this->channelRepository->findManyById($ids);
         }
     }

@@ -122,7 +122,7 @@ class PrgAttivitaDidattica extends Canale
      * @private
      */
     var $id_sdop;
-    
+
     /**
      * @var DBPrgAttivitaDidatticaRepository
      */
@@ -802,11 +802,12 @@ class PrgAttivitaDidattica extends Canale
      */
     private static function getRepository()
     {
-    	if (is_null(self::$repository)) {
-    		self::$repository = new DBPrgAttivitaDidatticaRepository(
-    				FrontController::getDbConnection('main'));
-    	}
-    
-    	return self::$repository;
+        if (is_null(self::$repository)) {
+            self::$repository = new DBPrgAttivitaDidatticaRepository(
+                    FrontController::getDbConnection('main'));
+        }
+
+
+        return self::$repository;
     }
 }

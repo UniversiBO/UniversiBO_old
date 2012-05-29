@@ -2,7 +2,6 @@
 
 namespace UniversiBO\Bundle\LegacyBundle\Entity;
 use \DB;
-use \Error;
 
 /**
  * Canale repository
@@ -42,8 +41,10 @@ class DBPrgAttivitaDidatticaRepository extends DBRepository
                                     'file' => __FILE__, 'line' => __LINE__));
         $rows = $db->affectedRows();
         if ($rows >= 1)
+
             return true;
         elseif ($rows == 0)
+
             return false;
         else
             $this
@@ -106,11 +107,12 @@ class DBPrgAttivitaDidatticaRepository extends DBRepository
                             array('msg' => DB::errorMessage($res),
                                     'file' => __FILE__, 'line' => __LINE__));
         }
-        
+
         $rows = $res->numRows();
 
         if ($rows == 0) {
             $ret = array();
+
             return $ret;
         }
         $elenco = array();

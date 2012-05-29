@@ -128,7 +128,7 @@
 			<argument type="service" id="universibo_legacy.db.connection.main" />
 			<argument>true</argument>
 		</service>
-		
+
 		<service id="universibo_legacy.repository.insegnamento"
 			class="UniversiBO\Bundle\LegacyBundle\Entity\DBInsegnamentoRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />
@@ -140,7 +140,7 @@
 			<argument type="service" id="universibo_legacy.db.connection.main" />
 			<argument>true</argument>
 		</service>
-		
+
 		<service id="universibo_legacy.repository.programma"
 			class="UniversiBO\Bundle\LegacyBundle\Entity\DBPrgAttivitaDidatticaRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />
