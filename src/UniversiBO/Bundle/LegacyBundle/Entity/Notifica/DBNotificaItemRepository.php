@@ -7,6 +7,8 @@ namespace UniversiBO\Bundle\LegacyBundle\Entity\Notifica;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
+use UniversiBO\Bundle\LegacyBundle\Entity\DBRepository;
+
 class DBNotificaItemRepository extends DBRepository
 {
     public function update(NotificaItem $notification)
