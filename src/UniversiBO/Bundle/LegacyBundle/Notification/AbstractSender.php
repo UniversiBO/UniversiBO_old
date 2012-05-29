@@ -1,6 +1,8 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Notification;
 
+use UniversiBO\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
+
 /**
  * Base class for senders
  * 
@@ -8,7 +10,7 @@ namespace UniversiBO\Bundle\LegacyBundle\Notification;
  */
 abstract class AbstractSender implements Sender
 {
-    public function send(Notification $notification)
+    public function send(NotificaItem $notification)
     {
         if (!$this->supports($notification)) {
             throw new \InvalidArgumentException('protocol not supported');
@@ -17,5 +19,5 @@ abstract class AbstractSender implements Sender
         return $this->doSend($notification);
     }
     
-    protected abstract function doSend(Notification $notification);
+    protected abstract function doSend(NotificaItem $notification);
 }
