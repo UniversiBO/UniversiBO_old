@@ -41,7 +41,7 @@ class DBInsegnamentoRepository extends DBRepository
 
             return false;
 
-        $attRepo = new DBPrgAttivitaDidatticaRepository($db);
+        $attRepo = new DBPrgAttivitaDidatticaRepository($db, $this->isConvert());
 
         $elenco_attivita = $attRepo->findByChannelId($channelId);
 
