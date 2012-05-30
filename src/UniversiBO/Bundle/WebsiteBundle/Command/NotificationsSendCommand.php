@@ -57,7 +57,7 @@ class NotificationsSendCommand extends ContainerAwareCommand
         foreach ($repo->findToSend() as $notification) {
             try {
                 $sender->send($notification);
-                $notification->setDeleted(true);
+                $notification->setEliminata(true);
                 $repo->update($notification);
                 $msg = 'Successfully sent notification '. $notification->getIdNotifica();
                 $output->writeln($msg);
