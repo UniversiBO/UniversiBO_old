@@ -21,7 +21,6 @@ use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
 class NotificaItem
 {
-
     const ELIMINATA = 'S';
     const NOT_ELIMINATA = 'N';
 
@@ -103,7 +102,7 @@ class NotificaItem
      *
      * @return String
      */
-    function getTitolo()
+    public function getTitolo()
     {
         return $this->titolo;
     }
@@ -113,7 +112,7 @@ class NotificaItem
      *
      * @return String
      */
-    function getTimestamp()
+    public function getTimestamp()
     {
         return $this->timestamp;
     }
@@ -123,7 +122,7 @@ class NotificaItem
      *
      * @return string
      */
-    function getMessaggio()
+    public function getMessaggio()
     {
         return $this->messaggio;
     }
@@ -133,7 +132,7 @@ class NotificaItem
      *
      * @return int
      */
-    function getDataIns()
+    public function getDataIns()
     {
         return $this->timestamp;
     }
@@ -143,7 +142,7 @@ class NotificaItem
      *
      * @return string
      */
-    function getError()
+    public function getError()
     {
         return $this->error;
     }
@@ -153,7 +152,7 @@ class NotificaItem
      *
      * @return boolean
      */
-    function isUrgente()
+    public function isUrgente()
     {
         return $this->urgente;
     }
@@ -163,7 +162,7 @@ class NotificaItem
      *
      * @return int
      */
-    function getIdNotifica()
+    public function getIdNotifica()
     {
         return $this->id_notifica;
     }
@@ -173,7 +172,7 @@ class NotificaItem
      *
      * @return string
      */
-    function getDestinatario()
+    public function getDestinatario()
     {
         return $this->destinatario;
     }
@@ -183,7 +182,7 @@ class NotificaItem
      *
      * @return string
      */
-    function getIndirizzo()
+    public function getIndirizzo()
     {
         $strarr = explode('://', $this->getDestinatario());
 
@@ -195,7 +194,7 @@ class NotificaItem
      *
      * @return string
      */
-    function getProtocollo()
+    public function getProtocollo()
     {
         $strarr = explode('://', $this->getDestinatario());
 
@@ -207,7 +206,7 @@ class NotificaItem
      *
      * @param string $destinatario destinatario della news max 150 caratteri
      */
-    function setDestinatario($destinatario)
+    public function setDestinatario($destinatario)
     {
         $this->destinatario = $destinatario;
     }
@@ -217,7 +216,7 @@ class NotificaItem
      *
      * @return boolean
      */
-    function isEliminata()
+    public function isEliminata()
     {
         return $this->eliminata;
     }
@@ -227,7 +226,7 @@ class NotificaItem
      *
      * @param string $titolo titolo della news max 150 caratteri
      */
-    function setTitolo($titolo)
+    public function setTitolo($titolo)
     {
         $this->titolo = $titolo;
     }
@@ -237,7 +236,7 @@ class NotificaItem
      *
      * @param string $notifica corpo della news
      */
-    function setMessaggio($notifica)
+    public function setMessaggio($notifica)
     {
         $this->messaggio = $messaggio;
     }
@@ -247,7 +246,7 @@ class NotificaItem
      *
      * @param int $dataIns timestamp del giorno di inserimento
      */
-    function setDataIns($dataIns)
+    public function setDataIns($dataIns)
     {
         $this->timestamp = $timestamp;
     }
@@ -257,7 +256,7 @@ class NotificaItem
      *
      * @param boolean $urgente flag notifica urgente o meno
      */
-    function setUrgente($urgente)
+    public function setUrgente($urgente)
     {
         $this->urgente = $urgente;
     }
@@ -268,7 +267,7 @@ class NotificaItem
      *
      * @param int $id_notifica id della news
      */
-    function setIdNotifica($id_notifica)
+    public function setIdNotifica($id_notifica)
     {
         $this->id_notifica = $id_notifica;
     }
@@ -278,7 +277,7 @@ class NotificaItem
      *
      * @param boolean $eliminata flag stato della news
      */
-    function setEliminata($eliminata)
+    public function setEliminata($eliminata)
     {
         $this->eliminata = $eliminata;
     }
