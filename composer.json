@@ -3,7 +3,7 @@
     "description": "UniversiBO Web Portal",
     "require": {
         "universibo/universibo-answers-bundle": "dev-master",
-        "symfony/symfony": "v2.0.14",
+        "symfony/symfony": "v2.0.15",
         "symfony/assetic-bundle": "2.0.x-dev",
         "doctrine/orm": "2.1.x-dev",
         "sensio/generator-bundle": "2.0.x-dev",
@@ -14,7 +14,7 @@
         "friendsofsymfony/comment-bundle": "1.0.0",
         "friendsofsymfony/rest-bundle": "0.6.0",
         "zendframework/zendframework": "2.0.x-dev",
-        "twig/twig": "1.8.1"
+        "twig/twig": "1.8.2"
     },
     "authors": [
         {
