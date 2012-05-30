@@ -1,7 +1,6 @@
 <?php
 namespace UniversiBO\Bundle\WebsiteBundle\Command;
 
-
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 use Symfony\Component\Console\Input\InputInterface;
@@ -53,19 +52,26 @@ class NotificationsSendCommand extends ContainerAwareCommand
                 ->get('universibo_legacy.repository.notifica.notifica_item');
         $sender = $this->get('universibo_legacy.notification.sender');
         $logger = $this->get('logger');
-        
-        foreach ($repo->findToSend() as $notification) {
-            try {
-                $sender->send($notification);
-                $notification->setEliminata(true);
-                $repo->update($notification);
-                $msg = 'Successfully sent notification '. $notification->getIdNotifica();
-                $output->writeln($msg);
-                $logger->info($msg);
-            } catch (\Exception $e) {
-                $err = 'Exception sending notification '. $notification->getIdNotifica().': ' . $e->getMessage();
-                $output->writeln($err);
-                $logger->err($err);
+
+        $notifications = $repo->findToSend();
+
+        if (is_array($notifications)) {
+            foreach ($notifications as $notification) {
+                try {
+                    $sender->send($notification);
+                    $notification->setEliminata(true);
+                    $repo->update($notification);
+                    $msg = 'Successfully sent notification '
+                            . $notification->getIdNotifica();
+                    $output->writeln($msg);
+                    $logger->info($msg);
+                } catch (\Exception $e) {
+                    $err = 'Exception sending notification '
+                            . $notification->getIdNotifica() . ': '
+                            . $e->getMessage();
+                    $output->writeln($err);
+                    $logger->err($err);
+                }
             }
         }
 

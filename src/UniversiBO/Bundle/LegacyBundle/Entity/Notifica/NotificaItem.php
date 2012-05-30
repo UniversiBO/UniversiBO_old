@@ -68,6 +68,8 @@ class NotificaItem
      */
     var $error = '';
 
+    private static $repository;
+
     /**
      * Crea un oggetto NotificaItem con i parametri passati
      *

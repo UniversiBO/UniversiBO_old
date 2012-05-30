@@ -44,9 +44,8 @@ class MobytSender extends AbstractSender
             return true;
         }
 
-        $result = $this->mobyt
-                ->sendSms($notification->getIndirizzo(),
-                        $notification->getMessaggio());
+        $message = mb_convert_encoding($notification->getMessaggio(), 'iso-8859-1', 'utf-8');
+        $result = $this->mobyt->sendSms($notification->getIndirizzo(), $message);
 
 
         if('OK' !== substr($result, 0, 2)) {
