@@ -1,6 +1,5 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Entity\Commenti;
-
 use \DB;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
@@ -27,31 +26,37 @@ class CommentoItem
 {
     const ELIMINATO = 'S';
     const NOT_ELIMINATO = 'N';
-    /**
-     * @private
-     */
-    var $id_commento = 0;
-    /**
-     * @private
-     */
-    var $id_file_studente = 0;
-    /**
-     * @private
-     */
-    var $id_utente = 0;
-    /**
-     * @private
-     */
-    var $commento = '';
-    /**
-     * @private
-     */
-    var $voto = -1;
 
     /**
-     * @private
+     * @var int
      */
-    var $eliminato = self::NOT_ELIMINATO;
+    private $id_commento = 0;
+    /**
+     * @var int
+     */
+    private $id_file_studente = 0;
+    /**
+     * @var int
+     */
+    private $id_utente = 0;
+    /**
+     * @var string
+     */
+    private $commento = '';
+    /**
+     * @var int
+     */
+    private $voto = -1;
+
+    /**
+     * @var string
+     */
+    private $eliminato = self::NOT_ELIMINATO;
+
+    /**
+     * @var DBCommentoItemRepository
+     */
+    private static $repository;
 
     /**
      * Crea un oggetto CommentoItem
@@ -61,7 +66,8 @@ class CommentoItem
      * @param $voto proposto per un file studente
      */
 
-    public function __construct($id_commento,$id_file_studente,$id_utente,$commento,$voto,$eliminato)
+    public function __construct($id_commento, $id_file_studente, $id_utente,
+            $commento, $voto, $eliminato)
     {
         $this->id_commento = $id_commento;
         $this->id_file_studente = $id_file_studente;
@@ -71,284 +77,237 @@ class CommentoItem
         $this->eliminato = $eliminato;
     }
 
-    function getIdCommento()
+    public function getIdCommento()
     {
         return $this->id_commento;
     }
 
-    function isEliminato()
+    public function isEliminato()
     {
-        $flag = false;
-        if($this->eliminato == FILE_ELIMINATO) $flag=true;
-
-        return $flag;
+        return $this->eliminato === self::ELIMINATO;
     }
 
     /**
      * Restituisce l'id_file_studente del commento
      */
 
-     function getIdFileStudente()
-     {
-         return $this->id_file_studente;
-     }
+    function getIdFileStudente()
+    {
+        return $this->id_file_studente;
+    }
 
-     /**
+    /**
      * Setta l'id_file_studente del commento
      */
 
-     function setIdFileStudente($id_file_studente)
-     {
-         $this->id_file_studente = $id_file_studente;
-     }
+    function setIdFileStudente($id_file_studente)
+    {
+        $this->id_file_studente = $id_file_studente;
+    }
 
-     /**
+    /**
      * Restituisce l'id_utente che ha scritto il commento
      */
 
-     function getIdUtente()
-     {
-         return $this->id_utente;
-     }
+    function getIdUtente()
+    {
+        return $this->id_utente;
+    }
 
-     /**
+    /**
      * Setta l'id_utente che ha scritto il commento
      */
 
-     function setIdUtente($id_utente)
-     {
-         $this->id_utente = $id_utente;
-     }
+    function setIdUtente($id_utente)
+    {
+        $this->id_utente = $id_utente;
+    }
 
-     /**
+    /**
      * Restituisce il commento al File Studente
      */
 
-     function getCommento()
-     {
-         return $this->commento;
-     }
+    function getCommento()
+    {
+        return $this->commento;
+    }
 
-     /**
+    /**
      * Setta il commento al File Studente
      */
 
-     function setCommento($commento)
-     {
-         $this->commento = $commento;
-     }
+    function setCommento($commento)
+    {
+        $this->commento = $commento;
+    }
 
-     /**
+    /**
      * Restituisce il voto associato al file studente
      */
 
-     function getVoto()
-     {
-         return $this->voto;
-     }
+    public function getVoto()
+    {
+        return $this->voto;
+    }
 
-     /**
+    /**
      * Setta il voto associato al File Studente
      */
 
-     function setVoto($voto)
-     {
-         $this->voto = $voto;
-     }
+    public function setVoto($voto)
+    {
+        $this->voto = $voto;
+    }
 
-     /**
-      *
-      */
+    /**
+     * @deprecated
+     */
+    public static function selectCommentiItem($id_file)
+    {
+        return self::getRepository()->findByFileId($id_file);
+    }
 
-     function  selectCommentiItem($id_file)
-     {
-         $db = FrontController::getDbConnection('main');
+    /**
+     * @deprecated
+     */
+    public static function selectCommentoItem($id_commento)
+    {
+        return self::getRepository()->find($id_commento);
+    }
 
-        $query = 'SELECT id_commento,id_utente,commento,voto FROM file_studente_commenti WHERE id_file='.$db->quote($id_file).' AND eliminato = '.$db->quote(self::NOT_ELIMINATO).' ORDER BY voto DESC';
-        $res = $db->query($query);
-
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        $commenti_list = array();
-
-        while ( $res->fetchInto($row) )
-        {
-            $commenti_list[]= new CommentoItem($row[0],$id_file,$row[1],$row[2],$row[3],self::NOT_ELIMINATO);
-        }
-
-        $res->free();
-
-
-        return $commenti_list;
-     }
-
-     /**
-      *
-      */
-
-     function  selectCommentoItem($id_commento)
-     {
-         $db = FrontController::getDbConnection('main');
-
-        $query = 'SELECT id_file,id_utente,commento,voto FROM file_studente_commenti WHERE id_commento='.$db->quote($id_commento).' AND eliminato = '.$db->quote(self::NOT_ELIMINATO);
-        $res = $db->query($query);
-
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-
-        if($res->fetchInto($row) )
-        {
-            $commenti= new CommentoItem($id_commento,$row[0],$row[1],$row[2],$row[3],self::NOT_ELIMINATO);
-        }
-        else return false;
-
-        $res->free();
-
-
-        return $commenti;
-     }
-
-     /**
+    /**
      * Conta il numero dei commenti presenti per il file
      *
-     * @static
+     * @deprecated
      * @param int $id_file identificativo su database del file studente
      * @return numero dei commenti
      */
-    function  quantiCommenti($id_file)
+    public static function quantiCommenti($id_file)
     {
-
-         $db = FrontController::getDbConnection('main');
-
-        $query = 'SELECT count(*) FROM file_studente_commenti WHERE id_file = '.$db->quote($id_file).' AND eliminato = '.$db->quote(self::NOT_ELIMINATO).' GROUP BY id_file';
-        $res = $db->query($query);
-
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        $res->fetchInto($row);
-        $res->free();
-
-
-        return $row[0];
-
+        return self::getRepository()->countByFile($id_file);
     }
 
     /**
      * Restituisce il nick dello user
      *
+     * @deprecated
      * @return il nickname
      */
 
-     function getUsername()
-     {
+    public function getUsername()
+    {
         return User::getUsernameFromId($this->id_utente);
-
-//	 	$db = FrontController::getDbConnection('main');
-//
-//		$query = 'SELECT username FROM utente WHERE id_utente= '.$db->quote($this->id_utente);
-//		$res = $db->query($query);
-//		if (DB::isError($res))
-//			Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-//		$rows = $res->numRows();
-//		if( $rows == 0)
-//			 Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non esiste un utente con questo id_user','file'=>__FILE__,'line'=>__LINE__));
-//		$res->fetchInto($row);
-//		$res->free();
-//		return $row[0];
-
-     }
+    }
 
     /**
      * Aggiunge un Commento sul DB
      */
-
-     function  insertCommentoItem($id_file_studente,$id_utente,$commento,$voto)
-     {
-         $db = FrontController::getDbConnection('main');
+    public static function insertCommentoItem($id_file_studente, $id_utente, $commento, $voto)
+    {
         ignore_user_abort(1);
+        
+        $db = FrontController::getDbConnection('main');
+        
         $next_id = $db->nextID('file_studente_commenti_id_commento');
-        $this->id_commento=$next_id;
+        $this->id_commento = $next_id;
         $return = true;
-        $query = 'INSERT INTO file_studente_commenti (id_commento,id_file,id_utente,commento,voto,eliminato) VALUES ('.$next_id.','.$db->quote($id_file_studente).','.$db->quote($id_utente).','.$db->quote($commento).','.$db->quote($voto).','.$db->quote(self::NOT_ELIMINATO).')';
+        $query = 'INSERT INTO file_studente_commenti (id_commento,id_file,id_utente,commento,voto,eliminato) VALUES ('
+                . $next_id . ',' . $db->quote($id_file_studente) . ','
+                . $db->quote($id_utente) . ',' . $db->quote($commento) . ','
+                . $db->quote($voto) . ',' . $db->quote(self::NOT_ELIMINATO)
+                . ')';
         $res = $db->query($query);
-        if (DB :: isError($res))
-            {
-                $db->rollback();
-                Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-                $return = false;
-            }
-        ignore_user_abort(0);
+        if (DB::isError($res)) {
+            $db->rollback();
+            Error::throwError(_ERROR_DEFAULT,
+                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
+                            'line' => __LINE__));
+            $return = false;
+        }
 
         return $return;
-     }
+    }
 
-     /**
+    /**
      * Modifica un Commento sul DB
      */
 
-     function  updateCommentoItem($id_commento,$commento,$voto)
-     {
-         $db = FrontController::getDbConnection('main');
+    public static function updateCommentoItem($id_commento, $commento, $voto)
+    {
+        $db = FrontController::getDbConnection('main');
         ignore_user_abort(1);
         $return = true;
-        $query = 'UPDATE file_studente_commenti SET commento='.$db->quote($commento).', voto= '.$db->quote($voto).' WHERE id_commento='.$db->quote($id_commento);
+        $query = 'UPDATE file_studente_commenti SET commento='
+                . $db->quote($commento) . ', voto= ' . $db->quote($voto)
+                . ' WHERE id_commento=' . $db->quote($id_commento);
         $res = $db->query($query);
-        if (DB :: isError($res))
-            {
-                $db->rollback();
-                Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-                $return = false;
-            }
+        if (DB::isError($res)) {
+            $db->rollback();
+            Error::throwError(_ERROR_DEFAULT,
+                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
+                            'line' => __LINE__));
+            $return = false;
+        }
         ignore_user_abort(0);
 
         return $return;
-     }
+    }
 
-     /**
-      * Cancella un commento sul DB
-      */
+    /**
+     * Cancella un commento sul DB
+     */
 
-      function  deleteCommentoItem($id_commento)
-      {
-              $db = FrontController::getDbConnection('main');
+    public static function deleteCommentoItem($id_commento)
+    {
+        $db = FrontController::getDbConnection('main');
         ignore_user_abort(1);
-        $return = true;
-        $query = 'UPDATE file_studente_commenti SET eliminato = '.$db->quote(self::ELIMINATO).'WHERE id_commento='.$db->quote($id_commento);
-        $res = $db->query($query);
-        if (DB :: isError($res))
-            {
-                $db->rollback();
-                Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-                $return = false;
-            }
+        
+        $return = self::getRepository()->deleteById($id_commento);
+        
         ignore_user_abort(0);
 
         return $return;
-      }
-      /**
+    }
+    /**
      * Questa funzione verifica se esiste già un commento inserito dall'utente
-     *
+     * 
+     * @deprecated
      * @param $id_file, $id_utente id del file e dell'utente
      * @return un valore booleano
      */
-    function  esisteCommento($id_file,$id_utente)
+    public static function esisteCommento($id_file, $id_utente)
     {
         $flag = false;
 
-        $db = FrontController :: getDbConnection('main');
+        $db = FrontController::getDbConnection('main');
 
-        $query = 'SELECT id_commento FROM file_studente_commenti WHERE id_file ='.$db->quote($id_file).' AND id_utente = '.$db->quote($id_utente).' AND eliminato = '.$db->quote(self::NOT_ELIMINATO).'GROUP BY id_file,id_utente,id_commento';
+        $query = 'SELECT id_commento FROM file_studente_commenti WHERE id_file ='
+                . $db->quote($id_file) . ' AND id_utente = '
+                . $db->quote($id_utente) . ' AND eliminato = '
+                . $db->quote(self::NOT_ELIMINATO)
+                . 'GROUP BY id_file,id_utente,id_commento';
         $res = $db->query($query);
 
-        if (DB :: isError($res))
-            Error :: throwError(_ERROR_DEFAULT, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
+        if (DB::isError($res))
+            Error::throwError(_ERROR_DEFAULT,
+                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
+                            'line' => __LINE__));
         $res->fetchInto($ris);
 
-
         return $ris[0];
+    }
+
+    /**
+     * @return DBCommentoItemRepository
+     */
+    private static function getRepository()
+    {
+        if (is_null(self::$repository)) {
+            self::$repository = new DBCommentoItemRepository(
+                    FrontController::getDbConnection('main'));
+        }
+
+        return self::$repository;
     }
 }
 
