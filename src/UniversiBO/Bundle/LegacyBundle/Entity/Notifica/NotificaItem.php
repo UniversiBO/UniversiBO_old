@@ -236,7 +236,7 @@ class NotificaItem
      *
      * @param string $notifica corpo della news
      */
-    public function setMessaggio($notifica)
+    public function setMessaggio($messaggio)
     {
         $this->messaggio = $messaggio;
     }
@@ -246,7 +246,7 @@ class NotificaItem
      *
      * @param int $dataIns timestamp del giorno di inserimento
      */
-    public function setDataIns($dataIns)
+    public function setDataIns($timestamp)
     {
         $this->timestamp = $timestamp;
     }
