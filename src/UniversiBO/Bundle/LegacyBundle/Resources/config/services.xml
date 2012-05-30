@@ -86,6 +86,8 @@
 			 class="UniversiBO\Bundle\LegacyBundle\Notification\SenderChain">
 			 <call method="register">
 			 	<argument type="service" id="universibo_legacy.notification.sender.swift"/>
+			 </call>
+			 <call method="register">
 			 	<argument type="service" id="universibo_legacy.notification.sender.mobyt"/>
 			 </call>
 		</service>

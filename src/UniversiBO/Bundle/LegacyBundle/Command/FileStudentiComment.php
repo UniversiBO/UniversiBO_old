@@ -187,8 +187,8 @@ class FileStudentiComment extends UniversiboCommand
 
                 $canali = $file->getIdCanali();
                 $template
-                        ->assign('FileStudentiComment_ris',
-                                'Il tuo commento � stato inserito con successo.');
+                        ->assignUnicode('FileStudentiComment_ris',
+                                'Il tuo commento è stato inserito con successo.');
                 $template
                         ->assign('common_canaleURI',
                                 'v2.php?do=FileShowInfo&id_file=' . $id_file

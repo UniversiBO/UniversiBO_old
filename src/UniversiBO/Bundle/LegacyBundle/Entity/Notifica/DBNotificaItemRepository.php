@@ -32,7 +32,7 @@ class DBNotificaItemRepository extends DBRepository
         //array_walk($id_notifiche, array($db, 'quote'));
 
         if (count($ids) == 1)
-            $values = $id_notifiche[0];
+            $values = $ids[0];
         else
             $values = implode(',', $ids);
         //function NotificaItem($id_notifica, $titolo, $messaggio, $dataIns, $urgente, $eliminata, $destinatario)

@@ -1,5 +1,7 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command;
+use UniversiBO\Bundle\LegacyBundle\Entity\News\NewsItem;
+
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
 use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
@@ -59,8 +61,8 @@ class NewsDelete extends CanaleCommand
             $referente = $ruolo->isReferente();
             $moderatore = $ruolo->isModeratore();
         }
-
-        $news = newsItem::selectNewsItem($_GET['id_news']);
+        
+        $news = NewsItem::selectNewsItem($_GET['id_news']);
         if ($news === false)
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),

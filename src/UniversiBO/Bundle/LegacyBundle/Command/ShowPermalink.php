@@ -23,6 +23,11 @@ class ShowPermalink extends UniversiboCommand
 
         $news = NewsItem::selectNewsItem($id_notizia);
 
+        Error::throwError(_ERROR_DEFAULT,
+                array('id_notizia' => $id_notizia,
+                        'msg' => 'ID news non trovato', 'file' => __FILE__,
+                        'line' => __LINE__));
+
         $template = $this->getFrontController()->getTemplateEngine();
         $template->assign('news', $this->_newsToArray($news));
     }
