@@ -52,14 +52,20 @@ class NotificationsSendCommand extends ContainerAwareCommand
         $repo = $this
                 ->get('universibo_legacy.repository.notifica.notifica_item');
         $sender = $this->get('universibo_legacy.notification.sender');
-
+        $logger = $this->get('logger');
+        
         foreach ($repo->findToSend() as $notification) {
             try {
                 $sender->send($notification);
                 $notification->setDeleted(true);
                 $repo->update($notification);
+                $msg = 'Successfully sent notification '. $notification->getIdNotifica();
+                $output->writeln($msg);
+                $logger->info($msg);
             } catch (\Exception $e) {
-                $output->writeln('Exception: '.$e->getMessage());
+                $err = 'Exception sending notification '. $notification->getIdNotifica().': ' . $e->getMessage();
+                $output->writeln($err);
+                $logger->err($err);
             }
         }
 
