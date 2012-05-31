@@ -8,7 +8,7 @@ use UniversiBO\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
  *
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
-interface Sender
+interface SenderInterface
 {
     /**
      * Sends a notification

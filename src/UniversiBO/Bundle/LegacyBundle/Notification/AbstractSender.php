@@ -8,7 +8,7 @@ use UniversiBO\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
  *
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
-abstract class AbstractSender implements Sender
+abstract class AbstractSender implements SenderInterface
 {
     public function send(NotificaItem $notification)
     {

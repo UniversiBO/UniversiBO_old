@@ -7,7 +7,7 @@ use UniversiBO\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
  *
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
-class SenderChain implements Sender
+class SenderChain implements SenderInterface
 {
     /**
      * @var Sender[]
