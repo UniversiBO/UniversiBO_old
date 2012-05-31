@@ -55,7 +55,7 @@ class DBCommentoItemRepository extends DBRepository
         $commenti_list = array();
 
         while ($res->fetchInto($row)) {
-            $commenti_list[] = new CommentoItem($row[0], $id_file, $row[1],
+            $commenti_list[] = new CommentoItem($row[0], $fileId, $row[1],
                     $row[2], $row[3], CommentoItem::NOT_ELIMINATO);
         }
 
