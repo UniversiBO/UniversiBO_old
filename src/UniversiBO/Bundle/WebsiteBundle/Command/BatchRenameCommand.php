@@ -39,8 +39,8 @@ class BatchRenameCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
+     * @param  InputInterface  $input
+     * @param  OutputInterface $output
      * @throws \LogicException
      */
     protected function execute(InputInterface $input, OutputInterface $output)

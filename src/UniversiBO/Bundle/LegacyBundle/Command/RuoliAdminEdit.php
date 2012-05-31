@@ -17,10 +17,10 @@ use UniversiBO\Bundle\LegacyBundle\Entity\User;
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
-class RuoliAdminEdit extends UniversiboCommand {
-
-
-    function execute() {
+class RuoliAdminEdit extends UniversiboCommand
+{
+    public function execute()
+    {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 
@@ -31,7 +31,6 @@ class RuoliAdminEdit extends UniversiboCommand {
         $user_ruoli = $user->getRuoli();
         $ruoli = array();
         $arrayPublicUsers = array();
-
 
         if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
             Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non e` valido', 'file' => __FILE__, 'line' => __LINE__));
@@ -49,8 +48,7 @@ class RuoliAdminEdit extends UniversiboCommand {
         $template->assign('common_canaleURI', $canale->showMe());
         $template->assign('common_langCanaleNome', 'a '.$canale->getTitolo());
 
-        if (array_key_exists($id_canale, $user_ruoli))
-        {
+        if (array_key_exists($id_canale, $user_ruoli)) {
             $ruolo = & $user_ruoli[$id_canale];
             $referente = $ruolo->isReferente();
         }
@@ -67,12 +65,10 @@ class RuoliAdminEdit extends UniversiboCommand {
         else
             $target_ruolo = $target_ruoli[$id_canale];
 
-
         $success = false;
         $f17_accept = false;
         //postback
-        if (array_key_exists('f17_submit', $_POST)  )
-        {
+        if (array_key_exists('f17_submit', $_POST)  ) {
 
             if (!array_key_exists('f17_livello', $_POST) )
                 Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il form inviato non � valido', 'file' => __FILE__, 'line' => __LINE__));
@@ -80,16 +76,13 @@ class RuoliAdminEdit extends UniversiboCommand {
             if ($_POST['f17_livello'] != 'none' && $_POST['f17_livello'] != 'M' && $_POST['f17_livello'] != 'R' )
                 Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il form inviato non � valido', 'file' => __FILE__, 'line' => __LINE__));
 
-            if ($target_ruolo == null)
-            {
+            if ($target_ruolo == null) {
                 $nascosto = false;
                 $ruolo = new Ruolo($target_user->getIdUser(), $id_canale, '' , time(), $_POST['f17_livello'] == 'M', $_POST['f17_livello'] == 'R', true, NOTIFICA_ALL, $nascosto);
                 $ruolo->insertRuolo();
 
                 $success = true;
-            }
-            else
-            {
+            } else {
                 $target_ruolo->updateSetModeratore($_POST['f17_livello'] == 'M');
                 $target_ruolo->updateSetReferente($_POST['f17_livello'] == 'R');
                 $target_ruolo->setMyUniversiBO(true);
@@ -99,7 +92,6 @@ class RuoliAdminEdit extends UniversiboCommand {
             }
 
         }
-
 
         if ($target_ruolo == null)
             $tpl_livello = 'none';
@@ -117,7 +109,6 @@ class RuoliAdminEdit extends UniversiboCommand {
             $template->assign('ruoliAdminEdit_langSuccess', 'Modifica eseguita con successo');
 
         $this->executePlugin('ShowTopic', array('reference' => 'filescollabs'));
-
 
         return 'default';
     }

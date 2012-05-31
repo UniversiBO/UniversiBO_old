@@ -15,7 +15,6 @@ class LoginTest extends UniversiBOSeleniumTestCase
         $this->logout();
     }
 
-
     public function testLoginDocente()
     {
         $this->login('edenti');

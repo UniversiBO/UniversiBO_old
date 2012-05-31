@@ -17,7 +17,7 @@ use UniversiBO\Bundle\LegacyBundle\Entity\Collaboratore;
 class CollaboratoreProfiloAdd extends UniversiboCommand
 {
 
-    function execute()
+    public function execute()
     {
 
         $user = $this->getSessionUser();

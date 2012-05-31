@@ -20,7 +20,7 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 class ShowContattiDocenti extends UniversiboCommand
 {
 
-    function execute()
+    public function execute()
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
@@ -61,7 +61,7 @@ class ShowContattiDocenti extends UniversiboCommand
         return 'default';
     }
 
-    function _compareDocenti($a, $b)
+    public function _compareDocenti($a, $b)
     {
         if (strnatcmp($a['nome'], $b['nome']) > 0)
 

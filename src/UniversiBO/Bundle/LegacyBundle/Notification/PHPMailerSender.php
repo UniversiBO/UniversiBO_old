@@ -35,7 +35,7 @@ class PHPMailerSender extends AbstractSender
         $mailer->Subject = str_replace( "\n"," - ",  '[UniversiBO] '.$notification->getTitolo());
         $mailer->Body = $notification->getMessaggio();
 
-        if(!$mailer->Send()) {
+        if (!$mailer->Send()) {
             throw new SenderException($mailer->ErrorInfo);
         }
     }

@@ -32,82 +32,82 @@ class FileItem
     /**
      * @private
      */
-    var $id_file = 0;
+    public $id_file = 0;
 
     /**
      * @private
      */
-    var $permessi_download = 0;
+    public $permessi_download = 0;
 
     /**
      * @private
      */
-    var $permessi_visualizza = 0;
+    public $permessi_visualizza = 0;
 
     /**
      * @private
      */
-    var $id_utente = 0;
+    public $id_utente = 0;
 
     /**
      * @private
      */
-    var $titolo = '';
+    public $titolo = '';
 
     /**
      * @private
      */
-    var $descrizione = '';
+    public $descrizione = '';
 
     /**
      * @private
      */
-    var $data_inserimento = 0;
+    public $data_inserimento = 0;
 
     /**
      * @private
      */
-    var $data_modifica = 0;
+    public $data_modifica = 0;
 
     /**
      * @private
      */
-    var $dimensione = 0;
+    public $dimensione = 0;
 
     /**
      * @private
      */
-    var $download = 0;
+    public $download = 0;
 
     /**
      * @private
      */
-    var $nome_file = '';
+    public $nome_file = '';
 
     /**
      * @private
      */
-    var $id_categoria = 0;
+    public $id_categoria = 0;
 
     /**
      * @private
      */
-    var $id_tipo_file = 0;
+    public $id_tipo_file = 0;
 
     /**
      * @private
      */
-    var $hash_file = '';
+    public $hash_file = '';
 
     /**
      * @private
      */
-    var $password = '';
+    public $password = '';
 
     /**
      * @private
      */
-    var $username = '';
+    public $username = '';
 
     /**
      * @private
@@ -117,39 +117,39 @@ class FileItem
     /**
      * @private
      */
-    var $categoria_desc = '';
+    public $categoria_desc = '';
 
     /**
      * @private
      */
-    var $tipo_desc = '';
+    public $tipo_desc = '';
 
     /**
      * @private
      */
-    var $tipo_icona = '';
+    public $tipo_icona = '';
 
     /**
      * @private
      */
-    var $tipo_info = '';
+    public $tipo_info = '';
 
     ///////////////////////////////////////////
 
     /**
      * @private
      */
-    var $elencoIdCanali = NULL;
+    public $elencoIdCanali = NULL;
 
     /**
      * @private
      */
-    var $elencoCanali = NULL;
+    public $elencoCanali = NULL;
 
     /**
      * @private
      */
-    var $paroleChiave = NULL;
+    public $paroleChiave = NULL;
 
     /**
      * @var DBFileItemRepository
@@ -160,12 +160,12 @@ class FileItem
      * Crea un oggetto FileItem con i parametri passati
      *
      *
-     * @param int     $id_file           id del file
-     * @param string  $titolo            titolo del file
-     * @param string  $descrizione       descrizione completa del file
-     * @param int     $dimensione        dimensione in kb del file
-     * @param int     $permessi_download categoria utenti ai quali ? permesso il download
-     * @param boolean $eliminato         flag stato del file
+     * @param  int      $id_file           id del file
+     * @param  string   $titolo            titolo del file
+     * @param  string   $descrizione       descrizione completa del file
+     * @param  int      $dimensione        dimensione in kb del file
+     * @param  int      $permessi_download categoria utenti ai quali ? permesso il download
+     * @param  boolean  $eliminato         flag stato del file
      * @return FileItem
      */
 
@@ -208,7 +208,7 @@ class FileItem
      * @return string
      */
 
-    function getTitolo()
+    public function getTitolo()
     {
         return $this->titolo;
     }
@@ -219,7 +219,7 @@ class FileItem
      * @return string
      */
 
-    function getDescrizione()
+    public function getDescrizione()
     {
         return $this->descrizione;
     }
@@ -230,7 +230,7 @@ class FileItem
      * @return int
      */
 
-    function getDimensione()
+    public function getDimensione()
     {
         return $this->dimensione;
     }
@@ -240,7 +240,7 @@ class FileItem
      *
      * @return int
      */
-    function getPermessiDownload()
+    public function getPermessiDownload()
     {
         return $this->permessi_download;
     }
@@ -250,7 +250,7 @@ class FileItem
      *
      * @return int
      */
-    function getPermessiVisualizza()
+    public function getPermessiVisualizza()
     {
         return $this->permessi_visualizza;
     }
@@ -261,7 +261,7 @@ class FileItem
      * @return int
      */
 
-    function getDataInserimento()
+    public function getDataInserimento()
     {
         return $this->data_inserimento;
     }
@@ -272,7 +272,7 @@ class FileItem
      * @return int
      */
 
-    function getDataModifica()
+    public function getDataModifica()
     {
         return $this->data_modifica;
     }
@@ -293,7 +293,7 @@ class FileItem
      * @return string
      */
 
-    function getTipoInfo()
+    public function getTipoInfo()
     {
         return $this->tipo_info;
     }
@@ -304,7 +304,7 @@ class FileItem
      * @return string
      */
 
-    function getTipoIcona()
+    public function getTipoIcona()
     {
         return $this->tipo_icona;
     }
@@ -315,7 +315,7 @@ class FileItem
      * @return string
      */
 
-    function getTipoDesc()
+    public function getTipoDesc()
     {
         return $this->tipo_desc;
     }
@@ -326,7 +326,7 @@ class FileItem
      * @return string
      */
 
-    function getCategoriaDesc()
+    public function getCategoriaDesc()
     {
         return $this->categoria_desc;
     }
@@ -337,7 +337,7 @@ class FileItem
      * @return string
      */
 
-    function getUsername()
+    public function getUsername()
     {
         return $this->username;
     }
@@ -348,7 +348,7 @@ class FileItem
      * @return string
      */
 
-    function getPassword()
+    public function getPassword()
     {
         return $this->password;
     }
@@ -359,7 +359,7 @@ class FileItem
      * @return string
      */
 
-    function getHashFile()
+    public function getHashFile()
     {
         return $this->hash_file;
     }
@@ -370,7 +370,7 @@ class FileItem
      * @return string
      */
 
-    function getIdTipoFile()
+    public function getIdTipoFile()
     {
         return $this->id_tipo_file;
     }
@@ -380,7 +380,7 @@ class FileItem
      *
      * @return string
      */
-    function getIdCategoria()
+    public function getIdCategoria()
     {
         return $this->id_categoria;
     }
@@ -390,7 +390,7 @@ class FileItem
      *
      * @return string
      */
-    function getNomeFile()
+    public function getNomeFile()
     {
         return $this->getIdFile() . '_' . $this->nome_file;
     }
@@ -401,7 +401,7 @@ class FileItem
      * @param string
      * @return string
      */
-    function normalizzaNomeFile($string)
+    public function normalizzaNomeFile($string)
     {
         return preg_replace('/([^a-zA-Z0-9_\.])/', '_', $string);
     }
@@ -412,7 +412,7 @@ class FileItem
      * @return string
      */
 
-    function getRawNomeFile()
+    public function getRawNomeFile()
     {
         return $this->nome_file;
     }
@@ -423,7 +423,7 @@ class FileItem
      * @return string
      */
 
-    function getDownLoad()
+    public function getDownLoad()
     {
         return $this->download;
     }
@@ -433,7 +433,7 @@ class FileItem
      *
      * @return int
      */
-    function getIdFile()
+    public function getIdFile()
     {
         return $this->id_file;
     }
@@ -443,7 +443,7 @@ class FileItem
      *
      * @return array di string
      */
-    function getParoleChiave()
+    public function getParoleChiave()
     {
         if ($this->paroleChiave == NULL)
             $this->paroleChiave = FileKeyWords::selectFileKeyWords(
@@ -457,7 +457,7 @@ class FileItem
      *
      * @param array di string
      */
-    function setParoleChiave($paroleChiave)
+    public function setParoleChiave($paroleChiave)
     {
         FileKeyWords::updateFileKeyWords($this->getIdFile(), $paroleChiave);
         $this->paroleChiave = $paroleChiave;
@@ -470,7 +470,7 @@ class FileItem
      *
      * @param int
      */
-    function setIdFile($id_file)
+    public function setIdFile($id_file)
     {
         $this->id_file = $id_file;
     }
@@ -480,7 +480,7 @@ class FileItem
      *
      * @return int
      */
-    function getIdUtente()
+    public function getIdUtente()
     {
         return $this->id_utente;
     }
@@ -490,7 +490,7 @@ class FileItem
      *
      * @param int
      */
-    function setIdUtente($id_utente)
+    public function setIdUtente($id_utente)
     {
         $this->id_utente = $id_utente;
     }
@@ -501,7 +501,7 @@ class FileItem
      * @param string $descrizione descrizione completa del file
      */
 
-    function setDescrizione($descrizione)
+    public function setDescrizione($descrizione)
     {
         $this->descrizione = $descrizione;
     }
@@ -512,7 +512,7 @@ class FileItem
      * @param int $dimensione dimensione in kb del file
      */
 
-    function setDimensione($dimensione)
+    public function setDimensione($dimensione)
     {
         $this->dimensione = $dimensione;
     }
@@ -523,7 +523,7 @@ class FileItem
      * @param int $permessi_download categoria utenti ai quali ? permesso il download
      */
 
-    function setPermessiDownload($permessi_download)
+    public function setPermessiDownload($permessi_download)
     {
         $this->permessi_download = $permessi_download;
     }
@@ -534,7 +534,7 @@ class FileItem
      * @param int $permessi_visualizza categoria utenti ai quali ? visualizzare il file
      */
 
-    function setPermessiVisualizza($permessi_visualizza)
+    public function setPermessiVisualizza($permessi_visualizza)
     {
         $this->permessi_visualizza = $permessi_visualizza;
     }
@@ -544,7 +544,7 @@ class FileItem
      *
      * @param int $data_inserimento timestamp del giorno di caricamento del file
      */
-    function setDataInserimento($data_inserimento)
+    public function setDataInserimento($data_inserimento)
     {
         $this->data_inserimento = $data_inserimento;
     }
@@ -555,7 +555,7 @@ class FileItem
      * @param int $data_modifica timestamp del giorno dell'ultima operazione sul file
      */
 
-    function setDataModifica($data_modifica)
+    public function setDataModifica($data_modifica)
     {
         $this->data_modifica = $data_modifica;
     }
@@ -566,7 +566,7 @@ class FileItem
      * @param string $hash hash del file
      */
 
-    function setHash($hash)
+    public function setHash($hash)
     {
         $this->hash = $hash;
     }
@@ -574,10 +574,10 @@ class FileItem
     /**
      * Ritorna l'hash sicuro di una stringa
      *
-     * @param string $string
+     * @param  string $string
      * @return string
      */
-    function passwordHashFunction($string)
+    public function passwordHashFunction($string)
     {
         return md5($string);
     }
@@ -588,7 +588,7 @@ class FileItem
      * @param string $tipo_info informarzioni aggiuntive
      */
 
-    function setTipoInfo($tipo_info)
+    public function setTipoInfo($tipo_info)
     {
         $this->tipo_info = $tipo_info;
     }
@@ -599,7 +599,7 @@ class FileItem
      * @param string $tipo_icona
      */
 
-    function setTipoIcona($tipo_icona)
+    public function setTipoIcona($tipo_icona)
     {
         $this->tipo_icona = $tipo_icona;
     }
@@ -610,7 +610,7 @@ class FileItem
      * @param string $tipo_desc
      */
 
-    function setTipoDesc($tipo_desc)
+    public function setTipoDesc($tipo_desc)
     {
         $this->tipo_icona = $tipo_desc;
     }
@@ -621,7 +621,7 @@ class FileItem
      * @param string $categoria_desc
      */
 
-    function setCategoriaDesc($categoria_desc)
+    public function setCategoriaDesc($categoria_desc)
     {
         $this->categoria_desc = $categoria_desc;
     }
@@ -632,7 +632,7 @@ class FileItem
      * @param string $username
      */
 
-    function setUsername($username)
+    public function setUsername($username)
     {
         $this->username = $username;
     }
@@ -643,7 +643,7 @@ class FileItem
      * @param string $password
      */
 
-    function setPassword($password)
+    public function setPassword($password)
     {
         $this->password = $password;
     }
@@ -654,7 +654,7 @@ class FileItem
      * @param string $hash_file
      */
 
-    function setHashFile($hash_file)
+    public function setHashFile($hash_file)
     {
         $this->hash_file = $hash_file;
     }
@@ -665,7 +665,7 @@ class FileItem
      * @param string $id_tipo_file
      */
 
-    function setIdTipoFile($id_tipo_file)
+    public function setIdTipoFile($id_tipo_file)
     {
         $this->id_tipo_file = $id_tipo_file;
     }
@@ -676,7 +676,7 @@ class FileItem
      * @param string $id_categoria
      */
 
-    function setIdCategoria($id_categoria)
+    public function setIdCategoria($id_categoria)
     {
         $this->id_categoria = $id_categoria;
     }
@@ -687,7 +687,7 @@ class FileItem
      * @param string $nome_file
      */
 
-    function setRawNomeFile($nome_file)
+    public function setRawNomeFile($nome_file)
     {
         $this->nome_file = $nome_file;
     }
@@ -698,7 +698,7 @@ class FileItem
      * @param string $download
      */
 
-    function setDownload($download, $update_db = false)
+    public function setDownload($download, $update_db = false)
     {
         $this->download = $download;
 
@@ -735,7 +735,7 @@ class FileItem
      * @param string $download
      */
 
-    function addDownload()
+    public function addDownload()
     {
         $this->setDownload(1 + $this->getDownload(), true);
     }
@@ -745,7 +745,7 @@ class FileItem
      *
      * @param string $titolo
      */
-    function setTitolo($titolo)
+    public function setTitolo($titolo)
     {
         $this->titolo = $titolo;
     }
@@ -756,7 +756,7 @@ class FileItem
      * @param string $nome_file percorso in cui si trova il file
      * @TODO preg_match
      */
-    function guessTipo($nome_file)
+    public function guessTipo($nome_file)
     {
         static $tipi_regex = NULL;
 
@@ -799,7 +799,7 @@ class FileItem
      * @static
      * @return array [id_tipo] => 'descrizione'
      */
-    function getTipi()
+    public function getTipi()
     {
         static $tipi = NULL;
 
@@ -834,7 +834,7 @@ class FileItem
      * @static
      * @return array [id_categoria] => 'descrizione'
      */
-    function getCategorie()
+    public function getCategorie()
     {
         static $categorie = NULL;
 
@@ -867,7 +867,7 @@ class FileItem
      * Preleva da database i file del canale $id_canale
      *
      * @deprecated
-     * @param int $id_canale identificativo su database del canale
+     * @param  int   $id_canale identificativo su database del canale
      * @return array elenco FileItem , array vuoto se non ci sono file
      */
     public static function selectFileCanale($id_canale)
@@ -879,10 +879,10 @@ class FileItem
      * Recupera un file dal database
      *
      * @static
-     * @param int $id_file id del file
+     * @param  int      $id_file id del file
      * @return FileItem
      */
-    function selectFileItem($id_file)
+    public function selectFileItem($id_file)
     {
         $id_files = array($id_file);
         $files = &FileItem::selectFileItems($id_files);
@@ -897,7 +897,7 @@ class FileItem
      * non ritorna i files eliminati
      *
      * @deprecated
-     * @param array $id_file array elenco di id dei file
+     * @param  array $id_file array elenco di id dei file
      * @return array FileItem
      */
     public static function selectFileItems($id_files)
@@ -908,11 +908,11 @@ class FileItem
     /**
      * restituisce tutti i file caricati da un determinato utente
      *
-     * @param int     $id_utente NB deve essere un id valido, fate il check prima di invocare il metodo
-     * @param boolean $order     ordina i file in ordine decrescente di data
-     * @return mixed false se non trova file, array di fileItem altrimenti
+     * @param  int     $id_utente NB deve essere un id valido, fate il check prima di invocare il metodo
+     * @param  boolean $order     ordina i file in ordine decrescente di data
+     * @return mixed   false se non trova file, array di fileItem altrimenti
      */
-    function selectFileItemsByIdUtente($id_utente, $order = false)
+    public function selectFileItemsByIdUtente($id_utente, $order = false)
     {
 
         $db = FrontController::getDbConnection('main');
@@ -959,9 +959,9 @@ class FileItem
      * Seleziona gli id_canale per i quali il file ? inerente
      * non si possono fare garanzie sull'ordine dei canali
      *
-     * @return array	elenco degli id_canale
+     * @return array elenco degli id_canale
      */
-    function getIdCanali()
+    public function getIdCanali()
     {
         if ($this->elencoIdCanali != NULL)
 
@@ -999,7 +999,7 @@ class FileItem
      *
      * @param int $id_canale identificativo del canale
      */
-    function removeCanale($id_canale)
+    public function removeCanale($id_canale)
     {
 
         $db = &FrontController::getDbConnection('main');
@@ -1027,10 +1027,10 @@ class FileItem
     /**
      * aggiunge il file al canale specificato
      *
-     * @param int $id_canale identificativo del canale
-     * @return boolean  true se esito positivo
+     * @param  int     $id_canale identificativo del canale
+     * @return boolean true se esito positivo
      */
-    function addCanale($id_canale)
+    public function addCanale($id_canale)
     {
         $return = true;
 
@@ -1061,10 +1061,10 @@ class FileItem
     /**
      * Inserisce un file sul DB
      *
-     * @param array $array_id_canali elenco dei canali in cui bisogna inserire il file. Se non si passa un canale si recupera quello corrente.
-     * @return	 boolean true se avvenua con successo, altrimenti Error object
+     * @param  array   $array_id_canali elenco dei canali in cui bisogna inserire il file. Se non si passa un canale si recupera quello corrente.
+     * @return boolean true se avvenua con successo, altrimenti Error object
      */
-    function insertFileItem()
+    public function insertFileItem()
     {
         $db = &FrontController::getDbConnection('main');
 
@@ -1112,9 +1112,9 @@ class FileItem
     /**
      * Aggiorna le modifiche al file nel DB
      *
-     * @return	boolean true se avvenua con successo, altrimenti lancia Error Critical
+     * @return boolean true se avvenua con successo, altrimenti lancia Error Critical
      */
-    function updateFileItem()
+    public function updateFileItem()
     {
         $db = &FrontController::getDbConnection('main');
 
@@ -1164,9 +1164,9 @@ class FileItem
     /**
      * controlla se il file ? stato eliminato da tutti i canali in cui era presente, e aggiorna il db
      *
-     * @return	 boolean true se avvenua con successo, altrimenti false
+     * @return boolean true se avvenua con successo, altrimenti false
      */
-    function deleteFileItem()
+    public function deleteFileItem()
     {
         $lista_canali = &$this->getIdCanali(true);
         if (count($lista_canali) == 0) {

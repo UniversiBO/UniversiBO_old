@@ -24,12 +24,13 @@
  * @category    PHP
  * @package     PHPUnit
  */
-class PHPUnit_Assert {
+class PHPUnit_Assert
+{
     /**
     * @var    boolean
     * @access private
     */
-    var $_looselyTyped = FALSE;
+    public $_looselyTyped = FALSE;
 
     /**
     * Asserts that a haystack contains a needle.
@@ -40,16 +41,13 @@ class PHPUnit_Assert {
     * @access public
     * @since  1.1.0
     */
-    function assertContains($needle, $haystack, $message = '') {
+    public function assertContains($needle, $haystack, $message = '')
+    {
         if (is_string($needle) && is_string($haystack)) {
             $this->assertTrue(strpos($haystack, $needle) !== FALSE ? TRUE : FALSE);
-        }
-
-        else if (is_array($haystack) && !is_object($needle)) {
+        } elseif (is_array($haystack) && !is_object($needle)) {
             $this->assertTrue(in_array($needle, $haystack), $message);
-        }
-
-        else {
+        } else {
             $this->fail('Unsupported parameter passed to assertContains().');
         }
     }
@@ -63,16 +61,13 @@ class PHPUnit_Assert {
     * @access public
     * @since  1.1.0
     */
-    function assertNotContains($needle, $haystack, $message = '') {
+    public function assertNotContains($needle, $haystack, $message = '')
+    {
         if (is_string($needle) && is_string($haystack)) {
             $this->assertFalse(strpos($haystack, $needle) !== FALSE ? TRUE : FALSE);
-        }
-
-        else if (is_array($haystack) && !is_object($needle)) {
+        } elseif (is_array($haystack) && !is_object($needle)) {
             $this->assertFalse(in_array($needle, $haystack), $message);
-        }
-
-        else {
+        } else {
             $this->fail('Unsupported parameter passed to assertNotContains().');
         }
     }
@@ -86,7 +81,8 @@ class PHPUnit_Assert {
     * @param  mixed
     * @access public
     */
-    function assertEquals($expected, $actual, $message = '', $delta = 0) {
+    public function assertEquals($expected, $actual, $message = '', $delta = 0)
+    {
         if ((is_array($actual)  && is_array($expected)) ||
             (is_object($actual) && is_object($expected))) {
             if (is_array($actual) && is_array($expected)) {
@@ -113,9 +109,7 @@ class PHPUnit_Assert {
             if ($actual !== $expected) {
                 return $this->fail($message);
             }
-        }
-
-        elseif (is_numeric($actual) && is_numeric($expected)) {
+        } elseif (is_numeric($actual) && is_numeric($expected)) {
             $message = sprintf(
               '%sexpected %s%s, actual %s',
 
@@ -128,9 +122,7 @@ class PHPUnit_Assert {
             if (!($actual >= ($expected - $delta) && $actual <= ($expected + $delta))) {
                 return $this->fail($message);
             }
-        }
-
-        else {
+        } else {
             $message = sprintf(
               '%sexpected %s, actual %s',
 
@@ -152,7 +144,8 @@ class PHPUnit_Assert {
     * @param  string
     * @access public
     */
-    function assertNotNull($object, $message = '') {
+    public function assertNotNull($object, $message = '')
+    {
         $message = sprintf(
           '%sexpected NOT NULL, actual NULL',
 
@@ -171,7 +164,8 @@ class PHPUnit_Assert {
     * @param  string
     * @access public
     */
-    function assertNull($object, $message = '') {
+    public function assertNull($object, $message = '')
+    {
         $message = sprintf(
           '%sexpected NULL, actual NOT NULL',
 
@@ -190,7 +184,8 @@ class PHPUnit_Assert {
     * @param  string
     * @access public
     */
-    function assertTrue($condition, $message = '') {
+    public function assertTrue($condition, $message = '')
+    {
         $message = sprintf(
           '%sexpected TRUE, actual FALSE',
 
@@ -209,7 +204,8 @@ class PHPUnit_Assert {
     * @param  string
     * @access public
     */
-    function assertFalse($condition, $message = '') {
+    public function assertFalse($condition, $message = '')
+    {
         $message = sprintf(
           '%sexpected FALSE, actual TRUE',
 
@@ -229,7 +225,8 @@ class PHPUnit_Assert {
     * @param  string
     * @access public
     */
-    function assertRegExp($pattern, $string, $message = '') {
+    public function assertRegExp($pattern, $string, $message = '')
+    {
         $message = sprintf(
           '%s"%s" does not match pattern "%s"',
 
@@ -252,7 +249,8 @@ class PHPUnit_Assert {
     * @access public
     * @since  1.1.0
     */
-    function assertNotRegExp($pattern, $string, $message = '') {
+    public function assertNotRegExp($pattern, $string, $message = '')
+    {
         $message = sprintf(
           '%s"%s" matches pattern "%s"',
 
@@ -274,7 +272,8 @@ class PHPUnit_Assert {
     * @param  optional string $message
     * @access public
     */
-    function assertType($expected, $actual, $message = '') {
+    public function assertType($expected, $actual, $message = '')
+    {
         return $this->assertEquals(
           $expected,
           gettype($actual),
@@ -288,7 +287,8 @@ class PHPUnit_Assert {
     * @param  mixed   $value
     * @access private
     */
-    function _convertToString($value) {
+    public function _convertToString($value)
+    {
         foreach ($value as $k => $v) {
             if (is_array($v)) {
                 $value[$k] = $this->_convertToString($value[$k]);
@@ -304,7 +304,8 @@ class PHPUnit_Assert {
     * @param  boolean $looselyTyped
     * @access public
     */
-    function setLooselyTyped($looselyTyped) {
+    public function setLooselyTyped($looselyTyped)
+    {
         if (is_bool($looselyTyped)) {
             $this->_looselyTyped = $looselyTyped;
         }
@@ -317,6 +318,5 @@ class PHPUnit_Assert {
     * @access protected
     * @abstract
     */
-    function fail($message = '') { /* abstract */ }
+    public function fail($message = '') { /* abstract */ }
 }
-?>

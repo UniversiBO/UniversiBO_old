@@ -18,7 +18,8 @@ use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class ShowLink extends PluginCommand {
+class ShowLink extends PluginCommand
+{
     /**
      * Esegue il plugin
      *
@@ -45,12 +46,10 @@ class ShowLink extends PluginCommand {
         $ultima_modifica_canale =  $canale->getUltimaModifica();
 
         $template->assign('showLinks_adminLinksFlag', 'false');
-        if (array_key_exists($id_canale, $user_ruoli) || $user->isAdmin())
-        {
+        if (array_key_exists($id_canale, $user_ruoli) || $user->isAdmin()) {
             $personalizza = true;
 
-            if (array_key_exists($id_canale, $user_ruoli))
-            {
+            if (array_key_exists($id_canale, $user_ruoli)) {
                 $ruolo = $user_ruoli[$id_canale];
 
                 $referente      = $ruolo->isReferente();
@@ -58,9 +57,7 @@ class ShowLink extends PluginCommand {
                 $ultimo_accesso = $ruolo->getUltimoAccesso();
             }
 
-        }
-        else
-        {
+        } else {
             $personalizza   = false;
             $referente      = false;
             $moderatore     = false;

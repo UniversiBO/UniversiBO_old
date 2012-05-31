@@ -15,7 +15,7 @@ use UniversiBO\Bundle\LegacyBundle\Entity\User;
 class ShowUser extends UniversiboCommand
 {
 
-    function execute()
+    public function execute()
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();

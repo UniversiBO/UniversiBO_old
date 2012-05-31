@@ -13,11 +13,12 @@ namespace UniversiBO\Bundle\LegacyBundle\App\AntiVirus;
 class Clamav
 {
 
-    var $opts = '';
+    public $opts = '';
 
-    var $cmd  = '';
+    public $cmd  = '';
 
-    public function __construct($cmd, $opts){
+    public function __construct($cmd, $opts)
+    {
         $this->cmd = $cmd;
         $this->opts = $opts;
     }
@@ -25,7 +26,7 @@ class Clamav
     /**
      * @return true se ci sono virus, false se _non_ ci sono virus
      */
-    function checkFile($filename)
+    public function checkFile($filename)
     {
         $filename = escapeshellarg($filename);
 

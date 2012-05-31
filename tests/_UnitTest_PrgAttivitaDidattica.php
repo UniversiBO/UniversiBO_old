@@ -5,10 +5,8 @@
 * suite di test per la classe PrgAttivitaDidattica
 */
 
-
 require_once 'PHPUnit'.PHP_EXTENSION;
 require_once 'PrgAttivitaDidattica'.PHP_EXTENSION;
-
 
 /**
  * Test per la classe PrgAttivitaDidattica
@@ -22,15 +20,15 @@ require_once 'PrgAttivitaDidattica'.PHP_EXTENSION;
 class _UnitTest_PrgAttivitaDidattica extends PHPUnit_TestCase
 {
 
-    var $pad;
+    public $pad;
 
-    function UserTest($name)
+    public function UserTest($name)
     {
         $this->PHPUnit_TestCase($name);
     }
 
     // called before the test functions will be executed
-    function setUp()
+    public function setUp()
     {
         $db =& FrontController::getDbConnection('main');
         $db->autoCommit(false);
@@ -39,14 +37,14 @@ class _UnitTest_PrgAttivitaDidattica extends PHPUnit_TestCase
     }
 
     // called after the test functions are executed
-    function tearDown() {
+    public function tearDown()
+    {
         $db =& FrontController::getDbConnection('main');
         $db->rollback();
         $db->autoCommit(true);
     }
 
-
-    function testSetGet()
+    public function testSetGet()
     {
         $value1 = 2005;
         $this->pad->setAnnoAccademico($value1);
@@ -126,7 +124,7 @@ class _UnitTest_PrgAttivitaDidattica extends PHPUnit_TestCase
 
     }
 
-    function testRetrieveKey()
+    public function testRetrieveKey()
     {
 
         $new_pad =& PrgAttivitaDidattica::selectPrgAttivitaDidattica($this->pad->getAnnoAccademico(), $this->pad->getCodiceCdl(), $this->pad->getCodInd(),
@@ -197,8 +195,6 @@ class _UnitTest_PrgAttivitaDidattica extends PHPUnit_TestCase
 //
 //		$pad2->updatePrgAttivitaDidattica();
 
-
-
 //		$pad2 =& PrgAttivitaDidattica::selectPrgAttivitaDidatticaCanale($this->cdl->getIdCanale());
 //
 //		$this->assertTrue($value1, $this->pad2->getAnnoAccademico());
@@ -223,8 +219,7 @@ class _UnitTest_PrgAttivitaDidattica extends PHPUnit_TestCase
 //
     }
 
-
-    function testPrgAttivitaDidatticaElenco()
+    public function testPrgAttivitaDidatticaElenco()
     {
 //		$cod_facolta = '0021';
 //		$elenco =& PrgAttivitaDidattica::selectPrgAttivitaDidatticaElencoFacolta($cod_facolta);
@@ -241,4 +236,3 @@ class _UnitTest_PrgAttivitaDidattica extends PHPUnit_TestCase
 
 }
 
-?>

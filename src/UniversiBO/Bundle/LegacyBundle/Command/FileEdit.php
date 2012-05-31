@@ -21,7 +21,7 @@ use UniversiBO\Bundle\LegacyBundle\Entity\User;
 class FileEdit extends UniversiboCommand
 {
 
-    function execute()
+    public function execute()
     {
 
         $frontcontroller = &$this->getFrontController();
@@ -314,8 +314,7 @@ class FileEdit extends UniversiboCommand
             //			elseif ($_POST['f13_abstract'] == '') {
             //				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'La descrizione/abstract del file deve essere inserita obbligatoriamente', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
             //				$f13_accept = false;
-            //			}
- elseif ($_POST['f13_abstract'] == '') {
+            //			} elseif ($_POST['f13_abstract'] == '') {
                 $f13_abstract = $f13_titolo;
             } else
                 $f13_abstract = $_POST['f13_abstract'];

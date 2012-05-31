@@ -21,7 +21,7 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 class ShowInfoDidattica extends UniversiboCommand
 {
 
-    function execute()
+    public function execute()
     {
         $frontcontroller = &$this->getFrontController();
         $template = &$frontcontroller->getTemplateEngine();
@@ -119,4 +119,3 @@ class ShowInfoDidattica extends UniversiboCommand
 
 }
 
-?>

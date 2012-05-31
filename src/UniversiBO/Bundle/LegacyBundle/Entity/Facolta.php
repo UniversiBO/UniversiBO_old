@@ -53,22 +53,22 @@ class Facolta extends Canale
      * @see selectFacoltaCanale
      * @see selectFacoltaCodice
      * @see selectFacoltaElenco
-     * @param int     $id_canale       identificativo del canae su database
-     * @param int     $permessi        privilegi di accesso gruppi {@see User}
-     * @param int     $ultima_modifica timestamp
-     * @param int     $tipo_canale     vedi definizione dei tipi sopra
-     * @param string  $immagine        uri            dell'immagine relativo alla cartella del template
-     * @param string  $nome            nome              del canale
-     * @param int     $visite          numero          visite effettuate sul canale
-     * @param boolean $news_attivo     se           true il servizio notizie ? attivo
-     * @param boolean $files_attivo    se          true il servizio false ? attivo
-     * @param boolean $forum_attivo    se          true il servizio forum ? attivo
-     * @param int     $forum_forum_id  se        forum_attivo ? true indica l'identificativo del forum su database
-     * @param int     $forum_group_id  se        forum_attivo ? true indica l'identificativo del grupop moderatori del forum su database
-     * @param boolean $links_attivo    se true il servizio links ? attivo
-     * @param string  $cod_facolta     codice       identificativo d'ateneo della facolt? a 4 cifre
-     * @param string  $nome_facolta    descrizione del nome della facolt?
-     * @param string  $uri_facolta     link         al sito internet ufficiale della facolt?
+     * @param  int     $id_canale       identificativo del canae su database
+     * @param  int     $permessi        privilegi di accesso gruppi {@see User}
+     * @param  int     $ultima_modifica timestamp
+     * @param  int     $tipo_canale     vedi definizione dei tipi sopra
+     * @param  string  $immagine        uri            dell'immagine relativo alla cartella del template
+     * @param  string  $nome            nome              del canale
+     * @param  int     $visite          numero          visite effettuate sul canale
+     * @param  boolean $news_attivo     se           true il servizio notizie ? attivo
+     * @param  boolean $files_attivo    se          true il servizio false ? attivo
+     * @param  boolean $forum_attivo    se          true il servizio forum ? attivo
+     * @param  int     $forum_forum_id  se        forum_attivo ? true indica l'identificativo del forum su database
+     * @param  int     $forum_group_id  se        forum_attivo ? true indica l'identificativo del grupop moderatori del forum su database
+     * @param  boolean $links_attivo    se true il servizio links ? attivo
+     * @param  string  $cod_facolta     codice       identificativo d'ateneo della facolt? a 4 cifre
+     * @param  string  $nome_facolta    descrizione del nome della facolt?
+     * @param  string  $uri_facolta     link         al sito internet ufficiale della facolt?
      * @return Facolta
      */
     public function __construct($id_canale, $permessi, $ultima_modifica,
@@ -92,7 +92,7 @@ class Facolta extends Canale
      *
      * @return string
      */
-    function getNome()
+    public function getNome()
     {
         return $this->facoltaNome;
     }
@@ -102,7 +102,7 @@ class Facolta extends Canale
      *
      * @param string 'INGEGNERIA'
      */
-    function setNome($nome_fac)
+    public function setNome($nome_fac)
     {
         $this->facoltaNome = $nome_fac;
     }
@@ -112,7 +112,7 @@ class Facolta extends Canale
      *
      * @return string
      */
-    function getTitolo()
+    public function getTitolo()
     {
         return "FACOLTA' DI \n" . $this->getNome();
     }
@@ -122,7 +122,7 @@ class Facolta extends Canale
      *
      * @return string
      */
-    function getUri()
+    public function getUri()
     {
         return $this->facoltaUri;
     }
@@ -132,7 +132,7 @@ class Facolta extends Canale
      *
      * @param string $uri
      */
-    function setUri($uri)
+    public function setUri($uri)
     {
         $this->facoltaUri = $uri;
     }
@@ -143,7 +143,7 @@ class Facolta extends Canale
      *
      * @return string
      */
-    function getCodiceFacolta()
+    public function getCodiceFacolta()
     {
         return $this->facoltaCodice;
     }
@@ -152,7 +152,7 @@ class Facolta extends Canale
      * Imposta il codice di ateneo a 4 cifre della facolt?
      * @param string $cod_fac es: ingegneria -> '0021'
      */
-    function setCodiceFacolta($cod_fac)
+    public function setCodiceFacolta($cod_fac)
     {
         $this->facoltaCodice = $cod_fac;
     }
@@ -162,7 +162,7 @@ class Facolta extends Canale
      * Ridefinisce il factory method della classe padre per restituire un oggetto
      * del tipo Facolta
      *
-     * @param int $id_canale numero identificativo del canale
+     * @param  int   $id_canale numero identificativo del canale
      * @return mixed Facolta se eseguita con successo, false se il canale non esiste
      */
     public static function factoryCanale($id_canale)
@@ -175,7 +175,7 @@ class Facolta extends Canale
      *
      * @return string uri/link che mostra un canale
      */
-    function showMe()
+    public function showMe()
     {
         return 'v2.php?do=ShowFacolta&id_canale=' . $this->id_canale;
     }
@@ -185,10 +185,10 @@ class Facolta extends Canale
      * corrispondente al codice id_canale
      *
      * @static
-     * @param int $id_canale id_del canale corrispondente alla facolt?
+     * @param  int   $id_canale id_del canale corrispondente alla facolt?
      * @return mixed Facolta se eseguita con successo, false se il canale non esiste
      */
-    function selectFacoltaCanale($id_canale)
+    public function selectFacoltaCanale($id_canale)
     {
         global $__facoltaElencoCanale;
 
@@ -208,10 +208,10 @@ class Facolta extends Canale
      * corrispondente al codice $cod_facolta
      *
      * @static
-     * @param string $cod_facolta stringa a 4 cifre del codice d'ateneo della facolt?
+     * @param  string  $cod_facolta stringa a 4 cifre del codice d'ateneo della facolt?
      * @return Facolta
      */
-    function selectFacoltaCodice($cod_facolta)
+    public function selectFacoltaCodice($cod_facolta)
     {
         global $__facoltaElencoCodice;
 
@@ -231,10 +231,10 @@ class Facolta extends Canale
      * in ordine alfabetico di tutte le facolt?
      *
      * @static
-     * @param string $cod_facolta stringa a 4 cifre del codice d'ateneo della facolt?
+     * @param  string         $cod_facolta stringa a 4 cifre del codice d'ateneo della facolt?
      * @return array(Facolta)
      */
-    function selectFacoltaElenco()
+    public function selectFacoltaElenco()
     {
         global $__facoltaElencoAlfabetico;
 
@@ -284,10 +284,10 @@ class Facolta extends Canale
     /**
      * Inserisce su Db le informazioni riguardanti un NUOVO canale
      *
-     * @param int $id_canale numero identificativo utente
+     * @param  int     $id_canale numero identificativo utente
      * @return boolean
      */
-    function insertFacolta()
+    public function insertFacolta()
     {
         $db = FrontController::getDbConnection('main');
 
@@ -323,7 +323,7 @@ class Facolta extends Canale
      *
      * @return string URI del command
      */
-    function getShowUri()
+    public function getShowUri()
     {
         return 'v2.php?do=ShowFacolta&id_canale=' . $this->getIdCanale();
     }

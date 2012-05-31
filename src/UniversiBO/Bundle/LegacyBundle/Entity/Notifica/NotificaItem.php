@@ -76,12 +76,12 @@ class NotificaItem
      * Crea un oggetto NotificaItem con i parametri passati
      *
      *
-     * @param int     $id_notifica id della news
-     * @param string  $titolo      titolo della news max 150 caratteri
-     * @param string  $messaggio   corpo della news
-     * @param int     $timestamp   timestamp dell'inserimento
-     * @param boolean $urgente     flag notizia urgente o meno
-     * @param boolean $eliminata   flag stato della news
+     * @param  int      $id_notifica id della news
+     * @param  string   $titolo      titolo della news max 150 caratteri
+     * @param  string   $messaggio   corpo della news
+     * @param  int      $timestamp   timestamp dell'inserimento
+     * @param  boolean  $urgente     flag notizia urgente o meno
+     * @param  boolean  $eliminata   flag stato della news
      * @return NewsItem
      */
 
@@ -286,8 +286,8 @@ class NotificaItem
      * Inserisce una notifica sul DB
      *
      * @deprecated
-     * @param array $array_id_canali elenco dei canali in cui bisogna inserire la notifica. Se non si passa un canale si recupera quello corrente.
-     * @return	 boolean true se avvenua con successo, altrimenti Error object
+     * @param  array   $array_id_canali elenco dei canali in cui bisogna inserire la notifica. Se non si passa un canale si recupera quello corrente.
+     * @return boolean true se avvenua con successo, altrimenti Error object
      */
 
     public function insertNotificaItem()

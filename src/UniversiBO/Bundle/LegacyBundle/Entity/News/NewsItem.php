@@ -8,7 +8,6 @@ use \Error;
 
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
-
 /**
  *
  * NewsItem class
@@ -24,8 +23,8 @@ use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
  * @copyright CopyLeft UniversiBO 2001-2003
  */
 
-
-class NewsItem {
+class NewsItem
+{
     const ELIMINATA = 'S';
     const NOT_ELIMINATA = 'N';
     const URGENTE = 'S';
@@ -46,82 +45,78 @@ class NewsItem {
     /**
      * @private
      */
-    var $titolo='';
+    public $titolo='';
 
     /**
      * @private
      */
-    var $notizia='';
+    public $notizia='';
 
     /**
      * @private
      */
-    var $id_utente=0;
+    public $id_utente=0;
 
     /**
      * @private
      */
-    var $username='';
+    public $username='';
 
     /**
      * data e ora di inserimento
      * @private
      */
-    var $dataIns=0;
-
-
-    /**
-     * @private
-     */
-    var $dataScadenza=NULL;
-
+    public $dataIns=0;
 
     /**
      * @private
      */
-    var $ultimaModifica = NULL;
+    public $dataScadenza=NULL;
 
     /**
      * @private
      */
-    var $urgente=false;
+    public $ultimaModifica = NULL;
 
     /**
      * @private
      */
-    var $id_notizia=0;
+    public $urgente=false;
 
     /**
      * @private
      */
-    var $eliminata=false;
+    public $id_notizia=0;
 
     /**
      * @private
      */
-    var $elencoCanali=NULL;
+    public $eliminata=false;
 
     /**
      * @private
      */
-    var $elencoIdCanali=NULL;
+    public $elencoCanali=NULL;
 
-
+    /**
+     * @private
+     */
+    public $elencoIdCanali=NULL;
 
     /**
      * Crea un oggetto NewsItem con i parametri passati
      *
      *
-     * @param int     $id_notizia     id della news
-     * @param string  $titolo         titolo della news max 150 caratteri
-     * @param string  $notizia        corpo della news
-     * @param int     $dataIns        timestamp del giorno di inserimento
-     * @param int     $dataScadenza   timestamp del giorno di scadenza
-     * @param int     $ultimaModifica timestamp ultima modifica della notizia
-     * @param boolean $urgente        flag notizia urgente o meno
-     * @param boolean $eliminata      flag stato della news
-     * @param int     $id_utente      id dell'autore della news
-     * @param string  $username       username dell'autore della news
+     * @param  int      $id_notizia     id della news
+     * @param  string   $titolo         titolo della news max 150 caratteri
+     * @param  string   $notizia        corpo della news
+     * @param  int      $dataIns        timestamp del giorno di inserimento
+     * @param  int      $dataScadenza   timestamp del giorno di scadenza
+     * @param  int      $ultimaModifica timestamp ultima modifica della notizia
+     * @param  boolean  $urgente        flag notizia urgente o meno
+     * @param  boolean  $eliminata      flag stato della news
+     * @param  int      $id_utente      id dell'autore della news
+     * @param  string   $username       username dell'autore della news
      * @return NewsItem
      */
 
@@ -139,47 +134,43 @@ class NewsItem {
         $this->username       = $username;
     }
 
-
     /**
      *
      * Recupera il titolo della notizia
      *
      * @return String
      */
-    function getTitolo()
+    public function getTitolo()
     {
         return $this->titolo;
     }
-
 
     /**
      * Recupera il testo della notizia
      *
      * @return string
      */
-    function getNotizia()
+    public function getNotizia()
     {
         return $this->notizia;
     }
-
 
     /**
      * Recupera l'id_utente dell'autore della notizia
      *
      * @return int
      */
-    function getIdUtente()
+    public function getIdUtente()
     {
         return $this->id_utente;
     }
-
 
     /**
      * Recupera lo username dell'autore della notizia
      *
      * @return string
      */
-    function getUsername()
+    public function getUsername()
     {
         return $this->username;
     }
@@ -190,7 +181,7 @@ class NewsItem {
      *
      * @return int
      */
-    function getDataIns()
+    public function getDataIns()
     {
         return $this->dataIns;
     }
@@ -202,7 +193,7 @@ class NewsItem {
      *
      * @return int
      */
-    function getDataScadenza()
+    public function getDataScadenza()
     {
         return $this->dataScadenza;
     }
@@ -213,18 +204,17 @@ class NewsItem {
      *
      * @return boolean
      */
-    function isUrgente()
+    public function isUrgente()
     {
         return $this->urgente;
     }
-
 
     /**
      * Recupera l'id della notizia
      *
      * @return int
      */
-    function getIdNotizia()
+    public function getIdNotizia()
     {
         return $this->id_notizia;
     }
@@ -234,7 +224,7 @@ class NewsItem {
      *
      * @return boolean
      */
-    function isEliminata()
+    public function isEliminata()
     {
         return $this->eliminata;
     }
@@ -245,7 +235,7 @@ class NewsItem {
      *
      * @return int timestamp dell'ultima modifica della notizia
      */
-    function getUltimaModifica()
+    public function getUltimaModifica()
     {
         return $this->ultimaModifica;
     }
@@ -256,7 +246,7 @@ class NewsItem {
      *
      * @param string $titolo titolo della news max 150 caratteri
      */
-    function setTitolo($titolo)
+    public function setTitolo($titolo)
     {
         $this->titolo=$titolo;
     }
@@ -267,7 +257,7 @@ class NewsItem {
      *
      * @param string $notizia corpo della news
      */
-    function setNotizia($notizia)
+    public function setNotizia($notizia)
     {
         $this->notizia=$notizia;
     }
@@ -278,33 +268,30 @@ class NewsItem {
      *
      * @param int $id_utente id dell'autore della news
      */
-    function setIdUtente($id_utente)
+    public function setIdUtente($id_utente)
     {
         $this->id_utente = $id_utente;
     }
-
 
     /**
      * Imposta lo username dell'autore della notizia
      *
      * @param string $username username dell'autore della news
      */
-    function setUsername($username)
+    public function setUsername($username)
     {
         $this->username = $username;
     }
-
 
     /**
      * Imposta la data di inserimento della notizia
      *
      * @param int $dataIns timestamp del giorno di inserimento
      */
-    function setDataIns($dataIns)
+    public function setDataIns($dataIns)
     {
         $this->dataIns=$dataIns;
     }
-
 
     /**
      *
@@ -312,17 +299,17 @@ class NewsItem {
      *
      * @param int $dataScadenza timestamp del giorno di scadenza
      */
-    function setDataScadenza($dataScadenza) {
+    public function setDataScadenza($dataScadenza)
+    {
         $this->dataScadenza=$dataScadenza;
     }
-
 
     /**
      * Imposta l'urgenza della notizia
      *
      * @param boolean $urgente flag notizia urgente o meno
      */
-    function setUrgente($urgente)
+    public function setUrgente($urgente)
     {
         $this->urgente=$urgente;
     }
@@ -335,7 +322,7 @@ class NewsItem {
      *
      * @param int timestamp dell'ultima modifica della notizia
      */
-    function setUltimaModifica($ultimaModifica)
+    public function setUltimaModifica($ultimaModifica)
     {
         $this->ultimaModifica = $ultimaModifica;
     }
@@ -347,11 +334,10 @@ class NewsItem {
      *
      * @param int $id_notizia id della news
      */
-    function setIdNotizia($id_notizia)
+    public function setIdNotizia($id_notizia)
     {
         $this->id_notizia=$id_notizia;
     }
-
 
     /**
      *
@@ -359,17 +345,16 @@ class NewsItem {
      *
      * @param boolean $eliminata flag stato della news
      */
-    function setEliminata($eliminata)
+    public function setEliminata($eliminata)
     {
         $this->eliminata=$eliminata;
     }
-
 
     /**
      * Recupera una notizia dal database
      *
      * @deprecated
-     * @param int $id_notizia id della news
+     * @param  int      $id_notizia id della news
      * @return NewsItem
      */
     public static function selectNewsItem ($id_notizia)
@@ -381,13 +366,11 @@ class NewsItem {
         return $news[0];
     }
 
-
-
     /**
      * Recupera un elenco di notizie dal database
      *
      * @deprecated
-     * @param array $id_notizie array elenco di id della news
+     * @param  array $id_notizie array elenco di id della news
      * @return array NewsItems
      */
     public static function selectNewsItems (array $ids)
@@ -400,19 +383,18 @@ class NewsItem {
      *
      * @return boolean
      */
-    function isScaduta()
+    public function isScaduta()
     {
         return $this->getDataScadenza() < time();
     }
-
 
     /**
      * Seleziona gli id_canale per i quali la notizia ? inerente
      *
      * @static
-     * @return array	elenco degli id_canale
+     * @return array elenco degli id_canale
      */
-    function getIdCanali()
+    public function getIdCanali()
     {
         if ($this->elencoIdCanali != NULL)
 
@@ -430,8 +412,7 @@ class NewsItem {
 
         $elenco_id_canale = array();
 
-        while($res->fetchInto($row))
-        {
+        while ($res->fetchInto($row)) {
             $elenco_id_canale[] = $row[0];
         }
 
@@ -443,13 +424,12 @@ class NewsItem {
 
     }
 
-
     /**
      * rimuove la notizia dal canale specificato
      *
      * @param int $id_canale identificativo del canale
      */
-    function removeCanale($id_canale)
+    public function removeCanale($id_canale)
     {
 
         $db = FrontController::getDbConnection('main');
@@ -473,14 +453,14 @@ class NewsItem {
     /**
      * aggiunge la notizia al canale specificato
      *
-     * @param int $id_canale identificativo del canale
-     * @return boolean  true se esito positivo
+     * @param  int     $id_canale identificativo del canale
+     * @return boolean true se esito positivo
      */
-    function addCanale($id_canale)
+    public function addCanale($id_canale)
     {
         $return = true;
 
-        if ( !Canale::canaleExists($id_canale) ){
+        if ( !Canale::canaleExists($id_canale) ) {
             return false;
             //Error::throwError(_ERROR_CRITICAL,array('msg'=>'Il canale selezionato non esiste','file'=>__FILE__,'line'=>__LINE__));
         }
@@ -490,7 +470,7 @@ class NewsItem {
         /*	 	$query = 'SELECT id_notizia FROM news_canale WHERE id_canale = '.$db->quote($id_canale).' AND id_notizia = '.$db->quote($this->getIdNotizia());
          $res = $db->query($query);
 
-        if (DB::isError($res)){
+        if (DB::isError($res)) {
         $return = false;
         Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         }
@@ -515,9 +495,9 @@ class NewsItem {
     /**
      * Inserisce una notizia sul DB
      *
-     * @return	 boolean true se avvenua con successo, altrimenti Error object
+     * @return boolean true se avvenua con successo, altrimenti Error object
      */
-    function insertNewsItem()
+    public function insertNewsItem()
     {
         return self::getRepository()->insert($this);
     }
@@ -525,9 +505,9 @@ class NewsItem {
     /**
      * Aggiorna le modifiche alla notizia nel DB
      *
-     * @return	 boolean true se avvenua con successo, altrimenti Error object
+     * @return boolean true se avvenua con successo, altrimenti Error object
      */
-    function updateNewsItem()
+    public function updateNewsItem()
     {
         $db = FrontController::getDbConnection('main');
 
@@ -549,7 +529,7 @@ class NewsItem {
         //echo $query;
         $res = $db->query($query);
         //var_dump($query);
-        if (DB::isError($res)){
+        if (DB::isError($res)) {
             $db->rollback();
             Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         }
@@ -565,11 +545,10 @@ class NewsItem {
      * La funzione deleteNewsItem controlla se la notizia ? stata eliminata da tutti i canali in cui era presente, e aggiorna il db
      */
 
-    function deleteNewsItem()
+    public function deleteNewsItem()
     {
         $lista_canali = $this->getIdCanali();
-        if(count($lista_canali) == 0)
-        {
+        if (count($lista_canali) == 0) {
             $this->eliminata = true;
             $this->updateNewsItem();
         }
@@ -580,8 +559,7 @@ class NewsItem {
      */
     private static function getRepository()
     {
-        if(is_null(self::$repository))
-        {
+        if (is_null(self::$repository)) {
             self::$repository = new DBNewsItemRepository(FrontController::getDbConnection('main'));
         }
 

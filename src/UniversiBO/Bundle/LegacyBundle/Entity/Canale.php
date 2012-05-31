@@ -1,7 +1,6 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Entity;
 
-
 use \DB;
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
@@ -21,7 +20,8 @@ use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
  * @copyright CopyLeft UniversiBO 2001-2003
  */
 
-class Canale {
+class Canale
+{
     const CDEFAULT = 1;
     const HOME = 2;
     const FACOLTA = 3;
@@ -31,23 +31,23 @@ class Canale {
     /**
      * @private
      */
-    var $id_canale = 0;
+    public $id_canale = 0;
     /**
      * @private
      */
-    var $permessi = 0;
+    public $permessi = 0;
     /**
      * @private
      */
-    var $ultimaModifica = 0;
+    public $ultimaModifica = 0;
     /**
      * @private
      */
-    var $tipoCanale = 0;
+    public $tipoCanale = 0;
     /**
      * @private
      */
-    var $immagine = '';
+    public $immagine = '';
     /**
      * @private
      */
@@ -55,35 +55,35 @@ class Canale {
     /**
      * @private
      */
-    var $visite = 0;
+    public $visite = 0;
     /**
      * @private
      */
-    var $servizioNews = false;
+    public $servizioNews = false;
     /**
      * @private
      */
-    var $servizioFiles = false;
+    public $servizioFiles = false;
     /**
      * @private
      */
-    var $servizioForum = false;
+    public $servizioForum = false;
     /**
      * @private
      */
-    var $forum = array();
+    public $forum = array();
     /**
      * @private
      */
-    var $servizioLinks = false;
+    public $servizioLinks = false;
     /**
      * @private
      */
-    var $ruoli = NULL;
+    public $ruoli = NULL;
     /**
      * @private
      */
-    var $servizioFilesStudenti = false;
+    public $servizioFilesStudenti = false;
 
     /**
      * @var DBCanaleRepository
@@ -102,19 +102,19 @@ class Canale {
      *
      * @see factoryCanale
      * @see selectCanale
-     * @param int     $id_canale       identificativo del canae su database
-     * @param int     $permessi        privilegi di accesso gruppi {@see User}
-     * @param int     $ultima_modifica timestamp
-     * @param int     $tipo_canale     vedi definizione dei tipi sopra
-     * @param string  $immagine        uri     dell'immagine relativo alla cartella del template
-     * @param string  $nome            nome       del canale
-     * @param int     $visite          numero   visite effettuate sul canale
-     * @param boolean $news_attivo     se    true il servizio notizie ? attivo
-     * @param boolean $files_attivo    se   true il servizio false ? attivo
-     * @param boolean $forum_attivo    se   true il servizio forum ? attivo
-     * @param int     $forum_forum_id  se forum_attivo ? true indica l'identificativo del forum su database
-     * @param int     $forum_group_id  se forum_attivo ? true indica l'identificativo del grupop moderatori del forum su database
-     * @param boolean $links_attivo    se true il servizio links ? attivo
+     * @param  int     $id_canale       identificativo del canae su database
+     * @param  int     $permessi        privilegi di accesso gruppi {@see User}
+     * @param  int     $ultima_modifica timestamp
+     * @param  int     $tipo_canale     vedi definizione dei tipi sopra
+     * @param  string  $immagine        uri     dell'immagine relativo alla cartella del template
+     * @param  string  $nome            nome       del canale
+     * @param  int     $visite          numero   visite effettuate sul canale
+     * @param  boolean $news_attivo     se    true il servizio notizie ? attivo
+     * @param  boolean $files_attivo    se   true il servizio false ? attivo
+     * @param  boolean $forum_attivo    se   true il servizio forum ? attivo
+     * @param  int     $forum_forum_id  se forum_attivo ? true indica l'identificativo del forum su database
+     * @param  int     $forum_group_id  se forum_attivo ? true indica l'identificativo del grupop moderatori del forum su database
+     * @param  boolean $links_attivo    se true il servizio links ? attivo
      * @return Canale
      */
     public function __construct($id_canale, $permessi, $ultima_modifica, $tipo_canale, $immagine, $nome, $visite,
@@ -159,13 +159,13 @@ class Canale {
      *
      * @return int
      */
-    function getPermessi()
+    public function getPermessi()
     {
         return $this->permessi;
     }
 
 
-    function setPermessi($permessi)
+    public function setPermessi($permessi)
     {
         return $this->permessi = $permessi;
     }
@@ -175,15 +175,13 @@ class Canale {
      * Restituisce true se il gruppo o uno dei gruppi appartenenti a $groups
      * ha il permesso di accesso al canale, altrimenti false
      *
-     * @param int $groups gruppi di cui si vuole verificare l'accesso
+     * @param  int     $groups gruppi di cui si vuole verificare l'accesso
      * @return boolean
      */
-    function isGroupAllowed($groups)
+    public function isGroupAllowed($groups)
     {
-        return (boolean) ((int)$this->permessi & (int)$groups);
+        return (boolean) ((int) $this->permessi & (int) $groups);
     }
-
-
 
     /**
      * Ritorna il tipo di canale
@@ -196,7 +194,7 @@ class Canale {
      *  define('CANALE_INSEGNAMENTO' ,5);
      *
      * @static
-     * @param int $id_canale numero identificativo del canale
+     * @param  int $id_canale numero identificativo del canale
      * @return int intero (tipo_canale) se eseguita con successo, false se il canale non esiste
      */
     public static function getTipoCanaleFromId($id_canale)
@@ -209,7 +207,7 @@ class Canale {
      *
      * @return int
      */
-    function getTipoCanale()
+    public function getTipoCanale()
     {
         return $this->tipoCanale;
     }
@@ -221,25 +219,24 @@ class Canale {
      *
      * @return int
      */
-    function getUltimaModifica()
+    public function getUltimaModifica()
     {
         return $this->ultimaModifica;
     }
-
 
     /**
      * Imposta il timestamp dell'ultima modifica
      *
      * @todo implementare propagazione DB
-     * @param boolean $attiva_files
-     * @param boolean $updateDB     se true la modifica viene propagata al DB
+     * @param  boolean $attiva_files
+     * @param  boolean $updateDB     se true la modifica viene propagata al DB
      * @return boolean
      */
     public function setUltimaModifica($timestamp, $updateDB = false)
     {
         $this->ultimaModifica = $timestamp;
 
-        if($updateDB) {
+        if ($updateDB) {
             return self::getRepository()->updateUltimaModifica($this);
         }
 
@@ -251,7 +248,7 @@ class Canale {
      *
      * @return string
      */
-    function getImmagine()
+    public function getImmagine()
     {
         return $this->immagine;
     }
@@ -261,12 +258,12 @@ class Canale {
      *
      * @return string
      */
-    function getNome()
+    public function getNome()
     {
         return $this->nome;
     }
 
-    function getNomeCanale()
+    public function getNomeCanale()
     {
         return $this->nome;
     }
@@ -276,7 +273,7 @@ class Canale {
      *
      * @return string
      */
-    function getNomeMyUniversiBO()
+    public function getNomeMyUniversiBO()
     {
         return $this->getNome();
     }
@@ -286,7 +283,7 @@ class Canale {
      *
      * @return string
      */
-    function isNomeSet()
+    public function isNomeSet()
     {
         return $this->nome!='' && $this->nome!=NULL;
     }
@@ -298,7 +295,7 @@ class Canale {
      *
      * @return string
      */
-    function getTitolo()
+    public function getTitolo()
     {
         return $this->getNome();
     }
@@ -310,7 +307,7 @@ class Canale {
      *
      * @return int
      */
-    function getVisite()
+    public function getVisite()
     {
         return $this->visite;
     }
@@ -342,27 +339,23 @@ class Canale {
      * @todo implementare News
      * @return mixed
      */
-    function getServizioNews()
+    public function getServizioNews()
     {
         return $this->servizioNews;
     }
-
-
 
     /**
      * Imposta il servizio news, true: attivo - false: non attivo
      *
      * @todo implementare propagazione DB
-     * @param boolean $attiva_files
-     * @param boolean $updateDB     se true la modifica viene propagata al DB
+     * @param  boolean $attiva_files
+     * @param  boolean $updateDB     se true la modifica viene propagata al DB
      * @return boolean
      */
-    function setServizioNews($attiva_news, $updateDB = false)
+    public function setServizioNews($attiva_news, $updateDB = false)
     {
         $this->servizioNews = $attiva_news;
     }
-
-
 
     /**
      * Ritorna l'oggetto Files, false se il servizio non ? attivo
@@ -370,7 +363,7 @@ class Canale {
      * @todo implementare Files
      * @return mixed
      */
-    function getServizioFiles()
+    public function getServizioFiles()
     {
         return $this->servizioFiles;
     }
@@ -381,11 +374,11 @@ class Canale {
      * Imposta il servizio files, true: attivo - false: non attivo
      *
      * @todo implementare propagazione DB
-     * @param boolean $attiva_files
-     * @param boolean $updateDB     se true la modifica viene propagata al DB
+     * @param  boolean $attiva_files
+     * @param  boolean $updateDB     se true la modifica viene propagata al DB
      * @return boolean
      */
-    function setServizioFiles($attiva_files, $updateDB = false)
+    public function setServizioFiles($attiva_files, $updateDB = false)
     {
         $this->servizioFiles = $attiva_files;
     }
@@ -398,22 +391,20 @@ class Canale {
      * @todo implementare Links
      * @return mixed
      */
-    function getServizioLinks()
+    public function getServizioLinks()
     {
         return $this->servizioLinks;
     }
-
-
 
     /**
      * Imposta il servizio links, true: attivo - false: non attivo
      *
      * @todo implementare propagazione DB
-     * @param boolean $attiva_links
-     * @param boolean $updateDB     se true la modifica viene propagata al DB
+     * @param  boolean $attiva_links
+     * @param  boolean $updateDB     se true la modifica viene propagata al DB
      * @return boolean
      */
-    function setServizioLinks($attiva_links, $updateDB = false)
+    public function setServizioLinks($attiva_links, $updateDB = false)
     {
         $this->servizioLinks = $attiva_links;
     }
@@ -424,27 +415,23 @@ class Canale {
      * @todo implementare Files
      * @return boolean
      */
-    function getServizioFilesStudenti()
+    public function getServizioFilesStudenti()
     {
         return $this->servizioFilesStudenti;
     }
-
-
 
     /**
      * Imposta il servizio Files Studenti, true: attivo - false: non attivo
      *
      * @todo implementare propagazione DB
-     * @param boolean $attiva_files
-     * @param boolean $updateDB     se true la modifica viene propagata al DB
+     * @param  boolean $attiva_files
+     * @param  boolean $updateDB     se true la modifica viene propagata al DB
      * @return boolean
      */
-    function setServizioFilesStudenti($attiva_files_studenti, $updateDB = false)
+    public function setServizioFilesStudenti($attiva_files_studenti, $updateDB = false)
     {
         $this->servizioFilesStudenti = $attiva_files_studenti;
     }
-
-
 
     /**
      * Ritorna l'oggetto Forum, false se il servizio non ? attivo
@@ -452,7 +439,7 @@ class Canale {
      * @todo implementare Forum
      * @return mixed
      */
-    function getServizioForum()
+    public function getServizioForum()
     {
         return $this->servizioForum;
     }
@@ -463,11 +450,11 @@ class Canale {
      * Imposta il servizio forum, true: attivo - false: non attivo
      *
      * @todo implementare propagazione DB
-     * @param boolean $attiva_links
-     * @param boolean $updateDB     se true la modifica viene propagata al DB
+     * @param  boolean $attiva_links
+     * @param  boolean $updateDB     se true la modifica viene propagata al DB
      * @return boolean
      */
-    function setServizioForum($attiva_forum, $updateDB = false)
+    public function setServizioForum($attiva_forum, $updateDB = false)
     {
         $this->servizioForum = $attiva_forum;
     }
@@ -479,7 +466,7 @@ class Canale {
      *
      * @return mixed
      */
-    function getForumForumId()
+    public function getForumForumId()
     {
         return $this->forum['forum_id'];
     }
@@ -491,7 +478,7 @@ class Canale {
      *
      * @return mixed
      */
-    function getForumGroupId()
+    public function getForumGroupId()
     {
         return $this->forum['group_id'];
     }
@@ -501,7 +488,7 @@ class Canale {
     /**
      * Imposta il forum_id delle tabelle di phpbb, , NULL se il forum non ? attivo
      */
-    function setForumForumId($forum_id)
+    public function setForumForumId($forum_id)
     {
         $this->forum['forum_id'] = $forum_id;
     }
@@ -511,7 +498,7 @@ class Canale {
     /**
      * Imposta il group_id delle tabelle di phpbb, NULL se il forum non ? attivo
      */
-    function setForumGroupId($group_id)
+    public function setForumGroupId($group_id)
     {
         $this->forum['group_id'] = $group_id;
     }
@@ -525,7 +512,7 @@ class Canale {
      * @private
      * @return string
      */
-    function _dispatchCanale()
+    public function _dispatchCanale()
     {
 
         //$tipo_canale =  Canale::getTipoCanaleFromId ( $this->getRequestIdCanale() );
@@ -547,10 +534,10 @@ class Canale {
      * sottoclassi per restituire un oggetto del tipo corrispondente
      *
      * @static
-     * @param int $id_canale numero identificativo del canale
+     * @param  int   $id_canale numero identificativo del canale
      * @return mixed Canale se eseguita con successo, false se il canale non esiste
      */
-    function retrieveCanale($id_canale, $cache = true)
+    public function retrieveCanale($id_canale, $cache = true)
     {
         //spalata la cache!!!
         //dimezza i tempi di esecuzione!!
@@ -572,8 +559,7 @@ class Canale {
                 CANALE_INSEGNAMENTO => __NAMESPACE__.'\\Insegnamento');
 
 
-        if (!array_key_exists($tipo_canale, $dispatch_array))
-        {
+        if (!array_key_exists($tipo_canale, $dispatch_array)) {
             Error::throwError(_ERROR_CRITICAL,array('msg'=>'Il tipo di canale richiesto su database non e` valido, contattare lo staff - '.var_dump($id_canale).var_dump($tipo_canale),'file'=>__FILE__,'line'=>__LINE__));
         }
 
@@ -589,7 +575,7 @@ class Canale {
      * Questo metodo viene ridefinito nelle sottoclassi per restituire un oggetto
      * del tipo corrispondente
      *
-     * @param int $id_canale numero identificativo del canale
+     * @param  int   $id_canale numero identificativo del canale
      * @return mixed Canale se eseguita con successo, false se il canale non esiste
      */
     public static function factoryCanale($id_canale)
@@ -602,7 +588,7 @@ class Canale {
      *
      * @return string uri/link che mostra un canale
      */
-    function showMe()
+    public function showMe()
     {
         if ($this->getTipoCanale() == CANALE_HOME) return 'v2.php?do=ShowHome';
         else return 'v2.php?do=ShowCanale&id_canale='.$this->id_canale;
@@ -612,7 +598,7 @@ class Canale {
      * Crea un oggetto canale dato il suo numero identificativo id_canale del database
      *
      * @deprecated
-     * @param int $id_canale numero identificativo del canale
+     * @param  int   $id_canale numero identificativo del canale
      * @return mixed Canale se eseguita con successo, false se il canale non esiste
      */
     public static function selectCanale($id_canale)
@@ -626,7 +612,7 @@ class Canale {
      * Crea un elenco (array) di oggetti Canale dato un elenco (array) di loro numeri identificativi id_canale del database
      *
      * @deprecated
-     * @param array $elenco_id_canali array contenente i numeri identificativi del canale
+     * @param  array $elenco_id_canali array contenente i numeri identificativi del canale
      * @return mixed array di Canale se eseguita con successo, false se il canale non esiste
      */
     public static function selectCanali(array $idCanale)
@@ -637,7 +623,7 @@ class Canale {
     /**
      * Inserisce su Db le informazioni riguardanti un NUOVO canale
      *
-     * @param int $id_canale numero identificativo utente
+     * @param  int     $id_canale numero identificativo utente
      * @return boolean
      */
     public function insertCanale()
@@ -656,21 +642,18 @@ class Canale {
         return self::getRepository()->update($this);
     }
 
-
     /**
      * Ritorna un array contenente gli oggetti Ruolo associati al canale
      *
      * @return array
      */
-    function getRuoli()
+    public function getRuoli()
     {
-        if ($this->ruoli == NULL)
-        {
+        if ($this->ruoli == NULL) {
             $this->ruoli = array();
             $ruoli = Ruolo::selectCanaleRuoli($this->getIdCanale());
             $num_elementi = count($ruoli);
-            for ($i=0; $i<$num_elementi; $i++)
-            {
+            for ($i=0; $i<$num_elementi; $i++) {
                 $this->ruoli[$ruoli[$i]->getIdUser()] = $ruoli[$i];
             }
         }
@@ -683,29 +666,27 @@ class Canale {
      *
      * @static
      *
-     * @param int $id_canale id del canale da controllare
+     * @param  int     $id_canale id del canale da controllare
      * @return boolean true se esiste tale canale
      */
-    function canaleExists($id_canale){
-
+    public function canaleExists($id_canale)
+    {
         if ( $id_canale < 0 ) return false;
 
         return self::getRepository()->idExists($id_canale);
     }
 
-
     /**
      * Crea un elenco (array) di oggetti Canale dato un elenco (array) di loro numeri identificativi id_canale del database
      *
      * @deprecated
-     * @param array $tipoCanali array contenente ila tipologia del canale
+     * @param  array $tipoCanali array contenente ila tipologia del canale
      * @return mixed array di id_canali se eseguita con successo, false se il canale non esiste
      */
     public static function selectCanaliTipo($tipoCanale)
     {
         return self::getRepository()->findManyByType($tipoCanale);
     }
-
 
     /**
      * compara per nome due canali
@@ -723,8 +704,7 @@ class Canale {
      */
     private static function getRepository()
     {
-        if(is_null(self::$repository))
-        {
+        if (is_null(self::$repository)) {
             self::$repository = new DBCanaleRepository(FrontController::getDbConnection('main'));
         }
 

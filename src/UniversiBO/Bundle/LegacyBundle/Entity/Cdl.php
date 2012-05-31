@@ -9,7 +9,6 @@ define('CDL_NUOVO_ORDINAMENTO'   ,1);
 define('CDL_SPECIALISTICA'       ,2);
 define('CDL_VECCHIO_ORDINAMENTO' ,3);
 
-
 /**
  * Cdl class.
  *
@@ -24,7 +23,8 @@ define('CDL_VECCHIO_ORDINAMENTO' ,3);
  * @copyright CopyLeft UniversiBO 2001-2003
  */
 
-class Cdl extends Canale {
+class Cdl extends Canale
+{
     /**
      * @var DBCdlRepository
      */
@@ -33,52 +33,52 @@ class Cdl extends Canale {
     /**
      * @private
      */
-    var $cdlCodice = '';
+    public $cdlCodice = '';
     /**
      * @private
      */
-    var $cdlNome = '';
+    public $cdlNome = '';
     /**
      * @private
      */
-    var $cdlCategoria = 0;
+    public $cdlCategoria = 0;
     /**
      * @private
      */
-    var $cdlCodiceFacoltaPadre = '';
+    public $cdlCodiceFacoltaPadre = '';
     /**
      * @private
      */
-    var $cdlForumCatId = '';
+    public $cdlForumCatId = '';
     /**
      * @private
      */
-    var $cdlCodDoc = '';
+    public $cdlCodDoc = '';
 
 
 
     /**
      * Crea un oggetto Cdl
      *
-     * @param int     $id_canale       identificativo del canae su database
-     * @param int     $permessi        privilegi di accesso gruppi {@see User}
-     * @param int     $ultima_modifica timestamp
-     * @param int     $tipo_canale     vedi definizione dei tipi sopra
-     * @param string  $immagine        uri               dell'immagine relativo alla cartella del template
-     * @param string  $nome            nome                 del canale
-     * @param int     $visite          numero             visite effettuate sul canale
-     * @param boolean $news_attivo     se              true il servizio notizie ? attivo
-     * @param boolean $files_attivo    se             true il servizio false ? attivo
-     * @param boolean $forum_attivo    se             true il servizio forum ? attivo
-     * @param int     $forum_forum_id  se           forum_attivo ? true indica l'identificativo del forum su database
-     * @param int     $forum_group_id  se           forum_attivo ? true indica l'identificativo del grupop moderatori del forum su database
-     * @param boolean $links_attivo    se true il servizio links ? attivo
-     * @param string  $cod_cdl         codice             identificativo d'ateneo del corso di laurea a 4 cifre
-     * @param string  $nome_cdl        descrizione       del nome del cdl
-     * @param int     $categoria_cdl   categoria     del tipo do cdl
-     * @param string  $cod_facolta     codice          identificativo d'ateneo della facolt? a cui appartiene il corso di laurea
-     * @param string  $cod_doc         codice             identificativo del docente
-     * @param string  $forum_cat_id    identificativo categoria del forum
+     * @param  int     $id_canale       identificativo del canae su database
+     * @param  int     $permessi        privilegi di accesso gruppi {@see User}
+     * @param  int     $ultima_modifica timestamp
+     * @param  int     $tipo_canale     vedi definizione dei tipi sopra
+     * @param  string  $immagine        uri               dell'immagine relativo alla cartella del template
+     * @param  string  $nome            nome                 del canale
+     * @param  int     $visite          numero             visite effettuate sul canale
+     * @param  boolean $news_attivo     se              true il servizio notizie ? attivo
+     * @param  boolean $files_attivo    se             true il servizio false ? attivo
+     * @param  boolean $forum_attivo    se             true il servizio forum ? attivo
+     * @param  int     $forum_forum_id  se           forum_attivo ? true indica l'identificativo del forum su database
+     * @param  int     $forum_group_id  se           forum_attivo ? true indica l'identificativo del grupop moderatori del forum su database
+     * @param  boolean $links_attivo    se true il servizio links ? attivo
+     * @param  string  $cod_cdl         codice             identificativo d'ateneo del corso di laurea a 4 cifre
+     * @param  string  $nome_cdl        descrizione       del nome del cdl
+     * @param  int     $categoria_cdl   categoria     del tipo do cdl
+     * @param  string  $cod_facolta     codice          identificativo d'ateneo della facolt? a cui appartiene il corso di laurea
+     * @param  string  $cod_doc         codice             identificativo del docente
+     * @param  string  $forum_cat_id    identificativo categoria del forum
      * @return Facolta
      */
     public function __construct($id_canale, $permessi, $ultima_modifica, $tipo_canale, $immagine, $nome, $visite,
@@ -97,37 +97,32 @@ class Cdl extends Canale {
         $this->cdlCodDoc	= $cod_doc;
     }
 
-
-
     /**
      * Restituisce il nome/descrizione del corso di laurea
      *
      * @return string
      */
-    function getNome()
+    public function getNome()
     {
         return $this->cdlNome;
     }
-
 
     /**
      * Imposta il nome/descrizione del corso di laurea
      *
      * @param string $nomeCdl nuovo nome CdL
      */
-    function setNome($nomeCdl)
+    public function setNome($nomeCdl)
     {
         $this->cdlNome = $nomeCdl;
     }
-
-
 
     /**
      * Restituisce il titolo/nome completo del cdl
      *
      * @return string
      */
-    function getTitolo()
+    public function getTitolo()
     {
         return "CORSO DI LAUREA DI \n".$this->getNome();
     }
@@ -141,11 +136,10 @@ class Cdl extends Canale {
      *
      * @return int
      */
-    function getCategoriaCdl()
+    public function getCategoriaCdl()
     {
         return $this->cdlCategoria;
     }
-
 
     /**
      * Imposta la categoria del cdl
@@ -156,7 +150,7 @@ class Cdl extends Canale {
      *
      * @param int
      */
-    function setCategoriaCdl($categoria)
+    public function setCategoriaCdl($categoria)
     {
         $this->cdlCategoria = $categoria;
     }
@@ -165,7 +159,7 @@ class Cdl extends Canale {
      * Trasforma i codici di tipo corso del dataretriever (forse)
      * a categoria cdl usato in questa classe.
      */
-    function translateCategoriaCdl($categoria)
+    public function translateCategoriaCdl($categoria)
     {
         $translationTable =
         array(	'LT' => CDL_NUOVO_ORDINAMENTO,
@@ -177,18 +171,15 @@ class Cdl extends Canale {
         else
             $result = CDL_NUOVO_ORDINAMENTO; //se non so cosa metterci di default butto questo
 
-
         return $result;
     }
-
-
 
     /**
      * Ritorna la stringa descrittiva del titolo/nome breve del canale per il MyUniversiBO
      *
      * @return string
      */
-    function getNomeMyUniversiBO()
+    public function getNomeMyUniversiBO()
     {
         return $this->getNome().' - '.$this->getCodiceCdl();
     }
@@ -198,11 +189,10 @@ class Cdl extends Canale {
      *
      * @return string
      */
-    function getCodiceFacoltaPadre()
+    public function getCodiceFacoltaPadre()
     {
         return $this->cdlCodiceFacoltaPadre;
     }
-
 
     /**
      * Imposta il codice della facolt� a cui afferisce il cdl
@@ -210,11 +200,10 @@ class Cdl extends Canale {
      *
      * @return string
      */
-    function setCodiceFacoltaPadre($codFac)
+    public function setCodiceFacoltaPadre($codFac)
     {
         $this->cdlCodiceFacoltaPadre = $codFac;
     }
-
 
     /**
      * Restituisce il codice di ateneo a 4 cifre del cdl
@@ -222,7 +211,7 @@ class Cdl extends Canale {
      *
      * @return string
      */
-    function getCodiceCdl()
+    public function getCodiceCdl()
     {
         return $this->cdlCodice;
     }
@@ -233,7 +222,7 @@ class Cdl extends Canale {
      *
      * @return string
      */
-    function setCodiceCdl($cod_new)
+    public function setCodiceCdl($cod_new)
     {
         $this->cdlCodice = $cod_new;
     }
@@ -243,7 +232,7 @@ class Cdl extends Canale {
      * Ridefinisce il factory method della classe padre per restituire un oggetto
      * del tipo Cdl
      *
-     * @param int $id_canale numero identificativo del canale
+     * @param  int   $id_canale numero identificativo del canale
      * @return mixed Facolta se eseguita con successo, false se il canale non esiste
      */
     public static function factoryCanale($id_canale)
@@ -251,13 +240,12 @@ class Cdl extends Canale {
         return self ::selectCdlCanale($id_canale);
     }
 
-
     /**
      * Restituisce l'uri/link che mostra un canale
      *
      * @return string uri/link che mostra un canale
      */
-    function showMe()
+    public function showMe()
     {
         return 'v2.php?do=ShowCdl&id_canale='.$this->id_canale;
     }
@@ -267,8 +255,8 @@ class Cdl extends Canale {
      * Seleziona da database e restituisce l'elenco di tutti gli oggetti Cdl corso di laurea
      *
      * @deprecated
-     * @param boolean $canaliAttivi se restituire solo i Cdl gi? associati ad un canale o tutti
-     * @return mixed array di Cdl se eseguita con successo, false in caso di errore
+     * @param  boolean $canaliAttivi se restituire solo i Cdl gi? associati ad un canale o tutti
+     * @return mixed   array di Cdl se eseguita con successo, false in caso di errore
      */
     public static function selectCdlAll()
     {
@@ -280,7 +268,7 @@ class Cdl extends Canale {
      * corrispondente al codice id_canale
      *
      * @deprecated
-     * @param int $id_canale identificativo su DB del canale corrispondente al corso di laurea
+     * @param  int   $id_canale identificativo su DB del canale corrispondente al corso di laurea
      * @return mixed Cdl se eseguita con successo, false se il canale non esiste
      */
     public static function selectCdlCanale($idCanale)
@@ -295,7 +283,7 @@ class Cdl extends Canale {
      * corrispondente al codice $cod_cdl
      *
      * @deprecated
-     * @param string $cod_cdl stringa a 4 cifre del codice d'ateneo del corso di laurea
+     * @param  string  $cod_cdl stringa a 4 cifre del codice d'ateneo del corso di laurea
      * @return Facolta
      */
     public static function selectCdlCodice($codice)
@@ -310,7 +298,7 @@ class Cdl extends Canale {
      * in ordine alfabetico di tutti i cdl appartenenti alla facolt? data
      *
      * @deprecated
-     * @param string $cod_facolta stringa a 4 cifre del codice d'ateneo della facolt?
+     * @param  string     $cod_facolta stringa a 4 cifre del codice d'ateneo della facolt?
      * @return array(Cdl)
      */
     public static function selectCdlElencoFacolta($codiceFacolta)
@@ -333,7 +321,7 @@ class Cdl extends Canale {
      *
      * @return string URI del command
      */
-    function getCodDocente()
+    public function getCodDocente()
     {
         return $this->cdlCodDoc;
     }
@@ -344,7 +332,7 @@ class Cdl extends Canale {
      *
      * @return string URI del command
      */
-    function setCodDocente($codDoc)
+    public function setCodDocente($codDoc)
     {
         $this->cdlCodDoc = $codDoc;
     }
@@ -355,18 +343,17 @@ class Cdl extends Canale {
      *
      * @return int $cat_id
      */
-    function getForumCatId()
+    public function getForumCatId()
     {
         return $this->cdlForumCatId;
     }
-
 
     /**
      * Imposta l'id categoria del forum
      *
      * @param int $cat_id
      */
-    function setForumCatId($cat_id)
+    public function setForumCatId($cat_id)
     {
         $this->cdlForumCatId = $cat_id;
     }
@@ -382,8 +369,7 @@ class Cdl extends Canale {
 
     public function insertCdl()
     {
-        if ($this->insertCanale() != true)
-        {
+        if ($this->insertCanale() != true) {
             Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore inserimento Canale','file'=>__FILE__,'line'=>__LINE__));
 
             return false;
@@ -398,8 +384,7 @@ class Cdl extends Canale {
      */
     private static function getRepository()
     {
-        if(is_null(self::$repository))
-        {
+        if (is_null(self::$repository)) {
             self::$repository = new DBCdlRepository(FrontController::getDbConnection('main'));
         }
 

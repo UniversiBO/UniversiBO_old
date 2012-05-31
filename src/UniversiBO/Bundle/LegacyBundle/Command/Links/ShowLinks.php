@@ -18,9 +18,8 @@ use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class ShowLinks extends PluginCommand {
-
-
+class ShowLinks extends PluginCommand
+{
     /**
      * Esegue il plugin
      *
@@ -44,13 +43,11 @@ class ShowLinks extends PluginCommand {
 
         $template->assign('showLinks_adminLinksFlag', 'false');
 
-
         $referente      = false;
         $moderatore     = false;
         $ultimo_accesso = $user->getUltimoLogin();
 
-        if (array_key_exists($id_canale, $user_ruoli))
-        {
+        if (array_key_exists($id_canale, $user_ruoli)) {
             $ruolo = $user_ruoli[$id_canale];
             $referente      = $ruolo->isReferente();
             $moderatore     = $ruolo->isModeratore();
@@ -59,14 +56,12 @@ class ShowLinks extends PluginCommand {
 
         $personalizza = ($referente || $moderatore || $user->isAdmin());
 
-
         $lista_links = Link::selectCanaleLinks($id_canale);
 
         $ret_links = count($lista_links);
         $elenco_links_tpl = array();
 
-        for ($i = 0; $i < $ret_links; $i++)
-        {
+        for ($i = 0; $i < $ret_links; $i++) {
             $link = $lista_links[$i];
 
             $elenco_links_tpl[$i]['uri']       		= $link->getUri();

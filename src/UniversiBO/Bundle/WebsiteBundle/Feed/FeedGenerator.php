@@ -33,7 +33,7 @@ class FeedGenerator
 
     /**
      * Generates a feed from Canale
-     * @param Canale $canale
+     * @param  Canale $canale
      * @return Feed
      */
     public function generateFeed(Canale $canale, Router $router, $legacy = true)

@@ -16,7 +16,7 @@ class EntityRetrieverSf2 implements IExecutor
         $this->entityTable['user'] = $getUser = function() use($securityContext) {
             $token = $securityContext->getToken();
 
-            if(is_null($token)) {
+            if (is_null($token)) {
                 return false;
             }
 
@@ -26,10 +26,9 @@ class EntityRetrieverSf2 implements IExecutor
         $this->entityTable['ruoli'] = function() use($getUser) {
             $user = $getUser();
 
-            if($user instanceof User) {
+            if ($user instanceof User) {
                 return $user->getRuoli();
             }
-
 
             return null;
         };

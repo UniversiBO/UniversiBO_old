@@ -22,7 +22,7 @@ use UniversiBO\Bundle\LegacyBundle\Entity\Files\FileItem;
 
 class ScriptCreaCatalogoFile extends UniversiboCommand
 {
-    function execute()
+    public function execute()
     {
         $fc = $this->getFrontController();
         $template = $fc->getTemplateEngine();
@@ -36,8 +36,7 @@ class ScriptCreaCatalogoFile extends UniversiboCommand
         $university='UNIVERSITA';
 
         // BUG: controllare la condizione
-        if(!file_exists($catalogoFilename) || filemtime($catalogoFilename) < strtotime("-3 day"))
-        {
+        if (!file_exists($catalogoFilename) || filemtime($catalogoFilename) < strtotime("-3 day")) {
 
             echo "vecchio" ;
             echo " \n" ;
@@ -73,8 +72,7 @@ class ScriptCreaCatalogoFile extends UniversiboCommand
                 $listaIdFiles[] = $row[0];
             $res->free();
 
-            for ( $x = 0; $x <= $num; $x+=$iterationStep)
-            {
+            for ( $x = 0; $x <= $num; $x+=$iterationStep) {
                 $files = FileItem::selectFileItems(array_slice($listaIdFiles,$x,$iterationStep));
                 //				var_dump($files);
                 if ($x+$iterationStep>$num)
@@ -83,7 +81,7 @@ class ScriptCreaCatalogoFile extends UniversiboCommand
                 if ($files === false)
                     Error :: throwError(_ERROR_DEFAULT, array ('msg' => "Errori nel recupero dei file esistenti", 'file' => __FILE__, 'line' => __LINE__));
 
-                foreach($files as $file){
+                foreach ($files as $file) {
                     fwrite($fp,'<download>');
                     fwrite($fp,'<id>'.$file->getIdFile().'</id>');
                     fwrite($fp,'<subject>'.htmlentities($file->getCategoriaDesc()).'</subject>');

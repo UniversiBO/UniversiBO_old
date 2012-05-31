@@ -19,7 +19,7 @@ use UniversiBO\Bundle\LegacyBundle\App\ForumApi;
  */
 class NewPasswordDocente extends UniversiboCommand
 {
-    function execute()
+    public function execute()
     {
         $fc = $this->getFrontController();
         $template = $this->frontController->getTemplateEngine();

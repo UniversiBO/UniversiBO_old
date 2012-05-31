@@ -20,7 +20,7 @@ use UniversiBO\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
 class FileStudentiDelete extends UniversiboCommand
 {
 
-    function execute()
+    public function execute()
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();

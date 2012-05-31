@@ -24,7 +24,7 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 class ShowContattoDocente extends UniversiboCommand
 {
 
-    function execute()
+    public function execute()
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
@@ -249,7 +249,7 @@ Link: ' . $frontcontroller->getAppSetting('rootUrl') . '/v2.php?do='
         return 'default';
     }
 
-    function _getCollaboratoriUniversibo()
+    public function _getCollaboratoriUniversibo()
     {
         $db = FrontController::getDbConnection('main');
 
@@ -276,7 +276,7 @@ Link: ' . $frontcontroller->getAppSetting('rootUrl') . '/v2.php?do='
         return $lista;
     }
 
-    function _compareUsername($a, $b)
+    public function _compareUsername($a, $b)
     {
         if (strnatcmp($a['nome'], $b['nome']) > 0)
 

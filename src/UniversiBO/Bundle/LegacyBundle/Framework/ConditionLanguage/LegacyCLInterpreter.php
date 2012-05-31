@@ -1,7 +1,6 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage;
 
-
 class LegacyCLInterpreter
 {
     /**

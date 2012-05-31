@@ -26,27 +26,27 @@ class Docente extends User
     /**
      * @access private
      */
-    var $id_utente;
+    public $id_utente;
 
     /**
      * @access private
      */
-    var $codDoc;
+    public $codDoc;
 
     /**
      * @access private
      */
-    var $nomeDoc;
+    public $nomeDoc;
 
     /**
      * @access private
      */
-    var $userCache = null;
+    public $userCache = null;
 
     /**
      * @access private
      */
-    var $rubricaCache = null;
+    public $rubricaCache = null;
 
     public function __construct($id_utente, $cod_doc, $nome_doc,
             $rubrica = null)
@@ -57,27 +57,27 @@ class Docente extends User
         $this->rubricaCache = $rubrica;
     }
 
-    function getIdUtente()
+    public function getIdUtente()
     {
         return $this->id_utente;
     }
 
-    function setIdUtente($id_utente)
+    public function setIdUtente($id_utente)
     {
         $this->id_utente = $id_utente;
     }
 
-    function getCodDoc()
+    public function getCodDoc()
     {
         return $this->codDoc;
     }
 
-    function getNomeDoc()
+    public function getNomeDoc()
     {
         return $this->nomeDoc;
     }
 
-    function getHomepageDocente()
+    public function getHomepageDocente()
     {
         return 'http://www.unibo.it/Portale/Strumenti+del+Portale/Rubrica/paginaWebDocente.htm?mat='
                 . $this->getCodDoc();
@@ -87,10 +87,10 @@ class Docente extends User
      * Ritorna Preleva tutti i collaboratori dal database
      *
      * @static
-     * @param int $id_utente numero identificativo utente
+     * @param  int   $id_utente numero identificativo utente
      * @return array Collaboratori
      */
-    function getUser()
+    public function getUser()
     {
         if ($this->userCache == NULL) {
             $this->userCache = User::selectUser($this->getIdUtente());
@@ -104,7 +104,7 @@ class Docente extends User
      *
      * @return array
      */
-    function getInfoRubrica()
+    public function getInfoRubrica()
     {
         if ($this->rubricaCache == NULL) {
             $this->rubricaCache = $this->_getDocenteInfo();
@@ -116,7 +116,7 @@ class Docente extends User
     /**
      * @access private
      */
-    function _getDocenteInfo()
+    public function _getDocenteInfo()
     {
         $db = FrontController::getDbConnection('main');
 
@@ -149,7 +149,7 @@ class Docente extends User
      * Ritorna un collaboratori dato l'id_utente del database
      *
      * @static
-     * @param int $id numero identificativo utente
+     * @param  int   $id numero identificativo utente
      * @return array Collaboratori
      */
     public static function selectDocente($id, $isCodiceDocente = false)

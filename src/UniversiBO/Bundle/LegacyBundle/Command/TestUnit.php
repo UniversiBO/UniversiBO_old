@@ -20,7 +20,7 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 class TestUnit extends UniversiboCommand
 {
-    function execute()
+    public function execute()
     {
         if (defined('PATH_SEPARATOR')) {
             $pathDelimiter = PATH_SEPARATOR;

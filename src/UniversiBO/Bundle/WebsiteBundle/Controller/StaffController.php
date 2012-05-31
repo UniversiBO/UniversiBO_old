@@ -5,7 +5,6 @@ use UniversiBO\Bundle\LegacyBundle\Entity\Collaboratore;
 
 use UniversiBO\Bundle\LegacyBundle\Entity\User;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -38,13 +37,13 @@ class StaffController extends Controller
         $cRepo = $this->get('universibo_legacy.repository.collaboratore');
 
         $user = $uRepo->findByUsername($username);
-        if(!$user instanceof User) {
+        if (!$user instanceof User) {
             throw $this->createNotFoundException('User not found');
         }
 
         $contact = $cRepo->find($user->getIdUser());
 
-        if(!$contact instanceof Collaboratore) {
+        if (!$contact instanceof Collaboratore) {
             throw $this->createNotFoundException('Staff not found');
         }
 

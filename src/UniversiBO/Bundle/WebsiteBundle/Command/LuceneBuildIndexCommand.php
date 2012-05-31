@@ -3,7 +3,6 @@ namespace UniversiBO\Bundle\WebsiteBundle\Command;
 
 use Zend\Search\Lucene\SearchIndexInterface;
 
-
 use Zend\Search\Lucene\Document\Field;
 
 use Zend\Search\Lucene\Document;
@@ -43,14 +42,14 @@ class LuceneBuildIndexCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
+     * @param  InputInterface  $input
+     * @param  OutputInterface $output
      * @throws \LogicException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $index = $this->get('universibo_website.search.lucene');
-        foreach($index as $item) {
+        foreach ($index as $item) {
             $index->delete($item->id);
         }
 
@@ -80,7 +79,7 @@ class LuceneBuildIndexCommand extends ContainerAwareCommand
     {
         $repository = $this->get('universibo_legacy.repository.files.file_item');
 
-        foreach($repository->findAll() as $file) {
+        foreach ($repository->findAll() as $file) {
             $doc = new Document();
 
             $doc->addField(Field::unStored('title', $file->getTitolo()));
@@ -96,7 +95,7 @@ class LuceneBuildIndexCommand extends ContainerAwareCommand
     {
         $repository = $this->get('universibo_legacy.repository.news.newsitem');
 
-        foreach($repository->findAll() as $news) {
+        foreach ($repository->findAll() as $news) {
             $doc = new Document();
 
             $doc->addField(Field::unStored('title', $news->getTitolo()));

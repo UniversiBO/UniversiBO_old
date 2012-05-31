@@ -1,7 +1,6 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage;
 
-
 class ExecutorFactory
 {
     private $executors = array();
@@ -19,12 +18,9 @@ class ExecutorFactory
 
         $ret = call_user_func(array($this->executors[strtolower($executor)],'run'),$arg);
 
-        if (is_array($arg) && array_key_exists('outMask',$arg))
-        {
-            if(($tot = count($arg['outMask'])) > 1)
-            {
-                foreach($ret as $r)
-                {
+        if (is_array($arg) && array_key_exists('outMask',$arg)) {
+            if (($tot = count($arg['outMask'])) > 1) {
+                foreach ($ret as $r) {
                     for ($i=0; $i<$tot; $i++)
                         $l[$arg['outMask'][$i]] = $r[$i];
                     //var_dump($l);

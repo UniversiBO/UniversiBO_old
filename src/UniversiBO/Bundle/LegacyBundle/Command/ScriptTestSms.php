@@ -12,7 +12,7 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 class ScriptTestSms extends UniversiboCommand
 {
 
-    function execute()
+    public function execute()
     {
         $fc = $this->getFrontController();
         $template = $fc->getTemplateEngine();

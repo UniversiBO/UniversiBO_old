@@ -14,7 +14,7 @@ interface SenderInterface
      * Sends a notification
      *
      * @throws \InvalidArgumentException if supports return false
-     * @param NotificaItem $notification
+     * @param  NotificaItem              $notification
      */
     public function send(NotificaItem $notification);
 

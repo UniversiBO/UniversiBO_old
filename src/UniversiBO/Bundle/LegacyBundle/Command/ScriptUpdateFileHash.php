@@ -18,7 +18,7 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
  */
 class ScriptUpdateFileHash extends UniversiboCommand
 {
-    function execute()
+    public function execute()
     {
         $fc = $this->getFrontController();
         $template = $fc->getTemplateEngine();
@@ -31,18 +31,14 @@ class ScriptUpdateFileHash extends UniversiboCommand
 
         $res = $db->query('SELECT id_file, nome_file FROM file ORDER BY 1');
 
-        while ( $res->fetchInto($row) )
-        {
+        while ( $res->fetchInto($row) ) {
             $nome_file = $filePath.$row[0].'_'.$row[1];
-            if (file_exists($nome_file))
-            {
+            if (file_exists($nome_file)) {
                 $query = 'UPDATE file SET hash_file=\''.md5_file($nome_file).'\' WHERE id_file = '.$row[0];
                 $res1 = $db->query($query);
                 if (DB::isError($res1))
                     Error::throwError(_ERROR_CRITICAL,array('id_utente' => $user->getIdUser(), 'msg'=>DB::errorMessage($res1),'file'=>__FILE__,'line'=>__LINE__));
-            }
-            else
-            {
+            } else {
                 echo $row[0].'_'.$row[1]."\n";
                 $query = 'UPDATE file SET hash_file=\'\' WHERE id_file = '.$row[0];
                 $res1 = $db->query($query);

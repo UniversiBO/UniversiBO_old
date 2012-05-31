@@ -69,7 +69,7 @@ class DBCanale2Repository extends DBRepository
         $sql = 'SELECT tipo_canale FROM canale WHERE id_canale = ' . $db->quote($id);
 
         $res = $db->query($sql);
-        if(\DB::isError($res)) {
+        if (\DB::isError($res)) {
             throw new \Exception($res->getMessage());
         }
 

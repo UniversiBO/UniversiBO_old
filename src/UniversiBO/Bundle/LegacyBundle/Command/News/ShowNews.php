@@ -18,9 +18,8 @@ use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class ShowNews extends PluginCommand {
-
-
+class ShowNews extends PluginCommand
+{
     /**
      * Esegue il plugin
      *
@@ -43,8 +42,7 @@ class ShowNews extends PluginCommand {
         $krono     = $fc->getKrono();
         $user_ruoli = $user->getRuoli();
 
-        if($flag_chkDiritti)
-        {
+        if ($flag_chkDiritti) {
             $id_canale = $canale->getIdCanale();
             $titolo_canale =  $canale->getTitolo();
             $ultima_modifica_canale =  $canale->getUltimaModifica();
@@ -54,12 +52,10 @@ class ShowNews extends PluginCommand {
         $personalizza_not_admin = false;
 
         $template->assign('showNews_addNewsFlag', 'false');
-        if ($flag_chkDiritti && (array_key_exists($id_canale, $user_ruoli) || $user->isAdmin()))
-        {
+        if ($flag_chkDiritti && (array_key_exists($id_canale, $user_ruoli) || $user->isAdmin())) {
             $personalizza = true;
 
-            if (array_key_exists($id_canale, $user_ruoli))
-            {
+            if (array_key_exists($id_canale, $user_ruoli)) {
                 $ruolo = $user_ruoli[$id_canale];
 
                 $personalizza_not_admin = true;
@@ -74,9 +70,7 @@ class ShowNews extends PluginCommand {
 //				$template->assign('showNews_addNews', 'Scrivi nuova notizia');
 //				$template->assign('showNews_addNewsUri', 'v2.php?do=NewsAdd&id_canale='.$id_canale);
 //			}
-        }
-        else
-        {
+        } else {
             $personalizza   = false;
             $referente      = false;
             $moderatore     = false;
@@ -92,13 +86,10 @@ class ShowNews extends PluginCommand {
         $canale_news = count($elenco_id_news);
 //		var_dump($elenco_id_news);
 //		die();
-        if ( $canale_news == 0 )
-        {
+        if ( $canale_news == 0 ) {
             $template->assign('showNews_langNewsAvailable', 'Non ci sono notizie da visualizzare');
             $template->assign('showNews_langNewsAvailableFlag', 'false');
-        }
-        else
-        {
+        } else {
             $template->assign('showNews_langNewsAvailable', 'Ci sono '.$canale_news.' notizie');
             $template->assign('showNews_langNewsAvailableFlag', 'true');
         }
@@ -108,13 +99,11 @@ class ShowNews extends PluginCommand {
 
         $elenco_news_tpl = array();
 
-        if ($elenco_news ==! false )
-        {
+        if ($elenco_news ==! false ) {
 
             $ret_news = count($elenco_news);
 
-            for ($i = 0; $i < $ret_news; $i++)
-            {
+            for ($i = 0; $i < $ret_news; $i++) {
                 $news = $elenco_news[$i];
                 //var_dump($news);
                 $this_moderatore = ($user->isAdmin() || ($moderatore && $news->getIdUtente()==$user->getIdUser()));
@@ -129,8 +118,7 @@ class ShowNews extends PluginCommand {
                 $elenco_news_tpl[$i]['id_autore']    = $news->getIdUtente();
 
                 $elenco_news_tpl[$i]['scadenza']     = '';
-                if ( ($news->getDataScadenza()!=NULL) && ( $user->isAdmin() || $referente || $this_moderatore ) && $flag_chkDiritti)
-                {
+                if ( ($news->getDataScadenza()!=NULL) && ( $user->isAdmin() || $referente || $this_moderatore ) && $flag_chkDiritti) {
                     $elenco_news_tpl[$i]['scadenza'] = 'Scade il '.$krono->k_date('%j/%m/%Y - %H:%i', $news->getDataScadenza() );
                 }
 
@@ -138,8 +126,7 @@ class ShowNews extends PluginCommand {
                 $elenco_news_tpl[$i]['modifica_link']= '';
                 $elenco_news_tpl[$i]['elimina']      = '';
                 $elenco_news_tpl[$i]['elimina_link'] = '';
-                if ( ($user->isAdmin() || $referente || $this_moderatore)  && $flag_chkDiritti)
-                {
+                if ( ($user->isAdmin() || $referente || $this_moderatore)  && $flag_chkDiritti) {
                     $elenco_news_tpl[$i]['modifica']     = 'Modifica';
                     $elenco_news_tpl[$i]['modifica_link']= 'NewsEdit&id_news='.$news->getIdNotizia();
                     $elenco_news_tpl[$i]['elimina']      = 'Elimina';
@@ -151,7 +138,6 @@ class ShowNews extends PluginCommand {
         }
 
         $template->assign('showNews_newsList', $elenco_news_tpl);
-
 
     }
 }

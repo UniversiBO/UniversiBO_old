@@ -5,10 +5,8 @@
 * suite di test per la classe ContattoDocente
 */
 
-
 require_once 'PHPUnit'.PHP_EXTENSION;
 require_once 'ContattoDocente'.PHP_EXTENSION;
-
 
 /**
  * Test per la classe ContattoDocente
@@ -22,26 +20,27 @@ require_once 'ContattoDocente'.PHP_EXTENSION;
 class _UnitTest_ContattoDocente extends PHPUnit_TestCase
 {
 
-    function UserTest($name)
+    public function UserTest($name)
     {
         $this->PHPUnit_TestCase($name);
     }
 
     // called before the test functions will be executed
-    function setUp()
+    public function setUp()
     {
         $db =& FrontController::getDbConnection('main');
         $db->autoCommit(false);
     }
 
     // called after the test functions are executed
-    function tearDown() {
+    public function tearDown()
+    {
         $db =& FrontController::getDbConnection('main');
         $db->rollback();
         $db->autoCommit(true);
     }
 
-    function testContattoDocente()
+    public function testContattoDocente()
     {
         $contatto = new ContattoDocente(0, 2, 2, 2, 'report');
 
@@ -52,7 +51,7 @@ class _UnitTest_ContattoDocente extends PHPUnit_TestCase
         $this->assertEquals('report', $contatto->getReport());
     }
 
-    function testInserisciContattoDocente()
+    public function testInserisciContattoDocente()
     {
 //		//come faccio a verificare l'inserisci dato che in esso c'è il commit?
 //		$contatto = new ContattoDocente(0, 2, 2, 2, 'report');
@@ -61,10 +60,9 @@ class _UnitTest_ContattoDocente extends PHPUnit_TestCase
 //		$this->assertTrue($esito);
     }
 
-    function testGetContattoDocente()
+    public function testGetContattoDocente()
     {
 
     }
 
 }
-?>

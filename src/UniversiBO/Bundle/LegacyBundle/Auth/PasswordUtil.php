@@ -11,7 +11,7 @@ class PasswordUtil
      *  Verifica se la sintassi della password ? valida.
      *  Lunghezza min 5, max 30 caratteri
      *
-     * @param string $password stringa della password da verificare
+     * @param  string  $password stringa della password da verificare
      * @return boolean
      */
     public static function isPasswordValid( $password )
@@ -41,8 +41,7 @@ class PasswordUtil
         mt_srand( $seed );
 
         $rand_str = '';
-        for($i = 0; $i < $length; $i++)
-        {
+        for ($i = 0; $i < $length; $i++) {
             $rand_str = $rand_str . $chars[mt_rand(0, $max_chars)];
         }
 
@@ -52,15 +51,14 @@ class PasswordUtil
     /**
      * Ritorna l'hash sicuro di una stringa
      *
-     * @param string $string
+     * @param  string $string
      * @return string
      */
     public static function passwordHashFunction($string, $salt = '', $algoritmo = 'md5')
     {
         $password = $salt.$string;
 
-        switch($algoritmo)
-        {
+        switch ($algoritmo) {
             case 'sha256':
                 return hash($algoritmo, $password);
             case 'sha1':

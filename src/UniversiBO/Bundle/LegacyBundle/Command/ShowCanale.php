@@ -14,7 +14,7 @@ use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
  */
 class ShowCanale extends CanaleCommand
 {
-    function execute()
+    public function execute()
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
@@ -30,21 +30,18 @@ class ShowCanale extends CanaleCommand
         $template->assign('showCanale_newsFlag', 'false');
 
         //var_dump($canale->getServizioNews());
-        if ($canale->getServizioNews())
-        {
+        if ($canale->getServizioNews()) {
             $template->assign('showCanale_newsFlag', 'true');
             $this->executePlugin('ShowNewsLatest', array( 'num' => 5  ));
         }
 
         //var_dump($canale->getServizioFiles());
-        if ($canale->getServizioFiles())
-        {
+        if ($canale->getServizioFiles()) {
             $template->assign('showCanale_filesFlag', 'true');
             $this->executePlugin('ShowFileTitoli', array());
         }
 
-        if ($canale->getServizioLinks())
-        {
+        if ($canale->getServizioLinks()) {
             $template->assign('showCanale_linksFlag', 'true');
             $this->executePlugin('ShowLinks', array( 'num' => 12 ) );
         }

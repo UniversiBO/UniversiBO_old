@@ -32,7 +32,7 @@ class ChannelController extends Controller
 
         $channel = $channelRepo->find($id);
 
-        if(!$channel instanceof Canale) {
+        if (!$channel instanceof Canale) {
             throw $this->createNotFoundException('Channel not found');
         }
 
@@ -43,7 +43,6 @@ class ChannelController extends Controller
 
             return $response;
         }
-
 
         return array('channel' => $channel);
     }

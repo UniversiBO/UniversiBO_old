@@ -22,9 +22,8 @@ use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class ShowLinksExtended extends PluginCommand {
-
-
+class ShowLinksExtended extends PluginCommand
+{
     /**
      * Esegue il plugin
      *
@@ -47,12 +46,10 @@ class ShowLinksExtended extends PluginCommand {
         $ultima_modifica_canale =  $canale->getUltimaModifica();
 
         $template->assign('showLinks_adminLinksFlag', 'false');
-        if (array_key_exists($id_canale, $user_ruoli) || $user->isAdmin())
-        {
+        if (array_key_exists($id_canale, $user_ruoli) || $user->isAdmin()) {
             $personalizza = true;
 
-            if (array_key_exists($id_canale, $user_ruoli))
-            {
+            if (array_key_exists($id_canale, $user_ruoli)) {
                 $ruolo = $user_ruoli[$id_canale];
 
                 $referente      = $ruolo->isReferente();
@@ -60,9 +57,7 @@ class ShowLinksExtended extends PluginCommand {
                 $ultimo_accesso = $ruolo->getUltimoAccesso();
             }
 
-        }
-        else
-        {
+        } else {
             $personalizza   = false;
             $referente      = false;
             $moderatore     = false;
@@ -74,8 +69,7 @@ class ShowLinksExtended extends PluginCommand {
         $ret_links = count($lista_links);
         $elenco_links_tpl = array();
 
-        for ($i = 0; $i < $ret_links; $i++)
-        {
+        for ($i = 0; $i < $ret_links; $i++) {
             $links = $lista_links[$i];
 
             $elenco_links_tpl[$i]['uri']       		= $links->getUri();
@@ -86,8 +80,7 @@ class ShowLinksExtended extends PluginCommand {
 
             $elenco_links_tpl[$i]['tipo'] = ($links->isInternalLink()) ? "interno" : "esterno";
 
-            if (($user->isAdmin() || $referente || ($moderatore && $links->getIdUtente()==$user->getIdUser())))
-            {
+            if (($user->isAdmin() || $referente || ($moderatore && $links->getIdUtente()==$user->getIdUser()))) {
                 $elenco_links_tpl[$i]['modifica']="Modifica";
                 $elenco_links_tpl[$i]['modifica_link_uri'] = 'v2.php?do=LinkEdit&id_link='.$links->getIdLink().'&id_canale='.$links->getIdCanale();
                 $elenco_links_tpl[$i]['elimina']="Cancella";

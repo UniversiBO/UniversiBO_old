@@ -19,7 +19,7 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 class ShowSettings extends UniversiboCommand
 {
-    function execute()
+    public function execute()
     {
 
         $frontcontroller = $this->getFrontController();

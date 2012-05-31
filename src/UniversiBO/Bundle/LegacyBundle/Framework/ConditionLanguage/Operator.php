@@ -24,7 +24,7 @@ class Operator
      */
     private $referrer;
 
-    function __construct(
+    public function __construct(
             ParamListFormat $inputFormat,
             ParamListFormat $outputFormat,
             $priorita,
@@ -57,7 +57,6 @@ class Operator
         return md5($this->nome);
     }
 
-
     public function isMajorPriorityTo(Operator $o)
     {
         return $this->priorita > $o->priorita;
@@ -78,13 +77,12 @@ class Operator
         return $this->associativita == self::LEFT_ASSOCIATION;
     }
 
-
     public function isRightAssociative()
     {
         return $this->associativita == self::RIGHT_ASSOCIATION;
     }
 
-    static public function translateNameToId($name)
+    public static function translateNameToId($name)
     {
         return  md5($name);
     }

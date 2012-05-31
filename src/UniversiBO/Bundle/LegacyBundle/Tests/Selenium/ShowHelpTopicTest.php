@@ -24,7 +24,7 @@ class ShowHelpTopicTest extends UniversiBOSeleniumTestCase
 
         $this->open('/v2.php?do=ShowHelpTopic');
 
-        foreach($sentences as $sentence) {
+        foreach ($sentences as $sentence) {
             self::assertTrue($this->isTextPresent($sentence));
         }
     }

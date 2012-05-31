@@ -56,7 +56,7 @@ class PHPUnit_GUI_SetupDecorator
     *
     *
     */
-    function PHPUnit_GUI_SetupDecorator(&$gui)
+    public function PHPUnit_GUI_SetupDecorator(&$gui)
     {
         $this->_gui = $gui;
     }
@@ -65,7 +65,7 @@ class PHPUnit_GUI_SetupDecorator
     *   just forwarding the action to the decorated class.
     *
     */
-    function show($showPassed=TRUE)
+    public function show($showPassed=TRUE)
     {
         $this->_gui->show($showPassed);
     }
@@ -83,7 +83,7 @@ class PHPUnit_GUI_SetupDecorator
     *   @param  array   an array of file names that shall be excluded
     *
     */
-    function getSuitesFromDir($dir,$filenamePattern='',$exclude=array(), $recurse = false)
+    public function getSuitesFromDir($dir,$filenamePattern='',$exclude=array(), $recurse = false)
     {
         // remove trailing DIRECTORY_SEPERATOR if missing
         if ($dir{strlen($dir)-1} == DIRECTORY_SEPARATOR) {
@@ -114,7 +114,7 @@ class PHPUnit_GUI_SetupDecorator
     *   @param  string  the file names to be excluded
     *   @param  string  the root directory, which serves as the prefix to the fully qualified filename
     */
-    function _getFiles($dir,$filenamePattern,$exclude,$rootDir, $recurse = false)
+    public function _getFiles($dir,$filenamePattern,$exclude,$rootDir, $recurse = false)
     {
         $files = array();
         if ($dp=opendir($dir)) {
@@ -149,4 +149,3 @@ class PHPUnit_GUI_SetupDecorator
     }
 }
 
-?>

@@ -22,8 +22,7 @@ class DBCdlRepository extends DBRepository
         $query = 'SELECT cod_corso FROM classi_corso WHERE 1 = 1';
 
         $res = $db->query($query);
-        if (DB::isError($res))
-        {
+        if (DB::isError($res)) {
             $this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
             return false;
@@ -31,8 +30,7 @@ class DBCdlRepository extends DBRepository
 
         $elencoCdl = array();
 
-        while($row = $this->fetchRow($res))
-        {
+        while ($row = $this->fetchRow($res)) {
             //echo $row[0];
             if ( ($elencoCdl[] = $this->findByCodice($row[0]) ) === false )
 
@@ -103,12 +101,11 @@ class DBCdlRepository extends DBRepository
 
         $rows = $res->numRows();
 
-        if( $rows == 0) {
+        if ( $rows == 0) {
             $ret = array(); return $ret;
         }
         $elenco = array();
-        while (	$row = $this->fetchRow($res) )
-        {
+        while (	$row = $this->fetchRow($res) ) {
             $cdl = new Cdl($row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
                     $row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S',
                     $row[14], $row[15], $row[16], $row[17], $row[18], $row[19]);
@@ -156,13 +153,11 @@ class DBCdlRepository extends DBRepository
                 $db->quote($cdl->getCodiceFacoltaPadre()).' , '.
                 $db->quote($cdl->getIdCanale()).' )';
         $res = $db->query($query);
-        if (DB::isError($res))
-        {
+        if (DB::isError($res)) {
             $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
             return false;
         }
-
 
         return true;
     }

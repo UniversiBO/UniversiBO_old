@@ -23,8 +23,8 @@ use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class ShowFileStudentiTitoli extends PluginCommand {
-
+class ShowFileStudentiTitoli extends PluginCommand
+{
     //todo: rivedere la questione diritti per uno studente...
 
     /**
@@ -47,8 +47,7 @@ class ShowFileStudentiTitoli extends PluginCommand {
 
         $files_studenti_attivo = $canale->getServizioFilesStudenti();
 
-        if ( !$files_studenti_attivo )
-        {
+        if ( !$files_studenti_attivo ) {
             $template->assign('showFileStudentiTitoli_langFileAvailableFlag', 'false');
 
             return;
@@ -62,12 +61,10 @@ class ShowFileStudentiTitoli extends PluginCommand {
         $personalizza_not_admin = false;
 
         $template->assign('showFileStudentiTitoli_addFileFlag', 'false');
-            if (array_key_exists($id_canale, $user_ruoli) || $user->isAdmin())
-            {
+            if (array_key_exists($id_canale, $user_ruoli) || $user->isAdmin()) {
                 $personalizza = true;
 
-                if (array_key_exists($id_canale, $user_ruoli))
-                {
+                if (array_key_exists($id_canale, $user_ruoli)) {
                     $ruolo = $user_ruoli[$id_canale];
 
                     $personalizza_not_admin = true;
@@ -82,9 +79,7 @@ class ShowFileStudentiTitoli extends PluginCommand {
 //					$template->assign('showFileStudentiTitoli_addFile', 'Inserisci il tuo contributo');
 //					$template->assign('showFileStudentiTitoli_addFileUri', 'v2.php?do=FileStudentiAdd&id_canale='.$id_canale);
 //				}
-            }
-            else
-            {
+            } else {
                 $personalizza   = false;
                 $referente      = false;
                 $moderatore     = false;
@@ -93,8 +88,7 @@ class ShowFileStudentiTitoli extends PluginCommand {
 
             //Solo se quello che naviga non e` loggato, non compare il link
 
-            if ( !$user->isOspite() )
-                {
+            if ( !$user->isOspite() ) {
                     $template->assign('showFileStudentiTitoli_addFileFlag', 'true');
                     $template->assign('showFileStudentiTitoli_addFile', 'Inserisci il tuo contributo');
                     $template->assign('showFileStudentiTitoli_addFileUri', 'v2.php?do=FileStudentiAdd&id_canale='.$id_canale);
@@ -107,7 +101,6 @@ class ShowFileStudentiTitoli extends PluginCommand {
 
         $elenco_id_file = $this->getFileCanale($id_canale);
 
-
         //var_dump($elenco_id_file); die();
         $elenco_file = FileItemStudenti::selectFileItems($elenco_id_file);
         usort($elenco_file, array($this,'_compareFile'));
@@ -118,22 +111,17 @@ class ShowFileStudentiTitoli extends PluginCommand {
         $categorie_tpl = array();
         $elenco_file_tpl = array();
 
-
-
-        if ($elenco_file ==! false )
-        {
+        if ($elenco_file ==! false ) {
             $ret_file = count($elenco_file);
 
-            for ($i = 0; $i < $ret_file; $i++)
-            {
+            for ($i = 0; $i < $ret_file; $i++) {
 
                 $file = $elenco_file[$i];
                 //var_dump($file);
                 $this_moderatore = ($user->isAdmin() || ($moderatore && $file->getIdUtente()==$user->getIdUser()));
 
                 $permessi_lettura = $file->getPermessiVisualizza();
-                if ($user->isGroupAllowed($permessi_lettura))
-                {
+                if ($user->isGroupAllowed($permessi_lettura)) {
                     $file_tpl = array();
                     $file_tpl['titolo']       = $file->getTitolo();
                     //$file_tpl['notizia']      = $file->getNotizia();
@@ -149,8 +137,7 @@ class ShowFileStudentiTitoli extends PluginCommand {
                     $file_tpl['elimina']      = '';
                     $file_tpl['elimina_link'] = '';
                     //if ( ($user->isAdmin() || $referente || $this_moderatore)  && $flag_chkDiritti)
-                    if (($user->isAdmin() || $referente || $this_moderatore || ($user == $file->getIdUtente())))
-                    {
+                    if (($user->isAdmin() || $referente || $this_moderatore || ($user == $file->getIdUtente()))) {
                         $file_tpl['modifica']     = 'Modifica';
                         $file_tpl['modifica_link']= 'v2.php?do=FileEdit&id_file='.$file->getIdFile().'&id_canale='.$id_canale;
                         $file_tpl['elimina']      = 'Elimina';
@@ -174,8 +161,6 @@ class ShowFileStudentiTitoli extends PluginCommand {
             }
         }
 
-
-
         $num_file = count($elenco_file_tpl);
 
             $template->assign('showFileStudentiTitoli_langFileAvailable', 'Ci sono '.$num_file.' file');
@@ -183,15 +168,14 @@ class ShowFileStudentiTitoli extends PluginCommand {
             $template->assign('showFileStudentiTitoli_fileList', $elenco_file_tpl);
     }
 
-
     /**
      * Preleva da database i file del canale $id_canale
      *
      * @static
-     * @param int $id_canale identificativo su database del canale
+     * @param  int   $id_canale identificativo su database del canale
      * @return array elenco FileItem , array vuoto se non ci sono file
      */
-    function getFileCanale($id_canale)
+    public function getFileCanale($id_canale)
     {
 
          $db = FrontController::getDbConnection('main');
@@ -207,18 +191,15 @@ class ShowFileStudentiTitoli extends PluginCommand {
 
         $id_file_list = array();
 
-        while ( $res->fetchInto($row) )
-        {
+        while ( $res->fetchInto($row) ) {
             $id_file_list[]= $row[0];
         }
 
         $res->free();
 
-
         return $id_file_list;
 
     }
-
 
     /**
      * Ordina la struttura dei file
@@ -226,7 +207,7 @@ class ShowFileStudentiTitoli extends PluginCommand {
      * @static
      * @private
      */
-    function _compareFile($a, $b)
+    public function _compareFile($a, $b)
     {
         if ($a->getIdCategoria() > $b->getIdCategoria()) return +1;
         if ($a->getIdCategoria() < $b->getIdCategoria()) return -1;
@@ -234,8 +215,5 @@ class ShowFileStudentiTitoli extends PluginCommand {
         if ($a->getDataInserimento() > $b->getDataInserimento()) return -1;
     }
 
-
-
 }
 
-?>

@@ -39,7 +39,6 @@ class DBCollaboratoreRepository extends DBRepository
             $collaboratore->setUser($user);
         }
 
-
         return $collaboratore;
     }
 
@@ -70,7 +69,6 @@ class DBCollaboratoreRepository extends DBRepository
                     $row[2], $row[3], $row[4], $row[5]);
             $collab->setUser($userRepo->find($collab->getIdUser()));
         }
-
 
         return $collaboratori;
     }

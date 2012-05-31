@@ -19,5 +19,5 @@ abstract class AbstractSender implements SenderInterface
         return $this->doSend($notification);
     }
 
-    protected abstract function doSend(NotificaItem $notification);
+    abstract protected function doSend(NotificaItem $notification);
 }

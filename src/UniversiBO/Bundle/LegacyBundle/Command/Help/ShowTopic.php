@@ -22,9 +22,8 @@ use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class ShowTopic extends PluginCommand {
-
-
+class ShowTopic extends PluginCommand
+{
     /**
      * Esegue il plugin
      *
@@ -53,7 +52,6 @@ class ShowTopic extends PluginCommand {
         $topic_title = $row[0];
         $res->free();
 
-
         $query = 'SELECT he.id_help FROM help_riferimento he, help h WHERE h.id_help=he.id_help AND he.riferimento=\''.$reference.'\' ORDER BY h.indice';  //un join solo per ordinare secondo l'indice..
         $res = $db->query($query);
         if (DB::isError($res))
@@ -62,12 +60,10 @@ class ShowTopic extends PluginCommand {
         $rows = $res->numRows();
         $topic = array();
 
-        if( $rows > 0)
-        {
+        if ( $rows > 0) {
             $argomenti	= array();
 
-            while($res->fetchInto($row))
-            {
+            while ($res->fetchInto($row)) {
                 $argomenti[] = $row[0];
             }
             $res->free();
@@ -78,7 +74,6 @@ class ShowTopic extends PluginCommand {
         }
 
         $template->assign('showTopic_topic', $topic);
-
 
         return $topic;
     }

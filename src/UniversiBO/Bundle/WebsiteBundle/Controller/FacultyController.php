@@ -6,7 +6,6 @@ use UniversiBO\Bundle\LegacyBundle\Entity\Facolta;
 
 use Symfony\Component\HttpFoundation\Response;
 
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -33,7 +32,7 @@ class FacultyController extends Controller
 
         $channel = $channelRepo->find($id);
 
-        if(!$channel instanceof Facolta) {
+        if (!$channel instanceof Facolta) {
             throw $this->createNotFoundException('Channel not found');
         }
 
@@ -44,7 +43,6 @@ class FacultyController extends Controller
 
             return $response;
         }
-
 
         return array('faculty' => $channel);
     }

@@ -19,7 +19,7 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
  */
 class ScriptGetLDAPMD5 extends UniversiboCommand
 {
-    function execute()
+    public function execute()
     {
         $fc = $this->getFrontController();
         $template = $fc->getTemplateEngine();
@@ -43,8 +43,7 @@ class ScriptGetLDAPMD5 extends UniversiboCommand
         $rows = $res->numRows();
         if( $rows == 0) die('niente password :-p');
 
-        while ( $res->fetchInto($row) )
-        {
+        while ( $res->fetchInto($row) ) {
             echo $row[0].' {MD5}' . base64_encode(pack("H*", $row[1]));
             echo '<br />';
         }

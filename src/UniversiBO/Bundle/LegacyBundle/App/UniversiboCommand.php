@@ -20,8 +20,8 @@ use \Error;
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  * @copyright CopyLeft UniversiBO 2001-2003
  */
-abstract class UniversiboCommand extends BaseCommand {
-
+abstract class UniversiboCommand extends BaseCommand
+{
     /**
      * User
      */
@@ -33,7 +33,8 @@ abstract class UniversiboCommand extends BaseCommand {
      * @static
      * @return int
      */
-    function getSessionIdUtente() {
+    public function getSessionIdUtente()
+    {
         return $_SESSION['id_utente'];
     }
 
@@ -44,7 +45,8 @@ abstract class UniversiboCommand extends BaseCommand {
      * @protected
      * @param int $id_utente id_utente dello user
      */
-    function setSessionIdUtente($id_utente) {
+    public function setSessionIdUtente($id_utente)
+    {
         $_SESSION['id_utente'] = $id_utente;
     }
 
@@ -54,7 +56,8 @@ abstract class UniversiboCommand extends BaseCommand {
      * @static
      * @return boolean
      */
-    function sessionUserExists() {
+    public function sessionUserExists()
+    {
         return array_key_exists('id_utente', $_SESSION) && isset($_SESSION['id_utente']);
     }
 
@@ -66,14 +69,16 @@ abstract class UniversiboCommand extends BaseCommand {
      *
      * @return User
      */
-    public function getSessionUser() {
+    public function getSessionUser()
+    {
         return $this->sessionUser;
     }
 
     /**
      * Inizializza l' UniversiboCommand ridefinisce l'init() del BaseCommand.
      */
-    function initCommand(FrontController $frontController) {
+    public function initCommand(FrontController $frontController)
+    {
         parent::initCommand($frontController);
 
         $template = & $frontController->getTemplateEngine();
@@ -88,7 +93,8 @@ abstract class UniversiboCommand extends BaseCommand {
      * Ridefinisce il metodo della classe padre
      * Si occupa di raccogliere tutti gli errori non ancora lanciati
      */
-    function shutdownCommand() {
+    public function shutdownCommand()
+    {
         parent::shutdownCommand();
 
 
@@ -120,7 +126,8 @@ abstract class UniversiboCommand extends BaseCommand {
      *
      * @return boolean
      */
-    function isPopup() {
+    public function isPopup()
+    {
         return (boolean) (array_key_exists('pageType', $_GET) && $_GET['pageType'] == 'popup');
     }
 
@@ -129,16 +136,15 @@ abstract class UniversiboCommand extends BaseCommand {
      *
      * @private
      */
-    function _setUpUserUniversibo() {
-
+    public function _setUpUserUniversibo()
+    {
         if (!$this->sessionUserExists()) {
             $this->sessionUser = new User(0, User::OSPITE);
             $this->setSessionIdUtente(0);
         } elseif ($this->getSessionIdUtente() >= 0) {
             $this->sessionUser = & User::selectUser($this->getSessionIdUtente());
             //			echo $this->sessionUser->getUsername();
-        }
-        else
+        } else
             Error::throwError(_ERROR_CRITICAL, array('id_utente' => $this->sessionUser->getIdUser(), 'msg' => 'id_utente registrato nella sessione non valido', 'file' => __FILE__, 'line' => __LINE__));
         //		var_dump($this->sessionUser);
     }
@@ -149,8 +155,8 @@ abstract class UniversiboCommand extends BaseCommand {
      *
      * @private
      */
-    function _initTemplateUniversibo() {
-
+    public function _initTemplateUniversibo()
+    {
         $template = & $this->frontController->getTemplateEngine();
         $krono = & $this->frontController->getKrono();
         //var_dump($template);
@@ -232,8 +238,8 @@ abstract class UniversiboCommand extends BaseCommand {
      *
      * @private
      */
-    function _initTemplateIndexUniversibo() {
-
+    public function _initTemplateIndexUniversibo()
+    {
     }
 
     /**
@@ -242,8 +248,8 @@ abstract class UniversiboCommand extends BaseCommand {
      * @private
      * @todo implementare
      */
-    function _initTemplatePopupUniversibo() {
-
+    public function _initTemplatePopupUniversibo()
+    {
     }
 
     /**
@@ -251,8 +257,8 @@ abstract class UniversiboCommand extends BaseCommand {
      *
      * @private
      */
-    function _shutdownTemplateIndexUniversibo() {
-
+    public function _shutdownTemplateIndexUniversibo()
+    {
         $template = & $this->frontController->getTemplateEngine();
         $krono = & $this->frontController->getKrono();
 
@@ -288,7 +294,6 @@ abstract class UniversiboCommand extends BaseCommand {
             usort($arrayCanali, array($this, '_compareMyUniversiBO'));
         }
 
-
         //assegna al template
         if ($attivaMyUniversibo) {
             $template->assign('common_myLinksAvailable', 'true');
@@ -297,8 +302,6 @@ abstract class UniversiboCommand extends BaseCommand {
         } else {
             $template->assign('common_myLinksAvailable', 'false');
         }
-
-
 
         //solo nella pagine index
         $curr_mday = date("j");  //inizializzo giorno corrente
@@ -322,7 +325,6 @@ abstract class UniversiboCommand extends BaseCommand {
 
         $template->assign('common_logoType', $logoType); //estate/natale/8marzo/pasqua/carnevale/svalentino/halloween/ecc...
         $template->assign('common_logo', 'Logo UniversiBO');
-
 
         $template->assign('common_setHomepage', 'Imposta Homepage');
         $template->assign('common_addBookmarks', 'Aggiungi ai preferiti');
@@ -366,7 +368,6 @@ abstract class UniversiboCommand extends BaseCommand {
 
         $template->assign('common_services', 'Servizi');
         $common_servicesLinks = array();
-
 
         // servizi per i quali l'utente ha i diritti di accesso
         $list_id_canali = & Canale::selectCanaliTipo(CANALE_DEFAULT);
@@ -424,9 +425,6 @@ abstract class UniversiboCommand extends BaseCommand {
 
         $template->assign('common_isSetVisite', 'N');
 
-
-
-
         //calendario
         $curr_timestamp = time();
         $curr_mday = date("j", $curr_timestamp);  //inizializzo giorno corrente
@@ -467,8 +465,7 @@ abstract class UniversiboCommand extends BaseCommand {
                 $tpl_settimana[] = $tpl_day;
                 $conta_wday++;
                 $conta_mday++;
-            }
-            while ($conta_wday % 7 != 1);
+            } while ($conta_wday % 7 != 1);
 
             $tpl_mese[] = $tpl_settimana;
         }
@@ -486,8 +483,8 @@ abstract class UniversiboCommand extends BaseCommand {
      * @private
      * @todo implementare
      */
-    function _shutdownTemplatePopupUniversibo() {
-
+    public function _shutdownTemplatePopupUniversibo()
+    {
     }
 
     /**
@@ -497,7 +494,8 @@ abstract class UniversiboCommand extends BaseCommand {
      * @private
      * @return boolean
      */
-    function _isFestivo($mday, $mese, $anno) {
+    public function _isFestivo($mday, $mese, $anno)
+    {
         return ( ($mese == 1 && ($mday == 1 || $mday == 6 )) ||
                 ($mese == 4 && $mday == 25) ||
                 ($mese == 5 && $mday == 1) ||
@@ -514,7 +512,8 @@ abstract class UniversiboCommand extends BaseCommand {
      * @static
      * @private
      */
-    function _compareMyUniversiBO($a, $b) {
+    public function _compareMyUniversiBO($a, $b)
+    {
         if ($a['tipo'] < $b['tipo'])
 
             return +1;
@@ -541,7 +540,8 @@ abstract class UniversiboCommand extends BaseCommand {
      * @static
      * @private
      */
-    function _compareServices($a, $b) {
+    public function _compareServices($a, $b)
+    {
         if ($a['label'] < $b['label'])
 
             return -1;

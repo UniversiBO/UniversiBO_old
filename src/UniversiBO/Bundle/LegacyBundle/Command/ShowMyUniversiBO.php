@@ -25,7 +25,7 @@ use UniversiBO\Bundle\LegacyBundle\Entity\News\NewsItem;
 
 class ShowMyUniversiBO extends UniversiboCommand
 {
-    function execute()
+    public function execute()
     {
 
         $frontcontroller = $this->getFrontController();
@@ -90,11 +90,11 @@ class ShowMyUniversiBO extends UniversiboCommand
      * Preleva da database il numero di files del canale $id_canale
      *
      * @static
-     * @param int $id_canale identificativo su database del canale
+     * @param  int $id_canale identificativo su database del canale
      * @return int $res numero files
      */
 
-    function getNumFilesCanale($id_canale)
+    public function getNumFilesCanale($id_canale)
     {
         $db = FrontController::getDbConnection('main');
 
@@ -116,12 +116,12 @@ class ShowMyUniversiBO extends UniversiboCommand
      * Preleva da database gli ultimi $num files del canale $id_canale
      *
      * @static
-     * @param int $num       numero files da prelevare
-     * @param int $id_canale identificativo su database del canale
+     * @param  int   $num       numero files da prelevare
+     * @param  int   $id_canale identificativo su database del canale
      * @return array elenco FileItem , false se non ci sono notizie
      */
 
-    function getLatestFileCanale($num, $id_canali)
+    public function getLatestFileCanale($num, $id_canali)
     {
         if (count($id_canali) == 1)
             $values = $id_canali[0];
@@ -169,12 +169,12 @@ class ShowMyUniversiBO extends UniversiboCommand
      * Preleva da database le ultime $num notizie non scadute dai canali $id_canali
      *
      * @static
-     * @param int   $num       numero notize da prelevare
-     * @param array $id_canali contenente gli id_canali, identificativi su database del canale
+     * @param  int   $num       numero notize da prelevare
+     * @param  array $id_canali contenente gli id_canali, identificativi su database del canale
      * @return array elenco NewsItem , false se non ci sono notizie
      */
 
-    function getLatestNewsCanale($num, $id_canali)
+    public function getLatestNewsCanale($num, $id_canali)
     {
         if (count($id_canali) == 1)
             $values = $id_canali[0];
@@ -223,4 +223,3 @@ class ShowMyUniversiBO extends UniversiboCommand
 
 }
 
-?>

@@ -27,7 +27,7 @@ class CLInterpreter
      * metodo che esegue il parsing e l'interpretazione del codice
      * @param datatype paramname
      */
-    function execMe($codice)
+    public function execMe($codice)
     {
         try {
             $this->initParser($codice);
@@ -45,9 +45,7 @@ class CLInterpreter
 
 
             return $visitor->getEsito();
-        }
-        catch(JavaException $ex)
-        {
+        } catch (JavaException $ex) {
             $exStr = java_cast($ex, "string");
             echo "Exception occured; mixed trace: $exStr\n";
 
@@ -57,10 +55,9 @@ class CLInterpreter
 
     private function initParser($codice)
     {
-        if(!isset($this->parser)) {
+        if (!isset($this->parser)) {
             $this->parser = new Java('parser.CLParser', new Java('java.io.StringReader',$codice));
-        }
-        else {
+        } else {
             $this->parser->ReInit(new Java('java.io.StringReader',$codice));
         }
     }

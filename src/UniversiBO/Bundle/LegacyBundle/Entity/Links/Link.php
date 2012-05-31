@@ -18,36 +18,36 @@ class Link
     /**
      * @private
      */
-    var $id_link = 0;
+    public $id_link = 0;
     /**
      * @private
      */
-    var $id_canale = 0;
+    public $id_canale = 0;
     /**
      * @private
      */
-    var $id_utente = 0;
+    public $id_utente = 0;
     /**
      * @private
      */
-    var $uri = '';
+    public $uri = '';
     /**
      * @private
      */
-    var $label = '';
+    public $label = '';
     /**
      * @private
      */
-    var $description = '';
+    public $description = '';
 
     /**
      * Crea un oggetto link
      *
-     * @param int    $id_link     identificativo del link su database
-     * @param int    $id_canale   identificativo del canale a cui si riferisce il link
-     * @param string $uri         uniform resurce identifier (link)
-     * @param string $label       testo del link (di solito quello tra <a>...</a>)
-     * @param string $description testo descrittivo della risorsa puntata dal link
+     * @param  int    $id_link     identificativo del link su database
+     * @param  int    $id_canale   identificativo del canale a cui si riferisce il link
+     * @param  string $uri         uniform resurce identifier (link)
+     * @param  string $label       testo del link (di solito quello tra <a>...</a>)
+     * @param  string $description testo descrittivo della risorsa puntata dal link
      * @return Link
      */
     public function __construct($id_link, $id_canale, $id_utente, $uri, $label,
@@ -66,7 +66,7 @@ class Link
      *
      * @return int
      */
-    function getIdLink()
+    public function getIdLink()
     {
         return $this->id_link;
     }
@@ -76,7 +76,7 @@ class Link
      *
      * @return int
      */
-    function getIdCanale()
+    public function getIdCanale()
     {
         return $this->id_canale;
     }
@@ -86,7 +86,7 @@ class Link
      *
      * @return int
      */
-    function setIdCanale($id_canale)
+    public function setIdCanale($id_canale)
     {
         $this->id_canale = $id_canale;
     }
@@ -96,7 +96,7 @@ class Link
      *
      * @return string
      */
-    function getUri()
+    public function getUri()
     {
         return $this->uri;
     }
@@ -106,7 +106,7 @@ class Link
      *
      * @return string
      */
-    function setUri($uri)
+    public function setUri($uri)
     {
         $this->uri = $uri;
     }
@@ -114,7 +114,7 @@ class Link
     /**
      * @return int
      */
-    function getIdUtente()
+    public function getIdUtente()
     {
         return $this->id_utente;
     }
@@ -122,7 +122,7 @@ class Link
     /**
      * @param $id_utente int
      */
-    function setIdUtente($id_utente)
+    public function setIdUtente($id_utente)
     {
         $this->id_utente = $id_utente;
     }
@@ -132,7 +132,7 @@ class Link
      *
      * @return string
      */
-    function getLabel()
+    public function getLabel()
     {
         return $this->label;
     }
@@ -142,7 +142,7 @@ class Link
      *
      * @return string
      */
-    function setLabel($label)
+    public function setLabel($label)
     {
         $this->label = $label;
     }
@@ -152,7 +152,7 @@ class Link
      *
      * @return string
      */
-    function getDescription()
+    public function getDescription()
     {
         return $this->description;
     }
@@ -162,7 +162,7 @@ class Link
      *
      * @return string
      */
-    function setDescription($description)
+    public function setDescription($description)
     {
         $this->description = $description;
     }
@@ -172,7 +172,7 @@ class Link
      *
      * @return boolean
      */
-    function insertLink()
+    public function insertLink()
     {
         $db = FrontController::getDbConnection('main');
 
@@ -200,7 +200,7 @@ class Link
     /**
      * Recupera un link
      *
-     * @param int $id_link id del link
+     * @param  int  $id_link id del link
      * @return Link / false
      */
     public static function selectLink($id_link)
@@ -219,8 +219,8 @@ class Link
     /**
      * Recupera un elenco di link dal database
      *
-     * @param array $id_links array elenco di id dei link
-     * @return Link array di Link
+     * @param  array $id_links array elenco di id dei link
+     * @return Link  array di Link
      */
     public static function selectLinks($id_links)
     {
@@ -268,7 +268,7 @@ class Link
      *
      * @return boolean true se avvenua con successo, altrimenti false e throws Error object
      */
-    function updateLink()
+    public function updateLink()
     {
         $db = FrontController::getDbConnection('main');
 
@@ -304,7 +304,7 @@ class Link
      *
      * @return boolean true se avvenua con successo, altrimenti false e throws Error object
      */
-    function deleteLink()
+    public function deleteLink()
     {
         $db = FrontController::getDbConnection('main');
 
@@ -332,8 +332,8 @@ class Link
     /**
      * Recupera un elenco di link riferiti ad un canale dal database
      *
-     * @param array $id_canale id del canale
-     * @return Link array di Link
+     * @param  array $id_canale id del canale
+     * @return Link  array di Link
      */
     public static function selectCanaleLinks($id_canale)
     {
@@ -371,7 +371,7 @@ class Link
      * @return il nickname
      */
 
-    function getUsername()
+    public function getUsername()
     {
         $db = FrontController::getDbConnection('main');
 

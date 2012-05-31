@@ -24,18 +24,19 @@
  * @category    PHP
  * @package     PHPUnit
  */
-class PHPUnit_TestFailure {
+class PHPUnit_TestFailure
+{
     /**
     * @var    object
     * @access private
     */
-    var $_failedTest;
+    public $_failedTest;
 
     /**
     * @var    string
     * @access private
     */
-    var $_thrownException;
+    public $_thrownException;
 
     /**
     * Constructs a TestFailure with the given test and exception.
@@ -44,7 +45,8 @@ class PHPUnit_TestFailure {
     * @param  string
     * @access public
     */
-    function PHPUnit_TestFailure(&$failedTest, &$thrownException) {
+    public function PHPUnit_TestFailure(&$failedTest, &$thrownException)
+    {
         $this->_failedTest      = $failedTest;
         $this->_thrownException = $thrownException;
     }
@@ -75,7 +77,8 @@ class PHPUnit_TestFailure {
     * @return string
     * @access public
     */
-    function toString() {
+    public function toString()
+    {
         return sprintf(
           "TestCase %s->%s() failed: %s\n",
 
@@ -85,4 +88,3 @@ class PHPUnit_TestFailure {
         );
     }
 }
-?>

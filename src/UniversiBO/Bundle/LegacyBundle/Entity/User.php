@@ -33,12 +33,12 @@ class User implements UserInterface, \Serializable
     /**
      * @access private
      */
-    var $id_utente = 0;
+    public $id_utente = 0;
 
     /**
      * @access private
      */
-    var $username = '';
+    public $username = '';
 
     /**
      */
@@ -47,52 +47,52 @@ class User implements UserInterface, \Serializable
     /**
      * @access private
      */
-    var $email = '';
+    public $email = '';
 
     /**
      * @access private
      */
-    var $ultimoLogin = 0;
+    public $ultimoLogin = 0;
 
     /**
      * @access private
      */
-    var $bookmark = NULL; //array()
+    public $bookmark = NULL; //array()
 
     /**
      * @access private
      */
-    var $ADUsername = '';
+    public $ADUsername = '';
 
     /**
      * @access private
      */
-    var $groups = 0;
+    public $groups = 0;
 
     /**
      * @access private
      */
-    var $notifica = 0;
+    public $notifica = 0;
 
     /**
      * @access private
      */
-    var $ban = false;
+    public $ban = false;
 
     /**
      * @access private
      */
-    var $phone = '';
+    public $phone = '';
 
     /**
      * @access private
      */
-    var $defaultStyle = '';
+    public $defaultStyle = '';
 
     /**
      * @access private
      */
-    var $eliminato = '';
+    public $eliminato = '';
 
     private $algoritmo;
 
@@ -112,7 +112,7 @@ class User implements UserInterface, \Serializable
      *  Verifica se la sintassi dello username e` valido.
      *  Sono permessi fino a 25 caratteri: alfanumerici, lettere accentate, spazi, punti, underscore
      *
-     * @param string $username stringa dello username da verificare
+     * @param  string  $username stringa dello username da verificare
      * @return boolean
      */
     public static function isUsernameValid($username)
@@ -130,7 +130,7 @@ class User implements UserInterface, \Serializable
      * Lunghezza min 5, max 30 caratteri
      *
      * @deprecated
-     * @param string $password stringa della password da verificare
+     * @param  string  $password stringa della password da verificare
      * @return boolean
      */
     public static function isPasswordValid($password)
@@ -152,7 +152,7 @@ class User implements UserInterface, \Serializable
      * Restituisce l'array associativo del codice dei gruppi e
      * della corrispettiva stringa descrittiva.
      *
-     * @param boolean $singolare
+     * @param  boolean $singolare
      * @return array
      */
     public static function groupsNames($singolare = true)
@@ -182,14 +182,14 @@ class User implements UserInterface, \Serializable
      * factory selectUser
      *
      * @see selectUser
-     * @param int     $id_utente    numero identificativo utente, -1 non registrato du DB, 0 utente ospite
-     * @param int     $groups       nuovo gruppo da impostare
-     * @param string  $username     username dell'utente
-     * @param string  $MD5          hash MD5 della password utente
-     * @param string  $email        indirizzo e-mail dell'utente
-     * @param int     $ultimo_login timestamp dell'utlimo login all'interno del sito
-     * @param string  $AD_username  username dell'active directory di ateneo dell'utente
-     * @param array() $bookmark     array con elenco dei id_canale dell'utente associati ai rispettivi ruoli
+     * @param  int     $id_utente    numero identificativo utente, -1 non registrato du DB, 0 utente ospite
+     * @param  int     $groups       nuovo gruppo da impostare
+     * @param  string  $username     username dell'utente
+     * @param  string  $MD5          hash MD5 della password utente
+     * @param  string  $email        indirizzo e-mail dell'utente
+     * @param  int     $ultimo_login timestamp dell'utlimo login all'interno del sito
+     * @param  string  $AD_username  username dell'active directory di ateneo dell'utente
+     * @param  array() $bookmark     array con elenco dei id_canale dell'utente associati ai rispettivi ruoli
      * @return User
      */
     public function __construct($id_utente, $groups, $username = NULL,
@@ -230,7 +230,7 @@ class User implements UserInterface, \Serializable
     /**
      * Username setter
      *
-     * @param string $username
+     * @param  string                                      $username
      * @return \UniversiBO\Bundle\LegacyBundle\Entity\User
      */
     public function setUsername($username)
@@ -288,8 +288,8 @@ class User implements UserInterface, \Serializable
     /**
      * Imposta la email dello User
      *
-     * @param string  $email    nuova email da impostare
-     * @param boolean $updateDB se true e l'id_utente>0 la modifica viene propagata al DB
+     * @param  string  $email    nuova email da impostare
+     * @param  boolean $updateDB se true e l'id_utente>0 la modifica viene propagata al DB
      * @return boolean
      */
     public function updateEmail($email, $updateDB = false)
@@ -341,8 +341,8 @@ class User implements UserInterface, \Serializable
      * Imposta il gruppo di appartenenza dello User
      *
      * @deprecated
-     * @param int     $groups   nuovo gruppo da impostare
-     * @param boolean $updateDB se true e l'id_utente>0 la modifica viene propagata al DB
+     * @param  int     $groups   nuovo gruppo da impostare
+     * @param  boolean $updateDB se true e l'id_utente>0 la modifica viene propagata al DB
      * @return boolean
      */
     public function updateGroups($groups, $updateDB = false)
@@ -374,8 +374,8 @@ class User implements UserInterface, \Serializable
     /**
      * Imposta il timestamp dell'ultimo login dello User
      *
-     * @param int     $ultimoLogin timestamp dell'ultimo login da impostare
-     * @param boolean $updateDB    se true e l'id_utente>0 la modifica viene propagata al DB
+     * @param  int     $ultimoLogin timestamp dell'ultimo login da impostare
+     * @param  boolean $updateDB    se true e l'id_utente>0 la modifica viene propagata al DB
      * @return boolean
      */
     public function updateUltimoLogin($ultimoLogin, $updateDB = false)
@@ -486,8 +486,8 @@ class User implements UserInterface, \Serializable
     /**
      * Imposta lo username dell'ActiveDirectory di ateneo associato all'utente corrente
      *
-     * @param string  $ADUsername username dell'ActiveDirectory di ateneo da impostare
-     * @param boolean $updateDB   se true e l'id_utente>0 la modifica viene propagata al DB
+     * @param  string  $ADUsername username dell'ActiveDirectory di ateneo da impostare
+     * @param  boolean $updateDB   se true e l'id_utente>0 la modifica viene propagata al DB
      * @return boolean
      */
     public function updateADUsername($ADUsername, $updateDB = false)
@@ -530,7 +530,7 @@ class User implements UserInterface, \Serializable
      * Restituisce il nome del gruppo da usare nel blocchetto contatti
      * (admin e collaboratori compaiono come studenti)
      *
-     * @param boolean $singolare
+     * @param  boolean $singolare
      * @return array
      */
     public static function publicGroupsName($singolare = true)
@@ -555,7 +555,7 @@ class User implements UserInterface, \Serializable
     /**
      * Ritorna l'hash sicuro di una stringa
      *
-     * @param string $string
+     * @param  string $string
      * @return string
      */
     public static function passwordHashFunction($string, $salt = '',
@@ -583,8 +583,8 @@ class User implements UserInterface, \Serializable
     /**
      * @todo make it Legacy Free
      *
-     * @param string  $password
-     * @param boolean $updateDB
+     * @param  string  $password
+     * @param  boolean $updateDB
      * @return boolean
      */
     public function updatePassword($password, $updateDB = false)
@@ -629,7 +629,7 @@ class User implements UserInterface, \Serializable
     /**
      * Imposta il numero di telefono
      *
-     * @param boolean $phome il numero di telefono
+     * @param  boolean $phome il numero di telefono
      * @return boolean
      */
     public function setPhone($phome)
@@ -640,7 +640,7 @@ class User implements UserInterface, \Serializable
     /**
      * Imposta il nome del template di default
      *
-     * @param boolean $defaultStyle nome del template di default
+     * @param  boolean $defaultStyle nome del template di default
      * @return boolean
      */
     public function setDefaultStyle($defaultStyle)
@@ -651,7 +651,7 @@ class User implements UserInterface, \Serializable
     /**
      * Imposta i diritti per l'accesso ai servizi di interazione
      *
-     * @param boolean $ban true se l'utente non ha accesso, false se l'utente ha accesso
+     * @param  boolean $ban true se l'utente non ha accesso, false se l'utente ha accesso
      * @return boolean
      */
     public function setBan($ban)
@@ -804,7 +804,7 @@ class User implements UserInterface, \Serializable
      * a cui appartiene una persona
      *
      * @static
-     * @param boolean $singolare
+     * @param  boolean $singolare
      * @return array
      */
     public function getUserGroupsNames($singolare = true)
@@ -836,7 +836,7 @@ class User implements UserInterface, \Serializable
      * a cui appartiene una persona
      *
      * @static
-     * @param boolean $singolare
+     * @param  boolean $singolare
      * @return array
      */
     public function getUserPublicGroupName($singolare = true)
@@ -870,7 +870,7 @@ class User implements UserInterface, \Serializable
      * Restituisce true se lo username specificato ? gi? registrato sul DB
      *
      * @static
-     * @param string $username username da ricercare
+     * @param  string  $username username da ricercare
      * @return boolean
      */
     public static function usernameExists($username, $caseSensitive = false)
@@ -910,9 +910,9 @@ class User implements UserInterface, \Serializable
      * Crea un oggetto utente dato il suo numero identificativo id_utente del database, 0 se si vuole creare un utente ospite
      *
      * @deprecated
-     * @param int     $id_utente numero identificativo utente
-     * @param boolean $dbcache   se true esegue il pre-caching del bookmark in modo da migliorare le prestazioni
-     * @return mixed User se eseguita con successo, false se l'utente non esiste
+     * @param  int     $id_utente numero identificativo utente
+     * @param  boolean $dbcache   se true esegue il pre-caching del bookmark in modo da migliorare le prestazioni
+     * @return mixed   User se eseguita con successo, false se l'utente non esiste
      */
     public static function selectUser($id_utente)
     {
@@ -928,8 +928,8 @@ class User implements UserInterface, \Serializable
     /**
      * Crea un oggetto utente dato il suo usernamedel database
      *
-     * @param string $username nome identificativo utente
-     * @return mixed User se eseguita con successo, false se l'utente non esiste
+     * @param  string $username nome identificativo utente
+     * @return mixed  User se eseguita con successo, false se l'utente non esiste
      */
     public static function selectUserUsername($username)
     {
@@ -941,9 +941,9 @@ class User implements UserInterface, \Serializable
      * Possono essere usati _ e % come caratteri spaciali
      *
      * @deprecated
-     * @param string $username nome identificativo utente
-     * @param string $username nome identificativo utente
-     * @return array di User
+     * @param  string $username nome identificativo utente
+     * @param  string $username nome identificativo utente
+     * @return array  di User
      */
     public static function selectUsersSearch($username = '%', $email = '%')
     {
@@ -975,7 +975,7 @@ class User implements UserInterface, \Serializable
      *
      * @static
      * @deprecated
-     * @param string $adUsername username da ricercare
+     * @param  string  $adUsername username da ricercare
      * @return boolean
      */
     public static function activeDirectoryUsernameExists($adUsername)
@@ -987,8 +987,8 @@ class User implements UserInterface, \Serializable
     /**
      * Resituisce l'id utente a partire dallo username dell'active directory
      *
-     * @param string $ad_username username AD dell'utente
-     * @return mixed l'id utente se lo trova, altrimenti false
+     * @param  string $ad_username username AD dell'utente
+     * @return mixed  l'id utente se lo trova, altrimenti false
      */
     public static function getIdFromADUsername($adUsername)
     {
@@ -999,7 +999,7 @@ class User implements UserInterface, \Serializable
      * Restituisce true se il gruppo dell'utente apparteniene ai gruppi specificati in $groups
      * altrimenti false
      *
-     * @param int $groups gruppi di cui si vuole verificare l'accesso
+     * @param  int     $groups gruppi di cui si vuole verificare l'accesso
      * @return boolean
      */
     public function isGroupAllowed($groups)
@@ -1023,9 +1023,9 @@ class User implements UserInterface, \Serializable
     /**
      * Restituisce true se l'utente viene autenticato con successo sull'active directory di ateneo
      *
-     * @param string $ad_username username utente
-     * @param string $ad_domain   dominio dell'active directory
-     * @param string $ad_password password dell'utente
+     * @param  string  $ad_username username utente
+     * @param  string  $ad_domain   dominio dell'active directory
+     * @param  string  $ad_password password dell'utente
      * @return boolean
      */
     public static function activeDirectoryLogin($username, $domain, $password,

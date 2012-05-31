@@ -19,7 +19,7 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 class ShowRules extends UniversiboCommand
 {
-    function execute()
+    public function execute()
     {
 
         $template = $this->frontController->getTemplateEngine();

@@ -17,7 +17,8 @@ use UniversiBO\Bundle\LegacyBundle\Framework\LogHandler;
  * @todo implementare le operazioni sul LogHandler
  */
 
-class ErrorHandlers {
+class ErrorHandlers
+{
     const LEVEL_DEFAULT = 0;
     const LEVEL_CRITICAL = 1;
     const LEVEL_NOTICE = 2;
@@ -35,7 +36,7 @@ class ErrorHandlers {
      * 					"log"=>"(opzionale)se impostato viene salvato come messaggio sul LogHandler"
      * 					)
      */
-    function critical_handler($param)
+    public function critical_handler($param)
     {
         $param['log']= true;
 
@@ -77,7 +78,7 @@ class ErrorHandlers {
      * 					"log"=>"(opzionale)se impostato viene salvato come messaggio sul LogHandler"
      * 					)
      */
-    function default_handler($param)
+    public function default_handler($param)
     {
         //		die( 'Errore Critico: '.$param['msg']. '<br />
         //		file: '.$param['file']. '<br />
@@ -120,15 +121,13 @@ class ErrorHandlers {
      *					"template_engine"=>"Riferimento all'oggetto template engine"
      * 					)
      */
-    function notice_handler($param)
+    public function notice_handler($param)
     {
-
 
         $template = $param['template_engine'];
         $template->assign('error_notice_present', 'true');
 
-        if(array_key_exists('log', $param) && $param['log'] == true )
-        {
+        if (array_key_exists('log', $param) && $param['log'] == true ) {
             $log_definition = array(0 => 'timestamp', 1 => 'date', 2 => 'time', 3 => 'error_level', 4 => 'file', 5 => 'line', 6 => 'messaggio' );
 
             $log = new LogHandler('error','../universibo/log-universibo/',$log_definition);
@@ -146,8 +145,7 @@ class ErrorHandlers {
         }
         /** ALTERNATIVA ALL'USO DI append()
          $current_error = $template->get_template_vars('error_notice');
-         if ($current_error == NULL)
-         {
+         if ($current_error == NULL) {
          $current_error = array();require
          }
          $current_error[] = $param['msg'];

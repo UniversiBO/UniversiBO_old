@@ -15,7 +15,8 @@ use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
  * @copyright CopyLeft UniversiBO 2001-2004
  */
 
-class Collaboratore extends User {
+class Collaboratore extends User
+{
     /**
      * @var DBCdlRepository
      */
@@ -24,22 +25,22 @@ class Collaboratore extends User {
     /**
      * @access private
      */
-    var $id_utente;
+    public $id_utente;
 
     /**
      * @access private
      */
-    var $intro;
+    public $intro;
 
     /**
      * @access private
      */
-    var $ruolo;
+    public $ruolo;
 
     /**
      * @access private
      */
-    var $recapito;
+    public $recapito;
 
     /**
      * @var string
@@ -49,7 +50,7 @@ class Collaboratore extends User {
     /**
      * @access private
      */
-    var $foto;
+    public $foto;
 
     /**
      * @var User
@@ -60,8 +61,7 @@ class Collaboratore extends User {
      * @final
      * @access private
      */
-    var $fotoDefault = 'no_foto.png';
-
+    public $fotoDefault = 'no_foto.png';
 
     public function __construct($id_utente, $intro, $recapito, $obiettivi, $foto, $ruolo )
     {
@@ -73,62 +73,62 @@ class Collaboratore extends User {
         $this->obiettivi	= $obiettivi;
     }
 
-    function getIdUtente()
+    public function getIdUtente()
     {
         return $this->id_utente;
     }
 
-    function setIdUtente($id_utente)
+    public function setIdUtente($id_utente)
     {
         $this->id_utente = $id_utente;
     }
 
-    function getIntro()
+    public function getIntro()
     {
         return $this->intro;
     }
 
-    function setIntro($intro)
+    public function setIntro($intro)
     {
         $this->intro = $intro;
     }
 
-    function getRuolo()
+    public function getRuolo()
     {
         return $this->ruolo;
     }
 
-    function setRuolo($ruolo)
+    public function setRuolo($ruolo)
     {
         $this->ruolo = $ruolo;
     }
 
-    function getRecapito()
+    public function getRecapito()
     {
         return $this->recapito;
     }
 
-    function setRecapito($recapito)
+    public function setRecapito($recapito)
     {
         $this->recapito = $recapito;
     }
 
-    function getObiettivi()
+    public function getObiettivi()
     {
         return $this->obiettivi;
     }
 
-    function setObiettivi($obiettivi)
+    public function setObiettivi($obiettivi)
     {
         $this->obiettivi = $obiettivi;
     }
 
-    function getFotoFilename()
+    public function getFotoFilename()
     {
         return ($this->foto != NULL) ? $this->getIdUtente().'_'.$this->foto : $this->fotoDefault;
     }
 
-    function setFotoFilename($foto)
+    public function setFotoFilename($foto)
     {
         $this->foto = $foto;
     }
@@ -142,20 +142,19 @@ class Collaboratore extends User {
      * Ritorna Preleva tutti i collaboratori dal database
      *
      * @todo non si capisce una mazza
-     * @param int $id_utente numero identificativo utente
+     * @param  int   $id_utente numero identificativo utente
      * @return array Collaboratori
      */
-    function getUser()
+    public function getUser()
     {
         return $this->user;
     }
-
 
     /**
      * Ritorna un collaboratori dato l'id_utente del database
      *
      * @deprecated
-     * @param int $id_utente numero identificativo utente
+     * @param  int   $id_utente numero identificativo utente
      * @return array Collaboratori
      */
     public static function selectCollaboratore($id)
@@ -167,7 +166,7 @@ class Collaboratore extends User {
      * Preleva tutti i collaboratori dal database
      *
      * @deprecated
-     * @param int $id_utente numero identificativo utente
+     * @param  int   $id_utente numero identificativo utente
      * @return array Collaboratori
      */
     public static function selectCollaboratoriAll()
@@ -179,7 +178,7 @@ class Collaboratore extends User {
      * Inserisce il profilo di un nuovo collaboratore sul DB
      *
      * @deprecated
-     * @return	 boolean true se avvenua con successo, altrimenti Error object
+     * @return boolean true se avvenua con successo, altrimenti Error object
      */
     public static function insertCollaboratoreItem()
     {
@@ -192,8 +191,7 @@ class Collaboratore extends User {
      */
     private static function getRepository()
     {
-        if(is_null(self::$repository))
-        {
+        if (is_null(self::$repository)) {
             self::$repository = new DBCollaboratoreRepository(FrontController::getDbConnection('main'));
         }
 

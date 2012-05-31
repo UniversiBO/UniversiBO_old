@@ -13,10 +13,8 @@ class AntiVirusFactory
 {
     public static function getAntiVirus(FrontController $fc)
     {
-        if ( $fc->getAppSetting('antiVirusEnable') == 'true' )
-        {
-            if ($fc->getAppSetting('antiVirusType') == 'clamav' )
-            {
+        if ( $fc->getAppSetting('antiVirusEnable') == 'true' ) {
+            if ($fc->getAppSetting('antiVirusType') == 'clamav' ) {
                 $cmd = $fc->getAppSetting('antiVirusClamavCmd');
                 $opts = $fc->getAppSetting('antiVirusClamavOpts');
 

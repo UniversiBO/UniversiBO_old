@@ -54,7 +54,6 @@ class DBInfoDidatticaRepository extends DBRepository
                             'line' => __LINE__));
         }
 
-
         return true;
     }
 
@@ -88,14 +87,12 @@ class DBInfoDidatticaRepository extends DBRepository
                             'line' => __LINE__));
         }
 
-
         return true;
     }
 
     public function update(InfoDidattica $infoDidattica)
     {
         $db = $this->getDb();
-
 
         $query = 'UPDATE info_didattica SET ' . ' programma = '
         . $db->quote($infoDidattica->getProgramma()) . ', programma_link = '
@@ -125,7 +122,6 @@ class DBInfoDidatticaRepository extends DBRepository
                     array('msg' => DB::errorMessage($res), 'file' => __FILE__,
                             'line' => __LINE__));
         }
-
 
         return true;
     }

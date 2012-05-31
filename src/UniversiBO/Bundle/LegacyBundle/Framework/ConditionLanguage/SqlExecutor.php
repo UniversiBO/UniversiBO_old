@@ -14,7 +14,7 @@ class SqlExecutor implements IExecutor
     {
         $this->db = $conn;
 
-        if($cache === null) {
+        if ($cache === null) {
             $cache = HashedCache::getInstance();
         }
 
@@ -48,16 +48,14 @@ class SqlExecutor implements IExecutor
         $f = $this->cache->fetch('sql_'.$paramString.$query);
 
         // TODO replace with closures?
-        if ($f == null)
-        {
+        if ($f == null) {
 //			echo "\n".'definisco sql' ."\n";
             $code='$s = "'.addcslashes($query,'\'').'";
             $res = $db->query($s);
             //var_dump($s);
             if (DB::isError($res))
             Error::throwError(_ERROR_CRITICAL,array(\'msg\'=>DB::errorMessage($res),\'file\'=>__FILE__,\'line\'=>__LINE__));
-            while ($res->fetchInto($row))
-            {
+            while ($res->fetchInto($row)) {
                 $l[]=$row;
                 //var_dump($row);
             }

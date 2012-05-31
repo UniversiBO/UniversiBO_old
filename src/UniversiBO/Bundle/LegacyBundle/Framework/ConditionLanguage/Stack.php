@@ -6,9 +6,9 @@ class Stack
     private $_innerStack = array();
     private $groupedValuesTrace = array();
     private $groupedLength = 0;
-    var $length = 0;
+    public $length = 0;
 
-    function pop()
+    public function pop()
     {
         if ($this->length == 0) return;
         $this->length--;
@@ -17,16 +17,16 @@ class Stack
         return array_pop($this->_innerStack);
     }
 
-    function push($a,$count = true) {array_push($this->_innerStack, $a); $this->length++; if($count) $this->_addGroupedValues(1);}
+    public function push($a,$count = true) {array_push($this->_innerStack, $a); $this->length++; if($count) $this->_addGroupedValues(1);}
 
-    function groupedPush($arrayOfValues)
+    public function groupedPush($arrayOfValues)
     {
         foreach($arrayOfValues as $val)
             $this->push($val,false);
         $this->_addGroupedValues(count($arrayOfValues));
     }
 
-    function groupedPop()
+    public function groupedPop()
     {
         if($this->groupedLength == 0) return;
         $this->groupedLength--;
@@ -35,13 +35,12 @@ class Stack
         return array_splice($this->_innerStack, - $this->groupedValuesTrace[$this->groupedLength]);
     }
 
-    function svuota() {$this->_innerStack = array(); $this->length = 0; $this->groupedValuesTrace = array(); $this->groupedLength = 0;}
+    public function svuota() {$this->_innerStack = array(); $this->length = 0; $this->groupedValuesTrace = array(); $this->groupedLength = 0;}
 
-    function debug()
+    public function debug()
     {
         $s ="STACK: Length ".$this->length;
-        foreach ($this->_innerStack as $i)
-        {
+        foreach ($this->_innerStack as $i) {
             $s .= " Elem ";
             if (is_object($i) &&  method_exists($i,"toString"))
                 $s .= $i->toString();
@@ -59,17 +58,16 @@ class Stack
         return $s;
     }
 
-    function _addGroupedValues($num)
+    public function _addGroupedValues($num)
     {
         $this->groupedValuesTrace[] = $num;
         $this->groupedLength++;
     }
 
-    function _removeFromGroupedValues($num)
+    public function _removeFromGroupedValues($num)
     {
-        if($this->groupedLength == 0) {echo 'errore '.$num."\n"; return;}
-        while( $this->groupedValuesTrace[($this->groupedLength)-1] <= $num)
-        {
+        if ($this->groupedLength == 0) {echo 'errore '.$num."\n"; return;}
+        while ( $this->groupedValuesTrace[($this->groupedLength)-1] <= $num) {
             $num -= $this->groupedValuesTrace[($this->groupedLength)-1];
             array_pop($this->groupedValuesTrace);
             $this->groupedLength--;

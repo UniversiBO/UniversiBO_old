@@ -17,7 +17,7 @@ class ShowCreditsTest extends UniversiBOSeleniumTestCase
 
         $this->open('/v2.php?do=ShowCredits');
 
-        foreach($sentences as $sentence) {
+        foreach ($sentences as $sentence) {
             self::assertTrue($this->isTextPresent($sentence));
         }
     }

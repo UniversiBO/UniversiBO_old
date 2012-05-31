@@ -17,7 +17,7 @@ class ShowContributeTest extends UniversiBOSeleniumTestCase
 
         $this->open('/v2.php?do=ShowContribute');
 
-        foreach($sentences as $sentence) {
+        foreach ($sentences as $sentence) {
             self::assertTrue($this->isTextPresent($sentence), 'Sentence '.$sentence.' should be present');
         }
     }
@@ -40,10 +40,9 @@ class ShowContributeTest extends UniversiBOSeleniumTestCase
         $this->click('name=f3_privacy');
         $this->clickAndWait('name=f3_submit');
 
-        if($this->isTextPresent('Error!')) {
+        if ($this->isTextPresent('Error!')) {
             self::assertTrue($this->isTextPresent('stato impossibile inviare la notifica ai coordinatori'), 'Data should be saved');
-        }
-        else {
+        } else {
             self::assertTrue($this->isTextPresent('Grazie per aver compilato il questionario'), 'Thanks should be displayed');
         }
     }

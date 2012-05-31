@@ -5,18 +5,15 @@
 * suite di test per la classe String
 */
 
-
 /*
 * classe PHPUnit
 */
 require_once 'PHPUnit.php';
 
-
 /*
 * classe da testare
 */
 require_once 'StringEsempioUsoPhpUnit.php';
-
 
 /**
  * Esempio d'uso di PHPUnit
@@ -34,14 +31,16 @@ class _UnitTest_StringEsempioUsoPhpUnit extends PHPUnit_TestCase
 var $abc;
 
 // constructor of the test suite
-function StringTest($name) {
+function StringTest($name)
+{
 $this->PHPUnit_TestCase($name);
 }
 
 // called before the test functions will be executed
 // this function is defined in PHPUnit_TestCase and overwritten
 // here
-function setUp() {
+function setUp()
+{
 // create a new instance of String with the
 // string 'abc'
 $this->abc = new String("abc");
@@ -50,26 +49,30 @@ $this->abc = new String("abc");
 // called after the test functions are executed
 // this function is defined in PHPUnit_TestCase and overwritten
 // here
-function tearDown() {
+function tearDown()
+{
 // delete your instance
 unset($this->abc);
 }
 
 // test the toString function
-function testToString() {
+function testToString()
+{
 $result = $this->abc->toString('contains %s');
 $expected = 'contains abc';
 $this->assertTrue($result == $expected);
 }
 
 // test the copy function
-function testCopy() {
+function testCopy()
+{
 $abc2 = $this->abc->copy();
 $this->assertEquals($abc2, $this->abc);
 }
 
 // test the add function
-function testAdd() {
+function testAdd()
+{
 $abc2 = new String('123');
 $this->abc->add($abc2);
 $result = $this->abc->toString("%s");
@@ -84,4 +87,3 @@ $result = PHPUnit::run($suite);
 //echo $result -> toHTML();
 echo $result -> toHtmlTable();
 
-?>

@@ -39,13 +39,12 @@ class Informativa
     }
 
     /**
-     * @param int $id
+     * @param  int                                                $id
      * @return \UniversiBO\Bundle\LegacyBundle\Entity\Informativa
      */
     public function setId($id)
     {
         $this->id = $id;
-
 
         return $this;
     }
@@ -65,7 +64,6 @@ class Informativa
     {
         $this->dataPubblicazione = $dataPubblicazione;
 
-
         return $this;
     }
 
@@ -78,13 +76,12 @@ class Informativa
     }
 
     /**
-     * @param int $dataFine
+     * @param  int                                                $dataFine
      * @return \UniversiBO\Bundle\LegacyBundle\Entity\Informativa
      */
     public function setDataFine($dataFine)
     {
         $this->dataFine = $dataFine;
-
 
         return $this;
     }
@@ -98,13 +95,12 @@ class Informativa
     }
 
     /**
-     * @param string $testo
+     * @param  string                                             $testo
      * @return \UniversiBO\Bundle\LegacyBundle\Entity\Informativa
      */
     public function setTesto($testo)
     {
         $this->testo = $testo;
-
 
         return $this;
     }

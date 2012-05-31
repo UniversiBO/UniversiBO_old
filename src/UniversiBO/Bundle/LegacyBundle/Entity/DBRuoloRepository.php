@@ -163,13 +163,12 @@ class DBRuoloRepository extends DBRepository
             $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
         $rows = $res->numRows();
-        if( $rows = 0) {
+        if ( $rows = 0) {
             $ret = array(); return $ret;
         }
 
         $ruoli = array();
-        while (	$res->fetchInto($row) )
-        {
+        while (	$res->fetchInto($row) ) {
             $ruoli[] = new Ruolo($row[0], $idCanale, $row[5], $row[1], $row[2]==Ruolo::MODERATORE, $row[2]==Ruolo::REFERENTE, $row[3]=='S', $row[4], $row[6]=='S');
         }
 
@@ -229,8 +228,7 @@ class DBRuoloRepository extends DBRepository
         if (DB::isError($res))
             $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         $rows = $res->numRows();
-        if( $rows >= 1)
-        {
+        if ( $rows >= 1) {
             return false;
         }
 
@@ -247,13 +245,12 @@ class DBRuoloRepository extends DBRepository
             $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
         $rows = $res->numRows();
-        if( $rows = 0) {
+        if ( $rows = 0) {
             $ret = array(); return $ret;
         }
 
         $ruoli = array();
-        while (	$res->fetchInto($row) )
-        {
+        while (	$res->fetchInto($row) ) {
             $ruoli[] = new Ruolo($idUtente, $row[0], $row[5], $row[1], $row[2]==Ruolo::MODERATORE, $row[2]==Ruolo::REFERENTE, $row[3]=='S', $row[4], $row[6]=='S');
         }
 

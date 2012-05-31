@@ -45,7 +45,6 @@ class DBInsegnamentoRepository extends DBRepository
 
         $elenco_attivita = $attRepo->findByChannelId($channelId);
 
-
         return new Insegnamento($row[12], $row[5], $row[4], $row[0],
                 $row[2], $row[1], $row[3], $row[7] == 'S', $row[6] == 'S',
                 $row[8] == 'S', $row[9], $row[10], $row[11] == 'S',

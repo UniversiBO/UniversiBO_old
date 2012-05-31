@@ -5,7 +5,7 @@ use \JavaClass;
 
 class CLVisitor
 {
-    var $level = 0;
+    public $level = 0;
 
        var $listaVariabili = array();
        var $listaOps = array();
@@ -44,19 +44,18 @@ class CLVisitor
      *
      * @return mixed o boolean??
      */
-    function getEsito()
+    public function getEsito()
     { // TODO definire come passare il o i parametri finali dell'interpretazione
 
         return $this->esito;
     }
-
 
     /**
      * restituisce la tabella degli operatori
      *
      * @return array
      */
-    function getOpsTable()
+    public function getOpsTable()
     {
         return $this->listaOps;
     }
@@ -66,7 +65,7 @@ class CLVisitor
      *
      * @return array
      */
-    function getVarTable()
+    public function getVarTable()
     {
         return $this->listaVariabili;
     }
@@ -79,9 +78,9 @@ class CLVisitor
      * recupera le entità attualmente definite e quelle di base del framework
      *
      * @param	string	identifier
-     * @return 	object
+     * @return object
      */
-    function getEntity($identifier)
+    public function getEntity($identifier)
     {
         $this->execMe('entity', array('codice' => $identifier));
 
@@ -96,7 +95,7 @@ class CLVisitor
      * @param array  $codice   array cosituito da: 'input' => array associativo dei parametri, 'codice' => string con il codice
      * @access private
      */
-    function execMe($executor, $codice)
+    public function execMe($executor, $codice)
     {
         $ret = $this->executorFactory->dispatch(strtolower($executor),$codice);
         $this->debug('Executor: '.$executor.' Codice: '.$codice.' Esito: '.print_r($ret,true)."\n",1);
@@ -120,8 +119,7 @@ class CLVisitor
    {
            $null = null;
            // TODO NB in caso di errore bisogna svuotare lo stack degli elementi aggiunti (rollback sullo stack?) ? mm se si interrompe la visita non serve svuotare lo stack
-           if(!$currentOp->isBinary())
-           {
+           if (!$currentOp->isBinary()) {
                $this->semanticError("L'operatore $currentOp->nome non � binario", $currentOp->referrer);
 
                return $null; // TODO se semanticError interrompe il flusso di esecuzione, allora questo return � ridondante
@@ -129,14 +127,11 @@ class CLVisitor
 
            $this->debug('ExploreNextOp: index '.$i.' length '.$length.' sto per chiamare '. $this->node2string($rightTerm),2);
         $rightTerm->accept($this->callMe()); // (right member)
-           if($i == $length-1)
-           {
+           if ($i == $length-1) {
                $this->calcola($currentOp);
 
                return $null;
-           }
-           else if($i > $length-1)
-           {
+           } elseif ($i > $length-1) {
                $this->semanticError('Indice non valido', $currentOp->referrer);
 
                return $null; // TODO se semanticError interrompe il flusso di esecuzione, allora questo return � ridondante
@@ -147,8 +142,7 @@ class CLVisitor
            $nextOp = $this->getOp($nodeList->elementAt($i_next)->elementAt(0));
            $this->debug('ExploreNextOp: CURROP '.$currentOp->nome.' NEXTOP '.$nextOp->nome,2);
 
-           while(true)
-           {
+           while (true) {
 
                if($currentOp->isMajorPriorityTo($nextOp) ||
                    ($currentOp->isEqualPriorityTo($nextOp) && $currentOp->isLeftAssociative()))
@@ -166,18 +160,14 @@ class CLVisitor
                        $ret = array( 'op' => $nextOp, 'indice' => $i_next);
 
                        return $ret;
-                   }
-                   else
+                   } else
                        // calcola poi il successivo
                        return $this->exploreNextOp($nextOp, $nodeList->elementAt($i_next)->elementAt(1), $i_next, $lastOp, $length, $nodeList);
-               }
-               else
-               {
+               } else {
 
                    //calcola il successivo poi io
                    $n = $this->exploreNextOp($nextOp, $nodeList->elementAt($i_next)->elementAt(1),$i_next, $currentOp, $length, $nodeList);
-                   if($n == null)
-                   {
+                   if ($n == null) {
                        $this->calcola($currentOp);
 
                        return $null;
@@ -191,8 +181,8 @@ class CLVisitor
     /**
      * ritorna la descrizione di un operatore
      *
-     * @param NodeToken $op nodo AST dell'operatore
-     * @return array descrizione dell'operatore
+     * @param  NodeToken $op nodo AST dell'operatore
+     * @return array     descrizione dell'operatore
      * @access private
      */
     private function getOp($op)
@@ -207,7 +197,7 @@ class CLVisitor
      * @param Operator $op
      * @access private
      */
-    function calcola(Operator $op, $filtro = null)
+    public function calcola(Operator $op, $filtro = null)
     {
         $input = array();
         $chiavi = $op->inputFormat->getMask();
@@ -222,8 +212,7 @@ class CLVisitor
         //NB le sostituzioni vengono fatte secondo l'ordine di creazione degli array input e pattern. E' importante partire dai numeri pi� grandi e decrescere
         $this->debug('OP: '.$op->nome.' CALCOLO: ' . $s, -1);
         $this->execMe($op->executor, array('input' => $input, 'codice' => $op->codice, 'outMask' => $op->outputFormat->getMask()));
-        if($filtro != null)
-        {
+        if ($filtro != null) {
             $outputValues = $this->st->groupedPop();
 //			var_dump($outputValues);
             $values = ParamListFormat::filterValues($outputValues,$filtro['mask'],$op->outputFormat);
@@ -242,7 +231,7 @@ class CLVisitor
      * @param message l'errore riscontrato
      * @param n	il nodo dell'AST in cui si è riscontrato l'errore
      */
-    function semanticError($message, $n = null)
+    public function semanticError($message, $n = null)
     {
         $ln = new JavaClass("util.LineNumberInfo");
 //		throw new Exception($message+" "+ $ln->get($n)->desc());
@@ -265,7 +254,7 @@ class CLVisitor
      * @access private
      * @return php/java bridge object
      */
-    function callMe()
+    public function callMe()
     {
         return java_get_closure($this);
     }
@@ -276,12 +265,12 @@ class CLVisitor
      * @param string $s
      * @access private
      */
-    function printMe($s)
+    public function printMe($s)
     {
         print $this->indentLevel().$s;
     }
 
-    function node2string($n, $lowercase = false)
+    public function node2string($n, $lowercase = false)
     {
         $s = java_cast($n->toString(), "string");
         if ($lowercase) $s = strtolower($s);
@@ -292,11 +281,12 @@ class CLVisitor
     /**
      * Helper per formattare il valore di un NodeToken
      *
-     * @param string $s
+     * @param  string $s
      * @return string
      * @access private
      */
-    function toSchemeString($s) {
+    public function toSchemeString($s)
+    {
         return str_replace('"','//',$s);
        }
 
@@ -306,7 +296,7 @@ class CLVisitor
         * @return string
         * @access private
         */
-    function indentLevel()
+    public function indentLevel()
    {
     $indent = "\n";
     for ($i = 0 ; $i < $this->level; $i++) $indent = $indent . "  ";
@@ -326,23 +316,24 @@ class CLVisitor
      * @param string $prefix prefisso per contraddistinguere meglio le informazioni nell'output di debug
      * @access private
      */
-    function debug($s, $v = 1, $prefix = '')
+    public function debug($s, $v = 1, $prefix = '')
     {
-        if ($this->debug_enabled && $v <= $this->debug_verbose_level)
-        {
+        if ($this->debug_enabled && $v <= $this->debug_verbose_level) {
             if(is_bool($s)) $s = ($s) ? 'true' : 'false';
             $this->printMe('[DEBUG] '.$prefix.$s);
         }
     }
 
-  function trace_call($s) {
+  function trace_call($s)
+  {
     if ($this->trace_enabled) {
         $this->printMe("Call:   " . $s);
     }
     $this->level++;
   }
 
-  function trace_return($s) {
+  function trace_return($s)
+  {
     $this->level--;
     if ($this->trace_enabled) {
         $end = ($this->level == 0)? "\n" : '';
@@ -363,7 +354,7 @@ class CLVisitor
        * @param object $node nodo dell'AST
        * @access public
        */
-    function visit($node)
+    public function visit($node)
     {
         $cl = substr(strrchr($node->getClass()->toString(), "."), 1);
 //		echo "\n\n".  $cl ."\n\n";
@@ -372,8 +363,7 @@ class CLVisitor
 //		echo "\n\n";
 
         $this->trace_call($cl);
-        switch($cl)
-        {
+        switch ($cl) {
             case "NodeListOptional":
             case "NodeList": $this->visitNodeList($node); break;
             case "namespace": $this->visitNamespace($node); break;
@@ -402,20 +392,22 @@ class CLVisitor
     /**
      * va bene sia per NodeList che per NodeListOptional
      */
-   function visitNodeList($node) {
-      for ( $e = $node->elements(); $e->hasMoreElements(); )
-      {
+   function visitNodeList($node)
+   {
+      for ( $e = $node->elements(); $e->hasMoreElements(); ) {
           if ($this->stop) return;
           $e->nextElement()->accept($this->callMe());
       }
    }
 
-   function visitNodeOptional ($n) {
+   function visitNodeOptional ($n)
+   {
       if ( $n->present() )
          $n->node->accept($this->callMe());
    }
 
-   function visitNodeToken ($n) {
+   function visitNodeToken ($n)
+   {
       $this->debug('NODETOKEN: '.$this->toSchemeString($this->node2string($n)),3);
 //      $this->st->push($n->tokenImage);
    }
@@ -424,7 +416,8 @@ class CLVisitor
    /**
     * f0 -> ( istruzione() )*
     */
-   function visitStart($n) {
+   function visitStart($n)
+   {
           $n->f0->accept($this->callMe());
         $this->esito = ! $this->stop;  // true se non ci sono startDef false
         $this->debug('ESITO: '.$this->esito.' STOP: '.$this->stop,-1);
@@ -436,7 +429,8 @@ class CLVisitor
     *       | opDefinition()
     * @throws Exception
     */
-    function visitIstruzione ($n){
+    public function visitIstruzione ($n)
+    {
         if(!$this->stop)
             $n->f0->choice->accept($this->callMe());
     }
@@ -448,7 +442,8 @@ class CLVisitor
     * f3 -> condition()
     * f4 -> <END>
     */
-     function visitEventDef ($t){
+     function visitEventDef ($t)
+     {
         if (array_key_exists(md5($this->node2string($t->f1,true)), $this->listaVariabili ))
             $this->semanticError("Variabile gi� esistente", $t);
         $this->listaVariabili[md5($this->node2string($t->f1,true))] = $t->f3; // TODO verificare che key �
@@ -462,10 +457,10 @@ class CLVisitor
     * f3 -> ( <ENDS> <WHEN> condition() )?
     * f4 -> <END>
     */
-    function visitStartDef ($t){
+    public function visitStartDef ($t)
+    {
         $o = $t->f3;
-        if ($o->present())
-        {
+        if ($o->present()) {
             $o->node->elementAt(2)->accept($this->callMe());
             $b = $this->st->pop();
             // se le condizioni di fine sono attive, l'istruzione risulta globalmente falsa
@@ -498,7 +493,8 @@ class CLVisitor
     * f18 -> <NSRIGHT>
     * f19 -> <END>
     */
-    function visitOpDef ($t){
+    public function visitOpDef ($t)
+    {
         if (array_key_exists(md5($this->node2string($t->f2,true)), $this->listaOps ))
             $this->semanticError("Operatore gi� esistente", $t);
         $t->f9->accept($this->callMe());
@@ -527,30 +523,26 @@ class CLVisitor
     * f2 -> ( <STAR> )?
     * f3 -> ( <COMMA> <NOME> ( <OPEN> listaParam() <CLOSE> )? ( <STAR> )? )*
     */
-    function visitListaParam($n)
+    public function visitListaParam($n)
     {
         $l = new ParamListFormat();
         $nestedList = null;
         $grouped = $n->f2->present();
         $struct = $n->f1->present();
-        if ($struct)
-        {
+        if ($struct) {
             $n->f1->node->elementAt(1)->accept($this->callMe());
             $nestedList = $this->st->pop();
         }
         $l->addParam($this->node2string($n->f0), $struct,$grouped,$nestedList);
 
-        if($n->f3->present())
-        {
+        if ($n->f3->present()) {
             $tot = $n->f3->size();
-            for($i=0; $i < $tot; $i++)
-            {
+            for ($i=0; $i < $tot; $i++) {
                 $s = $n->f3->elementAt($i);
                 $nestedList = null;
                 $grouped = $s->elementAt(3)->present();
                 $struct = $s->elementAt(2)->present();
-                if ($struct)
-                {
+                if ($struct) {
                     $s->elementAt(2)->node->elementAt(1)->accept($this->callMe());
                     $nestedList = $this->st->pop();
                 }
@@ -567,13 +559,13 @@ class CLVisitor
     * f0 -> term() ( <OP> term() )*
    *       | <OP> "(" condition() ( <LIST_SEP> condition() )* ( outputFilter() )? ")"
     */
-    function visitCondition ($n) {
+    public function visitCondition ($n)
+    {
         $t = $n->f0->choice;
         switch ($n->f0->which) {
             case 0:
                 $t->elementAt(0)->accept($this->callMe());
-                if ($t->elementAt(1)->present())
-                {
+                if ($t->elementAt(1)->present()) {
                     $s = $t->elementAt(1)->elementAt(0); //var_dump($this->node2string($s->elementAt(0)));die;
                     $last = null;
                     $this->exploreNextOp($this->getOp($s->elementAt(0)),$s->elementAt(1),0, $last,$t->elementAt(1)->size(),$t->elementAt(1));
@@ -581,15 +573,13 @@ class CLVisitor
                    break;
             case 1:
                 $filter = null;
-                if ($t->elementAt(4)->present())
-                {
+                if ($t->elementAt(4)->present()) {
                     $t->elementAt(4)->accept($this->callMe());
                     $filter = $this->st->pop();
                 }
                 $t->elementAt(2)->accept($this->callMe());
                 if($t->elementAt(3)->present())
-                    for ($i = 0; $i < $t->elementAt(3)->size(); $i++)
-                      {
+                    for ($i = 0; $i < $t->elementAt(3)->size(); $i++) {
                           $tmp = $t->elementAt(3)->elementAt($i);
                         $tmp->elementAt(1)->accept($this->callMe());
                       }
@@ -645,11 +635,11 @@ class CLVisitor
     *       | <AT> <VARIABILE> ( <CALL> <VARIABILE> "(" ( condition() ( "," condition() )* )? ")" )*
     *       | lista()
     */
-    function visitTerm($n){
+    public function visitTerm($n)
+    {
        $s =$n->f0->choice;
 
-       switch ($n->f0->which)
-       {
+       switch ($n->f0->which) {
                case 0: // $VARIABILE
                 if (!array_key_exists(md5($this->node2string($s->elementAt(1),true)),$this->listaVariabili))
                     $this->semanticError("La variabile " . $this->node2string($s->elementAt(1)) . " non � stata definita", $n);
@@ -666,21 +656,17 @@ class CLVisitor
               case 4: // METHOD CALL
                   $o = $this->getEntity($this->node2string($s->elementAt(1),true));
                   $list = $s->elementAt(2);
-                  if($list->present())
-                  {
-                      for ($i = 0; $i < $list->size(); $i++)
-                      {
+                  if ($list->present()) {
+                      for ($i = 0; $i < $list->size(); $i++) {
                           $tmp = $list->elementAt($i);
                           $method = $this->node2string($tmp->elementAt(1));
                           $args = array();
                           $listaArgs = $tmp->elementAt(3);
-                          if ($listaArgs->present())
-                          {
+                          if ($listaArgs->present()) {
                               $listaArgs = $listaArgs->node;
                               $args[] = $this->node2string($listaArgs->elementAt(0));
                               if ($listaArgs->elementAt(1)->present())
-                                  for ($j = 0; $j < $listaArgs->size(); $j++)
-                                  {
+                                  for ($j = 0; $j < $listaArgs->size(); $j++) {
                                       $listaArgs->elementAt($j)->elementAt(1)->accept($this->callMe());
                                       $args[] = $this->st->pop();
                                   }
@@ -689,8 +675,7 @@ class CLVisitor
                               $this->semanticError('ENTITY: il metodo '. $method . ' non � definito per '.get_class($o),$n);
                           $this->st->push(call_user_func_array(array(&$o,$method),$args));
                       }
-                  }
-                  else
+                  } else
                       $this->st->push($o);
                   break;
        }
@@ -703,15 +688,14 @@ class CLVisitor
     * f3 -> "}"
     */
 
-    function visitList($n)
+    public function visitList($n)
     {
         $n->elementAt(1)->accept($this->callMe());
         $o = $n->elementAt(2);
         if($o->present())
         $list[] = $this->st->pop();
         $tot = $o->size();
-        for($i=0; $i < $tot; $i++)
-        {
+        for ($i=0; $i < $tot; $i++) {
             $o->elementAt($i)->elementAt(1)->accept($this->callMe());
             $list[] = $this->st->pop();
         }
@@ -719,18 +703,16 @@ class CLVisitor
         $this->st->push($list);
     }
 
-
    /**
     * f0 -> <NUM>
     *       | <TIME>
     *       | <STRINGA>
     */
-    function visitElem($n)
+    public function visitElem($n)
     {
         $s = $n->f0->choice;
         if ($n->f0->which == 1) $this->st->push(time());
-        else
-        {
+        else {
             $str = $this->node2string($s);
             $ret = $str;
             //Date d/m/yy and dd/mm/yyyy
@@ -753,8 +735,7 @@ class CLVisitor
             //1/1/99 through 12/31/99 and 01/01/1900 through 12/31/2099
             //Matches invalid dates such as February 31st
             //Accepts dashes, spaces, forward slashes and dots as date separators
-            else if(preg_match('/\b(0?[1-9]|1[012])[- \/.](0?[1-9]|[12][0-9]|3[01])[- \/.](19|20)?[0-9]{2}\b/',$str))
-            {
+            else if (preg_match('/\b(0?[1-9]|1[012])[- \/.](0?[1-9]|[12][0-9]|3[01])[- \/.](19|20)?[0-9]{2}\b/',$str)) {
                 $date = preg_split('/[- \/.]/',$str, -1, PREG_SPLIT_NO_EMPTY);
                 $this->debug('DATA: '.$str.' TOKEN: ' .print_r($date,true), 3);
                 $ret = mktime(0,0,0,$date[0],$date[1],$date[2]);

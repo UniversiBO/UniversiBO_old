@@ -33,8 +33,8 @@ abstract class DBRepository
     }
 
     /**
-     * @param string $level (name of the constant)
-     * @param mixed  $param
+     * @param  string    $level (name of the constant)
+     * @param  mixed     $param
      * @throws Exception
      */
     protected function throwError($level, $param)
@@ -54,7 +54,6 @@ abstract class DBRepository
             $row = self::convertToUtf8($row);
         }
 
-
         return $row;
     }
 
@@ -65,10 +64,9 @@ abstract class DBRepository
 
     protected function convertIfNeeded($item)
     {
-        if($this->isConvert()) {
+        if ($this->isConvert()) {
             return self::convertToUtf8($item);
         }
-
 
         return $item;
     }
@@ -77,8 +75,7 @@ abstract class DBRepository
     {
         if (is_array($item)) {
             array_walk($item,
-                    function (&$item, $key)
-                    {
+                    function (&$item, $key) {
                         $item = DBRepository::convertToUtf8($item);
                     });
 

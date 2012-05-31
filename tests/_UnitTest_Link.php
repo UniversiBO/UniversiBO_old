@@ -5,10 +5,8 @@
 * suite di test per la classe Facolta
 */
 
-
 require_once 'PHPUnit'.PHP_EXTENSION;
 require_once 'Links/Link'.PHP_EXTENSION;
-
 
 /**
  * Test per la classe Link
@@ -22,27 +20,27 @@ require_once 'Links/Link'.PHP_EXTENSION;
 class _UnitTest_Link extends PHPUnit_TestCase
 {
 
-    function UserTest($name)
+    public function UserTest($name)
     {
         $this->PHPUnit_TestCase($name);
     }
 
     // called before the test functions will be executed
-    function setUp()
+    public function setUp()
     {
         $db =& FrontController::getDbConnection('main');
         $db->autoCommit(false);
     }
 
     // called after the test functions are executed
-    function tearDown() {
+    public function tearDown()
+    {
         $db =& FrontController::getDbConnection('main');
         $db->rollback();
         $db->autoCommit(true);
     }
 
-
-    function testGetLink()
+    public function testGetLink()
     {
         $link = new Link(0, 45, 23, 'http://example.com', 'Link di esempio', 'Descrizione blab bla bla');
 
@@ -54,8 +52,7 @@ class _UnitTest_Link extends PHPUnit_TestCase
         $this->assertEquals('Descrizione blab bla bla', $link->getDescription());
     }
 
-
-    function testInsertSelect()
+    public function testInsertSelect()
     {
         $link = new Link(0, 45, 23, 'http://example.com', 'Link di esempio', 'Descrizione blab bla bla');
 
@@ -73,8 +70,7 @@ class _UnitTest_Link extends PHPUnit_TestCase
 
     }
 
-
-    function testUpdateSelect()
+    public function testUpdateSelect()
     {
         $link = new Link(0, 45, 23, 'http://example.com', 'Link di esempio', 'Descrizione blab bla bla');
 
@@ -99,7 +95,7 @@ class _UnitTest_Link extends PHPUnit_TestCase
 
     }
 
-    function testDeleteSelect()
+    public function testDeleteSelect()
     {
         $link = new Link(0, 45, 23, 'http://example.com', 'Link di esempio', 'Descrizione blab bla bla');
 
@@ -115,7 +111,7 @@ class _UnitTest_Link extends PHPUnit_TestCase
 
     }
 
-    function testSelectCanaleLinks()
+    public function testSelectCanaleLinks()
     {
         $link = new Link(0, 45, 23, 'http://example.com', 'Link di esempio', 'Descrizione blab bla bla');
 
@@ -135,7 +131,4 @@ class _UnitTest_Link extends PHPUnit_TestCase
     }
 
 }
-
-?>
-
 

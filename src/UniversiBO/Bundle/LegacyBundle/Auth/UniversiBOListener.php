@@ -23,7 +23,6 @@ class UniversiBOListener implements ListenerInterface
      */
     private $authenticationManager;
 
-
     public function __construct(SecurityContextInterface $securityContext, AuthenticationManagerInterface $authenticationManager)
     {
         $this->securityContext = $securityContext;
@@ -32,8 +31,7 @@ class UniversiBOListener implements ListenerInterface
 
     public function handle(GetResponseEvent $event)
     {
-        if(array_key_exists('id_utente', $_SESSION) && $_SESSION['id_utente'] > 0)
-        {
+        if (array_key_exists('id_utente', $_SESSION) && $_SESSION['id_utente'] > 0) {
             $token = new UniversiBOToken();
             $token->setId($_SESSION['id_utente']);
 

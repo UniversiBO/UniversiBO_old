@@ -8,7 +8,6 @@ use UniversiBO\Bundle\LegacyBundle\App\InteractiveCommand\StoredInteractionInfor
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
-
 /**
  *
  * Si occupa della cancellazione di un utente in accordo alla informativa da lui approvata
@@ -21,7 +20,7 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
  */
 class ScriptCancelUser extends UniversiboCommand
 {
-    function execute()
+    public function execute()
     {
         $fc = $this->getFrontController();
         $template = $fc->getTemplateEngine();
@@ -45,8 +44,7 @@ class ScriptCancelUser extends UniversiboCommand
         $esito = false;
         $esito = $cancelObj->cancellaUtente($idUtente);
 
-        if($esito)
-        {
+        if ($esito) {
             $mail = $fc->getMail();
 
             $mail->AddAddress($user->getEmail());
@@ -58,10 +56,9 @@ class ScriptCancelUser extends UniversiboCommand
                  "farlo attraverso la normale procedura sul sito, ma puoi contattarci all'indirizzo\n".
                  $fc->getAppSetting('infoEmail')."\n".
                  "Grazie per aver usato UniversiBO!\n\n";
-            if(!$mail->Send()){echo 'Errore Mail'; Error::throwError(_ERROR_DEFAULT,array('msg'=>'Mail non inviata!', 'file'=>__FILE__, 'line'=>__LINE__));}
+            if (!$mail->Send()) {echo 'Errore Mail'; Error::throwError(_ERROR_DEFAULT,array('msg'=>'Mail non inviata!', 'file'=>__FILE__, 'line'=>__LINE__));}
             echo 'Successo';
-        }
-        else
+        } else
             echo 'Errore';
 
     }
@@ -72,32 +69,30 @@ define('DELETED', -1);
 
 class CancellazioneUtente
 {
-    var $db;
-    var $valuesDispatch = array(
+    public $db;
+    public $valuesDispatch = array(
                 '1' => array('sospendiUtente', 'anonimizeForumUser', 'anonimizeUserPosts', 'clearUserTopicWatches', 'clearUserFromBanlist', 'reassignGroupsModeratedByUser' ),
                 '2' => array('sospendiUtente')
             );
-    var $idInformativa;
+    public $idInformativa;
 
     // costruttore
-    function __construct($idInformativa)
+    public function __construct($idInformativa)
     {
         $this->idInformativa = $idInformativa;
         $this->db = FrontController::getDbConnection('main');
     }
 
-    function cancellaUtente( $idUtente)
+    public function cancellaUtente( $idUtente)
     {
 
         $db = FrontController::getDbConnection('main');
         ignore_user_abort(1);
         $db->autoCommit(false);
 
-        foreach ($this->valuesDispatch[$this->idInformativa] as $method)
-        {
+        foreach ($this->valuesDispatch[$this->idInformativa] as $method) {
             $ret = $this->$method($idUtente);
-            if ($ret['esito'] === false)
-            {
+            if ($ret['esito'] === false) {
                 $db->rollback();
                 Error::throwError(_ERROR_CRITICAL,array('msg'=>'Si � verificato un errore: ' . $ret['msg'] ."\n".'Ripristino della situazione iniziale','file'=>__FILE__,'line'=>__LINE__));
 
@@ -111,17 +106,15 @@ class CancellazioneUtente
         return true;
     }
 
-
     /* ================ private method ====================*/
     /**
      * @access private
      * @return array 'esito' -> esito dell'operazione, 'msg' -> eventuale messaggio di errore
      */
-    function sospendiUtente ($idUtente)
+    public function sospendiUtente ($idUtente)
     {
         $user = User::selectUser($idUtente);
-           if( $user->isDocente() || $user->isTutor() || $user->isCollaboratore() || $user->isAdmin() || $user->isPersonale()  )
-        {
+           if ( $user->isDocente() || $user->isTutor() || $user->isCollaboratore() || $user->isAdmin() || $user->isPersonale()  ) {
 //			$this->db->rollback();
 //			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Spiacente, lo script cancella solo gli studenti','file'=>__FILE__,'line'=>__LINE__));
             return array( 'esito' => false, 'msg' => 'Spiacente, lo script cancella solo gli studenti');
@@ -141,7 +134,7 @@ class CancellazioneUtente
      * @access private
      * @return array 'esito' -> esito dell'operazione, 'msg' -> eventuale messaggio di errore
      */
-    function anonimizeForumUser ($idUtente)
+    public function anonimizeForumUser ($idUtente)
     {
         // TODO valutare bene cosa settare per user_level e per user_rank
         $query = 'UPDATE phpbb_users SET username = '.$this->db->quote(User::NICK_ELIMINATO).', user_email = \'\', user_icq = \'\', ' .
@@ -153,12 +146,11 @@ class CancellazioneUtente
         return array( 'esito' => true);
     }
 
-
     /**
      * @access private
      * @return array 'esito' -> esito dell'operazione, 'msg' -> eventuale messaggio di errore
      */
-    function anonimizeUserPosts($idUtente)
+    public function anonimizeUserPosts($idUtente)
     {
         $sql = 'UPDATE phpbb_posts
             SET post_username = '.$this->db->quote(User::NICK_ELIMINATO).'
@@ -187,7 +179,7 @@ class CancellazioneUtente
      * @access private
      * @return array 'esito' -> esito dell'operazione, 'msg' -> eventuale messaggio di errore
      */
-    function reassignGroupsModeratedByUser($idUtente)
+    public function reassignGroupsModeratedByUser($idUtente)
     {
         $sql = 'SELECT group_id, group_name' .
                 ' FROM phpbb_groups' .
@@ -198,15 +190,13 @@ class CancellazioneUtente
             return array( 'esito' => false, 'msg' => DB::errorMessage($res));
 
         $group_moderator = null;
-        while ( $row_group = $res->fetchRow() )
-        {
+        while ( $row_group = $res->fetchRow() ) {
             $group_moderator[$row_group['group_name']] = $row_group['group_id'];
         }
         $res->free();
 
         if ( count($group_moderator) > 0 )
-            foreach ($group_moderator as $groupName => $groupId)
-            {
+            foreach ($group_moderator as $groupName => $groupId) {
                 $update_moderator_id = implode(', ', $group_moderator);
                 $id_user = $this->_getFirstAdminInGroup($groupId);
                 $sql = 'UPDATE phpbb_groups' .
@@ -221,14 +211,13 @@ class CancellazioneUtente
                 echo "\n". 'Nuovo moderatore del gruppo '.$groupName.': '.User::getUsernameFromId($id_user);
             }
 
-
         return array( 'esito' => true);
     }
 
     /**
      * @return integer restituisce l'id di un admin, possibilmente appartenente al gruppo
      */
-    function _getFirstAdminInGroup ($groupId)
+    public function _getFirstAdminInGroup ($groupId)
     {
         $list = User::getIdUsersFromDesiredGroups(array(User::ADMIN));
         $sql = 'SELECT user_id' .
@@ -249,7 +238,7 @@ class CancellazioneUtente
      * @access private
      * @return array 'esito' -> esito dell'operazione, 'msg' -> eventuale messaggio di errore
      */
-    function clearUserTopicWatches($idUtente)
+    public function clearUserTopicWatches($idUtente)
     {
         $sql = 'DELETE FROM phpbb_topics_watch' .
             ' WHERE user_id = '.$this->db->quote($idUtente);
@@ -265,7 +254,7 @@ class CancellazioneUtente
      * @access private
      * @return array 'esito' -> esito dell'operazione, 'msg' -> eventuale messaggio di errore
      */
-    function clearUserFromBanlist($idUtente)
+    public function clearUserFromBanlist($idUtente)
     {
         $sql = 'DELETE FROM phpbb_banlist
             WHERE ban_userid = '.$this->db->quote($idUtente);
@@ -385,7 +374,6 @@ class CancellazioneUtente
 //			}
 //		}
 
-
 //			$sql = "DELETE FROM " . GROUPS_TABLE . "
 //				WHERE group_id = " . $row['group_id'];
 //			if( !$db->query($sql) )
@@ -453,7 +441,6 @@ class CancellazioneUtente
 //					message_die(GENERAL_ERROR, 'Could not delete private message text', '', __LINE__, __FILE__, $delete_text_sql);
 //				}
 //			}
-
 
 //
 //		$db->commit();

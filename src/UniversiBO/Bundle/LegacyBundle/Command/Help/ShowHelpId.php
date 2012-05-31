@@ -22,9 +22,8 @@ use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class ShowHelpId extends PluginCommand {
-
-
+class ShowHelpId extends PluginCommand
+{
     /**
      * Esegue il plugin
      *
@@ -39,7 +38,7 @@ class ShowHelpId extends PluginCommand {
         $allFlag	= false;
         $listid		= '';
 
-        foreach ($param as $key => $id_help){
+        foreach ($param as $key => $id_help) {
             if ($id_help === 0) {$allFlag = true; break;}
             if ($key === 0)	$listid = $id_help;
             else 	$listid = $listid.', '.$id_help;
@@ -64,14 +63,12 @@ class ShowHelpId extends PluginCommand {
         $argomenti	= array();
         //if( $rows > 0) restituisco comunque l'array vuoto
 
-        while($res->fetchInto($row))
-        {
+        while ($res->fetchInto($row)) {
             $argomenti[] = array('id' => 'id'.$row[0], 'titolo' => $row[1], 'contenuto' => $row[2]);
         }
         $res->free();
 
         $template->assign('showHelpId_langArgomento', $argomenti);
-
 
         return $argomenti;
     }

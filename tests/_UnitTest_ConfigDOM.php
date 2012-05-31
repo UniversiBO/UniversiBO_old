@@ -5,10 +5,8 @@
 * suite di test per la classe Cdl
 */
 
-
 require_once 'PHPUnit'.PHP_EXTENSION;
 require_once 'XmlDOMFactory'.PHP_EXTENSION;
-
 
 /**
  * Test per la classe Cdl
@@ -22,15 +20,15 @@ require_once 'XmlDOMFactory'.PHP_EXTENSION;
 class _UnitTest_ConfigDOM extends PHPUnit_TestCase
 {
 
-    var $config;
+    public $config;
 
-    function UserTest($name)
+    public function UserTest($name)
     {
         $this->PHPUnit_TestCase($name);
     }
 
     // called before the test functions will be executed
-    function setUp()
+    public function setUp()
     {
 //		$config = XmlDOMFactory::getXmlDOM();
 //		$config->load('config.xml');
@@ -39,11 +37,11 @@ class _UnitTest_ConfigDOM extends PHPUnit_TestCase
     }
 
     // called after the test functions are executed
-    function tearDown() {
+    public function tearDown()
+    {
     }
 
-
-    function testRootFolder()
+    public function testRootFolder()
     {
 //		$nodeList =& $this->config->getElementsByTag('rootFolder');
 //		$nodeZero =& $nodeList->item(0);
@@ -53,4 +51,3 @@ class _UnitTest_ConfigDOM extends PHPUnit_TestCase
 
 }
 
-?>

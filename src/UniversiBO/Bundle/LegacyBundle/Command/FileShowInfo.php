@@ -18,7 +18,7 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 class FileShowInfo extends UniversiboCommand
 {
 
-    function execute()
+    public function execute()
     {
         $frontcontroller = $this->getFrontController();
 

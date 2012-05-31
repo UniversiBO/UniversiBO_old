@@ -17,8 +17,8 @@ use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
  * @author Fabrizio Pinto
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
-class ShowFileStudentiCommento extends PluginCommand {
-
+class ShowFileStudentiCommento extends PluginCommand
+{
     //todo: rivedere la questione diritti per uno studente...
 
     /**
@@ -65,9 +65,7 @@ class ShowFileStudentiCommento extends PluginCommand {
 
             $template->assign('showFileStudentiCommenti_commento', $commento_tpl);
 
-
     }
 
 }
 
-?>

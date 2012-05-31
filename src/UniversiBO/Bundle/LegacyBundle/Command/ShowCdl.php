@@ -19,12 +19,12 @@ use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
-class ShowCdl extends CanaleCommand {
-
+class ShowCdl extends CanaleCommand
+{
     /**
      * Inizializza il comando ShowCdl ridefinisce l'initCommand() di CanaleCommand
      */
-    function initCommand(FrontController $frontController)
+    public function initCommand(FrontController $frontController)
     {
         parent::initCommand($frontController);
 
@@ -35,7 +35,8 @@ class ShowCdl extends CanaleCommand {
             Error::throwError(_ERROR_DEFAULT, array('id_utente' => $this->sessionUser->getIdUser(), 'msg' => 'Il tipo canale richiesto non corrisponde al comando selezionato', 'file' => __FILE__, 'line' => __LINE__));
     }
 
-    function execute() {
+    public function execute()
+    {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 
@@ -49,7 +50,6 @@ class ShowCdl extends CanaleCommand {
         else
             $anno_accademico = $_GET['anno_accademico'];
 
-
         $elencoPrgAttDid = PrgAttivitaDidattica::selectPrgAttivitaDidatticaElencoCdl($cdl -> getCodiceCdl(), $anno_accademico);
 
         $num_ins = count($elencoPrgAttDid);
@@ -62,21 +62,17 @@ class ShowCdl extends CanaleCommand {
 
         $forum = new ForumApi;
         //3 livelli di innestamento cdl/anno_corso/ciclo/insegnamento
-        for ($i=0; $i < $num_ins; $i++)
-        {
+        for ($i=0; $i < $num_ins; $i++) {
             $tempPrgAttDid = $elencoPrgAttDid[$i];
-            if ($tempPrgAttDid->isGroupAllowed( $session_user_groups ))
-            {
-                if ( $insAnnoCorso != $tempPrgAttDid->getAnnoCorsoUniversibo() )
-                {
+            if ($tempPrgAttDid->isGroupAllowed( $session_user_groups )) {
+                if ( $insAnnoCorso != $tempPrgAttDid->getAnnoCorsoUniversibo() ) {
                     $insAnnoCorso = $tempPrgAttDid->getAnnoCorsoUniversibo();
                     $insCiclo = NULL; //$elencoPrgAttDid[$i]->getTipoCiclo();
 
                     $cdl_listIns[$insAnnoCorso] = array('anno' => $insAnnoCorso, 'name' => 'anno '.$insAnnoCorso, 'list' => array() );
                 }
 
-                if ( $insCiclo != $tempPrgAttDid->getTipoCiclo() )
-                {
+                if ( $insCiclo != $tempPrgAttDid->getTipoCiclo() ) {
                     $insCiclo = $tempPrgAttDid->getTipoCiclo();
 
                     $cdl_listIns[$insAnnoCorso]['list'][$insCiclo] = array('ciclo' => $insCiclo, 'name' => 'Ciclo '.$insCiclo, 'list' => array() );

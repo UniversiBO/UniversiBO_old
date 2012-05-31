@@ -13,7 +13,8 @@ use UniversiBO\Bundle\LegacyBundle\App\InteractiveCommand\BaseInteractiveCommand
  */
 class ProvaInteractiveCommand extends BaseInteractiveCommand
 {
-    public function __construct ($baseCommand) {
+    public function __construct ($baseCommand)
+    {
         parent::__construct($baseCommand);
 //		$this->priority = HIGH_INTERACTION;
         $this->title = 'ecco il titolo personalizzato';
@@ -21,14 +22,13 @@ class ProvaInteractiveCommand extends BaseInteractiveCommand
         //$this->msgOnCancelByUser = 'ecco il messaggio personalizzato in caso di cancel, quando la priorità è alta. Fate buon uso di questo strumento';
     }
 
-    function call_example ( & $item) {
+    public function call_example ( & $item)
+    {
         // TODO normal view
         $values = $item->getValues();
         $valoriForm = (count($values) > 0) ? $values : array('a' => 0, 'b' => 0);
 
-
-        if (isset($_POST['action']))
-        {
+        if (isset($_POST['action'])) {
             // TODO postback
 
             //per lanciare un error_notice si può fare direttamente:
@@ -44,11 +44,11 @@ class ProvaInteractiveCommand extends BaseInteractiveCommand
 
     }
 
-    function call_example2 ( & $item) {
+    public function call_example2 ( & $item)
+    {
         // TODO normal view
 
-        if (isset($_POST['action']))
-        {
+        if (isset($_POST['action'])) {
             // TODO postback
 //			echo 'postback';
             $item->completeStep();

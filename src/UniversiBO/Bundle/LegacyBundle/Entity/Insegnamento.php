@@ -55,22 +55,22 @@ class Insegnamento extends Canale
     /**
      * Crea un oggetto Insegnamento
      *
-     * @param int     $id_canale       identificativo del canale su database
-     * @param int     $permessi        privilegi di accesso gruppi {@see User}
-     * @param int     $ultima_modifica timestamp
-     * @param int     $tipo_canale     vedi definizione dei tipi sopra
-     * @param string  $immagine        uri            dell'immagine relativo alla cartella del template
-     * @param string  $nome            nome              del canale
-     * @param int     $visite          numero          visite effettuate sul canale
-     * @param boolean $news_attivo     se           true il servizio notizie ? attivo
-     * @param boolean $files_attivo    se          true il servizio false ? attivo
-     * @param boolean $forum_attivo    se          true il servizio forum ? attivo
-     * @param int     $forum_forum_id  se        forum_attivo ? true indica l'identificativo del forum su database
-     * @param int     $forum_group_id  se        forum_attivo ? true indica l'identificativo del grupop moderatori del forum su database
-     * @param boolean $links_attivo    se true il servizio links ? attivo
-     * @param string  $cod_facolta     codice       identificativo d'ateneo della facolt? a 4 cifre
-     * @param string  $nome_facolta    descrizione del nome della facolt?
-     * @param string  $uri_facolta     link         al sito internet ufficiale della facolt?
+     * @param  int          $id_canale       identificativo del canale su database
+     * @param  int          $permessi        privilegi di accesso gruppi {@see User}
+     * @param  int          $ultima_modifica timestamp
+     * @param  int          $tipo_canale     vedi definizione dei tipi sopra
+     * @param  string       $immagine        uri            dell'immagine relativo alla cartella del template
+     * @param  string       $nome            nome              del canale
+     * @param  int          $visite          numero          visite effettuate sul canale
+     * @param  boolean      $news_attivo     se           true il servizio notizie ? attivo
+     * @param  boolean      $files_attivo    se          true il servizio false ? attivo
+     * @param  boolean      $forum_attivo    se          true il servizio forum ? attivo
+     * @param  int          $forum_forum_id  se        forum_attivo ? true indica l'identificativo del forum su database
+     * @param  int          $forum_group_id  se        forum_attivo ? true indica l'identificativo del grupop moderatori del forum su database
+     * @param  boolean      $links_attivo    se true il servizio links ? attivo
+     * @param  string       $cod_facolta     codice       identificativo d'ateneo della facolt? a 4 cifre
+     * @param  string       $nome_facolta    descrizione del nome della facolt?
+     * @param  string       $uri_facolta     link         al sito internet ufficiale della facolt?
      * @return Insegnamento
      */
     public function __construct($id_canale, $permessi, $ultima_modifica,
@@ -182,7 +182,7 @@ class Insegnamento extends Canale
      * Ridefinisce il factory method della classe padre per restituire un oggetto
      * del tipo Insegnamento
      *
-     * @param int $id_canale numero identificativo del canale
+     * @param  int   $id_canale numero identificativo del canale
      * @return mixed Facolta se eseguita con successo, false se il canale non esiste
      */
     public static function factoryCanale($id_canale)
@@ -225,7 +225,7 @@ class Insegnamento extends Canale
      *
      * @return string
      */
-    function getTitolo()
+    public function getTitolo()
     {
         return "INSEGNAMENTO DI \n" . $this->getNome();
     }
@@ -236,7 +236,7 @@ class Insegnamento extends Canale
      *
      * @return string
      */
-    function getElencoAttivita()
+    public function getElencoAttivita()
     {
         return $this->elencoAttivita;
     }
@@ -248,7 +248,7 @@ class Insegnamento extends Canale
      *
      * @return string
      */
-    function getElencoAttivitaPadre()
+    public function getElencoAttivitaPadre()
     {
         return $this->elencoAttivitaPadre;
     }
@@ -258,7 +258,7 @@ class Insegnamento extends Canale
      *
      * @return array
      */
-    function getElencoCodiciCdl()
+    public function getElencoCodiciCdl()
     {
         return $this->elencoCodiciCDL;
     }
@@ -268,7 +268,7 @@ class Insegnamento extends Canale
      * corrispondente al codice id_canale
      *
      * @deprecated
-     * @param int $id_canale identificativo su DB del canale corrispondente al corso di laurea
+     * @param  int   $id_canale identificativo su DB del canale corrispondente al corso di laurea
      * @return mixed Insegnamento se eseguita con successo, false se il canale non esiste
      */
     public static function selectInsegnamentoCanale($id_canale)
@@ -292,10 +292,10 @@ class Insegnamento extends Canale
      *
      * @todo implementare se serve
      * @static
-     * @param string $cod_cdl stringa a 4 cifre del codice d'ateneo del corso di laurea
+     * @param  string  $cod_cdl stringa a 4 cifre del codice d'ateneo del corso di laurea
      * @return Facolta
      *
-    function selectInsegnamentoCodice( ...tutta la chiave... )
+    public function selectInsegnamentoCodice( ...tutta la chiave... )
     {
 
     $db = FrontController::getDbConnection('main');
@@ -329,7 +329,6 @@ class Insegnamento extends Canale
             self::$repository = new DBInsegnamentoRepository(
                     FrontController::getDbConnection('main'));
         }
-
 
         return self::$repository;
     }

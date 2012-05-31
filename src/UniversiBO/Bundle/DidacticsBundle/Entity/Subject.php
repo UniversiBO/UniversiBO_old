@@ -37,7 +37,6 @@ class Subject
      */
     private $description;
 
-
     /**
      * Get id
      *

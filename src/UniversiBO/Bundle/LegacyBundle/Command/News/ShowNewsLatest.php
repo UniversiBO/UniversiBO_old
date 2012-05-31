@@ -22,9 +22,8 @@ use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class ShowNewsLatest extends PluginCommand {
-
-
+class ShowNewsLatest extends PluginCommand
+{
     /**
      * Esegue il plugin
      *
@@ -43,7 +42,6 @@ class ShowNewsLatest extends PluginCommand {
         $template  = $fc->getTemplateEngine();
         $krono     = $fc->getKrono();
 
-
         $id_canale = $canale->getIdCanale();
         $titolo_canale =  $canale->getTitolo();
         $ultima_modifica_canale =  $canale->getUltimaModifica();
@@ -52,12 +50,10 @@ class ShowNewsLatest extends PluginCommand {
         $personalizza_not_admin = false;
 
         $template->assign('showNewsLatest_addNewsFlag', 'false');
-        if (array_key_exists($id_canale, $user_ruoli) || $user->isAdmin())
-        {
+        if (array_key_exists($id_canale, $user_ruoli) || $user->isAdmin()) {
             $personalizza = true;
 
-            if (array_key_exists($id_canale, $user_ruoli))
-            {
+            if (array_key_exists($id_canale, $user_ruoli)) {
                 $ruolo = $user_ruoli[$id_canale];
 
                 $personalizza_not_admin = true;
@@ -66,15 +62,12 @@ class ShowNewsLatest extends PluginCommand {
                 $ultimo_accesso = $ruolo->getUltimoAccesso();
             }
 
-            if ( $user->isAdmin() || $referente || $moderatore )
-            {
+            if ( $user->isAdmin() || $referente || $moderatore ) {
                 $template->assign('showNewsLatest_addNewsFlag', 'true');
                 $template->assign('showNewsLatest_addNews', 'Scrivi nuova notizia');
                 $template->assign('showNewsLatest_addNewsUri', 'v2.php?do=NewsAdd&id_canale='.$id_canale);
             }
-        }
-        else
-        {
+        } else {
             $personalizza   = false;
             $referente      = false;
             $moderatore     = false;
@@ -85,23 +78,17 @@ class ShowNewsLatest extends PluginCommand {
 
         $template->assign('showNewsLatest_desc', 'Mostra le ultime '.$num_news.' notizie del canale '.$id_canale.' - '.$titolo_canale);
 
-        if ( $canale_news == 0 )
-        {
+        if ( $canale_news == 0 ) {
             $template->assign('showNewsLatest_langNewsAvailable', 'Non ci sono notizie in questo canale');
             $template->assign('showNewsLatest_langNewsAvailableFlag', 'false');
             $template->assign('showNewsLatest_langNewsShowOthers', '');
-        }
-        else
-        {
+        } else {
             $template->assign('showNewsLatest_langNewsAvailable', 'Ci sono '.$canale_news.' notizie in questo canale');
             $template->assign('showNewsLatest_langNewsAvailableFlag', 'true');
-            if ( $canale_news > $num_news )
-            {
+            if ( $canale_news > $num_news ) {
                 $template->assign('showNewsLatest_langNewsShowOthers', 'Mostra tutte le news');
                 $template->assign('showNewsLatest_langNewsShowOthersUri', 'v2.php?do=NewsShowCanale&id_canale='.$id_canale.'&inizio=0&qta=10');
-            }
-            else
-            {
+            } else {
                 $template->assign('showNewsLatest_langNewsShowOthers', '');
             }
         }
@@ -110,13 +97,11 @@ class ShowNewsLatest extends PluginCommand {
 
         $elenco_news_tpl = array();
 
-        if ($elenco_news ==! false )
-        {
+        if ($elenco_news ==! false ) {
 
             $ret_news = count($elenco_news);
 
-            for ($i = 0; $i < $ret_news; $i++)
-            {
+            for ($i = 0; $i < $ret_news; $i++) {
                 $news = $elenco_news[$i];
                 $this_moderatore = ($user->isAdmin() || ($moderatore && $news->getIdUtente()==$user->getIdUser()));
 
@@ -131,8 +116,7 @@ class ShowNewsLatest extends PluginCommand {
                 $elenco_news_tpl[$i]['id_autore']    = $news->getIdUtente();
 
                 $elenco_news_tpl[$i]['scadenza']     = '';
-                if ( ($news->getDataScadenza()!=NULL) && ( $user->isAdmin() || $referente || $this_moderatore ) )
-                {
+                if ( ($news->getDataScadenza()!=NULL) && ( $user->isAdmin() || $referente || $this_moderatore ) ) {
                     $elenco_news_tpl[$i]['scadenza'] = 'Scade il '.$krono->k_date('%j/%m/%Y', $news->getDataScadenza() );
                 }
 
@@ -140,8 +124,7 @@ class ShowNewsLatest extends PluginCommand {
                 $elenco_news_tpl[$i]['modifica_link']= '';
                 $elenco_news_tpl[$i]['elimina']      = '';
                 $elenco_news_tpl[$i]['elimina_link'] = '';
-                if ( $user->isAdmin() || $referente || $this_moderatore )
-                {
+                if ( $user->isAdmin() || $referente || $this_moderatore ) {
                     $elenco_news_tpl[$i]['modifica']     = 'Modifica';
                     $elenco_news_tpl[$i]['modifica_link']= 'NewsEdit&id_news='.$news->getIdNotizia().'&id_canale='.$id_canale;
                     $elenco_news_tpl[$i]['elimina']      = 'Elimina';
@@ -156,16 +139,15 @@ class ShowNewsLatest extends PluginCommand {
 
     }
 
-
     /**
      * Preleva da database le ultime $num notizie non scadute del canale $id_canale
      *
      * @static
-     * @param int $num       numero notize da prelevare
-     * @param int $id_canale identificativo su database del canale
+     * @param  int   $num       numero notize da prelevare
+     * @param  int   $id_canale identificativo su database del canale
      * @return array elenco NewsItem , false se non ci sono notizie
      */
-    function getLatestNewsCanale($num, $id_canale)
+    public function getLatestNewsCanale($num, $id_canale)
     {
 
          $db = FrontController::getDbConnection('main');
@@ -185,8 +167,7 @@ class ShowNewsLatest extends PluginCommand {
 
         $id_news_list = array();
 
-        while ( $res->fetchInto($row) )
-        {
+        while ( $res->fetchInto($row) ) {
             $id_news_list[]= $row[0];
         }
 
@@ -198,15 +179,14 @@ class ShowNewsLatest extends PluginCommand {
 
     }
 
-
     /**
      * Preleva da database il numero di notizie non scadute del canale $id_canale
      *
      * @static
-     * @param int $id_canale identificativo su database del canale
+     * @param  int $id_canale identificativo su database del canale
      * @return int numero notizie
      */
-    function getNumNewsCanale($id_canale)
+    public function getNumNewsCanale($id_canale)
     {
 
          $db = FrontController::getDbConnection('main');
@@ -217,7 +197,6 @@ class ShowNewsLatest extends PluginCommand {
         $res = $db->getOne($query);
         if (DB::isError($res))
             Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
 
         return $res;
 

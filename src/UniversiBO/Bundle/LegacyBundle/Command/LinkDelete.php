@@ -20,7 +20,7 @@ use UniversiBO\Bundle\LegacyBundle\Entity\Links\Link;
 class LinkDelete extends CanaleCommand
 {
 
-    function execute()
+    public function execute()
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();

@@ -19,21 +19,21 @@ namespace UniversiBO\Bundle\LegacyBundle\Framework;
  */
 
 
-class LogHandler {
+class LogHandler
+{
+    public $csv_text_delimiter = '"';
 
-    var $csv_text_delimiter = '"';
+    public $csv_separator = ';';
 
-    var $csv_separator = ';';
+    public $path = '';
 
-    var $path = '';
+    public $file_name = '';
 
-    var $file_name = '';
+    public $identifier = '';
 
-    var $identifier = '';
+    public $definition = array();
 
-    var $definition = array();
-
-    var $count_values = 0;
+    public $count_values = 0;
 
 
     /**
@@ -61,28 +61,23 @@ class LogHandler {
      *
      * If entry parameter is undefined default value is an empty string
      *
-     * @param array $entry associative array of column<->values to add
+     * @param  array   $entry associative array of column<->values to add
      * @return boolean true: successfull, false: error
      */
-    function addLogEntry($entry)
+    public function addLogEntry($entry)
     {
         $string='';
-        for ($i=0; $i < $this->count_values; $i++)
-        {
-            if (!array_key_exists($this->definition[$i],$entry) )
-            {
+        for ($i=0; $i < $this->count_values; $i++) {
+            if (!array_key_exists($this->definition[$i],$entry) ) {
                 $curr_value = '';
-            }
-            else
-            {
+            } else {
                 $curr_value = $entry[$this->definition[$i]];
             }
 
             $curr_value = str_replace($this->csv_text_delimiter, $this->csv_text_delimiter.$this->csv_text_delimiter, $curr_value);
             $curr_value = str_replace("\n",'|', $curr_value);
             $string .= $this->csv_text_delimiter.$curr_value.$this->csv_text_delimiter;
-            if ($i < $this->count_values -1)
-            {
+            if ($i < $this->count_values -1) {
                 $string .= $this->csv_separator;
             }
         }
@@ -101,18 +96,16 @@ class LogHandler {
      * @return string
      * @access private
      */
-    function _getHeaderLine()
+    public function _getHeaderLine()
     {
         $string = '';
-        for ($i=0; $i < $this->count_values; $i++)
-        {
+        for ($i=0; $i < $this->count_values; $i++) {
             $curr_value = $this->definition[$i];
 
             $curr_value = str_replace($this->csv_text_delimiter, $this->csv_text_delimiter.$this->csv_text_delimiter, $curr_value);
             $curr_value = str_replace("\n",'|', $curr_value);
             $string .= $this->csv_text_delimiter.$curr_value.$this->csv_text_delimiter;
-            if ($i < $this->count_values -1)
-            {
+            if ($i < $this->count_values -1) {
                 $string .= $this->csv_separator;
             }
         }
@@ -136,10 +129,10 @@ class LogHandler {
      * @param string $string line in csv format "column1";"column2";..;"columnN"\n
      * @access private
      */
-    function _addCsvLine($full_file_name, $string)
+    public function _addCsvLine($full_file_name, $string)
     {
         $addHeader = false;
-        if ( !file_exists($full_file_name) == true ){
+        if ( !file_exists($full_file_name) == true ) {
             $addHeader = true;
         }
 
@@ -148,8 +141,7 @@ class LogHandler {
         if ($fp === false) return false;
 
         flock ($fp,2);
-        if ( $addHeader == true )
-        {
+        if ( $addHeader == true ) {
             $header = $this->_getHeaderLine();
             fwrite($fp, $header);
         }
@@ -158,6 +150,5 @@ class LogHandler {
         flock($fp,3);
         fclose($fp);
     }
-
 
 }

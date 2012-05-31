@@ -80,7 +80,6 @@ class SenderChainTest extends \PHPUnit_Framework_TestCase
         $this->chain->unregister($sender);
     }
 
-
     /**
      * @expectedException \InvalidArgumentException
      */

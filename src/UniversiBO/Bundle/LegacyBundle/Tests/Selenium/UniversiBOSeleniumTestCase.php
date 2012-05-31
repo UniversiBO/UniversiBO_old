@@ -21,8 +21,7 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
         $this->type('id=f1_password', $password);
         $this->clickAndWait('name=f1_submit');
 
-        if($this->isTextPresent('Informativa sulla privacy'))
-        {
+        if ($this->isTextPresent('Informativa sulla privacy')) {
             $this->clickAndWait('name=action');
         }
 
@@ -51,7 +50,7 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
 
     protected function assertSentences(array $sentences)
     {
-        foreach($sentences as $sentence) {
+        foreach ($sentences as $sentence) {
             self::assertTrue($this->isTextPresent($sentence), 'Text: "'.$sentence.'" should be present.');
         }
     }

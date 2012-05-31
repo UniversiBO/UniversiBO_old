@@ -17,7 +17,7 @@ class ShowHomeTest extends UniversiBOSeleniumTestCase
 
         $this->open('/v2.php?do=ShowHome');
 
-        foreach($sentences as $sentence) {
+        foreach ($sentences as $sentence) {
             self::assertTrue($this->isTextPresent($sentence));
         }
     }

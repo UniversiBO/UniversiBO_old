@@ -29,32 +29,31 @@ class ForumApi implements ForumApiInterface
      * Identificativo di connessione al database da utilizzare
      * @access private
      */
-    var $database = 'main';
+    public $database = 'main';
 
     /**
      * Prefisso del nome delle tabelle del database
      * @access private
      */
-    var $table_prefix = 'phpbb_';
+    public $table_prefix = 'phpbb_';
 
     /**
      * Cartella percorso dell'url del forum
      * @access private
      */
-    var $forumPath = 'forum/';
+    public $forumPath = 'forum/';
 
     /**
      * Stile del forum di default - implica la modifica anche nella tabella di config di phpbb
      * @access private
      */
-    var $defaultUserStyle = array('unibo' => 1, 'black' => 7);
+    public $defaultUserStyle = array('unibo' => 1, 'black' => 7);
 
     /**
      * Ranks e livelli da assegnare agli utenti inizialmente
      * @access private
      */
-    var $defaultRanks = array(User::STUDENTE => 0, User::COLLABORATORE => 9, User::TUTOR => 10, User::DOCENTE => 11, User::PERSONALE => 12, User::ADMIN =>  1);
-
+    public $defaultRanks = array(User::STUDENTE => 0, User::COLLABORATORE => 9, User::TUTOR => 10, User::DOCENTE => 11, User::PERSONALE => 12, User::ADMIN =>  1);
 
     /**
      * esegue la codifica esadecimale di un ipv4 nel formato separato da punti
@@ -65,18 +64,17 @@ class ForumApi implements ForumApiInterface
      * @param string codifica separata da punti di un numero ip
      * @return string codifica esadecimale del numero ip
      */
-    function _encodeIp($dotquad_ip)
+    public function _encodeIp($dotquad_ip)
     {
         $ip_sep = explode('.', $dotquad_ip);
 
         return sprintf('%02x%02x%02x%02x', $ip_sep[0], $ip_sep[1], $ip_sep[2], $ip_sep[3]);
     }
 
-
     /**
      * @return string: id di sessione del forum 'sid=f454e54ea75ae45aef75920b02751ac' altrimenti false
      */
-    function getSidForUri()
+    public function getSidForUri()
     {
         //echo $_SESSION['phpbb_sid'];
         if (array_key_exists('phpbb_sid', $_SESSION) && $_SESSION['phpbb_sid']!='') return 'sid='.$_SESSION['phpbb_sid'];
@@ -87,22 +85,20 @@ class ForumApi implements ForumApiInterface
     /**
      * @return string: id di sessione del forum 'sid=f454e54ea75ae45aef75920b02751ac' altrimenti false
      */
-    function getOnlySid()
+    public function getOnlySid()
     {
         $sid = $_SESSION['phpbb_sid'];
 
         return $sid;
     }
 
-
     /**
      * @return string path della cartella in cui si trova il forum
      */
-    function getPath()
+    public function getPath()
     {
         return $this->forumPath;
     }
-
 
     /**
      * Esegue il login sul forum, si suppone che la password sia gi? stata controllata.
@@ -133,8 +129,7 @@ class ForumApi implements ForumApiInterface
         $rows = $res->numRows();
         if( $rows != 4)
             Error::throwError(_ERROR_DEFAULT,array('msg'=>'Impossibile trovare le informazioni di configurazione del forum','file'=>__FILE__,'line'=>__LINE__));
-        while (	$res->fetchInto($row) )
-        {
+        while (	$res->fetchInto($row) ) {
             ${
                 $row[0]} = $row[1];
         }
@@ -144,7 +139,7 @@ class ForumApi implements ForumApiInterface
 
         $phpbb2_cookie = array();
         $phpbb2_cookie['autologinid'] = '';
-        $phpbb2_cookie['userid'] = (string)$user->getIdUser() ;
+        $phpbb2_cookie['userid'] = (string) $user->getIdUser() ;
         $cookie_value = serialize($phpbb2_cookie);
 
         setcookie ($cookie_name.'_data', $cookie_value, time()+3600, $cookie_path, $cookie_domain , $cookie_secure);
@@ -197,8 +192,7 @@ function logout()
     $rows = $res->numRows();
     if( $rows != 4)
         Error::throwError(_ERROR_DEFAULT,array('msg'=>'Impossibile trovare le informazioni di configurazione del forum','file'=>__FILE__,'line'=>__LINE__));
-    while (	$res->fetchInto($row) )
-    {
+    while (	$res->fetchInto($row) ) {
         ${
             $row[0]} = $row[1];
     }
@@ -242,11 +236,10 @@ public function insertUser(User $user, $password = null)
 
     $user_timezone =  (Krono::_is_daylight(time()) == true) ? 2 : 1;
 
-    if ($user->isDocente() || $user->isTutor()){
+    if ($user->isDocente() || $user->isTutor()) {
         $user_notify_pm = 0;
         $user_popup_pm = 0;
-    }
-    else{
+    } else {
         $user_notify_pm = 1;
         $user_popup_pm = 1;
     }
@@ -259,8 +252,6 @@ public function insertUser(User $user, $password = null)
         Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
 }
-
-
 
 /**
  * Modifca lo stile di un utente sul database del forum dato uno User
@@ -280,7 +271,6 @@ function updateUserStyle(User $user)
         Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
 }
-
 
 public function updatePassword(User $user, $password)
 {
@@ -312,7 +302,6 @@ function updateUserEmail(User $user)
         Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
 }
-
 
 /**
  * Aggiunge un utente ad un gruppo di moderazione sul database del forum
@@ -354,7 +343,6 @@ function removeUserGroup($userId, $group)
         Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 }
 
-
 /**
  * @return mixed string: id di sessione del forum 'sid=f454e54ea75ae45aef75920b02751ac' altrimenti false
  */
@@ -362,7 +350,6 @@ function getMainUri()
 {
     return $this->getPath().'index.php?'.ForumApi::getSidForUri();
 }
-
 
 /**
  * @param  int   $id_forum
@@ -393,7 +380,6 @@ function addForumCategory($cat_title, $cat_order)
     return $next_id;
 }
 
-
 /**
  *
  * @return
@@ -418,7 +404,6 @@ function addForum($title, $desc, $cat_id)
     return $next_id;
 }
 
-
 /**
  *
  * @return int
@@ -439,7 +424,6 @@ function addGroup($title, $desc, $id_owner)
     return $next_id;
 }
 
-
 /**
  * @return null
  */
@@ -458,7 +442,6 @@ function addGroupForumPrivilegies($forum_id, $group_id)
         Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
 }
-
 
 /**
  * Ritorna il massimo id_fourm dal database ...succedaneo dell'utilizzo delle sequenze
@@ -563,14 +546,13 @@ function getLastPostsForum(User $user, $id_forum, $num = 10)
 
     $rows = $res->numRows();
 
-    if( $rows == 0 ){
+    if ( $rows == 0 ) {
         $false = false; return $false;
     }
 
     $id_post_list = array();
 
-    while ( $res->fetchInto($row) )
-    {
+    while ( $res->fetchInto($row) ) {
         $id_post_list[] =  array('id' => $row[1], 'name' => $row[0]);
     }
 

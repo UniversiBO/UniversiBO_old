@@ -24,7 +24,7 @@ use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 class FileStudentiEdit extends UniversiboCommand
 {
 
-    function execute()
+    public function execute()
     {
 
         $frontcontroller = $this->getFrontController();
@@ -318,8 +318,7 @@ class FileStudentiEdit extends UniversiboCommand
             //			elseif ($_POST['f24_abstract'] == '') {
             //				Error :: throwError(_ERROR_NOTICE, array ('msg' => 'La descrizione/abstract del file deve essere inserita obbligatoriamente', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
             //				$f24_accept = false;
-            //			}
- elseif ($_POST['f24_abstract'] == '') {
+            //			} elseif ($_POST['f24_abstract'] == '') {
                 $f24_abstract = $f24_titolo;
             } else
                 $f24_abstract = $_POST['f24_abstract'];

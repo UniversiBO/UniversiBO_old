@@ -18,10 +18,10 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
-class RuoliAdminSearch extends UniversiboCommand {
-
-
-    function execute() {
+class RuoliAdminSearch extends UniversiboCommand
+{
+    public function execute()
+    {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 
@@ -43,33 +43,24 @@ class RuoliAdminSearch extends UniversiboCommand {
         $template->assign('common_canaleURI', $canale->showMe());
         $template->assign('common_langCanaleNome', 'a '.$canale->getTitolo());
 
-        if (array_key_exists($id_canale, $user_ruoli))
-        {
+        if (array_key_exists($id_canale, $user_ruoli)) {
             $ruolo = & $user_ruoli[$id_canale];
             $referente = $ruolo->isReferente();
         }
 
-
         if (!$user->isAdmin() && !$referente )
             Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => "Non hai i diritti per modificare i diritti degli utenti su questa pagina.\nLa sessione potrebbe essere scaduta.", 'file' => __FILE__, 'line' => __LINE__));
 
-
-
-
-
-
         $f16_accept = false;
         //postback
-        if (array_key_exists('f16_submit', $_POST)  )
-        {
+        if (array_key_exists('f16_submit', $_POST)  ) {
 
             if (!array_key_exists('f16_username', $_POST) || !array_key_exists('f16_email', $_POST) )
                 Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il form inviato non � valido', 'file' => __FILE__, 'line' => __LINE__));
 
             $f16_accept = true;
 
-            if ($_POST['f16_username'] == '' && $_POST['f16_email'] == '')
-            {
+            if ($_POST['f16_username'] == '' && $_POST['f16_email'] == '') {
                 Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Specificare almeno uno dei due criteri di ricerca', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
                 $f16_accept = false;
             }
@@ -84,17 +75,14 @@ class RuoliAdminSearch extends UniversiboCommand {
             else
                 $f16_email = $_POST['f16_email'];
 
-            if ($f16_accept)
-            {
+            if ($f16_accept) {
                 $users_search = User::selectUsersSearch($f16_username, $f16_email);
 
                 $users_search_keys = array_keys($users_search);
-                foreach($users_search_keys as $key)
-                {
+                foreach ($users_search_keys as $key) {
                     $ruoli_search  = $users_search[$key]->getRuoli();
 
-                    if(array_key_exists($id_canale, $ruoli_search))
-                    {
+                    if (array_key_exists($id_canale, $ruoli_search)) {
                         $ruolo_search  = $ruoli_search[$id_canale];
 
                         $contactUser = array();
@@ -105,9 +93,7 @@ class RuoliAdminSearch extends UniversiboCommand {
                         $contactUser['ruolo'] = ($ruolo_search->isReferente()) ? 'R' :  (($ruolo_search->isModeratore()) ? 'M' : 'none');
 
                         $arrayPublicUsers[$users_search[$key]->getUserPublicGroupName(false)][] = $contactUser;
-                    }
-                    else
-                    {
+                    } else {
                         $contactUser = array();
                         $contactUser['utente_link']  = 'v2.php?do=ShowUser&id_utente='.$users_search[$key]->getIdUser();
                         $contactUser['edit_link']  = 'v2.php?do=RuoliAdminEdit&id_canale='.$id_canale.'&id_utente='.$users_search[$key]->getIdUser();
@@ -125,15 +111,11 @@ class RuoliAdminSearch extends UniversiboCommand {
 
         }
 
-
-        if (!$f16_accept)
-        {
+        if (!$f16_accept) {
             $canale_ruoli = $canale->getRuoli();
             $ruoli_keys = array_keys($canale_ruoli);
-            foreach($ruoli_keys as $key)
-            {
-                if ($canale_ruoli[$key]->isReferente() || $canale_ruoli[$key]->isModeratore() )
-                {
+            foreach ($ruoli_keys as $key) {
+                if ($canale_ruoli[$key]->isReferente() || $canale_ruoli[$key]->isModeratore() ) {
                     $ruoli[] = $canale_ruoli[$key];
 
                     $user = User::selectUser($canale_ruoli[$key]->getIdUser());
@@ -165,7 +147,6 @@ class RuoliAdminSearch extends UniversiboCommand {
         $template->assign('ruoliAdminSearch_langSearch', "Cerca un altro utente");
 
         $this->executePlugin('ShowTopic', array('reference' => 'ruoliadmin'));
-
 
         return 'default';
     }

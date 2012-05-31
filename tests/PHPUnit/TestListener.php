@@ -78,7 +78,8 @@
  * @category    PHP
  * @package     PHPUnit
  */
-class PHPUnit_TestListener {
+class PHPUnit_TestListener
+{
     /**
     * An error occurred.
     *
@@ -87,7 +88,7 @@ class PHPUnit_TestListener {
     * @access public
     * @abstract
     */
-    function addError(&$test, &$t) { /*abstract */ }
+    public function addError(&$test, &$t) { /*abstract */ }
 
     /**
     * A failure occurred.
@@ -97,7 +98,7 @@ class PHPUnit_TestListener {
     * @access public
     * @abstract
     */
-    function addFailure(&$test, &$t) { /*abstract */ }
+    public function addFailure(&$test, &$t) { /*abstract */ }
 
     /**
     * A test ended.
@@ -106,7 +107,7 @@ class PHPUnit_TestListener {
     * @access public
     * @abstract
     */
-    function endTest(&$test) { /*abstract */ }
+    public function endTest(&$test) { /*abstract */ }
 
     /**
     * A test started.
@@ -115,6 +116,5 @@ class PHPUnit_TestListener {
     * @access public
     * @abstract
     */
-    function startTest(&$test) { /*abstract */ }
+    public function startTest(&$test) { /*abstract */ }
 }
-?>

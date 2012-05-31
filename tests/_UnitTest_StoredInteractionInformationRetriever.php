@@ -5,11 +5,9 @@
 * suite di test per la classe ContattoDocente
 */
 
-
 require_once 'PHPUnit'.PHP_EXTENSION;
 require_once 'InteractiveCommand/StoredInteractionInformationRetriever'.PHP_EXTENSION;
 require_once 'InteractiveCommand/BaseInteractiveCommand'.PHP_EXTENSION;
-
 
 /**
  * Test per la classe ContattoDocente
@@ -22,7 +20,7 @@ require_once 'InteractiveCommand/BaseInteractiveCommand'.PHP_EXTENSION;
 
 class _UnitTest_StoredInteractionInformationRetriever extends PHPUnit_TestCase
 {
-    var $testValue = array(
+    public $testValue = array(
                     'call1' => array ('param1' => 'val1',
                                         'param2' => 'arrayval1|arrayval2|arrayval3'
                                         ),
@@ -30,15 +28,15 @@ class _UnitTest_StoredInteractionInformationRetriever extends PHPUnit_TestCase
                                         'param2' => 'arrayval1|arrayval2|arrayval3'
                                         )
                 );
-    var $idUtente = '666';
+    public $idUtente = '666';
 
-    function UserTest($name)
+    public function UserTest($name)
     {
         $this->PHPUnit_TestCase($name);
     }
 
     // called before the test functions will be executed
-    function setUp()
+    public function setUp()
     {
         $db =& FrontController::getDbConnection('main');
         $db->autoCommit(false);
@@ -50,7 +48,7 @@ class _UnitTest_StoredInteractionInformationRetriever extends PHPUnit_TestCase
                     $db->quote(get_class($this)).' , '.
                     $db->quote('S').' )';
         $res =& $db->query($query);
-        if (DB::isError($res)){
+        if (DB::isError($res)) {
             $db->rollback();
             var_dump($query);
             echo DB::errorMessage($res);
@@ -58,8 +56,7 @@ class _UnitTest_StoredInteractionInformationRetriever extends PHPUnit_TestCase
         }
 
         foreach ($this->testValue as $callback => $params)
-            foreach ($params as $key => $val)
-            {
+            foreach ($params as $key => $val) {
                 // VERIFY ha senso come tratto gli eventuali array? o è meglio fare più inserimenti?
                 $value = (is_array($val)) ? implode(VALUES_SEPARATOR, $val): $val ;
                 $query = 'INSERT INTO step_parametri (id_step, callback_name, param_name, param_value) VALUES '.
@@ -69,7 +66,7 @@ class _UnitTest_StoredInteractionInformationRetriever extends PHPUnit_TestCase
                         $db->quote($val).' )';
                 $res =& $db->query($query);
                 //var_dump($query);
-                if (DB::isError($res)){
+                if (DB::isError($res)) {
                     $db->rollback();
                     var_dump($query);
                     echo DB::errorMessage($res);
@@ -80,18 +77,19 @@ class _UnitTest_StoredInteractionInformationRetriever extends PHPUnit_TestCase
     }
 
     // called after the test functions are executed
-    function tearDown() {
+    public function tearDown()
+    {
         $db =& FrontController::getDbConnection('main');
         $db->rollback();
         $db->autoCommit(true);
     }
 
-    function testgetInfoFromIdUtenteGrouped ()
+    public function testgetInfoFromIdUtenteGrouped ()
     {
         $this->assertEquals($this->testValue, StoredInteractionInformationRetriever::getInfoFromIdUtente($this->idUtente, get_class($this), true));
     }
 
-    function testgetInfoFromIdUtenteNotGrouped ()
+    public function testgetInfoFromIdUtenteNotGrouped ()
     {
 
         $this->assertEquals(array_merge($this->testValue['call1'], $this->testValue['call2'] ), StoredInteractionInformationRetriever::getInfoFromIdUtente($this->idUtente, get_class($this)));
@@ -123,4 +121,3 @@ class _UnitTest_StoredInteractionInformationRetriever extends PHPUnit_TestCase
 //	}
 //
 }
-?>

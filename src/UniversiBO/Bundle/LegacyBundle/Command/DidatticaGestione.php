@@ -27,7 +27,7 @@ use UniversiBO\Bundle\LegacyBundle\Framework\LogHandler;
 class DidatticaGestione extends UniversiboCommand
 {
 
-    function execute()
+    public function execute()
     {
 
         $frontcontroller = $this->getFrontController();
@@ -37,8 +37,7 @@ class DidatticaGestione extends UniversiboCommand
         $user = $this->getSessionUser();
         $user_ruoli = $user->getRuoli();
 
-        if (!$user->isAdmin()) // TODO far s� che specifici utenti siano autorizzati (da file di conf)
- {
+        if (!$user->isAdmin()) // TODO far s� che specifici utenti siano autorizzati (da file di conf) {
             Error::throwError(_ERROR_DEFAULT,
                     array(
                             'msg' => "Non hai i diritti necessari per accedere a questa pagina\n la sessione potrebbe essere terminata",
@@ -461,7 +460,7 @@ class DidatticaGestione extends UniversiboCommand
      * @static
      * @private
      */
-    function _compareCanale($a, $b)
+    public function _compareCanale($a, $b)
     {
         $nomea = strtolower($a['nome']);
         $nomeb = strtolower($b['nome']);
@@ -503,7 +502,7 @@ class DidatticaGestione extends UniversiboCommand
         return $ret;
     }
 
-    function _log($id_utente, $id_canale, $id_cdl, $id_facolta, $id_sdop,
+    public function _log($id_utente, $id_canale, $id_cdl, $id_facolta, $id_sdop,
             $modified)
     {
         $log_definition = array(0 => 'timestamp', 1 => 'date', 2 => 'time',
@@ -530,7 +529,7 @@ class DidatticaGestione extends UniversiboCommand
      * @static
      * @return string
      */
-    function getEditUrl($id_canale, $id_cdl = null, $id_facolta = null,
+    public function getEditUrl($id_canale, $id_cdl = null, $id_facolta = null,
             $id_sdop = null)
     {
         $ret = 'v2.php?do=DidatticaGestione&id_canale=' . $id_canale;
@@ -548,7 +547,7 @@ class DidatticaGestione extends UniversiboCommand
      * modifica prg e tiene traccia delle modifiche in $mods
      * @param type string  pu� essere doc, ciclo, anno
      */
-    function _updateVal(&$prg, $index, &$mods, $val, $type, &$template)
+    public function _updateVal(&$prg, $index, &$mods, $val, $type, &$template)
     {
         switch ($type) {
 

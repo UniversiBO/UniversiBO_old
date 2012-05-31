@@ -9,7 +9,7 @@ use \DB;
 class DBInformativaRepository extends DBRepository
 {
     /**
-     * @param int $time
+     * @param  int         $time
      * @return Informativa
      */
     public function findByTime($time)
@@ -34,7 +34,6 @@ class DBInformativaRepository extends DBRepository
         $res->fetchInto($row);
         $res->free();
 
-
         return $this->rowToInformativa($row);
     }
 
@@ -46,7 +45,6 @@ class DBInformativaRepository extends DBRepository
         $informativa->setDataPubblicazione($row[1]);
         $informativa->setDataFine($row[2]);
         $informativa->setTesto($row[3]);
-
 
         return $informativa;
     }

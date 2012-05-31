@@ -27,42 +27,43 @@ require_once 'PHPUnit/TestListener.php';
  * @category    PHP
  * @package     PHPUnit
  */
-class PHPUnit_TestResult {
+class PHPUnit_TestResult
+{
     /**
     * @var    array
     * @access protected
     */
-    var $_errors = array();
+    public $_errors = array();
 
     /**
     * @var    array
     * @access protected
     */
-    var $_failures = array();
+    public $_failures = array();
 
     /**
     * @var    array
     * @access protected
     */
-    var $_listeners = array();
+    public $_listeners = array();
 
     /**
     * @var    array
     * @access protected
     */
-    var $_passedTests = array();
+    public $_passedTests = array();
 
     /**
     * @var    integer
     * @access protected
     */
-    var $_runTests = 0;
+    public $_runTests = 0;
 
     /**
     * @var    boolean
     * @access private
     */
-    var $_stop = FALSE;
+    public $_stop = FALSE;
 
     /**
     * Adds an error to the list of errors.
@@ -72,7 +73,8 @@ class PHPUnit_TestResult {
     * @param  object
     * @access public
     */
-    function addError(&$test, &$t) {
+    public function addError(&$test, &$t)
+    {
         $this->_errors[] = new PHPUnit_TestFailure($test, $t);
 
         for ($i = 0; $i < sizeof($this->_listeners); $i++) {
@@ -88,7 +90,8 @@ class PHPUnit_TestResult {
     * @param  object
     * @access public
     */
-    function addFailure(&$test, &$t) {
+    public function addFailure(&$test, &$t)
+    {
         $this->_failures[] = new PHPUnit_TestFailure($test, $t);
 
         for ($i = 0; $i < sizeof($this->_listeners); $i++) {
@@ -102,7 +105,8 @@ class PHPUnit_TestResult {
     * @param  object
     * @access public
     */
-    function addListener(&$listener) {
+    public function addListener(&$listener)
+    {
         if (is_object($listener) &&
             is_a($listener, 'PHPUnit_TestListener')) {
             $this->_listeners[] = $listener;
@@ -115,7 +119,8 @@ class PHPUnit_TestResult {
     * @param  object
     * @access public
     */
-    function addPassedTest(&$test) {
+    public function addPassedTest(&$test)
+    {
         $this->_passedTests[] = $test;
     }
 
@@ -125,7 +130,8 @@ class PHPUnit_TestResult {
     * @param  object
     * @access public
     */
-    function endTest(&$test) {
+    public function endTest(&$test)
+    {
         for ($i = 0; $i < sizeof($this->_listeners); $i++) {
             $this->_listeners[$i]->endTest($test);
         }
@@ -137,7 +143,8 @@ class PHPUnit_TestResult {
     * @return integer
     * @access public
     */
-    function errorCount() {
+    public function errorCount()
+    {
         return sizeof($this->_errors);
     }
 
@@ -157,7 +164,8 @@ class PHPUnit_TestResult {
     * @return integer
     * @access public
     */
-    function failureCount() {
+    public function failureCount()
+    {
         return sizeof($this->_failures);
     }
 
@@ -188,7 +196,8 @@ class PHPUnit_TestResult {
     * @param  object
     * @access public
     */
-    function removeListener(&$listener) {
+    public function removeListener(&$listener)
+    {
         for ($i = 0; $i < sizeof($this->_listeners); $i++) {
             if ($this->_listeners[$i] === $listener) {
                 unset($this->_listeners[$i]);
@@ -202,7 +211,8 @@ class PHPUnit_TestResult {
     * @param  object
     * @access public
     */
-    function run(&$test) {
+    public function run(&$test)
+    {
         $this->startTest($test);
         $this->_runTests++;
         $test->runBare();
@@ -215,7 +225,8 @@ class PHPUnit_TestResult {
     * @return integer
     * @access public
     */
-    function runCount() {
+    public function runCount()
+    {
         return $this->_runTests;
     }
 
@@ -224,7 +235,8 @@ class PHPUnit_TestResult {
     *
     * @access public
     */
-    function shouldStop() {
+    public function shouldStop()
+    {
         return $this->_stop;
     }
 
@@ -234,7 +246,8 @@ class PHPUnit_TestResult {
     * @param  object
     * @access public
     */
-    function startTest(&$test) {
+    public function startTest(&$test)
+    {
         for ($i = 0; $i < sizeof($this->_listeners); $i++) {
             $this->_listeners[$i]->startTest($test);
         }
@@ -245,7 +258,8 @@ class PHPUnit_TestResult {
     *
     * @access public
     */
-    function stop() {
+    public function stop()
+    {
         $this->_stop = TRUE;
     }
 
@@ -255,7 +269,8 @@ class PHPUnit_TestResult {
     * @return string
     * @access public
     */
-    function toHTML() {
+    public function toHTML()
+    {
         return '<pre>' . htmlspecialchars($this->toString()) . '</pre>';
     }
 
@@ -265,7 +280,8 @@ class PHPUnit_TestResult {
     * @return string
     * @access public
     */
-    function toString() {
+    public function toString()
+    {
         $result = '';
 
         foreach ($this->_passedTests as $passedTest) {
@@ -290,7 +306,8 @@ class PHPUnit_TestResult {
     * @return string
     * @access public
     */
-    function toHtmlTable() {
+    public function toHtmlTable()
+    {
         $result = '<table border="0">';
 
         foreach ($this->_passedTests as $passedTest) {
@@ -317,7 +334,8 @@ class PHPUnit_TestResult {
     * @return boolean
     * @access public
     */
-    function wasSuccessful() {
+    public function wasSuccessful()
+    {
         if (empty($this->_errors) && empty($this->_failures)) {
             return TRUE;
         } else {
@@ -325,4 +343,3 @@ class PHPUnit_TestResult {
         }
     }
 }
-?>

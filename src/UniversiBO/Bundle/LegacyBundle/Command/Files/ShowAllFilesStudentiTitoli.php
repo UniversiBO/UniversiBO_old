@@ -19,9 +19,8 @@ use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class ShowAllFilesStudentiTitoli extends PluginCommand {
-
-
+class ShowAllFilesStudentiTitoli extends PluginCommand
+{
     /**
      * Esegue il plugin
      *
@@ -44,13 +43,10 @@ class ShowAllFilesStudentiTitoli extends PluginCommand {
 
         $canale_files = count($elenco_file);
 
-        if ( $canale_files == 0 )
-        {
+        if ( $canale_files == 0 ) {
             $template->assign('showAllFilesStudentiTitoli_langFileAvailable', 'Non ci sono files da visualizzare');
             $template->assign('showAllFilesStudentiTitoli_langFileAvailableFlag', 'false');
-        }
-        else
-        {
+        } else {
             $template->assign('showAllFilesStudentiTitoli_langFileAvailable', 'Ci sono '.$canale_files.' notizie');
             $template->assign('showAllFilesStudentiTitoli_langFileAvailableFlag', 'true');
         }
@@ -61,21 +57,17 @@ class ShowAllFilesStudentiTitoli extends PluginCommand {
         $categorie_tpl = array();
         $file_tpl = array();
 
-
-        if ($elenco_file ==! false )
-        {
+        if ($elenco_file ==! false ) {
             $ret_file = count($elenco_file);
 
-            for ($i = 0; $i < $ret_file; $i++)
-            {
+            for ($i = 0; $i < $ret_file; $i++) {
 
                 $file = $elenco_file[$i];
                 //var_dump($file);
                 $this_moderatore = ($user->isAdmin() || ($moderatore && $file->getIdUtente()==$user->getIdUser()));
 
                 $permessi_lettura = $file->getPermessiVisualizza();
-                if ($user->isGroupAllowed($permessi_lettura))
-                {
+                if ($user->isGroupAllowed($permessi_lettura)) {
 
                     $file_tpl[$i]['titolo']       = $file->getTitolo();
                     //$file_tpl['notizia']      = $file->getNotizia();
@@ -95,11 +87,9 @@ class ShowAllFilesStudentiTitoli extends PluginCommand {
                     $canali = $file->getIdCanali();
                     $num_canali =  count($canali);
                     $elenco_canali_tpl = array();
-                    for ($j = 0; $j < $num_canali; $j++)
-                    {
+                    for ($j = 0; $j < $num_canali; $j++) {
                         $canale = Canale::retrieveCanale($canali[$j]);
-                        if ($canale->isGroupAllowed($user->getGroups()))
-                        {
+                        if ($canale->isGroupAllowed($user->getGroups())) {
                             $canale_tpl = array();
 //							$canale_tpl['titolo'] = $canale->getNome();
 //							$canale_tpl['link'] = $canale->showMe();
@@ -131,7 +121,7 @@ class ShowAllFilesStudentiTitoli extends PluginCommand {
      * @static
      * @private
      */
-    function _compareFile($a, $b)
+    public function _compareFile($a, $b)
     {
 //		if ($a->getIdCategoria() > $b->getIdCategoria()) return +1;
 //		if ($a->getIdCategoria() < $b->getIdCategoria()) return -1;

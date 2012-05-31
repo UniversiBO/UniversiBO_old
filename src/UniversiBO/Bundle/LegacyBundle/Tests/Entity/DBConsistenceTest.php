@@ -11,8 +11,7 @@ class DBConsistenceTest extends DBRepositoryTest
 {
     public function setUp()
     {
-        if(!defined('DB_TESTING') || !DB_TESTING)
-        {
+        if (!defined('DB_TESTING') || !DB_TESTING) {
             $this->markTestSkipped();
         }
         parent::setUp();
@@ -21,7 +20,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controlla che tutti i canali siano puntati da un forum
     */
-    function testCanalePuntaForum() {
+    public function testCanalePuntaForum()
+    {
         $db = $this->db;
         //--Controlla che tutti i canali puntino un forum esistente
         $query = 'SELECT * FROM canale WHERE id_forum NOT IN (SELECT forum_id from phpbb_forums);';
@@ -36,7 +36,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controlla che tutti i canali puntino ad un gruppo esistente
     */
-    function testCanalePuntaGruppoForum() {
+    public function testCanalePuntaGruppoForum()
+    {
         $db = $this->db;
 
         $query = '
@@ -56,7 +57,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controlla che files_attivo sia S o N
     */
-    function testCanaleFileAttivoSN() {
+    public function testCanaleFileAttivoSN()
+    {
         $db = $this->db;
 
         $query = '
@@ -75,7 +77,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controlla che news_attivo sia S o N
     */
-    function testCanaleNewsAttivoSN() {
+    public function testCanaleNewsAttivoSN()
+    {
         $db = $this->db;
 
         $query = '
@@ -94,7 +97,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che forum_attivo sia S o N
     */
-    function testCanaleForumAttivoSN() {
+    public function testCanaleForumAttivoSN()
+    {
         $db = $this->db;
 
         $query = '
@@ -113,7 +117,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che links_attivo sia S o N
     */
-    function testCanaleLinksAttivoSN() {
+    public function testCanaleLinksAttivoSN()
+    {
         $db = $this->db;
 
         $query = '
@@ -132,7 +137,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che i permessi siano minori di 127
     */
-    function testCanalePermessiMinore127() {
+    public function testCanalePermessiMinore127()
+    {
         $db = $this->db;
 
         $query = '
@@ -151,7 +157,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che tutti i cdl puntino ad un canale esistente
     */
-    function testCdlPuntaCanale() {
+    public function testCdlPuntaCanale()
+    {
         $db = $this->db;
 
         $query = '
@@ -170,7 +177,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo se tutti i canali puntati dai cdl hanno tipo_canale=4 (cdl)
     */
-    function testCdlPuntatoDaCanaleDiTipo4() {
+    public function testCdlPuntatoDaCanaleDiTipo4()
+    {
         $db = $this->db;
 
         $query = '
@@ -190,7 +198,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che tutti i cdl puntino ad una categoria del forum esistente (cat_id)
     */
-    function testCdlPuntaCategoriaForum() {
+    public function testCdlPuntaCategoriaForum()
+    {
         $db = $this->db;
 
         $query = '
@@ -209,7 +218,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo le corrispondenze tra titolo categoria e codice cdl --> NON FUNGE
     */
-    function testCdlPuntaCategoriaForumConCodiceNelTitolo() {
+    public function testCdlPuntaCategoriaForumConCodiceNelTitolo()
+    {
         $db = $this->db;
 
         $query = '---
@@ -229,7 +239,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che tutti i cdl abbiano un codice docente esistente
     */
-    function testCdlPuntaPresidente() {
+    public function testCdlPuntaPresidente()
+    {
         $db = $this->db;
 
         $query = '
@@ -248,7 +259,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che tutti i cdl abbiano un codice facolt? esistente
     */
-    function testCdlPuntaFacolta() {
+    public function testCdlPuntaFacolta()
+    {
         $db = $this->db;
 
         $query = '
@@ -267,7 +279,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che l\'id del collaboratore esista tra gli id_utente
     */
-    function testCollaboratorePuntaIdUtente() {
+    public function testCollaboratorePuntaIdUtente()
+    {
         $db = $this->db;
 
         $query = '
@@ -286,7 +299,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che groups sia o 4 (moderatore) o 64(admin) (se qualcuno ha smesso di collaborare va ttenuto comunque nel chi siamo)
     */
-    function testCollaboratoriAppartengonoAiGruppiUtentiCollaboratoreOAdmin() {
+    public function testCollaboratoriAppartengonoAiGruppiUtentiCollaboratoreOAdmin()
+    {
         $db = $this->db;
 
         $query = '
@@ -306,7 +320,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che tutti i docenti siano esistenti
     */
-    function testDocenteContattiPuntaDocente() {
+    public function testDocenteContattiPuntaDocente()
+    {
         $db = $this->db;
 
         $query = '
@@ -325,7 +340,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che tutte le facolt? puntino un canale esistente
     */
-    function testFacoltaPuntaCanale() {
+    public function testFacoltaPuntaCanale()
+    {
         $db = $this->db;
 
         $query = '
@@ -344,7 +360,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che tutte le facolt? abbiano un codice docente esistente
     */
-    function testFacoltaPuntaDocente() {
+    public function testFacoltaPuntaDocente()
+    {
         $db = $this->db;
 
         $query = '
@@ -363,7 +380,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che i permessi siano maggiori di 127
     */
-    function testFilePermessiMinori127() {
+    public function testFilePermessiMinori127()
+    {
         $db = $this->db;
 
         $query = '
@@ -382,7 +400,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che l\'id_utente esista
     */
-    function testFileAutorePuntaUtente() {
+    public function testFileAutorePuntaUtente()
+    {
         $db = $this->db;
 
         $query = '
@@ -401,7 +420,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che l\'id categoria sia esistente
     */
-    function testFilePuntaCategoria() {
+    public function testFilePuntaCategoria()
+    {
         $db = $this->db;
 
         $query = '
@@ -420,7 +440,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che il tipo di file esista
     */
-    function testFilePuntaTipoFile() {
+    public function testFilePuntaTipoFile()
+    {
         $db = $this->db;
 
         $query = '
@@ -439,7 +460,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che "eliminato" sia S o N
     */
-    function testFileEliminatoSN() {
+    public function testFileEliminatoSN()
+    {
         $db = $this->db;
 
         $query = '
@@ -458,7 +480,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che id_file esista
     */
-    function testFileCanalePuntaFile() {
+    public function testFileCanalePuntaFile()
+    {
         $db = $this->db;
 
         $query = '
@@ -477,7 +500,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --COntrollo che id_canale esista
     */
-    function testFileCanalePuntaCanale() {
+    public function testFileCanalePuntaCanale()
+    {
         $db = $this->db;
 
         $query = '
@@ -496,7 +520,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che l'id_file esista
     */
-    function testFilePuntaFileKeywords() {
+    public function testFilePuntaFileKeywords()
+    {
         $db = $this->db;
 
         $query = '
@@ -515,7 +540,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     -- Controlla che le password di sito e forum siano uguali (restituisce tuple solo se trova pwd diverse)
     */
-    function testPasswordUtentiForumUguali() {
+    public function testPasswordUtentiForumUguali()
+    {
         $db = $this->db;
 
         $query = '
@@ -535,7 +561,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che l'id_help esista
     */
-    function testHelpRiferimentoPuntaHelp() {
+    public function testHelpRiferimentoPuntaHelp()
+    {
         $db = $this->db;
 
         $query = '
@@ -554,7 +581,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che il riferimento esista
     */
-    function testHelpRiferimentoPuntaTopic() {
+    public function testHelpRiferimentoPuntaTopic()
+    {
         $db = $this->db;
 
         $query = '
@@ -573,7 +601,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che l'id_canale esista
     */
-    function testInfoDidattica() {
+    public function testInfoDidattica()
+    {
         $db = $this->db;
 
         $query = '
@@ -592,7 +621,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che l'id_utente esista
     */
-    function testNewsPuntaIdUtente() {
+    public function testNewsPuntaIdUtente()
+    {
         $db = $this->db;
 
         $query = '
@@ -611,7 +641,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che eliminata sia S o N
     */
-    function testNewsElinimataNS() {
+    public function testNewsElinimataNS()
+    {
         $db = $this->db;
 
         $query = '
@@ -630,7 +661,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che l'id_news esista
     */
-    function testNewsCanalePuntaNew() {
+    public function testNewsCanalePuntaNew()
+    {
         $db = $this->db;
 
         $query = '
@@ -649,7 +681,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che l\'id_canale esista
     */
-    function testNewsCanalePuntaCanale() {
+    public function testNewsCanalePuntaCanale()
+    {
         $db = $this->db;
 
         $query = '
@@ -668,7 +701,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che il cod_corso esista
     */
-    function testOrientamentoPuntaCorso() {
+    public function testOrientamentoPuntaCorso()
+    {
         $db = $this->db;
 
         $query = '
@@ -687,7 +721,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che il cod_ori esista
     */
-    function testOrientamenteoPuntaClassiOrientamento() {
+    public function testOrientamenteoPuntaClassiOrientamento()
+    {
         $db = $this->db;
 
         $query = '
@@ -706,7 +741,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che il cod_ind esista
     */
-    function testOrientamentoPuntaIndirizzo() {
+    public function testOrientamentoPuntaIndirizzo()
+    {
         $db = $this->db;
 
         $query = '
@@ -725,7 +761,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che l\'inoltro email sia N o T o U
     */
-    function testUserInoltroEmailNTU() {
+    public function testUserInoltroEmailNTU()
+    {
         $db = $this->db;
 
         $query = '
@@ -744,7 +781,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che la notifica sia 0 1 o 2
     */
-    function testUserNotificaAllowed() {
+    public function testUserNotificaAllowed()
+    {
         $db = $this->db;
 
         $query = '
@@ -763,7 +801,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che ban sia N o S
     */
-    function testUserBanNS() {
+    public function testUserBanNS()
+    {
         $db = $this->db;
 
         $query = '
@@ -782,7 +821,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che default_style sia black o unibo
     */
-    function testUserStyleAllowed() {
+    public function testUserStyleAllowed()
+    {
         $db = $this->db;
 
         $query = '
@@ -801,7 +841,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che l\'utente esista
     */
-    function testUserExista() {
+    public function testUserExista()
+    {
         $db = $this->db;
 
         $query = '
@@ -820,7 +861,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che il canale esista
     */
-    function testCanaleExists() {
+    public function testCanaleExists()
+    {
         $db = $this->db;
 
         $query = '
@@ -842,7 +884,8 @@ class DBConsistenceTest extends DBRepositoryTest
     --PHPBB_AUTH_ACCESS
     --Controllo che il gruppo esista
     */
-    function testPhpbbAccessPuntaGroup() {
+    public function testPhpbbAccessPuntaGroup()
+    {
         $db = $this->db;
 
         $query = '
@@ -861,7 +904,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che il forum esista
     */
-    function testCanalePuntaPhpbbForum() {
+    public function testCanalePuntaPhpbbForum()
+    {
         $db = $this->db;
 
         $query = '
@@ -881,7 +925,8 @@ class DBConsistenceTest extends DBRepositoryTest
     --PHPBB_BANLIST
     --Controllo che l\'user esista
     */
-    function testPhpbbBanlistPuntaPhpbbUser() {
+    public function testPhpbbBanlistPuntaPhpbbUser()
+    {
         $db = $this->db;
 
         $query = '
@@ -901,7 +946,8 @@ class DBConsistenceTest extends DBRepositoryTest
     --PHPBB_FORUM_PRUNE
     --Controllo che il forum esista
     */
-    function testPhpbbForumPuntaPhpbbPrune() {
+    public function testPhpbbForumPuntaPhpbbPrune()
+    {
         $db = $this->db;
 
         $query = '
@@ -921,7 +967,8 @@ class DBConsistenceTest extends DBRepositoryTest
     --PHPBB_FORUM
     --Controllo che il forum non sia scrivibile dagli ospiti
     */
-    function testPhpbbForumGuestReadOnly() {
+    public function testPhpbbForumGuestReadOnly()
+    {
         $db = $this->db;
 
         $query = '
@@ -941,7 +988,8 @@ class DBConsistenceTest extends DBRepositoryTest
     --PHPBB_FORUMS
     --Controllo che la categoria esista
     */
-    function testPhpbbForumPuntaPhpbbCategory() {
+    public function testPhpbbForumPuntaPhpbbCategory()
+    {
         $db = $this->db;
 
         $query = '
@@ -961,7 +1009,8 @@ class DBConsistenceTest extends DBRepositoryTest
     --PHPBB_POSTS
     --Controllo che il topic esista
     */
-    function testPhpbbPostPuntaPhpbbTopic() {
+    public function testPhpbbPostPuntaPhpbbTopic()
+    {
         $db = $this->db;
 
         $query = '
@@ -980,7 +1029,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che il forum esista
     */
-    function testPhpbbPostPuntaPhpbbForum() {
+    public function testPhpbbPostPuntaPhpbbForum()
+    {
         $db = $this->db;
 
         $query = '
@@ -999,7 +1049,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che l\'user esista
     */
-    function testPhpbbPostPuntaPhpbbAutore() {
+    public function testPhpbbPostPuntaPhpbbAutore()
+    {
         $db = $this->db;
 
         $query = '
@@ -1019,7 +1070,8 @@ class DBConsistenceTest extends DBRepositoryTest
     --PHPBB_POSTS_TEXT
     --Controllo che il post esista
     */
-    function testPhpbbPostTextPuntaPhpbbPost() {
+    public function testPhpbbPostTextPuntaPhpbbPost()
+    {
         $db = $this->db;
 
         $query = '
@@ -1039,7 +1091,8 @@ class DBConsistenceTest extends DBRepositoryTest
     --PHPBB_PRIVMSGS
     --Controllo che l\'id user del mittente esista
     */
-    function testPhpbbPrivMsgPuntaAutore() {
+    public function testPhpbbPrivMsgPuntaAutore()
+    {
         $db = $this->db;
 
         $query = '
@@ -1058,7 +1111,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che l\'id user del destinatario esista
     */
-    function tesPhpbbPrivMsgPuntaDestinatariot() {
+    public function tesPhpbbPrivMsgPuntaDestinatariot()
+    {
         $db = $this->db;
 
         $query = '
@@ -1078,7 +1132,8 @@ class DBConsistenceTest extends DBRepositoryTest
     --PHPBB_PROVMSGS_TEXT
     --Controllo che i testi puntino ad un messaggio privato esistente
     */
-    function testPhpbbPrivMsgTextPuntaPhpbbPrivMsg() {
+    public function testPhpbbPrivMsgTextPuntaPhpbbPrivMsg()
+    {
         $db = $this->db;
 
         $query = '
@@ -1098,7 +1153,8 @@ class DBConsistenceTest extends DBRepositoryTest
     --PHPBB_TOPIC
     --Controllo che punti ad un forum esistente
     */
-    function testPhpbbTopicPuntaPhpbbForum() {
+    public function testPhpbbTopicPuntaPhpbbForum()
+    {
         $db = $this->db;
 
         $query = '
@@ -1117,7 +1173,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che l\'id del poster esista
     */
-    function testPhpbbTopicPuntaPhpbbAutore() {
+    public function testPhpbbTopicPuntaPhpbbAutore()
+    {
         $db = $this->db;
 
         $query = '
@@ -1136,7 +1193,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
     --Controllo che il post iniziale sia esistente
     */
-    function testPhpbbTopicPuntaPhpbbPrimoMsg() {
+    public function testPhpbbTopicPuntaPhpbbPrimoMsg()
+    {
         $db = $this->db;
 
         $query = '
@@ -1155,7 +1213,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
      * controllo consistenza log degli interactivecommand
      */
-    function testConsistenzaLogInteractiveCommand(){
+    public function testConsistenzaLogInteractiveCommand()
+    {
         $db = $this->db;
         $query = '
         select * from step_parametri where id_step not in (select id_step from step_log )
@@ -1171,7 +1230,8 @@ class DBConsistenceTest extends DBRepositoryTest
     /**
      * controllo consistenza utente tra sito e forum
      */
-    function testConsistenzaUtenteSitoForum(){
+    public function testConsistenzaUtenteSitoForum()
+    {
         $db = $this->db;
         $query = '
         select u.id_utente, u.username as utente_sito, pu.username as utente_forum
@@ -1190,7 +1250,8 @@ and u.username!=pu.username
     /**
      * controllo esistenza diutenti appartenenti solo al sito
      */
-    function testEsistenzaIdUtenteSoloSito(){
+    public function testEsistenzaIdUtenteSoloSito()
+    {
         $db = $this->db;
         $query = '
         select * from  utente where id_utente not in (select user_id from phpbb_users)
@@ -1206,7 +1267,8 @@ and u.username!=pu.username
     /**
      * controllo esistenza diutenti appartenenti solo al sito
      */
-    function testEsistenzaIdUtenteSoloForum(){
+    public function testEsistenzaIdUtenteSoloForum()
+    {
         $db = $this->db;
         $query = '
         select * from phpbb_users where user_id not in (select id_utente from utente)
@@ -1223,7 +1285,8 @@ and u.username!=pu.username
     /**
      * controllo esistenza di utenti appartenenti solo al sito
      */
-    function testEsistenzaUsernameUtenteSoloSito(){
+    public function testEsistenzaUsernameUtenteSoloSito()
+    {
         $db = $this->db;
         $query = '
         select * from utente where username not in (select username from phpbb_users)
@@ -1239,7 +1302,8 @@ and u.username!=pu.username
     /**
      * controllo esistenza di utenti appartenenti solo al forum
      */
-    function testEsistenzaUsernameUtenteSoloForum(){
+    public function testEsistenzaUsernameUtenteSoloForum()
+    {
         $db = $this->db;
         $query = '
         select * from phpbb_users where username not in (select username from utente)
@@ -1256,7 +1320,7 @@ and u.username!=pu.username
      * verifico che i max id coincidano
      *
      */
-    function testConsistenzaMaxIdUtenteSitoForum()
+    public function testConsistenzaMaxIdUtenteSitoForum()
     {
         $db = $this->db;
         $query = '

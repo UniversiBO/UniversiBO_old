@@ -2,10 +2,6 @@
 
 namespace UniversiBO\Bundle\WebsiteBundle\Controller;
 
-
-
-
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -31,11 +27,11 @@ class MyUniversiBOController extends Controller
 
         $displayRoles = array();
 
-        foreach($roles as $role){
-            if($role->isMyUniversibo()) {
+        foreach ($roles as $role) {
+            if ($role->isMyUniversibo()) {
                 $name = $role->getNome();
 
-                if(strlen($name) === 0) {
+                if (strlen($name) === 0) {
                     $channel = $channelRepo->find($role->getIdCanale());
                     $name = $channel->getNome();
                 }
@@ -43,7 +39,6 @@ class MyUniversiBOController extends Controller
                 $displayRoles[] = array ('link' => $router->generate($channel), 'name' => $name);
             }
         }
-
 
         return array('roles' => $displayRoles);
     }

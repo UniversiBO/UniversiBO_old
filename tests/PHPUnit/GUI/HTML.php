@@ -27,7 +27,7 @@
 class PHPUnit_GUI_HTML
 {
 
-    var $_suites = array();
+    public $_suites = array();
 
     /**
     *   the current implementation of PHPUnit is designed
@@ -41,7 +41,7 @@ class PHPUnit_GUI_HTML
     *                   when calling getSuitesFromDir()
     *
     */
-    function PHPUnit_GUI_HTML($suites=array())
+    public function PHPUnit_GUI_HTML($suites=array())
     {
         if (!is_array($suites)) {
             $this->_suites = array($suites);
@@ -55,7 +55,7 @@ class PHPUnit_GUI_HTML
     *
     *   @param  object  this should be an instance of PHPUnit_TestSuite
     */
-    function addSuites($suites)
+    public function addSuites($suites)
     {
         $this->_suites = array_merge($this->_suites,$suites);
     }
@@ -64,7 +64,7 @@ class PHPUnit_GUI_HTML
     *   this prints the HTML code straight out
     *
     */
-    function show()
+    public function show()
     {
         $showPassed=FALSE;
         $submitted = @$_REQUEST['submitted'];
@@ -124,22 +124,22 @@ class PHPUnit_GUI_HTML
         include 'PHPUnit/GUI/HTML.tpl';
     }
 
-    function _prepareResult($result,$showPassed)
+    public function _prepareResult($result,$showPassed)
     {
         $ret = array();
         $failures = $result->failures();
-        foreach($failures as $aFailure) {
+        foreach ($failures as $aFailure) {
             $ret['failures'][] = $this->_prepareFailure($aFailure);
         }
 
         $errors = $result->errors();
-        foreach($errors as $aError) {
+        foreach ($errors as $aError) {
             $ret['errors'][] = $this->_prepareErrors($aError);
         }
 
         if ($showPassed) {
             $passed = $result->passedTests();
-            foreach($passed as $aPassed) {
+            foreach ($passed as $aPassed) {
                 $ret['passed'][] = $this->_preparePassedTests($aPassed);
             }
         }
@@ -147,7 +147,7 @@ class PHPUnit_GUI_HTML
         return $ret;
     }
 
-    function _prepareFailure($failure)
+    public function _prepareFailure($failure)
     {
         $test = $failure->failedTest();
         $ret['testName'] = $test->getName();
@@ -187,14 +187,14 @@ class PHPUnit_GUI_HTML
         return $ret;
     }
 
-    function _preparePassedTests($passed)
+    public function _preparePassedTests($passed)
     {
         $ret['testName'] = $passed->getName();
 
         return $ret;
     }
 
-    function _prepareError($error)
+    public function _prepareError($error)
     {
         $ret['testName'] = $error->getName();
         $ret['message'] = $error->toString();
@@ -204,4 +204,3 @@ class PHPUnit_GUI_HTML
 
 }
 
-?>

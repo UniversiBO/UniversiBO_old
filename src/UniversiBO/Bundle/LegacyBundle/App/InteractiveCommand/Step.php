@@ -11,19 +11,18 @@ class Step
     /**
      * @access private
      */
-    var $callback;
+    public $callback;
 
     /**
      * @access private
      */
-    var $state=self::NONVISITATO;
-
+    public $state=self::NONVISITATO;
 
     /**
      * is a cache for form values
      * @access private
      */
-    var $values=array();
+    public $values=array();
 
     /**
      * @author Pinto
@@ -39,7 +38,7 @@ class Step
      * @access public
      * @return array all step values
      */
-    function logMe()
+    public function logMe()
     {
         return $this->values;
     }
@@ -48,7 +47,7 @@ class Step
      * @author Pinto
      * @access public
      */
-    function getCallback ()
+    public function getCallback ()
     {
         return $this->callback;
     }
@@ -57,7 +56,7 @@ class Step
      * @author Pinto
      * @access public
      */
-    function getState()
+    public function getState()
     {
         return $this->state;
     }
@@ -66,18 +65,17 @@ class Step
      * @author Pinto
      * @access public
      */
-    function getValues()
+    public function getValues()
     {
         return $this->values;
     }
-
 
     /**
      * @author Pinto
      * @access public
      * @return boolean true se l'update � stato effettuato
      */
-    function setValues($array)
+    public function setValues($array)
     {
         if (!is_array($array)) return false;
         $this->values = $array;
@@ -89,7 +87,7 @@ class Step
      * @author Pinto
      * @access public
      */
-    function resetStep()
+    public function resetStep()
     {
         $this->state	= self::NONVISITATO;
     }
@@ -98,7 +96,7 @@ class Step
      * @author Pinto
      * @access public
      */
-    function completeStep()
+    public function completeStep()
     {
         $this->state	= self::COMPLETATO;
     }
@@ -107,7 +105,7 @@ class Step
      * @author Pinto
      * @access public
      */
-    function visitedStep()
+    public function visitedStep()
     {
         $this->state	= self::VISITATO;
     }
@@ -116,7 +114,7 @@ class Step
      * @author Pinto
      * @access public
      */
-    function refusedStep()
+    public function refusedStep()
     {
         $this->state	= self::RIFIUTATO;
     }

@@ -11,7 +11,6 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 use UniversiBO\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
-
 /**
  * ShowAllFilesStudenti e\' un comando che permette di visualizzare tutti i
  * files studenti presenti su UniversiBO
@@ -33,16 +32,14 @@ use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
         $user = $this->getSessionUser();
         $arrayFilesStudenti = array();
 
-        if (!array_key_exists('order', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['order'] ) || ($_GET['order'] > 2) )
-        {
+        if (!array_key_exists('order', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['order'] ) || ($_GET['order'] > 2) ) {
             Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'L\'ordine richiesto non e` valido','file'=>__FILE__,'line'=>__LINE__ ));
         }
         $order = $_GET['order'];
 
         $arrayFilesStudenti = $this->getAllFiles($order);
         $this->executePlugin('ShowAllFilesStudentiTitoli', array('files'=>$arrayFilesStudenti,'chk_diritti'=>false));
-        switch($order)
-        {
+        switch ($order) {
             case 0:
                 $template->assign('showAllFilesStudenti_titoloPagina','ordinati per nome');
                 $template->assign('showAllFilesStudenti_url1','v2.php?do=ShowAllFilesStudenti&order=1');
@@ -75,8 +72,7 @@ use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
         $quale_ordine = '';
         $group = '';
 
-        switch($order)
-        {
+        switch ($order) {
             case 0:
                 $quale_ordine = 'A.titolo';
                 break;
@@ -104,8 +100,7 @@ use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
         $id_files_studenti_list = array();
 
-        while ( $res->fetchInto($row) )
-        {
+        while ( $res->fetchInto($row) ) {
             $id_files_studenti_list[]= $row[0];
         }
 

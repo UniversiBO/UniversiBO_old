@@ -14,7 +14,7 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
  */
 class Logout extends UniversiboCommand
 {
-    function execute()
+    public function execute()
     {
         $fc = $this->getFrontController();
 

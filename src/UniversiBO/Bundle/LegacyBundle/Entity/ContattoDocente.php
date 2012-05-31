@@ -15,7 +15,8 @@ use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class ContattoDocente {
+class ContattoDocente
+{
     const CHIUSO = 0;
     const APERTO = 1;
     const KILLED = 2;
@@ -32,29 +33,29 @@ class ContattoDocente {
     /**
      * @access private
      */
-    var $cod_doc =	null;
+    public $cod_doc =	null;
 
     /**
      * @access private
      */
-    var $stato;
+    public $stato;
 
     /**
      * @access private
      */
-    var $id_utente_assegnato;
+    public $id_utente_assegnato;
 
     /**
      * @access private
      */
-    var $ultima_modifica;
+    public $ultima_modifica;
 
     /**
      * @access private
      */
-    var $report;
+    public $report;
 
-    var $legend = array (
+    public $legend = array (
             self::CHIUSO => 'chiuso - non ci sono compiti da eseguire',
             self::APERTO => 'aperto - ci sono compiti da eseguire',
             self::KILLED => 'killed - non ne vuole sapere di universibo',
@@ -94,26 +95,26 @@ class ContattoDocente {
         return self::getRepository()->findAll();
     }
 
-    function getStato()
+    public function getStato()
     {
         return $this->stato;
     }
 
-    function getStatoDesc()
+    public function getStatoDesc()
     {
         return $this->legend[$this->stato];
     }
-    function getReport()
+    public function getReport()
     {
         return $this->report;
     }
 
-    function setReport($rep)
+    public function setReport($rep)
     {
         $this->report = $rep;
     }
 
-    function appendReport($rep)
+    public function appendReport($rep)
     {
         $data =  getdate();
         $this->report = "----------".$data['mday'].'-'.$data['mon'].'-'.$data['year']
@@ -121,12 +122,12 @@ class ContattoDocente {
         $rep."\n".$this->report."\n\n";
     }
 
-    function getUltimaModifica()
+    public function getUltimaModifica()
     {
         return $this->ultima_modifica;
     }
 
-    function getLegend()
+    public function getLegend()
     {
         return $this->legend;
     }
@@ -135,23 +136,22 @@ class ContattoDocente {
      * @param int s	stato del contatto
      * @param int id id utente di chi effettua le modifiche
      */
-    function setStato($s, $id = null)
+    public function setStato($s, $id = null)
     {
         $this->stato = $s;
 
-        if ($id != null)
-        {
+        if ($id != null) {
             $text = User::getUsernameFromId($id).': modifica dello stato assegnato in '."\n".$this->stato.': '.$this->legend[$s];
             $this->appendReport($text);
         }
     }
 
-    function getCodDoc()
+    public function getCodDoc()
     {
         return $this->cod_doc;
     }
 
-    function getIdUtenteAssegnato()
+    public function getIdUtenteAssegnato()
     {
         return $this->id_utente_assegnato;
     }
@@ -161,7 +161,7 @@ class ContattoDocente {
      * @param int newIdUtente nuovo collaboratore assegnato
      *
      */
-    function assegna($newIdUtente, $idUtenteMaster)
+    public function assegna($newIdUtente, $idUtenteMaster)
     {
         $text = User::getUsernameFromId($idUtenteMaster).': assegnato docente a '.User::getUsernameFromId($newIdUtente);
         $this->appendReport($text);
@@ -184,8 +184,7 @@ class ContattoDocente {
      */
     private static function getRepository()
     {
-        if(is_null(self::$repository))
-        {
+        if (is_null(self::$repository)) {
             self::$repository = new DBContattoDocenteRepository(FrontController::getDbConnection('main'));
         }
 

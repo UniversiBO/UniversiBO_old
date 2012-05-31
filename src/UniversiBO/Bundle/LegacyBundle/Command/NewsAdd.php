@@ -20,7 +20,7 @@ use UniversiBO\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
 class NewsAdd extends CanaleCommand
 {
 
-    function execute()
+    public function execute()
     {
 
         $user = $this->getSessionUser();
@@ -396,8 +396,7 @@ class NewsAdd extends CanaleCommand
                                         'template_engine' => &$template));
                         $f7_accept = false;
                     }
-                }
-            else {
+                } else {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
                                 'msg' => 'Devi selezionare almeno una pagina in cui inserire la notizia.',
@@ -458,7 +457,6 @@ Per altri problemi contattare lo staff di UniversiBO
                     $notifica_messaggio_sms = substr(
                             substr_replace($notifica_messaggio_sms, '..', 158),
                             0, 160);
-
 
                     $ruoli_canale = $add_canale->getRuoli();
                     foreach ($ruoli_canale as $ruolo_canale) {

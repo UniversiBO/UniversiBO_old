@@ -20,7 +20,7 @@ class LinkEdit extends CanaleCommand
     /**
      * Deve stampare "La notizia ? gi? presente nei seguenti canali"
      */
-    function execute()
+    public function execute()
     {
 
         $user = &$this->getSessionUser();

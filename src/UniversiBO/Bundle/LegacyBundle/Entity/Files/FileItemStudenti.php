@@ -8,7 +8,6 @@ use UniversiBO\Bundle\LegacyBundle\Entity\Commenti\CommentoItem;
 use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
 use UniversiBO\Bundle\LegacyBundle\Entity\User;
 
-
 /**
  * FileItemStudenti class
  *
@@ -27,16 +26,17 @@ use UniversiBO\Bundle\LegacyBundle\Entity\User;
 //define('COMMENTO_ELIMINATO', 'S');
 //define('COMMENTO_NOT_ELIMINATO', 'N');
 
-class FileItemStudenti extends FileItem {
-
+class FileItemStudenti extends FileItem
+{
     /**
      * Recupera un file dal database
      *
      * @static
-     * @param int $id_file id del file
+     * @param  int      $id_file id del file
      * @return FileItem
      */
-    function  selectFileItem($id_file) {
+    public function  selectFileItem($id_file)
+    {
         $id_files = array ($id_file);
         $files = & FileItemStudenti::selectFileItems($id_files);
         if ($files === false)
@@ -50,13 +50,14 @@ class FileItemStudenti extends FileItem {
      * non ritorna i files eliminati
      *
      * @static
-     * @param array $id_file array elenco di id dei file
+     * @param  array $id_file array elenco di id dei file
      * @return array FileItem
      */
-    public static function selectFileItems($id_files) {
+    public static function selectFileItems($id_files)
+    {
         $db = & FrontController::getDbConnection('main');
 
-        if (count($id_files) == 0)	{$return = array(); return $return; }
+        if (count($id_files) == 0) {$return = array(); return $return; }
 
         //esegue $db->quote() su ogni elemento dell'array
         //array_walk($id_notizie, array($db, 'quote'));
@@ -105,10 +106,11 @@ class FileItemStudenti extends FileItem {
     /**
      * aggiunge il file al canale specificato
      *
-     * @param int $id_canale identificativo del canale
-     * @return boolean  true se esito positivo
+     * @param  int     $id_canale identificativo del canale
+     * @return boolean true se esito positivo
      */
-    function addCanale($id_canale) {
+    public function addCanale($id_canale)
+    {
         $return = true;
 
         if (!Canale::canaleExists($id_canale)) {
@@ -139,8 +141,8 @@ class FileItemStudenti extends FileItem {
      *
      * @param int $id_canale identificativo del canale
      */
-    function removeCanale($id_canale) {
-
+    public function removeCanale($id_canale)
+    {
         $db = & FrontController :: getDbConnection('main');
 
         $query = 'DELETE FROM file_studente_canale WHERE id_canale='.$db->quote($id_canale).' AND id_file='.$db->quote($this->getIdFile());
@@ -163,10 +165,11 @@ class FileItemStudenti extends FileItem {
     /**
      * Seleziona l' id_canale per i quali il file � inerente
      *
-     * @return array	elenco degli id_canale
+     * @return array elenco degli id_canale
      */
 
-    function  getIdCanali() {
+    public function  getIdCanali()
+    {
         if ($this->elencoIdCanali != null)
 
             return $this->elencoIdCanali;
@@ -198,7 +201,7 @@ class FileItemStudenti extends FileItem {
      * @return $flag	true o false
      */
 
-    function  isFileStudenti($id_file)
+    public function  isFileStudenti($id_file)
     {
         $flag = true;
 
@@ -248,8 +251,7 @@ class FileItemStudenti extends FileItem {
         $return = true;
         $query = 'UPDATE file_studente_commenti SET eliminato = '.$db->quote(CommentoItem::ELIMINATO).'WHERE id_file='.$db->quote($this->id_file);
         $res = $db->query($query);
-        if (DB :: isError($res))
-            {
+        if (DB :: isError($res)) {
                 $db->rollback();
                 Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
                 $return = false;
@@ -262,9 +264,9 @@ class FileItemStudenti extends FileItem {
     /**
      * Elimina il file studente
      *
-     * @return	 boolean true se avvenua con successo, altrimenti false
+     * @return boolean true se avvenua con successo, altrimenti false
      */
-    function deleteFileItem()
+    public function deleteFileItem()
     {
 
         $db = & FrontController::getDbConnection('main');

@@ -16,7 +16,7 @@ class ShowCdlTest extends UniversiBOSeleniumTestCase
 
         $this->open('/v2.php?do=ShowCdl&id_canale=6172');
 
-        foreach($sentences as $sentence) {
+        foreach ($sentences as $sentence) {
             self::assertTrue($this->isTextPresent($sentence));
         }
     }

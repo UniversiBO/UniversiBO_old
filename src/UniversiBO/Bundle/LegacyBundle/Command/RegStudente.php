@@ -23,14 +23,13 @@ use UniversiBO\Bundle\LegacyBundle\Command\InteractiveCommand\InformativaPrivacy
 
 class RegStudente extends UniversiboCommand
 {
-    function execute()
+    public function execute()
     {
         $fc = $this->getFrontController();
         $template = $this->frontController->getTemplateEngine();
 
         $session_user = $this->getSessionUser();
-        if (!$session_user->isOspite())
-        {
+        if (!$session_user->isOspite()) {
             Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'L\'iscrizione puo` essere richiesta solo da utenti che non hanno ancora eseguito l\'accesso','file'=>__FILE__,'line'=>__LINE__));
         }
 
@@ -51,8 +50,6 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore
         $template->assignUnicode('regStudente_langHelp','Per qualsiasi problema o spiegazioni contattate lo staff all\'indirizzo [email]'.$fc->getAppSetting('infoEmail').'[/email].'."\n".
                             'In ogni caso non comunicate mai le vostre password di ateneo, lo staff non è tenuto a conoscerle');
 
-
-
         // valori default form
         $f4_username =	'';
         $f4_password =	'';
@@ -60,8 +57,7 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore
 
         $f4_accept = false;
 
-        if ( array_key_exists('f4_submit', $_POST)  )
-        {
+        if ( array_key_exists('f4_submit', $_POST)  ) {
             $f4_accept = true;
             //var_dump($_POST);
             if ( !array_key_exists('f4_privacy', $_POST) ||
@@ -78,25 +74,19 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore
             if ( $_POST['f4_ad_user'] == '' ) {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Inserire la e-mail di ateneo','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f4_accept = false;
-            }
-            elseif ( strlen($_POST['f4_ad_user']) > 30 ) {
+            } elseif ( strlen($_POST['f4_ad_user']) > 30 ) {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Lo username di ateneo indicato pu� essere massimo 30 caratteri','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f4_accept = false;
-            }
-            elseif(preg_match('/@studio\.unibo\.it$/',$_POST['f4_ad_user'])){
+            } elseif (preg_match('/@studio\.unibo\.it$/',$_POST['f4_ad_user'])) {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Non inserire il suffisso "@studio.unibo.it" nella email di ateneo','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f4_accept = false;
-            }
-            elseif(!eregi('^([[:alnum:]])+\.[[[:alnum:]]+$',$_POST['f4_ad_user'])){
+            } elseif (!eregi('^([[:alnum:]])+\.[[[:alnum:]]+$',$_POST['f4_ad_user'])) {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>"La mail di ateneo ".$_POST['f4_ad_user']."@studio.unibo.it appartiene ad un utente gia` registrato.\nProbabilmente sei gia` registrato, utilizza la pagina Password Smarrita per recuperare la password",'file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f4_accept = false;
-            }
-            elseif(User::activeDirectoryUsernameExists($_POST['f4_ad_user'].'@studio.unibo.it')){
+            } elseif (User::activeDirectoryUsernameExists($_POST['f4_ad_user'].'@studio.unibo.it')) {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'La mail di ateneo '.$_POST['f4_ad_user'].'@studio.unibo.it'.' appartiene ad un utente gia` registrato o non e` piu` autorizzata','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f4_accept = false;
-            }
-            else
-            {
+            } else {
                 $f4_ad_user = strtolower($_POST['f4_ad_user']);
                 $q4_ad_user = strtolower($f4_ad_user.'@studio.unibo.it');
             }
@@ -105,31 +95,25 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore
             if ( $_POST['f4_password'] == '' ) {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Inserire la password della e-mail di ateneo','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f4_accept = false;
-            }
-            elseif ( strlen($_POST['f4_password']) > 50 ){
+            } elseif ( strlen($_POST['f4_password']) > 50 ) {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'La lunghezza massima della password accettata dal sistema � di massimo 50 caratteri','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f4_accept = false;
-            }
-            else $q4_password = $f4_password = $_POST['f4_password'];
+            } else $q4_password = $f4_password = $_POST['f4_password'];
 
             //username
             if ( $_POST['f4_username'] == '' ) {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Scegliere uno username','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f4_accept = false;
-            }
-            elseif($_POST['f4_username']{0}==' ' || $_POST['f4_username']{strlen($_POST['f4_username']) - 1}==' '){
+            } elseif ($_POST['f4_username']{0}==' ' || $_POST['f4_username']{strlen($_POST['f4_username']) - 1}==' ') {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Non sono accettati spazi all\' inizio o alla fine dello username','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f4_accept = false;
-            }
-            elseif ( !User::isUsernameValid( $_POST['f4_username'] ) ){
+            } elseif ( !User::isUsernameValid( $_POST['f4_username'] ) ) {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Nello username sono permessi fino a 25 caratteri alfanumerici con lettere accentate, spazi, punti, underscore','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f4_accept = false;
-            }
-            elseif ( User::usernameExists( $_POST['f4_username'] ) ){
+            } elseif ( User::usernameExists( $_POST['f4_username'] ) ) {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Lo username richiesto � gi� stato registrato da un altro utente','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f4_accept = false;
-            }
-            else $q4_username = $f4_username = $_POST['f4_username'];
+            } else $q4_username = $f4_username = $_POST['f4_username'];
 
             //confirm
             if ( !array_key_exists('f4_confirm', $_POST)) {
@@ -139,14 +123,12 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore
 
         }
 
-        if ( $f4_accept == true )
-        {
+        if ( $f4_accept == true ) {
 
             //controllo active directory
             $adl_host = $fc->getAppSetting('adLoginHost');
             $adl_port = $fc->getAppSetting('adLoginPort');
-            if (! User::activeDirectoryLogin($f4_ad_user, 'studio.unibo.it', $q4_password, $adl_host, $adl_port ) )
-            {
+            if (! User::activeDirectoryLogin($f4_ad_user, 'studio.unibo.it', $q4_password, $adl_host, $adl_port ) ) {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'L\'autenticazione tramite e-mail di ateneo ha fornito risultato negativo','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
 
                 return 'default';
@@ -193,7 +175,6 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore
             $randomPassword = '';
             $mail->Body = '';
             $msg = '';
-
 
             return 'success';
 

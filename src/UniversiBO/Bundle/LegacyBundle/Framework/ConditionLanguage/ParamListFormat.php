@@ -15,9 +15,9 @@ class ParamListFormat
     /**
      * Aggiunge un parametro alla lista
      *
-     * @param string  $name
-     * @param boolean $isArray
-     * @param integer $position
+     * @param  string  $name
+     * @param  boolean $isArray
+     * @param  integer $position
      * @return boolean indica l'avvenuto inserimento
      */
     public function addParam($name, $isStruct = false, $isGrouped = false, $nestedList = null)
@@ -64,7 +64,7 @@ class ParamListFormat
     /**
      * controlla che la lista di parametri passati corrisponda al formato settato
      *
-     * @param array $argumentList
+     * @param  array   $argumentList
      * @return boolean
      */
     public function checkFormatByPosition($argumentList)
@@ -73,14 +73,12 @@ class ParamListFormat
         if (!is_array($argumentList)) return false;
 
         for ($i=0; $i < $tot; $i++)
-            if($this->list[$i]['struct'])
-            {
+            if ($this->list[$i]['struct']) {
                 if(!is_array($argumentList[$i])) return false;
                 if ($this->list[$i]['structDesc'] != null)
                     foreach($argumentList[$i] as $k)
                     if(!$this->list[$i]['structDesc']->checkFormatByPosition($k)) return false;
-            }
-            else if(is_array($argumentList[$i])) return false;
+            } else if(is_array($argumentList[$i])) return false;
 
 
             return true;
@@ -89,7 +87,7 @@ class ParamListFormat
     /**
      * controlla che la lista di parametri passati corrisponda al formato settato
      *
-     * @param array $argumentList array associativo nomeParametro => valoreParametro
+     * @param  array   $argumentList array associativo nomeParametro => valoreParametro
      * @return boolean
      */
     public function checkFormatByName($argumentList)
@@ -97,17 +95,14 @@ class ParamListFormat
         //var_dump($argumentList); var_dump($this->list);die;
         if (!is_array($argumentList)) return false;
 
-        foreach ($argumentList as $name => $value)
-        {
+        foreach ($argumentList as $name => $value) {
             if(!array_key_exists($name,$this->list)) return false;
-            if($this->list[$name]['struct'])
-            {
+            if ($this->list[$name]['struct']) {
                 if(!is_array($value)) return false;
                 if ($this->list[$i]['structDesc'] != null)
                     foreach($value as $k)
                     if(!$this->list[$name]['structDesc']->checkFormatByPosition($k)) return false;
-            }
-            else if(is_array($value)) return false;
+            } else if(is_array($value)) return false;
         }
 
         return true;
@@ -116,7 +111,7 @@ class ParamListFormat
     /**
      * restituisce true se l'istanza corrente contiene tutti gli elementi di $f
      *
-     * @param ParamListFormat $f
+     * @param  ParamListFormat $f
      * @return boolean
      */
     private function isSupersetOf(ParamListFormat $f)
@@ -125,21 +120,17 @@ class ParamListFormat
         foreach($keys as $k)
             if(!array_key_exists($k,$this->list)) return false;
 
-
         return true;
     }
 
     private function getChilds($associative = false)
     {
         $childs = array();
-        if($associative)
-        {
+        if ($associative) {
             foreach($this->list as $i)
                 if($i['struct'])
                 $childs[$i['nome'] ] = $i['structDesc'];
-        }
-        else
-        {
+        } else {
             foreach($this->list as $i)
 
                 if($i['struct'])
@@ -149,16 +140,15 @@ class ParamListFormat
         return $childs;
     }
 
-
     /**
      * filtra l'output dell'istanza attuale in accordo al formato desiderato
      *
-     * @param array           $values valori di output NB suppongo chiavi numeriche
-     * @param ParamListFormat $filter formato desiderato in uscita
-     * @param ParamListFormat $output formato dell'output
-     * @return array	output filtrato
+     * @param  array           $values valori di output NB suppongo chiavi numeriche
+     * @param  ParamListFormat $filter formato desiderato in uscita
+     * @param  ParamListFormat $output formato dell'output
+     * @return array           output filtrato
      */
-    static public function filterValues($values, ParamListFormat $filter, ParamListFormat $output)
+    public static function filterValues($values, ParamListFormat $filter, ParamListFormat $output)
     {
         // VERIFY lo metto qui il check su $values o suppongo che chi lo passi lo abbia gi� verificato?
         // � una esplorazione depthfirst.. va bene? direi di s�, perch� tanto i livelli sono per forza limitati
@@ -166,12 +156,10 @@ class ParamListFormat
         // TODO se io ho un parametro grouped, � impossibile pensare che abbia mantenuto il nome del param come chiave!?!? ma forse se � grouped, vuol dire che � un array di val associati ad una certa chiave
         //		echo "\n[FILTRO] $filter $output $values \n";
         //		var_dump($values);
-        if(!$output->isSupersetOf($filter))
-        {
+        if (!$output->isSupersetOf($filter)) {
             $rami=$output->getChilds();
             //			var_dump($rami); die();
-            foreach($rami as $k => $v)
-            {
+            foreach ($rami as $k => $v) {
                 $ret = self::filterValues($values[$k],$filter,$v);
                 if($ret !== false) return $ret;
             }

@@ -19,7 +19,7 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 class NewPasswordStudente extends UniversiboCommand
 {
 
-    function execute()
+    public function execute()
     {
         $fc = $this->getFrontController();
         $template = $this->frontController->getTemplateEngine();

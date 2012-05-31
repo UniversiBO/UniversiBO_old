@@ -69,12 +69,13 @@ require_once 'PHPUnit/TestResult.php';
  * @category    PHP
  * @package     PHPUnit
  */
-class PHPUnit_TestCase extends PHPUnit_Assert {
+class PHPUnit_TestCase extends PHPUnit_Assert
+{
     /**
     * @var    boolean
     * @access private
     */
-    var $_failed = FALSE;
+    public $_failed = FALSE;
 
     /**
     * The name of the test case.
@@ -82,7 +83,7 @@ class PHPUnit_TestCase extends PHPUnit_Assert {
     * @var    string
     * @access private
     */
-    var $_name = '';
+    public $_name = '';
 
     /**
     * PHPUnit_TestResult object
@@ -90,7 +91,7 @@ class PHPUnit_TestCase extends PHPUnit_Assert {
     * @var    object
     * @access private
     */
-    var $_result;
+    public $_result;
 
     /**
     * Constructs a test case with the given name.
@@ -98,7 +99,8 @@ class PHPUnit_TestCase extends PHPUnit_Assert {
     * @param  string
     * @access public
     */
-    function PHPUnit_TestCase($name = FALSE) {
+    public function PHPUnit_TestCase($name = FALSE)
+    {
         if ($name !== FALSE) {
             $this->setName($name);
         }
@@ -110,7 +112,8 @@ class PHPUnit_TestCase extends PHPUnit_Assert {
     * @return integer
     * @access public
     */
-    function countTestCases() {
+    public function countTestCases()
+    {
         return 1;
     }
 
@@ -120,7 +123,8 @@ class PHPUnit_TestCase extends PHPUnit_Assert {
     * @return string
     * @access public
     */
-    function getName() {
+    public function getName()
+    {
         return $this->_name;
     }
 
@@ -131,7 +135,8 @@ class PHPUnit_TestCase extends PHPUnit_Assert {
     * @return object
     * @access public
     */
-    function run(&$result) {
+    public function run(&$result)
+    {
         $this->_result = &$result;
         $this->_result->run($this);
 
@@ -143,7 +148,8 @@ class PHPUnit_TestCase extends PHPUnit_Assert {
     *
     * @access public
     */
-    function runBare() {
+    public function runBare()
+    {
         $this->setUp();
         $this->runTest();
         $this->tearDown();
@@ -155,7 +161,8 @@ class PHPUnit_TestCase extends PHPUnit_Assert {
     *
     * @access protected
     */
-    function runTest() {
+    public function runTest()
+    {
         call_user_func(
           array(
             &$this,
@@ -170,7 +177,8 @@ class PHPUnit_TestCase extends PHPUnit_Assert {
     * @param  string
     * @access public
     */
-    function setName($name) {
+    public function setName($name)
+    {
         $this->_name = $name;
     }
 
@@ -180,7 +188,8 @@ class PHPUnit_TestCase extends PHPUnit_Assert {
     * @return string
     * @access public
     */
-    function toString() {
+    public function toString()
+    {
         return '';
     }
 
@@ -200,7 +209,8 @@ class PHPUnit_TestCase extends PHPUnit_Assert {
     * @param  string
     * @access protected
     */
-    function fail($message = '') {
+    public function fail($message = '')
+    {
         $this->_result->addFailure($this, $message);
         $this->_failed = TRUE;
     }
@@ -210,7 +220,8 @@ class PHPUnit_TestCase extends PHPUnit_Assert {
     *
     * @access protected
     */
-    function pass() {
+    public function pass()
+    {
         if (!$this->_failed) {
             $this->_result->addPassedTest($this);
         }
@@ -223,7 +234,7 @@ class PHPUnit_TestCase extends PHPUnit_Assert {
     * @access protected
     * @abstract
     */
-    function setUp() { /* abstract */ }
+    public function setUp() { /* abstract */ }
 
     /**
     * Tears down the fixture, for example, close a network connection.
@@ -232,6 +243,5 @@ class PHPUnit_TestCase extends PHPUnit_Assert {
     * @access protected
     * @abstract
     */
-    function tearDown() { /* abstract */ }
+    public function tearDown() { /* abstract */ }
 }
-?>

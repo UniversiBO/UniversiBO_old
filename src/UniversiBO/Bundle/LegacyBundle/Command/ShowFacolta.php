@@ -22,7 +22,7 @@ class ShowFacolta extends CanaleCommand
     /**
      * Inizializza il comando ShowFacolta ridefinisce l'initCommand() di CanaleCommand
      */
-    function initCommand(FrontController $frontController)
+    public function initCommand(FrontController $frontController)
     {
 
         parent::initCommand($frontController);
@@ -38,7 +38,7 @@ class ShowFacolta extends CanaleCommand
 
     }
 
-    function execute()
+    public function execute()
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();

@@ -91,7 +91,7 @@ class CommentoItem
      * Restituisce l'id_file_studente del commento
      */
 
-    function getIdFileStudente()
+    public function getIdFileStudente()
     {
         return $this->id_file_studente;
     }
@@ -100,7 +100,7 @@ class CommentoItem
      * Setta l'id_file_studente del commento
      */
 
-    function setIdFileStudente($id_file_studente)
+    public function setIdFileStudente($id_file_studente)
     {
         $this->id_file_studente = $id_file_studente;
     }
@@ -109,7 +109,7 @@ class CommentoItem
      * Restituisce l'id_utente che ha scritto il commento
      */
 
-    function getIdUtente()
+    public function getIdUtente()
     {
         return $this->id_utente;
     }
@@ -118,7 +118,7 @@ class CommentoItem
      * Setta l'id_utente che ha scritto il commento
      */
 
-    function setIdUtente($id_utente)
+    public function setIdUtente($id_utente)
     {
         $this->id_utente = $id_utente;
     }
@@ -127,7 +127,7 @@ class CommentoItem
      * Restituisce il commento al File Studente
      */
 
-    function getCommento()
+    public function getCommento()
     {
         return $this->commento;
     }
@@ -136,7 +136,7 @@ class CommentoItem
      * Setta il commento al File Studente
      */
 
-    function setCommento($commento)
+    public function setCommento($commento)
     {
         $this->commento = $commento;
     }
@@ -179,7 +179,7 @@ class CommentoItem
      * Conta il numero dei commenti presenti per il file
      *
      * @deprecated
-     * @param int $id_file identificativo su database del file studente
+     * @param  int    $id_file identificativo su database del file studente
      * @return numero dei commenti
      */
     public static function quantiCommenti($id_file)
@@ -205,9 +205,9 @@ class CommentoItem
     public static function insertCommentoItem($id_file_studente, $id_utente, $commento, $voto)
     {
         ignore_user_abort(1);
-        
+
         $db = FrontController::getDbConnection('main');
-        
+
         $next_id = $db->nextID('file_studente_commenti_id_commento');
         $this->id_commento = $next_id;
         $return = true;
@@ -261,16 +261,16 @@ class CommentoItem
     {
         $db = FrontController::getDbConnection('main');
         ignore_user_abort(1);
-        
+
         $return = self::getRepository()->deleteById($id_commento);
-        
+
         ignore_user_abort(0);
 
         return $return;
     }
     /**
      * Questa funzione verifica se esiste già un commento inserito dall'utente
-     * 
+     *
      * @deprecated
      * @param $id_file, $id_utente id del file e dell'utente
      * @return un valore booleano

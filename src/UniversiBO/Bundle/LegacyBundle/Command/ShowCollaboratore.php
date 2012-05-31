@@ -18,7 +18,7 @@ use UniversiBO\Bundle\LegacyBundle\Entity\Collaboratore;
  */
 class ShowCollaboratore extends UniversiboCommand
 {
-    function execute()
+    public function execute()
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();

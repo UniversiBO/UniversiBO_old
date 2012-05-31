@@ -29,13 +29,12 @@ abstract class BaseCommand
         $this->frontController = $frontController;
     }
 
-
     /**
      * Abstract method must be overridden from sons-classes
      *
      * @return string template identifier if command uses template engine
      */
-    public abstract function execute();
+    abstract public function execute();
 
     /**
      * Shutdown the command
@@ -59,9 +58,9 @@ abstract class BaseCommand
     /**
      * Executes plugin
      *
-     * @param string $name  identifier name for this plugin
-     * @param mixed  $param a parameter handled by PluginCommand
-     * @return mixed return value of plugin
+     * @param  string $name  identifier name for this plugin
+     * @param  mixed  $param a parameter handled by PluginCommand
+     * @return mixed  return value of plugin
      */
     public function executePlugin($name, $param)
     {

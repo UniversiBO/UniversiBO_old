@@ -32,23 +32,28 @@ class Response
 {
     private $content;
 
-    public function __construct(){
+    public function __construct()
+    {
         ob_start();
     }
 
-    public function write(&$string){
+    public function write(&$string)
+    {
         $this->content .=$string;
     }
 
-    public function getContent(){
+    public function getContent()
+    {
         return ob_get_contents();
     }
 
-    public function emptyBuffer(){
+    public function emptyBuffer()
+    {
         ob_end_clean();
     }
 
-    public function redirect($location) {
+    public function redirect($location)
+    {
         ob_end_clean();
         header("Location: $location");
         exit();

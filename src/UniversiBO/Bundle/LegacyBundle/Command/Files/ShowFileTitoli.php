@@ -190,10 +190,10 @@ class ShowFileTitoli extends PluginCommand
      * Preleva da database i file del canale $id_canale
      *
      * @static
-     * @param int $id_canale identificativo su database del canale
+     * @param  int   $id_canale identificativo su database del canale
      * @return array elenco FileItem , array vuoto se non ci sono file
      */
-    function getFileCanale($id_canale)
+    public function getFileCanale($id_canale)
     {
         $db = FrontController::getDbConnection('main');
 
@@ -228,7 +228,7 @@ class ShowFileTitoli extends PluginCommand
      * @static
      * @private
      */
-    function _compareFile($a, $b)
+    public function _compareFile($a, $b)
     {
         if ($a->getIdCategoria() > $b->getIdCategoria())
 

@@ -19,7 +19,7 @@ class PluginCommand
     /**
      * @private
      */
-    var $baseCommand;
+    public $baseCommand;
 
     /**
      *
@@ -29,7 +29,6 @@ class PluginCommand
     {
         $this->baseCommand = $baseCommand;
     }
-
 
     /**
      * Abstract method must be overridden from sons-classes
@@ -41,7 +40,6 @@ class PluginCommand
     {
         Error::throwError(_ERROR_CRITICAL,array('msg'=>'Il metodo execute del command deve essere ridefinito','file'=>__FILE__,'line'=>__LINE__) );
     }
-
 
     /**
      * Return the caller BaseCommand
@@ -56,9 +54,9 @@ class PluginCommand
     /**
      * Executes a sub PluginComand
      *
-     * @param string $name  identifier name for this plugin
-     * @param mixed  $param a parameter handled by PluginCommand
-     * @return mixed return value of plugin
+     * @param  string $name  identifier name for this plugin
+     * @param  mixed  $param a parameter handled by PluginCommand
+     * @return mixed  return value of plugin
      */
     public function executePlugin($name, $param)
     {

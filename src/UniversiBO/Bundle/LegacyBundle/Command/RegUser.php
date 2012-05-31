@@ -22,20 +22,18 @@ use UniversiBO\Bundle\LegacyBundle\Auth\PasswordUtil;
 
 class RegUser extends UniversiboCommand
 {
-    function execute()
+    public function execute()
     {
         $fc = $this->getFrontController();
         $template = $this->frontController->getTemplateEngine();
 
         $session_user = $this->getSessionUser();
-        if (!$session_user->isAdmin())
-        {
+        if (!$session_user->isAdmin()) {
             Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'L\'iscrizione manuale di nuovi utenti pu� essere effettuata solo da utenti Admin','file'=>__FILE__,'line'=>__LINE__));
         }
 
         $template->assign('f34_submit',		'Registra');
         $template->assign('regStudente_langRegAlt','Registrazione');
-
 
         // valori default form
         $f34_username =	'';
@@ -44,8 +42,7 @@ class RegUser extends UniversiboCommand
 
         $f34_accept = false;
 
-        if ( array_key_exists('f34_submit', $_POST)  )
-        {
+        if ( array_key_exists('f34_submit', $_POST)  ) {
             $f34_accept = true;
             //var_dump($_POST);
             if ( !array_key_exists('f34_username', $_POST) ||
@@ -60,40 +57,31 @@ class RegUser extends UniversiboCommand
             if ( $_POST['f34_email'] == '' ) {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Inserire la e-mail','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f34_accept = false;
-            }
-            elseif(!eregi('^([[:alnum:]_\-])+(\.([[:alnum:]_\-])+)*@([[:alnum:]_\-])+(\.([[:alnum:]_\-])+)*$',$_POST['f34_email'])){
+            } elseif (!eregi('^([[:alnum:]_\-])+(\.([[:alnum:]_\-])+)*@([[:alnum:]_\-])+(\.([[:alnum:]_\-])+)*$',$_POST['f34_email'])) {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'La mail di ateneo inserita '.$_POST['f34_email'].' non � sintatticamente valida','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f34_accept = false;
-            }
-            elseif(User::activeDirectoryUsernameExists($_POST['f34_email'])){
+            } elseif (User::activeDirectoryUsernameExists($_POST['f34_email'])) {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'La mail '.$_POST['f34_email'].' appartiene ad un utente gi� registrato','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f34_accept = false;
-            }
-            else
-            {
+            } else {
                 $f34_email = strtolower($_POST['f34_email']);
                 $q34_email = strtolower($f34_email);
             }
-
 
             //username
             if ( $_POST['f34_username'] == '' ) {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Scegliere uno username','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f34_accept = false;
-            }
-            elseif($_POST['f34_username']{0}==' ' || $_POST['f34_username']{strlen($_POST['f34_username']) - 1}==' '){
+            } elseif ($_POST['f34_username']{0}==' ' || $_POST['f34_username']{strlen($_POST['f34_username']) - 1}==' ') {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Non sono accettati spazi all\' inizio o alla fine dello username','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f34_accept = false;
-            }
-            elseif ( !User::isUsernameValid( $_POST['f34_username'] ) ){
+            } elseif ( !User::isUsernameValid( $_POST['f34_username'] ) ) {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Nello username sono permessi fino a 25 caratteri alfanumerici con lettere accentate, spazi, punti, underscore','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f34_accept = false;
-            }
-            elseif ( User::usernameExists( $_POST['f34_username'] ) ){
+            } elseif ( User::usernameExists( $_POST['f34_username'] ) ) {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Lo username richiesto � gi� stato registrato da un altro utente','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f34_accept = false;
-            }
-            else $q34_username = $f34_username = $_POST['f34_username'];
+            } else $q34_username = $f34_username = $_POST['f34_username'];
 
             //livello
             if ( $_POST['f34_livello'] == '' ) {
@@ -115,13 +103,11 @@ class RegUser extends UniversiboCommand
             {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Il livello inserito non e` tra quelli ammissibili','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f34_accept = false;
-            }
-            else $q34_livello = $f34_livello = $_POST['f34_livello'];
+            } else $q34_livello = $f34_livello = $_POST['f34_livello'];
 
         }
 
-        if ( $f34_accept == true )
-        {
+        if ( $f34_accept == true ) {
             //controllo active directory
             $randomPassword = PasswordUtil::generateRandomPassword();
             $notifica = ($q34_livello == User::STUDENTE || $q34_livello == User::COLLABORATORE || $q34_livello == User::ADMIN || $q34_livello == User::TUTOR ) ? Constants::NOTIFICA_ALL : Constants::NOTIFICA_NONE;
@@ -163,15 +149,13 @@ class RegUser extends UniversiboCommand
             $mail->Body = '';
             $msg = '';
 
-
             return 'success';
 
         }
 
         $array_livelli = array();
         $array_nomi = User::groupsNames();
-        foreach($array_nomi as $key => $value)
-        {
+        foreach ($array_nomi as $key => $value) {
             if ($key != User::OSPITE && $key != User::DOCENTE)
                 $array_livelli[$key] = $value;
         }
@@ -181,7 +165,6 @@ class RegUser extends UniversiboCommand
         $template->assign('f34_livello',	$f34_livello);
         $template->assign('f34_email',		$f34_email);
         $template->assign('f34_submit',		'Registra');
-
 
         return 'default';
     }

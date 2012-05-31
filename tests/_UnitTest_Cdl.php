@@ -5,10 +5,8 @@
 * suite di test per la classe Cdl
 */
 
-
 require_once 'PHPUnit'.PHP_EXTENSION;
 require_once 'Cdl'.PHP_EXTENSION;
-
 
 /**
  * Test per la classe Cdl
@@ -22,15 +20,15 @@ require_once 'Cdl'.PHP_EXTENSION;
 class _UnitTest_Cdl extends PHPUnit_TestCase
 {
 
-    var $cdl;
+    public $cdl;
 
-    function UserTest($name)
+    public function UserTest($name)
     {
         $this->PHPUnit_TestCase($name);
     }
 
     // called before the test functions will be executed
-    function setUp()
+    public function setUp()
     {
         $db =& FrontController::getDbConnection('main');
         $db->autoCommit(false);
@@ -38,14 +36,14 @@ class _UnitTest_Cdl extends PHPUnit_TestCase
     }
 
     // called after the test functions are executed
-    function tearDown() {
+    public function tearDown()
+    {
         $db =& FrontController::getDbConnection('main');
         $db->rollback();
         $db->autoCommit(true);
     }
 
-
-    function testSetGet()
+    public function testSetGet()
     {
         $cod_new = '0022';
         $this->cdl->setCodiceCdl($cod_new);
@@ -73,7 +71,7 @@ class _UnitTest_Cdl extends PHPUnit_TestCase
 
     }
 
-    function testRetrieveAndUpdate()
+    public function testRetrieveAndUpdate()
     {
 
         $cdl =& Cdl::selectCdlCanale($this->cdl->getIdCanale());
@@ -110,14 +108,12 @@ class _UnitTest_Cdl extends PHPUnit_TestCase
 
     }
 
-
-    function testCdlElenco()
+    public function testCdlElenco()
     {
         $cod_facolta = '0021';
         $elenco =& Cdl::selectCdlElencoFacolta($cod_facolta);
 
-        foreach ( $elenco as $cdl)
-        {
+        foreach ( $elenco as $cdl) {
             $value = $cdl->getCategoriaCdl();
             if (isset($value_old))
                 $this->assertTrue( $value >= $value_old );
@@ -128,4 +124,3 @@ class _UnitTest_Cdl extends PHPUnit_TestCase
 
 }
 
-?>

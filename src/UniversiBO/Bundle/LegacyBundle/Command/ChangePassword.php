@@ -17,7 +17,7 @@ use UniversiBO\Bundle\LegacyBundle\Entity\User;
  */
 class ChangePassword extends UniversiboCommand
 {
-    function execute()
+    public function execute()
     {
         $fc = $this->getFrontController();
         $template = $this->frontController->getTemplateEngine();
@@ -83,15 +83,15 @@ class ChangePassword extends UniversiboCommand
             //				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Inserire il proprio username','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
             //				$f6_accept = false;
             //			}
-            //			elseif ( !User::isUsernameValid( $_POST['f6_username'] ) ){
+            //			elseif ( !User::isUsernameValid( $_POST['f6_username'] ) ) {
             //				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Nello username sono permessi fino a 25 caratteri alfanumerici con lettere accentate, spazi, punti, underscore','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
             //				$f6_accept = false;
             //			}
-            //			elseif ( $this->sessionUser->getUsername() != $_POST['f6_username'] ){ // && !$this->sessionUser->isAdmin()
+            //			elseif ( $this->sessionUser->getUsername() != $_POST['f6_username'] ) { // && !$this->sessionUser->isAdmin()
             //				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Lo username inserito non pu� essere differente dal proprio username, non � permesso cambiare la password di altri utenti','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
             //				$f6_accept = false;
             //			}
-            //			elseif ( !User::usernameExists( $_POST['f6_username'] ) ){
+            //			elseif ( !User::usernameExists( $_POST['f6_username'] ) ) {
             //				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Lo username richiesto non � registrato da nessun utente','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
             //				$f6_accept = false;
             //			}

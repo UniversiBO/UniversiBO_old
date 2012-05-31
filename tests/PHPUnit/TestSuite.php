@@ -48,14 +48,15 @@ require_once 'PHPUnit/TestCase.php';
  * @category    PHP
  * @package     PHPUnit
  */
-class PHPUnit_TestSuite {
+class PHPUnit_TestSuite
+{
     /**
     * The name of the test suite.
     *
     * @var    string
     * @access private
     */
-    var $_name = '';
+    public $_name = '';
 
     /**
     * The tests in the test suite.
@@ -63,7 +64,7 @@ class PHPUnit_TestSuite {
     * @var    array
     * @access private
     */
-    var $_tests = array();
+    public $_tests = array();
 
     /**
     * Constructs a TestSuite.
@@ -71,7 +72,8 @@ class PHPUnit_TestSuite {
     * @param  mixed
     * @access public
     */
-    function PHPUnit_TestSuite($test = FALSE) {
+    public function PHPUnit_TestSuite($test = FALSE)
+    {
         if ($test !== FALSE) {
             $this->setName($test);
             $this->addTestSuite($test);
@@ -84,7 +86,8 @@ class PHPUnit_TestSuite {
     * @param  object
     * @access public
     */
-    function addTest(&$test) {
+    public function addTest(&$test)
+    {
         $this->_tests[] = $test;
     }
 
@@ -94,13 +97,14 @@ class PHPUnit_TestSuite {
     * @param  string
     * @access public
     */
-    function addTestSuite($testClass) {
+    public function addTestSuite($testClass)
+    {
         if (class_exists($testClass)) {
             $methods       = get_class_methods($testClass);
             $parentClasses = array(strtolower($testClass));
             $parentClass   = $testClass;
 
-            while(is_string($parentClass = get_parent_class($parentClass))) {
+            while (is_string($parentClass = get_parent_class($parentClass))) {
                 $parentClasses[] = $parentClass;
             }
 
@@ -119,7 +123,8 @@ class PHPUnit_TestSuite {
     * @return integer
     * @access public
     */
-    function countTestCases() {
+    public function countTestCases()
+    {
         $count = 0;
 
         foreach ($this->_tests as $test) {
@@ -135,7 +140,8 @@ class PHPUnit_TestSuite {
     * @return string
     * @access public
     */
-    function getName() {
+    public function getName()
+    {
         return $this->_name;
     }
 
@@ -145,7 +151,8 @@ class PHPUnit_TestSuite {
     * @param  object
     * @access public
     */
-    function run(&$result) {
+    public function run(&$result)
+    {
         for ($i = 0; $i < sizeof($this->_tests) && !$result->shouldStop(); $i++) {
             $this->_tests[$i]->run($result);
         }
@@ -158,7 +165,8 @@ class PHPUnit_TestSuite {
     * @param  object
     * @access public
     */
-    function runTest(&$test, &$result) {
+    public function runTest(&$test, &$result)
+    {
         $test->run($result);
     }
 
@@ -168,7 +176,8 @@ class PHPUnit_TestSuite {
     * @param  string
     * @access public
     */
-    function setName($name) {
+    public function setName($name)
+    {
         $this->_name = $name;
     }
 
@@ -193,7 +202,8 @@ class PHPUnit_TestSuite {
     * @return integer
     * @access public
     */
-    function testCount() {
+    public function testCount()
+    {
         return sizeof($this->_tests);
     }
 
@@ -213,8 +223,8 @@ class PHPUnit_TestSuite {
     * @return string
     * @access public
     */
-    function toString() {
+    public function toString()
+    {
         return '';
     }
 }
-?>

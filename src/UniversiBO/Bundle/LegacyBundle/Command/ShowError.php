@@ -15,7 +15,7 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
  */
 class ShowError extends UniversiboCommand
 {
-    function execute()
+    public function execute()
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();

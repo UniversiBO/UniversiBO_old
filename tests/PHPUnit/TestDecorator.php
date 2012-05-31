@@ -31,14 +31,15 @@ require_once 'PHPUnit/TestSuite.php';
  * @category    PHP
  * @package     PHPUnit
  */
-class PHPUnit_TestDecorator {
+class PHPUnit_TestDecorator
+{
     /**
     * The Test to be decorated.
     *
     * @var    object
     * @access protected
     */
-    var $_test = NULL;
+    public $_test = NULL;
 
     /**
     * Constructor.
@@ -46,7 +47,8 @@ class PHPUnit_TestDecorator {
     * @param  object
     * @access public
     */
-    function PHPUnit_TestDecorator(&$test) {
+    public function PHPUnit_TestDecorator(&$test)
+    {
         if (is_object($test) &&
             (is_a($test, 'PHPUnit_TestCase') ||
              is_a($test, 'PHPUnit_TestSuite'))) {
@@ -62,7 +64,8 @@ class PHPUnit_TestDecorator {
     * @param  object
     * @access public
     */
-    function basicRun(&$result) {
+    public function basicRun(&$result)
+    {
         $this->_test->run($result);
     }
 
@@ -73,7 +76,8 @@ class PHPUnit_TestDecorator {
     * @return integer
     * @access public
     */
-    function countTestCases() {
+    public function countTestCases()
+    {
         return $this->_test->countTestCases();
     }
 
@@ -95,7 +99,7 @@ class PHPUnit_TestDecorator {
     * @access public
     * @abstract
     */
-    function run(&$result) { /* abstract */ }
+    public function run(&$result) { /* abstract */ }
 
     /**
     * Returns a string representation of the test.
@@ -103,8 +107,8 @@ class PHPUnit_TestDecorator {
     * @return string
     * @access public
     */
-    function toString() {
+    public function toString()
+    {
         return $this->_test->toString();
     }
 }
-?>

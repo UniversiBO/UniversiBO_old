@@ -26,7 +26,7 @@ class InteractiveCommandHandler extends UniversiboCommand
 {
     private $userLogin = null;
 
-    function execute()
+    public function execute()
     {
         $frontcontroller = $fc = $this->getFrontController();
         $template = $this->frontController->getTemplateEngine();
@@ -65,7 +65,7 @@ class InteractiveCommandHandler extends UniversiboCommand
             $forum = new ForumApi();
             $forum->login($this->userLogin);
 
-            if($sf) {
+            if ($sf) {
                 $fc->redirectUri($sf);
             } else {
 
@@ -184,7 +184,7 @@ perche` impedisce il login agli utenti
      * @author Pinto
      * @access private
      */
-    function updateActiveSteps(&$activeSteps)
+    public function updateActiveSteps(&$activeSteps)
     {
         unset($activeSteps[key($activeSteps)]);
         $_SESSION['activeSteps'] = $activeSteps;
@@ -197,7 +197,7 @@ perche` impedisce il login agli utenti
      * @access private
      * @return boolean
      */
-    function isAllowedInteractionForActualUser(&$user, &$activeStep)
+    public function isAllowedInteractionForActualUser(&$user, &$activeStep)
     {
         //		var_dump($activeStep); die;
         if (empty($activeStep['restrictedTo']))
@@ -219,7 +219,7 @@ perche` impedisce il login agli utenti
      * @access private
      * @return array list of available InteractiveCommand
      */
-    function getAllInteractiveCommand()
+    public function getAllInteractiveCommand()
     {
         $list = $this->frontController->getAvailablePlugins();
         //		var_dump($list);
@@ -250,7 +250,7 @@ perche` impedisce il login agli utenti
     // //		}
     // 		// versione alternativa migliore. PS servira' il controllo != da stdClass?
     // 		$parentClass = $class;
-    // 		while(is_string($parentClass = get_parent_class($parentClass)) && strcasecmp($parentClass, 'stdClass') != 0) {
+    // 		while (is_string($parentClass = get_parent_class($parentClass)) && strcasecmp($parentClass, 'stdClass') != 0) {
     //             $list[] = $parentClass;
     //         }
     // //        var_dump($list);
@@ -263,7 +263,7 @@ perche` impedisce il login agli utenti
      * @access private
      * @return array list of active InteractiveCommand
      */
-    function getActiveInteractiveCommand()
+    public function getActiveInteractiveCommand()
     {
         // TODO: migliorare il confronto
         $allSteps = $this->getAllInteractiveCommand();
@@ -289,7 +289,7 @@ perche` impedisce il login agli utenti
      * @access private
      * @return mixed array with the list of InteractiveCommand already completed by current user, false if empty
      */
-    function getCompletedInteractiveCommandByUser()
+    public function getCompletedInteractiveCommandByUser()
     {
         $db = $this->getFrontController()->getDbConnection('main');
         $user = unserialize($_SESSION['user']);
@@ -323,10 +323,10 @@ perche` impedisce il login agli utenti
     /**
      * valuta se la condizione espressa in linguaggio ConditionLanguage � verificata
      *
-     * @param string $CL_code
+     * @param  string  $CL_code
      * @return boolean
      */
-    function evaluateCondition($CL_code)
+    public function evaluateCondition($CL_code)
     {
         LegacyCLInterpreter::init($this->getFrontController(), $this->userLogin);
 

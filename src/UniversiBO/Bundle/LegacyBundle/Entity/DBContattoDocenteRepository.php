@@ -13,7 +13,7 @@ use \Error;
 class DBContattoDocenteRepository extends DBRepository
 {
     /**
-     * @param string $codDocente
+     * @param  string          $codDocente
      * @return ContattoDocente
      */
     public function findByCodDocente($codDocente)
@@ -26,7 +26,7 @@ class DBContattoDocenteRepository extends DBRepository
             Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
         $rows = $res->numRows();
-        if( $rows == 0) {
+        if ( $rows == 0) {
             return false;
         }
 
@@ -57,12 +57,11 @@ class DBContattoDocenteRepository extends DBRepository
         while ($row = $res->fetchRow())
             $elenco[] = new ContattoDocente($row[0], $row[1], $row[2], $row[3], $row[4]);
 
-
         return $elenco;
     }
 
     /**
-     * @param ContattoDocente $contattoDocente
+     * @param  ContattoDocente $contattoDocente
      * @return boolean
      */
     public function update(ContattoDocente $contattoDocente)
@@ -79,7 +78,7 @@ class DBContattoDocenteRepository extends DBRepository
         //echo $query;
         $res = $db->query($query);
         //var_dump($query);
-        if (DB::isError($res)){
+        if (DB::isError($res)) {
             $db->rollback();
             Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         }
@@ -92,12 +91,11 @@ class DBContattoDocenteRepository extends DBRepository
 
         $this->ultima_modifica = time();
 
-
         return true;
     }
 
     /**
-     * @param ContattoDocente $contattoDocente
+     * @param  ContattoDocente $contattoDocente
      * @return boolean
      */
     public function insert(ContattoDocente $contattoDocente)
@@ -112,7 +110,7 @@ class DBContattoDocenteRepository extends DBRepository
         //        echo $query;		die;
         $res = $db->query($query);
         //var_dump($query);
-        if (DB::isError($res)){
+        if (DB::isError($res)) {
             $db->rollback();
             Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         }
@@ -131,7 +129,7 @@ class DBContattoDocenteRepository extends DBRepository
         //		echo $query;		die;
         $res = $db->query($query);
         //var_dump($query);
-        if (DB::isError($res)){
+        if (DB::isError($res)) {
             $db->rollback();
             Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         }
@@ -141,7 +139,6 @@ class DBContattoDocenteRepository extends DBRepository
         $db->commit();
         $db->autoCommit(true);
         ignore_user_abort(0);
-
 
         return true;
     }
@@ -153,8 +150,7 @@ class DBContattoDocenteRepository extends DBRepository
     {
         $db = $this->getDb();
 
-        if ($contattoDocente->getStato() != APERTO && $contattoDocente->getStato() != null)
-        {
+        if ($contattoDocente->getStato() != APERTO && $contattoDocente->getStato() != null) {
             $time	= time();
             $query	= 'UPDATE docente SET '
             .' docente_contattato = '.$db->quote($time)
@@ -163,7 +159,7 @@ class DBContattoDocenteRepository extends DBRepository
             //echo $query;
             $res = $db->query($query);
             //var_dump($query);
-            if (DB::isError($res)){
+            if (DB::isError($res)) {
                 $db->rollback();
                 Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
             }

@@ -42,53 +42,52 @@ class BaseInteractiveCommand extends PluginCommand
      * è uno StepList
      * @access private
      */
-    var $listaStep;
+    public $listaStep;
 
     /**
      * per comodità, metto a disposizione dei callback i riferimenti ai principali elementi del sistema
      * @author Pinto
      * @access private
      */
-    var $systemValues = array();
+    public $systemValues = array();
 
     /**
      * @access private
      */
-    var $id_utente;  //VERIFY servir� veramente?
+    public $id_utente;  //VERIFY servir� veramente?
 
 
     /**
      * @access private
      */
-    var $priority=NORMAL_INTERACTION;
+    public $priority=NORMAL_INTERACTION;
 
     /**
      * @access private
      */
-    var $title = 'Compila in tutte le parti';
+    public $title = 'Compila in tutte le parti';
 
     /**
      * @access private
      */
-    var $msgOnCancelByUser = 'Senza l\'accettazione di tutte le condizioni ed il completamento di tutti i dati � impossibile poter continuare ad usufruire del servizio';
+    public $msgOnCancelByUser = 'Senza l\'accettazione di tutte le condizioni ed il completamento di tutti i dati � impossibile poter continuare ad usufruire del servizio';
 
     /**
      * flag. true se cancelled by user
      * @access private
      */
-    var $cancelled;
-
+    public $cancelled;
 
     /**
      * @access private
      */
-    var $navigationLang = array(
+    public $navigationLang = array(
             'back' => 'indietro',
             'next' => 'avanti',
             'canc' => 'annulla'
     );
 
-    var $navigationLastNextLang = 'accetta';
+    public $navigationLastNextLang = 'accetta';
 
     /**
      * Costruttore
@@ -113,15 +112,13 @@ class BaseInteractiveCommand extends PluginCommand
 
         if(array_key_exists('idUtenteStep', $_SESSION))
             $this->id_utente = $_SESSION['idUtenteStep'];
-        else
-        {
+        else {
             $this->id_utente = $this->systemValues['user']->getIdUser();
             $_SESSION['idUtenteStep'] = $this->getIdUtente();
         }
 
         $this->cancelled = array_key_exists('canc', $_SESSION);
     }
-
 
     /**
      * @author fab
@@ -133,8 +130,7 @@ class BaseInteractiveCommand extends PluginCommand
         $reflection = new \ReflectionClass($this);
         $callback = array();
 
-        foreach($reflection->getMethods() as $method)
-        {
+        foreach ($reflection->getMethods() as $method) {
             $name = $method->getName();
 
             if (strncasecmp($name, CALLBACK, strlen(CALLBACK)) === 0) {
@@ -149,7 +145,8 @@ class BaseInteractiveCommand extends PluginCommand
      * @author Pinto
      * @access public
      */
-    function getPriority () {
+    public function getPriority ()
+    {
         return $this->priority;
     }
 
@@ -157,7 +154,8 @@ class BaseInteractiveCommand extends PluginCommand
      * @author Pinto
      * @access public
      */
-    function getIdUtente () {
+    public function getIdUtente ()
+    {
         return $this->id_utente;
     }
 
@@ -166,7 +164,8 @@ class BaseInteractiveCommand extends PluginCommand
      * @access public
      * @return string callback name of current step
      */
-    function getCurrentCallbackName () {
+    public function getCurrentCallbackName ()
+    {
         $item = $this->listaStep->getCurrentStep();
 
         return $item->getCallback();
@@ -176,14 +175,13 @@ class BaseInteractiveCommand extends PluginCommand
      * @author fab
      * @access private
      */
-    function doCallback( & $item)
+    public function doCallback( & $item)
     {
         $item->visitedStep();
         $action = $item->getCallback();
         //		var_dump($action);
         // check if method exists
-        if (!in_array($action, get_class_methods(get_class($this))))
-        {
+        if (!in_array($action, get_class_methods(get_class($this)))) {
             //			var_dump(debug_backtrace()); die;
             Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->systemValues['user']->getIdUser(),'msg'=>'Si e` verificato un errore nell\'interazione, la preghiamo di avvisare gli amministratori di sistema','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $this->systemValues['template']) );
         }
@@ -193,13 +191,12 @@ class BaseInteractiveCommand extends PluginCommand
         $_SESSION['lista'] = serialize($this->listaStep);
     }
 
-
     /**
      * @author fab
      * @access private
      * @param string msg messaggio di errore
      */
-    function errore($msg)
+    public function errore($msg)
     {
         Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $this->systemValues['user']->getIdUser(), 'msg' => $msg, 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $this->systemValues['template']));
     }
@@ -207,11 +204,11 @@ class BaseInteractiveCommand extends PluginCommand
     /**
      * @author fab
      * @access private
-     * @param string  $name
-     * @param boolean $complete
-     * @return array	 array with useful values for InteractiveCommandHandler
+     * @param  string  $name
+     * @param  boolean $complete
+     * @return array   array with useful values for InteractiveCommandHandler
      */
-    function returnState($complete = false, $canc = false )
+    public function returnState($complete = false, $canc = false )
     {
         $i = & $this->listaStep->getCurrentStep();
         $nav = $this->navigationLang;
@@ -219,7 +216,6 @@ class BaseInteractiveCommand extends PluginCommand
             unset($nav['back']);
         if ($this->listaStep->isLastStep($i))
             $nav['next'] = $this->navigationLastNextLang;
-
 
         return array('stepName' => $this->getCurrentCallbackName(),
                 'complete' => $complete,
@@ -233,21 +229,20 @@ class BaseInteractiveCommand extends PluginCommand
     /**
      * @author fab
      * @access private
-     * @param string  $name
-     * @param boolean $complete
-     * @return array	 array with useful values for InteractiveCommandHandler
+     * @param  string  $name
+     * @param  boolean $complete
+     * @return array   array with useful values for InteractiveCommandHandler
      */
-    function returnErrorState($error)
+    public function returnErrorState($error)
     {
         return array('error' => $error);
     }
-
 
     /**
      * Esegue la callback associata al prossimo step
      *
      * @access public
-     * @param array $param
+     * @param  array $param
      * @return mixed true if all InteractiveCommand callbacks are ok, false if cancelled by user, null otherwise
      */
     public function execute($param = array())
@@ -258,19 +253,15 @@ class BaseInteractiveCommand extends PluginCommand
             Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->systemValues['user']->getIdUser(),'msg'=>'L\'utente della sessione corrente non � autorizzato a completare l\'interazione','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $this->systemValues['template']) );
 
         // check if cancelled by user
-        if ($param == CANC_ACTION)
-        {
+        if ($param == CANC_ACTION) {
             //			var_dump($this);
             $this->listaStep->invalidateAllResult();
 
             // se � la prima volta che l'utente annulla, mostro il primo step con mess di spiegazione, altrimenti esco dall'interazione a step
-            if (!$this->cancelled && $this->getPriority()  == HIGH_INTERACTION)
-            {
+            if (!$this->cancelled && $this->getPriority()  == HIGH_INTERACTION) {
                 $this->errore($this->msgOnCancelByUser);
                 $_SESSION['canc'] = true;
-            }
-            else
-            {
+            } else {
                 unset($_SESSION['idUtenteStep']);
                 unset($_SESSION['lista']);
                 if ($this->getPriority()  == LOW_INTERACTION)
@@ -284,15 +275,13 @@ class BaseInteractiveCommand extends PluginCommand
 
             return $this->returnErrorState(get_class($this) . ' e` uno InteractiveCommand attivo senza callback (o step) implementati; provvedere quanto prima');
 
-
         $item = $this->listaStep->getCurrentStep();
         //		var_dump($item);
         if ($param == BACK_ACTION)$item = $this->listaStep->getPreviousStep();
         //		var_dump($item);
         $this->doCallback($item);
 
-        if($this->listaStep->isComplete())
-        {
+        if ($this->listaStep->isComplete()) {
             $this->storeInteractiveCommandLog(true);
             unset($_SESSION['idUtenteStep']);
             unset($_SESSION['lista']);
@@ -300,8 +289,7 @@ class BaseInteractiveCommand extends PluginCommand
             return $this->returnState(true);
         }
 
-        if ($param == NEXT_ACTION)
-        {
+        if ($param == NEXT_ACTION) {
             $this->cancelled = false; // se l'utente dopo un cancel si ravvede e da un next, allora gli diamo la possibilit� di premere cance un'altra volta per sbaglio :)
             $item = $this->listaStep->getNextStep();
             $this->doCallback($item);
@@ -318,7 +306,7 @@ class BaseInteractiveCommand extends PluginCommand
      * @param boolean esito esito dell'interazione
      * @access private
      */
-    function storeInteractiveCommandLog ($complete = false)
+    public function storeInteractiveCommandLog ($complete = false)
     {
         //		echo 'inizio il log'; die;
         $db = FrontController::getDbConnection('main');
@@ -326,7 +314,7 @@ class BaseInteractiveCommand extends PluginCommand
         ignore_user_abort(1);
         $db->autoCommit(false);
         $next_id = $db->nextID('step_id_step');
-        if (DB::isError($next_id)){
+        if (DB::isError($next_id)) {
             $db->rollback();
             Error::throwError(_ERROR_CRITICAL,array('msg'=>$next_id->getUserInfo(),'file'=>__FILE__,'line'=>__LINE__));
         }
@@ -338,15 +326,14 @@ class BaseInteractiveCommand extends PluginCommand
                 $db->quote(get_class($this)).' , '.
                 $db->quote($esito).' )';
         $res = $db->query($query);
-        if (DB::isError($res)){
+        if (DB::isError($res)) {
             $db->rollback();
             Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         }
 
         if ($complete)
             foreach ($this->listaStep->logMe() as $callback => $params)
-            foreach ($params as $key => $val)
-            {
+            foreach ($params as $key => $val) {
                 // VERIFY ha senso come tratto gli eventuali array? o � meglio fare pi� inserimenti?
                 $value = (is_array($val)) ? implode(VALUES_SEPARATOR, $val): $val ;
                 $query = 'INSERT INTO step_parametri (id_step, callback_name, param_name, param_value) VALUES '.
@@ -356,7 +343,7 @@ class BaseInteractiveCommand extends PluginCommand
                         $db->quote($val).' )';
                 $res = $db->query($query);
                 //var_dump($query);
-                if (DB::isError($res)){
+                if (DB::isError($res)) {
                     $db->rollback();
                     Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
                 }

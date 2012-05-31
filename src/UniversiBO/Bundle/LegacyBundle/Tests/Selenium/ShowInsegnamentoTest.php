@@ -16,7 +16,7 @@ class ShowInsegnamentoTest extends UniversiBOSeleniumTestCase
 
         $this->open('/v2.php?do=ShowInsegnamento&id_canale=10271');
 
-        foreach($sentences as $sentence) {
+        foreach ($sentences as $sentence) {
             self::assertTrue($this->isTextPresent($sentence));
         }
     }

@@ -18,7 +18,7 @@ class ShowRulesTest extends UniversiBOSeleniumTestCase
 
         $this->open('/v2.php?do=ShowRules');
 
-        foreach($sentences as $sentence) {
+        foreach ($sentences as $sentence) {
             self::assertTrue($this->isTextPresent($sentence));
         }
     }

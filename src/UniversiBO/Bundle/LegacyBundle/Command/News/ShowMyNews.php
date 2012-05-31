@@ -18,9 +18,8 @@ use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class ShowMyNews extends PluginCommand {
-
-
+class ShowMyNews extends PluginCommand
+{
     /**
      * Esegue il plugin
      *
@@ -47,13 +46,10 @@ class ShowMyNews extends PluginCommand {
 
         //parte ricopiata da studiare...
         $canale_news = count($elenco_id_news);
-        if ( $canale_news == 0 )
-        {
+        if ( $canale_news == 0 ) {
             $template->assign('showMyNews_langNewsAvailable', 'Non ci sono notizie da visualizzare');
             $template->assign('showMyNews_langNewsAvailableFlag', 'false');
-        }
-        else
-        {
+        } else {
             $template->assign('showMyNews_langNewsAvailable', 'Ci sono '.$canale_news.' notizie');
             $template->assign('showMyNews_langNewsAvailableFlag', 'true');
         }
@@ -63,13 +59,11 @@ class ShowMyNews extends PluginCommand {
 
         $elenco_news_tpl = array();
 
-        if ($elenco_news ==! false )
-        {
+        if ($elenco_news ==! false ) {
 
             $ret_news = count($elenco_news);
 
-            for ($i = 0; $i < $ret_news; $i++)
-            {
+            for ($i = 0; $i < $ret_news; $i++) {
                 $news = $elenco_news[$i];
                 //var_dump($news);
                 $this_moderatore = ($user->isAdmin() || ($moderatore && $news->getIdUtente()==$user->getIdUser()));
@@ -92,11 +86,9 @@ class ShowMyNews extends PluginCommand {
                 $canali = $news->getIdCanali();
                 $num_canali =  count($canali);
                 $elenco_canali_tpl = array();
-                for ($j = 0; $j < $num_canali; $j++)
-                {
+                for ($j = 0; $j < $num_canali; $j++) {
                     $canale = Canale::retrieveCanale($canali[$j]);
-                    if ($canale->isGroupAllowed($user->getGroups()))
-                    {
+                    if ($canale->isGroupAllowed($user->getGroups())) {
                         $canale_tpl = array();
                         $canale_tpl['titolo'] = $canale->getNome();
                         $canale_tpl['link'] = $canale->showMe();

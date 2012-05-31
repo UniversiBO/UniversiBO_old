@@ -11,8 +11,6 @@ require_once('Error'.PHP_EXTENSION);
  * @license GPL {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-
-
 //some example callback handler functions...
 function my_function($param)
 {
@@ -24,8 +22,9 @@ function my_function($param)
     //die('esecuzione interrotta');
 }
 
-class handlers{
-    function my_method($param)
+class handlers
+{
+    public function my_method($param)
     {
         echo 'Errore: ',$param['msg'], '<br />
         file: ',$param['file'], '<br />
@@ -42,14 +41,11 @@ function my_function2($param)
     return 'Attenzione: '.$param['msg'].'<br /><br />';
 }
 
-
-
 // handler definition
 Error::setHandler(_ERROR_CRITICAL,'my_function');
 Error::setHandler(_ERROR_NOTICE,'my_function2');
 // also a class method can be defined as handler
 Error::setHandler(_ERROR_DEFAULT,array('Handlers','my_method'));
-
 
 //generation and on-the-fly throwing of an _ERROR_CRITICAL
 Error::throwError(_ERROR_CRITICAL,array('msg'=>'non puoi fare cos?!!!','file'=>__FILE__,'line'=>__LINE__));
@@ -61,7 +57,6 @@ Error::throwError(_ERROR_DEFAULT,array('msg'=>'questo ? un errore normale','file
 $mio_errore = new Error(_ERROR_DEFAULT, array('msg'=>'questo ? un altro messaggio di errore','file'=>__FILE__,'line'=>__LINE__));
 $mio_errore->throwError();
 
-
 //on-the-fly collecting of an _ERROR_NOTICE
 Error::collect(_ERROR_NOTICE,array('msg'=>'raccoglimi 2','file'=>__FILE__,'line'=>__LINE__));
 
@@ -70,9 +65,7 @@ $mio_errore = new Error(_ERROR_NOTICE, array('msg'=>'raccoglimi 1','file'=>__FIL
 $mio_errore->collect();
 
 //retrieving of all previously collected _ERROR_NOTICE and throwing them
-while ( ($current_error = Error::retrieve(_ERROR_NOTICE)) !== false )
-{
+while ( ($current_error = Error::retrieve(_ERROR_NOTICE)) !== false ) {
     echo $current_error->throwError();
 }
 
-?>

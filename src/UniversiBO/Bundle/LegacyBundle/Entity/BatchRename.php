@@ -27,7 +27,6 @@ class BatchRename
      */
     private $status;
 
-
     /**
      * Get id
      *

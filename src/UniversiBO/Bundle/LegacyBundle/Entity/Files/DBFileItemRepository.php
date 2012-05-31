@@ -148,7 +148,6 @@ class DBFileItemRepository extends DBRepository
 
         if ($rows == 0)
 
-
             return false;
         $files_list = array();
 
@@ -164,7 +163,6 @@ class DBFileItemRepository extends DBRepository
         }
 
         $res->free();
-
 
         return $files_list;
     }

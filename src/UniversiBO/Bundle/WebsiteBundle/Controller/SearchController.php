@@ -2,8 +2,6 @@
 
 namespace UniversiBO\Bundle\WebsiteBundle\Controller;
 
-
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -36,8 +34,8 @@ class SearchController extends Controller
         $news = array();
         $files = array();
 
-        foreach($index->find($query) as $hit) {
-            switch($hit->type) {
+        foreach ($index->find($query) as $hit) {
+            switch ($hit->type) {
                 case 'news':
                     $news[] = $hit->dbId;
                     break;

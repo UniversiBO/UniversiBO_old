@@ -72,7 +72,8 @@ require_once 'PHPUnit/TestSuite.php';
  * @category    PHP
  * @package     PHPUnit
  */
-class PHPUnit {
+class PHPUnit
+{
     function &run(&$suite) {
         $result = new PHPUnit_TestResult();
         $suite->run($result);
@@ -80,4 +81,3 @@ class PHPUnit {
         return $result;
     }
 }
-?>

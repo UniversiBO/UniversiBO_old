@@ -14,7 +14,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
 {
     /**
      * Tells if a username exists
-     * @param string $username
+     * @param  string  $username
      * @return boolean
      */
     public function usernameExists($username, $caseSensitive = false)
@@ -46,7 +46,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
     /**
      * Tells if an active directory username (email) exists
      *
-     * @param string $adUsername
+     * @param  string  $adUsername
      * @return boolean
      */
     public function activeDirectoryUsernameExists($adUsername)
@@ -84,7 +84,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
     }
 
     /**
-     * @param int $id
+     * @param  int    $id
      * @return string
      */
     public function getUsernameFromId($id)
@@ -145,7 +145,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
     /**
      * Insert a user
      *
-     * @param User $user
+     * @param  User    $user
      * @return boolean
      */
     public function insertUser(User $user)
@@ -430,7 +430,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
 
     public function findByUsername($username)
     {
-        if($this->isConvert()) {
+        if ($this->isConvert()) {
             $username = self::convertToUtf8($username);
         }
 

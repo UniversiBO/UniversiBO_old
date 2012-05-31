@@ -33,9 +33,9 @@ class ActiveDirectoryLogin
     }
 
     /**
-     * @param string $username
-     * @param string $domain
-     * @param string $password
+     * @param  string  $username
+     * @param  string  $domain
+     * @param  string  $password
      * @return boolean
      */
     public function authenticate($username, $domain, $password)
@@ -46,12 +46,9 @@ class ActiveDirectoryLogin
                 $errstr,  # error message if any
                 3);   # give up after 5 secs
 
-        if ( $javaADLoginSock == false )
-        {
+        if ( $javaADLoginSock == false ) {
             \Error::throwError(_ERROR_DEFAULT,array('msg'=>'Impossibile connettersi al server di autenticazione Active Directory di Ateneo, provare pi� tardi oppure segnalare l\'inconveniente allo staff','file'=>__FILE__,'line'=>__LINE__));
-        }
-        else
-        {
+        } else {
             $xml_request = '<?xml version="1.0" encoding="UTF-8"?><ADLogIn><user username="'. mb_convert_encoding($username, "UTF-8", "ISO-8859-1") .'" domain="'. mb_convert_encoding( $domain , "UTF-8", "ISO-8859-1") . '" password="'. mb_convert_encoding( $password , "UTF-8", "ISO-8859-1") . '" /></ADLogIn>';
             fputs ($javaADLoginSock, $xml_request."\n");
 

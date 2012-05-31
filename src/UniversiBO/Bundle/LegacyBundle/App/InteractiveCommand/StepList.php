@@ -19,23 +19,23 @@ class StepList
      * Lista_step
      * @access private
      */
-    var $Lista_step;
+    public $Lista_step;
 
     /**
      * @access private
      */
-    var $currentStep = 0;
+    public $currentStep = 0;
 
     /**
      * se vale -1 vuol dire che non c'è alcuno step completo
      * @access private
      */
-    var $lastGoodStep = self::EMPTY_VALUE;
+    public $lastGoodStep = self::EMPTY_VALUE;
 
     /**
      * @access private
      */
-    var $length = null;
+    public $length = null;
 
     /**
      *
@@ -58,7 +58,7 @@ class StepList
      * @access public
      * @return array array bidimensionale, stepname => array di valori
      */
-    function logMe()
+    public function logMe()
     {
         $value = array();
         foreach ($this->Lista_step as $item)
@@ -70,16 +70,14 @@ class StepList
     /**
      * @access private
      */
-    function isNextAllowed()
+    public function isNextAllowed()
     {
-        for ($i = ($this->lastGoodStep != self::EMPTY_VALUE) ? $this->lastGoodStep : 0; $i <= $this->currentStep; $i++)
-        {
+        for ($i = ($this->lastGoodStep != self::EMPTY_VALUE) ? $this->lastGoodStep : 0; $i <= $this->currentStep; $i++) {
 //			var_dump($i); echo "\n";
             $step = $this->getStep($i);
             // VERIFY � ammissibile che uno stato sia refused?
 //			var_dump($step); die;
-            if ($step->getState() != Step::COMPLETATO)
-            {
+            if ($step->getState() != Step::COMPLETATO) {
                 $this->lastGoodStep = max(self::EMPTY_VALUE, $i - 1);
 
                 return false;
@@ -94,7 +92,7 @@ class StepList
      * @access public
      * @return Step object of next step to go through if all is ok, last step otherwise
      */
-    function  getNextStep ()
+    public function  getNextStep ()
     {
         $item=(($this->isNextAllowed()) ? $this->currentStep : $this->lastGoodStep) + 1;
         $this->currentStep = min($this->getLength()-1, $item);
@@ -109,7 +107,7 @@ class StepList
      * @access public
      * @return Step object of precedent step , first step otherwise
      */
-    function  getPreviousStep()
+    public function  getPreviousStep()
     {
         $this->currentStep -= 1;
         $this->lastGoodStep = max(self::EMPTY_VALUE, $this->currentStep - 1);
@@ -123,9 +121,9 @@ class StepList
 
     /**
      * @access public
-     * @return object  current step
+     * @return object current step
      */
-    function  getCurrentStep()
+    public function  getCurrentStep()
     {
         return $this->Lista_step[$this->currentStep];
     }
@@ -134,7 +132,7 @@ class StepList
      * @access public
      * @return mixed array of i-th step, null if invalid index
      */
-    function  getFirstStep()
+    public function  getFirstStep()
     {
         $this->currentStep = 0;
         $this->lastGoodStep = self::EMPTY_VALUE;  // VERIFY ha senso modificare anche lastGoodStep?
@@ -146,7 +144,7 @@ class StepList
      * @access public
      * @return mixed array of i-th step, null if invalid index
      */
-    function  getLastStep()
+    public function  getLastStep()
     {
         $this->currentStep = $this->getLength();
 
@@ -155,39 +153,36 @@ class StepList
 
     /**
      * @access public
-     * @return boolean	true if the param is the last step
+     * @return boolean true if the param is the last step
      */
-    function isLastStep(&$step)
+    public function isLastStep(&$step)
     {
         return $step == $this->Lista_step[($this->getLength()) - 1];
     }
 
     /**
      * @access public
-     * @return boolean	true if the param is the first step
+     * @return boolean true if the param is the first step
      */
-    function isFirstStep(&$step)
+    public function isFirstStep(&$step)
     {
         return $step == $this->Lista_step[0];
     }
 
-
-
     /**
      * @access public
-     * @return boolean	true if all step are completed
+     * @return boolean true if all step are completed
      */
-    function isComplete()
+    public function isComplete()
     {
         return $this->isNextAllowed() && $this->currentStep == ($this->getLength() - 1);
     }
-
 
     /**
      * @access private
      * @return mixed array of i-th step, null if invalid index
      */
-    function  getStep($i)
+    public function  getStep($i)
     {
 //		var_dump($i);
 //		var_dump($this->Lista_step); die;
@@ -199,11 +194,10 @@ class StepList
     /**
      * @access public
      */
-    function getLength()
+    public function getLength()
     {
         if ($this->length == null)
             $this->length = count($this->Lista_step);
-
 
         return $this->length;
     }
@@ -211,7 +205,7 @@ class StepList
     /**
      * @access private
      */
-    function isValidIndex($i)
+    public function isValidIndex($i)
     {
         return $i >= 0 && $i < $this->getLength();
     }
@@ -219,7 +213,7 @@ class StepList
     /**
      * @access public
      */
-    function invalidateAllResult()
+    public function invalidateAllResult()
     {
         for ($i = 0; $i < $this->getLength(); $i++)
             $this->Lista_step[$i]->resetStep();
@@ -229,12 +223,11 @@ class StepList
     /**
      * @access public
      */
-    function resetInternalPointer()
+    public function resetInternalPointer()
     {
         $this->lastGoodStep = self::EMPTY_VALUE;
         $this->currentStep = 0;
     }
-
 
 //	/**
 //	 * @access private
@@ -255,7 +248,6 @@ class StepList
 //		$item = getStep($i);
 //		return $item['visited'];
 //	}
-
 
 //	/**
 //	 * @access private
@@ -280,7 +272,6 @@ class StepList
 //	{
 //		$this->Lista_step[$idStep]['visited'] = true;
 //	}
-
 
 }
 define('EMPTY_VALUE', StepList::EMPTY_VALUE);

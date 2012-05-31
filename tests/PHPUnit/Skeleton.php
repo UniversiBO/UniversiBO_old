@@ -50,54 +50,56 @@
  * @category    PHP
  * @package     PHPUnit
  */
-class PHPUnit_Skeleton {
+class PHPUnit_Skeleton
+{
     /**
      * Path to the class file to create a skeleton for.
      * @var string
      */
-    var $classPath;
+    public $classPath;
 
     /**
      * The name of the class
      * @var string
      */
-    var $className;
+    public $className;
 
     /**
      * Path to the configuration file needed by class to test.
      * @var string
      */
-    var $configFile;
+    public $configFile;
 
     /**
      * Whether or not to include the methods of the parent class when testing.
      * @var boolean
      */
-    var $includeParents;
+    public $includeParents;
 
     /**
      * Whether or not to test private methods.
      * @var boolean
      */
-    var $includePrivate;
+    public $includePrivate;
 
     /**
      * The test class that will be created.
      * @var string
      */
-    var $testClass;
+    public $testClass;
 
     /**
      * Constructor. Sets the class members and check that the class
      * to test is accessible.
      *
      * @access public
-     * @param string  $className
-     * @param string  $classPath
-     * @param boolean $includeParents Wheter to include the parent's methods in the test.
+     * @param  string  $className
+     * @param  string  $classPath
+     * @param  boolean $includeParents Wheter to include the parent's methods in the test.
      * @return void
      */
-    function PHPUnit_Skeleton($className, $classPath, $includeParents = FALSE, $includePrivate = TRUE) {
+    public function PHPUnit_Skeleton($className, $classPath, $includeParents = FALSE, $includePrivate = TRUE)
+    {
         // Set up the members.
         if (@is_readable($classPath)) {
             $this->className = $className;
@@ -118,10 +120,11 @@ class PHPUnit_Skeleton {
      * instantiated. This method lets you set that file.
      *
      * @access public
-     * @param string $configPath
+     * @param  string $configPath
      * @return void
      */
-    function setConfigFile($configFile) {
+    public function setConfigFile($configFile)
+    {
         // Check that the file is readable
         if (@is_readable($configFile)) {
             $this->configFile = $configFile;
@@ -141,7 +144,8 @@ class PHPUnit_Skeleton {
      * @param  none
      * @return void
      */
-    function createTestClass() {
+    public function createTestClass()
+    {
         // Instantiate the object.
         if (isset($this->configFile)) {
             require_once $this->configFile;
@@ -199,7 +203,8 @@ class PHPUnit_Skeleton {
      * @param  none
      * @return void
      */
-    function _createDefinition() {
+    public function _createDefinition()
+    {
         // Create header comment.
         $this->testClass =
           "/**\n" .
@@ -234,7 +239,8 @@ class PHPUnit_Skeleton {
      * @param  none
      * @return void
      */
-    function _createConstructor() {
+    public function _createConstructor()
+    {
         // Create the test class constructor.
         $this->testClass.=
           "    function " . $this->className . "Test(\$name)\n" .
@@ -257,7 +263,8 @@ class PHPUnit_Skeleton {
      * @param  none
      * @return void
      */
-    function _createSetUpTearDown() {
+    public function _createSetUpTearDown()
+    {
         // Create the setUp method.
         $this->testClass .=
           "    function setUp()\n" .
@@ -293,7 +300,8 @@ class PHPUnit_Skeleton {
      * @param  none
      * @return void
      */
-    function _createMethod($methodName) {
+    public function _createMethod($methodName)
+    {
         // Create a test method.
         $this->testClass .=
           "    function test" . $methodName . "()\n" .
@@ -314,7 +322,8 @@ class PHPUnit_Skeleton {
      * @param  none
      * @return void
      */
-    function _finishClass() {
+    public function _finishClass()
+    {
         // Close off the class.
         $this->testClass.= "}\n";
     }
@@ -334,7 +343,8 @@ class PHPUnit_Skeleton {
      * @param  none
      * @return void
      */
-    function _createTest() {
+    public function _createTest()
+    {
         // Create a call to the test.
         $test =
           "// Running the test.\n" .
@@ -354,11 +364,12 @@ class PHPUnit_Skeleton {
      * the test appended to the bottom of the file.
      *
      * @access public
-     * @param string  $destination The directory to write the file to.
-     * @param boolean $addTest     Wheter to add the test running code.
+     * @param  string  $destination The directory to write the file to.
+     * @param  boolean $addTest     Wheter to add the test running code.
      * @return void
      */
-    function writeTestClass($destination = './', $addTest = TRUE) {
+    public function writeTestClass($destination = './', $addTest = TRUE)
+    {
         // Check for something to write to file.
         if (!isset($this->testClass)) {
             $this->_handleErrors('Noting to write.', PHPUS_WARNING);
@@ -390,11 +401,12 @@ class PHPUnit_Skeleton {
      * handling method. (PEAR_ErrorStack)
      *
      * @access private
-     * @param string  $message The error message.
-     * @param integer $type    An indication of the severity of the error.
-     * @return void             Code may cause PHP to exit.
+     * @param  string  $message The error message.
+     * @param  integer $type    An indication of the severity of the error.
+     * @return void    Code may cause PHP to exit.
      */
-    function _handleErrors($message, $type = E_USER_ERROR) {
+    public function _handleErrors($message, $type = E_USER_ERROR)
+    {
         // For now just echo the message.
         echo $message;
 
@@ -404,4 +416,3 @@ class PHPUnit_Skeleton {
         }
     }
 }
-?>

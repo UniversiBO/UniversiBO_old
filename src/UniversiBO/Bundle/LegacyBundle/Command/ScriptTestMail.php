@@ -13,7 +13,7 @@ use UniversiBO\Bundle\LegacyBundle\Entity\Notifica\NotificaMail;
 class ScriptTestMail extends UniversiboCommand
 {
 
-    function execute()
+    public function execute()
     {
         $fc = $this->getFrontController();
         $template = $fc->getTemplateEngine();

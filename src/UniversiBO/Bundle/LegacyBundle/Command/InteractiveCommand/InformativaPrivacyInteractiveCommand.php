@@ -19,7 +19,8 @@ use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
 class InformativaPrivacyInteractiveCommand extends BaseInteractiveCommand
 {
-    public function __construct ($baseCommand) {
+    public function __construct ($baseCommand)
+    {
         parent::__construct($baseCommand);
 
         // Da qui si pu� personalizzare il contenuto che comparir�. Meglio qui o direttamente nel tpl? ah, se avessimo risolto il problema dei testi ..
@@ -28,11 +29,11 @@ class InformativaPrivacyInteractiveCommand extends BaseInteractiveCommand
         $this->navigationLang['next'] = 'accetta';
     }
 
-    function call_informativa ( & $item) {
+    public function call_informativa ( & $item)
+    {
         // normal view
         $formValues = $this->getCurrentValues($item);
-        if (isset($_POST['action']))
-        {
+        if (isset($_POST['action'])) {
             // postback
 
             //NB i valori che rimangono settati in item vengono loggati, quindi ripulire da quelli che non servono
@@ -48,7 +49,7 @@ class InformativaPrivacyInteractiveCommand extends BaseInteractiveCommand
      * @access private
      * @return array actual form values
      */
-    function getCurrentValues(& $item)
+    public function getCurrentValues(& $item)
     {
         $values = $item->getValues();
         $valoriForm = (count($values) > 0) ? $values :

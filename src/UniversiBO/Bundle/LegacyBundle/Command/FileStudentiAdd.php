@@ -25,7 +25,7 @@ use UniversiBO\Bundle\LegacyBundle\Entity\User;
 class FileStudentiAdd extends UniversiboCommand
 {
 
-    function execute()
+    public function execute()
     {
 
         $frontcontroller = &$this->getFrontController();
@@ -41,8 +41,7 @@ class FileStudentiAdd extends UniversiboCommand
                             'msg' => "Per questa operazione bisogna essere registrati\n la sessione potrebbe essere terminata",
                             'file' => __FILE__, 'line' => __LINE__));
         }
-        /*		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
-                {
+        /*		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
                     Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non ? valido', 'file' => __FILE__, 'line' => __LINE__));
                 }
 
@@ -307,8 +306,7 @@ class FileStudentiAdd extends UniversiboCommand
             //			elseif ($_POST['f23_abstract'] == '') {
             //				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'La descrizione/abstract del file deve essere inserita obbligatoriamente', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
             //				$f23_accept = false;
-            //			}
- elseif ($_POST['f23_abstract'] == '') {
+            //			} elseif ($_POST['f23_abstract'] == '') {
                 $f23_abstract = $f23_titolo;
             } else
                 $f23_abstract = $_POST['f23_abstract'];

@@ -21,7 +21,7 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 class ContattoDocenteAdd extends UniversiboCommand
 {
 
-    function execute()
+    public function execute()
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();

@@ -25,109 +25,108 @@ class PrgAttivitaDidattica extends Canale
     /**
      * @private
      */
-    var $annoAccademico;
+    public $annoAccademico;
 
     /**
      * @private
      */
-    var $codiceCdl; //(cod_corso)
+    public $codiceCdl; //(cod_corso)
 
     /**
      * @private
      */
-    var $codInd;
+    public $codInd;
 
     /**
      * @private
      */
-    var $codOri;
+    public $codOri;
 
     /**
      * @private
      */
-    var $codMateria;
+    public $codMateria;
 
     /**
      * @private
      */
-    var $nomeMateria;
+    public $nomeMateria;
 
     /**
      * @private
      */
-    var $annoCorso;
+    public $annoCorso;
 
     /**
      * @private
      */
-    var $codMateriaIns;
+    public $codMateriaIns;
 
     /**
      * @private
      */
-    var $nomeMateriaIns;
+    public $nomeMateriaIns;
 
     /**
      * @private
      */
-    var $annoCorsoIns;
+    public $annoCorsoIns;
 
     /**
      * @private
      */
-    var $codRil;
+    public $codRil;
 
     /**
      * @private
      */
-    var $codModulo;
+    public $codModulo;
 
     /**
      * @private
      */
-    var $codDoc;
+    public $codDoc;
 
     /**
      * @private
      */
-    var $nomeDoc;
+    public $nomeDoc;
 
     /**
      * @private
      */
-    var $flagTitolareModulo;
+    public $flagTitolareModulo;
 
     /**
      * @private
      */
-    var $tipoCiclo;
+    public $tipoCiclo;
 
     /**
      * @private
      */
-    var $codAte;
+    public $codAte;
 
     /**
      * @private
      */
-    var $annoCorsoUniversibo;
+    public $annoCorsoUniversibo;
 
     /**
      * @private
      */
-    var $sdoppiato;
+    public $sdoppiato;
 
     /**
      * null se attivit� padre, id_sdop se attivit� sdoppiato (integer)
      * @private
      */
-    var $id_sdop;
+    public $id_sdop;
 
     /**
      * @var DBPrgAttivitaDidatticaRepository
      */
     private static $repository;
-
 
     /**
      * Crea un oggetto PrgAttivitaDidattica
@@ -146,25 +145,25 @@ class PrgAttivitaDidattica extends Canale
      * @param int     $forum_group_id  se forum_attivo ? true indica l'identificativo del grupop moderatori del forum su database
      * @param boolean $links_attivo    se true il servizio links ? attivo
      *
-     * @param int     $annoAccademico
-     * @param string  $codiceCdl
-     * @param string  $codInd
-     * @param string  $codOri
-     * @param string  $codMateria
-     * @param string  $nomeMateria
-     * @param string  $annoCorso
-     * @param string  $codMateriaIns
-     * @param string  $nomeMateriaIns
-     * @param int     $annoCorsoIns
-     * @param string  $codRil
-     * @param string  $codModulo
-     * @param string  $codDoc
-     * @param string  $nomeDoc             //questo sar? da cambiare in futuro qualora si voglia riferire un oggetto docente
-     * @param string  $flagTitolareModulo
-     * @param string  $tipoCiclo
-     * @param string  $codAte
-     * @param int     $annoCorsoUniversibo
-     * @param boolean $sdoppiato
+     * @param  int          $annoAccademico
+     * @param  string       $codiceCdl
+     * @param  string       $codInd
+     * @param  string       $codOri
+     * @param  string       $codMateria
+     * @param  string       $nomeMateria
+     * @param  string       $annoCorso
+     * @param  string       $codMateriaIns
+     * @param  string       $nomeMateriaIns
+     * @param  int          $annoCorsoIns
+     * @param  string       $codRil
+     * @param  string       $codModulo
+     * @param  string       $codDoc
+     * @param  string       $nomeDoc             //questo sar? da cambiare in futuro qualora si voglia riferire un oggetto docente
+     * @param  string       $flagTitolareModulo
+     * @param  string       $tipoCiclo
+     * @param  string       $codAte
+     * @param  int          $annoCorsoUniversibo
+     * @param  boolean      $sdoppiato
      * @return Insegnamento
      */
     public function __construct($id_canale, $permessi, $ultima_modifica, $tipo_canale, $immagine,
@@ -204,197 +203,197 @@ class PrgAttivitaDidattica extends Canale
 
 
 
-    function getAnnoAccademico()
+    public function getAnnoAccademico()
     {
         return  $this->annoAccademico;
     }
 
-    function setAnnoAccademico($value)
+    public function setAnnoAccademico($value)
     {
         $this->annoAccademico = $value;
     }
 
 
-    function getCodiceCdl()
+    public function getCodiceCdl()
     {
         return  $this->codiceCdl;
     }
 
-    function setCodiceCdl($value)
+    public function setCodiceCdl($value)
     {
         $this->codiceCdl = $value;
     }
 
 
-    function getCodInd()
+    public function getCodInd()
     {
         return  $this->codInd;
     }
 
-    function setCodInd($value)
+    public function setCodInd($value)
     {
         $this->codInd = $value;
     }
 
 
-    function getCodOri()
+    public function getCodOri()
     {
         return  $this->codOri;
     }
 
-    function setCodOri($value)
+    public function setCodOri($value)
     {
         $this->codOri = $value;
     }
 
 
-    function getCodMateria()
+    public function getCodMateria()
     {
         return  $this->codMateria;
     }
 
-    function setCodMateria($value)
+    public function setCodMateria($value)
     {
         $this->codMateria = $value;
     }
 
 
-    function getNomeMateria()
+    public function getNomeMateria()
     {
         return  $this->nomeMateria;
     }
 
-    function setNomeMateria($value)
+    public function setNomeMateria($value)
     {
         $this->nomeMateria = $value;
     }
 
 
-    function getAnnoCorso()
+    public function getAnnoCorso()
     {
         return  $this->annoCorso;
     }
 
-    function setAnnoCorso($value)
+    public function setAnnoCorso($value)
     {
         $this->annoCorso = $value;
     }
 
 
-    function getCodMateriaIns()
+    public function getCodMateriaIns()
     {
         return  $this->codMateriaIns;
     }
 
-    function setCodMateriaIns($value)
+    public function setCodMateriaIns($value)
     {
         $this->codMateriaIns = $value;
     }
 
 
-    function getNomeMateriaIns()
+    public function getNomeMateriaIns()
     {
         return  $this->nomeMateriaIns;
     }
 
-    function setNomeMateriaIns($value)
+    public function setNomeMateriaIns($value)
     {
         $this->nomeMateriaIns = $value;
     }
 
 
-    function getAnnoCorsoIns()
+    public function getAnnoCorsoIns()
     {
         return  $this->annoCorsoIns;
     }
 
-    function setAnnoCorsoIns($value)
+    public function setAnnoCorsoIns($value)
     {
         $this->annoCorsoIns = $value;
     }
 
-    function getCodRil()
+    public function getCodRil()
     {
         return  $this->codRil;
     }
 
-    function setCodRil($value)
+    public function setCodRil($value)
     {
         $this->codRil = $value;
     }
 
-    function getCodModulo()
+    public function getCodModulo()
     {
         return  $this->codModulo;
     }
 
-    function setCodModulo($value)
+    public function setCodModulo($value)
     {
         $this->codModulo = $value;
     }
 
 
-    function getCodDoc()
+    public function getCodDoc()
     {
         return  $this->codDoc;
     }
 
-    function setCodDoc($value)
+    public function setCodDoc($value)
     {
         $this->codDoc = $value;
     }
 
 
-    function getNomeDoc()
+    public function getNomeDoc()
     {
         return  $this->nomeDoc;
     }
 
-    function setNomeDoc($value)
+    public function setNomeDoc($value)
     {
         $this->nomeDoc = $value;
     }
 
 
-    function isTitolareModulo()
+    public function isTitolareModulo()
     {
         return  $this->flagTitolareModulo == 'S';
     }
 
-    function setTitolareModulo($value)
+    public function setTitolareModulo($value)
     {
         $this->flagTitolareModulo = ($value == true) ? 'S' : 'N';
     }
 
 
-    function getTipoCiclo()
+    public function getTipoCiclo()
     {
         return  $this->tipoCiclo;
     }
 
-    function setTipoCiclo($value)
+    public function setTipoCiclo($value)
     {
         $this->tipoCiclo = $value;
     }
 
 
-    function getCodAte()
+    public function getCodAte()
     {
         return  $this->codAte;
     }
 
-    function setCodAte($value)
+    public function setCodAte($value)
     {
         $this->codAte = $value;
     }
 
 
-    function getAnnoCorsoUniversibo()
+    public function getAnnoCorsoUniversibo()
     {
         return  $this->annoCorsoUniversibo;
     }
 
-    function setAnnoCorsoUniversibo($value)
+    public function setAnnoCorsoUniversibo($value)
     {
         $this->annoCorsoUniversibo = $value;
     }
@@ -411,7 +410,7 @@ class PrgAttivitaDidattica extends Canale
     //	}
 
 
-    function isSdoppiato()
+    public function isSdoppiato()
     {
         return  $this->sdoppiato;
     }
@@ -425,7 +424,7 @@ class PrgAttivitaDidattica extends Canale
      *
      * @return string
      */
-    function getTranslatedCodRil($cod_ril = NULL)
+    public function getTranslatedCodRil($cod_ril = NULL)
     {
         if ($cod_ril == NULL) $cod_ril = $this->getCodRil();
 
@@ -441,30 +440,27 @@ class PrgAttivitaDidattica extends Canale
      *
      * @return string
      */
-    function getNome()
+    public function getNome()
     {
         return $this->getNomeMateriaIns().' '.$this->getTranslatedCodRil();
     }
-
-
 
     /**
      * Restituisce il titolo/nome completo dell'attivit? didattica
      *
      * @return string
      */
-    function getTitolo()
+    public function getTitolo()
     {
         return 'ATTIVITA\' DIDATTICA DI '.$this->getNome();
     }
-
 
     /**
      * Restituisce l'id_sdop se attivit� sdoppiata, null altrimenti
      *
      * @return string
      */
-    function getIdSdop()
+    public function getIdSdop()
     {
         return $this->id_sdop;
     }
@@ -477,7 +473,7 @@ class PrgAttivitaDidattica extends Canale
      * Ridefinisce il factory method della classe padre per restituire un oggetto
      * del tipo PrgAttivitaDidattica
      *
-     * @param int $id_canale numero identificativo del canale
+     * @param  int   $id_canale numero identificativo del canale
      * @return mixed Facolta se eseguita con successo, false se il canale non esiste
      */
     public static function factoryCanale($id_canale)
@@ -490,7 +486,7 @@ class PrgAttivitaDidattica extends Canale
      * è quello corrispondendete alla chiave indicata, e i successivi sono tutti i suoi sdoppiati
      *
      * @static
-     * @param int $id_canale identificativo su DB del canale corrispondente al corso di laurea
+     * @param  int   $id_canale identificativo su DB del canale corrispondente al corso di laurea
      * @return mixed array di PrgAttivitaDidattica se eseguita con successo, false se il canale non esiste
      */
     public static function selectPrgAttivitaDidattica($anno_accademico, $cod_corso, $cod_ind, $cod_ori, $cod_materia,
@@ -567,12 +563,11 @@ class PrgAttivitaDidattica extends Canale
 
         $rows = $res->numRows();
 
-        if( $rows == 0) {
+        if ( $rows == 0) {
             $ret = array(); return $ret;
         }
         $elenco = array();
-        while (	$res->fetchInto($row) )
-        {
+        while (	$res->fetchInto($row) ) {
             $prgAtt = new PrgAttivitaDidattica( $row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
                     $row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S',
                     $row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21],
@@ -593,7 +588,7 @@ class PrgAttivitaDidattica extends Canale
      * tra gli sdoppiati non sono presi quelli con lo stesso cod_ind e cod_ori
      *
      * @deprecated
-     * @param int $id_canale identificativo su DB del canale corrispondente al corso di laurea
+     * @param  int   $id_canale identificativo su DB del canale corrispondente al corso di laurea
      * @return mixed array di PrgAttivitaDidattica se eseguita con successo, false se il canale non esiste
      */
     public static function selectPrgAttivitaDidatticaCanale($id_canale)
@@ -606,7 +601,7 @@ class PrgAttivitaDidattica extends Canale
      * con id id_sdop
      *
      * @static
-     * @param int $id_sdop identificativo dell'attivit� sdoppiata
+     * @param  int   $id_sdop identificativo dell'attivit� sdoppiata
      * @return mixed PrgAttivitaDidattica se eseguita con successo, false se il canale non esiste
      */
     public static function selectPrgAttivitaDidatticaSdoppiata($id_sdop)
@@ -651,7 +646,7 @@ class PrgAttivitaDidattica extends Canale
 
         $rows = $res->numRows();
 
-        if( $rows == 0) {
+        if ( $rows == 0) {
             $ret = array(); return $ret;
         }
 
@@ -667,7 +662,6 @@ class PrgAttivitaDidattica extends Canale
         return $prgAtt;
     }
 
-
     /*
      * Seleziona da database e restituisce l'oggetto Cdl
     * corrispondente al codice $cod_cdl
@@ -677,7 +671,7 @@ class PrgAttivitaDidattica extends Canale
     * @param string $cod_cdl stringa a 4 cifre del codice d'ateneo del corso di laurea
     * @return Facolta
     *
-    function selectPrgAttivitaDidatticaCodice( ...tutta la chiave... )
+    public function selectPrgAttivitaDidatticaCodice( ...tutta la chiave... )
     {
     $db = FrontController::getDbConnection('main');
 
@@ -697,7 +691,6 @@ class PrgAttivitaDidattica extends Canale
     return $prgAtt;
     }
     */
-
 
     /**
      * Seleziona da database e restituisce un'array contenente l'elenco
@@ -758,8 +751,7 @@ class PrgAttivitaDidattica extends Canale
          */
 
         $res = $db->query($query);
-        if (DB::isError($res))
-        {
+        if (DB::isError($res)) {
             Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
             return false;
@@ -767,15 +759,13 @@ class PrgAttivitaDidattica extends Canale
 
         $rows = $res->numRows();
 
-        if( $rows == 0)
-        {
+        if ( $rows == 0) {
             $array = array();
 
             return $array;
         }
         $elenco = array();
-        while (	$res->fetchInto($row) )
-        {
+        while (	$res->fetchInto($row) ) {
             $prgAtt = new PrgAttivitaDidattica( $row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
                     $row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S',
                     $row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21],
@@ -796,7 +786,6 @@ class PrgAttivitaDidattica extends Canale
         return self::getRepository()->update($this);
     }
 
-
     /**
      * @return DBPrgAttivitaDidatticaRepository
      */
@@ -806,7 +795,6 @@ class PrgAttivitaDidattica extends Canale
             self::$repository = new DBPrgAttivitaDidatticaRepository(
                     FrontController::getDbConnection('main'));
         }
-
 
         return self::$repository;
     }

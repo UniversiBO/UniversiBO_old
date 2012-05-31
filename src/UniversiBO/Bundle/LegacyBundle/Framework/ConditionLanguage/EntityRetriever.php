@@ -3,7 +3,7 @@ namespace UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage;
 
 class EntityRetriever implements IExecutor
 {
-    var $entityTable = array();
+    public $entityTable = array();
 
     public function __constructor($froncontroller,$user)
     {

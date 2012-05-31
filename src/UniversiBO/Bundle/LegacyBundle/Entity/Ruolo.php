@@ -9,7 +9,6 @@ define('NOTIFICA_NONE'   ,0);
 define('NOTIFICA_URGENT' ,1);
 define('NOTIFICA_ALL'    ,2);
 
-
 /**
  * Classe Ruolo, contiene informazioni relative alle propriet? che legano uno User ad un Canale
  *
@@ -23,8 +22,8 @@ define('NOTIFICA_ALL'    ,2);
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  * @copyright CopyLeft UniversiBO 2001-2003
  */
-class Ruolo {
-
+class Ruolo
+{
     const NONE = 0;
     const MODERATORE = 1;
     const REFERENTE = 2;
@@ -32,57 +31,57 @@ class Ruolo {
     /**
      * @access private
      */
-    var $id_utente = 0;
+    public $id_utente = 0;
 
     /**
      * @access private
      */
-    var $id_canale = 0;
+    public $id_canale = 0;
 
     /**
      * @access private
      */
-    var $user = NULL; //riferimento all'oggetto canale
+    public $user = NULL; //riferimento all'oggetto canale
 
     /**
      * @access private
      */
-    var $canale = NULL;  //riferimento all'oggetto user
+    public $canale = NULL;  //riferimento all'oggetto user
 
     /**
      * @access private
      */
-    var $nome = '';
+    public $nome = '';
 
     /**
      * @access private
      */
-    var $ultimoAccesso = 0;
+    public $ultimoAccesso = 0;
 
     /**
      * @access private
      */
-    var $tipoNotifica = '';
+    public $tipoNotifica = '';
 
     /**
      * @access private
      */
-    var $myUniversibo = true;
+    public $myUniversibo = true;
 
     /**
      * @access private
      */
-    var $moderatore = false;
+    public $moderatore = false;
 
     /**
      * @access private
      */
-    var $referente = false;
+    public $referente = false;
 
     /**
      * @access private
      */
-    var $nascosto = false;
+    public $nascosto = false;
 
 
     /**
@@ -94,16 +93,16 @@ class Ruolo {
      * Crea un oggetto Ruolo
      *
      * @see selectRuolo
-     * @param int     $id_utente      numero identificativo utente
-     * @param int     $id_canale      numero identificativo canale
-     * @param string  $nome           nome		identificativo del ruolo (stringa personalizzata dall'utente per identificare il canale)
-     * @param int     $ultimo_accesso timestamp dell'ultimo accesso al canale da parete dell'utente
-     * @param boolean $moderatore     true se l'utente possiede diritti di moderatore sul canale
-     * @param boolean $referente      true se l'utente possiede diritti di referente sul canale
-     * @param boolean $my_universibo  true se l'utente ha inserito il canale tra i suoi preferiti
-     * @param boolean $nascosto       se il ruolo ? nascosto o visibile da tutti
-     * @param User    $user           riferimento all'oggetto User
-     * @param Canale  $canale         riferimento all'oggetto Canale
+     * @param  int     $id_utente      numero identificativo utente
+     * @param  int     $id_canale      numero identificativo canale
+     * @param  string  $nome           nome		identificativo del ruolo (stringa personalizzata dall'utente per identificare il canale)
+     * @param  int     $ultimo_accesso timestamp dell'ultimo accesso al canale da parete dell'utente
+     * @param  boolean $moderatore     true se l'utente possiede diritti di moderatore sul canale
+     * @param  boolean $referente      true se l'utente possiede diritti di referente sul canale
+     * @param  boolean $my_universibo  true se l'utente ha inserito il canale tra i suoi preferiti
+     * @param  boolean $nascosto       se il ruolo ? nascosto o visibile da tutti
+     * @param  User    $user           riferimento all'oggetto User
+     * @param  Canale  $canale         riferimento all'oggetto Canale
      * @return Ruolo
      */
 
@@ -132,19 +131,17 @@ class Ruolo {
      *
      * @return int
      */
-    function getIdUser()
+    public function getIdUser()
     {
         return $this->id_utente;
     }
-
-
 
     /**
      * Ritorna l'ID del canale nel database
      *
      * @return int
      */
-    function getIdCanale()
+    public function getIdCanale()
     {
         return $this->id_canale;
     }
@@ -156,27 +153,23 @@ class Ruolo {
      *
      * @return User
      */
-    function getUser()
+    public function getUser()
     {
-        if ($this->user == NULL)
-        {
+        if ($this->user == NULL) {
             $this->user = User::selectUser($this->getIdUser());
         }
 
         return $this->user;
     }
 
-
-
     /**
      * Restituisce l'oggetto Canale collegato al ruolo
      *
      * @return Canale
      */
-    function getCanale()
+    public function getCanale()
     {
-        if ($this->canale == NULL)
-        {
+        if ($this->canale == NULL) {
             $this->canale = Canale::selectCanale($this->getIdCanale());
         }
 
@@ -190,26 +183,24 @@ class Ruolo {
      *
      * @return int livello di notifica
      */
-    function getNome()
+    public function getNome()
     {
         return $this->nome;
     }
-
-
 
     /**
      * Imposta il nome del canale corrente specificato dal'utente
      *
      * @deprecated
-     * @param string  $nome     nome del canale corrente specificato dal'utente
-     * @param boolean $updateDB se true la modifica viene propagata al DB
+     * @param  string  $nome     nome del canale corrente specificato dal'utente
+     * @param  boolean $updateDB se true la modifica viene propagata al DB
      * @return boolean true se avvenuta con successo
      */
     public function updateNome($nome, $updateDB = false)
     {
         $this->setNome($nome);
 
-        if($updateDB) {
+        if ($updateDB) {
             return self::getRepository()->updateNome($this);
         }
 
@@ -221,13 +212,12 @@ class Ruolo {
         $this->nome = $nome;
     }
 
-
     /**
      * Ritorna l'ultimo accesso dell'utente al canale
      *
      * @return int timestamp dell'ultimo accesso
      */
-    function getUltimoAccesso()
+    public function getUltimoAccesso()
     {
         return $this->ultimoAccesso;
     }
@@ -235,15 +225,15 @@ class Ruolo {
     /**
      * Imposta l'ultimo accesso dell'utente al canale
      * @deprecated
-     * @param int     $ultimo_accesso timestamp dell'ultimo accesso
-     * @param boolean $updateDB       se true la modifica viene propagata al DB
+     * @param  int     $ultimo_accesso timestamp dell'ultimo accesso
+     * @param  boolean $updateDB       se true la modifica viene propagata al DB
      * @return boolean true se avvenuta con successo
      */
     public function updateUltimoAccesso($ultimoAccesso, $updateDB = false)
     {
         $this->setUltimoAccesso($ultimoAccesso);
 
-        if($updateDB) {
+        if ($updateDB) {
             return self::getRepository()->updateUltimoAccesso($this);
         }
 
@@ -263,7 +253,7 @@ class Ruolo {
      *
      * @return int livello di notifica
      */
-    function getTipoNotifica()
+    public function getTipoNotifica()
     {
         return $this->tipoNotifica;
     }
@@ -277,14 +267,12 @@ class Ruolo {
      *
      * @return int livello di notifica
      */
-    function getLivelliNotifica()
+    public function getLivelliNotifica()
     {
         return array(	NOTIFICA_NONE => 'Nessuna',
                 NOTIFICA_URGENT => 'Solo Urgenti',
                 NOTIFICA_ALL => 'Tutti');
     }
-
-
 
     /**
      * Imposta il livello di notifica dell'utente nel canale corrente
@@ -293,15 +281,15 @@ class Ruolo {
      * define('NOTIFICA_ALL'    ,2);
      *
      * @deprecated
-     * @param int     $tipo_notifica livello di notifica
-     * @param boolean $updateDB      se true la modifica viene propagata al DB
+     * @param  int     $tipo_notifica livello di notifica
+     * @param  boolean $updateDB      se true la modifica viene propagata al DB
      * @return boolean true se avvenuta con successo
      */
     public function updateTipoNotifica($tipoNotifica, $updateDB = false)
     {
         $this->setTipoNotifica($tipoNotifica);
 
-        if($updateDB) {
+        if ($updateDB) {
             return self::getRepository()->updateTipoNotifica($this);
         }
 
@@ -317,9 +305,9 @@ class Ruolo {
     /**
      * Verifica se nel ruolo corrente l'utente ? moderatore del cananle
      *
-     * @return boolean	true se ? moderatore, viceversa false
+     * @return boolean true se ? moderatore, viceversa false
      */
-    function isModeratore()
+    public function isModeratore()
     {
         return $this->moderatore;
     }
@@ -327,21 +315,20 @@ class Ruolo {
     /**
      * Imposta i diritti di moderatore nel ruolo
      *
-     * @param boolean $moderatore livello di notifica
-     * @param boolean $updateDB   se true la modifica viene propagata al DB
-     * @return	boolean	true se avvenuta con successo
+     * @param  boolean $moderatore livello di notifica
+     * @param  boolean $updateDB   se true la modifica viene propagata al DB
+     * @return boolean true se avvenuta con successo
      */
-    function updateSetModeratore($moderatore, $updateDB = false)
+    public function updateSetModeratore($moderatore, $updateDB = false)
     {
         $this->setModeratore($moderatore);
 
-        if($updateDB) {
+        if ($updateDB) {
             return self::getRepository()->updateModeratore($this);
         }
 
         return true;
     }
-
 
     public function setModeratore($moderatore)
     {
@@ -351,9 +338,9 @@ class Ruolo {
     /**
      * Verifica se nel ruolo corrente l'utente ? referente del canale
      *
-     * @return boolean	true se ? referente, viceversa false
+     * @return boolean true se ? referente, viceversa false
      */
-    function isReferente()
+    public function isReferente()
     {
         return $this->referente;
     }
@@ -363,9 +350,9 @@ class Ruolo {
     /**
      * Verifica se nel ruolo corrente l'utente ? referente del canale
      *
-     * @return boolean	true se ? referente, viceversa false
+     * @return boolean true se ? referente, viceversa false
      */
-    function isNascosto()
+    public function isNascosto()
     {
         return $this->nascosto;
     }
@@ -373,15 +360,15 @@ class Ruolo {
     /**
      * Imposta i diritti di referente nel ruolo
      *
-     * @param boolean $referente livello di notifica
-     * @param boolean $updateDB  se true la modifica viene propagata al DB
-     * @return	boolean	true se avvenuta con successo
+     * @param  boolean $referente livello di notifica
+     * @param  boolean $updateDB  se true la modifica viene propagata al DB
+     * @return boolean true se avvenuta con successo
      */
     public function updateSetReferente($referente, $updateDB = false)
     {
         $this->setReferente($referente);
 
-        if($updateDB) {
+        if ($updateDB) {
             return self::getRepository()->updateReferente($this);
         }
 
@@ -396,23 +383,21 @@ class Ruolo {
     /**
      * Verifica se nel ruolo corrente l'utente ? tra i canali scelti dall'utente
      *
-     * @return boolean	true se ? referente, viceversa false
+     * @return boolean true se ? referente, viceversa false
      */
-    function isMyUniversibo()
+    public function isMyUniversibo()
     {
         return $this->myUniversibo;
     }
 
-
-
     /**
      * Aggiunge il canale
      *
-     * @param boolean $referente livello di notifica
-     * @param boolean $updateDB  se true la modifica viene propagata al DB
-     * @return	boolean	true se avvenuta con successo
+     * @param  boolean $referente livello di notifica
+     * @param  boolean $updateDB  se true la modifica viene propagata al DB
+     * @return boolean true se avvenuta con successo
      */
-    function updateAddMyUniversibo($updateDB = false)
+    public function updateAddMyUniversibo($updateDB = false)
     {
         $this->setMyUniversibo(true, $updateDB);   //non l'ho capita, non ricorda che fa! ma funziona!?
     }
@@ -420,18 +405,17 @@ class Ruolo {
     /**
      * Imposta la selezione preferiti MyUniversibo relativo all'utente (che spiegazione del cavolo)
      *
-     * @param boolean $my_universibo livello di notifica
-     * @param boolean $updateDB      se true la modifica viene propagata al DB
-     * @return	boolean	true se avvenuta con successo
+     * @param  boolean $my_universibo livello di notifica
+     * @param  boolean $updateDB      se true la modifica viene propagata al DB
+     * @return boolean true se avvenuta con successo
      */
     public function setMyUniversibo($my_universibo, $updateDB = false)
     {
         $this->myUniversibo = $my_universibo;
 
-        if($updateDB) {
+        if ($updateDB) {
             return self::getRepository()->updateMyUniversibo($this);
         }
-
 
         return true;
     }
@@ -440,9 +424,9 @@ class Ruolo {
      * Verifica se un ruolo esiste nel database
      *
      * @static
-     * @param int $id_utente numero identificativo utente
-     * @param int $id_canale numero identificativo canale
-     * @return boolean	false se il ruolo non esiste
+     * @param  int     $id_utente numero identificativo utente
+     * @param  int     $id_canale numero identificativo canale
+     * @return boolean false se il ruolo non esiste
      */
     public function ruoloExists($id_utente, $id_canale)
     {
@@ -452,9 +436,9 @@ class Ruolo {
     /**
      * Preleva un ruolo da database
      *
-     * @param int $id_utente numero identificativo utente
-     * @param int $id_canale numero identificativo canale
-     * @return Ruolo 	false se il ruolo non esiste
+     * @param  int   $id_utente numero identificativo utente
+     * @param  int   $id_canale numero identificativo canale
+     * @return Ruolo false se il ruolo non esiste
      */
     public static function selectRuolo($id_utente, $id_canale)
     {
@@ -465,27 +449,25 @@ class Ruolo {
      * Preleva tutti i ruoli di un utente da database
      *
      * @static
-     * @param int $id_utente numero identificativo utente
-     * @return mixed    array di oggetti Ruolo, false se non esistono ruoli
+     * @param  int   $id_utente numero identificativo utente
+     * @return mixed array di oggetti Ruolo, false se non esistono ruoli
      */
     public function selectUserRuoli($idUtente)
     {
         return self::getRepository()->findByIdUtente($idUtente);
     }
 
-
     /**
      * Preleva tutti i ruoli di un canale da database
      *
      * @deprecated
-     * @param int $id_canale numero identificativo del canale
-     * @return mixed    array di oggetti Ruolo
+     * @param  int   $id_canale numero identificativo del canale
+     * @return mixed array di oggetti Ruolo
      */
     public static function selectCanaleRuoli($id_canale)
     {
         return self::getRepository()->findByIdCanale($id_canale);
     }
-
 
     public function updateRuolo()
     {
@@ -512,8 +494,7 @@ class Ruolo {
      */
     private static function getRepository()
     {
-        if(is_null(self::$repository))
-        {
+        if (is_null(self::$repository)) {
             self::$repository = new DBRuoloRepository(FrontController::getDbConnection('main'));
         }
 

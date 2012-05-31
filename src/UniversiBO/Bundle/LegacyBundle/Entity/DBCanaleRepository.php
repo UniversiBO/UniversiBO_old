@@ -69,8 +69,7 @@ class DBCanaleRepository extends DBRepository
         if( $rows == 0) return false;
 
         $elenco_canali = array();
-        while ($row = $this->fetchRow($res))
-        {
+        while ($row = $this->fetchRow($res)) {
             //var_dump($row);
             $elenco_canali[] = new Canale($row[12], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
                     $row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[13]=='S' );
@@ -93,8 +92,7 @@ class DBCanaleRepository extends DBRepository
         if( $rows == 0) return false;
 
         $elenco_canali = array();
-        while ($row = $this->fetchRow($res))
-        {
+        while ($row = $this->fetchRow($res)) {
             //var_dump($row);
             $elenco_canali[] = $row[0];
         }
@@ -113,17 +111,15 @@ class DBCanaleRepository extends DBRepository
             $this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         $rows = $db->affectedRows();
 
-        if($rows == 1) {
+        if ($rows == 1) {
             $ok = true;
-        }
-        elseif($rows == 0){
+        } elseif ($rows == 0) {
             $ok = false;
-        }
-        else {
+        } else {
             $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database: canale non unico','file'=>__FILE__,'line'=>__LINE__));
         }
 
-        if($ok) {
+        if ($ok) {
             $query = 'SELECT visite FROM canale WHERE id_canale = '.$db->quote($canale->getIdCanale());
             $res = $db->query($query);
             $row = $this->fetchRow($res);
@@ -132,7 +128,7 @@ class DBCanaleRepository extends DBRepository
                 $this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
             }
 
-            $canale->setVisite((int)$row[0]);
+            $canale->setVisite((int) $row[0]);
         }
 
         return $ok;
@@ -147,14 +143,11 @@ class DBCanaleRepository extends DBRepository
         $news_attivo  = ( $canale->getServizioNews()  ) ? 'S' : 'N';
         $links_attivo = ( $canale->getServizioLinks() ) ? 'S' : 'N';
         $files_studenti_attivo = ( $canale->getServizioFilesStudenti() ) ? 'S' : 'N';
-        if ( $canale->getServizioForum() )
-        {
+        if ( $canale->getServizioForum() ) {
             $forum_attivo = 'S';
             $forum_forum_id = $canale->getForumForumId();
             $forum_group_id = $canale->getForumGroupId();
-        }
-        else
-        {
+        } else {
             $forum_attivo = 'N';
             /**
              * @todo testare se gli piace il valore NULL poi quotato nella query
@@ -162,7 +155,6 @@ class DBCanaleRepository extends DBRepository
             $forum_forum_id = NULL ;
             $forum_group_id = NULL ;
         }
-
 
         $query = 'INSERT INTO canale (id_canale, tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo, files_studenti_attivo) VALUES ('.
                 $db->quote($canale->getIdCanale()).' , '.
@@ -180,8 +172,7 @@ class DBCanaleRepository extends DBRepository
                 $db->quote($links_attivo).' ,'.
                 $db->quote($files_studenti_attivo).' )';
         $res = $db->query($query);
-        if (\DB::isError($res))
-        {
+        if (\DB::isError($res)) {
             Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
             return false;
@@ -198,20 +189,16 @@ class DBCanaleRepository extends DBRepository
         $news_attivo  = ( $canale->getServizioNews()  ) ? 'S' : 'N';
         $links_attivo = ( $canale->getServizioLinks() ) ? 'S' : 'N';
         $files_studenti_attivo = ( $canale->getServizioFilesStudenti() ) ? 'S' : 'N';
-        if ( $canale->getServizioForum() )
-        {
+        if ( $canale->getServizioForum() ) {
             $forum_attivo = 'S';
             $forum_forum_id = $canale->getForumForumId();
             $forum_group_id = $canale->getForumGroupId();
-        }
-        else
-        {
+        } else {
             $forum_attivo = 'N';
 
             $forum_forum_id = $canale->getForumForumId();
             $forum_group_id = $canale->getForumGroupId();
         }
-
 
         $query = 'UPDATE canale SET tipo_canale = '.$db->quote($canale->getTipoCanale()).
         ' , nome_canale = '.$db->quote($canale->getNome()).   //<--attento

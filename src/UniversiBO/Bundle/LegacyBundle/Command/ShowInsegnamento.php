@@ -25,7 +25,7 @@ class ShowInsegnamento extends CanaleCommand
     /**
      * Inizializza il comando ShowInsegnamento ridefinisce l'initCommand() di CanaleCommand
      */
-    function initCommand(FrontController $frontController)
+    public function initCommand(FrontController $frontController)
     {
         parent::initCommand($frontController);
 
@@ -40,7 +40,7 @@ class ShowInsegnamento extends CanaleCommand
         }
     }
 
-    function execute()
+    public function execute()
     {
         $session_user = $this->getSessionUser();
         $session_user_groups = $session_user->getGroups();

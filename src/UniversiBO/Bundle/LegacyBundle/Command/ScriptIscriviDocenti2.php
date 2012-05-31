@@ -19,7 +19,7 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
  */
 class ScriptIscriviDocenti2 extends UniversiboCommand
 {
-    function execute()
+    public function execute()
     {
         $fc = $this->getFrontController();
         $template = $fc->getTemplateEngine();

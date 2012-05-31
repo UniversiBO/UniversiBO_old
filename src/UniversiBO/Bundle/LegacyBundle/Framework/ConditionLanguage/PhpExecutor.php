@@ -10,7 +10,7 @@ class PhpExecutor
 
     public function __construct(HashedCache $cache = null)
     {
-        if(is_null($cache)) {
+        if (is_null($cache)) {
             $cache = HashedCache::getInstance();
         }
 
@@ -32,14 +32,12 @@ class PhpExecutor
 //			echo $t . ' '.((is_object($t))?'true' : 'false'); die;
         $f = $this->cache->fetch('php_'.$paramString.$code);
 
-        if ($f == null)
-        {
+        if ($f == null) {
             // TODO check se esiste una istruzione di return ed eventualmente aggiugnerla
             $f = create_function($paramString,$code);
 //			var_dump($code);die;
             $this->cache->store('php_'.$paramString.$code, $f);
         }
-
 
         return array(call_user_func_array($f,array_values($in)));
     }

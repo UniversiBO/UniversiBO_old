@@ -19,7 +19,7 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 class FileStudentiCommentEdit extends UniversiboCommand
 {
 
-    function execute()
+    public function execute()
     {
 
         $frontcontroller = &$this->getFrontController();

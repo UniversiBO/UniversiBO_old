@@ -5,10 +5,8 @@
 * suite di test per la classe Facolta
 */
 
-
 require_once 'PHPUnit'.PHP_EXTENSION;
 require_once 'Facolta'.PHP_EXTENSION;
-
 
 /**
  * Test per la classe Facolta
@@ -22,31 +20,30 @@ require_once 'Facolta'.PHP_EXTENSION;
 class _UnitTest_Facolta extends PHPUnit_TestCase
 {
 
-    var $facolta;
+    public $facolta;
 
-    function UserTest($name)
+    public function UserTest($name)
     {
         $this->PHPUnit_TestCase($name);
     }
 
     // called before the test functions will be executed
-    function setUp()
+    public function setUp()
     {
         $this->facolta = Facolta::selectFacoltaCodice('0021');
     }
 
     // called after the test functions are executed
-    function tearDown() {}
+    public function tearDown() {}
 
-
-    function testSetGetCodice()
+    public function testSetGetCodice()
     {
         $cod_new = '0022';
         $this->facolta->setCodiceFacolta($cod_new);
         $this->assertEquals($cod_new, $this->facolta->getCodiceFacolta());
     }
 
-    function testSetGetNome()
+    public function testSetGetNome()
     {
         $nome_facolta = 'INGEGNIERIAHAH';
         $this->facolta->setNome($nome_facolta);
@@ -54,16 +51,14 @@ class _UnitTest_Facolta extends PHPUnit_TestCase
         $this->assertEquals("FACOLTA' DI \n".$nome_facolta, $this->facolta->getTitolo());
     }
 
-
-    function testSetGetUri()
+    public function testSetGetUri()
     {
         $new_value = 'http://www.ing.example.com';
         $this->facolta->setUri($new_value);
         $this->assertEquals($new_value, $this->facolta->getUri());
     }
 
-
-    function testRetrieveAndUpdate()
+    public function testRetrieveAndUpdate()
     {
         $db =& FrontController::getDbConnection('main');
         $db->autoCommit(false);
@@ -89,13 +84,11 @@ class _UnitTest_Facolta extends PHPUnit_TestCase
         $db->autoCommit(true);
     }
 
-
-    function testFacoltaElenco()
+    public function testFacoltaElenco()
     {
         $elenco =& Facolta::selectFacoltaElenco();
 
-        foreach ( $elenco as $facolta)
-        {
+        foreach ( $elenco as $facolta) {
             $value = $facolta->getNome();
             if (isset($value_old))
                 $this->assertTrue( strcmp($value_old, $value) < 0 );

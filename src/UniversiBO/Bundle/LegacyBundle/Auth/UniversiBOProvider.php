@@ -7,7 +7,6 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
-
 use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
 
 class UniversiBOProvider implements AuthenticationProviderInterface
@@ -29,14 +28,12 @@ class UniversiBOProvider implements AuthenticationProviderInterface
     {
         $user = $this->userProvider->find($token->getId());
 
-
-        if($user === false) {
+        if ($user === false) {
             throw new AuthenticationException('User not found!');
         }
         $token = new UniversiBOToken($user->getRoles());
         $token->setUser($user);
         $token->setAuthenticated(true);
-
 
         return $token;
     }

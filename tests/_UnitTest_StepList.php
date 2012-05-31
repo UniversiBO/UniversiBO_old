@@ -5,10 +5,8 @@
 * suite di test per la classe ContattoDocente
 */
 
-
 require_once 'PHPUnit'.PHP_EXTENSION;
 require_once 'InteractiveCommand/StepList'.PHP_EXTENSION;
-
 
 /**
  * Test per la classe ContattoDocente
@@ -21,17 +19,17 @@ require_once 'InteractiveCommand/StepList'.PHP_EXTENSION;
 
 class _UnitTest_StepList extends PHPUnit_TestCase
 {
-    var $StepList;
-    var $call1 = '1';
-    var $call2 = '2';
+    public $StepList;
+    public $call1 = '1';
+    public $call2 = '2';
 
-    function UserTest($name)
+    public function UserTest($name)
     {
         $this->PHPUnit_TestCase($name);
     }
 
     // called before the test functions will be executed
-    function setUp()
+    public function setUp()
     {
         $db =& FrontController::getDbConnection('main');
         //$db->autoCommit(false);
@@ -39,19 +37,18 @@ class _UnitTest_StepList extends PHPUnit_TestCase
     }
 
     // called after the test functions are executed
-    function tearDown() {
+    public function tearDown()
+    {
         //$db =& FrontController::getDbConnection('main');
         //$db->rollback();
         //$db->autoCommit(true);
     }
 
-    function testIsComplete ()
+    public function testIsComplete ()
     {
-        for($i=0 ; $i < $this->StepList->getLength(); $i++)
-        {
+        for ($i=0 ; $i < $this->StepList->getLength(); $i++) {
             $item =& $this->StepList->getStep($i);
-            if ($item != null)
-            {
+            if ($item != null) {
                 $item->completeStep();
             }
         }
@@ -87,4 +84,3 @@ class _UnitTest_StepList extends PHPUnit_TestCase
 //	}
 //
 }
-?>

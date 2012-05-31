@@ -11,10 +11,10 @@ class StoredInteractionInformationRetriever
     /**
      * @author Pinto
      * @static
-     * @param boolean $groupedByCallbackName se true, ritorna un array a due livelli array (callbackName => array(param_name => param_value)); se false array(param_name => param_value)
-     * @return array contiene i valori memorizzati
+     * @param  boolean $groupedByCallbackName se true, ritorna un array a due livelli array (callbackName => array(param_name => param_value)); se false array(param_name => param_value)
+     * @return array   contiene i valori memorizzati
      */
-    function getInfoFromIdUtente ($idUtente, $nomeInteractiveCommand, $groupedByCallbackName = false)
+    public function getInfoFromIdUtente ($idUtente, $nomeInteractiveCommand, $groupedByCallbackName = false)
     {
         $db = FrontController::getDbConnection('main');
 
@@ -23,8 +23,7 @@ class StoredInteractionInformationRetriever
                  ' and esito_positivo = '. $db->quote('S'). ' order by data_ultima_interazione desc';
 //		var_dump($query); die;
         $res = $db->query($query);
-        if (DB::isError($res))
-        {
+        if (DB::isError($res)) {
             Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         }
 
@@ -39,8 +38,7 @@ class StoredInteractionInformationRetriever
 
         $query = 'select param_name, param_value, callback_name from step_parametri where id_step = '. $db->quote($idStep);
         $res = $db->query($query);
-        if (DB::isError($res))
-        {
+        if (DB::isError($res)) {
             Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         }
 
@@ -61,10 +59,10 @@ class StoredInteractionInformationRetriever
     /**
      * @author Pinto
      * @static
-     * @param boolean $groupedByCallbackName se true, ritorna un array a due livelli array (callbackName => array(param_name => param_value)); se false array(param_name => param_value)
-     * @return array contiene i valori memorizzati
+     * @param  boolean $groupedByCallbackName se true, ritorna un array a due livelli array (callbackName => array(param_name => param_value)); se false array(param_name => param_value)
+     * @return array   contiene i valori memorizzati
      */
-    function getInfoFromUsernameUtente ($username, $nomeInteractiveCommand, $groupedByCallbackName = false)
+    public function getInfoFromUsernameUtente ($username, $nomeInteractiveCommand, $groupedByCallbackName = false)
     {
         $user = User::selectUserUsername($username);
 

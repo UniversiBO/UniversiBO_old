@@ -16,7 +16,7 @@ class ShowFacoltaTest extends UniversiBOSeleniumTestCase
 
         $this->open('/v2.php?do=ShowFacolta&id_canale=2');
 
-        foreach($sentences as $sentence) {
+        foreach ($sentences as $sentence) {
             self::assertTrue($this->isTextPresent($sentence));
         }
     }

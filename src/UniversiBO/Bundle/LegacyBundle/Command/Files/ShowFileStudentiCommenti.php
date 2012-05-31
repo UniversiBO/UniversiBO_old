@@ -19,8 +19,8 @@ use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class ShowFileStudentiCommenti extends PluginCommand {
-
+class ShowFileStudentiCommenti extends PluginCommand
+{
     //todo: rivedere la questione diritti per uno studente...
 
     /**
@@ -48,12 +48,10 @@ class ShowFileStudentiCommenti extends PluginCommand {
 
         $personalizza_not_admin = false;
 
-        if (array_key_exists($id_canale, $user_ruoli) || $user->isAdmin())
-        {
+        if (array_key_exists($id_canale, $user_ruoli) || $user->isAdmin()) {
             $personalizza = true;
 
-            if (array_key_exists($id_canale, $user_ruoli))
-            {
+            if (array_key_exists($id_canale, $user_ruoli)) {
                 $ruolo = $user_ruoli[$id_canale];
 
                 $personalizza_not_admin = true;
@@ -62,9 +60,7 @@ class ShowFileStudentiCommenti extends PluginCommand {
                 $ultimo_accesso = $ruolo->getUltimoAccesso();
             }
 
-        }
-        else
-        {
+        } else {
             $personalizza   = false;
             $referente      = false;
             $moderatore     = false;
@@ -83,10 +79,8 @@ class ShowFileStudentiCommenti extends PluginCommand {
 //	    die();
 
 
-        if ($elenco_commenti ==! false )
-        {
-            for ($i = 0; $i < $num_commenti; $i++)
-            {
+        if ($elenco_commenti ==! false ) {
+            for ($i = 0; $i < $num_commenti; $i++) {
 
                 $id_utente = $elenco_commenti[$i]->getIdUtente();
                 $commenti['commento'] = $elenco_commenti[$i]->getCommento();
@@ -100,23 +94,19 @@ class ShowFileStudentiCommenti extends PluginCommand {
 
                 $this_diritti = ($user->isAdmin() || ($moderatore) || ($referente) || ($id_utente==$user->getIdUser()));
 
-                if($this_diritti)
-                    {
+                if ($this_diritti) {
                         $id_commento = $elenco_commenti[$i]->getIdCommento();
                         $commenti['dirittiCommento'] = 'true';
                         $commenti['editCommentoLink'] = 'v2.php?do=FileStudentiCommentEdit&id_commento='.$id_commento.'&id_canale='.$id_canale;
                         $commenti['deleteCommentoLink'] = 'v2.php?do=FileStudentiCommentDelete&id_commento='.$id_commento.'&id_canale='.$id_canale;
-                    }
-                else{$commenti['dirittiCommento']='false';}
+                    } else {$commenti['dirittiCommento']='false';}
                 $elenco_commenti_tpl[$i] = $commenti;
             }
 
 
             $template->assign('showFileStudentiCommenti_langCommentiAvailableFlag', 'true');
             $template->assign('showFileStudentiCommenti_commentiList', $elenco_commenti_tpl);
-        }
-    else {$template->assign('showFileStudentiCommenti_langCommentiAvailableFlag', 'false');
+        } else {$template->assign('showFileStudentiCommenti_langCommentiAvailableFlag', 'false');
          }
     }
 }
-?>

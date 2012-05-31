@@ -24,7 +24,7 @@ abstract class DBRepositoryTest extends \PHPUnit_Framework_TestCase
     {
         $this->db = \DB::connect(self::TEST_DSN);
 
-        if(\DB::isError($this->db)) {
+        if (\DB::isError($this->db)) {
             $this->markTestSkipped('No DB available');
         }
 
@@ -38,8 +38,7 @@ abstract class DBRepositoryTest extends \PHPUnit_Framework_TestCase
 
     protected function tearDown()
     {
-        if($this->db instanceof \DB_common)
-        {
+        if ($this->db instanceof \DB_common) {
             $this->db->rollback();
             $this->db->disconnect();
         }

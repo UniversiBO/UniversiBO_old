@@ -4,7 +4,6 @@ namespace UniversiBO\Bundle\LegacyBundle\Command;
 use \DB;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
-
 /**
  * ChangePassword is an extension of UniversiboCommand class.
  *
@@ -19,7 +18,7 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
 {
-    function execute()
+    public function execute()
     {
         $fc = $this->getFrontController();
         $template = $fc->getTemplateEngine();
@@ -30,7 +29,6 @@ class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
         if (DB::isError($res)) die($query);
 
         $anno_accademico = 2011;
-
 
         $query = 'SELECT anno_accademico, cod_corso, cod_ind, cod_ori, cod_materia,
                 anno_corso, cod_materia_ins, anno_corso_ins, cod_ril, cod_modulo,
@@ -44,8 +42,7 @@ class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
 
         echo $num_rows = $res->numRows() ,"\n\n";
 
-        while ( $res->fetchInto($row) )
-        {
+        while ( $res->fetchInto($row) ) {
             echo "---------------","\n";
 
             $query3 = 'SELECT * FROM prg_insegnamento  WHERE
@@ -55,13 +52,11 @@ class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
             AND cod_materia_ins='.$db->quote($row[6]).' AND cod_modulo='.$db->quote($row[9]).'
             AND cod_ori='.$db->quote($row[3]).' AND cod_ril='.$db->quote($row[8]).';';
 
-
             $res3= $db->query($query3);
             if (DB::isError($res3)) die($query3);
 
             echo $num_rows3 = $res3->numRows();
-            if ($num_rows3 == 0)
-            {
+            if ($num_rows3 == 0) {
 
                 $id_canale = $db->nextId('canale_id_canale');
                 echo "$id_canale \n";

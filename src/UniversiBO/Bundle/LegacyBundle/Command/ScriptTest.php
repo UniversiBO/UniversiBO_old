@@ -16,7 +16,7 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
  */
 class ScriptTest extends UniversiboCommand
 {
-    function execute()
+    public function execute()
     {
         $canale = Canale::retrieveCanale(274);
         echo $titolo = $canale->getTitolo(),"\n";
@@ -28,8 +28,7 @@ class ScriptTest extends UniversiboCommand
         if (DB::isError($res))
             Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
-        while ($res->fetchInto($row))
-        {
+        while ($res->fetchInto($row)) {
             $canale2 = Canale::retrieveCanale($row[0]);
             $titolo2 = $canale2->getTitolo($row[0]);
             //$tutti[] = array ('dist' => levenshtein($titolo, $titolo2), 'titolo' => $titolo2);
@@ -58,7 +57,7 @@ class ScriptTest extends UniversiboCommand
 
     }
 
-    function _order($a, $b)
+    public function _order($a, $b)
     {
 
         if ($a['dist'] == $b['dist'])

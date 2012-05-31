@@ -23,7 +23,8 @@ class Request
 {
     private $param=array();
 
-    public function __construct (){
+    public function __construct ()
+    {
         if (!empty( $_SERVER['PATH_INFO'] )) {
             $params = explode( '/', $_SERVER['PATH_INFO'] ) ;
             $_GET['do'] = $params[1];
@@ -31,37 +32,40 @@ class Request
                 $_GET[ $params[$i]] = isset($params[$i+1]) ? $params[$i+1] : null ;
         }
         if ($_GET) {
-            while (list ($k, $v) = each ($_GET)){
+            while (list ($k, $v) = each ($_GET)) {
                 $this->_createVariable($k,$v);
             }
         }
         if ($_POST) {
-            while (list ($k, $v) = each ($_POST)){
+            while (list ($k, $v) = each ($_POST)) {
                 $this->_createVariable($k,$v);
             }
         }
     }
     //Private methods
-    private function _createVariable(&$key,&$value){
-        if(is_array($value)){
+    private function _createVariable(&$key,&$value)
+    {
+        if (is_array($value)) {
             $this->_createArrayVariable($key,$value);
-        }
-        else{
+        } else {
             $this->_createNonArrayVariable($key,$value);
         }
     }
-    private function _createNonArrayVariable(&$key,&$value){
+    private function _createNonArrayVariable(&$key,&$value)
+    {
         $this->{$key} = $this->_getProcessedString($value);
         array_push ($this->param, $key);
     }
-    private function _createArrayVariable(&$key,&$values){
-        while (list($arrayKey,$arrayValue)=each($values)){
+    private function _createArrayVariable(&$key,&$values)
+    {
+        while (list($arrayKey,$arrayValue)=each($values)) {
             $values[$arrayKey]=$this->_getProcessedString($arrayValue);
         }
         $this->{$key}=$values;
         array_push($this->param,$key);
     }
-    private function _getProcessedString(&$value){
+    private function _getProcessedString(&$value)
+    {
         $value=trim($value);
         $value=htmlspecialchars($value,ENT_QUOTES);
         $value=stripcslashes($value);

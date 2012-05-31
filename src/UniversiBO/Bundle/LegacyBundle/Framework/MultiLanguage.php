@@ -15,13 +15,13 @@ namespace UniversiBO\Bundle\LegacyBundle\Framework;
 class MultiLanguage
 {
 
-    var $lang_path = '';
+    public $lang_path = '';
 
-    var $language = '';
+    public $language = '';
 
-    var $messages = array();
+    public $messages = array();
 
-    var $loaded_packs = array();
+    public $loaded_packs = array();
 
     /**
      * Class constructor
@@ -32,30 +32,28 @@ class MultiLanguage
         $this->setLanguage( $lang_code );
     }
 
-    function getLanguage()
+    public function getLanguage()
     {
         return $this->language ;
     }
 
-    function setLanguage( $lang_code )
+    public function setLanguage( $lang_code )
     {
         $this->language = $lang_code ;
-        foreach ($this->loaded_packs as $pack_name => $value)
-        {
+        foreach ($this->loaded_packs as $pack_name => $value) {
             $this->loadLangPack($pack_name);
         }
     }
 
-    function getMessage( $message_id )
+    public function getMessage( $message_id )
     {
         return $this->messages[$message_id];
     }
 
-    function loadLangPack( $pack_name )
+    public function loadLangPack( $pack_name )
     {
         $full_file_name = $this->lang_path . 'lang_'.$this->language . PHP_EXTENSION ;
-        if (!$fp=fopen( $full_file_name, 'r' ))
-        {
+        if (!$fp=fopen( $full_file_name, 'r' )) {
             return false;
         }
 

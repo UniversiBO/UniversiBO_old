@@ -65,12 +65,13 @@ require_once 'PHPUnit/TestDecorator.php';
  * @category    PHP
  * @package     PHPUnit
  */
-class PHPUnit_RepeatedTest extends PHPUnit_TestDecorator {
+class PHPUnit_RepeatedTest extends PHPUnit_TestDecorator
+{
     /**
     * @var    integer
     * @access private
     */
-    var $_timesRepeat = 1;
+    public $_timesRepeat = 1;
 
     /**
     * Constructor.
@@ -79,7 +80,8 @@ class PHPUnit_RepeatedTest extends PHPUnit_TestDecorator {
     * @param  integer
     * @access public
     */
-    function PHPUnit_RepeatedTest(&$test, $timesRepeat = 1) {
+    public function PHPUnit_RepeatedTest(&$test, $timesRepeat = 1)
+    {
         $this->PHPUnit_TestDecorator($test);
         $this->_timesRepeat = $timesRepeat;
     }
@@ -91,7 +93,8 @@ class PHPUnit_RepeatedTest extends PHPUnit_TestDecorator {
     * @return integer
     * @access public
     */
-    function countTestCases() {
+    public function countTestCases()
+    {
         return $this->_timesRepeat * $this->_test->countTestCases();
     }
 
@@ -103,10 +106,10 @@ class PHPUnit_RepeatedTest extends PHPUnit_TestDecorator {
     * @access public
     * @abstract
     */
-    function run(&$result) {
+    public function run(&$result)
+    {
         for ($i = 0; $i < $this->_timesRepeat; $i++) {
             $this->_test->run($result);
         }
     }
 }
-?>

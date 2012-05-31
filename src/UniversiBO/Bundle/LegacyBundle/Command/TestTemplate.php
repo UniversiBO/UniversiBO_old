@@ -16,7 +16,7 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 class TestTemplate extends UniversiboCommand
 {
-    function execute()
+    public function execute()
     {
 
         $template = $this->frontController->getTemplateEngine();
@@ -167,7 +167,6 @@ class TestTemplate extends UniversiboCommand
                 $cdl_year[] = array('cod'=>3 , 'name'='Terzo', 'list'=> $cdl_cicle);
                 $cdl_year[] = array('cod'=>'E' , 'name'='Estensivo', 'list'=> $cdl_cicle);
 
-
                 $cdl_list[] = array(); //cdl := lista degli anni di corso
                 $cdl_list[] =  array('cod'=>1 , 'name'='Primo', 'list'=> $cdl_year);
                 $cdl_list[] =  array('cod'=>2 , 'name'='Secondo', 'list'=> $cdl_year);
@@ -176,7 +175,6 @@ class TestTemplate extends UniversiboCommand
                 $cdl_list[] =  array('cod'=>5 , 'name'='Quinto', 'list'=> $cdl_year);
 
                 $template->assign('cdl_list', $cdl_list );
-
 
                 //...cdl_news... DA DEFINIRE ...include news.tpl
 

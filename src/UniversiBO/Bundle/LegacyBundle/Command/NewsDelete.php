@@ -22,7 +22,7 @@ use UniversiBO\Bundle\LegacyBundle\App\CanaleCommand;
 class NewsDelete extends CanaleCommand
 {
 
-    function execute()
+    public function execute()
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
@@ -61,7 +61,7 @@ class NewsDelete extends CanaleCommand
             $referente = $ruolo->isReferente();
             $moderatore = $ruolo->isModeratore();
         }
-        
+
         $news = NewsItem::selectNewsItem($_GET['id_news']);
         if ($news === false)
             Error::throwError(_ERROR_DEFAULT,

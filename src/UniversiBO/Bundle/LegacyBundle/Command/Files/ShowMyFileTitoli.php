@@ -23,9 +23,8 @@ use UniversiBO\Bundle\LegacyBundle\Framework\PluginCommand;
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class ShowMyFileTitoli extends PluginCommand {
-
-
+class ShowMyFileTitoli extends PluginCommand
+{
     /**
      * Esegue il plugin
      *
@@ -48,13 +47,10 @@ class ShowMyFileTitoli extends PluginCommand {
 
         $canale_files = count($elenco_file);
 
-        if ( $canale_files == 0 )
-        {
+        if ( $canale_files == 0 ) {
             $template->assign('showMyFileTitoli_langFileAvailable', 'Non ci sono files da visualizzare');
             $template->assign('showMyFileTitoli_langFileAvailableFlag', 'false');
-        }
-        else
-        {
+        } else {
             $template->assign('showMyFileTitoli_langFileAvailable', 'Ci sono '.$canale_files.' notizie');
             $template->assign('showMyFileTitoli_langFileAvailableFlag', 'true');
         }
@@ -65,21 +61,17 @@ class ShowMyFileTitoli extends PluginCommand {
         $categorie_tpl = array();
         $file_tpl = array();
 
-
-        if ($elenco_file ==! false )
-        {
+        if ($elenco_file ==! false ) {
             $ret_file = count($elenco_file);
 
-            for ($i = 0; $i < $ret_file; $i++)
-            {
+            for ($i = 0; $i < $ret_file; $i++) {
 
                 $file = $elenco_file[$i];
                 //var_dump($file);
                 $this_moderatore = ($user->isAdmin() || ($moderatore && $file->getIdUtente()==$user->getIdUser()));
 
                 $permessi_lettura = $file->getPermessiVisualizza();
-                if ($user->isGroupAllowed($permessi_lettura))
-                {
+                if ($user->isGroupAllowed($permessi_lettura)) {
 
                     $file_tpl[$i]['titolo']       = $file->getTitolo();
                     //$file_tpl['notizia']      = $file->getNotizia();
@@ -98,11 +90,9 @@ class ShowMyFileTitoli extends PluginCommand {
                     $canali = $file->getIdCanali();
                     $num_canali =  count($canali);
                     $elenco_canali_tpl = array();
-                    for ($j = 0; $j < $num_canali; $j++)
-                    {
+                    for ($j = 0; $j < $num_canali; $j++) {
                         $canale = Canale::retrieveCanale($canali[$j]);
-                        if ($canale->isGroupAllowed($user->getGroups()))
-                        {
+                        if ($canale->isGroupAllowed($user->getGroups())) {
                             $canale_tpl = array();
                             $canale_tpl['titolo'] = $canale->getNome();
                             $canale_tpl['link'] = $canale->showMe();
@@ -125,18 +115,16 @@ class ShowMyFileTitoli extends PluginCommand {
         }
         $template->assign('showMyFileTitoli_fileList', $file_tpl);
 
-
     }
-
 
     /**
      * Preleva da database i file del canale $id_canale
      *
      * @static
-     * @param int $id_canale identificativo su database del canale
+     * @param  int   $id_canale identificativo su database del canale
      * @return array elenco FileItem , array vuoto se non ci sono file
      */
-    function getFileCanale($id_canale)
+    public function getFileCanale($id_canale)
     {
 
          $db = FrontController::getDbConnection('main');
@@ -152,18 +140,15 @@ class ShowMyFileTitoli extends PluginCommand {
 
         $id_file_list = array();
 
-        while ( $res->fetchInto($row) )
-        {
+        while ( $res->fetchInto($row) ) {
             $id_file_list[]= $row[0];
         }
 
         $res->free();
 
-
         return $id_file_list;
 
     }
-
 
     /**
      * Ordina la struttura dei file
@@ -171,7 +156,7 @@ class ShowMyFileTitoli extends PluginCommand {
      * @static
      * @private
      */
-    function _compareFile($a, $b)
+    public function _compareFile($a, $b)
     {
         if ($a->getIdCategoria() > $b->getIdCategoria()) return +1;
         if ($a->getIdCategoria() < $b->getIdCategoria()) return -1;
@@ -179,8 +164,5 @@ class ShowMyFileTitoli extends PluginCommand {
         if ($a->getDataInserimento() > $b->getDataInserimento()) return -1;
     }
 
-
-
 }
 
-?>

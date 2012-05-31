@@ -16,15 +16,15 @@ use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class ShowAccessibility extends UniversiboCommand {
-    function execute(){
-
+class ShowAccessibility extends UniversiboCommand
+{
+    public function execute()
+    {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 
         $template->assignUnicode('showAccessibility_langTitleAlt','Dichiarazione di accessibilità');
         $template->assign('showAccessibility_langTesto','');
-
 
         return 'default';
     }

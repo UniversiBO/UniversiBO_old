@@ -22,56 +22,56 @@ class InfoDidattica
     /**
      * @private
      */
-    var $id_canale = 0;
+    public $id_canale = 0;
     /**
      * @private
      */
-    var $programma = '';
+    public $programma = '';
     /**
      * @private
      */
-    var $programma_link = '';
+    public $programma_link = '';
     /**
      * @private
      */
-    var $testi_consigliati = '';
+    public $testi_consigliati = '';
     /**
      * @private
      */
-    var $testi_consigliati_link = '';
+    public $testi_consigliati_link = '';
     /**
      * @private
      */
-    var $modalita = '';
+    public $modalita = '';
     /**
      * @private
      */
-    var $modalita_link = '';
+    public $modalita_link = '';
     /**
      * @private
      */
-    var $obiettivi_esame = '';
+    public $obiettivi_esame = '';
     /**
      * @private
      */
-    var $obiettivi_esame_link = '';
+    public $obiettivi_esame_link = '';
     /**
      * @private
      */
-    var $appelli = '';
+    public $appelli = '';
     /**
      * @private
      */
-    var $appelli_link = '';
+    public $appelli_link = '';
     /**
      * @private
      */
-    var $homepage_alternativa_link = '';
+    public $homepage_alternativa_link = '';
 
     /**
      * @private
      */
-    var $orario_ics_link = '';
+    public $orario_ics_link = '';
 
     /**
      * @var DBInfoDidatticaRepository
@@ -103,7 +103,7 @@ class InfoDidattica
      *
      * @param int
      */
-    function setIdCanale($id_canale)
+    public function setIdCanale($id_canale)
     {
         $this->id_canale = $id_canale;
     }
@@ -113,7 +113,7 @@ class InfoDidattica
      *
      * @return int
      */
-    function getIdCanale()
+    public function getIdCanale()
     {
         return $this->id_canale;
     }
@@ -123,7 +123,7 @@ class InfoDidattica
      *
      * @param string
      */
-    function setProgramma($programma)
+    public function setProgramma($programma)
     {
         $this->programma = $programma;
     }
@@ -133,7 +133,7 @@ class InfoDidattica
      *
      * @return string
      */
-    function getProgramma()
+    public function getProgramma()
     {
         return $this->programma;
     }
@@ -143,7 +143,7 @@ class InfoDidattica
      *
      * @param string
      */
-    function setProgrammaLink($programma_link)
+    public function setProgrammaLink($programma_link)
     {
         $this->programma_link = $programma_link;
     }
@@ -153,7 +153,7 @@ class InfoDidattica
      *
      * @return string
      */
-    function getProgrammaLink()
+    public function getProgrammaLink()
     {
         return $this->programma_link;
     }
@@ -163,7 +163,7 @@ class InfoDidattica
      *
      * @param string
      */
-    function setTestiConsigliati($testi_consigliati)
+    public function setTestiConsigliati($testi_consigliati)
     {
         $this->testi_consigliati = $testi_consigliati;
     }
@@ -173,7 +173,7 @@ class InfoDidattica
      *
      * @return string
      */
-    function getTestiConsigliati()
+    public function getTestiConsigliati()
     {
         return $this->testi_consigliati;
     }
@@ -183,7 +183,7 @@ class InfoDidattica
      *
      * @param string
      */
-    function setTestiConsigliatiLink($testi_consigliati_link)
+    public function setTestiConsigliatiLink($testi_consigliati_link)
     {
         $this->testi_consigliati_link = $testi_consigliati_link;
     }
@@ -193,7 +193,7 @@ class InfoDidattica
      *
      * @return string
      */
-    function getTestiConsigliatiLink()
+    public function getTestiConsigliatiLink()
     {
         return $this->testi_consigliati_link;
     }
@@ -203,7 +203,7 @@ class InfoDidattica
      *
      * @param string
      */
-    function setModalita($modalita)
+    public function setModalita($modalita)
     {
         $this->modalita = $modalita;
     }
@@ -213,7 +213,7 @@ class InfoDidattica
      *
      * @return string
      */
-    function getModalita()
+    public function getModalita()
     {
         return $this->modalita;
     }
@@ -223,7 +223,7 @@ class InfoDidattica
      *
      * @param string
      */
-    function setModalitaLink($modalita_link)
+    public function setModalitaLink($modalita_link)
     {
         $this->modalita_link = $modalita_link;
     }
@@ -233,7 +233,7 @@ class InfoDidattica
      *
      * @return string
      */
-    function getModalitaLink()
+    public function getModalitaLink()
     {
         return $this->modalita_link;
     }
@@ -243,7 +243,7 @@ class InfoDidattica
      *
      * @param string
      */
-    function setObiettiviEsame($obiettivi_esame)
+    public function setObiettiviEsame($obiettivi_esame)
     {
         $this->obiettivi_esame = $obiettivi_esame;
     }
@@ -253,7 +253,7 @@ class InfoDidattica
      *
      * @return int
      */
-    function getObiettiviEsame()
+    public function getObiettiviEsame()
     {
         return $this->obiettivi_esame;
     }
@@ -263,7 +263,7 @@ class InfoDidattica
      *
      * @param string
      */
-    function setObiettiviEsameLink($obiettivi_esame_link)
+    public function setObiettiviEsameLink($obiettivi_esame_link)
     {
         $this->obiettivi_esame_link = $obiettivi_esame_link;
     }
@@ -273,7 +273,7 @@ class InfoDidattica
      *
      * @return string
      */
-    function getObiettiviEsameLink()
+    public function getObiettiviEsameLink()
     {
         return $this->obiettivi_esame_link;
     }
@@ -283,7 +283,7 @@ class InfoDidattica
      *
      * @param string
      */
-    function setAppelli($appelli)
+    public function setAppelli($appelli)
     {
         $this->appelli = $appelli;
     }
@@ -293,7 +293,7 @@ class InfoDidattica
      *
      * @return string
      */
-    function getAppelli()
+    public function getAppelli()
     {
         return $this->appelli;
     }
@@ -303,7 +303,7 @@ class InfoDidattica
      *
      * @param string
      */
-    function setAppelliLink($appelli_link)
+    public function setAppelliLink($appelli_link)
     {
         $this->appelli_link = $appelli_link;
     }
@@ -313,7 +313,7 @@ class InfoDidattica
      *
      * @return string
      */
-    function getAppelliLink()
+    public function getAppelliLink()
     {
         return $this->appelli_link;
     }
@@ -323,7 +323,7 @@ class InfoDidattica
      *
      * @param string
      */
-    function setHomepageAlternativaLink($homepage_alternativa_link)
+    public function setHomepageAlternativaLink($homepage_alternativa_link)
     {
         $this->homepage_alternativa_link = $homepage_alternativa_link;
     }
@@ -333,7 +333,7 @@ class InfoDidattica
      *
      * @return string
      */
-    function getHomepageAlternativaLink()
+    public function getHomepageAlternativaLink()
     {
         return $this->homepage_alternativa_link;
     }
@@ -343,7 +343,7 @@ class InfoDidattica
      *
      * @param string
      */
-    function setOrarioIcsLink($orario_ics_link)
+    public function setOrarioIcsLink($orario_ics_link)
     {
         $this->orario_ics_link = $orario_ics_link;
     }
@@ -353,7 +353,7 @@ class InfoDidattica
      *
      * @return string
      */
-    function getOrarioIcsLink()
+    public function getOrarioIcsLink()
     {
         return $this->orario_ics_link;
     }
@@ -361,7 +361,7 @@ class InfoDidattica
     /**
      * Inserisce una nuovo InfoDidattica sul DB
      *
-     * @return	 boolean true se avvenua con successo
+     * @return boolean true se avvenua con successo
      */
     public function insertInfoDidattica()
     {
@@ -371,7 +371,7 @@ class InfoDidattica
     /**
      * Modifica una InfoDidattica sul DB
      *
-     * @return	 boolean true se avvenua con successo
+     * @return boolean true se avvenua con successo
      */
     public function updateInfoDidattica()
     {
@@ -381,7 +381,7 @@ class InfoDidattica
     /**
      * Elimina una InfoDidattica sul DB
      *
-     * @return	 boolean true se avvenua con successo
+     * @return boolean true se avvenua con successo
      */
     public function deleteInfoDidattica()
     {
@@ -405,7 +405,7 @@ class InfoDidattica
      * @deprecated
      * @return InfoDidattica
      */
-    public static  function factoryInfoDidattica($id_canale)
+    public static function factoryInfoDidattica($id_canale)
     {
         return self::selectInfoDidattica($id_canale);
     }

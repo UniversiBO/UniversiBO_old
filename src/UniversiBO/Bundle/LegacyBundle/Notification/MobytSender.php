@@ -48,7 +48,7 @@ class MobytSender extends AbstractSender
         $result = $this->mobyt->sendSms($notification->getIndirizzo(), $message);
 
 
-        if('OK' !== substr($result, 0, 2)) {
+        if ('OK' !== substr($result, 0, 2)) {
             throw new SenderException('Error: '.$result);
         }
     }

@@ -15,7 +15,6 @@ define('FORM_MIN'			,7);
 // pu� essere utile  definire pi� tipi di FORM_XXX in modo da dare messaggi di errore pi� pertinenti..
 // decidere se resituire un oggetto error oppure una stringa con il messaggio di errore
 
-
 /**
  * FormToolbox class.
  *
@@ -39,14 +38,11 @@ class FormToolbox
      * @return mixed true se tutti i parametri sono ok, altrimenti ritorna un oggetto errore
      * @access public
      */
-    function checkParams($params)
+    public function checkParams($params)
     {
-        foreach ($params as $paramInfo)
-        {
-            if (array_key_exists('param',$paramInfo) && array_key_exists('type',$paramInfo))
-            {
-                switch($paramInfo['type'])
-                {
+        foreach ($params as $paramInfo) {
+            if (array_key_exists('param',$paramInfo) && array_key_exists('type',$paramInfo)) {
+                switch ($paramInfo['type']) {
                     case FORM_MAIL:			$esito = $this->_checkEmail($paramInfo['param']);
                                              break;
                     case FORM_TEXT:			(array_key_exists('limit', $paramInfo))
@@ -69,15 +65,12 @@ class FormToolbox
 
                 if ($esito != true) return $esito;
 
-            }
-
-            else return new Error(_ERROR_CRITIC,
+            } else return new Error(_ERROR_CRITIC,
                                 array (	'msg' => 'Tipo di parametro inesistente',
                                         'file' => __FILE__,
                                         'line' => __LINE__,
                                         'log' => false));
         }
-
 
         return true;
     }
@@ -87,7 +80,7 @@ class FormToolbox
      *
      * @return boolean true se corretto
      */
-    function checkRangeDate($data_ins, $ins_hh = 0, $ins_min = 0, $data_scad, $scad_hh = 0, $scad_min = 0)
+    public function checkRangeDate($data_ins, $ins_hh = 0, $ins_min = 0, $data_scad, $scad_hh = 0, $scad_min = 0)
     {
         if (!array_key_exists('gg', $data_ins) || !array_key_exists('mm', $data_ins) || !array_key_exists('aa', $data_ins))
 
@@ -102,7 +95,6 @@ class FormToolbox
 
             return new Error(_ERROR_NOTICE, array ('msg' => 'La data di scadenza non pu� essere precedente alla data di inserimento'));
 
-
         return true;
     }
 
@@ -114,7 +106,7 @@ class FormToolbox
      * @access private
      * @return boolean true se il valore � corretto
      */
-    function _checkEmail ($mail)
+    public function _checkEmail ($mail)
     {
         // @TODO
         return true;
@@ -124,7 +116,7 @@ class FormToolbox
      * @access private
      * @return boolean true se il valore � corretto
      */
-    function _checkText ($text, $limit = 25, $optional = false)
+    public function _checkText ($text, $limit = 25, $optional = false)
     {
         // @TODO verificare il valore di default di limit
 
@@ -135,7 +127,6 @@ class FormToolbox
         if (!$optional && $text == '')
 
             return new Error(_ERROR_NOTICE, array ('msg' => 'Bisogna inserire obbligatoriamente il testo nel campo'));
-
 
         return true;
     }
@@ -174,7 +165,7 @@ class FormToolbox
      * @access private
      * @return boolean true se il valore � corretto
      */
-    function _checkDate ($date)
+    public function _checkDate ($date)
     {
         if (!array_key_exists('gg', $date) || !array_key_exists('mm', $date) || !array_key_exists('aa', $date))
 
@@ -189,7 +180,7 @@ class FormToolbox
      * @access private
      * @return boolean true se il valore � corretto
      */
-    function _checkHour ($hh)
+    public function _checkHour ($hh)
     {
         if (!preg_match('/^([0-9]{1,2})$/', $hh))
 
@@ -199,7 +190,6 @@ class FormToolbox
 
             return new Error(_ERROR_NOTICE, array ('msg' => 'Il campo ora di inserimento deve essere compreso tra 0 e 23'));
 
-
         return true;
     }
 
@@ -207,7 +197,7 @@ class FormToolbox
      * @access private
      * @return boolean true se il valore � corretto
      */
-    function _checkMinute ($mm)
+    public function _checkMinute ($mm)
     {
         if(!preg_match('/^([0-9]{1,2})$/', $mm))
 
@@ -217,9 +207,7 @@ class FormToolbox
 
             return new Error(_ERROR_NOTICE, array ('msg' => 'Il campo minuti di inserimento deve essere compreso tra 0 e 59'));
 
-
         return true;
     }
-
 
 }
