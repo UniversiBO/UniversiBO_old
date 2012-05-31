@@ -13,9 +13,9 @@ namespace UniversiBO\Bundle\LegacyBundle\App\AntiVirus;
 class Clamav
 {
 
-    public $opts = '';
+    private $opts = '';
 
-    public $cmd  = '';
+    private $cmd  = '';
 
     public function __construct($cmd, $opts)
     {

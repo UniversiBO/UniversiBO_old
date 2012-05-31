@@ -302,11 +302,7 @@ class FileStudentiAdd extends UniversiboCommand
                                 'log' => false,
                                 'template_engine' => &$template));
                 $f23_accept = false;
-            }
-            //			elseif ($_POST['f23_abstract'] == '') {
-            //				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'La descrizione/abstract del file deve essere inserita obbligatoriamente', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
-            //				$f23_accept = false;
-            //			} elseif ($_POST['f23_abstract'] == '') {
+            } elseif ($_POST['f23_abstract'] == '') {
                 $f23_abstract = $f23_titolo;
             } else
                 $f23_abstract = $_POST['f23_abstract'];

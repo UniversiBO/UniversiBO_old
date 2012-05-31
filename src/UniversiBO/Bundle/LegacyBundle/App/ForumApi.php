@@ -27,44 +27,38 @@ class ForumApi implements ForumApiInterface
 
     /**
      * Identificativo di connessione al database da utilizzare
-     * @access private
      */
-    public $database = 'main';
+    private $database = 'main';
 
     /**
      * Prefisso del nome delle tabelle del database
-     * @access private
      */
-    public $table_prefix = 'phpbb_';
+    private $table_prefix = 'phpbb_';
 
     /**
      * Cartella percorso dell'url del forum
-     * @access private
      */
-    public $forumPath = 'forum/';
+    private $forumPath = 'forum/';
 
     /**
      * Stile del forum di default - implica la modifica anche nella tabella di config di phpbb
      * @access private
      */
-    public $defaultUserStyle = array('unibo' => 1, 'black' => 7);
+    private $defaultUserStyle = array('unibo' => 1, 'black' => 7);
 
     /**
      * Ranks e livelli da assegnare agli utenti inizialmente
-     * @access private
      */
-    public $defaultRanks = array(User::STUDENTE => 0, User::COLLABORATORE => 9, User::TUTOR => 10, User::DOCENTE => 11, User::PERSONALE => 12, User::ADMIN =>  1);
+    private $defaultRanks = array(User::STUDENTE => 0, User::COLLABORATORE => 9, User::TUTOR => 10, User::DOCENTE => 11, User::PERSONALE => 12, User::ADMIN =>  1);
 
     /**
      * esegue la codifica esadecimale di un ipv4 nel formato separato da punti
      * es: '127.0.0.1' -> '7f000001'
      *
-     * @access private
-     * @static
      * @param string codifica separata da punti di un numero ip
      * @return string codifica esadecimale del numero ip
      */
-    public function _encodeIp($dotquad_ip)
+    private static function _encodeIp($dotquad_ip)
     {
         $ip_sep = explode('.', $dotquad_ip);
 

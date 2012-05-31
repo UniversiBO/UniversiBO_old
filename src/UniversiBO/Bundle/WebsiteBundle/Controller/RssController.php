@@ -24,17 +24,17 @@ class RssController extends Controller
         if (!$canale instanceof Canale) {
             throw $this->createNotFoundException('Canale not found');
         }
-        
+
         $acl = $this->get('universibo_legacy.acl');
         $user = $scontext->isGranted('IS_AUTHENTICATED_FULLY') ? $scontext
         ->getToken()->getUser() : null;
-        
+
         if (!$acl->canRead($user, $channel)) {
-        	$response = new Response();
-        	$response->setStatusCode(403);
-        	$response->setContent('403 Forbidden');
-        
-        	return $response;
+            $response = new Response();
+            $response->setStatusCode(403);
+            $response->setContent('403 Forbidden');
+
+            return $response;
         }
 
         $generator = $this->get('universibo_website.feed.feed_generator');

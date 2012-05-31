@@ -185,7 +185,7 @@ class FileAdd extends UniversiboCommand
             if (!preg_match('/^([0-9]{4})$/', $_POST['f12_data_ins_aa'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo anno di inserimento non � valido',
+                                'msg' => 'Il formato del campo anno di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -272,14 +272,11 @@ class FileAdd extends UniversiboCommand
                                 'log' => false,
                                 'template_engine' => &$template));
                 $f12_accept = false;
-            }
-            //			elseif ($_POST['f12_abstract'] == '') {
-            //				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'La descrizione/abstract del file deve essere inserita obbligatoriamente', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
-            //				$f12_accept = false;
-            //			} elseif ($_POST['f12_abstract'] == '') {
+            } elseif ($_POST['f12_abstract'] == '') {
                 $f12_abstract = $f12_titolo;
-            } else
+            } else {
                 $f12_abstract = $_POST['f12_abstract'];
+            }
 
             //parole chiave
             if ($_POST['f12_parole_chiave'] != '') {

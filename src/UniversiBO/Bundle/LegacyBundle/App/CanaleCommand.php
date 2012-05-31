@@ -23,9 +23,9 @@ use \Error;
 abstract class CanaleCommand extends UniversiboCommand
 {
     /**
-     * @private
+     * @var Canale
      */
-    public $requestCanale;
+    private $requestCanale;
 
     /**
      * Restituisce l'id_canale corrente, se non ? specificato nella richiesta HTTP-GET si considera

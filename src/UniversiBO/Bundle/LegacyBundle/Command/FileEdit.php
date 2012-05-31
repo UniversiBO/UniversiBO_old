@@ -36,14 +36,14 @@ class FileEdit extends UniversiboCommand
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_file'])) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
-                            'msg' => 'L\'id del file richiesto non � valido',
+                            'msg' => 'L\'id del file richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
         $file = &FileItem::selectFileItem($_GET['id_file']);
         if ($file === false)
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
-                            'msg' => "Il file richiesto non � presente su database",
+                            'msg' => "Il file richiesto non e` presente su database",
                             'file' => __FILE__, 'line' => __LINE__));
 
         $template
@@ -73,14 +73,14 @@ class FileEdit extends UniversiboCommand
             if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'L\'id del canale richiesto non � valido',
+                                'msg' => 'L\'id del canale richiesto non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
             $canale = &Canale::retrieveCanale($_GET['id_canale']);
             if ($canale->getServizioFiles() == false)
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => "Il servizio files � disattivato",
+                                'msg' => "Il servizio files e` disattivato",
                                 'file' => __FILE__, 'line' => __LINE__));
 
             $id_canale = $canale->getIdCanale();
@@ -223,7 +223,7 @@ class FileEdit extends UniversiboCommand
             if (!preg_match('/^([0-9]{4})$/', $_POST['f13_data_ins_aa'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo anno di inserimento non � valido',
+                                'msg' => 'Il formato del campo anno di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -267,7 +267,7 @@ class FileEdit extends UniversiboCommand
             if (!preg_match('/^([0-9]{1,2})$/', $_POST['f13_data_ins_min'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo minuto di inserimento non � valido',
+                                'msg' => 'Il formato del campo minuto di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -310,11 +310,7 @@ class FileEdit extends UniversiboCommand
                                 'log' => false,
                                 'template_engine' => &$template));
                 $f13_accept = false;
-            }
-            //			elseif ($_POST['f13_abstract'] == '') {
-            //				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'La descrizione/abstract del file deve essere inserita obbligatoriamente', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
-            //				$f13_accept = false;
-            //			} elseif ($_POST['f13_abstract'] == '') {
+            } elseif ($_POST['f13_abstract'] == '') {
                 $f13_abstract = $f13_titolo;
             } else
                 $f13_abstract = $_POST['f13_abstract'];
@@ -328,7 +324,7 @@ class FileEdit extends UniversiboCommand
                     if (strlen($parola > 40)) {
                         Error::throwError(_ERROR_NOTICE,
                                 array('id_utente' => $user->getIdUser(),
-                                        'msg' => 'La lunghezza massima di una parola chiave � di 40 caratteri',
+                                        'msg' => 'La lunghezza massima di una parola chiave e` di 40 caratteri',
                                         'file' => __FILE__, 'line' => __LINE__,
                                         'log' => false,
                                         'template_engine' => &$template));
@@ -375,7 +371,7 @@ class FileEdit extends UniversiboCommand
             if (!preg_match('/^([0-9]{1,9})$/', $_POST['f13_tipo'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo tipo non � ammissibile',
+                                'msg' => 'Il formato del campo tipo non e` ammissibile',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
