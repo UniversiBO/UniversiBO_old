@@ -3,6 +3,5 @@
 {% block content %}
 <h2>Risultati della ricerca <em>{{ searchQuery }}</em></h2>
 {% render 'UniversiBOWebsiteBundle:File:byIds' with {'ids' : files} %}
-<h3>News</h3>
 {% render 'UniversiBOWebsiteBundle:News:byIds' with {'ids' : news} %}
 {% endblock %}
