@@ -8,6 +8,7 @@
         "doctrine/orm": "2.1.x-dev",
         "sensio/generator-bundle": "2.0.x-dev",
         "sensio/framework-extra-bundle": "2.0.x-dev",
+        "swiftmailer/swiftmailer" : "4.1.7",
         "jms/metadata": "1.1.1",
         "jms/security-extra-bundle": "1.1.0",
         "friendsofsymfony/oauth-server-bundle": "1.1.1",
