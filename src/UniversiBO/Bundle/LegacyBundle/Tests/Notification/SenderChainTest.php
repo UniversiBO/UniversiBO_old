@@ -9,7 +9,7 @@ use UniversiBO\Bundle\LegacyBundle\Notification\SenderChain;
 
 class SenderChainTest extends \PHPUnit_Framework_TestCase
 {
-    const INAME = 'UniversiBO\\Bundle\\LegacyBundle\\Notification\\Sender';
+    const INAME = 'UniversiBO\\Bundle\\LegacyBundle\\Notification\\SenderInterface';
 
     private $chain;
 
