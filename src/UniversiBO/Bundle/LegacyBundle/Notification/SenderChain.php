@@ -25,14 +25,14 @@ class SenderChain implements SenderInterface
         return false;
     }
 
-    public function register(Sender $sender)
+    public function register(SenderInterface $sender)
     {
         if (!in_array($sender, $this->senders, true)) {
             $this->senders[] = $sender;
         }
     }
 
-    public function unregister(Sender $sender)
+    public function unregister(SenderInterface $sender)
     {
         if (false === ($key = array_search($sender, $this->senders, true))) {
             throw new \InvalidArgumentException('Sender was not registered');

@@ -2,10 +2,8 @@
 namespace UniversiBO\Bundle\LegacyBundle\Tests\Notification;
 
 use UniversiBO\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
-
-use UniversiBO\Bundle\LegacyBundle\Notification\Sender;
-
 use UniversiBO\Bundle\LegacyBundle\Notification\SenderChain;
+use UniversiBO\Bundle\LegacyBundle\Notification\SenderInterface;
 
 class SenderChainTest extends \PHPUnit_Framework_TestCase
 {
@@ -23,7 +21,7 @@ class SenderChainTest extends \PHPUnit_Framework_TestCase
 
     public function testImplementsSenderInterface()
     {
-        $this->assertTrue($this->chain instanceof Sender, 'Chain should implement Sender interface');
+        $this->assertTrue($this->chain instanceof SenderInterface, 'Chain should implement Sender interface');
     }
 
     public function testSupportsFirst()
