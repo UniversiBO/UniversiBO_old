@@ -1,7 +1,7 @@
 <?php
-namespace UniversiBO\Bundle\WebsiteBundle\Tests\Forum;
+namespace UniversiBO\Bundle\ForumBundle\Tests\Naming;
 
-use UniversiBO\Bundle\WebsiteBundle\Forum\NameGenerator;
+use UniversiBO\Bundle\ForumBundle\Naming\NameGenerator;
 
 class NameGeneratorTest extends \PHPUnit_Framework_TestCase
 {

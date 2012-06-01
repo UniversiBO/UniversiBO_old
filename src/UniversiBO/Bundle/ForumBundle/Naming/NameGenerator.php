@@ -1,5 +1,5 @@
 <?php
-namespace UniversiBO\Bundle\WebsiteBundle\Forum;
+namespace UniversiBO\Bundle\ForumBundle\Naming;
 /**
  * Forum Name Generator
  *
