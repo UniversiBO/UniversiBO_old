@@ -2,6 +2,8 @@
 
 namespace UniversiBO\Bundle\WebsiteBundle\DependencyInjection;
 
+use Symfony\Component\DependencyInjection\Definition;
+
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -24,5 +26,11 @@ class UniversiBOWebsiteExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+
+        $definition = new Definition('UniversiBO\Bundle\WebsiteBundle\Twig\UniversiBOExtension');
+        $definition->addTag('twig.extension');
+
+        $container->setDefinition('twig_universibo_extension', $definition);
+
     }
 }

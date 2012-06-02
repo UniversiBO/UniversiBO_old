@@ -3,7 +3,7 @@
     <a href="{{ path('news_show', {id: news.idNotizia}) }}">{{ news.titolo }}</a>
   </div>
   <div class="news-body">
- {{ news.notizia | nl2br }}
+ {{ news.notizia | linkify | bbcode | nl2br }}
   </div>
   <div class="news-footer">
     <div class="news-footer-left">
