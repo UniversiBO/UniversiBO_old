@@ -24,9 +24,9 @@ class NewsShowCanale extends CanaleCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 
-        $user = & $this->getSessionUser();
-        $canale = & $this->getRequestCanale();
-        $user_ruoli = & $user->getRuoli();
+        $user = $this->getSessionUser();
+        $canale = $this->getRequestCanale();
+        $user_ruoli = $user->getRuoli();
         $id_canale = $canale->getIdCanale();
 
         if (!array_key_exists('inizio', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['inizio'] ) || !array_key_exists('qta', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['qta'] )) {
@@ -65,7 +65,7 @@ class NewsShowCanale extends CanaleCommand
             $template->assign('NewsShowCanale_numPagineFlag', 'true');
         }
 
-        $lista_notizie = & $this->getLatestNewsCanale($_GET['inizio'],$quantita,$id_canale);
+        $lista_notizie = $this->getLatestNewsCanale($_GET['inizio'],$quantita,$id_canale);
         $param = array('id_notizie'=> $lista_notizie, 'chk_diritti' => true);
         $this->executePlugin('ShowNews', $param );
 
