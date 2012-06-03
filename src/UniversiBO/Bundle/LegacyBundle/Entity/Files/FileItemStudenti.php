@@ -40,6 +40,7 @@ class FileItemStudenti extends FileItem
         $id_files = array ($id_file);
         $files = FileItemStudenti::selectFileItems($id_files);
         if ($files === false)
+
             return false;
         return $files[0];
     }

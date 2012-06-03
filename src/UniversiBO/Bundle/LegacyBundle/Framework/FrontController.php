@@ -294,7 +294,7 @@ class FrontController
     {
         return str_replace('.', '\\', $this->commandClass);
     }
-    
+
     public function getContainer()
     {
         return $this->container;
@@ -958,8 +958,7 @@ class FrontController
     {
         return $this->templateEngine;
     }
-    
-    
+
     /**
      * @return \Swift_Mailer
      */

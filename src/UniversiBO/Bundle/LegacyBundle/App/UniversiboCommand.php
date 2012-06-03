@@ -26,7 +26,7 @@ abstract class UniversiboCommand extends BaseCommand
      * User
      */
     protected $sessionUser;
-    
+
     private $container;
 
     /**
@@ -551,7 +551,7 @@ abstract class UniversiboCommand extends BaseCommand
 
             return +1;
     }
-    
+
     public function getContainer()
     {
         return $this->getFrontController()->getContainer();

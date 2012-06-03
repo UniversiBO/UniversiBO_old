@@ -343,7 +343,7 @@ class ShowContribute extends UniversiboCommand
 
             //invio mail notifica
             $session_user = $this->getSessionUser();
-            
+
             $message = \Swift_Message::newInstance();
 
             $riceventi = $frontcontroller->getAppSetting('questionariReceiver');

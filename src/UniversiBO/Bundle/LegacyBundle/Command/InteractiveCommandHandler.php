@@ -5,7 +5,6 @@ use \Error;
 
 use UniversiBO\Bundle\LegacyBundle\App\ForumApi;
 use UniversiBO\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
-use UniversiBO\Bundle\LegacyBundle\Framework\ConditionLanguage\LegacyCLInterpreter;
 use UniversiBO\Bundle\LegacyBundle\App\UniversiboCommand;
 
 // hack per caricare le costanti
