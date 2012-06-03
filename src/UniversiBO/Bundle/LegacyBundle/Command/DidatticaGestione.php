@@ -526,10 +526,9 @@ class DidatticaGestione extends UniversiboCommand
     }
 
     /**
-     * @static
      * @return string
      */
-    public function getEditUrl($id_canale, $id_cdl = null, $id_facolta = null,
+    public static function getEditUrl($id_canale, $id_cdl = null, $id_facolta = null,
             $id_sdop = null)
     {
         $ret = 'v2.php?do=DidatticaGestione&id_canale=' . $id_canale;

@@ -1,7 +1,0 @@
-EVENT nome DEF #SQL[select * from canale];
-STARTS WHEN $nome;
-
-EVENT nome DEF #PHP[aa[*] sdfds [;] ;];
-OP(+,2,1,100,1) DEF #PHP[return #0 + #1;];
-OP(>,2,1,10,1) DEF #PHP[ return #0 > #1;];
-STARTS WHEN @user->isOspite() > 0;STARTS WHEN $nome AND $altro_nome;

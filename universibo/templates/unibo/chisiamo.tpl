@@ -3,7 +3,7 @@
 {include file="avviso_notice.tpl"}
 
 <h2 id="inizio">{$contacts_langAltTitle|escape:"htmlall"|bbcode2html}</h2>
-<p>{$contacts_langIntro|escape:"htmlall"|bbcode2html|ereg_replace:"[[:alpha:]]+://[^<>[:space:]]+[[:alnum:]/]":"<a href=\"\\0\" target=\"_blank\">\\0</a>"|ereg_replace:"[^<>[:space:]]+[[:alnum:]/]@[^<>[:space:]]+[[:alnum:]/]":"<a href=\"mailto:\\0\" target=\"_blank\">\\0</a>"|nl2br}</p>
+<p>{$contacts_langIntro|escape:"htmlall"|bbcode2html|linkify|nl2br}</p>
 <hr />
 <div class="elencoFile">
 <table width="100%" border="0" cellspacing="0" cellpadding="0" summary="">

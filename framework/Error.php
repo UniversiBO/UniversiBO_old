@@ -185,11 +185,10 @@ class Error
      * Method that retrieve the first instance in error repository of given error category
      * Errors are removed from repository
      *
-     * @static
      * @param int $error_category defines the error category, see the predefined constants
      * @return mixed Error class object if successfull, false if no more Errors are in the repository
      */
-    function retrieve($error_category)
+    public static function retrieve($error_category)
     {
 
         global $_Error_repository;

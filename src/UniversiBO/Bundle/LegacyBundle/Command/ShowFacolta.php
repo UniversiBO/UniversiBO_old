@@ -1,5 +1,7 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Command;
+use UniversiBO\Bundle\LegacyBundle\Entity\Canale;
+
 use \Error;
 use UniversiBO\Bundle\LegacyBundle\App\ForumApi;
 use UniversiBO\Bundle\LegacyBundle\Entity\Cdl;
@@ -27,10 +29,10 @@ class ShowFacolta extends CanaleCommand
 
         parent::initCommand($frontController);
 
-        $canale = &$this->getRequestCanale();
+        $canale = $this->getRequestCanale();
         //var_dump($canale);
 
-        if ($canale->getTipoCanale() != CANALE_FACOLTA)
+        if ($canale->getTipoCanale() != Canale::FACOLTA)
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $this->sessionUser->getIdUser(),
                             'msg' => 'Il tipo canale richiesto non corrisponde al comando selezionato',
@@ -45,7 +47,7 @@ class ShowFacolta extends CanaleCommand
         $forum = new ForumApi;
 
         //@todo fatto sopra
-        $facolta = &$this->getRequestCanale();
+        $facolta = $this->getRequestCanale();
 
         $elencoCdl = Cdl::selectCdlElencoFacolta($facolta->getCodiceFacolta());
 

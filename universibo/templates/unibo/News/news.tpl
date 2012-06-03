@@ -4,7 +4,7 @@
 
 <div class="news">
 	<h3>::&nbsp;{$titolo|escape:"htmlall"|nl2br}&nbsp;::{if $nuova=="true"}&nbsp;&nbsp;<img src="tpl/unibo/icona_new.gif" width="21" height="9" alt="!NEW!" />{/if}{if $scadenza!=""}{$scadenza|escape:"htmlall"|bbcode2html|nl2br}{/if}</h3>
-	<p>{$notizia|escape:"htmlall"|nl2br|regex_replace:"/(^|[\s]*|[\n])([a-z]+:\/\/(www.\.)?)([-_\/=+?&%.;a-zA-Z0-9~]*)(\s+|<br \/>|$)/":"\\1<a href=\"\\2\\4\" target=\"_blank\">\\2\\4</a>\\5"|bbcode2html|regex_replace:"/(^|\s+|\n)(www.[-_\\/=+?&%.;a-zA-Z0-9]*)(\s+|<br \\/>|$)/":"\\1<a href=\"http:\\/\\/\\2\" target=\"_blank\">\\2</a>\\3"|ereg_replace:"[^<>[:space:]]+[[:alnum:]/]@[^<>[:space:]]+[[:alnum:]/]":"<a href=\"mailto:\\0\" target=\"_blank\">\\0</a>"}</p>
+	<p>{$notizia|escape:"htmlall"|nl2br|regex_replace:"/(^|[\s]*|[\n])([a-z]+:\/\/(www.\.)?)([-_\/=+?&%.;a-zA-Z0-9~]*)(\s+|<br \/>|$)/":"\\1<a href=\"\\2\\4\" target=\"_blank\">\\2\\4</a>\\5"|bbcode2html|linkify}</p>
 	{* TODO capire come togliere tabella *}
 	<table><tr><td>
 	<span class="actions">

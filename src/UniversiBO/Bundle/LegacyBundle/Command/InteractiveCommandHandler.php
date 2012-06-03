@@ -328,8 +328,6 @@ perche` impedisce il login agli utenti
      */
     public function evaluateCondition($CL_code)
     {
-        LegacyCLInterpreter::init($this->getFrontController(), $this->userLogin);
-
-        return LegacyCLInterpreter::execMe($CL_code);
+        return true;
     }
 }

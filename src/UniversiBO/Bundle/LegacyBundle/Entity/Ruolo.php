@@ -267,7 +267,7 @@ class Ruolo
      *
      * @return int livello di notifica
      */
-    public function getLivelliNotifica()
+    public static function getLivelliNotifica()
     {
         return array(	NOTIFICA_NONE => 'Nessuna',
                 NOTIFICA_URGENT => 'Solo Urgenti',
@@ -448,11 +448,11 @@ class Ruolo
     /**
      * Preleva tutti i ruoli di un utente da database
      *
-     * @static
+     * @deprecated
      * @param  int   $id_utente numero identificativo utente
      * @return mixed array di oggetti Ruolo, false se non esistono ruoli
      */
-    public function selectUserRuoli($idUtente)
+    public static function selectUserRuoli($idUtente)
     {
         return self::getRepository()->findByIdUtente($idUtente);
     }

@@ -418,7 +418,7 @@ class User implements UserInterface, \Serializable
      */
     public function getRuoliInfoGroupedByYear($id_canale = null)
     {
-        $user_ruoli = &$this->getRuoli();
+        $user_ruoli = $this->getRuoli();
         $elenco_canali = array();
         $found = ($id_canale == null);
         foreach ($user_ruoli as $r) {
@@ -885,7 +885,7 @@ class User implements UserInterface, \Serializable
      * to do
      * @return mixed User se eseguita con successo, false se l'utente non esiste
      */
-    public function selectAllCollaboratori()
+    public static function selectAllCollaboratori()
     {
         return self::getRepository()->findCollaboratori();
     }

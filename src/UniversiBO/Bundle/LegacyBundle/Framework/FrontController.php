@@ -1,16 +1,16 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Framework;
 
-use UniversiBO\Bundle\LegacyBundle\App\ErrorHandlers;
-
 define('MAIL_KEEPALIVE_NO', 0);
 define('MAIL_KEEPALIVE_ALIVE', 1);
 define('MAIL_KEEPALIVE_CLOSE', 2);
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use \DB;
 use \Error;
 use \Krono;
+
+use Symfony\Component\DependencyInjection\Container;
+use UniversiBO\Bundle\LegacyBundle\App\ErrorHandlers;
 
 /**
  * It is a front controller.
@@ -112,7 +112,7 @@ class FrontController
     private $templateEngine;
 
     /**
-     * @var ContainerBuilder
+     * @var Container
      */
     private $container;
 
@@ -128,7 +128,10 @@ class FrontController
      */
     public function __construct( $receiver )
     {
-        $this->container = new ContainerBuilder();
+        $kernel = $receiver->getKernel();
+        $kernel->init();
+        $kernel->boot();
+        $this->container = $kernel->getContainer();
 
         //		include_once('XmlDoc'.PHP_EXTENSION);
 
@@ -163,13 +166,7 @@ class FrontController
     {
         //$command_request=$this->getCommandRequest();
         $command_class=$this->getCommandClass();
-        $bundleClass = 'UniversiBO\\Bundle\\LegacyBundle\\Command\\'.$command_class;
-
-        if (class_exists($bundleClass)) {
-            $command_class = $bundleClass;
-        } else {
-            require_once($this->paths['commands'].'/'.$command_class.PHP_EXTENSION);
-        }
+        $command_class = 'UniversiBO\\Bundle\\LegacyBundle\\Command\\'.$command_class;
 
         /**
          * @todo mettere controllo sull'avvenuta inclusione, altrimenti errore critico
@@ -185,7 +182,7 @@ class FrontController
         if (array_key_exists($response, $this->commandTemplate)) {
             $template = $this->commandTemplate[$response];
 
-            $templateEngine =& $this->getTemplateEngine();
+            $templateEngine = $this->getTemplateEngine();
             if (!$templateEngine->template_exists($template)) {
                 echo $template;
                 \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` presente il file relativo al template specificato: "'.$template.'"','file'=>__FILE__,'line'=>__LINE__));
@@ -262,7 +259,7 @@ class FrontController
      * @param string $receiver receiver identifier
      * @todo add ability to redirect on another receiver
      */
-    public function redirectCommand($command='', $receiver=NULL)
+    public static function redirectCommand($command='', $receiver=NULL)
     {
         $request_protocol = (array_key_exists('HTTPS',$_SERVER) && $_SERVER['HTTPS']=='on') ? 'https' : 'http';
 
@@ -281,7 +278,7 @@ class FrontController
      *
      * @param string $destination
      */
-    public function redirectUri($destination)
+    public static function redirectUri($destination)
     {
         header('Location: '.$destination);
         exit();
@@ -296,6 +293,11 @@ class FrontController
     public function getCommandClass()
     {
         return str_replace('.', '\\', $this->commandClass);
+    }
+    
+    public function getContainer()
+    {
+        return $this->container;
     }
 
     /**
@@ -576,7 +578,7 @@ class FrontController
      */
     public function _setDefaultCommand()
     {
-        $figli =& $this->config->documentElement->childNodes;
+        $figli = $this->config->documentElement->childNodes;
         //		var_dump($figli);
         for ($i = 0; $i < $figli->length; $i++) {
             $iesimoFiglio = $figli->item($i);
@@ -710,34 +712,6 @@ class FrontController
     }
 
     /**
-     * Sets the framework mailer settings
-     *
-     * @access private
-     */
-    public function _setSmsMobyInfo()
-    {
-        $smsMobyInfoNodes = $this->config->getElementsByTagName('smsMobyInfo');
-        if ($smsMobyInfoNodes == NULL)
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non esiste l\'elemento smsMobyInfo nel file di config','file'=>__FILE__,'line'=>__LINE__));
-
-        $smsMobyInfoNode = $smsMobyInfoNodes->item(0);
-        if ($smsMobyInfoNode == NULL)
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non esiste l\'elemento smsMobyInfo nel file di config','file'=>__FILE__,'line'=>__LINE__));
-
-        $figli = $smsMobyInfoNode->childNodes;
-        for ( $i=0; $i<$figli->length; $i++ ) {
-            $aSetting = $figli->item($i);
-            if ($aSetting->nodeType == XML_ELEMENT_NODE)
-                $this->smsMobyInfo[$aSetting->tagName] = $aSetting->firstChild->nodeValue;
-        }
-
-        $this->container -> register('mobytsms', 'mobytSms')
-        -> addArgument($this->smsMobyInfo['username'])
-        -> addArgument($this->smsMobyInfo['password'])
-        -> addArgument($this->smsMobyInfo['fromName']);
-    }
-
-    /**
      * Sets the framework and application multilanguage info
      *
      * @access private
@@ -761,11 +735,6 @@ class FrontController
         //linguaggio corrente inpostato uguale a quello di default
         //inserire la possibilit? di cambiarlo a run time.
         $this->languageInfo['lang'] = $this->languageInfo['lang_default'];
-
-        $this->container->register('krono', 'Krono')
-        ->addArgument($this->languageInfo['lang'])
-        ->addArgument($this->languageInfo['lang'])
-        ->addArgument($this->languageInfo['date_separator']);
     }
 
     /**
@@ -989,6 +958,15 @@ class FrontController
     {
         return $this->templateEngine;
     }
+    
+    
+    /**
+     * @return \Swift_Mailer
+     */
+    public function getMailer()
+    {
+        return $this->getContainer()->get('mailer');
+    }
 
     /**
      * Factory method that creates a PhpMailer Mail object
@@ -1041,19 +1019,6 @@ class FrontController
     }
 
     /**
-        * Factory method that creates a PhpMailer Mail object
-        *
-        * param $keepAlive MAIL_KEEPALIVE_NO||MAIL_KEEPALIVE_ALIVE||MAIL_KEEPALIVE_CLOSE
-        * @return PHPMailer object
-        * @access public
-        */
-
-    public function getSmsMoby()
-    {
-        return $this->container->get('mobytsms');
-    }
-
-    /**
      * Factory method that creates a Kronos object based on the config language info
      *
      * @return Krono object
@@ -1061,6 +1026,6 @@ class FrontController
      */
     public function getKrono()
     {
-        return $this->container->get('krono');
+        return $this->container->get('universibo_legacy.krono');
     }
 }

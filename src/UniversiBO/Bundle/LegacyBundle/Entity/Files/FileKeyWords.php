@@ -35,12 +35,12 @@ class FileKeyWords
      *
      * @return array di string
      */
-    public function selectFileKeyWords($id_file)
+    public static function selectFileKeyWords($id_file)
     {
-        $db = & FrontController::getDbConnection('main');
+        $db = FrontController::getDbConnection('main');
 
         $query = 'SELECT keyword FROM file_keywords WHERE id_file='.$db->quote($id_file);
-        $res = & $db->query($query);
+        $res = $db->query($query);
 
         if (DB :: isError($res))
             Error :: throwError(_ERROR_DEFAULT, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));

@@ -882,10 +882,10 @@ class FileItem
      * @param  int      $id_file id del file
      * @return FileItem
      */
-    public function selectFileItem($id_file)
+    public static function selectFileItem($id_file)
     {
         $id_files = array($id_file);
-        $files = &FileItem::selectFileItems($id_files);
+        $files = FileItem::selectFileItems($id_files);
         if ($files === false)
 
             return false;
@@ -912,7 +912,7 @@ class FileItem
      * @param  boolean $order     ordina i file in ordine decrescente di data
      * @return mixed   false se non trova file, array di fileItem altrimenti
      */
-    public function selectFileItemsByIdUtente($id_utente, $order = false)
+    public static function selectFileItemsByIdUtente($id_utente, $order = false)
     {
 
         $db = FrontController::getDbConnection('main');
@@ -926,7 +926,7 @@ class FileItem
                 . $db->quote(FILE_ELIMINATO) . ' AND id_utente = '
                 . $db->quote($id_utente)
                 . ($order ? ' ORDER BY data_inserimento DESC' : '');
-        $res = &$db->query($query);
+        $res = $db->query($query);
 
         //echo $query;
 

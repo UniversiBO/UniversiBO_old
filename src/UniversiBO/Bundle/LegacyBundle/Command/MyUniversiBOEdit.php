@@ -42,7 +42,7 @@ class MyUniversiBOEdit extends UniversiboCommand
                             'file' => __FILE__, 'line' => __LINE__));
         }
         $id_canale = $_GET['id_canale'];
-        $canale = &Canale::retrieveCanale($id_canale);
+        $canale = Canale::retrieveCanale($id_canale);
         $template->assign('common_canaleURI', $canale->showMe());
         $template->assign('common_langCanaleNome', $canale->getNome());
 
@@ -50,7 +50,7 @@ class MyUniversiBOEdit extends UniversiboCommand
         if (!array_key_exists($id_canale, $ruoli))
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $utente->getIdUser(),
-                            'msg' => 'Il ruolo richiesto non � presente',
+                            'msg' => 'Il ruolo richiesto non e` presente',
                             'file' => __FILE__, 'line' => __LINE__));
 
         $ruolo = $ruoli[$id_canale];

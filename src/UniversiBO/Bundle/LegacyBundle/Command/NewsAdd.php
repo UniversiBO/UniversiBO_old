@@ -50,8 +50,8 @@ class NewsAdd extends CanaleCommand
                             'msg' => "Non hai i diritti per inserire una notizia\n La sessione potrebbe essere scaduta",
                             'file' => __FILE__, 'line' => __LINE__));
 
-        $frontcontroller = &$this->getFrontController();
-        $template = &$frontcontroller->getTemplateEngine();
+        $frontcontroller = $this->getFrontController();
+        $template = $frontcontroller->getTemplateEngine();
 
         $krono = $frontcontroller->getKrono();
 

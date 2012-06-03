@@ -22,7 +22,7 @@
 <td>
   <table border="0" width="100%" cellspacing="0" cellpadding="4" summary="">
   <tr> 
-  <td class="News" align="left">{$notizia|escape:"htmlall"|nl2br|ereg_replace:"(^|[\s]*|[\n])([a-z]+://(www.\.)?)([-_/=+?&%.;a-zA-Z0-9~]*)(\s+|<br />|$)":"\\1<a href=\"\\2\\4\" target=\"_blank\">\\2\\4</a>\\5"|bbcode2html|ereg_replace:"(^|\s+|\n)(www.[-_/=+?&%.;a-zA-Z0-9]*)(\s+|<br />|$)":"\\1<a href=\"http://\\2\" target=\"_blank\">\\2</a>\\3"|ereg_replace:"[^<>[:space:]]+[[:alnum:]/]@[^<>[:space:]]+[[:alnum:]/]":"<a href=\"mailto:\\0\" target=\"_blank\">\\0</a>"}</td></tr>
+  <td class="News" align="left">{$notizia|escape:"htmlall"|nl2br|linkify}</td></tr>
   <tr> 
   
   <td class="News" align="right">{$data|escape:"htmlall"|nl2br}<br />

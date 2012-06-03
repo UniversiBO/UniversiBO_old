@@ -35,12 +35,11 @@ class FileItemStudenti extends FileItem
      * @param  int      $id_file id del file
      * @return FileItem
      */
-    public function  selectFileItem($id_file)
+    public static function  selectFileItem($id_file)
     {
         $id_files = array ($id_file);
-        $files = & FileItemStudenti::selectFileItems($id_files);
+        $files = FileItemStudenti::selectFileItems($id_files);
         if ($files === false)
-
             return false;
         return $files[0];
     }
@@ -55,7 +54,7 @@ class FileItemStudenti extends FileItem
      */
     public static function selectFileItems($id_files)
     {
-        $db = & FrontController::getDbConnection('main');
+        $db = FrontController::getDbConnection('main');
 
         if (count($id_files) == 0) {$return = array(); return $return; }
 
@@ -143,11 +142,11 @@ class FileItemStudenti extends FileItem
      */
     public function removeCanale($id_canale)
     {
-        $db = & FrontController :: getDbConnection('main');
+        $db = FrontController :: getDbConnection('main');
 
         $query = 'DELETE FROM file_studente_canale WHERE id_canale='.$db->quote($id_canale).' AND id_file='.$db->quote($this->getIdFile());
         //? da testare il funzionamento di =
-        $res = & $db->query($query);
+        $res = $db->query($query);
 
         if (DB :: isError($res))
             Error :: throwError(_ERROR_DEFAULT, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
@@ -176,10 +175,10 @@ class FileItemStudenti extends FileItem
 
         $id_file = $this->getIdFile();
 
-        $db = & FrontController :: getDbConnection('main');
+        $db = FrontController :: getDbConnection('main');
 
         $query = 'SELECT id_canale FROM file_studente_canale WHERE id_file='.$db->quote($id_file);
-        $res = & $db->query($query);
+        $res = $db->query($query);
 
         if (DB :: isError($res))
             Error :: throwError(_ERROR_DEFAULT, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
@@ -201,14 +200,14 @@ class FileItemStudenti extends FileItem
      * @return $flag	true o false
      */
 
-    public function  isFileStudenti($id_file)
+    public static function  isFileStudenti($id_file)
     {
         $flag = true;
 
-        $db = & FrontController :: getDbConnection('main');
+        $db = FrontController :: getDbConnection('main');
 
         $query = 'SELECT count(id_file) FROM file_studente_canale WHERE id_file='.$db->quote($id_file).' GROUP BY id_file';
-        $res = & $db->query($query);
+        $res = $db->query($query);
 
         if (DB :: isError($res))
             Error :: throwError(_ERROR_DEFAULT, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
@@ -224,13 +223,13 @@ class FileItemStudenti extends FileItem
      *
      * @param $id_file id del file
      */
-     function  getVoto($id_file)
+     public static function getVoto($id_file)
      {
 
-        $db = & FrontController :: getDbConnection('main');
+        $db = FrontController :: getDbConnection('main');
 
         $query = 'SELECT avg(voto) FROM file_studente_commenti WHERE id_file='.$db->quote($id_file).' AND eliminato = '.$db->quote(CommentoItem::NOT_ELIMINATO).' GROUP BY id_file';
-        $res = & $db->query($query);
+        $res = $db->query($query);
 
         if (DB :: isError($res))
             Error :: throwError(_ERROR_DEFAULT, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));

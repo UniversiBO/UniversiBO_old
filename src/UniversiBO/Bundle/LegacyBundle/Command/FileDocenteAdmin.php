@@ -63,7 +63,7 @@ class FileDocenteAdmin extends UniversiboCommand
                                 'msg' => 'L\'id del canale richiesto non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $canale = &Canale::retrieveCanale($_GET['id_canale']);
+            $canale = Canale::retrieveCanale($_GET['id_canale']);
 
             if ($canale->getServizioFiles() == false)
                 Error::throwError(_ERROR_DEFAULT,
@@ -102,7 +102,7 @@ class FileDocenteAdmin extends UniversiboCommand
                     'spunta' => ($id_current_canale == $id_canale) ? 'true'
                             : 'false');
             $listaFile = array();
-            $lista = &FileItem::selectFileItems(
+            $lista = FileItem::selectFileItems(
                     FileItem::selectFileCanale($id_current_canale));
             usort($lista, array($this, '_compareFile'));
             foreach ($lista as $file)

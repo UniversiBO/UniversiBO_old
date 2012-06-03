@@ -29,7 +29,7 @@ class ShowInsegnamento extends CanaleCommand
     {
         parent::initCommand($frontController);
 
-        $canale = &$this->getRequestCanale();
+        $canale = $this->getRequestCanale();
         //var_dump($canale);
 
         if ($canale->getTipoCanale() != Canale::INSEGNAMENTO) {

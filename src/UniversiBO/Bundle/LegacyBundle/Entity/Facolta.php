@@ -188,7 +188,7 @@ class Facolta extends Canale
      * @param  int   $id_canale id_del canale corrispondente alla facolt?
      * @return mixed Facolta se eseguita con successo, false se il canale non esiste
      */
-    public function selectFacoltaCanale($id_canale)
+    public static function selectFacoltaCanale($id_canale)
     {
         global $__facoltaElencoCanale;
 
@@ -211,7 +211,7 @@ class Facolta extends Canale
      * @param  string  $cod_facolta stringa a 4 cifre del codice d'ateneo della facolt?
      * @return Facolta
      */
-    public function selectFacoltaCodice($cod_facolta)
+    public static function selectFacoltaCodice($cod_facolta)
     {
         global $__facoltaElencoCodice;
 
@@ -230,11 +230,10 @@ class Facolta extends Canale
      * Seleziona da database e restituisce un'array contenente l'elenco
      * in ordine alfabetico di tutte le facolt?
      *
-     * @static
      * @param  string         $cod_facolta stringa a 4 cifre del codice d'ateneo della facolt?
      * @return array(Facolta)
      */
-    public function selectFacoltaElenco()
+    public static function selectFacoltaElenco()
     {
         global $__facoltaElencoAlfabetico;
 

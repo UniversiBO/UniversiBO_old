@@ -9,7 +9,7 @@
 	{include file=avviso_notice.tpl}
 	<div align="center">&nbsp;<br /><img src="tpl/black/chi_siamo_30.gif" width="179" height="39" alt="{$contacts_langAltTitle|escape:"htmlall"|bbcode2html}" /></div>
 	<p>
-	{$contacts_langIntro|escape:"htmlall"|bbcode2html|ereg_replace:"[[:alpha:]]+://[^<>[:space:]]+[[:alnum:]/]":"<a href=\"\\0\" target=\"_blank\">\\0</a>"|ereg_replace:"[^<>[:space:]]+[[:alnum:]/]@[^<>[:space:]]+[[:alnum:]/]":"<a href=\"mailto:\\0\" target=\"_blank\">\\0</a>"|nl2br}      
+	{$contacts_langIntro|escape:"htmlall"|bbcode2html|linkify|nl2br}      
 	</p>
 {foreach from=$contacts_langPersonal item=temp_curr_people}
 	{include file=tabellina_contatto.tpl collaboratore=$temp_curr_people}

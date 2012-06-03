@@ -15,7 +15,7 @@
 <tr><td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0" summary=""><tr><td bgcolor="#000099" align="left">
     	<img id="index" src="tpl/black/rule_piccoloL.gif" width="200" height="2" alt="" /></td><td bgcolor="#000099" align="right"><img src="tpl/black/rule_piccoloR.gif" width="200" height="2" alt="" /></td></tr></table></td></tr>
 {foreach from=$ShowContattoDocente_info_docente key=temp_key item=temp_info}
-<tr bgcolor="#000032"><td>{$temp_key|escape:"htmlall"|ereg_replace:" ":"&nbsp;"}:</td><td>{$temp_info|escape:"htmlall"}</td></tr>
+<tr bgcolor="#000032"><td>{$temp_key|escape:"htmlall"|preg_replace:"/ /":"&nbsp;"}:</td><td>{$temp_info|escape:"htmlall"}</td></tr>
 <tr><td colspan="2" align="center" bgcolor="#000099"><img src="tpl/black/invisible.gif" width="1" height="" alt="" /></td></tr>
 {/foreach}
 <tr bgcolor="#000032"><td colspan="2">&nbsp;</td></tr>
@@ -33,7 +33,7 @@
 <tr><td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0" summary=""><tr><td bgcolor="#000099" align="left">
     	<img id="index" src="tpl/black/rule_piccoloL.gif" width="200" height="2" alt="" /></td><td bgcolor="#000099" align="right"><img src="tpl/black/rule_piccoloR.gif" width="200" height="2" alt="" /></td></tr></table></td></tr>
 {foreach from=$ShowContattoDocente_contatto key=temp_key item=temp_contatto}
-<tr bgcolor="#000032"><td>{$temp_key|escape:"htmlall"|ereg_replace:" ":"&nbsp;"}:</td><td>{$temp_contatto|escape:"htmlall"|nl2br}</td></tr>
+<tr bgcolor="#000032"><td>{$temp_key|escape:"htmlall"|preg_replace:"/ /":"&nbsp;"}:</td><td>{$temp_contatto|escape:"htmlall"|nl2br}</td></tr>
 <tr><td colspan="2" align="center" bgcolor="#000099"><img src="tpl/black/invisible.gif" width="1" height="" alt="" /></td></tr>
 {/foreach}
 

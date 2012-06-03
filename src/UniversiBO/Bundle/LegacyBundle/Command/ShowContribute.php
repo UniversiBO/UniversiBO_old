@@ -174,7 +174,7 @@ class ShowContribute extends UniversiboCommand
 
             //telefono
             if ((strlen($_POST['f3_tel']) > 50)
-                    || !ereg('^([0-9]{1,50})$', $_POST['f3_tel'])) {
+                    || !preg_match('/^([0-9]{1,50})$/', $_POST['f3_tel'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
                                 'msg' => 'Il numero di cellulare indicato pu� essere massimo 20 cifre',
@@ -192,8 +192,8 @@ class ShowContribute extends UniversiboCommand
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false, 'template_engine' => &$template));
                 $f3_accept = false;
-            } elseif (!eregi(
-                    "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$",
+            } elseif (!preg_match(
+                    "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i",
                     $_POST['f3_mail'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
@@ -343,16 +343,17 @@ class ShowContribute extends UniversiboCommand
 
             //invio mail notifica
             $session_user = $this->getSessionUser();
-            $mail = $frontcontroller->getMail();
+            
+            $message = \Swift_Message::newInstance();
 
             $riceventi = $frontcontroller->getAppSetting('questionariReceiver');
             $array_riceventi = explode(';', $riceventi);
             foreach ($array_riceventi as $key => $value) {
-                $mail->AddAddress($value);
+                $message->addTo($value);
             }
 
-            $mail->Subject = '[UniversiBO] Nuovo questionario';
-            $mail->Body = 'nome: ' . $f3_nome . "\n" . 'cognome: '
+            $message->setSubject('[UniversiBO] Nuovo questionario');
+            $message->setBody('nome: ' . $f3_nome . "\n" . 'cognome: '
                     . $f3_cognome . "\n" . 'mail: ' . $f3_mail . "\n"
                     . 'telefono: ' . $f3_tel . "\n" . 'corso di laurea: '
                     . $f3_cdl . "\n" . 'username: '
@@ -365,15 +366,15 @@ class ShowContribute extends UniversiboCommand
                     . 'attivita_test: ' . $q3_test . "\n"
                     . 'attivita_grafica: ' . $q3_grafica . "\n"
                     . 'attivita_prog: ' . $q3_prog . "\n"
-                    . 'altre_informazioni: ' . $f3_altro . "\n\n";
+                    . 'altre_informazioni: ' . $f3_altro . "\n\n");
 
             //			var_dump($mail);die();
-            if (!$mail->Send())
+            if (!$frontcontroller->getMailer()->send($message)) {
                 Error::throwError(_ERROR_DEFAULT,
                         array(
                                 'msg' => 'Il questionario e` stato salvato ma e` stato impossibile inviare la notifica ai coordinatori',
                                 'file' => __FILE__, 'line' => __LINE__));
-
+            }
             $template
                     ->assignUnicode('question_thanks',
                             "Grazie per aver compilato il questionario, la tua richiesta è stata inoltrata ai ragazzi che si occupano del contatto dei nuovi collaboratori.\n Verrai ricontattatato da loro non appena possibile");

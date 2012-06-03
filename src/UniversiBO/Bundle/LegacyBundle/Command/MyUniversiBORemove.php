@@ -41,7 +41,7 @@ class MyUniversiBORemove extends UniversiboCommand
                             'file' => __FILE__, 'line' => __LINE__));
         }
         $id_canale = $_GET['id_canale'];
-        $canale = &Canale::retrieveCanale($id_canale);
+        $canale = Canale::retrieveCanale($id_canale);
         $template->assign('common_canaleURI', $canale->showMe());
         $template->assign('common_langCanaleNome', $canale->getNome());
         $template

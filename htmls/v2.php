@@ -4,6 +4,16 @@ use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
 require_once __DIR__.'/../app/bootstrap.php.cache';
 require_once __DIR__.'/../app/autoload.php';
+require_once __DIR__.'/../app/AppKernel.php';
+
+if (in_array(@$_SERVER['REMOTE_ADDR'], array(
+		'127.0.0.1',
+		'::1',
+))) {
+    $env = 'dev';
+} else {
+    $env = 'prod';
+}
 
 //list($usec, $sec) = explode(" ", microtime());
 //$page_time_start = ((float)$usec + (float)$sec);
@@ -24,13 +34,15 @@ class_exists('UniversiBO\\Bundle\\LegacyBundle\\Entity\\Ruolo');
  * @copyright CopyLeft UniversiBO 2001-2003
  */
 
-class Receiver {
+class Receiver 
+{
 
     var $frameworkPath = '../framework';
     var $applicationPath = '../universibo';
 
     var $configFile = '../config.xml';
     var $receiverIdentifier = 'main';
+    private $kernel;
 
 
     /**
@@ -41,13 +53,14 @@ class Receiver {
      * @param string $framework_path percorso in cui si trovano i file del framework
      * @param string $application_path percorso in cui si trovano i file dell'applicazione
      */
-    public function __construct($identifier, $config_file, $framework_path, $application_path)
+    public function __construct($identifier, $config_file, $framework_path, $application_path, $kernel)
     {
         $this->frameworkPath = $framework_path;
         $this->applicationPath = $application_path;
 
         $this->configFile = $config_file;
         $this->receiverIdentifier = $identifier;
+        $this->kernel = $kernel;
     }
 
 
@@ -128,11 +141,14 @@ class Receiver {
         $fc->executeCommand();
 
     }
-
+    
+    public function getKernel()
+    {
+        return $this->kernel;
+    }
 }
 
-
-$receiver = new Receiver('main', '../config.xml', '../framework', '../universibo');
+$receiver = new Receiver('main', '../config.xml', '../framework', '../universibo', new AppKernel($env, $env !== 'prod'));
 $receiver->main();
 
 

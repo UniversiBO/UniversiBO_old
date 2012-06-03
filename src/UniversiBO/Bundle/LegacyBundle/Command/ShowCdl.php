@@ -28,7 +28,7 @@ class ShowCdl extends CanaleCommand
     {
         parent::initCommand($frontController);
 
-        $canale = & $this->getRequestCanale();
+        $canale = $this->getRequestCanale();
         //var_dump($canale);
 
         if ($canale->getTipoCanale() != CANALE_CDL)
@@ -41,7 +41,7 @@ class ShowCdl extends CanaleCommand
         $template = $frontcontroller->getTemplateEngine();
 
         //@todo fatto sopra
-        $cdl = & $this -> getRequestCanale();
+        $cdl = $this -> getRequestCanale();
 
         if ( !array_key_exists('anno_accademico', $_GET) )
             $anno_accademico = $this->frontController->getAppSetting('defaultAnnoAccademico');

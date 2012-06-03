@@ -19,9 +19,9 @@ class ShowCanale extends CanaleCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 
-        $canale = & $this->getRequestCanale();
+        $canale = $this->getRequestCanale();
 
-        // controllare se � settato il nome e l'immagine?
+        // controllare se è settato il nome e l'immagine?
         $template->assign('showCanale_titolo', $canale->getNome());
         $template->assign('showCanale_img', $canale->getImmagine());
         //var_dump($canale->getImmagine());

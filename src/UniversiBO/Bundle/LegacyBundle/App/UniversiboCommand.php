@@ -26,6 +26,8 @@ abstract class UniversiboCommand extends BaseCommand
      * User
      */
     protected $sessionUser;
+    
+    private $container;
 
     /**
      * Restituisce l'id_utente del dello user nella sessione corrente
@@ -81,7 +83,7 @@ abstract class UniversiboCommand extends BaseCommand
     {
         parent::initCommand($frontController);
 
-        $template = & $frontController->getTemplateEngine();
+        $template = $frontController->getTemplateEngine();
         $template->assign('error_notice_present', 'false');
 
         $this->_setUpUserUniversibo();
@@ -117,7 +119,7 @@ abstract class UniversiboCommand extends BaseCommand
             echo $current_error->throwError();
         }
 
-        $fc = & $this->getFrontController();
+        $fc = $this->getFrontController();
         $fc->getMail(MAIL_KEEPALIVE_CLOSE);
     }
 
@@ -142,7 +144,7 @@ abstract class UniversiboCommand extends BaseCommand
             $this->sessionUser = new User(0, User::OSPITE);
             $this->setSessionIdUtente(0);
         } elseif ($this->getSessionIdUtente() >= 0) {
-            $this->sessionUser = & User::selectUser($this->getSessionIdUtente());
+            $this->sessionUser = User::selectUser($this->getSessionIdUtente());
             //			echo $this->sessionUser->getUsername();
         } else
             Error::throwError(_ERROR_CRITICAL, array('id_utente' => $this->sessionUser->getIdUser(), 'msg' => 'id_utente registrato nella sessione non valido', 'file' => __FILE__, 'line' => __LINE__));
@@ -157,8 +159,8 @@ abstract class UniversiboCommand extends BaseCommand
      */
     public function _initTemplateUniversibo()
     {
-        $template = & $this->frontController->getTemplateEngine();
-        $krono = & $this->frontController->getKrono();
+        $template = $this->frontController->getTemplateEngine();
+        $krono = $this->frontController->getKrono();
         //var_dump($template);
 
         if ($this->isPopup()) {
@@ -259,10 +261,10 @@ abstract class UniversiboCommand extends BaseCommand
      */
     public function _shutdownTemplateIndexUniversibo()
     {
-        $template = & $this->frontController->getTemplateEngine();
-        $krono = & $this->frontController->getKrono();
+        $template = $this->frontController->getTemplateEngine();
+        $krono = $this->frontController->getKrono();
 
-        $session_user = & $this->getSessionUser();
+        $session_user = $this->getSessionUser();
 
         //informazioni del MyUniversiBO
         $attivaMyUniversibo = false;
@@ -279,7 +281,7 @@ abstract class UniversiboCommand extends BaseCommand
                 if ($ruolo->isMyUniversibo()) {
                     //$attivaMyUniversibo = true;
 
-                    $canale = & Canale::retrieveCanale($ruolo->getIdCanale());
+                    $canale = Canale::retrieveCanale($ruolo->getIdCanale());
                     $myCanali = array();
                     $myCanali['uri'] = $canale->showMe();
                     $myCanali['tipo'] = $canale->getTipoCanale();
@@ -349,12 +351,12 @@ abstract class UniversiboCommand extends BaseCommand
         $template->assign('common_myUniversiBOUri', 'v2.php?do=ShowMyUniversiBO');
 
         $template->assignUnicode('common_fac', 'Facoltà');
-        $elenco_facolta = & Facolta ::selectFacoltaElenco();
+        $elenco_facolta = Facolta::selectFacoltaElenco();
         //var_dump($elenco_facolta);
 
         $num_facolta = count($elenco_facolta);
         $i = 0;
-        $session_user = & $this->getSessionUser();
+        $session_user = $this->getSessionUser();
         $session_user_groups = $session_user->getGroups();
         $common_facLinks = array();
         for ($i = 0; $i < $num_facolta; $i++) {
@@ -370,11 +372,11 @@ abstract class UniversiboCommand extends BaseCommand
         $common_servicesLinks = array();
 
         // servizi per i quali l'utente ha i diritti di accesso
-        $list_id_canali = & Canale::selectCanaliTipo(CANALE_DEFAULT);
-        $list_canali = & Canale::selectCanali($list_id_canali);
+        $list_id_canali = Canale::selectCanaliTipo(CANALE_DEFAULT);
+        $list_canali = Canale::selectCanali($list_id_canali);
         $keys = array_keys($list_canali);
         foreach ($keys as $key) {
-            $my_canale = & $list_canali[$key];
+            $my_canale = $list_canali[$key];
             if ($my_canale->isGroupAllowed($session_user_groups)) {
 
                 $myCanali['uri'] = $my_canale->showMe();
@@ -548,5 +550,10 @@ abstract class UniversiboCommand extends BaseCommand
         if ($a['label'] > $b['label'])
 
             return +1;
+    }
+    
+    public function getContainer()
+    {
+        return $this->getFrontController()->getContainer();
     }
 }

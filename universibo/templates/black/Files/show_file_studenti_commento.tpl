@@ -14,7 +14,7 @@
 	<table width="100%" align="center" border="0" cellspacing="0" cellpadding="5" summary="">
 	    <tr><td class="Normal" colspan="2"><span class="NormalC">Autore del commento: </span><a href="{$showFileStudentiCommenti_commento.userLink|escape:"htmlall"}">{$showFileStudentiCommenti_commento.userNick}</a></td></tr>
 		<tr><td class="Normal" colspan="2"><span class="NormalC">Voto proposto: </span>{$showFileStudentiCommenti_commento.voto}</td></tr>
-		<tr><td class="Normal" colspan="2"><span class="NormalC">Commento: </span>{$showFileStudentiCommenti_commento.commento|escape:"htmlall"|bbcode2html|ereg_replace:"[[:alpha:]]+://[^<>[:space:]]+[[:alnum:]/]":"<a href=\"\\0\" target=\"_blank\">\\0</a>"|ereg_replace:"[^<>[:space:]]+[[:alnum:]/]@[^<>[:space:]]+[[:alnum:]/]":"<a href=\"mailto:\\0\" target=\"_blank\">\\0</a>"|nl2br}</td></tr>
+		<tr><td class="Normal" colspan="2"><span class="NormalC">Commento: </span>{$showFileStudentiCommenti_commento.commento|escape:"htmlall"|bbcode2html|linkify|nl2br}</td></tr>
 	</table>
 		</td>
 		</tr>

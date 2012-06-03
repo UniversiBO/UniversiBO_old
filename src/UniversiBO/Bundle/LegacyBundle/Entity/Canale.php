@@ -533,11 +533,10 @@ class Canale
      * Questo metodo utilizza il metodo factory che viene ridefinito nelle
      * sottoclassi per restituire un oggetto del tipo corrispondente
      *
-     * @static
      * @param  int   $id_canale numero identificativo del canale
      * @return mixed Canale se eseguita con successo, false se il canale non esiste
      */
-    public function retrieveCanale($id_canale, $cache = true)
+    public static function retrieveCanale($id_canale, $cache = true)
     {
         //spalata la cache!!!
         //dimezza i tempi di esecuzione!!
@@ -669,7 +668,7 @@ class Canale
      * @param  int     $id_canale id del canale da controllare
      * @return boolean true se esiste tale canale
      */
-    public function canaleExists($id_canale)
+    public static function canaleExists($id_canale)
     {
         if ( $id_canale < 0 ) return false;
 

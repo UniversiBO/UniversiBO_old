@@ -95,10 +95,10 @@ class ShowFileInfo extends PluginCommand
                                 'msg' => 'L\'id del canale richiesto non � valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $canale = &Canale::retrieveCanale($_GET['id_canale']);
+            $canale = Canale::retrieveCanale($_GET['id_canale']);
             if ($canale->getServizioFiles() == false)
                 Error::throwError(_ERROR_DEFAULT,
-                        array('msg' => "Il servizio files � disattivato",
+                        array('msg' => "Il servizio files e` disattivato",
                                 'file' => __FILE__, 'line' => __LINE__));
 
             $id_canale = $canale->getIdCanale();
