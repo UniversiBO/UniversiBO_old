@@ -446,8 +446,6 @@ class FrontController
            //set $this->dbinfo
            $this->_setMailerInfo();
 
-           $this->_setSmsMobyInfo();
-
            //set $this->languageInfo
            $this->_setLanguageInfo();
 
