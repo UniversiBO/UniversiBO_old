@@ -24,7 +24,10 @@ class AppKernel extends Kernel
                 new UniversiBO\Bundle\LegacyBundle\UniversiBOLegacyBundle(),
                 new UniversiBO\Bundle\DidacticsBundle\UniversiBODidacticsBundle(),
             new UniversiBO\Bundle\ForumBundle\UniversiBOForumBundle(),
-                new UniversiBO\Bundle\AnswersBundle\UniversiBOAnswersBundle(),);
+                new UniversiBO\Bundle\AnswersBundle\UniversiBOAnswersBundle(),
+                new Sonata\AdminBundle\SonataAdminBundle(),
+                );
+       
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
