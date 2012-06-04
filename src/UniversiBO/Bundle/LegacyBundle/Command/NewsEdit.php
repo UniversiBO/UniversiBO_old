@@ -26,9 +26,9 @@ class NewsEdit extends CanaleCommand
     public function execute()
     {
 
-        $user = &$this->getSessionUser();
-        $canale = &$this->getRequestCanale();
-        $user_ruoli = &$user->getRuoli();
+        $user = $this->getSessionUser();
+        $canale = $this->getRequestCanale();
+        $user_ruoli = $user->getRuoli();
         $id_canale = $canale->getIdCanale();
 
         //diritti
@@ -50,7 +50,7 @@ class NewsEdit extends CanaleCommand
                             'file' => __FILE__, 'line' => __LINE__));
 
         if (array_key_exists($id_canale, $user_ruoli)) {
-            $ruolo = &$user_ruoli[$id_canale];
+            $ruolo = $user_ruoli[$id_canale];
 
             $referente = $ruolo->isReferente();
             $moderatore = $ruolo->isModeratore();
@@ -84,10 +84,10 @@ class NewsEdit extends CanaleCommand
                 'chk_diritti' => false);
         $this->executePlugin('ShowNews', $param);
 
-        $frontcontroller = &$this->getFrontController();
-        $template = &$frontcontroller->getTemplateEngine();
+        $frontcontroller = $this->getFrontController();
+        $template = $frontcontroller->getTemplateEngine();
 
-        $krono = &$frontcontroller->getKrono();
+        $krono = $frontcontroller->getKrono();
         $data_inserimento = $news->getDataIns();
         // valori default form
         $f8_titolo = $news->getTitolo();
@@ -127,7 +127,7 @@ class NewsEdit extends CanaleCommand
         //		for ($i = 0; $i < $num_canali; $i ++)
         //		{
         //			$id_current_canale = $elenco_canali[$i];
-        //			$current_canale = & Canale :: retrieveCanale($id_current_canale);
+        //			$current_canale =  Canale :: retrieveCanale($id_current_canale);
         //			$nome_current_canale = $current_canale->getTitolo();
         //			$spunta = (in_array($id_current_canale, $news->getIdCanali())) ? 'true' : 'false';
         //			$f8_canale[] = array ('id_canale' => $id_current_canale, 'nome_canale' => $nome_current_canale, 'spunta' => $spunta);
@@ -137,7 +137,7 @@ class NewsEdit extends CanaleCommand
         $num_canali = count($lista_canali);
         for ($i = 0; $i < $num_canali; $i++) {
             $id_current_canale = $lista_canali[$i];
-            $current_canale = &Canale::retrieveCanale($id_current_canale);
+            $current_canale = Canale::retrieveCanale($id_current_canale);
             $nome_current_canale = $current_canale->getTitolo();
             $f8_canale[] = array('nome_canale' => $nome_current_canale);
         }
@@ -326,13 +326,13 @@ class NewsEdit extends CanaleCommand
                     $f8_data_scad_mm = $_POST['f8_data_scad_mm'];
 
                 //f8_data_scad_aa
-                if (!ereg('^([0-9]{4})$', $_POST['f8_data_scad_aa'])) {
+                if (!preg_match('/^([0-9]{4})$/', $_POST['f8_data_scad_aa'])) {
                     Error::throwError(_ERROR_NOTICE,
                             array('id_utente' => $user->getIdUser(),
                                     'msg' => 'Il formato del campo anno di inserimento non \u00e8 valido',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
-                                    'template_engine' => &$template));
+                                    'template_engine' => $template));
                     $f8_accept = false;
                     $checkdate_scad = false;
                 } elseif ($_POST['f8_data_scad_aa'] < 1970
@@ -342,7 +342,7 @@ class NewsEdit extends CanaleCommand
                                     'msg' => 'Il campo anno di inserimento deve essere compreso tra il 1970 e il 2032',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
-                                    'template_engine' => &$template));
+                                    'template_engine' => $template));
                     $f8_accept = false;
                     $checkdate_scad = false;
                 } else
@@ -459,7 +459,7 @@ class NewsEdit extends CanaleCommand
             //							Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'Il form inviato non ? valido', 'file' => __FILE__, 'line' => __LINE__, 'log' => true));
             //						}
             //						//$user_ruoli[$key]->getIdCanale();
-            //						$canale = & Canale :: retrieveCanale($key);
+            //						$canale =  Canale :: retrieveCanale($key);
             //						Error :: throwError(_ERROR_NOTICE, array ('msg' => 'Non possiedi i diritti di modifica nel canale: '.$canale->getTitolo(), 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
             //						$f8_accept = false;
             //					}
@@ -492,7 +492,7 @@ class NewsEdit extends CanaleCommand
                 //				for ($i = 0; $i < $num_canali; $i ++)
                 //				{
                 //					$id_current_canale = $elenco_canali[$i];
-                //					$current_canale = & Canale :: retrieveCanale($id_current_canale);
+                //					$current_canale =  Canale :: retrieveCanale($id_current_canale);
                 //					$nome_current_canale = $current_canale->getTitolo();
                 //					foreach ($_POST['f8_canale'] as $key => $value)
                 //					{
@@ -520,8 +520,8 @@ class NewsEdit extends CanaleCommand
                 $canale->setUltimaModifica(time(), true);
 
                 $template
-                        ->assign('NewsEdit_langSuccess',
-                                "La notizia � stata modificata con successo.");
+                        ->assignUnicode('NewsEdit_langSuccess',
+                                "La notizia è stata modificata con successo.");
 
                 return 'success';
             }
