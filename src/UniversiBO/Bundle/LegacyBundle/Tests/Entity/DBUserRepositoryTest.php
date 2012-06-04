@@ -1,5 +1,6 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Tests\Entity;
+use UniversiBO\Bundle\LegacyBundle\Tests\TestConstants;
 
 use UniversiBO\Bundle\LegacyBundle\Entity\DBUserRepository;
 
@@ -18,19 +19,32 @@ class DBUserRepositoryTest extends DBRepositoryTest
 
     public function testSelectByUsername()
     {
-        $user = $this->repository->findByUsername('SbiellONE');
+        $username = 'brain';
+        $user = $this->repository->findByUsername($username);
 
-        self::assertEquals(4431, $user->getIdUser());
-        self::assertEquals('SbiellONE', $user->getUsername());
-        self::assertTrue($user->matchesPassword('padrino'), 'Should match password "padrino"');
+        self::assertEquals(81, $user->getIdUser());
+        self::assertEquals($username, $user->getUsername());
+        self::assertTrue($user->matchesPassword('padrino'),
+                'Should match password "padrino"');
     }
 
     public function testDelete()
     {
-        $user = $this->repository->findByUsername('SbiellONE');
+        $username = 'brain';
+        $user = $this->repository->findByUsername($username);
         $this->repository->delete($user);
         self::assertTrue($user->isEliminato(), 'isEliminato directly');
-        $user = $this->repository->findByUsername('SbiellONE');
+        $user = $this->repository->findByUsername($username);
         self::assertTrue($user->isEliminato(), 'isEliminato after reload');
+    }
+
+    public function testUsernameExists()
+    {
+        self::assertTrue($this->repository->usernameExists(TestConstants::ADMIN_USERNAME));
+    }
+    
+    public function testGetUsernameFromId()
+    {
+        self::assertEquals('brain', $this->repository->getUsernameFromId(81));
     }
 }
