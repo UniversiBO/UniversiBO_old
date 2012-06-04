@@ -67,9 +67,12 @@ class DBContattoDocenteRepository extends DBRepository
     public function update(ContattoDocente $contattoDocente)
     {
         $db = $this->getDb();
+        
+        
 
         ignore_user_abort(1);
         $db->autoCommit(false);
+        $contattoDocente->setUltimaModifica(time());
         $query = 'UPDATE docente_contatti SET stato = '.$db->quote($contattoDocente->getStato())
         .' , id_utente_assegnato = '.$db->quote($contattoDocente->getIdUtenteAssegnato())
         .' , ultima_modifica = '.$db->quote($contattoDocente->getUltimaModifica())
@@ -88,8 +91,6 @@ class DBContattoDocenteRepository extends DBRepository
         $db->commit();
         $db->autoCommit(true);
         ignore_user_abort(0);
-
-        $this->ultima_modifica = time();
 
         return true;
     }
