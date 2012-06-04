@@ -210,7 +210,7 @@ class BaseInteractiveCommand extends PluginCommand
      */
     public function returnState($complete = false, $canc = false )
     {
-        $i = & $this->listaStep->getCurrentStep();
+        $i = $this->listaStep->getCurrentStep();
         $nav = $this->navigationLang;
         if ($this->listaStep->isFirstStep($i))
             unset($nav['back']);
