@@ -114,12 +114,7 @@ class FrontController
     /**
      * @var Container
      */
-    private $container;
-
-    /**
-     * @var DBConnectionFactory
-     */
-    private static $connectionFactory;
+    private static $container;
 
     /**
      * Constuctor of front controller object based upon $configFile
@@ -131,7 +126,7 @@ class FrontController
         $kernel = $receiver->getKernel();
         $kernel->init();
         $kernel->boot();
-        $this->container = $kernel->getContainer();
+        self::$container = $kernel->getContainer();
 
         //		include_once('XmlDoc'.PHP_EXTENSION);
 
@@ -297,7 +292,7 @@ class FrontController
 
     public function getContainer()
     {
-        return $this->container;
+        return self::$container;
     }
 
     /**
@@ -593,27 +588,6 @@ class FrontController
      */
     public function _setDbInfo()
     {
-        $dbinfoNodes = $this->config->getElementsByTagName('dbInfo');
-
-        $dbInfo = $dbinfoNodes->item(0);
-        $connections = $dbInfo->getElementsByTagName('connection');
-        //		$connections =& $dbInfo->childNodes;
-        $num =& $connections->length;
-        //		var_dump($connections);
-
-        self::$connectionFactory = new DBConnectionFactory();
-
-        for ( $i=0; $i<$num; $i++ ) {
-            $singleConnection = $connections->item($i);
-            if ($singleConnection->nodeType == XML_ELEMENT_NODE) {
-                $identifier = $singleConnection->getAttribute('identifier');
-                //$identifier =& $attributo->nodeValue;
-                //			var_dump($singleConnection->attributes);
-                $charData = $singleConnection->firstChild->nodeValue;
-
-                self::$connectionFactory->registerDSN($identifier, $charData);
-            }
-        }
     }
 
     /**
@@ -627,11 +601,11 @@ class FrontController
 
         $templateInfoNodes = $this->config->getElementsByTagName('templateInfo');
         if ( $templateInfoNodes == NULL )
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non � specificato l\'elemento templateInfo nel file di config','file'=>__FILE__,'line'=>__LINE__));
+            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` specificato l\'elemento templateInfo nel file di config','file'=>__FILE__,'line'=>__LINE__));
         $templateInfoNode = $templateInfoNodes->item(0);
         //		var_dump($templateInfoNode->attributes);
         if ( $templateInfoNode == NULL )
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non � specificato l\'elemento templateInfo nel file di config','file'=>__FILE__,'line'=>__LINE__));
+            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` specificato l\'elemento templateInfo nel file di config','file'=>__FILE__,'line'=>__LINE__));
 
         if ( $templateInfoNode->getAttribute('type') != 'Smarty' )
             \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Al momento non sono supportati template engines diversi da Smarty','file'=>__FILE__,'line'=>__LINE__));
@@ -640,10 +614,10 @@ class FrontController
 
         $templateDirsNodes 	= $templateInfoNode->getElementsByTagName('template_dirs');
         if ( $templateDirsNodes == NULL )
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non � specificato l\'elemento template_dirs nel file di config','file'=>__FILE__,'line'=>__LINE__));
+            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` specificato l\'elemento template_dirs nel file di config','file'=>__FILE__,'line'=>__LINE__));
         $templateDirsNode	= $templateDirsNodes->item(0);
         if ( $templateDirsNode == NULL )
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non � specificato l\'elemento template_dirs nel file di config','file'=>__FILE__,'line'=>__LINE__));
+            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` specificato l\'elemento template_dirs nel file di config','file'=>__FILE__,'line'=>__LINE__));
 
         $figli = $templateDirsNode->childNodes;
         for ( $i=0; $i<$figli->length; $i++ ) {
@@ -654,10 +628,10 @@ class FrontController
 
         $templateStylesNodes = $templateInfoNode->getElementsByTagName('template_styles');
         if($templateStylesNodes == NULL)
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non � specificato l\'elemento template_styles nel file di config','file'=>__FILE__,'line'=>__LINE__));
+            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` specificato l\'elemento template_styles nel file di config','file'=>__FILE__,'line'=>__LINE__));
         $templateStylesNode	= $templateStylesNodes->item(0);
         if($templateStylesNode == NULL)
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non � specificato l\'elemento template_styles nel file di config','file'=>__FILE__,'line'=>__LINE__));
+            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` specificato l\'elemento template_styles nel file di config','file'=>__FILE__,'line'=>__LINE__));
 
         $figli = $templateStylesNode->childNodes;
         for ( $i=0; $i<$figli->length; $i++ ) {
@@ -904,12 +878,7 @@ class FrontController
      */
     public static function getDbConnection($identifier)
     {
-        $conn = self::$connectionFactory->getConnection($identifier);
-
-        if(!$conn instanceof \DB_common)
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Uso errato dell\'interfaccia di accesso al Database','file'=>__FILE__,'line'=>__LINE__));
-
-        return $conn;
+        return self::$container->get('universibo_legacy.db.connection.'.$identifier);
     }
 
     /**
@@ -1023,6 +992,6 @@ class FrontController
      */
     public function getKrono()
     {
-        return $this->container->get('universibo_legacy.krono');
+        return self::$container->get('universibo_legacy.krono');
     }
 }
