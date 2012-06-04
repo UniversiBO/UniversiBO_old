@@ -20,8 +20,8 @@ class FileDownload extends UniversiboCommand
 
     public function execute()
     {
-        $frontcontroller = &$this->getFrontController();
-        $template = &$frontcontroller->getTemplateEngine();
+        $frontcontroller = $this->getFrontController();
+        $template = $frontcontroller->getTemplateEngine();
         $user = $this->getSessionUser();
 
         if (!array_key_exists('id_file', $_GET)
@@ -38,11 +38,11 @@ class FileDownload extends UniversiboCommand
                                 : '');
         $template->assign('common_langCanaleNome', 'indietro');
 
-        $file = &FileItem::selectFileItem($_GET['id_file']);
+        $file = FileItem::selectFileItem($_GET['id_file']);
         if ($file === false)
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
-                            'msg' => "Il file richiesto non � presente su database",
+                            'msg' => "Il file richiesto non e` presente su database",
                             'file' => __FILE__, 'line' => __LINE__));
 
         $template
@@ -140,7 +140,7 @@ class FileDownload extends UniversiboCommand
 
         Error::throwError(_ERROR_DEFAULT,
                 array('id_utente' => $user->getIdUser(),
-                        'msg' => 'Non � permesso eseguire il download del file.
+                        'msg' => 'Non e` permesso eseguire il download del file.
                 Non possiedi i diritti necessari.', 'file' => __FILE__,
                         'line' => __LINE__, 'log' => true));
 
