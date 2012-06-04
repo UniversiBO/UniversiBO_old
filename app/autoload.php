@@ -21,8 +21,8 @@ if (!function_exists('intl_get_error_code')) {
     $loader->add('', __DIR__.'/../vendor/symfony/symfony/src/Symfony/Component/Locale/Resources/stubs');
 }
 
-$loader->add('',__DIR__.'/../framework');
 $loader->add('',__DIR__.'/../src');
+$loader->add('',__DIR__.'/../framework');
 
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 AnnotationRegistry::registerFile(__DIR__.'/../vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php');
