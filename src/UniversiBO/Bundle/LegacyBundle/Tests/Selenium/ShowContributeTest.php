@@ -15,16 +15,13 @@ class ShowContributeTest extends UniversiBOSeleniumTestCase
                 'Come fare per collaborare?',
         );
 
-        $this->open('/v2.php?do=ShowContribute');
-
-        foreach ($sentences as $sentence) {
-            self::assertTrue($this->isTextPresent($sentence), 'Sentence '.$sentence.' should be present');
-        }
+        $this->openCommand('ShowContribute');
+        $this->assertSentences($sentences);
     }
 
     public function testSendQuestionario()
     {
-        $this->open('/v2.php?do=ShowContribute');
+        $this->openCommand('ShowContribute');
 
         $this->type('name=f3_nome', 'Nome');
         $this->type('name=f3_cognome', 'Cognome');

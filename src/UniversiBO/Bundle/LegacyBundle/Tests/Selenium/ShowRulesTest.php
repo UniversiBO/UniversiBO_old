@@ -16,10 +16,7 @@ class ShowRulesTest extends UniversiBOSeleniumTestCase
                 'NORME PER L\'UTILIZZO DEL FORUM'
         );
 
-        $this->open('/v2.php?do=ShowRules');
-
-        foreach ($sentences as $sentence) {
-            self::assertTrue($this->isTextPresent($sentence));
-        }
+        $this->openCommand('ShowRules');
+        $this->assertSentences($sentences);
     }
 }

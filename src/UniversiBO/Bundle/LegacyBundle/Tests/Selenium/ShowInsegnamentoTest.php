@@ -14,10 +14,7 @@ class ShowInsegnamentoTest extends UniversiBOSeleniumTestCase
                 'INSEGNAMENTO DI ANALISI MATEMATICA T-1 aa. 2011/2012 OBRECHT ENRICO',
         );
 
-        $this->open('/v2.php?do=ShowInsegnamento&id_canale=10271');
-
-        foreach ($sentences as $sentence) {
-            self::assertTrue($this->isTextPresent($sentence));
-        }
+        $this->openCommand('ShowInsegnamento','&id_canale=10271');
+        $this->assertSentences($sentences);
     }
 }

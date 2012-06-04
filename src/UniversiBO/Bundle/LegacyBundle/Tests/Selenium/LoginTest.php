@@ -1,46 +1,36 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Tests\Selenium;
 
+use UniversiBO\Bundle\LegacyBundle\Tests\TestConstants;
+
 class LoginTest extends UniversiBOSeleniumTestCase
 {
     protected function setUp()
     {
         parent::setUp();
     }
-
-    public function testLoginAdmin()
+    
+    /**
+     * @dataProvider provider
+     * @param string $username
+     * @param string $level
+     */
+    public function testLogin($username, $level)
     {
-        $this->login('brain');
-        $this->checkLevel('Admin');
+        $this->login($username);
+        $this->checkLevel($level);
         $this->logout();
     }
 
-    public function testLoginDocente()
+    public function provider()
     {
-        $this->login('edenti');
-        $this->checkLevel('Docente');
-        $this->logout();
-    }
-
-    public function testLoginPersonale()
-    {
-        $this->login('maurizio.zani');
-        $this->checkLevel('Personale non docente');
-        $this->logout();
-    }
-
-    public function testLoginStudente()
-    {
-        $this->login('Dece');
-        $this->checkLevel('Studente');
-        $this->logout();
-    }
-
-    public function testLoginTutor()
-    {
-        $this->login('dtiles');
-        $this->checkLevel('Tutor');
-        $this->logout();
+        return array(
+                array(TestConstants::ADMIN_USERNAME, 'Admin'),
+                array(TestConstants::PROFESSOR_USERNAME, 'Docente'),
+                array(TestConstants::STAFF_USERNAME, 'Personale non docente'),
+                array(TestConstants::STUDENT_USERNAME, 'Studente'),
+                array(TestConstants::TUTOR_USERNAME, 'Tutor'),
+        );
     }
 
     private function checkLevel($level)

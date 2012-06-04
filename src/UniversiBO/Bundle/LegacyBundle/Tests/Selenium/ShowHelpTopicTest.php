@@ -22,10 +22,7 @@ class ShowHelpTopicTest extends UniversiBOSeleniumTestCase
                 'Modificare un insegnamento e cercare un codice docente (solo admin e collaboratori)'
         );
 
-        $this->open('/v2.php?do=ShowHelpTopic');
-
-        foreach ($sentences as $sentence) {
-            self::assertTrue($this->isTextPresent($sentence));
-        }
+        $this->openCommand('ShowHelpTopic');
+        $this->assertSentences($sentences);
     }
 }

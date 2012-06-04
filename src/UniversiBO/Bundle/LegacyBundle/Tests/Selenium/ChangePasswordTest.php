@@ -1,6 +1,8 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Tests\Selenium;
 
+use UniversiBO\Bundle\LegacyBundle\Tests\TestConstants;
+
 class ChangePasswordTest extends UniversiBOSeleniumTestCase
 {
     protected function setUp()
@@ -10,8 +12,8 @@ class ChangePasswordTest extends UniversiBOSeleniumTestCase
 
     public function testChangePassword()
     {
-        $this->login($username='brain', $oldPassword='padrino');
-        $this->changePassword($username, $oldPassword, $newPassword='madrina');
+        $this->login($username='brain', $oldPassword=TestConstants::DUMMY_PASSWORD);
+        $this->changePassword($username, $oldPassword, $newPasswordTestConstants::DUMMY_PASSWORD2);
         $this->logout();
 
         $this->login($username, $newPassword);
@@ -23,7 +25,7 @@ class ChangePasswordTest extends UniversiBOSeleniumTestCase
 
     private function changePassword($username, $oldPassword, $newPassword)
     {
-        $this->open('/v2.php?do=ChangePassword');
+        $this->openCommand('ChangePassword');
 
         $this->type('name=f6_old_password', $oldPassword);
         $this->type('name=f6_new_password1', $newPassword);

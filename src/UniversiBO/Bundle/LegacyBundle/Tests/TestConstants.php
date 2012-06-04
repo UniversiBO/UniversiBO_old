@@ -9,4 +9,5 @@ class TestConstants
     const STAFF_USERNAME = 'maurizio.zani';
     const TUTOR_USERNAME = 'dtiles';
     const DUMMY_PASSWORD = 'padrino';
+    const DUMMY_PASSWORD2 = 'madrina';
 }

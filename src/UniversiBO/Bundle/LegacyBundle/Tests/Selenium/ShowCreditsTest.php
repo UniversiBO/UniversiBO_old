@@ -15,10 +15,7 @@ class ShowCreditsTest extends UniversiBOSeleniumTestCase
                 ' stato realizzato e funziona utilizzando internamente solo software libero e open source e appoggiandosi alle strutture rese disponibili dall\'Ateneo',
         );
 
-        $this->open('/v2.php?do=ShowCredits');
-
-        foreach ($sentences as $sentence) {
-            self::assertTrue($this->isTextPresent($sentence));
-        }
+        $this->openCommand('ShowCredits');
+        $this->assertSentences($sentences);
     }
 }

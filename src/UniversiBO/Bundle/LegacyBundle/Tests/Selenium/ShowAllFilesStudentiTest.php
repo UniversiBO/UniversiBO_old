@@ -1,6 +1,8 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Tests\Selenium;
 
+use UniversiBO\Bundle\LegacyBundle\Tests\TestConstants;
+
 class ShowAllFilesStudentiTest extends UniversiBOSeleniumTestCase
 {
     protected function setUp()
@@ -13,7 +15,7 @@ class ShowAllFilesStudentiTest extends UniversiBOSeleniumTestCase
      */
     public function testOrder($order, $orderSentence)
     {
-        $this->login('brain');
+        $this->login(TestConstants::ADMIN_USERNAME);
         $this->openCommand('ShowAllFilesStudenti', '&order='.$order);
         $this->assertSentences(array(
                 'Tutti i Files Studenti presenti su UniversiBO',

@@ -1,6 +1,8 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Tests\Selenium;
 
+use UniversiBO\Bundle\LegacyBundle\Tests\TestConstants;
+
 class NewsEditTest extends UniversiBOSeleniumTestCase
 {
     protected function setUp()
@@ -10,14 +12,14 @@ class NewsEditTest extends UniversiBOSeleniumTestCase
 
     public function testEditNews()
     {
-        $this->login('brain');
+        $this->login(TestConstants::ADMIN_USERNAME);
 
-        $this->open('/v2.php?do=NewsEdit&id_news=10791&id_canale=1');
+        $this->openCommand('NewsEdit','&id_news=10791&id_canale=1');
 
         $this->type('name=f8_titolo', 'News title');
         $this->type('name=f8_testo', 'News text');
         $this->clickAndWait('name=f8_submit');
 
-        self::assertTrue($this->isTextPresent('modificata con successo.'), 'Checking for text "modificata con successo."');
+        $this->assertSentence('modificata con successo.');
     }
 }

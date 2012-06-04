@@ -1,6 +1,8 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Tests\Selenium;
 
+use UniversiBO\Bundle\LegacyBundle\Tests\TestConstants;
+
 class FileDocenteAdminTest extends UniversiBOSeleniumTestCase
 {
     protected function setUp()
@@ -10,8 +12,8 @@ class FileDocenteAdminTest extends UniversiBOSeleniumTestCase
 
     public function testSimple()
     {
-        $this->login('brain');
-        $this->open('/v2.php?do=FileDocenteAdmin&id_canale=1417');
+        $this->login(TestConstants::ADMIN_USERNAME);
+        $this->openCommand('FileDocenteAdmin','&id_canale=1417');
         $this->assertSentences(array(
                 'Gestione file',
                 'Seleziona i file da copiare',
