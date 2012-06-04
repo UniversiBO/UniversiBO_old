@@ -15,14 +15,14 @@ class NewsShowCanaleTest extends UniversiBOSeleniumTestCase
         $this->deleteAllVisibleCookies();
         $this->openCommand('NewsShowCanale', '&id_canale=1&inizio=0&qta=10');
         $this->assertSentence('News');
-        
+
         $this->assertFalse($this->isTextPresent('Scrivi nuova notizia'));
     }
-    
+
     public function testLogged()
     {
         $this->login(TestConstants::ADMIN_USERNAME);
-    	$this->openCommand('NewsShowCanale', '&id_canale=1&inizio=0&qta=10');
-    	$this->assertSentences(array('News','Scrivi nuova notizia'));
+        $this->openCommand('NewsShowCanale', '&id_canale=1&inizio=0&qta=10');
+        $this->assertSentences(array('News','Scrivi nuova notizia'));
     }
 }

@@ -17,10 +17,10 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
 
     protected function login($username, $password = null)
     {
-        if(is_null($password)) {
+        if (is_null($password)) {
             $password = TestConstants::DUMMY_PASSWORD;
         }
-        
+
         $this->deleteAllVisibleCookies();
         $this->open('/');
         $this->type('id=f1_username', $username);

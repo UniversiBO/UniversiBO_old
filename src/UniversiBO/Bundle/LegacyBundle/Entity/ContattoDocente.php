@@ -121,7 +121,7 @@ class ContattoDocente
         .' '.$data['hours'].':'.$data['minutes'].'-----------'."\n".
         $rep."\n".$this->report."\n\n";
     }
-    
+
     public function setUltimaModifica($ultimaModifica)
     {
         $this->ultima_modifica = $ultimaModifica;

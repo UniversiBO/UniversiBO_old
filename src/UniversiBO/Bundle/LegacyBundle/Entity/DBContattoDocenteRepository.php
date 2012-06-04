@@ -67,8 +67,6 @@ class DBContattoDocenteRepository extends DBRepository
     public function update(ContattoDocente $contattoDocente)
     {
         $db = $this->getDb();
-        
-        
 
         ignore_user_abort(1);
         $db->autoCommit(false);

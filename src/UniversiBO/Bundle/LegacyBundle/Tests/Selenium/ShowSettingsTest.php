@@ -9,12 +9,12 @@ class ShowSettingsTest extends UniversiBOSeleniumTestCase
     {
         parent::setUp();
     }
-    
+
     public function testNotLogged()
     {
         $this->deleteAllVisibleCookies();
         $this->openCommand('ShowSettings');
-        
+
         $this->assertSentences(array('Error!', 'Non hai i diritti per accedere alla pagina la sessione potrebbe essere terminata'));
     }
 
@@ -28,10 +28,10 @@ class ShowSettingsTest extends UniversiBOSeleniumTestCase
                 'Docenti da contattare',
                 'DB Postgresql locale',
         );
-        
+
         $this->login(TestConstants::ADMIN_USERNAME);
         $this->openCommand('ShowSettings');
-        
+
         $this->assertSentences($sentences);
     }
 }

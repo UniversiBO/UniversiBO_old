@@ -12,15 +12,15 @@ class ShowUserTest extends UniversiBOSeleniumTestCase
     {
         $this->login('Dece');
         $this->open('/v2.php?do=ShowUser&id_utente=105');
-        
+
         $this->assertSentence('Non ti e` permesso visualizzare la scheda dell\'utente');
     }
-    
+
     public function testAllowed()
     {
-    	$this->login('brain');
-    	$this->open('/v2.php?do=ShowUser&id_utente=105');
-    
-    	$this->assertSentences(array('Utente: fgiardini', 'Livello: Admin'));
+        $this->login('brain');
+        $this->open('/v2.php?do=ShowUser&id_utente=105');
+
+        $this->assertSentences(array('Utente: fgiardini', 'Livello: Admin'));
     }
 }
