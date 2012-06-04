@@ -7,7 +7,6 @@ use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
  * Docente class, modella le informazioni relative ai docenti
- * A dir la verità non so perché estende User @see Collaboratore
  *
  * @package universibo
  * @version 2.0.0
@@ -16,7 +15,7 @@ use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
  * @copyright CopyLeft UniversiBO 2001-2004
  */
 
-class Docente extends User
+class Docente
 {
     /**
      * @var DBDocenteRepository

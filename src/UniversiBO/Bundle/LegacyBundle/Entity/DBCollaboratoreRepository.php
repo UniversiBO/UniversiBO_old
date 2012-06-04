@@ -35,7 +35,7 @@ class DBCollaboratoreRepository extends DBRepository
 
         $userRepo = new DBUserRepository($db);
 
-        if (($user = $userRepo->find($collaboratore->getIdUser())) instanceof User) {
+        if (($user = $userRepo->find($collaboratore->getIdUtente())) instanceof User) {
             $collaboratore->setUser($user);
         }
 
@@ -46,7 +46,7 @@ class DBCollaboratoreRepository extends DBRepository
     {
         $db = $this->getDb();
 
-        $userRepo = new DBUserRepository($db);
+        $userRepo = new DBUserRepository($db, $this->isConvert());
 
         $query = 'SELECT id_utente,	intro, recapito, obiettivi, foto, ruolo FROM collaboratore';
 
@@ -67,7 +67,7 @@ class DBCollaboratoreRepository extends DBRepository
         while ($row = $this->fetchRow($res)) {
             $collaboratori[] = $collab = new Collaboratore($row[0], $row[1],
                     $row[2], $row[3], $row[4], $row[5]);
-            $collab->setUser($userRepo->find($collab->getIdUser()));
+            $collab->setUser($userRepo->find($collab->getIdUtente()));
         }
 
         return $collaboratori;

@@ -15,7 +15,7 @@ use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
  * @copyright CopyLeft UniversiBO 2001-2004
  */
 
-class Collaboratore extends User
+class Collaboratore
 {
     /**
      * @var DBCdlRepository
