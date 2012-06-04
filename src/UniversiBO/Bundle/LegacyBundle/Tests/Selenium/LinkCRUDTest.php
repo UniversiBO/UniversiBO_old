@@ -15,7 +15,7 @@ class LinkCRUDTest extends UniversiBOSeleniumTestCase
         $this->deleteAllVisibleCookies();
         $this->openCommand('LinkAdd','&id_canale=1');
 
-        $this->assertSentence(array('Per questa operazione bisogna essere registrati la sessione potrebbe essere terminata', 'Error!'));
+        $this->assertSentences(array('Per questa operazione bisogna essere registrati la sessione potrebbe essere terminata', 'Error!'));
     }
 
     public function testLinkAddLogged()
