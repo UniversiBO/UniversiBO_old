@@ -23,9 +23,9 @@ class LinkEdit extends CanaleCommand
     public function execute()
     {
 
-        $user = &$this->getSessionUser();
-        $canale = &$this->getRequestCanale();
-        $user_ruoli = &$user->getRuoli();
+        $user = $this->getSessionUser();
+        $canale = $this->getRequestCanale();
+        $user_ruoli = $user->getRuoli();
         $id_canale = $canale->getIdCanale();
 
         //diritti
@@ -46,13 +46,13 @@ class LinkEdit extends CanaleCommand
                             'file' => __FILE__, 'line' => __LINE__));
 
         if (array_key_exists($id_canale, $user_ruoli)) {
-            $ruolo = &$user_ruoli[$id_canale];
+            $ruolo = $user_ruoli[$id_canale];
 
             $referente = $ruolo->isReferente();
             $moderatore = $ruolo->isModeratore();
         }
 
-        $link = &Link::selectLink($_GET['id_link']);
+        $link = Link::selectLink($_GET['id_link']);
         $autore = ($user->getIdUser() == $link->getIdUtente());
 
         //		//controllo coerenza parametri
@@ -78,10 +78,10 @@ class LinkEdit extends CanaleCommand
                         array('id_link' => $_GET['id_link'],
                                 'id_canale' => $_GET['id_canale']));
 
-        $frontcontroller = &$this->getFrontController();
-        $template = &$frontcontroller->getTemplateEngine();
+        $frontcontroller = $this->getFrontController();
+        $template = $frontcontroller->getTemplateEngine();
 
-        $krono = &$frontcontroller->getKrono();
+        $krono = $frontcontroller->getKrono();
 
         // valori default form
 
@@ -102,7 +102,7 @@ class LinkEdit extends CanaleCommand
         //		for ($i = 0; $i < $num_canali; $i ++)
         //		{
         //			$id_current_canale = $elenco_canali[$i];
-        //			$current_canale = & Canale :: retrieveCanale($id_current_canale);
+        //			$current_canale =  Canale :: retrieveCanale($id_current_canale);
         //			$nome_current_canale = $current_canale->getTitolo();
         //			$spunta = (in_array($id_current_canale, $news->getIdCanali())) ? 'true' : 'false';
         //			$f31_canale[] = array ('id_canale' => $id_current_canale, 'nome_canale' => $nome_current_canale, 'spunta' => $spunta);

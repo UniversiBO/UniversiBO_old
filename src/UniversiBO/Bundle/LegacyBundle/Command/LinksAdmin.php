@@ -40,14 +40,14 @@ class LinksAdmin extends UniversiboCommand
                             'msg' => 'L\'id del canale richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
 
-        $canale = &Canale::retrieveCanale($_GET['id_canale']);
+        $canale = Canale::retrieveCanale($_GET['id_canale']);
         $id_canale = $canale->getIdCanale();
 
         $template->assign('common_canaleURI', $canale->showMe());
         $template->assign('common_langCanaleNome', 'a ' . $canale->getTitolo());
 
         if (array_key_exists($id_canale, $user_ruoli)) {
-            $ruolo = &$user_ruoli[$id_canale];
+            $ruolo = $user_ruoli[$id_canale];
             $referente = $ruolo->isReferente();
         }
 

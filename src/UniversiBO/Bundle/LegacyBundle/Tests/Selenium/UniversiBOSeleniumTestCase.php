@@ -5,6 +5,8 @@ namespace UniversiBO\Bundle\LegacyBundle\Tests\Selenium;
  * Parent class for all Selenium tests in UniversiBO
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
+use UniversiBO\Bundle\LegacyBundle\Tests\TestConstants;
+
 abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
 {
     protected function setUp()
@@ -13,8 +15,12 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
         $this->setBrowserUrl('http://www.universibo.local/');
     }
 
-    protected function login($username, $password = 'padrino')
+    protected function login($username, $password = null)
     {
+        if(is_null($password)) {
+            $password = TestConstants::DUMMY_PASSWORD;
+        }
+        
         $this->deleteAllVisibleCookies();
         $this->open('/');
         $this->type('id=f1_username', $username);

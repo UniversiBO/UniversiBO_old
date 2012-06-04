@@ -43,7 +43,7 @@ class LinkDelete extends CanaleCommand
                             'file' => __FILE__, 'line' => __LINE__));
         }
 
-        $link = &Link::selectLink($_GET['id_link']);
+        $link = Link::selectLink($_GET['id_link']);
         if ($link === false)
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
@@ -59,7 +59,7 @@ class LinkDelete extends CanaleCommand
                                 'msg' => 'L\'id del canale richiesto non � valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $canale = &Canale::retrieveCanale($_GET['id_canale']);
+            $canale = Canale::retrieveCanale($_GET['id_canale']);
 
             if ($canale->getServizioLinks() == false)
                 Error::throwError(_ERROR_DEFAULT,
@@ -74,7 +74,7 @@ class LinkDelete extends CanaleCommand
                             . $canale->getTitolo());
 
             if (array_key_exists($id_canale, $user_ruoli)) {
-                $ruolo = &$user_ruoli[$id_canale];
+                $ruolo = $user_ruoli[$id_canale];
 
                 $referente = $ruolo->isReferente();
                 $moderatore = $ruolo->isModeratore();
