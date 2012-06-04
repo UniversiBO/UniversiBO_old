@@ -30,9 +30,10 @@ class MyUniversiBOController extends Controller
         foreach ($roles as $role) {
             if ($role->isMyUniversibo()) {
                 $name = $role->getNome();
+                
+                $channel = $channelRepo->find($role->getIdCanale());
 
                 if (strlen($name) === 0) {
-                    $channel = $channelRepo->find($role->getIdCanale());
                     $name = $channel->getNome();
                 }
 
