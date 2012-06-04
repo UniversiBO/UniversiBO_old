@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('universi_bo_legacy');
+        $rootNode = $treeBuilder->root('universibo_legacy');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
