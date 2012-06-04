@@ -70,7 +70,7 @@ class Receiver
      *
      * @return string
      */
-    function getIdentifier()
+    public function getIdentifier()
     {
         return $this->receiverIdentifier;
     }
@@ -130,7 +130,7 @@ class Receiver
      * Main code for framework activation, includes Error definitions
      * and instantiates FrontController
      */
-    function main()
+    public function main()
     {
         $this->_setPhpEnvirorment();
 
@@ -139,7 +139,7 @@ class Receiver
         $fc->setConfig( $this->configFile );
 
         $fc->executeCommand();
-
+        $fc->getDbConnection('main')->close();
     }
     
     public function getKernel()
@@ -150,7 +150,6 @@ class Receiver
 
 $receiver = new Receiver('main', '../config.xml', '../framework', '../universibo', new AppKernel($env, $env !== 'prod'));
 $receiver->main();
-
 
 //list($usec, $sec) = explode(" ", microtime());
 //$page_time_end = ((float)$usec + (float)$sec);
