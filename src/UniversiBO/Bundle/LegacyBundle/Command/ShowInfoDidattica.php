@@ -23,12 +23,12 @@ class ShowInfoDidattica extends UniversiboCommand
 
     public function execute()
     {
-        $frontcontroller = &$this->getFrontController();
-        $template = &$frontcontroller->getTemplateEngine();
+        $frontcontroller = $this->getFrontController();
+        $template = $frontcontroller->getTemplateEngine();
 
-        $krono = &$frontcontroller->getKrono();
-        $user = &$this->getSessionUser();
-        $user_ruoli = &$user->getRuoli();
+        $krono = $frontcontroller->getKrono();
+        $user = $this->getSessionUser();
+        $user_ruoli = $user->getRuoli();
 
         if (!array_key_exists('id_canale', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
