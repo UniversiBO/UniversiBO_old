@@ -5,38 +5,38 @@
 <link href="{{ asset('bundles/universibowebsite/css/yui/cssbase-min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('bundles/universibowebsite/css/yui/grids-min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('bundles/universibowebsite/css/screen.css') }}" rel="stylesheet" type="text/css" />
-{% include 'UniversiBOWebsiteBundle::google-cse-head.html.twig' %}
+{% include 'UniversiboWebsiteBundle::google-cse-head.html.twig' %}
 <meta http-equiv="content-type" content="text/html; charset=utf8"/>
 {% block rss %}{% endblock %}
 </head>
 <body>
 <div id="container">
-  {% render 'UniversiBOWebsiteBundle:Default:header' %}
+  {% render 'UniversiboWebsiteBundle:Default:header' %}
   <div id="main" class="yui3-g">
   {% block main %}
     <div id="left" class="yui3-u-1-5">
-      {% render 'UniversiBOWebsiteBundle:ChannelMenu:index' with {'type' : 3, 'title' : 'Facoltà', 'route': 'faculty_show'} %}
-      {% render 'UniversiBOWebsiteBundle:ChannelMenu:index' with {'type' : 1, 'title' : 'Servizi'} %}
+      {% render 'UniversiboWebsiteBundle:ChannelMenu:index' with {'type' : 3, 'title' : 'Facoltà', 'route': 'faculty_show'} %}
+      {% render 'UniversiboWebsiteBundle:ChannelMenu:index' with {'type' : 1, 'title' : 'Servizi'} %}
       <h3>Informazioni</h3>
       <ul class="side-list">
         <li class="side-list-item"><a href="{{ path('info_rules')}}">Regolamento</a></li>
       </ul>
     </div>
     <div id="content" class="yui3-u-3-5">
-    {% include 'UniversiBOWebsiteBundle::google-cse-form.html.twig' %}
+    {% include 'UniversiboWebsiteBundle::google-cse-form.html.twig' %}
     {% block content %}
     {% endblock %}
     </div>
     <div id="right" class="yui3-u-1-5">
-    {#% render 'UniversiBOWebsiteBundle:Search:box' with { searchQuery : searchQuery | default('')} %#}
-    {% render 'UniversiBOWebsiteBundle:UserInfo:index' %}
+    {#% render 'UniversiboWebsiteBundle:Search:box' with { searchQuery : searchQuery | default('')} %#}
+    {% render 'UniversiboWebsiteBundle:UserInfo:index' %}
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-      {% render 'UniversiBOWebsiteBundle:MyUniversiBO:box'%}
+      {% render 'UniversiboWebsiteBundle:MyUniversiBO:box'%}
     {% endif %}
     </div>
   {% endblock %}
   </div>
-  {% render 'UniversiBOWebsiteBundle:Default:footer' %}
+  {% render 'UniversiboWebsiteBundle:Default:footer' %}
 </div>
 <script type="text/javascript" src="{{ asset('js/jquery-1.7.2.min.js') }}"></script>
 </body>

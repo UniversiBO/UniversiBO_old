@@ -1,9 +1,9 @@
-{% extends 'UniversiBOWebsiteBundle::base.html.twig' %}
+{% extends 'UniversiboWebsiteBundle::base.html.twig' %}
 {% block title %}UniversiBO :: {{ faculty.titolo }}{% endblock %}
 {% block rss %}
 <link rel="alternate" type="application/rss+xml" title="UniversiBO - {{ faculty.nome }}" href="{{ path('rss', {idCanale: faculty.idCanale})}}">
 {% endblock %}
 {% block content %}
 <h2>{{ faculty.titolo | upper}}</h2>
-{% render 'UniversiBOWebsiteBundle:News:index' with {'limit': 4, 'channelId': faculty.idCanale} %}
+{% render 'UniversiboWebsiteBundle:News:index' with {'limit': 4, 'channelId': faculty.idCanale} %}
 {% endblock %}

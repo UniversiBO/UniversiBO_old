@@ -19,7 +19,7 @@ class DefaultController extends Controller
 
     public function headerAction()
     {
-        $response = $this->render('UniversiBOWebsiteBundle:Default:header.html.twig');
+        $response = $this->render('UniversiboWebsiteBundle:Default:header.html.twig');
         $response->setSharedMaxAge(3600);
 
         return $response;
@@ -27,7 +27,7 @@ class DefaultController extends Controller
 
     public function footerAction()
     {
-        $response = $this->render('UniversiBOWebsiteBundle:Default:footer.html.twig');
+        $response = $this->render('UniversiboWebsiteBundle:Default:footer.html.twig');
         $response->setSharedMaxAge(86400);
 
         return $response;

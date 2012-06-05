@@ -1,7 +1,7 @@
-{% extends 'UniversiBOWebsiteBundle::base.html.twig' %}
+{% extends 'UniversiboWebsiteBundle::base.html.twig' %}
 {% block title %}UniversiBO :: Ricerca{% endblock %}
 {% block content %}
 <h2>Risultati della ricerca <em>{{ searchQuery }}</em></h2>
-{% render 'UniversiBOWebsiteBundle:File:byIds' with {'ids' : files} %}
-{% render 'UniversiBOWebsiteBundle:News:byIds' with {'ids' : news} %}
+{% render 'UniversiboWebsiteBundle:File:byIds' with {'ids' : files} %}
+{% render 'UniversiboWebsiteBundle:News:byIds' with {'ids' : news} %}
 {% endblock %}

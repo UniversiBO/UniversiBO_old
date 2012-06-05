@@ -1,4 +1,4 @@
-{% extends 'UniversiBOWebsiteBundle::base.html.twig' %}
+{% extends 'UniversiboWebsiteBundle::base.html.twig' %}
 {% block title %}UniversiBO :: Home{% endblock %}
 {% block rss %}
 <link rel="alternate" type="application/rss+xml" title="UniversiBO Home RSS" href="{{ path('rss', {idCanale: 1})}}">
@@ -26,5 +26,5 @@
       </div>
     </div>
 </div>
-{% render 'UniversiBOWebsiteBundle:News:index' with {'limit': 3, 'channelId': 1} %}
+{% render 'UniversiboWebsiteBundle:News:index' with {'limit': 3, 'channelId': 1} %}
 {% endblock %}

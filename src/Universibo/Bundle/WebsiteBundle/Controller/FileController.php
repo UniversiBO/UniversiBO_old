@@ -43,7 +43,7 @@ class FileController extends Controller
         }
 
         return $this
-                ->render('UniversiBOWebsiteBundle:File:index.html.twig',
+                ->render('UniversiboWebsiteBundle:File:index.html.twig',
                         array('files' => $files));
     }
 }

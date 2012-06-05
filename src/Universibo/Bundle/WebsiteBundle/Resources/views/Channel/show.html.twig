@@ -1,4 +1,4 @@
-{% extends 'UniversiBOWebsiteBundle::base.html.twig' %}
+{% extends 'UniversiboWebsiteBundle::base.html.twig' %}
 {% block title %}UniversiBO :: {{ channel.getNome() }}{% endblock %}
 {% block rss %}
 <link rel="alternate" type="application/rss+xml" title="UniversiBO - {{ channel.nome }}" href="{{ path('rss', {idCanale: channel.idCanale})}}">
@@ -6,9 +6,9 @@
 {% block content %}
 <h2>{{ channel.getTitolo() }}</h2>
 {% if channel.servizioNews %}
-  {% render 'UniversiBOWebsiteBundle:News:index' with {'limit': 4, 'channelId': channel.idCanale} %}
+  {% render 'UniversiboWebsiteBundle:News:index' with {'limit': 4, 'channelId': channel.idCanale} %}
 {% endif %}
 {% if channel.servizioFiles %}
-  {% render 'UniversiBOWebsiteBundle:File:index' with {'channelId': channel.idCanale} %}
+  {% render 'UniversiboWebsiteBundle:File:index' with {'channelId': channel.idCanale} %}
 {% endif %}
 {% endblock %}

@@ -25,7 +25,7 @@ class NewsController extends Controller
         $newsRepo = $this->get('universibo_legacy.repository.news.news_item');
         $news = $newsRepo->findMany($ids);
 
-        return $this->render('UniversiBOWebsiteBundle:News:index.html.twig', array('news' => $news));
+        return $this->render('UniversiboWebsiteBundle:News:index.html.twig', array('news' => $news));
     }
 
     /**

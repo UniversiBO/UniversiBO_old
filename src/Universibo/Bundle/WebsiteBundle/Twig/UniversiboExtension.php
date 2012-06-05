@@ -1,6 +1,6 @@
 <?php
 namespace Universibo\Bundle\WebsiteBundle\Twig;
-class UniversiBOExtension extends \Twig_Extension
+class UniversiboExtension extends \Twig_Extension
 {
 
     public function getName()

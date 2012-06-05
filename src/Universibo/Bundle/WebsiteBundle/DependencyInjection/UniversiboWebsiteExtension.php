@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class UniversiBOWebsiteExtension extends Extension
+class UniversiboWebsiteExtension extends Extension
 {
     /**
      * {@inheritDoc}
@@ -26,11 +26,5 @@ class UniversiBOWebsiteExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
-
-        $definition = new Definition('Universibo\Bundle\WebsiteBundle\Twig\UniversiBOExtension');
-        $definition->addTag('twig.extension');
-
-        $container->setDefinition('twig_universibo_extension', $definition);
-
     }
 }

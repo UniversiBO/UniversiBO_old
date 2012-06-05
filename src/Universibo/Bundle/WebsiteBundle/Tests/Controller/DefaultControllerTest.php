@@ -8,11 +8,10 @@ class DefaultControllerTest extends WebTestCase
 {
     public function testIndex()
     {
-        $this->markTestIncomplete('Manage login');
         $client = static::createClient();
 
         $crawler = $client->request('GET', '/');
 
-        $this->assertTrue($crawler->filter('html:contains("UniversiBO v3")')->count() > 0);
+        $this->assertTrue($crawler->filter('html:contains("UniversiBO")')->count() > 0);
     }
 }
