@@ -4,6 +4,9 @@ services:
         arguments: ['%universibo_sso.idp_url.info%','%universibo_sso.idp_url.logout%', '@templating', '@router', '%universibo_sso.route.after_logout%']
     universibo_sso.controller.security:
         class: Universibo\Bundle\SSOBundle\Controller\SecurityController
-        arguments: ['@templating']
+        calls: 
+            - ['setContainer', ['@service_container'] ]
     universibo_sso.controller.metadata:
         class: Universibo\Bundle\SSOBundle\Controller\MetadataController
+    universibo_sso.service.shibboleth:
+        class: Universibo\Bundle\SSOBundle\Service\ShibbolethService
