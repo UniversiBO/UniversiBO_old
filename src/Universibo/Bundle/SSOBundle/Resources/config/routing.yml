@@ -1,13 +1,9 @@
-universibo_sso_homepage:
-    pattern:  /
-    defaults: { _controller: 'universibo_sso.controller.userbox:indexAction' }
-
 universibo_sso_login:
-    pattern:  /login
+    pattern:  /secured
     defaults: { _controller: 'universibo_sso.controller.security:loginAction' }
     
 universibo_sso_logout:
-    pattern:  /logout
+    pattern:  /secured/logout
     defaults: { _controller: 'universibo_sso.controller.security:logoutAction' }    
 
 universibo_sso_metadata:
