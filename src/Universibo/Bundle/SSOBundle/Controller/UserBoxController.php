@@ -16,12 +16,12 @@ class UserBoxController
     private $logoutUrl;
 
     private $templating;
-    
+
     /**
      * @var RouterInterface
      */
     private $router;
-    
+
     /**
      * @var string
      */
@@ -39,6 +39,7 @@ class UserBoxController
     public function indexAction()
     {
         $logoutUrl = $this->logoutUrl.'?wreply='.$this->router->generate($this->afterLogoutRoute, array(), true);
+
         return $this->templating->renderResponse('UniversiboSSOBundle:UserBox:index.html.twig', array('infoUrl' => $this->infoUrl, 'logoutUrl' => $logoutUrl));
     }
 }

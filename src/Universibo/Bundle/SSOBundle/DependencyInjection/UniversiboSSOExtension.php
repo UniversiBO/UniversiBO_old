@@ -31,11 +31,11 @@ class UniversiboSSOExtension extends Extension
         $baseUrl = $this->validateUrl($config, 'base');
         $container->setParameter('universibo_sso.idp_url.info', $this->validateUrl($config, 'info', $baseUrl));
         $container->setParameter('universibo_sso.idp_url.logout', $this->validateUrl($config, 'logout', $baseUrl));
-        
-        if(!isset($config['route']['after_logout'])) {
+
+        if (!isset($config['route']['after_logout'])) {
             throw new \InvalidArgumentException('universibo_sso.route.after_logout must be set!');
         }
-        
+
         $container->setParameter('universibo_sso.route.after_logout', $config['route']['after_logout']);
     }
 

@@ -1109,12 +1109,12 @@ class User implements UserInterface, SSOUserInterface, \Serializable
             $this->$key = $value;
         }
     }
-    
+
     public function setPrincipalName($userPrincipal)
     {
         return $this->setADUsername($userPrincipal);
     }
-    
+
     public function getPrincipalName()
     {
         return $this->getADUsername();
