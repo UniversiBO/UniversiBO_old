@@ -7,8 +7,8 @@ require_once __DIR__.'/../app/autoload.php';
 require_once __DIR__.'/../app/AppKernel.php';
 
 if (in_array(@$_SERVER['REMOTE_ADDR'], array(
-		'127.0.0.1',
-		'::1',
+        '127.0.0.1',
+        '::1',
 ))) {
     $env = 'dev';
 } else {
@@ -16,7 +16,7 @@ if (in_array(@$_SERVER['REMOTE_ADDR'], array(
 }
 
 //list($usec, $sec) = explode(" ", microtime());
-//$page_time_start = ((float)$usec + (float)$sec);
+//$page_time_start = ((float) $usec + (float) $sec);
 
 // TODO hack orrendo per caricare ruolo e le relative costanti
 class_exists('UniversiBO\\Bundle\\LegacyBundle\\Entity\\Ruolo');
@@ -34,23 +34,22 @@ class_exists('UniversiBO\\Bundle\\LegacyBundle\\Entity\\Ruolo');
  * @copyright CopyLeft UniversiBO 2001-2003
  */
 
-class Receiver 
+class Receiver
 {
 
-    var $frameworkPath = '../framework';
-    var $applicationPath = '../universibo';
+    public $frameworkPath = '../framework';
+    public $applicationPath = '../universibo';
 
-    var $configFile = '../config.xml';
-    var $receiverIdentifier = 'main';
+    public $configFile = '../config.xml';
+    public $receiverIdentifier = 'main';
     private $kernel;
-
 
     /**
      * Costruttore del Receiver
      *
-     * @param string $identifier indentifier of receiver
-     * @param string $config_file configuration file for this receiver (applicatio)
-     * @param string $framework_path percorso in cui si trovano i file del framework
+     * @param string $identifier       indentifier of receiver
+     * @param string $config_file      configuration file for this receiver (applicatio)
+     * @param string $framework_path   percorso in cui si trovano i file del framework
      * @param string $application_path percorso in cui si trovano i file dell'applicazione
      */
     public function __construct($identifier, $config_file, $framework_path, $application_path, $kernel)
@@ -81,7 +80,7 @@ class Receiver
     /**
      * Set PHP language settings (path, gpc, error_reporting)
      */
-    function _setPhpEnvirorment()
+    public function _setPhpEnvirorment()
     {
 
         //error reporting activation (enabled on testing system)
@@ -92,17 +91,13 @@ class Receiver
 
         //session initialization
         session_start();
-        if (!array_key_exists('SID',$_SESSION) )
-        {
+        if (!array_key_exists('SID',$_SESSION) ) {
             $_SESSION['SID'] = SID;
         }
 
-        if (defined('PATH_SEPARATOR'))
-        {
+        if (defined('PATH_SEPARATOR')) {
             $pathDelimiter = PATH_SEPARATOR;
-        }
-        else
-        {
+        } else {
             $pathDelimiter = ( substr(php_uname(), 0, 7) == "Windows") ? ';' : ':' ;
         }
 
@@ -119,8 +114,7 @@ class Receiver
             $_COOKIE = array_map('stripslashes_deep', $_COOKIE);
         }
 
-        if ( get_magic_quotes_runtime() == 1 )
-        {
+        if ( get_magic_quotes_runtime() == 1 ) {
             set_magic_quotes_runtime(0);
         }
     }
@@ -141,7 +135,7 @@ class Receiver
         $fc->executeCommand();
         $fc->getDbConnection('main')->close();
     }
-    
+
     public function getKernel()
     {
         return $this->kernel;
@@ -152,6 +146,6 @@ $receiver = new Receiver('main', '../config.xml', '../framework', '../universibo
 $receiver->main();
 
 //list($usec, $sec) = explode(" ", microtime());
-//$page_time_end = ((float)$usec + (float)$sec);
+//$page_time_end = ((float) $usec + (float) $sec);
 
 //printf("%01.5f", $page_time_end - $page_time_start);
