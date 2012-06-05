@@ -5,3 +5,7 @@ universibo_sso_homepage:
 universibo_sso_login:
     pattern:  /login
     defaults: { _controller: 'universibo_sso.controller.security:loginAction' }
+
+universibo_sso_metadata:
+    pattern:  /metadata
+    defaults: { _controller: 'universibo_sso.controller.metadata:indexAction' }

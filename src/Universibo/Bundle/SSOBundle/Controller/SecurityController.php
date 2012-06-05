@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
-class SecurityController extends Controller
+class SecurityController
 {
     /**
      * @var EngineInterface

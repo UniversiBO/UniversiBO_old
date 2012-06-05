@@ -5,3 +5,5 @@ services:
     universibo_sso.controller.security:
         class: Universibo\Bundle\SSOBundle\Controller\SecurityController
         arguments: ['@templating']
+    universibo_sso.controller.metadata:
+        class: Universibo\Bundle\SSOBundle\Controller\MetadataController
