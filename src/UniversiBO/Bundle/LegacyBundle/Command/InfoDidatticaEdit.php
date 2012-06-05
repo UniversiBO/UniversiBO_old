@@ -20,12 +20,12 @@ class InfoDidatticaEdit extends UniversiboCommand
 
     public function execute()
     {
-        $frontcontroller = &$this->getFrontController();
-        $template = &$frontcontroller->getTemplateEngine();
+        $frontcontroller = $this->getFrontController();
+        $template = $frontcontroller->getTemplateEngine();
 
-        $krono = &$frontcontroller->getKrono();
-        $user = &$this->getSessionUser();
-        $user_ruoli = &$user->getRuoli();
+        $krono = $frontcontroller->getKrono();
+        $user = $this->getSessionUser();
+        $user_ruoli = $user->getRuoli();
 
         $template
                 ->assign('common_canaleURI',
