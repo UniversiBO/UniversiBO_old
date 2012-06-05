@@ -22,11 +22,11 @@ class AppKernel extends Kernel
                 //new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
                 new UniversiBO\Bundle\WebsiteBundle\UniversiBOWebsiteBundle(),
                 new UniversiBO\Bundle\LegacyBundle\UniversiBOLegacyBundle(),
-                new UniversiBO\Bundle\DidacticsBundle\UniversiBODidacticsBundle(),
             new UniversiBO\Bundle\ForumBundle\UniversiBOForumBundle(),
                 new Sonata\AdminBundle\SonataAdminBundle(),
             new Universibo\Bundle\SSOBundle\UniversiboSSOBundle(),
             new Universibo\Bundle\SearchBundle\UniversiboSearchBundle(),
+            new Universibo\Bundle\CoreBundle\UniversiboCoreBundle(),
                 );
        
 

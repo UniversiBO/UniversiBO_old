@@ -1,3 +1,7 @@
+UniversiboCoreBundle:
+    resource: "@UniversiboCoreBundle/Resources/config/routing.yml"
+    prefix:   /
+
 UniversiboSearchBundle:
     resource: "@UniversiboSearchBundle/Resources/config/routing.yml"
     prefix:   /search
