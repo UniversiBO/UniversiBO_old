@@ -20,13 +20,13 @@ class AppKernel extends Kernel
                 //new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
                 new JMS\SerializerBundle\JMSSerializerBundle($this),
                 //new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-                new UniversiBO\Bundle\WebsiteBundle\UniversiBOWebsiteBundle(),
-                new UniversiBO\Bundle\LegacyBundle\UniversiBOLegacyBundle(),
-            new UniversiBO\Bundle\ForumBundle\UniversiBOForumBundle(),
+                new Universibo\Bundle\WebsiteBundle\UniversiboWebsiteBundle(),
+                new Universibo\Bundle\LegacyBundle\UniversiboLegacyBundle(),
+                new Universibo\Bundle\ForumBundle\UniversiboForumBundle(),
                 new Sonata\AdminBundle\SonataAdminBundle(),
-            new Universibo\Bundle\SSOBundle\UniversiboSSOBundle(),
-            new Universibo\Bundle\SearchBundle\UniversiboSearchBundle(),
-            new Universibo\Bundle\CoreBundle\UniversiboCoreBundle(),
+                new Universibo\Bundle\SSOBundle\UniversiboSSOBundle(),
+                new Universibo\Bundle\SearchBundle\UniversiboSearchBundle(),
+                new Universibo\Bundle\CoreBundle\UniversiboCoreBundle(),
                 );
        
 

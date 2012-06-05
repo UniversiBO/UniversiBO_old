@@ -4,6 +4,6 @@ namespace Universibo\Bundle\LegacyBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class UniversiBOLegacyBundle extends Bundle
+class UniversiboLegacyBundle extends Bundle
 {
 }

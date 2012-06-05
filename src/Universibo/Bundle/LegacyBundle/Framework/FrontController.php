@@ -161,7 +161,7 @@ class FrontController
     {
         //$command_request=$this->getCommandRequest();
         $command_class=$this->getCommandClass();
-        $command_class = 'UniversiBO\\Bundle\\LegacyBundle\\Command\\'.$command_class;
+        $command_class = 'Universibo\\Bundle\\LegacyBundle\\Command\\'.$command_class;
 
         /**
          * @todo mettere controllo sull'avvenuta inclusione, altrimenti errore critico
@@ -327,7 +327,7 @@ class FrontController
            $ret['restrictedTo'] = (isset($plugin['restrictedTo']))? $plugin['restrictedTo'] : '';
            $ret['condition'] = (isset($plugin['condition']))? $plugin['condition'] : '';
            $ret['restrictedTo'] = str_replace(' ', '', $ret['restrictedTo']);
-           $ret['bundleClass'] = 'UniversiBO\\Bundle\\LegacyBundle\\Command\\' . str_replace('.', '\\', $pc);
+           $ret['bundleClass'] = 'Universibo\\Bundle\\LegacyBundle\\Command\\' . str_replace('.', '\\', $pc);
 
            $ret['restrictedTo'] = ($ret['restrictedTo'] != '') ? explode(',', $ret['restrictedTo']) : array();
 

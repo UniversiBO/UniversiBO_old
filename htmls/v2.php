@@ -1,6 +1,6 @@
 <?php
-use UniversiBO\Bundle\LegacyBundle\Entity\Ruolo;
-use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
+use Universibo\Bundle\LegacyBundle\Entity\Ruolo;
+use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 require_once __DIR__.'/../app/bootstrap.php.cache';
 require_once __DIR__.'/../app/autoload.php';
@@ -19,7 +19,7 @@ if (in_array(@$_SERVER['REMOTE_ADDR'], array(
 //$page_time_start = ((float) $usec + (float) $sec);
 
 // TODO hack orrendo per caricare ruolo e le relative costanti
-class_exists('UniversiBO\\Bundle\\LegacyBundle\\Entity\\Ruolo');
+class_exists('Universibo\\Bundle\\LegacyBundle\\Entity\\Ruolo');
 
 /**
  * The receiver.
@@ -133,7 +133,7 @@ class Receiver
         $fc->setConfig( $this->configFile );
 
         $fc->executeCommand();
-        $fc->getDbConnection('main')->close();
+        $fc->getDbConnection('main')->disconnect();
     }
 
     public function getKernel()
