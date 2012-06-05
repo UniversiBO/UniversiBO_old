@@ -246,11 +246,11 @@ class DBRuoloRepository extends DBRepository
 
         $rows = $res->numRows();
         if ( $rows = 0) {
-            $ret = array(); return $ret;
+            return array();
         }
 
         $ruoli = array();
-        while (	$res->fetchInto($row) ) {
+        while ($row = $this->fetchRow($res)) {
             $ruoli[] = new Ruolo($idUtente, $row[0], $row[5], $row[1], $row[2]==Ruolo::MODERATORE, $row[2]==Ruolo::REFERENTE, $row[3]=='S', $row[4], $row[6]=='S');
         }
 

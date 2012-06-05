@@ -17,7 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class ChannelController extends Controller
 {
     /**
-     * @Route("/{id}", name="channel_show")
+     * @Route("/{id}", requirements={"id" = "\d+"}, name="channel_show")
      * @Template()
      */
     public function showAction($id)

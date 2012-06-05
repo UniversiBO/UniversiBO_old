@@ -25,6 +25,11 @@ class DBCanale2Repository extends DBRepository
      * @var DBFacoltaRepository
      */
     private $facultyRepository;
+    
+    /**
+     * @var DBInsegnamentoRepository
+     */
+    private $subjectRepository;
 
     /**
      * Class constructor
@@ -33,18 +38,20 @@ class DBCanale2Repository extends DBRepository
      * @param DBCanaleRepository  $channelRepository
      * @param DBCdlRepository     $cdlRepository
      * @param DBFacoltaRepository $facultyRepository
+     * @param DBInsegnamentoRepository $subjectRepository
      * @param boolean             $convert
      */
     public function __construct(\DB_common $db,
             DBCanaleRepository $channelRepository,
             DBCdlRepository $cdlRepository,
-            DBFacoltaRepository $facultyRepository, $convert = False)
+            DBFacoltaRepository $facultyRepository, DBInsegnamentoRepository $subjectRepository, $convert = False)
     {
         parent::__construct($db, $convert);
 
         $this->channelRepository = $channelRepository;
         $this->cdlRepository = $cdlRepository;
         $this->facultyRepository = $facultyRepository;
+        $this->subjectRepository = $subjectRepository;
     }
 
     public function findManyByType($type)
@@ -54,14 +61,17 @@ class DBCanale2Repository extends DBRepository
                 return $this->facultyRepository->findAll();
             case Canale::CDL:
                 return $this->cdlRepository->findAll();
-            case Canale::INSEGNAMENTO:
             default:
                 $ids = $this->channelRepository->findManyByType($type);
-
                 return $this->channelRepository->findManyById($ids);
         }
     }
 
+    /**
+     * @param int $id
+     * @throws \Exception
+     * @return Canale
+     */
     public function find($id)
     {
         $db = $this->getDb();
@@ -79,6 +89,8 @@ class DBCanale2Repository extends DBRepository
                 return $this->facultyRepository->find($id);
             case Canale::CDL:
                 return $this->cdlRepository->find($id);
+            case Canale::INSEGNAMENTO:
+                return $this->subjectRepository->findByChannelId($id);
             default:
                 return $this->channelRepository->find($id);
         }

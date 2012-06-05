@@ -36,7 +36,7 @@ class MyUniversiBOController extends Controller
                 if (strlen($name) === 0) {
                     $name = $channel->getNome();
                 }
-
+                
                 $displayRoles[] = array ('link' => $router->generate($channel), 'name' => $name);
             }
         }

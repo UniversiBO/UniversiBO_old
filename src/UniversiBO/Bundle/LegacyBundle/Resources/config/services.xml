@@ -59,6 +59,7 @@
 			<argument type="service" id="universibo_legacy.repository.canale" />
 			<argument type="service" id="universibo_legacy.repository.cdl" />
 			<argument type="service" id="universibo_legacy.repository.facolta" />
+			<argument type="service" id="universibo_legacy.repository.insegnamento" />
 			<argument>true</argument>
 		</service>
 
