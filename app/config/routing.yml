@@ -11,7 +11,7 @@ UniversiboSSOBundle:
     prefix:   /sso
 
 UniversiBOWebsiteBundle:
-    resource: "@UniversiBOWebsiteBundle/Controller/"
+    resource: "@UniversiboWebsiteBundle/Controller/"
     type:     annotation
     prefix:   /
 

@@ -63,8 +63,8 @@ fos_comment:
     db_driver: orm
     class:
         model:
-            comment: UniversiBO\Bundle\WebsiteBundle\Entity\Comment
-            thread: UniversiBO\Bundle\WebsiteBundle\Entity\Thread
+            comment: Universibo\Bundle\WebsiteBundle\Entity\Comment
+            thread: Universibo\Bundle\WebsiteBundle\Entity\Thread
     acl: true
     service:
         acl:
