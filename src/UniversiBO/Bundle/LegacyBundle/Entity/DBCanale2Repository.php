@@ -25,7 +25,7 @@ class DBCanale2Repository extends DBRepository
      * @var DBFacoltaRepository
      */
     private $facultyRepository;
-    
+
     /**
      * @var DBInsegnamentoRepository
      */
@@ -34,12 +34,12 @@ class DBCanale2Repository extends DBRepository
     /**
      * Class constructor
      *
-     * @param \DB_common          $db
-     * @param DBCanaleRepository  $channelRepository
-     * @param DBCdlRepository     $cdlRepository
-     * @param DBFacoltaRepository $facultyRepository
+     * @param \DB_common               $db
+     * @param DBCanaleRepository       $channelRepository
+     * @param DBCdlRepository          $cdlRepository
+     * @param DBFacoltaRepository      $facultyRepository
      * @param DBInsegnamentoRepository $subjectRepository
-     * @param boolean             $convert
+     * @param boolean                  $convert
      */
     public function __construct(\DB_common $db,
             DBCanaleRepository $channelRepository,
@@ -63,12 +63,13 @@ class DBCanale2Repository extends DBRepository
                 return $this->cdlRepository->findAll();
             default:
                 $ids = $this->channelRepository->findManyByType($type);
+
                 return $this->channelRepository->findManyById($ids);
         }
     }
 
     /**
-     * @param int $id
+     * @param  int        $id
      * @throws \Exception
      * @return Canale
      */

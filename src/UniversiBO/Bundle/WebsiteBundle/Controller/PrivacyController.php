@@ -21,7 +21,7 @@ class PrivacyController extends Controller
     {
         return array();
     }
-    
+
     /**
      * @Route("/accept",name="privacy_accept")
      * @Method("POST")

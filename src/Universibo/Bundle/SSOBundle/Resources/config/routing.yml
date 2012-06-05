@@ -1,0 +1,7 @@
+universibo_sso_homepage:
+    pattern:  /
+    defaults: { _controller: 'universibo_sso.controller.userbox:indexAction' }
+
+universibo_sso_login:
+    pattern:  /login
+    defaults: { _controller: 'universibo_sso.controller.security:loginAction' }

@@ -31,7 +31,7 @@ class ShowCcontattoDocenteTest extends UniversiBOSeleniumTestCase
         $report = sha1(rand());
         $this->type('name=f35_report', $report);
         $this->clickAndWait('name=f35_submit_report');
-        
+
         $this->assertSentence($report);
     }
 }

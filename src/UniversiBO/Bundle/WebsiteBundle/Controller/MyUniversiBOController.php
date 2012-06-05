@@ -30,13 +30,13 @@ class MyUniversiBOController extends Controller
         foreach ($roles as $role) {
             if ($role->isMyUniversibo()) {
                 $name = $role->getNome();
-                
+
                 $channel = $channelRepo->find($role->getIdCanale());
 
                 if (strlen($name) === 0) {
                     $name = $channel->getNome();
                 }
-                
+
                 $displayRoles[] = array ('link' => $router->generate($channel), 'name' => $name);
             }
         }

@@ -42,7 +42,7 @@ class DBUserRepositoryTest extends DBRepositoryTest
     {
         self::assertTrue($this->repository->usernameExists(TestConstants::ADMIN_USERNAME));
     }
-    
+
     public function testGetUsernameFromId()
     {
         self::assertEquals('brain', $this->repository->getUsernameFromId(81));

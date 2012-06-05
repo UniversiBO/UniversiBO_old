@@ -1,6 +1,7 @@
 <?php
 namespace UniversiBO\Bundle\LegacyBundle\Entity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Universibo\Bundle\SSOBundle\Model\UserInterface as SSOUserInterface;
 use UniversiBO\Bundle\LegacyBundle\Framework\FrontController;
 use UniversiBO\Bundle\LegacyBundle\Auth\ActiveDirectoryLogin;
 use UniversiBO\Bundle\LegacyBundle\Auth\PasswordUtil;
@@ -13,7 +14,7 @@ use UniversiBO\Bundle\LegacyBundle\Auth\PasswordUtil;
  * @license GPL, <{@link http://www.opensource.org/licenses/gpl-license.php}>
  * @copyright CopyLeft UniversiBO 2001-2003
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface, SSOUserInterface, \Serializable
 {
     const ALGORITMO_DEFAULT = 'sha1';
 
@@ -1107,5 +1108,15 @@ class User implements UserInterface, \Serializable
         foreach (unserialize($data) as $key => $value) {
             $this->$key = $value;
         }
+    }
+    
+    public function setPrincipalName($userPrincipal)
+    {
+        return $this->setADUsername($userPrincipal);
+    }
+    
+    public function getPrincipalName()
+    {
+        return $this->getADUsername();
     }
 }

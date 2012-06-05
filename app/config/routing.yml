@@ -1,3 +1,7 @@
+UniversiboSSOBundle:
+    resource: "@UniversiboSSOBundle/Resources/config/routing.yml"
+    prefix:   /sso
+
 UniversiBODidacticsBundle:
     resource: "@UniversiBODidacticsBundle/Controller/"
     type:     annotation

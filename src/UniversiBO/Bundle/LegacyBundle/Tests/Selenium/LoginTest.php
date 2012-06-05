@@ -9,7 +9,7 @@ class LoginTest extends UniversiBOSeleniumTestCase
     {
         parent::setUp();
     }
-    
+
     /**
      * @dataProvider provider
      * @param string $username
