@@ -1,21 +1,15 @@
+UniversiboSearchBundle:
+    resource: "@UniversiboSearchBundle/Resources/config/routing.yml"
+    prefix:   /search
+
 UniversiboSSOBundle:
     resource: "@UniversiboSSOBundle/Resources/config/routing.yml"
     prefix:   /sso
-
-UniversiBODidacticsBundle:
-    resource: "@UniversiBODidacticsBundle/Controller/"
-    type:     annotation
-    prefix:   /admin/didactics
 
 UniversiBOWebsiteBundle:
     resource: "@UniversiBOWebsiteBundle/Controller/"
     type:     annotation
     prefix:   /
-
-UniversiBOAnswersBundle:
-    resource: "@UniversiBOAnswersBundle/Controller/"
-    type:     annotation
-    prefix:   /answers
 
 
 # Internal routing configuration to handle ESI

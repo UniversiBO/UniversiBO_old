@@ -24,9 +24,9 @@ class AppKernel extends Kernel
                 new UniversiBO\Bundle\LegacyBundle\UniversiBOLegacyBundle(),
                 new UniversiBO\Bundle\DidacticsBundle\UniversiBODidacticsBundle(),
             new UniversiBO\Bundle\ForumBundle\UniversiBOForumBundle(),
-                new UniversiBO\Bundle\AnswersBundle\UniversiBOAnswersBundle(),
                 new Sonata\AdminBundle\SonataAdminBundle(),
             new Universibo\Bundle\SSOBundle\UniversiboSSOBundle(),
+            new Universibo\Bundle\SearchBundle\UniversiboSearchBundle(),
                 );
        
 

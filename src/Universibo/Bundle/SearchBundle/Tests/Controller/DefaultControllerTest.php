@@ -1,6 +1,6 @@
 <?php
 
-namespace Universibo\Bundle\SSOBundle\Tests\Controller;
+namespace Universibo\Bundle\SearchBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

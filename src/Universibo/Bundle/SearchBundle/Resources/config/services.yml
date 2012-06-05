@@ -1,0 +1,7 @@
+parameters:
+#    universibo_search.example.class: Universibo\Bundle\SearchBundle\Example
+
+services:
+#    universibo_search.example:
+#        class: %universibo_search.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
