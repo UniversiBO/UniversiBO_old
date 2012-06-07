@@ -277,50 +277,6 @@ class Insegnamento extends Canale
     }
 
     /**
-     * Restituisce l'uri del command che visulizza il canale
-     *
-     * @return string URI del command
-     */
-    //	 function getShowUri()
-    //	 {
-    //	 	return 'v2.php?do=ShowInsegnamento&id_canale='.$this->getIdCanale();
-    //	 }
-
-    /*
-     * Seleziona da database e restituisce l'oggetto Cdl
-     * corrispondente al codice $cod_cdl
-     *
-     * @todo implementare se serve
-     * @static
-     * @param  string  $cod_cdl stringa a 4 cifre del codice d'ateneo del corso di laurea
-     * @return Facolta
-     *
-    public function selectInsegnamentoCodice( ...tutta la chiave... )
-    {
-
-    $db = FrontController::getDbConnection('main');
-
-    $query = 'SELECT ... WHERE a.id_canale = b.id_canale AND b.cod_corso = '.$db->quote($cod_cdl);
-
-    $res = $db->query($query);
-    if (DB::isError($res))
-        Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-    $rows = $res->numRows();
-
-    if( $rows == 0) return false;
-
-    $res->fetchInto($row);
-    $insegnamento = new Insegnamento(  ... $row[16] ...  );
-
-
-    return $insegnamento;
-
-    }
-     */
-
-
-    /**
      * @return DBInsegnamentoRepository
      */
     private static function getRepository()
