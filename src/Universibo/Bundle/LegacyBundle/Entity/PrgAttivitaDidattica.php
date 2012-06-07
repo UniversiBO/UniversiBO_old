@@ -792,8 +792,7 @@ class PrgAttivitaDidattica extends Canale
     private static function getRepository()
     {
         if (is_null(self::$repository)) {
-            self::$repository = new DBPrgAttivitaDidatticaRepository(
-                    FrontController::getDbConnection('main'));
+            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.programma');
         }
 
         return self::$repository;

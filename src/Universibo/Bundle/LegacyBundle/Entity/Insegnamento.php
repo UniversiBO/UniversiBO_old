@@ -8,7 +8,7 @@ use Universibo\Bundle\LegacyBundle\Framework\FrontController;
  * Insegnamento class.
  *
  * Modella un insegnamento e le informazioni associate.
- * Ad un insegnamento possono essere associate da 1 a n attivit� didattiche (PrgAttivitaDidattica).
+ * Ad un insegnamento possono essere associate da 1 a n attività didattiche (PrgAttivitaDidattica).
  *
  * @package universibo
  * @version 2.0.0
@@ -326,8 +326,7 @@ class Insegnamento extends Canale
     private static function getRepository()
     {
         if (is_null(self::$repository)) {
-            self::$repository = new DBInsegnamentoRepository(
-                    FrontController::getDbConnection('main'));
+            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.insegnamento');
         }
 
         return self::$repository;

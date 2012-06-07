@@ -427,8 +427,7 @@ class InfoDidattica
     private static function getRepository()
     {
         if (is_null(self::$repository)) {
-            self::$repository = new DBInfoDidatticaRepository(
-                    FrontController::getDbConnection('main'));
+            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.info_didattica');
         }
 
         return self::$repository;

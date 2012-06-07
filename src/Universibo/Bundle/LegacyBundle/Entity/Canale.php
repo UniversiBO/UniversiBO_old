@@ -704,7 +704,7 @@ class Canale
     private static function getRepository()
     {
         if (is_null(self::$repository)) {
-            self::$repository = new DBCanaleRepository(FrontController::getDbConnection('main'));
+            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.canale');
         }
 
         return self::$repository;

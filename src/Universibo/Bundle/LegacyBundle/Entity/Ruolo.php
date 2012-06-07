@@ -495,7 +495,7 @@ class Ruolo
     private static function getRepository()
     {
         if (is_null(self::$repository)) {
-            self::$repository = new DBRuoloRepository(FrontController::getDbConnection('main'));
+            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.ruolo');
         }
 
         return self::$repository;

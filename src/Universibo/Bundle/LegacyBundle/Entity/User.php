@@ -1079,8 +1079,7 @@ class User implements UserInterface, SSOUserInterface, \Serializable
     private static function getRepository()
     {
         if (is_null(self::$repository)) {
-            self::$repository = new DBUserRepository(
-                    FrontController::getDbConnection('main'));
+            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.user');
         }
 
         return self::$repository;

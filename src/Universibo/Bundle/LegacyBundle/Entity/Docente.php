@@ -168,8 +168,7 @@ class Docente
     private static function getRepository()
     {
         if (is_null(self::$repository)) {
-            self::$repository = new DBDocenteRepository(
-                    FrontController::getDbConnection('main'));
+            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.docente');
         }
 
         return self::$repository;

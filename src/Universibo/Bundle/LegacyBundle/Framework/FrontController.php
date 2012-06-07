@@ -279,7 +279,7 @@ class FrontController
         return str_replace('.', '\\', $this->commandClass);
     }
 
-    public function getContainer()
+    public static function getContainer()
     {
         return self::$container;
     }

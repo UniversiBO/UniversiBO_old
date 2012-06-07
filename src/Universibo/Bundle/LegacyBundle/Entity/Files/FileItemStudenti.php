@@ -282,4 +282,15 @@ class FileItemStudenti extends FileItem
         return false;
     }
 
+    /**
+     * @return DBFileItemStudentiRepository
+     */
+    private static function getRepository()
+    {
+    	if (is_null(self::$repository)) {
+    		self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.files.file_item_studenti');
+    	}
+    
+    	return self::$repository;
+    }
 }

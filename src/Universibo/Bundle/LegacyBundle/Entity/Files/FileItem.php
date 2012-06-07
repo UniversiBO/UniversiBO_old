@@ -1196,8 +1196,7 @@ class FileItem
     private static function getRepository()
     {
         if (is_null(self::$repository)) {
-            self::$repository = new DBFileItemRepository(
-                    FrontController::getDbConnection('main'));
+            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.files.file_item');
         }
 
         return self::$repository;

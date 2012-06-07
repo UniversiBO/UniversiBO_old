@@ -333,8 +333,7 @@ class Facolta extends Canale
     private static function getRepository()
     {
         if (is_null(self::$repository)) {
-            self::$repository = new DBFacoltaRepository(
-                    FrontController::getDbConnection('main'));
+            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.facolta');
         }
 
         return self::$repository;

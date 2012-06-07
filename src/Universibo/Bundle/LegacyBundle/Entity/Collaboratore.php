@@ -192,7 +192,7 @@ class Collaboratore
     private static function getRepository()
     {
         if (is_null(self::$repository)) {
-            self::$repository = new DBCollaboratoreRepository(FrontController::getDbConnection('main'));
+            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.collaboratore');
         }
 
         return self::$repository;

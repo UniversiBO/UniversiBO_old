@@ -305,8 +305,7 @@ class NotificaItem
     private static function getRepository()
     {
         if (is_null(self::$repository)) {
-            self::$repository = new DBNotificaItemRepository(
-                    FrontController::getDbConnection('main'));
+            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.notifica.notifica_item');
         }
 
         return self::$repository;

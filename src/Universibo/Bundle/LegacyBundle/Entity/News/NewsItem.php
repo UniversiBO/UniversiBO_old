@@ -560,7 +560,7 @@ class NewsItem
     private static function getRepository()
     {
         if (is_null(self::$repository)) {
-            self::$repository = new DBNewsItemRepository(FrontController::getDbConnection('main'));
+            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.news.news_item');
         }
 
         return self::$repository;

@@ -303,8 +303,7 @@ class CommentoItem
     private static function getRepository()
     {
         if (is_null(self::$repository)) {
-            self::$repository = new DBCommentoItemRepository(
-                    FrontController::getDbConnection('main'));
+            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.commenti.commento_item');
         }
 
         return self::$repository;

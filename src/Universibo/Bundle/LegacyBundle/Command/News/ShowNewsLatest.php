@@ -135,7 +135,7 @@ class ShowNewsLatest extends PluginCommand
 
         }
 
-        $template->assign('showNewsLatest_newsList', $elenco_news_tpl);
+        $template->assignUnicode('showNewsLatest_newsList', $elenco_news_tpl);
 
     }
 

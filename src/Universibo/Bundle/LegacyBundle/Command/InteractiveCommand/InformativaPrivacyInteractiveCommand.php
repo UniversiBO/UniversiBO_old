@@ -23,13 +23,13 @@ class InformativaPrivacyInteractiveCommand extends BaseInteractiveCommand
     {
         parent::__construct($baseCommand);
 
-        // Da qui si pu� personalizzare il contenuto che comparir�. Meglio qui o direttamente nel tpl? ah, se avessimo risolto il problema dei testi ..
+        // Da qui si può personalizzare il contenuto che comparirà. Meglio qui o direttamente nel tpl? ah, se avessimo risolto il problema dei testi ..
         $this->priority = HIGH_INTERACTION;
         $this->title = 'Informativa sulla privacy';
         $this->navigationLang['next'] = 'accetta';
     }
 
-    public function call_informativa ( & $item)
+    public function call_informativa ($item)
     {
         // normal view
         $formValues = $this->getCurrentValues($item);
@@ -67,7 +67,7 @@ class InformativaPrivacyInteractiveCommand extends BaseInteractiveCommand
      */
     public static function getAttualeInformativaPrivacy ()
     {
-        $repository = new DBInformativaRepository(FrontController::getDbConnection('main'));
+        $repository = FrontController::getContainer()->get('universibo_legacy.repository.informativa');
         $informativa = $repository->findByTime(time());
 
 
