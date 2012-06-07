@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Tests\Selenium;
 
-class ShowHelpHomeTest extends UniversiBOSeleniumTestCase
+class ShowHelpIndexTest extends UniversiBOSeleniumTestCase
 {
     protected function setUp()
     {
