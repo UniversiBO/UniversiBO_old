@@ -391,37 +391,20 @@ class NewsItem
     /**
      * Seleziona gli id_canale per i quali la notizia ? inerente
      *
-     * @static
      * @return array elenco degli id_canale
      */
     public function getIdCanali()
     {
-        if ($this->elencoIdCanali != NULL)
-
-            return $this->elencoIdCanali;
-
-        $id_notizia = $this->getIdNotizia();
-
-        $db = FrontController::getDbConnection('main');
-
-        $query = 'SELECT id_canale FROM news_canale WHERE id_news='.$db->quote($id_notizia).' ORDER BY id_canale';
-        $res = $db->query($query);
-
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        $elenco_id_canale = array();
-
-        while ($res->fetchInto($row)) {
-            $elenco_id_canale[] = $row[0];
+        if(is_null($this->elencoIdCanali)) {
+            $this->elencoIdCanali = self::getRepository()->getChannelIdList($news);            
         }
-
-        $res->free();
-
-        $this->elencoIdCanali = $elenco_id_canale;
-
+        
         return $this->elencoIdCanali;
-
+    }
+    
+    public function setIdCanali(array $elencoIdCanali)
+    {
+        $this->elencoIdCanali = $elencoIdCanali;
     }
 
     /**
@@ -431,22 +414,7 @@ class NewsItem
      */
     public function removeCanale($id_canale)
     {
-
-        $db = FrontController::getDbConnection('main');
-
-        $query = 'DELETE FROM news_canale WHERE id_canale='.$db->quote($id_canale).' AND id_news='.$db->quote($this->getIdNotizia());
-        //? da testare il funzionamento di =
-        $res = $db->query($query);
-
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        // rimuove l'id del canale dall'elenco completo
-        $this->elencoIdCanali = array_diff ($this->elencoIdCanali, array($id_canale));
-
-        /**
-         * @TODO settare eliminata = 'S' quando la notizia viene tolta dall'ultimo canale
-         */
+        return self::getRepository()->removeFromChannel($this, $id_canale);
     }
 
 
@@ -458,38 +426,7 @@ class NewsItem
      */
     public function addCanale($id_canale)
     {
-        $return = true;
-
-        if ( !Canale::canaleExists($id_canale) ) {
-            return false;
-            //Error::throwError(_ERROR_CRITICAL,array('msg'=>'Il canale selezionato non esiste','file'=>__FILE__,'line'=>__LINE__));
-        }
-
-        $db = FrontController::getDbConnection('main');
-
-        /*	 	$query = 'SELECT id_notizia FROM news_canale WHERE id_canale = '.$db->quote($id_canale).' AND id_notizia = '.$db->quote($this->getIdNotizia());
-         $res = $db->query($query);
-
-        if (DB::isError($res)) {
-        $return = false;
-        Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        }
-
-        if ($res->numRows());
-        */
-        $query = 'INSERT INTO news_canale (id_news, id_canale) VALUES ('.$db->quote($this->getIdNotizia()).','.$db->quote($id_canale).')';
-        //? da testare il funzionamento di =
-        $res = $db->query($query);
-        if (DB::isError($res)) {
-            return false;
-            //	$db->rollback();
-            //	Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        }
-
-        $this->elencoIdCanale[] = $id_canale;
-
-        return true;
-
+        return self::getRepository()->addToChannel($this, $id_canale);
     }
 
     /**
@@ -509,33 +446,10 @@ class NewsItem
      */
     public function updateNewsItem()
     {
-        $db = FrontController::getDbConnection('main');
-
         ignore_user_abort(1);
-        $db->autoCommit(false);
-        $return = true;
-        $scadenza = ($this->getDataScadenza() == NULL) ? ' NULL ' : $db->quote($this->getDataScadenza());
-        $flag_urgente = ($this->isUrgente()) ? self::URGENTE : self::NOT_URGENTE;
-        $deleted = ($this->isEliminata()) ? NewsItem::ELIMINATA : self::NOT_ELIMINATA;
-        $query = 'UPDATE news SET titolo = '.$db->quote($this->getTitolo())
-        .' , data_inserimento = '.$db->quote($this->getDataIns())
-        .' , data_scadenza = '.$scadenza
-        .' , notizia = '.$db->quote($this->getNotizia())
-        .' , id_utente = '.$db->quote($this->getIdUtente())
-        .' , eliminata = '.$db->quote($deleted)
-        .' , flag_urgente = '.$db->quote($flag_urgente)
-        .' , data_modifica = '.$db->quote($this->getUltimaModifica())
-        .' WHERE id_news = '.$db->quote($this->getIdNotizia());
-        //echo $query;
-        $res = $db->query($query);
-        //var_dump($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        }
-
-        $db->commit();
-        $db->autoCommit(true);
+        
+        $return = self::getRepository()->update($this);
+        
         ignore_user_abort(0);
 
         return $return;
@@ -547,11 +461,7 @@ class NewsItem
 
     public function deleteNewsItem()
     {
-        $lista_canali = $this->getIdCanali();
-        if (count($lista_canali) == 0) {
-            $this->eliminata = true;
-            $this->updateNewsItem();
-        }
+        return self::getRepository()->delete($this);
     }
 
     /**

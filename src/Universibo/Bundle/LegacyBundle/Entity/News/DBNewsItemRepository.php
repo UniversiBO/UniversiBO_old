@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\News;
 
+use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
+
 use \DB;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBUserRepository;
@@ -18,12 +20,17 @@ class DBNewsItemRepository extends DBRepository
      */
     private $userRepository;
     
+    /**
+     * @var DBCanaleRepository
+     */
+    private $channelRepository;
     
-    public function __construct(\DB_common $db, DBUserRepository $userRepository, $convert = false)
+    public function __construct(\DB_common $db, DBUserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
     {
         parent::__construct($db, $convert);
         
         $this->userRepository = $userRepository;
+        $this->channelRepository = $channelRepository;
     }
     
     public function find($id)
@@ -217,5 +224,100 @@ class DBNewsItemRepository extends DBRepository
         ignore_user_abort(0);
 
         return $return;
+    }
+    
+    public function getChannelIdList(NewsItem $news)
+    {
+        $db = $this->getDb();
+        
+        $query = 'SELECT id_canale FROM news_canale WHERE id_news='.$db->quote($news->getIdNotizia()).' ORDER BY id_canale';
+        $res = $db->query($query);
+        
+        if (DB::isError($res)) {
+        	$this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        }
+        
+        $elenco_id_canale = array();
+        
+        while ($row = $this->fetchRow($res)) {
+        	$elenco_id_canale[] = $row[0];
+        }
+        
+        $res->free();
+        
+        return $elenco_id_canale;
+    }
+    
+    public function removeFromChannel(NewsItem $news, $channelId)
+    {
+        $db = $this->getDb();
+
+        $query = 'DELETE FROM news_canale WHERE id_canale='.$db->quote($channelId).' AND id_news='.$db->quote($news->getIdNotizia());
+        $res = $db->query($query);
+        
+        if (DB::isError($res)) {
+        	$this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        }
+        
+        $news->setIdCanali($ids = array_diff ($this->elencoIdCanali, array($id_canale)));
+        
+        if(count($ids) === 0) {
+            $this->delete($news);            
+        }
+    }
+    
+    public function delete(NewsItem $news)
+    {
+        $news->setEliminata(true);
+        $this->upate($news);
+    }
+    
+    public function addToChannel(NewsItem $news, $channelId)
+    {
+        if(!$this->channelRepository->idExists($channelId)) {
+            return false;
+        }    
+        
+        $db = $this->getDb();
+        $query = 'INSERT INTO news_canale (id_news, id_canale) VALUES ('.$db->quote($this->getIdNotizia()).','.$db->quote($id_canale).')';
+        
+        $res = $db->query($query);
+        if (DB::isError($res)) {
+        	return false;
+        }
+        
+        $ids = $news->getIdCanali();
+        $ids[] = $channelId;
+        $news->setIdCanali($ids);
+        
+        return true;
+    }
+    
+    public function update(NewsItem $news)
+    {
+        $db->autoCommit(false);
+        $return = true;
+        $scadenza = ($news->getDataScadenza() == NULL) ? ' NULL ' : $db->quote($news->getDataScadenza());
+        $flag_urgente = ($news->isUrgente()) ? self::URGENTE : self::NOT_URGENTE;
+        $deleted = ($news->isEliminata()) ? NewsItem::ELIMINATA : self::NOT_ELIMINATA;
+        $query = 'UPDATE news SET titolo = '.$db->quote($news->getTitolo())
+        .' , data_inserimento = '.$db->quote($news->getDataIns())
+        .' , data_scadenza = '.$scadenza
+        .' , notizia = '.$db->quote($news->getNotizia())
+        .' , id_utente = '.$db->quote($news->getIdUtente())
+        .' , eliminata = '.$db->quote($deleted)
+        .' , flag_urgente = '.$db->quote($flag_urgente)
+        .' , data_modifica = '.$db->quote($news->getUltimaModifica())
+        .' WHERE id_news = '.$db->quote($news->getIdNotizia());
+        //echo $query;
+        $res = $db->query($query);
+        //var_dump($query);
+        if (DB::isError($res)) {
+        	$db->rollback();
+        	$this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        }
+        
+        $db->commit();
+        $db->autoCommit(true);
     }
 }
