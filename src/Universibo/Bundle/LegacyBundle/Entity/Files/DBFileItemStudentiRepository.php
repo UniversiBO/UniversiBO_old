@@ -10,7 +10,7 @@ use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBFileItemStudentyRepository extends DBRepository
+class DBFileItemStudentiRepository extends DBRepository
 {
     /**
      * @var DBUserRepository
