@@ -288,33 +288,11 @@ class Facolta extends Canale
      */
     public function insertFacolta()
     {
-        $db = FrontController::getDbConnection('main');
-
-        if ($this->insertCanale() != true) {
-            Error::throwError(_ERROR_CRITICAL,
-                    array('msg' => 'Errore inserimento Canale',
-                            'file' => __FILE__, 'line' => __LINE__));
-
-            return false;
-        }
-
-        $query = 'INSERT INTO facolta (cod_fac, desc_fac, url_facolta, id_canale) VALUES ('
-                . $db->quote($this->getCodiceFacolta()) . ' , '
-                . $db->quote($this->getNome()) . ' , '
-                . $db->quote($this->getUri()) . ' , '
-                . $db->quote($this->getIdCanale()) . ' )';
-        $res = $db->query($query);
-        if (DB::isError($res)) {
-            Error::throwError(_ERROR_CRITICAL,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-
-            return false;
-        }
-
+        $result = self::getRepository()->insert($this);
+        
         Facolta::_selectFacolta();
-
-        return true;
+        
+        return $result;
     }
 
     /**

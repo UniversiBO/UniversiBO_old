@@ -115,4 +115,32 @@ class DBFacoltaRepository extends DBRepository
         $this->canaleRepository->update($facolta);
     }
 
+    public function insert(Facolta $facolta)
+    {
+        $db = $this->getDb();
+        
+        if ($this->canaleRepository->insert($facolta) != true) {
+        	$this->throwError('_ERROR_CRITICAL',
+        			array('msg' => 'Errore inserimento Canale',
+        					'file' => __FILE__, 'line' => __LINE__));
+        
+        	return false;
+        }
+        
+        $query = 'INSERT INTO facolta (cod_fac, desc_fac, url_facolta, id_canale) VALUES ('
+        . $db->quote($facolta->getCodiceFacolta()) . ' , '
+        . $db->quote($facolta->getNome()) . ' , '
+        . $db->quote($facolta->getUri()) . ' , '
+        . $db->quote($facolta->getIdCanale()) . ' )';
+        $res = $db->query($query);
+        if (DB::isError($res)) {
+        	$this->throwError('_ERROR_CRITICAL',
+        			array('msg' => DB::errorMessage($res), 'file' => __FILE__,
+        					'line' => __LINE__));
+        
+        	return false;
+        }
+        
+        return true;
+    }
 }
