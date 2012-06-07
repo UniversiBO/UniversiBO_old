@@ -1,6 +1,5 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Files;
-
 use \DB;
 use \Error;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
@@ -31,7 +30,7 @@ class FileItemStudenti extends FileItem
      * @var DBFileItemStudentyRepository
      */
     private static $repository;
-    
+
     /**
      * Recupera un file dal database
      *
@@ -39,14 +38,9 @@ class FileItemStudenti extends FileItem
      * @param  int      $id_file id del file
      * @return FileItem
      */
-    public static function  selectFileItem($id_file)
+    public static function selectFileItem($id_file)
     {
-        $id_files = array ($id_file);
-        $files = FileItemStudenti::selectFileItems($id_files);
-        if ($files === false)
-
-            return false;
-        return $files[0];
+        return self::getRepository()->find($id_file);
     }
 
     /**
@@ -80,23 +74,7 @@ class FileItemStudenti extends FileItem
      */
     public function removeCanale($id_canale)
     {
-        $db = FrontController :: getDbConnection('main');
-
-        $query = 'DELETE FROM file_studente_canale WHERE id_canale='.$db->quote($id_canale).' AND id_file='.$db->quote($this->getIdFile());
-        //? da testare il funzionamento di =
-        $res = $db->query($query);
-
-        if (DB :: isError($res))
-            Error :: throwError(_ERROR_DEFAULT, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
-
-        // rimuove l'id del canale dall'elenco completo
-//		var_dump($this->elencoIdCanali);
-//		die();
-//		$this->elencoIdCanali = array_diff($this->elencoIdCanali, array ($id_canale));
-
-        /**
-         * @TODO settare eliminata = 'S' quando il file viene tolto dall'ultimo canale
-         */
+        return self::getRepository()->removeFromChannel($this, $id_canale);
     }
 
     /**
@@ -105,28 +83,13 @@ class FileItemStudenti extends FileItem
      * @return array elenco degli id_canale
      */
 
-    public function  getIdCanali()
+    public function getIdCanali()
     {
-        if ($this->elencoIdCanali != null)
+        if (is_null($this->elencoIdCanali)) {
+            $this->elencoIdCanali = self::getRepository()->getChannelIds($this);
+        }
 
-            return $this->elencoIdCanali;
-
-        $id_file = $this->getIdFile();
-
-        $db = FrontController :: getDbConnection('main');
-
-        $query = 'SELECT id_canale FROM file_studente_canale WHERE id_file='.$db->quote($id_file);
-        $res = $db->query($query);
-
-        if (DB :: isError($res))
-            Error :: throwError(_ERROR_DEFAULT, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
-
-        $res->fetchInto($row);
-
-        $return = array($row[0]);
-
-        return $return;
-
+        return $this->elencoIdCanali;
     }
 
     public function setIdCanali(array $idCanali)
@@ -136,27 +99,15 @@ class FileItemStudenti extends FileItem
 
     /**
      * Questa funzione verifica, dato un certo
-     * id_file se � un file di tipo studente
+     * id_file se e` un file di tipo studente
      *
      * @param $id_file  id del file da verificare
      * @return $flag	true o false
      */
 
-    public static function  isFileStudenti($id_file)
+    public static function isFileStudenti($id_file)
     {
-        $flag = true;
-
-        $db = FrontController :: getDbConnection('main');
-
-        $query = 'SELECT count(id_file) FROM file_studente_canale WHERE id_file='.$db->quote($id_file).' GROUP BY id_file';
-        $res = $db->query($query);
-
-        if (DB :: isError($res))
-            Error :: throwError(_ERROR_DEFAULT, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
-        $res->fetchInto($ris);
-        if($ris[0]==0) $flag=false;
-
-        return $flag;
+        return self::getRepository()->isFileStudenti($id_file);
     }
 
     /**
@@ -164,41 +115,22 @@ class FileItemStudenti extends FileItem
      *
      * @param $id_file id del file
      */
-     public static function getVoto($id_file)
-     {
+    public static function getVoto($id_file)
+    {
+        return self::getRepository()->getAverageRating($id_file);
+    }
 
-        $db = FrontController :: getDbConnection('main');
-
-        $query = 'SELECT avg(voto) FROM file_studente_commenti WHERE id_file='.$db->quote($id_file).' AND eliminato = '.$db->quote(CommentoItem::NOT_ELIMINATO).' GROUP BY id_file';
-        $res = $db->query($query);
-
-        if (DB :: isError($res))
-            Error :: throwError(_ERROR_DEFAULT, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
-        $res->fetchInto($ris);
-
-        return $ris[0];
-     }
-
-     /**
-      * Questa funzione cancella tutti i commenti associati al file studente
-      */
-
-      function deleteAllCommenti()
-      {
-          $db = FrontController::getDbConnection('main');
+    /**
+     * Questa funzione cancella tutti i commenti associati al file studente
+     */
+    function deleteAllCommenti()
+    {
         ignore_user_abort(1);
-        $return = true;
-        $query = 'UPDATE file_studente_commenti SET eliminato = '.$db->quote(CommentoItem::ELIMINATO).'WHERE id_file='.$db->quote($this->id_file);
-        $res = $db->query($query);
-        if (DB :: isError($res)) {
-                $db->rollback();
-                Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-                $return = false;
-            }
-            ignore_user_abort(0);
+        $return = self::getRepository()->deleteAllComments($this);
+        ignore_user_abort(0);
 
         return $return;
-      }
+    }
 
     /**
      * Elimina il file studente
@@ -207,18 +139,7 @@ class FileItemStudenti extends FileItem
      */
     public function deleteFileItem()
     {
-
-        $db = & FrontController::getDbConnection('main');
-        $query = 'UPDATE file SET eliminato  = '.$db->quote(self::ELIMINATO).' WHERE id_file = '.$db->quote($this->getIdFile());
-        //echo $query;
-        $res = $db->query($query);
-        //var_dump($query);
-        if (DB :: isError($res)) {
-            $db->rollback();
-            Error :: throwError(_ERROR_CRITICAL, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
-        }
-
-        return false;
+        return self::getRepository()->delete($this);
     }
 
     /**
@@ -227,7 +148,9 @@ class FileItemStudenti extends FileItem
     private static function getRepository()
     {
         if (is_null(self::$repository)) {
-            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.files.file_item_studenti');
+            self::$repository = FrontController::getContainer()
+                    ->get(
+                            'universibo_legacy.repository.files.file_item_studenti');
         }
 
         return self::$repository;

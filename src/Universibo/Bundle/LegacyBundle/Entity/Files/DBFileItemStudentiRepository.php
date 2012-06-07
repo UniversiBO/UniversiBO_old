@@ -32,6 +32,13 @@ class DBFileItemStudentiRepository extends DBRepository
         $this->userRepository = $userRepository;
         $this->channelRepository = $channelRepository;
     }
+    
+    public function find($id)
+    {
+        $result = $this->findMany(array($id));
+        
+        return is_array($result) ? $result[0] : $result;
+    }
 
     public function findMany(array $ids)
     {
@@ -103,6 +110,95 @@ class DBFileItemStudentiRepository extends DBRepository
         $ids[] = $channelId;
         $file->setIdCanali($ids);
 
+        return true;
+    }
+    
+    public function removeFromChannel(FileItemStudenti $file, $channelId)
+    {
+        $query = 'DELETE FROM file_studente_canale WHERE id_canale='.$db->quote($channelId).' AND id_file='.$db->quote($file->getIdFile());
+        
+        $res = $db->query($query);
+        
+        if (DB::isError($res)) {
+        	$this->throwError('_ERROR_DEFAULT', array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
+        }
+    }
+    
+    public function getChannelIds(FileItemStudenti $file)
+    {
+        $id_file = $file->getIdFile();
+        
+        $db = $this->getDb();
+        
+        $query = 'SELECT id_canale FROM file_studente_canale WHERE id_file='.$db->quote($id_file);
+        $res = $db->query($query);
+        
+        if (DB::isError($res)) {
+        	$this->throwError('_ERROR_DEFAULT', array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
+        }
+        
+        $res->fetchInto($row);
+        
+        $return = array($row[0]);
+        
+        return $return;
+    }
+    
+    public function delete(FileItemStudenti $file)
+    {
+        $db = $this->getDb();
+        
+        $query = 'UPDATE file SET eliminato  = '.$db->quote(FileItem::ELIMINATO).' WHERE id_file = '.$db->quote($file->getIdFile());
+        $res = $db->query($query);
+        if (DB::isError($res)) {
+        	$db->rollback();
+        	$this->throwError('_ERROR_CRITICAL', array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
+        }
+        
+        return false;
+    }
+    
+    public function isFileStudenti($fileId)
+    {
+        $db = $this->getDb();
+        
+        $query = 'SELECT count(id_file) FROM file_studente_canale WHERE id_file='.$db->quote($fileId).' GROUP BY id_file';
+        $res = $db->query($query);
+        
+        if (DB::isError($res)) {
+        	$this->throwError('_ERROR_DEFAULT', array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
+        }
+        $res->fetchInto($ris);
+        
+        return $ris[0]==0;
+    }
+    
+    public function getAverageRating($fileId)
+    {
+        $db = $this->getDb();
+        
+        $query = 'SELECT avg(voto) FROM file_studente_commenti WHERE id_file='.$db->quote($fileId).' AND eliminato = '.$db->quote(CommentoItem::NOT_ELIMINATO).' GROUP BY id_file';
+        $res = $db->query($query);
+        
+        if (DB::isError($res)) {
+        	$this->throwError('_ERROR_DEFAULT', array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
+        }
+        $res->fetchInto($ris);
+        
+        return $ris[0];
+    }
+    
+    public function deleteAllComments(FileItemStudenti $file)
+    {
+        $db = $this->getDb();
+        
+        $query = 'UPDATE file_studente_commenti SET eliminato = '.$db->quote(CommentoItem::ELIMINATO).'WHERE id_file='.$db->quote($file->getIdFile());
+        $res = $db->query($query);
+        if (DB::isError($res)) {
+        	$db->rollback();
+        	$this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        }
+        
         return true;
     }
 }
