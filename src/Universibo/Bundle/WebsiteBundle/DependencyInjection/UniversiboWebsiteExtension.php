@@ -2,7 +2,6 @@
 
 namespace Universibo\Bundle\WebsiteBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\Definition;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

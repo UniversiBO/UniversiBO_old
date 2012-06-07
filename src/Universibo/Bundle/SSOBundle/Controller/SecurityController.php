@@ -5,7 +5,6 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 
 use Symfony\Component\HttpFoundation\Request;
 
-
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 

@@ -19,7 +19,7 @@
 			factory-service="universibo_website.search.lucene_factory"
 			factory-method="get">
 		</service>
-		
+
 		<service id="universibo_website.twig.extension" class="Universibo\Bundle\WebsiteBundle\Twig\UniversiboExtension">
 	        <tag name="twig.extension" />
 		</service>

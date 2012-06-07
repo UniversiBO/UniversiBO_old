@@ -25,8 +25,10 @@ class RssController extends Controller
             throw $this->createNotFoundException('Canale not found');
         }
 
+        $context = $this->get('security.context');
+
         $acl = $this->get('universibo_legacy.acl');
-        $user = $scontext->isGranted('IS_AUTHENTICATED_FULLY') ? $scontext
+        $user = $context->isGranted('IS_AUTHENTICATED_FULLY') ? $scontext
         ->getToken()->getUser() : null;
 
         if (!$acl->canRead($user, $channel)) {
