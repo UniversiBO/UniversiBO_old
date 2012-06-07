@@ -49,57 +49,13 @@ class FileItemStudenti extends FileItem
      * Recupera un elenco di file dal database
      * non ritorna i files eliminati
      *
-     * @static
+     * @deprecated
      * @param  array $id_file array elenco di id dei file
      * @return array FileItem
      */
     public static function selectFileItems($id_files)
     {
-        $db = FrontController::getDbConnection('main');
-
-        if (count($id_files) == 0) {$return = array(); return $return; }
-
-        //esegue $db->quote() su ogni elemento dell'array
-        //array_walk($id_notizie, array($db, 'quote'));
-        if (count($id_files) == 1)
-            $values = $id_files[0];
-        else
-            $values = implode(',', $id_files);
-
-//		$query = 'SELECT id_file, permessi_download, permessi_visualizza, A.id_utente, titolo,
-//						 A.descrizione, data_inserimento, data_modifica, dimensione, download,
-//						 nome_file, A.id_categoria, id_tipo_file, hash_file, A.password,
-//						 username, C.descrizione, D.descrizione, D.icona, D.info_aggiuntive
-//						 FROM file A, utente B, file_categoria C, file_tipo D
-//						 WHERE A.id_utente = B.id_utente AND A.id_categoria = C.id_file_categoria AND id_tipo_file = D.id_file_tipo AND A.id_file  IN ('.$values.') AND eliminato!='.$db->quote(FILE_ELIMINATO);
-        $query = 'SELECT id_file, permessi_download, permessi_visualizza, A.id_utente, titolo,
-                         A.descrizione, data_inserimento, data_modifica, dimensione, download,
-                         nome_file, A.id_categoria, id_tipo_file, hash_file, A.password,
-                         C.descrizione, D.descrizione, D.icona, D.info_aggiuntive
-                         FROM file A, file_categoria C, file_tipo D
-                         WHERE A.id_categoria = C.id_file_categoria AND id_tipo_file = D.id_file_tipo AND A.id_file  IN ('.$values.') AND eliminato!='.$db->quote(FILE_ELIMINATO);
-        $res = & $db->query($query);
-
-        //echo $query;
-
-        if (DB :: isError($res))
-            Error :: throwError(_ERROR_CRITICAL, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
-
-        $rows = $res->numRows();
-
-        if ($rows == 0)
-
-            return false;
-        $files_list = array ();
-
-        while ($res->fetchInto($row)) {
-            $username = User::getUsernameFromId($row[3]);
-            $files_list[] = new FileItemStudenti($row[0], $row[1], $row[2], $row[3], $row[4], $row[5], $row[6], $row[7], $row[8], $row[9], $row[10], $row[11], $row[12], $row[13], $row[14], $username , $row[15], $row[16], $row[17], $row[18]);
-        }
-
-        $res->free();
-
-        return $files_list;
+        return self::getRepository()->findMany($id_files);
     }
 
 
@@ -111,28 +67,7 @@ class FileItemStudenti extends FileItem
      */
     public function addCanale($id_canale)
     {
-        $return = true;
-
-        if (!Canale::canaleExists($id_canale)) {
-            return false;
-            //Error::throwError(_ERROR_CRITICAL,array('msg'=>'Il canale selezionato non esiste','file'=>__FILE__,'line'=>__LINE__));
-        }
-
-        $db = & FrontController :: getDbConnection('main');
-
-        $query = 'INSERT INTO file_studente_canale (id_file, id_canale) VALUES ('.$db->quote($this->getIdFile()).','.$db->quote($id_canale).')';
-        //? da testare il funzionamento di =
-        $res = $db->query($query);
-        if (DB :: isError($res)) {
-            return false;
-            //	$db->rollback();
-            //	Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        }
-
-        $this->elencoIdCanale[] = $id_canale;
-
-        return true;
-
+        return self::getRepository()->addToChannel($this, $id_canale);
     }
 
 
@@ -163,7 +98,7 @@ class FileItemStudenti extends FileItem
     }
 
     /**
-     * Seleziona l' id_canale per i quali il file � inerente
+     * Seleziona l' id_canale per i quali il file è inerente
      *
      * @return array elenco degli id_canale
      */
@@ -191,6 +126,11 @@ class FileItemStudenti extends FileItem
 
         return $return;
 
+    }
+    
+    public function setIdCanali(array $idCanali)
+    {
+        $this->elencoIdCanali = $idCanali;
     }
 
     /**

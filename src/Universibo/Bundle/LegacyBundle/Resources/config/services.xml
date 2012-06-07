@@ -107,6 +107,13 @@
 			<argument type="service" id="universibo_legacy.repository.user" />
 			<argument>true</argument>
 		</service>
+		
+		<service id="universibo_legacy.repository.files.file_item_studenti"
+			class="Universibo\Bundle\LegacyBundle\Entity\Files\DBFileItemStudentiRepository">
+			<argument type="service" id="universibo_legacy.db.connection.main" />
+			<argument type="service" id="universibo_legacy.repository.user" />
+			<argument>true</argument>
+		</service>
 
 		<service id="universibo_legacy.repository.info_didattica"
 			class="Universibo\Bundle\LegacyBundle\Entity\DBInfoDidatticaRepository">
