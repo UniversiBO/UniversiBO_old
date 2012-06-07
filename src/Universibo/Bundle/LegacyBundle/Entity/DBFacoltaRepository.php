@@ -11,6 +11,18 @@ use \DB;
 class DBFacoltaRepository extends DBRepository
 {
     /**
+     * @var DBCanaleRepository
+     */
+    private $canaleRepository;
+    
+    public function __construct(\DB_common $db, DBCanaleRepository $canaleRepository, $convert = false)
+    {
+    	parent::__construct($db, $convert);
+    
+    	$this->canaleRepository = $canaleRepository;
+    }
+    
+    /**
      * @return Facolta
      */
     public function find($id)
@@ -100,8 +112,7 @@ class DBFacoltaRepository extends DBRepository
                                     'line' => __LINE__));
         }
 
-        $canaleRepo = new DBCanaleRepository($db);
-        $canaleRepo->update($facolta);
+        $this->canaleRepository->update($facolta);
     }
 
 }

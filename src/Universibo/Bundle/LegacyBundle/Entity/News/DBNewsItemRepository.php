@@ -13,6 +13,19 @@ use Universibo\Bundle\LegacyBundle\Entity\DBUserRepository;
  */
 class DBNewsItemRepository extends DBRepository
 {
+    /**
+     * @var DBUserRepository
+     */
+    private $userRepository;
+    
+    
+    public function __construct(\DB_common $db, DBUserRepository $userRepository, $convert = false)
+    {
+        parent::__construct($db, $convert);
+        
+        $this->userRepository = $userRepository;
+    }
+    
     public function find($id)
     {
         $result = $this->findMany(array($id));
@@ -46,7 +59,7 @@ class DBNewsItemRepository extends DBRepository
         $news_list = array();
 
         while ($row = $this->fetchRow($res)) {
-            $userRepository = new DBUserRepository($db);
+            $userRepository = $this->userRepository;
             $username = $userRepository->getUsernameFromId($row[6]);
 
             $news_list[] = new NewsItem($row[7], $row[0], $row[1], $row[2],
@@ -93,7 +106,7 @@ class DBNewsItemRepository extends DBRepository
         $news_list = array();
 
         while ($row = $this->fetchRow($res)) {
-            $userRepository = new DBUserRepository($db);
+            $userRepository = $this->userRepository;
             $username = $userRepository->getUsernameFromId($row[6]);
 
             $news_list[] = new NewsItem($row[7], $row[0], $row[1], $row[2],
@@ -154,7 +167,7 @@ class DBNewsItemRepository extends DBRepository
 
         $news = array();
         while ($row = $this->fetchRow($res)) {
-            $userRepository = new DBUserRepository($db);
+            $userRepository = $this->userRepository;
 
             $news[] = new NewsItem($row[7], $row[0], $row[1], $row[2], $row[3],
                     $row[8], ($row[4] == NewsItem::URGENTE),

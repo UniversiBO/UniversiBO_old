@@ -13,6 +13,18 @@ use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
  */
 class DBFileItemRepository extends DBRepository
 {
+    /**
+     * @var DBUserRepository
+     */
+    private $userRepository;
+    
+    public function __construct(\DB_common $db, DBUserRepository $userRepository, $convert = false)
+    {
+        parent::__construct($db, $convert);
+        
+        $this->userRepository = $userRepository;
+    }
+    
     public function findByChannel($channelId)
     {
         $ids = $this->findIdByChannel($channelId);
@@ -98,7 +110,7 @@ class DBFileItemRepository extends DBRepository
             return false;
         $files_list = array();
 
-        $userRepo = new DBUserRepository($db);
+        $userRepo = $this->userRepository;
 
         while ($row = $this->fetchRow($res)) {
             $username = $userRepo->getUsernameFromId($row[3]);
@@ -151,7 +163,7 @@ class DBFileItemRepository extends DBRepository
             return false;
         $files_list = array();
 
-        $userRepo = new DBUserRepository($db);
+        $userRepo = $this->userRepository;
 
         while ($row = $this->fetchRow($res)) {
             $username = $userRepo->getUsernameFromId($row[3]);

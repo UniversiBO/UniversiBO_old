@@ -11,6 +11,18 @@ use \DB;
  */
 class DBInsegnamentoRepository extends DBRepository
 {
+    /**
+     * @var DBPrgAttivitaDidatticaRepository
+     */
+    private $programmaRepository;
+    
+    public function __construct(\DB_common $db, DBPrgAttivitaDidatticaRepository $programmaRepository, $convert = false)
+    {
+    	parent::__construct($db, $convert);
+    
+    	$this->programmaRepository = $programmaRepository;
+    }
+    
     public function findByChannelId($channelId)
     {
         $db = $this->getDb();
@@ -41,9 +53,7 @@ class DBInsegnamentoRepository extends DBRepository
 
             return false;
 
-        $attRepo = new DBPrgAttivitaDidatticaRepository($db, $this->isConvert());
-
-        $elenco_attivita = $attRepo->findByChannelId($channelId);
+        $elenco_attivita = $this->programmaRepository->findByChannelId($channelId);
 
         return new Insegnamento($row[12], $row[5], $row[4], $row[0],
                 $row[2], $row[1], $row[3], $row[7] == 'S', $row[6] == 'S',

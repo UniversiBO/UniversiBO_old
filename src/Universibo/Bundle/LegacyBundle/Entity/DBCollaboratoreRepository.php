@@ -11,6 +11,18 @@ use \DB;
  */
 class DBCollaboratoreRepository extends DBRepository
 {
+    /**
+     * @var DBUserRepository
+     */
+    private $userRepository;
+    
+    public function __construct(\DB_common $db, DBUserRepository $userRepository, $convert = false)
+    {
+    	parent::__construct($db, $convert);
+    
+    	$this->userRepository = $userRepository;
+    }
+    
     public function find($id)
     {
         $db = $this->getDb();
@@ -33,7 +45,7 @@ class DBCollaboratoreRepository extends DBRepository
         $collaboratore = new Collaboratore($row[0], $row[1], $row[2], $row[3],
                 $row[4], $row[5]);
 
-        $userRepo = new DBUserRepository($db);
+        $userRepo = $this->userRepository;
 
         if (($user = $userRepo->find($collaboratore->getIdUtente())) instanceof User) {
             $collaboratore->setUser($user);
@@ -46,7 +58,7 @@ class DBCollaboratoreRepository extends DBRepository
     {
         $db = $this->getDb();
 
-        $userRepo = new DBUserRepository($db, $this->isConvert());
+        $userRepo = $this->userRepository;
 
         $query = 'SELECT id_utente,	intro, recapito, obiettivi, foto, ruolo FROM collaboratore';
 
