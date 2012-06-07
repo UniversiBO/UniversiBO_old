@@ -77,7 +77,7 @@ class Link
     
     public function setIdLink($id_link)
     {
-        $this->id_link = $idLink;
+        $this->id_link = $id_link;
     }
 
     /**
