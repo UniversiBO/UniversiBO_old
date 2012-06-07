@@ -23,12 +23,10 @@ use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 class FileKeyWords
 {
-//Todo: mancano le get&set dell'id_file e id_utente
-
     /**
-     * @private
+     * @var DBFileItemRepository
      */
-    public $id_file = 0;
+    private static $repository;
 
     /**
      * Recupera le parole chiave
@@ -37,25 +35,8 @@ class FileKeyWords
      */
     public static function selectFileKeyWords($id_file)
     {
-        $db = FrontController::getDbConnection('main');
-
-        $query = 'SELECT keyword FROM file_keywords WHERE id_file='.$db->quote($id_file);
-        $res = $db->query($query);
-
-        if (DB :: isError($res))
-            Error :: throwError(_ERROR_DEFAULT, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
-
-        $elenco_keywords = array ();
-
-        while ($res->fetchInto($row)) {
-            $elenco_keywords[] = $row[0];
-        }
-
-        $res->free();
-
-        return $elenco_keywords;
+        return self::getRepository()->getKeyworkds($id_file);
     }
-
 
     /**
      * Imposta le parole chiave
@@ -65,26 +46,7 @@ class FileKeyWords
      */
     public function updateFileKeyWords($id_file, $elenco_keywords)
     {
-        $old_elenco_keywords = FileKeyWords::selectFileKeyWords($id_file);
-
-        $db = FrontController::getDbConnection('main');
-        ignore_user_abort(1);
-        $db->autoCommit(false);
-
-        foreach ($elenco_keywords as $value) {
-            if (!in_array($value, $old_elenco_keywords))
-                FileKeyWords::addKeyWord($id_file, $value);
-        }
-
-        foreach ($old_elenco_keywords as $value) {
-            if (!in_array($value,$elenco_keywords))
-                FileKeyWords::removeKeyWord($id_file, $value);
-        }
-
-        $db->commit();
-
-        $db->autoCommit(true);
-        ignore_user_abort(0);
+        return self::getRepository()->updateKeywords($id_file, $elenco_keywords);
     }
 
     /**
@@ -95,12 +57,7 @@ class FileKeyWords
      */
     public function addKeyWord($id_file, $keyword)
     {
-        $db = FrontController::getDbConnection('main');
-        $query = 'INSERT INTO file_keywords(id_file, keyword) VALUES ('.$db->quote($id_file).' , '.$db->quote($keyword) .');';
-        $res = & $db->query($query);
-
-        if (DB :: isError($res))
-            Error :: throwError(_ERROR_DEFAULT, array ('msg' => DB :: errorMessage($res).$query, 'file' => __FILE__, 'line' => __LINE__));
+        return self::getRepository()->addKeyword($id_file, $keyword);
     }
 
     /**
@@ -111,12 +68,18 @@ class FileKeyWords
      */
     public function removeKeyWord($id_file, $keyword)
     {
-        $db = & FrontController::getDbConnection('main');
-        $query = 'DELETE FROM file_keywords WHERE id_file = '.$db->quote($id_file).' AND keyword = '.$db->quote($keyword);
-        $res = & $db->query($query);
-
-        if (DB :: isError($res))
-            Error :: throwError(_ERROR_DEFAULT, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
+        return self::getRepository()->removeKeyword($id_file, $keyword);
     }
 
+    /**
+     * @return DBFileItemRepository
+     */
+    private static function getRepository()
+    {
+    	if (is_null(self::$repository)) {
+    		self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.files.file_item');
+    	}
+    
+    	return self::$repository;
+    }
 }

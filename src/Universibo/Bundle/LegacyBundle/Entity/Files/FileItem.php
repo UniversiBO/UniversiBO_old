@@ -32,82 +32,82 @@ class FileItem
     /**
      * @private
      */
-    public $id_file = 0;
+    private $id_file = 0;
 
     /**
      * @private
      */
-    public $permessi_download = 0;
+    private $permessi_download = 0;
 
     /**
      * @private
      */
-    public $permessi_visualizza = 0;
+    private $permessi_visualizza = 0;
 
     /**
      * @private
      */
-    public $id_utente = 0;
+    private $id_utente = 0;
 
     /**
      * @private
      */
-    public $titolo = '';
+    private $titolo = '';
 
     /**
      * @private
      */
-    public $descrizione = '';
+    private $descrizione = '';
 
     /**
      * @private
      */
-    public $data_inserimento = 0;
+    private $data_inserimento = 0;
 
     /**
      * @private
      */
-    public $data_modifica = 0;
+    private $data_modifica = 0;
 
     /**
      * @private
      */
-    public $dimensione = 0;
+    private $dimensione = 0;
 
     /**
      * @private
      */
-    public $download = 0;
+    private $download = 0;
 
     /**
      * @private
      */
-    public $nome_file = '';
+    private $nome_file = '';
 
     /**
      * @private
      */
-    public $id_categoria = 0;
+    private $id_categoria = 0;
 
     /**
      * @private
      */
-    public $id_tipo_file = 0;
+    private $id_tipo_file = 0;
 
     /**
      * @private
      */
-    public $hash_file = '';
+    private $hash_file = '';
 
     /**
      * @private
      */
-    public $password = '';
+    private $password = '';
 
     /**
      * @private
      */
-    public $username = '';
+    private $username = '';
 
     /**
      * @private
@@ -117,39 +117,39 @@ class FileItem
     /**
      * @private
      */
-    public $categoria_desc = '';
+    private $categoria_desc = '';
 
     /**
      * @private
      */
-    public $tipo_desc = '';
+    private $tipo_desc = '';
 
     /**
      * @private
      */
-    public $tipo_icona = '';
+    private $tipo_icona = '';
 
     /**
      * @private
      */
-    public $tipo_info = '';
+    private $tipo_info = '';
 
     ///////////////////////////////////////////
 
     /**
      * @private
      */
-    public $elencoIdCanali = NULL;
+    private $elencoIdCanali = NULL;
 
     /**
      * @private
      */
-    public $elencoCanali = NULL;
+    private $elencoCanali = NULL;
 
     /**
      * @private
      */
-    public $paroleChiave = NULL;
+    private $paroleChiave = NULL;
 
     /**
      * @var DBFileItemRepository
