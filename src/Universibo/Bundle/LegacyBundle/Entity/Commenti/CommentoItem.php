@@ -205,26 +205,11 @@ class CommentoItem
     public static function insertCommentoItem($id_file_studente, $id_utente, $commento, $voto)
     {
         ignore_user_abort(1);
-
-        $db = FrontController::getDbConnection('main');
-
-        $next_id = $db->nextID('file_studente_commenti_id_commento');
-        $this->id_commento = $next_id;
-        $return = true;
-        $query = 'INSERT INTO file_studente_commenti (id_commento,id_file,id_utente,commento,voto,eliminato) VALUES ('
-                . $next_id . ',' . $db->quote($id_file_studente) . ','
-                . $db->quote($id_utente) . ',' . $db->quote($commento) . ','
-                . $db->quote($voto) . ',' . $db->quote(self::NOT_ELIMINATO)
-                . ')';
-        $res = $db->query($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            Error::throwError(_ERROR_DEFAULT,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-            $return = false;
-        }
-
+        
+        $return = self::getRepository()->insertFromFields($id_file_studente, $id_utente, $commento, $voto);
+        
+        ignore_user_abort(0);
+        
         return $return;
     }
 
@@ -234,20 +219,10 @@ class CommentoItem
 
     public static function updateCommentoItem($id_commento, $commento, $voto)
     {
-        $db = FrontController::getDbConnection('main');
         ignore_user_abort(1);
-        $return = true;
-        $query = 'UPDATE file_studente_commenti SET commento='
-                . $db->quote($commento) . ', voto= ' . $db->quote($voto)
-                . ' WHERE id_commento=' . $db->quote($id_commento);
-        $res = $db->query($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            Error::throwError(_ERROR_DEFAULT,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-            $return = false;
-        }
+        
+        $return = self::getRepository()->updateFromFields($id_commento, $commento, $voto);
+        
         ignore_user_abort(0);
 
         return $return;
@@ -259,7 +234,6 @@ class CommentoItem
 
     public static function deleteCommentoItem($id_commento)
     {
-        $db = FrontController::getDbConnection('main');
         ignore_user_abort(1);
 
         $return = self::getRepository()->deleteById($id_commento);
@@ -277,24 +251,8 @@ class CommentoItem
      */
     public static function esisteCommento($id_file, $id_utente)
     {
-        $flag = false;
+        return self::getRepository()->exists($id_file, $id_utente);
 
-        $db = FrontController::getDbConnection('main');
-
-        $query = 'SELECT id_commento FROM file_studente_commenti WHERE id_file ='
-                . $db->quote($id_file) . ' AND id_utente = '
-                . $db->quote($id_utente) . ' AND eliminato = '
-                . $db->quote(self::NOT_ELIMINATO)
-                . 'GROUP BY id_file,id_utente,id_commento';
-        $res = $db->query($query);
-
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-        $res->fetchInto($ris);
-
-        return $ris[0];
     }
 
     /**
