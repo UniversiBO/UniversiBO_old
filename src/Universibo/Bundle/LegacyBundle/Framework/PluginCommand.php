@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Framework;
 
+use Symfony\Component\DependencyInjection\ContainerAware;
+
 /**
  * PluginCommand is the abstract super class of all plugin command classes.
  *
@@ -13,7 +15,7 @@ namespace Universibo\Bundle\LegacyBundle\Framework;
  * @author  Ilias Bartolini <brain79@virgilio.it>
  * @license {@link http://www.opensource.org/licenses/gpl-license.php}
  */
-class PluginCommand
+class PluginCommand extends ContainerAware
 {
 
     /**
@@ -64,5 +66,10 @@ class PluginCommand
         $fc = $bc->getFrontController();
 
         return $fc->executePlugin($name, $bc, $param);
+    }
+    
+    protected function getContainer()
+    {
+    	return $this->container;
     }
 }

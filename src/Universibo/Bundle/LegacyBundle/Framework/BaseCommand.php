@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Framework;
 
+use Symfony\Component\DependencyInjection\ContainerAware;
+
 /**
  * BaseCommand is the abstract super class of all command classes.
  *
@@ -9,7 +11,7 @@ namespace Universibo\Bundle\LegacyBundle\Framework;
  * @author  Ilias Bartolini <brain79@virgilio.it>
  * @license {@link http://www.opensource.org/licenses/gpl-license.php}
  */
-abstract class BaseCommand
+abstract class BaseCommand extends ContainerAware
 {
     /**
      * @var FrontController
@@ -67,5 +69,10 @@ abstract class BaseCommand
         $fc = $this->getFrontController();
 
         return $fc->executePlugin($name,$this, $param);
+    }
+    
+    protected function getContainer()
+    {
+        return $this->container;
     }
 }

@@ -168,6 +168,7 @@ class FrontController
          */
         $command = new $command_class;
 
+        $command->setContainer(self::getContainer());
         $command->initCommand($this);
         $response = $command->execute();
         $command->shutdownCommand();
@@ -207,23 +208,11 @@ class FrontController
 
         if ($classValues == null ) {
             \Error::throwError(_ERROR_DEFAULT,array('msg'=>'Non e` stato definito il plugin richiesto: '.$name ,'file'=>__FILE__,'line'=>__LINE__));
-
             return;
         }
 
-        //		$pc = $this->plugins[$name];
-        //		$explodedPc = explode(".",$pc);
-        //		$file_namepath = implode("/",$explodedPc);
-        //		$class_name = $explodedPc[count($explodedPc)-1];
-        //
-        //		require_once($this->paths['commands'].$file_namepath.PHP_EXTENSION);
-
-        if (class_exists($classValues['bundleClass'])) {
-            $plugin = new $classValues['bundleClass']($base_command);
-        } else {
-            require_once($this->paths['commands'].$classValues['nameWithPath'].PHP_EXTENSION);
-            $plugin = new $classValues['className']($base_command);
-        }
+        $plugin = new $classValues['bundleClass']($base_command);
+        $plugin->setContainer(self::getContainer());
 
         return $plugin->execute($param);
     }

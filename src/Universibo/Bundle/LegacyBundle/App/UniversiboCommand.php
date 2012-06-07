@@ -27,8 +27,6 @@ abstract class UniversiboCommand extends BaseCommand
      */
     protected $sessionUser;
 
-    private $container;
-
     /**
      * Restituisce l'id_utente del dello user nella sessione corrente
      *
@@ -550,10 +548,5 @@ abstract class UniversiboCommand extends BaseCommand
         if ($a['label'] > $b['label'])
 
             return +1;
-    }
-
-    public function getContainer()
-    {
-        return $this->getFrontController()->getContainer();
     }
 }
