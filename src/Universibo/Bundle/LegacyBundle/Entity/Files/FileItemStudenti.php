@@ -28,6 +28,11 @@ use Universibo\Bundle\LegacyBundle\Entity\Canale;
 class FileItemStudenti extends FileItem
 {
     /**
+     * @var DBFileItemStudentyRepository
+     */
+    private static $repository;
+    
+    /**
      * Recupera un file dal database
      *
      * @static

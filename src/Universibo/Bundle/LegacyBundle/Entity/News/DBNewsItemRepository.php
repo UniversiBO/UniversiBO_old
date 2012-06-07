@@ -279,7 +279,7 @@ class DBNewsItemRepository extends DBRepository
         }
 
         $db = $this->getDb();
-        $query = 'INSERT INTO news_canale (id_news, id_canale) VALUES ('.$db->quote($this->getIdNotizia()).','.$db->quote($id_canale).')';
+        $query = 'INSERT INTO news_canale (id_news, id_canale) VALUES ('.$db->quote($news->getIdNotizia()).','.$db->quote($channelId).')';
 
         $res = $db->query($query);
         if (DB::isError($res)) {
@@ -295,11 +295,13 @@ class DBNewsItemRepository extends DBRepository
 
     public function update(NewsItem $news)
     {
+        $db = $this->getDb();
+        
         $db->autoCommit(false);
         $return = true;
         $scadenza = ($news->getDataScadenza() == NULL) ? ' NULL ' : $db->quote($news->getDataScadenza());
-        $flag_urgente = ($news->isUrgente()) ? self::URGENTE : self::NOT_URGENTE;
-        $deleted = ($news->isEliminata()) ? NewsItem::ELIMINATA : self::NOT_ELIMINATA;
+        $flag_urgente = ($news->isUrgente()) ? NewsItem::URGENTE : NewsItem::NOT_URGENTE;
+        $deleted = ($news->isEliminata()) ? NewsItem::ELIMINATA : NewsItem::NOT_ELIMINATA;
         $query = 'UPDATE news SET titolo = '.$db->quote($news->getTitolo())
         .' , data_inserimento = '.$db->quote($news->getDataIns())
         .' , data_scadenza = '.$scadenza

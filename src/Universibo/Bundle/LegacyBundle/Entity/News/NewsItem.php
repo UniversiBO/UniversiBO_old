@@ -396,7 +396,7 @@ class NewsItem
     public function getIdCanali()
     {
         if (is_null($this->elencoIdCanali)) {
-            $this->elencoIdCanali = self::getRepository()->getChannelIdList($news);
+            $this->elencoIdCanali = self::getRepository()->getChannelIdList($this);
         }
 
         return $this->elencoIdCanali;

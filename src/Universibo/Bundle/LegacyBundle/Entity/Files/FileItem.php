@@ -139,7 +139,7 @@ class FileItem
     /**
      * @private
      */
-    private $elencoIdCanali = NULL;
+    protected $elencoIdCanali = NULL;
 
     /**
      * @private

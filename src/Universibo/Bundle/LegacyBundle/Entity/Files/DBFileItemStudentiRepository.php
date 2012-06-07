@@ -1,8 +1,11 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Files;
 
-use Universibo\Bundle\LegacyBundle\Entity\DBUserRepository;
+use \DB;
+use \Error;
+use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
+use Universibo\Bundle\LegacyBundle\Entity\DBUserRepository;
 
 /**
  * DBNewsItem repository
@@ -34,16 +37,16 @@ class DBFileItemStudentiRepository extends DBRepository
     {
         $db = $this->getDb();
 
-        if (count($id_files) == 0) {
+        if (count($ids) == 0) {
             return array();
         }
 
         //esegue $db->quote() su ogni elemento dell'array
         //array_walk($id_notizie, array($db, 'quote'));
-        if (count($id_files) == 1)
-            $values = $id_files[0];
+        if (count($ids) == 1)
+            $values = $ids[0];
         else
-            $values = implode(',', $id_files);
+            $values = implode(',', $ids);
 
         //		$query = 'SELECT id_file, permessi_download, permessi_visualizza, A.id_utente, titolo,
         //						 A.descrizione, data_inserimento, data_modifica, dimensione, download,
@@ -71,7 +74,7 @@ class DBFileItemStudentiRepository extends DBRepository
             return false;
         $files_list = array ();
 
-        while ($res->fetchInto($row)) {
+        while ($row = $this->fetchRow($res)) {
             $username = $this->userRepository->getUsernameFromId($row[3]);
             $files_list[] = new FileItemStudenti($row[0], $row[1], $row[2], $row[3], $row[4], $row[5], $row[6], $row[7], $row[8], $row[9], $row[10], $row[11], $row[12], $row[13], $row[14], $username , $row[15], $row[16], $row[17], $row[18]);
         }
