@@ -126,6 +126,13 @@
 			<argument type="service" id="universibo_legacy.repository.programma" />
 			<argument>true</argument>
 		</service>
+		
+		<service id="universibo_legacy.repository.links.link"
+			class="Universibo\Bundle\LegacyBundle\Entity\Links\DBLinkRepository">
+			<argument type="service" id="universibo_legacy.db.connection.main" />
+			<argument type="service" id="universibo_legacy.repository.user" />
+			<argument>true</argument>
+		</service>
 
 		<service id="universibo_legacy.repository.news.news_item"
 			class="Universibo\Bundle\LegacyBundle\Entity\News\DBNewsItemRepository">
