@@ -115,33 +115,9 @@ class Docente
     /**
      * @access private
      */
-    public function _getDocenteInfo()
+    private function _getDocenteInfo()
     {
-        $db = FrontController::getDbConnection('main');
-
-        $query = 'SELECT nome, cognome, prefissonome, sesso, email, descrizionestruttura FROM rub_docente WHERE cod_doc = '
-                . $db->quote($this->getCodDoc());
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-
-        $rows = $res->numRows();
-        if ($rows == 0)
-
-            return false;
-
-        $row = $res->fetchRow();
-
-        $rubrica = array_combine(
-                array('nome', 'cognome', 'prefissonome', 'sesso', 'email',
-                        'descrizionestruttura'), $row);
-
-        $res->free();
-
-        return $rubrica;
-
+        return self::getRepository()->getInfo($this);
     }
 
     /**

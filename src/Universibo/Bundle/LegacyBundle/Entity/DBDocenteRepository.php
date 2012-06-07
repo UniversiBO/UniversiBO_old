@@ -44,9 +44,37 @@ class DBDocenteRepository extends DBRepository
             return $ret;
         }
 
-        $row = $res->fetchRow();
+        $row = $this->fetchRow($res);
         $docente = new Docente($row[0], $row[1], $row[2]);
 
         return $docente;
+    }
+    
+    public function getInfo(Docente $docente)
+    {
+        $db = $this->getDb();
+        
+        $query = 'SELECT nome, cognome, prefissonome, sesso, email, descrizionestruttura FROM rub_docente WHERE cod_doc = '
+        . $db->quote($docente->getCodDoc());
+        $res = $db->query($query);
+        if (DB::isError($res))
+        	Error::throwError(_ERROR_CRITICAL,
+        			array('msg' => DB::errorMessage($res), 'file' => __FILE__,
+        					'line' => __LINE__));
+        
+        $rows = $res->numRows();
+        if ($rows == 0)
+        
+        	return false;
+        
+        $row = $this->fetchRow($res);
+        
+        $rubrica = array_combine(
+        		array('nome', 'cognome', 'prefissonome', 'sesso', 'email',
+        				'descrizionestruttura'), $row);
+        
+        $res->free();
+        
+        return $rubrica;
     }
 }
