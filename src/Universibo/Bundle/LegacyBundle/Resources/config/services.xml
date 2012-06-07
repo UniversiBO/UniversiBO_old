@@ -105,6 +105,7 @@
 			class="Universibo\Bundle\LegacyBundle\Entity\Files\DBFileItemRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />
 			<argument type="service" id="universibo_legacy.repository.user" />
+			<argument type="service" id="universibo_legacy.repository.canale" />
 			<argument>true</argument>
 		</service>
 

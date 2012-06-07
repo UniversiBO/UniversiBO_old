@@ -1,8 +1,10 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Files;
 
+
 use \DB;
 use \Error;
+use Universibo\Bundle\LegacyBundle\Entity\Commenti\CommentoItem;
 use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBUserRepository;

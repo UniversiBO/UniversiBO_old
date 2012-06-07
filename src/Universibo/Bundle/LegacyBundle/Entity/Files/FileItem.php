@@ -139,7 +139,7 @@ class FileItem
     /**
      * @private
      */
-    protected $elencoIdCanali = NULL;
+    private $elencoIdCanali = NULL;
 
     /**
      * @private
@@ -856,7 +856,7 @@ class FileItem
         return $this->elencoIdCanali;
     }
     
-    public function setIdCanali($idCanali)
+    public function setIdCanali(array $idCanali)
     {
         $this->elencoIdCanali = $idCanali;
     }

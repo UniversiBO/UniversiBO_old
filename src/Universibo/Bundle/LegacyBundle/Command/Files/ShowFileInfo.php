@@ -118,11 +118,14 @@ class ShowFileInfo extends PluginCommand
             }
             //controllo coerenza parametri
             $canali_file = $file->getIdCanali();
-            if (!in_array($id_canale, $canali_file))
+            if (!in_array($id_canale, $canali_file)) {
+                var_dump($canali_file); die;
+                
                 Error::throwError(_ERROR_DEFAULT,
                         array(
                                 'msg' => 'I parametri passati non sono coerenti',
                                 'file' => __FILE__, 'line' => __LINE__));
+            }
         }
 
         $autore = ($user->getIdUser() == $file->getIdUtente());

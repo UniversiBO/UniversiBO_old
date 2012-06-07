@@ -30,7 +30,7 @@ class FileItemStudenti extends FileItem
      * @var DBFileItemStudentyRepository
      */
     private static $repository;
-
+    
     /**
      * Recupera un file dal database
      *
@@ -75,26 +75,6 @@ class FileItemStudenti extends FileItem
     public function removeCanale($id_canale)
     {
         return self::getRepository()->removeFromChannel($this, $id_canale);
-    }
-
-    /**
-     * Seleziona l' id_canale per i quali il file è inerente
-     *
-     * @return array elenco degli id_canale
-     */
-
-    public function getIdCanali()
-    {
-        if (is_null($this->elencoIdCanali)) {
-            $this->elencoIdCanali = self::getRepository()->getChannelIds($this);
-        }
-
-        return $this->elencoIdCanali;
-    }
-
-    public function setIdCanali(array $idCanali)
-    {
-        $this->elencoIdCanali = $idCanali;
     }
 
     /**

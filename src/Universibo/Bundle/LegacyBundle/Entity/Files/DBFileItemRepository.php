@@ -1,6 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Files;
 
+use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBUserRepository;
 
 use \DB;
@@ -499,7 +500,6 @@ class DBFileItemRepository extends DBRepository
         while ($res->fetchInto($row)) {
         	$elenco_id_canale[] = $row[0];
         }
-        
         $res->free();
         
         return $elenco_id_canale;
