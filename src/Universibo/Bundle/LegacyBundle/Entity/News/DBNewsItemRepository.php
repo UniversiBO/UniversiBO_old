@@ -269,7 +269,7 @@ class DBNewsItemRepository extends DBRepository
     public function delete(NewsItem $news)
     {
         $news->setEliminata(true);
-        $this->upate($news);
+        $this->update($news);
     }
 
     public function addToChannel(NewsItem $news, $channelId)
