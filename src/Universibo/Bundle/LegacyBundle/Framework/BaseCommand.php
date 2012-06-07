@@ -70,7 +70,7 @@ abstract class BaseCommand extends ContainerAware
 
         return $fc->executePlugin($name,$this, $param);
     }
-    
+
     protected function getContainer()
     {
         return $this->container;

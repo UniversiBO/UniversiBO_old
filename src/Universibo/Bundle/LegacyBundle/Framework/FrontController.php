@@ -208,6 +208,7 @@ class FrontController
 
         if ($classValues == null ) {
             \Error::throwError(_ERROR_DEFAULT,array('msg'=>'Non e` stato definito il plugin richiesto: '.$name ,'file'=>__FILE__,'line'=>__LINE__));
+
             return;
         }
 

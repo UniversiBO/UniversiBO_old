@@ -38,7 +38,7 @@ class Link
      * @var string
      */
     private $description = '';
-    
+
     /**
      * @var DBLinkRepository
      */
@@ -74,7 +74,7 @@ class Link
     {
         return $this->id_link;
     }
-    
+
     public function setIdLink($id_link)
     {
         $this->id_link = $id_link;
@@ -264,16 +264,16 @@ class Link
         return preg_match('/^' . str_replace('/', '\\/', $uri) . '.*$/',
                 $this->getUri());
     }
-    
+
     /**
      * @return DBLinkRepository
      */
     private static function getRepository()
     {
-    	if (is_null(self::$repository)) {
-    		self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.links.link');
-    	}
-    
-    	return self::$repository;
+        if (is_null(self::$repository)) {
+            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.links.link');
+        }
+
+        return self::$repository;
     }
 }

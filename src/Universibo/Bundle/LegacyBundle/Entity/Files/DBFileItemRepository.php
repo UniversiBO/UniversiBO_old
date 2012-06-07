@@ -17,14 +17,14 @@ class DBFileItemRepository extends DBRepository
      * @var DBUserRepository
      */
     private $userRepository;
-    
+
     public function __construct(\DB_common $db, DBUserRepository $userRepository, $convert = false)
     {
         parent::__construct($db, $convert);
-        
+
         $this->userRepository = $userRepository;
     }
-    
+
     public function findByChannel($channelId)
     {
         $ids = $this->findIdByChannel($channelId);
@@ -178,28 +178,28 @@ class DBFileItemRepository extends DBRepository
 
         return $files_list;
     }
-    
+
     public function getKeyworkds($fileId)
     {
         $db = $this->getDb();
-        
+
         $query = 'SELECT keyword FROM file_keywords WHERE id_file='.$db->quote($fileId);
         $res = $db->query($query);
-        
+
         if (DB :: isError($res))
-        	Error :: throwError(_ERROR_DEFAULT, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
-        
+            Error :: throwError(_ERROR_DEFAULT, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
+
         $elenco_keywords = array ();
-        
+
         while ($res->fetchInto($row)) {
-        	$elenco_keywords[] = $row[0];
+            $elenco_keywords[] = $row[0];
         }
-        
+
         $res->free();
-        
+
         return $elenco_keywords;
     }
-    
+
     public function addKeyword($fileId, $keyword)
     {
         $db = $this->getDb();
@@ -207,43 +207,43 @@ class DBFileItemRepository extends DBRepository
         $res =  $db->query($query);
 
         if (DB :: isError($res)) {
-        	$this->throwError('_ERROR_DEFAULT', array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
+            $this->throwError('_ERROR_DEFAULT', array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
         }
     }
-    
+
     public function removeKeyword($fileId, $keyword)
     {
         $db = $this->getDb();
         $query = 'DELETE FROM file_keywords WHERE id_file = '.$db->quote($fileId).' AND keyword = '.$db->quote($keyword);
         $res =$db->query($query);
-        
+
         if (DB :: isError($res)) {
-        	$this->throwError('_ERROR_DEFAULT', array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
+            $this->throwError('_ERROR_DEFAULT', array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
         }
     }
-    
+
     public function updateKeywords($fileId, array $keywords)
     {
         $old_elenco_keywords = $this->getKeyworkds($fileId);
-        
+
         $db = $this->getDb();
         ignore_user_abort(1);
         $db->autoCommit(false);
-        
+
         foreach ($elenco_keywords as $value) {
-        	if (!in_array($value, $old_elenco_keywords)) {
-        		$this->addKeyword($id_file, $value);
-        	}
+            if (!in_array($value, $old_elenco_keywords)) {
+                $this->addKeyword($id_file, $value);
+            }
         }
-        
+
         foreach ($old_elenco_keywords as $value) {
-        	if (!in_array($value,$elenco_keywords)) {
-        		$this->removeKeyword($id_file, $value);
-        	}
+            if (!in_array($value,$elenco_keywords)) {
+                $this->removeKeyword($id_file, $value);
+            }
         }
-        
+
         $db->commit();
-        
+
         $db->autoCommit(true);
         ignore_user_abort(0);
     }

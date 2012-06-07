@@ -1,8 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Files;
 
-use \DB;
-use \Error;
 
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 /**
@@ -76,10 +74,10 @@ class FileKeyWords
      */
     private static function getRepository()
     {
-    	if (is_null(self::$repository)) {
-    		self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.files.file_item');
-    	}
-    
-    	return self::$repository;
+        if (is_null(self::$repository)) {
+            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.files.file_item');
+        }
+
+        return self::$repository;
     }
 }

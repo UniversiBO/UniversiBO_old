@@ -1,7 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
 use \DB;
-use \Error;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 global $__facoltaElencoCodice;
@@ -289,9 +288,9 @@ class Facolta extends Canale
     public function insertFacolta()
     {
         $result = self::getRepository()->insert($this);
-        
+
         Facolta::_selectFacolta();
-        
+
         return $result;
     }
 

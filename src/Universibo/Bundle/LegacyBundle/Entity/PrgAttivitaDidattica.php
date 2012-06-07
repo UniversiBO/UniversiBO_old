@@ -2,7 +2,6 @@
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
 use \DB;
-use \Error;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 /**
  * PrgAttivitaDidattica class.
@@ -475,7 +474,6 @@ class PrgAttivitaDidattica extends Canale
         return self::getRepository()->find($anno_accademico, $cod_corso, $cod_ind, $cod_ori, $cod_materia,
             $cod_materia_ins, $anno_corso, $anno_corso_ins, $cod_ril, $cod_ate);
     }
-
 
     /**
      * Seleziona da database e restituisce un array con chiavi numeriche

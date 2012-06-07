@@ -85,11 +85,11 @@ class DBCommentoItemRepository extends DBRepository
 
         return $row[0];
     }
-    
+
     public function insertFromFields($id_file_studente, $id_utente, $commento, $voto)
     {
         $db = $this->getDb();
-        
+
         $next_id = $db->nextID('file_studente_commenti_id_commento');
         $return = true;
         $query = 'INSERT INTO file_studente_commenti (id_commento,id_file,id_utente,commento,voto,eliminato) VALUES ('
@@ -99,31 +99,31 @@ class DBCommentoItemRepository extends DBRepository
         . ')';
         $res = $db->query($query);
         if (DB::isError($res)) {
-        	$db->rollback();
-        	$this->throwError('_ERROR_DEFAULT',
-        			array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-        					'line' => __LINE__));
-        	$return = false;
+            $db->rollback();
+            $this->throwError('_ERROR_DEFAULT',
+                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
+                            'line' => __LINE__));
+            $return = false;
         }
-        
+
         return $return;
     }
-    
+
     public function updateFromFields($id_commento, $commento, $voto)
     {
         $db = $this->getDb();
-        
+
         $return = true;
         $query = 'UPDATE file_studente_commenti SET commento='
         . $db->quote($commento) . ', voto= ' . $db->quote($voto)
         . ' WHERE id_commento=' . $db->quote($id_commento);
         $res = $db->query($query);
         if (DB::isError($res)) {
-        	$db->rollback();
-        	$this->throwError('_ERROR_DEFAULT',
-        			array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-        					'line' => __LINE__));
-        	$return = false;
+            $db->rollback();
+            $this->throwError('_ERROR_DEFAULT',
+                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
+                            'line' => __LINE__));
+            $return = false;
         }
     }
 
@@ -172,22 +172,22 @@ class DBCommentoItemRepository extends DBRepository
     public function exists($id_file, $id_utente)
     {
         $db = $this->getDb();
-        
+
         $flag = false;
-        
+
         $query = 'SELECT id_commento FROM file_studente_commenti WHERE id_file ='
         . $db->quote($id_file) . ' AND id_utente = '
         . $db->quote($id_utente) . ' AND eliminato = '
         . $db->quote(self::NOT_ELIMINATO)
         . 'GROUP BY id_file,id_utente,id_commento';
         $res = $db->query($query);
-        
+
         if (DB::isError($res))
-        	$this->throwError('_ERROR_DEFAULT',
-        			array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-        					'line' => __LINE__));
+            $this->throwError('_ERROR_DEFAULT',
+                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
+                            'line' => __LINE__));
         $res->fetchInto($ris);
-        
+
         return $ris[0];
     }
 }

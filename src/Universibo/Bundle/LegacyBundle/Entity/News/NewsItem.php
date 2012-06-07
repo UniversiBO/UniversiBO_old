@@ -395,13 +395,13 @@ class NewsItem
      */
     public function getIdCanali()
     {
-        if(is_null($this->elencoIdCanali)) {
-            $this->elencoIdCanali = self::getRepository()->getChannelIdList($news);            
+        if (is_null($this->elencoIdCanali)) {
+            $this->elencoIdCanali = self::getRepository()->getChannelIdList($news);
         }
-        
+
         return $this->elencoIdCanali;
     }
-    
+
     public function setIdCanali(array $elencoIdCanali)
     {
         $this->elencoIdCanali = $elencoIdCanali;
@@ -416,7 +416,6 @@ class NewsItem
     {
         return self::getRepository()->removeFromChannel($this, $id_canale);
     }
-
 
     /**
      * aggiunge la notizia al canale specificato
@@ -447,9 +446,9 @@ class NewsItem
     public function updateNewsItem()
     {
         ignore_user_abort(1);
-        
+
         $return = self::getRepository()->update($this);
-        
+
         ignore_user_abort(0);
 
         return $return;

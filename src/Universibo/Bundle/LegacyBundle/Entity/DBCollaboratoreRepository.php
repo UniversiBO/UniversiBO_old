@@ -15,14 +15,14 @@ class DBCollaboratoreRepository extends DBRepository
      * @var DBUserRepository
      */
     private $userRepository;
-    
+
     public function __construct(\DB_common $db, DBUserRepository $userRepository, $convert = false)
     {
-    	parent::__construct($db, $convert);
-    
-    	$this->userRepository = $userRepository;
+        parent::__construct($db, $convert);
+
+        $this->userRepository = $userRepository;
     }
-    
+
     public function find($id)
     {
         $db = $this->getDb();

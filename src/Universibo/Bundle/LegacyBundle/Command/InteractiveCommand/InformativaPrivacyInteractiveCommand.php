@@ -1,7 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command\InteractiveCommand;
 
-use Universibo\Bundle\LegacyBundle\Entity\DBInformativaRepository;
 
 use Universibo\Bundle\LegacyBundle\App\InteractiveCommand\BaseInteractiveCommand;
 

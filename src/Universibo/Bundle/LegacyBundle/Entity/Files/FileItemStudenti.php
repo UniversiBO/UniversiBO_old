@@ -6,7 +6,6 @@ use \Error;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\Entity\Commenti\CommentoItem;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
-use Universibo\Bundle\LegacyBundle\Entity\User;
 
 /**
  * FileItemStudenti class
@@ -58,7 +57,6 @@ class FileItemStudenti extends FileItem
         return self::getRepository()->findMany($id_files);
     }
 
-
     /**
      * aggiunge il file al canale specificato
      *
@@ -69,7 +67,6 @@ class FileItemStudenti extends FileItem
     {
         return self::getRepository()->addToChannel($this, $id_canale);
     }
-
 
     /**
      * rimuove il file dal canale specificato
@@ -119,7 +116,6 @@ class FileItemStudenti extends FileItem
         if (DB :: isError($res))
             Error :: throwError(_ERROR_DEFAULT, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
 
-
         $res->fetchInto($row);
 
         $return = array($row[0]);
@@ -127,7 +123,7 @@ class FileItemStudenti extends FileItem
         return $return;
 
     }
-    
+
     public function setIdCanali(array $idCanali)
     {
         $this->elencoIdCanali = $idCanali;
@@ -155,7 +151,6 @@ class FileItemStudenti extends FileItem
         $res->fetchInto($ris);
         if($ris[0]==0) $flag=false;
 
-
         return $flag;
     }
 
@@ -175,7 +170,6 @@ class FileItemStudenti extends FileItem
         if (DB :: isError($res))
             Error :: throwError(_ERROR_DEFAULT, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
         $res->fetchInto($ris);
-
 
         return $ris[0];
      }
@@ -227,10 +221,10 @@ class FileItemStudenti extends FileItem
      */
     private static function getRepository()
     {
-    	if (is_null(self::$repository)) {
-    		self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.files.file_item_studenti');
-    	}
-    
-    	return self::$repository;
+        if (is_null(self::$repository)) {
+            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.files.file_item_studenti');
+        }
+
+        return self::$repository;
     }
 }

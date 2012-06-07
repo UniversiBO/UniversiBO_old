@@ -14,14 +14,14 @@ class DBFacoltaRepository extends DBRepository
      * @var DBCanaleRepository
      */
     private $canaleRepository;
-    
+
     public function __construct(\DB_common $db, DBCanaleRepository $canaleRepository, $convert = false)
     {
-    	parent::__construct($db, $convert);
-    
-    	$this->canaleRepository = $canaleRepository;
+        parent::__construct($db, $convert);
+
+        $this->canaleRepository = $canaleRepository;
     }
-    
+
     /**
      * @return Facolta
      */
@@ -118,15 +118,15 @@ class DBFacoltaRepository extends DBRepository
     public function insert(Facolta $facolta)
     {
         $db = $this->getDb();
-        
+
         if ($this->canaleRepository->insert($facolta) != true) {
-        	$this->throwError('_ERROR_CRITICAL',
-        			array('msg' => 'Errore inserimento Canale',
-        					'file' => __FILE__, 'line' => __LINE__));
-        
-        	return false;
+            $this->throwError('_ERROR_CRITICAL',
+                    array('msg' => 'Errore inserimento Canale',
+                            'file' => __FILE__, 'line' => __LINE__));
+
+            return false;
         }
-        
+
         $query = 'INSERT INTO facolta (cod_fac, desc_fac, url_facolta, id_canale) VALUES ('
         . $db->quote($facolta->getCodiceFacolta()) . ' , '
         . $db->quote($facolta->getNome()) . ' , '
@@ -134,13 +134,13 @@ class DBFacoltaRepository extends DBRepository
         . $db->quote($facolta->getIdCanale()) . ' )';
         $res = $db->query($query);
         if (DB::isError($res)) {
-        	$this->throwError('_ERROR_CRITICAL',
-        			array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-        					'line' => __LINE__));
-        
-        	return false;
+            $this->throwError('_ERROR_CRITICAL',
+                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
+                            'line' => __LINE__));
+
+            return false;
         }
-        
+
         return true;
     }
 }

@@ -19,20 +19,20 @@ class DBNewsItemRepository extends DBRepository
      * @var DBUserRepository
      */
     private $userRepository;
-    
+
     /**
      * @var DBCanaleRepository
      */
     private $channelRepository;
-    
+
     public function __construct(\DB_common $db, DBUserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
     {
         parent::__construct($db, $convert);
-        
+
         $this->userRepository = $userRepository;
         $this->channelRepository = $channelRepository;
     }
-    
+
     public function find($id)
     {
         $result = $this->findMany(array($id));
@@ -225,74 +225,74 @@ class DBNewsItemRepository extends DBRepository
 
         return $return;
     }
-    
+
     public function getChannelIdList(NewsItem $news)
     {
         $db = $this->getDb();
-        
+
         $query = 'SELECT id_canale FROM news_canale WHERE id_news='.$db->quote($news->getIdNotizia()).' ORDER BY id_canale';
         $res = $db->query($query);
-        
+
         if (DB::isError($res)) {
-        	$this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         }
-        
+
         $elenco_id_canale = array();
-        
+
         while ($row = $this->fetchRow($res)) {
-        	$elenco_id_canale[] = $row[0];
+            $elenco_id_canale[] = $row[0];
         }
-        
+
         $res->free();
-        
+
         return $elenco_id_canale;
     }
-    
+
     public function removeFromChannel(NewsItem $news, $channelId)
     {
         $db = $this->getDb();
 
         $query = 'DELETE FROM news_canale WHERE id_canale='.$db->quote($channelId).' AND id_news='.$db->quote($news->getIdNotizia());
         $res = $db->query($query);
-        
+
         if (DB::isError($res)) {
-        	$this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         }
-        
+
         $news->setIdCanali($ids = array_diff ($this->elencoIdCanali, array($id_canale)));
-        
-        if(count($ids) === 0) {
-            $this->delete($news);            
+
+        if (count($ids) === 0) {
+            $this->delete($news);
         }
     }
-    
+
     public function delete(NewsItem $news)
     {
         $news->setEliminata(true);
         $this->upate($news);
     }
-    
+
     public function addToChannel(NewsItem $news, $channelId)
     {
-        if(!$this->channelRepository->idExists($channelId)) {
+        if (!$this->channelRepository->idExists($channelId)) {
             return false;
-        }    
-        
+        }
+
         $db = $this->getDb();
         $query = 'INSERT INTO news_canale (id_news, id_canale) VALUES ('.$db->quote($this->getIdNotizia()).','.$db->quote($id_canale).')';
-        
+
         $res = $db->query($query);
         if (DB::isError($res)) {
-        	return false;
+            return false;
         }
-        
+
         $ids = $news->getIdCanali();
         $ids[] = $channelId;
         $news->setIdCanali($ids);
-        
+
         return true;
     }
-    
+
     public function update(NewsItem $news)
     {
         $db->autoCommit(false);
@@ -313,10 +313,10 @@ class DBNewsItemRepository extends DBRepository
         $res = $db->query($query);
         //var_dump($query);
         if (DB::isError($res)) {
-        	$db->rollback();
-        	$this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $db->rollback();
+            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         }
-        
+
         $db->commit();
         $db->autoCommit(true);
     }

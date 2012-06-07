@@ -1,7 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Commenti;
 use \DB;
-use \Error;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\Entity\User;
 
@@ -205,11 +204,11 @@ class CommentoItem
     public static function insertCommentoItem($id_file_studente, $id_utente, $commento, $voto)
     {
         ignore_user_abort(1);
-        
+
         $return = self::getRepository()->insertFromFields($id_file_studente, $id_utente, $commento, $voto);
-        
+
         ignore_user_abort(0);
-        
+
         return $return;
     }
 
@@ -220,9 +219,9 @@ class CommentoItem
     public static function updateCommentoItem($id_commento, $commento, $voto)
     {
         ignore_user_abort(1);
-        
+
         $return = self::getRepository()->updateFromFields($id_commento, $commento, $voto);
-        
+
         ignore_user_abort(0);
 
         return $return;

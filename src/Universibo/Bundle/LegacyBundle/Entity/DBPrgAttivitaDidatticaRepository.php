@@ -83,7 +83,7 @@ class DBPrgAttivitaDidatticaRepository extends DBRepository
 
         return $elenco;
     }
-    
+
     public function update(PrgAttivitaDidattica $attivita)
     {
         $db = $this->getDb();
@@ -114,8 +114,10 @@ class DBPrgAttivitaDidatticaRepository extends DBRepository
                                     'file' => __FILE__, 'line' => __LINE__));
         $rows = $db->affectedRows();
         if ($rows >= 1)
+
             return true;
         elseif ($rows == 0)
+
             return false;
         else
             $this
@@ -209,7 +211,7 @@ class DBPrgAttivitaDidatticaRepository extends DBRepository
             $cod_ril, $cod_ate)
     {
         $db = $this->getDb();
-        
+
         $anno_accademico = $db->quote( $anno_accademico );
         $cod_corso = $db->quote( $cod_corso );
         $cod_ind = $db->quote( $cod_ind );
@@ -220,7 +222,7 @@ class DBPrgAttivitaDidatticaRepository extends DBRepository
         $anno_corso_ins = $db->quote( $anno_corso_ins );
         $cod_ril = $db->quote( $cod_ril );
         $cod_ate = $db->quote( $cod_ate );
-        
+
         //attenzione!!! ...c'? il distinct anche su sdoppiato!!
         $query = 'SELECT *
         FROM (
@@ -271,43 +273,42 @@ class DBPrgAttivitaDidatticaRepository extends DBRepository
         ) AS cdl
         ) AS cdl1
         ORDER BY 33, 32, 30, 23';
-        
+
         $res = $db->query($query);
         if (DB::isError($res))
-        	$this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        
+            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+
         $rows = $res->numRows();
-        
+
         if ( $rows == 0) {
-        	$ret = array(); return $ret;
+            $ret = array(); return $ret;
         }
         $elenco = array();
         while (	$res->fetchInto($row) ) {
-        	$prgAtt = new PrgAttivitaDidattica( $row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
-        			$row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S',
-        			$row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21],
-        			$row[22], $row[23], $row[24], $row[25], $row[26], $row[27], $row[28], $row[29],
-        			$row[30], $row[31], $row[32]=='S' , $row[33]);
-        
-        	$elenco[] = $prgAtt;
+            $prgAtt = new PrgAttivitaDidattica( $row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
+                    $row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S',
+                    $row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21],
+                    $row[22], $row[23], $row[24], $row[25], $row[26], $row[27], $row[28], $row[29],
+                    $row[30], $row[31], $row[32]=='S' , $row[33]);
+
+            $elenco[] = $prgAtt;
         }
         $res->free();
-        
+
         return $elenco;
     }
-    
+
     public function findByIdSdoppiamento($id_sdop)
     {
         $db = $this->getDb();
-        
-        
+
         $id_sdop = $db->quote($id_sdop);
         //attenzione!!! ...c'? il distinct anche su sdoppiato!!
         $query = 'SELECT *
         FROM (
         SELECT DISTINCT ON (id_canale, anno_accademico, cod_corso, cod_materia, anno_corso, cod_materia_ins, anno_corso_ins, cod_ril, cod_doc, tipo_ciclo, cod_ate, anno_corso_universibo) *
         FROM (
-        
+
         SELECT c.tipo_canale, c.nome_canale, c.immagine, c.visite, c.ultima_modifica, c.permessi_groups, c.files_attivo, c.news_attivo, c.forum_attivo, c.id_forum, c.group_id, c.links_attivo,c.files_studenti_attivo, c.id_canale, s.anno_accademico, s.cod_corso, s.cod_ind, s.cod_ori, s.cod_materia, m1.desc_materia, i.anno_corso, s.cod_materia_ins, m2.desc_materia AS desc_materia_ins, s.anno_corso_ins, s.cod_ril, i.cod_modulo, i.cod_doc, d.nome_doc, i.flag_titolare_modulo, s.tipo_ciclo, s.cod_ate, s.anno_corso_universibo, id_sdop
         FROM canale c, prg_insegnamento i, prg_sdoppiamento s, classi_materie m1, classi_materie m2, docente d
         WHERE c.id_canale = i.id_canale
@@ -334,24 +335,24 @@ class DBPrgAttivitaDidatticaRepository extends DBRepository
         //		var_dump($query); die;
         $res = $db->query($query);
         if (DB::isError($res)) {
-        	$this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         }
-        
+
         $rows = $res->numRows();
-        
+
         if ( $rows == 0) {
-        	$ret = array(); return $ret;
+            $ret = array(); return $ret;
         }
-        
+
         $res->fetchInto($row);
         $prgAtt = new PrgAttivitaDidattica( $row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
-        		$row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S',
-        		$row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21],
-        		$row[22], $row[23], $row[24], $row[25], $row[26], $row[27], $row[28], $row[29],
-        		$row[30], $row[31], true, $row[32] );
-        
+                $row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S',
+                $row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21],
+                $row[22], $row[23], $row[24], $row[25], $row[26], $row[27], $row[28], $row[29],
+                $row[30], $row[31], true, $row[32] );
+
         $res->free();
-        
+
         return $prgAtt;
     }
 }

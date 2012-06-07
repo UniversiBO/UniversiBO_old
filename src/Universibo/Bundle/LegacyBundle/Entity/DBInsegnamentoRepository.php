@@ -15,14 +15,14 @@ class DBInsegnamentoRepository extends DBRepository
      * @var DBPrgAttivitaDidatticaRepository
      */
     private $programmaRepository;
-    
+
     public function __construct(\DB_common $db, DBPrgAttivitaDidatticaRepository $programmaRepository, $convert = false)
     {
-    	parent::__construct($db, $convert);
-    
-    	$this->programmaRepository = $programmaRepository;
+        parent::__construct($db, $convert);
+
+        $this->programmaRepository = $programmaRepository;
     }
-    
+
     public function findByChannelId($channelId)
     {
         $db = $this->getDb();
