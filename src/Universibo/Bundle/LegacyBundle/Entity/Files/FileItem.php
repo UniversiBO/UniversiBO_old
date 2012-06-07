@@ -701,30 +701,9 @@ class FileItem
     public function setDownload($download, $update_db = false)
     {
         $this->download = $download;
-
+        
         if ($update_db == true) {
-            $db = FrontController::getDbConnection('main');
-
-            $query = 'UPDATE file SET download = ' . $db->quote($download)
-                    . ' WHERE id_file = ' . $db->quote($this->getIdFile());
-            $res = $db->query($query);
-            if (DB::isError($res))
-                Error::throwError(_ERROR_CRITICAL,
-                        array('msg' => DB::errorMessage($res),
-                                'file' => __FILE__, 'line' => __LINE__));
-            $rows = $db->affectedRows();
-
-            if ($rows == 1)
-
-                return true;
-            elseif ($rows == 0)
-
-                return false;
-            else
-                Error::throwError(_ERROR_CRITICAL,
-                        array(
-                                'msg' => 'Errore generale database file non unico',
-                                'file' => __FILE__, 'line' => __LINE__));
+            return self::getRepository()->updateDownload($this);
         }
 
     }
@@ -761,36 +740,20 @@ class FileItem
         static $tipi_regex = NULL;
 
         if ($tipi_regex == NULL) {
-            $db = &FrontController::getDbConnection('main');
-
-            $query = 'SELECT id_file_tipo, pattern_riconoscimento FROM file_tipo WHERE id_file_tipo != 1';
-            $res = &$db->query($query);
-
-            if (DB::isError($res))
-                Error::throwError(_ERROR_DEFAULT,
-                        array('msg' => DB::errorMessage($res),
-                                'file' => __FILE__, 'line' => __LINE__));
-
-            $tipi_regex = array();
-
-            while ($res->fetchInto($row)) {
-                $tipi_regex[$row[0]] = $row[1];
-            }
-
-            $res->free();
-
+            $tipi_regex = self::getRepository()->getTypeRegExps();
         }
-        //echo $nome_file;
-        foreach ($tipi_regex as $key => $value) {
-            // @TODO cambiare database
-            //echo '['.$value.'-'.ereg($value, $nome_file).']';
-            if (@ereg($value, $nome_file))
-
+        
+        foreach ($tipi_regex as $key => $pattern) {
+            // TODO ugly hack to support both regular expression type
+            // will be deleted eventually
+            $function = $pattern[0] === '/' ? 'preg_match' : 'ereg';
+            
+            if (@$function($value, $nome_file)) {
                 return $key;
+            }
         }
 
         return 1;
-
     }
 
     /**
@@ -799,32 +762,14 @@ class FileItem
      * @static
      * @return array [id_tipo] => 'descrizione'
      */
-    public function getTipi()
+    public static function getTipi()
     {
-        static $tipi = NULL;
-
-        if ($tipi != NULL)
-
-            return $tipi;
-
-        $db = &FrontController::getDbConnection('main');
-
-        $query = 'SELECT id_file_tipo, descrizione FROM file_tipo';
-        $res = &$db->query($query);
-
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-
-        $tipi = array();
-
-        while ($res->fetchInto($row)) {
-            $tipi[$row[0]] = $row[1];
+        static $tipi = null;
+        
+        if(is_null($tipi)) {
+            return self::getRepository()->getTypes();
         }
-
-        $res->free();
-
+        
         return $tipi;
     }
 
@@ -836,30 +781,12 @@ class FileItem
      */
     public function getCategorie()
     {
-        static $categorie = NULL;
-
-        if ($categorie != NULL)
-
-            return $categorie;
-
-        $db = FrontController::getDbConnection('main');
-
-        $query = 'SELECT id_file_categoria, descrizione FROM file_categoria';
-        $res = $db->query($query);
-
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-
-        $categorie = array();
-
-        while ($res->fetchInto($row)) {
-            $categorie[$row[0]] = $row[1];
+        static $categorie = null;
+        
+        if(is_null($categorie))  {
+            $categorie = self::getRepository()->getCategories();
         }
-
-        $res->free();
-
+        
         return $categorie;
     }
 
@@ -884,12 +811,9 @@ class FileItem
      */
     public static function selectFileItem($id_file)
     {
-        $id_files = array($id_file);
-        $files = FileItem::selectFileItems($id_files);
-        if ($files === false)
+        $result = self::selectFileItems(array($id_file));
 
-            return false;
-        return $files[0];
+        return is_array($result) ? $result[0] : $result;
     }
 
     /**
@@ -914,45 +838,7 @@ class FileItem
      */
     public static function selectFileItemsByIdUtente($id_utente, $order = false)
     {
-
-        $db = FrontController::getDbConnection('main');
-
-        $query = 'SELECT id_file, permessi_download, permessi_visualizza, A.id_utente, titolo,
-        A.descrizione, data_inserimento, data_modifica, dimensione, download,
-        nome_file, A.id_categoria, id_tipo_file, hash_file, A.password,
-        C.descrizione, D.descrizione, D.icona, D.info_aggiuntive
-        FROM file A, file_categoria C, file_tipo D
-        WHERE A.id_categoria = C.id_file_categoria AND id_tipo_file = D.id_file_tipo AND  eliminato!='
-                . $db->quote(FILE_ELIMINATO) . ' AND id_utente = '
-                . $db->quote($id_utente)
-                . ($order ? ' ORDER BY data_inserimento DESC' : '');
-        $res = $db->query($query);
-
-        //echo $query;
-
-        if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-
-        $rows = $res->numRows();
-
-        if ($rows == 0)
-
-            return false;
-        $files_list = array();
-
-        while ($res->fetchInto($row)) {
-            $username = User::getUsernameFromId($row[3]);
-            $files_list[] = new FileItem($row[0], $row[1], $row[2], $row[3],
-                    $row[4], $row[5], $row[6], $row[7], $row[8], $row[9],
-                    $row[10], $row[11], $row[12], $row[13], $row[14],
-                    $username, $row[15], $row[16], $row[17], $row[18]);
-        }
-
-        $res->free();
-
-        return $files_list;
+        return self::getRepository()->findByUserId($userId, $order);
     }
 
     /**
@@ -963,35 +849,16 @@ class FileItem
      */
     public function getIdCanali()
     {
-        if ($this->elencoIdCanali != NULL)
-
-            return $this->elencoIdCanali;
-
-        $id_file = $this->getIdFile();
-
-        $db = FrontController::getDbConnection('main');
-
-        $query = 'SELECT id_canale FROM file_canale WHERE id_file='
-                . $db->quote($id_file) . ' ORDER BY id_canale';
-        $res = &$db->query($query);
-
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-
-        $elenco_id_canale = array();
-
-        while ($res->fetchInto($row)) {
-            $elenco_id_canale[] = $row[0];
+        if (is_null($this->elencoIdCanali)) {
+            $this->elencoIdCanali = self::getRepository()->getChannelIds($this);
         }
 
-        $res->free();
-
-        $this->elencoIdCanali = &$elenco_id_canale;
-
         return $this->elencoIdCanali;
-
+    }
+    
+    public function setIdCanali($idCanali)
+    {
+        $this->elencoIdCanali = $idCanali;
     }
 
     /**
@@ -1001,27 +868,8 @@ class FileItem
      */
     public function removeCanale($id_canale)
     {
+        return self::getRepository()->removeFromChannel($this, $id_canale);
 
-        $db = &FrontController::getDbConnection('main');
-
-        $query = 'DELETE FROM file_canale WHERE id_canale='
-                . $db->quote($id_canale) . ' AND id_file='
-                . $db->quote($this->getIdFile());
-        //? da testare il funzionamento di =
-        $res = &$db->query($query);
-
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-
-        // rimuove l'id del canale dall'elenco completo
-        $this->elencoIdCanali = array_diff($this->elencoIdCanali,
-                array($id_canale));
-
-        /**
-         * @TODO settare eliminata = 'S' quando il file viene tolto dall'ultimo canale
-         */
     }
 
     /**
@@ -1032,30 +880,7 @@ class FileItem
      */
     public function addCanale($id_canale)
     {
-        $return = true;
-
-        if (!Canale::canaleExists($id_canale)) {
-            return false;
-            //Error::throwError(_ERROR_CRITICAL,array('msg'=>'Il canale selezionato non esiste','file'=>__FILE__,'line'=>__LINE__));
-        }
-
-        $db = &FrontController::getDbConnection('main');
-
-        $query = 'INSERT INTO file_canale (id_file, id_canale) VALUES ('
-                . $db->quote($this->getIdFile()) . ',' . $db->quote($id_canale)
-                . ')';
-        //? da testare il funzionamento di =
-        $res = $db->query($query);
-        if (DB::isError($res)) {
-            return false;
-            //	$db->rollback();
-            //	Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        }
-
-        $this->elencoIdCanale[] = $id_canale;
-
-        return true;
-
+        return self::getRepository()->addToChannel($this, $id_canale);
     }
 
     /**
@@ -1066,47 +891,13 @@ class FileItem
      */
     public function insertFileItem()
     {
-        $db = &FrontController::getDbConnection('main');
-
         ignore_user_abort(1);
-        $db->autoCommit(false);
-        $next_id = $db->nextID('file_id_file');
-        $this->setIdFile($next_id);
-        $return = true;
-        $eliminata = self::NOT_ELIMINATO;
-        $query = 'INSERT INTO file (id_file, permessi_download, permessi_visualizza, id_utente, titolo,
-        descrizione, data_inserimento, data_modifica, dimensione, download,
-        nome_file, id_categoria, id_tipo_file, hash_file, password, eliminato) VALUES '
-                . '( ' . $next_id . ' , '
-                . $db->quote($this->getPermessiDownload()) . ' , '
-                . $db->quote($this->getPermessiVisualizza()) . ' , '
-                . $db->quote($this->getIdUtente()) . ' , '
-                . $db->quote($this->getTitolo()) . ' , '
-                . $db->quote($this->getDescrizione()) . ' , '
-                . $db->quote($this->getDataInserimento()) . ' , '
-                . $db->quote($this->getDataModifica()) . ' , '
-                . $db->quote($this->getDimensione()) . ' , '
-                . $db->quote($this->getDownload()) . ' , '
-                . $db->quote($this->getRawNomeFile()) . ' , '
-                . $db->quote($this->getIdCategoria()) . ' , '
-                . $db->quote($this->getIdTipoFile()) . ' , '
-                . $db->quote($this->getHashFile()) . ' , '
-                . $db->quote($this->getPassword()) . ' , '
-                . $db->quote(FILE_NOT_ELIMINATO) . ' )';
-
-        $res = $db->query($query);
-        //echo $query;
-
-        if (DB::isError($res)) {
-            $db->rollback();
-            Error::throwError(_ERROR_CRITICAL,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-        }
-
-        $db->commit();
-        $db->autoCommit(true);
+        
+        $result = self::getRepository()->insert($this);
+        
         ignore_user_abort(0);
+        
+        return $result;
     }
 
     /**
@@ -1116,46 +907,10 @@ class FileItem
      */
     public function updateFileItem()
     {
-        $db = &FrontController::getDbConnection('main');
-
         ignore_user_abort(1);
-        $db->autoCommit(false);
-        $return = true;
-        //$scadenza = ($this->getDataScadenza() == NULL) ? ' NULL ' : $db->quote($this->getDataScadenza());
-        //$flag_urgente = ($this->isUrgente()) ? NEWS_URGENTE : NEWS_NOT_URGENTE;
-        //$deleted = ($this->isEliminata()) ? NEWS_ELIMINATA : NEWS_NOT_ELIMINATA;
-        $query = 'UPDATE file SET id_file = ' . $db->quote($this->getIdFile())
-                . ' , permessi_download = '
-                . $db->quote($this->getPermessiDownload())
-                . ' , permessi_visualizza = '
-                . $db->quote($this->getPermessiVisualizza())
-                . ' , id_utente = ' . $db->quote($this->getIdUtente())
-                . ' , titolo = ' . $db->quote($this->getTitolo())
-                . ' , descrizione = ' . $db->quote($this->getDescrizione())
-                . ' , data_inserimento = '
-                . $db->quote($this->getDataInserimento())
-                . ' , data_modifica = ' . $db->quote($this->getDataModifica())
-                . ' , dimensione = ' . $db->quote($this->getDimensione())
-                . ' , download = ' . $db->quote($this->getDownload())
-                . ' , nome_file = ' . $db->quote($this->getRawNomeFile())
-                . ' , id_categoria = ' . $db->quote($this->getIdCategoria())
-                . ' , id_tipo_file = ' . $db->quote($this->getIdTipoFile())
-                . ' , hash_file = ' . $db->quote($this->getHashFile())
-                . ' , password = ' . $db->quote($this->getPassword())
-                . ' WHERE id_file = ' . $db->quote($this->getIdFile());
-        //echo $query;
-        $res = $db->query($query);
-        //var_dump($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            Error::throwError(_ERROR_CRITICAL,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-            $return = false;
-        }
-
-        $db->commit();
-        $db->autoCommit(true);
+        
+        $returl = self::getRepository()->update($this);
+       
         ignore_user_abort(0);
 
         return $return;
@@ -1168,26 +923,7 @@ class FileItem
      */
     public function deleteFileItem()
     {
-        $lista_canali = &$this->getIdCanali(true);
-        if (count($lista_canali) == 0) {
-            $db = &FrontController::getDbConnection('main');
-            $query = 'UPDATE file SET eliminato  = '
-                    . $db->quote(FILE_ELIMINATO) . ' WHERE id_file = '
-                    . $db->quote($this->getIdFile());
-            //echo $query;
-            $res = $db->query($query);
-            //var_dump($query);
-            if (DB::isError($res)) {
-                $db->rollback();
-                Error::throwError(_ERROR_CRITICAL,
-                        array('msg' => DB::errorMessage($res),
-                                'file' => __FILE__, 'line' => __LINE__));
-            }
-
-            return true;
-        }
-
-        return false;
+        self::getRepository()->delete($this);
     }
 
     /**
