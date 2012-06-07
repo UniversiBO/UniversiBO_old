@@ -342,7 +342,7 @@ class NewsAdd extends CanaleCommand
                 if ($data_scadenza < $data_inserimento) {
                     Error::throwError(_ERROR_NOTICE,
                             array('id_utente' => $user->getIdUser(),
-                                    'msg' => 'La data di scadenza non pu� essere inferiore alla data di inserimento',
+                                    'msg' => 'La data di scadenza non puo` essere inferiore alla data di inserimento',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
                                     'template_engine' => &$template));
