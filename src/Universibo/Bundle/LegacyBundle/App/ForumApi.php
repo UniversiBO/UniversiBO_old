@@ -53,15 +53,6 @@ class ForumApi extends DBRepository implements ForumApiInterface
      */
     private $defaultRanks = array(User::STUDENTE => 0, User::COLLABORATORE => 9, User::TUTOR => 10, User::DOCENTE => 11, User::PERSONALE => 12, User::ADMIN =>  1);
     
-    public function __construct(\DB_common $db = null, $convert = false)
-    {
-        if(is_null($db)) {
-            $db = FrontController::getDbConnection($this->database);
-        }
-        
-        parent::__construct($db, $convert);
-    }
-
     /**
      * esegue la codifica esadecimale di un ipv4 nel formato separato da punti
      * es: '127.0.0.1' -> '7f000001'
