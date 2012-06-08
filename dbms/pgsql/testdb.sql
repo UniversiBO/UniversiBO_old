@@ -1,6 +1,13 @@
 DROP TABLE IF EXISTS utente;
 DROP SEQUENCE IF EXISTS utente_id_utente_seq;
 
+CREATE SEQUENCE utente_id_utente_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
 CREATE TABLE utente (
     id_utente integer DEFAULT nextval(('"utente_id_utente_seq"'::text)::regclass) NOT NULL,
     username character varying(25) NOT NULL,
@@ -20,12 +27,6 @@ CREATE TABLE utente (
     lower character varying(25)
 );
 
-CREATE SEQUENCE utente_id_utente_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
     
 ALTER TABLE ONLY utente
     ADD CONSTRAINT utente_pkey PRIMARY KEY (id_utente);
