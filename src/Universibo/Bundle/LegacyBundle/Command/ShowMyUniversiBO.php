@@ -128,7 +128,7 @@ class ShowMyUniversiBO extends UniversiboCommand
 
     public function getLatestNewsCanale($num, array $id_canali)
     {
-        return $this->getContainer()->get('universibo_legacy.repository.news._item')->findLatestByChannels($id_canali, $num);
+        return $this->getContainer()->get('universibo_legacy.repository.news.news_item')->findLatestByChannels($id_canali, $num);
     }
 
 }

@@ -341,7 +341,7 @@ class DBNewsItemRepository extends DBRepository
     	. '\' < data_scadenza ) AND B.id_canale IN (' . $values
     	. ')
     	ORDER BY A.data_inserimento DESC';
-    	$res = $db->limitQuery($query, 0, $num);
+    	$res = $db->limitQuery($query, 0, $limit);
     	//		var_dump($res);
     	//		die();
     	if (DB::isError($res))
