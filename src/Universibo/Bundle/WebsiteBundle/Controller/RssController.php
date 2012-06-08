@@ -42,7 +42,7 @@ class RssController extends Controller
         $generator = $this->get('universibo_website.feed.feed_generator');
 
         $feed = $generator
-                ->generateFeed($canale, $this->get('router'), true);
+                ->generateFeed($channel, $this->get('router'), true);
 
         $response = new Response();
         $response->headers
