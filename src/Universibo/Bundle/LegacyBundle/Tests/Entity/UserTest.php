@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Tests\Entity;
 
+use JMS\SerializerBundle\Serializer\Construction\UnserializeObjectConstructor;
+
 use Universibo\Bundle\LegacyBundle\Entity\User;
 
 class UserTest extends UniversiBOEntityTest
@@ -32,12 +34,20 @@ class UserTest extends UniversiBOEntityTest
 
     public function testEquals()
     {
-        $this->markTestIncomplete('Should test equals');
+        $this->_user->setUsername('myusername');
+        $other = clone $this->_user;
+        $this->assertTrue($other->equals($this->_user), 'Equals of cloned object should return true');
+        
+        $other = new User(42, User::COLLABORATORE);
+        $this->assertFalse($other->equals($this->_user), 'Equals of different object should return false');
     }
 
     public function testSerialize()
     {
-        $this->markTestIncomplete('Should test serialization');
+        $serialized = serialize($this->_user);
+        $unserialized = unserialize($serialized);
+        
+        $this->assertEquals($this->_user, $unserialized);
     }
 
     /**
@@ -54,8 +64,15 @@ class UserTest extends UniversiBOEntityTest
     public function accessorDataProvider()
     {
         return array(
+                array('adUsername', 'nome.cognome@studio.unibo.it'),
+                array('eliminato', true),
+                array('email', 'nome.cognome@studio.unibo.it'),
+                array('groups', 42),
+                array('idUser', 42),
+                array('principalName', 'nome.cognome@studio.unibo.it'),
+                array('salt', 'pizza'),
+                array('ultimoLogin', 2342423423),
                 array('username', 'world'),
-                array('username', 'ciao'),
         );
     }
 }
