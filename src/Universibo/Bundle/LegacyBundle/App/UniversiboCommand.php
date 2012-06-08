@@ -390,7 +390,7 @@ abstract class UniversiboCommand extends BaseCommand
         }
 
         usort($common_servicesLinks, array($this, '_compareServices'));
-        $template->assign('common_servicesLinks', $common_servicesLinks);
+        $template->assignUnicode('common_servicesLinks', $common_servicesLinks);
 
 
         $template->assign('common_info', 'Informazioni');
