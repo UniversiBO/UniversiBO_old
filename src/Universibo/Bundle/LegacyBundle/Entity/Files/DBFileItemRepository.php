@@ -77,7 +77,7 @@ class DBFileItemRepository extends DBRepository
         . $values
         . ')
         ORDER BY A.data_inserimento DESC';
-        $res = $db->limitQuery($query, 0, $num);
+        $res = $db->limitQuery($query, 0, $limit);
         if (DB::isError($res)) {
         	$this->throwError('_ERROR_DEFAULT',
         			array('id_utente' => $this->sessionUser->getIdUser(),
