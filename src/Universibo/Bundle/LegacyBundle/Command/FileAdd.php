@@ -1,5 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+use Universibo\Bundle\LegacyBundle\Auth\UniversiBOAcl;
+
 use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
 
 use \Error;
@@ -440,10 +442,11 @@ class FileAdd extends UniversiboCommand
 
             //esecuzione operazioni accettazione del form
             if ($f12_accept == true) {
+                
+                $transaction = $this->getContainer()->get('universibo_legacy.transaction');
 
-                $db = FrontController::getDbConnection('main');
                 ignore_user_abort(1);
-                $db->autoCommit(false);
+                $transaction->begin();
 
                 $nome_file = FileItem::normalizzaNomeFile(
                         $_FILES['f12_file']['name']);
@@ -472,7 +475,7 @@ class FileAdd extends UniversiboCommand
                 if (move_uploaded_file($_FILES['f12_file']['tmp_name'],
                         $frontcontroller->getAppSetting('filesPath')
                                 . $nomeFile) === false) {
-                    $db->rollback();
+                    $transaction->rollback();
                     Error::throwError(_ERROR_DEFAULT,
                             array('id_utente' => $user->getIdUser(),
                                     'msg' => 'Errore nella copia del file',
@@ -487,7 +490,7 @@ class FileAdd extends UniversiboCommand
                                     $frontcontroller
                                             ->getAppSetting('filesPath')
                                             . $nomeFile) === true) {
-                        $db->rollback();
+                        $transaction->rollback();
                         Error::throwError(_ERROR_DEFAULT,
                                 array('id_utente' => $user->getIdUser(),
                                         'msg' => 'ATTENZIONE: Il file inviato e\' risultato positivo al controllo antivirus!',
@@ -576,7 +579,7 @@ class FileAdd extends UniversiboCommand
 
                     }
 
-                $db->autoCommit(true);
+                $transaction->commit();
                 ignore_user_abort(0);
 
                 return 'success';
