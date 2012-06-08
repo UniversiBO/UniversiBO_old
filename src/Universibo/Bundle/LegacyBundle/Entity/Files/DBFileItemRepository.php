@@ -389,6 +389,7 @@ class DBFileItemRepository extends DBRepository
 
     public function getCategories()
     {
+        $db = $this->getDb();
         $query = 'SELECT id_file_categoria, descrizione FROM file_categoria';
         $res = $db->query($query);
 

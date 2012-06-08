@@ -400,7 +400,7 @@ class FileItem
      * @param string
      * @return string
      */
-    public function normalizzaNomeFile($string)
+    public static function normalizzaNomeFile($string)
     {
         return preg_replace('/([^a-zA-Z0-9_\.])/', '_', $string);
     }
@@ -775,10 +775,10 @@ class FileItem
     /**
      * Recupera le categorie possibili di un file
      *
-     * @static
+     * @deprecated
      * @return array [id_categoria] => 'descrizione'
      */
-    public function getCategorie()
+    public static function getCategorie()
     {
         static $categorie = null;
 
