@@ -5,6 +5,7 @@
         "symfony/symfony": "v2.0.15",
         "symfony/assetic-bundle": "2.0.x-dev",
         "doctrine/orm": "2.1.x-dev",
+        "doctrine/doctrine-fixtures-bundle": "2.0.x-dev",
         "doctrine/doctrine-migrations-bundle": "2.0.x-dev",
         "sensio/generator-bundle": "2.0.x-dev",
         "sensio/framework-extra-bundle": "2.0.x-dev",
