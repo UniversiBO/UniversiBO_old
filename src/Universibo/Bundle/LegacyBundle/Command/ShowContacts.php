@@ -56,42 +56,6 @@ class ShowContacts extends UniversiboCommand
 
         $num_collaboratori = count($collaboratori);
 
-        //$db = FrontController::getDbConnection('main');
-
-        //		$arrayContatti=array();     //l'array di array da passare al template
-        //		$collaboratori = Collaboratore::selectCollaboratoriAll();
-        //		$num_collaboratori = count($collaboratori);
-
-        //$arrayContatti=array();     //l'array di array da passare al template
-
-        //		$coll = $collaboratori[1];
-        //		$utente = $coll->getUser();
-        //		$username = $utente->getUsername();
-        //		$template->assign('primo', $username);
-        //		$template->assign('num', $num_collaboratori);
-        //
-
-        //
-        //		for($i = 0 ; $i < $num_collaboratori; $i++ )
-        //		{
-        //			$collaboratore = $collaboratori[$i];
-        //			$curr_user = $collaboratore->getUser();
-        //			$arrayContatti[] = array('username'=>$curr_user->getUsername(),
-        //									 'intro'=>$collaboratore->getIntro(),
-        //									 'ruolo'=>$collaboratore->getRuolo(),
-        //									 'email'=>$curr_user->getEmail(),
-        //									 'recapito'=>$collaboratore->getRecapito(),
-        //									 'obiettivi'=>$collaboratore->getObiettivi(),
-        //									 'foto'=>$collaboratore->getFotoFilename(),
-        //									 'id_utente'=>$collaboratore->getIdUtente()
-        //									);
-        //
-        //		}
-        //		asort($arrayContatti); //dovrebbere essere non case sensitive
-        //		$template->assign('contacts_langPersonal', $arrayContatti);
-        //
-
-        //natcasesort($collaboratori);
         asort($collaboratori);
         $template->assign('contacts_langPersonal', $collaboratori);
 
