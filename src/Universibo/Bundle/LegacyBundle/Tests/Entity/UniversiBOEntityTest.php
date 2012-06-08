@@ -8,9 +8,14 @@ abstract class UniversiBOEntityTest extends \PHPUnit_Framework_TestCase
      * @param string $name
      * @param mixed  $value
      */
-    protected function autoTestAccessor($object, $fieldName, $value)
+    protected function autoTestAccessor($object, $fieldName, $value, $fluent = false)
     {
-        $this->setValue($object, $fieldName, $value);
+        $return = $this->setValue($object, $fieldName, $value);
+        
+        if($fluent) {
+            $this->assertEquals($object, $return, 'Expecting fluent interface');
+        }
+        
         $this->assertEquals($value, $this->getValue($object, $fieldName), 'getter value');
     }
 
