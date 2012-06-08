@@ -1,5 +1,9 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
+
+use Universibo\Bundle\LegacyBundle\Entity\Files\DBFileItemRepository;
+
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
 use \DB;
@@ -31,6 +35,8 @@ class ShowMyUniversiBO extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $utente = $this->getSessionUser();
+        
+        $channelRepo = $this->getContainer()->get('universibo_legacy.repository.canale');
 
         //procedure per ricavare e mostrare le ultime 5 notizie dei canali a cui si ? iscritto...
 
@@ -45,13 +51,11 @@ class ShowMyUniversiBO extends UniversiboCommand
         $arrayIdCanaliNews = array();
         $arrayIdCanaliFiles = array();
         $arrayCanali = array();
-        $arrayRuoli = $utente->getRuoli();
-        $keys = array_keys($arrayRuoli);
-        foreach ($keys as $key) {
-            $ruolo = $arrayRuoli[$key];
+        
+        foreach ($utente->getRuoli() as $key => $ruolo) {
             if ($ruolo->isMyUniversibo()) {
 
-                $canale = Canale::retrieveCanale($ruolo->getIdCanale());
+                $canale = $channelRepo->find($ruolo->getIdCanale());
                 $arrayCanali[] = $key;
                 if ($canale->getServizioNews()) {
                     $id_canale = $canale->getIdCanale();
@@ -96,20 +100,7 @@ class ShowMyUniversiBO extends UniversiboCommand
 
     public function getNumFilesCanale($id_canale)
     {
-        $db = FrontController::getDbConnection('main');
-
-        $query = 'SELECT count(A.id_file) FROM file A, file_canale B
-                    WHERE A.id_file = B.id_file AND eliminato!='
-                . $db->quote(FileItem::ELIMINATO) . 'AND B.id_canale = '
-                . $db->quote($id_canale) . '';
-        $res = $db->getOne($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,
-                    array('id_utente' => $this->sessionUser->getIdUser(),
-                            'msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-
-        return $res;
+        return $this->getContainer()->get('universibo_legacy.repository.files.file_item')->countByChannel($id_canale);
     }
 
     /**
@@ -121,48 +112,9 @@ class ShowMyUniversiBO extends UniversiboCommand
      * @return array elenco FileItem , false se non ci sono notizie
      */
 
-    public function getLatestFileCanale($num, $id_canali)
+    public function getLatestFileCanale($num, array $id_canali)
     {
-        if (count($id_canali) == 1)
-            $values = $id_canali[0];
-        elseif (count($id_canali) == 0) {
-            $ret = array();
-
-            return $ret;
-        } else
-            $values = implode(',', $id_canali);
-
-        $db = FrontController::getDbConnection('main');
-        $query = 'SELECT A.id_file FROM file A, file_canale B
-                    WHERE A.id_file = B.id_file AND eliminato!='
-                . $db->quote(FileItem::ELIMINATO) . 'AND B.id_canale IN ('
-                . $values
-                . ')
-                    ORDER BY A.data_inserimento DESC';
-        $res = $db->limitQuery($query, 0, $num);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $this->sessionUser->getIdUser(),
-                            'msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-
-        $rows = $res->numRows();
-
-        if ($rows = 0)
-
-            return false;
-
-        $id_news_list = array();
-
-        while ($res->fetchInto($row)) {
-            $id_news_list[] = $row[0];
-        }
-
-        $res->free();
-        $files = FileItem::selectFileItems($id_news_list);
-
-        return $files;
-
+        return $this->getContainer()->get('universibo_legacy.repository.files.file_item')->findLatestByChannels($id_canali, $num);
     }
 
     /**
