@@ -120,7 +120,7 @@ class ShowFileInfo extends PluginCommand
             $canali_file = $file->getIdCanali();
             if (!in_array($id_canale, $canali_file)) {
                 var_dump($canali_file); die;
-                
+
                 Error::throwError(_ERROR_DEFAULT,
                         array(
                                 'msg' => 'I parametri passati non sono coerenti',

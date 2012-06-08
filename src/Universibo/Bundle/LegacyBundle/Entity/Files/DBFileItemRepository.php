@@ -482,26 +482,26 @@ class DBFileItemRepository extends DBRepository
     public function getChannelIds(FileItem $file)
     {
         $id_file = $file->getIdFile();
-        
+
         $db = $this->getDb();
-        
+
         $query = 'SELECT id_canale FROM file_canale WHERE id_file='
         . $db->quote($id_file) . ' ORDER BY id_canale';
         $res = $db->query($query);
-        
+
         if (DB::isError($res)) {
-        	$this->throwError('_ERROR_DEFAULT',
-        			array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-        					'line' => __LINE__));
+            $this->throwError('_ERROR_DEFAULT',
+                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
+                            'line' => __LINE__));
         }
-        
+
         $elenco_id_canale = array();
-        
+
         while ($res->fetchInto($row)) {
-        	$elenco_id_canale[] = $row[0];
+            $elenco_id_canale[] = $row[0];
         }
         $res->free();
-        
+
         return $elenco_id_canale;
     }
 

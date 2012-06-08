@@ -854,7 +854,7 @@ class FileItem
 
         return $this->elencoIdCanali;
     }
-    
+
     public function setIdCanali(array $idCanali)
     {
         $this->elencoIdCanali = $idCanali;

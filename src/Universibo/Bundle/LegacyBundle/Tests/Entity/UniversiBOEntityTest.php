@@ -1,7 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Tests\Entity;
 
-
 abstract class UniversiBOEntityTest extends \PHPUnit_Framework_TestCase
 {
     /**

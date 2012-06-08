@@ -1,7 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Files;
 
-
 use \DB;
 use \Error;
 use Universibo\Bundle\LegacyBundle\Entity\Commenti\CommentoItem;
