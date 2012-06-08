@@ -6,7 +6,6 @@ use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
 use \DB;
 use \Error;
 use \Krono;
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Forum\ForumApi as ForumApiInterface;
 
@@ -52,7 +51,7 @@ class ForumApi extends DBRepository implements ForumApiInterface
      * Ranks e livelli da assegnare agli utenti inizialmente
      */
     private $defaultRanks = array(User::STUDENTE => 0, User::COLLABORATORE => 9, User::TUTOR => 10, User::DOCENTE => 11, User::PERSONALE => 12, User::ADMIN =>  1);
-    
+
     /**
      * esegue la codifica esadecimale di un ipv4 nel formato separato da punti
      * es: '127.0.0.1' -> '7f000001'

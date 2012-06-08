@@ -1,7 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Tests\Entity;
 
-use JMS\SerializerBundle\Serializer\Construction\UnserializeObjectConstructor;
 
 use Universibo\Bundle\LegacyBundle\Entity\User;
 
@@ -37,7 +36,7 @@ class UserTest extends UniversiBOEntityTest
         $this->_user->setUsername('myusername');
         $other = clone $this->_user;
         $this->assertTrue($other->equals($this->_user), 'Equals of cloned object should return true');
-        
+
         $other = new User(42, User::COLLABORATORE);
         $this->assertFalse($other->equals($this->_user), 'Equals of different object should return false');
     }
@@ -46,7 +45,7 @@ class UserTest extends UniversiBOEntityTest
     {
         $serialized = serialize($this->_user);
         $unserialized = unserialize($serialized);
-        
+
         $this->assertEquals($this->_user, $unserialized);
     }
 

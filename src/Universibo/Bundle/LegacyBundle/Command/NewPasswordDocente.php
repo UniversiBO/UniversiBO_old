@@ -5,7 +5,6 @@ use \Error;
 use Universibo\Bundle\LegacyBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
-
 /**
  * ChangePassword is an extension of UniversiboCommand class.
  *

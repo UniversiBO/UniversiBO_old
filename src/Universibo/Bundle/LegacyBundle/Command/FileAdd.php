@@ -1,6 +1,5 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use Universibo\Bundle\LegacyBundle\Auth\UniversiBOAcl;
 
 use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
 
@@ -442,7 +441,7 @@ class FileAdd extends UniversiboCommand
 
             //esecuzione operazioni accettazione del form
             if ($f12_accept == true) {
-                
+
                 $transaction = $this->getContainer()->get('universibo_legacy.transaction');
 
                 ignore_user_abort(1);

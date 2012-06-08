@@ -1,12 +1,9 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
 
-use Universibo\Bundle\LegacyBundle\Entity\Files\DBFileItemRepository;
 
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
-use \DB;
 use \Error;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
@@ -35,7 +32,7 @@ class ShowMyUniversiBO extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $utente = $this->getSessionUser();
-        
+
         $channelRepo = $this->getContainer()->get('universibo_legacy.repository.canale');
 
         //procedure per ricavare e mostrare le ultime 5 notizie dei canali a cui si ? iscritto...
@@ -51,7 +48,7 @@ class ShowMyUniversiBO extends UniversiboCommand
         $arrayIdCanaliNews = array();
         $arrayIdCanaliFiles = array();
         $arrayCanali = array();
-        
+
         foreach ($utente->getRuoli() as $key => $ruolo) {
             if ($ruolo->isMyUniversibo()) {
 

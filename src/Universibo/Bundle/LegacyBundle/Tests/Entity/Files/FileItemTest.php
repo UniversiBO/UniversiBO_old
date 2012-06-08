@@ -16,7 +16,7 @@ class FileItemTest extends UniversiBOEntityTest
     {
         $this->file = new FileItem(1, 255, 255, 81, '$titolo', '$descrizione', 45345345, 3443737, 34535, 0, 'hello.jpg', 1, 1, '', '', '', '', '', '', '');
     }
-    
+
     /**
      * @dataProvider accessorDataProvider
      *

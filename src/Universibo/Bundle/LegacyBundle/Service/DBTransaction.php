@@ -3,7 +3,7 @@ namespace Universibo\Bundle\LegacyBundle\Service;
 
 /**
  * Encapsulates transaction management
- * 
+ *
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
 class DBTransaction implements TransactionInterface
@@ -13,7 +13,7 @@ class DBTransaction implements TransactionInterface
      * @var \DB_common
      */
     private $db;
-    
+
     /**
      * @param \DB_common $db
      */
@@ -21,37 +21,37 @@ class DBTransaction implements TransactionInterface
     {
         $this->db = $db;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Universibo\Bundle\LegacyBundle\Service.TransactionInterface::begin()
      */
     public function begin()
     {
-        if(($result = $this->db->autoCommit(false)) instanceof \DB_error) {
+        if (($result = $this->db->autoCommit(false)) instanceof \DB_error) {
             throw new TransactionException($result->__toString());
         }
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Universibo\Bundle\LegacyBundle\Service.TransactionInterface::commit()
      */
     public function commit()
     {
-        if(($result = $this->db->commit()) instanceof \DB_error) {
-        	throw new Exception($result->__toString());
+        if (($result = $this->db->commit()) instanceof \DB_error) {
+            throw new Exception($result->__toString());
         }
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Universibo\Bundle\LegacyBundle\Service.TransactionInterface::rollback()
      */
     public function rollback()
     {
-        if(($result = $this->db->rollback()) instanceof \DB_error) {
-        	throw new TransactionException($result->__toString());
+        if (($result = $this->db->rollback()) instanceof \DB_error) {
+            throw new TransactionException($result->__toString());
         }
     }
 

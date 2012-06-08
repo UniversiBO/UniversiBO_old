@@ -741,9 +741,9 @@ class FileItem
         if ($tipi_regex == NULL) {
             $tipi_regex = self::getRepository()->getTypeRegExps();
         }
-        
+
         foreach ($tipi_regex as $key => $pattern) {
-            if($key === 1) {
+            if ($key === 1) {
                 continue;
             }
             // TODO ugly hack to support both regular expression type

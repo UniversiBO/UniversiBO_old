@@ -10,7 +10,7 @@ class CollaboratoreTest extends UniversiBOEntityTest
     private $collaboratore;
 
     /**
-     * 
+     *
      */
     protected function setUp()
     {
@@ -32,16 +32,16 @@ class CollaboratoreTest extends UniversiBOEntityTest
     }
 
     /**
-     * 
+     *
      * @dataProvider accessorDataProvider
      * @param string $name
-     * @param mixed $value
+     * @param mixed  $value
      */
     public function testAccessors($name, $value)
     {
         $this->autoTestAccessor($this->collaboratore, $name, $value);
     }
-    
+
     public function accessorDataProvider()
     {
         return array(

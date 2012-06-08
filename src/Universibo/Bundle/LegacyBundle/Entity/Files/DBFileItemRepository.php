@@ -39,38 +39,38 @@ class DBFileItemRepository extends DBRepository
 
         return is_array($ids) ? $this->findManyById($ids) : $ids;
     }
-    
+
     public function countByChannel($channelId)
     {
         $db = $this->getDb();
-        
+
         $query = 'SELECT count(A.id_file) FROM file A, file_canale B
         WHERE A.id_file = B.id_file AND eliminato!='
         . $db->quote(FileItem::ELIMINATO) . 'AND B.id_canale = '
         . $db->quote($id_canale) . '';
         $res = $db->getOne($query);
-        
+
         if (DB::isError($res)) {
-        	$this->throwError('_ERROR_CRITICAL',
-        			array('id_utente' => $this->sessionUser->getIdUser(),
-        					'msg' => DB::errorMessage($res), 'file' => __FILE__,
-        					'line' => __LINE__));
+            $this->throwError('_ERROR_CRITICAL',
+                    array('id_utente' => $this->sessionUser->getIdUser(),
+                            'msg' => DB::errorMessage($res), 'file' => __FILE__,
+                            'line' => __LINE__));
         }
-        
+
         return $res;
     }
-    
+
     public function findLatestByChannels(array $channelIds, $limit)
     {
-        if(count($channelIds) === 0) {
+        if (count($channelIds) === 0) {
             return array();
         }
-        
+
         $db = $this->getDb();
         array_walk($channelIds, array($db, 'quote'));
-        
+
         $values = implode(',', $channelIds);
-        
+
         $query = 'SELECT A.id_file FROM file A, file_canale B
         WHERE A.id_file = B.id_file AND eliminato!='
         . $db->quote(FileItem::ELIMINATO) . 'AND B.id_canale IN ('
@@ -79,22 +79,22 @@ class DBFileItemRepository extends DBRepository
         ORDER BY A.data_inserimento DESC';
         $res = $db->limitQuery($query, 0, $limit);
         if (DB::isError($res)) {
-        	$this->throwError('_ERROR_DEFAULT',
-        			array('id_utente' => $this->sessionUser->getIdUser(),
-        					'msg' => DB::errorMessage($res), 'file' => __FILE__,
-        					'line' => __LINE__));
+            $this->throwError('_ERROR_DEFAULT',
+                    array('id_utente' => $this->sessionUser->getIdUser(),
+                            'msg' => DB::errorMessage($res), 'file' => __FILE__,
+                            'line' => __LINE__));
         }
-        
+
         $rows = $res->numRows();
-        
+
         $ids = array();
-        
+
         while ($res->fetchInto($row)) {
-        	$ids[] = $row[0];
+            $ids[] = $row[0];
         }
-        
+
         $res->free();
-        
+
         return $this->findManyById($ids);
     }
 

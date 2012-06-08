@@ -322,43 +322,42 @@ class DBNewsItemRepository extends DBRepository
         $db->commit();
         $db->autoCommit(true);
     }
-    
+
     public function findLatestByChannels(array $channelIds, $limit)
     {
-    	if(count($channelIds) === 0) {
-    		return array();
-    	}
-    
-    	$db = $this->getDb();
-    	array_walk($channelIds, array($db, 'quote'));
-    
-    	$values = implode(',', $channelIds);
-    	
-    	$query = 'SELECT A.id_news FROM news A, news_canale B
-    	WHERE A.id_news = B.id_news AND eliminata!='
-    	. $db->quote(NewsItem::ELIMINATA)
-    	. 'AND ( data_scadenza IS NULL OR \'' . time()
-    	. '\' < data_scadenza ) AND B.id_canale IN (' . $values
-    	. ')
-    	ORDER BY A.data_inserimento DESC';
-    	$res = $db->limitQuery($query, 0, $limit);
-    	//		var_dump($res);
-    	//		die();
-    	if (DB::isError($res))
-    		$this->throwError('_ERROR_DEFAULT',
-    				array('id_utente' => $this->sessionUser->getIdUser(),
-    						'msg' => DB::errorMessage($res), 'file' => __FILE__,
-    						'line' => __LINE__));
-    	
-    	
-    	$id_news_list = array();
-    	
-    	while ($res->fetchInto($row)) {
-    		$id_news_list[] = $row[0];
-    	}
-    	
-    	$res->free();
-    	
-    	return $id_news_list;
+        if (count($channelIds) === 0) {
+            return array();
+        }
+
+        $db = $this->getDb();
+        array_walk($channelIds, array($db, 'quote'));
+
+        $values = implode(',', $channelIds);
+
+        $query = 'SELECT A.id_news FROM news A, news_canale B
+        WHERE A.id_news = B.id_news AND eliminata!='
+        . $db->quote(NewsItem::ELIMINATA)
+        . 'AND ( data_scadenza IS NULL OR \'' . time()
+        . '\' < data_scadenza ) AND B.id_canale IN (' . $values
+        . ')
+        ORDER BY A.data_inserimento DESC';
+        $res = $db->limitQuery($query, 0, $limit);
+        //		var_dump($res);
+        //		die();
+        if (DB::isError($res))
+            $this->throwError('_ERROR_DEFAULT',
+                    array('id_utente' => $this->sessionUser->getIdUser(),
+                            'msg' => DB::errorMessage($res), 'file' => __FILE__,
+                            'line' => __LINE__));
+
+        $id_news_list = array();
+
+        while ($res->fetchInto($row)) {
+            $id_news_list[] = $row[0];
+        }
+
+        $res->free();
+
+        return $id_news_list;
     }
 }
