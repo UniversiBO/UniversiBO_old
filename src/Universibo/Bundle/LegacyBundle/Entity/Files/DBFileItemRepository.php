@@ -296,15 +296,15 @@ class DBFileItemRepository extends DBRepository
         ignore_user_abort(1);
         $db->autoCommit(false);
 
-        foreach ($elenco_keywords as $value) {
+        foreach ($keywords as $value) {
             if (!in_array($value, $old_elenco_keywords)) {
-                $this->addKeyword($id_file, $value);
+                $this->addKeyword($fileId, $value);
             }
         }
 
         foreach ($old_elenco_keywords as $value) {
             if (!in_array($value,$elenco_keywords)) {
-                $this->removeKeyword($id_file, $value);
+                $this->removeKeyword($fileId, $value);
             }
         }
 
@@ -458,7 +458,7 @@ class DBFileItemRepository extends DBRepository
 
         $db->autoCommit(false);
         $next_id = $db->nextID('file_id_file');
-        $this->setIdFile($next_id);
+        $file->setIdFile($next_id);
         $return = true;
         $eliminata = FileItem::NOT_ELIMINATO;
         $query = 'INSERT INTO file (id_file, permessi_download, permessi_visualizza, id_utente, titolo,
@@ -482,7 +482,6 @@ class DBFileItemRepository extends DBRepository
         . $db->quote(FileItem::NOT_ELIMINATO) . ' )';
 
         $res = $db->query($query);
-        //echo $query;
 
         if (DB::isError($res)) {
             $db->rollback();

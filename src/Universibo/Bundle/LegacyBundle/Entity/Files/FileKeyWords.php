@@ -41,7 +41,7 @@ class FileKeyWords
      * @param int id del file
      * @param array di string
      */
-    public function updateFileKeyWords($id_file, $elenco_keywords)
+    public static function updateFileKeyWords($id_file, $elenco_keywords)
     {
         return self::getRepository()->updateKeywords($id_file, $elenco_keywords);
     }

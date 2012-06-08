@@ -732,20 +732,23 @@ class FileItem
      * Restituisce il tipo di un file su hd tra i tipi ammissibili riconosciuti
      *
      * @param string $nome_file percorso in cui si trova il file
-     * @TODO preg_match
+     * TODO preg_match
      */
-    public function guessTipo($nome_file)
+    public static function guessTipo($nome_file)
     {
         static $tipi_regex = NULL;
 
         if ($tipi_regex == NULL) {
             $tipi_regex = self::getRepository()->getTypeRegExps();
         }
-
+        
         foreach ($tipi_regex as $key => $pattern) {
+            if($key === 1) {
+                continue;
+            }
             // TODO ugly hack to support both regular expression type
             // will be deleted eventually
-            $function = $pattern[0] === '/' ? 'preg_match' : 'ereg';
+            $function = ($pattern[0] === '/' ? 'preg_match' : 'ereg');
 
             if (@$function($value, $nome_file)) {
                 return $key;
