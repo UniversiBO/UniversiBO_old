@@ -510,7 +510,7 @@ abstract class UniversiboCommand extends BaseCommand
      * Ordina la struttura del MyUniversiBO
      *
      */
-    private static function _compareMyUniversiBO($a, $b)
+    protected static function _compareMyUniversiBO($a, $b)
     {
         if ($a['tipo'] < $b['tipo'])
 
@@ -534,11 +534,8 @@ abstract class UniversiboCommand extends BaseCommand
 
     /**
      * Ordina la struttura del MyUniversiBO
-     *
-     * @static
-     * @private
      */
-    public function _compareServices($a, $b)
+    protected static function _compareServices($a, $b)
     {
         if ($a['label'] < $b['label'])
 
