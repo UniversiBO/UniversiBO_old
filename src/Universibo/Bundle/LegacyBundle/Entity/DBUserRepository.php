@@ -105,7 +105,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
                     ->throwError('_ERROR_CRITICAL',
                             array(
                                     'msg' => 'Non esiste un utente con questo id_user: '
-                                            . $id_user, 'file' => __FILE__,
+                                            . $id, 'file' => __FILE__,
                                     'line' => __LINE__));
         $res->fetchInto($row);
         $res->free();

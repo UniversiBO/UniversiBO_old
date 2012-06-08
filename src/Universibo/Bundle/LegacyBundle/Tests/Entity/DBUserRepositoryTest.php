@@ -22,7 +22,7 @@ class DBUserRepositoryTest extends DBRepositoryTest
         $username = 'brain';
         $user = $this->repository->findByUsername($username);
 
-        self::assertEquals(81, $user->getIdUser());
+        self::assertEquals(1, $user->getIdUser());
         self::assertEquals($username, $user->getUsername());
         self::assertTrue($user->matchesPassword('padrino'),
                 'Should match password "padrino"');
@@ -45,6 +45,6 @@ class DBUserRepositoryTest extends DBRepositoryTest
 
     public function testGetUsernameFromId()
     {
-        self::assertEquals('brain', $this->repository->getUsernameFromId(81));
+        self::assertEquals('brain', $this->repository->getUsernameFromId(1));
     }
 }

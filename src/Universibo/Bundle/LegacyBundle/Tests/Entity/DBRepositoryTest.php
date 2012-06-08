@@ -6,23 +6,43 @@ use Universibo\Bundle\LegacyBundle\App\ErrorHandlers;
 
 abstract class DBRepositoryTest extends \PHPUnit_Framework_TestCase
 {
-    const TEST_DSN = 'pgsql://universibo:universibo@127.0.0.1/universibo';
-
     /**
      * @var \DB_pgsql
      */
     protected $db;
+    
+    /**
+     * @var \AppKernel
+     */
+    protected static $kernel;
+    
+    protected static function createKernel()
+    {
+        require_once __DIR__ .'/../../../../../../app/AppKernel.php';
+        return new \AppKernel('test', true);
+    }
 
     public static function setUpBeforeClass()
     {
         Error::setHandler(ErrorHandlers::LEVEL_CRITICAL, function ($param) {
             throw new \Exception($param['msg']);
         });
+        
+        $kernel = self::createKernel();
+        $kernel->boot();
+        $db = $kernel->getContainer()->get('universibo_legacy.db.connection.main');
+        
+        $db->query(file_get_contents(__DIR__.'/../../../../../../dbms/pgsql/testdb.sql'));
+        
+        $kernel->shutdown();
     }
 
     protected function setUp()
     {
-        $this->db = \DB::connect(self::TEST_DSN);
+        static::$kernel = $kernel = self::createKernel();
+        $kernel->boot();
+        
+        $this->db = $kernel->getContainer()->get('universibo_legacy.db.connection.main');
 
         if (\DB::isError($this->db)) {
             $this->markTestSkipped('No DB available');
@@ -42,5 +62,7 @@ abstract class DBRepositoryTest extends \PHPUnit_Framework_TestCase
             $this->db->rollback();
             $this->db->disconnect();
         }
+        
+        static::$kernel->shutdown();
     }
 }

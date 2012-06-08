@@ -20,11 +20,11 @@ class DBCollaboratoreRepositoryTest extends DBRepositoryTest
 
     public function testFind()
     {
-        $collaboratore = $this->repository->find(81);
+        $collaboratore = $this->repository->find(1);
 
-        $this->assertEquals(81, $collaboratore->getIdUtente());
-        $this->assertEquals('3381407176', $collaboratore->getRecapito());
-        $this->assertEquals('81_brain.jpg', $collaboratore->getFotoFilename());
+        $this->assertEquals(1, $collaboratore->getIdUtente());
+        $this->assertEquals('9999999999', $collaboratore->getRecapito());
+        $this->assertEquals('1_brain.jpg', $collaboratore->getFotoFilename());
         $this->assertEquals('fondatore - progettista software', $collaboratore->getRuolo());
     }
 }
