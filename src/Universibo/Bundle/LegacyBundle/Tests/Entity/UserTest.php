@@ -64,13 +64,17 @@ class UserTest extends UniversiBOEntityTest
         return array(
                 array('adUsername', 'nome.cognome@studio.unibo.it'),
                 array('eliminato', true),
+                array('eliminato', false),
                 array('email', 'nome.cognome@studio.unibo.it'),
-                array('groups', 42),
-                array('idUser', 42),
+                array('groups', rand()),
+                array('idUser', rand()),
                 array('principalName', 'nome.cognome@studio.unibo.it'),
                 array('salt', 'pizza'),
-                array('ultimoLogin', 2342423423),
+                array('ultimoLogin', rand()),
                 array('username', 'world'),
+                array('phone', '+399999999999'),
+                array('banned', true),
+                array('banned', false),
         );
     }
 }

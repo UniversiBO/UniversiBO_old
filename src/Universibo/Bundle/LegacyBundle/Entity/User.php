@@ -659,6 +659,11 @@ class User implements UserInterface, SSOUserInterface, \Serializable
     {
         $this->ban = $ban;
     }
+    
+    public function setBanned($banned)
+    {
+        $this->setBan($banned);
+    }
 
     /**
      * Ritorna true se ad un utente ? impedito l'accesso ai servizi di interazione,
