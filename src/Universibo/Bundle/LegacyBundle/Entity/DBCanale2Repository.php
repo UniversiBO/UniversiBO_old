@@ -89,7 +89,7 @@ class DBCanale2Repository extends DBRepository
             case Canale::FACOLTA:
                 return $this->facultyRepository->find($id);
             case Canale::CDL:
-                return $this->cdlRepository->find($id);
+                return $this->cdlRepository->findByIdCanale($id);
             case Canale::INSEGNAMENTO:
                 return $this->subjectRepository->findByChannelId($id);
             default:
