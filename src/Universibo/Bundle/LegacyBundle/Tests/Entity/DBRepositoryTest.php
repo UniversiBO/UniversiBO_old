@@ -10,15 +10,16 @@ abstract class DBRepositoryTest extends \PHPUnit_Framework_TestCase
      * @var \DB_pgsql
      */
     protected $db;
-    
+
     /**
      * @var \AppKernel
      */
     protected static $kernel;
-    
+
     protected static function createKernel()
     {
         require_once __DIR__ .'/../../../../../../app/AppKernel.php';
+
         return new \AppKernel('test', true);
     }
 
@@ -27,13 +28,13 @@ abstract class DBRepositoryTest extends \PHPUnit_Framework_TestCase
         Error::setHandler(ErrorHandlers::LEVEL_CRITICAL, function ($param) {
             throw new \Exception($param['msg']);
         });
-        
+
         $kernel = self::createKernel();
         $kernel->boot();
         $db = $kernel->getContainer()->get('universibo_legacy.db.connection.main');
-        
+
         $db->query(file_get_contents(__DIR__.'/../../../../../../dbms/pgsql/testdb.sql'));
-        
+
         $kernel->shutdown();
         restore_error_handler();
     }
@@ -42,7 +43,7 @@ abstract class DBRepositoryTest extends \PHPUnit_Framework_TestCase
     {
         static::$kernel = $kernel = self::createKernel();
         $kernel->boot();
-        
+
         $this->db = $kernel->getContainer()->get('universibo_legacy.db.connection.main');
 
         if (\DB::isError($this->db)) {
@@ -63,7 +64,7 @@ abstract class DBRepositoryTest extends \PHPUnit_Framework_TestCase
             $this->db->rollback();
             $this->db->disconnect();
         }
-        
+
         static::$kernel->shutdown();
         restore_error_handler();
     }

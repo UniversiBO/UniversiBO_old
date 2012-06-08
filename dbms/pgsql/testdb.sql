@@ -46,5 +46,6 @@ ALTER TABLE ONLY collaboratore ADD CONSTRAINT collaboratore_pkey PRIMARY KEY (id
     
 INSERT INTO utente (username, password, notifica, groups) VALUES ('brain', md5('padrino'), 2, 64);
 INSERT INTO utente (username, password, notifica, groups) VALUES ('fgiardini', md5('padrino'), 2, 64);
+INSERT INTO utente (username, password, notifica, groups) VALUES ('edenti', md5('padrino'), 2, 16);
 
 INSERT INTO collaboratore (id_utente, intro, recapito, obiettivi, foto, ruolo, show) VALUES (1, 'hello world', '9999999999', 'lorem ipsum', 'brain.jpg', 'fondatore - progettista software', 'N');

@@ -3,7 +3,6 @@ namespace Universibo\Bundle\LegacyBundle\Tests\Entity\Help;
 
 use Universibo\Bundle\LegacyBundle\Entity\Help\Reference;
 
-
 use Universibo\Bundle\LegacyBundle\Entity\Help\Item;
 
 use Universibo\Bundle\LegacyBundle\Tests\Entity\UniversiBOEntityTest;

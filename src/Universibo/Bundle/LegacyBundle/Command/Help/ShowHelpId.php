@@ -1,8 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command\Help;
 
-
-
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
 

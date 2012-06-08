@@ -13,10 +13,10 @@ class FileAddTest extends UniversiBOSeleniumTestCase
 
     public function testPHP()
     {
-    	$this->fileCommon(__FILE__);
-    	$this->assertTrue($this->isTextPresent('severamente vietato'), 'success message must be present');
+        $this->fileCommon(__FILE__);
+        $this->assertTrue($this->isTextPresent('severamente vietato'), 'success message must be present');
     }
-    
+
     private function fileCommon($file)
     {
         $this->login(TestConstants::ADMIN_USERNAME);

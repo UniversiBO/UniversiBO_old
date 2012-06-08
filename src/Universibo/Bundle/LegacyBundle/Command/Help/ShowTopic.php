@@ -1,7 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command\Help;
 
-
 use \Error;
 
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;

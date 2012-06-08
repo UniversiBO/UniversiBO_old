@@ -659,7 +659,7 @@ class User implements UserInterface, SSOUserInterface, \Serializable
     {
         $this->ban = $ban;
     }
-    
+
     public function setBanned($banned)
     {
         $this->setBan($banned);
