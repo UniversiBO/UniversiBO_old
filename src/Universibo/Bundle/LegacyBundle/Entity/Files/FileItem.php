@@ -911,7 +911,7 @@ class FileItem
     {
         ignore_user_abort(1);
 
-        $returl = self::getRepository()->update($this);
+        $return = self::getRepository()->update($this);
 
         ignore_user_abort(0);
 
