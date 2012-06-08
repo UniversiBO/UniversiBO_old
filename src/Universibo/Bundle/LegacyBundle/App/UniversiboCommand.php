@@ -298,7 +298,7 @@ abstract class UniversiboCommand extends BaseCommand
         if ($attivaMyUniversibo) {
             $template->assign('common_myLinksAvailable', 'true');
             $template->assign('common_langMyUniversibo', 'My UniversiBO');
-            $template->assign('common_myLinks', $arrayCanali);
+            $template->assignUnicode('common_myLinks', $arrayCanali);
         } else {
             $template->assign('common_myLinksAvailable', 'false');
         }
@@ -509,10 +509,8 @@ abstract class UniversiboCommand extends BaseCommand
     /**
      * Ordina la struttura del MyUniversiBO
      *
-     * @static
-     * @private
      */
-    public function _compareMyUniversiBO($a, $b)
+    private static function _compareMyUniversiBO($a, $b)
     {
         if ($a['tipo'] < $b['tipo'])
 
