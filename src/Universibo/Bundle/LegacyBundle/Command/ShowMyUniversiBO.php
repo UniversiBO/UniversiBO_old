@@ -106,7 +106,7 @@ class ShowMyUniversiBO extends UniversiboCommand
     /**
      * Preleva da database gli ultimi $num files del canale $id_canale
      *
-     * @static
+     * @deprecated
      * @param  int   $num       numero files da prelevare
      * @param  int   $id_canale identificativo su database del canale
      * @return array elenco FileItem , false se non ci sono notizie
@@ -120,57 +120,15 @@ class ShowMyUniversiBO extends UniversiboCommand
     /**
      * Preleva da database le ultime $num notizie non scadute dai canali $id_canali
      *
-     * @static
+     * @deprecated
      * @param  int   $num       numero notize da prelevare
      * @param  array $id_canali contenente gli id_canali, identificativi su database del canale
      * @return array elenco NewsItem , false se non ci sono notizie
      */
 
-    public function getLatestNewsCanale($num, $id_canali)
+    public function getLatestNewsCanale($num, array $id_canali)
     {
-        if (count($id_canali) == 1)
-            $values = $id_canali[0];
-        elseif (count($id_canali) == 0) {
-            $ret = array();
-
-            return $ret;
-        } else
-            $values = implode(',', $id_canali);
-
-        $db = FrontController::getDbConnection('main');
-
-        $query = 'SELECT A.id_news FROM news A, news_canale B
-                    WHERE A.id_news = B.id_news AND eliminata!='
-                . $db->quote(NewsItem::ELIMINATA)
-                . 'AND ( data_scadenza IS NULL OR \'' . time()
-                . '\' < data_scadenza ) AND B.id_canale IN (' . $values
-                . ')
-                    ORDER BY A.data_inserimento DESC';
-        $res = $db->limitQuery($query, 0, $num);
-        //		var_dump($res);
-        //		die();
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $this->sessionUser->getIdUser(),
-                            'msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-
-        $rows = $res->numRows();
-
-        if ($rows = 0)
-
-            return false;
-
-        $id_news_list = array();
-
-        while ($res->fetchInto($row)) {
-            $id_news_list[] = $row[0];
-        }
-
-        $res->free();
-
-        return $id_news_list;
-
+        return $this->getContainer()->get('universibo_legacy.repository.news._item')->findLatestByChannels($id_canali, $num);
     }
 
 }
