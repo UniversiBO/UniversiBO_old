@@ -76,7 +76,7 @@ class FileAdd extends UniversiboCommand
             if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'L\'id del canale richiesto non � valido',
+                                'msg' => 'L\'id del canale richiesto non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
             $canale = Canale::retrieveCanale($_GET['id_canale']);
@@ -84,7 +84,7 @@ class FileAdd extends UniversiboCommand
             if ($canale->getServizioFiles() == false)
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => "Il servizio files � disattivato",
+                                'msg' => "Il servizio files e` disattivato",
                                 'file' => __FILE__, 'line' => __LINE__));
 
             $id_canale = $canale->getIdCanale();
@@ -126,7 +126,7 @@ class FileAdd extends UniversiboCommand
                 //var_dump($_POST);die();
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il form inviato non � valido',
+                                'msg' => 'Il form inviato non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
                 $f12_accept = false;
             }
@@ -159,7 +159,7 @@ class FileAdd extends UniversiboCommand
             if (!preg_match('/^([0-9]{1,2})$/', $_POST['f12_data_ins_gg'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo giorno di inserimento non \u00e8 valido',
+                                'msg' => 'Il formato del campo giorno di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -172,7 +172,7 @@ class FileAdd extends UniversiboCommand
             if (!preg_match('/^([0-9]{1,2})$/', $_POST['f12_data_ins_mm'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo mese di inserimento non � valido',
+                                'msg' => 'Il formato del campo mese di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -208,7 +208,7 @@ class FileAdd extends UniversiboCommand
             if (!preg_match('/^([0-9]{1,2})$/', $_POST['f12_data_ins_ora'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo ora di inserimento non \u00e8 valido',
+                                'msg' => 'Il formato del campo ora di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -229,7 +229,7 @@ class FileAdd extends UniversiboCommand
             if (!preg_match('/^([0-9]{1,2})$/', $_POST['f12_data_ins_min'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo minuto di inserimento non � valido',
+                                'msg' => 'Il formato del campo minuto di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -294,7 +294,7 @@ class FileAdd extends UniversiboCommand
                         if (strlen($parola > 40)) {
                             Error::throwError(_ERROR_NOTICE,
                                     array('id_utente' => $user->getIdUser(),
-                                            'msg' => 'La lunghezza massima di una parola chiave � di 40 caratteri',
+                                            'msg' => 'La lunghezza massima di una parola chiave e` di 40 caratteri',
                                             'file' => __FILE__,
                                             'line' => __LINE__, 'log' => false,
                                             'template_engine' => &$template));
@@ -310,7 +310,7 @@ class FileAdd extends UniversiboCommand
             if (!preg_match('/^([0-9]{1,9})$/', $_POST['f12_categoria'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo categoria non � ammissibile',
+                                'msg' => 'Il formato del campo categoria non e` ammissibile',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -340,7 +340,7 @@ class FileAdd extends UniversiboCommand
                         || $_POST['f12_permessi_download'] > User::ALL) {
                     Error::throwError(_ERROR_NOTICE,
                             array('id_utente' => $user->getIdUser(),
-                                    'msg' => 'Il valore dei diritti di download non � ammessibile',
+                                    'msg' => 'Il valore dei diritti di download non e` ammessibile',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
                                     'template_engine' => &$template));
@@ -355,7 +355,7 @@ class FileAdd extends UniversiboCommand
                                         | User::COLLABORATORE | User::ADMIN)) {
                     Error::throwError(_ERROR_NOTICE,
                             array('id_utente' => $user->getIdUser(),
-                                    'msg' => 'Il valore dei diritti di download non � ammessibile',
+                                    'msg' => 'Il valore dei diritti di download non e` ammessibile',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
                                     'template_engine' => &$template));
