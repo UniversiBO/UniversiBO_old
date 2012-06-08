@@ -28,7 +28,7 @@ class RssController extends Controller
         $context = $this->get('security.context');
 
         $acl = $this->get('universibo_legacy.acl');
-        $user = $context->isGranted('IS_AUTHENTICATED_FULLY') ? $scontext
+        $user = $context->isGranted('IS_AUTHENTICATED_FULLY') ? $context
         ->getToken()->getUser() : null;
 
         if (!$acl->canRead($user, $channel)) {
