@@ -1,7 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
 use \Error;

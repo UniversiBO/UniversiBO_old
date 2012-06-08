@@ -1,7 +1,5 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use \DB;
-use \Error;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -37,7 +35,7 @@ class ShowHelpTopic extends UniversiboCommand
         if (!array_key_exists('ref', $_GET) || !preg_match($ref_pattern, $_GET['ref'])) {
             $topicRepo = $this->getContainer()->get('universibo_legacy.repository.help.topic');
 
-            foreach($topicRepo->findAll() as $topic) {
+            foreach ($topicRepo->findAll() as $topic) {
                 $references[] = $topic->getReference();
                 $topics[] = $this->executePlugin('ShowTopic', array('reference' => $topic->getReference()));
             }

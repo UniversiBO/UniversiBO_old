@@ -1,10 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command\Help;
 
-use Symfony\Component\HttpKernel\HttpKernel;
 
 use \Error;
-use \DB;
 
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
@@ -40,20 +38,19 @@ class ShowTopic extends PluginCommand
         $bc        = $this->getBaseCommand();
         $frontcontroller = $bc->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
-        
+
         $topicRepo = $this->getContainer()->get('universibo_legacy.repository.help.topic');
-        
+
         $topic = $topicRepo->find($reference);
 
-        if(is_null($topic)) {
+        if (is_null($topic)) {
             Error::throwError(_ERROR_DEFAULT,array('msg'=>'E\'stato richiesto un argomento dell\'help non presente','file'=>__FILE__,'line'=>__LINE__));
         }
-        
+
         $itemRepo = $this->getContainer()->get('universibo_legacy.repository.help.item');
-        
+
         $argomenti = array();
-        foreach($itemRepo->findByReference($reference) as $item)
-        {
+        foreach ($itemRepo->findByReference($reference) as $item) {
             $argomenti[] = $item->getId();
         }
 

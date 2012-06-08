@@ -1,6 +1,5 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Help;
-use Doctrine\DBAL\Connection;
 
 use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
 
@@ -15,10 +14,10 @@ class DoctrineTopicRepository extends DoctrineRepository
             ->from('help_topic', 'ht')
             ->orderBy('ht.indice')
             ->execute();
-        
+
         return $this->fetchAll($stmt);
     }
-    
+
     public function find($id)
     {
         $conn = $this->getConnection();
@@ -29,7 +28,7 @@ class DoctrineTopicRepository extends DoctrineRepository
             ->where('riferimento = ?')
             ->setParameter(0, $id)
             ->execute();
-        
+
         return $this->fetchOne($stmt);
     }
 
@@ -43,18 +42,18 @@ class DoctrineTopicRepository extends DoctrineRepository
 
         return $items;
     }
-    
+
     private function fetchOne($stmt)
     {
-        if(false !== ($row = $stmt->fetch(\PDO::FETCH_ASSOC))) {
+        if (false !== ($row = $stmt->fetch(\PDO::FETCH_ASSOC))) {
             return $this->rowToItem($row);
         }
-        
+
         return null;
     }
 
     /**
-     * @param array $row
+     * @param  array $row
      * @return Topic
      */
     private function rowToItem($row)

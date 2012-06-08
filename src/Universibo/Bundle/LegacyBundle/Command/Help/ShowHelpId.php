@@ -1,10 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command\Help;
 
-use Universibo\Bundle\LegacyBundle\Entity\Help\DoctrineItemRepository;
 
-use \Error;
-use \DB;
 
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
@@ -41,11 +38,10 @@ class ShowHelpId extends PluginCommand
         $frontcontroller = $bc->getFrontController();
         $template		 = $frontcontroller->getTemplateEngine();
 
-        
         $repo = $this->getContainer()->get('universibo_legacy.repository.help.item');
         $items = in_array(0, $param) ? $repo->findAll() : $repo->findMany($param);
-        
-        foreach($items as $item) {
+
+        foreach ($items as $item) {
             $argomenti[] = array('id' => 'id'.$item->getId(), 'titolo' => $item->getTitle(), 'contenuto' => $item->getContent());
         }
 

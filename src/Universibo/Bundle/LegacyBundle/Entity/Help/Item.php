@@ -3,7 +3,7 @@ namespace Universibo\Bundle\LegacyBundle\Entity\Help;
 
 /**
  * Entity class for Help Item
- * 
+ *
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
 class Item
@@ -12,39 +12,38 @@ class Item
      * @var int
      */
     private $id;
-    
+
     /**
      * @var string
      */
     private $title;
-    
+
     /**
      * @var string
      */
     private $content;
-    
+
     /**
      * @var int
      */
     private $lastEdit;
-    
+
     /**
      * @var int
      */
     private $index;
-    
+
     /**
-     * @param int $id
+     * @param  int                                              $id
      * @return \Universibo\Bundle\LegacyBundle\Entity\Help\Item
      */
     public function setId($id)
     {
         $this->id = $id;
-        
+
         return $this;
     }
-    
-    
+
     /**
      * @return int
      */
@@ -52,18 +51,18 @@ class Item
     {
         return $this->id;
     }
-    
+
     /**
-     * @param string $title
+     * @param  string                                           $title
      * @return \Universibo\Bundle\LegacyBundle\Entity\Help\Item
      */
     public function setTitle($title)
     {
         $this->title = $title;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string
      */
@@ -71,17 +70,17 @@ class Item
     {
         return $this->title;
     }
-    
+
     /**
      * @param string $content
      */
     public function setContent($content)
     {
         $this->content = $content;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string
      */
@@ -89,18 +88,18 @@ class Item
     {
         return $this->content;
     }
-    
+
     /**
-     * @param int $lastEdit
+     * @param  int                                              $lastEdit
      * @return \Universibo\Bundle\LegacyBundle\Entity\Help\Item
      */
     public function setLastEdit($lastEdit)
     {
         $this->lastEdit = $lastEdit;
-        
+
         return $this;
     }
-    
+
     /**
      * @return number
      */
@@ -108,18 +107,18 @@ class Item
     {
         return $this->lastEdit;
     }
-    
+
     /**
-     * @param int $index
+     * @param  int                                              $index
      * @return \Universibo\Bundle\LegacyBundle\Entity\Help\Item
      */
     public function setIndex($index)
     {
         $this->index = $index;
-        
+
         return $this;
     }
-    
+
     /**
      * @return number
      */

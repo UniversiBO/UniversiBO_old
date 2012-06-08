@@ -1,16 +1,11 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use Universibo\Bundle\LegacyBundle\Entity\Files\DBFileItemStudentiRepository;
 
-use Universibo\Bundle\LegacyBundle\Entity\Commenti\CommentoItem;
 
-use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 
-use \DB;
 use \Error;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
-use Universibo\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
@@ -27,7 +22,7 @@ use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 class ShowAllFilesStudenti extends UniversiboCommand
 {
-    function execute()
+    public function execute()
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();

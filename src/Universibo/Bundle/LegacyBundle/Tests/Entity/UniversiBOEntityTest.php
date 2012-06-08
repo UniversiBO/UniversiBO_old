@@ -11,11 +11,11 @@ abstract class UniversiBOEntityTest extends \PHPUnit_Framework_TestCase
     protected function autoTestAccessor($object, $fieldName, $value, $fluent = false)
     {
         $return = $this->setValue($object, $fieldName, $value);
-        
-        if($fluent) {
+
+        if ($fluent) {
             $this->assertEquals($object, $return, 'Expecting fluent interface');
         }
-        
+
         $this->assertEquals($value, $this->getValue($object, $fieldName), 'getter value');
     }
 

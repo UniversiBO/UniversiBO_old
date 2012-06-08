@@ -28,7 +28,7 @@ class DoctrineItemRepository extends DoctrineRepository
 
         return $this->fetchAll($stmt);
     }
-    
+
     public function findByReference($reference)
     {
         $builder = $this->getConnection()->createQueryBuilder();
@@ -39,8 +39,7 @@ class DoctrineItemRepository extends DoctrineRepository
             ->orderBy('h.indice')
             ->setParameter(0, $reference)
             ->execute();
-        
-        
+
         return $this->fetchAll($stmt);
     }
 
@@ -56,7 +55,7 @@ class DoctrineItemRepository extends DoctrineRepository
     }
 
     /**
-     * @param array $row
+     * @param  array $row
      * @return Item
      */
     private function rowToItem($row)
