@@ -581,7 +581,7 @@ class DBFileItemRepository extends DBRepository
         }
 
         $ids = $file->getIdCanali();
-        $ids[] = $id_canale;
+        $ids[] = $channelId;
         $file->setIdCanali($ids);
 
         return true;
