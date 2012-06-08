@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command\Help;
 
+use Universibo\Bundle\LegacyBundle\Entity\Help\DoctrineItemRepository;
+
 use \Error;
 use \DB;
 
@@ -35,38 +37,17 @@ class ShowHelpId extends PluginCommand
      */
     public function execute($param = array())
     {
-        $allFlag	= false;
-        $listid		= '';
-
-        foreach ($param as $key => $id_help) {
-            if ($id_help === 0) {$allFlag = true; break;}
-            if ($key === 0)	$listid = $id_help;
-            else 	$listid = $listid.', '.$id_help;
-        }
-
         $bc			     = $this->getBaseCommand();
         $frontcontroller = $bc->getFrontController();
         $template		 = $frontcontroller->getTemplateEngine();
 
-        $db = FrontController::getDbConnection('main');
-
-        if ($allFlag === true)
-            $query = 'SELECT id_help, titolo, contenuto FROM help ORDER BY indice';
-        else
-            $query = 'SELECT id_help, titolo, contenuto FROM help WHERE id_help IN ('.$listid.') ORDER BY indice';
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        $rows = $res->numRows();
-
-        $argomenti	= array();
-        //if( $rows > 0) restituisco comunque l'array vuoto
-
-        while ($res->fetchInto($row)) {
-            $argomenti[] = array('id' => 'id'.$row[0], 'titolo' => $row[1], 'contenuto' => $row[2]);
+        
+        $repo = $this->getContainer()->get('universibo_legacy.repository.help.item');
+        $items = in_array(0, $param) ? $repo->findAll() : $repo->findMany($param);
+        
+        foreach($items as $item) {
+            $argomenti[] = array('id' => 'id'.$item->getId(), 'titolo' => $item->getTitle(), 'contenuto' => $item->getContent());
         }
-        $res->free();
 
         $template->assign('showHelpId_langArgomento', $argomenti);
 
