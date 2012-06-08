@@ -444,9 +444,9 @@ class FileStudentiAdd extends UniversiboCommand
             //esecuzione operazioni accettazione del form
             if ($f23_accept == true) {
 
-                $db = FrontController::getDbConnection('main');
+                $transaction = $this->getContainer()->get('universibo_legacy.transaction');
                 ignore_user_abort(1);
-                $db->autoCommit(false);
+                $transaction->begin();
 
                 $nome_file = FileItem::normalizzaNomeFile(
                         $_FILES['f23_file']['name']);
@@ -473,7 +473,7 @@ class FileStudentiAdd extends UniversiboCommand
                 if (move_uploaded_file($_FILES['f23_file']['tmp_name'],
                         $frontcontroller->getAppSetting('filesPath')
                                 . $nomeFile) === false) {
-                    $db->rollback();
+                    $transaction->rollback();
                     Error::throwError(_ERROR_DEFAULT,
                             array('id_utente' => $user->getIdUser(),
                                     'msg' => 'Errore nella copia del file',
@@ -488,7 +488,7 @@ class FileStudentiAdd extends UniversiboCommand
                                     $frontcontroller
                                             ->getAppSetting('filesPath')
                                             . $nomeFile) === true) {
-                        $db->rollback();
+                        $transaction->rollback();
                         Error::throwError(_ERROR_DEFAULT,
                                 array('id_utente' => $user->getIdUser(),
                                         'msg' => 'ATTENZIONE: Il file inviato e\' risultato positivo al controllo antivirus!',
@@ -583,7 +583,7 @@ Link: https://www.universibo.unibo.it/v2.php?do=FileShowInfo&id_file='
                 //						$notifica->insertNotificaItem();
                 //
                 //
-                $db->autoCommit(true);
+                $transaction->commit();
                 ignore_user_abort(0);
 
                 return 'success';
