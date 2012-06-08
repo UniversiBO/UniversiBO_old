@@ -28,12 +28,12 @@ class FileStudentiAdd extends UniversiboCommand
     public function execute()
     {
 
-        $frontcontroller = &$this->getFrontController();
-        $template = &$frontcontroller->getTemplateEngine();
+        $frontcontroller = $this->getFrontController();
+        $template = $frontcontroller->getTemplateEngine();
 
-        $krono = &$frontcontroller->getKrono();
-        $user = &$this->getSessionUser();
-        $user_ruoli = &$user->getRuoli();
+        $krono = $frontcontroller->getKrono();
+        $user = $this->getSessionUser();
+        $user_ruoli = $user->getRuoli();
 
         if ($user->isOspite()) {
             Error::throwError(_ERROR_DEFAULT,
@@ -79,7 +79,7 @@ class FileStudentiAdd extends UniversiboCommand
                                 'msg' => 'L\'id del canale richiesto non � valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $canale = &Canale::retrieveCanale($_GET['id_canale']);
+            $canale = Canale::retrieveCanale($_GET['id_canale']);
 
             if ($canale->getServizioFilesStudenti() == false)
                 Error::throwError(_ERROR_DEFAULT,
