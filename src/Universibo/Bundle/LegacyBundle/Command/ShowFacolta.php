@@ -3,7 +3,7 @@ namespace Universibo\Bundle\LegacyBundle\Command;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
 use \Error;
-use Universibo\Bundle\LegacyBundle\App\ForumApi;
+
 use Universibo\Bundle\LegacyBundle\Entity\Cdl;
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
@@ -44,7 +44,7 @@ class ShowFacolta extends CanaleCommand
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
-        $forum = new ForumApi;
+        $forum = $this->getContainer()->get('universibo_legacy.forum.api');
 
         //@todo fatto sopra
         $facolta = $this->getRequestCanale();

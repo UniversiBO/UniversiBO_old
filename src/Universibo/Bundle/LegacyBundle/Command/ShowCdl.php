@@ -6,7 +6,7 @@ use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
 use \Error;
 
 use Universibo\Bundle\LegacyBundle\Entity\Facolta;
-use Universibo\Bundle\LegacyBundle\App\ForumApi;
+
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 /**
@@ -60,7 +60,7 @@ class ShowCdl extends CanaleCommand
         $session_user_groups = $session_user->getGroups();
         $cdl_listIns = array();
 
-        $forum = new ForumApi;
+        $forum = $this->getContainer()->get('universibo_legacy.forum.api');
         //3 livelli di innestamento cdl/anno_corso/ciclo/insegnamento
         for ($i=0; $i < $num_ins; $i++) {
             $tempPrgAttDid = $elencoPrgAttDid[$i];

@@ -5,7 +5,7 @@ use Universibo\Bundle\LegacyBundle\Entity\User;
 
 use \Error;
 use Universibo\Bundle\LegacyBundle\App\Constants;
-use Universibo\Bundle\LegacyBundle\App\ForumApi;
+
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Command\InteractiveCommand\InformativaPrivacyInteractiveCommand;
 /**
@@ -142,7 +142,7 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore
             if ($new_user->insertUser() == false)
                 Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Si e` verificato un errore durente la registrazione dell\'account username '.$q4_username.' mail '.$q4_ad_user,'file'=>__FILE__,'line'=>__LINE__));
 
-            $forum = new ForumApi();
+            $forum = $this->getContainer()->get('universibo_legacy.forum.api');
             $forum->insertUser($new_user, $randomPassword);
             //	Error::throwError(_ERROR_DEFAULT,'msg'=>'Si ? verificato un errore durente la registrazione dell\'account username '.$q4_username.' mail '.$q4_ad_user,'file'=>__FILE__,'line'=>__LINE__));
 

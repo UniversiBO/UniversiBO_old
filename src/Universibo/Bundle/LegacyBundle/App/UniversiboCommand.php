@@ -206,7 +206,7 @@ abstract class UniversiboCommand extends BaseCommand
         $template->assign('common_homepage', 'Homepage');
         $template->assign('common_homepageUri', 'v2.php?do=ShowHome');
 
-        $forum = new ForumApi();
+        $forum = $this->getContainer()->get('universibo_legacy.forum.api');
         $template->assign('common_forum', 'Forum');
         $template->assign('common_forumDir', $forum->getPath());
         $template->assign('common_forumUri', $forum->getMainUri());

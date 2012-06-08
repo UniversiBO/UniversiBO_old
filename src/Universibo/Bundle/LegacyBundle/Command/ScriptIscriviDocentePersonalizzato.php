@@ -57,7 +57,7 @@ class ScriptIscriviDocentePersonalizzato extends UniversiboCommand
                         'Errore inserimento: username ' . $username
                                 . ' | mail ' . $row[2]);
 
-            $forum = new ForumApi();
+            $forum = $this->getContainer()->get('universibo_legacy.forum.api');
             $forum->insertUser($new_user);
 
             $query3 = 'INSERT INTO docente (id_utente, cod_doc, nome_doc) VALUES ('

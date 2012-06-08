@@ -4,7 +4,7 @@ namespace Universibo\Bundle\LegacyBundle\Command;
 use \DB;
 use \Error;
 
-use Universibo\Bundle\LegacyBundle\App\ForumApi;
+
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 use Universibo\Bundle\LegacyBundle\Entity\Cdl;
@@ -41,7 +41,7 @@ class ScriptCreaForum extends UniversiboCommand
         $res = $db->query($query);
         if (DB::isError($res)) die($query);
 
-        $forum = new ForumApi();
+        $forum = $this->getContainer()->get('universibo_legacy.forum.api');
         $max_forum_id = $forum->getMaxForumId();
 
         echo 'max_forum_id: ', $max_forum_id, "\n";

@@ -1,6 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use Universibo\Bundle\LegacyBundle\App\ForumApi;
+
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\User;
 
@@ -174,7 +174,7 @@ class ChangePassword extends UniversiboCommand
                                         . $q6_username, 'file' => __FILE__,
                                 'line' => __LINE__));
 
-            $forum = new ForumApi();
+            $forum = $this->getContainer()->get('universibo_legacy.forum.api');
             $forum->updatePassword($user, $q6_new_password1);
             //	Error::throwError(_ERROR_DEFAULT,array('msg'=>'Si e` verificato un errore durante la modifica della password sul forum relativa allo username '.$q6_username,'file'=>__FILE__,'line'=>__LINE__));
 

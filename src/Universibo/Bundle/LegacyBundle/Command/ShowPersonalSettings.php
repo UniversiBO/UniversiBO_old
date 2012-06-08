@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 use \Error;
-use Universibo\Bundle\LegacyBundle\App\ForumApi;
+
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Ruolo;
 /**
@@ -145,7 +145,7 @@ class ShowPersonalSettings extends UniversiboCommand
             $user->setLivelloNotifica($f20_livello_notifica);
             $user->updateUser();
 
-            $forum = new ForumApi();
+            $forum = $this->getContainer()->get('universibo_legacy.forum.api');
             $forum->updateUserStyle($user);
             $forum->updateUserEmail($user);
 

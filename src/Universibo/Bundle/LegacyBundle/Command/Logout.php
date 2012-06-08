@@ -1,6 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use Universibo\Bundle\LegacyBundle\App\ForumApi;
+
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -27,7 +27,7 @@ class Logout extends UniversiboCommand
 
             $fc->setStyle($fc->getAppSetting('defaultStyle'));
 
-            $forum = new ForumApi();
+            $forum = $this->getContainer()->get('universibo_legacy.forum.api');
             $forum->logout();
         }
 

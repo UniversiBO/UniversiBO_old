@@ -4,7 +4,7 @@ use \Error;
 
 use Universibo\Bundle\LegacyBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
-use Universibo\Bundle\LegacyBundle\App\ForumApi;
+
 
 /**
  * ChangePassword is an extension of UniversiboCommand class.
@@ -91,7 +91,7 @@ class NewPasswordDocente extends UniversiboCommand
                                 'msg' => 'Si e` verificato un errore durante l\'aggiornamento della password',
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $forum = new ForumApi();
+            $forum = $this->getContainer()->get('universibo_legacy.forum.api');
             $forum->updatePassword($docente, $randomPassword);
             //	Error::throwError(_ERROR_DEFAULT,array('msg'=>'Si ? verificato un errore durante la modifica della password sul forum relativa allo username '.$q6_username,'file'=>__FILE__,'line'=>__LINE__));
 

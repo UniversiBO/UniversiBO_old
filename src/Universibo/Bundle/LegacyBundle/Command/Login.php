@@ -2,7 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 use \Error;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
-use Universibo\Bundle\LegacyBundle\App\ForumApi;
+
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\User;
 /**
@@ -86,24 +86,6 @@ class Login extends UniversiboCommand
                 $_SESSION['user'] = serialize($userLogin);
                 $_SESSION['referer'] = $referer;
                 FrontController::redirectCommand('InteractiveCommandHandler');
-
-                //				// questa parte � in InteractiveCommandHandler
-                //				$userLogin->updateUltimoLogin(time());
-                //				$this->setSessionIdUtente($userLogin->getIdUser());
-                //				$fc->setStyle($userLogin->getDefaultStyle());
-                //
-                //				$forum = new ForumApi();
-                //				$forum->login($userLogin);
-                //
-                //var_dump($referer);
-
-                //				if ( !strstr($referer, 'forum') && ( !strstr($referer, 'do') || strstr($referer, 'do=ShowHome')  || strstr($referer, 'do=ShowError') || strstr($referer, 'do=Login') || strstr($referer, 'do=RegStudente')))
-                //					FrontController::redirectCommand('ShowMyUniversiBO');
-                //				else if (strstr($referer, 'forum'))
-                //					FrontController::redirectUri($forum->getMainUri());
-                //				else
-                //					FrontController::redirectUri($referer);
-
             }
             $_POST['f1_password'] = ''; //resettata per sicurezza
 

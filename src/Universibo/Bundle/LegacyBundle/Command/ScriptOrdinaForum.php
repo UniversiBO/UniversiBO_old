@@ -35,7 +35,7 @@ class ScriptOrdinaForum extends UniversiboCommand
         if (DB::isError($res)) die($query);
 
 /*
-        $forum = new ForumApi();
+        $forum = $this->getContainer()->get('universibo_legacy.forum.api');
         $max_forum_id = $forum->getMaxForumId();
 
         echo 'max_forum_id: ', $max_forum_id, "\n";

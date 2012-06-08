@@ -6,7 +6,7 @@ use \Error;
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
 use Universibo\Bundle\LegacyBundle\Entity\InfoDidattica;
 use Universibo\Bundle\LegacyBundle\Entity\ContattoDocente;
-use Universibo\Bundle\LegacyBundle\App\ForumApi;
+
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
@@ -168,7 +168,7 @@ testi consigliati[/url]';
 
         $forum = 'Forum';
         if ($insegnamento->getServizioForum()) {
-            $forumApi = new ForumApi();
+            $forumApi = $this->getContainer()->get('universibo_legacy.forum.api');
             $link = $forumApi->getForumUri($insegnamento->getForumForumId());
             $forum = '[url=' . $link . ']Forum[/url]';
         }

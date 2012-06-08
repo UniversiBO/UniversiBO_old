@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
-use Universibo\Bundle\LegacyBundle\App\ForumApi;
+
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -55,7 +55,7 @@ class MyUniversiBORemove extends UniversiboCommand
             $ruolo = $ruoli[$id_canale];
             $ruolo->setMyUniversiBO(false, true);
 
-            $forum = new ForumApi();
+            $forum = $this->getContainer()->get('universibo_legacy.forum.api');
             $forum
                     ->removeUserGroup($canale->getForumGroupId(),
                             $utente->getIdUser());

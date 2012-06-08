@@ -2,7 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 use \Error;
 use Universibo\Bundle\LegacyBundle\Entity\User;
-use Universibo\Bundle\LegacyBundle\App\ForumApi;
+
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -213,7 +213,7 @@ class NewPasswordStudente extends UniversiboCommand
                                         . $q5_username . ' mail ' . $q5_ad_user,
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $forum = new ForumApi();
+            $forum = $this->getContainer()->get('universibo_legacy.forum.api');
             $forum->updatePassword($user, $randomPassword);
             //	Error::throwError(_ERROR_DEFAULT,'msg'=>'Si è verificato un errore durente la registrazione dell\'account username '.$q5_username.' mail '.$q5_ad_user,'file'=>__FILE__,'line'=>__LINE__));
 

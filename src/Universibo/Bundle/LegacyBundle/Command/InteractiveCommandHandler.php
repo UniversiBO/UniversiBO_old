@@ -3,7 +3,6 @@ namespace Universibo\Bundle\LegacyBundle\Command;
 use \DB;
 use \Error;
 
-use Universibo\Bundle\LegacyBundle\App\ForumApi;
 use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
@@ -61,7 +60,7 @@ class InteractiveCommandHandler extends UniversiboCommand
             $this->setSessionIdUtente($this->userLogin->getIdUser());
             $fc->setStyle($this->userLogin->getDefaultStyle());
 
-            $forum = new ForumApi();
+            $forum = $this->getContainer()->get('universibo_legacy.forum.api');
             $forum->login($this->userLogin);
 
             if ($sf) {

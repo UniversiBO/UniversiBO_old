@@ -2,7 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 use \DB;
 use Universibo\Bundle\LegacyBundle\App\Constants;
-use Universibo\Bundle\LegacyBundle\App\ForumApi;
+
 use Universibo\Bundle\LegacyBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
@@ -50,7 +50,7 @@ class ScriptIscriviDocenti2 extends UniversiboCommand
                             'Errore inserimento: username ' . $username
                                     . ' | mail ' . $row[2]);
 
-                $forum = new ForumApi();
+                $forum = $this->getContainer()->get('universibo_legacy.forum.api');
                 $forum->insertUser($new_user, $randomPassword);
 
                 $query3 = 'INSERT INTO docente (id_utente, cod_doc, nome_doc) VALUES ('

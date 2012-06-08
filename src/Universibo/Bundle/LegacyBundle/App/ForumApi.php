@@ -209,7 +209,7 @@ function logout()
 
     setcookie ($cookie_name.'_sid', '', time()-3600, $cookie_path, $cookie_domain , $cookie_secure);
 
-    $query = 'DELETE FROM '.$this->table_prefix.'sessions WHERE session_id = '.$db->quote(ForumApi::getOnlySid()).';';
+    $query = 'DELETE FROM '.$this->table_prefix.'sessions WHERE session_id = '.$db->quote(self::getOnlySid()).';';
     $res = $db->query($query);
     if (DB::isError($res))
         Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
@@ -353,7 +353,7 @@ function removeUserGroup($userId, $group)
  */
 function getMainUri()
 {
-    return $this->getPath().'index.php?'.ForumApi::getSidForUri();
+    return $this->getPath().'index.php?'.self::getSidForUri();
 }
 
 /**
@@ -362,7 +362,7 @@ function getMainUri()
  */
 function getForumUri($id_forum)
 {
-    return $this->getPath().'viewforum.php?f='.$id_forum.'&'.ForumApi::getSidForUri();
+    return $this->getPath().'viewforum.php?f='.$id_forum.'&'.self::getSidForUri();
 }
 
 /**
@@ -511,7 +511,7 @@ function addForumInsegnamentoNewYear($forum_id, $anno_accademico)
  */
 function getPostUri($id_post)
 {
-    return $this->getPath().'viewtopic.php?p='.$id_post.'&'.ForumApi::getSidForUri().'#'.$id_post;
+    return $this->getPath().'viewtopic.php?p='.$id_post.'&'.self::getSidForUri().'#'.$id_post;
 }
 
 /**

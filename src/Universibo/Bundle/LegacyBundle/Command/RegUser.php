@@ -3,7 +3,7 @@ namespace Universibo\Bundle\LegacyBundle\Command;
 
 use \Error;
 use Universibo\Bundle\LegacyBundle\App\Constants;
-use Universibo\Bundle\LegacyBundle\App\ForumApi;
+
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\App\User;
 use Universibo\Bundle\LegacyBundle\Auth\PasswordUtil;
@@ -117,7 +117,7 @@ class RegUser extends UniversiboCommand
             if ($new_user->insertUser() == false)
                 Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Si e` verificato un errore durente la registrazione dell\'account username '.$q34_username.' mail '.$q34_email,'file'=>__FILE__,'line'=>__LINE__));
 
-            $forum = new ForumApi();
+            $forum = $this->getContainer()->get('universibo_legacy.forum.api');
             $forum->insertUser($new_user);
             //	Error::throwError(_ERROR_DEFAULT,'msg'=>'Si � verificato un errore durente la registrazione dell\'account username '.$q34_username.' mail '.$q34_email,'file'=>__FILE__,'line'=>__LINE__));
 

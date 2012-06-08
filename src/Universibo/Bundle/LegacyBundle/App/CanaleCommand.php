@@ -223,7 +223,7 @@ abstract class CanaleCommand extends UniversiboCommand
                 //				$newposts = 'false';
                 $list_post		=	array();
                 if (!$user->isOspite()) {
-                    $fa = new ForumApi();
+                    $fa = $this->getContainer()->get('universibo_legacy.forum.api');
                     $id_posts_list 	=  $fa->getLastPostsForum($user, $canale->getForumForumId());
 
                     if ($id_posts_list != false) {
