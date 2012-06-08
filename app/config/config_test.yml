@@ -10,5 +10,8 @@ web_profiler:
     toolbar: false
     intercept_redirects: false
 
-#swiftmailer:
-#    disable_delivery: true
+swiftmailer:
+    disable_delivery: true
+
+parameters:
+    database_name: 'universibo_test'
