@@ -28,6 +28,21 @@ class DoctrineItemRepository extends DoctrineRepository
 
         return $this->fetchAll($stmt);
     }
+    
+    public function findByReference($reference)
+    {
+        $builder = $this->getConnection()->createQueryBuilder();
+        $stmt = $builder
+            ->select('h.id_help', 'h.titolo', 'h.contenuto', 'h.ultima_modifica', 'h.indice')
+            ->from('help', 'h')
+            ->innerJoin('h', 'help_riferimento', 'hr', 'h.id_help = hr.id_help AND hr.riferimento = ?')
+            ->orderBy('h.indice')
+            ->setParameter(0, $reference)
+            ->execute();
+        
+        
+        return $this->fetchAll($stmt);
+    }
 
     private function fetchAll($stmt)
     {

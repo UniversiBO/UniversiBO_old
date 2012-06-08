@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command\Help;
 
+use Symfony\Component\HttpKernel\HttpKernel;
+
 use \Error;
 use \DB;
 
@@ -38,39 +40,26 @@ class ShowTopic extends PluginCommand
         $bc        = $this->getBaseCommand();
         $frontcontroller = $bc->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
+        
+        $topicRepo = $this->getContainer()->get('universibo_legacy.repository.help.topic');
+        
+        $topic = $topicRepo->find($reference);
 
-        $db = FrontController::getDbConnection('main');
-
-        $query = 'SELECT titolo FROM help_topic ht WHERE ht.riferimento=\''.$reference.'\'';
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        $rows = $res->numRows();
-        if( $rows == 0)
+        if(is_null($topic)) {
             Error::throwError(_ERROR_DEFAULT,array('msg'=>'E\'stato richiesto un argomento dell\'help non presente','file'=>__FILE__,'line'=>__LINE__));
-        $res->fetchInto($row);
-        $topic_title = $row[0];
-        $res->free();
+        }
+        
+        $itemRepo = $this->getContainer()->get('universibo_legacy.repository.help.item');
+        
+        $argomenti = array();
+        foreach($itemRepo->findByReference($reference) as $item)
+        {
+            $argomenti[] = $item->getId();
+        }
 
-        $query = 'SELECT he.id_help FROM help_riferimento he, help h WHERE h.id_help=he.id_help AND he.riferimento=\''.$reference.'\' ORDER BY h.indice';  //un join solo per ordinare secondo l'indice..
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        $rows = $res->numRows();
-        $topic = array();
-
-        if ( $rows > 0) {
-            $argomenti	= array();
-
-            while ($res->fetchInto($row)) {
-                $argomenti[] = $row[0];
-            }
-            $res->free();
-
+        if (count($argomenti) > 0) {
             $lang_argomenti = $this->executePlugin('ShowHelpId', $argomenti);
-
-            $topic = array('titolo'=>$topic_title ,'reference'=>$reference, 'argomenti'=>$lang_argomenti);
+            $topic = array('titolo'=>$topic->getTitle() ,'reference'=>$reference, 'argomenti'=>$lang_argomenti);
         }
 
         $template->assign('showTopic_topic', $topic);

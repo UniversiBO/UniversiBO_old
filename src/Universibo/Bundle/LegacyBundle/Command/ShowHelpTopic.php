@@ -23,48 +23,28 @@ class ShowHelpTopic extends UniversiboCommand
 
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
-        //		$bc = $this->getBaseCommand();
-        //		$sessionUser = $bc->getSessionUser();
-        $sessionUser = $this->getSessionUser();
-
         $template->assign('showHelpTopic_langAltTitle', 'Help');
 
         /**
          * @todo queste info andrebbero in una classetta statica per l'help
          */
-        $ref_pattern = '^([:alnum:]{1,32})$';
+        $ref_pattern = '/^[[:alnum:]]{1,32}$/';
 
         $references = array();
 
         $topics = array();
 
-        if (!array_key_exists('ref', $_GET)
-                || ereg($ref_pattern, $_GET['ref'])) {
-            /**
-             * @todo l'acesso al DB a questo livello non mi piace... ci sarebbe da inserire un po' di roba in una classetta statica
-             */
-            $db = $frontcontroller->getDbConnection('main');
-            $query = 'SELECT riferimento FROM help_topic';
-            $res = $db->query($query);
-            if (DB::isError($res))
-                Error::throwError(_ERROR_CRITICAL,
-                        array('id_utente' => $this->sessionUser->getIdUser(),
-                                'msg' => DB::errorMessage($res),
-                                'file' => __FILE__, 'line' => __LINE__));
+        if (!array_key_exists('ref', $_GET) || !preg_match($ref_pattern, $_GET['ref'])) {
+            $topicRepo = $this->getContainer()->get('universibo_legacy.repository.help.topic');
 
-            while ($res->fetchInto($row)) {
-                $references[] = $row[0];
-                $topics[] = $this
-                        ->executePlugin('ShowTopic',
-                                array('reference' => $row[0]));
+            foreach($topicRepo->findAll() as $topic) {
+                $references[] = $topic->getReference();
+                $topics[] = $this->executePlugin('ShowTopic', array('reference' => $topic->getReference()));
             }
-            $res->free();
 
             $template->assign('showHelpTopic_index', 'true');
         } else {
-            $topics[] = $this
-                    ->executePlugin('ShowTopic',
-                            array('reference' => $_GET['ref']));
+            $topics[] = $this->executePlugin('ShowTopic', array('reference' => $_GET['ref']));
 
             $template->assign('showHelpTopic_index', 'false');
         }

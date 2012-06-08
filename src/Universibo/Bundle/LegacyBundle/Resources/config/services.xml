@@ -127,6 +127,11 @@
 			class="Universibo\Bundle\LegacyBundle\Entity\Help\DoctrineItemRepository">
 			<argument type="service" id="doctrine.dbal.default_connection" />
 		</service>
+		
+		<service id="universibo_legacy.repository.help.topic"
+			class="Universibo\Bundle\LegacyBundle\Entity\Help\DoctrineTopicRepository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
+		</service>
 
 		<service id="universibo_legacy.repository.info_didattica"
 			class="Universibo\Bundle\LegacyBundle\Entity\DBInfoDidatticaRepository">
