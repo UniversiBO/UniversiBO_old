@@ -16,6 +16,10 @@ use Universibo\Bundle\LegacyBundle\Entity\DBUserRepository;
  */
 class DBFileItemStudentiRepository extends DBRepository
 {
+    const ORDER_TITLE = 0;
+    const ORDER_DATE_DESC = 1;
+    const ORDER_RATING_DESC = 2;
+    
     /**
      * @var DBUserRepository
      */
@@ -39,6 +43,47 @@ class DBFileItemStudentiRepository extends DBRepository
         $result = $this->findMany(array($id));
 
         return is_array($result) ? $result[0] : $result;
+    }
+    
+    public function findAll($order)
+    {
+        $quale_ordine = '';
+        $group = '';
+        
+        switch ($order) {
+        	case 0:
+        		$quale_ordine = 'A.titolo';
+        		break;
+        	case 1:
+        		$quale_ordine = 'A.data_inserimento DESC';
+        		break;
+        	case 2:
+        		$quale_ordine = 'avg(B.voto) DESC';
+        		$group = 'GROUP BY A.id_file';
+        		break;
+        }
+        $db = $this->getDb();
+        $query = 'SELECT A.id_file FROM file A, file_studente_commenti B' .
+        		' WHERE A.id_file = B.id_file and A.eliminato != '.$db->quote(FileItem::ELIMINATO).
+        		' AND B.eliminato != '.$db->quote(CommentoItem::ELIMINATO).
+        		''.$group.' ORDER BY '.$quale_ordine;
+        
+        $res = $db->query($query);
+        if (DB::isError($res)) {
+        	$this->throwError('_ERROR_DEFAULT',array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        }
+        
+        $rows = $res->numRows();
+        
+        $id_files_studenti_list = array();
+        
+        while ( $res->fetchInto($row) ) {
+        	$id_files_studenti_list[]= $row[0];
+        }
+        
+        $res->free();
+        
+        return $this->findMany($id_files_studenti_list);
     }
 
     public function findMany(array $ids)
@@ -72,8 +117,9 @@ class DBFileItemStudentiRepository extends DBRepository
 
         //echo $query;
 
-        if (DB :: isError($res))
-            Error :: throwError(_ERROR_CRITICAL, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
+        if (DB :: isError($res)) {
+            $this->throwError('_ERROR_CRITICAL', array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
+        }
 
         $rows = $res->numRows();
 
