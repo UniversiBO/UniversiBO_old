@@ -481,7 +481,6 @@ class DBFileItemRepository extends DBRepository
 
     public function getChannelIds(FileItem $file)
     {
-<<<<<<< HEAD
         $id_file = $file->getIdFile();
         
         $db = $this->getDb();
@@ -504,31 +503,6 @@ class DBFileItemRepository extends DBRepository
         $res->free();
         
         return $elenco_id_canale;
-=======
-        $id_file = $file->getIdFile();
-
-        $db = $this->getDb();
-
-        $query = 'SELECT id_canale FROM file_canale WHERE id_file='
-        . $db->quote($id_file) . ' ORDER BY id_canale';
-        $res = $db->query($query);
-
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_DEFAULT',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-        }
-
-        $elenco_id_canale = array();
-
-        while ($res->fetchInto($row)) {
-            $elenco_id_canale[] = $row[0];
-        }
-
-        $res->free();
-
-        return $elenco_id_canale;
->>>>>>> 35de45530409606b36f095a9e3f5876faf60ac3c
     }
 
     public function addToChannel(FileItem $file, $channelId)
