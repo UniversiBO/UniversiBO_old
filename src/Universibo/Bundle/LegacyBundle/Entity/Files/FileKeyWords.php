@@ -1,7 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Files;
 
-
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 /**
  *

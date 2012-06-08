@@ -39,18 +39,18 @@ class UserTest extends UniversiBOEntityTest
     {
         $this->markTestIncomplete('Should test serialization');
     }
-    
+
     /**
      * @dataProvider accessorDataProvider
-     * 
+     *
      * @param string $name
-     * @param mixed $value
+     * @param mixed  $value
      */
     public function testAccessors($name, $value)
     {
         $this->autoTestAccessor($this->_user, $name, $value);
     }
-    
+
     public function accessorDataProvider()
     {
         return array(
