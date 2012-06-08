@@ -463,9 +463,9 @@ class FileEdit extends UniversiboCommand
             //esecuzione operazioni accettazione del form
             if ($f13_accept == true) {
 
-                $db = FrontController::getDbConnection('main');
+                $transaction = $this->getContainer()->get('universibo_legacy.transaction');
                 ignore_user_abort(1);
-                $db->autoCommit(false);
+                $transaction->begin();
 
                 $file->setPermessiDownload($f13_permessi_download);
                 $file->setPermessiVisualizza($f13_permessi_visualizza);
@@ -489,7 +489,7 @@ class FileEdit extends UniversiboCommand
                     $canale->setUltimaModifica(time(), true);
                 }
 
-                $db->autoCommit(true);
+                $transaction->commit();
                 ignore_user_abort(0);
 
                 return 'success';

@@ -41,7 +41,7 @@ class FileStudentiEdit extends UniversiboCommand
                     array('msg' => 'L\'id del file richiesto non � valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
-        $file = &FileItemStudenti::selectFileItem($_GET['id_file']);
+        $file = FileItemStudenti::selectFileItem($_GET['id_file']);
         if ($file === false)
             Error::throwError(_ERROR_DEFAULT,
                     array(
@@ -54,7 +54,7 @@ class FileStudentiEdit extends UniversiboCommand
                                 . $file->getIdFile());
         $file_canali = $file->getIdCanali();
 
-        $canale = &Canale::retrieveCanale($file_canali[0]);
+        $canale = Canale::retrieveCanale($file_canali[0]);
         $template->assign('common_canaleURI', $canale->showMe());
         $template->assign('common_langCanaleNome', 'a ' . $canale->getTitolo());
 
@@ -62,7 +62,7 @@ class FileStudentiEdit extends UniversiboCommand
         //		{
         //			Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non � valido', 'file' => __FILE__, 'line' => __LINE__));
         //		}
-        //		$canale = & Canale::retrieveCanale($_GET['id_canale']);
+        //		$canale =  Canale::retrieveCanale($_GET['id_canale']);
         //		$id_canale = $canale->getIdCanale();
 
         $template
@@ -80,13 +80,13 @@ class FileStudentiEdit extends UniversiboCommand
             if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
                 Error::throwError(_ERROR_DEFAULT,
                         array(
-                                'msg' => 'L\'id del canale richiesto non � valido',
+                                'msg' => 'L\'id del canale richiesto non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $canale = &Canale::retrieveCanale($_GET['id_canale']);
+            $canale = Canale::retrieveCanale($_GET['id_canale']);
             if ($canale->getServizioFiles() == false)
                 Error::throwError(_ERROR_DEFAULT,
-                        array('msg' => "Il servizio files � disattivato",
+                        array('msg' => "Il servizio files e` disattivato",
                                 'file' => __FILE__, 'line' => __LINE__));
 
             $id_canale = $canale->getIdCanale();
@@ -95,7 +95,7 @@ class FileStudentiEdit extends UniversiboCommand
                     ->assign('common_langCanaleNome',
                             'a ' . $canale->getTitolo());
             if (array_key_exists($id_canale, $user_ruoli)) {
-                $ruolo = &$user_ruoli[$id_canale];
+                $ruolo = $user_ruoli[$id_canale];
 
                 $referente = $ruolo->isReferente();
                 $moderatore = $ruolo->isModeratore();

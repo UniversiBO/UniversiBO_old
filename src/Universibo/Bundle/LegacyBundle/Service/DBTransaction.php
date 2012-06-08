@@ -39,7 +39,7 @@ class DBTransaction implements TransactionInterface
      */
     public function commit()
     {
-        if (($result = $this->db->commit()) instanceof \DB_error) {
+        if (($result = $this->db->autoCommit(true)) instanceof \DB_error) {
             throw new Exception($result->__toString());
         }
     }

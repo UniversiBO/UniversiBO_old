@@ -216,7 +216,7 @@ class DBFileItemStudentiRepository extends DBRepository
         }
         $res->fetchInto($ris);
 
-        return $ris[0]==0;
+        return $ris[0] > 0;
     }
 
     public function getAverageRating($fileId)
