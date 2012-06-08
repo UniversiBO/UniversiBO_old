@@ -139,7 +139,7 @@ class DBFileItemStudentiRepository extends DBRepository
 
     public function addToChannel(FileItemStudenti $file, $channelId)
     {
-        if ($this->channelRepository->exists($channelId)) {
+        if ($this->channelRepository->idExists($channelId)) {
             return false;
         }
 
