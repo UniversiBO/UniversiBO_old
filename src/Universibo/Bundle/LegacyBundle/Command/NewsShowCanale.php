@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
+use Universibo\Bundle\LegacyBundle\Entity\News\DBNewsItemRepository;
+
 use \DB;
 use \Error;
 use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
@@ -77,37 +79,14 @@ class NewsShowCanale extends CanaleCommand
     /**
      * Preleva da database le ultime $num notizie non scadute del canale $id_canale
      *
-     * @static
      * @param  int   $num       numero notize da prelevare
      * @param  int   $id_canale identificativo su database del canale
      * @return array elenco NewsItem , false se non ci sono notizie
      */
     public function getLatestNewsCanale($startNum, $qta, $id_canale)
     {
-         $db = FrontController::getDbConnection('main');
-
-        $query = 'SELECT A.id_news FROM news A, news_canale B
-                    WHERE A.id_news = B.id_news AND eliminata!='.$db->quote( NewsItem::ELIMINATA ).
-                    'AND ( data_scadenza IS NULL OR \''.time().'\' < data_scadenza ) AND B.id_canale = '.$db->quote($id_canale).'
-                    ORDER BY A.data_inserimento DESC';
-        $res = $db->limitQuery($query, $startNum , $qta);
-
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        $rows = $res->numRows();
-
-        if( $rows = 0) return false;
-
-        $id_news_list = array();
-
-        while ( $res->fetchInto($row) ) {
-            $id_news_list[]= $row[0];
-        }
-
-        $res->free();
-        //var_dump($id_news_list);
-        return $id_news_list;
+        $newsRepo = $this->getContainer()->get('universibo_legacy.repository.news.news_item');
+        return $newsRepo->findLatestByChannel($id_canale, $qta, $startNum); 
     }
 
     /**
@@ -119,15 +98,7 @@ class NewsShowCanale extends CanaleCommand
      */
     public function getNumNewsCanale($id_canale)
     {
-         $db = FrontController::getDbConnection('main');
-
-        $query = 'SELECT count(A.id_news) FROM news A, news_canale B
-                    WHERE A.id_news = B.id_news AND eliminata!='.$db->quote(NewsItem::ELIMINATA).
-                    'AND ( data_scadenza IS NULL OR \''.time().'\' < data_scadenza ) AND B.id_canale = '.$db->quote($id_canale).'';
-        $res = $db->getOne($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        return $res;
+        $newsRepo = $this->getContainer()->get('universibo_legacy.repository.news.news_item');
+        return $newsRepo->countByChannelId($id_canale);
     }
 }
