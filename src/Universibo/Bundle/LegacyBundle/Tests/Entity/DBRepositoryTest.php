@@ -35,6 +35,7 @@ abstract class DBRepositoryTest extends \PHPUnit_Framework_TestCase
         $db->query(file_get_contents(__DIR__.'/../../../../../../dbms/pgsql/testdb.sql'));
         
         $kernel->shutdown();
+        restore_error_handler();
     }
 
     protected function setUp()
@@ -64,5 +65,6 @@ abstract class DBRepositoryTest extends \PHPUnit_Framework_TestCase
         }
         
         static::$kernel->shutdown();
+        restore_error_handler();
     }
 }
