@@ -1,7 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command\InteractiveCommand;
 
-
 use Universibo\Bundle\LegacyBundle\App\InteractiveCommand\BaseInteractiveCommand;
 
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;

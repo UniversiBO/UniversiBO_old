@@ -296,7 +296,7 @@ class DBNewsItemRepository extends DBRepository
     public function update(NewsItem $news)
     {
         $db = $this->getDb();
-        
+
         $db->autoCommit(false);
         $return = true;
         $scadenza = ($news->getDataScadenza() == NULL) ? ' NULL ' : $db->quote($news->getDataScadenza());

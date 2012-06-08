@@ -5,7 +5,6 @@ use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use \DB;
 use \Error;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
-use Universibo\Bundle\LegacyBundle\Entity\User;
 
 /**
  * FileItem class
@@ -701,7 +700,7 @@ class FileItem
     public function setDownload($download, $update_db = false)
     {
         $this->download = $download;
-        
+
         if ($update_db == true) {
             return self::getRepository()->updateDownload($this);
         }
@@ -742,12 +741,12 @@ class FileItem
         if ($tipi_regex == NULL) {
             $tipi_regex = self::getRepository()->getTypeRegExps();
         }
-        
+
         foreach ($tipi_regex as $key => $pattern) {
             // TODO ugly hack to support both regular expression type
             // will be deleted eventually
             $function = $pattern[0] === '/' ? 'preg_match' : 'ereg';
-            
+
             if (@$function($value, $nome_file)) {
                 return $key;
             }
@@ -765,11 +764,11 @@ class FileItem
     public static function getTipi()
     {
         static $tipi = null;
-        
-        if(is_null($tipi)) {
+
+        if (is_null($tipi)) {
             return self::getRepository()->getTypes();
         }
-        
+
         return $tipi;
     }
 
@@ -782,11 +781,11 @@ class FileItem
     public function getCategorie()
     {
         static $categorie = null;
-        
-        if(is_null($categorie))  {
+
+        if (is_null($categorie)) {
             $categorie = self::getRepository()->getCategories();
         }
-        
+
         return $categorie;
     }
 
@@ -855,7 +854,7 @@ class FileItem
 
         return $this->elencoIdCanali;
     }
-    
+
     public function setIdCanali($idCanali)
     {
         $this->elencoIdCanali = $idCanali;
@@ -892,11 +891,11 @@ class FileItem
     public function insertFileItem()
     {
         ignore_user_abort(1);
-        
+
         $result = self::getRepository()->insert($this);
-        
+
         ignore_user_abort(0);
-        
+
         return $result;
     }
 
@@ -908,9 +907,9 @@ class FileItem
     public function updateFileItem()
     {
         ignore_user_abort(1);
-        
+
         $returl = self::getRepository()->update($this);
-       
+
         ignore_user_abort(0);
 
         return $return;

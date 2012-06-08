@@ -1,9 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Files;
-use \DB;
-use \Error;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
-use Universibo\Bundle\LegacyBundle\Entity\Commenti\CommentoItem;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
 /**
@@ -123,7 +120,7 @@ class FileItemStudenti extends FileItem
     /**
      * Questa funzione cancella tutti i commenti associati al file studente
      */
-    function deleteAllCommenti()
+    public function deleteAllCommenti()
     {
         ignore_user_abort(1);
         $return = self::getRepository()->deleteAllComments($this);
