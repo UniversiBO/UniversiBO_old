@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\App;
 
+use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
+
 use \DB;
 use \Error;
 use \Krono;
@@ -22,7 +24,7 @@ use Universibo\Bundle\LegacyBundle\Forum\ForumApi as ForumApiInterface;
  * @copyright CopyLeft UniversiBO 2001-2003
  */
 
-class ForumApi implements ForumApiInterface
+class ForumApi extends DBRepository implements ForumApiInterface
 {
 
     /**
@@ -50,6 +52,15 @@ class ForumApi implements ForumApiInterface
      * Ranks e livelli da assegnare agli utenti inizialmente
      */
     private $defaultRanks = array(User::STUDENTE => 0, User::COLLABORATORE => 9, User::TUTOR => 10, User::DOCENTE => 11, User::PERSONALE => 12, User::ADMIN =>  1);
+    
+    public function __construct(\DB_common $db = null, $convert = false)
+    {
+        if(is_null($db)) {
+            $db = FrontController::getDbConnection($this->database);
+        }
+        
+        parent::__construct($db, $convert);
+    }
 
     /**
      * esegue la codifica esadecimale di un ipv4 nel formato separato da punti
@@ -110,7 +121,7 @@ class ForumApi implements ForumApiInterface
         //var_dump(unserialize(stripslashes($_COOKIE['phpbb2_data'])));
         // array(2) { ["autologinid"]=> string(0) "" ["userid"]=> string(2) "81" }
 
-        $db = FrontController::getDbConnection($this->database);
+        $db = $this->getDb();
 
         $query = 'SELECT config_name, config_value FROM '.$this->table_prefix.'config WHERE config_name IN ('.
                 $db->quote('cookie_path').','.
@@ -173,7 +184,7 @@ class ForumApi implements ForumApiInterface
 function logout()
 {
 
-    $db = FrontController::getDbConnection($this->database);
+    $db = $this->getDb();
 
     $query = 'SELECT config_name, config_value FROM '.$this->table_prefix.'config WHERE config_name IN ('.
             $db->quote('cookie_path').','.
@@ -217,7 +228,7 @@ function logout()
 public function insertUser(User $user, $password = null)
 {
 
-    $db = FrontController::getDbConnection($this->database);
+    $db = $this->getDb();
     if ($user->isOspite()) return;
 
     $groups = $user->getGroups();
@@ -253,7 +264,7 @@ public function insertUser(User $user, $password = null)
 function updateUserStyle(User $user)
 {
 
-    $db = FrontController::getDbConnection($this->database);
+    $db = $this->getDb();
     if ($user->isOspite()) return;
 
     $user_style = $this->defaultUserStyle[$user->getDefaultStyle()];
@@ -268,7 +279,7 @@ function updateUserStyle(User $user)
 
 public function updatePassword(User $user, $password)
 {
-    $db = FrontController::getDbConnection($this->database);
+    $db = $this->getDb();
     if ($user->isOspite()) return;
 
     $query = 'UPDATE '.$this->table_prefix.'users SET user_password = '.$db->quote(md5($password)).' WHERE user_id = '.$db->quote($user->getIdUser());
@@ -286,7 +297,7 @@ public function updatePassword(User $user, $password)
 function updateUserEmail(User $user)
 {
 
-    $db = FrontController::getDbConnection($this->database);
+    $db = $this->getDb();
     if ($user->isOspite()) return;
 
     $query = 'UPDATE '.$this->table_prefix.'users SET user_email = '.$db->quote($user->getEmail()).' WHERE user_id = '.$db->quote($user->getIdUser());
@@ -304,7 +315,7 @@ function updateUserEmail(User $user)
  */
 public function addUserGroup($userId, $group)
 {
-    $db = FrontController::getDbConnection($this->database);
+    $db = $this->getDb();
 
     $query = 'SELECT * FROM '.$this->table_prefix.'user_group WHERE group_id = '.$db->quote($group).' AND user_id = '.$db->quote($userId);
     $res = $db->query($query);
@@ -328,7 +339,7 @@ public function addUserGroup($userId, $group)
 function removeUserGroup($userId, $group)
 {
 
-    $db = FrontController::getDbConnection($this->database);
+    $db = $this->getDb();
 
     $query = 'DELETE FROM '.$this->table_prefix.'user_group WHERE group_id = '.$db->quote($group).' AND user_id = '.$db->quote($userId);
 
@@ -360,7 +371,7 @@ function getForumUri($id_forum)
  */
 function addForumCategory($cat_title, $cat_order)
 {
-    $db = FrontController::getDbConnection($this->database);
+    $db = $this->getDb();
 
     $next_id = $db->nextId($this->table_prefix.'categories_id');
 
@@ -380,7 +391,7 @@ function addForumCategory($cat_title, $cat_order)
  */
 function addForum($title, $desc, $cat_id)
 {
-    $db = FrontController::getDbConnection($this->database);
+    $db = $this->getDb();
 
     $next_id = $this->getMaxForumId() + 1;
 
@@ -404,7 +415,7 @@ function addForum($title, $desc, $cat_id)
  */
 function addGroup($title, $desc, $id_owner)
 {
-    $db = FrontController::getDbConnection($this->database);
+    $db = $this->getDb();
 
     $next_id = $db->nextId($this->table_prefix.'groups_id');
 
@@ -423,7 +434,7 @@ function addGroup($title, $desc, $id_owner)
  */
 function addGroupForumPrivilegies($forum_id, $group_id)
 {
-    $db = FrontController::getDbConnection($this->database);
+    $db = $this->getDb();
 
     $next_id = $db->nextId($this->table_prefix.'groups_id');
 
@@ -444,7 +455,7 @@ function addGroupForumPrivilegies($forum_id, $group_id)
  */
 function getMaxForumId()
 {
-    $db = FrontController::getDbConnection($this->database);
+    $db = $this->getDb();
 
     $query = 'SELECT MAX(forum_id) as forum_id FROM '.$this->table_prefix.'forums';
 
@@ -467,7 +478,7 @@ function getMaxForumId()
  */
 function addForumInsegnamentoNewYear($forum_id, $anno_accademico)
 {
-    $db = FrontController::getDbConnection($this->database);
+    $db = $this->getDb();
 
     $query = 'SELECT forum_name FROM "'.$this->table_prefix.'forums" WHERE forum_id = '.$forum_id;
 
@@ -517,7 +528,7 @@ function getLastPostsForum(User $user, $id_forum, $num = 10)
     // controllo post più recenti dell'ultimo accesso
 
 
-    $db = FrontController::getDbConnection($this->database);
+    $db = $this->getDb();
 
     $ultimo_login = ($user->getUltimoLogin() == null || $user->getUltimoLogin() == '') ? 0 : $user->getUltimoLogin();
     // @NB se si usa limitQuery() la query non deve avere ';' alla fine
