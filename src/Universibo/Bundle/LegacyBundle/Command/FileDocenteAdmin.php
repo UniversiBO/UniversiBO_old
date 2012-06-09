@@ -210,9 +210,9 @@ class FileDocenteAdmin extends UniversiboCommand
             //esecuzione operazioni accettazione del form
             if ($f40_accept == true) {
 
-                $db = FrontController::getDbConnection('main');
+                $transaction = $this->getContainer()->get('universibo_legacy.transaction');
                 ignore_user_abort(1);
-                $db->autoCommit(false);
+                $transaction->begin();
 
                 //$num_canali = count($f40_canale);
                 //var_dump($f40_canale);
@@ -229,61 +229,9 @@ class FileDocenteAdmin extends UniversiboCommand
 
                     }
                     $newFile->updateFileItem();
-                    //la metto la notifica? direi di no
-                    //						$canale = $elenco_canali_retrieve[$key];
-                    //						$canale->setUltimaModifica(time(), true);
-                    //
-                    //
-                    //						//notifiche
-                    //						require_once('Notifica/NotificaItem'.PHP_EXTENSION);
-                    //						$notifica_titolo = 'Nuovo file inserito in '.$canale->getNome();
-                    //						$notifica_titolo = substr($notifica_titolo,0 , 199);
-                    //						$notifica_dataIns = $f40_data_inserimento;
-                    //						$notifica_urgente = false;
-                    //						$notifica_eliminata = false;
-                    //						$notifica_messaggio =
-                    //'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                    //Titolo File: '.$f40_titolo.'
-                    //
-                    //Descrizione: '.$f40_abstract.'
-                    //
-                    //Dimensione: '.$dimensione_file.' kB
-                    //
-                    //Autore: '.$user->getUsername().'
-                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                    //Informazioni per la cancellazione:
-                    //
-                    //Per rimuoverti, vai all\'indirizzo:
-                    //'.$frontcontroller->getAppSetting('rootUrl').'
-                    //e modifica il tuo profilo personale nella dopo aver eseguito il login
-                    //Per altri problemi contattare lo staff di UniversiBO
-                    //'.$frontcontroller->getAppSetting('infoEmail');
-                    //
-                    //						$ruoli_canale = $canale->getRuoli();
-                    //						foreach ($ruoli_canale as $ruolo_canale)
-                    //						{
-                    //									//define('NOTIFICA_NONE'   ,0);
-                    //									//define('NOTIFICA_URGENT' ,1);
-                    //									//define('NOTIFICA_ALL'    ,2);
-                    //							if ($ruolo_canale->isMyUniversiBO() && ($ruolo_canale->getTipoNotifica()==NOTIFICA_URGENT || $ruolo_canale->getTipoNotifica()==NOTIFICA_ALL) )
-                    //							{
-                    //								$notifica_user = $ruolo_canale->getUser();
-                    //								$notifica_destinatario = 'mail://'.$notifica_user->getEmail();
-                    //
-                    //								$notifica = new NotificaItem(0, $notifica_titolo, $notifica_messaggio, $notifica_dataIns, $notifica_urgente, $notifica_eliminata, $notifica_destinatario );
-                    //								$notifica->insertNotificaItem();
-                    //							}
-                    //						}
-                    //
-                    //						//ultima notifica all'archivio
-                    //						$notifica_destinatario = 'mail://'.$frontcontroller->getAppSetting('rootEmail');;
-                    //
-                    //						$notifica = new NotificaItem(0, $notifica_titolo, $notifica_messaggio, $notifica_dataIns, $notifica_urgente, $notifica_eliminata, $notifica_destinatario );
-                    //						$notifica->insertNotificaItem();
-
                 }
 
-                $db->autoCommit(true);
+                $transaction->commit();
                 ignore_user_abort(0);
 
                 return 'success';
