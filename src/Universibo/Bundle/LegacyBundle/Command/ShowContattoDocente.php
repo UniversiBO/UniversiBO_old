@@ -1,5 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+use Universibo\Bundle\LegacyBundle\Entity\DBUserRepository;
+
 use \DB;
 use \Error;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
@@ -34,7 +36,7 @@ class ShowContattoDocente extends UniversiboCommand
                 && !ereg('^([0-9]{1,10})$', $_GET['cod_doc']))
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
-                            'msg' => 'L\'utente cercato non � valido',
+                            'msg' => 'L\'utente cercato non e` valido',
                             'file' => __FILE__, 'line' => __LINE__,
                             'template_engine' => &$template));
 
@@ -50,7 +52,7 @@ class ShowContattoDocente extends UniversiboCommand
         if (!$docente)
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
-                            'msg' => 'L\'utente cercato non � un docente',
+                            'msg' => 'L\'utente cercato non e` un docente',
                             'file' => __FILE__, 'line' => __LINE__,
                             'template_engine' => &$template));
 
@@ -152,7 +154,7 @@ class ShowContattoDocente extends UniversiboCommand
                     || !array_key_exists($_POST['f35_stato'], $f35_stati))
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il form inviato non � valido',
+                                'msg' => 'Il form inviato non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'template_engine' => &$template));
 
@@ -161,7 +163,7 @@ class ShowContattoDocente extends UniversiboCommand
                             $f35_collab_list))
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il form inviato non � valido',
+                                'msg' => 'Il form inviato non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'template_engine' => &$template));
 
@@ -251,29 +253,8 @@ Link: ' . $frontcontroller->getAppSetting('rootUrl') . '/v2.php?do='
 
     public function _getCollaboratoriUniversibo()
     {
-        $db = FrontController::getDbConnection('main');
-
-        $query = 'SELECT username, password, email, ultimo_login, ad_username, groups, notifica, phone, default_style, id_utente  FROM utente WHERE groups IN (4,64)';
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__,
-                            'template_engine' => &$template));
-
-        $rows = $res->numRows();
-        if ($rows == 0) {
-            $return = false;
-
-            return $return;
-        }
-
-        $lista = array();
-        while ($row = $res->fetchRow())
-            $lista[] = new User($row[9], $row[5], $row[0], $row[1], $row[2],
-                    $row[6], $row[3], $row[4], $row[7], $row[8], NULL);
-
-        return $lista;
+        $userRepo = $this->getContainer()->get('universibo_legacy.repository.user');
+        return $userRepo->findCollaboratori();
     }
 
     public function _compareUsername($a, $b)

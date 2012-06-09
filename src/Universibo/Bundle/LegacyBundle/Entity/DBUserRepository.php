@@ -375,7 +375,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
     public function findCollaboratori()
     {
         $db = $this->getDb();
-        $query = 'SELECT id_utente, groups FROM utente WHERE groups > 2 AND groups!= 8 AND groups != 16 AND groups!= 32 AND sospeso = '
+        $query = 'SELECT id_utente, groups, username FROM utente WHERE groups > 2 AND groups!= 8 AND groups != 16 AND groups!= 32 AND sospeso = '
                 . $db->quote(User::NOT_ELIMINATO);
         $res = $db->query($query);
         if (\DB::isError($res))
@@ -389,7 +389,8 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $collaboratori = array();
 
         while ($row = $res->fetchRow()) {
-            $collaboratori[] = new User($row[0], $row[1]);
+            $collaboratori[] = $user = new User($row[0], $row[1]);
+            $user->setUsername($row[2]);
         }
 
         return $collaboratori;
