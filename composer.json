@@ -17,6 +17,7 @@
         "friendsofsymfony/rest-bundle": "0.6.0",
         "zendframework/zendframework": "2.0.x-dev",
         "sonata-project/admin-bundle": "2.0.x-dev",
+        "sonata-project/doctrine-orm-admin-bundle": "2.0.x-dev",
         "twig/twig": "1.8.2"
     },
     "authors": [
