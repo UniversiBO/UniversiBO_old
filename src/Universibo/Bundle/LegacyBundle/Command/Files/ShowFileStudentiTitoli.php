@@ -182,7 +182,7 @@ class ShowFileStudentiTitoli extends PluginCommand
     public function getFileCanale($id_canale)
     {
         $studentFileRepo = $this->getContainer()->get('universibo_legacy.repository.files.file_item_studenti');
-        return $studentFileRepo->findByChannel($id_canale);
+        return $studentFileRepo->findIdByChannel($id_canale);
     }
 
     /**
