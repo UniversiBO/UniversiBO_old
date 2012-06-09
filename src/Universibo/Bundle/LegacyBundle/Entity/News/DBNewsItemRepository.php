@@ -327,7 +327,7 @@ class DBNewsItemRepository extends DBRepository
     {
         return $this->findLatestByChannels(array($channelId), $limit, $offset);
     }
-    
+
     public function findLatestByChannels(array $channelIds, $limit, $offset = 0)
     {
         if (count($channelIds) === 0) {
@@ -365,20 +365,20 @@ class DBNewsItemRepository extends DBRepository
 
         return $id_news_list;
     }
-    
+
     public function countByChannelId($channelId)
     {
         $db = $this->getDb();
-        
+
         $query = 'SELECT count(A.id_news) FROM news A, news_canale B
         WHERE A.id_news = B.id_news AND eliminata='.$db->quote(NewsItem::NOT_ELIMINATA).
         'AND ( data_scadenza IS NULL OR \''.time().'\' < data_scadenza ) AND B.id_canale = '.$db->quote($channelId).'';
         $res = $db->getOne($query);
         if (DB::isError($res)) {
-        	$this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         }
-        
+
         return $res;
-        
+
     }
 }

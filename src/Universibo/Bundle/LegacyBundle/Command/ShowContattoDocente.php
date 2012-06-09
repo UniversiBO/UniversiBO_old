@@ -1,8 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use Universibo\Bundle\LegacyBundle\Entity\DBUserRepository;
 
-use \DB;
 use \Error;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\ContattoDocente;
@@ -254,6 +252,7 @@ Link: ' . $frontcontroller->getAppSetting('rootUrl') . '/v2.php?do='
     public function _getCollaboratoriUniversibo()
     {
         $userRepo = $this->getContainer()->get('universibo_legacy.repository.user');
+
         return $userRepo->findCollaboratori();
     }
 

@@ -1,11 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command\News;
 
-use \DB;
-use \Error;
 
 use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
 
 /**
@@ -151,6 +148,7 @@ class ShowNewsLatest extends PluginCommand
     {
         $newsRepo = $this->getContainer()->get('universibo_legacy.repository.news.news_item');
         $ids = $newsRepo->findLatestByChannel($id_canale, $num);
+
         return $newsRepo->findMany($ids);
     }
 

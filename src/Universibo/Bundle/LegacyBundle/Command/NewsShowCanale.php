@@ -1,9 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use Universibo\Bundle\LegacyBundle\Entity\News\DBNewsItemRepository;
 
-use \DB;
 use \Error;
 use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
@@ -86,7 +84,8 @@ class NewsShowCanale extends CanaleCommand
     public function getLatestNewsCanale($startNum, $qta, $id_canale)
     {
         $newsRepo = $this->getContainer()->get('universibo_legacy.repository.news.news_item');
-        return $newsRepo->findLatestByChannel($id_canale, $qta, $startNum); 
+
+        return $newsRepo->findLatestByChannel($id_canale, $qta, $startNum);
     }
 
     /**
@@ -99,6 +98,7 @@ class NewsShowCanale extends CanaleCommand
     public function getNumNewsCanale($id_canale)
     {
         $newsRepo = $this->getContainer()->get('universibo_legacy.repository.news.news_item');
+
         return $newsRepo->countByChannelId($id_canale);
     }
 }
