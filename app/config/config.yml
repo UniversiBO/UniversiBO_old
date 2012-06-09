@@ -102,3 +102,13 @@ universibo_sso:
     logout: 'prelogout.aspx'
   route:
     after_logout: 'homepage'
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+
+        sonata.block.service.text:
+        sonata.block.service.action:
+        sonata.block.service.rss:
