@@ -317,9 +317,6 @@ class ShowContribute extends UniversiboCommand
 
         //esecuzione operazioni accettazione del form
         if ($f3_accept == true) {
-            //salvataggio form
-            $db = $frontcontroller->getDbConnection('main');
-            
             $questionario = new Questionario();
             $questionario
                 ->setIdUtente($this->getSessionIdUtente())
