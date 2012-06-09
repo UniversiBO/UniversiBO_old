@@ -149,34 +149,9 @@ class ShowNewsLatest extends PluginCommand
      */
     public function getLatestNewsCanale($num, $id_canale)
     {
-
-         $db = FrontController::getDbConnection('main');
-
-        $query = 'SELECT A.id_news FROM news A, news_canale B
-                    WHERE A.id_news = B.id_news AND eliminata!='.$db->quote( NewsItem::ELIMINATA ).
-                    'AND ( data_scadenza IS NULL OR \''.time().'\' < data_scadenza ) AND B.id_canale = '.$db->quote($id_canale).'
-                    ORDER BY A.data_inserimento DESC';
-        $res = $db->limitQuery($query, 0 , $num);
-
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        $rows = $res->numRows();
-
-        if( $rows = 0) return false;
-
-        $id_news_list = array();
-
-        while ( $res->fetchInto($row) ) {
-            $id_news_list[]= $row[0];
-        }
-
-        $res->free();
-
-        $newsitem=NewsItem::selectNewsItems($id_news_list);
-
-        return $newsitem;
-
+        $newsRepo = $this->getContainer()->get('universibo_legacy.repository.news.news_item');
+        $ids = $newsRepo->findLatestByChannel($id_canale, $num);
+        return $newsRepo->findMany($ids);
     }
 
     /**
@@ -188,17 +163,8 @@ class ShowNewsLatest extends PluginCommand
      */
     public function getNumNewsCanale($id_canale)
     {
+        $newsRepo = $this->getContainer()->get('universibo_legacy.repository.news.news_item');
 
-         $db = FrontController::getDbConnection('main');
-
-        $query = 'SELECT count(A.id_news) FROM news A, news_canale B
-                    WHERE A.id_news = B.id_news AND eliminata!='.$db->quote(NewsItem::ELIMINATA).
-                    'AND ( data_scadenza IS NULL OR \''.time().'\' < data_scadenza ) AND B.id_canale = '.$db->quote($id_canale).'';
-        $res = $db->getOne($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        return $res;
-
+        return $newsRepo->countByChannelId($id_canale);
     }
 }
