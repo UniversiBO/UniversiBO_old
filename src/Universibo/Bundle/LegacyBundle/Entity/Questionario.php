@@ -20,7 +20,7 @@ class Questionario
      * @ORM\GeneratedValue(strategy="SEQUENCE")
      * @ORM\SequenceGenerator(sequenceName="questionario_id_questionario_seq", allocationSize="1", initialValue="1")
      */
-    private $idQuestionario;
+    private $id;
 
     /**
      * @var integer $data
@@ -134,5 +134,22 @@ class Questionario
      */
     private $cdl;
 
-
+    /**
+     * @param int $id
+     * @return \Universibo\Bundle\LegacyBundle\Entity\Questionario
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        
+        return $this;
+    }
+    
+    /**
+     * @return number
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 }
