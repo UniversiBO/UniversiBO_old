@@ -1,5 +1,9 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+use Doctrine\ORM\EntityManager;
+
+use Universibo\Bundle\LegacyBundle\Entity\Questionario;
+
 use \DB;
 use \Error;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
@@ -286,7 +290,7 @@ class ShowContribute extends UniversiboCommand
             if (strlen($_POST['f3_cdl']) > 50) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il corso di laurea indicato pu� essere massimo 50 caratteri',
+                                'msg' => 'Il corso di laurea indicato puo` essere massimo 50 caratteri',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false, 'template_engine' => &$template));
                 $f3_accept = false;
@@ -315,31 +319,31 @@ class ShowContribute extends UniversiboCommand
         if ($f3_accept == true) {
             //salvataggio form
             $db = $frontcontroller->getDbConnection('main');
-
-            $q3_idQuestionario = $db->nextID('questionario_id_questionari');
-            $q3_idUtente = $this->getSessionIdUtente();
-            $query = 'INSERT INTO questionario (id_questionario, id_utente, data, nome, cognome, mail, telefono, cdl, tempo_disp, tempo_internet, attiv_offline, attiv_moderatore, attiv_contenuti, attiv_test, attiv_grafica, attiv_prog, altro) VALUES ( '
-                    . $db->quote($q3_idQuestionario) . ', '
-                    . $db->quote($q3_idUtente) . ', ' . $db->quote(time())
-                    . ', ' . $db->quote($q3_nome) . ', '
-                    . $db->quote($q3_cognome) . ', ' . $db->quote($q3_mail)
-                    . ', ' . $db->quote($q3_tel) . ', ' . $db->quote($q3_cdl)
-                    . ',' . $db->quote($q3_tempo) . ', '
-                    . $db->quote($q3_internet) . ', ' . $db->quote($q3_offline)
-                    . ', ' . $db->quote($q3_moderatore) . ', '
-                    . $db->quote($q3_contenuti) . ', ' . $db->quote($q3_test)
-                    . ', ' . $db->quote($q3_grafica) . ', '
-                    . $db->quote($q3_prog) . ', ' . $db->quote($q3_altro)
-                    . ');';
-            $res = $db->query($query);
-            if (DB::isError($res)) {
-                Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getIdUser(),
-                                'msg' => DB::errorMessage($res),
-                                'file' => __FILE__, 'line' => __LINE__));
-
-                return false;
-            }
+            
+            $questionario = new Questionario();
+            $questionario
+                ->setIdUtente($this->getSessionIdUtente())
+                ->setData(time())
+                ->setNome($q3_nome)
+                ->setCognome($q3_cognome)
+                ->setMail($q3_mail)
+                ->setTelefono($q3_tel)
+                ->setCdl($q3_cdl)
+                ->setTempoDisponibile($q3_tempo)
+                ->setTempoInternet($q3_internet)
+                ->setAttivitaOffline($q3_offline)
+                ->setAttivitaModeratore($q3_moderatore)
+                ->setAttivitaContenuti($q3_contenuti)
+                ->setAttivitaTest($q3_test)
+                ->setAttivitaGrafica($q3_grafica)
+                ->setAttivitaProgettazione($q3_prog)
+                ->setAltro($q3_altro)
+                ->setIdUtente($this->getSessionIdUtente());
+            
+            
+            $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+            $em->persist($questionario);
+            $em->flush();
 
             //invio mail notifica
             $session_user = $this->getSessionUser();
@@ -358,7 +362,7 @@ class ShowContribute extends UniversiboCommand
                     . 'telefono: ' . $f3_tel . "\n" . 'corso di laurea: '
                     . $f3_cdl . "\n" . 'username: '
                     . $session_user->getUsername() . "\n" . 'id_utente: '
-                    . $q3_idUtente . "\n\n" . 'tempo_disponibile: ' . $f3_tempo
+                    . $questionario->getIdUtente() . "\n\n" . 'tempo_disponibile: ' . $f3_tempo
                     . "\n" . 'tempo_internet: ' . $f3_internet . "\n"
                     . 'attivita_offline: ' . $q3_offline . "\n"
                     . 'attivita_moderatore: ' . $q3_moderatore . "\n"

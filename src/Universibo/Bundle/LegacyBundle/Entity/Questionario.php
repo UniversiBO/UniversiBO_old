@@ -18,7 +18,7 @@ class Questionario
      * @ORM\Column(name="id_questionario", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="questionario_id_questionario_seq", allocationSize="1", initialValue="1")
+     * @ORM\SequenceGenerator(sequenceName="questionario_id_questionari_seq", allocationSize="1", initialValue="1")
      */
     private $id;
 
