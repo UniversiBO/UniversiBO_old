@@ -120,34 +120,13 @@ class ShowMyFileTitoli extends PluginCommand
     /**
      * Preleva da database i file del canale $id_canale
      *
-     * @static
      * @param  int   $id_canale identificativo su database del canale
      * @return array elenco FileItem , array vuoto se non ci sono file
      */
-    public function getFileCanale($id_canale)
+    public function getFileCanale($channelId)
     {
-
-         $db = FrontController::getDbConnection('main');
-
-        $query = 'SELECT A.id_file  FROM file A, file_canale B
-                    WHERE A.id_file = B.id_file AND eliminato!='.$db->quote( FILE_ELIMINATO ).
-                    ' AND B.id_canale = '.$db->quote($id_canale).' AND A.data_inserimento < '.$db->quote(time()).
-                    'ORDER BY A.id_categoria, A.data_inserimento DESC';
-        $res = $db->query($query);
-
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        $id_file_list = array();
-
-        while ( $res->fetchInto($row) ) {
-            $id_file_list[]= $row[0];
-        }
-
-        $res->free();
-
-        return $id_file_list;
-
+        $fileRepo = $this->getContainer()->get('universibo_legacy.repository.files.file_item');
+        return $fileRepo->findIdByChannel($channelId);
     }
 
     /**

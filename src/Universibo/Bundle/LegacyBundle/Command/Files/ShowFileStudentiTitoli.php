@@ -1,6 +1,10 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command\Files;
 
+use Universibo\Bundle\LegacyBundle\Entity\Files\DBFileItemStudentiRepository;
+
+use Universibo\Bundle\LegacyBundle\Entity\Files\DBFileItemRepository;
+
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
 
 use \DB;
@@ -177,28 +181,8 @@ class ShowFileStudentiTitoli extends PluginCommand
      */
     public function getFileCanale($id_canale)
     {
-
-         $db = FrontController::getDbConnection('main');
-
-        $query = 'SELECT A.id_file  FROM file A, file_studente_canale B
-                    WHERE A.id_file = B.id_file AND eliminato!='.$db->quote( FILE_ELIMINATO ).
-                    ' AND B.id_canale = '.$db->quote($id_canale).' AND A.data_inserimento < '.$db->quote(time()).
-                    'ORDER BY A.id_categoria, A.data_inserimento DESC';
-        $res = $db->query($query);
-
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        $id_file_list = array();
-
-        while ( $res->fetchInto($row) ) {
-            $id_file_list[]= $row[0];
-        }
-
-        $res->free();
-
-        return $id_file_list;
-
+        $studentFileRepo = $this->getContainer()->get('universibo_legacy.repository.files.file_item_studenti');
+        return $studentFileRepo->findByChannel($id_canale);
     }
 
     /**

@@ -838,7 +838,7 @@ class FileItem
      * @param  boolean $order     ordina i file in ordine decrescente di data
      * @return mixed   false se non trova file, array di fileItem altrimenti
      */
-    public static function selectFileItemsByIdUtente($id_utente, $order = false)
+    public static function selectFileItemsByIdUtente($userId, $order = false)
     {
         return self::getRepository()->findByUserId($userId, $order);
     }

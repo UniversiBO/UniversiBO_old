@@ -35,7 +35,7 @@ class ShowPersonalFiles extends UniversiboCommand
 
         $idUtente = $user->getIdUser();
 
-        $listaFile = &FileItem::selectFileItemsByIdUtente($idUtente, true);
+        $listaFile = FileItem::selectFileItemsByIdUtente($idUtente, true);
 
         $files = array();
         foreach ($listaFile as &$item)
