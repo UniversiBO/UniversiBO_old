@@ -1,11 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use Universibo\Bundle\LegacyBundle\Entity\Notifica\DBNotificaItemRepository;
-
 use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
-
-use Symfony\Bundle\TwigBundle\TwigEngine;
 
 use Universibo\Bundle\LegacyBundle\Entity\Questionario;
 
@@ -352,20 +348,20 @@ class ShowContribute extends UniversiboCommand
 
             $riceventi = $frontcontroller->getAppSetting('questionariReceiver');
             $array_riceventi = explode(';', $riceventi);
-            
+
             // db encoding is latin1 while Twig needs utf-8 strings
             // TODO remove after changing encoding
             $questionario->setNome(mb_convert_encoding($q3_nome, 'utf-8', 'iso-8859-1'));
             $questionario->setCognome(mb_convert_encoding($q3_nome, 'utf-8', 'iso-8859-1'));
             $questionario->setAltro(mb_convert_encoding($q3_altro, 'utf-8', 'iso-8859-1'));
             $questionario->setCdl(mb_convert_encoding($q3_cdl, 'utf-8', 'iso-8859-1'));
-            
+
             $url = $this->getContainer()->get('router')->generate('admin_bundle_legacy_questionario_show', array('id' => $questionario->getId()), true);
-            
+
             $templating = $this->getContainer()->get('templating');
             $body = $templating->render('UniversiboLegacyBundle:Contribute:contributemail.txt.twig', array('questionario' => $questionario, 'user' => $session_user, 'url' => $url));
             $body = mb_convert_encoding($body, 'iso-8859-1', 'utf-8');
-            
+
             $notRepo = $this->getContainer()->get('universibo_legacy.repository.notifica.notifica_item');
 
             foreach ($array_riceventi as $key => $value) {
@@ -375,7 +371,7 @@ class ShowContribute extends UniversiboCommand
                                     'mail://'.$value);
                  $notRepo->insert($notifica);
             }
-            
+
             $template->assignUnicode('question_thanks',"Grazie per aver compilato il questionario, la tua richiesta è stata inoltrata ai ragazzi che si occupano del contatto dei nuovi collaboratori.\n Verrai ricontattatato da loro non appena possibile");
 
             return 'questionario_success';

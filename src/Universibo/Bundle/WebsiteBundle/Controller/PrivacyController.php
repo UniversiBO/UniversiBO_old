@@ -2,8 +2,6 @@
 
 namespace Universibo\Bundle\WebsiteBundle\Controller;
 
-use Universibo\Bundle\LegacyBundle\Entity\DBInformativaRepository;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -23,7 +21,7 @@ class PrivacyController extends Controller
     {
         return array();
     }
-    
+
     /**
      * @Template()
      */
@@ -31,7 +29,7 @@ class PrivacyController extends Controller
     {
         $policyRepo = $this->get('universibo_legacy.repository.informativa');
         $current = $policyRepo->findByTime(time());
-        
+
         return array('policy' => $current);
     }
 

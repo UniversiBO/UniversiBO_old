@@ -5,11 +5,6 @@ use Doctrine\DBAL\Connection;
 
 use Universibo\Bundle\LegacyBundle\Tests\ContainerAwareTest;
 
-use Universibo\Bundle\LegacyBundle\Tests\TestUtils;
-
-use \Error;
-use Universibo\Bundle\LegacyBundle\App\ErrorHandlers;
-
 abstract class DoctrineRepositoryTest extends ContainerAwareTest
 {
     /**

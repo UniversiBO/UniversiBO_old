@@ -3,8 +3,6 @@ namespace Universibo\Bundle\LegacyBundle\Tests\Entity;
 
 use Universibo\Bundle\LegacyBundle\Tests\ContainerAwareTest;
 
-use Universibo\Bundle\LegacyBundle\Tests\TestUtils;
-
 use \Error;
 use Universibo\Bundle\LegacyBundle\App\ErrorHandlers;
 
@@ -19,7 +17,6 @@ abstract class DBRepositoryTest extends ContainerAwareTest
      * @var \AppKernel
      */
     protected static $kernel;
-
 
     public static function setUpBeforeClass()
     {

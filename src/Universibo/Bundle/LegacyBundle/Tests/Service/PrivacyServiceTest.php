@@ -14,14 +14,14 @@ class PrivacyServiceTest extends DoctrineRepositoryTest
      * @var PrivacyService
      */
     private $service;
-     
+
     /**
-     * 
+     *
      */
     protected function setUp()
     {
         parent::setUp();
-        
+
         $this->service = static::$kernel->getContainer()->get('universibo_legacy.service.privacy');
     }
 
