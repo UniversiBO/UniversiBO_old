@@ -18,17 +18,11 @@ class QuestionarioAdmin extends Admin
     {
         $list
             ->addIdentifier('id', 'int', array('route' => array('name' => 'show')))
-            ->add('data', 'date')
+            ->add('data', 'datetime')
             ->add('nome')
             ->add('cognome')
-            ->add('attivitaOffline', 'string', array('label' => 'Offline'))
-            ->add('attivitaModeratore', 'string', array('label' => 'Moderatore'))
-            ->add('attivitaContenuti', 'string', array('label' => 'Contenuti'))
-            ->add('attivitaTest', 'string', array('label' => 'Test'))
-            ->add('attivitaGrafica', 'string', array('label' => 'Grafica'))
-            ->add('attivitaProgettazione', 'string', array('label' => 'Progettazione'))
-            ->add('tempoDisponibile')
-            ->add('tempoInternet')
+            ->add('mail', 'string', array('label' => 'e-mail'))
+            ->add('telefono')
         ;
     }
 
