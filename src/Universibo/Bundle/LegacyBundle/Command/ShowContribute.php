@@ -1,6 +1,10 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
+use Universibo\Bundle\LegacyBundle\Entity\Notifica\DBNotificaItemRepository;
+
+use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
+
 use Symfony\Bundle\TwigBundle\TwigEngine;
 
 use Universibo\Bundle\LegacyBundle\Entity\Questionario;
@@ -348,26 +352,21 @@ class ShowContribute extends UniversiboCommand
 
             $riceventi = $frontcontroller->getAppSetting('questionariReceiver');
             $array_riceventi = explode(';', $riceventi);
-            foreach ($array_riceventi as $key => $value) {
-                $message->addTo($value);
-            }
-
+            
             $templating = $this->getContainer()->get('templating');
+            $body = $templating->render('UniversiboLegacyBundle:Contribute:contributemail.txt.twig', array('questionario' => $questionario, 'user' => $session_user));
             
-            $message->setSubject('[UniversiBO] Nuovo questionario');
-            $message->setBody($templating->render('UniversiboLegacyBundle:Contribute:contributemail.txt.twig', array('questionario' => $questionario, 'user' => $session_user)));
-            
+            $notRepo = $this->getContainer()->get('universibo_legacy.repository.notifica.notifica_item');
 
-            //			var_dump($mail);die();
-            if (!$frontcontroller->getMailer()->send($message)) {
-                Error::throwError(_ERROR_DEFAULT,
-                        array(
-                                'msg' => 'Il questionario e` stato salvato ma e` stato impossibile inviare la notifica ai coordinatori',
-                                'file' => __FILE__, 'line' => __LINE__));
+            foreach ($array_riceventi as $key => $value) {
+                 $notifica = new NotificaItem(0, '[UniversiBO] Nuovo questionario',
+                                    $body, time(),
+                                    true, false,
+                                    'mail://'.$value);
+                 $notRepo->insert($notifica);
             }
-            $template
-                    ->assignUnicode('question_thanks',
-                            "Grazie per aver compilato il questionario, la tua richiesta è stata inoltrata ai ragazzi che si occupano del contatto dei nuovi collaboratori.\n Verrai ricontattatato da loro non appena possibile");
+            
+            $template->assignUnicode('question_thanks',"Grazie per aver compilato il questionario, la tua richiesta è stata inoltrata ai ragazzi che si occupano del contatto dei nuovi collaboratori.\n Verrai ricontattatato da loro non appena possibile");
 
             return 'questionario_success';
         }
