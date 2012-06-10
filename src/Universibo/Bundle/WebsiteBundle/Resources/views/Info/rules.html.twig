@@ -7,9 +7,7 @@
 <p>{{ rules | nl2br}}</p>
 </div>
 <h3>Informativa sulla privacy</h3>
-<div class="rulebox">
-<p>{{ privacy | nl2br }}</p>
-</div>
+{% render 'UniversiboWebsiteBundle:Privacy:box' %}
 <h3>Forum</h3>
 <div class="rulebox">
 <p>Se avete domande da fare o, ancora meglio, se avete qualcosa da comunicare non esitate ad usufruire del forum facendo attenzione a rispettare le seguenti regole e consigli:</p>

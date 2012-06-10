@@ -31,7 +31,7 @@ class DBInformativaRepository extends DBRepository
         if( $rows = 0) return array();
 
         $list = array();
-        $res->fetchInto($row);
+        $row = $this->fetchRow($res);
         $res->free();
 
         return $this->rowToInformativa($row);
