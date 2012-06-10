@@ -355,11 +355,13 @@ class ShowContribute extends UniversiboCommand
             
             // db encoding is latin1 while Twig needs utf-8 strings
             // TODO remove after changing encoding
-            $questionario->setAltro(mb_convert_encoding($questionario->getAltro(), 'utf-8', 'iso-8859-1'));
-            $questionario->setCdl(mb_convert_encoding($questionario->getCdl(), 'utf-8', 'iso-8859-1'));
+            $questionario->setAltro(mb_convert_encoding($q3_altro, 'utf-8', 'iso-8859-1'));
+            $questionario->setCdl(mb_convert_encoding($q3_cdl, 'utf-8', 'iso-8859-1'));
+            
+            $url = $this->getContainer()->get('router')->generate('admin_bundle_legacy_questionario_show', array('id' => $questionario->getId()));
             
             $templating = $this->getContainer()->get('templating');
-            $body = $templating->render('UniversiboLegacyBundle:Contribute:contributemail.txt.twig', array('questionario' => $questionario, 'user' => $session_user));
+            $body = $templating->render('UniversiboLegacyBundle:Contribute:contributemail.txt.twig', array('questionario' => $questionario, 'user' => $session_user, 'url' => $url));
             $body = mb_convert_encoding($body, 'iso-8859-1', 'utf-8');
             
             $notRepo = $this->getContainer()->get('universibo_legacy.repository.notifica.notifica_item');
