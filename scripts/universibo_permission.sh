@@ -22,3 +22,5 @@ chmod g+w $BASEDIR/shared/universibo/file-universibo
 chmod g+w $BASEDIR/current/universibo/templates_compile/black
 chmod g+w $BASEDIR/current/universibo/templates_compile/simple
 chmod g+w $BASEDIR/current/universibo/templates_compile/unibo
+
+chmod +x $BASEDIR/current/app/console
