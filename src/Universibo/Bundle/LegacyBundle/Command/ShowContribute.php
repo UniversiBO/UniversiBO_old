@@ -360,7 +360,7 @@ class ShowContribute extends UniversiboCommand
             $questionario->setAltro(mb_convert_encoding($q3_altro, 'utf-8', 'iso-8859-1'));
             $questionario->setCdl(mb_convert_encoding($q3_cdl, 'utf-8', 'iso-8859-1'));
             
-            $url = $this->getContainer()->get('router')->generate('admin_bundle_legacy_questionario_show', array('id' => $questionario->getId()));
+            $url = $this->getContainer()->get('router')->generate('admin_bundle_legacy_questionario_show', array('id' => $questionario->getId()), true);
             
             $templating = $this->getContainer()->get('templating');
             $body = $templating->render('UniversiboLegacyBundle:Contribute:contributemail.txt.twig', array('questionario' => $questionario, 'user' => $session_user, 'url' => $url));
