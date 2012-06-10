@@ -355,11 +355,12 @@ class ShowContribute extends UniversiboCommand
             
             $templating = $this->getContainer()->get('templating');
             $body = $templating->render('UniversiboLegacyBundle:Contribute:contributemail.txt.twig', array('questionario' => $questionario, 'user' => $session_user));
+            $body = mb_convert_encoding($body, 'iso-8859-1', 'utf-8');
             
             $notRepo = $this->getContainer()->get('universibo_legacy.repository.notifica.notifica_item');
 
             foreach ($array_riceventi as $key => $value) {
-                 $notifica = new NotificaItem(0, '[UniversiBO] Nuovo questionario',
+                 $notifica = new NotificaItem(0, 'Nuovo questionario',
                                     $body, time(),
                                     true, false,
                                     'mail://'.$value);

@@ -13,10 +13,16 @@ Utente: Anonimo
 Tempo disponibile: {{ questionario.tempoDisponibile }}
 Tempo internet: {{ questionario.tempoDisponibile }}
 Attività offline: {% if(questionario.attivitaOffline == 'S') %}sì{% else %}no{% endif %}
+
 Moderazione: {% if(questionario.attivitaModeratore == 'S') %}sì{% else %}no{% endif %}
+
 Contenuti: {% if(questionario.attivitaContenuti == 'S') %}sì{% else %}no{% endif %}
+
 Testing: {% if(questionario.attivitaTest == 'S') %}sì{% else %}no{% endif %}
+
 Grafica: {% if(questionario.attivitaGrafica == 'S') %}sì{% else %}no{% endif %}
+
 Progettazione: {% if(questionario.attivitaProgettazione == 'S') %}sì{% else %}no{% endif %}
+
 Altre informazioni:
 {{ questionario.altro }}
