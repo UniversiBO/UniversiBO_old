@@ -18,11 +18,18 @@ class QuestionarioAdmin extends Admin
     {
         $list
             ->addIdentifier('id', 'int', array('route' => array('name' => 'show')))
-            ->add('data', 'datetime')
+            ->add('data', 'date')
             ->add('nome')
             ->add('cognome')
-            ->add('attivitaOffline')
-            ->add('attivitaProgettazione');
+            ->add('attivitaOffline', 'string', array('label' => 'Offline'))
+            ->add('attivitaModeratore', 'string', array('label' => 'Moderatore'))
+            ->add('attivitaContenuti', 'string', array('label' => 'Contenuti'))
+            ->add('attivitaTest', 'string', array('label' => 'Test'))
+            ->add('attivitaGrafica', 'string', array('label' => 'Grafica'))
+            ->add('attivitaProgettazione', 'string', array('label' => 'Progettazione'))
+            ->add('tempoDisponibile')
+            ->add('tempoInternet')
+        ;
     }
 
     /**
@@ -37,9 +44,25 @@ class QuestionarioAdmin extends Admin
       */
     protected function configureShowFields(ShowMapper $filter)
     {
-        $filter->add('id');
-        $filter->add('nome');
-        $filter->add('cognome');
+        $filter
+            ->add('id')
+            ->add('data', 'datetime')
+            ->add('nome')
+            ->add('cognome')
+            ->add('mail', 'string', array('label' => 'e-mail'))
+            ->add('telefono')
+            ->add('attivitaOffline', 'string', array('label' => 'Offline'))
+            ->add('attivitaModeratore', 'string', array('label' => 'Moderatore'))
+            ->add('attivitaContenuti', 'string', array('label' => 'Contenuti'))
+            ->add('attivitaTest', 'string', array('label' => 'Test'))
+            ->add('attivitaGrafica', 'string', array('label' => 'Grafica'))
+            ->add('attivitaProgettazione', 'string', array('label' => 'Progettazione'))
+            ->add('tempoDisponibile')
+            ->add('tempoInternet')
+            ->add('altro')
+            ->add('idUtente')
+            ->add('cdl', 'string', array('label' => 'Corso di laurea'))
+        ;
 
     }
 
