@@ -185,7 +185,7 @@ class ShowContribute extends UniversiboCommand
                     || !preg_match('/^([0-9]{1,50})$/', $_POST['f3_tel'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il numero di cellulare indicato pu� essere massimo 20 cifre',
+                                'msg' => 'Il numero di cellulare indicato puo` essere massimo 20 cifre',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false, 'template_engine' => &$template));
                 $f3_accept = false;
@@ -196,7 +196,7 @@ class ShowContribute extends UniversiboCommand
             if (strlen($_POST['f3_mail']) > 50) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'L\' indirizzo e-mail indicato pu� essere massimo 50 caratteri',
+                                'msg' => 'L\' indirizzo e-mail indicato puo` essere massimo 50 caratteri',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false, 'template_engine' => &$template));
                 $f3_accept = false;
@@ -352,6 +352,11 @@ class ShowContribute extends UniversiboCommand
 
             $riceventi = $frontcontroller->getAppSetting('questionariReceiver');
             $array_riceventi = explode(';', $riceventi);
+            
+            // db encoding is latin1 while Twig needs utf-8 strings
+            // TODO remove after changing encoding
+            $questionario->setAltro(mb_convert_encoding($questionario->getAltro(), 'utf-8', 'iso-8859-1'));
+            $questionario->setCdl(mb_convert_encoding($questionario->getCdl(), 'utf-8', 'iso-8859-1'));
             
             $templating = $this->getContainer()->get('templating');
             $body = $templating->render('UniversiboLegacyBundle:Contribute:contributemail.txt.twig', array('questionario' => $questionario, 'user' => $session_user));
