@@ -62,6 +62,12 @@
 			 </call>
 		</service>
 
+		<service id="universibo_legacy.service.privacy"
+			class="Universibo\Bundle\LegacyBundle\Service\PrivacyService">
+			<argument type="service" id="doctrine.dbal.default_connection" />
+			<argument type="service" id="universibo_legacy.repository.informativa" />
+		</service>
+
 		<service id="universibo_legacy.repository.canale"
 			class="Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository">
 			<argument type="service" id="universibo_legacy.db.connection.main" />

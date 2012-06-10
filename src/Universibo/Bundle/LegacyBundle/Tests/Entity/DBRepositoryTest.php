@@ -1,10 +1,14 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Tests\Entity;
 
+use Universibo\Bundle\LegacyBundle\Tests\ContainerAwareTest;
+
+use Universibo\Bundle\LegacyBundle\Tests\TestUtils;
+
 use \Error;
 use Universibo\Bundle\LegacyBundle\App\ErrorHandlers;
 
-abstract class DBRepositoryTest extends \PHPUnit_Framework_TestCase
+abstract class DBRepositoryTest extends ContainerAwareTest
 {
     /**
      * @var \DB_pgsql
@@ -16,12 +20,6 @@ abstract class DBRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     protected static $kernel;
 
-    protected static function createKernel()
-    {
-        require_once __DIR__ .'/../../../../../../app/AppKernel.php';
-
-        return new \AppKernel('test', true);
-    }
 
     public static function setUpBeforeClass()
     {
