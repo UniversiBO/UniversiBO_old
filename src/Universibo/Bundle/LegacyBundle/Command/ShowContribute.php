@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
+use Symfony\Bundle\TwigBundle\TwigEngine;
+
 use Universibo\Bundle\LegacyBundle\Entity\Questionario;
 
 use \Error;
@@ -350,21 +352,11 @@ class ShowContribute extends UniversiboCommand
                 $message->addTo($value);
             }
 
+            $templating = $this->getContainer()->get('templating');
+            
             $message->setSubject('[UniversiBO] Nuovo questionario');
-            $message->setBody('nome: ' . $f3_nome . "\n" . 'cognome: '
-                    . $f3_cognome . "\n" . 'mail: ' . $f3_mail . "\n"
-                    . 'telefono: ' . $f3_tel . "\n" . 'corso di laurea: '
-                    . $f3_cdl . "\n" . 'username: '
-                    . $session_user->getUsername() . "\n" . 'id_utente: '
-                    . $questionario->getIdUtente() . "\n\n" . 'tempo_disponibile: ' . $f3_tempo
-                    . "\n" . 'tempo_internet: ' . $f3_internet . "\n"
-                    . 'attivita_offline: ' . $q3_offline . "\n"
-                    . 'attivita_moderatore: ' . $q3_moderatore . "\n"
-                    . 'attivita_contenuti: ' . $q3_contenuti . "\n"
-                    . 'attivita_test: ' . $q3_test . "\n"
-                    . 'attivita_grafica: ' . $q3_grafica . "\n"
-                    . 'attivita_prog: ' . $q3_prog . "\n"
-                    . 'altre_informazioni: ' . $f3_altro . "\n\n");
+            $message->setBody($templating->render('UniversiboLegacyBundle:Contribute:contributemail.txt.twig', array('questionario' => $questionario, 'user' => $session_user)));
+            
 
             //			var_dump($mail);die();
             if (!$frontcontroller->getMailer()->send($message)) {
