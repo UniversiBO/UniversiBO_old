@@ -1,10 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use Doctrine\ORM\EntityManager;
 
 use Universibo\Bundle\LegacyBundle\Entity\Questionario;
 
-use \DB;
 use \Error;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
@@ -336,8 +334,7 @@ class ShowContribute extends UniversiboCommand
                 ->setAttivitaProgettazione($q3_prog)
                 ->setAltro($q3_altro)
                 ->setIdUtente($this->getSessionIdUtente());
-            
-            
+
             $em = $this->getContainer()->get('doctrine.orm.entity_manager');
             $em->persist($questionario);
             $em->flush();

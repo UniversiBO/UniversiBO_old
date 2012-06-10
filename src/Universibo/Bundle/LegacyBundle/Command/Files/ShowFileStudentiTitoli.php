@@ -1,16 +1,9 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command\Files;
 
-use Universibo\Bundle\LegacyBundle\Entity\Files\DBFileItemStudentiRepository;
-
-use Universibo\Bundle\LegacyBundle\Entity\Files\DBFileItemRepository;
-
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
 
-use \DB;
-use \Error;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
 
 /**
@@ -182,6 +175,7 @@ class ShowFileStudentiTitoli extends PluginCommand
     public function getFileCanale($id_canale)
     {
         $studentFileRepo = $this->getContainer()->get('universibo_legacy.repository.files.file_item_studenti');
+
         return $studentFileRepo->findIdByChannel($id_canale);
     }
 

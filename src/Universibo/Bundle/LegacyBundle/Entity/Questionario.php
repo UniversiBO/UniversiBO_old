@@ -135,16 +135,16 @@ class Questionario
     private $cdl;
 
     /**
-     * @param int $id
+     * @param  int                                                 $id
      * @return \Universibo\Bundle\LegacyBundle\Entity\Questionario
      */
     public function setId($id)
     {
         $this->id = $id;
-        
+
         return $this;
     }
-    
+
     /**
      * @return number
      */
@@ -152,18 +152,18 @@ class Questionario
     {
         return $this->id;
     }
-    
+
     /**
-     * @param int $data
+     * @param  int                                                 $data
      * @return \Universibo\Bundle\LegacyBundle\Entity\Questionario
      */
     public function setData($data)
     {
         $this->data = $data;
-        
+
         return $this;
     }
-    
+
     /**
      * @return number
      */
@@ -171,18 +171,18 @@ class Questionario
     {
         return $this->data;
     }
-    
+
     /**
-     * @param string $nome
+     * @param  string                                              $nome
      * @return \Universibo\Bundle\LegacyBundle\Entity\Questionario
      */
     public function setNome($nome)
     {
         $this->nome = $nome;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string
      */
@@ -190,37 +190,37 @@ class Questionario
     {
         return $this->nome;
     }
-    
+
     /**
-     * @param string $cognome
+     * @param  string                                              $cognome
      * @return \Universibo\Bundle\LegacyBundle\Entity\Questionario
      */
     public function setCognome($cognome)
     {
-    	$this->cognome = $cognome;
-    
-    	return $this;
+        $this->cognome = $cognome;
+
+        return $this;
     }
-    
+
     /**
      * @return string
      */
     public function getCognome()
     {
-    	return $this->cognome;
+        return $this->cognome;
     }
-    
+
     /**
-     * @param string $mail
+     * @param  string                                              $mail
      * @return \Universibo\Bundle\LegacyBundle\Entity\Questionario
      */
     public function setMail($mail)
     {
         $this->mail = $mail;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string
      */
@@ -228,18 +228,18 @@ class Questionario
     {
         return $this->mail;
     }
-    
+
     /**
-     * @param string $telefono
+     * @param  string                                              $telefono
      * @return \Universibo\Bundle\LegacyBundle\Entity\Questionario
      */
     public function setTelefono($telefono)
     {
         $this->telefono = $telefono;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string
      */
@@ -247,15 +247,15 @@ class Questionario
     {
         return $this->telefono;
     }
-    
+
     /**
-     * @param int $tempoDisponibile
+     * @param  int                                                 $tempoDisponibile
      * @return \Universibo\Bundle\LegacyBundle\Entity\Questionario
      */
     public function setTempoDisponibile($tempoDisponibile)
     {
         $this->tempoDisponibile = $tempoDisponibile;
-        
+
         return $this;
     }
 
@@ -266,37 +266,37 @@ class Questionario
     {
         return $this->tempoDisponibile;
     }
-    
+
     /**
-     * @param int $tempoInternet
+     * @param  int                                                 $tempoInternet
      * @return \Universibo\Bundle\LegacyBundle\Entity\Questionario
      */
     public function setTempoInternet($tempoInternet)
     {
-    	$this->tempoInternet = $tempoInternet;
-    
-    	return $this;
+        $this->tempoInternet = $tempoInternet;
+
+        return $this;
     }
-    
+
     /**
      * @return int
      */
     public function getTempoInternet()
     {
-    	return $this->tempoInternet;
+        return $this->tempoInternet;
     }
-    
+
     /**
-     * @param string $attivitaOffline
+     * @param  string                                              $attivitaOffline
      * @return \Universibo\Bundle\LegacyBundle\Entity\Questionario
      */
     public function setAttivitaOffline($attivitaOffline)
     {
         $this->attivitaOffline = $attivitaOffline;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string
      */
@@ -304,113 +304,113 @@ class Questionario
     {
         return $this->attivitaOffline;
     }
-    
+
     /**
-     * @param string $attivitaModeratore
+     * @param  string                                              $attivitaModeratore
      * @return \Universibo\Bundle\LegacyBundle\Entity\Questionario
      */
     public function setAttivitaModeratore($attivitaModeratore)
     {
-    	$this->attivitaModeratore = $attivitaModeratore;
-    
-    	return $this;
+        $this->attivitaModeratore = $attivitaModeratore;
+
+        return $this;
     }
-    
+
     /**
      * @return string
      */
     public function getAttivitaModeratore()
     {
-    	return $this->attivitaModeratore;
+        return $this->attivitaModeratore;
     }
-    
+
     /**
-     * @param string $attivitaContenuti
+     * @param  string                                              $attivitaContenuti
      * @return \Universibo\Bundle\LegacyBundle\Entity\Questionario
      */
     public function setAttivitaContenuti($attivitaContenuti)
     {
-    	$this->attivitaContenuti = $attivitaContenuti;
-    
-    	return $this;
+        $this->attivitaContenuti = $attivitaContenuti;
+
+        return $this;
     }
-    
+
     /**
      * @return string
      */
     public function getAttivitaContenuti()
     {
-    	return $this->attivitaContenuti;
+        return $this->attivitaContenuti;
     }
-    
+
     /**
-     * @param string $attivitaTest
+     * @param  string                                              $attivitaTest
      * @return \Universibo\Bundle\LegacyBundle\Entity\Questionario
      */
     public function setAttivitaTest($attivitaTest)
     {
-    	$this->attivitaTest = $attivitaTest;
-    
-    	return $this;
+        $this->attivitaTest = $attivitaTest;
+
+        return $this;
     }
-    
+
     /**
      * @return string
      */
     public function getAttivitaTest()
     {
-    	return $this->attivitaTest;
+        return $this->attivitaTest;
     }
-    
+
     /**
-     * @param string $attivitaGrafica
+     * @param  string                                              $attivitaGrafica
      * @return \Universibo\Bundle\LegacyBundle\Entity\Questionario
      */
     public function setAttivitaGrafica($attivitaGrafica)
     {
-    	$this->attivitaGrafica = $attivitaGrafica;
-    
-    	return $this;
+        $this->attivitaGrafica = $attivitaGrafica;
+
+        return $this;
     }
-    
+
     /**
      * @return string
      */
     public function getAttivitaGrafica()
     {
-    	return $this->attivitaGrafica;
+        return $this->attivitaGrafica;
     }
-    
+
     /**
-     * @param string $attivitaProgettazione
+     * @param  string                                              $attivitaProgettazione
      * @return \Universibo\Bundle\LegacyBundle\Entity\Questionario
      */
     public function setAttivitaProgettazione($attivitaProgettazione)
     {
-    	$this->attivitaProgettazione = $attivitaProgettazione;
-    
-    	return $this;
+        $this->attivitaProgettazione = $attivitaProgettazione;
+
+        return $this;
     }
-    
+
     /**
      * @return string
      */
     public function getAttivitaProgettazione()
     {
-    	return $this->attivitaProgettazione;
+        return $this->attivitaProgettazione;
     }
-    
+
     /**
-     * @param string $altro
+     * @param  string                                              $altro
      * @return \Universibo\Bundle\LegacyBundle\Entity\Questionario
      */
     public function setAltro($altro)
     {
         $this->altro = $altro;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string
      */
@@ -418,18 +418,18 @@ class Questionario
     {
         return $this->altro;
     }
-    
+
     /**
-     * @param int $idUtente
+     * @param  int                                                 $idUtente
      * @return \Universibo\Bundle\LegacyBundle\Entity\Questionario
      */
     public function setIdUtente($idUtente)
     {
         $this->idUtente = $idUtente;
-        
+
         return $this;
     }
-    
+
     /**
      * @return number
      */
@@ -437,18 +437,18 @@ class Questionario
     {
         return $this->idUtente;
     }
-    
+
     /**
-     * @param string $cdl
+     * @param  string                                              $cdl
      * @return \Universibo\Bundle\LegacyBundle\Entity\Questionario
      */
     public function setCdl($cdl)
     {
         $this->cdl = $cdl;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string
      */

@@ -8,6 +8,15 @@
 	</parameters>
 
 	<services>
+	    <service id="universibo_legacy.admin.questionario" class="Universibo\Bundle\LegacyBundle\Admin\QuestionarioAdmin">
+	        <tag name="sonata.admin" manager_type="orm" group="Messaggi" label="Questionari"/>
+	        <argument/>
+	        <argument>Universibo\Bundle\LegacyBundle\Entity\Questionario</argument>
+	        <argument>SonataAdminBundle:CRUD</argument>
+	        <call method="setTranslationDomain">
+              <argument>UniversiBOLegacyBundle</argument>
+          </call>
+	    </service>
 		<service id="universibo_legacy.db.factory"
 			class="Universibo\Bundle\LegacyBundle\Framework\DBConnectionFactory">
 			<call method="registerDSN">

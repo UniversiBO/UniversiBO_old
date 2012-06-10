@@ -3,9 +3,6 @@ namespace Universibo\Bundle\LegacyBundle\Command\Files;
 
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
-use \DB;
-use \Error;
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
 
 /**
@@ -126,6 +123,7 @@ class ShowMyFileTitoli extends PluginCommand
     public function getFileCanale($channelId)
     {
         $fileRepo = $this->getContainer()->get('universibo_legacy.repository.files.file_item');
+
         return $fileRepo->findIdByChannel($channelId);
     }
 

@@ -3,8 +3,6 @@ namespace Universibo\Bundle\LegacyBundle\Tests\Entity;
 
 use Universibo\Bundle\LegacyBundle\Entity\Questionario;
 
-use Universibo\Bundle\LegacyBundle\Entity\User;
-
 class QuestionarioTest extends UniversiBOEntityTest
 {
     /**
@@ -16,7 +14,6 @@ class QuestionarioTest extends UniversiBOEntityTest
     {
         $this->questionario = new Questionario();
     }
-
 
     /**
      * @dataProvider accessorDataProvider
