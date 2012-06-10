@@ -355,6 +355,8 @@ class ShowContribute extends UniversiboCommand
             
             // db encoding is latin1 while Twig needs utf-8 strings
             // TODO remove after changing encoding
+            $questionario->setNome(mb_convert_encoding($q3_nome, 'utf-8', 'iso-8859-1'));
+            $questionario->setCognome(mb_convert_encoding($q3_nome, 'utf-8', 'iso-8859-1'));
             $questionario->setAltro(mb_convert_encoding($q3_altro, 'utf-8', 'iso-8859-1'));
             $questionario->setCdl(mb_convert_encoding($q3_cdl, 'utf-8', 'iso-8859-1'));
             
