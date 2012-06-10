@@ -24,13 +24,13 @@ class FileStudentiCommentDelete extends UniversiboCommand
     public function execute()
     {
 
-        $frontcontroller = &$this->getFrontController();
-        $template = &$frontcontroller->getTemplateEngine();
+        $frontcontroller = $this->getFrontController();
+        $template = $frontcontroller->getTemplateEngine();
 
-        $krono = &$frontcontroller->getKrono();
+        $krono = $frontcontroller->getKrono();
 
-        $user = &$this->getSessionUser();
-        $user_ruoli = &$user->getRuoli();
+        $user = $this->getSessionUser();
+        $user_ruoli = $user->getRuoli();
 
         if (!array_key_exists('id_commento', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_commento'])) {
@@ -63,7 +63,7 @@ class FileStudentiCommentDelete extends UniversiboCommand
                                 'msg' => 'L\'id del canale richiesto non � valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $canale = &Canale::retrieveCanale($_GET['id_canale']);
+            $canale = Canale::retrieveCanale($_GET['id_canale']);
             $id_canale = $_GET['id_canale'];
             if ($canale->getServizioFilesStudenti() == false)
                 Error::throwError(_ERROR_DEFAULT,
@@ -72,7 +72,7 @@ class FileStudentiCommentDelete extends UniversiboCommand
                                 'file' => __FILE__, 'line' => __LINE__));
 
             if (array_key_exists($id_canale, $user_ruoli)) {
-                $ruolo = &$user_ruoli[$id_canale];
+                $ruolo = $user_ruoli[$id_canale];
 
                 $referente = $ruolo->isReferente();
                 $moderatore = $ruolo->isModeratore();

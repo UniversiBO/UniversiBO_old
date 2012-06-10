@@ -43,10 +43,10 @@ class FileStudentiDelete extends UniversiboCommand
                             'file' => __FILE__, 'line' => __LINE__));
         }
 
-        $file = &FileItemStudenti::selectFileItem($_GET['id_file']);
+        $file = FileItemStudenti::selectFileItem($_GET['id_file']);
         $file_canali = $file->getIdCanali();
 
-        $canale = &Canale::retrieveCanale($file_canali[0]);
+        $canale = Canale::retrieveCanale($file_canali[0]);
         $template->assign('common_canaleURI', $canale->showMe());
         $template->assign('common_langCanaleNome', 'a ' . $canale->getTitolo());
         if ($file === false)
@@ -64,7 +64,7 @@ class FileStudentiDelete extends UniversiboCommand
                                 'msg' => 'L\'id del canale richiesto non � valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $canale = &Canale::retrieveCanale($_GET['id_canale']);
+            $canale = Canale::retrieveCanale($_GET['id_canale']);
 
             if ($canale->getServizioFiles() == false)
                 Error::throwError(_ERROR_DEFAULT,
@@ -79,7 +79,7 @@ class FileStudentiDelete extends UniversiboCommand
                             . $canale->getTitolo());
 
             if (array_key_exists($id_canale, $user_ruoli)) {
-                $ruolo = &$user_ruoli[$id_canale];
+                $ruolo = $user_ruoli[$id_canale];
 
                 $referente = $ruolo->isReferente();
                 $moderatore = $ruolo->isModeratore();
@@ -121,7 +121,7 @@ class FileStudentiDelete extends UniversiboCommand
         //		for ($i = 0; $i < $num_canali; $i ++)
         //		{
         //			$id_current_canale = $file_canali[$i];
-        //			$current_canale = & Canale :: retrieveCanale($id_current_canale);
+        //			$current_canale =  Canale :: retrieveCanale($id_current_canale);
         //			$nome_current_canale = $current_canale->getTitolo();
         //			if (in_array($id_current_canale, $file->getIdCanali()))
         //			{
@@ -148,7 +148,7 @@ class FileStudentiDelete extends UniversiboCommand
                                                     ->isModeratore() && $autore)));
                     if (!$diritti) {
                         //$user_ruoli[$key]->getIdCanale();
-                        $canale = &Canale::retrieveCanale($key);
+                        $canale = Canale::retrieveCanale($key);
                         Error::throwError(_ERROR_NOTICE,
                                 array('id_utente' => $user->getIdUser(),
                                         'msg' => 'Non possiedi i diritti di eliminazione nel canale: '
@@ -186,8 +186,8 @@ class FileStudentiDelete extends UniversiboCommand
             $file->deleteAllCommenti();
 
             $template
-                    ->assign('fileDelete_langSuccess',
-                            "Il file � stato cancellato con successo dalle pagine scelte.");
+                    ->assignUnicode('fileDelete_langSuccess',
+                            "Il file è stato cancellato con successo dalle pagine scelte.");
 
             return 'success';
         }

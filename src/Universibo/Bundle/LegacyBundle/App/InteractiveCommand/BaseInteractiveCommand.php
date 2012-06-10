@@ -107,7 +107,6 @@ class BaseInteractiveCommand extends PluginCommand
 
         if (isset($_SESSION['user'])) $this->systemValues['user'] = unserialize($_SESSION['user']);
         else  Error::throwError(_ERROR_CRITICAL,array('id_utente' => 0,'msg'=>'Si e` verificato un errore imprevisto, la preghiamo di avvisare gli amministratori di sistema','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $this->systemValues['template']) );
-        //		var_dump($_SESSION['user']);
         array_key_exists('lista', $_SESSION) ? $this->listaStep = unserialize($_SESSION['lista']) : $this->listaStep = $this->getAllCallback();
 
         if(array_key_exists('idUtenteStep', $_SESSION))

@@ -161,6 +161,7 @@ class DBFileItemStudentiRepository extends DBRepository
 
     public function removeFromChannel(FileItemStudenti $file, $channelId)
     {
+        $db = $this->getDb();
         $query = 'DELETE FROM file_studente_canale WHERE id_canale='.$db->quote($channelId).' AND id_file='.$db->quote($file->getIdFile());
 
         $res = $db->query($query);

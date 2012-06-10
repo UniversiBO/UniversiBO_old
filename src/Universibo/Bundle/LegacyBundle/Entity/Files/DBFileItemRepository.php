@@ -543,8 +543,10 @@ class DBFileItemRepository extends DBRepository
 
         $db = $this->getDb();
 
-        $query = 'SELECT id_canale FROM file_canale WHERE id_file='
-        . $db->quote($id_file) . ' ORDER BY id_canale';
+        $where = 'WHERE id_file='. $db->quote($id_file);
+        $query = 'SELECT id_canale FROM file_canale '.$where;
+        $query .= 'UNION SELECT id_canale FROM file_studente_canale '.$where;
+        
         $res = $db->query($query);
 
         if (DB::isError($res)) {
@@ -559,6 +561,8 @@ class DBFileItemRepository extends DBRepository
             $elenco_id_canale[] = $row[0];
         }
         $res->free();
+        
+        sort($elenco_id_canale);
 
         return $elenco_id_canale;
     }

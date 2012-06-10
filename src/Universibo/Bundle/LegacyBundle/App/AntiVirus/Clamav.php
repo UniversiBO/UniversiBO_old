@@ -37,8 +37,6 @@ class Clamav
         $returnval = null;
 
         exec ( $fullCommand, $output, $returnval );
-        //var_dump($returnval);
-        //var_dump($fullCommand);
 
         if ($returnval == 1) return true;
         if ($returnval == 0) return false;

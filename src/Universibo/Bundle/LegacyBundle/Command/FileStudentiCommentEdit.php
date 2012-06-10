@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 use \Error;
+
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Commenti\CommentoItem;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
@@ -22,13 +24,13 @@ class FileStudentiCommentEdit extends UniversiboCommand
     public function execute()
     {
 
-        $frontcontroller = &$this->getFrontController();
-        $template = &$frontcontroller->getTemplateEngine();
+        $frontcontroller = $this->getFrontController();
+        $template = $frontcontroller->getTemplateEngine();
 
-        $krono = &$frontcontroller->getKrono();
+        $krono = $frontcontroller->getKrono();
 
-        $user = &$this->getSessionUser();
-        $user_ruoli = &$user->getRuoli();
+        $user = $this->getSessionUser();
+        $user_ruoli = $user->getRuoli();
 
         if (!array_key_exists('id_commento', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_commento'])) {
@@ -61,7 +63,7 @@ class FileStudentiCommentEdit extends UniversiboCommand
                                 'msg' => 'L\'id del canale richiesto non � valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $canale = &Canale::retrieveCanale($_GET['id_canale']);
+            $canale = Canale::retrieveCanale($_GET['id_canale']);
             $id_canale = $_GET['id_canale'];
             if ($canale->getServizioFilesStudenti() == false)
                 Error::throwError(_ERROR_DEFAULT,
@@ -70,7 +72,7 @@ class FileStudentiCommentEdit extends UniversiboCommand
                                 'file' => __FILE__, 'line' => __LINE__));
 
             if (array_key_exists($id_canale, $user_ruoli)) {
-                $ruolo = &$user_ruoli[$id_canale];
+                $ruolo = $user_ruoli[$id_canale];
 
                 $referente = $ruolo->isReferente();
                 $moderatore = $ruolo->isModeratore();
@@ -129,7 +131,7 @@ class FileStudentiCommentEdit extends UniversiboCommand
             }
 
             //voto
-            if (!ereg('^([0-5]{1})$', $_POST['f27_voto'])) {
+            if (!preg_match('/^([0-5]{1})$/', $_POST['f27_voto'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
                                 'msg' => 'Voto non valido', 'file' => __FILE__,

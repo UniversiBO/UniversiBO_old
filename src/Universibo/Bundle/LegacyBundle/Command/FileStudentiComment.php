@@ -22,12 +22,12 @@ class FileStudentiComment extends UniversiboCommand
     public function execute()
     {
 
-        $frontcontroller = &$this->getFrontController();
-        $template = &$frontcontroller->getTemplateEngine();
+        $frontcontroller = $this->getFrontController();
+        $template = $frontcontroller->getTemplateEngine();
 
-        $krono = &$frontcontroller->getKrono();
-        $user = &$this->getSessionUser();
-        $user_ruoli = &$user->getRuoli();
+        $krono = $frontcontroller->getKrono();
+        $user = $this->getSessionUser();
+        $user_ruoli = $user->getRuoli();
 
         if ($user->isOspite()) {
             Error::throwError(_ERROR_DEFAULT,
@@ -41,7 +41,7 @@ class FileStudentiComment extends UniversiboCommand
                     array('msg' => 'L\'id del file richiesto non � valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
-        $file = &FileItemStudenti::selectFileItem($_GET['id_file']);
+        $file = FileItemStudenti::selectFileItem($_GET['id_file']);
         if ($file === false)
             Error::throwError(_ERROR_DEFAULT,
                     array(

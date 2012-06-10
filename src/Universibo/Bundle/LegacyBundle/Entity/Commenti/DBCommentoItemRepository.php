@@ -16,8 +16,8 @@ class DBCommentoItemRepository extends DBRepository
         $db = $this->getDb();
 
         $query = 'SELECT id_file,id_utente,commento,voto FROM file_studente_commenti WHERE id_commento='
-        . $db->quote($id_commento) . ' AND eliminato = '
-        . $db->quote(self::NOT_ELIMINATO);
+        . $db->quote($id) . ' AND eliminato = '
+        . $db->quote(CommentoItem::NOT_ELIMINATO);
         $res = $db->query($query);
 
         if (DB::isError($res))
@@ -26,8 +26,8 @@ class DBCommentoItemRepository extends DBRepository
                             'line' => __LINE__));
 
         if ($res->fetchInto($row)) {
-            $commenti = new CommentoItem($id_commento, $row[0], $row[1],
-                    $row[2], $row[3], self::NOT_ELIMINATO);
+            $commenti = new CommentoItem($id, $row[0], $row[1],
+                    $row[2], $row[3], CommentoItem::NOT_ELIMINATO);
         } else
 
             return false;
@@ -95,7 +95,7 @@ class DBCommentoItemRepository extends DBRepository
         $query = 'INSERT INTO file_studente_commenti (id_commento,id_file,id_utente,commento,voto,eliminato) VALUES ('
         . $next_id . ',' . $db->quote($id_file_studente) . ','
         . $db->quote($id_utente) . ',' . $db->quote($commento) . ','
-        . $db->quote($voto) . ',' . $db->quote(self::NOT_ELIMINATO)
+        . $db->quote($voto) . ',' . $db->quote(CommentoItem::NOT_ELIMINATO)
         . ')';
         $res = $db->query($query);
         if (DB::isError($res)) {
@@ -137,7 +137,7 @@ class DBCommentoItemRepository extends DBRepository
         $query = 'INSERT INTO file_studente_commenti (id_commento,id_file,id_utente,commento,voto,eliminato) VALUES ('
         . $next_id . ',' . $db->quote($id_file_studente) . ','
         . $db->quote($id_utente) . ',' . $db->quote($commento) . ','
-        . $db->quote($voto) . ',' . $db->quote(self::NOT_ELIMINATO)
+        . $db->quote($voto) . ',' . $db->quote(CommentoItem::NOT_ELIMINATO)
         . ')';
         $res = $db->query($query);
         if (DB::isError($res)) {
@@ -178,7 +178,7 @@ class DBCommentoItemRepository extends DBRepository
         $query = 'SELECT id_commento FROM file_studente_commenti WHERE id_file ='
         . $db->quote($id_file) . ' AND id_utente = '
         . $db->quote($id_utente) . ' AND eliminato = '
-        . $db->quote(self::NOT_ELIMINATO)
+        . $db->quote(CommentoItem::NOT_ELIMINATO)
         . 'GROUP BY id_file,id_utente,id_commento';
         $res = $db->query($query);
 
