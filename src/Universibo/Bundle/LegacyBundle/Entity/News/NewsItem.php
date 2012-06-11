@@ -359,11 +359,7 @@ class NewsItem
      */
     public static function selectNewsItem ($id_notizia)
     {
-        $id_notizie = array($id_notizia);
-        $news = NewsItem::selectNewsItems($id_notizie);
-        if ($news === false) return false;
-
-        return $news[0];
+        return self::getRepository()->find($id_notizia);
     }
 
     /**

@@ -1,5 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+use Universibo\Bundle\LegacyBundle\Entity\News\DBNewsItemRepository;
+
 use \Error;
 use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
@@ -20,16 +22,19 @@ class ShowPermalink extends UniversiboCommand
                             'msg' => 'ID news non valido', 'file' => __FILE__,
                             'line' => __LINE__));
         }
-
-        $news = NewsItem::selectNewsItem($id_notizia);
-
-        Error::throwError(_ERROR_DEFAULT,
+        
+        $newsRepo = $this->getContainer()->get('universibo_legacy.repository.news.news_item');
+        $news = $newsRepo->find($id_notizia);
+        
+        if(!$news instanceof NewsItem) {
+            Error::throwError(_ERROR_DEFAULT,
                 array('id_notizia' => $id_notizia,
                         'msg' => 'ID news non trovato', 'file' => __FILE__,
                         'line' => __LINE__));
+        }
 
         $template = $this->getFrontController()->getTemplateEngine();
-        $template->assign('news', $this->_newsToArray($news));
+        $template->assignUnicode('news', $this->_newsToArray($news));
     }
 
     private function _newsToArray(NewsItem $news)
