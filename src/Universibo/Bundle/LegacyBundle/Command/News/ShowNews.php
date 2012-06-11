@@ -116,6 +116,7 @@ class ShowNews extends PluginCommand
                 $elenco_news_tpl[$i]['autore']       = $news->getUsername();
                 $elenco_news_tpl[$i]['autore_link']  = 'ShowUser&id_utente='.$news->getIdUtente();
                 $elenco_news_tpl[$i]['id_autore']    = $news->getIdUtente();
+                $elenco_news_tpl[$i]['id_notizia']   = $news->getIdNotizia();
 
                 $elenco_news_tpl[$i]['scadenza']     = '';
                 if ( ($news->getDataScadenza()!=NULL) && ( $user->isAdmin() || $referente || $this_moderatore ) && $flag_chkDiritti) {
