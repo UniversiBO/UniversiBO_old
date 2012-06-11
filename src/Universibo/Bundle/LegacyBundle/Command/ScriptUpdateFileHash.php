@@ -22,32 +22,23 @@ class ScriptUpdateFileHash extends UniversiboCommand
     {
         $fc = $this->getFrontController();
         $template = $fc->getTemplateEngine();
-        $db = $fc->getDbConnection('main');
+        $db = $this->getContainer()->get('doctrine.dbal.default_connection');
         $user = $this->getSessionUser();
         $filePath = $fc->getAppSetting('filesPath');
 
-        //if(!$user->isAdmin())
-        //	Error::throwError(_ERROR_DEFAULT,array('msg'=>'La modifica della password non pu? essere eseguita da utenti con livello ospite.'."\n".'La sessione potrebbe essere scaduta, eseguire il login','file'=>__FILE__,'line'=>__LINE__));
+        $res = $db->executeQuery('SELECT id_file, nome_file FROM file ORDER BY 1');
 
-        $res = $db->query('SELECT id_file, nome_file FROM file ORDER BY 1');
-
-        while ( $res->fetchInto($row) ) {
+        $query = 'UPDATE file SET hash_file = ? WHERE id_file = ?';
+        
+        while ( false !== ($row = $res->fetch()) ) {
             $nome_file = $filePath.$row[0].'_'.$row[1];
-            if (file_exists($nome_file)) {
-                $query = 'UPDATE file SET hash_file=\''.md5_file($nome_file).'\' WHERE id_file = '.$row[0];
-                $res1 = $db->query($query);
-                if (DB::isError($res1))
-                    Error::throwError(_ERROR_CRITICAL,array('id_utente' => $user->getIdUser(), 'msg'=>DB::errorMessage($res1),'file'=>__FILE__,'line'=>__LINE__));
-            } else {
-                echo $row[0].'_'.$row[1]."\n";
-                $query = 'UPDATE file SET hash_file=\'\' WHERE id_file = '.$row[0];
-                $res1 = $db->query($query);
-                if (DB::isError($res1))
-                    Error::throwError(_ERROR_CRITICAL,array('id_utente' => $user->getIdUser(), 'msg'=>DB::errorMessage($res1),'file'=>__FILE__,'line'=>__LINE__));
-            }
+            
+            $hash = file_exists($nome_file) ? md5_file($nome_file) : '';
+            $db->executeUpdate($query, array($hash, $row[0]));
+            
+            echo $row[0], '_', $row[1], ': ', strlen($hash) > 0 ? $hash : 'not found', PHP_EOL;
         }
 
-        $res->free();
-
+        $res = null;
     }
 }
