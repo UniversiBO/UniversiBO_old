@@ -258,7 +258,7 @@ class DidatticaGestione extends UniversiboCommand
                 $tmpEdit = $_POST['f41_edit_sel'];
 
                 if ($id_sdop != '')
-                    $prgs[] = &PrgAttivitaDidattica::selectPrgAttivitaDidatticaSdoppiata(
+                    $prgs[] = PrgAttivitaDidattica::selectPrgAttivitaDidatticaSdoppiata(
                             (int) $id_sdop);
                 else
                     $prgs[] = &$prg;
@@ -345,9 +345,9 @@ class DidatticaGestione extends UniversiboCommand
             if ($f41_accept == true) {
                 //				var_dump($mods);
                 $failure = false;
-                $db = FrontController::getDbConnection('main');
+                $transaction = $this->getContainer()->get('uiversibo_legacy.transaction');
                 ignore_user_abort(1);
-                $db->autoCommit(false);
+                $transaction->begin();
 
                 // TODO manca log delle modifiche
                 $keys = array_keys($mods);
@@ -357,7 +357,7 @@ class DidatticaGestione extends UniversiboCommand
                     if ($esito == false) {
                         //						echo 'qui'; die;
                         $failure = true;
-                        $db->rollback();
+                        $transaction->rollback();
                         break;
                     } else
                         $this
@@ -378,7 +378,7 @@ class DidatticaGestione extends UniversiboCommand
                             if ($esito == false) {
                                 //						echo 'qui'; die;
                                 $failure = true;
-                                $db->rollback();
+                                $transaction->rollback();
                                 break;
                             }
 
@@ -400,7 +400,7 @@ class DidatticaGestione extends UniversiboCommand
                                 if ($esito == false) {
                                     //						echo 'qui'; die;
                                     $failure = true;
-                                    $db->rollback();
+                                    $transaction->rollback();
                                     break;
                                 }
 
@@ -414,9 +414,7 @@ class DidatticaGestione extends UniversiboCommand
 
                     }
                 }
-                $db->commit();
-
-                $db->autoCommit(true);
+                $transaction->commit();
                 ignore_user_abort(0);
 
                 if ($failure) {
@@ -469,7 +467,7 @@ class DidatticaGestione extends UniversiboCommand
     }
 
     /**
-     * Recupera le attivit� associate ad un insegnamento, escludendo un eventuale attivit�
+     * Recupera le attività associate ad un insegnamento, escludendo un eventuale attività
      */
     function &_getAttivitaFromCanale($id_canale, $prg_exclude = null)
     {
@@ -544,7 +542,7 @@ class DidatticaGestione extends UniversiboCommand
 
     /**
      * modifica prg e tiene traccia delle modifiche in $mods
-     * @param type string  pu� essere doc, ciclo, anno
+     * @param type string può essere doc, ciclo, anno
      */
     public function _updateVal(&$prg, $index, &$mods, $val, $type, &$template)
     {
