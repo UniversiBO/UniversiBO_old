@@ -161,7 +161,7 @@ class NewsEdit extends CanaleCommand
                     || !array_key_exists('f8_testo', $_POST)) {
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il form inviato non � valido',
+                                'msg' => 'Il form inviato non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
                 $f8_accept = false;
             }
@@ -191,7 +191,7 @@ class NewsEdit extends CanaleCommand
             if (!preg_match('/^([0-9]{1,2})$/', $_POST['f8_data_ins_gg'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo giorno di inserimento non � valido',
+                                'msg' => 'Il formato del campo giorno di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -204,7 +204,7 @@ class NewsEdit extends CanaleCommand
             if (!preg_match('/^([0-9]{1,2})$/', $_POST['f8_data_ins_mm'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo mese di inserimento non � valido',
+                                'msg' => 'Il formato del campo mese di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -217,7 +217,7 @@ class NewsEdit extends CanaleCommand
             if (!preg_match('/^([0-9]{4})$/', $_POST['f8_data_ins_aa'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo anno di inserimento non � valido',
+                                'msg' => 'Il formato del campo anno di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -261,7 +261,7 @@ class NewsEdit extends CanaleCommand
             if (!preg_match('/^([0-9]{1,2})$/', $_POST['f8_data_ins_min'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo minuto di inserimento non � valido',
+                                'msg' => 'Il formato del campo minuto di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -412,7 +412,7 @@ class NewsEdit extends CanaleCommand
                 if ($data_scadenza < $data_inserimento) {
                     Error::throwError(_ERROR_NOTICE,
                             array('id_utente' => $user->getIdUser(),
-                                    'msg' => 'La data di scadenza � minore della data di inserimento',
+                                    'msg' => 'La data di scadenza e` minore della data di inserimento',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
                                     'template_engine' => &$template));
@@ -528,7 +528,7 @@ class NewsEdit extends CanaleCommand
 
         } //end if (array_key_exists('f8_submit', $_POST))
 
-        $template->assign('f8_titolo', $f8_titolo);
+        $template->assignUnicode('f8_titolo', $f8_titolo);
         $template->assign('f8_data_ins_mm', $f8_data_ins_mm);
         $template->assign('f8_data_ins_gg', $f8_data_ins_gg);
         $template->assign('f8_data_ins_aa', $f8_data_ins_aa);
@@ -539,7 +539,7 @@ class NewsEdit extends CanaleCommand
         $template->assign('f8_data_scad_aa', $f8_data_scad_aa);
         $template->assign('f8_data_scad_ora', $f8_data_scad_ora);
         $template->assign('f8_data_scad_min', $f8_data_scad_min);
-        $template->assign('f8_testo', $f8_testo);
+        $template->assignUnicode('f8_testo', $f8_testo);
         $template->assign('f8_urgente', $f8_urgente);
         $template->assign('f8_scadenza', $f8_scadenza);
         $template->assign('f8_canale', $f8_canale);
