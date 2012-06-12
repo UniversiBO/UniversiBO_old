@@ -1,6 +1,12 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\App\InteractiveCommand;
 
+use Doctrine\ORM\EntityManager;
+
+use Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepLog;
+
+use Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepParametri;
+
 use \DB;
 use \Error;
 
@@ -307,50 +313,38 @@ class BaseInteractiveCommand extends PluginCommand
      */
     public function storeInteractiveCommandLog ($complete = false)
     {
-        //		echo 'inizio il log'; die;
-        $db = FrontController::getDbConnection('main');
-
         ignore_user_abort(1);
-        $db->autoCommit(false);
-        $next_id = $db->nextID('step_id_step');
-        if (DB::isError($next_id)) {
-            $db->rollback();
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>$next_id->getUserInfo(),'file'=>__FILE__,'line'=>__LINE__));
-        }
-        $esito = ($complete) ? 'S' : 'N';
-        $query = 'INSERT INTO step_log (id_step, id_utente, data_ultima_interazione, nome_classe, esito_positivo) VALUES '.
-                '( '.$next_id.' , '.
-                $db->quote($this->getIdUtente()).' , '.
-                $db->quote(time()).' , '.
-                $db->quote(get_class($this)).' , '.
-                $db->quote($esito).' )';
-        $res = $db->query($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        }
-
-        if ($complete)
-            foreach ($this->listaStep->logMe() as $callback => $params)
-            foreach ($params as $key => $val) {
-                // VERIFY ha senso come tratto gli eventuali array? o � meglio fare pi� inserimenti?
-                $value = (is_array($val)) ? implode(VALUES_SEPARATOR, $val): $val ;
-                $query = 'INSERT INTO step_parametri (id_step, callback_name, param_name, param_value) VALUES '.
-                        '( '.$next_id.' , '.
-                        $db->quote($callback).' , '.
-                        $db->quote($key).' , '.
-                        $db->quote($val).' )';
-                $res = $db->query($query);
-                //var_dump($query);
-                if (DB::isError($res)) {
-                    $db->rollback();
-                    Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        $em = $this->getContainer()->get('doctrine.orm.default_entity_manager');
+        $em->beginTransaction();
+        
+        $log = new StepLog();
+        $log
+            ->setIdUtente($this->getIdUtente())
+            ->setDataUltimaInterazione(time())
+            ->setNomeClasse(str_replace('\\\\','\\', get_class($this)))
+            ->setEsitoPositivo(($complete) ? 'S' : 'N');
+        
+        $em->persist($log);
+        
+        if ($complete) {
+            foreach ($this->listaStep->logMe() as $callback => $params) {
+                foreach ($params as $key => $val) {
+                    $value = (is_array($val)) ? implode(VALUES_SEPARATOR, $val): $val;
+                    
+                    $parametri = new StepParametri();
+                    $parametri
+                        ->setId($log->getId())
+                        ->setCallbackName($callback)
+                        ->setParamName($key)
+                        ->setParamValue($value);
+                    $em->persist($parametri);
                 }
             }
-
-            $db->commit();
-            $db->autoCommit(true);
-            ignore_user_abort(0);
+        }
+        
+        $em->flush();
+        $em->commit();
+        ignore_user_abort(0);
     }
 
     /*

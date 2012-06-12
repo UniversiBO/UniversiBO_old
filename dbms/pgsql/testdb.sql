@@ -46,19 +46,20 @@ ALTER TABLE ONLY collaboratore ADD CONSTRAINT collaboratore_pkey PRIMARY KEY (id
 
 DROP TABLE IF EXISTS step_log;
 CREATE TABLE step_log (
-    id_step integer DEFAULT nextval(('"step_id_step_seq"'::text)::regclass) NOT NULL,
+    id_step integer DEFAULT nextval(('"step_log_id_step_seq"'::text)::regclass) NOT NULL,
     id_utente integer NOT NULL,
     data_ultima_interazione integer NOT NULL,
     nome_classe character varying(255) NOT NULL,
     esito_positivo character(1)
 );
 
+DROP SEQUENCE IF EXISTS step_log_id_step_seq;
 DROP SEQUENCE IF EXISTS step_id_step_seq;
 CREATE SEQUENCE step_id_step_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 

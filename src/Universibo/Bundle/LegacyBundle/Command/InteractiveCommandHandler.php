@@ -289,32 +289,18 @@ perche` impedisce il login agli utenti
      */
     public function getCompletedInteractiveCommandByUser()
     {
-        $db = $this->getFrontController()->getDbConnection('main');
         $user = unserialize($_SESSION['user']);
-
-        $query = 'SELECT id_step, nome_classe FROM  	step_log
-                    WHERE id_utente = ' . $db->quote($user->getIdUser())
-                . ' AND  esito_positivo IS NOT NULL ' . // NB suppongo che quelli con esito 'n' siano quelli una-tantum (bassa priorit�) rifiutati
-                '';
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-
-        $rows = $res->numRows();
-
-        if ($rows = 0)
-
-            return array();
-
+        
+        $logRepo = $this->getContainer()->get('universibo_legacy.repository.interactivecommand.step_log');
+        $positive = $logRepo->findPositive($user->getIdUser());
+        
         $list = array();
-        while ($res->fetchInto($row)) {
-            // TODO this replace is really ugly
-            $list[$row[0]] = str_replace('\\\\', '\\', $row[1]);
+        
+        foreach($positive as $item) {
+            // TODO understand why you get double escaped data
+            $list[$item->getId()] = str_replace('\\\\', '\\', $item->getNomeClasse());
         }
-        $res->free();
-
+        
         return $list;
     }
 

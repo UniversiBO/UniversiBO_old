@@ -6,16 +6,25 @@ namespace Universibo\Bundle\LegacyBundle\Service;
  *
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
+use Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepLog;
+
+use Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepLogRepository;
+
 use Universibo\Bundle\LegacyBundle\Entity\DBInformativaRepository;
 use Universibo\Bundle\LegacyBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
 
 use Doctrine\DBAL\Connection;
 
-class PrivacyService extends DoctrineRepository
+class PrivacyService
 {
     const CLASSNAME = 'Universibo\\Bundle\\LegacyBundle\\Command\\InteractiveCommand\\InformativaPrivacyInteractiveCommand';
 
+    /**
+     * @var StepLogRepository
+     */
+    private $logRepository;
+    
     /**
      * @var DBInformativaRepository
      */
@@ -25,45 +34,30 @@ class PrivacyService extends DoctrineRepository
      * @param Connection              $connection
      * @param DBInformativaRepository $informativaRepository
      */
-    public function __construct(Connection $connection, DBInformativaRepository $informativaRepository)
+    public function __construct(StepLogRepository $logRepository, DBInformativaRepository $informativaRepository)
     {
-        parent::__construct($connection);
-
+        $this->logRepository = $logRepository;
         $this->informativaRepository = $informativaRepository;
     }
 
     public function hasAcceptedPrivacy(User $user)
     {
-        $builder = $this->getConnection()->createQueryBuilder();
-
-        $stmt = $builder
-            ->select('MAX(sl.data_ultima_interazione) AS latest')
-            ->from('step_log', 'sl')
-            ->where('sl.id_utente = ?')
-            ->andWhere('sl.nome_classe = ?')
-            ->andWhere('sl.esito_positivo = ?')
-            ->setParameters(array($user->getIdUser(), self::CLASSNAME, 'S'))
-            ->execute();
-
-        $row = $stmt->fetch();
-
-        if ($row === false) {
+        $log = $this->logRepository->findLatestPositive($user->getIdUser(), self::CLASSNAME);
+        
+        if($log === null) {
             return false;
         }
-
-        $current = $this->informativaRepository->findByTime(time());
-
-        return $row[0] >= $current->getDataPubblicazione();
+        
+        return $log->getDataUltimaInterazione() > $this->informativaRepository->findByTime(time())->getDataPubblicazione();
     }
 
     public function markAccepted(User $user)
     {
-        $conn = $this->getConnection();
-        $conn->insert('step_log', array(
-                'id_utente' => $user->getIdUser(),
-                'data_ultima_interazione' => time(),
-                'nome_classe' => self::CLASSNAME,
-                'esito_positivo' => 'S'
-        ));
+        $stepLog = new StepLog();
+        $stepLog->setIdUtente($user->getIdUser());
+        $stepLog->setDataUltimaInterazione(time());
+        $stepLog->setNomeClasse(self::CLASSNAME);
+        $stepLog->setEsitoPositivo('S');
+        $this->logRepository->insert($stepLog);
     }
 }

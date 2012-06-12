@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\App\InteractiveCommand;
 
+use Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepLogRepository;
+
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
@@ -16,42 +18,27 @@ class StoredInteractionInformationRetriever
      */
     public function getInfoFromIdUtente ($idUtente, $nomeInteractiveCommand, $groupedByCallbackName = false)
     {
-        $db = FrontController::getDbConnection('main');
-
-        $query = 'select id_step from step_log where id_utente = '. $db->quote($idUtente).
-                ' and nome_classe = '. $db->quote($nomeInteractiveCommand).
-                 ' and esito_positivo = '. $db->quote('S'). ' order by data_ultima_interazione desc';
-//		var_dump($query); die;
-        $res = $db->query($query);
-        if (DB::isError($res)) {
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        $logRepo = $this->getContainer()->get('universibo_legacy.repository.interactivecommand.step_log');
+        $latest = $logRepo->findLatestPositive($idUtente, $nomeInteractiveCommand);
+        
+        if($latest === null) {
+            return array();
         }
-
-        $rows = $res->numRows();
-        if( $rows = 0) return array();
-
-        // VERIFY � possibile che la select dia pi� valori, ovvero che l'utente abbia fatto pi� volte lo stesso InteractiveCommand? si, se supponiamo
-        // per esempio che un utente debba approvare pi� informative per la privacy.
-        $row = $res->fetchRow();
-        $idStep = $row[0];
-        $res->free();
-
-        $query = 'select param_name, param_value, callback_name from step_parametri where id_step = '. $db->quote($idStep);
-        $res = $db->query($query);
-        if (DB::isError($res)) {
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        }
-
-        $rows = $res->numRows();
+        
+        $listRepo = $this->getContainer()->get('universibo_legacy.repository.interactivecommand.step_list');
+        $data = $listRepo->findByIdStep($latest->getId());
+        
         $list = array();
-        if( $rows = 0) return array();
 
-        if ($groupedByCallbackName)
-            while($row = $res->fetchRow())
-                $list[$row[2]][$row[0]] = $row[1];
-        else
-            while($row = $res->fetchRow())
-                $list[$row[0]] = $row[1];
+        if($groupedByCallbackName) {
+            foreach($data as $item) {
+                $list[$item->getCallbackName()][$item->getParamName()] = $item->getParamValue();
+            }
+        } else {
+            foreach($data as $item) {
+            	$list[$item->getParamName()] = $item->getParamValue();
+            }
+        }
 
         return $list;
     }
