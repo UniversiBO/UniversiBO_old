@@ -40,7 +40,7 @@ class Canale2Repository
      * @param DBInsegnamentoRepository $subjectRepository
      * @param boolean                  $convert
      */
-    public function __construct(DBCanaleRepository $channelRepository,
+    public function __construct(CanaleRepository $channelRepository,
             DBCdlRepository $cdlRepository,
             DBFacoltaRepository $facultyRepository,
             DBInsegnamentoRepository $subjectRepository)

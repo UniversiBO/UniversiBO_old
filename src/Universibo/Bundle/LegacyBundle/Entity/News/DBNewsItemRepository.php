@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\News;
 
-use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
+use Universibo\Bundle\LegacyBundle\Entity\CanaleRepository;
 
 use \DB;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
@@ -25,7 +25,7 @@ class DBNewsItemRepository extends DBRepository
      */
     private $channelRepository;
 
-    public function __construct(\DB_common $db, DBUserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
+    public function __construct(\DB_common $db, DBUserRepository $userRepository, CanaleRepository $channelRepository, $convert = false)
     {
         parent::__construct($db, $convert);
 

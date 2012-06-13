@@ -30,6 +30,69 @@ CREATE TABLE utente (
     
 ALTER TABLE ONLY utente
     ADD CONSTRAINT utente_pkey PRIMARY KEY (id_utente);
+
+
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'SQL_ASCII';
+SET standard_conforming_strings = off;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET escape_string_warning = off;
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: canale; Type: TABLE; Schema: public; Owner: brain; Tablespace: 
+--
+
+DROP TABLE IF EXISTS canale;
+CREATE TABLE canale (
+    id_canale integer NOT NULL,
+    tipo_canale integer NOT NULL,
+    nome_canale character varying(60),
+    immagine character varying(50),
+    visite integer NOT NULL,
+    ultima_modifica integer,
+    permessi_groups integer,
+    files_attivo character(1),
+    news_attivo character(1),
+    forum_attivo character(1),
+    id_forum integer,
+    group_id integer,
+    links_attivo character(1),
+    files_studenti_attivo character(1)
+);
+
+--
+-- Name: canale_id_canale_seq; Type: SEQUENCE; Schema: public; Owner: brain
+--
+
+DROP SEQUENCE IF EXISTS canale_id_canale_seq;
+CREATE SEQUENCE canale_id_canale_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+ALTER SEQUENCE canale_id_canale_seq OWNED BY canale.id_canale;
+
+ALTER TABLE ONLY canale ALTER COLUMN id_canale SET DEFAULT nextval('canale_id_canale_seq'::regclass);
+
+
+ALTER TABLE ONLY canale
+    ADD CONSTRAINT canale_pkey PRIMARY KEY (id_canale);
+
+CREATE INDEX canale_id_canale_key ON canale USING btree (id_canale);
+    
     
 DROP TABLE IF EXISTS collaboratore;
 CREATE TABLE collaboratore (
@@ -83,6 +146,7 @@ CREATE SEQUENCE informativa_id_informativa_seq
     NO MINVALUE
     CACHE 1;
 
+INSERT INTO canale (tipo_canale, nome_canale, visite) VALUES (1, 'Homepage', 0);
     
 INSERT INTO utente (username, password, notifica, groups) VALUES ('brain', md5('padrino'), 2, 64);
 INSERT INTO utente (username, password, notifica, groups) VALUES ('fgiardini', md5('padrino'), 2, 64);

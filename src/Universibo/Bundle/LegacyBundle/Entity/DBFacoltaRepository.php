@@ -15,7 +15,7 @@ class DBFacoltaRepository extends DBRepository
      */
     private $canaleRepository;
 
-    public function __construct(\DB_common $db, DBCanaleRepository $canaleRepository, $convert = false)
+    public function __construct(\DB_common $db, CanaleRepository $canaleRepository, $convert = false)
     {
         parent::__construct($db, $convert);
 
