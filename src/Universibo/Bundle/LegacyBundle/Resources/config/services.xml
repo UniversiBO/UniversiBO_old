@@ -152,9 +152,8 @@
 		</service>
 
 		<service id="universibo_legacy.repository.informativa"
-			class="Universibo\Bundle\LegacyBundle\Entity\DBInformativaRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
-			<argument>true</argument>
+			class="Universibo\Bundle\LegacyBundle\Entity\InformativaRepository" factory-service="doctrine.orm.entity_manager" factory-method="getRepository">
+			<argument>Universibo\Bundle\LegacyBundle\Entity\Informativa</argument>
 		</service>
 
 		<service id="universibo_legacy.repository.insegnamento"

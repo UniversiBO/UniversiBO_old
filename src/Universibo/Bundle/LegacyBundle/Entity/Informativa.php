@@ -1,31 +1,47 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Class for privacy rules
  *
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GNU General Public License v2 or later
+ * 
+ * @ORM\Table(name="informativa")
+ * @ORM\Entity(repositoryClass="Universibo\Bundle\LegacyBundle\Entity\InformativaRepository")
  */
 class Informativa
 {
     /**
-     * @var int
+     * @var integer $id
+     *
+     * @ORM\Column(name="id_informativa", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="informativa_id_informativa_seq", allocationSize="1", initialValue="1")
      */
     private $id;
 
     /**
-     * @var int
+     * @var integer
+     * 
+     * @ORM\Column(name="data_pubblicazione", type="integer", nullable=false)
      */
     private $dataPubblicazione;
 
     /**
-     * @var int
+     * @var integer
+     * 
+     * @ORM\Column(name="data_fine", type="integer", nullable=true)
      */
     private $dataFine;
 
     /**
      * @var string
+     * 
+     * @ORM\Column(name="testo", type="text", nullable=false)
      */
     private $testo;
 

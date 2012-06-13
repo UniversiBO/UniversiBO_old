@@ -6,11 +6,12 @@ namespace Universibo\Bundle\LegacyBundle\Service;
  *
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
+use Universibo\Bundle\LegacyBundle\Entity\InformativaRepository;
+
 use Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepLog;
 
 use Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepLogRepository;
 
-use Universibo\Bundle\LegacyBundle\Entity\DBInformativaRepository;
 use Universibo\Bundle\LegacyBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
 
@@ -34,7 +35,7 @@ class PrivacyService
      * @param Connection              $connection
      * @param DBInformativaRepository $informativaRepository
      */
-    public function __construct(StepLogRepository $logRepository, DBInformativaRepository $informativaRepository)
+    public function __construct(StepLogRepository $logRepository, InformativaRepository $informativaRepository)
     {
         $this->logRepository = $logRepository;
         $this->informativaRepository = $informativaRepository;
