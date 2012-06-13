@@ -11,7 +11,7 @@ use \DB;
 class DBFacoltaRepository extends DBRepository
 {
     /**
-     * @var DBCanaleRepository
+     * @var CanaleRepository
      */
     private $canaleRepository;
 

@@ -12,7 +12,7 @@ class Canale2Repository
 {
 
     /**
-     * @var DBCanaleRepository
+     * @var CanaleRepository
      */
     private $channelRepository;
 
@@ -34,7 +34,7 @@ class Canale2Repository
     /**
      * Class constructor
      *
-     * @param DBCanaleRepository       $channelRepository
+     * @param CanaleRepository       $channelRepository
      * @param DBCdlRepository          $cdlRepository
      * @param DBFacoltaRepository      $facultyRepository
      * @param DBInsegnamentoRepository $subjectRepository

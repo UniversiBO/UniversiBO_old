@@ -21,7 +21,7 @@ class DBNewsItemRepository extends DBRepository
     private $userRepository;
 
     /**
-     * @var DBCanaleRepository
+     * @var CanaleRepository
      */
     private $channelRepository;
 

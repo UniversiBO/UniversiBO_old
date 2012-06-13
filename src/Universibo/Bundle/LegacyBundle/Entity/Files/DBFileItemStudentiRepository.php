@@ -3,7 +3,7 @@ namespace Universibo\Bundle\LegacyBundle\Entity\Files;
 
 use \DB;
 use Universibo\Bundle\LegacyBundle\Entity\Commenti\CommentoItem;
-use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
+use Universibo\Bundle\LegacyBundle\Entity\CanaleRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBUserRepository;
 
@@ -25,11 +25,11 @@ class DBFileItemStudentiRepository extends DBRepository
     private $userRepository;
 
     /**
-     * @var DBCanaleRepository
+     * @var CanaleRepository
      */
     private $channelRepository;
 
-    public function __construct(\DB_common $db, DBUserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
+    public function __construct(\DB_common $db, DBUserRepository $userRepository, CanaleRepository $channelRepository, $convert = false)
     {
         parent::__construct($db, $convert);
 

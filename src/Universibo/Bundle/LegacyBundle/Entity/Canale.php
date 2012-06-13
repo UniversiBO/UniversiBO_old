@@ -86,7 +86,7 @@ class Canale
     public $servizioFilesStudenti = false;
 
     /**
-     * @var DBCanaleRepository
+     * @var CanaleRepository
      */
     private static $repository;
 
@@ -699,7 +699,7 @@ class Canale
     }
 
     /**
-     * @return DBCanaleRepository
+     * @return CanaleRepository
      */
     private static function getRepository()
     {
