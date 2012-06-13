@@ -75,8 +75,8 @@
 		</service>
 
 		<service id="universibo_legacy.repository.canale2"
-			class="Universibo\Bundle\LegacyBundle\Entity\DBCanale2Repository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			class="Universibo\Bundle\LegacyBundle\Entity\DoctrineCanale2Repository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 			<argument type="service" id="universibo_legacy.repository.canale" />
 			<argument type="service" id="universibo_legacy.repository.cdl" />
 			<argument type="service" id="universibo_legacy.repository.facolta" />

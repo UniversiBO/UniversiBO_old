@@ -8,7 +8,9 @@ namespace Universibo\Bundle\LegacyBundle\Entity;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBCanale2Repository extends DBRepository
+use Doctrine\DBAL\Connection;
+
+class DoctrineCanale2Repository extends DoctrineRepository
 {
 
     /**
@@ -34,19 +36,19 @@ class DBCanale2Repository extends DBRepository
     /**
      * Class constructor
      *
-     * @param \DB_common               $db
+     * @param Connection               $db
      * @param DBCanaleRepository       $channelRepository
      * @param DBCdlRepository          $cdlRepository
      * @param DBFacoltaRepository      $facultyRepository
      * @param DBInsegnamentoRepository $subjectRepository
      * @param boolean                  $convert
      */
-    public function __construct(\DB_common $db,
+    public function __construct(Connection $db,
             DBCanaleRepository $channelRepository,
             DBCdlRepository $cdlRepository,
-            DBFacoltaRepository $facultyRepository, DBInsegnamentoRepository $subjectRepository, $convert = False)
+            DBFacoltaRepository $facultyRepository, DBInsegnamentoRepository $subjectRepository)
     {
-        parent::__construct($db, $convert);
+        parent::__construct($db);
 
         $this->channelRepository = $channelRepository;
         $this->cdlRepository = $cdlRepository;
@@ -75,17 +77,17 @@ class DBCanale2Repository extends DBRepository
      */
     public function find($id)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
-        $sql = 'SELECT tipo_canale FROM canale WHERE id_canale = ' . $db->quote($id);
-
-        $res = $db->query($sql);
-        if (\DB::isError($res)) {
-            throw new \Exception($res->getMessage());
+        $sql = 'SELECT tipo_canale FROM canale WHERE id_canale = ?';
+        $stmt = $db->executeQuery($sql, array($id));
+        $type = $stmt->fetchColumn();
+        
+        if($type === false) {
+            return null;
         }
-
-        $row = $this->fetchRow($res);
-        switch ($row[0]) {
+        
+        switch ($type) {
             case Canale::FACOLTA:
                 return $this->facultyRepository->find($id);
             case Canale::CDL:
