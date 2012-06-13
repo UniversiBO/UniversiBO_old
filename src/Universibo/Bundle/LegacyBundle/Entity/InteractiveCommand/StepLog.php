@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class StepLog
 {
     /**
-     * @var integer $idStep
+     * @var integer $id
      *
      * @ORM\Column(name="id_step", type="integer", nullable=false)
      * @ORM\Id
