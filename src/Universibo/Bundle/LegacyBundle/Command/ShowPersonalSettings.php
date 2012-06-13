@@ -1,5 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+use Zend\Validator\EmailAddress;
+
 use \Error;
 
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
@@ -61,7 +63,7 @@ class ShowPersonalSettings extends UniversiboCommand
         if ($f20_personal_style == "black") {
             $f20_stili = array("black", "unibo");
         } else {
-            $f20_stili = array("unibo", "black");
+            $f20_stili = array("unibo");
         }
 
         $f20_accept = false;
@@ -85,18 +87,20 @@ class ShowPersonalSettings extends UniversiboCommand
             if ($_POST['f20_cellulare'] != ''
                     && (((strlen($_POST['f20_cellulare']) != 13)
                             && (strlen($_POST['f20_cellulare']) != 12))
-                            || !ereg('^\+([0-9]{11,12})$',
+                            || !preg_match('/^\+([0-9]{11,12})$/',
                                     $_POST['f20_cellulare']))) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
                                 'msg' => 'Il numero di cellulare deve essere indicato nel formato +xxyyyzzzzzzz'
-                                        . "\n" . 'es: "+3933901234567"',
+                                        . "\n" . 'es: "+393390123456"',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false, 'template_engine' => &$template));
                 $f20_accept = false;
             } else
                 $q20_cellulare = $f20_cellulare = $_POST['f20_cellulare'];
 
+            $validator = new EmailAddress();
+            
             //mail
             if (strlen($_POST['f20_email']) > 50) {
                 Error::throwError(_ERROR_NOTICE,
@@ -105,9 +109,7 @@ class ShowPersonalSettings extends UniversiboCommand
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false, 'template_engine' => &$template));
                 $f20_accept = false;
-            } elseif (!eregi(
-                    "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$",
-                    $_POST['f20_email'])) {
+            } elseif (!$validator->isValid($_POST['f20_email'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
                                 'msg' => 'Inserire un indirizzo e-mail valido',
