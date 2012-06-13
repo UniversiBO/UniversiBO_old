@@ -8,7 +8,7 @@ namespace Universibo\Bundle\LegacyBundle\Entity;
  * @license GPL v2 or later
  */
 
-class DoctrineCanale2Repository
+class Canale2Repository
 {
 
     /**

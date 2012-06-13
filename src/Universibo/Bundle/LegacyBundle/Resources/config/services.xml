@@ -75,7 +75,7 @@
 		</service>
 
 		<service id="universibo_legacy.repository.canale2"
-			class="Universibo\Bundle\LegacyBundle\Entity\DoctrineCanale2Repository">
+			class="Universibo\Bundle\LegacyBundle\Entity\Canale2Repository">
 			<argument type="service" id="universibo_legacy.repository.canale" />
 			<argument type="service" id="universibo_legacy.repository.cdl" />
 			<argument type="service" id="universibo_legacy.repository.facolta" />
