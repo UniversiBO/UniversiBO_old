@@ -123,16 +123,16 @@
 		</service>
 
 		<service id="universibo_legacy.repository.files.file_item"
-			class="Universibo\Bundle\LegacyBundle\Entity\Files\DBFileItemRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			class="Universibo\Bundle\LegacyBundle\Entity\Files\FileItemRepository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 			<argument type="service" id="universibo_legacy.repository.user" />
 			<argument type="service" id="universibo_legacy.repository.canale" />
 			<argument>true</argument>
 		</service>
 
 		<service id="universibo_legacy.repository.files.file_item_studenti"
-			class="Universibo\Bundle\LegacyBundle\Entity\Files\DBFileItemStudentiRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			class="Universibo\Bundle\LegacyBundle\Entity\Files\FileItemStudentiRepository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 			<argument type="service" id="universibo_legacy.repository.user" />
 			<argument type="service" id="universibo_legacy.repository.canale" />
 			<argument>true</argument>
