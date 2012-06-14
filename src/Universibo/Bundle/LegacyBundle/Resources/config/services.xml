@@ -114,9 +114,8 @@
 		</service>
 
 		<service id="universibo_legacy.repository.docente"
-			class="Universibo\Bundle\LegacyBundle\Entity\DBDocenteRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
-			<argument>true</argument>
+			class="Universibo\Bundle\LegacyBundle\Entity\DocenteRepository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 		</service>
 
 		<service id="universibo_legacy.repository.facolta"
