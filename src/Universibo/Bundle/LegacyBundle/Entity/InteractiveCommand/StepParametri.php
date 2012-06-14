@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Universibo\Bundle\LegacyBundle\Entity\StepParametri
  *
  * @ORM\Table(name="step_parametri")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepParametriRepository")
  */
 class StepParametri
 {
