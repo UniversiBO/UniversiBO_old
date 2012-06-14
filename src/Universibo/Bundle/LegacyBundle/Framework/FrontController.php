@@ -857,21 +857,6 @@ class FrontController
     }
 
     /**
-     * Factory method that creates a Pear::DB Connection object
-     * If called with optional $dsn parameter sets the connection information
-     * Implements singleton pattern for each connection
-     *
-     * @param  string $identifier Connection "name" identifier in config file
-     * @param  string $dsn        optional sets the $identifier dsn connection
-     * @return mixed  true, PearDB
-     * @access public
-     */
-    public static function getDbConnection($identifier)
-    {
-        return self::$container->get('universibo_legacy.db.connection.'.$identifier);
-    }
-
-    /**
      * Factory method that creates a Smarty object
      * Implements singleton pattern, returns always the same object istance
      *

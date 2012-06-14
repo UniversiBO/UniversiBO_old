@@ -26,23 +26,10 @@
               <argument>UniversiBOLegacyBundle</argument>
           </call>
 	    </service>
-		<service id="universibo_legacy.db.factory"
-			class="Universibo\Bundle\LegacyBundle\Framework\DBConnectionFactory">
-			<call method="registerDSN">
-				<argument>main</argument>
-				<argument>%database_pear_driver%://%database_user%:%database_password%@%database_host%/%database_name%</argument>
-			</call>
-		</service>
-
-		<service id="universibo_legacy.db.connection.main" class="DB_common"
-			factory-service="universibo_legacy.db.factory" factory-method="getConnection">
-			<argument>main</argument>
-		</service>
 
 		<service id="universibo_legacy.forum.api"
 			class="Universibo\Bundle\LegacyBundle\App\ForumApi">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
-			<argument>true</argument>
+			<argument type="service" id="doctrine.dbal.default_connection" />
 		</service>
 
 		<service id="universibo_legacy.krono" class="Krono">

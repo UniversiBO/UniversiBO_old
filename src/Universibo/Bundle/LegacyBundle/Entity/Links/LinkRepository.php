@@ -6,9 +6,6 @@ use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
 
 use Universibo\Bundle\LegacyBundle\Entity\UserRepository;
 
-use \DB;
-use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
-
 /**
  * Link repository
  *

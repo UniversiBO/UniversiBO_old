@@ -93,7 +93,6 @@ abstract class BaseReceiver
         $fc->setConfig( $this->configFile );
 
         $fc->executeCommand();
-        $fc->getDbConnection('main')->disconnect();
     }
 
     public function getKernel()
