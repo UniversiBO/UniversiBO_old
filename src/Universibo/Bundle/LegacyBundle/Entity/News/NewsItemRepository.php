@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\News;
 
+use Doctrine\DBAL\Connection;
+
 use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
 use Universibo\Bundle\LegacyBundle\Entity\CanaleRepository;
 use Universibo\Bundle\LegacyBundle\Entity\UserRepository;
@@ -23,7 +25,7 @@ class NewsItemRepository extends DoctrineRepository
      */
     private $channelRepository;
 
-    public function __construct(Connection $db, UserRepository $userRepository)
+    public function __construct(Connection $db, UserRepository $userRepository, CanaleRepository $channelRepository)
     {
         parent::__construct($db);
 
@@ -284,12 +286,12 @@ class NewsItemRepository extends DoctrineRepository
             ->from('news', 'n')
             ->from('news_canale', 'nc')
             ->where('n.id_news = nc.id_news')
-            ->andWhere('n.eliminato = ?')
+            ->andWhere('n.eliminata = ?')
             ->andWhere('nc.id_canale IN (?)')
             ->andWhere('n.data_scadenza IS NULL OR n.data_scadenza > ?')
             ->setFirstResult($offset)
             ->setMaxResults($limit)
-            ->setParameters(array(NewsItem::NOT_ELIMINATO, $channelIds, time()), array(null, Connection::PARAM_INT_ARRAY, null))
+            ->setParameters(array(NewsItem::NOT_ELIMINATA, $channelIds, time()), array(null, Connection::PARAM_INT_ARRAY, null))
             ->execute()
         ;
         $id_news_list = array();
