@@ -5,7 +5,7 @@ $repoPath = realpath(__DIR__.'/../src/Universibo/Bundle/LegacyBundle');
 function find_entities_rec($path, array &$found)
 {
     if (is_file($path)) {
-        if(preg_match('/php$/', $path)) {
+        if(preg_match('/\\.php$/', $path)) {
             $found[]= $path;
         }
     } elseif (is_dir($path)) {
@@ -33,7 +33,7 @@ function find_entities($path)
 
 function check_entity($file)
 {
-    $dbCalls = `grep -ni getDbConnection $file`;
+    $dbCalls = `egrep -ni 'getDbConnection|DBRepository' $file`;
     if(strlen($dbCalls) > 0) {
         echo 'File ', $file, PHP_EOL, $dbCalls;
     } 
