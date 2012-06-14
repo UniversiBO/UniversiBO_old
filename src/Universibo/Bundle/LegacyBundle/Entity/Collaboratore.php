@@ -1,20 +1,21 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
-use \DB;
-use \Error;
+use Doctrine\ORM\Mapping as ORM;
+
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
  * Collaboratore class, modella le informazioni relative ai collaboratori
  *
- * @package universibo
- * @version 2.0.0
+ * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, <{@link http://www.opensource.org/licenses/gpl-license.php}>
- * @copyright CopyLeft UniversiBO 2001-2004
+ * @copyright CopyLeft UniversiBO 2001-2012
+ * 
+ * @ORM\Table(name="collaboratore")
+ * @ORM\Entity(repositoryClass="Universibo\Bundle\LegacyBundle\Entity\CollaboratoreRepository") 
  */
-
 class Collaboratore
 {
     /**
@@ -23,49 +24,61 @@ class Collaboratore
     private static $repository;
 
     /**
-     * @access private
+     * @var string
+     * @ORM\Column(name="intro", type="text", nullable=true) 
      */
-    public $id_utente;
-
-    /**
-     * @access private
-     */
-    public $intro;
-
-    /**
-     * @access private
-     */
-    public $ruolo;
-
-    /**
-     * @access private
-     */
-    public $recapito;
+    private $intro;
 
     /**
      * @var string
+     * @ORM\Column(name="ruolo", type="string", length=255, nullable=true)
+     */
+    private $ruolo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="recapito", type="string", length=255, nullable=true)
+     */
+    private $recapito;
+
+    /**
+     * @var string
+     * @ORM\Column(name="obiettivi", type="text", nullable=true)
      */
     private $obiettivi;
 
     /**
-     * @access private
+     * @var string
+     *
+     * @ORM\Column(name="foto", type="string", length=255, nullable=true)
      */
-    public $foto;
+    private $foto;
 
     /**
      * @var User
+     * 
+     * @ORM\Id
+     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="id_utente", referencedColumnName="id_utente")
      */
     private $user;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="show", type="string", length=1, nullable=false)
+     */
+    private $show = 'N';
 
     /**
      * @final
      * @access private
      */
-    public $fotoDefault = 'no_foto.png';
+    private $fotoDefault = 'no_foto.png';
 
-    public function __construct($id_utente = 0, $intro = '', $recapito = '', $obiettivi = '', $foto = '', $ruolo = '')
+    public function __construct($intro = '', $recapito = '', $obiettivi = '', $foto = '', $ruolo = '')
     {
-        $this->id_utente	= $id_utente;
         $this->intro		= $intro;
         $this->ruolo		= $ruolo;
         $this->recapito 	= $recapito;
@@ -75,12 +88,7 @@ class Collaboratore
 
     public function getIdUtente()
     {
-        return $this->id_utente;
-    }
-
-    public function setIdUtente($id_utente)
-    {
-        $this->id_utente = $id_utente;
+        return $this->getUser()->getIdUser();
     }
 
     public function getIntro()
@@ -91,6 +99,8 @@ class Collaboratore
     public function setIntro($intro)
     {
         $this->intro = $intro;
+        
+        return $this;
     }
 
     public function getRuolo()
@@ -101,6 +111,8 @@ class Collaboratore
     public function setRuolo($ruolo)
     {
         $this->ruolo = $ruolo;
+        
+        return $this;
     }
 
     public function getRecapito()
@@ -111,6 +123,8 @@ class Collaboratore
     public function setRecapito($recapito)
     {
         $this->recapito = $recapito;
+        
+        return $this;
     }
 
     public function getObiettivi()
@@ -121,6 +135,8 @@ class Collaboratore
     public function setObiettivi($obiettivi)
     {
         $this->obiettivi = $obiettivi;
+        
+        return $this;
     }
 
     public function getFotoFilename()
@@ -131,11 +147,15 @@ class Collaboratore
     public function setFotoFilename($foto)
     {
         $this->foto = $foto;
+        
+        return $this;
     }
 
     public function setUser(User $user)
     {
         $this->user = $user;
+        
+        return $this;
     }
 
     /**
@@ -148,6 +168,18 @@ class Collaboratore
     public function getUser()
     {
         return $this->user;
+    }
+    
+    public function getShow()
+    {
+        return $this->show;
+    }
+    
+    public function setShow($show)
+    {
+        $this->show = $show;
+        
+        return $this;
     }
 
     /**

@@ -45,7 +45,7 @@ class User implements UserInterface, SSOUserInterface, \Serializable
      * @ORM\GeneratedValue(strategy="SEQUENCE")
      * @ORM\SequenceGenerator(sequenceName="utente_id_utente_seq", allocationSize="1", initialValue="1") 
      */
-    private $id_utente;
+    private $idUtente;
 
     /**
      * @var string
@@ -243,7 +243,7 @@ class User implements UserInterface, SSOUserInterface, \Serializable
             $defaultStyle = '', $bookmark = NULL,
             $eliminato = self::NOT_ELIMINATO, $hashedPassword = false)
     {
-        $this->id_utente = $id_utente;
+        $this->idUtente = $id_utente;
         $this->groups = $groups;
         $this->username = trim($username);
         $this->email = $email;
@@ -312,12 +312,12 @@ class User implements UserInterface, SSOUserInterface, \Serializable
      */
     public function getIdUser()
     {
-        return $this->id_utente;
+        return $this->idUtente;
     }
 
     public function setIdUser($id)
     {
-        $this->id_utente = $id;
+        $this->idUtente = $id;
     }
 
     /**
@@ -1134,7 +1134,7 @@ class User implements UserInterface, SSOUserInterface, \Serializable
 
     public function serialize()
     {
-        $data = array('id_utente' => $this->id_utente,
+        $data = array('idUtente' => $this->idUtente,
                 'username' => $this->username,
                 'password' => $this->password,
                 'ultimoLogin' => $this->ultimoLogin,
