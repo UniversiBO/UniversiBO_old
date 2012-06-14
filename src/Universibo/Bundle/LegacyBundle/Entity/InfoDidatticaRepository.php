@@ -5,11 +5,11 @@ use \DB;
 /**
  * @todo Informativa Entity
  */
-class DBInfoDidatticaRepository extends DBRepository
+class InfoDidatticaRepository extends DoctrineRepository 
 {
     public function find($id)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT id_canale, programma, programma_link, testi_consigliati, testi_consigliati_link,
         modalita, modalita_link, obiettivi_esame, obiettivi_esame_link, appelli, appelli_link,
@@ -17,19 +17,9 @@ class DBInfoDidatticaRepository extends DBRepository
         FROM info_didattica WHERE
         id_canale = ' . $db->quote($id);
 
-        $res = $db->query($query);
-        //var_dump($query);
-        //var_dump($res);
+        $stmt = $db->executeQuery($query);
 
-        if (DB::isError($res)) {
-            $db->rollback();
-            $this
-                    ->throwError('_ERROR_CRITICAL',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-        }
-
-        if ($row = $this->fetchRow($res)) {
+        if (false !== ($row = $stmt->fetch())) {
             return new InfoDidattica($row[0], $row[1], $row[2], $row[3],
                     $row[4], $row[5], $row[6], $row[7], $row[8], $row[9],
                     $row[10], $row[11], $row[12]);
@@ -40,26 +30,19 @@ class DBInfoDidatticaRepository extends DBRepository
 
     public function delete(InfoDidattica $infoDidattica)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'DELETE FORM info_didattica  WHERE id_canale = '
         . $db->quote($infoDidattica->getIdCanale());
 
-        $res = $db->query($query);
-        //var_dump($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            $this->throwError('_ERROR_CRITICAL',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-        }
+        $db->executeUpdate($query);
 
         return true;
     }
 
     public function insert(InfoDidattica $infoDidattica)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'INSERT INTO info_didattica (id_canale, programma, programma_link, testi_consigliati,
         testi_consigliati_link, modalita, modalita_link, obiettivi_esame,
@@ -78,21 +61,14 @@ class DBInfoDidatticaRepository extends DBRepository
         . $db->quote($infoDidattica->getHomepageAlternativaLink()) . ' , '
         . $db->quote($infoDidattica->getOrarioIcsLink()) . ' )';
 
-        $res = $db->query($query);
-        //var_dump($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            $this->throwError('_ERROR_CRITICAL',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-        }
+        $db->executeUpdate($query);
 
         return true;
     }
 
     public function update(InfoDidattica $infoDidattica)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'UPDATE info_didattica SET ' . ' programma = '
         . $db->quote($infoDidattica->getProgramma()) . ', programma_link = '
@@ -114,14 +90,7 @@ class DBInfoDidatticaRepository extends DBRepository
         . ', orario_ics_link= ' . $db->quote($infoDidattica->getOrarioIcsLink())
         . ' WHERE id_canale = ' . $db->quote($infoDidattica->getIdCanale());
 
-        $res = $db->query($query);
-        //var_dump($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            $this->throwError('_ERROR_CRITICAL',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-        }
+        $db->executeUpdate($query);
 
         return true;
     }
