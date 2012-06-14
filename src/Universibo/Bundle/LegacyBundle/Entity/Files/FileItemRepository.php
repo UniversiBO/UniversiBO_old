@@ -62,9 +62,6 @@ class FileItemRepository extends DoctrineRepository
         }
 
         $db = $this->getConnection();
-        array_walk($channelIds, array($db, 'quote'));
-
-        $values = implode(',', $channelIds);
         
         $builder = $db->createQueryBuilder();
         
@@ -74,12 +71,11 @@ class FileItemRepository extends DoctrineRepository
             ->from('file_canale', 'fc')
             ->where('f.id_file = fc.id_file')
             ->andWhere('f.eliminato = ?')
-            ->andWhere('fc.id_canale IN ?')
-            ->setParameters(array('N', $channelIds), array(null, Connection::PARAM_INT_ARRAY))
-            ->orderBy('f.data_inserimento', 'DESC')
-            ->execute();
+            ->andWhere('fc.id_canale IN (?)')
+            ->setParameters(array(FileItem::NOT_ELIMINATO, $channelIds), array(null, Connection::PARAM_INT_ARRAY))
+            ->execute()
+        ;
         
-
         $ids = array();
 
         while (false !== ($row = $stmt->fetch())) {
