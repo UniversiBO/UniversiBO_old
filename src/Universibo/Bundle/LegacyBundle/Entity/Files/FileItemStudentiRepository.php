@@ -14,7 +14,7 @@ use Universibo\Bundle\LegacyBundle\Entity\UserRepository;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBFileItemStudentiRepository extends DoctrineRepository
+class FileItemStudentiRepository extends DoctrineRepository
 {
     const ORDER_TITLE = 0;
     const ORDER_DATE_DESC = 1;

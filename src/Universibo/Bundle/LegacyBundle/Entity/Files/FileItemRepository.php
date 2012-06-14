@@ -14,7 +14,7 @@ use Universibo\Bundle\LegacyBundle\Entity\UserRepository;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBFileItemRepository extends DoctrineRepository
+class FileItemRepository extends DoctrineRepository
 {
     /**
      * @var UserRepository
