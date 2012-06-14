@@ -166,7 +166,6 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
 
             $elenco[] = $prgAtt;
         }
-        $res->free();
 
         return $elenco;
     }
