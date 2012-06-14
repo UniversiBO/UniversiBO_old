@@ -72,6 +72,7 @@ class FileItemRepository extends DoctrineRepository
             ->where('f.id_file = fc.id_file')
             ->andWhere('f.eliminato = ?')
             ->andWhere('fc.id_canale IN (?)')
+            ->setMaxResults($limit)
             ->setParameters(array(FileItem::NOT_ELIMINATO, $channelIds), array(null, Connection::PARAM_INT_ARRAY))
             ->execute()
         ;
