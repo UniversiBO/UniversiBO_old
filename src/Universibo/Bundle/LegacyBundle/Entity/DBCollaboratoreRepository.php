@@ -12,11 +12,11 @@ use \DB;
 class DBCollaboratoreRepository extends DBRepository
 {
     /**
-     * @var DBUserRepository
+     * @var UserRepository
      */
     private $userRepository;
 
-    public function __construct(\DB_common $db, DBUserRepository $userRepository, $convert = false)
+    public function __construct(\DB_common $db, UserRepository $userRepository, $convert = false)
     {
         parent::__construct($db, $convert);
 

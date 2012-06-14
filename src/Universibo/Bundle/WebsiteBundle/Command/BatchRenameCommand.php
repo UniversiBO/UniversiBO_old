@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\WebsiteBundle\Command;
 
-use Universibo\Bundle\LegacyBundle\Entity\DBUserRepository;
+use Universibo\Bundle\LegacyBundle\Entity\UserRepository;
 use Universibo\Bundle\LegacyBundle\Entity\User;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -122,7 +122,7 @@ EOD;
         return $this->getContainer()->get($id);
     }
 
-    private function renameUser(DBUserRepository $repository, User $user)
+    private function renameUser(UserRepository $repository, User $user)
     {
         $newUsername = $repository->getAvaliableUsername($user->getUsername());
         $repository->renameUser($user, $newUsername);

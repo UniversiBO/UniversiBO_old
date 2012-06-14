@@ -5,6 +5,9 @@ use Universibo\Bundle\SSOBundle\Model\UserInterface as SSOUserInterface;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\Auth\ActiveDirectoryLogin;
 use Universibo\Bundle\LegacyBundle\Auth\PasswordUtil;
+
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * User class
  *
@@ -12,7 +15,10 @@ use Universibo\Bundle\LegacyBundle\Auth\PasswordUtil;
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @author Davide Bellettini
  * @license GPL, <{@link http://www.opensource.org/licenses/gpl-license.php}>
- * @copyright CopyLeft UniversiBO 2001-2003
+ * @copyright CopyLeft UniversiBO 2001-2012
+ * 
+ * @ORM\Table(name="utente")
+ * @ORM\Entity(repositoryClass="Universibo\Bundle\LegacyBundle\Entity\UserRepository")
  */
 class User implements UserInterface, SSOUserInterface, \Serializable
 {
@@ -32,71 +38,109 @@ class User implements UserInterface, SSOUserInterface, \Serializable
     const NICK_ELIMINATO = 'ex-utente';
 
     /**
-     * @access private
+     * @var integer
+     * 
+     * @ORM\Column(name="id_utente", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="utente_id_utente_seq", allocationSize="1", initialValue="1") 
      */
-    public $id_utente = 0;
+    private $id_utente;
+
+    /**
+     * @var string
+     * 
+     * @ORM\Column(name="username", type="string", length=25, nullable=false) 
+     */
+    private $username;
+
+    /**
+     * @var string
+     * 
+     * @ORM\Column(name="password", type="string", length=40, nullable=false) 
+     */
+    private $password;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     */
+    private $email = '';
+
+    /**
+     * Unix timestamp of latest login
+     * @var integer
+     * 
+     * @ORM\Column(name="ultimo_login", type="integer", nullable=true) 
+     */
+    private $ultimoLogin = 0;
 
     /**
      * @access private
      */
-    public $username = '';
+    private $bookmark = NULL; //array()
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="ad_username", type="string", length=255, nullable=true)
      */
-    private $password = '';
+    private $ADUsername = '';
 
     /**
-     * @access private
+     * Legacy ACL roles
+     * @var integer
+     * 
+     * @ORM\Column(name="groups", type="integer", nullable=true)
      */
-    public $email = '';
+    private $groups = 0;
 
     /**
-     * @access private
+     * Notification level 
+     * 
+     * @ORM\Column(name="notifica", type="integer", nullable=true)
      */
-    public $ultimoLogin = 0;
+    private $notifica = 0;
 
     /**
-     * @access private
+     * @var string
+     * @ORM\Column(name="ban", type="string", length=1, nullable=false) 
      */
-    public $bookmark = NULL; //array()
-
-    /**
-     * @access private
-     */
-    public $ADUsername = '';
-
-    /**
-     * @access private
-     */
-    public $groups = 0;
-
-    /**
-     * @access private
-     */
-    public $notifica = 0;
+    private $ban = 'N';
 
     /**
      * @access private
+     * @ORM\Column(name="phone", type="string", length=15, nullable=true) 
      */
-    public $ban = false;
+    private $phone = '';
 
     /**
-     * @access private
+     * @var string
+     * 
+     * @ORM\Column(name="default_style", type="string", length=15, nullable=true) 
      */
-    public $phone = '';
+    private $defaultStyle = '';
 
     /**
-     * @access private
+     * @var string
+     * 
+     * @ORM\Column(name="sospeso", type="string", length=1, nullable=false) 
      */
-    public $defaultStyle = '';
+    private $eliminato = 'N';
 
     /**
-     * @access private
+     * @var string
+     *
+     * @ORM\Column(name="algoritmo", type="string", length=8, nullable=false)
      */
-    public $eliminato = '';
-
     private $algoritmo;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="salt", type="string", length=8, nullable=false)
+     */
     private $salt;
 
     private static $roleConversions = array(
@@ -193,7 +237,7 @@ class User implements UserInterface, SSOUserInterface, \Serializable
      * @param  array() $bookmark     array con elenco dei id_canale dell'utente associati ai rispettivi ruoli
      * @return User
      */
-    public function __construct($id_utente, $groups, $username = NULL,
+    public function __construct($id_utente = 0, $groups = self::OSPITE, $username = NULL,
             $password = NULL, $email = NULL, $notifica = NULL,
             $ultimo_login = NULL, $AD_username = NULL, $phone = '',
             $defaultStyle = '', $bookmark = NULL,
@@ -657,7 +701,7 @@ class User implements UserInterface, SSOUserInterface, \Serializable
      */
     public function setBan($ban)
     {
-        $this->ban = $ban;
+        $this->ban = $ban ? 'S' : 'N';
     }
 
     public function setBanned($banned)
@@ -673,7 +717,7 @@ class User implements UserInterface, SSOUserInterface, \Serializable
      */
     public function isBanned()
     {
-        return $this->ban;
+        return $this->ban === 'S';
     }
 
     /**
@@ -923,9 +967,7 @@ class User implements UserInterface, SSOUserInterface, \Serializable
     public static function selectUser($id_utente)
     {
         if ($id_utente == 0) {
-            $user = new User(0, self::OSPITE);
-
-            return $user;
+            return new User(0, self::OSPITE);
         } elseif ($id_utente > 0) {
             return self::getRepository()->find($id_utente);
         }
@@ -1079,7 +1121,7 @@ class User implements UserInterface, SSOUserInterface, \Serializable
     }
 
     /**
-     * @return DBUserRepository
+     * @return UserRepository
      */
     private static function getRepository()
     {

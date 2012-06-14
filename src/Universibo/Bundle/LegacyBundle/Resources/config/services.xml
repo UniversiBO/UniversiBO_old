@@ -206,10 +206,8 @@
 			<argument>true</argument>
 		</service>
 
-		<service id="universibo_legacy.repository.user"
-			class="Universibo\Bundle\LegacyBundle\Entity\DBUserRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
-			<argument>true</argument>
+		<service id="universibo_legacy.repository.user" class="Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepParametriRepository" factory-service="doctrine.orm.entity_manager" factory-method="getRepository">
+			<argument>Universibo\Bundle\LegacyBundle\Entity\User</argument>
 		</service>
 
 		<service id="universibo_legacy.routing.channel" public="true"

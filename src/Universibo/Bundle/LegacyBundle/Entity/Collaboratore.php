@@ -18,7 +18,7 @@ use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 class Collaboratore
 {
     /**
-     * @var DBCdlRepository
+     * @var DBCollaboratoreRepository
      */
     private static $repository;
 
@@ -63,7 +63,7 @@ class Collaboratore
      */
     public $fotoDefault = 'no_foto.png';
 
-    public function __construct($id_utente, $intro, $recapito, $obiettivi, $foto, $ruolo )
+    public function __construct($id_utente = 0, $intro = '', $recapito = '', $obiettivi = '', $foto = '', $ruolo = '')
     {
         $this->id_utente	= $id_utente;
         $this->intro		= $intro;

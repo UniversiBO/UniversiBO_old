@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Auth;
 
-use Universibo\Bundle\LegacyBundle\Entity\DBUserRepository;
+use Universibo\Bundle\LegacyBundle\Entity\UserRepository;
 
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
@@ -14,7 +14,7 @@ class UniversiBOProvider implements AuthenticationProviderInterface
     private $userProvider;
     private $cacheDir;
 
-    public function __construct(DBUserRepository $userProvider)
+    public function __construct(UserRepository $userProvider)
     {
         $this->userProvider = $userProvider;
     }

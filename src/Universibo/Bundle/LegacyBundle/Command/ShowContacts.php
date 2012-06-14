@@ -56,7 +56,9 @@ class ShowContacts extends UniversiboCommand
 
         $num_collaboratori = count($collaboratori);
 
-        asort($collaboratori);
+        uasort($collaboratori, function ($a, $b) {
+            return strcasecmp($a['username'], $b['username']);
+        });
         $template->assign('contacts_langPersonal', $collaboratori);
 
         $template
