@@ -355,10 +355,10 @@ class FileItemRepository extends DoctrineRepository
         $db = $this->getConnection();
 
         $eliminata = FileItem::NOT_ELIMINATO;
-        $query = 'INSERT INTO file (id_file, permessi_download, permessi_visualizza, id_utente, titolo,
+        $query = 'INSERT INTO file (permessi_download, permessi_visualizza, id_utente, titolo,
         descrizione, data_inserimento, data_modifica, dimensione, download,
         nome_file, id_categoria, id_tipo_file, hash_file, password, eliminato) VALUES '
-        . '( ' . $next_id . ' , '
+        . '('
         . $db->quote($file->getPermessiDownload()) . ' , '
         . $db->quote($file->getPermessiVisualizza()) . ' , '
         . $db->quote($file->getIdUtente()) . ' , '
@@ -377,7 +377,7 @@ class FileItemRepository extends DoctrineRepository
 
         $res = $db->executeUpdate($query);
 
-        $file->setIdFile($db->lastInsertId('file_id_file'));
+        $file->setIdFile($db->lastInsertId('file_id_file_seq'));
         
         return true;
     }
