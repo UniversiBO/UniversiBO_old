@@ -169,8 +169,8 @@
 		</service>
 		
 		<service id="universibo_legacy.repository.interactivecommand.step_list"
-			class="Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepListRepository" factory-service="doctrine.orm.entity_manager" factory-method="getRepository">
-			<argument>Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepList</argument>
+			class="Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepParametriRepository" factory-service="doctrine.orm.entity_manager" factory-method="getRepository">
+			<argument>Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepParametri</argument>
 		</service>
 		
 

@@ -6,6 +6,6 @@ use Doctrine\ORM\EntityRepository;
 /**
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
-class StepLogRepository extends EntityRepository
+class StepParametriRepository extends EntityRepository
 {
 }
