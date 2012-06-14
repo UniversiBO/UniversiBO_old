@@ -190,9 +190,8 @@
 		</service>
 
 		<service id="universibo_legacy.repository.notifica.notifica_item"
-			class="Universibo\Bundle\LegacyBundle\Entity\Notifica\DBNotificaItemRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
-			<argument>true</argument>
+			class="Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItemRepository" factory-service="doctrine.orm.entity_manager" factory-method="getRepository">
+			<argument>Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem</argument>
 		</service>
 
 		<service id="universibo_legacy.repository.programma"

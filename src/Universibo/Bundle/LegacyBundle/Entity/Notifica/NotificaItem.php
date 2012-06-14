@@ -1,8 +1,9 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Notifica;
-use \DB;
-use \Error;
+
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
+
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  *
@@ -13,12 +14,15 @@ use Universibo\Bundle\LegacyBundle\Framework\FrontController;
  * @package universibo
  * @subpackage Notifica
  * @version 2.0.0
+ * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @author GNU/Mel <gnu.mel@gmail.com>
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, @link http://www.opensource.org/licenses/gpl-license.php
  * @copyright CopyLeft UniversiBO 2001-2003
+ * 
+ * @ORM\Table(name="notifica")
+ * @ORM\Entity(repositoryClass="Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItemRepository") 
  */
-
 class NotificaItem
 {
     const ELIMINATA = 'S';
@@ -26,41 +30,54 @@ class NotificaItem
 
     const URGENTE = 'S';
     const NOT_URGENTE = 'N';
+    
     /**
-     * @var string
+     * @ORM\Column(name="titolo", type="string", length=200, nullable=false)
      */
-    private $titolo = '';
+    private $titolo;
 
     /**
      * @var string
+     * 
+     * @ORM\Column(name="messaggio", type="text", nullable=false) 
      */
-    private $messaggio = '';
+    private $messaggio;
 
     /**
      * data e ora di inserimento
      * @var int
+     * 
+     * @ORM\Column(name="timestamp", type="integer", nullable=false) 
      */
-    private $timestamp = 0;
+    private $timestamp;
 
     /**
      * @var boolean
+     * @ORM\Column(name="urgente", type="string", length=1, nullable=false) 
      */
-    private $urgente = false;
+    private $urgente;
 
     /**
      * @var int
+     * 
+     * @ORM\Column(name="id_notifica", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="notifica_id_notifica_seq", allocationSize="1", initialValue="1") 
      */
-    private $id_notifica = 0;
+    private $id_notifica;
 
     /**
      * @var boolean
+     * @ORM\Column(name="eliminata", type="string", length=1, nullable=false)
      */
-    private $eliminata = false;
+    private $eliminata;
 
     /**
      * @var string
+     * @ORM\Column(name="destinatario", type="string", length=200, nullable=false) 
      */
-    private $destinatario = '';
+    private $destinatario;
 
     /**
      * @var string
@@ -82,18 +99,17 @@ class NotificaItem
      * @param  int      $timestamp   timestamp dell'inserimento
      * @param  boolean  $urgente     flag notizia urgente o meno
      * @param  boolean  $eliminata   flag stato della news
-     * @return NewsItem
      */
 
-    public function __construct($id_notifica, $titolo, $messaggio, $dataIns,
-            $urgente, $eliminata, $destinatario)
+    public function __construct($id_notifica = 0, $titolo = '', $messaggio = '', $dataIns = 0,
+            $urgente = false, $eliminata = false, $destinatario = '')
     {
         $this->id_notifica = $id_notifica;
         $this->titolo = $titolo;
         $this->messaggio = $messaggio;
         $this->timestamp = $dataIns;
-        $this->urgente = $urgente;
-        $this->eliminata = $eliminata;
+        $this->setUrgente($urgente);
+        $this->setEliminata($eliminata);
         $this->destinatario = $destinatario;
     }
 
@@ -154,7 +170,7 @@ class NotificaItem
      */
     public function isUrgente()
     {
-        return $this->urgente;
+        return $this->urgente === 'S';
     }
 
     /**
@@ -218,7 +234,7 @@ class NotificaItem
      */
     public function isEliminata()
     {
-        return $this->eliminata;
+        return $this->eliminata === 'S';
     }
 
     /**
@@ -258,7 +274,7 @@ class NotificaItem
      */
     public function setUrgente($urgente)
     {
-        $this->urgente = $urgente;
+        $this->urgente = $urgente ? 'S' : 'N';
     }
 
     /**
@@ -279,7 +295,7 @@ class NotificaItem
      */
     public function setEliminata($eliminata)
     {
-        $this->eliminata = $eliminata;
+        $this->eliminata = $eliminata ? 'S' : 'N';
     }
 
     /**

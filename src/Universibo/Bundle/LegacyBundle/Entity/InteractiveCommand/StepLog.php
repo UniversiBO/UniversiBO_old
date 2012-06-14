@@ -46,7 +46,7 @@ class StepLog
     /**
      * @var string $esitoPositivo
      *
-     * @ORM\Column(name="esito_positivo", type="string", nullable=true)
+     * @ORM\Column(name="esito_positivo", type="string", length=1, nullable=true)
      */
     private $esitoPositivo;
     

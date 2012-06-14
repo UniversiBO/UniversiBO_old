@@ -145,6 +145,40 @@ CREATE SEQUENCE informativa_id_informativa_seq
     NO MAXVALUE
     NO MINVALUE
     CACHE 1;
+    
+
+DROP TABLE IF EXISTS notifica;
+CREATE TABLE notifica (
+    id_notifica integer NOT NULL,
+    urgente character(1) NOT NULL,
+    messaggio text NOT NULL,
+    titolo character varying(200) NOT NULL,
+    "timestamp" integer NOT NULL,
+    destinatario character varying(200) NOT NULL,
+    eliminata character(1) NOT NULL
+);
+
+
+DROP SEQUENCE IF EXISTS notifica_id_notifica_seq;
+CREATE SEQUENCE notifica_id_notifica_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE ONLY notifica ALTER COLUMN id_notifica SET DEFAULT nextval('notifica_id_notifica_seq'::regclass);
+
+
+ALTER TABLE ONLY notifica
+    ADD CONSTRAINT notifica_pkey PRIMARY KEY (id_notifica);
+
+
+
+CREATE INDEX notifica_eliminata ON notifica USING btree (eliminata);
+CREATE INDEX notifica_timestamp ON notifica USING btree ("timestamp");    
+    
 
 INSERT INTO canale (tipo_canale, nome_canale, visite) VALUES (1, 'Homepage', 0);
     
@@ -159,3 +193,7 @@ INSERT INTO utente (username, password, notifica, groups) VALUES ('ossistyl', md
 INSERT INTO collaboratore (id_utente, intro, recapito, obiettivi, foto, ruolo, show) VALUES (1, 'hello world', '9999999999', 'lorem ipsum', 'brain.jpg', 'fondatore - progettista software', 'N');
 
 INSERT INTO informativa (data_pubblicazione, testo) VALUES (2000, 'Lorem ipsum');
+
+INSERT INTO notifica (urgente, messaggio, titolo, "timestamp", destinatario, eliminata) VALUES('S', 'Notifica', 'Titolo', 2342423, 'mail://hello@world.org', 'N');
+INSERT INTO notifica (urgente, messaggio, titolo, "timestamp", destinatario, eliminata) VALUES('S', 'Notifica', 'Titolo', 2342423, 'sms://+399999999999', 'N');
+INSERT INTO notifica (urgente, messaggio, titolo, "timestamp", destinatario, eliminata) VALUES('S', 'Notifica', 'Titolo', 2342423, 'sms://+399999999999', 'S');
