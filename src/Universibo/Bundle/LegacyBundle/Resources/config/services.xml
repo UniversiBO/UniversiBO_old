@@ -17,6 +17,15 @@
               <argument>UniversiBOLegacyBundle</argument>
           </call>
 	    </service>
+	    <service id="universibo_legacy.admin.user" class="Universibo\Bundle\LegacyBundle\Admin\UserAdmin">
+	        <tag name="sonata.admin" manager_type="orm" group="Account" label="Utenti"/>
+	        <argument/>
+	        <argument>Universibo\Bundle\LegacyBundle\Entity\User</argument>
+	        <argument>SonataAdminBundle:CRUD</argument>
+	        <call method="setTranslationDomain">
+              <argument>UniversiBOLegacyBundle</argument>
+          </call>
+	    </service>
 		<service id="universibo_legacy.db.factory"
 			class="Universibo\Bundle\LegacyBundle\Framework\DBConnectionFactory">
 			<call method="registerDSN">
