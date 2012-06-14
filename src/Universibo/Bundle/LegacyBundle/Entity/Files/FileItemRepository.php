@@ -206,8 +206,6 @@ class FileItemRepository extends DoctrineRepository
                     $username, $row[15], $row[16], $row[17], $row[18]);
         }
 
-        
-
         return $files_list;
     }
 
@@ -218,16 +216,11 @@ class FileItemRepository extends DoctrineRepository
         $query = 'SELECT keyword FROM file_keywords WHERE id_file='.$db->quote($fileId);
         $stmt = $db->executeQuery($query);
 
-        if (DB :: isError($res))
-            Error :: throwError(_ERROR_DEFAULT, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
-
         $elenco_keywords = array ();
 
         while (false !== ($row = $stmt->fetch())) {
             $elenco_keywords[] = $row[0];
         }
-
-        
 
         return $elenco_keywords;
     }
@@ -236,22 +229,14 @@ class FileItemRepository extends DoctrineRepository
     {
         $db = $this->getConnection();
         $query = 'INSERT INTO file_keywords(id_file, keyword) VALUES ('.$db->quote($fileId).' , '.$db->quote($keyword) .');';
-        $res =  $db->query($query);
-
-        if (DB :: isError($res)) {
-            $this->throwError('_ERROR_DEFAULT', array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
-        }
+        $res =  $db->executeUpdate($query);
     }
 
     public function removeKeyword($fileId, $keyword)
     {
         $db = $this->getConnection();
         $query = 'DELETE FROM file_keywords WHERE id_file = '.$db->quote($fileId).' AND keyword = '.$db->quote($keyword);
-        $res =$db->query($query);
-
-        if (DB :: isError($res)) {
-            $this->throwError('_ERROR_DEFAULT', array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
-        }
+        $res = $db->executeUpdate($query);
     }
 
     public function updateKeywords($fileId, array $keywords)
@@ -260,7 +245,7 @@ class FileItemRepository extends DoctrineRepository
 
         $db = $this->getConnection();
         ignore_user_abort(1);
-        $db->autoCommit(false);
+        $db->beginTransaction();
 
         foreach ($keywords as $value) {
             if (!in_array($value, $old_elenco_keywords)) {
@@ -276,7 +261,6 @@ class FileItemRepository extends DoctrineRepository
 
         $db->commit();
 
-        $db->autoCommit(true);
         ignore_user_abort(0);
     }
 
