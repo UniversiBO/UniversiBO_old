@@ -2,8 +2,6 @@
 namespace Universibo\Bundle\LegacyBundle\Entity\Commenti;
 use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
 
-use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
-
 /**
  * DBCommentoItem repository
  *
