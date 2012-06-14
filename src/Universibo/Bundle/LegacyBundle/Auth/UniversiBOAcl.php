@@ -1,6 +1,8 @@
 <?php
 
 namespace Universibo\Bundle\LegacyBundle\Auth;
+use Universibo\Bundle\LegacyBundle\Entity\RuoloRepository;
+
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 
 use Universibo\Bundle\LegacyBundle\Entity\DBRuoloRepository;
@@ -18,7 +20,7 @@ class UniversiBOAcl
      */
     private $ruoloRepository;
 
-    public function __construct(DBRuoloRepository $ruoloRepository)
+    public function __construct(RuoloRepository $ruoloRepository)
     {
         $this->ruoloRepository = $ruoloRepository;
 
