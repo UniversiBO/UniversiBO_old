@@ -27,7 +27,7 @@ class Canale2Repository
     private $facultyRepository;
 
     /**
-     * @var DBInsegnamentoRepository
+     * @var InsegnamentoRepository
      */
     private $subjectRepository;
 
@@ -43,7 +43,7 @@ class Canale2Repository
     public function __construct(CanaleRepository $channelRepository,
             DBCdlRepository $cdlRepository,
             DBFacoltaRepository $facultyRepository,
-            DBInsegnamentoRepository $subjectRepository)
+            InsegnamentoRepository $subjectRepository)
     {
         $this->channelRepository = $channelRepository;
         $this->cdlRepository = $cdlRepository;

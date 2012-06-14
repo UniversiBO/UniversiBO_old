@@ -157,8 +157,8 @@
 		</service>
 
 		<service id="universibo_legacy.repository.insegnamento"
-			class="Universibo\Bundle\LegacyBundle\Entity\DBInsegnamentoRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			class="Universibo\Bundle\LegacyBundle\Entity\InsegnamentoRepository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 			<argument type="service" id="universibo_legacy.repository.programma" />
 			<argument>true</argument>
 		</service>
