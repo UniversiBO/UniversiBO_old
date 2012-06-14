@@ -221,8 +221,8 @@
 		</service>
 
 		<service id="universibo_legacy.transaction" public="true"
-			class="Universibo\Bundle\LegacyBundle\Service\DBTransaction">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			class="Universibo\Bundle\LegacyBundle\Service\DoctrineTransaction">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 		</service>
 
 		<service id="universibo_legacy.auth.ldap"
