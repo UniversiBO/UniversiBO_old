@@ -91,9 +91,8 @@
 		</service>
 
 		<service id="universibo_legacy.repository.cdl"
-			class="Universibo\Bundle\LegacyBundle\Entity\DBCdlRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
-			<argument>true</argument>
+			class="Universibo\Bundle\LegacyBundle\Entity\CdlRepository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 		</service>
 
 		<service id="universibo_legacy.repository.collaboratore"
