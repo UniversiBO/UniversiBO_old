@@ -103,7 +103,7 @@ class NewsDelete extends CanaleCommand
         $num_canali = count($news_canali);
         for ($i = 0; $i < $num_canali; $i++) {
             $id_current_canale = $news_canali[$i];
-            $current_canale = &Canale::retrieveCanale($id_current_canale);
+            $current_canale = Canale::retrieveCanale($id_current_canale);
             $nome_current_canale = $current_canale->getTitolo();
             if (in_array($id_current_canale, $news->getIdCanali())) {
                 $f9_canale[] = array('id_canale' => $id_current_canale,

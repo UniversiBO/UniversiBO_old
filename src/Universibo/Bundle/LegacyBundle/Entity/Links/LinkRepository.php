@@ -37,10 +37,6 @@ class LinkRepository extends DoctrineRepository
         . $db->quote($channelId) . ') ORDER BY id_link DESC';
         $stmt = $db->executeQuery($query);
         
-        if ($stmt->rowCount() === 0) {
-            return false;
-        }
-        
         $link_list = array();
 
         while (false !== ($row = $stmt->fetch())) {
@@ -92,8 +88,8 @@ class LinkRepository extends DoctrineRepository
     {
         $db = $this->getConnection();
 
-        $query = 'INSERT INTO link (id_link, id_canale, id_utente, uri, label, description) VALUES ('
-        . $link->getIdLink() . ' , ' . $link->getIdCanale() . ' , '
+        $query = 'INSERT INTO link (id_canale, id_utente, uri, label, description) VALUES ('
+        . $link->getIdCanale() . ' , '
         . $link->getIdUtente() . ' , ' . $db->quote($link->getUri())
         . ' , ' . $db->quote($link->getLabel()) . ' , '
         . $db->quote($link->getDescription()) . ' )';

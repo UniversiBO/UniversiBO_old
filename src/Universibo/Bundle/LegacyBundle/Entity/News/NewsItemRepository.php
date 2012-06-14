@@ -171,8 +171,8 @@ class NewsItemRepository extends DoctrineRepository
                 : NewsItem::NOT_ELIMINATA;
         $flag_urgente = ($newsItem->isUrgente()) ? NewsItem::URGENTE
                 : NewsItem::NOT_URGENTE;
-        $query = 'INSERT INTO news (id_news, titolo, data_inserimento, data_scadenza, notizia, id_utente, eliminata, flag_urgente, data_modifica) VALUES '
-                . '( ' . $next_id . ' , ' . $db->quote($newsItem->getTitolo())
+        $query = 'INSERT INTO news (titolo, data_inserimento, data_scadenza, notizia, id_utente, eliminata, flag_urgente, data_modifica) VALUES '
+                . '( ' . $db->quote($newsItem->getTitolo())
                 . ' , ' . $db->quote($newsItem->getDataIns()) . ' , '
                 . $scadenza . ' , ' . $db->quote($newsItem->getNotizia())
                 . ' , ' . $db->quote($newsItem->getIdUtente()) . ' , '
@@ -185,7 +185,7 @@ class NewsItemRepository extends DoctrineRepository
         $db->commit();
         ignore_user_abort(0);
 
-        return $return;
+        return true;
     }
 
     public function getChannelIdList(NewsItem $news)
@@ -211,7 +211,7 @@ class NewsItemRepository extends DoctrineRepository
         $query = 'DELETE FROM news_canale WHERE id_canale='.$db->quote($channelId).' AND id_news='.$db->quote($news->getIdNotizia());
         $res = $db->executeUpdate($query);
 
-        $news->setIdCanali($ids = array_diff ($this->elencoIdCanali, array($id_canale)));
+        $news->setIdCanali($ids = array_diff ($news->getIdCanali(), array($id_canale)));
 
         if (count($ids) === 0) {
             $this->delete($news);

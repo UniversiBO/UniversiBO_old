@@ -40,7 +40,7 @@ class Link
     private $description = '';
 
     /**
-     * @var DBLinkRepository
+     * @var LinkRepository
      */
     private static $repository;
 
@@ -266,7 +266,7 @@ class Link
     }
 
     /**
-     * @return DBLinkRepository
+     * @return LinkRepository
      */
     private static function getRepository()
     {
