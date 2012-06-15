@@ -26,7 +26,7 @@ define('CDL_VECCHIO_ORDINAMENTO' ,3);
 class Cdl extends Canale
 {
     /**
-     * @var DBCdlRepository
+     * @var CdlRepository
      */
     private static $repository;
 
@@ -380,7 +380,7 @@ class Cdl extends Canale
     }
 
     /**
-     * @return DBCdlRepository
+     * @return CdlRepository
      */
     private static function getRepository()
     {

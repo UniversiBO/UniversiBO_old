@@ -42,7 +42,7 @@ class Facolta extends Canale
     private $facoltaUri = '';
 
     /**
-     * @var DBFacoltaRepository
+     * @var FacoltaRepository
      */
     private static $repository;
 
@@ -305,7 +305,7 @@ class Facolta extends Canale
     }
 
     /**
-     * @return DBFacoltaRepository
+     * @return FacoltaRepository
      */
     private static function getRepository()
     {

@@ -17,12 +17,12 @@ class Canale2Repository
     private $channelRepository;
 
     /**
-     * @var DBCdlRepository
+     * @var CdlRepository
      */
     private $cdlRepository;
 
     /**
-     * @var DBFacoltaRepository
+     * @var FacoltaRepository
      */
     private $facultyRepository;
 
@@ -35,14 +35,14 @@ class Canale2Repository
      * Class constructor
      *
      * @param CanaleRepository       $channelRepository
-     * @param DBCdlRepository          $cdlRepository
-     * @param DBFacoltaRepository      $facultyRepository
+     * @param CdlRepository          $cdlRepository
+     * @param FacoltaRepository      $facultyRepository
      * @param DBInsegnamentoRepository $subjectRepository
      * @param boolean                  $convert
      */
     public function __construct(CanaleRepository $channelRepository,
-            DBCdlRepository $cdlRepository,
-            DBFacoltaRepository $facultyRepository,
+            CdlRepository $cdlRepository,
+            FacoltaRepository $facultyRepository,
             InsegnamentoRepository $subjectRepository)
     {
         $this->channelRepository = $channelRepository;
