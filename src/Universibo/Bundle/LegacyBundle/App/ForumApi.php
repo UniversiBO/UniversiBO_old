@@ -240,7 +240,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
             return;
         // @todo renderla funzionante anche per utenti che appartengono a pi? gruppi
 
-        $user_style = $this->defaultUserStyle[$user->getDefaultStyle()];
+        $user_style = $this->defaultUserStyle['unibo'];
         $user_rank = $this->defaultRanks[$groups];
         $user_level = ($user->isAdmin() == true) ? 1
                 : ($user->isCollaboratore() == true) ? 2 : 0;
@@ -286,7 +286,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
         if ($user->isOspite())
             return;
 
-        $user_style = $this->defaultUserStyle[$user->getDefaultStyle()];
+        $user_style = $this->defaultUserStyle['unibo'];
 
         $query = 'UPDATE ' . $this->table_prefix . 'users SET user_style = '
                 . $db->quote($user_style) . ' WHERE user_id = '

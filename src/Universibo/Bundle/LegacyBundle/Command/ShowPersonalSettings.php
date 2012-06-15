@@ -59,12 +59,6 @@ class ShowPersonalSettings extends UniversiboCommand
         $f20_cellulare = $user->getPhone();
         $f20_livelli_notifica = Ruolo::getLivelliNotifica();
         $f20_livello_notifica = $user->getLivelloNotifica();
-        $f20_personal_style = $user->getDefaultStyle();
-        if ($f20_personal_style == "black") {
-            $f20_stili = array("black", "unibo");
-        } else {
-            $f20_stili = array("unibo");
-        }
 
         $f20_accept = false;
         $flag_tel = true;
@@ -129,21 +123,11 @@ class ShowPersonalSettings extends UniversiboCommand
                 $f20_accept = false;
             } else
                 $f20_livello_notifica = $_POST['f20_livello_notifica'];
-            //style
-            if (!array_key_exists($_POST['f20_personal_style'], $f20_stili)) {
-                Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Lo stile scelto non e` valido',
-                                'file' => __FILE__, 'line' => __LINE__));
-                $f20_accept = false;
-            } else
-                $f20_personal_style = $f20_stili[$_POST['f20_personal_style']];
         }
 
         if ($f20_accept == true) {
             $user->updateEmail($q20_email);
             $user->setPhone($q20_cellulare);
-            $user->setDefaultStyle($f20_personal_style);
             $user->setLivelloNotifica($f20_livello_notifica);
             $user->updateUser();
 
@@ -151,7 +135,6 @@ class ShowPersonalSettings extends UniversiboCommand
             $forum->updateUserStyle($user);
             $forum->updateUserEmail($user);
 
-            $fc->setStyle($f20_personal_style);
             $template
                     ->assignUnicode('showPersonalSettings_thanks',
                             'Il profilo personale è stato modificato con successo, si consiglia di testarne il corretto funzionamento.
@@ -168,8 +151,6 @@ Per qualsiasi problema o spiegazioni contatta lo staff all\'indirizzo [email]'
         $template->assign('f20_cellulare', $f20_cellulare);
         $template->assign('f20_livello_notifica', $f20_livello_notifica);
         $template->assign('f20_livelli_notifica', $f20_livelli_notifica);
-        $template->assign('f20_personal_style', $f20_personal_style);
-        $template->assign('f20_stili', $f20_stili);
         $template->assign('f20_submit', 'Invia');
 
         return 'default';

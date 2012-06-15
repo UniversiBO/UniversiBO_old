@@ -17,12 +17,6 @@
 			<option value="{$temp_key}" {if $temp_key==$f20_livello_notifica} selected="selected"{/if}>{$temp_categoria|escape:"htmlall"}</option>
 		{/foreach}
 		</select></p>
-	<p><label for="f20_personal_style">{$showPersonalSettings_langStyle|escape:"htmlall"}</label>
-		<select id="f20_personal_style" name="f20_personal_style">
-		{foreach from=$f20_stili item=temp_categoria key=temp_key}
-			<option value="{$temp_key}" {if $temp_key==$f20_personal_style} selected="selected"{/if}>{$temp_categoria|escape:"htmlall"}</option>
-		{/foreach}
-		</select></p>
 	<p><input class="submit" type="submit" name="f20_submit" id="f20_submit" value="{$f20_submit|escape:"htmlall"}"></p>
 	<p>{$showPersonalSettings_langHelp|escape:"htmlall"|bbcode2html|nl2br}</p>
 	<p>Il servizio SMS viene fornito grazie al contributo dell'Alma Mater Studiorum</p>

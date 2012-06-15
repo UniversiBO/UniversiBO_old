@@ -118,13 +118,6 @@ class User implements UserInterface, SSOUserInterface, \Serializable
     /**
      * @var string
      * 
-     * @ORM\Column(name="default_style", type="string", length=15, nullable=true) 
-     */
-    private $defaultStyle = '';
-
-    /**
-     * @var string
-     * 
      * @ORM\Column(name="sospeso", type="string", length=1, nullable=false) 
      */
     private $eliminato = 'N';
@@ -240,7 +233,7 @@ class User implements UserInterface, SSOUserInterface, \Serializable
     public function __construct($id_utente = 0, $groups = self::OSPITE, $username = NULL,
             $password = NULL, $email = NULL, $notifica = NULL,
             $ultimo_login = NULL, $AD_username = NULL, $phone = '',
-            $defaultStyle = '', $bookmark = NULL,
+            $bookmark = NULL,
             $eliminato = self::NOT_ELIMINATO, $hashedPassword = false)
     {
         $this->idUtente = $id_utente;
@@ -251,7 +244,6 @@ class User implements UserInterface, SSOUserInterface, \Serializable
         $this->ultimoLogin = $ultimo_login;
         $this->notifica = $notifica;
         $this->phone = $phone;
-        $this->defaultStyle = $defaultStyle;
         $this->bookmark = $bookmark;
         $this->eliminato = $eliminato;
 
@@ -562,16 +554,6 @@ class User implements UserInterface, SSOUserInterface, \Serializable
     }
 
     /**
-     * Ritorna lo stile grafico predefinito
-     *
-     * @return string
-     */
-    public function getDefaultStyle()
-    {
-        return $this->defaultStyle;
-    }
-
-    /**
      * Restituisce il nome del gruppo da usare nel blocchetto contatti
      * (admin e collaboratori compaiono come studenti)
      *
@@ -680,17 +662,6 @@ class User implements UserInterface, SSOUserInterface, \Serializable
     public function setPhone($phome)
     {
         $this->phone = $phome;
-    }
-
-    /**
-     * Imposta il nome del template di default
-     *
-     * @param  boolean $defaultStyle nome del template di default
-     * @return boolean
-     */
-    public function setDefaultStyle($defaultStyle)
-    {
-        $this->defaultStyle = $defaultStyle;
     }
 
     /**
@@ -1142,7 +1113,6 @@ class User implements UserInterface, SSOUserInterface, \Serializable
                 'ADUsername' => $this->ADUsername,
                 'groups' => $this->groups, 'notifica' => $this->notifica,
                 'ban' => $this->ban, 'phone' => $this->phone,
-                'defaultStyle' => $this->defaultStyle,
                 'eliminato' => $this->eliminato,
                 'algoritmo' => $this->algoritmo, 'salt' => $this->salt);
 
