@@ -51,12 +51,12 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
          * @todo ATTENZIONE! ...questa query non ? portabile.
          * bisogna cambiarla ed eventualmente gestire i duplicati via PHP
          */
-        
+
         $params = array('N', $anno_accademico, $cod_cdl, 'S', $cod_cdl, $anno_accademico);
         $stmt = $db->executeQuery($query, $params);
 
         $elenco = array();
-        
+
         while (false !== ($row = $stmt->fetch())) {
             $elenco[] = new PrgAttivitaDidattica( $row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
                     $row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S',
@@ -78,28 +78,27 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
                     . 'SET anno_corso_universibo = ?'
                     . ', tipo_ciclo = ?'
                     . ' WHERE  	id_sdop=?';
-            
+
             $rows = $db->executeUpdate($query, array(
-                    $attivita->getAnnoCorsoUniversibo(), 
+                    $attivita->getAnnoCorsoUniversibo(),
                     $attivita->getTipoCiclo(),
                     $attivita->getIdSdop()
             ));
-        }
-        else {
+        } else {
             $query = 'UPDATE prg_insegnamento '
                     . 'SET anno_corso_universibo = ?'
                     . ' , tipo_ciclo = ?'.
                     ' , cod_doc = ?'
                     .' WHERE  id_canale= ?';
-            
+
             $rows = $db->executeUpdate($query, array(
-            		$attivita->getAnnoCorsoUniversibo(),
-            		$attivita->getTipoCiclo(),
-            		$attivita->getCodDoc(),
+                    $attivita->getAnnoCorsoUniversibo(),
+                    $attivita->getTipoCiclo(),
+                    $attivita->getCodDoc(),
                     $attivita->getIdCanale()
             ));
         }
-        
+
         return $rows > 0;
     }
 
@@ -150,7 +149,7 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
          * @todo ATTENZIONE! ...questa query non ? portabile.
          * bisogna cambiarla ed eventualmente gestire i duplicati via PHP
          */
-        
+
         $stmt = $db->executeQuery($query);
 
         $elenco = array();
@@ -237,7 +236,7 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
         ) AS cdl
         ) AS cdl1
         ORDER BY 33, 32, 30, 23';
-        
+
         $stmt = $db->executeQuery($query);
 
         $elenco = array();
@@ -288,14 +287,14 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
          * @todo ATTENZIONE! ...questa query non ? portabile.
          * bisogna cambiarla ed eventualmente gestire i duplicati via PHP
          */
-        
+
         $stmt = $db->executeQuery($query);
         $row = $stmt->fetch();
-        
-        if($row === false) {
+
+        if ($row === false) {
             return null;
         }
-        
+
         return new PrgAttivitaDidattica( $row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
                 $row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S',
                 $row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21],

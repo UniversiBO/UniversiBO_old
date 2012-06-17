@@ -19,9 +19,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, @link http://www.opensource.org/licenses/gpl-license.php
  * @copyright CopyLeft UniversiBO 2001-2003
- * 
+ *
  * @ORM\Table(name="notifica")
- * @ORM\Entity(repositoryClass="Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItemRepository") 
+ * @ORM\Entity(repositoryClass="Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItemRepository")
  */
 class NotificaItem
 {
@@ -30,7 +30,7 @@ class NotificaItem
 
     const URGENTE = 'S';
     const NOT_URGENTE = 'N';
-    
+
     /**
      * @ORM\Column(name="titolo", type="string", length=200, nullable=false)
      */
@@ -38,32 +38,32 @@ class NotificaItem
 
     /**
      * @var string
-     * 
-     * @ORM\Column(name="messaggio", type="text", nullable=false) 
+     *
+     * @ORM\Column(name="messaggio", type="text", nullable=false)
      */
     private $messaggio;
 
     /**
      * data e ora di inserimento
      * @var int
-     * 
-     * @ORM\Column(name="timestamp", type="integer", nullable=false) 
+     *
+     * @ORM\Column(name="timestamp", type="integer", nullable=false)
      */
     private $timestamp;
 
     /**
      * @var boolean
-     * @ORM\Column(name="urgente", type="string", length=1, nullable=false) 
+     * @ORM\Column(name="urgente", type="string", length=1, nullable=false)
      */
     private $urgente;
 
     /**
      * @var int
-     * 
+     *
      * @ORM\Column(name="id_notifica", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="notifica_id_notifica_seq", allocationSize="1", initialValue="1") 
+     * @ORM\SequenceGenerator(sequenceName="notifica_id_notifica_seq", allocationSize="1", initialValue="1")
      */
     private $id_notifica;
 
@@ -75,7 +75,7 @@ class NotificaItem
 
     /**
      * @var string
-     * @ORM\Column(name="destinatario", type="string", length=200, nullable=false) 
+     * @ORM\Column(name="destinatario", type="string", length=200, nullable=false)
      */
     private $destinatario;
 
@@ -93,12 +93,12 @@ class NotificaItem
      * Crea un oggetto NotificaItem con i parametri passati
      *
      *
-     * @param  int      $id_notifica id della news
-     * @param  string   $titolo      titolo della news max 150 caratteri
-     * @param  string   $messaggio   corpo della news
-     * @param  int      $timestamp   timestamp dell'inserimento
-     * @param  boolean  $urgente     flag notizia urgente o meno
-     * @param  boolean  $eliminata   flag stato della news
+     * @param int     $id_notifica id della news
+     * @param string  $titolo      titolo della news max 150 caratteri
+     * @param string  $messaggio   corpo della news
+     * @param int     $timestamp   timestamp dell'inserimento
+     * @param boolean $urgente     flag notizia urgente o meno
+     * @param boolean $eliminata   flag stato della news
      */
 
     public function __construct($id_notifica = 0, $titolo = '', $messaggio = '', $dataIns = 0,

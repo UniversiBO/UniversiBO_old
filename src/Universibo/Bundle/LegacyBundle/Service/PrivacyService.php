@@ -13,7 +13,6 @@ use Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepLog;
 use Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepLogRepository;
 
 use Universibo\Bundle\LegacyBundle\Entity\User;
-use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
 
 use Doctrine\DBAL\Connection;
 
@@ -25,7 +24,7 @@ class PrivacyService
      * @var StepLogRepository
      */
     private $logRepository;
-    
+
     /**
      * @var DBInformativaRepository
      */
@@ -44,11 +43,11 @@ class PrivacyService
     public function hasAcceptedPrivacy(User $user)
     {
         $log = $this->logRepository->findLatestPositive($user->getIdUser(), self::CLASSNAME);
-        
-        if($log === null) {
+
+        if ($log === null) {
             return false;
         }
-        
+
         return $log->getDataUltimaInterazione() > $this->informativaRepository->findByTime(time())->getDataPubblicazione();
     }
 

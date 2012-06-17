@@ -173,7 +173,7 @@ class FileItemStudentiRepository extends DoctrineRepository
 
         $query = 'SELECT count(id_file) FROM file_studente_canale WHERE id_file='.$db->quote($fileId).' GROUP BY id_file';
         $stmt = $db->executeQuery($query);
-        
+
         return $stmt->fetchColumn() > 0;
     }
 
@@ -183,7 +183,7 @@ class FileItemStudentiRepository extends DoctrineRepository
 
         $query = 'SELECT avg(voto) FROM file_studente_commenti WHERE id_file='.$db->quote($fileId).' AND eliminato = '.$db->quote(CommentoItem::NOT_ELIMINATO).' GROUP BY id_file';
         $stmt = $db->executeQuery($query);
-        
+
         return $stmt->fetchColumn();
     }
 

@@ -18,7 +18,7 @@ class CanaleRepository extends DoctrineRepository
 
         $query = 'SELECT tipo_canale FROM canale WHERE id_canale = ?';
         $stmt = $db->executeQuery($query, array($id));
-        
+
         return $stmt->fetchColumn();
     }
 
@@ -26,12 +26,12 @@ class CanaleRepository extends DoctrineRepository
     {
         $db = $this->getConnection();
         $query = 'UPDATE canale SET ultima_modifica = ? WHERE id_canale = ?';
-        
+
         return $db->executeUpdate($query, array($canale->getUltimaModifica(), $canale->getIdCanale())) > 0;
     }
 
     /**
-     * @param int $idCanale
+     * @param  int                                           $idCanale
      * @return \Universibo\Bundle\LegacyBundle\Entity\Canale
      */
     public function find($idCanale)
@@ -47,7 +47,7 @@ class CanaleRepository extends DoctrineRepository
 
         $query = 'SELECT tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo, id_canale, files_studenti_attivo FROM canale WHERE id_canale IN (?) ORDER BY nome_canale;';
         $stmt = $db->executeQuery($query, array($idCanale), array(Connection::PARAM_INT_ARRAY));
-        
+
         $elenco_canali = array();
         while (false !== ($row = $stmt->fetch())) {
             $elenco_canali[] = new Canale($row[12], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
@@ -77,10 +77,10 @@ class CanaleRepository extends DoctrineRepository
         $db = $this->getConnection();
 
         $query = 'UPDATE canale SET visite = visite + ? WHERE id_canale = ?';
-        
+
         $canale->setVisite($canale->getVisite() + $increment);
-        
-        return $db->executeUpdate($query, array($increment, $canale->getIdCanale())) > 0; 
+
+        return $db->executeUpdate($query, array($increment, $canale->getIdCanale())) > 0;
     }
 
     public function insert(Canale $canale)
@@ -105,25 +105,25 @@ class CanaleRepository extends DoctrineRepository
         }
 
         $query = 'INSERT INTO canale (tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo, files_studenti_attivo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        
+
         $result = $db->executeUpdate($query, array(
-        		$canale->getTipoCanale(),
-        		$canale->getNome(),
-        		$canale->getImmagine(),
+                $canale->getTipoCanale(),
+                $canale->getNome(),
+                $canale->getImmagine(),
                 $canale->getVisite(),
-        		$canale->getUltimaModifica(),
-        		$canale->getPermessi(),
-        		$files_attivo,
-        		$news_attivo,
-        		$forum_attivo,
-        		$forum_forum_id,
-        		$forum_group_id,
-        		$links_attivo,
-        		$files_studenti_attivo,
+                $canale->getUltimaModifica(),
+                $canale->getPermessi(),
+                $files_attivo,
+                $news_attivo,
+                $forum_attivo,
+                $forum_forum_id,
+                $forum_group_id,
+                $links_attivo,
+                $files_studenti_attivo,
         )) > 0;
-        
+
         $canale->setIdCanale($db->lastInsertId('canale_id_canale_seq'));
-        
+
         return $result;
     }
 
@@ -159,7 +159,7 @@ class CanaleRepository extends DoctrineRepository
         ' , links_attivo = ?'.
         ' , files_studenti_attivo = ?'.
         ' WHERE id_canale =?';
-        
+
         return $db->executeUpdate($query, array(
                 $canale->getTipoCanale(),
                 $canale->getNome(),
@@ -173,7 +173,7 @@ class CanaleRepository extends DoctrineRepository
                 $forum_group_id,
                 $links_attivo,
                 $files_studenti_attivo,
-                $canale->getIdCanale() 
+                $canale->getIdCanale()
         )) > 0;
     }
 
@@ -183,7 +183,7 @@ class CanaleRepository extends DoctrineRepository
 
         $query = 'SELECT COUNT(id_canale) FROM canale WHERE id_canale = ?';
         $stmt = $db->executeQuery($query, array($id));
-        
+
         return $stmt->fetchColumn() > 0;
     }
 }

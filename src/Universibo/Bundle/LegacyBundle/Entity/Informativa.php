@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GNU General Public License v2 or later
- * 
+ *
  * @ORM\Table(name="informativa")
  * @ORM\Entity(repositoryClass="Universibo\Bundle\LegacyBundle\Entity\InformativaRepository")
  */
@@ -26,21 +26,21 @@ class Informativa
 
     /**
      * @var integer
-     * 
+     *
      * @ORM\Column(name="data_pubblicazione", type="integer", nullable=false)
      */
     private $dataPubblicazione;
 
     /**
      * @var integer
-     * 
+     *
      * @ORM\Column(name="data_fine", type="integer", nullable=true)
      */
     private $dataFine;
 
     /**
      * @var string
-     * 
+     *
      * @ORM\Column(name="testo", type="text", nullable=false)
      */
     private $testo;

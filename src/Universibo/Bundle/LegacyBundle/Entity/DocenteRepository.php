@@ -23,16 +23,16 @@ class DocenteRepository extends DoctrineRepository
     public function findBy($field, $id)
     {
         $db = $this->getConnection();
-        
+
         $query = 'SELECT id_utente,	cod_doc, nome_doc FROM docente WHERE '. $field . ' = ?';
         $stmt = $db->executeQuery($query, array($id));
-        
+
         $row = $stmt->fetch();
-        
-        if($row === false) {
-        	return false;
+
+        if ($row === false) {
+            return false;
         }
-        
+
         return new Docente($row[0], $row[1], $row[2]);
     }
 
@@ -42,10 +42,10 @@ class DocenteRepository extends DoctrineRepository
 
         $query = 'SELECT nome, cognome, prefissonome, sesso, email, descrizionestruttura FROM rub_docente WHERE cod_doc = ?';
         $stmt = $db->executeQuery($query, array($docente->getCodDoc()));
-        
+
         $row = $stmt->fetch(\PDO::FETCH_ASSOC);
-        
-        if($row === false) {
+
+        if ($row === false) {
             return false;
         }
 

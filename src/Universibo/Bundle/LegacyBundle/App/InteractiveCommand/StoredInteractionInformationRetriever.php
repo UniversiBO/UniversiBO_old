@@ -1,9 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\App\InteractiveCommand;
 
-use Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepLogRepository;
 
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
  * Classe per recuperare le informazioni memorizzate nelle interazioni con gli utenti
@@ -20,23 +18,23 @@ class StoredInteractionInformationRetriever
     {
         $logRepo = $this->getContainer()->get('universibo_legacy.repository.interactivecommand.step_log');
         $latest = $logRepo->findLatestPositive($idUtente, $nomeInteractiveCommand);
-        
-        if($latest === null) {
+
+        if ($latest === null) {
             return array();
         }
-        
+
         $listRepo = $this->getContainer()->get('universibo_legacy.repository.interactivecommand.step_list');
         $data = $listRepo->findByIdStep($latest->getId());
-        
+
         $list = array();
 
-        if($groupedByCallbackName) {
-            foreach($data as $item) {
+        if ($groupedByCallbackName) {
+            foreach ($data as $item) {
                 $list[$item->getCallbackName()][$item->getParamName()] = $item->getParamValue();
             }
         } else {
-            foreach($data as $item) {
-            	$list[$item->getParamName()] = $item->getParamValue();
+            foreach ($data as $item) {
+                $list[$item->getParamName()] = $item->getParamValue();
             }
         }
 

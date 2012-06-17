@@ -43,37 +43,37 @@ class StepParametri
      * @ORM\Column(name="param_value", type="string", length=255, nullable=false)
      */
     private $paramValue;
-    
+
     /**
-     * @param int $id
+     * @param  int                                                                     $id
      * @return \Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepParametri
      */
     public function setId($id)
     {
-    	$this->id = $id;
-    
-    	return $this;
+        $this->id = $id;
+
+        return $this;
     }
-    
+
     /**
      * @return number
      */
     public function getId()
     {
-    	return $this->id;
+        return $this->id;
     }
-    
+
     /**
-     * @param string $paramName
+     * @param  string                                                                  $paramName
      * @return \Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepParametri
      */
     public function setParamName($paramName)
     {
         $this->paramName = $paramName;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string
      */
@@ -81,24 +81,24 @@ class StepParametri
     {
         return $this->paramName;
     }
-    
+
     /**
-     * @param string $callbackName
+     * @param  string                                                                  $callbackName
      * @return \Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepParametri
      */
     public function setCallbackName($callbackName)
     {
-    	$this->callbackName = $callbackName;
-    
-    	return $this;
+        $this->callbackName = $callbackName;
+
+        return $this;
     }
-    
+
     /**
      * @return string
      */
     public function getCallbackName()
     {
-    	return $this->callbackName;
+        return $this->callbackName;
     }
 
     /**
@@ -106,16 +106,16 @@ class StepParametri
      */
     public function setParamValue($paramValue)
     {
-    	$this->paramValue = $paramValue;
-    
-    	return $this;
+        $this->paramValue = $paramValue;
+
+        return $this;
     }
-    
+
     /**
      * @return string
      */
     public function getParamValue()
     {
-    	return $this->paramValue;
+        return $this->paramValue;
     }
 }

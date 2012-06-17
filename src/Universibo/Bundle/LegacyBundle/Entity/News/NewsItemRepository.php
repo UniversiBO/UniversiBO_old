@@ -50,15 +50,15 @@ class NewsItemRepository extends DoctrineRepository
                 . ' ORDER BY data_inserimento DESC';
         //var_dump($query);
         $stmt = $db->executeQuery($query);
-        
-        if($stmt->rowCount() === 0) {
+
+        if ($stmt->rowCount() === 0) {
             return false;
         }
 
         $news_list = array();
 
         $userRepository = $this->userRepository;
-        
+
         while (false !== ($row = $stmt->fetch())) {
             $username = $userRepository->getUsernameFromId($row[6]);
 
@@ -89,10 +89,10 @@ class NewsItemRepository extends DoctrineRepository
         //var_dump($query);
         $stmt = $db->executeQuery($query);
 
-        if($stmt->rowCount() === 0) {
+        if ($stmt->rowCount() === 0) {
             return false;
         }
-        
+
         $news_list = array();
 
         while (false !== ($row = $stmt->fetch())) {
@@ -164,7 +164,7 @@ class NewsItemRepository extends DoctrineRepository
 
         ignore_user_abort(1);
         $db->beginTransaction();
-        
+
         $scadenza = ($newsItem->getDataScadenza() == NULL) ? ' NULL '
                 : $db->quote($newsItem->getDataScadenza());
         $eliminata = ($newsItem->isEliminata()) ? NewsItem::ELIMINATA
@@ -263,7 +263,7 @@ class NewsItemRepository extends DoctrineRepository
         $res = $db->executeUpdate($query);
 
         $db->commit();
-        
+
         return true;
     }
 
@@ -280,7 +280,7 @@ class NewsItemRepository extends DoctrineRepository
 
         $db = $this->getConnection();
         $builder = $db->createQueryBuilder();
-        
+
         $stmt = $builder
             ->select('n.id_news')
             ->from('news', 'n')
@@ -310,9 +310,9 @@ class NewsItemRepository extends DoctrineRepository
         $query = 'SELECT count(A.id_news) FROM news A, news_canale B
         WHERE A.id_news = B.id_news AND eliminata='.$db->quote(NewsItem::NOT_ELIMINATA).
         'AND ( data_scadenza IS NULL OR \''.time().'\' < data_scadenza ) AND B.id_canale = '.$db->quote($channelId).'';
-        
+
         $stmt = $db->executeQuery($query);
-        
+
         return $stmt->fetchColumn();
 
     }

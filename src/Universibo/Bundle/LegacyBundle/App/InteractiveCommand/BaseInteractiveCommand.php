@@ -1,7 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\App\InteractiveCommand;
 
-use Doctrine\ORM\EntityManager;
 
 use Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepLog;
 
@@ -10,7 +9,6 @@ use Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepParametri;
 use \DB;
 use \Error;
 
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
 
 define('CALLBACK', 'call_');
@@ -316,21 +314,21 @@ class BaseInteractiveCommand extends PluginCommand
         ignore_user_abort(1);
         $em = $this->getContainer()->get('doctrine.orm.default_entity_manager');
         $em->beginTransaction();
-        
+
         $log = new StepLog();
         $log
             ->setIdUtente($this->getIdUtente())
             ->setDataUltimaInterazione(time())
             ->setNomeClasse(str_replace('\\\\','\\', get_class($this)))
             ->setEsitoPositivo(($complete) ? 'S' : 'N');
-        
+
         $em->persist($log);
-        
+
         if ($complete) {
             foreach ($this->listaStep->logMe() as $callback => $params) {
                 foreach ($params as $key => $val) {
                     $value = (is_array($val)) ? implode(VALUES_SEPARATOR, $val): $val;
-                    
+
                     $parametri = new StepParametri();
                     $parametri
                         ->setId($log->getId())
@@ -341,7 +339,7 @@ class BaseInteractiveCommand extends PluginCommand
                 }
             }
         }
-        
+
         $em->flush();
         $em->commit();
         ignore_user_abort(0);

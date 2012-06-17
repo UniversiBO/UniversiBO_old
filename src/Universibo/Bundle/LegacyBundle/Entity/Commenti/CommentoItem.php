@@ -80,11 +80,11 @@ class CommentoItem
     {
         return $this->id_commento;
     }
-    
+
     public function setIdCommento($idCommento)
     {
         $this->id_commento = $idCommento;
-        
+
         return $this;
     }
 

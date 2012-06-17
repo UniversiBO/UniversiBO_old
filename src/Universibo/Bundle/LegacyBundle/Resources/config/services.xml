@@ -151,17 +151,17 @@
 			<argument type="service" id="universibo_legacy.repository.programma" />
 			<argument>true</argument>
 		</service>
-		
+
 		<service id="universibo_legacy.repository.interactivecommand.step_log"
 			class="Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepLogRepository" factory-service="doctrine.orm.entity_manager" factory-method="getRepository">
 			<argument>Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepLog</argument>
 		</service>
-		
+
 		<service id="universibo_legacy.repository.interactivecommand.step_list"
 			class="Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepParametriRepository" factory-service="doctrine.orm.entity_manager" factory-method="getRepository">
 			<argument>Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepParametri</argument>
 		</service>
-		
+
 
 		<service id="universibo_legacy.repository.links.link"
 			class="Universibo\Bundle\LegacyBundle\Entity\Links\LinkRepository">

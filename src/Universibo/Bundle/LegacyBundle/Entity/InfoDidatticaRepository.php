@@ -5,7 +5,7 @@ use \DB;
 /**
  * @todo Informativa Entity
  */
-class InfoDidatticaRepository extends DoctrineRepository 
+class InfoDidatticaRepository extends DoctrineRepository
 {
     public function find($id)
     {

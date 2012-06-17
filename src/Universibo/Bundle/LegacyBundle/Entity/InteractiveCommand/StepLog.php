@@ -49,18 +49,18 @@ class StepLog
      * @ORM\Column(name="esito_positivo", type="string", length=1, nullable=true)
      */
     private $esitoPositivo;
-    
+
     /**
-     * @param int $id
+     * @param  int                                                               $id
      * @return \Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepLog
      */
     public function setId($id)
     {
         $this->id = $id;
-        
+
         return $this;
     }
-    
+
     /**
      * @return number
      */
@@ -75,10 +75,10 @@ class StepLog
     public function setIdUtente($idUtente)
     {
         $this->idUtente = $idUtente;
-        
+
         return $this;
     }
-    
+
     /**
      * @return number
      */
@@ -86,19 +86,18 @@ class StepLog
     {
         return $this->idUtente;
     }
-    
 
     /**
-     * @param int $dataUltimaInterazione
+     * @param  int                                                               $dataUltimaInterazione
      * @return \Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepLog
      */
     public function setDataUltimaInterazione($dataUltimaInterazione)
     {
         $this->dataUltimaInterazione = $dataUltimaInterazione;
-        
+
         return $this;
     }
-    
+
     /**
      * @return number
      */
@@ -106,18 +105,18 @@ class StepLog
     {
         return $this->dataUltimaInterazione;
     }
-    
+
     /**
-     * @param string $nomeClasse
+     * @param  string                                                            $nomeClasse
      * @return \Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepLog
      */
     public function setNomeClasse($nomeClasse)
     {
         $this->nomeClasse = $nomeClasse;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string
      */
@@ -125,18 +124,18 @@ class StepLog
     {
         return $this->nomeClasse;
     }
-    
+
     /**
-     * @param string $esitoPositivo
+     * @param  string                                                            $esitoPositivo
      * @return \Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepLog
      */
     public function setEsitoPositivo($esitoPositivo)
     {
         $this->esitoPositivo = $esitoPositivo;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string
      */

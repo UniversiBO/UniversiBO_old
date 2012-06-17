@@ -4,8 +4,6 @@ namespace Universibo\Bundle\LegacyBundle\Entity\Notifica;
 
 use Doctrine\ORM\EntityRepository;
 
-use Doctrine\DBAL\Connection;
-
 
 /**
  * Canale repository
@@ -16,8 +14,8 @@ use Doctrine\DBAL\Connection;
 class NotificaItemRepository extends EntityRepository
 {
     /**
-     * @param array $ids
-     * @return \Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem[] 
+     * @param  array                                                          $ids
+     * @return \Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem[]
      */
     public function findMany(array $ids)
     {
@@ -32,23 +30,23 @@ class NotificaItemRepository extends EntityRepository
             ->andWhere('ni.eliminata = :eliminata')
             ->setParameters(array('timestamp' => time(), 'eliminata' => NotificaItem::NOT_ELIMINATA))
             ->getQuery();
-        
+
         $result = $query->getResult();
-        
+
         return count($result) > 0 ? $result : false;
     }
 
     public function update(NotificaItem $notification)
     {
         $this->getEntityManager()->merge($notification);
-        
+
         return true;
     }
 
     public function insert(NotificaItem $notification)
     {
         $this->getEntityManager()->persist($notification);
-        
+
         return true;
     }
 }

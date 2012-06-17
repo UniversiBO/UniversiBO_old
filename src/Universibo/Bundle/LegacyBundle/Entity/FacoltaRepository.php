@@ -2,7 +2,6 @@
 namespace Universibo\Bundle\LegacyBundle\Entity;
 use Doctrine\DBAL\Connection;
 
-
 /**
  * Facolta repository
  *
@@ -33,10 +32,10 @@ class FacoltaRepository extends DoctrineRepository
         $query = 'SELECT tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo, files_studenti_attivo, a.id_canale, cod_fac, desc_fac, url_facolta FROM canale a , facolta b WHERE a.id_canale = b.id_canale AND a.id_canale = '
                 . $db->quote($id) . ' ORDER BY 16';
         $stmt = $db->executeQuery($query);
-        
+
         $row = $stmt->fetch();
-        
-        if($row === false) {
+
+        if ($row === false) {
             return null;
         }
 
@@ -71,7 +70,7 @@ class FacoltaRepository extends DoctrineRepository
     public function update(Facolta $facolta)
     {
         $db = $this->getConnection();
-        
+
         $this->canaleRepository->update($facolta);
 
         $query = 'UPDATE facolta SET cod_fac = '
@@ -81,22 +80,22 @@ class FacoltaRepository extends DoctrineRepository
                 . $db->quote($facolta->getIdCanale());
 
         $res = $db->executeUpdate($query);
-        
+
         return true;
     }
 
     public function insert(Facolta $facolta)
     {
         $db = $this->getConnection();
-        
+
         $this->canaleRepository->insert($facolta);
-        
+
         $query = 'INSERT INTO facolta (cod_fac, desc_fac, url_facolta, id_canale) VALUES ('
         . $db->quote($facolta->getCodiceFacolta()) . ' , '
         . $db->quote($facolta->getNome()) . ' , '
         . $db->quote($facolta->getUri()) . ' , '
         . $db->quote($facolta->getIdCanale()) . ' )';
-        
+
         $db->executeUpdate($query);
 
         return true;

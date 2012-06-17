@@ -22,7 +22,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     {
         return $this->findOneByUsername($username, $caseSensitive);
     }
-    
+
     public function findOneByUsername($username, $caseSensitive = false)
     {
         $condition = $caseSensitive ? 'u.username = :username' : 'LOWER(u.username) = LOWER(:username)';
@@ -31,12 +31,12 @@ class UserRepository extends EntityRepository implements UserProviderInterface
             ->where($condition)
             ->setParameter('username', $username)
             ->getQuery();
-        
+
         $result = $query->getResult();
-        
+
         return count($result) === 0 ? false : $result[0];
     }
-    
+
     /**
      * Tells if a username exists
      * @param  string  $username
@@ -65,14 +65,14 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     public function getUsernameFromId($id)
     {
         $user = $this->find($id);
-        
+
         return $user instanceof User ? $user->getUsername() : null;
     }
 
     public function getIdFromADUsername($adUsername)
     {
         $user = $this->findOneByADUsername($adUsername);
-        
+
         return $user instanceof User ? $user->getADUsername() : null;
     }
 
@@ -85,7 +85,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     public function insertUser(User $user)
     {
         ignore_user_abort(1);
-        
+
         $em = $this->getEntityManager();
         $em->beginTransaction();
         $em->persist($user);
@@ -101,7 +101,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     {
         $this->getEntityManager()->merge($user);
         $this->getEntityManager()->flush();
-        
+
         return true;
     }
 
@@ -144,28 +144,29 @@ class UserRepository extends EntityRepository implements UserProviderInterface
             array $arrayWithDesiredGroupsConstant)
     {
         if (count($arrayWithDesiredGroupsConstant) === 0)
+
             return array();
-        
+
         $result = $this
             ->createQueryBuilder('u')
             ->where('u.groups IN :groups')
             ->setParameter('groups', $arrayWithDesiredGroupsConstant, array(Connection::PARAM_INT_ARRAY))
             ->getQuery()
             ->getResult(AbstractQuery::HYDRATE_ARRAY);
-        
+
         $ret = array();
-        
-        foreach($result as $row) {
+
+        foreach ($result as $row) {
             $ret[$user->getGroups()][] = $user->getIdUSer();
         }
-        
+
         return $ret;
     }
 
     public function updateGroups(User $user)
     {
         $this->updateUser($user);
-        
+
         return true;
     }
 
@@ -194,7 +195,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     public function delete(User $user)
     {
         $user->setEliminato(true);
-        
+
         return $this->updateUser($user);
     }
 

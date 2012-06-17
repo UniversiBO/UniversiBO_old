@@ -77,6 +77,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
         //echo $_SESSION['phpbb_sid'];
         if (array_key_exists('phpbb_sid', $_SESSION)
                 && $_SESSION['phpbb_sid'] != '')
+
             return 'sid=' . $_SESSION['phpbb_sid'];
 
         return '';
@@ -179,7 +180,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
      *
      * @static
      */
-    function logout()
+    public function logout()
     {
 
         $db = $this->getConnection();
@@ -230,6 +231,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
 
         $db = $this->getConnection();
         if ($user->isOspite())
+
             return;
 
         $groups = $user->getGroups();
@@ -237,6 +239,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
                 && $groups != User::COLLABORATORE && $groups != User::TUTOR
                 && $groups != User::DOCENTE && $groups != User::PERSONALE
                 && $groups != User::ADMIN)
+
             return;
         // @todo renderla funzionante anche per utenti che appartengono a pi? gruppi
 
@@ -279,11 +282,12 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
     /**
      * Modifca lo stile di un utente sul database del forum dato uno User
      */
-    function updateUserStyle(User $user)
+    public function updateUserStyle(User $user)
     {
 
         $db = $this->getConnection();
         if ($user->isOspite())
+
             return;
 
         $user_style = $this->defaultUserStyle['unibo'];
@@ -299,6 +303,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
     {
         $db = $this->getConnection();
         if ($user->isOspite())
+
             return;
 
         $query = 'UPDATE ' . $this->table_prefix . 'users SET user_password = '
@@ -313,11 +318,12 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
      *
      * @static
      */
-    function updateUserEmail(User $user)
+    public function updateUserEmail(User $user)
     {
 
         $db = $this->getConnection();
         if ($user->isOspite())
+
             return;
 
         $query = 'UPDATE ' . $this->table_prefix . 'users SET user_email = '
@@ -341,8 +347,9 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
                 . 'user_group WHERE group_id = ' . $db->quote($group)
                 . ' AND user_id = ' . $db->quote($userId);
         $stmt = $db->executeQuery($query);
-        
+
         if ($stmt->rowCount() > 0)
+
             return;
 
         $query = 'INSERT INTO ' . $this->table_prefix
@@ -357,7 +364,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
      *
      * @static
      */
-    function removeUserGroup($userId, $group)
+    public function removeUserGroup($userId, $group)
     {
 
         $db = $this->getConnection();
@@ -372,7 +379,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
     /**
      * @return mixed string: id di sessione del forum 'sid=f454e54ea75ae45aef75920b02751ac' altrimenti false
      */
-    function getMainUri()
+    public function getMainUri()
     {
         return $this->getPath() . 'index.php?' . self::getSidForUri();
     }
@@ -381,7 +388,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
      * @param  int   $id_forum
      * @return mixed string: id di sessione del forum 'sid=f454e54ea75ae45aef75920b02751ac' altrimenti false
      */
-    function getForumUri($id_forum)
+    public function getForumUri($id_forum)
     {
         return $this->getPath() . 'viewforum.php?f=' . $id_forum . '&'
                 . self::getSidForUri();
@@ -391,7 +398,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
      *
      * @return
      */
-    function addForumCategory($cat_title, $cat_order)
+    public function addForumCategory($cat_title, $cat_order)
     {
         $db = $this->getConnection();
 
@@ -401,6 +408,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
                 . ' )';
 
         $db->executeUpdate($query);
+
         return $db->lastInsertId($this->table_prefix . 'categories_id_seq');
     }
 
@@ -408,7 +416,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
      *
      * @return
      */
-    function addForum($title, $desc, $cat_id)
+    public function addForum($title, $desc, $cat_id)
     {
         $db = $this->getConnection();
 
@@ -433,7 +441,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
      *
      * @return int
      */
-    function addGroup($title, $desc, $id_owner)
+    public function addGroup($title, $desc, $id_owner)
     {
         $db = $this->getConnection();
 
@@ -443,13 +451,14 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
                 . $db->quote($desc) . ' ,' . $id_owner . ' , 0)';
 
         $db->executeUpdate($query);
+
         return $db->lastInsertId($this->table_prefix . 'groups_id_seq');
     }
 
     /**
      * @return null
      */
-    function addGroupForumPrivilegies($forum_id, $group_id)
+    public function addGroupForumPrivilegies($forum_id, $group_id)
     {
         $db = $this->getConnection();
 
@@ -460,6 +469,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
                 . ', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)';
 
         $db->executeUpdate($query);
+
         return $db->lastInsertId($this->table_prefix . 'groups_id_seq');
     }
 
@@ -468,7 +478,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
      *
      * @return int massimo id_fourm dal database
      */
-    function getMaxForumId()
+    public function getMaxForumId()
     {
         $db = $this->getConnection();
 
@@ -476,16 +486,17 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
                 . 'forums';
 
         $stmt = $db->executeQuery($query);
+
         return $stmt->fetchColumn();
     }
 
     /**
      * @return string nuovo nome
      */
-    function addForumInsegnamentoNewYear($forum_id, $anno_accademico)
+    public function addForumInsegnamentoNewYear($forum_id, $anno_accademico)
     {
         $generator = new NameGenerator($anno_accademico);
-        
+
         $db = $this->getConnection();
 
         $query = 'SELECT forum_name FROM "' . $this->table_prefix
@@ -507,7 +518,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
      * @param  int   $id_post
      * @return mixed string: id di sessione del forum 'sid=f454e54ea75ae45aef75920b02751ac' altrimenti false
      */
-    function getPostUri($id_post)
+    public function getPostUri($id_post)
     {
         return $this->getPath() . 'viewtopic.php?p=' . $id_post . '&'
                 . self::getSidForUri() . '#' . $id_post;
@@ -515,12 +526,12 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
 
     /**
      *
-     * @param	user	$user
+     * @param user $user
      * @param	int   id del forum di cui controllare i messaggi nuovi. se passato 0 vengono
      * cercati gli ultimi post su tutto il forum a cui l'utente ha diritto di accesso
-     * @return 	mixed array di array( id degli ultimi messaggi del forum, nome topic) , false se nessun messaggio nuovo
+     * @return mixed array di array( id degli ultimi messaggi del forum, nome topic) , false se nessun messaggio nuovo
      */
-    function getLastPostsForum(User $user, $id_forum, $num = 10)
+    public function getLastPostsForum(User $user, $id_forum, $num = 10)
     {
         // teoricamente se uno ha accesso al canale ha anche accesso al forum
 

@@ -5,7 +5,6 @@ use Universibo\Bundle\LegacyBundle\Tests\Entity\DoctrineRepositoryTest;
 
 use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItemRepository;
 
-
 class NotificaItemRepositoryTest extends DoctrineRepositoryTest
 {
     /**
@@ -14,15 +13,15 @@ class NotificaItemRepositoryTest extends DoctrineRepositoryTest
     private $repo;
 
     /**
-     * 
+     *
      */
     protected function setUp()
     {
         parent::setUp();
-        
+
         $this->repo = static::$kernel->getContainer()->get('universibo_legacy.repository.notifica.notifica_item');
     }
-    
+
     public function testFind()
     {
         $notification = $this->repo->find(1);
@@ -33,14 +32,14 @@ class NotificaItemRepositoryTest extends DoctrineRepositoryTest
         $this->assertFalse($notification->isEliminata());
         $this->assertTrue($notification->isUrgente());
     }
-    
+
     public function testFindToSend()
     {
         $toSend = $this->repo->findToSend();
-        
+
         $this->assertArrayHasKey(0, $toSend);
         $this->assertArrayHasKey(1, $toSend);
-        
+
         $this->assertEquals(2, count($toSend));
     }
 }

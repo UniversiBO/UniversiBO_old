@@ -3,10 +3,8 @@ namespace Universibo\Bundle\LegacyBundle\Entity;
 
 use Doctrine\ORM\Query\Expr;
 
-use Doctrine\ORM\EntityManager;
 
 use Doctrine\ORM\EntityRepository;
-
 
 /**
  * Canale repository
@@ -29,16 +27,16 @@ class CollaboratoreRepository extends EntityRepository
             ->setParameter('id', $id)
             ->getQuery()
             ->getResult();
-        
+
         return count($result) === 0 ? null : $result[0];
     }
-    
+
     public function findAll($shownOnly = false)
     {
-        if(!$shownOnly) {
+        if (!$shownOnly) {
             return $this->__call('findAll', array());
         }
-        
+
         return $this
             ->createQueryBuilder('c')
             ->where('c.show = :show')
@@ -52,12 +50,12 @@ class CollaboratoreRepository extends EntityRepository
         ignore_user_abort(1);
         $em = $this->getEntityManager();
         $em->beginTransaction();
-        
+
         $em->persist($collaboratore);
-        
+
         $em->flush();
         $em->commit();
-        
+
         ignore_user_abort(0);
     }
 }

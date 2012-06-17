@@ -23,7 +23,7 @@ class InformativaRepository extends EntityRepository
                 ->getQuery()
                 ->setMaxResults(1)
                 ->execute(array('time' => $time));
-        
+
         return count($result) === 0 ? null : $result[0];
     }
 }

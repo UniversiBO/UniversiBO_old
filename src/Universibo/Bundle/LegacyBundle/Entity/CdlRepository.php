@@ -42,7 +42,7 @@ class CdlRepository extends DoctrineRepository
 
         $stmt = $db->executeQuery($query);
 
-        if(false === ($row = $stmt->fetch())) {
+        if (false === ($row = $stmt->fetch())) {
             return false;
         }
 
@@ -63,7 +63,7 @@ class CdlRepository extends DoctrineRepository
         a.id_canale, cod_corso, desc_corso, categoria, cod_fac, cod_doc, cat_id FROM  classi_corso b LEFT OUTER JOIN canale a ON a.id_canale = b.id_canale WHERE b.cod_corso = '.$db->quote($codice);
         $stmt = $db->executeQuery($query);
 
-        if(false === ($row = $stmt->fetch())) {
+        if (false === ($row = $stmt->fetch())) {
             return false;
         }
 
@@ -111,7 +111,7 @@ class CdlRepository extends DoctrineRepository
         ', categoria = '.$db->quote($cdl->getCategoriaCdl()).
         ', cod_doc =' .$db->quote($cdl->getCodDocente()).
         ' WHERE id_canale = '.$db->quote($cdl->getIdCanale());
-        
+
         $db->executeUpdate($query);
     }
 
@@ -126,7 +126,7 @@ class CdlRepository extends DoctrineRepository
                 $db->quote($cdl->getCodDocente()).' , '.
                 $db->quote($cdl->getCodiceFacoltaPadre()).' , '.
                 $db->quote($cdl->getIdCanale()).' )';
-        
+
         $db->executeUpdate($query);
 
         return true;

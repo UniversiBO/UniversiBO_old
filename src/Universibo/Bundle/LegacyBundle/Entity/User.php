@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @author Davide Bellettini
  * @license GPL, <{@link http://www.opensource.org/licenses/gpl-license.php}>
  * @copyright CopyLeft UniversiBO 2001-2012
- * 
+ *
  * @ORM\Table(name="utente")
  * @ORM\Entity(repositoryClass="Universibo\Bundle\LegacyBundle\Entity\UserRepository")
  */
@@ -39,28 +39,28 @@ class User implements UserInterface, SSOUserInterface, \Serializable
 
     /**
      * @var integer
-     * 
+     *
      * @ORM\Column(name="id_utente", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="utente_id_utente_seq", allocationSize="1", initialValue="1") 
+     * @ORM\SequenceGenerator(sequenceName="utente_id_utente_seq", allocationSize="1", initialValue="1")
      */
     private $idUtente;
 
     /**
      * @var string
-     * 
-     * @ORM\Column(name="username", type="string", length=25, nullable=false) 
+     *
+     * @ORM\Column(name="username", type="string", length=25, nullable=false)
      */
     private $username;
 
     /**
      * @var string
-     * 
-     * @ORM\Column(name="password", type="string", length=40, nullable=false) 
+     *
+     * @ORM\Column(name="password", type="string", length=40, nullable=false)
      */
     private $password;
-    
+
     /**
      * @var string
      *
@@ -71,8 +71,8 @@ class User implements UserInterface, SSOUserInterface, \Serializable
     /**
      * Unix timestamp of latest login
      * @var integer
-     * 
-     * @ORM\Column(name="ultimo_login", type="integer", nullable=true) 
+     *
+     * @ORM\Column(name="ultimo_login", type="integer", nullable=true)
      */
     private $ultimoLogin = 0;
 
@@ -91,34 +91,34 @@ class User implements UserInterface, SSOUserInterface, \Serializable
     /**
      * Legacy ACL roles
      * @var integer
-     * 
+     *
      * @ORM\Column(name="groups", type="integer", nullable=true)
      */
     private $groups = 0;
 
     /**
-     * Notification level 
-     * 
+     * Notification level
+     *
      * @ORM\Column(name="notifica", type="integer", nullable=true)
      */
     private $notifica = 0;
 
     /**
      * @var string
-     * @ORM\Column(name="ban", type="string", length=1, nullable=false) 
+     * @ORM\Column(name="ban", type="string", length=1, nullable=false)
      */
     private $ban = 'N';
 
     /**
      * @access private
-     * @ORM\Column(name="phone", type="string", length=15, nullable=true) 
+     * @ORM\Column(name="phone", type="string", length=15, nullable=true)
      */
     private $phone = '';
 
     /**
      * @var string
-     * 
-     * @ORM\Column(name="sospeso", type="string", length=1, nullable=false) 
+     *
+     * @ORM\Column(name="sospeso", type="string", length=1, nullable=false)
      */
     private $eliminato = 'N';
 

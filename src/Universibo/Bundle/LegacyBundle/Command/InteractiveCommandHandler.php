@@ -1,6 +1,5 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use \DB;
 use \Error;
 
 use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
@@ -289,17 +288,17 @@ perche` impedisce il login agli utenti
     public function getCompletedInteractiveCommandByUser()
     {
         $user = unserialize($_SESSION['user']);
-        
+
         $logRepo = $this->getContainer()->get('universibo_legacy.repository.interactivecommand.step_log');
         $positive = $logRepo->findPositive($user->getIdUser());
-        
+
         $list = array();
-        
-        foreach($positive as $item) {
+
+        foreach ($positive as $item) {
             // TODO understand why you get double escaped data
             $list[$item->getId()] = str_replace('\\\\', '\\', $item->getNomeClasse());
         }
-        
+
         return $list;
     }
 

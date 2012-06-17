@@ -49,9 +49,9 @@ class FileItemRepository extends DoctrineRepository
         WHERE A.id_file = B.id_file AND eliminato!='
         . $db->quote(FileItem::ELIMINATO) . 'AND B.id_canale = '
         . $db->quote($id_canale) . '';
-        
+
         $stmt = $db->executeQuery($query);
-        
+
         return $stmt->fetchColumn();
     }
 
@@ -62,9 +62,9 @@ class FileItemRepository extends DoctrineRepository
         }
 
         $db = $this->getConnection();
-        
+
         $builder = $db->createQueryBuilder();
-        
+
         $stmt = $builder
             ->select('f.id_file')
             ->from('file', 'f')
@@ -76,7 +76,7 @@ class FileItemRepository extends DoctrineRepository
             ->setParameters(array(FileItem::NOT_ELIMINATO, $channelIds), array(null, Connection::PARAM_INT_ARRAY))
             ->execute()
         ;
-        
+
         $ids = array();
 
         while (false !== ($row = $stmt->fetch())) {
@@ -103,8 +103,6 @@ class FileItemRepository extends DoctrineRepository
         while (false !== ($row = $stmt->fetch())) {
             $id_file_list[] = $row[0];
         }
-
-        
 
         return $id_file_list;
     }
@@ -145,6 +143,7 @@ class FileItemRepository extends DoctrineRepository
         $rows = $stmt->rowCount();
 
         if ($rows == 0)
+
             return false;
         $files_list = array();
 
@@ -159,7 +158,7 @@ class FileItemRepository extends DoctrineRepository
                     $username, $row[15], $row[16], $row[17], $row[18]);
         }
 
-        
+
 
         return $files_list;
     }
@@ -188,8 +187,9 @@ class FileItemRepository extends DoctrineRepository
         $rows = $stmt->rowCount();
 
         if ($rows == 0)
+
             return false;
-        
+
         $files_list = array();
 
         $userRepo = $this->userRepository;
@@ -267,7 +267,7 @@ class FileItemRepository extends DoctrineRepository
 
         $query = 'UPDATE file SET download = ' . $db->quote($file->getDownLoad())
         . ' WHERE id_file = ' . $db->quote($file->getIdFile());
-        
+
         return $db->executeUpdate($query) > 0;
     }
 
@@ -337,6 +337,7 @@ class FileItemRepository extends DoctrineRepository
         $rows = $stmt->rowCount();
 
         if ($rows == 0)
+
             return false;
         $files_list = array();
 
@@ -379,7 +380,7 @@ class FileItemRepository extends DoctrineRepository
         $res = $db->executeUpdate($query);
 
         $file->setIdFile($db->lastInsertId('file_id_file_seq'));
-        
+
         return true;
     }
 

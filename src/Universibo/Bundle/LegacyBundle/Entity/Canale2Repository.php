@@ -34,9 +34,9 @@ class Canale2Repository
     /**
      * Class constructor
      *
-     * @param CanaleRepository       $channelRepository
-     * @param CdlRepository          $cdlRepository
-     * @param FacoltaRepository      $facultyRepository
+     * @param CanaleRepository         $channelRepository
+     * @param CdlRepository            $cdlRepository
+     * @param FacoltaRepository        $facultyRepository
      * @param DBInsegnamentoRepository $subjectRepository
      * @param boolean                  $convert
      */

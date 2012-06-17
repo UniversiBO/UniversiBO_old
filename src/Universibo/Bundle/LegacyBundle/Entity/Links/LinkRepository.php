@@ -33,7 +33,7 @@ class LinkRepository extends DoctrineRepository
         $query = 'SELECT id_link, id_canale, id_utente, uri, label, description FROM link WHERE id_canale = ('
         . $db->quote($channelId) . ') ORDER BY id_link DESC';
         $stmt = $db->executeQuery($query);
-        
+
         $link_list = array();
 
         while (false !== ($row = $stmt->fetch())) {
@@ -67,7 +67,7 @@ class LinkRepository extends DoctrineRepository
         . $values . ')';
         $stmt = $db->executeQuery($query);
 
-        if($stmt->rowCount() === 0) {
+        if ($stmt->rowCount() === 0) {
             return false;
         }
 
@@ -92,7 +92,7 @@ class LinkRepository extends DoctrineRepository
         . $db->quote($link->getDescription()) . ' )';
 
         $res = $db->executeUpdate($query);
-        
+
         $link->setIdLink($db->lastInsertId('link_id_link_seq'));
 
         return true;
@@ -115,10 +115,10 @@ class LinkRepository extends DoctrineRepository
     public function delete(Link $link)
     {
         $db = $this->getConnection();
-        
+
         $query = 'DELETE FROM link WHERE id_link= '
         . $db->quote($link->getIdLink());
-        
+
         return $db->executeUpdate($query) > 0;
     }
 

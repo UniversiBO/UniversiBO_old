@@ -22,8 +22,8 @@ class CommentoItemRepository extends DoctrineRepository
         if (false !== ($row = $stmt->fetch())) {
             return new CommentoItem($id, $row[0], $row[1],
                     $row[2], $row[3], CommentoItem::NOT_ELIMINATO);
-        } 
-        
+        }
+
         return false;
     }
 
@@ -55,7 +55,7 @@ class CommentoItemRepository extends DoctrineRepository
         . $db->quote($fileId) . ' AND eliminato = '
         . $db->quote(CommentoItem::NOT_ELIMINATO) . ' GROUP BY id_file';
         $stmt = $db->executeQuery($query);
-        
+
         return $stmt->fetchColumn();
     }
 
@@ -69,7 +69,7 @@ class CommentoItemRepository extends DoctrineRepository
         . $db->quote($voto) . ',' . $db->quote(CommentoItem::NOT_ELIMINATO)
         . ')';
         $res = $db->executeUpdate($query);
-        
+
         return true;
     }
 
@@ -81,7 +81,7 @@ class CommentoItemRepository extends DoctrineRepository
         . $db->quote($commento) . ', voto= ' . $db->quote($voto)
         . ' WHERE id_commento=' . $db->quote($id_commento);
         $res = $db->executeUpdate($query);
-        
+
         return true;
     }
 
@@ -96,9 +96,9 @@ class CommentoItemRepository extends DoctrineRepository
         . ')';
         $res = $db->executeUpdate($query);
         $id = $db->lastInsertId('file_studente_commenti_id_commento');
-        
+
         $comment->setIdCommento($id);
-        
+
         return true;
     }
 
@@ -110,7 +110,7 @@ class CommentoItemRepository extends DoctrineRepository
         . $db->quote(CommentoItem::ELIMINATO) . 'WHERE id_commento='
         . $db->quote($id);
         $res = $db->executeUpdate($query);
-        
+
         return true;
     }
 
@@ -124,7 +124,7 @@ class CommentoItemRepository extends DoctrineRepository
         . $db->quote(CommentoItem::NOT_ELIMINATO)
         . 'GROUP BY id_file,id_utente,id_commento';
         $stmt = $db->executeQuery($query);
-        
+
         return $stmt->fetchColumn();
     }
 }

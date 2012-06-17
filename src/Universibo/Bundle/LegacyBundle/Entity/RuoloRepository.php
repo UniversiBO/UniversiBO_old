@@ -15,7 +15,7 @@ class RuoloRepository extends DoctrineRepository
     {
         $db = $this->getConnection();
         $query = 'DELETE FROM utente_canale WHERE id_utente = ? AND id_canale = ?';
-        
+
         return $db->executeUpdate($query, array($ruolo->getIdUser(), $ruolo->getIdCanale())) > 0;
     }
 
@@ -39,7 +39,7 @@ class RuoloRepository extends DoctrineRepository
                 $ruolo->getNome(),
                 $nascosto
         ));
-        
+
         return true;
     }
 
@@ -55,7 +55,7 @@ class RuoloRepository extends DoctrineRepository
     {
         $db = $this->getConnection();
         $query = 'UPDATE utente_canale SET ultimo_accesso = ? WHERE id_utente = ? AND id_canale = ?';
-        
+
         return $db->executeUpdate($query, array($ruolo->getUltimoAccesso(), $ruolo->getIdUser(), $ruolo->getIdCanale())) > 0;
     }
 
@@ -63,17 +63,17 @@ class RuoloRepository extends DoctrineRepository
     {
         $db = $this->getConnection();
         $query = 'UPDATE utente_canale SET tipo_notifica = ? WHERE id_utente = ? AND id_canale = ?';
-        
+
         return $db->executeUpdate($query, array($ruolo->getTipoNotifica(), $ruolo->getIdUser(), $ruolo->getIdCanale())) > 0;
     }
 
     public function updateModeratore(Ruolo $ruolo)
     {
         $campo_ruolo = ($ruolo->isModeratore()) ? Ruolo::MODERATORE : 0 + ($ruolo->isReferente()) ? Ruolo::REFERENTE : 0;
-        
+
         $db = $this->getConnection();
         $query = 'UPDATE utente_canale SET ruolo = ? WHERE id_utente = ? AND id_canale = ?';
-        
+
         return $db->executeUpdate($query, array($campo_ruolo, $ruolo->getIdUser(), $ruolo->getIdCanale())) > 0;
     }
 
@@ -85,10 +85,10 @@ class RuoloRepository extends DoctrineRepository
     public function updateMyUniversibo(Ruolo $ruolo)
     {
         $my_universibo = ($ruolo->isMyUniversibo()) ? 'S' : 'N';
-        
+
         $db = $this->getConnection();
         $query = 'UPDATE utente_canale SET my_universibo = ? WHERE id_utente = ? AND id_canale = ?';
-        
+
         return $db->executeUpdate($query, array($my_universibo, $ruolo->getIdUser(), $ruolo->getIdCanale())) > 0;
     }
 
@@ -123,7 +123,7 @@ class RuoloRepository extends DoctrineRepository
         ', nascosto = ?'.
         ' WHERE id_utente = ?'.
         ' AND id_canale = ?';
-        
+
         return $db->executeUpdate($query, array(
                 $ruolo->getUltimoAccesso(),
                 $campo_ruolo,
@@ -144,11 +144,11 @@ class RuoloRepository extends DoctrineRepository
         $stmt = $db->executeQuery($query, array($idUtente, $idCanale));
 
         $row = $stmt->fetch();
-        
-        if($row === false) {
+
+        if ($row === false) {
             return false;
         }
-        
+
         return new Ruolo($idUtente, $idCanale, $row[4], $row[0], $row[1]==RUOLO_MODERATORE, $row[1]==Ruolo::REFERENTE, $row[2]=='S', $row[3], $row[5]=='S');
     }
 
@@ -158,7 +158,7 @@ class RuoloRepository extends DoctrineRepository
 
         $query = 'SELECT id_utente, id_canale FROM utente_canale WHERE id_utente = ? AND id_canale = ?';
         $stmt = $db->executeQuery($query, array($idUtente, $idCanale));
-        
+
         return $stmt->rowCount() > 0;
     }
 

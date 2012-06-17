@@ -23,14 +23,14 @@ class ShowStatistiche extends UniversiboCommand
         }
 
         $db = $this->getContainer()->get('doctrine.dbal.default_connection');
-        
+
         $query = 'SELECT file_inseriti_giorno.mese, file_inseriti_giorno.anno, sum(file_inseriti_giorno.totale_file) AS file_mese
         FROM file_inseriti_giorno
         GROUP BY file_inseriti_giorno.anno, file_inseriti_giorno.mese
         ORDER BY file_inseriti_giorno.anno DESC, file_inseriti_giorno.mese DESC;';
         //			var_dump($query,$user); die;
         $res = $db->executeQuery($query);
-        
+
         $listaFilePerMese = array();
         while (false !== ($row = $res->fetch())) {
             $listaFilePerMese[] = array('mese' => $row[0], 'anno' => $row[1],
@@ -40,7 +40,7 @@ class ShowStatistiche extends UniversiboCommand
         $query = 'SELECT giorno, mese,anno, iscritti FROM studenti_iscritti ORDER BY anno DESC, mese DESC, giorno DESC;';
         //			var_dump($query,$user); die;
         $res = $db->executeQuery($query);
-        
+
         $listaUtentiPerMese = array();
         while (false !== ($row = $res->fetch())) {
             $listaUtentiPerMese[] = array('mese' => $row[1], 'anno' => $row[2],

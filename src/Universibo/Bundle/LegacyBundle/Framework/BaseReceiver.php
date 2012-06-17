@@ -79,7 +79,6 @@ abstract class BaseReceiver
         ini_set('include_path', $this->frameworkPath.$pathDelimiter.$this->applicationPath.'/classes'.$pathDelimiter.ini_get('include_path'));
     }
 
-
     /**
      * Main code for framework activation, includes Error definitions
      * and instantiates FrontController

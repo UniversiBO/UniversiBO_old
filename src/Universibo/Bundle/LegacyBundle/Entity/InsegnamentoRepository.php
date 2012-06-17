@@ -32,11 +32,11 @@ class InsegnamentoRepository extends DoctrineRepository
         $query = 'SELECT tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo, id_canale, files_studenti_attivo FROM canale WHERE id_canale = ?';
         $stmt = $db->executeQuery($query, array($channelId));
         $row = $stmt->fetch();
-        
-        if($row === false) {
+
+        if ($row === false) {
             return null;
         }
-        
+
         $elenco_attivita = $this->programmaRepository->findByChannelId($channelId);
 
         return new Insegnamento($row[12], $row[5], $row[4], $row[0],

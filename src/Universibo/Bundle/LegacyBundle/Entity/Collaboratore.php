@@ -12,9 +12,9 @@ use Universibo\Bundle\LegacyBundle\Framework\FrontController;
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, <{@link http://www.opensource.org/licenses/gpl-license.php}>
  * @copyright CopyLeft UniversiBO 2001-2012
- * 
+ *
  * @ORM\Table(name="collaboratore")
- * @ORM\Entity(repositoryClass="Universibo\Bundle\LegacyBundle\Entity\CollaboratoreRepository") 
+ * @ORM\Entity(repositoryClass="Universibo\Bundle\LegacyBundle\Entity\CollaboratoreRepository")
  */
 class Collaboratore
 {
@@ -25,7 +25,7 @@ class Collaboratore
 
     /**
      * @var string
-     * @ORM\Column(name="intro", type="text", nullable=true) 
+     * @ORM\Column(name="intro", type="text", nullable=true)
      */
     private $intro;
 
@@ -57,7 +57,7 @@ class Collaboratore
 
     /**
      * @var User
-     * 
+     *
      * @ORM\Id
      * @ORM\OneToOne(targetEntity="User")
      * @ORM\JoinColumn(name="id_utente", referencedColumnName="id_utente")
@@ -99,7 +99,7 @@ class Collaboratore
     public function setIntro($intro)
     {
         $this->intro = $intro;
-        
+
         return $this;
     }
 
@@ -111,7 +111,7 @@ class Collaboratore
     public function setRuolo($ruolo)
     {
         $this->ruolo = $ruolo;
-        
+
         return $this;
     }
 
@@ -123,7 +123,7 @@ class Collaboratore
     public function setRecapito($recapito)
     {
         $this->recapito = $recapito;
-        
+
         return $this;
     }
 
@@ -135,7 +135,7 @@ class Collaboratore
     public function setObiettivi($obiettivi)
     {
         $this->obiettivi = $obiettivi;
-        
+
         return $this;
     }
 
@@ -147,14 +147,14 @@ class Collaboratore
     public function setFotoFilename($foto)
     {
         $this->foto = $foto;
-        
+
         return $this;
     }
 
     public function setUser(User $user)
     {
         $this->user = $user;
-        
+
         return $this;
     }
 
@@ -169,16 +169,16 @@ class Collaboratore
     {
         return $this->user;
     }
-    
+
     public function getShow()
     {
         return $this->show;
     }
-    
+
     public function setShow($show)
     {
         $this->show = $show;
-        
+
         return $this;
     }
 
