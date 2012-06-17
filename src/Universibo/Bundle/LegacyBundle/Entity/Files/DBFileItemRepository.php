@@ -597,7 +597,7 @@ class DBFileItemRepository extends DBRepository
 
         $query = 'DELETE FROM file_canale WHERE id_canale='
         . $db->quote($channelId) . ' AND id_file='
-        . $db->quote($channelId->getIdFile());
+        . $db->quote($file->getIdFile());
         //? da testare il funzionamento di =
         $res = $db->query($query);
 
