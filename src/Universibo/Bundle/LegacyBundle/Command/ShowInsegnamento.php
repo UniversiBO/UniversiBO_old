@@ -182,7 +182,7 @@ testi consigliati[/url]';
         //$tpl_tabella[] = $orario;
         $tpl_tabella[] = $forum;
 
-        $template->assignUnicode('ins_tabella', $tpl_tabella);
+        $template->assign('ins_tabella', $tpl_tabella);
 
         $template->assign('ins_title', $insegnamento->getTitolo());
 

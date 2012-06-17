@@ -533,7 +533,7 @@ Per altri problemi contattare lo staff di UniversiBO
         $template->assign('f7_testo', $f7_testo);
         $template->assign('f7_urgente', $f7_urgente);
         $template->assign('f7_scadenza', $f7_scadenza);
-        $template->assignUnicode('f7_canale', $f7_canale);
+        $template->assign('f7_canale', $f7_canale);
 
         //$topics[] =
         $this->executePlugin('ShowTopic', array('reference' => 'newscollabs'));

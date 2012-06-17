@@ -1,6 +1,6 @@
 {include file="header_index.tpl"}
 
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 
 <div class="titoloPagina">
 	<h2>{$fac_facTitle|escape:"htmlall"} - {$fac_facCodice}</h2>
@@ -21,6 +21,6 @@
 </div>
 {/foreach}
 <hr />
-{include file=News/latest_news.tpl}
+{include file="News/latest_news.tpl"}
 
 {include file="footer_index.tpl"}

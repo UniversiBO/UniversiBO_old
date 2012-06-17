@@ -1,6 +1,6 @@
 {include file="header_index.tpl"}
 
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 
 <div class="titoloPagina">
 <h2>{$rules_langTitle|escape:"htmlall"|bbcode2html}</h2>
@@ -12,4 +12,3 @@
 <h4>{$rules_langForum|escape:"htmlall"}</h4>
 <p> {$rules_langForumRules|escape:"htmlall"|bbcode2html} </p>
 {include file="footer_index.tpl"}
-

@@ -27,7 +27,7 @@ class ShowManifesto extends UniversiboCommand
                 ->assign('manifesto_langQuoteAlt',
                         'Galileo Galilei: Ma sopra tutte le invezioni stupende qual eminenza di mente fu quella di colui che s\'immaginò di trovar modo di comunicare i suoi più reconditi pensieri a qualsivoglia altra persona, benché distante per lunghissimo intervallo di luogo e di tempo?');
         $template
-                ->assignUnicode('manifesto_langWhatIsIt',
+                ->assign('manifesto_langWhatIsIt',
                         'Forse l\'avrete banalmente già notato, ma lo scopo di questo sito è quello di aiutare una specie animale che da tempo immemorabile s\'inerpica tutte le mattine per una salitella ai piedi dei colli Bolognesi... si tratta dello studente d\'ingegneria.
 
 Non si sa cosa li spinga tutti i giorni a compiere queste fatiche... fatto sta che mediamente dopo quasi una decina d\'anni abbandona questi luoghi... non si sa dove vadano e il più triste dei particolari è che nemmeno loro sanno cosa cercare una volta usciti! ...e finiscono solo col chiedersi perché vi siano entrati.

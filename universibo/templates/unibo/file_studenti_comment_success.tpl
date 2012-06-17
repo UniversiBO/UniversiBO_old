@@ -8,7 +8,7 @@
 <p><a href="{$FilesStudentiComment_modifica|escape:"htmlall"}">Modifica il tuo commento</a></p>
 {/if}
 
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 
 <p><a href="{$common_canaleURI|escape:"htmlall"}">Torna&nbsp;alle informazioni sul file</a></p>
 

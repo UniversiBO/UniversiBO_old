@@ -2,9 +2,9 @@
 <div class="titoloPagina">
 <h2>Password file</h2>
 </div>
-<p class="Normal">Il file richiesto è stato protetto dall'autore con una password,<br />
-Per per proseguire con il download è necessario inserirla nel seguente form.</p>
-{include file=avviso_notice.tpl}
+<p class="Normal">Il file richiesto ï¿½ stato protetto dall'autore con una password,<br />
+Per per proseguire con il download ï¿½ necessario inserirla nel seguente form.</p>
+{include file="avviso_notice.tpl"}
 
 <form method="post">
 	<p><label for="f11_file_password">Password:</label>
@@ -16,6 +16,6 @@ Per per proseguire con il download è necessario inserirla nel seguente form.</p>
 <p><a href="{$common_canaleURI|escape:"htmlall"}">Torna&nbsp;{$common_langCanaleNome}</a><p>
 
 <hr />
-{include file=Help/topic.tpl showTopic_topic=$showTopic_topic idsu=$showTopic_topic.reference}
+{include file="Help/topic.tpl" showTopic_topic=$showTopic_topic idsu=$showTopic_topic.reference}
 
 {include file="footer_index.tpl"}

@@ -33,7 +33,7 @@ class RecuperaUsernameStudente extends UniversiboCommand
         $template->assign('recuperaUsernameStudente_langPassword','Password:');
         $template->assign('recuperaUsernameStudente_domain','@studio.unibo.it');
         $template->assign('recuperaUsernameStudente_langInfo','Gli studenti che hanno smarrito la password di accesso ad UniversiBO possono ottenerne una nuova, ricevendola all\'e-mail di ateneo utilizzata al momento dell\'iscrizione.');
-        $template->assignUnicode('recuperaUsernameStudente_langHelp','Per qualsiasi problema o spiegazioni contattate lo staff all\'indirizzo [email]'.$fc->getAppSetting('infoEmail').'[/email].'."\n".
+        $template->assign('recuperaUsernameStudente_langHelp','Per qualsiasi problema o spiegazioni contattate lo staff all\'indirizzo [email]'.$fc->getAppSetting('infoEmail').'[/email].'."\n".
                             'In ogni caso non comunicate mai le vostre password di ateneo, lo staff non è tenuto a conoscerle');
         $template->assign('f32_submit',		'Invia');
 
@@ -125,7 +125,7 @@ class RecuperaUsernameStudente extends UniversiboCommand
             if(!$mail->Send())
                 Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>$msg, 'file'=>__FILE__, 'line'=>__LINE__));
 
-            $template->assignUnicode('recuperaUsernameStudente_thanks',"La tua richiesta è stata inoltrata e a breve riceverai le informazioni al tuo indirizzo e-mail di ateneo\n".
+            $template->assign('recuperaUsernameStudente_thanks',"La tua richiesta è stata inoltrata e a breve riceverai le informazioni al tuo indirizzo e-mail di ateneo\n".
                                 'Per qualsiasi problema o spiegazioni contatta lo staff all\'indirizzo [email]'.$fc->getAppSetting('infoEmail').'[/email].');
 
             $mail->Body = '';

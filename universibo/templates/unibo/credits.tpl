@@ -1,6 +1,6 @@
 {include file="header_index.tpl"}
 
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 
 <h2>Credits</h2>
 <p>{$showCredits_langIntro|escape:"htmlall"|bbcode2html|nl2br}<br />&nbsp;</p>

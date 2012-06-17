@@ -32,7 +32,7 @@ class ShowContribute extends UniversiboCommand
 
         $template->assign('contribute_langTitleAlt', 'Collabora');
         $template
-                ->assignUnicode('contribute_langIntro',
+                ->assign('contribute_langIntro',
                         array(
                                 'UniversiBO è un sito che nasce dalla collaborazione tra studenti, docenti e strutture universitarie. I docenti sono stati disponibili a dare il loro contributo e li ringraziamo per questo. Ma per permettere che questo portale continui la sua vita occorre che anche gli studenti collaborino.',
                                 'Se pensate che il servizio che offriamo sia utile e desiderate che continui a essere disponibile per tutti allora aiutateci a rendere questo portale ancora migliore.'));
@@ -40,7 +40,7 @@ class ShowContribute extends UniversiboCommand
                 ->assign('contribute_langTitle',
                         '-- Come fare per collaborare? --');
         $template
-                ->assignUnicode('contribute_langHowToContribute',
+                ->assign('contribute_langHowToContribute',
                         array(
                                 'Non vi chiediamo di dedicare al progetto tutta la vostra vita universitaria!
         Le modalità di collaborazione sono tante e ognuna richiede tempi
@@ -84,7 +84,7 @@ class ShowContribute extends UniversiboCommand
                 ->assign('question_q1',
                         'Saresti disponibile a darci un piccolo contributo(di tempo) per il progetto?');
         $template
-                ->assignUnicode('question_q1Answers',
+                ->assign('question_q1Answers',
                         array('una giornata alla settimana o più;',
                                 'poche ore alla settimana;',
                                 'pochi minuti alla settimana;'));
@@ -95,10 +95,10 @@ class ShowContribute extends UniversiboCommand
                         array('quasi mai;', 'una volta alla settimana;',
                                 'una volta al giorno;', 'vivo connesso;'));
         $template
-                ->assignUnicode('question_q3',
+                ->assign('question_q3',
                         'Quali di queste attività pensi di poter svolgere (anche più di una scelta)?');
         $template
-                ->assignUnicode('question_q3AnswersMulti',
+                ->assign('question_q3AnswersMulti',
                         array(
                                 'attività off-line(contatti con i docenti o studenti, reperimento materiale...);',
                                 'moderatore
@@ -372,7 +372,7 @@ class ShowContribute extends UniversiboCommand
                  $notRepo->insert($notifica);
             }
 
-            $template->assignUnicode('question_thanks',"Grazie per aver compilato il questionario, la tua richiesta è stata inoltrata ai ragazzi che si occupano del contatto dei nuovi collaboratori.\n Verrai ricontattatato da loro non appena possibile");
+            $template->assign('question_thanks',"Grazie per aver compilato il questionario, la tua richiesta è stata inoltrata ai ragazzi che si occupano del contatto dei nuovi collaboratori.\n Verrai ricontattatato da loro non appena possibile");
 
             return 'questionario_success';
         }

@@ -95,6 +95,7 @@ class ShowMyNews extends PluginCommand
                         $elenco_news_tpl[$i]['canali'][] = $canale_tpl;
                     }
                 }
+                $elenco_news_tpl[$i]['id_notizia']   = $news->getIdNotizia();
                 $elenco_news_tpl[$i]['nuova']	   	 = ($news->getUltimaModifica() > $ultimo_accesso) ? 'true' : 'false';
                 $elenco_news_tpl[$i]['modifica']     = '';
                 $elenco_news_tpl[$i]['modifica_link']= '';
@@ -105,6 +106,6 @@ class ShowMyNews extends PluginCommand
 
         }
 
-        $template->assignUnicode('showMyNews_newsList', $elenco_news_tpl);
+        $template->assign('showMyNews_newsList', $elenco_news_tpl);
     }
 }

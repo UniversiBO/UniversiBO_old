@@ -873,15 +873,14 @@ class FrontController
             return $templateEngine ;
         } else {
             //define('TEMPLATE_SINGLETON','on');
-            require_once($this->templateEngine['smarty_dir'].'Smarty.class.php');
-            require_once($this->templateEngine['smarty_dir'].'MySmarty.class.php');
+            require_once($this->templateEngine['smarty_dir'].'SmartyBC.class.php');
 
             //			$templateEngine = new Smarty();
 
             //mia aggiunta per tentativo di template "differenziali"
-            $templateEngine = new \MySmarty();
+            $templateEngine = new \SmartyBC();
 
-            $templateEngine->default_template_dir  = $this->templateEngine['smarty_template'].$this->templateEngine['styles'][$this->templateEngine['default_template']];
+            //$templateEngine->default_template_dir  = $this->templateEngine['smarty_template'].$this->templateEngine['styles'][$this->templateEngine['default_template']];
             //fine mia aggiunta
 
             $templateEngine->template_dir  = $this->templateEngine['smarty_template'].$this->templateEngine['styles'][$this->templateEngine['template_name']];

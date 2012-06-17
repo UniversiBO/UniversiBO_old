@@ -3,7 +3,7 @@
 <div class="titoloPagina">
 <h2>Inserisci il tuo profilo</h2>
 </div>
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 <form method="post">
 	<p><label class="label" for="f36_ruolo">Ruolo:</label>
 		<input type="text" class="casella" id="f36_ruolo" name="f36_ruolo" size="65" maxlength="130" value="{$f36_ruolo|escape:"htmlall"}" />

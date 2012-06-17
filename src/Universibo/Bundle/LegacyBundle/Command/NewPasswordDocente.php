@@ -95,7 +95,7 @@ class NewPasswordDocente extends UniversiboCommand
             //	Error::throwError(_ERROR_DEFAULT,array('msg'=>'Si ? verificato un errore durante la modifica della password sul forum relativa allo username '.$q6_username,'file'=>__FILE__,'line'=>__LINE__));
 
             $template
-                    ->assignUnicode('newPasswordDocente_thanks',
+                    ->assign('newPasswordDocente_thanks',
                             "La password è stata cambiata con successo.\n");
 
             $mail = $fc->getMail();

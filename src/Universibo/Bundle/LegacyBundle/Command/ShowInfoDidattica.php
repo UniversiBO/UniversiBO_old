@@ -80,7 +80,7 @@ class ShowInfoDidattica extends UniversiboCommand
 
         $template->assign('infoDid_langProgrammaInfo', 'Programma d\'esame');
         $template
-                ->assignUnicode('infoDid_langProgrammaLink',
+                ->assign('infoDid_langProgrammaLink',
                         'Il programma d\'esame può essere consultato anche a questo link');
         $template->assign('infoDid_programmaLink', $programmaLink);
         $template->assign('infoDid_programmaInfo', $programmaInfo);
@@ -95,9 +95,9 @@ class ShowInfoDidattica extends UniversiboCommand
         $template->assign('infoDid_materialeInfo', $materialeInfo);
 
         $template
-                ->assignUnicode('infoDid_langModalitaInfo', 'Modalità d\'esame');
+                ->assign('infoDid_langModalitaInfo', 'Modalità d\'esame');
         $template
-                ->assignUnicode('infoDid_langModalitaLink',
+                ->assign('infoDid_langModalitaLink',
                         'Le modalità d\'esame possono essere consultati anche a questo link');
         $template->assign('infoDid_modalitaLink', $modalitaLink);
         $template->assign('infoDid_modalitaInfo', $modalitaInfo);
@@ -109,7 +109,7 @@ class ShowInfoDidattica extends UniversiboCommand
         $template->assign('infoDid_appelliLink', $appelliLink);
         $template->assign('infoDid_appelliInfo', $appelliInfo);
         $template
-                ->assignUnicode('infoDid_langAppelliUniwex',
+                ->assign('infoDid_langAppelliUniwex',
                         'Ci scusiamo con gli utenti ma al momento non è più possibile visualizzare le informazioni riguardanti gli appelli d\'esame riportati su Uniwex');
 
         //$this->executePlugin('ShowNewsLatest', array( 'num' => 5  ));

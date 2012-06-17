@@ -1,6 +1,6 @@
 {include file="header_index.tpl"}
 
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 
 <h2>Help</h2>
 {if $showHelpTopic_index == "true"}
@@ -14,6 +14,6 @@
 {/if}
 
 {foreach from=$showHelpTopic_topics item=temp_topic}
-	{include file=Help/topic.tpl showTopic_topic=$temp_topic idsu=$temp_topic.reference}
+	{include file="Help/topic.tpl" showTopic_topic=$temp_topic idsu=$temp_topic.reference}
 {/foreach}
 {include file="footer_index.tpl"}

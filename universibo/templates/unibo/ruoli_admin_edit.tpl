@@ -1,5 +1,5 @@
 {include file="header_index.tpl"}
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 <div class="titoloPagina">
 <h2>{$ruoliAdminEdit_langAction|escape:"htmlall"|nl2br}</h2>
 </div>

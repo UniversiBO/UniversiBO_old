@@ -41,12 +41,12 @@ class ChangePassword extends UniversiboCommand
                 ->assign('changePassword_langReNewPassword',
                         'Conferma nuova password:');
         $template
-                ->assignUnicode('changePassword_langInfoChangePassword',
+                ->assign('changePassword_langInfoChangePassword',
                         'Per modificare la propria password inserire i dati relativi al proprio username e alla vecchia password.'
                                 . "\n"
                                 . 'Nei campi successivi riscrivere due volte la nuova password che si è scelto per evitare errori di battitura.');
         $template
-                ->assignUnicode('changePassword_langHelp',
+                ->assign('changePassword_langHelp',
                         'Per qualsiasi problema o spiegazioni contattate lo staff all\'indirizzo [email]'
                                 . $fc->getAppSetting('infoEmail') . '[/email].'
                                 . "\n"
@@ -179,7 +179,7 @@ class ChangePassword extends UniversiboCommand
             //	Error::throwError(_ERROR_DEFAULT,array('msg'=>'Si e` verificato un errore durante la modifica della password sul forum relativa allo username '.$q6_username,'file'=>__FILE__,'line'=>__LINE__));
 
             $template
-                    ->assignUnicode('changePassword_thanks',
+                    ->assign('changePassword_thanks',
                             "La password è stata cambiata con successo, si consiglia di testarne il corretto funzionamento.\n"
                                     . 'Per qualsiasi problema o spiegazioni contatta lo staff all\'indirizzo [email]'
                                     . $fc->getAppSetting('infoEmail')

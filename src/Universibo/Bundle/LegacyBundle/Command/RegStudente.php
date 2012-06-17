@@ -39,15 +39,15 @@ class RegStudente extends UniversiboCommand
         $template->assign('regStudente_langPassword','Password dell\' email d\' ateneo:');
         $template->assign('regStudente_langUsername','Username scelto per UniversiBO:');
         $template->assign('regStudente_domain','@studio.unibo.it');
-        $template->assignUnicode('regStudente_langInfoUsername','E\' necessario scegliere uno Username che sarà utilizzato per i futuri accessi e che sarà anche il vostro nome identificativo all\'interno di UniversiBO.[b]Non sarà possibile cambiare username in seguito[/b].
+        $template->assign('regStudente_langInfoUsername','E\' necessario scegliere uno Username che sarà utilizzato per i futuri accessi e che sarà anche il vostro nome identificativo all\'interno di UniversiBO.[b]Non sarà possibile cambiare username in seguito[/b].
 Il sistema genererà una password casuale che sarà inviata alla vostra casella e-mail d\'ateneo.');
-        $template->assignUnicode('regStudente_langInfoReg','Per garantire la massima sicurezza, l\'identificazione degli studenti al loro primo accesso avviene tramite la casella e-mail d\'ateneo e la relativa password.
+        $template->assign('regStudente_langInfoReg','Per garantire la massima sicurezza, l\'identificazione degli studenti al loro primo accesso avviene tramite la casella e-mail d\'ateneo e la relativa password.
 Se non possedete ancora la e-mail di ateneo andate sul sito [url]http://www.unibo.it[/url] cliccate sul "Login" in alto a destra e seguite le istruzioni.
 Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore successive[/b] e potete accedervi tramite il sito [url]https://posta.studio.unibo.it[/url], vi preghiamo di apettare che la mail di ateneo sia attiva prima di iscrivervi.');
         $template->assign('regStudente_langReg','Regolamento per l\'utilizzo dei servizi:');
         $template->assign('regStudente_langPrivacy','Informativa sulla privacy:');
         $template->assign('regStudente_langConfirm','Confermo di aver letto il regolamento');
-        $template->assignUnicode('regStudente_langHelp','Per qualsiasi problema o spiegazioni contattate lo staff all\'indirizzo [email]'.$fc->getAppSetting('infoEmail').'[/email].'."\n".
+        $template->assign('regStudente_langHelp','Per qualsiasi problema o spiegazioni contattate lo staff all\'indirizzo [email]'.$fc->getAppSetting('infoEmail').'[/email].'."\n".
                             'In ogni caso non comunicate mai le vostre password di ateneo, lo staff non è tenuto a conoscerle');
 
         // valori default form
@@ -168,7 +168,7 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore
 
             if(!$mail->Send()) Error::throwError(_ERROR_DEFAULT,array('msg'=>$msg, 'file'=>__FILE__, 'line'=>__LINE__));
 
-            $template->assignUnicode('regStudente_thanks',"Benvenuto \"".$new_user->getUsername()."\"!!\n \nL'iscrizione è stata registrata con successo.\n\nLe informazioni per permetterti l'accesso ai servizi offerti da UniversiBO sono state inviate al tuo indirizzo e-mail di ateneo\nPer controllare la tua posta d'ateneo vai a [url=https://outlook.com/ type=extern]Posta di ateneo[/url]\n\n".
+            $template->assign('regStudente_thanks',"Benvenuto \"".$new_user->getUsername()."\"!!\n \nL'iscrizione è stata registrata con successo.\n\nLe informazioni per permetterti l'accesso ai servizi offerti da UniversiBO sono state inviate al tuo indirizzo e-mail di ateneo\nPer controllare la tua posta d'ateneo vai a [url=https://outlook.com/ type=extern]Posta di ateneo[/url]\n\n".
             'Per qualsiasi problema o spiegazioni contatta lo staff all\'indirizzo [email]'.$fc->getAppSetting('infoEmail').'[/email].');
 
             //elimino la password

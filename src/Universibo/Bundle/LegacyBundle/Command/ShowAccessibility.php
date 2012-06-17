@@ -23,7 +23,7 @@ class ShowAccessibility extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 
-        $template->assignUnicode('showAccessibility_langTitleAlt','Dichiarazione di accessibilità');
+        $template->assign('showAccessibility_langTitleAlt','Dichiarazione di accessibilità');
         $template->assign('showAccessibility_langTesto','');
 
         return 'default';

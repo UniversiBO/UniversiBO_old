@@ -2,7 +2,7 @@
 <div class="titoloPagina">
 <h2>Aggiungi un nuovo file</h2>
 </div>
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 <form method="post" enctype="multipart/form-data">
 	<p><label class="label" for="f23_file">File:</label>
 		<input class="submit" type="file" name="f23_file" id="f23_file" size="65" value="{$f23_file|escape:"htmlall"}" />
@@ -50,6 +50,6 @@
 	<p><input class="submit" type="submit" id="" name="f23_submit" size="20" value="Invia" /></p>
 </form>
 <p><a href="{$common_canaleURI|escape:"htmlall"}">Torna&nbsp;{$common_langCanaleNome}</a></p>
-{include file=Help/topic.tpl showTopic_topic=$showTopic_topic idsu=$showTopic_topic.reference}
+{include file="Help/topic.tpl" showTopic_topic=$showTopic_topic idsu=$showTopic_topic.reference}
 
 {include file="footer_index.tpl"}

@@ -84,7 +84,7 @@ class FileEdit extends UniversiboCommand
 
             $id_canale = $canale->getIdCanale();
             $template->assign('common_canaleURI', $canale->showMe());
-            $template->assignUnicode('common_langCanaleNome', 'a '. $canale->getTitolo());
+            $template->assign('common_langCanaleNome', 'a '. $canale->getTitolo());
             if (array_key_exists($id_canale, $user_ruoli)) {
                 $ruolo = $user_ruoli[$id_canale];
 

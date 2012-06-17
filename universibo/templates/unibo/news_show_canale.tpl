@@ -3,7 +3,7 @@
 <div class="titoloPagina">
 <h2>News</h2>
 </div>
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 <div class="comandi">
 {if $NewsShowCanale_addNewsFlag == "true"}<p><a href="{$NewsShowCanale_addNewsUri|escape:"htmlall"}"><img src="tpl/unibo/news_new.gif" width="15" height="15" alt="" />
 	{$NewsShowCanale_addNews|escape:"htmlall"|bbcode2html|nl2br}</a></p>
@@ -20,9 +20,9 @@
 {/foreach}
 {/if}
 </div>
-{include file=News/show_news.tpl}
+{include file="News/show_news.tpl"}
 <p><a href="{$common_canaleURI|escape:"htmlall"}">Torna&nbsp;a&nbsp;{$common_langCanaleNome}</a></p>
 <hr />
-{include file=Help/topic.tpl showTopic_topic=$showTopic_topic idsu=$showTopic_topic.reference}
+{include file="Help/topic.tpl" showTopic_topic=$showTopic_topic idsu=$showTopic_topic.reference}
 
 {include file="footer_index.tpl"}

@@ -9,10 +9,10 @@
 </div>
 
 {if $showCanale_newsFlag == 'true'}
-	{include file=News/latest_news.tpl}
+	{include file="News/latest_news.tpl"}
 {/if}
 {if $showCanale_filesFlag == 'true'}
-	{include file=Files/show_file_titoli.tpl}
+	{include file="Files/show_file_titoli.tpl"}
 {/if}
 
 {include file="footer_index.tpl"}

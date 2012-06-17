@@ -39,12 +39,12 @@ class NewPasswordStudente extends UniversiboCommand
         $template->assign('newPasswordStudente_langUsername', 'Username:');
         $template->assign('newPasswordStudente_domain', '@studio.unibo.it');
         $template
-                ->assignUnicode('newPasswordStudente_langInfoNewPassword',
+                ->assign('newPasswordStudente_langInfoNewPassword',
                         'Gli studenti che hanno smarrito la password di accesso ad UniversiBO possono ottenerne una nuova, ricevendola all\'e-mail di ateneo utilizzata al momento dell\'iscrizione.'
                                 . "\n"
                                 . 'Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore successive[/b] all\'iscrizione al portale [url]http://www.unibo.it[/url] e potete accedervi tramite il sito [url]https://posta.studio.unibo.it[/url], vi preghiamo di apettare che la mail di ateneo sia attiva prima di richiedere una nuova password.');
         $template
-                ->assignUnicode('newPasswordStudente_langHelp',
+                ->assign('newPasswordStudente_langHelp',
                         'Per qualsiasi problema o spiegazioni contattate lo staff all\'indirizzo [email]'
                                 . $fc->getAppSetting('infoEmail') . '[/email].'
                                 . "\n"
@@ -243,7 +243,7 @@ class NewPasswordStudente extends UniversiboCommand
                                 'file' => __FILE__, 'line' => __LINE__));
 
             $template
-                    ->assignUnicode('newPasswordStudente_thanks',
+                    ->assign('newPasswordStudente_thanks',
                             "Una nuova password è stata generata, la tua richiesta è stata inoltrata e a breve riceverai le informazioni al tuo indirizzo e-mail di ateneo\n"
                                     . 'Per qualsiasi problema o spiegazioni contatta lo staff all\'indirizzo [email]'
                                     . $fc->getAppSetting('infoEmail')

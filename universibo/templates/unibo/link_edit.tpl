@@ -3,9 +3,9 @@
 <h2>Modifica il link</h2>
 </div>
 
-{include file=Links/single_link.tpl}
+{include file="Links/single_link.tpl"}
 
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 <form method="post" enctype="multipart/form-data">
 	<p><label class="label" for="f31_URI">Indirizzo:</label>
 		<input class="submit" type="text" name="f31_URI" id="f31_URI" size="65" value="{$f31_URI|escape:"htmlall"}" /></p>

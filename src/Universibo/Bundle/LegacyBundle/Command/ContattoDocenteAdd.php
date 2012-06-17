@@ -73,7 +73,7 @@ class ContattoDocenteAdd extends UniversiboCommand
             }
         }
         $template
-                ->assignUnicode('ContattoDocenteAdd_esito',
+                ->assign('ContattoDocenteAdd_esito',
                         ($esito) ? ' Il contatto del docente è stato inserito con successo'
                                 : 'Il contatto del docente non è stato inserito');
         $template

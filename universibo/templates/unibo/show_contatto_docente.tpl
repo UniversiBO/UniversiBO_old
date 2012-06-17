@@ -2,7 +2,7 @@
 
 <h2>{$ShowContattoDocente_titolo}</h2>
 
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 <div class="tbl2col" style="width: 100%;margin: 2em 0;">
 <table width="100%" border="1" cellspacing="0" cellpadding="0" summary="" align="center">
 <tr><th align="center" colspan=2>Info</th></tr>

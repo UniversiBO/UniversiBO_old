@@ -3,7 +3,7 @@
 <h2>Profilo</h2>
 </div>
 
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 
 <form action="v2.php?do=ShowPersonalSettings&amp;{$common_pageTypeExt|escape:"htmlall"}" id="f20" method="post">
 	<p>{$showPersonalSettings_langInfoChangeSettings|escape:"htmlall"|bbcode2html|nl2br}</p>

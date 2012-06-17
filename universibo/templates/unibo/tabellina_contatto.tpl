@@ -1,6 +1,6 @@
 {include file="header_index.tpl"}
 		
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 
 <h2 id="inizio">{$collaboratore_langAltTitle|escape:"htmlall"|bbcode2html}&nbsp;{$collaboratore.username}</h2>
 

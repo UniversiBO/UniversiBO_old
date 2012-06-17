@@ -6,7 +6,7 @@
 </h2>
 </div>
 
-{include file=Files/show_all_files_studenti_titoli.tpl}
+{include file="Files/show_all_files_studenti_titoli.tpl"}
 
 <p class="comandi">
 <a href="{$showAllFilesStudenti_url1|escape:"htmall"}">{$showAllFilesStudenti_lang1|escape:"htmall"}</a><br />

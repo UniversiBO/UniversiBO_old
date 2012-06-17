@@ -1,6 +1,6 @@
 {include file="header_index.tpl"}
 <h2>Recupera Username</h2>
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 
 <form action="v2.php?do=RecuperaUsernameStudente&amp;{$common_pageTypeExt|escape:"htmlall"}" id="f32" method="post">
 	<p>{$recuperaUsernameStudente_langInfo|escape:"htmlall"|bbcode2html|nl2br}</p>

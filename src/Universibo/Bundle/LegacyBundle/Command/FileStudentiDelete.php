@@ -186,7 +186,7 @@ class FileStudentiDelete extends UniversiboCommand
             $file->deleteAllCommenti();
 
             $template
-                    ->assignUnicode('fileDelete_langSuccess',
+                    ->assign('fileDelete_langSuccess',
                             "Il file è stato cancellato con successo dalle pagine scelte.");
 
             return 'success';

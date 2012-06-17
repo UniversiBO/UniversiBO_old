@@ -114,6 +114,8 @@ class LinkRepository extends DoctrineRepository
 
     public function delete(Link $link)
     {
+        $db = $this->getConnection();
+        
         $query = 'DELETE FROM link WHERE id_link= '
         . $db->quote($link->getIdLink());
         

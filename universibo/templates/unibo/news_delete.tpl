@@ -2,9 +2,9 @@
 <div class="titoloPagina">
 <h2>Cancella la notizia</p></h2>
 </div>
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
  
-{include file=News/show_news.tpl}
+{include file="News/show_news.tpl"}
 
 <form method="post">
 	<p><fieldset>
@@ -18,6 +18,6 @@
 <p><a href="{$common_canaleURI|escape:"htmlall"}">Torna&nbsp;a&nbsp;{$common_langCanaleNome}</a></p>
 
 <hr />
-{include file=Help/topic.tpl showTopic_topic=$showTopic_topic idsu=$showTopic_topic.reference}
+{include file="Help/topic.tpl" showTopic_topic=$showTopic_topic idsu=$showTopic_topic.reference}
 
 {include file="footer_index.tpl"}

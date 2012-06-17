@@ -255,7 +255,7 @@ class InfoDidatticaEdit extends UniversiboCommand
 
         $template->assign('infoDid_langModalitaInfo', 'Modalit? d\'esame');
         $template
-                ->assignUnicode('infoDid_langModalitaLink',
+                ->assign('infoDid_langModalitaLink',
                         'Link a pagina esterna alternativa con modalità d\'esame');
         $template->assign('f18_modalitaLink', $f18_modalitaLink);
         $template->assign('f18_modalitaInfo', $f18_modalitaInfo);

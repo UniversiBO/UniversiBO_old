@@ -22,7 +22,7 @@ class ShowCanale extends CanaleCommand
         $canale = $this->getRequestCanale();
 
         // controllare se è settato il nome e l'immagine?
-        $template->assignUnicode('showCanale_titolo', $canale->getNome());
+        $template->assign('showCanale_titolo', $canale->getNome());
         $template->assign('showCanale_img', $canale->getImmagine());
         //var_dump($canale->getImmagine());
 
