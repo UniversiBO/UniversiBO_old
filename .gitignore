@@ -3,7 +3,7 @@ app/cache
 app/config/deploy.rb
 app/logs
 app/phpunit.xml
-nbproject
+/nbproject/private
 universibo/file-universibo
 /htmls/bundles
 composer.lock
