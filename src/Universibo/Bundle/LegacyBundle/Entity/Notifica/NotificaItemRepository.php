@@ -4,7 +4,6 @@ namespace Universibo\Bundle\LegacyBundle\Entity\Notifica;
 
 use Doctrine\ORM\EntityRepository;
 
-
 /**
  * Canale repository
  *

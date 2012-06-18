@@ -1,7 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\App\InteractiveCommand;
 
-
 use Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepLog;
 
 use Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepParametri;

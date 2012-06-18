@@ -1,8 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\App\InteractiveCommand;
 
-
-
 /**
  * Classe per recuperare le informazioni memorizzate nelle interazioni con gli utenti
  */

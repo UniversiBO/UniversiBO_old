@@ -3,7 +3,6 @@ namespace Universibo\Bundle\LegacyBundle\Entity;
 
 use Doctrine\ORM\Query\Expr;
 
-
 use Doctrine\ORM\EntityRepository;
 
 /**
