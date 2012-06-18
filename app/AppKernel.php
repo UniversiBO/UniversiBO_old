@@ -6,7 +6,9 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 class AppKernel extends Kernel {
 
     public function registerBundles() {
-        $bundles = array(new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+        $bundles = array(
+            new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
+            new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Symfony\Bundle\MonologBundle\MonologBundle(),
@@ -17,6 +19,7 @@ class AppKernel extends Kernel {
             new Symfony\Bundle\DoctrineFixturesBundle\DoctrineFixturesBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new FOS\CommentBundle\FOSCommentBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             //new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
@@ -27,7 +30,9 @@ class AppKernel extends Kernel {
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\CacheBundle\SonataCacheBundle(),
+            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             new Sonata\jQueryBundle\SonatajQueryBundle(),
+            new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Universibo\Bundle\SSOBundle\UniversiboSSOBundle(),

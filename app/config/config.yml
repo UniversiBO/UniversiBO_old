@@ -43,10 +43,20 @@ doctrine:
         user:     %database_user%
         password: %database_password%
         charset:  UTF8
+        types:
+            json: Sonata\Doctrine\Types\JsonType
 
     orm:
         auto_generate_proxy_classes: %kernel.debug%
-        auto_mapping: true
+#        auto_mapping: true
+        entity_managers:
+            default:
+                mappings:
+                    ApplicationSonataUserBundle: ~
+                    SonataUserBundle: ~
+                    FOSUserBundle: ~
+                    UniversiboCoreBundle: ~
+                    UniversiboLegacyBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -88,6 +98,12 @@ fos_comment:
             edit: ROLE_ADMIN
             delete: ROLE_ADMIN
 
+fos_user:
+  db_driver: orm
+  user_class: Application\Sonata\UserBundle\Entity\User
+  firewall_name: main
+  group:
+    group_class: Application\Sonata\UserBundle\Entity\Group
     
 sensio_framework_extra:
   router: { annotations: true }
@@ -112,3 +128,6 @@ sonata_block:
         sonata.block.service.text:
         sonata.block.service.action:
         sonata.block.service.rss:
+          
+sonata_user:
+    security_acl: true
