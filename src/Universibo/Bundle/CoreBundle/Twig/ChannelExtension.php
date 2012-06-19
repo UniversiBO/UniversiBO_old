@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\CoreBundle\Twig;
 
+use Universibo\Bundle\CoreBundle\Entity\ChannelRepository;
+
 use Universibo\Bundle\CoreBundle\Entity\Channel;
 
 use Universibo\Bundle\CoreBundle\Routing\ChannelRouter;
@@ -15,13 +17,19 @@ class ChannelExtension extends \Twig_Extension
     private $router;
     
     /**
+     * @var ChannelRepository
+     */
+    private $channelRepository;
+    
+    /**
      * Class constructor
      * 
      * @param ChannelRouter $router
      */
-    public function __construct(ChannelRouter $router)
+    public function __construct(ChannelRouter $router, ChannelRepository $channelRepository)
     {
         $this->router = $router;
+        $this->channelRepository = $channelRepository;
     }
 
     /**
@@ -41,7 +49,8 @@ class ChannelExtension extends \Twig_Extension
     {
         return array (
                 'channel_path' =>  new \Twig_Function_Method($this, 'channelPath'),
-                'channel_url' =>  new \Twig_Function_Method($this, 'channelUrl')
+                'channel_url' =>  new \Twig_Function_Method($this, 'channelUrl'),
+                'has_service' =>  new \Twig_Function_Method($this, 'hasService'),
         );
     }
     
@@ -53,5 +62,16 @@ class ChannelExtension extends \Twig_Extension
     public function channelUrl(Channel $channel)
     {
     	return $this->router->getUrl($channel, true);
+    }
+    
+    public function hasService(Channel $channel, $serviceName)
+    {
+        foreach($channel->getServices() as $service) {
+            if($serviceName === $service->getName()) {
+                return true;
+            }
+        } 
+        
+        return false;
     }
 }
