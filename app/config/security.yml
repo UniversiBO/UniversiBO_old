@@ -19,23 +19,6 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        
-        admin:
-            switch_user:        true
-            context:            user
-            pattern:            /admin(.*)
-            form_login:
-                provider:       fos_userbundle
-                login_path:     /admin/login
-                use_forward:    false
-                check_path:     /admin/login_check
-                failure_path:   null
-                use_referer:    true
-            logout:
-                path:           /admin/logout
-                target:         /admin/login
-            anonymous:    true
-        
         main:
             switch_user:        true
             context:            user
@@ -54,11 +37,6 @@ security:
         - { path: ^/_profiler, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
-        # -> custom access control for the admin area of the URL
-        - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/login-check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        # -> end
 
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
@@ -66,5 +44,4 @@ security:
         # Secured part of the site
         # This config requires being logged for the whole site and having the admin role for the admin part.
         # Change these rules to adapt them to your needs
-        - { path: ^/admin, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
         - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }

@@ -7,7 +7,6 @@ class AppKernel extends Kernel {
 
     public function registerBundles() {
         $bundles = array(
-            new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
@@ -27,14 +26,6 @@ class AppKernel extends Kernel {
             new Universibo\Bundle\WebsiteBundle\UniversiboWebsiteBundle(),
             new Universibo\Bundle\LegacyBundle\UniversiboLegacyBundle(),
             new Universibo\Bundle\ForumBundle\UniversiboForumBundle(),
-            new Sonata\AdminBundle\SonataAdminBundle(),
-            new Sonata\BlockBundle\SonataBlockBundle(),
-            new Sonata\CacheBundle\SonataCacheBundle(),
-            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
-            new Sonata\jQueryBundle\SonatajQueryBundle(),
-            new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
-            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
-            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Universibo\Bundle\SSOBundle\UniversiboSSOBundle(),
             new Universibo\Bundle\SearchBundle\UniversiboSearchBundle(),
             new Universibo\Bundle\CoreBundle\UniversiboCoreBundle(),

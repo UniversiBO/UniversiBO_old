@@ -2,7 +2,7 @@
 
 namespace Universibo\Bundle\CoreBundle\DataFixtures\ORM;
 
-use Application\Sonata\UserBundle\Entity\Group;
+use Universibo\Bundle\CoreBundle\Entity\Group;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
