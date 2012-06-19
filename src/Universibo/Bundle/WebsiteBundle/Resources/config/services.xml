@@ -31,5 +31,13 @@
 		    
 		    <tag name="universibo_core.channel.type"/>
 		</service>
+		
+		<service id="universibo_website.channel.type.default" class="Universibo\Bundle\CoreBundle\Channel\ChannelType">
+		    <argument>default</argument>
+		    <argument>channel_show</argument>
+		    <argument>id</argument>
+		    
+		    <tag name="universibo_core.channel.type"/>
+		</service>
 	</services>
 </container>

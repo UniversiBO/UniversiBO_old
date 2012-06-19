@@ -2,14 +2,13 @@
 
 namespace Universibo\Bundle\WebsiteBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
-
-use Universibo\Bundle\LegacyBundle\Entity\Canale;
+use Universibo\Bundle\CoreBundle\Entity\Channel;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/channel");
@@ -22,26 +21,13 @@ class ChannelController extends Controller
      */
     public function showAction($id)
     {
-        $acl = $this->get('universibo_legacy.acl');
-        $channelRepo = $this->get('universibo_legacy.repository.canale2');
-
-        $scontext = $this->get('security.context');
-
-        $user = $scontext->isGranted('IS_AUTHENTICATED_FULLY') ? $scontext
-        ->getToken()->getUser() : null;
+        // TODO acl
+        $channelRepo = $this->get('universibo_core.repository.channel');
 
         $channel = $channelRepo->find($id);
 
-        if (!$channel instanceof Canale) {
+        if (!$channel instanceof Channel) {
             throw $this->createNotFoundException('Channel not found');
-        }
-
-        if (!$acl->canRead($user, $channel)) {
-            $response = new Response();
-            $response->setStatusCode(403);
-            $response->setContent('403 Forbidden');
-
-            return $response;
         }
 
         return array('channel' => $channel);

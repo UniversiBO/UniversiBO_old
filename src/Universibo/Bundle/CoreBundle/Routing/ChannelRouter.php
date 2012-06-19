@@ -29,15 +29,15 @@ class ChannelRouter
     public function __construct(RouterInterface $router)
     {
         $this->handlers['single'] = function(ChannelTypeInterface $type, $absolute) use ($router) {
-            $router->generate($type->getRouteName(), array(), $absolute);
+            return $router->generate($type->getRouteName(), array(), $absolute);
         };
         
         $this->handlers['id'] = function(ChannelTypeInterface $type, $absolute, Channel $channel) use ($router) {
-        	$router->generate($type->getRouteName(), array('id' => $channel->getId()), $absolute);
+        	return $router->generate($type->getRouteName(), array('id' => $channel->getId()), $absolute);
         };
         
         $this->handlers['slug'] = function(ChannelTypeInterface $type, $absolute, Channel $channel) use ($router) {
-        	$router->generate($type->getRouteName(), array('slug' => $channel->getSlug()), $absolute);
+        	return $router->generate($type->getRouteName(), array('slug' => $channel->getSlug()), $absolute);
         };
     }
     

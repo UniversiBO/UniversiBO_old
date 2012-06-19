@@ -20,6 +20,13 @@ class LoadChannelData implements FixtureInterface
         
         $manager->persist($homepage);
         
+        $areaLaureati = new Channel();
+        $areaLaureati->setName('Area Laureati');
+        $areaLaureati->setType('default');
+        $areaLaureati->setSlug('area-laureati');
+        $areaLaureati->setHits(0);
+        $manager->persist($areaLaureati);
+        
         $manager->flush();
     }
 }
