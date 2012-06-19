@@ -7,7 +7,7 @@
 	<services>
 		<service id="universibo_website.feed.feed_generator"
 			class="Universibo\Bundle\WebsiteBundle\Feed\FeedGenerator">
-			<argument type="service" id="universibo_legacy.repository.news.news_item" />
+			<argument type="service" id="universibo_content.repository.news" />
 		</service>
 
 		<service id="universibo_website.search.lucene_factory"
