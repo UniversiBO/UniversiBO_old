@@ -1,7 +1,7 @@
 parameters:
-#    universibo_core.example.class: Universibo\Bundle\CoreBundle\Example
+    universibo_core.channel.router.class: 'Universibo\Bundle\CoreBundle\Routing\ChannelRouter'
 
 services:
-#    universibo_core.example:
-#        class: %universibo_core.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    universibo_core.routing.channel:
+        class: '%universibo_core.channel.router.class%'
+        arguments: ['@router']

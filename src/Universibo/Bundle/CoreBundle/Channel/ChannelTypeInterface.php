@@ -16,23 +16,20 @@ interface ChannelTypeInterface
     public function getName();
     
     /**
-     * Gets the route name for the given type
+     * Gets the route name
      * 
-     * @param string $type
      * @return string 
      */
-    public function getRoute($type);
+    public function getRouteName();
     
     /**
-     * Gets a string array with implemented route types
+     * Gets a string with implemented route type
      * Allowed types:
      *   * 'single' (no parameters)
      *   * 'slug' (slug parameter)
      *   * 'id' (id parameter)
      *   
-     * 'single' type must not be implemented together with 'slug' or 'id'
-     * 
-     * @return string[] a string array
+     * @return string
      */
-    public function getRouteTypes();
+    public function getRouteType();
 }
