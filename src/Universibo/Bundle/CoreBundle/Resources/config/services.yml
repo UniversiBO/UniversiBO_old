@@ -5,3 +5,13 @@ services:
     universibo_core.routing.channel:
         class: '%universibo_core.channel.router.class%'
         arguments: ['@router']
+    universibo_core.twig.channel:
+        class: 'Universibo\Bundle\CoreBundle\Twig\ChannelExtension'
+        arguments: ['@universibo_core.routing.channel']
+        tags:
+            - { name: twig.extension }
+    universibo_core.repository.channel:
+        class: 'Universibo\Bundle\CoreBundle\Entity\ChannelRepository'
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: ['Universibo\Bundle\CoreBundle\Entity\Channel']

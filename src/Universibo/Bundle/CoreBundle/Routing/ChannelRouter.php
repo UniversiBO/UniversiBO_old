@@ -28,20 +28,20 @@ class ChannelRouter
      */
     public function __construct(RouterInterface $router)
     {
-        $this->handlers['single'] = function(ChannelTypeInterface $type) use ($router) {
-            $router->generate($type->getRouteName());
+        $this->handlers['single'] = function(ChannelTypeInterface $type, $absolute) use ($router) {
+            $router->generate($type->getRouteName(), array(), $absolute);
         };
         
-        $this->handlers['id'] = function(ChannelTypeInterface $type, Channel $channel) use ($router) {
-        	$router->generate($type->getRouteName(), array('id' => $channel->getId()));
+        $this->handlers['id'] = function(ChannelTypeInterface $type, $absolute, Channel $channel) use ($router) {
+        	$router->generate($type->getRouteName(), array('id' => $channel->getId()), $absolute);
         };
         
-        $this->handlers['slug'] = function(ChannelTypeInterface $type, Channel $channel) use ($router) {
-        	$router->generate($type->getRouteName(), array('slug' => $channel->getSlug()));
+        $this->handlers['slug'] = function(ChannelTypeInterface $type, $absolute, Channel $channel) use ($router) {
+        	$router->generate($type->getRouteName(), array('slug' => $channel->getSlug()), $absolute);
         };
     }
     
-    public function getUrl(Channel $channel)
+    public function getUrl(Channel $channel, $absolute = false)
     {
         if(!array_key_exists($channel->getType(), $this->types)) {
             throw new \InvalidArgumentException('Type not registered');
@@ -49,7 +49,7 @@ class ChannelRouter
         
         $type = $this->types[$channel->getType()];
         
-        return $this->handlers[$type->getRouteType()]($type, $channel);
+        return $this->handlers[$type->getRouteType()]($type, $absolute, $channel);
     }
     
     public function register(ChannelTypeInterface $type)

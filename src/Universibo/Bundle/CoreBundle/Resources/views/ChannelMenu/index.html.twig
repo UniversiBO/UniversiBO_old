@@ -1,0 +1,8 @@
+<h3>{{ title }}</h3>
+<ul class="side-list">
+{% for item in channels %}
+  <li class="side-list-item"><a href="{{ channel_path(item) }}">{{ item.getName() | title }}</a></li>
+{% else %}
+Nessun canale
+{% endfor %}
+</ul>

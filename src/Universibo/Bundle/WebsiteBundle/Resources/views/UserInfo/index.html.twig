@@ -5,7 +5,7 @@ Info utente
 <div class="sidebox-content">
 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 <p>Benvenuto {{ app.user.username }}!</p>
-<p><a href="{{ path('logout') }}">Logout</a></p>
+<p><a href="{{ path('fos_user_security_logout') }}">Logout</a></p>
 {% else %}
 <form action="/v2.php?do=Login" name="form1_a" id="f1" method="post">
   <label for="f1_username">username: </label><br>

@@ -15,8 +15,8 @@
   <div id="main" class="yui3-g">
   {% block main %}
     <div id="left" class="yui3-u-1-5">
-      {% render 'UniversiboWebsiteBundle:ChannelMenu:index' with {'type' : 3, 'title' : 'Facoltà', 'route': 'faculty_show'} %}
-      {% render 'UniversiboWebsiteBundle:ChannelMenu:index' with {'type' : 1, 'title' : 'Servizi'} %}
+      {% render 'UniversiboCoreBundle:ChannelMenu:index' with {'type' : 'faculty', 'title' : 'Facoltà'} %}
+      {% render 'UniversiboCoreBundle:ChannelMenu:index' with {'type' : 'default', 'title' : 'Servizi'} %}
       <h3>Informazioni</h3>
       <ul class="side-list">
         <li class="side-list-item"><a href="{{ path('info_rules')}}">Regolamento</a></li>
@@ -30,9 +30,9 @@
     <div id="right" class="yui3-u-1-5">
     {#% render 'UniversiboWebsiteBundle:Search:box' with { searchQuery : searchQuery | default('')} %#}
     {% render 'UniversiboWebsiteBundle:UserInfo:index' %}
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    {#% if is_granted('IS_AUTHENTICATED_FULLY') %}
       {% render 'UniversiboWebsiteBundle:MyUniversiBO:box'%}
-    {% endif %}
+    {% endif %#}
     </div>
   {% endblock %}
   </div>
