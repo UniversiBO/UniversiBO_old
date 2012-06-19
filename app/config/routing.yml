@@ -1,3 +1,8 @@
+UniversiboDidacticsBundle:
+    resource: "@UniversiboDidacticsBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 UniversiboContentBundle:
     resource: "@UniversiboContentBundle/Controller/"
     type:     annotation

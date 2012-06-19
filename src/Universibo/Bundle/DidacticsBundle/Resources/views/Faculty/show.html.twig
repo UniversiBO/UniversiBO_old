@@ -1,0 +1,11 @@
+{% extends 'UniversiboWebsiteBundle::base.html.twig' %}
+{% block title %}UniversiBO :: {{ channel.name }}{% endblock %}
+{% block rss %}
+<link rel="alternate" type="application/rss+xml" title="UniversiBO - {{ channel.name }}" href="{{ path('rss', {idCanale: channel.id})}}">
+{% endblock %}
+{% block content %}
+<h2>{{ channel.name | upper}}</h2>
+{% if(has_service(channel, 'news')) %}
+{% render 'UniversiboWebsiteBundle:News:index' with {'limit': 4, 'channelId': channel.id} %}
+{% endif %}
+{% endblock %}

@@ -39,6 +39,7 @@ class AppKernel extends Kernel {
             new Universibo\Bundle\SearchBundle\UniversiboSearchBundle(),
             new Universibo\Bundle\CoreBundle\UniversiboCoreBundle(),
             new Universibo\Bundle\ContentBundle\UniversiboContentBundle(),
+            new Universibo\Bundle\DidacticsBundle\UniversiboDidacticsBundle(),
         );
 
 

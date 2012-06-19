@@ -7,7 +7,7 @@ services:
         arguments: ['@router']
     universibo_core.twig.channel:
         class: 'Universibo\Bundle\CoreBundle\Twig\ChannelExtension'
-        arguments: ['@universibo_core.routing.channel']
+        arguments: ['@universibo_core.routing.channel', '@universibo_core.repository.channel']
         tags:
             - { name: twig.extension }
     universibo_core.repository.channel:

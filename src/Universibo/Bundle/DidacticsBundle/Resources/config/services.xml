@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="universibo_didactics.channel.type.faculty" class="Universibo\Bundle\CoreBundle\Channel\ChannelType">
+            <argument>faculty</argument>
+            <argument>faculty_show</argument>
+            <argument>id</argument>
+            
+            <tag name="universibo_core.channel.type"/>
+        </service>
+        
+        <service id="universibo_didactics.repository.faculty"
+			class="Universibo\Bundle\DidacticsBundle\Entity\FacultyRepository" factory-service="doctrine.orm.entity_manager" factory-method="getRepository">
+			<argument>Universibo\Bundle\DidacticsBundle\Entity\Faculty</argument>
+		</service>
+    </services>
+</container>

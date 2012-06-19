@@ -55,7 +55,9 @@ doctrine:
                     ApplicationSonataUserBundle: ~
                     SonataUserBundle: ~
                     FOSUserBundle: ~
+                    UniversiboContentBundle: ~
                     UniversiboCoreBundle: ~
+                    UniversiboDidacticsBundle: ~
                     UniversiboLegacyBundle: ~
 
 # Swiftmailer Configuration
