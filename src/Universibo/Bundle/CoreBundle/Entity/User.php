@@ -3,13 +3,13 @@
 namespace Universibo\Bundle\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use FOS\UserBundle\Entity\Group as BaseGroup;
+use FOS\UserBundle\Entity\User as BaseUser;
 
 /**
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="Universibo\Bundle\CoreBundle\Entity\UserRepository")
  */
-class User extends BaseGroup
+class User extends BaseUser
 {
     /**
      * 
