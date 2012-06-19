@@ -1,9 +1,10 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Tests\Entity;
 
+use Universibo\Bundle\CoreBundle\Tests\Entity\EntityTest;
 use Universibo\Bundle\WebsiteBundle\Entity\Collaborator;
 
-class CollaboratorTest extends UniversiBOEntityTest
+class CollaboratorTest extends EntityTest
 {
     /**
      * @var Collaborator

@@ -1,9 +1,10 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Tests\Entity;
 
+use Universibo\Bundle\CoreBundle\Tests\Entity\EntityTest;
 use Universibo\Bundle\WebsiteBundle\Entity\Questionnaire;
 
-class QuestionnaireTest extends UniversiBOEntityTest
+class QuestionnaireTest extends EntityTest
 {
     /**
      * @var Questionario
