@@ -5,10 +5,10 @@
 {% endblock %}
 {% block content %}
 <h2>{{ channel.name }}</h2>
-{#% if channel.servizioNews %}
-  {% render 'UniversiboWebsiteBundle:News:index' with {'limit': 4, 'channelId': channel.idCanale} %}
+{% if has_service(channel, 'news') %}
+  {% render 'UniversiboContentBundle:News:box' with {'limit': 4, 'channel': channel} %}
 {% endif %}
-{% if channel.servizioFiles %}
-  {% render 'UniversiboWebsiteBundle:File:index' with {'channelId': channel.idCanale} %}
-{% endif %#}
+{% if has_service(channel, 'files') %}
+  {% render 'UniversiboContentBundle:File:index' with {'channelId': channel.idCanale} %}
+{% endif %}
 {% endblock %}

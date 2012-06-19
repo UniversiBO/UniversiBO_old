@@ -2,6 +2,10 @@
 
 namespace Universibo\Bundle\ContentBundle\Controller;
 
+use Universibo\Bundle\ContentBundle\Entity\NewsRepository;
+
+use Universibo\Bundle\CoreBundle\Entity\Channel;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -88,6 +92,7 @@ class NewsController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
             
+            $entity->setUser($this->get('security.context')->getToken()->getUser());
             $entity->setCreatedAt(new \DateTime());
             $entity->setUpdatedAt(new \DateTime());
             
@@ -196,6 +201,19 @@ class NewsController extends Controller
         }
 
         return $this->redirect($this->generateUrl('news'));
+    }
+    
+    /**
+     * @param Channel $channel
+     * 
+     * @Template()
+     */
+    public function boxAction(Channel $channel, $limit)
+    {
+        $repo = $this->get('universibo_content.repository.news');
+        $news = $repo->findByChannel($channel, $limit);
+        
+        return array('news' => $news);
     }
 
     private function createDeleteForm($id)

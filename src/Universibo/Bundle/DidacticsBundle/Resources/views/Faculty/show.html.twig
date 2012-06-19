@@ -6,6 +6,6 @@
 {% block content %}
 <h2>{{ channel.name | upper}}</h2>
 {% if(has_service(channel, 'news')) %}
-{% render 'UniversiboWebsiteBundle:News:index' with {'limit': 4, 'channelId': channel.id} %}
+{% render 'UniversiboContentBundle:News:box' with {'limit': 4, 'channel': channel} %}
 {% endif %}
 {% endblock %}

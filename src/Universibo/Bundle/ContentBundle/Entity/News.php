@@ -3,8 +3,10 @@
 namespace Universibo\Bundle\ContentBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-
 use Doctrine\ORM\Mapping as ORM;
+
+use Universibo\Bundle\CoreBundle\Entity\TimestampableInterface;
+use Universibo\Bundle\CoreBundle\Entity\User;
 
 /**
  * Universibo\Bundle\ContentBundle\Entity\News
@@ -12,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Universibo\Bundle\ContentBundle\Entity\NewsRepository")
  */
-class News
+class News implements TimestampableInterface
 {
     /**
      * @var integer $id
@@ -62,6 +64,12 @@ class News
      * @ORM\ManyToMany(targetEntity="Universibo\Bundle\CoreBundle\Entity\Channel")
      */
     private $channels;
+    
+    /**
+     * @var User
+     * @ORM\ManyToOne(targetEntity="Universibo\Bundle\CoreBundle\Entity\User")
+     */
+    private $user;
 
     /**
      * @var datetime $createdAt
@@ -205,9 +213,25 @@ class News
      *
      * @param datetime $createdAt
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
+    }
+    
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 
     /**
@@ -225,7 +249,7 @@ class News
      *
      * @param datetime $updatedAt
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
     }

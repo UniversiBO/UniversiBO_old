@@ -2,6 +2,8 @@
 
 namespace Universibo\Bundle\ContentBundle\Entity;
 
+use Universibo\Bundle\CoreBundle\Entity\Channel;
+
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -12,4 +14,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class NewsRepository extends EntityRepository
 {
+    public function findByChannel(Channel $channel, $limit = null)
+    {
+        $queryBuilder = $this
+            ->createQueryBuilder('n')
+            ->leftJoin('n.channels', 'c')
+            ->where('c = :channel')
+            ->orderBy('n.createdAt', 'DESC')
+            ->setParameter('channel', $channel)
+        ;
+        
+        if(is_int($limit)) {
+            $queryBuilder->setMaxResults($limit);
+        }
+        
+        return $queryBuilder->getQuery()->getResult();
+    }
 }

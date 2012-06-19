@@ -1,0 +1,17 @@
+<div class="news">
+  <div class="news-title">
+    <a href="{{ path('news_show', {id: news.id}) }}">{{ news.title }}</a>
+  </div>
+  <div class="news-body">
+ {{ news.content | linkify | bbcode | nl2br }}
+  </div>
+  <div class="news-footer">
+    <div class="news-footer-left">
+    </div>
+    <div class="news-footer-right">
+    {{ news.createdAt | date('d/m/Y') }}
+    |
+    {{ news.user }}
+    </div>
+  </div>
+</div>
