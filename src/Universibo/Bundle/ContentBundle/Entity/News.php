@@ -2,6 +2,8 @@
 
 namespace Universibo\Bundle\ContentBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,7 +33,7 @@ class News
     /**
      * @var datetime $expireDate
      *
-     * @ORM\Column(name="expires_at", type="datetime")
+     * @ORM\Column(name="expires_at", type="datetime", nullable="true")
      */
     private $expiresAt;
 
@@ -47,14 +49,19 @@ class News
      *
      * @ORM\Column(name="deleted", type="boolean")
      */
-    private $deleted;
+    private $deleted = false;
 
     /**
      * @var boolean $urgent
      *
      * @ORM\Column(name="urgent", type="boolean")
      */
-    private $urgent;
+    private $urgent = false;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Universibo\Bundle\CoreBundle\Entity\Channel")
+     */
+    private $channels;
 
     /**
      * @var datetime $createdAt
@@ -179,6 +186,18 @@ class News
     public function getUrgent()
     {
         return $this->urgent;
+    }
+    
+    /**
+     * @return ArrayCollection
+     */
+    public function getChannels()
+    {
+    	if(is_null($this->channels)) {
+    		$this->channels = new ArrayCollection();
+    	}
+    
+    	return $this->channels;
     }
 
     /**

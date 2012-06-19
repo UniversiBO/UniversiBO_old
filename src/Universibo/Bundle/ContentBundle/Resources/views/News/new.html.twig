@@ -1,0 +1,18 @@
+{% extends 'UniversiboWebsiteBundle::base.html.twig' %}
+{% block content %}
+<h1>Aggiungi news</h1>
+<form action="{{ path('news_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Invia</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('news') }}">
+            Back to the list
+        </a>
+    </li>
+</ul> 
+{% endblock %}

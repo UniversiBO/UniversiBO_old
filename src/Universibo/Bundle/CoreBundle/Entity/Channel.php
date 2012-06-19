@@ -157,4 +157,12 @@ class Channel
         
         return $this->services;
     }
+    
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }
