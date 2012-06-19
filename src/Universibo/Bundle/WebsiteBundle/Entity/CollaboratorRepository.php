@@ -1,7 +1,5 @@
 <?php
-namespace Universibo\Bundle\LegacyBundle\Entity;
-
-use Doctrine\ORM\Query\Expr;
+namespace Universibo\Bundle\WebsiteBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 

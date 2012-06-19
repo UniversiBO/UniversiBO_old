@@ -1,5 +1,5 @@
 <?php
-namespace Universibo\Bundle\CoreBundle\Entity;
+namespace Universibo\Bundle\WebsiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -59,7 +59,7 @@ class Collaborator
     private $user;
 
     /**
-     * @var string
+     * @var boolean
      *
      * @ORM\Column(name="show", type="boolean", nullable=false)
      */

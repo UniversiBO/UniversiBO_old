@@ -1,6 +1,7 @@
 <?php
 
 namespace Universibo\Bundle\WebsiteBundle\Entity;
+use Universibo\Bundle\CoreBundle\Entity\TimestampableInterface;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="questionnaires")
  * @ORM\Entity(repositoryClass="Universibo\Bundle\WebsiteBundle\Entity\QuestionnaireRepository")
  */
-class Questionnaire
+class Questionnaire implements TimestampableInterface
 {
     /**
      * @var integer $id
@@ -64,6 +65,13 @@ class Questionnaire
     private $onlineTime;
 
     /**
+     * @var boolean $offline
+     *
+     * @ORM\Column(name="offline", type="boolean")
+     */
+    private $offline;
+    
+    /**
      * @var boolean $moderator
      *
      * @ORM\Column(name="moderator", type="boolean")
@@ -112,7 +120,20 @@ class Questionnaire
      */
     private $degreeCourse;
 
-
+    /**
+     * @var datetime $createdAt
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+    
+    /**
+     * @var datetime $updatedAt
+     *
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    private $updatedAt;    
+    
     /**
      * Get id
      *
@@ -244,25 +265,45 @@ class Questionnaire
     }
 
     /**
+     * Set offline
+     *
+     * @param boolean $moderator
+     */
+    public function setOffline($offline)
+    {
+        $this->offline = $offline;
+    }
+
+    /**
+     * Get offline
+     *
+     * @return boolean 
+     */
+    public function getOffline()
+    {
+        return $this->offline;
+    }
+
+    /**
      * Set moderator
      *
      * @param boolean $moderator
      */
     public function setModerator($moderator)
     {
-        $this->moderator = $moderator;
+    	$this->moderator = $moderator;
     }
-
+    
     /**
      * Get moderator
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getModerator()
     {
-        return $this->moderator;
+    	return $this->moderator;
     }
-
+    
     /**
      * Set content
      *
@@ -382,4 +423,24 @@ class Questionnaire
     {
         return $this->degreeCourse;
     }
+    
+    public function setCreatedAt(\DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+    
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+    
+    public function setUpdatedAt(\DateTime $updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
 }
