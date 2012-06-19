@@ -13,9 +13,22 @@
             <tag name="universibo_core.channel.type"/>
         </service>
         
+        <service id="universibo_didactics.channel.type.degree_course" class="Universibo\Bundle\CoreBundle\Channel\ChannelType">
+            <argument>degree_course</argument>
+            <argument>degree_course_show</argument>
+            <argument>id</argument>
+            
+            <tag name="universibo_core.channel.type"/>
+        </service>
+        
         <service id="universibo_didactics.repository.faculty"
 			class="Universibo\Bundle\DidacticsBundle\Entity\FacultyRepository" factory-service="doctrine.orm.entity_manager" factory-method="getRepository">
 			<argument>Universibo\Bundle\DidacticsBundle\Entity\Faculty</argument>
+		</service>
+		
+		<service id="universibo_didactics.repository.degree_course"
+			class="Universibo\Bundle\DidacticsBundle\Entity\DegreeCourseRepository" factory-service="doctrine.orm.entity_manager" factory-method="getRepository">
+			<argument>Universibo\Bundle\DidacticsBundle\Entity\DegreeCourse</argument>
 		</service>
     </services>
 </container>
