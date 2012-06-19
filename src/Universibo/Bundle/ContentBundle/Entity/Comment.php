@@ -1,12 +1,13 @@
 <?php
 
-namespace Universibo\Bundle\WebsiteBundle\Entity;
+namespace Universibo\Bundle\ContentBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\CommentBundle\Entity\Comment as BaseComment;
 use FOS\CommentBundle\Model\ThreadInterface;
 
 /**
  * @ORM\Entity
+ * @ORM\Table(name="fos_comments")
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
  */
 class Comment extends BaseComment
@@ -22,7 +23,7 @@ class Comment extends BaseComment
      * Thread of this comment
      *
      * @var Thread
-     * @ORM\ManyToOne(targetEntity="Universibo\Bundle\WebsiteBundle\Entity\Thread")
+     * @ORM\ManyToOne(targetEntity="Universibo\Bundle\ContentBundle\Entity\Thread")
      */
     protected $thread;
 
