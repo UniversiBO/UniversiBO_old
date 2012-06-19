@@ -24,7 +24,6 @@ class AppKernel extends Kernel {
             new JMS\SerializerBundle\JMSSerializerBundle($this),
             //new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new Universibo\Bundle\WebsiteBundle\UniversiboWebsiteBundle(),
-            new Universibo\Bundle\LegacyBundle\UniversiboLegacyBundle(),
             new Universibo\Bundle\ForumBundle\UniversiboForumBundle(),
             new Universibo\Bundle\SSOBundle\UniversiboSSOBundle(),
             new Universibo\Bundle\SearchBundle\UniversiboSearchBundle(),
