@@ -2,6 +2,8 @@
 
 namespace Universibo\Bundle\ContentBundle\Controller;
 
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
 use Universibo\Bundle\ContentBundle\Entity\NewsRepository;
 
 use Universibo\Bundle\CoreBundle\Entity\Channel;
@@ -49,6 +51,21 @@ class NewsController extends Controller
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find News entity.');
+        }
+        
+        $granted = false;
+        
+        $securityContext = $this->get('security.context');
+        
+        foreach($entity->getChannels() as $channel) {
+            if($securityContext->isGranted('VIEW', $channel)) {
+                $granted = true;
+                break;
+            }
+        }
+        
+        if(!$granted) {
+            throw new AccessDeniedException();
         }
 
         $deleteForm = $this->createDeleteForm($id);
