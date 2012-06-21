@@ -12,6 +12,7 @@
         "swiftmailer/swiftmailer" : "4.1.7",
         "jms/metadata": "1.1.1",
         "jms/security-extra-bundle": "1.1.0",
+        "knplabs/knp-paginator-bundle": "2.2",
         "friendsofsymfony/oauth-server-bundle": "1.1.1",
         "friendsofsymfony/comment-bundle": "1.0.0",
         "friendsofsymfony/rest-bundle": "0.6.0",
