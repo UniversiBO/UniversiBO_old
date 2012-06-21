@@ -263,4 +263,21 @@ class News implements TimestampableInterface
     {
         return $this->updatedAt;
     }
+    
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        $this->setCreatedAt(new \DateTime());
+        $this->setUpdatedAt($this->getUpdatedAt());
+    }
+    
+    /**
+     * @ORM\PreUpdate
+     */
+    public function preUpdate()
+    {
+    	$this->setUpdatedAt(new \DateTime());
+    }
 }
