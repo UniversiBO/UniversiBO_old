@@ -15,3 +15,6 @@ services:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         arguments: ['Universibo\Bundle\CoreBundle\Entity\Channel']
+    universibo_core.security.context:
+        class: 'Universibo\Bundle\CoreBundle\Security\UniversiboContext'
+        arguments: ['@security.context']

@@ -2,6 +2,8 @@
 
 namespace Universibo\Bundle\ContentBundle\Entity;
 
+use Universibo\Bundle\CoreBundle\Entity\ChannelRelatedInterface;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,7 +16,7 @@ use Universibo\Bundle\CoreBundle\Entity\User;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Universibo\Bundle\ContentBundle\Entity\NewsRepository")
  */
-class News implements TimestampableInterface
+class News implements TimestampableInterface, ChannelRelatedInterface
 {
     /**
      * @var integer $id

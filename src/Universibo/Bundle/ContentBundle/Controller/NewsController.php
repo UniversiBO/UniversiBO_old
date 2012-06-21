@@ -53,18 +53,9 @@ class NewsController extends Controller
             throw $this->createNotFoundException('Unable to find News entity.');
         }
         
-        $granted = false;
+        $securityContext = $this->get('universibo_core.security.context');
         
-        $securityContext = $this->get('security.context');
-        
-        foreach($entity->getChannels() as $channel) {
-            if($securityContext->isGranted('VIEW', $channel)) {
-                $granted = true;
-                break;
-            }
-        }
-        
-        if(!$granted) {
+        if(!$securityContext->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException();
         }
 
