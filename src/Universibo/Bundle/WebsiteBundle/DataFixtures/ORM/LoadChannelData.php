@@ -30,6 +30,7 @@ class LoadChannelData extends AbstractFixture implements OrderedFixtureInterface
         $areaLaureati->setType('default');
         $areaLaureati->setSlug('area-laureati');
         $areaLaureati->setHits(0);
+        $areaLaureati->getServices()->add($this->getReference('news-service'));
         $this->addReference('laureati-channel', $areaLaureati);
         $manager->persist($areaLaureati);
 
@@ -38,6 +39,7 @@ class LoadChannelData extends AbstractFixture implements OrderedFixtureInterface
         $ingegneria->setType('faculty');
         $ingegneria->setSlug('ingegneria');
         $ingegneria->setHits(0);
+        $ingegneria->getServices()->add($this->getReference('news-service'));
         $this->addReference('ingegneria-channel', $ingegneria);
         $manager->persist($ingegneria);
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Universibo\Bundle\CoreBundle\DataFixtures\ORM;
+namespace Universibo\Bundle\ContentBundle\DataFixtures\ORM;
 
 use Universibo\Bundle\CoreBundle\Entity\ChannelService;
 
@@ -25,7 +25,7 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 /**
  * User Fixture
  */
-class LoadNewsData extends AbstractFixture implements OrderedFixtureInterface
+class LoadServiceData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
      * (non-PHPdoc)
