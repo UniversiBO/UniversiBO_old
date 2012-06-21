@@ -4,11 +4,12 @@ namespace Universibo\Bundle\WebsiteBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class DefaultControllerTest extends WebTestCase
+class DefaultControllerTest extends BaseControllerTest
 {
     public function testIndex()
     {
         $client = static::createClient();
+        $this->login($client);
 
         $crawler = $client->request('GET', '/');
 

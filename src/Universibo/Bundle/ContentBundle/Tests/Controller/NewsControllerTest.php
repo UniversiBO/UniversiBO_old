@@ -1,9 +1,11 @@
 <?php
 namespace Universibo\Bundle\ContentBundle\Tests\Controller;
 
+use Universibo\Bundle\WebsiteBundle\Tests\Controller\BaseControllerTest;
+
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class NewsControllerTest extends WebTestCase
+class NewsControllerTest extends BaseControllerTest
 {
     /**
      * User Story functional test
@@ -12,6 +14,8 @@ class NewsControllerTest extends WebTestCase
     public function testShow()
     {
         $client = static::createClient();
+        
+        $this->login($client);
         
         $crawler = $client->request('GET', '/news/1/show');
         $this->assertTrue($client->getResponse()->isSuccessful(), 'Expecting successful response');

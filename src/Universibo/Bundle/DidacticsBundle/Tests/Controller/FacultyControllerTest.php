@@ -3,11 +3,13 @@ namespace Universibo\Bundle\WebsiteBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class FacultyControllerTest extends WebTestCase
+class FacultyControllerTest extends BaseControllerTest
 {
     public function testIngegneria()
     {
         $client = static::createClient();
+        
+        $this->login($client);
         
         $crawler = $client->request('GET', '/');
         $this->assertTrue($client->getResponse()->isSuccessful(), 'Response should be successful');
