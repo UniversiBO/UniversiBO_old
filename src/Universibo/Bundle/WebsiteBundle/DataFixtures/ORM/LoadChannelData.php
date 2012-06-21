@@ -1,6 +1,8 @@
 <?php
 
 namespace Universibo\Bundle\CoreBundle\DataFixtures\ORM;
+use Symfony\Component\Security\Acl\Model\SecurityIdentityInterface;
+
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
@@ -78,6 +80,9 @@ class LoadChannelData extends AbstractFixture implements
             $acl->insertObjectAce(new RoleSecurityIdentity('IS_AUTHENTICATED_ANONYMOUSLY'), MaskBuilder::MASK_VIEW);
             $aclProvider->updateAcl($acl);
         }
+        
+        $acl->insertClassAce(new RoleSecurityIdentity('ROLE_ADMIN'), MaskBuilder::MASK_OWNER);
+        $aclProvider->updateAcl($acl);
     }
 
     public function getOrder()

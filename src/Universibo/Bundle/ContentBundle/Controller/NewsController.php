@@ -203,6 +203,12 @@ class NewsController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find News entity.');
             }
+            
+            $securityContext = $this->get('universibo_core.security.context');
+            
+            if(!$securityContext->isGranted('DELETE', $entity)) {
+            	throw new AccessDeniedException();
+            }
 
             $em->remove($entity);
             $em->flush();

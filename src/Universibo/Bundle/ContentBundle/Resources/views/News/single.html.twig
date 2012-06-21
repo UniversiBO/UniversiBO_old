@@ -15,3 +15,7 @@
     </div>
   </div>
 </div>
+<form action="{{ path('news_delete', { 'id': news.id }) }}" method="post">
+  {{ form_widget(delete_form) }}
+  <button type="submit">Delete</button>
+</form>
