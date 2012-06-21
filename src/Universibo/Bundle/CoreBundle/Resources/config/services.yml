@@ -10,6 +10,11 @@ services:
         arguments: ['@universibo_core.routing.channel', '@universibo_core.repository.channel']
         tags:
             - { name: twig.extension }
+    universibo_core.twig.security:
+        class: 'Universibo\Bundle\CoreBundle\Twig\SecurityExtension'
+        arguments: ['@universibo_core.security.context']
+        tags:
+            - { name: twig.extension }
     universibo_core.repository.channel:
         class: 'Universibo\Bundle\CoreBundle\Entity\ChannelRepository'
         factory_service: doctrine.orm.entity_manager
