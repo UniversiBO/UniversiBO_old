@@ -37,8 +37,6 @@ class LoadNewsData extends AbstractFixture implements OrderedFixtureInterface
         $news->getChannels()->add($this->getReference('laureati-channel'));
         $news->getChannels()->add($this->getReference('ingegneria-channel'));
         $news->setUser($this->getReference('admin-user'));
-        $news->setCreatedAt(new \DateTime());
-        $news->setUpdatedAt(new \DateTime());
         $news->setDeleted(false);
         
         $manager->persist($news);

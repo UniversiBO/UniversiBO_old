@@ -14,6 +14,7 @@ use Universibo\Bundle\CoreBundle\Entity\User;
  * Universibo\Bundle\ContentBundle\Entity\News
  *
  * @ORM\Table()
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity(repositoryClass="Universibo\Bundle\ContentBundle\Entity\NewsRepository")
  */
 class News implements TimestampableInterface, ChannelRelatedInterface
@@ -267,16 +268,16 @@ class News implements TimestampableInterface, ChannelRelatedInterface
     }
     
     /**
-     * @ORM\PrePersist
+     * @ORM\PrePersist()
      */
     public function prePersist()
     {
         $this->setCreatedAt(new \DateTime());
-        $this->setUpdatedAt($this->getUpdatedAt());
+        $this->setUpdatedAt($this->getCreatedAt());
     }
     
     /**
-     * @ORM\PreUpdate
+     * @ORM\PreUpdate()
      */
     public function preUpdate()
     {
