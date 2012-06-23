@@ -1,1 +1,0 @@
-ALTER TABLE "docente_contatti" ADD "eliminato"  CHARACTER (1) DEFAULT 'N' NOT NULL;
