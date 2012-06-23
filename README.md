@@ -9,7 +9,7 @@ UniversiBO is a Web Community joined by Students and Professor in Alma Mater Stu
 
 License
 -------
-Copyright (C) <2002-2012>  Associazione UniversiBO
+Copyright (C) \<2002-2012\>  Associazione UniversiBO
 
 
 This program is free software: you can redistribute it and/or modify
