@@ -5,21 +5,21 @@ namespace Universibo\Bundle\CoreBundle\Channel;
 /**
  * Abstract Channel Type
  * Extending this should be enough in most of cases
- * 
+ *
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
-class ChannelType implements ChannelTypeInterface 
+class ChannelType implements ChannelTypeInterface
 {
     /**
      * @var string
      */
     private $name;
-    
+
     /**
      * @var string
      */
     private $routeName;
-    
+
     /**
      * @var array
      */
@@ -41,7 +41,7 @@ class ChannelType implements ChannelTypeInterface
      * (non-PHPdoc)
      * @see Universibo\Bundle\CoreBundle\Channel.ChannelTypeInterface::getName()
      */
-    public function getName() 
+    public function getName()
     {
         return $this->name;
     }
@@ -59,7 +59,7 @@ class ChannelType implements ChannelTypeInterface
      * (non-PHPdoc)
      * @see Universibo\Bundle\CoreBundle\Channel.ChannelTypeInterface::getRouteType()
      */
-    public function getRouteType() 
+    public function getRouteType()
     {
         return $this->routeType;
     }

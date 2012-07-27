@@ -36,19 +36,18 @@ class Faculty
      * @ORM\Column(name="url", type="string", length=80)
      */
     private $url;
-    
+
     /**
-     * 
+     *
      * @var Channel
      * @ORM\OneToOne(targetEntity="Universibo\Bundle\CoreBundle\Entity\Channel")
      */
     private $channel;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -68,7 +67,7 @@ class Faculty
     /**
      * Get code
      *
-     * @return string 
+     * @return string
      */
     public function getCode()
     {
@@ -88,7 +87,7 @@ class Faculty
     /**
      * Get url
      *
-     * @return string 
+     * @return string
      */
     public function getUrl()
     {
@@ -102,7 +101,7 @@ class Faculty
     {
         return $this->channel;
     }
-    
+
     /**
      * @param Channel $channel
      */

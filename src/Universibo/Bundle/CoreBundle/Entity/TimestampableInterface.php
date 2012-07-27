@@ -16,7 +16,7 @@ interface TimestampableInterface
      * @return \DateTime
      */
     public function getCreatedAt();
-    
+
     /**
      * @param \DateTime $date
      */

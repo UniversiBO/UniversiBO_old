@@ -4,16 +4,11 @@ namespace Universibo\Bundle\CoreBundle\DataFixtures\ORM;
 
 use Universibo\Bundle\ContentBundle\Entity\News;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-
 use Universibo\Bundle\CoreBundle\Entity\User;
 
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
-
-use Universibo\Bundle\DidacticsBundle\Entity\Faculty;
 
 use Universibo\Bundle\CoreBundle\Entity\Channel;
 
@@ -38,9 +33,9 @@ class LoadNewsData extends AbstractFixture implements OrderedFixtureInterface
         $news->getChannels()->add($this->getReference('ingegneria-channel'));
         $news->setUser($this->getReference('admin-user'));
         $news->setDeleted(false);
-        
+
         $manager->persist($news);
-        
+
         $manager->flush();
     }
 

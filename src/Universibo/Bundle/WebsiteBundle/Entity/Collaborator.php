@@ -3,8 +3,6 @@ namespace Universibo\Bundle\WebsiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
-
 /**
  * Collaborator class, modella le informazioni relative ai collaboratori
  *
@@ -112,7 +110,7 @@ class Collaborator
 
         return $this;
     }
-    
+
     public function getPicture()
     {
         return $this->picture;

@@ -6,18 +6,11 @@ use Universibo\Bundle\CoreBundle\Entity\ChannelService;
 
 use Universibo\Bundle\ContentBundle\Entity\News;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-
 use Universibo\Bundle\CoreBundle\Entity\User;
 
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
-
-use Universibo\Bundle\DidacticsBundle\Entity\Faculty;
-
-use Universibo\Bundle\CoreBundle\Entity\Channel;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -37,17 +30,17 @@ class LoadServiceData extends AbstractFixture implements OrderedFixtureInterface
         $service->setName('files');
         $manager->persist($service);
         $this->addReference('files-service', $service);
-        
+
         $service = new ChannelService();
         $service->setName('news');
         $manager->persist($service);
         $this->addReference('news-service', $service);
-        
+
         $service = new ChannelService();
         $service->setName('links');
         $manager->persist($service);
         $this->addReference('links-service', $service);
-        
+
         $manager->flush();
     }
 

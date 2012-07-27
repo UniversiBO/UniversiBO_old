@@ -12,7 +12,7 @@ use FOS\UserBundle\Entity\Group as BaseGroup;
 class Group extends BaseGroup
 {
     /**
-     * 
+     *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")

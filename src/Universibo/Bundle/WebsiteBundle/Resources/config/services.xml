@@ -23,20 +23,20 @@
 		<service id="universibo_website.twig.extension" class="Universibo\Bundle\WebsiteBundle\Twig\UniversiboExtension">
 	        <tag name="twig.extension" />
 		</service>
-		
+
 		<service id="universibo_website.channel.type.homepage" class="Universibo\Bundle\CoreBundle\Channel\ChannelType">
 		    <argument>homepage</argument>
 		    <argument>homepage</argument>
 		    <argument>single</argument>
-		    
+
 		    <tag name="universibo_core.channel.type"/>
 		</service>
-		
+
 		<service id="universibo_website.channel.type.default" class="Universibo\Bundle\CoreBundle\Channel\ChannelType">
 		    <argument>default</argument>
 		    <argument>channel_show</argument>
 		    <argument>id</argument>
-		    
+
 		    <tag name="universibo_core.channel.type"/>
 		</service>
 	</services>

@@ -23,11 +23,11 @@ class NewsRepository extends EntityRepository
             ->orderBy('n.createdAt', 'DESC')
             ->setParameter('channel', $channel)
         ;
-        
-        if(is_int($limit)) {
+
+        if (is_int($limit)) {
             $queryBuilder->setMaxResults($limit);
         }
-        
+
         return $queryBuilder->getQuery()->getResult();
     }
 }

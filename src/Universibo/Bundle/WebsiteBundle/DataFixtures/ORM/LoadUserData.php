@@ -11,10 +11,6 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 
-use Universibo\Bundle\DidacticsBundle\Entity\Faculty;
-
-use Universibo\Bundle\CoreBundle\Entity\Channel;
-
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 
@@ -37,20 +33,20 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface,
     {
         $user = new User();
         $user->setUsername('admin');
-        
+
         $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
         $user->setPassword($encoder->encodePassword('password', $user->getSalt()));
-        
+
         $adminGroup = $this->getReference('admin-group');
         $this->addReference('admin-user', $user);
-        
+
         $user->setEnabled(true);
         $user->addGroup($adminGroup);
         $user->addRole('ROLE_SUPER_ADMIN');
         $user->setEmail('example@example.com');
-        
+
         $manager->persist($user);
-        
+
         $manager->flush();
     }
 
@@ -62,7 +58,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface,
     {
         return 2;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see Symfony\Component\DependencyInjection.ContainerAwareInterface::setContainer()

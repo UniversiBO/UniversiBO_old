@@ -16,21 +16,21 @@ abstract class BaseControllerTest extends WebTestCase
         $client->restart();
         $crawler = $client->request('GET', '/login');
         $this->assertTrue($client->getResponse()->isSuccessful(), 'Response should be successful');
-        
+
         $form = $crawler
             ->selectButton('Login')
             ->form()
         ;
-        
+
         $client->submit($form, array(
                 '_username' => $username,
                 '_password' => $password
         ));
-        
+
         $this->assertTrue($client->getResponse()->isRedirect(), 'Response should be redirect');
-        
+
         $crawler = $client->followRedirect();
-        
+
         $this->assertGreaterThan(0, $crawler->filter('html:contains("Benvenuto")')->count());
     }
 }

@@ -14,7 +14,7 @@ class ChannelMenuController extends Controller
     public function indexAction($type, $title)
     {
         $channelRepo = $this->get('universibo_core.repository.channel');
-        
+
         // TODO acl
         $channels = $channelRepo->findByType($type);
 

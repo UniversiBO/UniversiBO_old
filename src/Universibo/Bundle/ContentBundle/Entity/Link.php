@@ -42,11 +42,10 @@ class Link
      */
     private $description;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -66,7 +65,7 @@ class Link
     /**
      * Get uri
      *
-     * @return string 
+     * @return string
      */
     public function getUri()
     {
@@ -86,7 +85,7 @@ class Link
     /**
      * Get label
      *
-     * @return string 
+     * @return string
      */
     public function getLabel()
     {
@@ -106,7 +105,7 @@ class Link
     /**
      * Get description
      *
-     * @return text 
+     * @return text
      */
     public function getDescription()
     {

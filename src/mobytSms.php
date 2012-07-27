@@ -147,13 +147,13 @@ class mobytSms
      * @access	private
      * @var		string
      */
-    var $auth = MOBYT_AUTH_MD5;
-    var $quality = MOBYT_QUALITY_DEFAULT;
-    var $operation = MOBYT_OPERATION_TEXT;
-    var $from;
-    var $login;
-    var $pwd;
-    var $udh;
+    public $auth = MOBYT_AUTH_MD5;
+    public $quality = MOBYT_QUALITY_DEFAULT;
+    public $operation = MOBYT_OPERATION_TEXT;
+    public $from;
+    public $login;
+    public $pwd;
+    public $udh;
     /**#@-*/
 
     /**
@@ -163,7 +163,7 @@ class mobytSms
      *
      * @see setFrom
      */
-    function mobytSms($login, $pwd, $from = 'MobytSms')
+    public function mobytSms($login, $pwd, $from = 'MobytSms')
     {
         $this->login = $login;
         $this->pwd = $pwd;
@@ -178,16 +178,15 @@ class mobytSms
      *
      * @param string	Intestazione mittente
      */
-    function setFrom($from)
+    public function setFrom($from)
     {
         $this->from = substr($from, 0, 14);
     }
 
-
     /**
      * Utilizza l'autenticazione di tipo MD5
      */
-    function setAuthMd5()
+    public function setAuthMd5()
     {
         $this->auth = MOBYT_AUTH_MD5;
     }
@@ -195,7 +194,7 @@ class mobytSms
     /**
      * Utilizza l'autenticazione con password in chiaro basata sull'IP
      */
-    function setAuthPlain()
+    public function setAuthPlain()
     {
         $this->auth = MOBYT_AUTH_PLAIN;
     }
@@ -204,7 +203,7 @@ class mobytSms
     /**
      * Imposta la qualit� messaggi al default dell'account
      */
-    function setQualityDefault()
+    public function setQualityDefault()
     {
         $this->quality = MOBYT_QUALITY_DEFAULT;
     }
@@ -212,7 +211,7 @@ class mobytSms
     /**
      * Imposta la qualit� messaggi come bassa
      */
-    function setQualityLow()
+    public function setQualityLow()
     {
         $this->quality = MOBYT_QUALITY_LQS;
     }
@@ -220,7 +219,7 @@ class mobytSms
     /**
      * Imposta la qualit� messaggi come media
      */
-    function setQualityMedium()
+    public function setQualityMedium()
     {
         $this->quality = MOBYT_QUALITY_MQS;
     }
@@ -228,7 +227,7 @@ class mobytSms
     /**
      * Imposta la qualit� messaggi come alta
      */
-    function setQualityHigh()
+    public function setQualityHigh()
     {
         $this->quality = MOBYT_QUALITY_HQS;
     }
@@ -236,7 +235,7 @@ class mobytSms
     /**
      * Imposta la qualit� messaggi automatica
      */
-    function setQualityAuto()
+    public function setQualityAuto()
     {
         $this->quality = MOBYT_QUALITY_AUTO;
     }
@@ -247,7 +246,7 @@ class mobytSms
      * @example sms-single-notify.php Invio di un singolo sms con notifica
      * @example sms-multi-notify.php Invio sms multipli con notifica
      */
-    function setQualityAutoNotify()
+    public function setQualityAutoNotify()
     {
         $this->quality = MOBYT_QUALITY_AUTO_NY;
     }
@@ -255,11 +254,11 @@ class mobytSms
     /**
      * Imposta il tipo di messaggio a TEXT
      */
-    function setOperationText()
+    public function setOperationText()
     {
         $this->operation = MOBYT_OPERATION_TEXT;
     }
-    	
+
     /**
      * Imposta il tipo di messaggio a RING (suoneria)
      *
@@ -268,7 +267,7 @@ class mobytSms
      *
      * @example sms-single-ring.php Invio di un singolo sms in modalit� RING
      */
-    function setOperationRing()
+    public function setOperationRing()
     {
         $this->operation = MOBYT_OPERATION_RING;
 
@@ -282,7 +281,7 @@ class mobytSms
      * L'invio di messaggi di tipo OLGO necessita l'invio in alta qualit� o con notifica.
      * Questa verr� impostata automaticamente, tranne nel caso in cui sia stata impostata la qualit� automatica con notifica
      */
-    function setOperationOlgo()
+    public function setOperationOlgo()
     {
         $this->operation = MOBYT_OPERATION_OLGO;
 
@@ -296,7 +295,7 @@ class mobytSms
      * L'invio di messaggi di tipo GLGO necessita l'invio in alta qualit� o con notifica.
      * Questa verr� impostata automaticamente, tranne nel caso in cui sia stata impostata la qualit� automatica con notifica
      */
-    function setOperationGlgo()
+    public function setOperationGlgo()
     {
         $this->operation = MOBYT_OPERATION_GLGO;
 
@@ -312,7 +311,7 @@ class mobytSms
      *
      * @param string UDH
      */
-    function setOperation8Bit($udh)
+    public function setOperation8Bit($udh)
     {
         $this->operation = MOBYT_OPERATION_8BIT;
 
@@ -325,12 +324,10 @@ class mobytSms
     /**
      * Imposta il tipo di messaggio a FLASH
      */
-    function setOperationFlash()
+    public function setOperationFlash()
     {
         $this->operation = MOBYT_OPERATION_FLASH;
     }
-
-
 
     /**
      * Controlla il credito disponibile espresso in Euro
@@ -339,7 +336,7 @@ class mobytSms
      *
      * @example sms-credit.php Controllo credito e messaggi disponibili
      */
-    function getCredit()
+    public function getCredit()
     {
         $op = 'GETCREDIT';
 
@@ -356,8 +353,6 @@ class mobytSms
         return false;
     }
 
-
-
     /**
      * Controlla il numero approssimativo di messaggi disponibili
      *
@@ -367,7 +362,7 @@ class mobytSms
      *
      * @example sms-credit.php Controllo credito e messaggi disponibili
      */
-    function getAvailableSms()
+    public function getAvailableSms()
     {
         $op = 'GETMESS';
 
@@ -384,14 +379,12 @@ class mobytSms
         return false;
     }
 
-
-
     /**
      * Controlla il numero di notifiche disponibili
      *
      * @returns mixed Un intero corrispondente al numero di notifiche o <i>FALSE</i> in caso di errore
      */
-    function getAvailableNotifies()
+    public function getAvailableNotifies()
     {
         $op = 'GETNOTIFY';
 
@@ -421,7 +414,7 @@ class mobytSms
      *
      * @example sms-single.php Invio di un singolo sms in alta qualit� con autenticazione MD5
      */
-    function sendSms($rcpt, $text, $act = '')
+    public function sendSms($rcpt, $text, $act = '')
     {
         global $mobyt_qty, $mobyt_ops;
 
@@ -435,10 +428,8 @@ class mobytSms
                 'id'		=> $this->login
         );
 
-        if ($this->quality == MOBYT_QUALITY_AUTO_NY)
-        {
-            if ($act == '')
-            {
+        if ($this->quality == MOBYT_QUALITY_AUTO_NY) {
+            if ($act == '') {
                 // Generate random act
                 while (strlen($act) < 16)
                     $act .= preg_replace('/[^0-9]/', '', md5(uniqid('', true)));
@@ -453,13 +444,10 @@ class mobytSms
         if ($this->quality != MOBYT_QUALITY_DEFAULT && isset($mobyt_qty[$this->quality]))
             $fields['qty'] = $mobyt_qty[$this->quality];
 
-        if ($this->auth == MOBYT_AUTH_MD5)
-        {
+        if ($this->auth == MOBYT_AUTH_MD5) {
             $fields['password'] = '';
             $fields['ticket'] = md5($this->login.$operation.$rcpt.$this->from.$text.$this->pwd);
-        }
-        else
-        {
+        } else {
             $fields['password'] = $this->pwd;
             $fields['ticket'] = '';
         }
@@ -482,13 +470,12 @@ class mobytSms
      *
      * @returns string Elenco di risposte ricevute dal gateway ("OK ..." o "KO ..."), separate da caratteri di "a capo" (\n)
      */
-    function sendMultiSms($rcpts, $text)
+    public function sendMultiSms($rcpts, $text)
     {
         global $mobyt_qty, $mobyt_ops;
 
         if (!is_array($rcpts))
             return $this->sendSms($rcpts, $text);
-
 
         $operation = isset($mobyt_ops[$this->operation]) ? $mobyt_ops[$this->operation] : 'TEXT';
 
@@ -507,8 +494,7 @@ class mobytSms
             $fileds['udh'] = $this->udh;
 
         $ret = array();
-        foreach ($rcpts as $act => $rcpt)
-        {
+        foreach ($rcpts as $act => $rcpt) {
             $fields['rcpt']  = $rcpt;
             $fields['ticket'] = $this->auth == MOBYT_AUTH_MD5 ?
             md5($this->login.$operation.$rcpt.$this->from.$text.$this->pwd) :
@@ -528,7 +514,7 @@ class mobytSms
      *
      * @access private
      */
-    function httpPost($fields, $url = '/sms-gw/sendsmart')
+    public function httpPost($fields, $url = '/sms-gw/sendsmart')
     {
         $qs = array();
         foreach ($fields as $k => $v)
@@ -539,8 +525,7 @@ class mobytSms
             return mobytSms::httpPostCurl($qs, $url);
 
         $errno = $errstr = '';
-        if ($fp = @fsockopen('smsweb.mobyt.it', 80, $errno, $errstr, 30))
-        {
+        if ($fp = @fsockopen('smsweb.mobyt.it', 80, $errno, $errstr, 30)) {
             fputs($fp, "POST ".$url." HTTP/1.0\r\n");
             fputs($fp, "Host: smsweb.mobyt.it\r\n");
             fputs($fp, "User-Agent: phpMobytSms/".MOBYT_PHPSMS_VERSION."\r\n");
@@ -548,13 +533,13 @@ class mobytSms
             fputs($fp, "Content-Length: ".strlen($qs)."\r\n");
             fputs($fp, "Connection: close\r\n");
             fputs($fp, "\r\n".$qs);
-            	
+
             $content = '';
             while (!feof($fp))
                 $content .= fgets($fp, 1024);
-            	
+
             fclose($fp);
-            	
+
             return preg_replace("/^.*?\r\n\r\n/s", '', $content);
         }
 
@@ -566,19 +551,17 @@ class mobytSms
      *
      * @access private
      */
-    function httpPostCurl($qs, $url)
+    public function httpPostCurl($qs, $url)
     {
-        if ($ch = @curl_init('http://smsweb.mobyt.it'.$url))
-        {
+        if ($ch = @curl_init('http://smsweb.mobyt.it'.$url)) {
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_USERAGENT, 'phpMobytSms/'.MOBYT_PHPSMS_VERSION.' (curl)');
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $qs);
-            	
+
             return curl_exec($ch);
         }
         //echo curl_error($ch);
-        	
         return false;
     }
 
@@ -589,7 +572,7 @@ class mobytSms
      *
      * @return string
      */
-    function stringToOTA($str)
+    public function stringToOTA($str)
     {
         $ret = '';
 

@@ -12,11 +12,11 @@ class ChannelTypeCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         if (false === $container->hasDefinition('universibo_core.routing.channel')) {
-        	return;
+            return;
         }
-        
+
         $definition = $container->getDefinition('universibo_core.routing.channel');
-        
+
         foreach ($container->findTaggedServiceIds('universibo_core.channel.type') as $id => $attributes) {
             $definition->addMethodCall('register', array(new Reference($id)));
         }

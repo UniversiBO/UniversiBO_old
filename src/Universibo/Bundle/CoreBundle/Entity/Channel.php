@@ -49,17 +49,16 @@ class Channel
      * @ORM\Column(name="hits", type="integer")
      */
     private $hits;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="ChannelService")
      */
     private $services;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -79,7 +78,7 @@ class Channel
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -99,7 +98,7 @@ class Channel
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -119,7 +118,7 @@ class Channel
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -139,25 +138,25 @@ class Channel
     /**
      * Get hits
      *
-     * @return integer 
+     * @return integer
      */
     public function getHits()
     {
         return $this->hits;
     }
-    
+
     /**
-     * @return ArrayCollection 
+     * @return ArrayCollection
      */
     public function getServices()
     {
-        if(is_null($this->services)) {
+        if (is_null($this->services)) {
             $this->services = new ArrayCollection();
         }
-        
+
         return $this->services;
     }
-    
+
     /**
      * @return string
      */

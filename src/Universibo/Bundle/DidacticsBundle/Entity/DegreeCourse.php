@@ -39,7 +39,7 @@ class DegreeCourse
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -59,26 +59,26 @@ class DegreeCourse
     /**
      * Get code
      *
-     * @return string 
+     * @return string
      */
     public function getCode()
     {
         return $this->code;
     }
-    
+
     /**
      * @return Channel
      */
     public function getChannel()
     {
-    	return $this->channel;
+        return $this->channel;
     }
-    
+
     /**
      * @param Channel $channel
      */
     public function setChannel(Channel $channel)
     {
-    	$this->channel = $channel;
+        $this->channel = $channel;
     }
 }

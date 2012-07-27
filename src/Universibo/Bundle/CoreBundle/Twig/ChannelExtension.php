@@ -11,19 +11,19 @@ class ChannelExtension extends \Twig_Extension
 {
     /**
      * Channel router
-     * 
+     *
      * @var ChannelRouter
      */
     private $router;
-    
+
     /**
      * @var ChannelRepository
      */
     private $channelRepository;
-    
+
     /**
      * Class constructor
-     * 
+     *
      * @param ChannelRouter $router
      */
     public function __construct(ChannelRouter $router, ChannelRepository $channelRepository)
@@ -53,25 +53,25 @@ class ChannelExtension extends \Twig_Extension
                 'has_service' =>  new \Twig_Function_Method($this, 'hasService'),
         );
     }
-    
+
     public function channelPath(Channel $channel)
     {
         return $this->router->getUrl($channel);
     }
-    
+
     public function channelUrl(Channel $channel)
     {
-    	return $this->router->getUrl($channel, true);
+        return $this->router->getUrl($channel, true);
     }
-    
+
     public function hasService(Channel $channel, $serviceName)
     {
-        foreach($channel->getServices() as $service) {
-            if($serviceName === $service->getName()) {
+        foreach ($channel->getServices() as $service) {
+            if ($serviceName === $service->getName()) {
                 return true;
             }
-        } 
-        
+        }
+
         return false;
     }
 }

@@ -70,7 +70,7 @@ class Questionnaire implements TimestampableInterface
      * @ORM\Column(name="offline", type="boolean")
      */
     private $offline;
-    
+
     /**
      * @var boolean $moderator
      *
@@ -126,18 +126,18 @@ class Questionnaire implements TimestampableInterface
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
-    
+
     /**
      * @var datetime $updatedAt
      *
      * @ORM\Column(name="updated_at", type="datetime")
      */
-    private $updatedAt;    
-    
+    private $updatedAt;
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -157,7 +157,7 @@ class Questionnaire implements TimestampableInterface
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -177,7 +177,7 @@ class Questionnaire implements TimestampableInterface
     /**
      * Get surname
      *
-     * @return string 
+     * @return string
      */
     public function getSurname()
     {
@@ -197,7 +197,7 @@ class Questionnaire implements TimestampableInterface
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -217,7 +217,7 @@ class Questionnaire implements TimestampableInterface
     /**
      * Get phone
      *
-     * @return string 
+     * @return string
      */
     public function getPhone()
     {
@@ -237,7 +237,7 @@ class Questionnaire implements TimestampableInterface
     /**
      * Get availableTime
      *
-     * @return integer 
+     * @return integer
      */
     public function getAvailableTime()
     {
@@ -257,7 +257,7 @@ class Questionnaire implements TimestampableInterface
     /**
      * Get onlineTime
      *
-     * @return integer 
+     * @return integer
      */
     public function getOnlineTime()
     {
@@ -277,7 +277,7 @@ class Questionnaire implements TimestampableInterface
     /**
      * Get offline
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getOffline()
     {
@@ -291,9 +291,9 @@ class Questionnaire implements TimestampableInterface
      */
     public function setModerator($moderator)
     {
-    	$this->moderator = $moderator;
+        $this->moderator = $moderator;
     }
-    
+
     /**
      * Get moderator
      *
@@ -301,9 +301,9 @@ class Questionnaire implements TimestampableInterface
      */
     public function getModerator()
     {
-    	return $this->moderator;
+        return $this->moderator;
     }
-    
+
     /**
      * Set content
      *
@@ -317,7 +317,7 @@ class Questionnaire implements TimestampableInterface
     /**
      * Get content
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getContent()
     {
@@ -337,7 +337,7 @@ class Questionnaire implements TimestampableInterface
     /**
      * Get test
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getTest()
     {
@@ -357,7 +357,7 @@ class Questionnaire implements TimestampableInterface
     /**
      * Get graphics
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getGraphics()
     {
@@ -377,7 +377,7 @@ class Questionnaire implements TimestampableInterface
     /**
      * Get designing
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getDesigning()
     {
@@ -397,7 +397,7 @@ class Questionnaire implements TimestampableInterface
     /**
      * Get notes
      *
-     * @return text 
+     * @return text
      */
     public function getNotes()
     {
@@ -417,23 +417,23 @@ class Questionnaire implements TimestampableInterface
     /**
      * Get degreeCourse
      *
-     * @return string 
+     * @return string
      */
     public function getDegreeCourse()
     {
         return $this->degreeCourse;
     }
-    
+
     public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
     }
-    
+
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
-    
+
     public function setUpdatedAt(\DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;

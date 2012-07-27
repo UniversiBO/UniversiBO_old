@@ -62,12 +62,12 @@ class News implements TimestampableInterface, ChannelRelatedInterface
      * @ORM\Column(name="urgent", type="boolean")
      */
     private $urgent = false;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="Universibo\Bundle\CoreBundle\Entity\Channel")
      */
     private $channels;
-    
+
     /**
      * @var User
      * @ORM\ManyToOne(targetEntity="Universibo\Bundle\CoreBundle\Entity\User")
@@ -88,11 +88,10 @@ class News implements TimestampableInterface, ChannelRelatedInterface
      */
     private $updatedAt;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -112,7 +111,7 @@ class News implements TimestampableInterface, ChannelRelatedInterface
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -132,7 +131,7 @@ class News implements TimestampableInterface, ChannelRelatedInterface
     /**
      * Get expireDate
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getExpiresAt()
     {
@@ -152,7 +151,7 @@ class News implements TimestampableInterface, ChannelRelatedInterface
     /**
      * Get content
      *
-     * @return text 
+     * @return text
      */
     public function getContent()
     {
@@ -172,7 +171,7 @@ class News implements TimestampableInterface, ChannelRelatedInterface
     /**
      * Get deleted
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getDeleted()
     {
@@ -192,23 +191,23 @@ class News implements TimestampableInterface, ChannelRelatedInterface
     /**
      * Get urgent
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getUrgent()
     {
         return $this->urgent;
     }
-    
+
     /**
      * @return ArrayCollection
      */
     public function getChannels()
     {
-    	if(is_null($this->channels)) {
-    		$this->channels = new ArrayCollection();
-    	}
-    
-    	return $this->channels;
+        if (is_null($this->channels)) {
+            $this->channels = new ArrayCollection();
+        }
+
+        return $this->channels;
     }
 
     /**
@@ -220,7 +219,7 @@ class News implements TimestampableInterface, ChannelRelatedInterface
     {
         $this->createdAt = $createdAt;
     }
-    
+
     /**
      * @param User $user
      */
@@ -240,7 +239,7 @@ class News implements TimestampableInterface, ChannelRelatedInterface
     /**
      * Get createdAt
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getCreatedAt()
     {
@@ -260,13 +259,13 @@ class News implements TimestampableInterface, ChannelRelatedInterface
     /**
      * Get updatedAt
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
-    
+
     /**
      * @ORM\PrePersist()
      */
@@ -275,12 +274,12 @@ class News implements TimestampableInterface, ChannelRelatedInterface
         $this->setCreatedAt(new \DateTime());
         $this->setUpdatedAt($this->getCreatedAt());
     }
-    
+
     /**
      * @ORM\PreUpdate()
      */
     public function preUpdate()
     {
-    	$this->setUpdatedAt(new \DateTime());
+        $this->setUpdatedAt(new \DateTime());
     }
 }

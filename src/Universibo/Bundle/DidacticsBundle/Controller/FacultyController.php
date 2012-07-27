@@ -10,7 +10,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/faculty");
@@ -26,14 +25,14 @@ class FacultyController extends Controller
         // TODO acl
         $channelRepo = $this->get('universibo_core.repository.channel');
         $channel = $channelRepo->find($id);
-        
+
         if (!$channel instanceof Channel) {
             throw $this->createNotFoundException('Channel not found');
         }
-        
+
         $facultyRepo = $this->get('universibo_didactics.repository.faculty');
         $faculty = $facultyRepo->findOneByChannel($channel);
-        
+
         if ($faculty instanceof Faculty) {
             throw $this->createNotFoundException('Faculty not found');
         }

@@ -15,7 +15,7 @@ use Doctrine\ORM\EntityRepository;
 class FacultyRepository extends EntityRepository
 {
     /**
-     * @param Channel $channel
+     * @param  Channel $channel
      * @return number
      */
     public function findOneByChannel(Channel $channel)

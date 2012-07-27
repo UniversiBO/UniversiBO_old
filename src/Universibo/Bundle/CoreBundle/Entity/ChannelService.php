@@ -28,11 +28,10 @@ class ChannelService
      */
     private $name;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -52,7 +51,7 @@ class ChannelService
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {

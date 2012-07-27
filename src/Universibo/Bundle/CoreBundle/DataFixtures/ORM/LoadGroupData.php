@@ -35,7 +35,7 @@ class LoadGroupData extends AbstractFixture implements OrderedFixtureInterface
 
         $manager->flush();
     }
-    
+
     public function getOrder()
     {
         return 1;

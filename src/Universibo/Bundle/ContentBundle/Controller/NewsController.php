@@ -4,8 +4,6 @@ namespace Universibo\Bundle\ContentBundle\Controller;
 
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-use Universibo\Bundle\ContentBundle\Entity\NewsRepository;
-
 use Universibo\Bundle\CoreBundle\Entity\Channel;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -52,10 +50,10 @@ class NewsController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find News entity.');
         }
-        
+
         $securityContext = $this->get('universibo_core.security.context');
-        
-        if(!$securityContext->isGranted('VIEW', $entity)) {
+
+        if (!$securityContext->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException();
         }
 
@@ -99,16 +97,16 @@ class NewsController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
-            
+
             $entity->setUser($this->get('security.context')->getToken()->getUser());
             $entity->setCreatedAt(new \DateTime());
             $entity->setUpdatedAt(new \DateTime());
-            
+
             $em->persist($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('news_show', array('id' => $entity->getId())));
-            
+
         }
 
         return array(
@@ -169,7 +167,7 @@ class NewsController extends Controller
 
         if ($editForm->isValid()) {
             $entity->setUpdatedAt(new \DateTime());
-            
+
             $em->persist($entity);
             $em->flush();
 
@@ -203,11 +201,11 @@ class NewsController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find News entity.');
             }
-            
+
             $securityContext = $this->get('universibo_core.security.context');
-            
-            if(!$securityContext->isGranted('DELETE', $entity)) {
-            	throw new AccessDeniedException();
+
+            if (!$securityContext->isGranted('DELETE', $entity)) {
+                throw new AccessDeniedException();
             }
 
             $em->remove($entity);
@@ -216,17 +214,17 @@ class NewsController extends Controller
 
         return $this->redirect($this->generateUrl('news'));
     }
-    
+
     /**
      * @param Channel $channel
-     * 
+     *
      * @Template()
      */
     public function boxAction(Channel $channel, $limit)
     {
         $repo = $this->get('universibo_content.repository.news');
         $news = $repo->findByChannel($channel, $limit);
-        
+
         return array('news' => $news);
     }
 

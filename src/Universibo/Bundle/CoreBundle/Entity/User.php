@@ -12,14 +12,14 @@ use FOS\UserBundle\Entity\User as BaseUser;
 class User extends BaseUser
 {
     /**
-     * 
+     *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
      * @ORM\SequenceGenerator(sequenceName="users_id_seq", allocationSize="1", initialValue="1")
      */
     protected $id;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="Universibo\Bundle\CoreBundle\Entity\Group")
      * @ORM\JoinTable(name="fos_user_user_group",

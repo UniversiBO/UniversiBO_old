@@ -48,4 +48,3 @@ class QuestionnaireTest extends EntityTest
         );
     }
 }
-

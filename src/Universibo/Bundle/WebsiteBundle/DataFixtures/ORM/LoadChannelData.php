@@ -1,13 +1,10 @@
 <?php
 
 namespace Universibo\Bundle\CoreBundle\DataFixtures\ORM;
-use Symfony\Component\Security\Acl\Model\SecurityIdentityInterface;
 
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
-
-use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 
@@ -24,7 +21,6 @@ use Universibo\Bundle\DidacticsBundle\Entity\Faculty;
 use Universibo\Bundle\CoreBundle\Entity\Channel;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\DataFixtures\FixtureInterface;
 
 class LoadChannelData extends AbstractFixture implements
         OrderedFixtureInterface, ContainerAwareInterface
@@ -42,9 +38,9 @@ class LoadChannelData extends AbstractFixture implements
         $homepage->setName('Homepage');
         $homepage->setSlug('');
         $homepage->setHits(0);
-        
+
         $manager->persist($homepage);
-        
+
         $areaLaureati = new Channel();
         $areaLaureati->setName('Area Laureati');
         $areaLaureati->setType('default');
@@ -70,17 +66,17 @@ class LoadChannelData extends AbstractFixture implements
         $manager->persist($ingegneriaFaculty);
 
         $manager->flush();
-        
+
         $aclProvider = $this->container->get('security.acl.provider');
-        
-        foreach(array($homepage, $areaLaureati, $ingegneria) as $channel) {
+
+        foreach (array($homepage, $areaLaureati, $ingegneria) as $channel) {
             $objectIdentity = ObjectIdentity::fromDomainObject($channel);
 
             $acl = $aclProvider->createAcl($objectIdentity);
             $acl->insertObjectAce(new RoleSecurityIdentity('IS_AUTHENTICATED_ANONYMOUSLY'), MaskBuilder::MASK_VIEW);
             $aclProvider->updateAcl($acl);
         }
-        
+
         $acl->insertClassAce(new RoleSecurityIdentity('ROLE_ADMIN'), MaskBuilder::MASK_OWNER);
         $aclProvider->updateAcl($acl);
     }
@@ -89,7 +85,7 @@ class LoadChannelData extends AbstractFixture implements
     {
         return 1;
     }
-    
+
     public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
