@@ -6,5 +6,4 @@ app/phpunit.xml
 nbproject
 universibo/file-universibo
 /htmls/bundles
-composer.lock
 vendor
