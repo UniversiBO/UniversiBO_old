@@ -112,10 +112,8 @@ class StepList
         $this->currentStep -= 1;
         $this->lastGoodStep = max(self::EMPTY_VALUE, $this->currentStep - 1);
         if ($this->isValidIndex($this->currentStep))
-
             return $this->Lista_step[$this->currentStep];
         else
-
             return $this->getFirstStep();
     }
 

@@ -54,7 +54,7 @@ class RegUser extends UniversiboCommand
             }
 
             //ad_user
-            if ( $_POST['f34_email'] == '' ) {
+            if ($_POST['f34_email'] == '') {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Inserire la e-mail','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f34_accept = false;
             } elseif (!eregi('^([[:alnum:]_\-])+(\.([[:alnum:]_\-])+)*@([[:alnum:]_\-])+(\.([[:alnum:]_\-])+)*$',$_POST['f34_email'])) {
@@ -69,7 +69,7 @@ class RegUser extends UniversiboCommand
             }
 
             //username
-            if ( $_POST['f34_username'] == '' ) {
+            if ($_POST['f34_username'] == '') {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Scegliere uno username','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f34_accept = false;
             } elseif ($_POST['f34_username']{0}==' ' || $_POST['f34_username']{strlen($_POST['f34_username']) - 1}==' ') {
@@ -84,7 +84,7 @@ class RegUser extends UniversiboCommand
             } else $q34_username = $f34_username = $_POST['f34_username'];
 
             //livello
-            if ( $_POST['f34_livello'] == '' ) {
+            if ($_POST['f34_livello'] == '') {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Il livello inserito � vuoto','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f34_accept = false;
             }
@@ -107,7 +107,7 @@ class RegUser extends UniversiboCommand
 
         }
 
-        if ( $f34_accept == true ) {
+        if ($f34_accept == true) {
             //controllo active directory
             $randomPassword = PasswordUtil::generateRandomPassword();
             $notifica = ($q34_livello == User::STUDENTE || $q34_livello == User::COLLABORATORE || $q34_livello == User::ADMIN || $q34_livello == User::TUTOR ) ? Constants::NOTIFICA_ALL : Constants::NOTIFICA_NONE;

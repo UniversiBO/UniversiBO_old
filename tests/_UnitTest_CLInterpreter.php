@@ -7,7 +7,7 @@
 
 require_once 'PHPUnit'.PHP_EXTENSION;
 require_once 'User'.PHP_EXTENSION;
-require_once('CL/CLInterpreter'.PHP_EXTENSION);
+require_once 'CL/CLInterpreter'.PHP_EXTENSION);
 
 class MyReceiver extends Receiver
 {
@@ -15,7 +15,7 @@ class MyReceiver extends Receiver
     {
         //$this->_setPhpEnvirorment();
 
-        require_once('FrontController'.PHP_EXTENSION);
+        require_once 'FrontController'.PHP_EXTENSION);
         $fc= new FrontController($this);
 
         $fc->setConfig( $this->configFile );

@@ -113,7 +113,7 @@ class _UnitTest_Cdl extends PHPUnit_TestCase
         $cod_facolta = '0021';
         $elenco =& Cdl::selectCdlElencoFacolta($cod_facolta);
 
-        foreach ( $elenco as $cdl) {
+        foreach ($elenco as $cdl) {
             $value = $cdl->getCategoriaCdl();
             if (isset($value_old))
                 $this->assertTrue( $value >= $value_old );
@@ -123,4 +123,3 @@ class _UnitTest_Cdl extends PHPUnit_TestCase
     }
 
 }
-

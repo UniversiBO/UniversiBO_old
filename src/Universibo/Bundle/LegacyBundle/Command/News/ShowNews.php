@@ -86,7 +86,7 @@ class ShowNews extends PluginCommand
         $canale_news = count($elenco_id_news);
 //		var_dump($elenco_id_news);
 //		die();
-        if ( $canale_news == 0 ) {
+        if ($canale_news == 0) {
             $template->assign('showNews_langNewsAvailable', 'Non ci sono notizie da visualizzare');
             $template->assign('showNews_langNewsAvailableFlag', 'false');
         } else {
@@ -99,7 +99,7 @@ class ShowNews extends PluginCommand
 
         $elenco_news_tpl = array();
 
-        if ($elenco_news ==! false ) {
+        if ($elenco_news ==! false) {
 
             $ret_news = count($elenco_news);
 

@@ -245,7 +245,6 @@ Link: ' . $frontcontroller->getAppSetting('rootUrl') . '/v2.php?do='
 
         // TODO da attivare quando sar� aggiunto l'argomento nell'help
         //$this->executePlugin('ShowTopic', array('reference' => 'contattodocenti'));
-
         return 'default';
     }
 
@@ -259,10 +258,8 @@ Link: ' . $frontcontroller->getAppSetting('rootUrl') . '/v2.php?do='
     public function _compareUsername($a, $b)
     {
         if (strnatcmp($a['nome'], $b['nome']) > 0)
-
             return +1;
         else
-
             return -1;
     }
 

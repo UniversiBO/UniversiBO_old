@@ -88,7 +88,7 @@ class _UnitTest_Facolta extends PHPUnit_TestCase
     {
         $elenco =& Facolta::selectFacoltaElenco();
 
-        foreach ( $elenco as $facolta) {
+        foreach ($elenco as $facolta) {
             $value = $facolta->getNome();
             if (isset($value_old))
                 $this->assertTrue( strcmp($value_old, $value) < 0 );

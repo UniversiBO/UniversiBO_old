@@ -60,7 +60,6 @@ class DBRuoloRepository extends DBRepository
         if( $rows == 1) return true;
         elseif( $rows == 0) return false;
         else $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database: ruolo non unico','file'=>__FILE__,'line'=>__LINE__));
-
         return false;
     }
 
@@ -77,7 +76,6 @@ class DBRuoloRepository extends DBRepository
         if( $rows == 1) return true;
         elseif( $rows == 0) return false;
         else $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database: ruolo non unico','file'=>__FILE__,'line'=>__LINE__));
-
         return false;
     }
 
@@ -94,7 +92,6 @@ class DBRuoloRepository extends DBRepository
         if( $rows == 1) return true;
         elseif( $rows == 0) return false;
         else $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database: ruolo non unico','file'=>__FILE__,'line'=>__LINE__));
-
         return false;
     }
 
@@ -112,7 +109,6 @@ class DBRuoloRepository extends DBRepository
         if( $rows == 1) return true;
         elseif( $rows == 0) return false;
         else $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database: ruolo non unico','file'=>__FILE__,'line'=>__LINE__));
-
         return false;
     }
 
@@ -130,7 +126,6 @@ class DBRuoloRepository extends DBRepository
         if( $rows == 1) return true;
         elseif( $rows == 0) return false;
         else $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database: ruolo non unico','file'=>__FILE__,'line'=>__LINE__));
-
         return false;
     }
 
@@ -149,7 +144,6 @@ class DBRuoloRepository extends DBRepository
         if( $rows == 1) return true;
         elseif( $rows == 0) return false;
         else $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database: ruolo non unico','file'=>__FILE__,'line'=>__LINE__));
-
         return false;
     }
 
@@ -163,7 +157,7 @@ class DBRuoloRepository extends DBRepository
             $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
         $rows = $res->numRows();
-        if ( $rows = 0) {
+        if ($rows = 0) {
             $ret = array(); return $ret;
         }
 
@@ -228,7 +222,7 @@ class DBRuoloRepository extends DBRepository
         if (DB::isError($res))
             $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         $rows = $res->numRows();
-        if ( $rows >= 1) {
+        if ($rows >= 1) {
             return false;
         }
 
@@ -245,7 +239,7 @@ class DBRuoloRepository extends DBRepository
             $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
         $rows = $res->numRows();
-        if ( $rows = 0) {
+        if ($rows = 0) {
             return array();
         }
 

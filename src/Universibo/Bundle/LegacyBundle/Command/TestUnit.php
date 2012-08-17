@@ -61,8 +61,8 @@ class TestUnit extends UniversiboCommand
         //	    closedir($dir_handle);
         //		echo "</body></html>";
 
-        require_once('PHPUnit/GUI/SetupDecorator' . PHP_EXTENSION);
-        require_once('PHPUnit/GUI/HTML' . PHP_EXTENSION);
+        require_once 'PHPUnit/GUI/SetupDecorator'. PHP_EXTENSION);
+        require_once 'PHPUnit/GUI/HTML'. PHP_EXTENSION);
         $gui = new PHPUnit_GUI_SetupDecorator(new PHPUnit_GUI_HTML());
         $gui->getSuitesFromDir('../tests', '.*_UnitTest_.*');
         $gui->show();

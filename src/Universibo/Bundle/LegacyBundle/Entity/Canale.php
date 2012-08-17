@@ -543,7 +543,6 @@ class Canale
         static $cache_canali = array();
 
         if ($cache == true && array_key_exists($id_canale, $cache_canali))
-
             return $cache_canali[$id_canale];
 
         $tipo_canale =  Canale::getTipoCanaleFromId ( $id_canale );
@@ -671,7 +670,6 @@ class Canale
     public static function canaleExists($id_canale)
     {
         if ( $id_canale < 0 ) return false;
-
         return self::getRepository()->idExists($id_canale);
     }
 
@@ -717,4 +715,3 @@ define('CANALE_FACOLTA'      ,Canale::FACOLTA);
 define('CANALE_CDL'          ,Canale::CDL);
 define('CANALE_INSEGNAMENTO' ,Canale::INSEGNAMENTO);
 //define('CANALE_ESAME_ECO'    ,6);
-

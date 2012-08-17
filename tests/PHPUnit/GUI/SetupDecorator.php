@@ -148,4 +148,3 @@ class PHPUnit_GUI_SetupDecorator
         return $files;
     }
 }
-

@@ -68,4 +68,3 @@ Il forum è basato su PHPBB a cui sono state apportate piccole modifiche
         return 'default';
     }
 }
-

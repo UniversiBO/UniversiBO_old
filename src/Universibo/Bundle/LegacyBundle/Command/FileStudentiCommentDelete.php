@@ -132,7 +132,6 @@ class FileStudentiCommentDelete extends UniversiboCommand
         //end if (array_key_exists('f28_submit', $_POST))
 
         // resta da sistemare qui sotto, fare il form e fare debugging
-
         return 'default';
 
     }

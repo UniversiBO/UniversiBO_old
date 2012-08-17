@@ -172,7 +172,6 @@ class DBFileItemRepository extends DBRepository
         $rows = $res->numRows();
 
         if ($rows == 0)
-
             return false;
         $files_list = array();
 
@@ -225,7 +224,6 @@ class DBFileItemRepository extends DBRepository
         $rows = $res->numRows();
 
         if ($rows == 0)
-
             return false;
         $files_list = array();
 
@@ -328,10 +326,8 @@ class DBFileItemRepository extends DBRepository
         $rows = $db->affectedRows();
 
         if ($rows == 1)
-
             return true;
         elseif ($rows == 0)
-
         return false;
         else
             $this->throwError('_ERROR_CRITICAL',
@@ -435,7 +431,6 @@ class DBFileItemRepository extends DBRepository
         $rows = $res->numRows();
 
         if ($rows == 0)
-
             return false;
         $files_list = array();
 

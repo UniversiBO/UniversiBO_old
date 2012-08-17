@@ -375,7 +375,6 @@ class Cdl extends Canale
             return false;
         }
 
-
         return self::getRepository()->insert($this);
     }
 

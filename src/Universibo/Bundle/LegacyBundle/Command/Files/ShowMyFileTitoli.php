@@ -44,7 +44,7 @@ class ShowMyFileTitoli extends PluginCommand
 
         $canale_files = count($elenco_file);
 
-        if ( $canale_files == 0 ) {
+        if ($canale_files == 0) {
             $template->assign('showMyFileTitoli_langFileAvailable', 'Non ci sono files da visualizzare');
             $template->assign('showMyFileTitoli_langFileAvailableFlag', 'false');
         } else {
@@ -58,7 +58,7 @@ class ShowMyFileTitoli extends PluginCommand
         $categorie_tpl = array();
         $file_tpl = array();
 
-        if ($elenco_file ==! false ) {
+        if ($elenco_file ==! false) {
             $ret_file = count($elenco_file);
 
             for ($i = 0; $i < $ret_file; $i++) {
@@ -142,4 +142,3 @@ class ShowMyFileTitoli extends PluginCommand
     }
 
 }
-

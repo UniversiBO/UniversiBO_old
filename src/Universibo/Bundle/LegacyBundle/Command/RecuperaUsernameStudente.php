@@ -55,7 +55,7 @@ class RecuperaUsernameStudente extends UniversiboCommand
             }
 
             //ad_user
-            if ( $_POST['f32_ad_user'] == '' ) {
+            if ($_POST['f32_ad_user'] == '') {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Inserire la e-mail di ateneo','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f32_accept = false;
             } elseif ( strlen($_POST['f32_ad_user']) > 30 ) {
@@ -76,7 +76,7 @@ class RecuperaUsernameStudente extends UniversiboCommand
             }
 
             //password
-            if ( $_POST['f32_password'] == '' ) {
+            if ($_POST['f32_password'] == '') {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Inserire la password della e-mail di ateneo','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f32_accept = false;
             } elseif ( strlen($_POST['f32_password']) > 50 ) {
@@ -86,7 +86,7 @@ class RecuperaUsernameStudente extends UniversiboCommand
 
         }
 
-        if ( $f32_accept == true ) {
+        if ($f32_accept == true) {
             //controllo active directory
             $adl_host = $fc->getAppSetting('adLoginHost');
             $adl_port = $fc->getAppSetting('adLoginPort');

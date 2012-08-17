@@ -41,7 +41,6 @@ class DBCanaleRepository extends DBRepository
         if( $rows == 1) return true;
         elseif( $rows == 0) return false;
         else $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database canali: id non unico','file'=>__FILE__,'line'=>__LINE__));
-
         return false;
     }
 

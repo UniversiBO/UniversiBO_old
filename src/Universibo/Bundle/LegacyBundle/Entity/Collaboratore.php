@@ -182,7 +182,6 @@ class Collaboratore
      */
     public static function insertCollaboratoreItem()
     {
-
         return self::getRepository()->insert($this);
     }
 

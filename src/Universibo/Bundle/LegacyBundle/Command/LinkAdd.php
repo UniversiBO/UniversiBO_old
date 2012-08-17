@@ -172,7 +172,6 @@ class LinkAdd extends UniversiboCommand
         $template->assign('f29_Description', $f29_Description);
 
         //$this->executePlugin('ShowTopic', array('reference' => 'newscollabs'));
-
         return 'default';
 
     }

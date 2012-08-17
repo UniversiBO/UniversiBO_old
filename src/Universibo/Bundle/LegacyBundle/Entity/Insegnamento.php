@@ -138,8 +138,7 @@ class Insegnamento extends Canale
             // "NOME ESAME L-A" && "NOME ESAME L-B" -->  "NOME ESAME L-A + L-B"
             //var_dump($e_nomi);
             $fin = array_values($e_nomi);
-            if ((count(array_unique($b_nomi)) == 1) && (count($fin) == 2)) //bisognerebbe verificare che tutti gli altri campi sono invarianti al raggruppamento
- {
+            if ((count(array_unique($b_nomi)) == 1) && (count($fin) == 2)) { //bisognerebbe verificare che tutti gli altri campi sono invarianti al raggruppamento
                 $nome = $b_nomi[0] . $fin[0] . ' + ' . $fin[1];
                 for ($i = 0; $i < $num_att; $i++) {
                     $nomi[$i] = $nome;
@@ -213,7 +212,6 @@ class Insegnamento extends Canale
     public function getNome()
     {
         if ($this->isNomeSet())
-
             return parent::getNome();
 
         return $this->insegnamentoNome;

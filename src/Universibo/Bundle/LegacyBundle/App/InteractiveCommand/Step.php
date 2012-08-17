@@ -125,4 +125,3 @@ define('STEP_COMPLETATO', Step::COMPLETATO);
 define('STEP_RIFIUTATO', Step::RIFIUTATO);  // VERIFY mi sa che � inutile questo valore
 define('STEP_VISITATO', Step::VISITATO);
 define('STEP_NONVISITATO', Step::NONVISITATO);
-

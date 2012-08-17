@@ -79,7 +79,7 @@ class ChangePassword extends UniversiboCommand
             }
 
             //			//username
-            //			if ( $_POST['f6_username'] == '' ) {
+            //			if ($_POST['f6_username'] == '') {
             //				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Inserire il proprio username','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
             //				$f6_accept = false;
             //			}

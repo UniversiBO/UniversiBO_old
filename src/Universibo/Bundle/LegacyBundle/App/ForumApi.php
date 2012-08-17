@@ -73,7 +73,6 @@ class ForumApi extends DBRepository implements ForumApiInterface
     {
         //echo $_SESSION['phpbb_sid'];
         if (array_key_exists('phpbb_sid', $_SESSION) && $_SESSION['phpbb_sid']!='') return 'sid='.$_SESSION['phpbb_sid'];
-
         return '';
     }
 
@@ -541,7 +540,7 @@ function getLastPostsForum(User $user, $id_forum, $num = 10)
 
     $rows = $res->numRows();
 
-    if ( $rows == 0 ) {
+    if ($rows == 0) {
         $false = false; return $false;
     }
 

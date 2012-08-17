@@ -108,4 +108,3 @@ class LuceneBuildIndexCommand extends ContainerAwareCommand
         }
     }
 }
-

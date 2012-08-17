@@ -72,7 +72,7 @@ class ScriptCreaCatalogoFile extends UniversiboCommand
                 $listaIdFiles[] = $row[0];
             $res->free();
 
-            for ( $x = 0; $x <= $num; $x+=$iterationStep) {
+            for ($x = 0; $x <= $num; $x+=$iterationStep) {
                 $files = FileItem::selectFileItems(array_slice($listaIdFiles,$x,$iterationStep));
                 //				var_dump($files);
                 if ($x+$iterationStep>$num)

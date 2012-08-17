@@ -2,7 +2,6 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use \DB;
-use \Error;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -29,13 +28,13 @@ class ScriptUpdateFileHash extends UniversiboCommand
         $res = $db->executeQuery('SELECT id_file, nome_file FROM file ORDER BY 1');
 
         $query = 'UPDATE file SET hash_file = ? WHERE id_file = ?';
-        
+
         while ( false !== ($row = $res->fetch()) ) {
             $nome_file = $filePath.$row[0].'_'.$row[1];
-            
+
             $hash = file_exists($nome_file) ? md5_file($nome_file) : '';
             $db->executeUpdate($query, array($hash, $row[0]));
-            
+
             echo $row[0], '_', $row[1], ': ', strlen($hash) > 0 ? $hash : 'not found', PHP_EOL;
         }
 

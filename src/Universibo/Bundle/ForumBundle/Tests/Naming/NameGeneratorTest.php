@@ -37,4 +37,3 @@ class NameGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $this->generator->generate('COSTRUZIONE DI MACCHINE', 'Curioni Sergio'));
     }
 }
-

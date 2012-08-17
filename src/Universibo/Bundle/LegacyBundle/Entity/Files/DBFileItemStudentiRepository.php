@@ -123,7 +123,6 @@ class DBFileItemStudentiRepository extends DBRepository
         $rows = $res->numRows();
 
         if ($rows == 0)
-
             return false;
         $files_list = array ();
 

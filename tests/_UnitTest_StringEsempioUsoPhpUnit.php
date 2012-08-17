@@ -86,4 +86,3 @@ $suite  = new PHPUnit_TestSuite('StringTest');
 $result = PHPUnit::run($suite);
 //echo $result -> toHTML();
 echo $result -> toHtmlTable();
-

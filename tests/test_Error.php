@@ -1,6 +1,6 @@
 <?php
 
-require_once('Error'.PHP_EXTENSION);
+require_once 'Error'.PHP_EXTENSION);
 
 /**
  * Examples for Error Class
@@ -68,4 +68,3 @@ $mio_errore->collect();
 while ( ($current_error = Error::retrieve(_ERROR_NOTICE)) !== false ) {
     echo $current_error->throwError();
 }
-

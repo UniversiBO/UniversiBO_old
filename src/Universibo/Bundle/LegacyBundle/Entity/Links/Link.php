@@ -260,7 +260,6 @@ class Link
                 && $_SERVER['HTTPS'] == 'on') ? 'https' : 'http';
         $uri = $request_protocol . '://' . $_SERVER['HTTP_HOST'];
         //	  	var_dump($uri);
-
         return preg_match('/^' . str_replace('/', '\\/', $uri) . '.*$/',
                 $this->getUri());
     }

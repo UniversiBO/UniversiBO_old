@@ -203,4 +203,3 @@ class PHPUnit_GUI_HTML
     }
 
 }
-

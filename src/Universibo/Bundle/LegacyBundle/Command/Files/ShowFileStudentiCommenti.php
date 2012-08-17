@@ -79,7 +79,7 @@ class ShowFileStudentiCommenti extends PluginCommand
 //	    die();
 
 
-        if ($elenco_commenti ==! false ) {
+        if ($elenco_commenti ==! false) {
             for ($i = 0; $i < $num_commenti; $i++) {
 
                 $id_utente = $elenco_commenti[$i]->getIdUtente();

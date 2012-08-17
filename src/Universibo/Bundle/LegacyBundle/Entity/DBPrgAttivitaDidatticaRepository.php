@@ -65,7 +65,7 @@ class DBPrgAttivitaDidatticaRepository extends DBRepository
 
         $rows = $res->numRows();
 
-        if ( $rows == 0) {
+        if ($rows == 0) {
             $array = array();
 
             return $array;
@@ -114,10 +114,8 @@ class DBPrgAttivitaDidatticaRepository extends DBRepository
                                     'file' => __FILE__, 'line' => __LINE__));
         $rows = $db->affectedRows();
         if ($rows >= 1)
-
             return true;
         elseif ($rows == 0)
-
             return false;
         else
             $this
@@ -280,7 +278,7 @@ class DBPrgAttivitaDidatticaRepository extends DBRepository
 
         $rows = $res->numRows();
 
-        if ( $rows == 0) {
+        if ($rows == 0) {
             $ret = array(); return $ret;
         }
         $elenco = array();
@@ -340,7 +338,7 @@ class DBPrgAttivitaDidatticaRepository extends DBRepository
 
         $rows = $res->numRows();
 
-        if ( $rows == 0) {
+        if ($rows == 0) {
             $ret = array(); return $ret;
         }
 

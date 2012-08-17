@@ -112,7 +112,6 @@ class LogHandler
 
         $string .= "\n";
 
-
         return $string;
 
     }
@@ -141,7 +140,7 @@ class LogHandler
         if ($fp === false) return false;
 
         flock ($fp,2);
-        if ( $addHeader == true ) {
+        if ($addHeader == true) {
             $header = $this->_getHeaderLine();
             fwrite($fp, $header);
         }

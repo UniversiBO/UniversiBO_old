@@ -800,7 +800,6 @@ class User implements UserInterface, SSOUserInterface, \Serializable
             $groups = $this->getGroups();
 
         if ($groups == self::OSPITE)
-
             return true;
         return false;
     }
@@ -850,25 +849,18 @@ class User implements UserInterface, SSOUserInterface, \Serializable
         $nomi_gruppi = self::publicGroupsName($singolare);
 
         if ($this->isOspite())
-
             return $nomi_gruppi[self::OSPITE];
         if ($this->isStudente())
-
             return $nomi_gruppi[self::STUDENTE];
         if ($this->isCollaboratore())
-
             return $nomi_gruppi[self::COLLABORATORE];
         if ($this->isTutor())
-
             return $nomi_gruppi[self::TUTOR];
         if ($this->isDocente())
-
             return $nomi_gruppi[self::DOCENTE];
         if ($this->isPersonale())
-
             return $nomi_gruppi[self::PERSONALE];
         if ($this->isAdmin())
-
             return $nomi_gruppi[self::ADMIN];
     }
 

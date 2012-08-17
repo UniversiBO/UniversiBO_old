@@ -37,7 +37,6 @@ class DBCollaboratoreRepository extends DBRepository
 
         $rows = $res->numRows();
         if ($rows == 0)
-
             return false;
 
         $row = $this->fetchRow($res);

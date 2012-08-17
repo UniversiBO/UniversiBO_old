@@ -50,7 +50,6 @@ class DBInsegnamentoRepository extends DBRepository
         }
 
         if ($rows = 0)
-
             return false;
 
         $elenco_attivita = $this->programmaRepository->findByChannelId($channelId);

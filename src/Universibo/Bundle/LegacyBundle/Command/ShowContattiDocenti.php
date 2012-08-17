@@ -57,17 +57,14 @@ class ShowContattiDocenti extends UniversiboCommand
                         'Docenti assegnati per l\'attività offline');
         //		$template->assign('ShowContattiDocenti_addContatto', 'Aggiungi un docente da assegnare');
         //		$template->assign('ShowContattiDocenti_addContattoURI', 'v2.php?do=ContattoDocenteAdd');
-
         return 'default';
     }
 
     public function _compareDocenti($a, $b)
     {
         if (strnatcmp($a['nome'], $b['nome']) > 0)
-
             return +1;
         else
-
             return -1;
     }
 

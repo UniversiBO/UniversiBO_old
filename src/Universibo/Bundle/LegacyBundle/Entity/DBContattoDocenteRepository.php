@@ -26,7 +26,7 @@ class DBContattoDocenteRepository extends DBRepository
             Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
         $rows = $res->numRows();
-        if ( $rows == 0) {
+        if ($rows == 0) {
             return false;
         }
 

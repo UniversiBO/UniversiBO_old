@@ -205,16 +205,12 @@ class ShowFileTitoli extends PluginCommand
     public function _compareFile($a, $b)
     {
         if ($a->getIdCategoria() > $b->getIdCategoria())
-
             return +1;
         if ($a->getIdCategoria() < $b->getIdCategoria())
-
             return -1;
         if ($a->getDataInserimento() < $b->getDataInserimento())
-
             return +1;
         if ($a->getDataInserimento() > $b->getDataInserimento())
-
             return -1;
     }
 

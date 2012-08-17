@@ -38,4 +38,3 @@
         $errorLog->addLogEntry($log_array);
 
         var_dump($errorLog);
-

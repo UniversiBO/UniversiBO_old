@@ -46,7 +46,6 @@ class ShowCanale extends CanaleCommand
             $this->executePlugin('ShowLinks', array( 'num' => 12 ) );
         }
 
-
         return 'default';
     }
 }

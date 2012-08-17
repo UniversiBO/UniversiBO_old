@@ -67,7 +67,7 @@ class InformativaPrivacyInteractiveCommand extends BaseInteractiveCommand
     {
         $repository = FrontController::getContainer()->get('universibo_legacy.repository.informativa');
         $informativa = $repository->findByTime(time());
-        
+
         return array(
                 'id_info' => $informativa->getId(),
                 'testo'=> $informativa->getTesto()

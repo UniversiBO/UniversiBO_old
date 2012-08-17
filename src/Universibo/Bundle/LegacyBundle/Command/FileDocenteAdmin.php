@@ -270,7 +270,6 @@ class FileDocenteAdmin extends UniversiboCommand
 
         // TODO aggiungere l'help
         // $this->executePlugin('ShowTopic', array('reference' => 'filescollabs'));
-
         return 'default';
 
     }
@@ -300,10 +299,8 @@ class FileDocenteAdmin extends UniversiboCommand
         $nomea = strtolower($a->getTitolo());
         $nomeb = strtolower($b->getTitolo());
         if ($nomea > $nomeb)
-
             return +1;
         if ($nomea < $nomeb)
-
             return -1;
     }
 }

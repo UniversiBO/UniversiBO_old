@@ -513,22 +513,16 @@ abstract class UniversiboCommand extends BaseCommand
     protected static function _compareMyUniversiBO($a, $b)
     {
         if ($a['tipo'] < $b['tipo'])
-
             return +1;
         if ($a['tipo'] > $b['tipo'])
-
             return -1;
         if ($a['label'] < $b['label'])
-
             return -1;
         if ($a['label'] > $b['label'])
-
             return +1;
         if ($a['ruolo'] < $b['ruolo'])
-
             return -1;
         if ($a['ruolo'] > $b['ruolo'])
-
             return +1;
     }
 
@@ -538,10 +532,8 @@ abstract class UniversiboCommand extends BaseCommand
     protected static function _compareServices($a, $b)
     {
         if ($a['label'] < $b['label'])
-
             return -1;
         if ($a['label'] > $b['label'])
-
             return +1;
     }
 }

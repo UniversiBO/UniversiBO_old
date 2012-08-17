@@ -33,7 +33,6 @@ class DBCdlRepository extends DBRepository
         while ($row = $this->fetchRow($res)) {
             //echo $row[0];
             if ( ($elencoCdl[] = $this->findByCodice($row[0]) ) === false )
-
                 return false;
         }
 
@@ -101,7 +100,7 @@ class DBCdlRepository extends DBRepository
 
         $rows = $res->numRows();
 
-        if ( $rows == 0) {
+        if ($rows == 0) {
             $ret = array(); return $ret;
         }
         $elenco = array();
@@ -112,7 +111,6 @@ class DBCdlRepository extends DBRepository
 
             $elenco[] = $cdl;
         }
-
 
         return $elenco;
     }

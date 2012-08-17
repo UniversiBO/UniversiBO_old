@@ -206,7 +206,7 @@ class FrontController
     {
         $classValues = $this->getPluginClass($name);
 
-        if ($classValues == null ) {
+        if ($classValues == null) {
             \Error::throwError(_ERROR_DEFAULT,array('msg'=>'Non e` stato definito il plugin richiesto: '.$name ,'file'=>__FILE__,'line'=>__LINE__));
 
             return;
@@ -248,7 +248,7 @@ class FrontController
     {
         $request_protocol = (array_key_exists('HTTPS',$_SERVER) && $_SERVER['HTTPS']=='on') ? 'https' : 'http';
 
-        if ( $command != '' ) {
+        if ($command != '') {
             $command = 'do='.$command;
         }
 
@@ -349,7 +349,7 @@ class FrontController
            if ( !array_key_exists($receiverId, $this->receivers) )
                \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Identificativo del receiver inesistente o non permesso','file'=>__FILE__,'line'=>__LINE__));
 
-           if ($relative == true ) {
+           if ($relative == true) {
                return $this->receivers[$receiverId];
            } else {
                return $this->rootUrl.$this->receivers[$receiverId];
@@ -473,7 +473,6 @@ class FrontController
     public function getStyle()
     {
            if (!array_key_exists('template_name', $_SESSION) )
-
                return $this->getAppSetting('defaultStyle');
 
            return $_SESSION['template_name'];
@@ -520,7 +519,7 @@ class FrontController
            //var_dump($figli);
            for ( $i = 0; $i < $figli->length; $i++ )
                if (($figlio = $figli->item($i)) != null) {
-                   if ( $figlio->nodeType == XML_ELEMENT_NODE && $figlio->tagName == 'rootURL') {
+                   if ($figlio->nodeType == XML_ELEMENT_NODE && $figlio->tagName == 'rootURL') {
                        $testo		=& $figlio->firstChild;
                        $elementURL =& $testo->nodeValue;
                        //					var_dump($figlio);
@@ -610,7 +609,7 @@ class FrontController
             \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` specificato l\'elemento template_dirs nel file di config','file'=>__FILE__,'line'=>__LINE__));
 
         $figli = $templateDirsNode->childNodes;
-        for ( $i=0; $i<$figli->length; $i++ ) {
+        for ($i=0; $i<$figli->length; $i++) {
             $templateSetting = $figli->item($i);
             if ($templateSetting->nodeType == XML_ELEMENT_NODE)
                 $this->templateEngine[$templateSetting->tagName] = $templateSetting->firstChild->nodeValue;
@@ -624,7 +623,7 @@ class FrontController
             \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` specificato l\'elemento template_styles nel file di config','file'=>__FILE__,'line'=>__LINE__));
 
         $figli = $templateStylesNode->childNodes;
-        for ( $i=0; $i<$figli->length; $i++ ) {
+        for ($i=0; $i<$figli->length; $i++) {
             $templateSetting = $figli->item($i);
             if ($templateSetting->nodeType == XML_ELEMENT_NODE)
                 $this->templateEngine['styles'][$templateSetting->getAttribute('name')] = $templateSetting->getAttribute('dir');
@@ -666,7 +665,7 @@ class FrontController
             \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non esiste l\'elemento mailerInfo nel file di config','file'=>__FILE__,'line'=>__LINE__));
 
         $figli = $mailerInfoNode->childNodes;
-        for ( $i=0; $i<$figli->length; $i++ ) {
+        for ($i=0; $i<$figli->length; $i++) {
             $aSetting = $figli->item($i);
             if ($aSetting->nodeType == XML_ELEMENT_NODE)
                 $this->mailerInfo[$aSetting->tagName] = $aSetting->firstChild->nodeValue;
@@ -688,7 +687,7 @@ class FrontController
             \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non esiste l\'elemento langInfo nel file di config','file'=>__FILE__,'line'=>__LINE__));
 
         $figli = $languageInfoNode->childNodes;
-        for ( $i=0; $i < $figli->length; $i++ ) {
+        for ($i=0; $i < $figli->length; $i++) {
             $aSetting = $figli->item($i);
             if ($aSetting->nodeType == XML_ELEMENT_NODE)
                 $this->languageInfo[$aSetting->tagName] = $aSetting->firstChild->nodeValue;
@@ -714,7 +713,7 @@ class FrontController
         //var_dump($figli);
         for ( $i = 0; $i < $figli->length; $i++ )
             if (($figlio = $figli->item($i)) != null) {
-                if ( $figlio->nodeType == XML_ELEMENT_NODE && $figlio->tagName == 'appSettings') {
+                if ($figlio->nodeType == XML_ELEMENT_NODE && $figlio->tagName == 'appSettings') {
                     $appSettingNode =& $figlio;
                     break;
                 }
@@ -723,7 +722,7 @@ class FrontController
             if($appSettingNode == NULL) return;
 
             $figliAppSettingNode = $appSettingNode->childNodes;
-            for ( $i=0; $i < $figliAppSettingNode->length; $i++ ) {
+            for ($i=0; $i < $figliAppSettingNode->length; $i++) {
                 $aSetting = $figliAppSettingNode->item($i);
                 //			echo $i.' '.$aSetting->nodeName.'<br>';
                 //				var_dump($aSetting);
@@ -776,11 +775,11 @@ class FrontController
         //		var_dump($this);
         //		$listaNodiCommands =& $this->config->getElementsByTagName("commands");
         $cinfonode = null;
-        for ( $i = 0; $i < $figliRoot->length; $i++ ) {
+        for ($i = 0; $i < $figliRoot->length; $i++) {
             $iesimoFiglio = $figliRoot->item($i);
             //			var_dump($iesimoFiglio);
             if ($iesimoFiglio != null)
-                if ($iesimoFiglio->nodeType == XML_ELEMENT_NODE && $iesimoFiglio->tagName == 'commands' ) {
+                if ($iesimoFiglio->nodeType == XML_ELEMENT_NODE && $iesimoFiglio->tagName == 'commands') {
                     $cinfonode =& $iesimoFiglio;
                     break;
                 }
@@ -808,7 +807,7 @@ class FrontController
         //print_r($figli);
         for ($i=0; $i < $figli->length; $i++) {
             $child = $figli->item($i);
-            if ( $child->nodeType == XML_ELEMENT_NODE && $child->tagName == $commandString ) {
+            if ($child->nodeType == XML_ELEMENT_NODE && $child->tagName == $commandString) {
                 $commandNode = &$child;
                 break;
             }
@@ -884,7 +883,7 @@ class FrontController
         //var_dump($templateEngine);
 
         //if ( defined('TEMPLATE_SINGLETON') ) {
-        if ( $templateEngine != NULL ) {
+        if ($templateEngine != NULL) {
             return $templateEngine ;
         } else {
             //define('TEMPLATE_SINGLETON','on');
@@ -953,13 +952,11 @@ class FrontController
 
             return $singleton;
 
-        } elseif ($keepAlive == MAIL_KEEPALIVE_CLOSE)
-        {
+        } elseif ($keepAlive == MAIL_KEEPALIVE_CLOSE) {
             if ($singleton != null) {
                 $singleton->SMTPKeepAlive = true;
             }
-        } elseif($keepAlive == MAIL_KEEPALIVE_NO)
-        {
+        } elseif ($keepAlive == MAIL_KEEPALIVE_NO) {
             $mail = new \PHPMailer();
             $mail -> IsSMTP(); 							// send via SMTP
             $mail -> Host = $this->mailerInfo['smtp'];	// SMTP server

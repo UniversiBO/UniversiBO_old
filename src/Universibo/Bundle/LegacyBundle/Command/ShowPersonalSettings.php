@@ -100,7 +100,7 @@ class ShowPersonalSettings extends UniversiboCommand
                 $q20_cellulare = $f20_cellulare = $_POST['f20_cellulare'];
 
             $validator = new EmailAddress();
-            
+
             //mail
             if (strlen($_POST['f20_email']) > 50) {
                 Error::throwError(_ERROR_NOTICE,

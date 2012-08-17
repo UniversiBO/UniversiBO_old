@@ -44,7 +44,7 @@ class ShowFileStudentiTitoli extends PluginCommand
 
         $files_studenti_attivo = $canale->getServizioFilesStudenti();
 
-        if ( !$files_studenti_attivo ) {
+        if (!$files_studenti_attivo) {
             $template->assign('showFileStudentiTitoli_langFileAvailableFlag', 'false');
 
             return;
@@ -108,7 +108,7 @@ class ShowFileStudentiTitoli extends PluginCommand
         $categorie_tpl = array();
         $elenco_file_tpl = array();
 
-        if ($elenco_file ==! false ) {
+        if ($elenco_file ==! false) {
             $ret_file = count($elenco_file);
 
             for ($i = 0; $i < $ret_file; $i++) {
@@ -194,4 +194,3 @@ class ShowFileStudentiTitoli extends PluginCommand
     }
 
 }
-

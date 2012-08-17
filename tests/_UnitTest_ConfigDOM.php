@@ -50,4 +50,3 @@ class _UnitTest_ConfigDOM extends PHPUnit_TestCase
     }
 
 }
-

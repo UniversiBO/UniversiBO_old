@@ -71,7 +71,7 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore
             }
 
             //ad_user
-            if ( $_POST['f4_ad_user'] == '' ) {
+            if ($_POST['f4_ad_user'] == '') {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Inserire la e-mail di ateneo','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f4_accept = false;
             } elseif ( strlen($_POST['f4_ad_user']) > 30 ) {
@@ -92,7 +92,7 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore
             }
 
             //password
-            if ( $_POST['f4_password'] == '' ) {
+            if ($_POST['f4_password'] == '') {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Inserire la password della e-mail di ateneo','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f4_accept = false;
             } elseif ( strlen($_POST['f4_password']) > 50 ) {
@@ -101,7 +101,7 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore
             } else $q4_password = $f4_password = $_POST['f4_password'];
 
             //username
-            if ( $_POST['f4_username'] == '' ) {
+            if ($_POST['f4_username'] == '') {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Scegliere uno username','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f4_accept = false;
             } elseif ($_POST['f4_username']{0}==' ' || $_POST['f4_username']{strlen($_POST['f4_username']) - 1}==' ') {
@@ -123,7 +123,7 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore
 
         }
 
-        if ( $f4_accept == true ) {
+        if ($f4_accept == true) {
 
             //controllo active directory
             $adl_host = $fc->getAppSetting('adLoginHost');

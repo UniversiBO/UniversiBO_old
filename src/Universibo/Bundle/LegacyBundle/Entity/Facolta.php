@@ -196,7 +196,6 @@ class Facolta extends Canale
         }
 
         if (!array_key_exists($id_canale, $__facoltaElencoCanale))
-
             return false;
 
         return $__facoltaElencoCanale[$id_canale];
@@ -219,7 +218,6 @@ class Facolta extends Canale
         }
 
         if (!array_key_exists($cod_facolta, $__facoltaElencoCodice))
-
             return false;
 
         return $__facoltaElencoCodice[$cod_facolta];

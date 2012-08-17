@@ -61,7 +61,6 @@ class DBNewsItemRepository extends DBRepository
         $rows = $res->numRows();
 
         if ($rows == 0)
-
             return false;
         $news_list = array();
 
@@ -108,7 +107,6 @@ class DBNewsItemRepository extends DBRepository
         $rows = $res->numRows();
 
         if ($rows == 0)
-
             return false;
         $news_list = array();
 

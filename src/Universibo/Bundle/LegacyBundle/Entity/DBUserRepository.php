@@ -68,10 +68,8 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $rows = $res->numRows();
 
         if ($rows == 0)
-
             return false;
         elseif ($rows == 1)
-
             return true;
         else
             $this
@@ -128,7 +126,6 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $rows = $res->numRows();
 
         if ($rows == 0)
-
             return false;
         elseif ($rows == 1) {
             $row = $res->fetchRow();
@@ -235,10 +232,8 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $rows = $db->affectedRows();
 
         if ($rows == 1)
-
             return true;
         elseif ($rows == 0)
-
             return false;
         else
             $this
@@ -263,10 +258,8 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $rows = $db->affectedRows();
 
         if ($rows == 1)
-
             return true;
         elseif ($rows == 0)
-
             return false;
         else
             $this
@@ -294,10 +287,8 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $rows = $db->affectedRows();
 
         if ($rows == 1)
-
             return true;
         elseif ($rows == 0)
-
             return false;
         else
             $this
@@ -325,10 +316,8 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $rows = $db->affectedRows();
 
         if ($rows == 1)
-
             return true;
         elseif ($rows == 0)
-
             return false;
         else
             $this
@@ -359,10 +348,8 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $rows = $db->affectedRows();
 
         if ($rows == 1)
-
             return true;
         elseif ($rows == 0)
-
             return false;
         else
             $this
@@ -473,7 +460,6 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
             array $arrayWithDesiredGroupsConstant)
     {
         if (count($arrayWithDesiredGroupsConstant) === 0)
-
             return array();
 
         $db = $this->getDb();
@@ -509,10 +495,8 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
         $rows = $db->affectedRows();
 
         if ($rows == 1)
-
             return true;
         elseif ($rows == 0)
-
             return false;
         else
             $this

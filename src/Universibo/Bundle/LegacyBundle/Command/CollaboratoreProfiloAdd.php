@@ -162,7 +162,6 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
 
         //$topics[] =
         //$this->executePlugin('ShowTopic', array('reference' => 'newscollabs'));
-
         return 'default';
     }
 }

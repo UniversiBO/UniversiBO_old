@@ -40,7 +40,6 @@ class DBLinkRepository extends DBRepository
         $rows = $res->numRows();
 
         if ($rows = 0)
-
             return false;
         $link_list = array();
 
@@ -144,10 +143,8 @@ class DBLinkRepository extends DBRepository
         $rows = $db->affectedRows();
 
         if ($rows == 1)
-
             return true;
         elseif ($rows == 0)
-
         return false;
         else
             $this->throwError('_ERROR_DEFAULT',
@@ -168,10 +165,8 @@ class DBLinkRepository extends DBRepository
         $rows = $db->affectedRows();
 
         if ($rows == 1)
-
             return true;
         elseif ($rows == 0)
-
         return false;
         else
             $this->throwError('_ERROR_CRITICAL',

@@ -175,7 +175,6 @@ class ScriptCreaForum extends UniversiboCommand
             Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
         if ($res->numRows() == 0 )
-
             return null;
 
         $res->fetchInto($row);
@@ -215,7 +214,6 @@ class ScriptCreaForum extends UniversiboCommand
             Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
         if ($res->numRows() == 0 )
-
             return null;
 
         //se ce ne sono di pi? prendo il primo

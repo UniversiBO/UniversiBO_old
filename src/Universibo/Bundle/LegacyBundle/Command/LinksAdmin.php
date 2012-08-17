@@ -169,7 +169,6 @@ class LinksAdmin extends UniversiboCommand
                 ->assign('add_link_uri',
                         "v2.php?do=LinkAdd&id_canale=" . $_GET['id_canale']);
         //		$this->executePlugin('ShowTopic', array('reference' => 'ruoliadmin'));
-
         return 'default';
     }
 }

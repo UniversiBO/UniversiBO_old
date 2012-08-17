@@ -268,7 +268,6 @@ abstract class CanaleCommand extends UniversiboCommand
             case 'Studenti': $posB = 3; break;
         }
         if ($posA==$posB)
-
             return strcmp($b["label"], $a["label"]);
         return ($posA < $posB) ? 1 : -1;
     }

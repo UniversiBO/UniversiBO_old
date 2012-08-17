@@ -134,7 +134,6 @@ class NewPasswordDocente extends UniversiboCommand
         }
 
         // riassegna valori form
-
         return 'default';
 
     }

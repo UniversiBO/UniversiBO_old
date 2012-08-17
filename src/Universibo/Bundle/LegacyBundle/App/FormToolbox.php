@@ -83,11 +83,9 @@ class FormToolbox
     public function checkRangeDate($data_ins, $ins_hh = 0, $ins_min = 0, $data_scad, $scad_hh = 0, $scad_min = 0)
     {
         if (!array_key_exists('gg', $data_ins) || !array_key_exists('mm', $data_ins) || !array_key_exists('aa', $data_ins))
-
             return new Error(_ERROR_NOTICE, array ('msg' => 'La data di inserimento specificata non esiste'));
 
         if (!array_key_exists('gg', $data_scad) || !array_key_exists('mm', $data_scad) || !array_key_exists('aa', $data_scad))
-
             return new Error(_ERROR_NOTICE, array ('msg' => 'La data di scadenza specificata non esiste'));
 
         if (!(mktime($ins_hh, $ins_min, "0", $data_ins['mm'], $data_ins['gg'], $data_ins['aa']) <
@@ -121,11 +119,9 @@ class FormToolbox
         // @TODO verificare il valore di default di limit
 
         if (strlen($text) > $limit)
-
             return new Error(_ERROR_NOTICE, array ('msg' => 'Il testo inserito deve essere inferiore ai '.$limit.' caratteri'));
 
         if (!$optional && $text == '')
-
             return new Error(_ERROR_NOTICE, array ('msg' => 'Bisogna inserire obbligatoriamente il testo nel campo'));
 
         return true;
@@ -168,11 +164,9 @@ class FormToolbox
     public function _checkDate ($date)
     {
         if (!array_key_exists('gg', $date) || !array_key_exists('mm', $date) || !array_key_exists('aa', $date))
-
             return new Error(_ERROR_NOTICE, array ('msg' => 'La data specificata non esiste'));
 
         if (!checkdate($date['mm'], $date['gg'], $date['aa']))
-
             return new Error(_ERROR_NOTICE, array ('msg' => 'La data specificata non esiste'));
     }
 
@@ -187,7 +181,6 @@ class FormToolbox
             return new Error(_ERROR_NOTICE, array ('msg' => 'Il formato del campo ora di inserimento non � valido'));
 
         if ($hh < 0 || $hh > 23)
-
             return new Error(_ERROR_NOTICE, array ('msg' => 'Il campo ora di inserimento deve essere compreso tra 0 e 23'));
 
         return true;

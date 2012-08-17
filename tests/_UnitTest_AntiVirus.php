@@ -62,4 +62,3 @@ class _UnitTest_AntiVirus extends PHPUnit_TestCase
     }
 
 }
-

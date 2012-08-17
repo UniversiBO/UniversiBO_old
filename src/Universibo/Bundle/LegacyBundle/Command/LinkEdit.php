@@ -192,7 +192,6 @@ class LinkEdit extends CanaleCommand
         $template->assign('f31_Description', $f31_Description);
 
         //		$this->executePlugin('ShowTopic', array('reference' => 'newscollabs'));
-
         return 'default';
 
     }
