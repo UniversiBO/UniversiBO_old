@@ -25,5 +25,6 @@
             "name": "Associazione Universibo",
             "email": "associazione.universibo@unibo.it"
         }
-    ]
+    ],
+    "minimum-stability": "dev"
 }
