@@ -130,8 +130,8 @@
         {
             "package": "sonata-project/admin-bundle",
             "version": "2.0.x-dev",
-            "source-reference": "dffc76975e4d6aa5a5acf5cc33e5a3daac1cbc38",
-            "commit-date": "1344988423"
+            "source-reference": "5b7e37fc86e6a3f4a66c3313547047a5498b9e06",
+            "commit-date": "1345501200"
         },
         {
             "package": "sonata-project/block-bundle",
@@ -190,8 +190,8 @@
         {
             "package": "zendframework/zendframework",
             "version": "dev-master",
-            "source-reference": "release-2.0.0rc4",
-            "commit-date": "1345235170"
+            "source-reference": "57c7d09278d0f2db3a1c1a63eac4277f9ab7cf72",
+            "commit-date": "1345841008"
         }
     ],
     "packages-dev": null,
