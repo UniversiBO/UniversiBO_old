@@ -28,6 +28,15 @@ class MySmarty extends Smarty {
     {
         $this->assign($tpl_var, $this->utf8ToLatin1($value));
     }
+    
+    /**
+     * @param string $tpl_var
+     * @param mixed $value
+     */
+    public function assignLatin1($tpl_var, $value)
+    {
+        $this->assign($tpl_var, $value);
+    }
 
     /**
      * parse out the type and name from the resource
