@@ -104,6 +104,11 @@ class FileDocenteAdmin extends UniversiboCommand
             $listaFile = array();
             $lista = FileItem::selectFileItems(
                     FileItem::selectFileCanale($id_current_canale));
+            
+            if(!is_array($lista)) {
+                $lista = array();
+            }
+            
             usort($lista, array($this, '_compareFile'));
             foreach ($lista as $file)
                 $listaFile[$file->getIdFile()] = array(
