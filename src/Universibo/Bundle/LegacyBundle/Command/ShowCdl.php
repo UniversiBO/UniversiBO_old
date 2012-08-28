@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
 
 use \Error;
@@ -42,13 +44,14 @@ class ShowCdl extends CanaleCommand
 
         //@todo fatto sopra
         $cdl = $this -> getRequestCanale();
+        
+        $defaultYear = $this->frontController->getAppSetting('defaultAnnoAccademico');
 
         if ( !array_key_exists('anno_accademico', $_GET) )
-            $anno_accademico = $this->frontController->getAppSetting('defaultAnnoAccademico');
-        elseif( !preg_match( '/^([0-9]{4})$/', $_GET['anno_accademico'] ) )
-        Error::throwError(_ERROR_DEFAULT, array('id_utente' => $this->sessionUser->getIdUser(), 'msg' => 'L\'anno accademico richiesto non � valido', 'file' => __FILE__, 'line' => __LINE__));
-        else
-            $anno_accademico = $_GET['anno_accademico'];
+            $anno_accademico = $defaultYear; 
+        elseif( !preg_match( '/^([0-9]{4})$/', $anno_accademico = $_GET['anno_accademico']) || $anno_accademico > $defaultYear || $anno_accademico < 2001) {
+            throw new NotFoundHttpException('Invalid Academical Year');
+        }
 
         $elencoPrgAttDid = PrgAttivitaDidattica::selectPrgAttivitaDidatticaElencoCdl($cdl -> getCodiceCdl(), $anno_accademico);
 
@@ -100,11 +103,18 @@ class ShowCdl extends CanaleCommand
         $template -> assign('cdl_cdlCodice', $cdl->getCodiceCdl());
 
         $template -> assign('cdl_langYear', 'anno accademico' );
-        $template -> assign('cdl_prevYear', ($anno_accademico-1).'/'.($anno_accademico) );
+        
         $template -> assign('cdl_thisYear', ($anno_accademico).'/'.($anno_accademico+1) );
-        $template -> assign('cdl_nextYear', ($anno_accademico+1).'/'.($anno_accademico+2) );
-        $template -> assign('cdl_prevYearUri', 'v2.php?do=ShowCdl&id_canale='.$cdl->getIdCanale().'&anno_accademico='.($anno_accademico-1) );
-        $template -> assign('cdl_nextYearUri', 'v2.php?do=ShowCdl&id_canale='.$cdl->getIdCanale().'&anno_accademico='.($anno_accademico+1) );
+        
+        if($anno_accademico < $defaultYear) {
+            $template -> assign('cdl_nextYear', ($anno_accademico+1).'/'.($anno_accademico+2) );
+            $template -> assign('cdl_nextYearUri', 'v2.php?do=ShowCdl&id_canale='.$cdl->getIdCanale().'&anno_accademico='.($anno_accademico+1) );
+        }
+        
+        if($anno_accademico >= 2002) {
+            $template -> assign('cdl_prevYear', ($anno_accademico-1).'/'.($anno_accademico) );
+            $template -> assign('cdl_prevYearUri', 'v2.php?do=ShowCdl&id_canale='.$cdl->getIdCanale().'&anno_accademico='.($anno_accademico-1) );
+        }
 
         $template -> assign('cdl_langList', 'Elenco insegnamenti attivati su UniversiBO');
         $template -> assign('cdl_langGoToForum', 'Link al forum');

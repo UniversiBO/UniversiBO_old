@@ -12,9 +12,9 @@
 	{/if}<a href="{$common_canaleMyUniversiBOUri|escape:"htmlall"}">{$common_langCanaleMyUniversiBO|escape:"htmlall"}</a></div>
 {/if}
 <p>{$cdl_langYear|escape:"htmlall"}</p>
-<p><a href="{$cdl_prevYearUri|escape:"htmlall"}">{$cdl_prevYear|escape:"htmlall"}</a>&nbsp;&lt;&lt;
-&nbsp;&nbsp;{$cdl_thisYear|escape:"htmlall"}&nbsp;&nbsp;
-&gt;&gt;&nbsp;<a href="{$cdl_nextYearUri|escape:"htmlall"}">{$cdl_nextYear|escape:"htmlall"}</a> </p>
+<p>{if $cdl_prevYear}<a href="{$cdl_prevYearUri|escape:"htmlall"}">{$cdl_prevYear|escape:"htmlall"}</a>&nbsp;&lt;&lt;
+&nbsp;&nbsp;{/if}{$cdl_thisYear|escape:"htmlall"}{if $cdl_nextYearUri}&nbsp;&nbsp;
+&gt;&gt;&nbsp;<a href="{$cdl_nextYearUri|escape:"htmlall"}">{$cdl_nextYear|escape:"htmlall"}</a>{/if}</p>
 <h4>{$cdl_langList|escape:"htmlall"}</h4>
 </div>
 
