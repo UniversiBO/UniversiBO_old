@@ -22,22 +22,19 @@ class ScriptIscriviDocenti2 extends UniversiboCommand
     public function execute()
     {
         $fc = $this->getFrontController();
-        $template = $fc->getTemplateEngine();
-        $db = $fc->getDbConnection('main');
+        $container = $this->getContainer();
+        $db = $container->get('doctrine.dbal.default_connection');
+        $userRepo = $container->get('universibo_legacy.repository.user');
 
         $notifica = Constants::NOTIFICA_NONE;
 
-        $res = $db
-                ->query(
-                        'SELECT cod_doc, nome_doc, email FROM docente2 WHERE cod_doc NOT IN (SELECT cod_doc FROM docente WHERE 1=1)');
-        if (DB::isError($res))
-            die('select docente2');
+        $res = $db->executeQuery('SELECT cod_doc, nome_doc, email FROM docente2 WHERE cod_doc NOT IN (SELECT cod_doc FROM docente WHERE 1=1)');
 
         while ($res->fetchInto($row)) {
             $exploded = explode('@', $row[2]);
             $username = $exploded[0];
 
-            if (User::selectUserUsername($username) == false) {
+            if (!$userRepo->usernameExists($username)) {
                 $randomPassword = User::generateRandomPassword();
                 //$pippo = $fc->getAppSetting('defaultStyle');
                 //var_dump($pippo);
@@ -45,7 +42,7 @@ class ScriptIscriviDocenti2 extends UniversiboCommand
                         $randomPassword, $row[2], $notifica, 0, '', '',
                         $fc->getAppSetting('defaultStyle'));
 
-                if ($new_user->insertUser() == false)
+                if ($userRepo->insertUser() == false)
                     die(
                             'Errore inserimento: username ' . $username
                                     . ' | mail ' . $row[2]);
@@ -56,14 +53,11 @@ class ScriptIscriviDocenti2 extends UniversiboCommand
                 $query3 = 'INSERT INTO docente (id_utente, cod_doc, nome_doc) VALUES ('
                         . $new_user->getIdUser() . ',' . $db->quote($row[0])
                         . ',' . $db->quote($row[1]) . ')';
-                $res3 = $db->query($query3);
-                if (DB::isError($res3))
-                    die($query3);
+                $res3 = $db->executeQuery($query3);
 
                 //$query4 = 'INSERT INTO utente_canale (id_utente,id_canale,ultimo_accesso,ruolo,my_universibo,notifica,nome,nascosto)
                 //	VALUES ('.$new_user->getIdUser().','. $db->quote($row[0]) .','.$db->quote($row[1]).')';
-                //$result = $db->query($query4);
-                //if (DB::isError($res4)) die($query4);
+                //$result = $db->executeQuery($query4);
 
                 $mail = $fc->getMail();
                 $mail->AddAddress($row[2]);
@@ -97,15 +91,13 @@ class ScriptIscriviDocenti2 extends UniversiboCommand
                         . "Grazie per la disponibilita'\n\n"
                         . "Qualora avesse ricevuto questa e-mail per errore lo segnali rispondendo immediatamente a questo messaggio\n\n";
 
-                if (!$mail->Send())
-                    die('email:' . $row2['last_id'] . ' - ' . $mail->ErrorInfo);
+                // e-mail not sent anymore for bureaucracy issues
+                //if (!$mail->Send())
+                //    die('email:' . $row2['last_id'] . ' - ' . $mail->ErrorInfo);
                 echo $username . "sent" . "\n";
             } else {
                 echo $username . ' - non iscritto' . "\n";
             }
         }
-
-        $res->free();
-
     }
 }
