@@ -73,7 +73,7 @@ class ChangePassword extends UniversiboCommand
                     || !array_key_exists('f6_new_password2', $_POST)) {
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il form inviato non � valido',
+                                'msg' => 'Il form inviato non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
                 $f6_accept = false;
             }
@@ -108,7 +108,7 @@ class ChangePassword extends UniversiboCommand
             } elseif (strlen($_POST['f6_old_password']) > 50) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'La lunghezza massima della password accettata dal sistema � di massimo 50 caratteri',
+                                'msg' => 'La lunghezza massima della password accettata dal sistema e` di massimo 50 caratteri',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false, 'template_engine' => &$template));
                 $f6_accept = false;

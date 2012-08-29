@@ -75,7 +75,7 @@ class StepList
         for ($i = ($this->lastGoodStep != self::EMPTY_VALUE) ? $this->lastGoodStep : 0; $i <= $this->currentStep; $i++) {
 //			var_dump($i); echo "\n";
             $step = $this->getStep($i);
-            // VERIFY � ammissibile che uno stato sia refused?
+            // TODO VERIFY è ammissibile che uno stato sia refused?
 //			var_dump($step); die;
             if ($step->getState() != Step::COMPLETATO) {
                 $this->lastGoodStep = max(self::EMPTY_VALUE, $i - 1);
@@ -251,7 +251,7 @@ class StepList
 //	 * @access private
 //	 * @param int idStep numero dello step
 //	 * @param bool esito esito della callback
-//	 * @return bool false se esito non � booleano
+//	 * @return bool false se esito non è booleano
 //	 */
 //	function setEsitoStep($idStep, $esito = true)
 //	{

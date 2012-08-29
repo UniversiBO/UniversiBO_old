@@ -6,7 +6,7 @@ use Universibo\Bundle\LegacyBundle\Entity\Commenti\CommentoItem;
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
 
 /**
- * ShowFileStudentiCommenti � un'implementazione di PluginCommand.
+ * ShowFileStudentiCommenti è un'implementazione di PluginCommand.
  *
  * Mostra i file del canale
  * Il BaseCommand che chiama questo plugin deve essere un'implementazione di CanaleCommand.

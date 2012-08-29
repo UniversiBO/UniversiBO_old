@@ -57,7 +57,7 @@ class BaseInteractiveCommand extends PluginCommand
     /**
      * @access private
      */
-    public $id_utente;  //VERIFY servir� veramente?
+    public $id_utente;  //VERIFY servirà veramente?
 
 
     /**
@@ -73,7 +73,7 @@ class BaseInteractiveCommand extends PluginCommand
     /**
      * @access private
      */
-    public $msgOnCancelByUser = 'Senza l\'accettazione di tutte le condizioni ed il completamento di tutti i dati � impossibile poter continuare ad usufruire del servizio';
+    public $msgOnCancelByUser = 'Senza l\'accettazione di tutte le condizioni ed il completamento di tutti i dati e` impossibile poter continuare ad usufruire del servizio';
 
     /**
      * flag. true se cancelled by user
@@ -99,12 +99,12 @@ class BaseInteractiveCommand extends PluginCommand
      */
     public function __construct($baseCommand)
     {
-        // VERIFY andr� bene questo costruttore?
+        // TODO VERIFY andrà bene questo costruttore?
         parent::__construct($baseCommand);
 
         $this->systemValues['bc'] 	= $baseCommand;
         $this->systemValues['fc'] 	= $baseCommand->getFrontController();
-        //		$this->systemValues['user'] = $baseCommand->getSessionUser();  // con la modifica delle 19.00 del 14-05-06 a login.php, l'identit� dell'utente non � qui
+        //		$this->systemValues['user'] = $baseCommand->getSessionUser();  // con la modifica delle 19.00 del 14-05-06 a login.php, l'identità dell'utente non è qui
         $this->systemValues['template'] = $this->systemValues['fc']->getTemplateEngine();
         $this->systemValues['krono']	= $this->systemValues['fc']->getKrono();
 
@@ -252,14 +252,14 @@ class BaseInteractiveCommand extends PluginCommand
         //		var_dump($this); die;
         // check if current session user is the one who started the InteractiveCommand
         if ($this->id_utente != $this->systemValues['user']->getIdUser())
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->systemValues['user']->getIdUser(),'msg'=>'L\'utente della sessione corrente non � autorizzato a completare l\'interazione','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $this->systemValues['template']) );
+            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->systemValues['user']->getIdUser(),'msg'=>'L\'utente della sessione corrente non e` autorizzato a completare l\'interazione','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $this->systemValues['template']) );
 
         // check if cancelled by user
         if ($param == CANC_ACTION) {
             //			var_dump($this);
             $this->listaStep->invalidateAllResult();
 
-            // se � la prima volta che l'utente annulla, mostro il primo step con mess di spiegazione, altrimenti esco dall'interazione a step
+            // se è la prima volta che l'utente annulla, mostro il primo step con mess di spiegazione, altrimenti esco dall'interazione a step
             if (!$this->cancelled && $this->getPriority()  == HIGH_INTERACTION) {
                 $this->errore($this->msgOnCancelByUser);
                 $_SESSION['canc'] = true;
@@ -291,7 +291,7 @@ class BaseInteractiveCommand extends PluginCommand
         }
 
         if ($param == NEXT_ACTION) {
-            $this->cancelled = false; // se l'utente dopo un cancel si ravvede e da un next, allora gli diamo la possibilit� di premere cance un'altra volta per sbaglio :)
+            $this->cancelled = false; // se l'utente dopo un cancel si ravvede e da un next, allora gli diamo la possibilità di premere cance un'altra volta per sbaglio :)
             $item = $this->listaStep->getNextStep();
             $this->doCallback($item);
         }
@@ -343,7 +343,7 @@ class BaseInteractiveCommand extends PluginCommand
     }
 
     /*
-     * query di verifica per le tabelle degli step_command. tutto ok se il risultato � 0 righe.
+     * query di verifica per le tabelle degli step_command. tutto ok se il risultato è 0 righe.
     * 'select * from step_parametri where id_step not in (select id_step from step_log )'
     */
 

@@ -117,7 +117,7 @@ class PrgAttivitaDidattica extends Canale
     private $sdoppiato;
 
     /**
-     * null se attivit� padre, id_sdop se attivit� sdoppiato (integer)
+     * null se attività padre, id_sdop se attività sdoppiato (integer)
      * @private
      */
     private $id_sdop;
@@ -434,7 +434,7 @@ class PrgAttivitaDidattica extends Canale
     }
 
     /**
-     * Restituisce l'id_sdop se attivit� sdoppiata, null altrimenti
+     * Restituisce l'id_sdop se attività sdoppiata, null altrimenti
      *
      * @return string
      */
@@ -489,11 +489,11 @@ class PrgAttivitaDidattica extends Canale
     }
 
     /**
-     * Seleziona da database e restituisce l'attivit� didattica sdoppiata
+     * Seleziona da database e restituisce l'attività didattica sdoppiata
      * con id id_sdop
      *
      * @static
-     * @param  int   $id_sdop identificativo dell'attivit� sdoppiata
+     * @param  int   $id_sdop identificativo dell'attività sdoppiata
      * @return mixed PrgAttivitaDidattica se eseguita con successo, false se il canale non esiste
      */
     public static function selectPrgAttivitaDidatticaSdoppiata($id_sdop)

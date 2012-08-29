@@ -52,8 +52,8 @@ class ShowFileInfo extends PluginCommand
             $file = FileItemStudenti::selectFileItem($param['id_file']);
         else
             $file = FileItem::selectFileItem($param['id_file']);
-        //Con questo passaggio dovrei riuscire a verificare se il file che si vuole modificare � un file studente o no
-        //true -> � un file studente
+        //Con questo passaggio dovrei riuscire a verificare se il file che si vuole modificare è un file studente o no
+        //true -> è un file studente
         //		var_dump($tipo_file);
         //		die();
 
@@ -85,7 +85,7 @@ class ShowFileInfo extends PluginCommand
             if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
                 Error::throwError(_ERROR_DEFAULT,
                         array(
-                                'msg' => 'L\'id del canale richiesto non � valido',
+                                'msg' => 'L\'id del canale richiesto non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
             $canale = Canale::retrieveCanale($_GET['id_canale']);

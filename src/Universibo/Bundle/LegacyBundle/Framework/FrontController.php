@@ -382,7 +382,7 @@ class FrontController
            }
 
            if($_GET['do'] == '')
-               \Error::throwError(_ERROR_DEFAULT,array('msg'=>'Il comando indicato � vuoto','file'=>__FILE__,'line'=>__LINE__));
+               \Error::throwError(_ERROR_DEFAULT,array('msg'=>'Il comando indicato e` vuoto','file'=>__FILE__,'line'=>__LINE__));
 
            return $_GET['do'];
     }
@@ -837,10 +837,10 @@ class FrontController
                     }
 
                     if(!isset($this->commandClass))
-                        \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non � definito l\'attributo class relativo al comando specificato nel file di config','file'=>__FILE__,'line'=>__LINE__));
+                        \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` definito l\'attributo class relativo al comando specificato nel file di config','file'=>__FILE__,'line'=>__LINE__));
 
                     if(empty($this->commandClass))
-                        \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non � specificata la classe relativa al comando spacificato nel file di config','file'=>__FILE__,'line'=>__LINE__));
+                        \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` specificata la classe relativa al comando spacificato nel file di config','file'=>__FILE__,'line'=>__LINE__));
     }
 
     /**

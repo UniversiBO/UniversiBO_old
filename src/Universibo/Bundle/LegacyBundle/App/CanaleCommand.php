@@ -38,11 +38,11 @@ abstract class CanaleCommand extends UniversiboCommand
     {
         if (!array_key_exists('id_canale', $_GET ) ) {
             if ($this->frontController->getCommandRequest() == 'ShowHome') return 1;
-            else Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>'il parametro id_canale non � specificato nella richiesta','file'=>__FILE__,'line'=>__LINE__));
+            else Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>'il parametro id_canale non e` specificato nella richiesta','file'=>__FILE__,'line'=>__LINE__));
         }
 
         if (!preg_match('/^([0-9]+)$/', $_GET['id_canale'] ) ) {
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>'il parametro id_canale � sintatticamente non valido','file'=>__FILE__,'line'=>__LINE__));
+            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>'il parametro id_canale è sintatticamente non valido','file'=>__FILE__,'line'=>__LINE__));
         }
 
         return intval($_GET['id_canale']);
@@ -86,13 +86,13 @@ abstract class CanaleCommand extends UniversiboCommand
         //$this->requestCanale = $class_name::factoryCanale( $this->getRequestIdCanale() );
 
         if ( $this->requestCanale === false )
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>'Il canale richiesto non � presente','file'=>__FILE__,'line'=>__LINE__));
+            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>'Il canale richiesto non è presente','file'=>__FILE__,'line'=>__LINE__));
 
         $canale = $this->getRequestCanale();
         $user = $this->getSessionUser();
 
         if ( ! $canale->isGroupAllowed( $user->getGroups() ) )
-            Error::throwError(_ERROR_DEFAULT, array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>'Non ti � permesso l\'accesso al canale selezionato, la sessione potrebbe essere scaduta','file'=>__FILE__,'line'=>__LINE__ ) );
+            Error::throwError(_ERROR_DEFAULT, array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>'Non ti è permesso l\'accesso al canale selezionato, la sessione potrebbe essere scaduta','file'=>__FILE__,'line'=>__LINE__ ) );
 
         $canale->addVisite();
 

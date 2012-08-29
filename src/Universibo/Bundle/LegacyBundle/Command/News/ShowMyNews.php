@@ -6,7 +6,7 @@ use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
 
 /**
- * ShowMyNews � un'implementazione di PluginCommand.
+ * ShowMyNews è un'implementazione di PluginCommand.
  *
  * Mostra le notizie $id_notizia.
  * Nel paramentro di ingresso del deve essere specificato il numero di notizie da visualizzare.

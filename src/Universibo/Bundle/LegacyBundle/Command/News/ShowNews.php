@@ -5,7 +5,7 @@ use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
 
 /**
- * ShowNews � un'implementazione di PluginCommand.
+ * ShowNews è un'implementazione di PluginCommand.
  *
  * Mostra la notizia $id_notizia.
  * Il BaseCommand che chiama questo plugin deve essere un'implementazione di CanaleCommand.

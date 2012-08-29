@@ -73,7 +73,7 @@ class Step
     /**
      * @author Pinto
      * @access public
-     * @return boolean true se l'update � stato effettuato
+     * @return boolean true se l'update è stato effettuato
      */
     public function setValues($array)
     {
@@ -122,6 +122,6 @@ class Step
 }
 
 define('STEP_COMPLETATO', Step::COMPLETATO);
-define('STEP_RIFIUTATO', Step::RIFIUTATO);  // VERIFY mi sa che � inutile questo valore
+define('STEP_RIFIUTATO', Step::RIFIUTATO);  // TODO VERIFY mi sa che è inutile questo valore
 define('STEP_VISITATO', Step::VISITATO);
 define('STEP_NONVISITATO', Step::NONVISITATO);
