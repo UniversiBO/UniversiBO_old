@@ -30,7 +30,7 @@ class ScriptIscriviDocenti2 extends UniversiboCommand
 
         $res = $db->executeQuery('SELECT cod_doc, nome_doc, email FROM docente2 WHERE cod_doc NOT IN (SELECT cod_doc FROM docente WHERE 1=1)');
 
-        while ($res->fetchInto($row)) {
+        while (false !== ($row = $res->fetch())) {
             $exploded = explode('@', $row[2]);
             $username = $exploded[0];
 
