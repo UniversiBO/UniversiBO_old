@@ -88,11 +88,11 @@ class ChangePassword extends UniversiboCommand
             //				$f6_accept = false;
             //			}
             //			elseif ( $this->sessionUser->getUsername() != $_POST['f6_username'] ) { // && !$this->sessionUser->isAdmin()
-            //				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Lo username inserito non pu� essere differente dal proprio username, non � permesso cambiare la password di altri utenti','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+            //				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Lo username inserito non puo` essere differente dal proprio username, non � permesso cambiare la password di altri utenti','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
             //				$f6_accept = false;
             //			}
             //			elseif ( !User::usernameExists( $_POST['f6_username'] ) ) {
-            //				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Lo username richiesto non � registrato da nessun utente','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+            //				Error::throwError(_ERROR_NOTICE,array('id_utente' => $user->getIdUser(), 'msg'=>'Lo username richiesto non e` registrato da nessun utente','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
             //				$f6_accept = false;
             //			}
             //			else $q6_username = $f6_username = $_POST['f6_username'];
@@ -126,7 +126,7 @@ class ChangePassword extends UniversiboCommand
             } elseif (strlen($_POST['f6_new_password1']) > 50) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'La lunghezza massima della password accettata dal sistema � di massimo 50 caratteri',
+                                'msg' => 'La lunghezza massima della password accettata dal sistema e` di massimo 50 caratteri',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false, 'template_engine' => &$template));
                 $f6_accept = false;
