@@ -33,12 +33,9 @@ class ScriptCreaForum extends UniversiboCommand
         $anno_accademico = $this->anno_accademico;
 
         $fc = $this->getFrontController();
-        $template = $fc->getTemplateEngine();
-        $db = $fc->getDbConnection('main');
+        $db = $this->getContainer()->get('doctrine.dbal.default_connection');
 
-        $query = 'begin';
-        $res = $db->query($query);
-        if (DB::isError($res)) die($query);
+        $db->beginTransaction();
 
         $forum = $this->getContainer()->get('universibo_legacy.forum.api');
         $max_forum_id = $forum->getMaxForumId();
@@ -154,9 +151,7 @@ class ScriptCreaForum extends UniversiboCommand
 
         //manca chiamare una funzione per ordinare tutti i forum
 
-        $query = 'commit';
-        $res = $db->query($query);
-        if (DB::isError($res)) die($query);
+        $db->commit();
 
     }
 
@@ -167,17 +162,15 @@ class ScriptCreaForum extends UniversiboCommand
      */
     public function selectIdUtenteFromCodDoc($cod_doc)
     {
-        $db = FrontController::getDbConnection('main');
+        $db = $this->getContainer()->get('doctrine.dbal.default_connection');
         $query = 'SELECT id_utente FROM docente WHERE cod_doc = '.$db->quote($cod_doc);
 
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        $res = $db->executeQuery($query);
 
         if ($res->numRows() == 0 )
             return null;
 
-        $res->fetchInto($row);
+        $row = $res->fetch();
 
         return $row[0];
     }
@@ -196,7 +189,7 @@ class ScriptCreaForum extends UniversiboCommand
 
         $att = $elencoAtt[0];
 
-        $db = FrontController::getDbConnection('main');
+        $db = $this->getContainer()->get('doctrine.dbal.default_connection');
         $query = 'SELECT c.id_canale FROM canale c, prg_insegnamento pi WHERE
                 c.id_canale=pi.id_canale
                 AND c.forum_attivo IS NOT NULL
@@ -209,9 +202,7 @@ class ScriptCreaForum extends UniversiboCommand
                 AND anno_accademico = '.$db->quote($this->anno_accademico - 1).'
                 AND pi.cod_corso = '.$db->quote($att->getCodiceCdl());
 
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        $res = $db->executeQuery($query);
 
         if ($res->numRows() == 0 )
             return null;
@@ -220,7 +211,7 @@ class ScriptCreaForum extends UniversiboCommand
         if ($res->numRows() > 1 )
             echo '   #### c\'erano '.$res->numRows().' forum simili, ho preso solo il primo',"\n";
 
-        $res->fetchInto($row);
+        $row = $res->fetch();
 
         return $row[0];
 
