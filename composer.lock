@@ -1,5 +1,5 @@
 {
-    "hash": "e83ce51dcc546fcdc499c5f9f5c2024a",
+    "hash": "1ac9c34175c47488acb03dd380e44422",
     "packages": [
         {
             "package": "doctrine/common",
@@ -44,42 +44,6 @@
             "commit-date": "1343556552"
         },
         {
-            "package": "friendsofsymfony/comment-bundle",
-            "version": "v1.0.0"
-        },
-        {
-            "package": "friendsofsymfony/oauth-server-bundle",
-            "version": "1.1.1"
-        },
-        {
-            "package": "friendsofsymfony/oauth2-php",
-            "version": "dev-master",
-            "alias-pretty-version": "1.0.x-dev",
-            "alias-version": "1.0.9999999.9999999-dev"
-        },
-        {
-            "package": "friendsofsymfony/oauth2-php",
-            "version": "dev-master",
-            "source-reference": "26a266a0ff6d58f0c4db021a90202dfeb7c28d8c",
-            "commit-date": "1340840871"
-        },
-        {
-            "package": "friendsofsymfony/rest",
-            "version": "dev-master",
-            "alias-pretty-version": "0.7.x-dev",
-            "alias-version": "0.7.9999999.9999999-dev"
-        },
-        {
-            "package": "friendsofsymfony/rest",
-            "version": "dev-master",
-            "source-reference": "5ea703f5a3f5c7110cadeccb91b212c0eb7ea2d0",
-            "commit-date": "1339701893"
-        },
-        {
-            "package": "friendsofsymfony/rest-bundle",
-            "version": "0.6.0"
-        },
-        {
             "package": "jms/aop-bundle",
             "version": "1.0.0"
         },
@@ -94,28 +58,6 @@
         {
             "package": "jms/security-extra-bundle",
             "version": "1.1.0"
-        },
-        {
-            "package": "jms/serializer-bundle",
-            "version": "dev-master",
-            "alias-pretty-version": "0.9.x-dev",
-            "alias-version": "0.9.9999999.9999999-dev"
-        },
-        {
-            "package": "jms/serializer-bundle",
-            "version": "dev-master",
-            "source-reference": "5a9b7e6b62143950726f642da23d7eebf850e389",
-            "commit-date": "1346073949"
-        },
-        {
-            "package": "knplabs/knp-menu",
-            "version": "1.1.x-dev",
-            "source-reference": "v1.1.2",
-            "commit-date": "1339345240"
-        },
-        {
-            "package": "knplabs/knp-menu-bundle",
-            "version": "v1.1.0"
         },
         {
             "package": "kriswallsmith/assetic",
@@ -138,42 +80,6 @@
             "version": "2.0.x-dev",
             "source-reference": "v2.0.17",
             "commit-date": "1339741720"
-        },
-        {
-            "package": "sonata-project/admin-bundle",
-            "version": "2.0.x-dev",
-            "source-reference": "80fa6951e5ce00b69b23fe6b05a6f32276f8ccf7",
-            "commit-date": "1345980287"
-        },
-        {
-            "package": "sonata-project/block-bundle",
-            "version": "2.0.x-dev",
-            "source-reference": "0d18510ac346343ee5a19c50b012da91bd812eef",
-            "commit-date": "1343809189"
-        },
-        {
-            "package": "sonata-project/cache-bundle",
-            "version": "2.0.x-dev",
-            "source-reference": "341ab9ac0315b38d8c600230c39d39c72aba26df",
-            "commit-date": "1338376338"
-        },
-        {
-            "package": "sonata-project/doctrine-orm-admin-bundle",
-            "version": "2.0.x-dev",
-            "source-reference": "c3c3df63e6947b83e6f8e450fb9aa5cafddf5405",
-            "commit-date": "1342890300"
-        },
-        {
-            "package": "sonata-project/exporter",
-            "version": "dev-master",
-            "source-reference": "bcdfd50bc3118173d914e790921701ab26fb6b14",
-            "commit-date": "1338844924"
-        },
-        {
-            "package": "sonata-project/jquery-bundle",
-            "version": "dev-master",
-            "source-reference": "785870afce016cc387fadb361ad52c3d4a2e7fe6",
-            "commit-date": "1339857469"
         },
         {
             "package": "swiftmailer/swiftmailer",
@@ -218,8 +124,6 @@
         "doctrine/doctrine-migrations-bundle": 20,
         "sensio/generator-bundle": 20,
         "sensio/framework-extra-bundle": 20,
-        "zendframework/zend-feed": 20,
-        "sonata-project/admin-bundle": 20,
-        "sonata-project/doctrine-orm-admin-bundle": 20
+        "zendframework/zend-feed": 20
     }
 }

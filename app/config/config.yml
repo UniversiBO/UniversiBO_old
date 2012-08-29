@@ -59,42 +59,6 @@ swiftmailer:
 #    secure_controllers:  true
 #    secure_all_services: false
 
-fos_comment:
-    db_driver: orm
-    class:
-        model:
-            comment: Universibo\Bundle\WebsiteBundle\Entity\Comment
-            thread: Universibo\Bundle\WebsiteBundle\Entity\Thread
-    acl: true
-    service:
-        acl:
-            thread: fos_comment.acl.thread.roles
-            comment: fos_comment.acl.comment.roles
-            vote: fos_comment.acl.vote.roles
-    acl_roles:
-        comment:
-            create: IS_AUTHENTICATED_FULLY
-            view: IS_AUTHENTICATED_ANONYMOUSLY
-            edit: ROLE_ADMIN
-            delete: ROLE_ADMIN
-        thread:
-            create: IS_AUTHENTICATED_FULLY
-            view: IS_AUTHENTICATED_ANONYMOUSLY
-            edit: ROLE_ADMIN
-            delete: ROLE_ADMIN
-        vote:
-            create: IS_AUTHENTICATED_FULLY
-            view: IS_AUTHENTICATED_ANONYMOUSLY
-            edit: ROLE_ADMIN
-            delete: ROLE_ADMIN
-
-    
-sensio_framework_extra:
-  router: { annotations: true }
-  request: { converters: true }
-  view: { annotations: false }
-  cache: { annotations: true }
-  
 universibo_sso:
   idp_url:
     base: 'https://idp.unibo.it/adfs/ls/'
@@ -102,13 +66,3 @@ universibo_sso:
     logout: 'prelogout.aspx'
   route:
     after_logout: 'homepage'
-
-sonata_block:
-    default_contexts: [cms]
-    blocks:
-        sonata.admin.block.admin_list:
-            contexts:   [admin]
-
-        sonata.block.service.text:
-        sonata.block.service.action:
-        sonata.block.service.rss:
