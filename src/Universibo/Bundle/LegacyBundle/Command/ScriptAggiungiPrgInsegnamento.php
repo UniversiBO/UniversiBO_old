@@ -25,7 +25,7 @@ class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
         $db = $this->getContainer()->get('doctrine.dbal.default_connection');
 
         $db->beginTransaction();
-        
+
         $anno_accademico = 2011;
 
         $query = 'SELECT anno_accademico, cod_corso, cod_ind, cod_ori, cod_materia,
