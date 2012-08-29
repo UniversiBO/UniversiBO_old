@@ -40,7 +40,7 @@ class NewsDelete extends CanaleCommand
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_news'])) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
-                            'msg' => 'L\'id della notizia richiesta non � valido',
+                            'msg' => 'L\'id della notizia richiesta non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
         if ($canale->getServizioNews() == false)

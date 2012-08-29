@@ -38,7 +38,7 @@ class FileStudentiEdit extends UniversiboCommand
         if (!array_key_exists('id_file', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_file'])) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('msg' => 'L\'id del file richiesto non � valido',
+                    array('msg' => 'L\'id del file richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
         $file = FileItemStudenti::selectFileItem($_GET['id_file']);
@@ -60,7 +60,7 @@ class FileStudentiEdit extends UniversiboCommand
 
         //		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
         //		{
-        //			Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non � valido', 'file' => __FILE__, 'line' => __LINE__));
+        //			Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non e` valido', 'file' => __FILE__, 'line' => __LINE__));
         //		}
         //		$canale =  Canale::retrieveCanale($_GET['id_canale']);
         //		$id_canale = $canale->getIdCanale();
@@ -168,7 +168,7 @@ class FileStudentiEdit extends UniversiboCommand
                     || !array_key_exists('f24_permessi_download', $_POST)
                     || !array_key_exists('f24_permessi_visualizza', $_POST)) {
                 Error::throwError(_ERROR_DEFAULT,
-                        array('msg' => 'Il form inviato non � valido',
+                        array('msg' => 'Il form inviato non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
                 $f24_accept = false;
             }
@@ -214,7 +214,7 @@ class FileStudentiEdit extends UniversiboCommand
             if (!preg_match('/^([0-9]{1,2})$/', $_POST['f24_data_ins_mm'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array(
-                                'msg' => 'Il formato del campo mese di inserimento non � valido',
+                                'msg' => 'Il formato del campo mese di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -227,7 +227,7 @@ class FileStudentiEdit extends UniversiboCommand
             if (!ereg('^([0-9]{4})$', $_POST['f24_data_ins_aa'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array(
-                                'msg' => 'Il formato del campo anno di inserimento non � valido',
+                                'msg' => 'Il formato del campo anno di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -271,7 +271,7 @@ class FileStudentiEdit extends UniversiboCommand
             if (!preg_match('/^([0-9]{1,2})$/', $_POST['f24_data_ins_min'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array(
-                                'msg' => 'Il formato del campo minuto di inserimento non � valido',
+                                'msg' => 'Il formato del campo minuto di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -395,7 +395,7 @@ class FileStudentiEdit extends UniversiboCommand
             if (!ereg('^([0-9]{1,3})$', $_POST['f24_permessi_download'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array(
-                                'msg' => 'Il formato del campo minuto di inserimento non � valido',
+                                'msg' => 'Il formato del campo minuto di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));

@@ -66,7 +66,7 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore
                  !array_key_exists('f4_password', $_POST) ||
                  !array_key_exists('f4_ad_user', $_POST) )
             {
-                Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Il form inviato non � valido','file'=>__FILE__,'line'=>__LINE__ ));
+                Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Il form inviato non e` valido','file'=>__FILE__,'line'=>__LINE__ ));
                 $f4_accept = false;
             }
 

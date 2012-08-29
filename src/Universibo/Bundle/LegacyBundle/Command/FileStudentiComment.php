@@ -38,7 +38,7 @@ class FileStudentiComment extends UniversiboCommand
         if (!array_key_exists('id_file', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_file'])) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('msg' => 'L\'id del file richiesto non � valido',
+                    array('msg' => 'L\'id del file richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
         $file = FileItemStudenti::selectFileItem($_GET['id_file']);
@@ -93,7 +93,7 @@ class FileStudentiComment extends UniversiboCommand
                 //var_dump($_POST);die();
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il form inviato non � valido',
+                                'msg' => 'Il form inviato non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
                 $f26_accept = false;
             }

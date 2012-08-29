@@ -69,7 +69,7 @@ class LinkAdd extends UniversiboCommand
         if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
-                            'msg' => 'L\'id del canale richiesto non � valido',
+                            'msg' => 'L\'id del canale richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
 
         $canale = Canale::retrieveCanale($_GET['id_canale']);

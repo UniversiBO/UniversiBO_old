@@ -99,7 +99,7 @@ class DidatticaGestione extends UniversiboCommand
         if (array_key_exists('id_canale', $_GET)
                 && preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
             //			if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
-            //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non � valido', 'file' => __FILE__, 'line' => __LINE__));
+            //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non e` valido', 'file' => __FILE__, 'line' => __LINE__));
 
             if (Canale::getTipoCanaleFromId($_GET['id_canale'])
                     == CANALE_INSEGNAMENTO) {
@@ -149,7 +149,7 @@ class DidatticaGestione extends UniversiboCommand
         if (array_key_exists('id_fac', $_GET)
                 && preg_match('/^([0-9]{1,9})$/', $_GET['id_fac'])) {
             //			if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_fac']))
-            //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id della facolt� richiesta non � valido', 'file' => __FILE__, 'line' => __LINE__));
+            //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id della facolt� richiesta non e` valido', 'file' => __FILE__, 'line' => __LINE__));
 
             if (Canale::getTipoCanaleFromId($_GET['id_fac']) == CANALE_FACOLTA) {
                 $fac = &Canale::retrieveCanale(intval($_GET['id_fac']));
@@ -163,7 +163,7 @@ class DidatticaGestione extends UniversiboCommand
         if (array_key_exists('id_cdl', $_GET)
                 && preg_match('/^([0-9]{1,9})$/', $_GET['id_cdl'])) {
             //			if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_cdl']))
-            //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non � valido', 'file' => __FILE__, 'line' => __LINE__));
+            //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non e` valido', 'file' => __FILE__, 'line' => __LINE__));
 
             if (Canale::getTipoCanaleFromId($_GET['id_cdl']) == CANALE_CDL) {
                 $cdl = &Canale::retrieveCanale(intval($_GET['id_cdl']));

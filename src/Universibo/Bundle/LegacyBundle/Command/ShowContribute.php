@@ -147,7 +147,7 @@ class ShowContribute extends UniversiboCommand
                     || !array_key_exists('f3_altro', $_POST)) {
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il form inviato non � valido',
+                                'msg' => 'Il form inviato non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
                 var_dump($f3_corsi_di_laurea);
                 die();

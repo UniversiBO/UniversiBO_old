@@ -91,7 +91,7 @@ class NewsAdd extends CanaleCommand
                     || !array_key_exists('f7_testo', $_POST)) {
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il form inviato non � valido',
+                                'msg' => 'Il form inviato non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
                 $f7_accept = false;
             }
@@ -134,7 +134,7 @@ class NewsAdd extends CanaleCommand
             if (!preg_match('/^([0-9]{1,2})$/', $_POST['f7_data_ins_mm'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo mese di inserimento non � valido',
+                                'msg' => 'Il formato del campo mese di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -147,7 +147,7 @@ class NewsAdd extends CanaleCommand
             if (!preg_match('/^([0-9]{4})$/', $_POST['f7_data_ins_aa'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo anno di inserimento non � valido',
+                                'msg' => 'Il formato del campo anno di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -191,7 +191,7 @@ class NewsAdd extends CanaleCommand
             if (!preg_match('/^([0-9]{1,2})$/', $_POST['f7_data_ins_min'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo minuto di inserimento non � valido',
+                                'msg' => 'Il formato del campo minuto di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));

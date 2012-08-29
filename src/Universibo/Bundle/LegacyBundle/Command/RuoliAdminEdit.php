@@ -71,10 +71,10 @@ class RuoliAdminEdit extends UniversiboCommand
         if (array_key_exists('f17_submit', $_POST)  ) {
 
             if (!array_key_exists('f17_livello', $_POST) )
-                Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il form inviato non � valido', 'file' => __FILE__, 'line' => __LINE__));
+                Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il form inviato non e` valido', 'file' => __FILE__, 'line' => __LINE__));
 
             if ($_POST['f17_livello'] != 'none' && $_POST['f17_livello'] != 'M' && $_POST['f17_livello'] != 'R' )
-                Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il form inviato non � valido', 'file' => __FILE__, 'line' => __LINE__));
+                Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il form inviato non e` valido', 'file' => __FILE__, 'line' => __LINE__));
 
             if ($target_ruolo == null) {
                 $nascosto = false;

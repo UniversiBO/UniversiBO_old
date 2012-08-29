@@ -37,7 +37,7 @@ class MyUniversiBORemove extends UniversiboCommand
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $utente->getIdUser(),
-                            'msg' => 'L\'id del canale richiesto non � valido',
+                            'msg' => 'L\'id del canale richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
         $id_canale = $_GET['id_canale'];

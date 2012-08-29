@@ -49,7 +49,7 @@ class RegUser extends UniversiboCommand
                  !array_key_exists('f34_email', $_POST) ||
                  !array_key_exists('f34_livello', $_POST) )
             {
-                Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Il form inviato non � valido','file'=>__FILE__,'line'=>__LINE__ ));
+                Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Il form inviato non e` valido','file'=>__FILE__,'line'=>__LINE__ ));
                 $f34_accept = false;
             }
 

@@ -207,7 +207,7 @@ class FileEdit extends UniversiboCommand
             if (!preg_match('/^([0-9]{1,2})$/', $_POST['f13_data_ins_mm'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo mese di inserimento non � valido',
+                                'msg' => 'Il formato del campo mese di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -388,7 +388,7 @@ class FileEdit extends UniversiboCommand
             if (!preg_match('/^([0-9]{1,3})$/', $_POST['f13_permessi_download'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo minuto di inserimento non � valido',
+                                'msg' => 'Il formato del campo minuto di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));

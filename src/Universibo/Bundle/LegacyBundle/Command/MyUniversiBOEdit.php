@@ -38,7 +38,7 @@ class MyUniversiBOEdit extends UniversiboCommand
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $utente->getIdUser(),
-                            'msg' => 'L\'id del canale richiesto non � valido',
+                            'msg' => 'L\'id del canale richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
         $id_canale = $_GET['id_canale'];
@@ -69,7 +69,7 @@ class MyUniversiBOEdit extends UniversiboCommand
                         || !array_key_exists('f19_livello_notifica', $_POST)) {
                     Error::throwError(_ERROR_DEFAULT,
                             array('id_utente' => $utente->getIdUser(),
-                                    'msg' => 'Il form inviato non � valido',
+                                    'msg' => 'Il form inviato non e` valido',
                                     'file' => __FILE__, 'line' => __LINE__));
                     $f19_accept = false;
                 }
@@ -78,7 +78,7 @@ class MyUniversiBOEdit extends UniversiboCommand
                         $f19_livelli_notifica)) {
                     Error::throwError(_ERROR_DEFAULT,
                             array('id_utente' => $utente->getIdUser(),
-                                    'msg' => 'Il livello di notifica scelto non � valido',
+                                    'msg' => 'Il livello di notifica scelto non e` valido',
                                     'file' => __FILE__, 'line' => __LINE__));
                     $f19_accept = false;
                 } else

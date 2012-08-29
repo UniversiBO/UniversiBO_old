@@ -25,7 +25,7 @@ class ShowUser extends UniversiboCommand
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_utente'])) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
-                            'msg' => 'L\'id dell\'utente richiesto non � valido',
+                            'msg' => 'L\'id dell\'utente richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
         $id_user = $_GET['id_utente'];

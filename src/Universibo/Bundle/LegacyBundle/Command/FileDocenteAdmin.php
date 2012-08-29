@@ -36,7 +36,7 @@ class FileDocenteAdmin extends UniversiboCommand
                             'file' => __FILE__, 'line' => __LINE__));
         }
         /*		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
-        Error :: throw (_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non � valido', 'file' => __FILE__, 'line' => __LINE__));
+        Error :: throw (_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non e` valido', 'file' => __FILE__, 'line' => __LINE__));
         }
 
         $canale = & Canale::retrieveCanale($_GET['id_canale']);
@@ -136,7 +136,7 @@ class FileDocenteAdmin extends UniversiboCommand
             //				 !array_key_exists('f40_canale', $_POST) )
             //			{
             ////				var_dump($_POST);die();
-            //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'Il form inviato non � valido', 'file' => __FILE__, 'line' => __LINE__));
+            //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'Il form inviato non e` valido', 'file' => __FILE__, 'line' => __LINE__));
             //				$f40_accept = false;
             //			}
 

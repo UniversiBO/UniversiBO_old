@@ -76,7 +76,7 @@ class FileStudentiAdd extends UniversiboCommand
             if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'L\'id del canale richiesto non � valido',
+                                'msg' => 'L\'id del canale richiesto non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
             $canale = Canale::retrieveCanale($_GET['id_canale']);
@@ -156,7 +156,7 @@ class FileStudentiAdd extends UniversiboCommand
                 //var_dump($_POST);die();
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il form inviato non � valido',
+                                'msg' => 'Il form inviato non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
                 $f23_accept = false;
             }
@@ -189,7 +189,7 @@ class FileStudentiAdd extends UniversiboCommand
             if (!preg_match('/^([0-9]{1,2})$/', $_POST['f23_data_ins_gg'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo giorno di inserimento non � valido',
+                                'msg' => 'Il formato del campo giorno di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -202,7 +202,7 @@ class FileStudentiAdd extends UniversiboCommand
             if (!preg_match('/^([0-9]{1,2})$/', $_POST['f23_data_ins_mm'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo mese di inserimento non � valido',
+                                'msg' => 'Il formato del campo mese di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -215,7 +215,7 @@ class FileStudentiAdd extends UniversiboCommand
             if (!preg_match('/^([0-9]{4})$/', $_POST['f23_data_ins_aa'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo anno di inserimento non � valido',
+                                'msg' => 'Il formato del campo anno di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -238,7 +238,7 @@ class FileStudentiAdd extends UniversiboCommand
             if (!preg_match('/^([0-9]{1,2})$/', $_POST['f23_data_ins_ora'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo ora di inserimento non � valido',
+                                'msg' => 'Il formato del campo ora di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -259,7 +259,7 @@ class FileStudentiAdd extends UniversiboCommand
             if (!preg_match('/^([0-9]{1,2})$/', $_POST['f23_data_ins_min'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo minuto di inserimento non � valido',
+                                'msg' => 'Il formato del campo minuto di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));

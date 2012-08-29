@@ -118,7 +118,7 @@ class LinkEdit extends CanaleCommand
                     || !array_key_exists('f31_Description', $_POST))
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il form inviato non � valido',
+                                'msg' => 'Il form inviato non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
             $f31_URI = $_POST['f31_URI'];
