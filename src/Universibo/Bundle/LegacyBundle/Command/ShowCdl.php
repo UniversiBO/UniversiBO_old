@@ -44,12 +44,12 @@ class ShowCdl extends CanaleCommand
 
         //@todo fatto sopra
         $cdl = $this -> getRequestCanale();
-        
+
         $defaultYear = $this->frontController->getAppSetting('defaultAnnoAccademico');
 
         if ( !array_key_exists('anno_accademico', $_GET) )
-            $anno_accademico = $defaultYear; 
-        elseif( !preg_match( '/^([0-9]{4})$/', $anno_accademico = $_GET['anno_accademico']) || $anno_accademico > $defaultYear || $anno_accademico < 2001) {
+            $anno_accademico = $defaultYear;
+        elseif ( !preg_match( '/^([0-9]{4})$/', $anno_accademico = $_GET['anno_accademico']) || $anno_accademico > $defaultYear || $anno_accademico < 2001) {
             throw new NotFoundHttpException('Invalid Academical Year');
         }
 
@@ -103,15 +103,15 @@ class ShowCdl extends CanaleCommand
         $template -> assign('cdl_cdlCodice', $cdl->getCodiceCdl());
 
         $template -> assign('cdl_langYear', 'anno accademico' );
-        
+
         $template -> assign('cdl_thisYear', ($anno_accademico).'/'.($anno_accademico+1) );
-        
-        if($anno_accademico < $defaultYear) {
+
+        if ($anno_accademico < $defaultYear) {
             $template -> assign('cdl_nextYear', ($anno_accademico+1).'/'.($anno_accademico+2) );
             $template -> assign('cdl_nextYearUri', 'v2.php?do=ShowCdl&id_canale='.$cdl->getIdCanale().'&anno_accademico='.($anno_accademico+1) );
         }
-        
-        if($anno_accademico >= 2002) {
+
+        if ($anno_accademico >= 2002) {
             $template -> assign('cdl_prevYear', ($anno_accademico-1).'/'.($anno_accademico) );
             $template -> assign('cdl_prevYearUri', 'v2.php?do=ShowCdl&id_canale='.$cdl->getIdCanale().'&anno_accademico='.($anno_accademico-1) );
         }
