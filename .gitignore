@@ -5,6 +5,7 @@ app/logs
 app/phpunit.xml
 /build/
 /build.xml
+/cache.properties
 /nbproject
 universibo/file-universibo
 /htmls/bundles
