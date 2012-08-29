@@ -22,12 +22,10 @@ class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
     {
         $fc = $this->getFrontController();
         $template = $fc->getTemplateEngine();
-        $db = $fc->getDbConnection('main');
+        $db = $this->getContainer()->get('doctrine.dbal.default_connection');
 
-        $query = 'begin';
-        $res = $db->query($query);
-        if (DB::isError($res)) die($query);
-
+        $db->beginTransaction();
+        
         $anno_accademico = 2011;
 
         $query = 'SELECT anno_accademico, cod_corso, cod_ind, cod_ori, cod_materia,
@@ -37,12 +35,11 @@ class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
                 input_esami_attivi
                 WHERE 1=1';
 
-        $res = $db->query($query);
-        if (DB::isError($res)) die($query);
+        $res = $db->executeQuery($query);
 
         echo $num_rows = $res->numRows() ,"\n\n";
 
-        while ( $res->fetchInto($row) ) {
+        while ( false !== ($row = $res->fetch()) ) {
             echo "---------------","\n";
 
             $query3 = 'SELECT * FROM prg_insegnamento  WHERE
@@ -52,8 +49,7 @@ class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
             AND cod_materia_ins='.$db->quote($row[6]).' AND cod_modulo='.$db->quote($row[9]).'
             AND cod_ori='.$db->quote($row[3]).' AND cod_ril='.$db->quote($row[8]).';';
 
-            $res3= $db->query($query3);
-            if (DB::isError($res3)) die($query3);
+            $res3= $db->executeQuery($query3);
 
             echo $num_rows3 = $res3->numRows();
             if ($num_rows3 == 0) {
@@ -64,8 +60,7 @@ class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
                 $query4 = 'INSERT INTO canale(id_canale,tipo_canale,nome_canale,immagine,visite,ultima_modifica,permessi_groups,files_attivo,news_attivo
                 ,forum_attivo,id_forum,group_id,links_attivo,files_studenti_attivo) VALUES ( '.$id_canale.',5,\'\',\'\',0,'.time().',127,\'S\',\'S\',\'N\',0,0,\'S\',\'S\');';
 
-                $res4= $db->query($query4);
-                if (DB::isError($res4)) die($query4);
+                $res4= $db->executeQuery($query4);
 
                 $query5 = 'INSERT INTO prg_insegnamento (anno_accademico,cod_corso,cod_ind,cod_ori,cod_materia,anno_corso,cod_materia_ins,
                 anno_corso_ins,cod_ril,cod_modulo,cod_doc,flag_titolare_modulo,id_canale,cod_orario,tipo_ciclo,cod_ate,anno_corso_universibo)
@@ -74,18 +69,13 @@ class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
                 '.$db->quote($row[10]).', '.$db->quote($row[11]).', '.$db->quote($id_canale).', NULL , '.$db->quote($row[12]).',
                 '.$db->quote($row[13]).', '.$db->quote($row[14]).');';
 
-                $res5= $db->query($query5);
-                if (DB::isError($res5)) die($query5);
-                echo "\n";
+                $res5= $db->executeQuery($query5);
 
                 $query7 = 'INSERT INTO info_didattica (id_canale) VALUES ( '.$id_canale.' );';
-                $res7= $db->query($query7);
-                if (DB::isError($res7)) die($query7);
+                $res7= $db->executeQuery($query7);
             }
         }
 
-        $query = 'commit';
-        $res = $db->query($query);
-        if (DB::isError($res)) die($query);
+        $db->commit();
     }
 }
