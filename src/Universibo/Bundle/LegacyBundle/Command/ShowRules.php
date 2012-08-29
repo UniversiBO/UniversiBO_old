@@ -54,7 +54,7 @@ class ShowRules extends UniversiboCommand
         non sia già presente all\'interno del sito o che non sia già
         stata posta in un vecchio messaggio;
       [*]i messaggi vengono raggruppati in discussioni(topic): per cui se rispondete
-        ad un messaggio, il vostro verr� visualizzato subito al di sotto
+        ad un messaggio, il vostro verra` visualizzato subito al di sotto
         del precedente. Per facilitare a tutti la navigazione tra i diversi
         topic ciò che più conta è che il primo a postare
         un messaggio utilizzi un titolo opportuno e significativo.

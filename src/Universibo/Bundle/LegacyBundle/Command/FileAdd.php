@@ -383,7 +383,7 @@ class FileAdd extends UniversiboCommand
                 $f12_permessi_visualizza = $canale->getPermessi();
             else
                 $f12_permessi_visualizza = User::ALL;
-            // eventualmente dare la possibilit� all'admin di metterli diversamente
+            // eventualmente dare la possibilità all'admin di metterli diversamente
 
             $f12_canali_inserimento = array();
             //controllo i diritti_su_tutti_i_canali su cui si vuole fare l'inserimento
@@ -410,7 +410,7 @@ class FileAdd extends UniversiboCommand
                     $f12_canali_inserimento = $_POST['f12_canale'];
                 }
 
-            //modifica aggiunta per compatibilit� bug explorer con PHP4.3.11 e successivi
+            //modifica aggiunta per compatibilità bug explorer con PHP4.3.11 e successivi
             $_FILES['f12_file']['name'] = str_replace('\\', '/',
                     $_FILES['f12_file']['name']);
             if (get_magic_quotes_gpc()) {

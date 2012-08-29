@@ -36,13 +36,13 @@ class LinkEdit extends CanaleCommand
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_link'])) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
-                            'msg' => 'L\'id del link richiesta non �	valido',
+                            'msg' => 'L\'id del link richiesta non e`	valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
         if ($canale->getServizioLinks() == false)
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
-                            'msg' => "Il servizio link � disattivato",
+                            'msg' => "Il servizio link e` disattivato",
                             'file' => __FILE__, 'line' => __LINE__));
 
         if (array_key_exists($id_canale, $user_ruoli)) {

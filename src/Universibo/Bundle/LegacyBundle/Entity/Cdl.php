@@ -185,7 +185,7 @@ class Cdl extends Canale
     }
 
     /**
-     * Restituisce il codice della facolt� a cui afferisce il cdl
+     * Restituisce il codice della facolta` a cui afferisce il cdl
      *
      * @return string
      */
@@ -195,8 +195,8 @@ class Cdl extends Canale
     }
 
     /**
-     * Imposta il codice della facolt� a cui afferisce il cdl
-     * @todo bisogna estendere a pi� facolt� perch� la relazione � n-n e non 1-n
+     * Imposta il codice della facolta` a cui afferisce il cdl
+     * @todo bisogna estendere a più facolta` perché la relazione è n-n e non 1-n
      *
      * @return string
      */

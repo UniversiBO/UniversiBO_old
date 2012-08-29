@@ -68,7 +68,7 @@ class FileStudentiCommentEdit extends UniversiboCommand
             if ($canale->getServizioFilesStudenti() == false)
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => "Il servizio files studenti � disattivato",
+                                'msg' => "Il servizio files studenti e` disattivato",
                                 'file' => __FILE__, 'line' => __LINE__));
 
             if (array_key_exists($id_canale, $user_ruoli)) {
@@ -81,7 +81,7 @@ class FileStudentiCommentEdit extends UniversiboCommand
             $file = FileItemStudenti::selectFileItem($id_file_studente);
             $canali_file = $file->getIdCanali();
 
-            //TO DO: perch� non funziona il controllo???
+            // TODO: perché non funziona il controllo???
 
             //			var_dump($canali_file);
             //			die();

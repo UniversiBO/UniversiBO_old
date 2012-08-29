@@ -52,7 +52,7 @@ class FileStudentiDelete extends UniversiboCommand
         if ($file === false)
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
-                            'msg' => "Il file richiesto non � presente su database",
+                            'msg' => "Il file richiesto non e` presente su database",
                             'file' => __FILE__, 'line' => __LINE__));
 
         $autore = ($user->getIdUser() == $file->getIdUtente());
@@ -69,7 +69,7 @@ class FileStudentiDelete extends UniversiboCommand
             if ($canale->getServizioFiles() == false)
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => "Il servizio files � disattivato",
+                                'msg' => "Il servizio files e` disattivato",
                                 'file' => __FILE__, 'line' => __LINE__));
 
             $id_canale = $canale->getIdCanale();

@@ -117,7 +117,7 @@ class ShowContattoDocente extends UniversiboCommand
         }
         //		var_dump($info_ruoli);
 
-        // TODO mi sa che questa lista � incompleta: cercare user con groups = 4 o = 64
+        // TODO mi sa che questa lista è incompleta: cercare user con groups = 4 o = 64
         //		$lista_collabs = Collaboratore::selectCollaboratoriAll();
         $lista_collabs = $this->_getCollaboratoriUniversibo();
         $table_collab = array();
@@ -243,7 +243,7 @@ Link: ' . $frontcontroller->getAppSetting('rootUrl') . '/v2.php?do='
                                         : '',
                                 'report' => $contatto->getReport()));
 
-        // TODO da attivare quando sar� aggiunto l'argomento nell'help
+        // TODO da attivare quando sarà aggiunto l'argomento nell'help
         //$this->executePlugin('ShowTopic', array('reference' => 'contattodocenti'));
         return 'default';
     }

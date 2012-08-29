@@ -47,7 +47,7 @@ class LinkDelete extends CanaleCommand
         if ($link === false)
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
-                            'msg' => 'Il link richiesto non � presente su database',
+                            'msg' => 'Il link richiesto non e` presente su database',
                             'file' => __FILE__, 'line' => __LINE__));
 
         $autore = ($user->getIdUser() == $link->getIdUtente());
@@ -64,7 +64,7 @@ class LinkDelete extends CanaleCommand
             if ($canale->getServizioLinks() == false)
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il servizio links � disattivato',
+                                'msg' => 'Il servizio links e` disattivato',
                                 'file' => __FILE__, 'line' => __LINE__));
 
             $id_canale = $canale->getIdCanale();
@@ -105,8 +105,8 @@ class LinkDelete extends CanaleCommand
         if (array_key_exists('f30_submit', $_POST)) {
             if ($link->deleteLink()) {
                 $template
-                        ->assign('f30_langAction',
-                                "Il link � stato eliminato correttamente");
+                        ->assignUnicode('f30_langAction',
+                                "Il link è stato eliminato correttamente");
 
                 return 'success';
             }

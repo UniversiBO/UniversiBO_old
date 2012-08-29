@@ -45,7 +45,7 @@ class FileStudentiEdit extends UniversiboCommand
         if ($file === false)
             Error::throwError(_ERROR_DEFAULT,
                     array(
-                            'msg' => "Il file richiesto non � presente su database",
+                            'msg' => "Il file richiesto non e` presente su database",
                             'file' => __FILE__, 'line' => __LINE__));
 
         $template
@@ -139,7 +139,7 @@ class FileStudentiEdit extends UniversiboCommand
         $f24_canale = array();
         //$f24_password = '';
 
-        //prendo tutti i canali tra i ruoli pi� (??) il canale corrente (che per l'admin pu� essere diverso)
+        //prendo tutti i canali tra i ruoli più (??) il canale corrente (che per l'admin puo` essere diverso)
         $elenco_canali = $file->getIdCanali();
         //		$num_canali = count($elenco_canali);
         //		for ($i = 0; $i<$num_canali; $i++)
@@ -328,7 +328,7 @@ class FileStudentiEdit extends UniversiboCommand
                     if (strlen($parola > 40)) {
                         Error::throwError(_ERROR_NOTICE,
                                 array(
-                                        'msg' => 'La lunghezza massima di una parola chiave � di 40 caratteri',
+                                        'msg' => 'La lunghezza massima di una parola chiave e` di 40 caratteri',
                                         'file' => __FILE__, 'line' => __LINE__,
                                         'log' => false,
                                         'template_engine' => &$template));
@@ -355,7 +355,7 @@ class FileStudentiEdit extends UniversiboCommand
             if (!preg_match('/^([0-9]{1,9})$/', $_POST['f24_categoria'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array(
-                                'msg' => 'Il formato del campo categoria non � ammissibile',
+                                'msg' => 'Il formato del campo categoria non e` ammissibile',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -375,7 +375,7 @@ class FileStudentiEdit extends UniversiboCommand
             if (!preg_match('/^([0-9]{1,9})$/', $_POST['f24_tipo'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array(
-                                'msg' => 'Il formato del campo tipo non � ammissibile',
+                                'msg' => 'Il formato del campo tipo non e` ammissibile',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -405,7 +405,7 @@ class FileStudentiEdit extends UniversiboCommand
                         || $_POST['f24_permessi_download'] > User::ALL) {
                     Error::throwError(_ERROR_NOTICE,
                             array(
-                                    'msg' => 'Il valore dei diritti di download non � ammessibile',
+                                    'msg' => 'Il valore dei diritti di download non e` ammessibile',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
                                     'template_engine' => &$template));
@@ -420,7 +420,7 @@ class FileStudentiEdit extends UniversiboCommand
                                         | User::COLLABORATORE | User::ADMIN)) {
                     Error::throwError(_ERROR_NOTICE,
                             array(
-                                    'msg' => 'Il valore dei diritti di download non � ammissibile',
+                                    'msg' => 'Il valore dei diritti di download non e` ammissibile',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
                                     'template_engine' => &$template));

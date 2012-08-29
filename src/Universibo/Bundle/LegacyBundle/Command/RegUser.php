@@ -29,7 +29,7 @@ class RegUser extends UniversiboCommand
 
         $session_user = $this->getSessionUser();
         if (!$session_user->isAdmin()) {
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'L\'iscrizione manuale di nuovi utenti pu� essere effettuata solo da utenti Admin','file'=>__FILE__,'line'=>__LINE__));
+            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'L\'iscrizione manuale di nuovi utenti puo` essere effettuata solo da utenti Admin','file'=>__FILE__,'line'=>__LINE__));
         }
 
         $template->assign('f34_submit',		'Registra');
@@ -58,10 +58,10 @@ class RegUser extends UniversiboCommand
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Inserire la e-mail','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f34_accept = false;
             } elseif (!eregi('^([[:alnum:]_\-])+(\.([[:alnum:]_\-])+)*@([[:alnum:]_\-])+(\.([[:alnum:]_\-])+)*$',$_POST['f34_email'])) {
-                Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'La mail di ateneo inserita '.$_POST['f34_email'].' non � sintatticamente valida','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+                Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'La mail di ateneo inserita '.$_POST['f34_email'].' non e` sintatticamente valida','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f34_accept = false;
             } elseif (User::activeDirectoryUsernameExists($_POST['f34_email'])) {
-                Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'La mail '.$_POST['f34_email'].' appartiene ad un utente gi� registrato','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+                Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'La mail '.$_POST['f34_email'].' appartiene ad un utente gia` registrato','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f34_accept = false;
             } else {
                 $f34_email = strtolower($_POST['f34_email']);
@@ -79,13 +79,13 @@ class RegUser extends UniversiboCommand
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Nello username sono permessi fino a 25 caratteri alfanumerici con lettere accentate, spazi, punti, underscore','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f34_accept = false;
             } elseif ( User::usernameExists( $_POST['f34_username'] ) ) {
-                Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Lo username richiesto � gi� stato registrato da un altro utente','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+                Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Lo username richiesto e` gia` stato registrato da un altro utente','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f34_accept = false;
             } else $q34_username = $f34_username = $_POST['f34_username'];
 
             //livello
             if ($_POST['f34_livello'] == '') {
-                Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Il livello inserito � vuoto','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+                Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Il livello inserito e` vuoto','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f34_accept = false;
             }
 //			elseif ( $_POST['f34_livello'] != User::STUDENTE &&
@@ -119,7 +119,7 @@ class RegUser extends UniversiboCommand
 
             $forum = $this->getContainer()->get('universibo_legacy.forum.api');
             $forum->insertUser($new_user);
-            //	Error::throwError(_ERROR_DEFAULT,'msg'=>'Si � verificato un errore durente la registrazione dell\'account username '.$q34_username.' mail '.$q34_email,'file'=>__FILE__,'line'=>__LINE__));
+            //	Error::throwError(_ERROR_DEFAULT,'msg'=>'Si e` verificato un errore durente la registrazione dell\'account username '.$q34_username.' mail '.$q34_email,'file'=>__FILE__,'line'=>__LINE__));
 
             $mail = $fc->getMail();
 

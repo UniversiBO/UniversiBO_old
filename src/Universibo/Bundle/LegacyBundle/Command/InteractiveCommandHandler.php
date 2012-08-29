@@ -100,10 +100,10 @@ class InteractiveCommandHandler extends UniversiboCommand
         /*var_dump($esito);
         die;*/
 
-        //TODO verificare se esito � array?
+        //TODO verificare se esito è array?
         if (isset($esito['error'])) {
             /**
-             * @todo mail agli sviluppatori per correggere subito l'errore, altrimenti la gente non si logga pi�!!
+             * @todo mail agli sviluppatori per correggere subito l'errore, altrimenti la gente non si logga più!!
              * per il futuro, pensare a come disabilitare in automatico gli InteractiveCommand con errore
              */
             $notifica_titolo_long = 'WARNING: l\'InteractiveCommand '
@@ -137,7 +137,7 @@ perche` impedisce il login agli utenti
             $_SESSION = array();
             session_destroy();
             session_start();
-            // TODO messaggio di errore per spiegare che � obbligatorio accettare?
+            // TODO messaggio di errore per spiegare che è obbligatorio accettare?
             $fc->redirectUri($referer);
         }
 
@@ -250,7 +250,7 @@ perche` impedisce il login agli utenti
     //             $list[] = $parentClass;
     //         }
     // //        var_dump($list);
-    // 		// TODO se il while si interrompe per il null, vuol dire che la lista � parziale. Gestirlo in modo diverso?
+    // 		// TODO se il while si interrompe per il null, vuol dire che la lista è parziale. Gestirlo in modo diverso?
     // 		return $list;
     // 	}
 
@@ -303,7 +303,7 @@ perche` impedisce il login agli utenti
     }
 
     /**
-     * valuta se la condizione espressa in linguaggio ConditionLanguage � verificata
+     * valuta se la condizione espressa in linguaggio ConditionLanguage è verificata
      *
      * @param  string  $CL_code
      * @return boolean

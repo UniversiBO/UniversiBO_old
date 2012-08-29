@@ -158,7 +158,7 @@ class ShowContribute extends UniversiboCommand
             if (strlen($_POST['f3_nome']) > 50) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il nome indicato pu� essere massimo 50 caratteri',
+                                'msg' => 'Il nome indicato puo` essere massimo 50 caratteri',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false, 'template_engine' => &$template));
                 $f3_accept = false;
@@ -169,7 +169,7 @@ class ShowContribute extends UniversiboCommand
             if (strlen($_POST['f3_cognome']) > 50) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il cognome indicato pu� essere massimo 50 caratteri',
+                                'msg' => 'Il cognome indicato puo` essere massimo 50 caratteri',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false, 'template_engine' => &$template));
                 $f3_accept = false;

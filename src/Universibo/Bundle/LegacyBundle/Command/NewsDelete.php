@@ -46,7 +46,7 @@ class NewsDelete extends CanaleCommand
         if ($canale->getServizioNews() == false)
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
-                            'msg' => "Il servizio news � disattivato",
+                            'msg' => "Il servizio news e` disattivato",
                             'file' => __FILE__, 'line' => __LINE__));
 
         /* diritti
@@ -66,7 +66,7 @@ class NewsDelete extends CanaleCommand
         if ($news === false)
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
-                            'msg' => "La notizia richiesta non � presente su database",
+                            'msg' => "La notizia richiesta non e` presente su database",
                             'file' => __FILE__, 'line' => __LINE__));
         //$news-> getIdCanali();
         /*var_dump($news->getNotizia());
@@ -165,11 +165,11 @@ class NewsDelete extends CanaleCommand
 
             $news->deleteNewsItem();
             /**
-             * @TODO elenco dei canali dai quali � stata effetivamente cancellata la notizia
+             * @TODO elenco dei canali dai quali è stata effetivamente cancellata la notizia
              */
             $template
-                    ->assign('NewsDelete_langSuccess',
-                            "La notizia � stata cancellata dalle pagine scelte.");
+                    ->assignUnicode('NewsDelete_langSuccess',
+                            "La notizia è stata cancellata dalle pagine scelte.");
 
             return 'success';
         }

@@ -31,7 +31,7 @@ class MyUniversiBOEdit extends UniversiboCommand
         if ($utente->isOspite())
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $utente->getIdUser(),
-                            'msg' => "Non � permesso ad utenti non registrati eseguire questa operazione.\n La sessione potrebbe essere scaduta",
+                            'msg' => "non e` permesso ad utenti non registrati eseguire questa operazione.\n La sessione potrebbe essere scaduta",
                             'file' => __FILE__, 'line' => __LINE__));
 
         if (!array_key_exists('id_canale', $_GET)
@@ -107,7 +107,7 @@ class MyUniversiBOEdit extends UniversiboCommand
                                     'v2.php?do=ShowUser&id_utente='
                                             . $utente->getIdUser());
                     if ($canale->getTipoCanale() == CANALE_INSEGNAMENTO) {
-                        //trover� un modo per ottenere il cdl! lo giuro!!!
+                        //troverò un modo per ottenere il cdl! lo giuro!!!
                     }
 
                     return 'success';
@@ -124,7 +124,7 @@ class MyUniversiBOEdit extends UniversiboCommand
         } else {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $utente->getIdUser(),
-                            'msg' => 'Questa pagina non � inserita nel tuo MyUniversiBO',
+                            'msg' => 'Questa pagina non e` inserita nel tuo MyUniversiBO',
                             'file' => __FILE__, 'line' => __LINE__));
         }
 

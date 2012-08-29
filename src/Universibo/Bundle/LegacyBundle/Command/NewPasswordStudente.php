@@ -100,7 +100,7 @@ class NewPasswordStudente extends UniversiboCommand
                         array('id_utente' => $user->getIdUser(),
                                 'msg' => 'La mail di ateneo inserita '
                                         . $_POST['f5_ad_user']
-                                        . ' non � sintatticamente valida',
+                                        . ' non e` sintatticamente valida',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false, 'template_engine' => &$template));
                 $f5_accept = false;

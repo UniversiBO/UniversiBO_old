@@ -130,7 +130,7 @@ class FileEdit extends UniversiboCommand
         $f13_canale = array();
         $f13_password = '';
 
-        //prendo tutti i canali tra i ruoli pi� (??) il canale corrente (che per l'admin pu� essere diverso)
+        //prendo tutti i canali tra i ruoli più (??) il canale corrente (che per l'admin puo` essere diverso)
         $elenco_canali = $file->getIdCanali();
         $num_canali = count($elenco_canali);
         for ($i = 0; $i < $num_canali; $i++) {
@@ -348,7 +348,7 @@ class FileEdit extends UniversiboCommand
             if (!preg_match('/^([0-9]{1,9})$/', $_POST['f13_categoria'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo categoria non � ammissibile',
+                                'msg' => 'Il formato del campo categoria non e` ammissibile',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -398,7 +398,7 @@ class FileEdit extends UniversiboCommand
                         || $_POST['f13_permessi_download'] > User::ALL) {
                     Error::throwError(_ERROR_NOTICE,
                             array('id_utente' => $user->getIdUser(),
-                                    'msg' => 'Il valore dei diritti di download non � ammessibile',
+                                    'msg' => 'Il valore dei diritti di download non e` ammessibile',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
                                     'template_engine' => &$template));
@@ -413,7 +413,7 @@ class FileEdit extends UniversiboCommand
                                         | User::COLLABORATORE | USER::ADMIN)) {
                     Error::throwError(_ERROR_NOTICE,
                             array('id_utente' => $user->getIdUser(),
-                                    'msg' => 'Il valore dei diritti di download non � ammissibile',
+                                    'msg' => 'Il valore dei diritti di download non e` ammissibile',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
                                     'template_engine' => &$template));
@@ -438,7 +438,7 @@ class FileEdit extends UniversiboCommand
                         && $_POST['f13_password'] == '') {
                     Error::throwError(_ERROR_NOTICE,
                             array('id_utente' => $user->getIdUser(),
-                                    'msg' => 'La password inserita � vuota',
+                                    'msg' => 'La password inserita e` vuota',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
                                     'template_engine' => &$template));
@@ -458,7 +458,7 @@ class FileEdit extends UniversiboCommand
                 $f13_permessi_visualizza = $canale->getPermessi();
             else
                 $f13_permessi_visualizza = User::ALL;
-            // eventualmente dare la possibilit� all'admin di metterli diversamente
+            // eventualmente dare la possibilità all'admin di metterli diversamente
 
             //esecuzione operazioni accettazione del form
             if ($f13_accept == true) {

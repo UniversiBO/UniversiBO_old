@@ -45,10 +45,10 @@ class FileStudentiComment extends UniversiboCommand
         if ($file === false)
             Error::throwError(_ERROR_DEFAULT,
                     array(
-                            'msg' => "Il file richiesto non � presente su database",
+                            'msg' => "Il file richiesto non e` presente su database",
                             'file' => __FILE__, 'line' => __LINE__));
 
-        //Controllo che non esista gi� un commento da parte di questo utente
+        //Controllo che non esista già un commento da parte di questo utente
         $template->assign('esiste_CommentoItem', 'false');
         $id_file = $_GET['id_file'];
         $id_commento = CommentoItem::esisteCommento($id_file,
@@ -57,8 +57,8 @@ class FileStudentiComment extends UniversiboCommand
             $canali = $file->getIdCanali();
 
             $template
-                    ->assign('FileStudentiComment_ris',
-                            'Esiste gi� un tuo commento a questo file.');
+                    ->assignUnicode('FileStudentiComment_ris',
+                            'Esiste già un tuo commento a questo file.');
             $template
                     ->assign('common_canaleURI',
                             'v2.php?do=FileShowInfo&id_file=' . $id_file

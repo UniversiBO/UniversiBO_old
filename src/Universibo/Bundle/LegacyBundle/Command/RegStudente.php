@@ -75,7 +75,7 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Inserire la e-mail di ateneo','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f4_accept = false;
             } elseif ( strlen($_POST['f4_ad_user']) > 30 ) {
-                Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Lo username di ateneo indicato pu� essere massimo 30 caratteri','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+                Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Lo username di ateneo indicato puo` essere massimo 30 caratteri','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f4_accept = false;
             } elseif (preg_match('/@studio\.unibo\.it$/',$_POST['f4_ad_user'])) {
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Non inserire il suffisso "@studio.unibo.it" nella email di ateneo','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
@@ -96,7 +96,7 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Inserire la password della e-mail di ateneo','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f4_accept = false;
             } elseif ( strlen($_POST['f4_password']) > 50 ) {
-                Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'La lunghezza massima della password accettata dal sistema � di massimo 50 caratteri','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+                Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'La lunghezza massima della password accettata dal sistema e` di massimo 50 caratteri','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f4_accept = false;
             } else $q4_password = $f4_password = $_POST['f4_password'];
 
@@ -111,7 +111,7 @@ Per problemi indipendenti da noi [b]la casella e-mail verrà creata nelle 24 ore
                 Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Nello username sono permessi fino a 25 caratteri alfanumerici con lettere accentate, spazi, punti, underscore','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f4_accept = false;
             } elseif ( User::usernameExists( $_POST['f4_username'] ) ) {
-                Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Lo username richiesto � gi� stato registrato da un altro utente','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
+                Error::throwError(_ERROR_NOTICE,array('id_utente' => $session_user->getIdUser(), 'msg'=>'Lo username richiesto e` gia` stato registrato da un altro utente','file'=>__FILE__,'line'=>__LINE__,'log'=>false ,'template_engine'=>&$template ));
                 $f4_accept = false;
             } else $q4_username = $f4_username = $_POST['f4_username'];
 

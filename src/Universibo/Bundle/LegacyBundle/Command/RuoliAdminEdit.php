@@ -57,7 +57,7 @@ class RuoliAdminEdit extends UniversiboCommand
             Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => "Non hai i diritti per modificare i diritti degli utenti su questa pagina.\nLa sessione potrebbe essere scaduta.", 'file' => __FILE__, 'line' => __LINE__));
 
         if (!$user->isAdmin() && $user->getIdUser() == $target_user->getIdUser() )
-            Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Non � permesso modificare i propri diritti in una pagina', 'file' => __FILE__, 'line' => __LINE__));
+            Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'non e` permesso modificare i propri diritti in una pagina', 'file' => __FILE__, 'line' => __LINE__));
 
         $target_ruoli = $target_user->getRuoli();
         if (!array_key_exists($id_canale, $target_ruoli))

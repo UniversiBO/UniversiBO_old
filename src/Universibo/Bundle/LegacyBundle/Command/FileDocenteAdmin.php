@@ -155,7 +155,7 @@ class FileDocenteAdmin extends UniversiboCommand
                     $fileTemp = &FileItem::selectFileItem($key);
                     $diritti = false;
                     //				var_dump($fileTemp); die;
-                    // TODO controllo se fileTemp � effettivamente un oggetto di tipo FileItem
+                    // TODO controllo se fileTemp è effettivamente un oggetto di tipo FileItem
                     foreach ($fileTemp->getIdCanali() as $canaleId) {
                         //					var_dump($canaleId);
                         $diritti = $user->isAdmin()
@@ -192,7 +192,7 @@ class FileDocenteAdmin extends UniversiboCommand
             } else {
                 //controllo i diritti_su_tutti_i_canali su cui si vuole fare l'inserimento
                 foreach ($_POST['f40_canale'] as $key => $value) {
-                    // TODO controllo se value � effettivamente un oggetto di tipo Canale e se key � id valido
+                    // TODO controllo se value è effettivamente un oggetto di tipo Canale e se key è id valido
                     $diritti = $user->isAdmin()
                             || (array_key_exists($key, $user_ruoli)
                                     && $user_ruoli[$key]->isReferente());

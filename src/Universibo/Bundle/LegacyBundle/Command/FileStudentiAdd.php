@@ -84,7 +84,7 @@ class FileStudentiAdd extends UniversiboCommand
             if ($canale->getServizioFilesStudenti() == false)
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il servizio files � disattivato',
+                                'msg' => 'Il servizio files e` disattivato',
                                 'file' => __FILE__, 'line' => __LINE__));
 
             $id_canale = $canale->getIdCanale();
@@ -103,7 +103,7 @@ class FileStudentiAdd extends UniversiboCommand
 
         $f23_canale = $canale->getNome();
 
-        //		//prendo tutti i canali tra i ruoli pi? il canale corrente (che per l'admin pu� essere diverso)
+        //		//prendo tutti i canali tra i ruoli pi? il canale corrente (che per l'admin puo` essere diverso)
         //		$ruoli_keys = array_keys($user_ruoli);
         //		$num_ruoli = count($ruoli_keys);
         //		for ($i = 0; $i<$num_ruoli; $i++)
@@ -323,7 +323,7 @@ class FileStudentiAdd extends UniversiboCommand
                         if (strlen($parola > 40)) {
                             Error::throwError(_ERROR_NOTICE,
                                     array('id_utente' => $user->getIdUser(),
-                                            'msg' => 'La lunghezza massima di una parola chiave � di 40 caratteri',
+                                            'msg' => 'La lunghezza massima di una parola chiave e` di 40 caratteri',
                                             'file' => __FILE__,
                                             'line' => __LINE__, 'log' => false,
                                             'template_engine' => &$template));
@@ -339,7 +339,7 @@ class FileStudentiAdd extends UniversiboCommand
             if (!preg_match('/^([0-9]{1,9})$/', $_POST['f23_categoria'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getIdUser(),
-                                'msg' => 'Il formato del campo categoria non � ammissibile',
+                                'msg' => 'Il formato del campo categoria non e` ammissibile',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
                                 'template_engine' => &$template));
@@ -369,7 +369,7 @@ class FileStudentiAdd extends UniversiboCommand
                         || $_POST['f23_permessi_download'] > User::ALL) {
                     Error::throwError(_ERROR_NOTICE,
                             array('id_utente' => $user->getIdUser(),
-                                    'msg' => 'Il valore dei diritti di download non � ammessibile',
+                                    'msg' => 'Il valore dei diritti di download non e` ammessibile',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
                                     'template_engine' => &$template));
@@ -413,7 +413,7 @@ class FileStudentiAdd extends UniversiboCommand
 
             //controllo i diritti_su_tutti_i_canali su cui si vuole fare l'inserimento
 
-            //modifica aggiunta per compatibilit� bug explorer con PHP4.3.11 e successivi
+            //modifica aggiunta per compatibilità bug explorer con PHP4.3.11 e successivi
             $_FILES['f23_file']['name'] = str_replace('\\', '/',
                     $_FILES['f23_file']['name']);
             if (get_magic_quotes_gpc()) {

@@ -30,7 +30,7 @@ class MyUniversiBORemove extends UniversiboCommand
         if ($utente->isOspite())
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $utente->getIdUser(),
-                            'msg' => "Non � permesso ad utenti non registrati eseguire questa operazione.\n La sessione potrebbe essere scaduta",
+                            'msg' => "non e` permesso ad utenti non registrati eseguire questa operazione.\n La sessione potrebbe essere scaduta",
                             'file' => __FILE__, 'line' => __LINE__));
 
         if (!array_key_exists('id_canale', $_GET)

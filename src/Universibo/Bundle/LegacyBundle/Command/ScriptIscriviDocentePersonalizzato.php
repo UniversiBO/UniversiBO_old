@@ -82,7 +82,7 @@ class ScriptIscriviDocentePersonalizzato extends UniversiboCommand
 
             $mail->Body = "Gentile docente,\n"
                     . "Le abbiamo creato un account su UniversiBO.\n\n"
-                    . "Il progetto portato avanti dalla comunita` degli studenti dell'universit� di Bologna collaborando con le strutture di Ateneo, si propone l
+                    . "Il progetto portato avanti dalla comunita` degli studenti dell'universita` di Bologna collaborando con le strutture di Ateneo, si propone l
             a realizzazione di un sito web in grado di raccogliere ed integrare le informazioni ora disponibili in una moltitudine di siti e permettere lo scambio e la condivisione tra docen
             ti e studenti di informazioni su temi attinenti principalmente la didattica.\n\n"
                     . "Per accedere al sito utilizzi l'indirizzo "
