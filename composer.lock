@@ -1,5 +1,5 @@
 {
-    "hash": "c8d4cefbc3c50f9813bc5c57036fd3b4",
+    "hash": "685217c71fb76419ba8e1538e005962a",
     "packages": [
         {
             "package": "doctrine/common",
@@ -92,8 +92,14 @@
         {
             "package": "jms/serializer-bundle",
             "version": "dev-master",
-            "source-reference": "1f308a587742246e87e580290f3bae23073d1d70",
-            "commit-date": "1343641450"
+            "alias-pretty-version": "0.9.x-dev",
+            "alias-version": "0.9.9999999.9999999-dev"
+        },
+        {
+            "package": "jms/serializer-bundle",
+            "version": "dev-master",
+            "source-reference": "5a9b7e6b62143950726f642da23d7eebf850e389",
+            "commit-date": "1346073949"
         },
         {
             "package": "knplabs/knp-menu",
@@ -108,30 +114,30 @@
         {
             "package": "kriswallsmith/assetic",
             "version": "1.0.x-dev",
-            "source-reference": "ed9bf0fcc710e26051ac656b4d6b1a53381da160",
-            "commit-date": "1340139242"
+            "source-reference": "v1.0.4",
+            "commit-date": "1346156308"
         },
         {
             "package": "monolog/monolog",
-            "version": "1.1.0"
+            "version": "1.2.0"
         },
         {
             "package": "sensio/framework-extra-bundle",
             "version": "2.0.x-dev",
-            "source-reference": "85911039aca2ef39805640d9238c7157d8c30d2e",
+            "source-reference": "v2.0.17",
             "commit-date": "1343372444"
         },
         {
             "package": "sensio/generator-bundle",
             "version": "2.0.x-dev",
-            "source-reference": "c0118ce370f8da20e43051f2dd1ae331a202ab9c",
+            "source-reference": "v2.0.17",
             "commit-date": "1339741720"
         },
         {
             "package": "sonata-project/admin-bundle",
             "version": "2.0.x-dev",
-            "source-reference": "5b7e37fc86e6a3f4a66c3313547047a5498b9e06",
-            "commit-date": "1345501200"
+            "source-reference": "80fa6951e5ce00b69b23fe6b05a6f32276f8ccf7",
+            "commit-date": "1345980287"
         },
         {
             "package": "sonata-project/block-bundle",
@@ -165,7 +171,7 @@
         },
         {
             "package": "swiftmailer/swiftmailer",
-            "version": "4.1.7"
+            "version": "v4.2.1"
         },
         {
             "package": "symfony/assetic-bundle",
@@ -175,7 +181,7 @@
         },
         {
             "package": "symfony/symfony",
-            "version": "v2.0.15"
+            "version": "v2.0.17"
         },
         {
             "package": "twig/twig",
@@ -190,8 +196,8 @@
         {
             "package": "zendframework/zendframework",
             "version": "dev-master",
-            "source-reference": "57c7d09278d0f2db3a1c1a63eac4277f9ab7cf72",
-            "commit-date": "1345841008"
+            "source-reference": "de807ffc3dd1a5ca0495e300724ace1e6d15ffae",
+            "commit-date": "1346194885"
         }
     ],
     "packages-dev": null,
