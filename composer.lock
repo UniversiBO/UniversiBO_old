@@ -1,5 +1,5 @@
 {
-    "hash": "685217c71fb76419ba8e1538e005962a",
+    "hash": "e83ce51dcc546fcdc499c5f9f5c2024a",
     "packages": [
         {
             "package": "doctrine/common",
@@ -62,6 +62,12 @@
             "version": "dev-master",
             "source-reference": "26a266a0ff6d58f0c4db021a90202dfeb7c28d8c",
             "commit-date": "1340840871"
+        },
+        {
+            "package": "friendsofsymfony/rest",
+            "version": "dev-master",
+            "alias-pretty-version": "0.7.x-dev",
+            "alias-version": "0.7.9999999.9999999-dev"
         },
         {
             "package": "friendsofsymfony/rest",
@@ -212,7 +218,7 @@
         "doctrine/doctrine-migrations-bundle": 20,
         "sensio/generator-bundle": 20,
         "sensio/framework-extra-bundle": 20,
-        "zendframework/zendframework": 20,
+        "zendframework/zend-feed": 20,
         "sonata-project/admin-bundle": 20,
         "sonata-project/doctrine-orm-admin-bundle": 20
     }
