@@ -3,7 +3,9 @@ app/cache
 app/config/deploy.rb
 app/logs
 app/phpunit.xml
-nbproject
+/build/
+/build.xml
+/nbproject
 universibo/file-universibo
 /htmls/bundles
 vendor
