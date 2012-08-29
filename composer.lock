@@ -67,7 +67,7 @@
         },
         {
             "package": "monolog/monolog",
-            "version": "1.2.0"
+            "version": "1.2.1"
         },
         {
             "package": "sensio/framework-extra-bundle",
@@ -108,8 +108,8 @@
         {
             "package": "zendframework/zendframework",
             "version": "dev-master",
-            "source-reference": "de807ffc3dd1a5ca0495e300724ace1e6d15ffae",
-            "commit-date": "1346194885"
+            "source-reference": "release-2.0.0rc6",
+            "commit-date": "1346256403"
         }
     ],
     "packages-dev": null,
