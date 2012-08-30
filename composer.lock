@@ -1,5 +1,5 @@
 {
-    "hash": "1ac9c34175c47488acb03dd380e44422",
+    "hash": "22642ffc491ba69522b710578e49c018",
     "packages": [
         {
             "package": "doctrine/common",
@@ -100,6 +100,12 @@
             "version": "v1.8.2"
         },
         {
+            "package": "universibo/shibboleth-bundle",
+            "version": "dev-master",
+            "source-reference": "d75c1aad5f9f02871a617d32e368cfdc8fae5238",
+            "commit-date": "1346343382"
+        },
+        {
             "package": "zendframework/zendframework",
             "version": "dev-master",
             "alias-pretty-version": "2.0.x-dev",
@@ -108,8 +114,8 @@
         {
             "package": "zendframework/zendframework",
             "version": "dev-master",
-            "source-reference": "release-2.0.0rc6",
-            "commit-date": "1346256403"
+            "source-reference": "89eaf412a789a191a468977d3500e9adf0bb1d68",
+            "commit-date": "1346268864"
         }
     ],
     "packages-dev": null,
@@ -124,6 +130,7 @@
         "doctrine/doctrine-migrations-bundle": 20,
         "sensio/generator-bundle": 20,
         "sensio/framework-extra-bundle": 20,
-        "zendframework/zend-feed": 20
+        "zendframework/zend-feed": 20,
+        "universibo/shibboleth-bundle": 20
     }
 }

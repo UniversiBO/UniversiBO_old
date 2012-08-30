@@ -13,7 +13,8 @@
         "jms/metadata": "1.1.1",
         "jms/security-extra-bundle": "1.1.0",
         "zendframework/zend-feed": "2.0.x-dev",
-        "twig/twig": "1.8.2"
+        "twig/twig": "1.8.2",
+        "universibo/shibboleth-bundle": "dev-master"
     },
     "authors": [
         {
