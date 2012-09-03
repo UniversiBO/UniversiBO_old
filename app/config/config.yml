@@ -59,10 +59,10 @@ swiftmailer:
 #    secure_controllers:  true
 #    secure_all_services: false
 
-#universibo_sso:
-#  idp_url:
-#    base: 'https://idp.unibo.it/adfs/ls/'
-#    info: 'infoSSO.aspx'
-#    logout: 'prelogout.aspx'
-#  route:
-#    after_logout: 'homepage'
+universibo_shibboleth:
+  idp_url:
+    base: 'https://idp.unibo.it/adfs/ls/'
+    info: 'infoSSO.aspx'
+    logout: 'prelogout.aspx'
+  route:
+    after_logout: 'homepage'

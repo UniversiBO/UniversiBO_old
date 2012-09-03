@@ -21,6 +21,6 @@ monolog:
             level: info
 assetic:
     use_controller: true
-#universibo_sso:
-#    idp_url:
-#        base: 'https://idptest.unibo.it/adfs/ls/'
+universibo_shibboleth:
+    idp_url:
+        base: 'https://idptest.unibo.it/adfs/ls/'
