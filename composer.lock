@@ -34,8 +34,8 @@
         {
             "package": "doctrine/migrations",
             "version": "dev-master",
-            "source-reference": "b86b4cc0a39714f0aa53b908d495beacfa0e4011",
-            "commit-date": "1343202693"
+            "source-reference": "17f4b56bf0af0274cabdf3ae9b644059246d66b7",
+            "commit-date": "1347005884"
         },
         {
             "package": "doctrine/orm",
@@ -102,8 +102,8 @@
         {
             "package": "universibo/shibboleth-bundle",
             "version": "dev-master",
-            "source-reference": "0ba84ac4a526e610b74185ccc441f8836a193cbf",
-            "commit-date": "1346938116"
+            "source-reference": "f38a53becc8d0aab764919d5fcd1b3902e33f03c",
+            "commit-date": "1347024583"
         },
         {
             "package": "zendframework/zendframework",
