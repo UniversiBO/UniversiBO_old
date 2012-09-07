@@ -9,8 +9,12 @@ UniversiboSearchBundle:
 UniversiboWebsiteBundle:
     resource: "@UniversiboWebsiteBundle/Controller/"
     type:     annotation
-    prefix:   /
-
+    prefix:   /v3
+    
+UniversiboLegacyBundle:
+    resource: "@UniversiboLegacyBundle/Controller/"
+    type:     annotation
+    prefix:   /    
 
 # Internal routing configuration to handle ESI
 #_internal:
