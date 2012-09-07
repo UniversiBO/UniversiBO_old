@@ -12,7 +12,7 @@ use Zend\Feed\Writer\Feed;
 /**
  * RSS Feed Generator
  *
- * @author Davide Bellettini <davide.bellettini@studio.unibo.it>
+ * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
 class FeedGenerator
