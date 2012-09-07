@@ -102,8 +102,8 @@
         {
             "package": "universibo/shibboleth-bundle",
             "version": "dev-master",
-            "source-reference": "f38a53becc8d0aab764919d5fcd1b3902e33f03c",
-            "commit-date": "1347024583"
+            "source-reference": "ad60bbb73afd561cbb55042c93b1b6ae67e7544b",
+            "commit-date": "1347024954"
         },
         {
             "package": "zendframework/zendframework",
