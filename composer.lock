@@ -1,5 +1,5 @@
 {
-    "hash": "14203d216a763556835843e528640f22",
+    "hash": "89c161c909e51916181991a7c8283e34",
     "packages": [
         {
             "package": "doctrine/common",
@@ -83,7 +83,15 @@
         },
         {
             "package": "swiftmailer/swiftmailer",
-            "version": "v4.2.1"
+            "version": "dev-master",
+            "alias-pretty-version": "4.2.x-dev",
+            "alias-version": "4.2.9999999.9999999-dev"
+        },
+        {
+            "package": "swiftmailer/swiftmailer",
+            "version": "dev-master",
+            "source-reference": "e12e4ef3a9d6dd60fb734a01984a6e6627aea764",
+            "commit-date": "1345630910"
         },
         {
             "package": "symfony/assetic-bundle",
@@ -93,11 +101,13 @@
         },
         {
             "package": "symfony/symfony",
-            "version": "v2.0.17"
+            "version": "2.0.x-dev",
+            "source-reference": "462f93ad12c0916b51dbcaaec5b46349b2c96826",
+            "commit-date": "1346143395"
         },
         {
             "package": "twig/twig",
-            "version": "v1.8.2"
+            "version": "v1.8.3"
         },
         {
             "package": "universibo/shibboleth-bundle",
@@ -107,21 +117,23 @@
         },
         {
             "package": "zendframework/zendframework",
-            "version": "2.0.0"
+            "version": "dev-master",
+            "alias-pretty-version": "2.0.x-dev",
+            "alias-version": "2.0.9999999.9999999-dev"
+        },
+        {
+            "package": "zendframework/zendframework",
+            "version": "dev-master",
+            "source-reference": "2db58cf909cf683be3d01442c2d093d3337a6de5",
+            "commit-date": "1346797761"
         }
     ],
     "packages-dev": null,
     "aliases": [
 
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": {
-        "symfony/assetic-bundle": 20,
-        "doctrine/orm": 20,
-        "doctrine/doctrine-fixtures-bundle": 20,
-        "doctrine/doctrine-migrations-bundle": 20,
-        "sensio/generator-bundle": 20,
-        "sensio/framework-extra-bundle": 20,
         "universibo/shibboleth-bundle": 20
     }
 }

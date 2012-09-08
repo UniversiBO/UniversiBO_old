@@ -2,25 +2,24 @@
     "name": "UniversiBO/UniversiBO",
     "description": "UniversiBO Web Portal",
     "require": {
-        "symfony/symfony": "v2.0.17",
-        "symfony/assetic-bundle": "2.0.x-dev",
-        "doctrine/orm": "2.1.x-dev",
-        "doctrine/doctrine-fixtures-bundle": "2.0.x-dev",
-        "doctrine/doctrine-migrations-bundle": "2.0.x-dev",
-        "sensio/generator-bundle": "2.0.x-dev",
-        "sensio/framework-extra-bundle": "2.0.x-dev",
-        "swiftmailer/swiftmailer" : "4.2.1",
+        "symfony/symfony": "2.0.*",
+        "symfony/assetic-bundle": "2.0.*",
+        "doctrine/orm": "2.1.*",
+        "doctrine/doctrine-fixtures-bundle": "2.0.*",
+        "doctrine/doctrine-migrations-bundle": "2.0.*",
+        "sensio/generator-bundle": "2.0.*",
+        "sensio/framework-extra-bundle": "2.0.*",
+        "swiftmailer/swiftmailer" : "4.2.*",
         "jms/metadata": "1.1.1",
-        "jms/security-extra-bundle": "1.1.0",
-        "zendframework/zend-feed": "2.0.0",
-        "twig/twig": "1.8.2",
-        "universibo/shibboleth-bundle": "dev-master"
+        "jms/security-extra-bundle": "1.1.*",
+        "zendframework/zend-feed": "2.0.*",
+        "twig/twig": "1.8.*",
+        "universibo/shibboleth-bundle": "dev-master@dev"
     },
     "authors": [
         {
             "name": "Associazione Universibo",
             "email": "associazione.universibo@unibo.it"
         }
-    ],
-    "minimum-stability": "dev"
+    ]
 }
