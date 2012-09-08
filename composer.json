@@ -14,7 +14,7 @@
         "jms/security-extra-bundle": "1.1.*",
         "zendframework/zend-feed": "2.0.*",
         "twig/twig": "1.8.*",
-        "universibo/shibboleth-bundle": "dev-master@dev"
+        "universibo/shibboleth-bundle": "@dev"
     },
     "authors": [
         {
