@@ -18,8 +18,9 @@ class IndexController extends Controller
     public function indexAction()
     {
         $request = $this->getRequest();
-        
+
         $do = $request->get('do', 'ShowHomepage');
-        return new Response($do); 
+
+        return new Response($do);
     }
 }

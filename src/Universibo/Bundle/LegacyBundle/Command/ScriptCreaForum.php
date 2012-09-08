@@ -2,7 +2,6 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use \DB;
-use \Error;
 
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
@@ -11,7 +10,6 @@ use Universibo\Bundle\LegacyBundle\Entity\Insegnamento;
 use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
 use Universibo\Bundle\LegacyBundle\Entity\User;
 
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 /**
  * ChangePassword is an extension of UniversiboCommand class.
  *

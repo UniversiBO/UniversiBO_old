@@ -356,7 +356,6 @@ class ShowContribute extends UniversiboCommand
             $questionario->setAltro(mb_convert_encoding($q3_altro, 'utf-8', 'iso-8859-1'));
             $questionario->setCdl(mb_convert_encoding($q3_cdl, 'utf-8', 'iso-8859-1'));
 
-
             $templating = $this->getContainer()->get('templating');
             $body = $templating->render('UniversiboLegacyBundle:Contribute:contributemail.txt.twig', array('questionario' => $questionario, 'user' => $session_user));
             $body = mb_convert_encoding($body, 'iso-8859-1', 'utf-8');
