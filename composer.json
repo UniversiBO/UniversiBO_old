@@ -16,6 +16,7 @@
         "twig/twig": "1.8.*",
         "universibo/shibboleth-bundle": "@dev"
     },
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Associazione Universibo",
