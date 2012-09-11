@@ -1,5 +1,5 @@
 {
-    "hash": "8d9277bf0d8d0cd1ffeffed6275f9b0d",
+    "hash": "8f0335a4bca757fc814bb892a9f20150",
     "packages": [
         {
             "package": "doctrine/common",
@@ -90,8 +90,8 @@
         {
             "package": "swiftmailer/swiftmailer",
             "version": "dev-master",
-            "source-reference": "e12e4ef3a9d6dd60fb734a01984a6e6627aea764",
-            "commit-date": "1345630910"
+            "source-reference": "c97353b1ebffe25a224146f69d17efe24c093def",
+            "commit-date": "1347083952"
         },
         {
             "package": "symfony/assetic-bundle",
@@ -102,8 +102,8 @@
         {
             "package": "symfony/symfony",
             "version": "2.0.x-dev",
-            "source-reference": "462f93ad12c0916b51dbcaaec5b46349b2c96826",
-            "commit-date": "1346143395"
+            "source-reference": "87065dc0baa3d8fa973d03bf1e5a1a8c6191fc22",
+            "commit-date": "1347346820"
         },
         {
             "package": "twig/twig",
@@ -124,15 +124,15 @@
         {
             "package": "zendframework/zendframework",
             "version": "dev-master",
-            "source-reference": "2db58cf909cf683be3d01442c2d093d3337a6de5",
-            "commit-date": "1346797761"
+            "source-reference": "e5167b7be5e7b2a72993c5acb5a8704510a09ab5",
+            "commit-date": "1347311196"
         }
     ],
     "packages-dev": null,
     "aliases": [
 
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "universibo/shibboleth-bundle": 20
     }
