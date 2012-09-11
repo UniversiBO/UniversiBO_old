@@ -24,7 +24,7 @@ use Universibo\Bundle\LegacyBundle\Entity\User;
  */
 class ScriptCreaForum extends UniversiboCommand
 {
-    public $anno_accademico = 2011;
+    public $anno_accademico = 2012;
 
     public function execute()
     {

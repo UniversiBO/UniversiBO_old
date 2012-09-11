@@ -26,7 +26,7 @@ class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
 
         $db->beginTransaction();
 
-        $anno_accademico = 2011;
+        $anno_accademico = 2012;
 
         $query = 'SELECT anno_accademico, cod_corso, cod_ind, cod_ori, cod_materia,
                 anno_corso, cod_materia_ins, anno_corso_ins, cod_ril, cod_modulo,
