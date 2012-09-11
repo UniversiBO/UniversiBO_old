@@ -165,7 +165,7 @@ class ScriptCreaForum extends UniversiboCommand
 
         $res = $db->executeQuery($query);
 
-        if ($res->numRows() == 0 )
+        if ($res->rowCount() == 0 )
             return null;
 
         $row = $res->fetch();
@@ -202,12 +202,12 @@ class ScriptCreaForum extends UniversiboCommand
 
         $res = $db->executeQuery($query);
 
-        if ($res->numRows() == 0 )
+        if ($res->rowCount() == 0 )
             return null;
 
         //se ce ne sono di pi? prendo il primo
-        if ($res->numRows() > 1 )
-            echo '   #### c\'erano '.$res->numRows().' forum simili, ho preso solo il primo',"\n";
+        if ($res->rowCount() > 1 )
+            echo '   #### c\'erano '.$res->rowCount().' forum simili, ho preso solo il primo',"\n";
 
         $row = $res->fetch();
 

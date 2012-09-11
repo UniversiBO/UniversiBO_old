@@ -228,7 +228,8 @@ public function insertUser(User $user, $password = null)
     $user_rank  = $this->defaultRanks[$groups];
     $user_level = ( $user->isAdmin() == true ) ? 1 : ( $user->isCollaboratore() == true ) ? 2 : 0 ;
 
-    $user_timezone =  (Krono::_is_daylight(time()) == true) ? 2 : 1;
+    $krono = new Krono();
+    $user_timezone =  ($krono->_is_daylight(time()) == true) ? 2 : 1;
 
     if ($user->isDocente() || $user->isTutor()) {
         $user_notify_pm = 0;

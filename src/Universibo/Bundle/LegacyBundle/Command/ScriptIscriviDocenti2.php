@@ -42,7 +42,7 @@ class ScriptIscriviDocenti2 extends UniversiboCommand
                         $randomPassword, $row[2], $notifica, 0, '', '',
                         $fc->getAppSetting('defaultStyle'));
 
-                if ($userRepo->insertUser() == false)
+                if ($userRepo->insertUser($new_user) == false)
                     die(
                             'Errore inserimento: username ' . $username
                                     . ' | mail ' . $row[2]);
@@ -94,7 +94,7 @@ class ScriptIscriviDocenti2 extends UniversiboCommand
                 // e-mail not sent anymore for bureaucracy issues
                 //if (!$mail->Send())
                 //    die('email:' . $row2['last_id'] . ' - ' . $mail->ErrorInfo);
-                echo $username . "sent" . "\n";
+                echo $username . " fake sent" . "\n";
             } else {
                 echo $username . ' - non iscritto' . "\n";
             }

@@ -37,7 +37,7 @@ class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
 
         $res = $db->executeQuery($query);
 
-        echo $num_rows = $res->numRows() ,"\n\n";
+        echo $num_rows = $res->rowCount() ,"\n\n";
 
         while ( false !== ($row = $res->fetch()) ) {
             echo "---------------","\n";
@@ -51,16 +51,18 @@ class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
 
             $res3= $db->executeQuery($query3);
 
-            echo $num_rows3 = $res3->numRows();
+            echo $num_rows3 = $res3->rowCount();
             if ($num_rows3 == 0) {
 
-                $id_canale = $db->nextId('canale_id_canale');
-                echo "$id_canale \n";
+                //$id_canale = $db->nextId('canale_id_canale');
+               
 
-                $query4 = 'INSERT INTO canale(id_canale,tipo_canale,nome_canale,immagine,visite,ultima_modifica,permessi_groups,files_attivo,news_attivo
-                ,forum_attivo,id_forum,group_id,links_attivo,files_studenti_attivo) VALUES ( '.$id_canale.',5,\'\',\'\',0,'.time().',127,\'S\',\'S\',\'N\',0,0,\'S\',\'S\');';
-
+                $query4 = 'INSERT INTO canale(tipo_canale,nome_canale,immagine,visite,ultima_modifica,permessi_groups,files_attivo,news_attivo
+                ,forum_attivo,id_forum,group_id,links_attivo,files_studenti_attivo) VALUES (5,\'\',\'\',0,'.time().',127,\'S\',\'S\',\'N\',0,0,\'S\',\'S\');';
                 $res4= $db->executeQuery($query4);
+                
+                $id_canale = $db->lastInsertId('canale_id_canale_seq');
+                echo $id_canale, PHP_EOL;
 
                 $query5 = 'INSERT INTO prg_insegnamento (anno_accademico,cod_corso,cod_ind,cod_ori,cod_materia,anno_corso,cod_materia_ins,
                 anno_corso_ins,cod_ril,cod_modulo,cod_doc,flag_titolare_modulo,id_canale,cod_orario,tipo_ciclo,cod_ate,anno_corso_universibo)
