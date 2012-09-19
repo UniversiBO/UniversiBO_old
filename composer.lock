@@ -10,8 +10,8 @@
         {
             "package": "doctrine/data-fixtures",
             "version": "dev-master",
-            "source-reference": "779c3dfe446b6da893be87b908d6be28345d1e01",
-            "commit-date": "1341780535"
+            "source-reference": "cd03a6dee6f5ca1c680f2066b32c92320f3421d7",
+            "commit-date": "1347929044"
         },
         {
             "package": "doctrine/dbal",
@@ -34,8 +34,8 @@
         {
             "package": "doctrine/migrations",
             "version": "dev-master",
-            "source-reference": "17f4b56bf0af0274cabdf3ae9b644059246d66b7",
-            "commit-date": "1347005884"
+            "source-reference": "ff84c7f403a622409d301eb6bdfda1becb11380a",
+            "commit-date": "1347994329"
         },
         {
             "package": "doctrine/orm",
@@ -62,8 +62,8 @@
         {
             "package": "kriswallsmith/assetic",
             "version": "1.0.x-dev",
-            "source-reference": "v1.0.4",
-            "commit-date": "1346156308"
+            "source-reference": "87410e986d995553dad04d67df993c702a6ef1c5",
+            "commit-date": "1348075074"
         },
         {
             "package": "monolog/monolog",
@@ -90,8 +90,8 @@
         {
             "package": "swiftmailer/swiftmailer",
             "version": "dev-master",
-            "source-reference": "c97353b1ebffe25a224146f69d17efe24c093def",
-            "commit-date": "1347083952"
+            "source-reference": "1e5482485f30a2431f9b8eb19a091eef4b57008c",
+            "commit-date": "1347542176"
         },
         {
             "package": "symfony/assetic-bundle",
@@ -102,8 +102,8 @@
         {
             "package": "symfony/symfony",
             "version": "2.0.x-dev",
-            "source-reference": "87065dc0baa3d8fa973d03bf1e5a1a8c6191fc22",
-            "commit-date": "1347346820"
+            "source-reference": "5bfecef595e8b1dde5a32e113ad577ab058fcea1",
+            "commit-date": "1348026282"
         },
         {
             "package": "twig/twig",
@@ -124,8 +124,8 @@
         {
             "package": "zendframework/zendframework",
             "version": "dev-master",
-            "source-reference": "e5167b7be5e7b2a72993c5acb5a8704510a09ab5",
-            "commit-date": "1347311196"
+            "source-reference": "836249f7b4fd035adc6b5e92472102792fc54bd0",
+            "commit-date": "1347998115"
         }
     ],
     "packages-dev": null,
