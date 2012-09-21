@@ -2,7 +2,7 @@
 <div class="titoloPagina">
 <h2>Modifica una pagina del tuo MyUniversiBO</h2>
 </div>
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 
 <form method="post">
 	<p><label for="f19_livello_notifica">Tipo di notifica:</label>

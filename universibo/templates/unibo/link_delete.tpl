@@ -2,7 +2,7 @@
 <div class="titoloPagina">
 <h2>Elimina il link</h2>
 </div>
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 
 {include file=Links/single_link.tpl}
 

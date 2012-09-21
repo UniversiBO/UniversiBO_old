@@ -1,6 +1,6 @@
 {include file="header_index.tpl"}
 
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 
 <div class="titoloPagina">
 <h2>Le mie impostazioni</h2>

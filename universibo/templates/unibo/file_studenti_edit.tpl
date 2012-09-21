@@ -2,7 +2,7 @@
 <div class="titoloPagina">
 <h2>Modifica il file</h2>
 </div>
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 <form method="post" enctype="multipart/form-data">
 	<p><label class="label" for="f24_titolo">Titolo:</label>
 		<input type="text" class="casella" id="f24_titolo" name="f24_titolo" size="65" maxlength="130" value="{$f24_titolo|escape:"htmlall"}" /></p>

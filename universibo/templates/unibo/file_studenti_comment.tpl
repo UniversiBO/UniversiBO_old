@@ -2,7 +2,7 @@
 <div class="titoloPagina">
 <h2>Aggiungi il tuo commento al file!</h2>
 </div>
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 <form method="post" enctype="multipart/form-data">
 	<p><span><label for="f26_commento"><p>Il tuo commento/descrizione<br /> sul file:<br />(max 3000 caratteri)</p></label>
 		<textarea cols="50" rows="10" id="f26_commento" name="f26_commento">{$f26_commento|escape:"htmlall"}</textarea></span></p>

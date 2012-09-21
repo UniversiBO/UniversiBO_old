@@ -1,6 +1,6 @@
 {include file="header_index.tpl"}
 
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 
 <div class="titoloPagina">
 <h2>Modifica una nuova del tuo MyUniversiBO</h2>

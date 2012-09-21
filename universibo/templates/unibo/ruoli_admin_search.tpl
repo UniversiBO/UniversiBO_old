@@ -3,7 +3,7 @@
 <div class="titoloPagina">
 <h2>{$ruoliAdminSearch_langAction|escape:"htmlall"|nl2br}</h2>
 </div>
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 <table width="100%" border="0" cellspacing="0" cellpadding="0" summary="">
 {foreach from=$ruoliAdminSearch_users key=temp_key item=temp_currGroup}
 	<tr><td><p>{$temp_key|escape:"htmlall"}</p></td></tr>

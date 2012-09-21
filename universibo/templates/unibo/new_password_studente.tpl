@@ -1,6 +1,6 @@
 {include file="header_index.tpl"}
 <h2>Recupera Password</h2>
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 
 <form action="v2.php?do=NewPasswordStudente&amp;{$common_pageTypeExt|escape:"htmlall"}" id="f5" method="post">
 	<p>{$newPasswordStudente_langInfoNewPassword|escape:"htmlall"|bbcode2html|nl2br}</p>

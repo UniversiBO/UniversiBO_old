@@ -4,7 +4,7 @@
 </div>
 {include file=News/show_news.tpl}
 
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 
 <form method="post">
 	<p><label class="label" for="f8_titolo">Titolo:</label>

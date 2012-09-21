@@ -4,7 +4,7 @@
 <h2>{$InteractiveCommandHandler_title_lang|escape:"htmlall"}</h2>
 </div>
 
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 
 <form method="post">
 {include file=$InteractiveCommandHandler_stepPath}

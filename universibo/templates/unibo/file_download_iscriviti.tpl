@@ -2,9 +2,9 @@
 <div class="titoloPagina">
 <h2>Download file</h2>
 </div>
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 
-<p>Il download del file è permesso solo agli utenti registrati facenti parte dell'università di bologna.<br />
+<p>Il download del file ï¿½ permesso solo agli utenti registrati facenti parte dell'universitï¿½ di bologna.<br />
 Esegui il login utilizzando il form sulla destra.<br />
 Se non possiedi username e password per registrarti segui il link &quot;Registrazione Studenti&quot;.</p>
 <p>La sessione potrebbe essere scaduta.</p>

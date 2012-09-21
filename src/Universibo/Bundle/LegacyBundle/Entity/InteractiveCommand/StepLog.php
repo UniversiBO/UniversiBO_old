@@ -18,7 +18,7 @@ class StepLog
      * @ORM\Column(name="id_step", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="step_id_step_seq", allocationSize=1, initialValue="1")
+     * @ORM\SequenceGenerator(sequenceName="step_id_step_seq", allocationSize=1, initialValue=1)
      */
     private $id;
 

@@ -3,7 +3,7 @@
 <div class="titoloPagina">
 <h2>Registrazione</h2>
 </div>
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 
 <p>Iscrizione avvenuta con successo</p>
 

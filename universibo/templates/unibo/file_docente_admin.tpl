@@ -2,7 +2,7 @@
 <div class="titoloPagina">
 <h2>Gestione file</h2>
 </div>
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 <form method="post" >
 	<fieldset>
 		<legend>Seleziona i file da copiare</legend>
@@ -26,7 +26,7 @@
 			{/foreach}
 			</li>
 		{foreachelse}
-		<p>Non si è referente di alcuna pagina attiva</p>
+		<p>Non si ï¿½ referente di alcuna pagina attiva</p>
 		{/foreach}
 		</ul>
 	</fieldset>

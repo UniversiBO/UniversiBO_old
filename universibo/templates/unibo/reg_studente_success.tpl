@@ -3,7 +3,7 @@
 <div class="titoloPagina">
 <h2>Registrazione avvenuta!</h2>
 </div>
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 
 <p>{$regStudente_thanks|escape:"htmlall"|bbcode2html|nl2br}</p>
 

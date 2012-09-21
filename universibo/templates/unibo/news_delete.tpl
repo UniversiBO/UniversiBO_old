@@ -2,7 +2,7 @@
 <div class="titoloPagina">
 <h2>Cancella la notizia</p></h2>
 </div>
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
  
 {include file=News/show_news.tpl}
 

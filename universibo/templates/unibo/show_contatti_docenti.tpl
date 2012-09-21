@@ -3,7 +3,7 @@
 <h2>{$ShowContattiDocenti_titolo}</h2>
 <div class="comandi"><a href="{$ShowContattiDocenti_addContattoURI|escape:"htmlall"}">{$ShowContattiDocenti_addContatto|escape:"htmlall"}</a></div>
 <div>
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 <div class="elencoFile">
 <table width="100%" border="0" cellspacing="0" cellpadding="0" summary="">
 {foreach name=listacontatto from=$ShowContattiDocenti_contatti item=temp_contatto}

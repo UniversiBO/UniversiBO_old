@@ -1,7 +1,7 @@
 {include file="header_index.tpl"}
 
 <div class="titoloPagina"><h2>{$infoDid_title|escape:"htmlall"|nl2br}</h2></div>
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 <form method="post">
 <p><label for="f18_homepageLink">{$infoDid_langHomepageAlternativaLink|escape:"htmlall"}&nbsp;<label><br />
 <input type="text" size="65" name="f18_homepageLink" id="f18_homepageLink" value="{$f18_homepageLink|escape:"htmlall"}" /></p>

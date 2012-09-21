@@ -2,7 +2,7 @@
 <div class="titoloPagina">
 <h2>Aggiungi un nuovo file</h2>
 </div>
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 <form method="post" enctype="multipart/form-data">
 	<p><label class="label" for="f12_file">File:</label>
 		<input class="submit" type="file" name="f12_file" id="f12_file" size="65" value="{$f12_file|escape:"htmlall"}" />
@@ -53,7 +53,7 @@
 {*		{foreach name=canali item=item from=$f12_canale}
 			<p><input type="checkbox" id="f12_canale{$smarty.foreach.canali.iteration}" {if $item.spunta=="true"}checked="checked" {/if} name="f12_canale[{$item.id_canale}]" />&nbsp;&nbsp;&nbsp;<label for="f12_canale{$smarty.foreach.canali.iteration}">{$item.nome_canale}</label></p>
 		{/foreach}  *}
-		{include file=include/explodableList.tpl lista=$f12_canale msg="Non si è referente di alcuna pagina attiva" name="f12_canale"}
+		{include file=include/explodableList.tpl lista=$f12_canale msg="Non si ï¿½ referente di alcuna pagina attiva" name="f12_canale"}
 	</fieldset>
 	{/if}
 	<p><input class="submit" type="submit" id="" name="f12_submit" size="20" value="Invia" /></p>

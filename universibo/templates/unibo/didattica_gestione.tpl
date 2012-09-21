@@ -2,7 +2,7 @@
 <div class="titoloPagina">
 <h2>Modifica Didattica</h2>
 </div>
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 <form name="nav" method="post" >
 	{*<fieldset>
 		<legend>Navigazione:</legend>
@@ -31,7 +31,7 @@
 		</li>
 		{if $smarty.foreach.facAnno.last}</ul>{/if}			
 		{foreachelse}
-		<p>Nessuna facoltà visualizzabile</p>
+		<p>Nessuna facoltï¿½ visualizzabile</p>
 		{/foreach}
 	</fieldset> 
 *}	{if $f41_cur_sel != ''}

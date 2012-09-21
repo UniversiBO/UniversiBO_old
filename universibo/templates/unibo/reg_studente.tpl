@@ -2,7 +2,7 @@
 
 <h2>Registrazione Studenti</h2>
 
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 
 <form action="v2.php?do=RegStudente&amp;{$common_pageTypeExt|escape:"htmlall"}" id="f4" method="post">
 	<p>{$regStudente_langInfoReg|escape:"htmlall"|bbcode2html|nl2br}</p>
