@@ -34,10 +34,10 @@ class UserTest extends UniversiBOEntityTest
     {
         $this->_user->setUsername('myusername');
         $other = clone $this->_user;
-        $this->assertTrue($other->equals($this->_user), 'Equals of cloned object should return true');
+        $this->assertTrue($other->isEqualTo($this->_user), 'Equals of cloned object should return true');
 
         $other = new User(42, User::COLLABORATORE);
-        $this->assertFalse($other->equals($this->_user), 'Equals of different object should return false');
+        $this->assertFalse($other->isEqualTo($this->_user), 'Equals of different object should return false');
     }
 
     public function testSerialize()

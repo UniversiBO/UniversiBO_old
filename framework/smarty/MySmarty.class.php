@@ -26,7 +26,7 @@ class MySmarty extends SmartyBC {
     
     public function assignUnicode($tpl_var, $value)
     {
-        $this->assign($tpl_var, $this->utf8ToLatin1($value));
+        $this->assign($tpl_var, $value);
     }
     
     /**
@@ -35,7 +35,7 @@ class MySmarty extends SmartyBC {
      */
     public function assignLatin1($tpl_var, $value)
     {
-        $this->assign($tpl_var, $value);
+        $this->assign($tpl_var, $this->latin1ToUtf8($value));
     }
 
     /**
@@ -111,8 +111,8 @@ class MySmarty extends SmartyBC {
         return true;
     }
     
-	private function utf8ToLatin1($value)
+	private function latin1ToUtf8($value)
 	{
-	    return is_array($value) ? array_map(array($this, 'utf8ToLatin1'), $value) : mb_convert_encoding($value, 'iso-8859-1', 'utf-8');
+	    return is_array($value) ? array_map(array($this, 'latin1ToUtf8'), $value) : mb_convert_encoding($value, 'utf-8', 'iso-8859-1');
 	}
 }

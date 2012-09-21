@@ -4,7 +4,7 @@
 <h2>Login errato!</h2>
 </div>
 
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 
 <form action="{$common_receiverUrl}?do=Login" name="form1" method="post">
 	<p><label class="label" for="f1_username">Username:</label><input type="text" id="f1_username" name="f1_username" size="9" maxlength="25" style="width: 120px" value="{$f1_username_value|escape:"htmlall"}" tabindex="1"/></p>
