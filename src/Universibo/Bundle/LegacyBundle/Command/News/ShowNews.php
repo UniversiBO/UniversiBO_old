@@ -138,7 +138,7 @@ class ShowNews extends PluginCommand
 
         }
 
-        $template->assignLatin1('showNews_newsList', $elenco_news_tpl);
+        $template->assign('showNews_newsList', $elenco_news_tpl);
 
     }
 }
