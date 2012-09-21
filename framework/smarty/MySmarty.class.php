@@ -14,7 +14,7 @@
  * @version 2.6.5-dev
  */
 
-class MySmarty extends Smarty {
+class MySmarty extends SmartyBC {
 	
 	
     /**
