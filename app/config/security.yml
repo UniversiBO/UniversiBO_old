@@ -6,9 +6,6 @@ security:
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
         
-    factories:
-        - "%kernel.root_dir%/../src/Universibo/Bundle/WebsiteBundle/Resources/config/security_factories.xml"
-
     providers:
         legacy:
             id: universibo_legacy.repository.user
@@ -20,7 +17,6 @@ security:
 
         secured_area:
             pattern: ^/
-            legacy: true
             anonymous: ~
             form_login:
                 login_path: /login
