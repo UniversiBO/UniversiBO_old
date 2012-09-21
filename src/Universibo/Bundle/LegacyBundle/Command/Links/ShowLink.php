@@ -69,7 +69,7 @@ class ShowLink extends PluginCommand
         $link_tpl['uri']       		= $link->getUri();
         $link_tpl['label']      	= $link->getLabel();
         $link_tpl['description']    = $link->getDescription();
-        $link_tpl['userlink']    = 'v2.php?do=ShowUser&id_utente='.$link->getIdUtente();
+        $link_tpl['userlink']    = '/?do=ShowUser&id_utente='.$link->getIdUtente();
         $link_tpl['user']    = $link->getUsername();
 
 

@@ -16,6 +16,6 @@ Per per proseguire con il download � necessario inserirla nel seguente form.</
 <p><a href="{$common_canaleURI|escape:"htmlall"}">Torna&nbsp;{$common_langCanaleNome}</a><p>
 
 <hr />
-{include file=Help/topic.tpl showTopic_topic=$showTopic_topic idsu=$showTopic_topic.reference}
+{include file="Help/topic.tpl" showTopic_topic=$showTopic_topic idsu=$showTopic_topic.reference}
 
 {include file="footer_index.tpl"}

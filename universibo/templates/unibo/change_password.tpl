@@ -2,7 +2,7 @@
 {include file="avviso_notice.tpl"}
 <h2>Modifica Password</h2>
 
-<form action="v2.php?do=ChangePassword&amp;{$common_pageTypeExt|escape:"htmlall"}" id="f6" method="post">
+<form action="/?do=ChangePassword&amp;{$common_pageTypeExt|escape:"htmlall"}" id="f6" method="post">
 	<p>{$changePassword_langInfoChangePassword|escape:"htmlall"|bbcode2html|nl2br}</p>
 {*	<p><label for="f6_username">{$changePassword_langUsername|escape:"htmlall"}</label>&nbsp;
 		<input type="text" name="f6_username" id="f6_username" size="20" maxlength="25" value="{$f6_username|escape:"html"}" /></p>*}

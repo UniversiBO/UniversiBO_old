@@ -40,7 +40,7 @@ class FeedGenerator
     {
         $context = $router->getContext();
         $base = $context->getScheme() . '://' . $context->getHost()
-                . '/v2.php?do=ShowPermalink&id_notizia=';
+                . '/?do=ShowPermalink&id_notizia=';
 
         $idCanale = $canale->getIdCanale();
 

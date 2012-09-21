@@ -7,7 +7,7 @@ Info utente
 <p>Benvenuto {{ app.user.username }}!</p>
 <p><a href="{{ path('logout') }}">Logout</a></p>
 {% else %}
-<form action="/v2.php?do=Login" name="form1_a" id="f1" method="post">
+<form action="/?do=Login" name="form1_a" id="f1" method="post">
   <label for="f1_username">username: </label><br>
   <input id="f1_username" name="f1_username" maxlength="25" type="text" size="15" tabindex="1"><br>
   <label for="f1_password">password: </label><br>

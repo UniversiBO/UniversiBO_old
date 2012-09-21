@@ -48,7 +48,7 @@ class ShowHelpTopic extends UniversiboCommand
         }
 
         //$template->assign('showHelpTopic_langReferences', $references);
-        $template->assign('showHelpTopic_topics', $topics);
+        $template->assignLatin1('showHelpTopic_topics', $topics);
 
         return 'default';
     }

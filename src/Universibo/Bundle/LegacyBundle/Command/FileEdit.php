@@ -47,7 +47,7 @@ class FileEdit extends UniversiboCommand
 
         $template
                 ->assign('fileEdit_fileUri',
-                        'v2.php?do=FileShowInfo&id_file='
+                        '/?do=FileShowInfo&id_file='
                                 . $file->getIdFile());
 
         //		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))

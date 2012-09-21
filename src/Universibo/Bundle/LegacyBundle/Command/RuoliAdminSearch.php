@@ -86,8 +86,8 @@ class RuoliAdminSearch extends UniversiboCommand
                         $ruolo_search  = $ruoli_search[$id_canale];
 
                         $contactUser = array();
-                        $contactUser['utente_link']  = 'v2.php?do=ShowUser&id_utente='.$users_search[$key]->getIdUser();
-                        $contactUser['edit_link']  = 'v2.php?do=RuoliAdminEdit&id_canale='.$id_canale.'&id_utente='.$users_search[$key]->getIdUser();
+                        $contactUser['utente_link']  = '/?do=ShowUser&id_utente='.$users_search[$key]->getIdUser();
+                        $contactUser['edit_link']  = '/?do=RuoliAdminEdit&id_canale='.$id_canale.'&id_utente='.$users_search[$key]->getIdUser();
                         $contactUser['nome']  = $users_search[$key]->getUserPublicGroupName();
                         $contactUser['label'] = $users_search[$key]->getUsername();
                         $contactUser['ruolo'] = ($ruolo_search->isReferente()) ? 'R' :  (($ruolo_search->isModeratore()) ? 'M' : 'none');
@@ -95,8 +95,8 @@ class RuoliAdminSearch extends UniversiboCommand
                         $arrayPublicUsers[$users_search[$key]->getUserPublicGroupName(false)][] = $contactUser;
                     } else {
                         $contactUser = array();
-                        $contactUser['utente_link']  = 'v2.php?do=ShowUser&id_utente='.$users_search[$key]->getIdUser();
-                        $contactUser['edit_link']  = 'v2.php?do=RuoliAdminEdit&id_canale='.$id_canale.'&id_utente='.$users_search[$key]->getIdUser();
+                        $contactUser['utente_link']  = '/?do=ShowUser&id_utente='.$users_search[$key]->getIdUser();
+                        $contactUser['edit_link']  = '/?do=RuoliAdminEdit&id_canale='.$id_canale.'&id_utente='.$users_search[$key]->getIdUser();
                         $contactUser['nome']  = $users_search[$key]->getUserPublicGroupName();
                         $contactUser['label'] = $users_search[$key]->getUsername();
                         $contactUser['ruolo'] = 'none';
@@ -121,8 +121,8 @@ class RuoliAdminSearch extends UniversiboCommand
                     $user = User::selectUser($canale_ruoli[$key]->getIdUser());
                     //var_dump($user);
                     $contactUser = array();
-                    $contactUser['utente_link']  = 'v2.php?do=ShowUser&id_utente='.$user->getIdUser();
-                    $contactUser['edit_link']  = 'v2.php?do=RuoliAdminEdit&id_canale='.$id_canale.'&id_utente='.$user->getIdUser();
+                    $contactUser['utente_link']  = '/?do=ShowUser&id_utente='.$user->getIdUser();
+                    $contactUser['edit_link']  = '/?do=RuoliAdminEdit&id_canale='.$id_canale.'&id_utente='.$user->getIdUser();
                     $contactUser['nome']  = $user->getUserPublicGroupName();
                     $contactUser['label'] = $user->getUsername();
                     $contactUser['ruolo'] = ($canale_ruoli[$key]->isReferente()) ? 'R' :  (($canale_ruoli[$key]->isModeratore()) ? 'M' : 'none');

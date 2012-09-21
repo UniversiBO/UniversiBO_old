@@ -7,7 +7,7 @@ Gestione Corsi di Laurea
 <tr>
 
 <td align="left">
-{if $cdl_curr.attiva=='true'}<a href="v2.php?do=ProgrammazioneDidatticaCdl">{$cdl_curr.cod_corso} - {$cdl_curr.desc_corso}</a>{else}{$cdl_curr.cod_corso} - {$cdl_curr.desc_corso}{/if}</td>
+{if $cdl_curr.attiva=='true'}<a href="/?do=ProgrammazioneDidatticaCdl">{$cdl_curr.cod_corso} - {$cdl_curr.desc_corso}</a>{else}{$cdl_curr.cod_corso} - {$cdl_curr.desc_corso}{/if}</td>
 
 <td>{$cdl_curr.cod_doc_presidente}</td>
 

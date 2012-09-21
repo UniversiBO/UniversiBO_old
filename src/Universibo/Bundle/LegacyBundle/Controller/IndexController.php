@@ -27,12 +27,6 @@ class IndexController extends Controller
 
         $do = $request->get('do', 'ShowHome');
         
-        $class = 'Universibo\\Bundle\\LegacyBundle\\Command\\'.$do;
-        
-        if(!class_exists($class)) {
-            throw new NotFoundHttpException(sprintf('Command %s not found', $do));
-        }
-        
         $base = realpath(__DIR__.'/../../../../..'); 
         $receiver = new DefaultReceiver('main', $base .'/config.xml', $base . '/framework', $base . '/universibo', $this->container);
         $fc = new FrontController($receiver);

@@ -104,7 +104,7 @@ class MyUniversiBOEdit extends UniversiboCommand
                     $canale = Canale::retrieveCanale($id_canale);
                     $template
                             ->assign('showUser',
-                                    'v2.php?do=ShowUser&id_utente='
+                                    '/?do=ShowUser&id_utente='
                                             . $utente->getIdUser());
                     if ($canale->getTipoCanale() == CANALE_INSEGNAMENTO) {
                         //troverò un modo per ottenere il cdl! lo giuro!!!

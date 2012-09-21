@@ -159,7 +159,7 @@ perche` impedisce il login agli utenti
         if (array_key_exists('back', $esito['navigation'])) {
             $template
                     ->assign('InteractiveCommandHandler_back_uri',
-                            'v2.php?do=' . $fc->getCommandRequest()
+                            '/?do=' . $fc->getCommandRequest()
                                     . '&action=' . BACK_ACTION);
             $template
                     ->assign('InteractiveCommandHandler_back_lang',
@@ -167,7 +167,7 @@ perche` impedisce il login agli utenti
         }
         $template
                 ->assign('InteractiveCommandHandler_canc_uri',
-                        'v2.php?do=' . $fc->getCommandRequest() . '&action='
+                        '/?do=' . $fc->getCommandRequest() . '&action='
                                 . CANC_ACTION);
         $template
                 ->assign('InteractiveCommandHandler_canc_lang',

@@ -41,14 +41,14 @@ class ShowContacts extends UniversiboCommand
                 if ($name == $username)
                     $collaboratori[] = array('username' => $username,
                             'URI' => 'false',
-                            'inserisci' => 'v2.php?do=CollaboratoreProfiloAdd&id_coll='
+                            'inserisci' => '/?do=CollaboratoreProfiloAdd&id_coll='
                                     . $user->getIdUser());
                 else
                     $collaboratori[] = array('username' => $username,
                             'URI' => 'false', 'inserisci' => 'false');
             } else
                 $collaboratori[] = array('username' => $username,
-                        'URI' => 'v2.php?do=ShowCollaboratore&id_coll='
+                        'URI' => '/?do=ShowCollaboratore&id_coll='
                                 . $collaboratore->getIdUser(),
                         'inserisci' => 'false');
 

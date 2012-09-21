@@ -529,7 +529,7 @@ class FileAdd extends UniversiboCommand
 
                             Link: '
                                 . $frontcontroller->getAppSetting('rootUrl')
-                                . '/v2.php?do=FileShowInfo&id_file='
+                                . '/?do=FileShowInfo&id_file='
                                 . $newFile->getIdFile()
                                 . '
                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

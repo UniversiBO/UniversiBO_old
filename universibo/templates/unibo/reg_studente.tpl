@@ -4,7 +4,7 @@
 
 {include file="avviso_notice.tpl"}
 
-<form action="v2.php?do=RegStudente&amp;{$common_pageTypeExt|escape:"htmlall"}" id="f4" method="post">
+<form action="/?do=RegStudente&amp;{$common_pageTypeExt|escape:"htmlall"}" id="f4" method="post">
 	<p>{$regStudente_langInfoReg|escape:"htmlall"|bbcode2html|nl2br}</p>
 	<table width="100%" border="0" cellspacing="0" cellpadding="2" summary="">
 	<tr align="left"><td>&nbsp;<label for="f4_ad_user">{$regStudente_langMail|escape:"htmlall"}</label>&nbsp;</td>
@@ -24,6 +24,6 @@
 	</table>
 </form>
 <hr />
-{include file=Help/topic.tpl showTopic_topic=$showTopic_topic idsu=$showTopic_topic.reference}
+{include file="Help/topic.tpl" showTopic_topic=$showTopic_topic idsu=$showTopic_topic.reference}
 
 {include file="footer_index.tpl"}

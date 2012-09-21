@@ -559,7 +559,7 @@ Dimensione: ' . $dimensione_file . ' kB
 Autore: ' . $user->getUsername()
                         . '
 
-Link: https://www.universibo.unibo.it/v2.php?do=FileShowInfo&id_file='
+Link: https://www.universibo.unibo.it/?do=FileShowInfo&id_file='
                         . $newFile->getIdFile() . '&id_canale='
                         . $canale->getIdCanale()
                         . '

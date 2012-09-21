@@ -49,9 +49,9 @@ class FileShowInfo extends UniversiboCommand
         //		if (($user->isAdmin() || $user->getIdUser() == $file->getIdUser() ))
         //		{
         //			$file_tpl['modifica']     = 'Modifica';
-        //			$file_tpl['modifica_link']= 'v2.php?do=FileEdit&id_file='.$file->getIdFile();
+        //			$file_tpl['modifica_link']= '/?do=FileEdit&id_file='.$file->getIdFile();
         //			$file_tpl['elimina']      = 'Elimina';
-        //			$file_tpl['elimina_link'] = 'v2.php?do=FileDelete&id_file='.$file->getIdFile();
+        //			$file_tpl['elimina_link'] = '/?do=FileDelete&id_file='.$file->getIdFile();
         //		}
         //
         //		$id_canali = $file->getIdCanali();
@@ -63,8 +63,8 @@ class FileShowInfo extends UniversiboCommand
         //			$canali_tpl[$id_canale]['uri'] = $canale->showMe();
         //		}
         //
-        //		$template->assign('fileShowInfo_downloadUri', 'v2.php?do=FileDownload&id_file='.$file->getIdFile());
-        //		$template->assign('fileShowInfo_uri', 'v2.php?do=FileShowInfo&id_file='.$file->getIdFile());
+        //		$template->assign('fileShowInfo_downloadUri', '/?do=FileDownload&id_file='.$file->getIdFile());
+        //		$template->assign('fileShowInfo_uri', '/?do=FileShowInfo&id_file='.$file->getIdFile());
         //		$template->assign('fileShowInfo_titolo', $file->getTitolo());
         //		$template->assign('fileShowInfo_descrizione', $file->getDescrizione());
         //		$template->assign('fileShowInfo_userLink', 'ShowUser&id_utente='.$file->getIdUtente());

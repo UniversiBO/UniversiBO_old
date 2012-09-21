@@ -61,7 +61,7 @@ class ShowNewsLatest extends PluginCommand
             if ( $user->isAdmin() || $referente || $moderatore ) {
                 $template->assign('showNewsLatest_addNewsFlag', 'true');
                 $template->assign('showNewsLatest_addNews', 'Scrivi nuova notizia');
-                $template->assign('showNewsLatest_addNewsUri', 'v2.php?do=NewsAdd&id_canale='.$id_canale);
+                $template->assign('showNewsLatest_addNewsUri', '/?do=NewsAdd&id_canale='.$id_canale);
             }
         } else {
             $personalizza   = false;
@@ -83,7 +83,7 @@ class ShowNewsLatest extends PluginCommand
             $template->assign('showNewsLatest_langNewsAvailableFlag', 'true');
             if ($canale_news > $num_news) {
                 $template->assign('showNewsLatest_langNewsShowOthers', 'Mostra tutte le news');
-                $template->assign('showNewsLatest_langNewsShowOthersUri', 'v2.php?do=NewsShowCanale&id_canale='.$id_canale.'&inizio=0&qta=10');
+                $template->assign('showNewsLatest_langNewsShowOthersUri', '/?do=NewsShowCanale&id_canale='.$id_canale.'&inizio=0&qta=10');
             } else {
                 $template->assign('showNewsLatest_langNewsShowOthers', '');
             }

@@ -46,7 +46,7 @@ class MyUniversiBORemove extends UniversiboCommand
         $template->assign('common_langCanaleNome', $canale->getNome());
         $template
                 ->assign('showUser',
-                        'v2.php?do=ShowUser&id_utente='
+                        '/?do=ShowUser&id_utente='
                                 . $utente->getIdUser());
 
         $ruoli = $utente->getRuoli();

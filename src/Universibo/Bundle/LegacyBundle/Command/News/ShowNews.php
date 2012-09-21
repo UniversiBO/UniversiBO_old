@@ -68,7 +68,7 @@ class ShowNews extends PluginCommand
 //			{
 //				$template->assign('showNews_addNewsFlag', 'true');
 //				$template->assign('showNews_addNews', 'Scrivi nuova notizia');
-//				$template->assign('showNews_addNewsUri', 'v2.php?do=NewsAdd&id_canale='.$id_canale);
+//				$template->assign('showNews_addNewsUri', '/?do=NewsAdd&id_canale='.$id_canale);
 //			}
         } else {
             $personalizza   = false;

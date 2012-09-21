@@ -44,22 +44,22 @@ class ShowSettings extends UniversiboCommand
             $template
                     ->assign('showSettings_langPreferences',
                             array(
-                                    '[url=v2.php?do=ChangePassword]Modifica password[/url]',
+                                    '[url=/?do=ChangePassword]Modifica password[/url]',
                                     '[url=]Informazioni forum[/url]',
-                                    '[url=v2.php?do=ShowPersonalSettings]Profilo[/url]',
-                                    '[url=v2.php?do=ShowUser&id_utente='
+                                    '[url=/?do=ShowPersonalSettings]Profilo[/url]',
+                                    '[url=/?do=ShowUser&id_utente='
                                             . $utente->getIdUser()
                                             . ']Modifica MyUniversiBO[/url]',
                                     '[url=https://outlook.com/ type=extern]Posta di ateneo[/url]',
-                                    '[url=v2.php?do=ShowContattiDocenti]Docenti da contattare[/url]'));
+                                    '[url=/?do=ShowContattiDocenti]Docenti da contattare[/url]'));
         } else {
             $template
                     ->assign('showSettings_langPreferences',
                             array(
-                                    '[url=v2.php?do=ChangePassword]Modifica password[/url]',
+                                    '[url=/?do=ChangePassword]Modifica password[/url]',
                                     '[url=]Informazioni forum[/url]',
-                                    '[url=v2.php?do=ShowPersonalSettings]Profilo[/url]',
-                                    '[url=v2.php?do=ShowUser&id_utente='
+                                    '[url=/?do=ShowPersonalSettings]Profilo[/url]',
+                                    '[url=/?do=ShowUser&id_utente='
                                             . $utente->getIdUser()
                                             . ']Modifica MyUniversiBO[/url]',
                                     '[url=https://outlook.com/ type=extern]Posta di ateneo[/url]'));
@@ -75,7 +75,7 @@ Tramite questa pagina potrai modificare il tuo profilo, le tue impostazioni pers
                 ->assign('showSettings_langAdmin',
                         array(
                                 '[url=https://www.universibo.unibo.it/phpPgAdmin/]DB Postgresql locale[/url]',
-                                '[url=v2.php?do=RegUser]Iscrivi nuovo utente[/url]'));
+                                '[url=/?do=RegUser]Iscrivi nuovo utente[/url]'));
 
         return 'default';
     }

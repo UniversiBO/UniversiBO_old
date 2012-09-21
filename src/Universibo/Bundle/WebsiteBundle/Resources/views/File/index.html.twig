@@ -8,7 +8,7 @@
       {{ item.dataInserimento | date('d/m/Y') }}
     </div>
     <div class="yui3-u-5-8 file-column file-title">
-      <a href="/v2.php?do=FileShowInfo&amp;id_file={{ item.idFile }}">{{ item.titolo }}</a>
+      <a href="/?do=FileShowInfo&amp;id_file={{ item.idFile }}">{{ item.titolo }}</a>
     </div>
     <div class="yui3-u-1-8 file-column file-username">
       {{ item.username }}
@@ -17,7 +17,7 @@
       {{ item.dimensione }} kB
     </div>
     <div class="yui3-u-1-24 file-column file-icon">
-      <a href="/v2.php?do=FileDownload&amp;id_file={{ item.idFile }}">
+      <a href="/?do=FileDownload&amp;id_file={{ item.idFile }}">
         <img src="{{ asset('tpl/unibo/file_download.gif') }}" alt="Download"/>
       </a>
     </div>

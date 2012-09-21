@@ -79,7 +79,7 @@ class ShowMyUniversiBO extends UniversiboCommand
 
         $template
                 ->assign('showMyScheda',
-                        'v2.php?do=ShowUser&id_utente='
+                        '/?do=ShowUser&id_utente='
                                 . $utente->getIdUser());
         //		var_dump($arrayFilesItems);
         //		die();

@@ -50,7 +50,7 @@ class FileStudentiEdit extends UniversiboCommand
 
         $template
                 ->assign('fileEdit_fileUri',
-                        'v2.php?do=FileShowInfo&id_file='
+                        '/?do=FileShowInfo&id_file='
                                 . $file->getIdFile());
         $file_canali = $file->getIdCanali();
 

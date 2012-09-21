@@ -51,7 +51,7 @@ class DidatticaGestione extends UniversiboCommand
         $template->assign('common_langCanaleNome', 'indietro');
         $template
                 ->assign('DidatticaGestione_baseUrl',
-                        'v2.php?do=DidatticaGestione');
+                        '/?do=DidatticaGestione');
 
         $id_canale = '';
         $id_facolta = '';
@@ -479,7 +479,7 @@ class DidatticaGestione extends UniversiboCommand
                 //	 			var_dump($prg);
                 $cdl = &Cdl::selectCdlCodice($prg->getCodiceCdl());
                 $id = $id_canale;
-                $uri = 'v2.php?do=DidatticaGestione&id_canale=' . $id_canale
+                $uri = '/?do=DidatticaGestione&id_canale=' . $id_canale
                         . '&id_cdl=' . $cdl->getIdCanale() . '&id_fac='
                         . $_GET['id_fac'];
                 $status = '';
@@ -529,7 +529,7 @@ class DidatticaGestione extends UniversiboCommand
     public static function getEditUrl($id_canale, $id_cdl = null, $id_facolta = null,
             $id_sdop = null)
     {
-        $ret = 'v2.php?do=DidatticaGestione&id_canale=' . $id_canale;
+        $ret = '/?do=DidatticaGestione&id_canale=' . $id_canale;
         if ($id_cdl != null)
             $ret .= '&id_cdl=' . $id_cdl;
         if ($id_facolta != null)

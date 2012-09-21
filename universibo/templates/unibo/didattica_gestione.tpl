@@ -94,6 +94,6 @@
 
 
 <hr />
-<p>{include file=Help/topic.tpl showTopic_topic=$showTopic_topic idsu=$showTopic_topic.reference}</p>
+<p>{include file="Help/topic.tpl" showTopic_topic=$showTopic_topic idsu=$showTopic_topic.reference}</p>
 
 {include file="footer_index.tpl"}

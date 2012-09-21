@@ -199,7 +199,7 @@ Stato attuale: ' . $f35_stati[$f35_stato] . '
 Report attuale:
 ' . $contatto->getReport() . '
 
-Link: ' . $frontcontroller->getAppSetting('rootUrl') . '/v2.php?do='
+Link: ' . $frontcontroller->getAppSetting('rootUrl') . '/?do='
                     . get_class($this) . '&id_utente' . $docente->getIdUtente()
                     . '
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~';

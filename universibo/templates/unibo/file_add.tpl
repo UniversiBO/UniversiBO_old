@@ -53,7 +53,7 @@
 {*		{foreach name=canali item=item from=$f12_canale}
 			<p><input type="checkbox" id="f12_canale{$smarty.foreach.canali.iteration}" {if $item.spunta=="true"}checked="checked" {/if} name="f12_canale[{$item.id_canale}]" />&nbsp;&nbsp;&nbsp;<label for="f12_canale{$smarty.foreach.canali.iteration}">{$item.nome_canale}</label></p>
 		{/foreach}  *}
-		{include file=include/explodableList.tpl lista=$f12_canale msg="Non si � referente di alcuna pagina attiva" name="f12_canale"}
+		{include file="include/explodableList.tpl" lista=$f12_canale msg="Non si è referente di alcuna pagina attiva" name="f12_canale"}
 	</fieldset>
 	{/if}
 	<p><input class="submit" type="submit" id="" name="f12_submit" size="20" value="Invia" /></p>
@@ -61,6 +61,6 @@
 <p><a href="{$common_canaleURI|escape:"htmlall"}">Torna&nbsp;{$common_langCanaleNome}</a></p>
 
 <hr />
-<p>{include file=Help/topic.tpl showTopic_topic=$showTopic_topic idsu=$showTopic_topic.reference}</p>
+<p>{include file="Help/topic.tpl" showTopic_topic=$showTopic_topic idsu=$showTopic_topic.reference}</p>
 
 {include file="footer_index.tpl"}

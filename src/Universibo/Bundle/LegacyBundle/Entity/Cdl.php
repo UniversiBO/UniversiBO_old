@@ -247,7 +247,7 @@ class Cdl extends Canale
      */
     public function showMe()
     {
-        return 'v2.php?do=ShowCdl&id_canale='.$this->id_canale;
+        return '/?do=ShowCdl&id_canale='.$this->id_canale;
     }
 
 
@@ -313,7 +313,7 @@ class Cdl extends Canale
      */
      public function getShowUri()
      {
-         return 'v2.php?do=ShowCdl&id_canale='.$this->getIdCanale();
+         return '/?do=ShowCdl&id_canale='.$this->getIdCanale();
      }
 
     /**

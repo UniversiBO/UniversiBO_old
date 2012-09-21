@@ -2,7 +2,7 @@
 <h2>Recupera Password</h2>
 {include file="avviso_notice.tpl"}
 
-<form action="v2.php?do=NewPasswordStudente&amp;{$common_pageTypeExt|escape:"htmlall"}" id="f5" method="post">
+<form action="/?do=NewPasswordStudente&amp;{$common_pageTypeExt|escape:"htmlall"}" id="f5" method="post">
 	<p>{$newPasswordStudente_langInfoNewPassword|escape:"htmlall"|bbcode2html|nl2br}</p>
 	<p><label class="label" for="f5_username">{$newPasswordStudente_langUsername|escape:"htmlall"}</label>&nbsp;
 		<input type="text" name="f5_username" id="f5_username" size="20" maxlength="25" value="{$f5_username|escape:"html"}" tabindex="1"/></p>

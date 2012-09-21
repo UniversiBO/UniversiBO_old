@@ -36,25 +36,25 @@ class ShowAllFilesStudenti extends UniversiboCommand
         switch ($order) {
             case 0:
                 $template->assign('showAllFilesStudenti_titoloPagina','ordinati per nome');
-                $template->assign('showAllFilesStudenti_url1','v2.php?do=ShowAllFilesStudenti&order=1');
+                $template->assign('showAllFilesStudenti_url1','/?do=ShowAllFilesStudenti&order=1');
                 $template->assign('showAllFilesStudenti_lang1','Mostra i Files Studenti ordinati per data di inserimento');
-                $template->assign('showAllFilesStudenti_url2','v2.php?do=ShowAllFilesStudenti&order=2');
+                $template->assign('showAllFilesStudenti_url2','/?do=ShowAllFilesStudenti&order=2');
                 $template->assign('showAllFilesStudenti_lang2','Mostra i Files Studenti ordinati per voto medio');
                 break;
 
             case 1:
                 $template->assign('showAllFilesStudenti_titoloPagina','ordinati per data di inserimento');
-                $template->assign('showAllFilesStudenti_url1','v2.php?do=ShowAllFilesStudenti&order=0');
+                $template->assign('showAllFilesStudenti_url1','/?do=ShowAllFilesStudenti&order=0');
                 $template->assign('showAllFilesStudenti_lang1','Mostra i Files Studenti ordinati per nome');
-                $template->assign('showAllFilesStudenti_url2','v2.php?do=ShowAllFilesStudenti&order=2');
+                $template->assign('showAllFilesStudenti_url2','/?do=ShowAllFilesStudenti&order=2');
                 $template->assign('showAllFilesStudenti_lang2','Mostra i Files Studenti ordinati per voto medio');
                 break;
 
             case 2:
                 $template->assign('showAllFilesStudenti_titoloPagina','ordinati per voto medio');
-                $template->assign('showAllFilesStudenti_url1','v2.php?do=ShowAllFilesStudenti&order=0');
+                $template->assign('showAllFilesStudenti_url1','/?do=ShowAllFilesStudenti&order=0');
                 $template->assign('showAllFilesStudenti_lang1','Mostra i Files Studenti ordinati per nome');
-                $template->assign('showAllFilesStudenti_url2','v2.php?do=ShowAllFilesStudenti&order=1');
+                $template->assign('showAllFilesStudenti_url2','/?do=ShowAllFilesStudenti&order=1');
                 $template->assign('showAllFilesStudenti_lang2','Mostra i Files Studenti ordinati per data di inserimento');
                 break;
         }

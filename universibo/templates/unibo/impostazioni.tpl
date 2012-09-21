@@ -8,11 +8,11 @@
 </div>
 <hr />
 <h4>Preferenze</h4>
-{include file=tabellina_due_colonne.tpl arrayToShow=$showSettings_langPreferences} 
+{include file="tabellina_due_colonne.tpl" arrayToShow=$showSettings_langPreferences} 
 {if $showSettings_showAdminPanel == "true"} 
 <hr />
 <h4>Admin</h4>
-{include file=tabellina_due_colonne.tpl arrayToShow=$showSettings_langAdmin}
+{include file="tabellina_due_colonne.tpl" arrayToShow=$showSettings_langAdmin}
 {/if}
 
 {include file="footer_index.tpl"}

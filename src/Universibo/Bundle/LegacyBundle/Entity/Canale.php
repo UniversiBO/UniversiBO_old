@@ -588,8 +588,8 @@ class Canale
      */
     public function showMe()
     {
-        if ($this->getTipoCanale() == CANALE_HOME) return 'v2.php?do=ShowHome';
-        else return 'v2.php?do=ShowCanale&id_canale='.$this->id_canale;
+        if ($this->getTipoCanale() == CANALE_HOME) return '/?do=ShowHome';
+        else return '/?do=ShowCanale&id_canale='.$this->id_canale;
     }
 
     /**

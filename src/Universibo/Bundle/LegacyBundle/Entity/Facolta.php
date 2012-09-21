@@ -176,7 +176,7 @@ class Facolta extends Canale
      */
     public function showMe()
     {
-        return 'v2.php?do=ShowFacolta&id_canale=' . $this->id_canale;
+        return '/?do=ShowFacolta&id_canale=' . $this->id_canale;
     }
 
     /**
@@ -299,7 +299,7 @@ class Facolta extends Canale
      */
     public function getShowUri()
     {
-        return 'v2.php?do=ShowFacolta&id_canale=' . $this->getIdCanale();
+        return '/?do=ShowFacolta&id_canale=' . $this->getIdCanale();
     }
 
     /**

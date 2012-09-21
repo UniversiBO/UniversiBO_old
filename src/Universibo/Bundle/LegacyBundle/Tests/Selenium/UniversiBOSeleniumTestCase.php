@@ -45,7 +45,7 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
 
     protected function openCommand($do, $params = '')
     {
-        $this->open('/v2.php?do='.$do.$params);
+        $this->open('/?do='.$do.$params);
         self::assertTrue(preg_match('/UniversiBO/', $this->getTitle()) !== false, 'UniversiBO should be present in title');
     }
 

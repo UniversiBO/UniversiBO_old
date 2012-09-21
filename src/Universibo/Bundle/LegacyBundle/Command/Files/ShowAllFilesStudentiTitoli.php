@@ -76,7 +76,7 @@ class ShowAllFilesStudentiTitoli extends PluginCommand
                     //$file_tpl['nuova']        = ($flag_chkDiritti && $personalizza_not_admin && $ultimo_accesso < $file->getUltimaModifica()) ? 'true' : 'false';
                     $file_tpl[$i]['nuova']        = ($personalizza_not_admin && $ultimo_accesso < $file->getDataModifica()) ? 'true' : 'false';
                     $file_tpl[$i]['autore']       = $file->getUsername();
-                    $file_tpl[$i]['autore_link']  = 'v2.php?do=ShowUser&id_utente='.$file->getIdUtente();
+                    $file_tpl[$i]['autore_link']  = '/?do=ShowUser&id_utente='.$file->getIdUtente();
                     $file_tpl[$i]['id_autore']    = $file->getIdUtente();
                     $file_tpl[$i]['dimensione'] = $file->getDimensione();
                     $file_tpl[$i]['voto_medio'] = round($file->getVoto($file->getIdFile()),1);
@@ -95,8 +95,8 @@ class ShowAllFilesStudentiTitoli extends PluginCommand
 //							$canale_tpl['link'] = $canale->showMe();
                             $file_tpl[$i]['canaleTitolo'] = $canale->getNome();
                             $file_tpl[$i]['canaleLink'] = $canale->showMe();
-                            $file_tpl[$i]['download_uri'] = 'v2.php?do=FileDownload&id_file='.$file->getIdFile().'&id_canale='.$canali[$j];
-                            $file_tpl[$i]['show_info_uri'] = 'v2.php?do=FileShowInfo&id_file='.$file->getIdFile().'&id_canale='.$canali[$j];
+                            $file_tpl[$i]['download_uri'] = '/?do=FileDownload&id_file='.$file->getIdFile().'&id_canale='.$canali[$j];
+                            $file_tpl[$i]['show_info_uri'] = '/?do=FileShowInfo&id_file='.$file->getIdFile().'&id_canale='.$canali[$j];
                             $file_tpl[$i]['canali'][] = $canale_tpl;
                         }
                     }

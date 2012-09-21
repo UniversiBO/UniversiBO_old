@@ -88,7 +88,7 @@ class ShowCdl extends CanaleCommand
                 $cdl_listIns[$insAnnoCorso]['list'][$insCiclo]['list'][] =
                 array( 'name' => $tempPrgAttDid->getNome(),
                         'nomeDoc' => $tempPrgAttDid->getNomeDoc(),
-                        'uri' => 'v2.php?do=ShowInsegnamento&id_canale='.$tempPrgAttDid->getIdCanale(),
+                        'uri' => '/?do=ShowInsegnamento&id_canale='.$tempPrgAttDid->getIdCanale(),
                         'editUri' => ($allowEdit)?$editUri:'',
                         'forumUri' =>($tempPrgAttDid->getServizioForum() != false) ? $forum->getForumUri($tempPrgAttDid->getForumForumId()) : '' );
             }
@@ -108,14 +108,14 @@ class ShowCdl extends CanaleCommand
 
         if ($anno_accademico < $defaultYear) {
             $template -> assign('cdl_nextYear', ($anno_accademico+1).'/'.($anno_accademico+2) );
-            $template -> assign('cdl_nextYearUri', 'v2.php?do=ShowCdl&id_canale='.$cdl->getIdCanale().'&anno_accademico='.($anno_accademico+1) );
+            $template -> assign('cdl_nextYearUri', '/?do=ShowCdl&id_canale='.$cdl->getIdCanale().'&anno_accademico='.($anno_accademico+1) );
         } else {
             $template -> assign('cdl_nextYearUri', false);
         }
 
         if ($anno_accademico >= 2002) {
             $template -> assign('cdl_prevYear', ($anno_accademico-1).'/'.($anno_accademico) );
-            $template -> assign('cdl_prevYearUri', 'v2.php?do=ShowCdl&id_canale='.$cdl->getIdCanale().'&anno_accademico='.($anno_accademico-1) );
+            $template -> assign('cdl_prevYearUri', '/?do=ShowCdl&id_canale='.$cdl->getIdCanale().'&anno_accademico='.($anno_accademico-1) );
         }
 
         $template -> assign('cdl_langList', 'Elenco insegnamenti attivati su UniversiBO');

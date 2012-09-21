@@ -9,6 +9,6 @@
 <h3><a href="{$showUser|escape:"htmlall"}">Torna&nbsp;alla&nbsp;tua&nbsp;scheda</a></h3>
 </div>
 <hr />
-{include file=Help/topic.tpl showTopic_topic=$showTopic_topic idsu=$showTopic_topic.reference}
+{include file="Help/topic.tpl" showTopic_topic=$showTopic_topic idsu=$showTopic_topic.reference}
 
 {include file="footer_index.tpl"}

@@ -74,7 +74,7 @@ class ShowFileStudentiTitoli extends PluginCommand
 //				{
 //					$template->assign('showFileStudentiTitoli_addFileFlag', 'true');
 //					$template->assign('showFileStudentiTitoli_addFile', 'Inserisci il tuo contributo');
-//					$template->assign('showFileStudentiTitoli_addFileUri', 'v2.php?do=FileStudentiAdd&id_canale='.$id_canale);
+//					$template->assign('showFileStudentiTitoli_addFileUri', '/?do=FileStudentiAdd&id_canale='.$id_canale);
 //				}
             } else {
                 $personalizza   = false;
@@ -88,7 +88,7 @@ class ShowFileStudentiTitoli extends PluginCommand
             if ( !$user->isOspite() ) {
                     $template->assign('showFileStudentiTitoli_addFileFlag', 'true');
                     $template->assign('showFileStudentiTitoli_addFile', 'Inserisci il tuo contributo');
-                    $template->assign('showFileStudentiTitoli_addFileUri', 'v2.php?do=FileStudentiAdd&id_canale='.$id_canale);
+                    $template->assign('showFileStudentiTitoli_addFileUri', '/?do=FileStudentiAdd&id_canale='.$id_canale);
                 }
 /*
         $canale_news = $this->getNumNewsCanale($id_canale);
@@ -127,7 +127,7 @@ class ShowFileStudentiTitoli extends PluginCommand
                     //$file_tpl['nuova']        = ($flag_chkDiritti && $personalizza_not_admin && $ultimo_accesso < $file->getUltimaModifica()) ? 'true' : 'false';
                     $file_tpl['nuova']        = ($personalizza_not_admin && $ultimo_accesso < $file->getDataModifica()) ? 'true' : 'false';
                     $file_tpl['autore']       = $file->getUsername();
-                    $file_tpl['autore_link']  = 'v2.php?do=ShowUser&id_utente='.$file->getIdUtente();
+                    $file_tpl['autore_link']  = '/?do=ShowUser&id_utente='.$file->getIdUtente();
                     $file_tpl['id_autore']    = $file->getIdUtente();
                     $file_tpl['modifica']     = '';
                     $file_tpl['modifica_link']= '';
@@ -136,18 +136,18 @@ class ShowFileStudentiTitoli extends PluginCommand
                     //if ( ($user->isAdmin() || $referente || $this_moderatore)  && $flag_chkDiritti)
                     if (($user->isAdmin() || $referente || $this_moderatore || ($user == $file->getIdUtente()))) {
                         $file_tpl['modifica']     = 'Modifica';
-                        $file_tpl['modifica_link']= 'v2.php?do=FileEdit&id_file='.$file->getIdFile().'&id_canale='.$id_canale;
+                        $file_tpl['modifica_link']= '/?do=FileEdit&id_file='.$file->getIdFile().'&id_canale='.$id_canale;
                         $file_tpl['elimina']      = 'Elimina';
-                        $file_tpl['elimina_link'] = 'v2.php?do=FileDelete&id_file='.$file->getIdFile().'&id_canale='.$id_canale;
+                        $file_tpl['elimina_link'] = '/?do=FileDelete&id_file='.$file->getIdFile().'&id_canale='.$id_canale;
                     }
                     $file_tpl['dimensione'] = $file->getDimensione();
 //	tolto controllo: Il link download va mostrato sempre, il controllo ? effettuato successivamente
 //					$file_tpl['download_uri'] = '';
 //					$permessi_download = $file->getPermessiDownload();
 //					if ($user->isGroupAllowed($permessi_download))
-                    $file_tpl['download_uri'] = 'v2.php?do=FileDownload&id_file='.$file->getIdFile().'&id_canale='.$id_canale;
+                    $file_tpl['download_uri'] = '/?do=FileDownload&id_file='.$file->getIdFile().'&id_canale='.$id_canale;
                     $file_tpl['categoria'] = $file->getCategoriaDesc();
-                    $file_tpl['show_info_uri'] = 'v2.php?do=FileShowInfo&id_file='.$file->getIdFile().'&id_canale='.$id_canale;
+                    $file_tpl['show_info_uri'] = '/?do=FileShowInfo&id_file='.$file->getIdFile().'&id_canale='.$id_canale;
 
                     if (!array_key_exists($file->getIdCategoria(), $elenco_file_tpl))
                         $elenco_file_tpl[$file->getIdCategoria()]['desc'] = $file->getCategoriaDesc();

@@ -47,7 +47,7 @@ class FileDownload extends UniversiboCommand
 
         $template
                 ->assign('fileDownload_InfoURI',
-                        'v2.php?do=FileShowInfo&id_file='
+                        '/?do=FileShowInfo&id_file='
                                 . $file->getIdFile());
 
         if ($user->isGroupAllowed($file->getPermessiDownload())) {
