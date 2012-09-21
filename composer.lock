@@ -1,5 +1,5 @@
 {
-    "hash": "ee26fb3d222e8be73f17d3413ba7d467",
+    "hash": "0503fe0e01478463fb132e24b606496a",
     "packages": [
         {
             "name": "doctrine/common",
@@ -260,7 +260,7 @@
                 "symfony/symfony": ">=2.0",
                 "doctrine/data-fixtures": "*"
             },
-            "time": "2012-01-18 16:33:12",
+            "time": "2012-01-18 14:33:12",
             "type": "symfony-bundle",
             "installation-source": "dist",
             "autoload": {
@@ -482,7 +482,7 @@
                 "symfony/framework-bundle": "2.*",
                 "jms/cg": "1.0.0"
             },
-            "time": "2012-01-02 03:50:26",
+            "time": "2012-01-02 01:50:26",
             "type": "symfony-bundle",
             "installation-source": "dist",
             "autoload": {
@@ -524,7 +524,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-01-02 03:40:52",
+            "time": "2012-01-02 01:40:52",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -626,7 +626,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-01-02 04:32:49",
+            "time": "2012-01-02 02:32:49",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -841,6 +841,74 @@
             "time": "1347983448"
         },
         {
+            "name": "noiselabs/smarty-bundle",
+            "version": "dev-master",
+            "target-dir": "NoiseLabs/Bundle/SmartyBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/noiselabs/SmartyBundle",
+                "reference": "v1.1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/noiselabs/SmartyBundle/zipball/v1.1.0",
+                "reference": "v1.1.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "smarty/smarty": "3.1.*@stable",
+                "symfony/framework-bundle": "2.1.*"
+            },
+            "require-dev": {
+                "symfony/assetic-bundle": ">=2.0",
+                "symfony/yaml": "2.1.*",
+                "symfony/security": "2.1.*"
+            },
+            "suggest": {
+                "symfony/assetic-bundle": "Assetic support in Smarty templates",
+                "mopa/bootstrap-bundle": "Integration of Twitter Bootstrap into Symfony2",
+                "mopa/bootstrap-sandbox-bundle": "Integration of Twitter Bootstrap into Symfony2 (extra)",
+                "liip/theme-bundle": "Integration of Twitter Bootstrap into Symfony2 (themes)",
+                "knplabs/knp-menu-bundle": "Smarty3 integration with KnpMenu (object oriented menus)"
+            },
+            "time": "1347910159",
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "NoiseLabs\\Bundle\\SmartyBundle": ""
+                }
+            },
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Vítor Brandão",
+                    "email": "noisebleed@noiselabs.org",
+                    "homepage": "http://blog.noiselabs.org"
+                },
+                {
+                    "name": "Community contributions",
+                    "homepage": "https://github.com/noiselabs/SmartyBundle/contributors"
+                }
+            ],
+            "description": "This Symfony2 bundle provides integration for the Smarty3 template engine.",
+            "homepage": "http://smartybundle.noiselabs.org",
+            "keywords": [
+                "templating",
+                "symfony",
+                "smarty",
+                "noiselabs"
+            ]
+        },
+        {
             "name": "sensio/distribution-bundle",
             "version": "2.1.x-dev",
             "target-dir": "Sensio/Bundle/DistributionBundle",
@@ -980,6 +1048,48 @@
             ],
             "description": "This bundle generates code for you",
             "time": "1348030981"
+        },
+        {
+            "name": "smarty/smarty",
+            "version": "v3.1.11",
+            "source": {
+                "type": "svn",
+                "url": "http://smarty-php.googlecode.com/svn",
+                "reference": "/tags/v3.1.11/@4636"
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "time": "2012-07-02 15:17:26",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "classmap": [
+                    "distribution/libs/Smarty.class.php"
+                ]
+            },
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Monte Ohrt",
+                    "email": "monte@ohrt.com"
+                },
+                {
+                    "name": "Uwe Tews",
+                    "email": "uwe.tews@googlemail.com"
+                },
+                {
+                    "name": "Rodney Rehm",
+                    "email": "rodney.rehm@medialize.de"
+                }
+            ],
+            "description": "Smarty - the compiling PHP template engine",
+            "homepage": "http://www.smarty.net",
+            "keywords": [
+                "templating"
+            ]
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1445,12 +1555,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/zendframework/zf2.git",
-                "reference": "0c248900070b6c45653a894f32f04035c2034e97"
+                "reference": "2c64211d4bca156f9c545d04af85b034239f5074"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/zendframework/zf2/zipball/0c248900070b6c45653a894f32f04035c2034e97",
-                "reference": "0c248900070b6c45653a894f32f04035c2034e97",
+                "url": "https://github.com/zendframework/zf2/zipball/2c64211d4bca156f9c545d04af85b034239f5074",
+                "reference": "2c64211d4bca156f9c545d04af85b034239f5074",
                 "shasum": ""
             },
             "require": {
@@ -1515,7 +1625,7 @@
                 "zendframework/zendpdf": "ZendPdf for creating PDF representations of barcodes",
                 "pecl-weakref": "Implementation of weak references for Zend\\Stdlib\\CallbackHandler"
             },
-            "time": "1348253394",
+            "time": "1348258194",
             "type": "library",
             "extra": {
                 "branch-alias": {

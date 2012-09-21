@@ -11,5 +11,5 @@
 {/foreach}
 <hr />
 
-{include file=questionario.tpl}
+{include file="questionario.tpl"}
 {include file="footer_index.tpl"}

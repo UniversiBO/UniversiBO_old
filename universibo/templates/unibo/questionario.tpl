@@ -1,6 +1,6 @@
 <a name="gotof3" />
 <h3>Questionario</h3>
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 <form action="v2.php?do=ShowContribute#gotof3" id="f3" method="post">
 	<fieldset>
 	<legend>{$question_PersonalInfo|escape:"htmlall"}</legend>

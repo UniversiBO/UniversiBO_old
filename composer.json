@@ -18,7 +18,11 @@
         "doctrine/doctrine-fixtures-bundle": "2.1.*",
         "doctrine/doctrine-migrations-bundle": "@dev",
         "zendframework/zend-feed": "2.0.*",
-        "universibo/shibboleth-bundle": "@dev"
+        "universibo/shibboleth-bundle": "@dev",
+        "noiselabs/smarty-bundle": "1.1.*"
+    },
+    "replaces": {
+        "smarty/smarty": "v3.1.11"
     },
     "minimum-stability": "dev",
     "authors": [

@@ -109,6 +109,8 @@ class ShowCdl extends CanaleCommand
         if ($anno_accademico < $defaultYear) {
             $template -> assign('cdl_nextYear', ($anno_accademico+1).'/'.($anno_accademico+2) );
             $template -> assign('cdl_nextYearUri', 'v2.php?do=ShowCdl&id_canale='.$cdl->getIdCanale().'&anno_accademico='.($anno_accademico+1) );
+        } else {
+            $template -> assign('cdl_nextYearUri', false);
         }
 
         if ($anno_accademico >= 2002) {

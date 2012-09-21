@@ -1,6 +1,6 @@
 {include file="header_index.tpl"}
 
-{include file=avviso_notice.tpl}
+{include file="avviso_notice.tpl"}
 
 <div class="titoloPagina">
 <h2>{$cdl_cdlTitle|escape:"htmlall"} - {$cdl_cdlCodice|escape:"htmlall"}</h2>
@@ -36,6 +36,6 @@
 		{if $smarty.foreach.t_ciclo.last && ($total_loop is even)}{cycle name=t_class values="even,odd" print=false advance=true}{/if}
 {/foreach}
 <hr />
-{include file=News/latest_news.tpl}
+{include file="News/latest_news.tpl"}
 
 {include file="footer_index.tpl"}

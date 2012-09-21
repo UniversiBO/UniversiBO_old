@@ -93,6 +93,8 @@ class ShowInsegnamento extends CanaleCommand
                             ->assign('ins_ContattoDocente',
                                     'Visualizza lo stato di questo docente');
                 }
+        } else {
+            $template->assign('ins_infoDidEdit', false);
         }
         $info_didattica = InfoDidattica::retrieveInfoDidattica($id_canale);
         //var_dump($info_didattica);
