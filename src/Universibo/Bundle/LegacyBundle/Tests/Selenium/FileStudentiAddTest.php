@@ -7,7 +7,7 @@ class FileStudentiAddTest extends UniversiBOSeleniumTestCase
 {
     public function testReadme()
     {
-        $this->fileCommon(realpath(dirname(__FILE__).'/../../../../../../README'));
+        $this->fileCommon(realpath(dirname(__FILE__).'/../../../../../../README.md'));
         $this->assertTrue($this->isTextPresent('con successo'), 'success message must be present');
     }
 

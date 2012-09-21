@@ -21,12 +21,12 @@ class ShowCdlTest extends UniversiBOSeleniumTestCase
     public function testNoAcademicalYear1()
     {
         $this->open('/?do=ShowCdl&id_canale=6172&anno_accademico=2100');
-        $this->assertSentence('Sorry, the page you are looking for could not be found.');
+        $this->assertSentence('The server returned a "404 Not Found".');
     }
 
     public function testNoAcademicalYear2()
     {
         $this->open('/?do=ShowCdl&id_canale=6172&anno_accademico=2000');
-        $this->assertSentence('Sorry, the page you are looking for could not be found.');
+        $this->assertSentence('The server returned a "404 Not Found".');
     }
 }
