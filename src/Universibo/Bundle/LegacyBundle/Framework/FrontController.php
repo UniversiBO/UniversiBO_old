@@ -123,10 +123,7 @@ class FrontController
      */
     public function __construct( $receiver )
     {
-        $kernel = $receiver->getKernel();
-        $kernel->init();
-        $kernel->boot();
-        self::$container = $kernel->getContainer();
+        self::$container = $receiver->getContainer();
 
         //		include_once('XmlDoc'.PHP_EXTENSION);
 
@@ -184,7 +181,7 @@ class FrontController
                 \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` presente il file relativo al template specificato: "'.$template.'"','file'=>__FILE__,'line'=>__LINE__));
             }
 
-            $templateEngine->display($template);
+            return $templateEngine->fetch($template);
         }
 
     }

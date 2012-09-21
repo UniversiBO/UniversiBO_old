@@ -22,7 +22,7 @@ abstract class BaseReceiver
 
     public $configFile = '../config.xml';
     public $receiverIdentifier = 'main';
-    private $kernel;
+    private $container;
 
     /**
      * Costruttore del Receiver
@@ -32,14 +32,14 @@ abstract class BaseReceiver
      * @param string $framework_path   percorso in cui si trovano i file del framework
      * @param string $application_path percorso in cui si trovano i file dell'applicazione
      */
-    public function __construct($identifier, $config_file, $framework_path, $application_path, $kernel)
+    public function __construct($identifier, $config_file, $framework_path, $application_path, $container)
     {
         $this->frameworkPath = $framework_path;
         $this->applicationPath = $application_path;
 
         $this->configFile = $config_file;
         $this->receiverIdentifier = $identifier;
-        $this->kernel = $kernel;
+        $this->container = $container;
     }
 
 
@@ -54,29 +54,15 @@ abstract class BaseReceiver
         return $this->receiverIdentifier;
     }
 
-
-
-
     /**
      * Set PHP language settings (path, gpc, error_reporting)
      */
     public function _setPhpEnvirorment()
     {
-        //error reporting activation (enabled on testing system)
-        error_reporting(E_ALL);
-
-        //output buffering
-        //ob_start('ob_gzhandler');
-
-        //session initialization
-        session_start();
-        if (!array_key_exists('SID',$_SESSION) ) {
-            $_SESSION['SID'] = SID;
-        }
         $pathDelimiter = PATH_SEPARATOR;
 
 
-        ini_set('include_path', $this->frameworkPath.$pathDelimiter.$this->applicationPath.'/classes'.$pathDelimiter.ini_get('include_path'));
+        ini_set('include_path', $this->frameworkPath.$pathDelimiter.ini_get('include_path'));
     }
 
 
@@ -92,12 +78,14 @@ abstract class BaseReceiver
 
         $fc->setConfig( $this->configFile );
 
-        $fc->executeCommand();
+        $result = $fc->executeCommand();
         $fc->getDbConnection('main')->disconnect();
+        
+        return $result;
     }
 
-    public function getKernel()
+    public function getContainer()
     {
-        return $this->kernel;
+        return $this->container;
     }
 }

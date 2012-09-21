@@ -1,5 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
+use Symfony\Component\Security\Core\User\EquatableInterface;
+
 use Symfony\Component\Security\Core\User\UserInterface;
 use Universibo\Bundle\SSOBundle\Model\UserInterface as SSOUserInterface;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
@@ -14,7 +16,7 @@ use Universibo\Bundle\LegacyBundle\Auth\PasswordUtil;
  * @license GPL, <{@link http://www.opensource.org/licenses/gpl-license.php}>
  * @copyright CopyLeft UniversiBO 2001-2003
  */
-class User implements UserInterface, SSOUserInterface, \Serializable
+class User implements UserInterface, SSOUserInterface, \Serializable, EquatableInterface
 {
     const ALGORITMO_DEFAULT = 'sha1';
 
@@ -1059,10 +1061,10 @@ class User implements UserInterface, SSOUserInterface, \Serializable
     }
 
     /**
-     * @TODO implement method
-     * @see Symfony\Component\Security\Core\User.UserInterface::equals()
+     * @param UserInterface $user
+     * @return boolean
      */
-    public function equals(UserInterface $user)
+    public function isEqualTo(UserInterface $user)
     {
         $equals = $user->getUsername() === $this->getUsername();
         $equals = $equals && $user->getPassword() === $this->getPassword();
