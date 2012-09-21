@@ -1061,7 +1061,7 @@ class User implements UserInterface, SSOUserInterface, \Serializable, EquatableI
     }
 
     /**
-     * @param UserInterface $user
+     * @param  UserInterface $user
      * @return boolean
      */
     public function isEqualTo(UserInterface $user)

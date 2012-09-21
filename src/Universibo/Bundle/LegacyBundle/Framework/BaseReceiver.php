@@ -80,7 +80,7 @@ abstract class BaseReceiver
 
         $result = $fc->executeCommand();
         $fc->getDbConnection('main')->disconnect();
-        
+
         return $result;
     }
 
