@@ -179,7 +179,7 @@ class ShowFileTitoli extends PluginCommand
             $template->assign('showFileTitoli_langFileAvailableFlag', 'true');
         }
 
-        $template->assign('showFileTitoli_fileList', $elenco_file_tpl);
+        $template->assignLatin1('showFileTitoli_fileList', $elenco_file_tpl);
 
     }
 
