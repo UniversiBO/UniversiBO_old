@@ -3,11 +3,7 @@ namespace Universibo\Bundle\LegacyBundle\Controller;
 
 use Universibo\Bundle\LegacyBundle\Framework\DefaultReceiver;
 
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
-
 use Symfony\Component\HttpFoundation\Response;
-
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -24,6 +20,7 @@ class DefaultController extends Controller
 
         $base = realpath(__DIR__.'/../../../../..');
         $receiver = new DefaultReceiver('main', $base .'/config.xml', $base . '/framework', $base . '/universibo', $this->container, $do);
+
         return new Response($receiver->main());
     }
 }

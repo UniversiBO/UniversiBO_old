@@ -131,7 +131,7 @@ class FrontController
         //		include_once('XmlDoc'.PHP_EXTENSION);
 
         $this->receiverIdentifier = $receiver->getIdentifier();
-        
+
         $this->do = $do;
     }
 
@@ -365,15 +365,15 @@ class FrontController
      */
     public function getCommandRequest()
     {
-        if(is_null($this->do)) {
+        if (is_null($this->do)) {
             $this->do = $this->defaultCommand;
         }
-        
+
         if (!array_key_exists('do',$_GET) || is_null($_GET['do'])) {
             $_GET['do'] = $this->do;
         }
 
-         if($this->do === '') {
+         if ($this->do === '') {
                throw new NotFoundHttpException('Empty command name');
            }
 
