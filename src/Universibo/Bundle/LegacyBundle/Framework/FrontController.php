@@ -530,8 +530,8 @@ class FrontController
            $this->receivers=array();
            $nodeList = $this->config->getElementsByTagName('receivers');
            $node = $nodeList->item(0);
-           $figli =& $node->childNodes;
-           $n =& $figli->length;
+           $figli = $node->childNodes;
+           $n = $figli->length;
 
            for ($i=0; $i<$n; $i++) {
                $child	  = $figli->item($i);
@@ -555,7 +555,7 @@ class FrontController
         for ($i = 0; $i < $figli->length; $i++) {
             $iesimoFiglio = $figli->item($i);
             if ($iesimoFiglio->nodeType == XML_ELEMENT_NODE && $iesimoFiglio->tagName == 'defaultCommand')
-                $this->defaultCommand =& $iesimoFiglio->firstChild->nodeValue;
+                $this->defaultCommand = $iesimoFiglio->firstChild->nodeValue;
         }
         //var_dump($this->defaultCommand );
     }
@@ -761,7 +761,7 @@ class FrontController
     {
         $commandString=$this->getCommandRequest();
         // @bug: qui il ->childNodes mi restituisce i figli di appsettings invce che dei figli di root
-        $figliRoot =& $this->config->documentElement->childNodes;
+        $figliRoot = $this->config->documentElement->childNodes;
         //		var_dump($this);
         //		$listaNodiCommands =& $this->config->getElementsByTagName("commands");
         $cinfonode = null;
