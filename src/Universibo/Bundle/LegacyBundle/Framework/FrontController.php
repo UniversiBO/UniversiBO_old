@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Framework;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 define('MAIL_KEEPALIVE_NO', 0);
 define('MAIL_KEEPALIVE_ALIVE', 1);
 define('MAIL_KEEPALIVE_CLOSE', 2);
@@ -116,32 +118,21 @@ class FrontController
      */
     private static $container;
 
+    private $do;
     /**
      * Constuctor of front controller object based upon $configFile
      *
      * @param string $configFile filename of FrontController configuration file
      */
-    public function __construct( $receiver )
+    public function __construct($receiver, $do = null)
     {
         self::$container = $receiver->getContainer();
 
         //		include_once('XmlDoc'.PHP_EXTENSION);
 
         $this->receiverIdentifier = $receiver->getIdentifier();
-
-        /*		$log_error_definition = array(0=>'timestamp', 1=>'date', 2=>'remote_ip', 3=>'request', 4=>'referer_page', 5=>'file', 6=>'line', 7=>'description' );
-         $errorLog = new LogHandler('error',$this->paths['logs'],$log_error_definition);
-        */
-
-        //		include_once("MultiLanguage.php");
-        //		$language = new MultiLanguage('it',$this->defaultLanguage);
-        //		var_dump($language);
-
-        //Initialize Request and Response objects and set $this->request, $this->response
-        //		$this->import("Request");
-        //		$this->import("Response");
-        //		$this->request=new Request();
-        //		$this->response=new Response();
+        
+        $this->do = $do;
     }
 
     /**
@@ -374,14 +365,19 @@ class FrontController
      */
     public function getCommandRequest()
     {
-           if (!array_key_exists('do',$_GET)) {
-               $_GET['do'] = $this->defaultCommand;
+        if(is_null($this->do)) {
+            $this->do = $this->defaultCommand;
+        }
+        
+        if (!array_key_exists('do',$_GET) || is_null($_GET['do'])) {
+            $_GET['do'] = $this->do;
+        }
+
+         if($this->do === '') {
+               throw new NotFoundHttpException('Empty command name');
            }
 
-           if($_GET['do'] == '')
-               \Error::throwError(_ERROR_DEFAULT,array('msg'=>'Il comando indicato e` vuoto','file'=>__FILE__,'line'=>__LINE__));
-
-           return $_GET['do'];
+           return $this->do;
     }
 
     /**

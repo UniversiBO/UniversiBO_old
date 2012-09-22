@@ -12,9 +12,8 @@ UniversiboWebsiteBundle:
     prefix:   /v3
     
 UniversiboLegacyBundle:
-    resource: "@UniversiboLegacyBundle/Controller/"
-    type:     annotation
-    prefix:   /    
+    resource: "@UniversiboLegacyBundle/Resources/config/routing.yml"
+    prefix:   /
     
 UniversiboShibbolethBundle:
     resource: "@UniversiboShibbolethBundle/Resources/config/routing.yml"

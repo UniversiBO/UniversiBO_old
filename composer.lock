@@ -1,5 +1,5 @@
 {
-    "hash": "670085e5ed85bea96e76e019f4482b6e",
+    "hash": "ec4127fab07fb97a4c75ce4ad3d0fa62",
     "packages": [
         {
             "name": "doctrine/common",
@@ -260,7 +260,7 @@
                 "symfony/symfony": ">=2.0",
                 "doctrine/data-fixtures": "*"
             },
-            "time": "2012-01-18 16:33:12",
+            "time": "2012-01-18 14:33:12",
             "type": "symfony-bundle",
             "installation-source": "dist",
             "autoload": {
@@ -487,7 +487,7 @@
                 "symfony/framework-bundle": "2.*",
                 "jms/cg": "1.0.0"
             },
-            "time": "2012-01-02 17:50:26",
+            "time": "2012-01-02 15:50:26",
             "type": "symfony-bundle",
             "installation-source": "dist",
             "autoload": {
@@ -529,7 +529,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-01-02 17:40:52",
+            "time": "2012-01-02 15:40:52",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -631,7 +631,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-01-02 18:32:49",
+            "time": "2012-01-02 16:32:49",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -846,8 +846,116 @@
             ]
         },
         {
-            "name": "noiselabs/smarty-bundle",
+            "name": "mopa/bootstrap-bundle",
             "version": "dev-master",
+            "target-dir": "Mopa/Bundle/BootstrapBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phiamo/MopaBootstrapBundle.git",
+                "reference": "8d52545a75bf09bf42fb38a48026cdeb918a0f80"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/phiamo/MopaBootstrapBundle/zipball/8d52545a75bf09bf42fb38a48026cdeb918a0f80",
+                "reference": "8d52545a75bf09bf42fb38a48026cdeb918a0f80",
+                "shasum": ""
+            },
+            "require": {
+                "mopa/composer-bridge": "dev-master",
+                "symfony/symfony": "2.1.*"
+            },
+            "suggest": {
+                "knplabs/knp-paginator-bundle": "dev-master",
+                "craue/formflow-bundle": "dev-master",
+                "twitter/bootstrap": "2.0.*",
+                "knplabs/knp-menu-bundle": "1.1.*",
+                "thomas-mcdonald/bootstrap-sass": "dev-master"
+            },
+            "time": "1348139117",
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1.x-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Mopa\\Bundle\\BootstrapBundle": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Philipp A. Mohrenweiser",
+                    "email": "phiamo@googlemail.com",
+                    "homepage": "http://bootstrap.mohrenweiserpartner.de"
+                },
+                {
+                    "name": "Community contributions",
+                    "homepage": "https://github.com/phiamo/MopaBootstrapBundle/contributors"
+                }
+            ],
+            "description": "Easy integration of twitters bootstrap into symfony2",
+            "keywords": [
+                "form",
+                "extra form",
+                "bootstrap",
+                "bootstrap form",
+                "template"
+            ]
+        },
+        {
+            "name": "mopa/composer-bridge",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/phiamo/MopaComposerBridge.git",
+                "reference": "84b8bf537163b4470f14d02554a0e9eb5d300172"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/phiamo/MopaComposerBridge/zipball/84b8bf537163b4470f14d02554a0e9eb5d300172",
+                "reference": "84b8bf537163b4470f14d02554a0e9eb5d300172",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/console": "2.*"
+            },
+            "time": "1337596733",
+            "type": "symfony-bridge",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Mopa\\Bridge\\Composer": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Philipp A. Mohrenweiser",
+                    "email": "phiamo@googlemail.com",
+                    "homepage": "http://bootstrap.mohrenweiserpartner.de"
+                },
+                {
+                    "name": "Community contributions",
+                    "homepage": "https://github.com/phiamo/MopaComposerBridge/contributors"
+                }
+            ],
+            "description": "Symfony2 Composer Bridge",
+            "homepage": "http://bootstrap.mohrenweiserpartner.de",
+            "keywords": [
+                "Symfony2",
+                "composer"
+            ]
+        },
+        {
+            "name": "noiselabs/smarty-bundle",
+            "version": "v1.1.0",
             "target-dir": "NoiseLabs/Bundle/SmartyBundle",
             "source": {
                 "type": "git",
@@ -862,13 +970,13 @@
             },
             "require": {
                 "php": ">=5.3.3",
-                "smarty/smarty": "3.1.*@stable",
-                "symfony/framework-bundle": "2.1.*"
+                "symfony/framework-bundle": "2.1.*",
+                "smarty/smarty": "3.1.*@stable"
             },
             "require-dev": {
-                "symfony/assetic-bundle": ">=2.0",
+                "symfony/security": "2.1.*",
                 "symfony/yaml": "2.1.*",
-                "symfony/security": "2.1.*"
+                "symfony/assetic-bundle": ">=2.0"
             },
             "suggest": {
                 "symfony/assetic-bundle": "Assetic support in Smarty templates",
@@ -877,7 +985,7 @@
                 "liip/theme-bundle": "Integration of Twitter Bootstrap into Symfony2 (themes)",
                 "knplabs/knp-menu-bundle": "Smarty3 integration with KnpMenu (object oriented menus)"
             },
-            "time": "1347910159",
+            "time": "2012-09-17 17:29:19",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1065,7 +1173,7 @@
             "require": {
                 "php": ">=5.2"
             },
-            "time": "2012-07-02 17:17:26",
+            "time": "2012-07-02 13:17:26",
             "type": "library",
             "installation-source": "source",
             "autoload": {

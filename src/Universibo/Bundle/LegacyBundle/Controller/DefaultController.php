@@ -14,11 +14,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 /**
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
-class IndexController extends Controller
+class DefaultController extends Controller
 {
-    /**
-     * @Route("/")
-     */
     public function indexAction()
     {
         $request = $this->getRequest();
@@ -26,9 +23,7 @@ class IndexController extends Controller
         $do = $request->get('do', 'ShowHome');
 
         $base = realpath(__DIR__.'/../../../../..');
-        $receiver = new DefaultReceiver('main', $base .'/config.xml', $base . '/framework', $base . '/universibo', $this->container);
-        $fc = new FrontController($receiver);
-
+        $receiver = new DefaultReceiver('main', $base .'/config.xml', $base . '/framework', $base . '/universibo', $this->container, $do);
         return new Response($receiver->main());
     }
 }

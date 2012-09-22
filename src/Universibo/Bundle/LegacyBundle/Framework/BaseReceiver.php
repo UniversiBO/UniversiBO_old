@@ -23,6 +23,7 @@ abstract class BaseReceiver
     public $configFile = '../config.xml';
     public $receiverIdentifier = 'main';
     private $container;
+    private $do;
 
     /**
      * Costruttore del Receiver
@@ -32,7 +33,7 @@ abstract class BaseReceiver
      * @param string $framework_path   percorso in cui si trovano i file del framework
      * @param string $application_path percorso in cui si trovano i file dell'applicazione
      */
-    public function __construct($identifier, $config_file, $framework_path, $application_path, $container)
+    public function __construct($identifier, $config_file, $framework_path, $application_path, $container, $do = null)
     {
         $this->frameworkPath = $framework_path;
         $this->applicationPath = $application_path;
@@ -40,6 +41,7 @@ abstract class BaseReceiver
         $this->configFile = $config_file;
         $this->receiverIdentifier = $identifier;
         $this->container = $container;
+        $this->do = $do;
     }
 
 
@@ -74,7 +76,7 @@ abstract class BaseReceiver
     {
         $this->_setPhpEnvirorment();
 
-        $fc= new FrontController($this);
+        $fc= new FrontController($this, $this->do);
 
         $fc->setConfig( $this->configFile );
 
