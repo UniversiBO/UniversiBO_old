@@ -469,10 +469,7 @@ class FrontController
      */
     public function getStyle()
     {
-           if (!array_key_exists('template_name', $_SESSION) )
-               return $this->getAppSetting('defaultStyle');
-
-           return $_SESSION['template_name'];
+           return 'unibo';
     }
 
     /**
