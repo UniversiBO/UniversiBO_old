@@ -17,7 +17,7 @@
         "jms/di-extra-bundle": "1.1.*",
         "doctrine/doctrine-fixtures-bundle": "2.1.*",
         "doctrine/doctrine-migrations-bundle": "@dev",
-        "zendframework/zend-feed": "2.0.*",
+        "zendframework/zend-feed": "2.0.*@stable",
         "universibo/shibboleth-bundle": "@dev",
         "noiselabs/smarty-bundle": "1.1.*"
     },
