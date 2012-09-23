@@ -56,6 +56,11 @@ swiftmailer:
 #    secure_controllers:  true
 #    secure_all_services: false
 
+fos_user:
+    db_driver: orm
+    user_class: 'Universibo\Bundle\WebsiteBundle\Entity\User'
+    firewall_name: main
+
 universibo_shibboleth:
   idp_url:
     base: 'https://idp.unibo.it/adfs/ls/'

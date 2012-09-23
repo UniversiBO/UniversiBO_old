@@ -7,15 +7,15 @@ security:
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
         
     providers:
-        legacy:
-            id: universibo_legacy.repository.user
+        fos_userbundle:
+            id: fos_user.user_provider.username
 
     firewalls:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        secured_area:
+        main:
             pattern: ^/
             anonymous: ~
             form_login:
