@@ -1,5 +1,5 @@
 {
-    "hash": "0c133e7eb561774af9fd09980c7bfafa",
+    "hash": "bd1580d564e91bee061e120ccaed40d6",
     "packages": [
         {
             "name": "doctrine/common",
@@ -260,7 +260,7 @@
                 "symfony/symfony": ">=2.0",
                 "doctrine/data-fixtures": "*"
             },
-            "time": "2012-01-18 11:33:12",
+            "time": "2012-01-18 10:33:12",
             "type": "symfony-bundle",
             "installation-source": "dist",
             "autoload": {
@@ -464,6 +464,76 @@
             "time": "1348121015"
         },
         {
+            "name": "friendsofsymfony/user-bundle",
+            "version": "dev-master",
+            "target-dir": "FOS/UserBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle",
+                "reference": "1b2d06b0f9a7ef5dbd94433ad15c3ab7cc3eb492"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/zipball/1b2d06b0f9a7ef5dbd94433ad15c3ab7cc3eb492",
+                "reference": "1b2d06b0f9a7ef5dbd94433ad15c3ab7cc3eb492",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": "2.1.*",
+                "symfony/security-bundle": "2.1.*"
+            },
+            "require-dev": {
+                "twig/twig": "*",
+                "doctrine/doctrine-bundle": "*",
+                "swiftmailer/swiftmailer": "*",
+                "willdurand/propel-typehintable-behavior": "dev-master",
+                "symfony/validator": "2.1.*",
+                "symfony/yaml": "2.1.*"
+            },
+            "suggest": {
+                "doctrine/couchdb-odm-bundle": "*",
+                "doctrine/doctrine-bundle": "*",
+                "doctrine/mongodb-odm-bundle": "*"
+            },
+            "time": "1348265094",
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "FOS\\UserBundle": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christophe Coevoet",
+                    "email": "stof@notk.org"
+                },
+                {
+                    "name": "Thibault Duplessis",
+                    "email": "thibault.duplessis@gmail.com",
+                    "homepage": "http://ornicar.github.com"
+                },
+                {
+                    "name": "FriendsOfSymfony Community",
+                    "homepage": "https://github.com/friendsofsymfony/FOSUserBundle/contributors"
+                }
+            ],
+            "description": "Symfony FOSUserBundle",
+            "homepage": "http://friendsofsymfony.github.com",
+            "keywords": [
+                "User management"
+            ]
+        },
+        {
             "name": "jms/aop-bundle",
             "version": "1.0.0",
             "target-dir": "JMS/AopBundle",
@@ -482,7 +552,7 @@
                 "symfony/framework-bundle": "2.*",
                 "jms/cg": "1.0.0"
             },
-            "time": "2012-01-01 22:50:26",
+            "time": "2012-01-01 21:50:26",
             "type": "symfony-bundle",
             "installation-source": "dist",
             "autoload": {
@@ -524,7 +594,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-01-01 22:40:52",
+            "time": "2012-01-01 21:40:52",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -626,7 +696,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-01-01 23:32:49",
+            "time": "2012-01-01 22:32:49",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1209,12 +1279,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/symfony/symfony.git",
-                "reference": "237629ad64b4b6ce2d2c6ad15a2085f128d6f11e"
+                "reference": "7273311e1fb663ae7f5501f57a52ba9bd4db2ec3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/symfony/zipball/237629ad64b4b6ce2d2c6ad15a2085f128d6f11e",
-                "reference": "237629ad64b4b6ce2d2c6ad15a2085f128d6f11e",
+                "url": "https://github.com/symfony/symfony/zipball/7273311e1fb663ae7f5501f57a52ba9bd4db2ec3",
+                "reference": "7273311e1fb663ae7f5501f57a52ba9bd4db2ec3",
                 "shasum": ""
             },
             "require": {
@@ -1263,7 +1333,7 @@
                 "propel/propel1": "dev-master",
                 "monolog/monolog": "dev-master"
             },
-            "time": "1348209286",
+            "time": "1348414301",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1445,12 +1515,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/zendframework/zf2.git",
-                "reference": "2c64211d4bca156f9c545d04af85b034239f5074"
+                "reference": "98b667623eb294ac22a72757a5b514504987e0ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/zendframework/zf2/zipball/2c64211d4bca156f9c545d04af85b034239f5074",
-                "reference": "2c64211d4bca156f9c545d04af85b034239f5074",
+                "url": "https://github.com/zendframework/zf2/zipball/98b667623eb294ac22a72757a5b514504987e0ad",
+                "reference": "98b667623eb294ac22a72757a5b514504987e0ad",
                 "shasum": ""
             },
             "require": {
@@ -1515,7 +1585,7 @@
                 "zendframework/zendpdf": "ZendPdf for creating PDF representations of barcodes",
                 "pecl-weakref": "Implementation of weak references for Zend\\Stdlib\\CallbackHandler"
             },
-            "time": "1348258194",
+            "time": "1348340471",
             "type": "library",
             "extra": {
                 "branch-alias": {
