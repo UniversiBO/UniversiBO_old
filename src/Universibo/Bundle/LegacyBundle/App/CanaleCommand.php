@@ -1,7 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\App;
 
-use Universibo\Bundle\LegacyBundle\Entity\User;
+
+use Universibo\Bundle\WebsiteBundle\Entity\User;
 
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
@@ -89,13 +90,14 @@ abstract class CanaleCommand extends UniversiboCommand
             Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>'Il canale richiesto non è presente','file'=>__FILE__,'line'=>__LINE__));
 
         $canale = $this->getRequestCanale();
-        $user = $this->getSessionUser();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $groups  = $user instanceof User ? $user->getLegacyGroups(): 1;         
 
-        if ( ! $canale->isGroupAllowed( $user->getGroups() ) )
-            Error::throwError(_ERROR_DEFAULT, array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>'Non ti è permesso l\'accesso al canale selezionato, la sessione potrebbe essere scaduta','file'=>__FILE__,'line'=>__LINE__ ) );
+        if (!$canale->isGroupAllowed($groups)) {
+            throw new \Exception('Not allowed');
+        }
 
         $canale->addVisite();
-
     }
 
     /**
@@ -113,8 +115,8 @@ abstract class CanaleCommand extends UniversiboCommand
         $user = $this->getSessionUser();
 
         $template->assign( 'common_canaleMyUniversiBO', '');
-        if (!$user->isOspite()) {
-            $user_ruoli = $user->getRuoli();
+        if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $user_ruoli = $user->getLegacyGroups();
             if (array_key_exists($id_canale, $user_ruoli) && $user_ruoli[$id_canale]->isMyUniversiBO()) {
                 $template->assign( 'common_canaleMyUniversiBO', 'remove');
                 $template->assign( 'common_langCanaleMyUniversiBO', 'Rimuovi questa pagina da MyUniversiBO');

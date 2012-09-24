@@ -35,6 +35,11 @@ class User extends BaseUser
      */
     private $notifications;
     
+    /**
+     * @ORM\Column(type="integer", name="groups");
+     * @var int
+     */
+    private $legacyGroups;
 
     /**
      * @return string
@@ -89,6 +94,26 @@ class User extends BaseUser
     public function setNotifications($notifications)
     {
         $this->notifications = $notifications;
+        
+        return $this;
+    }
+    
+    /**
+     * (non-PHPdoc)
+     * @see FOS\UserBundle\Model.User::getLegacyGroups()
+     */
+    public function getLegacyGroups()
+    {
+        return $this->legacyGroups;
+    }
+    
+    /**
+     * @param int $legacyGroups
+     * @return \Universibo\Bundle\WebsiteBundle\Entity\User
+     */
+    public function setLegacyGroups($legacyGroups)
+    {
+        $this->legacyGroups = $legacyGroups;
         
         return $this;
     }

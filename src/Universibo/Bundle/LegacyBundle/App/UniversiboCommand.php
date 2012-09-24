@@ -1,11 +1,14 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\App;
 
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
+
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Facolta;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\Framework\BaseCommand;
 use Universibo\Bundle\LegacyBundle\Entity\User;
+use Universibo\Bundle\WebsiteBundle\Entity\User as NewUser;
 
 use \Error;
 /**
@@ -23,58 +26,6 @@ use \Error;
 abstract class UniversiboCommand extends BaseCommand
 {
     /**
-     * User
-     */
-    protected $sessionUser;
-
-    /**
-     * Restituisce l'id_utente del dello user nella sessione corrente
-     *
-     * @static
-     * @return int
-     */
-    public function getSessionIdUtente()
-    {
-        return $_SESSION['id_utente'];
-    }
-
-    /**
-     * Salva l'id_utente dello user nella sessione corrente
-     *
-     * @static
-     * @protected
-     * @param int $id_utente id_utente dello user
-     */
-    public function setSessionIdUtente($id_utente)
-    {
-        $_SESSION['id_utente'] = $id_utente;
-    }
-
-    /**
-     * Restituisce true se un utente (anche ospite) ? stato registrato nella sessione corrente
-     *
-     * @static
-     * @return boolean
-     */
-    public function sessionUserExists()
-    {
-        return array_key_exists('id_utente', $_SESSION) && isset($_SESSION['id_utente']);
-    }
-
-    /**
-     * Restituisce l'oggetto utente della sessione corrente.
-     *
-     * Pu? essere chiamata solo dopo che ? stata eseguita initCommand altrimenti
-     * il valore di ritorno ? indefinito
-     *
-     * @return User
-     */
-    public function getSessionUser()
-    {
-        return $this->sessionUser;
-    }
-
-    /**
      * Inizializza l' UniversiboCommand ridefinisce l'init() del BaseCommand.
      */
     public function initCommand(FrontController $frontController)
@@ -84,9 +35,12 @@ abstract class UniversiboCommand extends BaseCommand
         $template = $frontController->getTemplateEngine();
         $template->assign('error_notice_present', 'false');
 
-        $this->_setUpUserUniversibo();
-
         $this->_initTemplateUniversibo();
+    }
+    
+    public function getSessionUser()
+    {
+        return $this->get('security.context')->getToken()->getUser();
     }
 
     /**
@@ -129,24 +83,6 @@ abstract class UniversiboCommand extends BaseCommand
     public function isPopup()
     {
         return (boolean) (array_key_exists('pageType', $_GET) && $_GET['pageType'] == 'popup');
-    }
-
-    /**
-     * Inizializza le informazioni utente dell' UniversiboCommand
-     *
-     * @private
-     */
-    public function _setUpUserUniversibo()
-    {
-        if (!$this->sessionUserExists()) {
-            $this->sessionUser = new User(0, User::OSPITE);
-            $this->setSessionIdUtente(0);
-        } elseif ($this->getSessionIdUtente() >= 0) {
-            $this->sessionUser = User::selectUser($this->getSessionIdUtente());
-            //			echo $this->sessionUser->getUsername();
-        } else
-            Error::throwError(_ERROR_CRITICAL, array('id_utente' => $this->sessionUser->getIdUser(), 'msg' => 'id_utente registrato nella sessione non valido', 'file' => __FILE__, 'line' => __LINE__));
-        //		var_dump($this->sessionUser);
     }
 
     /**
@@ -231,6 +167,8 @@ abstract class UniversiboCommand extends BaseCommand
         $template->assign('common_longDate', $krono->k_date('%j %F %Y'));
         $template->assign('common_shortDate', $krono->k_date('%j/%m/%Y'));
         $template->assign('common_time', $krono->k_date('%H:%i'));
+        
+        $template->assign('common_loginUri', $this->get('router')->generate('fos_user_security_check'));
     }
 
     /**

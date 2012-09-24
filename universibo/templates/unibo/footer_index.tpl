@@ -5,13 +5,13 @@
 		{if $common_userLoggedIn=='false'}
 		<h3>Login</h3>
 		<div class="contenuto">
-			<form action="/?do=Login" name="form1_a" id="f1" method="post">
+			<form action="{$common_loginUri}" name="form1_a" id="f1" method="post">
 				<label for="f1_username">username: </label><br />
-				<input id ="f1_username" name="f1_username" maxlength="25" type="text" size="15" tabindex="1" /><br />
+				<input id ="f1_username" name="_username" maxlength="25" type="text" size="15" tabindex="1" /><br />
 				<label for="f1_password">password: </label><br />
-				<input id="f1_password" name="f1_password" maxlength="25" type="password" size="15" tabindex="2" /><br />
+				<input id="f1_password" name="_password" maxlength="25" type="password" size="15" tabindex="2" /><br />
 				<input type="hidden" name="f1_resolution" value="" />
-				<input class="submit" name="f1_submit" type="submit" value="Login" tabindex="3" onclick="document.form1_a.f1_resolution.value = screen.width;" /><br />
+				<input class="submit" name="_submit" type="submit" value="Login" tabindex="3" onclick="document.form1_a.f1_resolution.value = screen.width;" /><br />
 			</form>
 			<a href="/?do=RegStudente">Registrazione studenti</a><br />
 			<a href="/?do=RecuperaUsernameStudente">Username smarrito</a><br />
