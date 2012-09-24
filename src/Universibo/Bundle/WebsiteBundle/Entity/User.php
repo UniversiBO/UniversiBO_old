@@ -18,10 +18,10 @@ class User extends BaseUser
     protected $id;
     
     /**
-     * @ORM\Column(type="string",length=255,nullable=true)
+     * @ORM\Column(type="string",length=255,nullable=true,name="shib_username")
      * @var string
      */
-    private $upn;
+    private $shibUsername;
     
     /**
      * @ORM\Column(type="string",length=15,nullable=true)
@@ -39,17 +39,17 @@ class User extends BaseUser
     /**
      * @return string
      */
-    public function getUpn()
+    public function getShibUsername()
     {
-        return $this->upn;
+        return $this->shibUsername;
     }
 
     /**
-     * @param string $upn
+     * @param string $shibUsername
      */
-    public function setUpn($upn)
+    public function setShibUsername($shibUsername)
     {
-        $this->upn = $upn;
+        $this->shibUsername = $shibUsername;
         
         return $this;
     }
