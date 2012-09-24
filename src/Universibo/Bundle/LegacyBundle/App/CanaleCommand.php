@@ -2,6 +2,8 @@
 namespace Universibo\Bundle\LegacyBundle\App;
 
 
+use Universibo\Bundle\LegacyBundle\Entity\DBRuoloRepository;
+
 use Universibo\Bundle\WebsiteBundle\Entity\User;
 
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
@@ -116,7 +118,8 @@ abstract class CanaleCommand extends UniversiboCommand
 
         $template->assign( 'common_canaleMyUniversiBO', '');
         if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            $user_ruoli = $user->getLegacyGroups();
+            $user_ruoli = $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId());
+            
             if (array_key_exists($id_canale, $user_ruoli) && $user_ruoli[$id_canale]->isMyUniversiBO()) {
                 $template->assign( 'common_canaleMyUniversiBO', 'remove');
                 $template->assign( 'common_langCanaleMyUniversiBO', 'Rimuovi questa pagina da MyUniversiBO');
