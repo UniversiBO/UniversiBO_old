@@ -1,11 +1,13 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command\News;
 
+use Universibo\Bundle\WebsiteBundle\Entity\User;
+
 use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
 
 /**
- * ShowNewsLatest ? un'implementazione di PluginCommand.
+ * ShowNewsLatest è un'implementazione di PluginCommand.
  *
  * Mostra le ultime $num notizie del canale.
  * Il BaseCommand che chiama questo plugin deve essere un'implementazione di CanaleCommand.
@@ -41,13 +43,19 @@ class ShowNewsLatest extends PluginCommand
         $id_canale = $canale->getIdCanale();
         $titolo_canale =  $canale->getTitolo();
         $ultima_modifica_canale =  $canale->getUltimaModifica();
-        $user_ruoli = $user->getRuoli();
+        
+        if($user instanceof User) {
+            $roleRepo = $this->get('universibo_legacy.repository.ruolo');
+            $user_ruoli = $roleRepo->findByIdUtente($user->getId());
+        } else {
+            $user_ruoli = array();
+        }
 
         $personalizza_not_admin = false;
 
         $template->assign('showNewsLatest_addNewsFlag', 'false');
         if (array_key_exists($id_canale, $user_ruoli) || $user->isAdmin()) {
-            $personalizza = true;
+            $personalizza = true;    
 
             if (array_key_exists($id_canale, $user_ruoli)) {
                 $ruolo = $user_ruoli[$id_canale];
