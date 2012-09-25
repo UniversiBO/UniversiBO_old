@@ -117,9 +117,4 @@ class User extends BaseUser
 
         return $this;
     }
-
-    public function isGroupAllowed($permissions)
-    {
-        return (bool) ($this->getLegacyGroups() & $permissions);
-    }
 }

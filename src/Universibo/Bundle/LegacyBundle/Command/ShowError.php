@@ -23,7 +23,7 @@ class ShowError extends UniversiboCommand
         //if (!array_key_exists('error_param', $_SESSION))
         //	Error::throwError(_ERROR_CRITICAL,array('msg'=>'Chiamata illegale del comando di errore','log'=>true,'file'=>__FILE__,'line'=>__LINE__));
 
-        (array_key_exists('error_param', $_SESSION)) ? $param = $_SESSION['error_param']
+        (session_id() !== '' && array_key_exists('error_param', $_SESSION)) ? $param = $_SESSION['error_param']
                 : $param = 'Errore di sistema';
 
         $template->assign('error_default', $param['msg']);

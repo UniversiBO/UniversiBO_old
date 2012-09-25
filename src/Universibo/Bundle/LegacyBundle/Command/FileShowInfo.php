@@ -1,8 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use \Error;
-use Universibo\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
-use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
+
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -27,72 +27,18 @@ class FileShowInfo extends UniversiboCommand
         $user = $this->get('security.context')->getToken()->getUser();
         $userId = $user instanceof User ? $user->getId() : 0;
 
-        if (!array_key_exists('id_file', $_GET)
-                || !preg_match('/^([0-9]{1,9})$/', $_GET['id_file'])) {
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $userId,
-                            'msg' => 'L\'id del file richiesto non e` valido',
-                            'file' => __FILE__, 'line' => __LINE__));
+        if (!array_key_exists('id_file', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_file'])) {
+            throw new NotFoundHttpException('Invalid file ID');
         }
+
         $id_file = $_GET['id_file'];
-        $tipo_file = FileItemStudenti::isFileStudenti($id_file);
-        //
-        //		$file = FileItem::selectFileItem($_GET['id_file']);
-        //
-        //        $directoryFile = $frontcontroller->getAppSetting('filesPath');
-        //		$nomeFile = $file->getIdFile().'_'.$file->getNomeFile();
-        //
-        //		if (!$user->isGroupAllowed( $file->getPermessiVisualizza() ) )
-        //			Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'Non ? permesso visualizzare il file.
-        //			Non possiedi i diritti necessari, la sessione potrebbe essere scaduta.', 'file' => __FILE__, 'line' => __LINE__, 'log' => true));
-        //
-        //
-        //		if (($this->get('security.context')->isGranted('ROLE_ADMIN') || $user->getId() == $file->getId() ))
-        //		{
-        //			$file_tpl['modifica']     = 'Modifica';
-        //			$file_tpl['modifica_link']= '/?do=FileEdit&id_file='.$file->getIdFile();
-        //			$file_tpl['elimina']      = 'Elimina';
-        //			$file_tpl['elimina_link'] = '/?do=FileDelete&id_file='.$file->getIdFile();
-        //		}
-        //
-        //		$id_canali = $file->getIdCanali();
-        //		foreach($id_canali as $id_canale)
-        //		{
-        //			$canale = Canale::retrieveCanale($id_canale);
-        //			$canali_tpl[$id_canale] = array();
-        //			$canali_tpl[$id_canale]['titolo'] = $canale->getTitolo();
-        //			$canali_tpl[$id_canale]['uri'] = $canale->showMe();
-        //		}
-        //
-        //		$template->assign('fileShowInfo_downloadUri', '/?do=FileDownload&id_file='.$file->getIdFile());
-        //		$template->assign('fileShowInfo_uri', '/?do=FileShowInfo&id_file='.$file->getIdFile());
-        //		$template->assign('fileShowInfo_titolo', $file->getTitolo());
-        //		$template->assign('fileShowInfo_descrizione', $file->getDescrizione());
-        //		$template->assign('fileShowInfo_userLink', 'ShowUser&id_utente='.$file->getIdUtente());
-        //		$template->assign('fileShowInfo_username', $file->getUsername());
-        //		$template->assign('fileShowInfo_dataInserimento', $krono->k_date('%j/%m/%Y', $file->getDataInserimento()));
-        //		$template->assign('fileShowInfo_new', ($file->getDataModifica() < $user->getLastLogin()->getTimestamp() ) ? 'true' : 'false' );
-        //		$template->assign('fileShowInfo_nomeFile', $nomeFile);
-        //		$template->assign('fileShowInfo_dimensione',  $file->getDimensione());
-        //		$template->assign('fileShowInfo_download',  $file->getDownload());
-        //		$template->assign('fileShowInfo_hash',  $file->getHashFile());
-        //		$template->assign('fileShowInfo_categoria', $file->getCategoriaDesc());
-        //		$template->assign('fileShowInfo_tipo', $file->getTipoDesc());
-        //		$template->assign('fileShowInfo_icona', $frontcontroller->getAppSetting('filesTipoIconePath').$file->getTipoIcona());
-        //		$template->assign('fileShowInfo_info', $file->getTipoInfo());
-        //		$template->assign('fileShowInfo_canali', $canali_tpl);
-        //		$template->assign('fileShowInfo_paroleChiave', $file->getParoleChiave());
-        //
-        if (array_key_exists('id_canale', $_GET)
-                && preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
-            $this
-                    ->executePlugin('ShowFileInfo',
-                            array('id_file' => $_GET['id_file'],
+        $tipo_file = $this->get('universibo_legacy.repository.files.file_item_studenti')->isFileStudenti($id_file);
+
+        if (array_key_exists('id_canale', $_GET) && preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
+            $this->executePlugin('ShowFileInfo', array('id_file' => $_GET['id_file'],
                                     'id_canale' => $_GET['id_canale']));
-        else
-            $this
-                    ->executePlugin('ShowFileInfo',
-                            array('id_file' => $_GET['id_file']));
+        } else
+            $this->executePlugin('ShowFileInfo', array('id_file' => $_GET['id_file']));
         if ($tipo_file == true) {
             $template->assign('isFileStudente', 'true');
             $this

@@ -31,26 +31,27 @@ class ShowUser extends UniversiboCommand
                             'file' => __FILE__, 'line' => __LINE__));
         }
         $user = $this->get('universibo_website.repository.user')->find($id_user = $_GET['id_utente']);
+        $userId = $user instanceof User ? $user->getId() : 0;
 
         if (!$context->isGranted('IS_AUTHENTICATED_FULLY')) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $current_user->getId(),
+                    array('id_utente' => $userId,
                             'msg' => 'Le schede degli utenti sono visualizzabili solo se si e` registrati',
                             'file' => __FILE__, 'line' => __LINE__));
         }
 
         if (!$user || $user->isLocked() || !$user->isEnabled()) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $current_user->getId(),
+                    array('id_utente' => $userId,
                             'msg' => 'L\'utente cercato non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
 
         if (!$current_user->hasRole('ROLE_ADMIN') && !$user->hasRole('ROLE_PROFESSOR')
                 && !$user->hasRole('ROLE_TUTOR')
-                && $current_user->getId() != $user->getId()) {
+                && $userId != $user->getId()) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $current_user->getId(),
+                    array('id_utente' => $userId,
                             'msg' => 'Non ti e` permesso visualizzare la scheda dell\'utente',
                             'file' => __FILE__, 'line' => __LINE__));
         }
@@ -95,7 +96,7 @@ class ShowUser extends UniversiboCommand
         $template->assign('showEmailSecondPart', $secondPart);
         $template->assign('showCanali', $arrayCanali);
         $stessi = false;
-        if ($current_user->getId() == $id_user) {
+        if ($userId == $id_user) {
             $stessi = true;
         }
         $template->assign('showDiritti', $stessi);

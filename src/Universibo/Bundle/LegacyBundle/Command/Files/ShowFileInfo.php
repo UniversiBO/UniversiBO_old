@@ -67,8 +67,9 @@ class ShowFileInfo extends PluginCommand
         //var_dump($file);
         $directoryFile = $fc->getAppSetting('filesPath');
         $nomeFile = $file->getIdFile() . '_' . $file->getNomeFile();
+        $groups = $user instanceof User ? $user->getLegacyGroups() : 1;
 
-        if (!$user instanceof User ||  !$user->isGroupAllowed($file->getPermessiVisualizza()))
+        if (!$file->getPermessiVisualizza() & $groups)
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user instanceof User ? $user->getId() : 0,
                             'msg' => 'Non e` permesso visualizzare il file.
@@ -120,7 +121,7 @@ class ShowFileInfo extends PluginCommand
             }
         }
 
-        $autore = ($user->getId() == $file->getIdUtente());
+        $autore = $user instanceof User && ($user->getId() == $file->getIdUtente());
         if ($autore || $this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $moderatore) {
             $template->assign('showFileInfo_editFlag', 'true');
             $template->assign('showFileInfo_deleteFlag', 'true');
@@ -194,10 +195,8 @@ class ShowFileInfo extends PluginCommand
         $template
                 ->assign('showFileInfo_dataInserimento',
                         $krono->k_date('%j/%m/%Y', $file->getDataInserimento()));
-        $template
-                ->assign('showFileInfo_new',
-                        ($file->getDataModifica() < $user->getLastLogin()->getTimestamp()) ? 'true'
-                                : 'false');
+
+        $template->assign('showFileInfo_new', ($user instanceof User && $file->getDataModifica() < $user->getLastLogin()->getTimestamp()) ? 'true' : 'false');
         $template->assign('showFileInfo_nomeFile', $nomeFile);
         $template->assign('showFileInfo_dimensione', $file->getDimensione());
         $template->assign('showFileInfo_download', $file->getDownload());
