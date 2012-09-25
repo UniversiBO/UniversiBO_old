@@ -38,8 +38,7 @@ class ShowMyUniversiBO extends UniversiboCommand
 
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY'))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $utente->getId(),
-                            'msg' => 'Non esiste una pagina MyUniversiBO per utenti ospite.
+                    array('id_utente' => 0, 'msg' => 'Non esiste una pagina MyUniversiBO per utenti ospite.
                                                                                                      Se sei uno studente registrati cliccando su Registrazione Studenti nel menu di destra.
                                                                                                      La sessione potrebbe essere scaduta verifica di aver abilitato i cookie.',
                             'file' => __FILE__, 'line' => __LINE__));
