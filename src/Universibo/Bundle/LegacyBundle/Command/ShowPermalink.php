@@ -17,7 +17,7 @@ class ShowPermalink extends UniversiboCommand
                 || !preg_match('/^[0-9]+$/', $id_notizia = $_GET['id_notizia'])) {
             $user = $this->get('security.context')->getToken()->getUser();
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'ID news non valido', 'file' => __FILE__,
                             'line' => __LINE__));
         }

@@ -29,7 +29,7 @@ class NewsShowCanale extends CanaleCommand
         $id_canale = $canale->getIdCanale();
 
         if (!array_key_exists('inizio', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['inizio'] ) || !array_key_exists('qta', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['qta'] )) {
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Parametri non validi','file'=>__FILE__,'line'=>__LINE__ ));
+            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getId(), 'msg'=>'Parametri non validi','file'=>__FILE__,'line'=>__LINE__ ));
         }
 
         $template->assign('NewsShowCanale_addNewsFlag', 'false');

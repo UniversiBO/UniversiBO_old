@@ -24,7 +24,7 @@ class ShowUser extends UniversiboCommand
         if (!array_key_exists('id_utente', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_utente'])) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'L\'id dell\'utente richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
@@ -33,23 +33,23 @@ class ShowUser extends UniversiboCommand
 
         if ($current_user->isOspite()) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $current_user->getIdUser(),
+                    array('id_utente' => $current_user->getId(),
                             'msg' => 'Le schede degli utenti sono visualizzabili solo se si e` registrati',
                             'file' => __FILE__, 'line' => __LINE__));
         }
 
         if (!$user || $user->isEliminato()) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $current_user->getIdUser(),
+                    array('id_utente' => $current_user->getId(),
                             'msg' => 'L\'utente cercato non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
 
         if (!$current_user->hasRole('ROLE_ADMIN') && !$user->hasRole('ROLE_PROFESSOR')
                 && !$user->hasRole('ROLE_TUTOR')
-                && $current_user->getIdUser() != $user->getIdUser()) {
+                && $current_user->getId() != $user->getId()) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $current_user->getIdUser(),
+                    array('id_utente' => $current_user->getId(),
                             'msg' => 'Non ti e` permesso visualizzare la scheda dell\'utente',
                             'file' => __FILE__, 'line' => __LINE__));
         }
@@ -94,14 +94,14 @@ class ShowUser extends UniversiboCommand
         $template->assign('showEmailSecondPart', $secondPart);
         $template->assign('showCanali', $arrayCanali);
         $stessi = false;
-        if ($current_user->getIdUser() == $id_user) {
+        if ($current_user->getId() == $id_user) {
             $stessi = true;
         }
         $template->assign('showDiritti', $stessi);
 
         $template->assign('showUser_UserHomepage', '');
         if ($user->hasRole('ROLE_PROFESSOR')) {
-            $doc = Docente::selectDocente($user->getIdUser());
+            $doc = Docente::selectDocente($user->getId());
             $template
                     ->assign('showUser_UserHomepage',
                             $doc->getHomepageDocente());

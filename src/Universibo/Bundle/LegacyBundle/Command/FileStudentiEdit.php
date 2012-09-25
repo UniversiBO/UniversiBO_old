@@ -74,7 +74,7 @@ class FileStudentiEdit extends UniversiboCommand
         $referente = false;
         $moderatore = false;
 
-        $autore = ($user->getIdUser() == $file->getIdUtente());
+        $autore = ($user->getId() == $file->getIdUtente());
 
         if (array_key_exists('id_canale', $_GET)) {
             if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))

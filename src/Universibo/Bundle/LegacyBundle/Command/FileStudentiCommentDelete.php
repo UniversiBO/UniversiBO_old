@@ -35,7 +35,7 @@ class FileStudentiCommentDelete extends UniversiboCommand
         if (!array_key_exists('id_commento', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_commento'])) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'L\'id del commento non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
@@ -54,12 +54,12 @@ class FileStudentiCommentDelete extends UniversiboCommand
         $referente = false;
         $moderatore = false;
 
-        $autore = ($id_utente == $user->getIdUser());
+        $autore = ($id_utente == $user->getId());
 
         if (array_key_exists('id_canale', $_GET)) {
             if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'L\'id del canale richiesto non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
@@ -67,7 +67,7 @@ class FileStudentiCommentDelete extends UniversiboCommand
             $id_canale = $_GET['id_canale'];
             if ($canale->getServizioFilesStudenti() == false)
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => "Il servizio files studenti e` disattivato",
                                 'file' => __FILE__, 'line' => __LINE__));
 
@@ -86,20 +86,20 @@ class FileStudentiCommentDelete extends UniversiboCommand
             //			var_dump($canali_file);
             //			die();
             //			if (!in_array($id_canale, $canali_file))
-            //				 Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'I parametri passati non sono coerenti', 'file' => __FILE__, 'line' => __LINE__));
+            //				 Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getId(), 'msg' => 'I parametri passati non sono coerenti', 'file' => __FILE__, 'line' => __LINE__));
 
             $elenco_canali = array($id_canale);
 
             //controllo diritti sul canale
             if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $moderatore || $autore))
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => "Non hai i diritti per eliminare il commento\n La sessione potrebbe essere scaduta",
                                 'file' => __FILE__, 'line' => __LINE__));
 
         } elseif (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $autore))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => "Non hai i diritti per eliminare il commento\n La sessione potrebbe essere scaduta",
                             'file' => __FILE__, 'line' => __LINE__));
 

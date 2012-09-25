@@ -36,7 +36,7 @@ class LinksAdmin extends UniversiboCommand
         if (!array_key_exists('id_canale', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'L\'id del canale richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
 
@@ -53,7 +53,7 @@ class LinksAdmin extends UniversiboCommand
 
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN') && !$referente)
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => "Non hai i diritti per modificare i diritti degli utenti su questa pagina.\nLa sessione potrebbe essere scaduta.",
                             'file' => __FILE__, 'line' => __LINE__));
 
@@ -63,13 +63,13 @@ class LinksAdmin extends UniversiboCommand
         //		{
         //
         //			if (!array_key_exists('f16_username', $_POST) || !array_key_exists('f16_email', $_POST) )
-        //				Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'Il form inviato non ? valido', 'file' => __FILE__, 'line' => __LINE__));
+        //				Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getId(), 'msg' => 'Il form inviato non ? valido', 'file' => __FILE__, 'line' => __LINE__));
         //
         //			$f16_accept = true;
         //
         //			if ($_POST['f16_username'] == '' && $_POST['f16_email'] == '')
         //			{
-        //				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getIdUser(), 'msg' => 'Specificare almeno uno dei due criteri di ricerca', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
+        //				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getId(), 'msg' => 'Specificare almeno uno dei due criteri di ricerca', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
         //				$f16_accept = false;
         //			}
         //
@@ -97,8 +97,8 @@ class LinksAdmin extends UniversiboCommand
         //						$ruolo_search  = $ruoli_search[$id_canale];
         //
         //						$contactUser = array();
-        //						$contactUser['utente_link']  = '/?do=ShowUser&id_utente='.$users_search[$key]->getIdUser();
-        //						$contactUser['edit_link']  = '/?do=RuoliAdminEdit&id_canale='.$id_canale.'&id_utente='.$users_search[$key]->getIdUser();
+        //						$contactUser['utente_link']  = '/?do=ShowUser&id_utente='.$users_search[$key]->getId();
+        //						$contactUser['edit_link']  = '/?do=RuoliAdminEdit&id_canale='.$id_canale.'&id_utente='.$users_search[$key]->getId();
         //						$contactUser['nome']  = $users_search[$key]->getUserPublicGroupName();
         //						$contactUser['label'] = $users_search[$key]->getUsername();
         //						$contactUser['ruolo'] = ($ruolo_search->isReferente()) ? 'R' :  (($ruolo_search->isModeratore()) ? 'M' : 'none');
@@ -108,8 +108,8 @@ class LinksAdmin extends UniversiboCommand
         //					else
         //					{
         //						$contactUser = array();
-        //						$contactUser['utente_link']  = '/?do=ShowUser&id_utente='.$users_search[$key]->getIdUser();
-        //						$contactUser['edit_link']  = '/?do=RuoliAdminEdit&id_canale='.$id_canale.'&id_utente='.$users_search[$key]->getIdUser();
+        //						$contactUser['utente_link']  = '/?do=ShowUser&id_utente='.$users_search[$key]->getId();
+        //						$contactUser['edit_link']  = '/?do=RuoliAdminEdit&id_canale='.$id_canale.'&id_utente='.$users_search[$key]->getId();
         //						$contactUser['nome']  = $users_search[$key]->getUserPublicGroupName();
         //						$contactUser['label'] = $users_search[$key]->getUsername();
         //						$contactUser['ruolo'] = 'none';
@@ -134,11 +134,11 @@ class LinksAdmin extends UniversiboCommand
         //				{
         //					$ruoli[] = $canale_ruoli[$key];
         //
-        //					$user = User::selectUser($canale_ruoli[$key]->getIdUser());
+        //					$user = User::selectUser($canale_ruoli[$key]->getId());
         //					//var_dump($user);
         //					$contactUser = array();
-        //					$contactUser['utente_link']  = '/?do=ShowUser&id_utente='.$user->getIdUser();
-        //					$contactUser['edit_link']  = '/?do=RuoliAdminEdit&id_canale='.$id_canale.'&id_utente='.$user->getIdUser();
+        //					$contactUser['utente_link']  = '/?do=ShowUser&id_utente='.$user->getId();
+        //					$contactUser['edit_link']  = '/?do=RuoliAdminEdit&id_canale='.$id_canale.'&id_utente='.$user->getId();
         //					$contactUser['nome']  = $user->getUserPublicGroupName();
         //					$contactUser['label'] = $user->getUsername();
         //					$contactUser['ruolo'] = ($canale_ruoli[$key]->isReferente()) ? 'R' :  (($canale_ruoli[$key]->isModeratore()) ? 'M' : 'none');

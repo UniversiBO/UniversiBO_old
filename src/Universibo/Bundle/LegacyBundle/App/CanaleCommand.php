@@ -38,11 +38,11 @@ abstract class CanaleCommand extends UniversiboCommand
     {
         if (!array_key_exists('id_canale', $_GET ) ) {
             if ($this->frontController->getCommandRequest() == 'ShowHome') return 1;
-            else Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>'il parametro id_canale non e` specificato nella richiesta','file'=>__FILE__,'line'=>__LINE__));
+            else Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getId(), 'msg'=>'il parametro id_canale non e` specificato nella richiesta','file'=>__FILE__,'line'=>__LINE__));
         }
 
         if (!preg_match('/^([0-9]+)$/', $_GET['id_canale'] ) ) {
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>'il parametro id_canale è sintatticamente non valido','file'=>__FILE__,'line'=>__LINE__));
+            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getId(), 'msg'=>'il parametro id_canale è sintatticamente non valido','file'=>__FILE__,'line'=>__LINE__));
         }
 
         return intval($_GET['id_canale']);
@@ -86,7 +86,7 @@ abstract class CanaleCommand extends UniversiboCommand
         //$this->requestCanale = $class_name::factoryCanale( $this->getRequestIdCanale() );
 
         if ( $this->requestCanale === false )
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>'Il canale richiesto non è presente','file'=>__FILE__,'line'=>__LINE__));
+            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getId(), 'msg'=>'Il canale richiesto non è presente','file'=>__FILE__,'line'=>__LINE__));
 
         $canale = $this->getRequestCanale();
         $user = $this->get('security.context')->getToken()->getUser();
@@ -182,13 +182,13 @@ abstract class CanaleCommand extends UniversiboCommand
                 if ($ruolo->isReferente() || $ruolo->isModeratore()) {
                     $attivaContatti = true;
 
-                    if ($ruolo->isReferente() && $ruolo->getIdUser() == $user->getIdUser())
+                    if ($ruolo->isReferente() && $ruolo->getId() == $user->getId())
                         $attivaModificaDiritti = true;
 
-                    $user_temp = User::selectUser($ruolo->getIdUser());
+                    $user_temp = User::selectUser($ruolo->getId());
                     //var_dump($user);
                     $contactUser = array();
-                    $contactUser['utente_link']  = '/?do=ShowUser&id_utente='.$user_temp->getIdUser();
+                    $contactUser['utente_link']  = '/?do=ShowUser&id_utente='.$user_temp->getId();
                     $contactUser['nome']  = $user_temp->getUserPublicGroupName();
                     $contactUser['label'] = $user_temp->getUsername();
                     $contactUser['ruolo'] = ($ruolo->isReferente()) ? 'R' :  (($ruolo->isModeratore()) ? 'M' : 'none');

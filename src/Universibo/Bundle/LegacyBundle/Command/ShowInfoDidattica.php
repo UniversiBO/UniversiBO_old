@@ -33,7 +33,7 @@ class ShowInfoDidattica extends UniversiboCommand
         if (!array_key_exists('id_canale', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'L\'id del canale richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
 

@@ -27,16 +27,16 @@ class MyUniversiBORemove extends UniversiboCommand
         $template = $frontcontroller->getTemplateEngine();
         $utente = $this->get('security.context')->getToken()->getUser();
 
-        if ($utente->isOspite())
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY'))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $utente->getIdUser(),
+                    array('id_utente' => $utente->getId(),
                             'msg' => "non e` permesso ad utenti non registrati eseguire questa operazione.\n La sessione potrebbe essere scaduta",
                             'file' => __FILE__, 'line' => __LINE__));
 
         if (!array_key_exists('id_canale', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $utente->getIdUser(),
+                    array('id_utente' => $utente->getId(),
                             'msg' => 'L\'id del canale richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
@@ -47,7 +47,7 @@ class MyUniversiBORemove extends UniversiboCommand
         $template
                 ->assign('showUser',
                         '/?do=ShowUser&id_utente='
-                                . $utente->getIdUser());
+                                . $utente->getId());
 
         $ruoli = $utente instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($utente->getId()) : array();
         $this->executePlugin('ShowTopic', array('reference' => 'myuniversibo'));
@@ -58,12 +58,12 @@ class MyUniversiBORemove extends UniversiboCommand
             $forum = $this->getContainer()->get('universibo_legacy.forum.api');
             $forum
                     ->removeUserGroup($canale->getForumGroupId(),
-                            $utente->getIdUser());
+                            $utente->getId());
 
             return 'success';
         } else {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $utente->getIdUser(),
+                    array('id_utente' => $utente->getId(),
                             'msg' => 'E\' impossibile trovare la pagina nel tuo elenco di MyUniversiBO',
                             'file' => __FILE__, 'line' => __LINE__));
         }

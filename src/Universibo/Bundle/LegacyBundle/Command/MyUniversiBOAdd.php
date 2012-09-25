@@ -27,16 +27,16 @@ class MyUniversiBOAdd extends UniversiboCommand
         $template = $frontcontroller->getTemplateEngine();
         $utente = $this->get('security.context')->getToken()->getUser();
 
-        if ($utente->isOspite())
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY'))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $utente->getIdUser(),
+                    array('id_utente' => $utente->getId(),
                             'msg' => "Non e` permesso ad utenti non registrati eseguire questa operazione.\n La sessione potrebbe essere scaduta",
                             'file' => __FILE__, 'line' => __LINE__));
 
         if (!array_key_exists('id_canale', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $utente->getIdUser(),
+                    array('id_utente' => $utente->getId(),
                             'msg' => 'L\'id del canale richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
@@ -68,7 +68,7 @@ class MyUniversiBOAdd extends UniversiboCommand
             if (!array_key_exists('f15_nome', $_POST)
                     || !array_key_exists('f15_livello_notifica', $_POST)) {
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $utente->getIdUser(),
+                        array('id_utente' => $utente->getId(),
                                 'msg' => 'Il form inviato non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
                 $f15_accept = false;
@@ -77,7 +77,7 @@ class MyUniversiBOAdd extends UniversiboCommand
             if (!array_key_exists($_POST['f15_livello_notifica'],
                     $f15_livelli_notifica)) {
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $utente->getIdUser(),
+                        array('id_utente' => $utente->getId(),
                                 'msg' => 'Il livello di notifica scelto non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
                 $f15_accept = false;
@@ -86,7 +86,7 @@ class MyUniversiBOAdd extends UniversiboCommand
 
             if (strlen($_POST['f15_nome']) > 60) {
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $utente->getIdUser(),
+                        array('id_utente' => $utente->getId(),
                                 'msg' => 'Il nome scelto deve essere inferiore ai 60 caratteri',
                                 'file' => __FILE__, 'line' => __LINE__));
                 $f15_accept = false;
@@ -104,7 +104,7 @@ class MyUniversiBOAdd extends UniversiboCommand
                     $ruolo->updateRuolo();
                 } else {
                     $nascosto = false;
-                    $ruolo = new Ruolo($utente->getIdUser(), $id_canale,
+                    $ruolo = new Ruolo($utente->getId(), $id_canale,
                             $f15_nome, time(), false, false, true,
                             $f15_livello_notifica, $nascosto);
                     $ruolo->insertRuolo();

@@ -38,7 +38,7 @@ class LinkDelete extends CanaleCommand
         if (!array_key_exists('id_link', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_link'])) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'L\'id del link richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
@@ -46,16 +46,16 @@ class LinkDelete extends CanaleCommand
         $link = Link::selectLink($_GET['id_link']);
         if ($link === false)
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'Il link richiesto non e` presente su database',
                             'file' => __FILE__, 'line' => __LINE__));
 
-        $autore = ($user->getIdUser() == $link->getIdUtente());
+        $autore = ($user->getId() == $link->getIdUtente());
 
         if (array_key_exists('id_canale', $_GET)) {
             if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'L\'id del canale richiesto non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
@@ -63,7 +63,7 @@ class LinkDelete extends CanaleCommand
 
             if ($canale->getServizioLinks() == false)
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il servizio links e` disattivato',
                                 'file' => __FILE__, 'line' => __LINE__));
 
@@ -84,19 +84,19 @@ class LinkDelete extends CanaleCommand
             $canale_link = $link->getIdCanale();
             if ($id_canale != $canale_link)
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'I parametri passati non sono coerenti',
                                 'file' => __FILE__, 'line' => __LINE__));
 
             if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || ($moderatore && $autore)))
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Non hai i diritti per eliminare il Link\n La sessione potrebbe essere scaduta',
                                 'file' => __FILE__, 'line' => __LINE__));
 
         } elseif (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $autore))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'Non hai i diritti per eliminare il link\n La sessione potrebbe essere scaduta',
                             'file' => __FILE__, 'line' => __LINE__));
 

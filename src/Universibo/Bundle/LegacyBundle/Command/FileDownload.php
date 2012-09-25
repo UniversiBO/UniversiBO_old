@@ -27,7 +27,7 @@ class FileDownload extends UniversiboCommand
         if (!array_key_exists('id_file', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_file'])) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'L\'id del file richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
@@ -41,7 +41,7 @@ class FileDownload extends UniversiboCommand
         $file = FileItem::selectFileItem($_GET['id_file']);
         if ($file === false)
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => "Il file richiesto non e` presente su database",
                             'file' => __FILE__, 'line' => __LINE__));
 
@@ -59,12 +59,12 @@ class FileDownload extends UniversiboCommand
 
             if (!file_exists($nomeFile))
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Impossibile trovare il file richiesto, contattare l\'amministratore del sito',
                                 'file' => __FILE__, 'line' => __LINE__));
             if (md5_file($nomeFile) != $file->getHashFile())
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il file richiesto risulta corrotto, contattare l\'amministratore del sito',
                                 'file' => __FILE__, 'line' => __LINE__));
 
@@ -79,7 +79,7 @@ class FileDownload extends UniversiboCommand
 
                 if (!array_key_exists('f11_file_password', $_POST))
                     Error::throwError(_ERROR_DEFAULT,
-                            array('id_utente' => $user->getIdUser(),
+                            array('id_utente' => $user->getId(),
                                     'msg' => 'Il form inviato non e` valido',
                                     'file' => __FILE__, 'line' => __LINE__));
 
@@ -139,7 +139,7 @@ class FileDownload extends UniversiboCommand
         }
 
         Error::throwError(_ERROR_DEFAULT,
-                array('id_utente' => $user->getIdUser(),
+                array('id_utente' => $user->getId(),
                         'msg' => 'Non e` permesso eseguire il download del file.
                 Non possiedi i diritti necessari.', 'file' => __FILE__,
                         'line' => __LINE__, 'log' => true));

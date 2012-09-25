@@ -29,7 +29,7 @@ class ScriptCancelUser extends UniversiboCommand
         $nick  = $_GET['username'];
         if (!User::usernameExists($nick)) {echo 'username inesistente'; die; }
         $user = User::selectUserUsername($nick);
-        $idUtente = $user->getIdUser();
+        $idUtente = $user->getId();
         $values = StoredInteractionInformationRetriever::getInfoFromIdUtente($idUtente, 'InformativaPrivacyInteractiveCommand', false);
 
 //		// TODO verificare quale informativa ha approvato
@@ -219,7 +219,7 @@ class CancellazioneUtente
      */
     public function _getFirstAdminInGroup ($groupId)
     {
-        $list = User::getIdUsersFromDesiredGroups(array('ROLE_ADMIN'));
+        $list = User::getIdsFromDesiredGroups(array('ROLE_ADMIN'));
         $sql = 'SELECT user_id' .
                 ' FROM phpbb_user_group' .
                 ' WHERE user_id IN '.$this->db->quote(implode(', ', $list['ROLE_ADMIN'])) .

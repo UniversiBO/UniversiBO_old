@@ -652,7 +652,7 @@ class Canale
             $ruoli = Ruolo::selectCanaleRuoli($this->getIdCanale());
             $num_elementi = count($ruoli);
             for ($i=0; $i<$num_elementi; $i++) {
-                $this->ruoli[$ruoli[$i]->getIdUser()] = $ruoli[$i];
+                $this->ruoli[$ruoli[$i]->getId()] = $ruoli[$i];
             }
         }
         //var_dump($this->ruoli);

@@ -33,14 +33,14 @@ class ShowContattoDocente extends UniversiboCommand
         if (!array_key_exists('cod_doc', $_GET)
                 && !ereg('^([0-9]{1,10})$', $_GET['cod_doc']))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'L\'utente cercato non e` valido',
                             'file' => __FILE__, 'line' => __LINE__,
                             'template_engine' => &$template));
 
         if (!$user->hasRole('ROLE_COLLABORATOR') && !$this->get('security.context')->isGranted('ROLE_ADMIN'))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'Non hai i diritti necessari per visualizzare la pagina',
                             'file' => __FILE__, 'line' => __LINE__,
                             'template_engine' => &$template));
@@ -49,7 +49,7 @@ class ShowContattoDocente extends UniversiboCommand
 
         if (!$docente)
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'L\'utente cercato non e` un docente',
                             'file' => __FILE__, 'line' => __LINE__,
                             'template_engine' => &$template));
@@ -61,7 +61,7 @@ class ShowContattoDocente extends UniversiboCommand
 
         if (!$contatto)
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'Non esiste contatto di tale docente',
                             'file' => __FILE__, 'line' => __LINE__,
                             'template_engine' => &$template));
@@ -70,7 +70,7 @@ class ShowContattoDocente extends UniversiboCommand
 
         if (!$utente_docente)
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'Non esiste tale utente',
                             'file' => __FILE__, 'line' => __LINE__,
                             'template_engine' => &$template));
@@ -83,7 +83,7 @@ class ShowContattoDocente extends UniversiboCommand
         if (!$rub_docente) {
             $rub_presente = false;
             Error::throwError(_ERROR_NOTICE,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'Impossibile recuperare le informazioni del docente dalla rubrica',
                             'file' => __FILE__, 'line' => __LINE__,
                             'template_engine' => &$template));
@@ -124,7 +124,7 @@ class ShowContattoDocente extends UniversiboCommand
         //		var_dump($lista_collabs); die;
 
         foreach ($lista_collabs as $collab) {
-            $id = $collab->getIdUser();
+            $id = $collab->getId();
             //			$username 			= User::getUsernameFromId($id);
             $username = $collab->getUsername();
             $table_collab[$id] = $username;
@@ -151,7 +151,7 @@ class ShowContattoDocente extends UniversiboCommand
             if (!array_key_exists('f35_stato', $_POST)
                     || !array_key_exists($_POST['f35_stato'], $f35_stati))
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il form inviato non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'template_engine' => &$template));
@@ -160,7 +160,7 @@ class ShowContattoDocente extends UniversiboCommand
                     || !array_key_exists($_POST['f35_id_username'],
                             $f35_collab_list))
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il form inviato non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'template_engine' => &$template));
@@ -169,12 +169,12 @@ class ShowContattoDocente extends UniversiboCommand
             $f35_id_username = $_POST['f35_id_username'];
 
             if ($f35_stato != $contatto->getStato())
-                $contatto->setStato($f35_stato, $user->getIdUser());
+                $contatto->setStato($f35_stato, $user->getId());
 
             if ($f35_id_username != $contatto->getIdUtenteAssegnato()) {
                 if ($f35_id_username != 'null') {
                     $notifica_mod = true;
-                    $contatto->assegna($f35_id_username, $user->getIdUser());
+                    $contatto->assegna($f35_id_username, $user->getId());
                 }
             }
 

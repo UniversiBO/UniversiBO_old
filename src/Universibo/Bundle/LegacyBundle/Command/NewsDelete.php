@@ -39,13 +39,13 @@ class NewsDelete extends CanaleCommand
         if (!array_key_exists('id_news', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_news'])) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'L\'id della notizia richiesta non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
         if ($canale->getServizioNews() == false)
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => "Il servizio news e` disattivato",
                             'file' => __FILE__, 'line' => __LINE__));
 
@@ -65,7 +65,7 @@ class NewsDelete extends CanaleCommand
         $news = NewsItem::selectNewsItem($_GET['id_news']);
         if ($news === false)
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => "La notizia richiesta non e` presente su database",
                             'file' => __FILE__, 'line' => __LINE__));
         //$news-> getIdCanali();
@@ -77,14 +77,14 @@ class NewsDelete extends CanaleCommand
         $canali_news = $news->getIdCanali();
         if (!in_array($id_canale, $canali_news))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'I parametri passati non sono coerenti',
                             'file' => __FILE__, 'line' => __LINE__));
 
-        $autore = ($user->getIdUser() == $news->getIdUtente());
+        $autore = ($user->getId() == $news->getIdUtente());
         if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || ($moderatore && $autore)))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => "Non hai i diritti per eliminare la notizia\n La sessione potrebbe essere scaduta",
                             'file' => __FILE__, 'line' => __LINE__));
 
@@ -131,7 +131,7 @@ class NewsDelete extends CanaleCommand
                         //$user_ruoli[$key]->getIdCanale();
                         $canale = &Canale::retrieveCanale($key);
                         Error::throwError(_ERROR_NOTICE,
-                                array('id_utente' => $user->getIdUser(),
+                                array('id_utente' => $user->getId(),
                                         'msg' => 'Non possiedi i diritti di eliminazione nel canale: '
                                                 . $canale->getTitolo(),
                                         'file' => __FILE__, 'line' => __LINE__,
@@ -144,7 +144,7 @@ class NewsDelete extends CanaleCommand
             } elseif (count($f9_canale) > 0) {
                 $f9_accept = false;
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Devi selezionare almeno una pagina:',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,

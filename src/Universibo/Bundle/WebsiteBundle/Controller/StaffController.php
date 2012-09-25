@@ -41,7 +41,7 @@ class StaffController extends Controller
             throw $this->createNotFoundException('User not found');
         }
 
-        $contact = $cRepo->find($user->getIdUser());
+        $contact = $cRepo->find($user->getId());
 
         if (!$contact instanceof Collaboratore) {
             throw $this->createNotFoundException('Staff not found');

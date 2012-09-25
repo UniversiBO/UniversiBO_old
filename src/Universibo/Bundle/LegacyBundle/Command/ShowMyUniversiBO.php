@@ -36,9 +36,9 @@ class ShowMyUniversiBO extends UniversiboCommand
 
         //procedure per ricavare e mostrare le ultime 5 notizie dei canali a cui si ? iscritto...
 
-        if ($utente->isOspite())
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY'))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $utente->getIdUser(),
+                    array('id_utente' => $utente->getId(),
                             'msg' => 'Non esiste una pagina MyUniversiBO per utenti ospite.
                                                                                                      Se sei uno studente registrati cliccando su Registrazione Studenti nel menu di destra.
                                                                                                      La sessione potrebbe essere scaduta verifica di aver abilitato i cookie.',
@@ -80,7 +80,7 @@ class ShowMyUniversiBO extends UniversiboCommand
         $template
                 ->assign('showMyScheda',
                         '/?do=ShowUser&id_utente='
-                                . $utente->getIdUser());
+                                . $utente->getId());
         //		var_dump($arrayFilesItems);
         //		die();
 

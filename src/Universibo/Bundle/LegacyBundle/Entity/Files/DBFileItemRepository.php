@@ -52,7 +52,7 @@ class DBFileItemRepository extends DBRepository
 
         if (DB::isError($res)) {
             $this->throwError('_ERROR_CRITICAL',
-                    array('id_utente' => $this->sessionUser->getIdUser(),
+                    array('id_utente' => $this->sessionUser->getId(),
                             'msg' => DB::errorMessage($res), 'file' => __FILE__,
                             'line' => __LINE__));
         }
@@ -80,7 +80,7 @@ class DBFileItemRepository extends DBRepository
         $res = $db->limitQuery($query, 0, $limit);
         if (DB::isError($res)) {
             $this->throwError('_ERROR_DEFAULT',
-                    array('id_utente' => $this->sessionUser->getIdUser(),
+                    array('id_utente' => $this->sessionUser->getId(),
                             'msg' => DB::errorMessage($res), 'file' => __FILE__,
                             'line' => __LINE__));
         }

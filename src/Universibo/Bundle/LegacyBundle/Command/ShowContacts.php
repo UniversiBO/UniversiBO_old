@@ -33,23 +33,23 @@ class ShowContacts extends UniversiboCommand
 
         $infoCollaboratori = User::selectAllCollaboratori();
         foreach ($infoCollaboratori as $collaboratore) {
-            $username = User::getUsernameFromId($collaboratore->getIdUser());
+            $username = User::getUsernameFromId($collaboratore->getId());
             $coll = Collaboratore::selectCollaboratore(
-                    $collaboratore->getIdUser());
+                    $collaboratore->getId());
             if (!$coll) {
                 $name = $user->getUsername();
                 if ($name == $username)
                     $collaboratori[] = array('username' => $username,
                             'URI' => 'false',
                             'inserisci' => '/?do=CollaboratoreProfiloAdd&id_coll='
-                                    . $user->getIdUser());
+                                    . $user->getId());
                 else
                     $collaboratori[] = array('username' => $username,
                             'URI' => 'false', 'inserisci' => 'false');
             } else
                 $collaboratori[] = array('username' => $username,
                         'URI' => '/?do=ShowCollaboratore&id_coll='
-                                . $collaboratore->getIdUser(),
+                                . $collaboratore->getId(),
                         'inserisci' => 'false');
 
         }

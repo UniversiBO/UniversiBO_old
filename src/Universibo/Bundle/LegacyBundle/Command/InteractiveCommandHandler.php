@@ -56,7 +56,7 @@ class InteractiveCommandHandler extends UniversiboCommand
             session_destroy();
             session_start();
             $this->userLogin->updateUltimoLogin(time(), true);
-            $this->setSessionIdUtente($this->userLogin->getIdUser());
+            $this->setSessionIdUtente($this->userLogin->getId());
             $fc->setStyle($this->userLogin->getDefaultStyle());
 
             $forum = $this->getContainer()->get('universibo_legacy.forum.api');
@@ -290,7 +290,7 @@ perche` impedisce il login agli utenti
         $user = unserialize($_SESSION['user']);
 
         $logRepo = $this->getContainer()->get('universibo_legacy.repository.interactivecommand.step_log');
-        $positive = $logRepo->findPositive($user->getIdUser());
+        $positive = $logRepo->findPositive($user->getId());
 
         $list = array();
 

@@ -34,7 +34,7 @@ class ShowCdl extends CanaleCommand
         //var_dump($canale);
 
         if ($canale->getTipoCanale() != CANALE_CDL)
-            Error::throwError(_ERROR_DEFAULT, array('id_utente' => $this->sessionUser->getIdUser(), 'msg' => 'Il tipo canale richiesto non corrisponde al comando selezionato', 'file' => __FILE__, 'line' => __LINE__));
+            Error::throwError(_ERROR_DEFAULT, array('id_utente' => $this->sessionUser->getId(), 'msg' => 'Il tipo canale richiesto non corrisponde al comando selezionato', 'file' => __FILE__, 'line' => __LINE__));
     }
 
     public function execute()

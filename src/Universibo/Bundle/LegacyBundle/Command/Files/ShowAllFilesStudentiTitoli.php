@@ -64,7 +64,7 @@ class ShowAllFilesStudentiTitoli extends PluginCommand
 
                 $file = $elenco_file[$i];
                 //var_dump($file);
-                $this_moderatore = ($this->get('security.context')->isGranted('ROLE_ADMIN') || ($moderatore && $file->getIdUtente()==$user->getIdUser()));
+                $this_moderatore = ($this->get('security.context')->isGranted('ROLE_ADMIN') || ($moderatore && $file->getIdUtente()==$user->getId()));
 
                 $permessi_lettura = $file->getPermessiVisualizza();
                 if ($user->isGroupAllowed($permessi_lettura)) {

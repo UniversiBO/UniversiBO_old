@@ -202,7 +202,7 @@ abstract class UniversiboCommand extends BaseCommand
         if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             $attivaMyUniversibo = true;
             $arrayCanali = array();
-            $arrayRuoli = $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId());
+            $arrayRuoli = $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($session_user->getId());
             //var_dump($session_user);
             $keys = array_keys($arrayRuoli);
             foreach ($keys as $key) {
@@ -267,7 +267,8 @@ abstract class UniversiboCommand extends BaseCommand
             $template->assign('common_userLoggedIn', 'true');
             $template->assign('common_userUsername', $session_user->getUsername());
             //$livelli = User::groupsNames();
-            $template->assign('common_userLivello', $session_user->getUserGroupsNames());
+
+            $template->assign('common_userLivello', $session_user->getRoles());
 
             $template->assign('common_langWelcomeMsg', 'Benvenuto');
             $template->assignUnicode('common_langUserLivello', 'Il tuo livello di utenza è');

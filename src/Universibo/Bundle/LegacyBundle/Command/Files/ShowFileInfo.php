@@ -31,7 +31,7 @@ class ShowFileInfo extends PluginCommand
         if (!array_key_exists('id_file', $param)
                 || !preg_match('/^([0-9]{1,9})$/', $param['id_file'])) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'L\'id del file richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
@@ -59,7 +59,7 @@ class ShowFileInfo extends PluginCommand
 
         if ($file === false)
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => "Il file richiesto non e` presente su database",
                             'file' => __FILE__, 'line' => __LINE__));
 
@@ -69,7 +69,7 @@ class ShowFileInfo extends PluginCommand
 
         if (!$user->isGroupAllowed($file->getPermessiVisualizza()))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'Non e` permesso visualizzare il file.
             Non possiedi i diritti necessari, la sessione potrebbe essere scaduta.',
                             'file' => __FILE__, 'line' => __LINE__,
@@ -119,7 +119,7 @@ class ShowFileInfo extends PluginCommand
             }
         }
 
-        $autore = ($user->getIdUser() == $file->getIdUtente());
+        $autore = ($user->getId() == $file->getIdUtente());
         if ($autore || $this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $moderatore) {
             $template->assign('showFileInfo_editFlag', 'true');
             $template->assign('showFileInfo_deleteFlag', 'true');

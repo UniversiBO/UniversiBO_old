@@ -349,7 +349,7 @@ class DBNewsItemRepository extends DBRepository
         //		die();
         if (DB::isError($res))
             $this->throwError('_ERROR_DEFAULT',
-                    array('id_utente' => $this->sessionUser->getIdUser(),
+                    array('id_utente' => $this->sessionUser->getId(),
                             'msg' => DB::errorMessage($res), 'file' => __FILE__,
                             'line' => __LINE__));
 

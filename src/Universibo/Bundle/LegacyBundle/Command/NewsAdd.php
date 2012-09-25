@@ -40,13 +40,13 @@ class NewsAdd extends CanaleCommand
 
         if ($canale->getServizioNews() == false)
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => "Il servizio news e` disattivato",
                             'file' => __FILE__, 'line' => __LINE__));
 
         if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $moderatore))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => "Non hai i diritti per inserire una notizia\n La sessione potrebbe essere scaduta",
                             'file' => __FILE__, 'line' => __LINE__));
 
@@ -90,7 +90,7 @@ class NewsAdd extends CanaleCommand
                     || !array_key_exists('f7_data_scad_min', $_POST)
                     || !array_key_exists('f7_testo', $_POST)) {
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il form inviato non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
                 $f7_accept = false;
@@ -99,7 +99,7 @@ class NewsAdd extends CanaleCommand
             //titolo
             if (strlen($_POST['f7_titolo']) > 150) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il titolo deve essere inferiore ai 150 caratteri',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -107,7 +107,7 @@ class NewsAdd extends CanaleCommand
                 $f7_accept = false;
             } elseif ($_POST['f7_titolo'] == '') {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il titolo deve essere inserito obbligatoriamente',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -120,7 +120,7 @@ class NewsAdd extends CanaleCommand
             //data_ins_gg
             if (!preg_match('/^([0-9]{1,2})$/', $_POST['f7_data_ins_gg'])) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il formato del campo giorno di inserimento non \u00e8 valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -133,7 +133,7 @@ class NewsAdd extends CanaleCommand
             //f7_data_ins_mm
             if (!preg_match('/^([0-9]{1,2})$/', $_POST['f7_data_ins_mm'])) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il formato del campo mese di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -146,7 +146,7 @@ class NewsAdd extends CanaleCommand
             //f7_data_ins_aa
             if (!preg_match('/^([0-9]{4})$/', $_POST['f7_data_ins_aa'])) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il formato del campo anno di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -156,7 +156,7 @@ class NewsAdd extends CanaleCommand
             } elseif ($_POST['f7_data_ins_aa'] < 1970
                     || $_POST['f7_data_ins_aa'] > 2032) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il campo anno di inserimento deve essere compreso tra il 1970 e il 2032',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -169,7 +169,7 @@ class NewsAdd extends CanaleCommand
             //f7_data_ins_ora
             if (!preg_match('/^([0-9]{1,2})$/', $_POST['f7_data_ins_ora'])) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il formato del campo ora di inserimento non \u00e8 valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -178,7 +178,7 @@ class NewsAdd extends CanaleCommand
             } elseif ($_POST['f7_data_ins_ora'] < 0
                     || $_POST['f7_data_ins_ora'] > 23) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il campo ora di inserimento deve essere compreso tra 0 e 23',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -190,7 +190,7 @@ class NewsAdd extends CanaleCommand
             //f7_data_ins_min
             if (!preg_match('/^([0-9]{1,2})$/', $_POST['f7_data_ins_min'])) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il formato del campo minuto di inserimento non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -199,7 +199,7 @@ class NewsAdd extends CanaleCommand
             } elseif ($_POST['f7_data_ins_min'] < 0
                     || $_POST['f7_data_ins_min'] > 59) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il campo ora di inserimento deve essere compreso tra 0 e 59',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -212,7 +212,7 @@ class NewsAdd extends CanaleCommand
                     && !checkdate($_POST['f7_data_ins_mm'],
                             $_POST['f7_data_ins_gg'], $_POST['f7_data_ins_aa'])) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'La data di inserimento specificata non esiste',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -232,7 +232,7 @@ class NewsAdd extends CanaleCommand
                 //data_scad_gg
                 if (!preg_match('/^([0-9]{1,2})$/', $_POST['f7_data_scad_gg'])) {
                     Error::throwError(_ERROR_NOTICE,
-                            array('id_utente' => $user->getIdUser(),
+                            array('id_utente' => $user->getId(),
                                     'msg' => 'Il formato del campo giorno di inserimento non \u00e8 valido',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
@@ -245,7 +245,7 @@ class NewsAdd extends CanaleCommand
                 //f7_data_scad_mm
                 if (!preg_match('/^([0-9]{1,2})$/', $_POST['f7_data_scad_mm'])) {
                     Error::throwError(_ERROR_NOTICE,
-                            array('id_utente' => $user->getIdUser(),
+                            array('id_utente' => $user->getId(),
                                     'msg' => 'Il formato del campo mese di inserimento non \u00e8 valido',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
@@ -258,7 +258,7 @@ class NewsAdd extends CanaleCommand
                 //f7_data_scad_aa
                 if (!ereg('^([0-9]{4})$', $_POST['f7_data_scad_aa'])) {
                     Error::throwError(_ERROR_NOTICE,
-                            array('id_utente' => $user->getIdUser(),
+                            array('id_utente' => $user->getId(),
                                     'msg' => 'Il formato del campo anno di inserimento non \u00e8 valido',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
@@ -268,7 +268,7 @@ class NewsAdd extends CanaleCommand
                 } elseif ($_POST['f7_data_scad_aa'] < 1970
                         || $_POST['f7_data_scad_aa'] > 2032) {
                     Error::throwError(_ERROR_NOTICE,
-                            array('id_utente' => $user->getIdUser(),
+                            array('id_utente' => $user->getId(),
                                     'msg' => 'Il campo anno di inserimento deve essere compreso tra il 1970 e il 2032',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
@@ -281,7 +281,7 @@ class NewsAdd extends CanaleCommand
                 //f7_data_scad_ora
                 if (!preg_match('/^([0-9]{1,2})$/', $_POST['f7_data_scad_ora'])) {
                     Error::throwError(_ERROR_NOTICE,
-                            array('id_utente' => $user->getIdUser(),
+                            array('id_utente' => $user->getId(),
                                     'msg' => 'Il formato del campo ora di inserimento non \u00e8 valido',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
@@ -290,7 +290,7 @@ class NewsAdd extends CanaleCommand
                 } elseif ($_POST['f7_data_scad_ora'] < 0
                         || $_POST['f7_data_scad_ora'] > 23) {
                     Error::throwError(_ERROR_NOTICE,
-                            array('id_utente' => $user->getIdUser(),
+                            array('id_utente' => $user->getId(),
                                     'msg' => 'Il campo ora di inserimento deve essere compreso tra 0 e 23',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
@@ -302,7 +302,7 @@ class NewsAdd extends CanaleCommand
                 //f7_data_scad_min
                 if (!preg_match('/^([0-9]{1,2})$/', $_POST['f7_data_scad_min'])) {
                     Error::throwError(_ERROR_NOTICE,
-                            array('id_utente' => $user->getIdUser(),
+                            array('id_utente' => $user->getId(),
                                     'msg' => 'Il formato del campo minuto di inserimento non \u00e8 valido',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
@@ -311,7 +311,7 @@ class NewsAdd extends CanaleCommand
                 } elseif ($_POST['f7_data_scad_min'] < 0
                         || $_POST['f7_data_scad_min'] > 59) {
                     Error::throwError(_ERROR_NOTICE,
-                            array('id_utente' => $user->getIdUser(),
+                            array('id_utente' => $user->getId(),
                                     'msg' => 'Il campo ora di inserimento deve essere compreso tra 0 e 59',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
@@ -325,7 +325,7 @@ class NewsAdd extends CanaleCommand
                                 $_POST['f7_data_scad_gg'],
                                 $_POST['f7_data_scad_aa'])) {
                     Error::throwError(_ERROR_NOTICE,
-                            array('id_utente' => $user->getIdUser(),
+                            array('id_utente' => $user->getId(),
                                     'msg' => 'La data di scadenza specificata non esiste',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
@@ -341,7 +341,7 @@ class NewsAdd extends CanaleCommand
 
                 if ($data_scadenza < $data_inserimento) {
                     Error::throwError(_ERROR_NOTICE,
-                            array('id_utente' => $user->getIdUser(),
+                            array('id_utente' => $user->getId(),
                                     'msg' => 'La data di scadenza non puo` essere inferiore alla data di inserimento',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
@@ -354,7 +354,7 @@ class NewsAdd extends CanaleCommand
             //testo
             if (strlen($_POST['f7_testo']) > 3000) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il testo della notizia deve essere inferiore ai 3000 caratteri',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -362,7 +362,7 @@ class NewsAdd extends CanaleCommand
                 $f7_accept = false;
             } elseif ($_POST['f7_testo'] == '') {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il testo della notizia deve essere inserito obbligatoriamente',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -388,7 +388,7 @@ class NewsAdd extends CanaleCommand
                         //$user_ruoli[$key]->getIdCanale();
                         $canale = Canale::retrieveCanale($key);
                         Error::throwError(_ERROR_NOTICE,
-                                array('id_utente' => $user->getIdUser(),
+                                array('id_utente' => $user->getId(),
                                         'msg' => 'Non possiedi i diritti di inserimento nel canale: '
                                                 . $canale->getTitolo(),
                                         'file' => __FILE__, 'line' => __LINE__,
@@ -398,7 +398,7 @@ class NewsAdd extends CanaleCommand
                     }
                 } else {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Devi selezionare almeno una pagina in cui inserire la notizia.',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -412,7 +412,7 @@ class NewsAdd extends CanaleCommand
                 //id_news = 0 per inserimento, $id_canali array dei canali in cui inserire
                 $notizia = new NewsItem(0, $f7_titolo, $f7_testo,
                         $data_inserimento, $data_scadenza, $data_inserimento,
-                        $f7_urgente, false, $user->getIdUser(),
+                        $f7_urgente, false, $user->getId(),
                         $user->getUsername());
                 $notizia->insertNewsItem();
 

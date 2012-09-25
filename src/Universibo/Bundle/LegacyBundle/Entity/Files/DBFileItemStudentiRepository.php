@@ -69,7 +69,7 @@ class DBFileItemStudentiRepository extends DBRepository
 
         $res = $db->query($query);
         if (DB::isError($res)) {
-            $this->throwError('_ERROR_DEFAULT',array('id_utente' => $this->sessionUser->getIdUser(), 'msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_DEFAULT',array('id_utente' => $this->sessionUser->getId(), 'msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         }
 
         $rows = $res->numRows();

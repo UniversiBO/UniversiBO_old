@@ -193,7 +193,7 @@ class DidatticaGestione extends UniversiboCommand
             if (!array_key_exists('f41_username', $_POST)
                     || !array_key_exists('f41_email', $_POST))
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'La ricerca docente effettuata non e` valida',
                                 'file' => __FILE__, 'line' => __LINE__));
 
@@ -201,7 +201,7 @@ class DidatticaGestione extends UniversiboCommand
 
             if ($_POST['f41_username'] == '' && $_POST['f41_email'] == '') {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Specificare almeno uno dei due criteri di ricerca docente',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -226,7 +226,7 @@ class DidatticaGestione extends UniversiboCommand
 
                 foreach ($users_search as $v)
                     if ($v->hasRole('ROLE_PROFESSOR')) {
-                        $doc = Docente::selectDocente($v->getIdUser());
+                        $doc = Docente::selectDocente($v->getId());
                         if ($doc != false)
                             $listaDocenti[] = array(
                                     'nome' => $doc->getNomeDoc(),
@@ -361,7 +361,7 @@ class DidatticaGestione extends UniversiboCommand
                         break;
                     } else
                         $this
-                                ->_log($user->getIdUser(), $id_canale, $id_cdl,
+                                ->_log($user->getId(), $id_canale, $id_cdl,
                                         $id_facolta, $id_sdop, $mods[$i]);
                     //aggiorno il referente della materia in caso di modifica docente
                     if (array_key_exists('doc', $mods[$i])) {
@@ -405,7 +405,7 @@ class DidatticaGestione extends UniversiboCommand
                                 }
 
                             } else {
-                                $ruolo = new Ruolo($doc->getIdUser(),
+                                $ruolo = new Ruolo($doc->getId(),
                                         $prgs[$i]->getIdCanale(), '', time(),
                                         false, true, true, NOTIFICA_ALL, false);
                                 $ruolo->insertRuolo();

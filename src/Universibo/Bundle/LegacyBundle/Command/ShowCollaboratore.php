@@ -26,7 +26,7 @@ class ShowCollaboratore extends UniversiboCommand
         if (!array_key_exists('id_coll', $_GET)
                 && !ereg('^([0-9]{1,10})$', $_GET['id_coll']))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'L\'utente cercato non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
 
@@ -36,13 +36,13 @@ class ShowCollaboratore extends UniversiboCommand
 
         if (!$collaboratore)
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'Non ci sono informazioni sul collaboratore scelto',
                             'file' => __FILE__, 'line' => __LINE__,
                             'template_engine' => &$template));
 
         $curr_user = $collaboratore->getUser();
-        if (($user->getIdUser()) == ($collaboratore->getIdUtente())) {
+        if (($user->getId()) == ($collaboratore->getIdUtente())) {
             $modifica_link = '';
             $modifica = "modifica";
         } else {

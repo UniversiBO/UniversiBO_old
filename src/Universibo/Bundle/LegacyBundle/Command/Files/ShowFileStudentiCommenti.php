@@ -92,7 +92,7 @@ class ShowFileStudentiCommenti extends PluginCommand
 //				var_dump($elenco_commenti_tpl);
 //				die();
 
-                $this_diritti = ($this->get('security.context')->isGranted('ROLE_ADMIN') || ($moderatore) || ($referente) || ($id_utente==$user->getIdUser()));
+                $this_diritti = ($this->get('security.context')->isGranted('ROLE_ADMIN') || ($moderatore) || ($referente) || ($id_utente==$user->getId()));
 
                 if ($this_diritti) {
                         $id_commento = $elenco_commenti[$i]->getIdCommento();

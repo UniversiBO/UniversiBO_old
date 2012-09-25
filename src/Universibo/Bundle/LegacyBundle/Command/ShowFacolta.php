@@ -34,7 +34,7 @@ class ShowFacolta extends CanaleCommand
 
         if ($canale->getTipoCanale() != Canale::FACOLTA)
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $this->sessionUser->getIdUser(),
+                    array('id_utente' => $this->sessionUser->getId(),
                             'msg' => 'Il tipo canale richiesto non corrisponde al comando selezionato',
                             'file' => __FILE__, 'line' => __LINE__));
 

@@ -107,7 +107,7 @@ class ShowNewsLatest extends PluginCommand
 
             for ($i = 0; $i < $ret_news; $i++) {
                 $news = $elenco_news[$i];
-                $this_moderatore = ($this->get('security.context')->isGranted('ROLE_ADMIN') || ($moderatore && $news->getIdUtente()==$user->getIdUser()));
+                $this_moderatore = ($this->get('security.context')->isGranted('ROLE_ADMIN') || ($moderatore && $news->getIdUtente()==$user->getId()));
 
                                 $elenco_news_tpl[$i]['id_notizia']   = $news->getIdNotizia();
                 $elenco_news_tpl[$i]['titolo']       = $news->getTitolo();

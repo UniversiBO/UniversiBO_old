@@ -31,12 +31,12 @@ class LinkAdd extends UniversiboCommand
 
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => "Per questa operazione bisogna essere registrati\n la sessione potrebbe essere terminata",
                             'file' => __FILE__, 'line' => __LINE__));
         }
         /*		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
-                    Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'L\'id del canale richiesto non ? valido', 'file' => __FILE__, 'line' => __LINE__));
+                    Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getId(), 'msg' => 'L\'id del canale richiesto non ? valido', 'file' => __FILE__, 'line' => __LINE__));
                 }
 
                 $canale = Canale::retrieveCanale($_GET['id_canale']);
@@ -62,13 +62,13 @@ class LinkAdd extends UniversiboCommand
 
         if (!array_key_exists('id_canale', $_GET))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'Devi specificare un id del canale',
                             'file' => __FILE__, 'line' => __LINE__));
 
         if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'L\'id del canale richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
 
@@ -76,7 +76,7 @@ class LinkAdd extends UniversiboCommand
 
         if ($canale->getServizioLinks() == false)
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => "Il servizio links e` disattivato",
                             'file' => __FILE__, 'line' => __LINE__));
 
@@ -97,7 +97,7 @@ class LinkAdd extends UniversiboCommand
                     || !array_key_exists('f29_Label', $_POST)
                     || !array_key_exists('f29_Description', $_POST))
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il form inviato non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
@@ -109,7 +109,7 @@ class LinkAdd extends UniversiboCommand
                 $f29_accept = false;
                 $f29_URI = 'http://';
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'L\'URL del link alla pagina degli obiettivi deve iniziare con https://, http:// o ftp://, verificare di non aver lasciato spazi vuoti',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -119,7 +119,7 @@ class LinkAdd extends UniversiboCommand
             if ($f29_Label === '') {
                 $f29_accept = false;
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Non hai assegnato un\'etichetta al link',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -129,7 +129,7 @@ class LinkAdd extends UniversiboCommand
             if ($f29_Description === '') {
                 $f29_accept = false;
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Non hai dato una descrizione del link',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -138,7 +138,7 @@ class LinkAdd extends UniversiboCommand
 
             if (strlen($f29_Description) > 1000) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'La descrizione del link deve essere inferiore ai 1000 caratteri',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -148,7 +148,7 @@ class LinkAdd extends UniversiboCommand
 
             if (strlen($f29_Label) > 127) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'L\'etichetta del link deve essere inferiore ai 127 caratteri',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -157,7 +157,7 @@ class LinkAdd extends UniversiboCommand
             }
 
             if ($f29_accept === true) {
-                $linkItem = new Link(0, $id_canale, $user->getIdUser(),
+                $linkItem = new Link(0, $id_canale, $user->getId(),
                         $f29_URI, $f29_Label, $f29_Description);
                 $linkItem->insertLink();
                 $canale->setUltimaModifica(time(), true);

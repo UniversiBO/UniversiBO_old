@@ -23,7 +23,7 @@ class MyUniversiBOController extends Controller
         $channelRepo = $this->get('universibo_legacy.repository.canale2');
         $router = $this->get('universibo_legacy.routing.channel');
 
-        $roles = $rolesRepo->findByIdUtente($user->getIdUser());
+        $roles = $rolesRepo->findByIdUtente($user->getId());
 
         $displayRoles = array();
 

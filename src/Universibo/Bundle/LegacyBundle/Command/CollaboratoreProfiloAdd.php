@@ -29,9 +29,9 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
         // TODO controllo di questo parametro
         $id_coll = $_GET['id_coll'];
 
-        if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || ($user->getIdUser() == $id_coll)))
+        if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || ($user->getId() == $id_coll)))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => "Non hai i diritti per inserire una notizia\n La sessione potrebbe essere scaduta",
                             'file' => __FILE__, 'line' => __LINE__));
 
@@ -72,7 +72,7 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
                     || !array_key_exists('f36_intro', $_POST)
                     || !array_key_exists('f36_obiettivi', $_POST)) {
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il form inviato non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
                 $f36_accept = false;
@@ -81,7 +81,7 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
             //ruolo
             if (strlen($_POST['f36_ruolo']) > 150) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il ruolo deve essere inferiore ai 150 caratteri',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -89,7 +89,7 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
                 $f36_accept = false;
             } elseif ($_POST['f36_ruolo'] == '') {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il ruolo deve essere inserito obbligatoriamente',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -101,7 +101,7 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
             //intro
             if ($_POST['f36_intro'] == '') {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'L\'intro del profilo deve essere inserito obbligatoriamente',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -113,7 +113,7 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
             //obiettivi
             if ($_POST['f36_obiettivi'] == '') {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Gli obiettivi del profilo devono essere inseriti obbligatoriamente',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -141,7 +141,7 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
             if ($f36_accept == true) {
 
                 //id_news = 0 per inserimento, $id_canali array dei canali in cui inserire
-                $collaboratore = new Collaboratore($user->getIdUser(),
+                $collaboratore = new Collaboratore($user->getId(),
                         $f36_intro, $f36_recapito, $f36_obiettivi, $f36_foto,
                         $f36_ruolo);
                 $collaboratore->insertCollaboratoreItem();

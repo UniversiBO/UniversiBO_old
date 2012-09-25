@@ -29,11 +29,11 @@ class ShowPersonalFiles extends UniversiboCommand
         // controllo che l'utente sia loggato
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY'))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'La pagina e` visualizzabile solo dopo aver fatto il login. La vostra sessione potrebbe essere scaduta.',
                             'file' => __FILE__, 'line' => __LINE__));
 
-        $idUtente = $user->getIdUser();
+        $idUtente = $user->getId();
 
         $listaFile = FileItem::selectFileItemsByIdUtente($idUtente, true);
 

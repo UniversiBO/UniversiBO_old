@@ -17,7 +17,7 @@ class UserTest extends UniversiBOEntityTest
 
     public function testIdGetter()
     {
-        self::assertEquals(0, $this->_user->getIdUser());
+        self::assertEquals(0, $this->_user->getId());
     }
 
     public function testGroupsGetter()

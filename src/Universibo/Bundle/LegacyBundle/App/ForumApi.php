@@ -133,7 +133,7 @@ class ForumApi extends DBRepository implements ForumApiInterface
 
         $phpbb2_cookie = array();
         $phpbb2_cookie['autologinid'] = '';
-        $phpbb2_cookie['userid'] = (string) $user->getIdUser() ;
+        $phpbb2_cookie['userid'] = (string) $user->getId() ;
         $cookie_value = serialize($phpbb2_cookie);
 
         setcookie ($cookie_name.'_data', $cookie_value, time()+3600, $cookie_path, $cookie_domain , $cookie_secure);
@@ -143,19 +143,19 @@ class ForumApi extends DBRepository implements ForumApiInterface
         setcookie ($cookie_name.'_sid', $sid, time()+3600, $cookie_path, $cookie_domain , $cookie_secure);
 
         $query = 'INSERT INTO '.$this->table_prefix.'sessions (session_id, session_user_id, session_start, session_time, session_ip, session_page, session_logged_in) VALUES ('.
-                $db->quote($sid).', '.$user->getIdUser().', '.time().', '.time().', '.$db->quote($this->_encodeIp($_SERVER['REMOTE_ADDR'])).', 0, 1)';
+                $db->quote($sid).', '.$user->getId().', '.time().', '.time().', '.$db->quote($this->_encodeIp($_SERVER['REMOTE_ADDR'])).', 0, 1)';
         $res = $db->query($query);
         if (DB::isError($res))
             Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
-        $query = 'SELECT user_session_time FROM '.$this->table_prefix.'users WHERE user_id = '.$user->getIdUser();
+        $query = 'SELECT user_session_time FROM '.$this->table_prefix.'users WHERE user_id = '.$user->getId();
         $res = $db->query($query);
         if (DB::isError($res))
             Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
         $res->fetchInto($row);
 
-        $query = 'UPDATE '.$this->table_prefix.'users SET user_lastvisit = '.$row[0].' WHERE user_id = '.$user->getIdUser();
+        $query = 'UPDATE '.$this->table_prefix.'users SET user_lastvisit = '.$row[0].' WHERE user_id = '.$user->getId();
         $res = $db->query($query);
         if (DB::isError($res))
             Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
@@ -240,7 +240,7 @@ public function insertUser(User $user, $password = null)
     }
 
     $query = 'INSERT INTO '.$this->table_prefix.'users (user_id, user_active, username, user_regdate, user_password, user_session_time, user_session_page, user_lastvisit, user_email, user_icq, user_website, user_occ, user_from, user_interests, user_sig, user_sig_bbcode_uid, user_style, user_aim, user_yim, user_msnm, user_posts, user_new_privmsg, user_unread_privmsg, user_last_privmsg, user_emailtime, user_viewemail, user_attachsig, user_allowhtml, user_allowbbcode, user_allowsmile, user_allow_pm, user_allowavatar, user_allow_viewonline, user_rank, user_avatar, user_avatar_type, user_level, user_lang, user_timezone, user_dateformat, user_notify_pm, user_popup_pm, user_notify, user_actkey, user_newpasswd)
-    VALUES('.$db->quote($user->getIdUser()).', 1, '.$db->quote($user->getUsername()).', '.$db->quote(time()).','.$db->quote(is_null($password) ? $user->getPasswordHash() : md5($password)).', 0, 0, 0,'.$db->quote($user->getEmail()).', \'\', \'\', \'\', \'\', \'\', \'\', \'          \', '.$user_style.', \'\', \'\', \'\', 0, 0, 0, 0, NULL, 0, 1, 0, 1, 1, 1, 1, 1, '.$user_rank.', \'\', 0, '.$user_level.', '.$db->quote('italian').', '.$user_timezone.', '.$db->quote('D d M Y G:i').', '.$user_notify_pm.', '.$user_popup_pm.', 0, \'\', \'\')';
+    VALUES('.$db->quote($user->getId()).', 1, '.$db->quote($user->getUsername()).', '.$db->quote(time()).','.$db->quote(is_null($password) ? $user->getPasswordHash() : md5($password)).', 0, 0, 0,'.$db->quote($user->getEmail()).', \'\', \'\', \'\', \'\', \'\', \'\', \'          \', '.$user_style.', \'\', \'\', \'\', 0, 0, 0, 0, NULL, 0, 1, 0, 1, 1, 1, 1, 1, '.$user_rank.', \'\', 0, '.$user_level.', '.$db->quote('italian').', '.$user_timezone.', '.$db->quote('D d M Y G:i').', '.$user_notify_pm.', '.$user_popup_pm.', 0, \'\', \'\')';
 
     $res = $db->query($query);
     if (DB::isError($res))
@@ -259,7 +259,7 @@ function updateUserStyle(User $user)
 
     $user_style = $this->defaultUserStyle[$user->getDefaultStyle()];
 
-    $query = 'UPDATE '.$this->table_prefix.'users SET user_style = '.$db->quote($user_style).' WHERE user_id = '.$db->quote($user->getIdUser());
+    $query = 'UPDATE '.$this->table_prefix.'users SET user_style = '.$db->quote($user_style).' WHERE user_id = '.$db->quote($user->getId());
 
     $res = $db->query($query);
     if (DB::isError($res))
@@ -272,7 +272,7 @@ public function updatePassword(User $user, $password)
     $db = $this->getDb();
     if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) return;
 
-    $query = 'UPDATE '.$this->table_prefix.'users SET user_password = '.$db->quote(md5($password)).' WHERE user_id = '.$db->quote($user->getIdUser());
+    $query = 'UPDATE '.$this->table_prefix.'users SET user_password = '.$db->quote(md5($password)).' WHERE user_id = '.$db->quote($user->getId());
 
     $res = $db->query($query);
     if (DB::isError($res))
@@ -290,7 +290,7 @@ function updateUserEmail(User $user)
     $db = $this->getDb();
     if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) return;
 
-    $query = 'UPDATE '.$this->table_prefix.'users SET user_email = '.$db->quote($user->getEmail()).' WHERE user_id = '.$db->quote($user->getIdUser());
+    $query = 'UPDATE '.$this->table_prefix.'users SET user_email = '.$db->quote($user->getEmail()).' WHERE user_id = '.$db->quote($user->getId());
 
     $res = $db->query($query);
     if (DB::isError($res))

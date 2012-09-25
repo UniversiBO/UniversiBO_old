@@ -131,7 +131,7 @@ class Ruolo
      *
      * @return int
      */
-    public function getIdUser()
+    public function getId()
     {
         return $this->id_utente;
     }
@@ -156,7 +156,7 @@ class Ruolo
     public function getUser()
     {
         if ($this->user == NULL) {
-            $this->user = User::selectUser($this->getIdUser());
+            $this->user = User::selectUser($this->getId());
         }
 
         return $this->user;

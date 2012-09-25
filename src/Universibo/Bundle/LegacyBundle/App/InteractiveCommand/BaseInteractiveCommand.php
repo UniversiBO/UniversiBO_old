@@ -115,7 +115,7 @@ class BaseInteractiveCommand extends PluginCommand
         if(array_key_exists('idUtenteStep', $_SESSION))
             $this->id_utente = $_SESSION['idUtenteStep'];
         else {
-            $this->id_utente = $this->systemValues['user']->getIdUser();
+            $this->id_utente = $this->systemValues['user']->getId();
             $_SESSION['idUtenteStep'] = $this->getIdUtente();
         }
 
@@ -185,7 +185,7 @@ class BaseInteractiveCommand extends PluginCommand
         // check if method exists
         if (!in_array($action, get_class_methods(get_class($this)))) {
             //			var_dump(debug_backtrace()); die;
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->systemValues['user']->getIdUser(),'msg'=>'Si e` verificato un errore nell\'interazione, la preghiamo di avvisare gli amministratori di sistema','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $this->systemValues['template']) );
+            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->systemValues['user']->getId(),'msg'=>'Si e` verificato un errore nell\'interazione, la preghiamo di avvisare gli amministratori di sistema','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $this->systemValues['template']) );
         }
         // se NEXT_ACTION stiamo effettuando il postback, altrimenti stiamo visualizzando semplicemente lo step richiesto
         $this->$action($item);
@@ -200,7 +200,7 @@ class BaseInteractiveCommand extends PluginCommand
      */
     public function errore($msg)
     {
-        Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $this->systemValues['user']->getIdUser(), 'msg' => $msg, 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $this->systemValues['template']));
+        Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $this->systemValues['user']->getId(), 'msg' => $msg, 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $this->systemValues['template']));
     }
 
     /**
@@ -251,8 +251,8 @@ class BaseInteractiveCommand extends PluginCommand
     {
         //		var_dump($this); die;
         // check if current session user is the one who started the InteractiveCommand
-        if ($this->id_utente != $this->systemValues['user']->getIdUser())
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->systemValues['user']->getIdUser(),'msg'=>'L\'utente della sessione corrente non e` autorizzato a completare l\'interazione','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $this->systemValues['template']) );
+        if ($this->id_utente != $this->systemValues['user']->getId())
+            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->systemValues['user']->getId(),'msg'=>'L\'utente della sessione corrente non e` autorizzato a completare l\'interazione','file'=>__FILE__,'line'=>__LINE__, 'template_engine' => & $this->systemValues['template']) );
 
         // check if cancelled by user
         if ($param == CANC_ACTION) {

@@ -26,9 +26,9 @@ class ShowSettings extends UniversiboCommand
         $template = $frontcontroller->getTemplateEngine();
         $utente = $this->get('security.context')->getToken()->getUser();
 
-        if ($utente->isOspite()) {
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $utente->getIdUser(),
+                    array('id_utente' => $utente->getId(),
                             'msg' => "Non hai i diritti per accedere alla pagina\n la sessione potrebbe essere terminata",
                             'file' => __FILE__, 'line' => __LINE__,
                             'log' => false, 'template_engine' => &$template));
@@ -48,7 +48,7 @@ class ShowSettings extends UniversiboCommand
                                     '[url=]Informazioni forum[/url]',
                                     '[url=/?do=ShowPersonalSettings]Profilo[/url]',
                                     '[url=/?do=ShowUser&id_utente='
-                                            . $utente->getIdUser()
+                                            . $utente->getId()
                                             . ']Modifica MyUniversiBO[/url]',
                                     '[url=https://outlook.com/ type=extern]Posta di ateneo[/url]',
                                     '[url=/?do=ShowContattiDocenti]Docenti da contattare[/url]'));
@@ -60,7 +60,7 @@ class ShowSettings extends UniversiboCommand
                                     '[url=]Informazioni forum[/url]',
                                     '[url=/?do=ShowPersonalSettings]Profilo[/url]',
                                     '[url=/?do=ShowUser&id_utente='
-                                            . $utente->getIdUser()
+                                            . $utente->getId()
                                             . ']Modifica MyUniversiBO[/url]',
                                     '[url=https://outlook.com/ type=extern]Posta di ateneo[/url]'));
         }

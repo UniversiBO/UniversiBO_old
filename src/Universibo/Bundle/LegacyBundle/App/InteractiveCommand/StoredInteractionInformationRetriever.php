@@ -49,7 +49,7 @@ class StoredInteractionInformationRetriever
     {
         $user = User::selectUserUsername($username);
 
-        return StoredInteractionInformationRetriever::getInfoFromIdUtente($user->getIdUser(), $nomeInteractiveCommand, $groupedByCallbackName);
+        return StoredInteractionInformationRetriever::getInfoFromIdUtente($user->getId(), $nomeInteractiveCommand, $groupedByCallbackName);
     }
 
 }

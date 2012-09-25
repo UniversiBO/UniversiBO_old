@@ -35,13 +35,13 @@ class LinkEdit extends CanaleCommand
         if (!array_key_exists('id_link', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_link'])) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'L\'id del link richiesta non e`	valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
         if ($canale->getServizioLinks() == false)
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => "Il servizio link e` disattivato",
                             'file' => __FILE__, 'line' => __LINE__));
 
@@ -53,23 +53,23 @@ class LinkEdit extends CanaleCommand
         }
 
         $link = Link::selectLink($_GET['id_link']);
-        $autore = ($user->getIdUser() == $link->getIdUtente());
+        $autore = ($user->getId() == $link->getIdUtente());
 
         //		//controllo coerenza parametri
         //		$canali_news	= 	$news->getIdCanali();
         //		if (!in_array($id_canale, $canali_news))
-        //			 Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getIdUser(), 'msg' => 'I parametri passati non sono coerenti', 'file' => __FILE__, 'line' => __LINE__));
+        //			 Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getId(), 'msg' => 'I parametri passati non sono coerenti', 'file' => __FILE__, 'line' => __LINE__));
         //
         $canale_link = $link->getIdCanale();
         if ($id_canale != $canale_link)
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'I parametri passati non sono coerenti',
                             'file' => __FILE__, 'line' => __LINE__));
 
         if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || ($moderatore && $autore)))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => "Non hai i diritti per modificare il link\n La sessione potrebbe essere scaduta",
                             'file' => __FILE__, 'line' => __LINE__));
 
@@ -117,7 +117,7 @@ class LinkEdit extends CanaleCommand
                     || !array_key_exists('f31_Label', $_POST)
                     || !array_key_exists('f31_Description', $_POST))
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il form inviato non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
@@ -129,7 +129,7 @@ class LinkEdit extends CanaleCommand
                 $f31_accept = false;
                 $f31_URI = 'http://';
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'L\'URL del link alla pagina degli obiettivi deve iniziare con https://, http:// o ftp://, verificare di non aver lasciato spazi vuoti',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -139,7 +139,7 @@ class LinkEdit extends CanaleCommand
             if ($f31_Label === '') {
                 $f31_accept = false;
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Non hai assegnato un\'etichetta al link',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -149,7 +149,7 @@ class LinkEdit extends CanaleCommand
             if ($f31_Description === '') {
                 $f31_accept = false;
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Non hai dato una descrizione del link',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -158,7 +158,7 @@ class LinkEdit extends CanaleCommand
 
             if (strlen($f31_Description) > 1000) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'La descrizione del link deve essere inferiore ai 1000 caratteri',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -168,7 +168,7 @@ class LinkEdit extends CanaleCommand
 
             if (strlen($f31_Label) > 127) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'L\'etichetta del link deve essere inferiore ai 127 caratteri',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -178,7 +178,7 @@ class LinkEdit extends CanaleCommand
 
             if ($f31_accept === true) {
                 $linkItem = new Link($_GET['id_link'], $id_canale,
-                        $user->getIdUser(), $f31_URI, $f31_Label,
+                        $user->getId(), $f31_URI, $f31_Label,
                         $f31_Description);
                 $linkItem->updateLink();
                 $canale->setUltimaModifica(time(), true);

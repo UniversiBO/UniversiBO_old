@@ -30,13 +30,13 @@ class ContattoDocenteAdd extends UniversiboCommand
         if (!array_key_exists('cod_doc', $_GET)
                 && !preg_match('/^([0-9]{1,10})$/', $_GET['cod_doc']))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'L\'utente cercato non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
 
         if (!$user->hasRole('ROLE_COLLABORATOR') && !$this->get('security.context')->isGranted('ROLE_ADMIN'))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'Non hai i diritti necessari per visualizzare la pagina',
                             'file' => __FILE__, 'line' => __LINE__));
 
@@ -44,7 +44,7 @@ class ContattoDocenteAdd extends UniversiboCommand
 
         if (!$docente)
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'L\'utente cercato non e` un docente',
                             'file' => __FILE__, 'line' => __LINE__));
 

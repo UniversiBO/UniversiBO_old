@@ -41,7 +41,7 @@ class PrivacyService
 
     public function hasAcceptedPrivacy(User $user)
     {
-        $log = $this->logRepository->findLatestPositive($user->getIdUser(), self::CLASSNAME);
+        $log = $this->logRepository->findLatestPositive($user->getId(), self::CLASSNAME);
 
         if ($log === null) {
             return false;
@@ -53,7 +53,7 @@ class PrivacyService
     public function markAccepted(User $user)
     {
         $stepLog = new StepLog();
-        $stepLog->setIdUtente($user->getIdUser());
+        $stepLog->setIdUtente($user->getId());
         $stepLog->setDataUltimaInterazione(time());
         $stepLog->setNomeClasse(self::CLASSNAME);
         $stepLog->setEsitoPositivo('S');

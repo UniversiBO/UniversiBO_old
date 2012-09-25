@@ -31,7 +31,7 @@ class FileStudentiComment extends UniversiboCommand
 
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => "Per questa operazione bisogna essere registrati\n la sessione potrebbe essere terminata",
                             'file' => __FILE__, 'line' => __LINE__));
         }
@@ -52,7 +52,7 @@ class FileStudentiComment extends UniversiboCommand
         $template->assign('esiste_CommentoItem', 'false');
         $id_file = $_GET['id_file'];
         $id_commento = CommentoItem::esisteCommento($id_file,
-                $user->getIdUser());
+                $user->getId());
         if ($id_commento != NULL) {
             $canali = $file->getIdCanali();
 
@@ -92,7 +92,7 @@ class FileStudentiComment extends UniversiboCommand
                     || !array_key_exists('f26_voto', $_POST)) {
                 //var_dump($_POST);die();
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il form inviato non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
                 $f26_accept = false;
@@ -101,7 +101,7 @@ class FileStudentiComment extends UniversiboCommand
             //commento
             if (trim($_POST['f26_commento']) == '') {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Inserisci un commento',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -114,7 +114,7 @@ class FileStudentiComment extends UniversiboCommand
             //voto
             if (!preg_match('/^([0-5]{1})$/', $_POST['f26_voto'])) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Voto non valido', 'file' => __FILE__,
                                 'line' => __LINE__, 'log' => false,
                                 'template_engine' => &$template));
@@ -125,7 +125,7 @@ class FileStudentiComment extends UniversiboCommand
             //esecuzione operazioni accettazione del form
             if ($f26_accept == true) {
 
-                CommentoItem::insertCommentoItem($id_file, $user->getIdUser(),
+                CommentoItem::insertCommentoItem($id_file, $user->getId(),
                         $f26_commento, $f26_voto);
                 //
                 //				if (array_key_exists('f26_canale', $_POST))

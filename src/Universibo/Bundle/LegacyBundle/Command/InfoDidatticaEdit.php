@@ -36,7 +36,7 @@ class InfoDidatticaEdit extends UniversiboCommand
         if (!array_key_exists('id_canale', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => 'L\'id del canale richiesto non ? valido',
                             'file' => __FILE__, 'line' => __LINE__));
 
@@ -45,7 +45,7 @@ class InfoDidatticaEdit extends UniversiboCommand
                 && (!array_key_exists($id_canale, $user_ruoli)
                         || !$user_ruoli[$id_canale]->isReferente()))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getIdUser(),
+                    array('id_utente' => $user->getId(),
                             'msg' => "Non hai i diritti per eseguire l\'perazione richiesta.\nLa sessione potrebbe essere scaduta",
                             'file' => __FILE__, 'line' => __LINE__));
 
@@ -95,7 +95,7 @@ class InfoDidatticaEdit extends UniversiboCommand
                     || !array_key_exists('f18_appelliInfo', $_POST)
                     || !array_key_exists('f18_orarioIcsLink', $_POST)) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'Il form inviato non ? valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -113,7 +113,7 @@ class InfoDidatticaEdit extends UniversiboCommand
             if (!ereg('(^(http(s)?|ftp)://|^.{0}$)',
                     $_POST['f18_obiettiviLink'])) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'L\'URL del link alla pagina degli obiettivi deve iniziare con https://, http:// o ftp://, verificare di non aver lasciato spazi vuoti',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -126,7 +126,7 @@ class InfoDidatticaEdit extends UniversiboCommand
             if (!ereg('(^(http(s)?|ftp)://|^.{0}$)',
                     $_POST['f18_programmaLink'])) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'L\'URL del link alla pagina del programma deve iniziare con https://, http:// o ftp://, verificare di non aver lasciato spazi vuoti',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -139,7 +139,7 @@ class InfoDidatticaEdit extends UniversiboCommand
             if (!ereg('(^(http(s)?|ftp)://|^.{0}$)',
                     $_POST['f18_materialeLink'])) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'L\'URL del link alla pagina del materiale deve iniziare con https://, http:// o ftp://, verificare di non aver lasciato spazi vuoti',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -151,7 +151,7 @@ class InfoDidatticaEdit extends UniversiboCommand
 
             if (!ereg('(^(http(s)?|ftp)://|^.{0}$)', $_POST['f18_modalitaLink'])) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'L\'URL del link alla pagina delle modalit? d\'esame deve iniziare con https://, http:// o ftp://, verificare di non aver lasciato spazi vuoti',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -163,7 +163,7 @@ class InfoDidatticaEdit extends UniversiboCommand
 
             if (!ereg('(^(http(s)?|ftp)://|^.{0}$)', $_POST['f18_appelliLink'])) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'L\'URL del link alla pagina degli appelli deve iniziare con https://, http:// o ftp://, verificare di non aver lasciato spazi vuoti',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -175,7 +175,7 @@ class InfoDidatticaEdit extends UniversiboCommand
 
             if (!ereg('(^(http(s)?|ftp)://|^.{0}$)', $_POST['f18_homepageLink'])) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'L\'URL del link alla pagina degli appelli deve iniziare con https://, http:// o ftp://, verificare di non aver lasciato spazi vuoti',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,
@@ -188,7 +188,7 @@ class InfoDidatticaEdit extends UniversiboCommand
             if (!ereg('(^(http(s)?|ftp)://|^.{0}$)',
                     $_POST['f18_orarioIcsLink'])) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getIdUser(),
+                        array('id_utente' => $user->getId(),
                                 'msg' => 'L\'URL del link alla pagina dell\'orario in formato ics deve iniziare con https://, http:// o ftp://, verificare di non aver lasciato spazi vuoti',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false,

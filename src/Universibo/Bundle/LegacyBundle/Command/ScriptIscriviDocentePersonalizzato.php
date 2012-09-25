@@ -61,7 +61,7 @@ class ScriptIscriviDocentePersonalizzato extends UniversiboCommand
             $forum->insertUser($new_user);
 
             $query3 = 'INSERT INTO docente (id_utente, cod_doc, nome_doc) VALUES ('
-                    . $new_user->getIdUser() . ',' . $db->quote($row[0]) . ','
+                    . $new_user->getId() . ',' . $db->quote($row[0]) . ','
                     . $db->quote($row[1]) . '
             )';
             $res3 = $db->query($query3);
@@ -69,7 +69,7 @@ class ScriptIscriviDocentePersonalizzato extends UniversiboCommand
                 die($query3);
 
             //$query4 = 'INSERT INTO utente_canale (id_utente,id_canale,ultimo_accesso,ruolo,my_universibo,notifica,nome,nascosto)
-            //      VALUES ('.$new_user->getIdUser().','. $db->quote($row[0]) .','.$db->quote($row[1]).')';
+            //      VALUES ('.$new_user->getId().','. $db->quote($row[0]) .','.$db->quote($row[1]).')';
             //$result = $db->query($query4);
             //if (DB::isError($res4)) die($query4);
 

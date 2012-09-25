@@ -28,16 +28,16 @@ class MyUniversiBOEdit extends UniversiboCommand
         $template = $frontcontroller->getTemplateEngine();
         $utente = $this->get('security.context')->getToken()->getUser();
 
-        if ($utente->isOspite())
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY'))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $utente->getIdUser(),
+                    array('id_utente' => $utente->getId(),
                             'msg' => "non e` permesso ad utenti non registrati eseguire questa operazione.\n La sessione potrebbe essere scaduta",
                             'file' => __FILE__, 'line' => __LINE__));
 
         if (!array_key_exists('id_canale', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $utente->getIdUser(),
+                    array('id_utente' => $utente->getId(),
                             'msg' => 'L\'id del canale richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
@@ -49,7 +49,7 @@ class MyUniversiBOEdit extends UniversiboCommand
         $ruoli = $utente instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($utente->getId()) : array();
         if (!array_key_exists($id_canale, $ruoli))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $utente->getIdUser(),
+                    array('id_utente' => $utente->getId(),
                             'msg' => 'Il ruolo richiesto non e` presente',
                             'file' => __FILE__, 'line' => __LINE__));
 
@@ -68,7 +68,7 @@ class MyUniversiBOEdit extends UniversiboCommand
                 if (!array_key_exists('f19_nome', $_POST)
                         || !array_key_exists('f19_livello_notifica', $_POST)) {
                     Error::throwError(_ERROR_DEFAULT,
-                            array('id_utente' => $utente->getIdUser(),
+                            array('id_utente' => $utente->getId(),
                                     'msg' => 'Il form inviato non e` valido',
                                     'file' => __FILE__, 'line' => __LINE__));
                     $f19_accept = false;
@@ -77,7 +77,7 @@ class MyUniversiBOEdit extends UniversiboCommand
                 if (!array_key_exists($_POST['f19_livello_notifica'],
                         $f19_livelli_notifica)) {
                     Error::throwError(_ERROR_DEFAULT,
-                            array('id_utente' => $utente->getIdUser(),
+                            array('id_utente' => $utente->getId(),
                                     'msg' => 'Il livello di notifica scelto non e` valido',
                                     'file' => __FILE__, 'line' => __LINE__));
                     $f19_accept = false;
@@ -86,7 +86,7 @@ class MyUniversiBOEdit extends UniversiboCommand
 
                 if (strlen($_POST['f19_nome']) > 60) {
                     Error::throwError(_ERROR_DEFAULT,
-                            array('id_utente' => $utente->getIdUser(),
+                            array('id_utente' => $utente->getId(),
                                     'msg' => 'Il nome scelto deve essere inferiore ai 60 caratteri',
                                     'file' => __FILE__, 'line' => __LINE__));
                     $f19_accept = false;
@@ -95,7 +95,7 @@ class MyUniversiBOEdit extends UniversiboCommand
 
                 if ($f19_accept == true) {
                     //$nascosto = false;
-                    //$ruolo = new Ruolo($utente->getIdUser(), $id_canale,  , time(), false, false, true, $f19_livello_notifica, $nascosto);
+                    //$ruolo = new Ruolo($utente->getId(), $id_canale,  , time(), false, false, true, $f19_livello_notifica, $nascosto);
 
                     $ruolo->updateNome($f19_nome);
                     $ruolo->updateTipoNotifica($f19_livello_notifica);
@@ -105,7 +105,7 @@ class MyUniversiBOEdit extends UniversiboCommand
                     $template
                             ->assign('showUser',
                                     '/?do=ShowUser&id_utente='
-                                            . $utente->getIdUser());
+                                            . $utente->getId());
                     if ($canale->getTipoCanale() == CANALE_INSEGNAMENTO) {
                         //troverò un modo per ottenere il cdl! lo giuro!!!
                     }
@@ -123,7 +123,7 @@ class MyUniversiBOEdit extends UniversiboCommand
 
         } else {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $utente->getIdUser(),
+                    array('id_utente' => $utente->getId(),
                             'msg' => 'Questa pagina non e` inserita nel tuo MyUniversiBO',
                             'file' => __FILE__, 'line' => __LINE__));
         }
