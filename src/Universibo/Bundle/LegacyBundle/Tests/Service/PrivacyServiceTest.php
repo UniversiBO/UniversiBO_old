@@ -27,7 +27,12 @@ class PrivacyServiceTest extends DoctrineRepositoryTest
 
     public function testSimple()
     {
-        $user = new User(100, 0);
+        $user = new User();
+
+        $reflection = new \ReflectionProperty($user, 'id');
+        $reflection->setAccessible(true);
+        $reflection->setValue($user, 100);
+
         $this->assertFalse($this->service->hasAcceptedPrivacy($user));
         $this->service->markAccepted($user);
         $this->assertTrue($this->service->hasAcceptedPrivacy($user));
