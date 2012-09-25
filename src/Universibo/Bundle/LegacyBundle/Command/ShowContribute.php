@@ -146,7 +146,7 @@ class ShowContribute extends UniversiboCommand
                     || !array_key_exists('f3_cdl', $_POST)
                     || !array_key_exists('f3_altro', $_POST)) {
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getId(),
+                        array('id_utente' => $user instanceof User ? $user->getId() : 0,
                                 'msg' => 'Il form inviato non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
                 var_dump($f3_corsi_di_laurea);
@@ -157,7 +157,7 @@ class ShowContribute extends UniversiboCommand
             //nome
             if (strlen($_POST['f3_nome']) > 50) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getId(),
+                        array('id_utente' => $user instanceof User ? $user->getId() : 0,
                                 'msg' => 'Il nome indicato puo` essere massimo 50 caratteri',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false, 'template_engine' => &$template));
@@ -168,7 +168,7 @@ class ShowContribute extends UniversiboCommand
             //cognome
             if (strlen($_POST['f3_cognome']) > 50) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getId(),
+                        array('id_utente' => $user instanceof User ? $user->getId() : 0,
                                 'msg' => 'Il cognome indicato puo` essere massimo 50 caratteri',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false, 'template_engine' => &$template));
@@ -180,7 +180,7 @@ class ShowContribute extends UniversiboCommand
             if ((strlen($_POST['f3_tel']) > 50)
                     || !preg_match('/^([0-9]{1,50})$/', $_POST['f3_tel'])) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getId(),
+                        array('id_utente' => $user instanceof User ? $user->getId() : 0,
                                 'msg' => 'Il numero di cellulare indicato puo` essere massimo 20 cifre',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false, 'template_engine' => &$template));
@@ -191,7 +191,7 @@ class ShowContribute extends UniversiboCommand
             //mail
             if (strlen($_POST['f3_mail']) > 50) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getId(),
+                        array('id_utente' => $user instanceof User ? $user->getId() : 0,
                                 'msg' => 'L\' indirizzo e-mail indicato puo` essere massimo 50 caratteri',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false, 'template_engine' => &$template));
@@ -200,7 +200,7 @@ class ShowContribute extends UniversiboCommand
                     "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i",
                     $_POST['f3_mail'])) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getId(),
+                        array('id_utente' => $user instanceof User ? $user->getId() : 0,
                                 'msg' => 'Inserire un indirizzo e-mail valido',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false, 'template_engine' => &$template));
@@ -214,7 +214,7 @@ class ShowContribute extends UniversiboCommand
             //tempo
             if (!array_key_exists('f3_tempo', $_POST)) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getId(),
+                        array('id_utente' => $user instanceof User ? $user->getId() : 0,
                                 'msg' => 'Indica quanto tempo utilizzi una connessione internet',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false, 'template_engine' => &$template));
@@ -225,7 +225,7 @@ class ShowContribute extends UniversiboCommand
             //internet
             if (!array_key_exists('f3_internet', $_POST)) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getId(),
+                        array('id_utente' => $user instanceof User ? $user->getId() : 0,
                                 'msg' => 'Indica quanto tempo libero potresti dedicare al progetto',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false, 'template_engine' => &$template));
@@ -236,7 +236,7 @@ class ShowContribute extends UniversiboCommand
             //privacy
             if (!array_key_exists('f3_privacy', $_POST)) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getId(),
+                        array('id_utente' => $user instanceof User ? $user->getId() : 0,
                                 'msg' => 'E\' necessario acconsentire al trattamento dei dati personali',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false, 'template_engine' => &$template));
@@ -289,7 +289,7 @@ class ShowContribute extends UniversiboCommand
 
             if (strlen($_POST['f3_cdl']) > 50) {
                 Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getId(),
+                        array('id_utente' => $user instanceof User ? $user->getId() : 0,
                                 'msg' => 'Il corso di laurea indicato puo` essere massimo 50 caratteri',
                                 'file' => __FILE__, 'line' => __LINE__,
                                 'log' => false, 'template_engine' => &$template));
@@ -319,7 +319,7 @@ class ShowContribute extends UniversiboCommand
         if ($f3_accept == true) {
             $questionario = new Questionario();
             $questionario
-                ->setIdUtente($this->getSessionIdUtente())
+                ->setIdUtente($user instanceof User ? $user->getId() : 0)
                 ->setData(time())
                 ->setNome($q3_nome)
                 ->setCognome($q3_cognome)
@@ -334,8 +334,7 @@ class ShowContribute extends UniversiboCommand
                 ->setAttivitaTest($q3_test)
                 ->setAttivitaGrafica($q3_grafica)
                 ->setAttivitaProgettazione($q3_prog)
-                ->setAltro($q3_altro)
-                ->setIdUtente($this->getSessionIdUtente());
+                ->setAltro($q3_altro);
 
             $em = $this->getContainer()->get('doctrine.orm.entity_manager');
             $em->persist($questionario);
