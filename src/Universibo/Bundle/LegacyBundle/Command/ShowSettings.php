@@ -34,13 +34,13 @@ class ShowSettings extends UniversiboCommand
                             'log' => false, 'template_engine' => &$template));
         }
 
-        if ($utente->isAdmin()) {
+        if ($utente->hasRole('ROLE_ADMIN')) {
             $template->assign('showSettings_showAdminPanel', 'true');
         } else {
             $template->assign('showSettings_showAdminPanel', 'false');
         }
 
-        if ($utente->isCollaboratore() || $utente->isAdmin()) {
+        if ($utente->hasRole('ROLE_COLLABORATOR') || $utente->hasRole('ROLE_ADMIN')) {
             $template
                     ->assign('showSettings_langPreferences',
                             array(

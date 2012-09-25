@@ -23,7 +23,7 @@
 		<service id="universibo_website.twig.extension" class="Universibo\Bundle\WebsiteBundle\Twig\UniversiboExtension">
 	        <tag name="twig.extension" />
 		</service>
-		
+
 		<service id="universibo_website.repository.user"
 			class="Universibo\Bundle\WebsiteBundle\Entity\UserRepository" factory-service="doctrine.orm.entity_manager" factory-method="getRepository">
 			<argument>Universibo\Bundle\WebsiteBundle\Entity\User</argument>

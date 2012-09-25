@@ -114,7 +114,7 @@ class CancellazioneUtente
     public function sospendiUtente ($idUtente)
     {
         $user = User::selectUser($idUtente);
-           if ( $user->isDocente() || $user->isTutor() || $user->isCollaboratore() || $this->get('security.context')->isGranted('ROLE_ADMIN') || $user->isPersonale()  ) {
+           if ( $user->hasRole('ROLE_PROFESSOR') || $user->hasRole('ROLE_TUTOR') || $user->hasRole('ROLE_COLLABORATOR') || $user->hasRole('ROLE_ADMIN') || $user->hasRole('ROLE_STAFF')  ) {
 //			$this->db->rollback();
 //			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Spiacente, lo script cancella solo gli studenti','file'=>__FILE__,'line'=>__LINE__));
             return array( 'esito' => false, 'msg' => 'Spiacente, lo script cancella solo gli studenti');
@@ -287,7 +287,7 @@ class CancellazioneUtente
 
            // cancellazione dell'utente per quanto riguarda il sito.
 //      	$user = User::selectUser($idUtente);
-//       	if( $user->isDocente() || $user->isTutor() || $user->isCollaboratore() || $this->get('security.context')->isGranted('ROLE_ADMIN') || $user->isPersonale()  )
+//       	if( $user->hasRole('ROLE_PROFESSOR') || $user->hasRole('ROLE_TUTOR') || $user->hasRole('ROLE_COLLABORATOR') || $this->get('security.context')->isGranted('ROLE_ADMIN') || $user->hasRole('ROLE_STAFF')  )
 //		{
 //			$db->rollback();
 //			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Spiacente, lo script cancella solo gli studenti','file'=>__FILE__,'line'=>__LINE__));

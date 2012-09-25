@@ -34,7 +34,7 @@ class ContattoDocenteAdd extends UniversiboCommand
                             'msg' => 'L\'utente cercato non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
 
-        if (!$user->isCollaboratore() && !$this->get('security.context')->isGranted('ROLE_ADMIN'))
+        if (!$user->hasRole('ROLE_COLLABORATOR') && !$this->get('security.context')->isGranted('ROLE_ADMIN'))
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
                             'msg' => 'Non hai i diritti necessari per visualizzare la pagina',

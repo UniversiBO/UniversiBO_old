@@ -225,7 +225,7 @@ class DidatticaGestione extends UniversiboCommand
                 $listaDocenti = array();
 
                 foreach ($users_search as $v)
-                    if ($v->isDocente()) {
+                    if ($v->hasRole('ROLE_PROFESSOR')) {
                         $doc = Docente::selectDocente($v->getIdUser());
                         if ($doc != false)
                             $listaDocenti[] = array(

@@ -515,8 +515,8 @@ class FileStudentiAdd extends UniversiboCommand
                     if ($ruolo->isReferente() || $ruolo->isModeratore()) {
                         $user_temp = User::selectUser($ruolo->getIdUser());
                         //Notifichiamo i professori di un nuovo file studente? Noh...
-                        if ($user_temp->isCollaboratore()
-                                || $user_temp->isAdmin()) {
+                        if ($user_temp->hasRole('ROLE_COLLABORATOR')
+                                || $user_temp->hasRole('ROLE_ADMIN')) {
                             $arrayEmailRef[$i] = $user_temp->getEmail();
                             $i++;
                         }

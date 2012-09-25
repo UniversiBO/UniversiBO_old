@@ -29,7 +29,7 @@ class FileDocenteAdmin extends UniversiboCommand
         $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN') && !$user->isDocente()) {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN') && !$user->hasRole('ROLE_PROFESSOR')) {
             Error::throwError(_ERROR_DEFAULT,
                     array(
                             'msg' => "Non hai i diritti necessari per accedere a questa pagina\n la sessione potrebbe essere terminata",

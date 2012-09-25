@@ -66,14 +66,14 @@ class ShowInsegnamento extends CanaleCommand
 
         $template->assign('ins_ContattoDocenteUri', '');
         $template->assign('ins_infoDidEditUri', '');
-        if ($session_user->isAdmin()
+        if ($session_user->hasRole('ROLE_ADMIN')
                 || (array_key_exists($id_canale, $user_ruoli)
                         && $user_ruoli[$id_canale]->isReferente())) {
             $template
                     ->assign('ins_infoDidEdit',
                             '/?do=InfoDidatticaEdit&id_canale='
                                     . $id_canale);
-            if ($session_user->isAdmin() || $session_user->isCollaboratore())
+            if ($session_user->hasRole('ROLE_ADMIN') || $session_user->hasRole('ROLE_COLLABORATOR'))
                 if (!$contatto) {
                     $template
                             ->assign('ins_ContattoDocenteUri',

@@ -45,8 +45,8 @@ class ShowUser extends UniversiboCommand
                             'file' => __FILE__, 'line' => __LINE__));
         }
 
-        if (!$current_user->isAdmin() && !$user->isDocente()
-                && !$user->isTutor()
+        if (!$current_user->hasRole('ROLE_ADMIN') && !$user->hasRole('ROLE_PROFESSOR')
+                && !$user->hasRole('ROLE_TUTOR')
                 && $current_user->getIdUser() != $user->getIdUser()) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $current_user->getIdUser(),
@@ -100,7 +100,7 @@ class ShowUser extends UniversiboCommand
         $template->assign('showDiritti', $stessi);
 
         $template->assign('showUser_UserHomepage', '');
-        if ($user->isDocente()) {
+        if ($user->hasRole('ROLE_PROFESSOR')) {
             $doc = Docente::selectDocente($user->getIdUser());
             $template
                     ->assign('showUser_UserHomepage',

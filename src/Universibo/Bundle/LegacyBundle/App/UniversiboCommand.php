@@ -315,9 +315,17 @@ abstract class UniversiboCommand extends BaseCommand
                 $common_servicesLinks[] = $myCanali;
             }
         }
-        if ($session_user->isAdmin() || $session_user->isCollaboratore()) {
-            $common_servicesLinks[] = array('uri' => '/?do=ShowContattiDocenti', 'tipo' => '', 'label' => 'Contatto dei docenti');
-            $common_servicesLinks[] = array('uri' => '/?do=ShowStatistiche', 'tipo' => '', 'label' => 'Statistiche');
+
+        $context = $this->get('security.context');
+
+        if ($context->isGranted('ROLE_ADMIN') || $context->isGranted('ROLE_COLLABORATOR')) {
+            $router = $this->get('router');
+
+            $contactUri = $router->generate('universibo_legacy_default', array('do' => 'ShowContattiDocenti'));
+            $statUri = $router->generate('universibo_legacy_default', array('do' => 'ShowStatistiche'));
+
+            $common_servicesLinks[] = array('uri' => $contactUri, 'tipo' => '', 'label' => 'Contatto dei docenti');
+            $common_servicesLinks[] = array('uri' => $statUri, 'tipo' => '', 'label' => 'Statistiche');
         }
 
         usort($common_servicesLinks, array($this, '_compareServices'));

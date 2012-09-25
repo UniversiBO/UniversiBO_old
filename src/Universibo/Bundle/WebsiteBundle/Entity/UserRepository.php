@@ -15,7 +15,7 @@ class UserRepository extends EntityRepository
     public function getUsernameFromId($id)
     {
         $user = $this->find($id);
-        
-        return $user instanceof User ? $user->getUsername() : null; 
+
+        return $user instanceof User ? $user->getUsername() : null;
     }
 }

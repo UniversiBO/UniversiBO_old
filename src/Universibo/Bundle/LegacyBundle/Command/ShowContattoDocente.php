@@ -38,7 +38,7 @@ class ShowContattoDocente extends UniversiboCommand
                             'file' => __FILE__, 'line' => __LINE__,
                             'template_engine' => &$template));
 
-        if (!$user->isCollaboratore() && !$this->get('security.context')->isGranted('ROLE_ADMIN'))
+        if (!$user->hasRole('ROLE_COLLABORATOR') && !$this->get('security.context')->isGranted('ROLE_ADMIN'))
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
                             'msg' => 'Non hai i diritti necessari per visualizzare la pagina',

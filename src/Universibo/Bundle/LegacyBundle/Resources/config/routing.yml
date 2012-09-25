@@ -1,3 +1,3 @@
-UniversobLegacyBundle_default:
+universibo_legacy_default:
     pattern: /
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index' }
