@@ -242,6 +242,8 @@
 			<argument type="service" id="security.authentication.manager" />
 		</service>
 
+		<service id="universibo_legacy.translator.role_name" class="Universibo\Bundle\LegacyBundle\Service\RoleNameTranslator"/>
+
 		<service id="universibo_legacy.message.sms" class="mobytSms">
 			<argument>%sms_user%</argument>
 			<argument>%sms_password%</argument>

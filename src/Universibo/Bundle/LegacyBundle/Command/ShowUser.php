@@ -49,7 +49,7 @@ class ShowUser extends UniversiboCommand
 
         if (!$current_user->hasRole('ROLE_ADMIN') && !$user->hasRole('ROLE_PROFESSOR')
                 && !$user->hasRole('ROLE_TUTOR')
-                && $userId != $user->getId()) {
+                && $userId != $current_user->getId()) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $userId,
                             'msg' => 'Non ti e` permesso visualizzare la scheda dell\'utente',
@@ -83,9 +83,7 @@ class ShowUser extends UniversiboCommand
         }
         usort($arrayCanali, array($this, '_compareMyUniversiBO'));
         $email = $user->getEmail();
-        $template
-                ->assign('showUserLivelli',
-                        implode(', ', $user->getRoles()));
+        $template->assign('showUserLivelli',$this->get('universibo_legacy.translator.role_name')->translate($user->getRoles()));
 
         $template->assign('showUserNickname', $user->getUsername());
         $template->assign('showUserEmail', $email);
