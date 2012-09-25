@@ -37,11 +37,6 @@ abstract class UniversiboCommand extends BaseCommand
         $this->_initTemplateUniversibo();
     }
 
-    public function get('security.context')->getToken()->getUser()
-    {
-        return $this->get('security.context')->getToken()->getUser();
-    }
-
     /**
      * Ridefinisce il metodo della classe padre
      * Si occupa di raccogliere tutti gli errori non ancora lanciati
