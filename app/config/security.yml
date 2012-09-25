@@ -22,7 +22,7 @@ security:
                 login_path: /login
             logout:
                 path:   /logout
-                target: /logoutAfter
+                target: /
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
