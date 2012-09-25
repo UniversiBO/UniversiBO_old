@@ -22,10 +22,10 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
         }
 
         $this->deleteAllVisibleCookies();
-        $this->open('/');
-        $this->type('id=f1_username', $username);
-        $this->type('id=f1_password', $password);
-        $this->clickAndWait('name=f1_submit');
+        $this->open('/app_dev.php/login');
+        $this->type('id=username', $username);
+        $this->type('id=password', $password);
+        $this->clickAndWait('id=_submit');
 
         if ($this->isTextPresent('Informativa sulla privacy')) {
             $this->clickAndWait('name=action');
@@ -36,7 +36,7 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
 
     protected function logout()
     {
-        $this->clickAndWait('name=f2_submit');
+        $this->open('/app_dev.php/logout');
         self::assertTrue($this->isTextPresent('Registrazione studenti'));
         self::assertTrue($this->isTextPresent('Username smarrito'));
         self::assertTrue($this->isTextPresent('Password smarrita'));
