@@ -57,7 +57,7 @@ class MyUniversiBOAdd extends UniversiboCommand
         //		{
 
         $f15_livelli_notifica = Ruolo::getLivelliNotifica();
-        $f15_livello_notifica = $utente->getLivelloNotifica();
+        $f15_livello_notifica = $utente->getNotifications();
         $f15_nome = (array_key_exists($id_canale, $ruoli)) ? $ruoli[$id_canale]
                         ->getNome() : '';
 

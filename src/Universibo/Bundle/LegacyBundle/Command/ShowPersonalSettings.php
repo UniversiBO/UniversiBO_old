@@ -25,9 +25,10 @@ class ShowPersonalSettings extends UniversiboCommand
     {
         $fc = $this->getFrontController();
         $template = $this->frontController->getTemplateEngine();
-        $user = $this->get('security.context')->getToken()->getUser();
+        $context = $this->get('security.context');
+        $user = $context->getToken()->getUser();
 
-        if ($this->sessionUser->isOspite()) {
+        if (!$context->isGranted('IS_AUTHENTICATED_FULLY')) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getId(),
                             'msg' => 'La modifica del profilo non puo` essere eseguita da utenti con livello ospite.'
@@ -58,8 +59,8 @@ class ShowPersonalSettings extends UniversiboCommand
         $f20_email = $user->getEmail();
         $f20_cellulare = $user->getPhone();
         $f20_livelli_notifica = Ruolo::getLivelliNotifica();
-        $f20_livello_notifica = $user->getLivelloNotifica();
-        $f20_personal_style = $user->getDefaultStyle();
+        $f20_livello_notifica = $user->getNotifications();
+        $f20_personal_style = 'unibo';
         if ($f20_personal_style == "black") {
             $f20_stili = array("black", "unibo");
         } else {
@@ -144,7 +145,7 @@ class ShowPersonalSettings extends UniversiboCommand
             $user->updateEmail($q20_email);
             $user->setPhone($q20_cellulare);
             $user->setDefaultStyle($f20_personal_style);
-            $user->setLivelloNotifica($f20_livello_notifica);
+            $user->setNotifications($f20_livello_notifica);
             $user->updateUser();
 
             $forum = $this->getContainer()->get('universibo_legacy.forum.api');

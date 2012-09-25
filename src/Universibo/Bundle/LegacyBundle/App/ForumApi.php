@@ -224,7 +224,7 @@ public function insertUser(User $user, $password = null)
     if ( $groups != User::OSPITE && $groups != 'ROLE_STUDENT' && $groups != 'ROLE_COLLABORATOR' && $groups != 'ROLE_TUTOR' && $groups != 'ROLE_PROFESSOR' && $groups != 'ROLE_STAFF' && $groups != 'ROLE_ADMIN' ) return;
     // @todo renderla funzionante anche per utenti che appartengono a pi? gruppi
 
-    $user_style = $this->defaultUserStyle[$user->getDefaultStyle()];
+    $user_style = $this->defaultUserStyle['unibo'];
     $user_rank  = $this->defaultRanks[$groups];
     $user_level = ( $this->get('security.context')->isGranted('ROLE_ADMIN') == true ) ? 1 : ( $user->hasRole('ROLE_COLLABORATOR') == true ) ? 2 : 0 ;
 
@@ -257,7 +257,7 @@ function updateUserStyle(User $user)
     $db = $this->getDb();
     if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) return;
 
-    $user_style = $this->defaultUserStyle[$user->getDefaultStyle()];
+    $user_style = $this->defaultUserStyle['unibo'];
 
     $query = 'UPDATE '.$this->table_prefix.'users SET user_style = '.$db->quote($user_style).' WHERE user_id = '.$db->quote($user->getId());
 

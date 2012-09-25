@@ -57,7 +57,6 @@ class InteractiveCommandHandler extends UniversiboCommand
             session_start();
             $this->userLogin->updateUltimoLogin(time(), true);
             $this->setSessionIdUtente($this->userLogin->getId());
-            $fc->setStyle($this->userLogin->getDefaultStyle());
 
             $forum = $this->getContainer()->get('universibo_legacy.forum.api');
             $forum->login($this->userLogin);
