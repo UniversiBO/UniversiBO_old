@@ -43,8 +43,8 @@ class ShowNewsLatest extends PluginCommand
         $id_canale = $canale->getIdCanale();
         $titolo_canale =  $canale->getTitolo();
         $ultima_modifica_canale =  $canale->getUltimaModifica();
-        
-        if($user instanceof User) {
+
+        if ($user instanceof User) {
             $roleRepo = $this->get('universibo_legacy.repository.ruolo');
             $user_ruoli = $roleRepo->findByIdUtente($user->getId());
         } else {
@@ -55,7 +55,7 @@ class ShowNewsLatest extends PluginCommand
 
         $template->assign('showNewsLatest_addNewsFlag', 'false');
         if (array_key_exists($id_canale, $user_ruoli) || $user->isAdmin()) {
-            $personalizza = true;    
+            $personalizza = true;
 
             if (array_key_exists($id_canale, $user_ruoli)) {
                 $ruolo = $user_ruoli[$id_canale];

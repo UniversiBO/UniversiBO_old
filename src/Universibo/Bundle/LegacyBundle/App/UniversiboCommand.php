@@ -8,7 +8,6 @@ use Universibo\Bundle\LegacyBundle\Entity\Facolta;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\Framework\BaseCommand;
 use Universibo\Bundle\LegacyBundle\Entity\User;
-use Universibo\Bundle\WebsiteBundle\Entity\User as NewUser;
 
 use \Error;
 /**
@@ -37,7 +36,7 @@ abstract class UniversiboCommand extends BaseCommand
 
         $this->_initTemplateUniversibo();
     }
-    
+
     public function getSessionUser()
     {
         return $this->get('security.context')->getToken()->getUser();
@@ -50,7 +49,6 @@ abstract class UniversiboCommand extends BaseCommand
     public function shutdownCommand()
     {
         parent::shutdownCommand();
-
 
         if ($this->isPopup()) {
             $this->_shutdownTemplatePopupUniversibo();
@@ -167,7 +165,7 @@ abstract class UniversiboCommand extends BaseCommand
         $template->assign('common_longDate', $krono->k_date('%j %F %Y'));
         $template->assign('common_shortDate', $krono->k_date('%j/%m/%Y'));
         $template->assign('common_time', $krono->k_date('%H:%i'));
-        
+
         $template->assign('common_loginUri', $this->get('router')->generate('fos_user_security_check'));
     }
 

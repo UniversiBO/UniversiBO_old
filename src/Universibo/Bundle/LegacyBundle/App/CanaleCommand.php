@@ -1,9 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\App;
 
-
-use Universibo\Bundle\LegacyBundle\Entity\DBRuoloRepository;
-
 use Universibo\Bundle\WebsiteBundle\Entity\User;
 
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
@@ -93,7 +90,7 @@ abstract class CanaleCommand extends UniversiboCommand
 
         $canale = $this->getRequestCanale();
         $user = $this->get('security.context')->getToken()->getUser();
-        $groups  = $user instanceof User ? $user->getLegacyGroups(): 1;         
+        $groups  = $user instanceof User ? $user->getLegacyGroups(): 1;
 
         if (!$canale->isGroupAllowed($groups)) {
             throw new \Exception('Not allowed');
@@ -119,7 +116,7 @@ abstract class CanaleCommand extends UniversiboCommand
         $template->assign( 'common_canaleMyUniversiBO', '');
         if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             $user_ruoli = $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId());
-            
+
             if (array_key_exists($id_canale, $user_ruoli) && $user_ruoli[$id_canale]->isMyUniversiBO()) {
                 $template->assign( 'common_canaleMyUniversiBO', 'remove');
                 $template->assign( 'common_langCanaleMyUniversiBO', 'Rimuovi questa pagina da MyUniversiBO');
@@ -164,7 +161,6 @@ abstract class CanaleCommand extends UniversiboCommand
      */
     public function shutdownCommand()
     {
-
 
         if (!$this->isPopup()) {
             $template = $this->frontController->getTemplateEngine();
@@ -220,7 +216,6 @@ abstract class CanaleCommand extends UniversiboCommand
                 $template->assign('common_langLinksCanale', 'Links');
             }
 
-
             //$template->assign('common_contactsCanaleAvailable', 'false');
 
             // elenco post nuovi contestuale al canale
@@ -244,14 +239,10 @@ abstract class CanaleCommand extends UniversiboCommand
             }
         }
 
-
         $this->updateUltimoAccesso();
 
         parent::shutdownCommand();
     }
-
-
-
 
     public function _compareContattiKeys($b, $a)
     {

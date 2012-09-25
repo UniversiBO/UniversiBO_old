@@ -16,25 +16,25 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
      * @ORM\Column(type="string",length=255,nullable=true,name="shib_username")
      * @var string
      */
     private $shibUsername;
-    
+
     /**
      * @ORM\Column(type="string",length=15,nullable=true)
      * @var string
      */
     private $phone;
-    
+
     /**
      * @ORM\Column(type="integer")
      * @var integer
      */
     private $notifications;
-    
+
     /**
      * @ORM\Column(type="integer", name="groups");
      * @var int
@@ -55,10 +55,10 @@ class User extends BaseUser
     public function setShibUsername($shibUsername)
     {
         $this->shibUsername = $shibUsername;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string
      */
@@ -66,18 +66,18 @@ class User extends BaseUser
     {
         return $this->phone;
     }
-    
+
     /**
-     * @param string $phone
+     * @param  string                                       $phone
      * @return \Universibo\Bundle\WebsiteBundle\Entity\User
      */
     public function setPhone($phone)
     {
         $this->phone = $phone;
-        
+
         return $this;
     }
-    
+
     /**
      * @return number
      */
@@ -85,19 +85,19 @@ class User extends BaseUser
     {
         return $this->notifications;
     }
-    
+
     /**
-     * 
-     * @param integer $notifications
+     *
+     * @param  integer                                      $notifications
      * @return \Universibo\Bundle\WebsiteBundle\Entity\User
      */
     public function setNotifications($notifications)
     {
         $this->notifications = $notifications;
-        
+
         return $this;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see FOS\UserBundle\Model.User::getLegacyGroups()
@@ -106,15 +106,15 @@ class User extends BaseUser
     {
         return $this->legacyGroups;
     }
-    
+
     /**
-     * @param int $legacyGroups
+     * @param  int                                          $legacyGroups
      * @return \Universibo\Bundle\WebsiteBundle\Entity\User
      */
     public function setLegacyGroups($legacyGroups)
     {
         $this->legacyGroups = $legacyGroups;
-        
+
         return $this;
     }
 }
