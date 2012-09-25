@@ -113,7 +113,7 @@ class ShowFileTitoli extends PluginCommand
                 $this_moderatore = ($this->get('security.context')->isGranted('ROLE_ADMIN')
                         || ($moderatore
                                 && $file->getIdUtente() == $user->getId()));
-                
+
                 $groups = $user instanceof User ? $user->getGroups() : 1;
 
                 $permessi_lettura = $file->getPermessiVisualizza();
