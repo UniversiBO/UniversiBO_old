@@ -1,5 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+use Universibo\Bundle\LegacyBundle\Entity\DBRuoloRepository;
+
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
 use \Error;
@@ -43,11 +45,11 @@ class ShowInsegnamento extends CanaleCommand
     public function execute()
     {
         $session_user = $this->get('security.context')->getToken()->getUser();
-        $session_user_groups = $session_user->getLegacyGroups();
+        $session_user_groups = $session_user instanceof User ? $session_user->getLegacyGroups() : 1;
         $id_canale = $this->getRequestIdCanale();
         $insegnamento = $this->getRequestCanale();
 
-        $user_ruoli = $session_user->getRuoli();
+        $user_ruoli = $session_user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
         // ??
         $insegnamento->getTitolo();
