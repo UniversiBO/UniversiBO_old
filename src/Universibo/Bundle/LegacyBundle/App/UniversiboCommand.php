@@ -286,7 +286,7 @@ abstract class UniversiboCommand extends BaseCommand
         $num_facolta = count($elenco_facolta);
         $i = 0;
         $session_user = $this->get('security.context')->getToken()->getUser();
-        $session_user_groups = $session_user->getLegacyGroups();
+        $session_user_groups = $session_user instanceof User ? $session_user->getLegacyGroups() : 1;
         $common_facLinks = array();
         for ($i = 0; $i < $num_facolta; $i++) {
             if ($elenco_facolta[$i]->isGroupAllowed($session_user_groups)) {
