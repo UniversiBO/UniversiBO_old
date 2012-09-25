@@ -1,5 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+
 use \Error;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Docente;
@@ -19,7 +20,8 @@ class ShowUser extends UniversiboCommand
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
-        $current_user = $this->get('security.context')->getToken()->getUser();
+        $context = $this->get('security.context');
+        $current_user = $context->getToken()->getUser();
 
         if (!array_key_exists('id_utente', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_utente'])) {
@@ -28,17 +30,16 @@ class ShowUser extends UniversiboCommand
                             'msg' => 'L\'id dell\'utente richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
-        $id_user = $_GET['id_utente'];
-        $user = User::selectUser($id_user);
+        $user = $this->get('universibo_website.repository.user')->find($id_user = $_GET['id_utente']);
 
-        if ($current_user->isOspite()) {
+        if (!$context->isGranted('IS_AUTHENTICATED_FULLY')) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $current_user->getId(),
                             'msg' => 'Le schede degli utenti sono visualizzabili solo se si e` registrati',
                             'file' => __FILE__, 'line' => __LINE__));
         }
 
-        if (!$user || $user->isEliminato()) {
+        if (!$user || $user->isLocked() || !$user->isEnabled()) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $current_user->getId(),
                             'msg' => 'L\'utente cercato non e` valido',
@@ -53,6 +54,8 @@ class ShowUser extends UniversiboCommand
                             'msg' => 'Non ti e` permesso visualizzare la scheda dell\'utente',
                             'file' => __FILE__, 'line' => __LINE__));
         }
+
+        $router = $this->get('router');
 
         $arrayRuoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
         $canali = array();
@@ -71,10 +74,8 @@ class ShowUser extends UniversiboCommand
                                     ->getNomeMyUniversibo();
                     $canali['ruolo'] = ($ruolo->isReferente()) ? 'R'
                             : (($ruolo->isModeratore()) ? 'M' : 'none');
-                    $canali['modifica'] = '/?do=MyUniversiBOEdit&id_canale='
-                            . $ruolo->getIdCanale();
-                    $canali['rimuovi'] = '/?do=MyUniversiBORemove&id_canale='
-                            . $ruolo->getIdCanale();
+                    $canali['modifica'] = $router->generate('universibo_legacy_default', array('do' => 'MyUniversiBOEdit', 'id_canale' => $ruolo->getIdCanale()));
+                    $canali['rimuovi'] = $router->generate('universibo_legacy_default', array('do' => 'MyUniversiBORemove', 'id_canale' => $ruolo->getIdCanale()));
                     $arrayCanali[] = $canali;
                 }
             }
@@ -83,7 +84,7 @@ class ShowUser extends UniversiboCommand
         $email = $user->getEmail();
         $template
                 ->assign('showUserLivelli',
-                        implode(', ', $user->getUserGroupsNames()));
+                        implode(', ', $user->getRoles()));
 
         $template->assign('showUserNickname', $user->getUsername());
         $template->assign('showUserEmail', $email);
@@ -106,7 +107,7 @@ class ShowUser extends UniversiboCommand
                     ->assign('showUser_UserHomepage',
                             $doc->getHomepageDocente());
         }
-        $template->assign('showSettings', '/?do=ShowSettings');
+        $template->assign('showSettings', $router->generate('universibo_legacy_default', array('do' => 'ShowSettings')));
 
         return 'default';
     }
