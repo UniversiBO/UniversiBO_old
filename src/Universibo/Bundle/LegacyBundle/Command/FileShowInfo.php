@@ -25,11 +25,12 @@ class FileShowInfo extends UniversiboCommand
         $template = $frontcontroller->getTemplateEngine();
         $krono = $frontcontroller->getKrono();
         $user = $this->get('security.context')->getToken()->getUser();
+        $userId = $user instanceof User ? $user->getId() : 0;
 
         if (!array_key_exists('id_file', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_file'])) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
+                    array('id_utente' => $userId,
                             'msg' => 'L\'id del file richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }

@@ -27,11 +27,12 @@ class ShowFileInfo extends PluginCommand
     {
         $bc = $this->getBaseCommand();
         $user = $bc->get('security.context')->getToken()->getUser();
+        $userId = $user instanceof User ? $user->getId() : 0;
 
         if (!array_key_exists('id_file', $param)
                 || !preg_match('/^([0-9]{1,9})$/', $param['id_file'])) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
+                    array('id_utente' => $userId,
                             'msg' => 'L\'id del file richiesto non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
         }
@@ -59,7 +60,7 @@ class ShowFileInfo extends PluginCommand
 
         if ($file === false)
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
+                    array('id_utente' => $userId,
                             'msg' => "Il file richiesto non e` presente su database",
                             'file' => __FILE__, 'line' => __LINE__));
 
@@ -67,9 +68,9 @@ class ShowFileInfo extends PluginCommand
         $directoryFile = $fc->getAppSetting('filesPath');
         $nomeFile = $file->getIdFile() . '_' . $file->getNomeFile();
 
-        if (!$user->isGroupAllowed($file->getPermessiVisualizza()))
+        if (!$user instanceof User ||  !$user->isGroupAllowed($file->getPermessiVisualizza()))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
+                    array('id_utente' => $user instanceof User ? $user->getId() : 0,
                             'msg' => 'Non e` permesso visualizzare il file.
             Non possiedi i diritti necessari, la sessione potrebbe essere scaduta.',
                             'file' => __FILE__, 'line' => __LINE__,
