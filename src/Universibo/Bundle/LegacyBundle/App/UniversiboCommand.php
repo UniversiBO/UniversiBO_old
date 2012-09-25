@@ -1,8 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\App;
 
-use Universibo\Bundle\LegacyBundle\Service\RoleNameTranslator;
-
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
@@ -136,7 +134,7 @@ abstract class UniversiboCommand extends BaseCommand
 
 
         $router = $this->get('router');
-        
+
         $forum = $this->getContainer()->get('universibo_legacy.forum.api');
         $template->assign('common_forum', 'Forum');
         $template->assign('common_forumDir', $forum->getPath());
