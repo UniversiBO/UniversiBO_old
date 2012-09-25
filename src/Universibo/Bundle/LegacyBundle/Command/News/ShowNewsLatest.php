@@ -75,7 +75,7 @@ class ShowNewsLatest extends PluginCommand
             $personalizza   = false;
             $referente      = false;
             $moderatore     = false;
-            $ultimo_accesso = $user->getUltimoLogin();
+            $ultimo_accesso = $user instanceof User ? $user->getLastLogin() : null;
         }
         //var_dump($moderatore);
         $canale_news = $this->getNumNewsCanale($id_canale);
