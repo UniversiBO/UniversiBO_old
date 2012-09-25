@@ -379,9 +379,9 @@ class FileStudentiAdd extends UniversiboCommand
             } else {
                 if ($_POST['f23_permessi_download'] != User::ALL
                         && $_POST['f23_permessi_download']
-                                != (User::STUDENTE | User::DOCENTE
-                                        | User::TUTOR | User::PERSONALE
-                                        | User::COLLABORATORE | User::ADMIN)) {
+                                != ('ROLE_STUDENT' | 'ROLE_PROFESSOR'
+                                        | 'ROLE_TUTOR' | 'ROLE_STAFF'
+                                        | 'ROLE_COLLABORATOR' | 'ROLE_ADMIN')) {
                     Error::throwError(_ERROR_NOTICE,
                             array('id_utente' => $user->getIdUser(),
                                     'msg' => 'Il valore dei diritti di download non ? ammessibile',

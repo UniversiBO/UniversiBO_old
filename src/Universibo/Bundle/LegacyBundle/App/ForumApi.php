@@ -50,7 +50,7 @@ class ForumApi extends DBRepository implements ForumApiInterface
     /**
      * Ranks e livelli da assegnare agli utenti inizialmente
      */
-    private $defaultRanks = array(User::STUDENTE => 0, User::COLLABORATORE => 9, User::TUTOR => 10, User::DOCENTE => 11, User::PERSONALE => 12, User::ADMIN =>  1);
+    private $defaultRanks = array('ROLE_STUDENT' => 0, 'ROLE_COLLABORATOR' => 9, 'ROLE_TUTOR' => 10, 'ROLE_PROFESSOR' => 11, 'ROLE_STAFF' => 12, 'ROLE_ADMIN' =>  1);
 
     /**
      * esegue la codifica esadecimale di un ipv4 nel formato separato da punti
@@ -221,7 +221,7 @@ public function insertUser(User $user, $password = null)
     if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) return;
 
     $groups = $user->getLegacyGroups();
-    if ( $groups != User::OSPITE && $groups != User::STUDENTE && $groups != User::COLLABORATORE && $groups != User::TUTOR && $groups != User::DOCENTE && $groups != User::PERSONALE && $groups != User::ADMIN ) return;
+    if ( $groups != User::OSPITE && $groups != 'ROLE_STUDENT' && $groups != 'ROLE_COLLABORATOR' && $groups != 'ROLE_TUTOR' && $groups != 'ROLE_PROFESSOR' && $groups != 'ROLE_STAFF' && $groups != 'ROLE_ADMIN' ) return;
     // @todo renderla funzionante anche per utenti che appartengono a pi? gruppi
 
     $user_style = $this->defaultUserStyle[$user->getDefaultStyle()];

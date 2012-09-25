@@ -12,7 +12,7 @@ class UserTest extends UniversiBOEntityTest
 
     protected function setUp()
     {
-        $this->_user = new User(0, User::ADMIN);
+        $this->_user = new User(0, 'ROLE_ADMIN');
     }
 
     public function testIdGetter()
@@ -22,7 +22,7 @@ class UserTest extends UniversiBOEntityTest
 
     public function testGroupsGetter()
     {
-        self::assertEquals(User::ADMIN, $this->_user->getLegacyGroups());
+        self::assertEquals('ROLE_ADMIN', $this->_user->getLegacyGroups());
     }
 
     public function getRoles()
@@ -36,7 +36,7 @@ class UserTest extends UniversiBOEntityTest
         $other = clone $this->_user;
         $this->assertTrue($other->isEqualTo($this->_user), 'Equals of cloned object should return true');
 
-        $other = new User(42, User::COLLABORATORE);
+        $other = new User(42, 'ROLE_COLLABORATOR');
         $this->assertFalse($other->isEqualTo($this->_user), 'Equals of different object should return false');
     }
 

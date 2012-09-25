@@ -38,7 +38,7 @@ class ScriptIscriviDocenti2 extends UniversiboCommand
                 $randomPassword = User::generateRandomPassword();
                 //$pippo = $fc->getAppSetting('defaultStyle');
                 //var_dump($pippo);
-                $new_user = new User(-1, User::DOCENTE, $username,
+                $new_user = new User(-1, 'ROLE_PROFESSOR', $username,
                         $randomPassword, $row[2], $notifica, 0, '', '',
                         $fc->getAppSetting('defaultStyle'));
 
