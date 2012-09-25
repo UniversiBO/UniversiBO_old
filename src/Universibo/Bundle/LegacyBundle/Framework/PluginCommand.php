@@ -46,7 +46,7 @@ class PluginCommand extends ContainerAware
     /**
      * Return the caller BaseCommand
      *
-     * @return BaseCommand
+     * @return \Universibo\Bundle\LegacyBundle\Framework\BaseCommand
      */
     public function getBaseCommand()
     {
