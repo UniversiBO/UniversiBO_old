@@ -39,7 +39,7 @@ class ShowAllFilesStudentiTitoli extends PluginCommand
         $referente      = false;
         $moderatore     = false;
         $personalizza_not_admin = false;
-        $ultimo_accesso = $user->getUltimoLogin();
+        $ultimo_accesso = $user->getLastLogin()->getTimestamp();
 
         $canale_files = count($elenco_file);
 

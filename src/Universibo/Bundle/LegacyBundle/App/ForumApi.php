@@ -520,7 +520,7 @@ function getLastPostsForum(User $user, $id_forum, $num = 10)
 
     $db = $this->getDb();
 
-    $ultimo_login = ($user->getUltimoLogin() == null || $user->getUltimoLogin() == '') ? 0 : $user->getUltimoLogin();
+    $ultimo_login = ($user->getLastLogin()->getTimestamp() == null || $user->getLastLogin()->getTimestamp() == '') ? 0 : $user->getLastLogin()->getTimestamp();
     // @NB se si usa limitQuery() la query non deve avere ';' alla fine
     $query = 'SELECT t.topic_title, min(p.post_id) FROM '.$this->table_prefix.'posts p, '.$this->table_prefix.'topics t
     WHERE t.topic_id = p.topic_id

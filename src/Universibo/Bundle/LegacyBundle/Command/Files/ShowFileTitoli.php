@@ -43,6 +43,7 @@ class ShowFileTitoli extends PluginCommand
         $titolo_canale = $canale->getTitolo();
         $ultima_modifica_canale = $canale->getUltimaModifica();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
+        $lastLogin = $user instanceof User ? $user->getLastLogin()->getTimestamp() : 0;
 
         $personalizza_not_admin = false;
 
@@ -78,7 +79,7 @@ class ShowFileTitoli extends PluginCommand
             $personalizza = false;
             $referente = false;
             $moderatore = false;
-            $ultimo_accesso = $user->getUltimoLogin();
+            $ultimo_accesso = $lastLogin;
         }
         /*
                 $canale_news = $this->getNumNewsCanale($id_canale);
@@ -112,9 +113,11 @@ class ShowFileTitoli extends PluginCommand
                 $this_moderatore = ($this->get('security.context')->isGranted('ROLE_ADMIN')
                         || ($moderatore
                                 && $file->getIdUtente() == $user->getId()));
+                
+                $groups = $user instanceof User ? $user->getGroups() : 1;
 
                 $permessi_lettura = $file->getPermessiVisualizza();
-                if ($user->isGroupAllowed($permessi_lettura)) {
+                if ($permessi_lettura & $groups) {
                     $file_tpl = array();
                     $file_tpl['titolo'] = $file->getTitolo();
                     //$file_tpl['notizia']      = $file->getNotizia();

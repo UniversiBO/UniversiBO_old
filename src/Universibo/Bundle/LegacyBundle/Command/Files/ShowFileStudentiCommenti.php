@@ -64,7 +64,7 @@ class ShowFileStudentiCommenti extends PluginCommand
             $personalizza   = false;
             $referente      = false;
             $moderatore     = false;
-            $ultimo_accesso = $user->getUltimoLogin();
+            $ultimo_accesso = $user->getLastLogin()->getTimestamp();
         }
 /*
         $canale_news = $this->getNumNewsCanale($id_canale);

@@ -61,7 +61,7 @@ class ShowLinksExtended extends PluginCommand
             $personalizza   = false;
             $referente      = false;
             $moderatore     = false;
-            $ultimo_accesso = $user->getUltimoLogin();
+            $ultimo_accesso = $user->getLastLogin()->getTimestamp();
         }
 
         $lista_links = Link::selectCanaleLinks($id_canale);

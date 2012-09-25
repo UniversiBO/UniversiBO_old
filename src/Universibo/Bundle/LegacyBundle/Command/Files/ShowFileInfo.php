@@ -196,7 +196,7 @@ class ShowFileInfo extends PluginCommand
                         $krono->k_date('%j/%m/%Y', $file->getDataInserimento()));
         $template
                 ->assign('showFileInfo_new',
-                        ($file->getDataModifica() < $user->getUltimoLogin()) ? 'true'
+                        ($file->getDataModifica() < $user->getLastLogin()->getTimestamp()) ? 'true'
                                 : 'false');
         $template->assign('showFileInfo_nomeFile', $nomeFile);
         $template->assign('showFileInfo_dimensione', $file->getDimensione());

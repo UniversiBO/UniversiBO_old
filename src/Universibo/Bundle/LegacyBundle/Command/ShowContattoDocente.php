@@ -95,7 +95,7 @@ class ShowContattoDocente extends UniversiboCommand
                         . ' ' . $rub_docente['nome'] . ' '
                         . $rub_docente['cognome'] : $docente->getNomedoc();
         $info_docente['sesso'] = ($rub_docente['sesso'] == 1) ? 'm' : 'f';
-        $date = $utente_docente->getUltimoLogin();
+        $date = $utente_docente->getLastLogin()->getTimestamp();
         $info_docente['ultimo login al sito'] = ($date == 0) ? 'mai loggato'
                 : round((time() - $date) / 86400) . ' gg fa circa';
         $info_docente['email universibo'] = $utente_docente->getEmail();

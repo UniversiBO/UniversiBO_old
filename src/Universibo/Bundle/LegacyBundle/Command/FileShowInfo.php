@@ -71,7 +71,7 @@ class FileShowInfo extends UniversiboCommand
         //		$template->assign('fileShowInfo_userLink', 'ShowUser&id_utente='.$file->getIdUtente());
         //		$template->assign('fileShowInfo_username', $file->getUsername());
         //		$template->assign('fileShowInfo_dataInserimento', $krono->k_date('%j/%m/%Y', $file->getDataInserimento()));
-        //		$template->assign('fileShowInfo_new', ($file->getDataModifica() < $user->getUltimoLogin() ) ? 'true' : 'false' );
+        //		$template->assign('fileShowInfo_new', ($file->getDataModifica() < $user->getLastLogin()->getTimestamp() ) ? 'true' : 'false' );
         //		$template->assign('fileShowInfo_nomeFile', $nomeFile);
         //		$template->assign('fileShowInfo_dimensione',  $file->getDimensione());
         //		$template->assign('fileShowInfo_download',  $file->getDownload());

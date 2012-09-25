@@ -61,7 +61,7 @@ class ShowLink extends PluginCommand
             $personalizza   = false;
             $referente      = false;
             $moderatore     = false;
-            $ultimo_accesso = $user->getUltimoLogin();
+            $ultimo_accesso = $user->getLastLogin()->getTimestamp();
         }
 
         $link = Link::selectLink($id_link);

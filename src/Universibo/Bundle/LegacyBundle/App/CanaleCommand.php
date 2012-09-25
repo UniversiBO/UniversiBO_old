@@ -166,6 +166,7 @@ abstract class CanaleCommand extends UniversiboCommand
             $template = $this->frontController->getTemplateEngine();
             $canale = $this->getRequestCanale();
             $user = $this->get('security.context')->getToken()->getUser();
+            $userId = $user instanceof User ? $user->getId() : 0;
 
             //informazioni del menu contatti
             $attivaContatti = $this->get('security.context')->isGranted('ROLE_ADMIN');
@@ -182,20 +183,20 @@ abstract class CanaleCommand extends UniversiboCommand
                 if ($ruolo->isReferente() || $ruolo->isModeratore()) {
                     $attivaContatti = true;
 
-                    if ($ruolo->isReferente() && $ruolo->getId() == $user->getId())
+                    if ($ruolo->isReferente() && $ruolo->getId() == $userId)
                         $attivaModificaDiritti = true;
 
                     $user_temp = $this->get('universibo_website.repository.user')->find($ruolo->getId());
                     //var_dump($user);
                     $contactUser = array();
                     $router = $this->get('router');
-                    $contactUser['utente_link']  = $router->generate('universibo_website_default', array('do'=>'ShowUser', 'id_utente'=>$user_temp->getId()));
-                    $contactUser['nome']  = $user_temp->getUserPublicGroupName();
+                    $contactUser['utente_link']  = $router->generate('universibo_legacy_default', array('do'=>'ShowUser', 'id_utente'=>$user_temp->getId()));
+                    $contactUser['nome']  = 'FIXME';//$user_temp->getUserPublicGroupName();
                     $contactUser['label'] = $user_temp->getUsername();
                     $contactUser['ruolo'] = ($ruolo->isReferente()) ? 'R' :  (($ruolo->isModeratore()) ? 'M' : 'none');
                     //var_dump($ruolo);
                     //$arrayUsers[] = $contactUser;
-                    $arrayPublicUsers[$user_temp->getUserPublicGroupName(false)][] = $contactUser;
+                    $arrayPublicUsers['FIXME'][] = $contactUser;
                 }
             }
             //ordina $arrayCanali

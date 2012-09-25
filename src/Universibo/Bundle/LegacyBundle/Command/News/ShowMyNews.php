@@ -42,7 +42,7 @@ class ShowMyNews extends PluginCommand
         $personalizza   = false;
         $referente      = false;
         $moderatore     = false;
-        $ultimo_accesso = $user->getUltimoLogin();
+        $ultimo_accesso = $user->getLastLogin()->getTimestamp();
 
         //parte ricopiata da studiare...
         $canale_news = count($elenco_id_news);
