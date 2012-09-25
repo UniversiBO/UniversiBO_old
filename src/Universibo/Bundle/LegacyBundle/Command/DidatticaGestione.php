@@ -35,7 +35,7 @@ class DidatticaGestione extends UniversiboCommand
 
         $krono = $frontcontroller->getKrono();
         $user = $this->get('security.context')->getToken()->getUser();
-        $user_ruoli = $user->getRuoli();
+        $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) { // TODO far si che specifici utenti siano autorizzati (da file di conf) {
             Error::throwError(_ERROR_DEFAULT,

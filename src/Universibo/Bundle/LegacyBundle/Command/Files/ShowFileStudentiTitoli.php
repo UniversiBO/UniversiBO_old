@@ -53,7 +53,7 @@ class ShowFileStudentiTitoli extends PluginCommand
         $id_canale = $canale->getIdCanale();
         $titolo_canale =  $canale->getTitolo();
         $ultima_modifica_canale =  $canale->getUltimaModifica();
-        $user_ruoli = $user->getRuoli();
+        $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
         $personalizza_not_admin = false;
 

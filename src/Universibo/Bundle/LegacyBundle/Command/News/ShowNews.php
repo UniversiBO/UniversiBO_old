@@ -40,7 +40,7 @@ class ShowNews extends PluginCommand
         $fc        = $bc->getFrontController();
         $template  = $fc->getTemplateEngine();
         $krono     = $fc->getKrono();
-        $user_ruoli = $user->getRuoli();
+        $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
         if ($flag_chkDiritti) {
             $id_canale = $canale->getIdCanale();

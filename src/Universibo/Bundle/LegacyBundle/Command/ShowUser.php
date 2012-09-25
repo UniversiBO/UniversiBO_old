@@ -54,7 +54,7 @@ class ShowUser extends UniversiboCommand
                             'file' => __FILE__, 'line' => __LINE__));
         }
 
-        $arrayRuoli = $user->getRuoli();
+        $arrayRuoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
         $canali = array();
         $arrayCanali = array();
         $keys = array_keys($arrayRuoli);

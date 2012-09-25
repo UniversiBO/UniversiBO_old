@@ -35,7 +35,7 @@ class ShowMyNews extends PluginCommand
         $fc        = $bc->getFrontController();
         $template  = $fc->getTemplateEngine();
         $krono     = $fc->getKrono();
-        $user_ruoli = $user->getRuoli();
+        $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
         $personalizza_not_admin = false;
 
 //		$template->assign('showMyNews_addNewsFlag', 'false');

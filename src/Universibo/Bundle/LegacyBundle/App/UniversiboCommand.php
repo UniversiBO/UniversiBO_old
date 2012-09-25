@@ -199,14 +199,14 @@ abstract class UniversiboCommand extends BaseCommand
         $attivaMyUniversibo = false;
         //		var_dump($session_user);
 
-        if (!$session_user->isOspite()) {
+        if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             $attivaMyUniversibo = true;
             $arrayCanali = array();
-            $arrayRuoli = $session_user->getRuoli();
+            $arrayRuoli = $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId());
             //var_dump($session_user);
             $keys = array_keys($arrayRuoli);
             foreach ($keys as $key) {
-                $ruolo = & $arrayRuoli[$key];
+                $ruolo = $arrayRuoli[$key];
                 if ($ruolo->isMyUniversibo()) {
                     //$attivaMyUniversibo = true;
 

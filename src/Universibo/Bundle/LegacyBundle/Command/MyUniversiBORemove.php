@@ -49,7 +49,7 @@ class MyUniversiBORemove extends UniversiboCommand
                         '/?do=ShowUser&id_utente='
                                 . $utente->getIdUser());
 
-        $ruoli = $utente->getRuoli();
+        $ruoli = $utente instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($utente->getId()) : array();
         $this->executePlugin('ShowTopic', array('reference' => 'myuniversibo'));
         if (array_key_exists($id_canale, $ruoli)) {
             $ruolo = $ruoli[$id_canale];

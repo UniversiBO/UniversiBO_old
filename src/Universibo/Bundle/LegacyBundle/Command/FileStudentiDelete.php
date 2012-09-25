@@ -33,7 +33,7 @@ class FileStudentiDelete extends UniversiboCommand
         $referente = false;
         $moderatore = false;
 
-        $user_ruoli = $user->getRuoli();
+        $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
         if (!array_key_exists('id_file', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_file'])) {

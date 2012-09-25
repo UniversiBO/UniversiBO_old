@@ -25,7 +25,7 @@ class InfoDidatticaEdit extends UniversiboCommand
 
         $krono = $frontcontroller->getKrono();
         $user = $this->get('security.context')->getToken()->getUser();
-        $user_ruoli = $user->getRuoli();
+        $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
         $template
                 ->assign('common_canaleURI',

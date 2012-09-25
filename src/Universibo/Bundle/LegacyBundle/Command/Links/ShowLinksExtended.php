@@ -41,7 +41,7 @@ class ShowLinksExtended extends PluginCommand
         $fc        = $bc->getFrontController();
         $template  = $fc->getTemplateEngine();
         //BUG strano: se passo per riferimento l'array dei ruoli, si modifica il session user di universibo_command
-        $user_ruoli = $user->getRuoli();
+        $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
         $ultima_modifica_canale =  $canale->getUltimaModifica();
 

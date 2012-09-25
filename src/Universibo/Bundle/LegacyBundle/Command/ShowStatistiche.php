@@ -13,7 +13,7 @@ class ShowStatistiche extends UniversiboCommand
 
         $krono = $frontcontroller->getKrono();
         $user = $this->get('security.context')->getToken()->getUser();
-        $user_ruoli = $user->getRuoli();
+        $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
         if (!$user->isCollaboratore() && !$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             Error::throwError(_ERROR_DEFAULT,

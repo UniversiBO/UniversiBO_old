@@ -28,7 +28,7 @@ class RuoliAdminEdit extends UniversiboCommand
 
         $referente = false;
 
-        $user_ruoli = $user->getRuoli();
+        $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
         $ruoli = array();
         $arrayPublicUsers = array();
 

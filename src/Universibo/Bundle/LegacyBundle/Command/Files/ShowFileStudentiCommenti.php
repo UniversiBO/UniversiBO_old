@@ -44,7 +44,7 @@ class ShowFileStudentiCommenti extends PluginCommand
         $file = FileItemStudenti::selectFileItem($param['id_file']);
         $id_canali = $file->getIdCanali();
         $id_canale = $id_canali[0];
-        $user_ruoli = $user->getRuoli();
+        $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
         $personalizza_not_admin = false;
 

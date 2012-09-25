@@ -149,7 +149,7 @@ abstract class CanaleCommand extends UniversiboCommand
     {
         $id_canale = $this->getRequestIdCanale();
         $user = $this->get('security.context')->getToken()->getUser();
-        $user_ruoli = $user->getRuoli();
+        $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
         if (array_key_exists($id_canale, $user_ruoli)) {
             $user_ruoli[$id_canale]->updateUltimoAccesso(time(), true);

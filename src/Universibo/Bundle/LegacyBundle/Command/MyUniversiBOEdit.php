@@ -46,7 +46,7 @@ class MyUniversiBOEdit extends UniversiboCommand
         $template->assign('common_canaleURI', $canale->showMe());
         $template->assign('common_langCanaleNome', $canale->getNome());
 
-        $ruoli = $utente->getRuoli();
+        $ruoli = $utente instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($utente->getId()) : array();
         if (!array_key_exists($id_canale, $ruoli))
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $utente->getIdUser(),

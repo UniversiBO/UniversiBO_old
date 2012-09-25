@@ -22,7 +22,7 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
 
         $user = $this->get('security.context')->getToken()->getUser();
         //$canale = & $this->getRequestCanale();
-        //		$user_ruoli = $user->getRuoli();
+        //		$user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
         //		$id_canale = $canale->getIdCanale();
 
         //$admin = $this->get('security.context')->isGranted('ROLE_ADMIN');
