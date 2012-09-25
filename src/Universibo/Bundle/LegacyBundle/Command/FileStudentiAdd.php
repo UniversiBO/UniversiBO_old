@@ -35,7 +35,7 @@ class FileStudentiAdd extends UniversiboCommand
         $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
-        if ($user->isOspite()) {
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
                             'msg' => "Per questa operazione bisogna essere registrati\n la sessione potrebbe essere terminata",
@@ -127,7 +127,7 @@ class FileStudentiAdd extends UniversiboCommand
         //		}
         //
         if (array_key_exists('id_canale', $_GET)) {
-            $diritti = !$user->isOspite()
+            $diritti = $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')
                     && $canale->isGroupAllowed($user->getGroups());
             if (!$diritti)
                 Error::throwError(_ERROR_DEFAULT,

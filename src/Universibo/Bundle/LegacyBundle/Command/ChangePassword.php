@@ -22,7 +22,7 @@ class ChangePassword extends UniversiboCommand
         $fc = $this->getFrontController();
         $template = $this->frontController->getTemplateEngine();
         $user = $this->get('security.context')->getToken()->getUser();
-        if ($user->isOspite()) {
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
                             'msg' => 'La modifica della password non puo` essere eseguita da utenti con livello ospite.'

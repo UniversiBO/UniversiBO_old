@@ -27,7 +27,7 @@ class ShowPersonalFiles extends UniversiboCommand
         $user = $this->get('security.context')->getToken()->getUser();
 
         // controllo che l'utente sia loggato
-        if ($user->isOspite())
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY'))
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
                             'msg' => 'La pagina e` visualizzabile solo dopo aver fatto il login. La vostra sessione potrebbe essere scaduta.',

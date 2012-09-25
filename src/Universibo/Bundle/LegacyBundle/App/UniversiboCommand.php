@@ -261,7 +261,7 @@ abstract class UniversiboCommand extends BaseCommand
         $template->assign('common_addBookmarks', 'Aggiungi ai preferiti');
 
         $session_user = $this->get('security.context')->getToken()->getUser();
-        if ($session_user->isOspite()) {
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             $template->assign('common_userLoggedIn', 'false');
         } else {
             $template->assign('common_userLoggedIn', 'true');

@@ -218,7 +218,7 @@ public function insertUser(User $user, $password = null)
 {
 
     $db = $this->getDb();
-    if ($user->isOspite()) return;
+    if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) return;
 
     $groups = $user->getGroups();
     if ( $groups != User::OSPITE && $groups != User::STUDENTE && $groups != User::COLLABORATORE && $groups != User::TUTOR && $groups != User::DOCENTE && $groups != User::PERSONALE && $groups != User::ADMIN ) return;
@@ -255,7 +255,7 @@ function updateUserStyle(User $user)
 {
 
     $db = $this->getDb();
-    if ($user->isOspite()) return;
+    if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) return;
 
     $user_style = $this->defaultUserStyle[$user->getDefaultStyle()];
 
@@ -270,7 +270,7 @@ function updateUserStyle(User $user)
 public function updatePassword(User $user, $password)
 {
     $db = $this->getDb();
-    if ($user->isOspite()) return;
+    if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) return;
 
     $query = 'UPDATE '.$this->table_prefix.'users SET user_password = '.$db->quote(md5($password)).' WHERE user_id = '.$db->quote($user->getIdUser());
 
@@ -288,7 +288,7 @@ function updateUserEmail(User $user)
 {
 
     $db = $this->getDb();
-    if ($user->isOspite()) return;
+    if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) return;
 
     $query = 'UPDATE '.$this->table_prefix.'users SET user_email = '.$db->quote($user->getEmail()).' WHERE user_id = '.$db->quote($user->getIdUser());
 

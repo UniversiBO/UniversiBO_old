@@ -42,7 +42,7 @@ class Login extends UniversiboCommand
                             'log' => false, 'template_engine' => &$template));
 
         if (array_key_exists('f1_submit', $_POST)) {
-            if (!$user->isOspite()) {
+            if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getIdUser(),
                                 'msg' => 'Il login puo` essere eseguito solo da utenti che non hanno ancora eseguito l\'accesso',

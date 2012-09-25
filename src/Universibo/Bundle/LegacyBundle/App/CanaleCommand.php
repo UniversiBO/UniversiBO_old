@@ -222,7 +222,7 @@ abstract class CanaleCommand extends UniversiboCommand
             if ($this->requestCanale->getServizioForum()) {
                 //				$newposts = 'false';
                 $list_post		=	array();
-                if (!$user->isOspite()) {
+                if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
                     $fa = $this->getContainer()->get('universibo_legacy.forum.api');
                     $id_posts_list 	=  $fa->getLastPostsForum($user, $canale->getForumForumId());
 

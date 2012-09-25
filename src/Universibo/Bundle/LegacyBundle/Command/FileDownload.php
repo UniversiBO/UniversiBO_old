@@ -130,7 +130,7 @@ class FileDownload extends UniversiboCommand
 
         }
 
-        if ($user->isOspite()) {
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             $this
                     ->executePlugin('ShowTopic',
                             array('reference' => 'filesutenti'));

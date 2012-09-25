@@ -70,7 +70,7 @@ class ShowFileStudentiTitoli extends PluginCommand
                     $ultimo_accesso = $ruolo->getUltimoAccesso();
                 }
 
-//				if ( !$user->isOspite() )
+//				if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') )
 //				{
 //					$template->assign('showFileStudentiTitoli_addFileFlag', 'true');
 //					$template->assign('showFileStudentiTitoli_addFile', 'Inserisci il tuo contributo');
@@ -85,7 +85,7 @@ class ShowFileStudentiTitoli extends PluginCommand
 
             //Solo se quello che naviga non e` loggato, non compare il link
 
-            if ( !$user->isOspite() ) {
+            if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') ) {
                     $template->assign('showFileStudentiTitoli_addFileFlag', 'true');
                     $template->assign('showFileStudentiTitoli_addFile', 'Inserisci il tuo contributo');
                     $template->assign('showFileStudentiTitoli_addFileUri', '/?do=FileStudentiAdd&id_canale='.$id_canale);
