@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command\Links;
 
+use Universibo\Bundle\WebsiteBundle\Entity\User;
+
 use Universibo\Bundle\LegacyBundle\Entity\Links\Link;
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
 
@@ -36,7 +38,7 @@ class ShowLinks extends PluginCommand
         $canale    = $bc->getRequestCanale();
         $fc        = $bc->getFrontController();
         $template  = $fc->getTemplateEngine();
-        $user_ruoli = $user->getRuoli();
+        $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
         $id_canale = $canale->getIdCanale();
         $ultima_modifica_canale =  $canale->getUltimaModifica();
@@ -45,7 +47,7 @@ class ShowLinks extends PluginCommand
 
         $referente      = false;
         $moderatore     = false;
-        $ultimo_accesso = $user->getUltimoLogin();
+        $ultimo_accesso = $user instanceof User ? $user->getLastLogin()->getTimestamp() : 0;
 
         if (array_key_exists($id_canale, $user_ruoli)) {
             $ruolo = $user_ruoli[$id_canale];

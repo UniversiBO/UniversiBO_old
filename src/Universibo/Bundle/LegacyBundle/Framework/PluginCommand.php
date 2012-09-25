@@ -68,6 +68,11 @@ class PluginCommand extends ContainerAware
         return $fc->executePlugin($name, $bc, $param);
     }
 
+    protected function get($id)
+    {
+        return $this->getContainer()->get($id);
+    }
+
     protected function getContainer()
     {
         return $this->container;
