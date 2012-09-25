@@ -1,5 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+
 use \Error;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Collaboratore;
@@ -41,7 +42,7 @@ class ShowCollaboratore extends UniversiboCommand
                             'file' => __FILE__, 'line' => __LINE__,
                             'template_engine' => &$template));
 
-        $curr_user = $collaboratore->getUser();
+        $curr_user = $this->get('universibo_website.repository.user')->find($collaboratore->getIdUtente());
         if (($user->getId()) == ($collaboratore->getIdUtente())) {
             $modifica_link = '';
             $modifica = "modifica";
