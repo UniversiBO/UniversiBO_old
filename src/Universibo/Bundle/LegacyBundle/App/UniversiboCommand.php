@@ -7,7 +7,7 @@ use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Facolta;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\Framework\BaseCommand;
-use Universibo\Bundle\LegacyBundle\Entity\User;
+use Universibo\Bundle\WebsiteBundle\Entity\User;
 
 use \Error;
 /**

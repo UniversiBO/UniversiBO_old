@@ -2,7 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 use Universibo\Bundle\LegacyBundle\Entity\Collaboratore;
 
-use Universibo\Bundle\LegacyBundle\Entity\User;
+use Universibo\Bundle\WebsiteBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**

@@ -3,7 +3,7 @@
 namespace Universibo\Bundle\LegacyBundle\Tests\Service;
 use Universibo\Bundle\LegacyBundle\Service\PrivacyService;
 
-use Universibo\Bundle\LegacyBundle\Entity\User;
+use Universibo\Bundle\WebsiteBundle\Entity\User;
 
 use Universibo\Bundle\LegacyBundle\Tests\Entity\DoctrineRepositoryTest;
 

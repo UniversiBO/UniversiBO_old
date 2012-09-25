@@ -5,7 +5,7 @@ use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
-use Universibo\Bundle\LegacyBundle\Entity\User;
+use Universibo\Bundle\WebsiteBundle\Entity\User;
 
 /**
  * FileAdd: si occupa dell'inserimento di un file in un canale

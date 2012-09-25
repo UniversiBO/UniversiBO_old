@@ -3,7 +3,7 @@
 namespace Universibo\Bundle\WebsiteBundle\Controller;
 use Universibo\Bundle\LegacyBundle\Entity\Collaboratore;
 
-use Universibo\Bundle\LegacyBundle\Entity\User;
+use Universibo\Bundle\WebsiteBundle\Entity\User;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

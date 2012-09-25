@@ -10,7 +10,7 @@ use Universibo\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
 use Universibo\Bundle\LegacyBundle\App\AntiVirus\AntiVirusFactory;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
-use Universibo\Bundle\LegacyBundle\Entity\User;
+use Universibo\Bundle\WebsiteBundle\Entity\User;
 
 /**
  * FileStudentiAdd: si occupa dell'inserimento di un file studente in un canale

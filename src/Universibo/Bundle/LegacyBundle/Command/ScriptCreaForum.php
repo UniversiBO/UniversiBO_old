@@ -8,7 +8,7 @@ use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Cdl;
 use Universibo\Bundle\LegacyBundle\Entity\Insegnamento;
 use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
-use Universibo\Bundle\LegacyBundle\Entity\User;
+use Universibo\Bundle\WebsiteBundle\Entity\User;
 
 /**
  * ChangePassword is an extension of UniversiboCommand class.

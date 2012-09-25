@@ -9,7 +9,7 @@ use Universibo\Bundle\LegacyBundle\Entity\Cdl;
 use Universibo\Bundle\LegacyBundle\Entity\Docente;
 use Universibo\Bundle\LegacyBundle\Entity\Facolta;
 use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
-use Universibo\Bundle\LegacyBundle\Entity\User;
+use Universibo\Bundle\WebsiteBundle\Entity\User;
 
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\Framework\LogHandler;
