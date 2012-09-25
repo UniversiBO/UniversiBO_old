@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\App;
 
+use Universibo\Bundle\LegacyBundle\Service\RoleNameTranslator;
+
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
@@ -132,16 +134,16 @@ abstract class UniversiboCommand extends BaseCommand
         // /path_universibo2/receiver.php?do=SomeCommand
         @ $template->assign('common_shortUri', $_SERVER['REQUEST_URI']);
 
-        $template->assign('common_homepage', 'Homepage');
-        $template->assign('common_homepageUri', '/?do=ShowHome');
 
+        $router = $this->get('router');
+        
         $forum = $this->getContainer()->get('universibo_legacy.forum.api');
         $template->assign('common_forum', 'Forum');
         $template->assign('common_forumDir', $forum->getPath());
         $template->assign('common_forumUri', $forum->getMainUri());
 
         $template->assign('common_homepage', 'Homepage');
-        $template->assign('common_homepageUri', '/?do=ShowHome');
+        $template->assign('common_homepageUri', $router->generate('universibo_legacy_default'));
 
         $template->assign('common_rootEmail', $fc->getAppSetting('rootEmail'));
         $template->assign('common_infoEmail', $fc->getAppSetting('infoEmail'));
@@ -268,7 +270,8 @@ abstract class UniversiboCommand extends BaseCommand
             $template->assign('common_userUsername', $session_user->getUsername());
             //$livelli = User::groupsNames();
 
-            $template->assign('common_userLivello', $session_user->getRoles());
+            $role = $this->get('universibo_legacy.translator.role_name')->translate($session_user->getRoles());
+            $template->assign('common_userLivello', $role);
 
             $template->assign('common_langWelcomeMsg', 'Benvenuto');
             $template->assignUnicode('common_langUserLivello', 'Il tuo livello di utenza è');
