@@ -185,10 +185,11 @@ abstract class CanaleCommand extends UniversiboCommand
                     if ($ruolo->isReferente() && $ruolo->getId() == $user->getId())
                         $attivaModificaDiritti = true;
 
-                    $user_temp = User::selectUser($ruolo->getId());
+                    $user_temp = $this->get('universibo_website.repository.user')->find($ruolo->getId());
                     //var_dump($user);
                     $contactUser = array();
-                    $contactUser['utente_link']  = '/?do=ShowUser&id_utente='.$user_temp->getId();
+                    $router = $this->get('router');
+                    $contactUser['utente_link']  = $router->generate('universibo_website_default', array('do'=>'ShowUser', 'id_utente'=>$user_temp->getId()));
                     $contactUser['nome']  = $user_temp->getUserPublicGroupName();
                     $contactUser['label'] = $user_temp->getUsername();
                     $contactUser['ruolo'] = ($ruolo->isReferente()) ? 'R' :  (($ruolo->isModeratore()) ? 'M' : 'none');
