@@ -172,7 +172,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
                     . $db->quote($user->getLivelloNotifica()) . ' , '
                     . $db->quote($user->getUltimoLogin()) . ' , '
                     . $db->quote($user->getADUsername()) . ' , '
-                    . $db->quote($user->getGroups()) . ' , '
+                    . $db->quote($user->getLegacyGroups()) . ' , '
                     . $db->quote($utente_ban) . ' , '
                     . $db->quote($user->getPhone()) . ' , '
                     . $db->quote($utente_eliminato) . ' , '
@@ -214,7 +214,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
                 . $db->quote($user->getLivelloNotifica()) . ', ultimo_login = '
                 . $db->quote($user->getUltimoLogin()) . ', ad_username = '
                 . $db->quote($user->getADUsername()) . ', groups = '
-                . $db->quote($user->getGroups()) . ', phone = '
+                . $db->quote($user->getLegacyGroups()) . ', phone = '
                 . $db->quote($user->getPhone()) . ', default_style = '
                 . $db->quote($user->getDefaultStyle()) . ', sospeso = '
                 . $db->quote($utente_eliminato) . ', ban = '
@@ -484,7 +484,7 @@ class DBUserRepository extends DBRepository implements UserProviderInterface
     {
         $db = $this->getDb();
 
-        $query = 'UPDATE utente SET groups = ' . $db->quote($user->getGroups())
+        $query = 'UPDATE utente SET groups = ' . $db->quote($user->getLegacyGroups())
                 . ' WHERE id_utente = ' . $db->quote($user->getIdUser());
         $res = $db->query($query);
         if (\DB::isError($res))

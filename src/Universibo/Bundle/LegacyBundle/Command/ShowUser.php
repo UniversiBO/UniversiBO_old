@@ -62,7 +62,7 @@ class ShowUser extends UniversiboCommand
             $ruolo = $arrayRuoli[$key];
             if ($ruolo->isMyUniversibo()) {
                 $canale = Canale::retrieveCanale($ruolo->getIdCanale());
-                if ($canale->isGroupAllowed($current_user->getGroups())) {
+                if ($canale->isGroupAllowed($current_user->getLegacyGroups())) {
                     $canali = array();
                     $canali['uri'] = $canale->showMe();
                     $canali['tipo'] = $canale->getTipoCanale();

@@ -318,7 +318,7 @@ class User implements UserInterface, SSOUserInterface, \Serializable, EquatableI
      *
      * @return int
      */
-    public function getGroups()
+    public function getLegacyGroups()
     {
         return $this->groups;
     }
@@ -709,7 +709,7 @@ class User implements UserInterface, SSOUserInterface, \Serializable, EquatableI
     public function isAdmin($groups = NULL)
     {
         if ($groups == NULL)
-            $groups = $this->getGroups();
+            $groups = $this->getLegacyGroups();
 
         return (boolean) ((int) $groups & (int) self::ADMIN);
     }
@@ -723,7 +723,7 @@ class User implements UserInterface, SSOUserInterface, \Serializable, EquatableI
     public function isPersonale($groups = NULL)
     {
         if ($groups == NULL)
-            $groups = $this->getGroups();
+            $groups = $this->getLegacyGroups();
 
         return (boolean) ((int) $groups & (int) self::PERSONALE);
     }
@@ -738,7 +738,7 @@ class User implements UserInterface, SSOUserInterface, \Serializable, EquatableI
     public function isDocente($groups = NULL)
     {
         if ($groups == NULL)
-            $groups = $this->getGroups();
+            $groups = $this->getLegacyGroups();
 
         return (boolean) ((int) $groups & (int) self::DOCENTE);
     }
@@ -753,7 +753,7 @@ class User implements UserInterface, SSOUserInterface, \Serializable, EquatableI
     public function isTutor($groups = NULL)
     {
         if ($groups == NULL)
-            $groups = $this->getGroups();
+            $groups = $this->getLegacyGroups();
 
         return (boolean) ($groups & self::TUTOR);
     }
@@ -768,7 +768,7 @@ class User implements UserInterface, SSOUserInterface, \Serializable, EquatableI
     public function isCollaboratore($groups = NULL)
     {
         if ($groups == NULL)
-            $groups = $this->getGroups();
+            $groups = $this->getLegacyGroups();
 
         return (boolean) ((int) $groups & (int) self::COLLABORATORE);
     }
@@ -783,7 +783,7 @@ class User implements UserInterface, SSOUserInterface, \Serializable, EquatableI
     public function isStudente($groups = NULL)
     {
         if ($groups == NULL)
-            $groups = $this->getGroups();
+            $groups = $this->getLegacyGroups();
 
         return (boolean) ($groups & self::STUDENTE);
     }
@@ -799,7 +799,7 @@ class User implements UserInterface, SSOUserInterface, \Serializable, EquatableI
     public function isOspite($groups = NULL)
     {
         if ($groups == NULL)
-            $groups = $this->getGroups();
+            $groups = $this->getLegacyGroups();
 
         if ($groups == self::OSPITE)
             return true;

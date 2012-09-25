@@ -220,7 +220,7 @@ public function insertUser(User $user, $password = null)
     $db = $this->getDb();
     if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) return;
 
-    $groups = $user->getGroups();
+    $groups = $user->getLegacyGroups();
     if ( $groups != User::OSPITE && $groups != User::STUDENTE && $groups != User::COLLABORATORE && $groups != User::TUTOR && $groups != User::DOCENTE && $groups != User::PERSONALE && $groups != User::ADMIN ) return;
     // @todo renderla funzionante anche per utenti che appartengono a pi? gruppi
 

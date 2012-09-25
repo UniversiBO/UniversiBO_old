@@ -207,7 +207,7 @@ perche` impedisce il login agli utenti
                 $allowedGroups[] = constant($i);
         // verifico che il gruppo dell'utente sia tra quelli specificati
         //		var_dump($allowedGroups); die;
-        return (in_array($user->getGroups(), $allowedGroups));
+        return (in_array($user->getLegacyGroups(), $allowedGroups));
     }
 
     /**

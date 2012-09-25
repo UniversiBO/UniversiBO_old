@@ -57,7 +57,7 @@ class ShowFacolta extends CanaleCommand
         $default_anno_accademico = $this->frontController
                 ->getAppSetting('defaultAnnoAccademico');
         $session_user = $this->get('security.context')->getToken()->getUser();
-        $session_user_groups = $session_user->getGroups();
+        $session_user_groups = $session_user->getLegacyGroups();
 
         //2 livelli di innesstamento facolta/tipocdl/cdl
         for ($i = 0; $i < $num_cdl; $i++) {

@@ -22,12 +22,12 @@ class UserTest extends UniversiBOEntityTest
 
     public function testGroupsGetter()
     {
-        self::assertEquals(User::ADMIN, $this->_user->getGroups());
+        self::assertEquals(User::ADMIN, $this->_user->getLegacyGroups());
     }
 
     public function getRoles()
     {
-        self::assertEquals(array('ROLE_ADMIN'), $this->_user->getGroups());
+        self::assertEquals(array('ROLE_ADMIN'), $this->_user->getLegacyGroups());
     }
 
     public function testEquals()

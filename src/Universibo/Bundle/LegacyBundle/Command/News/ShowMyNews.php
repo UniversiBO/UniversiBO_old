@@ -88,7 +88,7 @@ class ShowMyNews extends PluginCommand
                 $elenco_canali_tpl = array();
                 for ($j = 0; $j < $num_canali; $j++) {
                     $canale = Canale::retrieveCanale($canali[$j]);
-                    if ($canale->isGroupAllowed($user->getGroups())) {
+                    if ($canale->isGroupAllowed($user->getLegacyGroups())) {
                         $canale_tpl = array();
                         $canale_tpl['titolo'] = $canale->getNome();
                         $canale_tpl['link'] = $canale->showMe();

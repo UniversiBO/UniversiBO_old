@@ -128,7 +128,7 @@ class FileStudentiAdd extends UniversiboCommand
         //
         if (array_key_exists('id_canale', $_GET)) {
             $diritti = $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')
-                    && $canale->isGroupAllowed($user->getGroups());
+                    && $canale->isGroupAllowed($user->getLegacyGroups());
             if (!$diritti)
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getIdUser(),

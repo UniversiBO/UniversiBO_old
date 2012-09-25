@@ -51,16 +51,16 @@ class UniversiBOAcl
 
     private function fileReadHandler(User $user = null, FileItem $file)
     {
-        return ($file->getPermessiVisualizza() & $this->getGroups($user)) !== 0;
+        return ($file->getPermessiVisualizza() & $this->getLegacyGroups($user)) !== 0;
     }
 
     private function canaleReadHandler(User $user = null, Canale $canale)
     {
-        return ($canale->getPermessi() & $this->getGroups($user)) !== 0;
+        return ($canale->getPermessi() & $this->getLegacyGroups($user)) !== 0;
     }
 
-    private function getGroups(User $user = null)
+    private function getLegacyGroups(User $user = null)
     {
-        return is_null($user) ? User::OSPITE : $user->getGroups();
+        return is_null($user) ? User::OSPITE : $user->getLegacyGroups();
     }
 }
