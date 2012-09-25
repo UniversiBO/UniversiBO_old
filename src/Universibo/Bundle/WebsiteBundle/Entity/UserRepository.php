@@ -18,4 +18,12 @@ class UserRepository extends EntityRepository
 
         return $user instanceof User ? $user->getUsername() : null;
     }
+    
+    public function findCollaborators()
+    {
+        $qb = $this->createQueryBuilder('u');
+        
+        $qb->add('where', $qb->expr()->in('u.legacyGroups', array(4, 64)));
+        return $qb->getQuery()->getResult();
+    }
 }

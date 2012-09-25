@@ -1,5 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+use Universibo\Bundle\WebsiteBundle\Entity\UserRepository;
+
 use Universibo\Bundle\LegacyBundle\Entity\Collaboratore;
 
 use Universibo\Bundle\WebsiteBundle\Entity\User;
@@ -31,13 +33,14 @@ class ShowContacts extends UniversiboCommand
         $contacts_path = $this->frontController->getAppSetting('contactsPath');
         $template->assign('contacts_path', $contacts_path);
 
-        $infoCollaboratori = User::selectAllCollaboratori();
+        $infoCollaboratori = $this->get('universibo_website.repository.user')->findCollaborators();
         foreach ($infoCollaboratori as $collaboratore) {
-            $username = User::getUsernameFromId($collaboratore->getId());
+            $username = $collaboratore->getUsername();
+            
             $coll = Collaboratore::selectCollaboratore(
                     $collaboratore->getId());
             if (!$coll) {
-                $name = $user->getUsername();
+                $name = $user instanceof User ? $user->getUsername() : $user;
                 if ($name == $username)
                     $collaboratori[] = array('username' => $username,
                             'URI' => 'false',
