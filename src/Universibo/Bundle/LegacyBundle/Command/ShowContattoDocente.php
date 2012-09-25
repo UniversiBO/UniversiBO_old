@@ -66,7 +66,7 @@ class ShowContattoDocente extends UniversiboCommand
                             'file' => __FILE__, 'line' => __LINE__,
                             'template_engine' => &$template));
 
-        $utente_docente = $docente->getUser();
+        $utente_docente = $this->get('universibo_website.repository.user')->find($docente->getIdUtente());
 
         if (!$utente_docente)
             Error::throwError(_ERROR_DEFAULT,
@@ -103,7 +103,7 @@ class ShowContattoDocente extends UniversiboCommand
         $info_docente['tel'] = $utente_docente->getPhone();
         $info_docente['afferente a'] = $rub_docente['descrizionestruttura'];
 
-        $elenco_ruoli = $utente_docente->getRuoli();
+        $elenco_ruoli = $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($utente_docente->getId());
 
         $info_ruoli = array();
         //		var_dump($elenco_ruoli);
@@ -215,8 +215,7 @@ Link: ' . $frontcontroller->getAppSetting('rootUrl') . '/?do='
             }
 
             //ultima notifica al responsabile contatto docenti
-            $notifica_user = User::selectUserUsername(
-                    $frontcontroller->getAppSetting('contattoDocentiAdmin'));
+            $notifica_user = $this->get('universibo_website.repository.user')->findOneByUsername($frontcontroller->getAppSetting('contattoDocentiAdmin'));
             $notifica_destinatario = 'mail://' . $notifica_user->getEmail();
             $notifica = new NotificaItem(0, $notifica_titolo,
                     $notifica_messaggio, $notifica_dataIns, $notifica_urgente,
@@ -252,7 +251,7 @@ Link: ' . $frontcontroller->getAppSetting('rootUrl') . '/?do='
     {
         $userRepo = $this->getContainer()->get('universibo_legacy.repository.user');
 
-        return $userRepo->findCollaboratori();
+        return $userRepo->findCollaborators();
     }
 
     public function _compareUsername($a, $b)

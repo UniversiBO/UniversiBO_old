@@ -81,22 +81,6 @@ class Docente
     }
 
     /**
-     * Ritorna Preleva tutti i collaboratori dal database
-     *
-     * @static
-     * @param  int   $id_utente numero identificativo utente
-     * @return array Collaboratori
-     */
-    public function getUser()
-    {
-        if ($this->userCache == NULL) {
-            $this->userCache = User::selectUser($this->getIdUtente());
-        }
-
-        return $this->userCache;
-    }
-
-    /**
      * Ritorna le info del docente prese dalla rubrica
      *
      * @return array

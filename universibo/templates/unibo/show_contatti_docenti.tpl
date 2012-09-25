@@ -1,7 +1,6 @@
 {include file="header_index.tpl"}
 <div class="titoloPagina">
 <h2>{$ShowContattiDocenti_titolo}</h2>
-<div class="comandi"><a href="{$ShowContattiDocenti_addContattoURI|escape:"htmlall"}">{$ShowContattiDocenti_addContatto|escape:"htmlall"}</a></div>
 <div>
 {include file="avviso_notice.tpl"}
 <div class="elencoFile">

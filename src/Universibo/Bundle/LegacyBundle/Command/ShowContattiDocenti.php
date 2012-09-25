@@ -55,8 +55,7 @@ class ShowContattiDocenti extends UniversiboCommand
         $template
                 ->assignUnicode('ShowContattiDocenti_titolo',
                         'Docenti assegnati per l\'attività offline');
-        //		$template->assign('ShowContattiDocenti_addContatto', 'Aggiungi un docente da assegnare');
-        //		$template->assign('ShowContattiDocenti_addContattoURI', '/?do=ContattoDocenteAdd');
+
         return 'default';
     }
 
