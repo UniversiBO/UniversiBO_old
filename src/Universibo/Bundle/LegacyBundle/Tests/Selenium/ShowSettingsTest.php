@@ -12,10 +12,10 @@ class ShowSettingsTest extends UniversiBOSeleniumTestCase
 
     public function testNotLogged()
     {
-        $this->deleteAllVisibleCookies();
+        $this->logout();
         $this->openCommand('ShowSettings');
 
-        $this->assertSentences(array('Error!', 'Non hai i diritti per accedere alla pagina la sessione potrebbe essere terminata'));
+        $this->assertSentences(array('Error!', 'Non hai i diritti per accedere alla pagina', 'la sessione potrebbe essere terminata'));
     }
 
     public function testAdmin()

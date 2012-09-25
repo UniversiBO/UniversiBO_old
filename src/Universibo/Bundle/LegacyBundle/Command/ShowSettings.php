@@ -28,7 +28,7 @@ class ShowSettings extends UniversiboCommand
 
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $utente->getId(),
+                    array('id_utente' => 0,
                             'msg' => "Non hai i diritti per accedere alla pagina\n la sessione potrebbe essere terminata",
                             'file' => __FILE__, 'line' => __LINE__,
                             'log' => false, 'template_engine' => &$template));
