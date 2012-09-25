@@ -2,19 +2,19 @@
 namespace Universibo\Bundle\LegacyBundle\Tests\Entity;
 use Universibo\Bundle\LegacyBundle\Tests\TestConstants;
 
-use Universibo\Bundle\LegacyBundle\Entity\DBUserRepository;
+use Universibo\Bundle\WebsiteBundle\Entity\UserRepository;
 
-class DBUserRepositoryTest extends DBRepositoryTest
+class UserRepositoryTest extends DBRepositoryTest
 {
     /**
-     * @var DBUserRepository
+     * @var UserRepository
      */
     private $repository;
 
     public function setUp()
     {
         parent::setUp();
-        $this->repository = new DBUserRepository($this->db);
+        $this->repository = new UserRepository($this->db);
     }
 
     public function testSelectByUsername()

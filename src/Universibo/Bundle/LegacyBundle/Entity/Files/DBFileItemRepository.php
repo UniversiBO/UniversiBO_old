@@ -2,7 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Entity\Files;
 
 use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
-use Universibo\Bundle\LegacyBundle\Entity\DBUserRepository;
+use Universibo\Bundle\WebsiteBundle\Entity\UserRepository;
 
 use \DB;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
@@ -16,7 +16,7 @@ use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
 class DBFileItemRepository extends DBRepository
 {
     /**
-     * @var DBUserRepository
+     * @var UserRepository
      */
     private $userRepository;
 
@@ -25,7 +25,7 @@ class DBFileItemRepository extends DBRepository
      */
     private $channelRepository;
 
-    public function __construct(\DB_common $db, DBUserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
+    public function __construct(\DB_common $db, UserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
     {
         parent::__construct($db, $convert);
 

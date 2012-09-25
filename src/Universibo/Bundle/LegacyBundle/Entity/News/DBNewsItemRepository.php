@@ -5,7 +5,7 @@ use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
 
 use \DB;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
-use Universibo\Bundle\LegacyBundle\Entity\DBUserRepository;
+use Universibo\Bundle\WebsiteBundle\Entity\UserRepository;
 
 /**
  * DBNewsItem repository
@@ -16,7 +16,7 @@ use Universibo\Bundle\LegacyBundle\Entity\DBUserRepository;
 class DBNewsItemRepository extends DBRepository
 {
     /**
-     * @var DBUserRepository
+     * @var UserRepository
      */
     private $userRepository;
 
@@ -25,7 +25,7 @@ class DBNewsItemRepository extends DBRepository
      */
     private $channelRepository;
 
-    public function __construct(\DB_common $db, DBUserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
+    public function __construct(\DB_common $db, UserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
     {
         parent::__construct($db, $convert);
 

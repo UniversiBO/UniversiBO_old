@@ -211,11 +211,7 @@
 			<argument>true</argument>
 		</service>
 
-		<service id="universibo_legacy.repository.user"
-			class="Universibo\Bundle\LegacyBundle\Entity\DBUserRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
-			<argument>true</argument>
-		</service>
+		<service id="universibo_legacy.repository.user" alias="universibo_website.repository.user"/>
 
 		<service id="universibo_legacy.routing.channel" public="true"
 			class="Universibo\Bundle\LegacyBundle\Routing\ChannelRouter">

@@ -5,7 +5,7 @@ use \DB;
 use Universibo\Bundle\LegacyBundle\Entity\Commenti\CommentoItem;
 use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
-use Universibo\Bundle\LegacyBundle\Entity\DBUserRepository;
+use Universibo\Bundle\WebsiteBundle\Entity\UserRepository;
 
 /**
  * DBNewsItem repository
@@ -20,7 +20,7 @@ class DBFileItemStudentiRepository extends DBRepository
     const ORDER_RATING_DESC = 2;
 
     /**
-     * @var DBUserRepository
+     * @var UserRepository
      */
     private $userRepository;
 
@@ -29,7 +29,7 @@ class DBFileItemStudentiRepository extends DBRepository
      */
     private $channelRepository;
 
-    public function __construct(\DB_common $db, DBUserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
+    public function __construct(\DB_common $db, UserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
     {
         parent::__construct($db, $convert);
 

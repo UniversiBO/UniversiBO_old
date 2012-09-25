@@ -1,6 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Links;
-use Universibo\Bundle\LegacyBundle\Entity\DBUserRepository;
+use Universibo\Bundle\WebsiteBundle\Entity\UserRepository;
 
 use \DB;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
@@ -14,11 +14,11 @@ use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
 class DBLinkRepository extends DBRepository
 {
     /**
-     * @var DBUserRepository
+     * @var UserRepository
      */
     private $userRepository;
 
-    public function __construct(\DB_common $db, DBUserRepository $userRepository, $convert = false)
+    public function __construct(\DB_common $db, UserRepository $userRepository, $convert = false)
     {
         parent::__construct($db, $convert);
 
