@@ -104,7 +104,7 @@ class BaseInteractiveCommand extends PluginCommand
 
         $this->systemValues['bc'] 	= $baseCommand;
         $this->systemValues['fc'] 	= $baseCommand->getFrontController();
-        //		$this->systemValues['user'] = $baseCommand->getSessionUser();  // con la modifica delle 19.00 del 14-05-06 a login.php, l'identità dell'utente non è qui
+        //		$this->systemValues['user'] = $baseCommand->get('security.context')->getToken()->getUser();  // con la modifica delle 19.00 del 14-05-06 a login.php, l'identità dell'utente non è qui
         $this->systemValues['template'] = $this->systemValues['fc']->getTemplateEngine();
         $this->systemValues['krono']	= $this->systemValues['fc']->getKrono();
 

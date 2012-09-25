@@ -35,7 +35,7 @@ class ShowFileStudentiCommenti extends PluginCommand
 //		die();
 
         $bc        = $this->getBaseCommand();
-        $user      = $bc->getSessionUser();
+        $user      = $bc->get('security.context')->getToken()->getUser();
 
         $fc        = $bc->getFrontController();
         $template  = $fc->getTemplateEngine();

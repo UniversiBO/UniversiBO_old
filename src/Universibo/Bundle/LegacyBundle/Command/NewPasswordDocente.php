@@ -23,7 +23,7 @@ class NewPasswordDocente extends UniversiboCommand
         $fc = $this->getFrontController();
         $template = $this->frontController->getTemplateEngine();
 
-        $session_user = $this->getSessionUser();
+        $session_user = $this->get('security.context')->getToken()->getUser();
 
         if (!$session_user->isAdmin())
             Error::throwError(_ERROR_DEFAULT,

@@ -22,7 +22,7 @@ class ShowCollaboratore extends UniversiboCommand
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
-        $user = $this->getSessionUser();
+        $user = $this->get('security.context')->getToken()->getUser();
         if (!array_key_exists('id_coll', $_GET)
                 && !ereg('^([0-9]{1,10})$', $_GET['id_coll']))
             Error::throwError(_ERROR_DEFAULT,

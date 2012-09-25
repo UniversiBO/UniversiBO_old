@@ -28,7 +28,7 @@ class ShowContattoDocente extends UniversiboCommand
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
-        $user = $this->getSessionUser();
+        $user = $this->get('security.context')->getToken()->getUser();
 
         if (!array_key_exists('cod_doc', $_GET)
                 && !ereg('^([0-9]{1,10})$', $_GET['cod_doc']))

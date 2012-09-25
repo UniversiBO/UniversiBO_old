@@ -26,7 +26,7 @@ class FileDocenteAdmin extends UniversiboCommand
         $template = $frontcontroller->getTemplateEngine();
 
         $krono = $frontcontroller->getKrono();
-        $user = $this->getSessionUser();
+        $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user->getRuoli();
 
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN') && !$user->isDocente()) {

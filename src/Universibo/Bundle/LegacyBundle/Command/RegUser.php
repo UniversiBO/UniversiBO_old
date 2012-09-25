@@ -27,7 +27,7 @@ class RegUser extends UniversiboCommand
         $fc = $this->getFrontController();
         $template = $this->frontController->getTemplateEngine();
 
-        $session_user = $this->getSessionUser();
+        $session_user = $this->get('security.context')->getToken()->getUser();
         if (!$session_user->isAdmin()) {
             Error::throwError(_ERROR_DEFAULT,array('id_utente' => $session_user->getIdUser(), 'msg'=>'L\'iscrizione manuale di nuovi utenti puo` essere effettuata solo da utenti Admin','file'=>__FILE__,'line'=>__LINE__));
         }

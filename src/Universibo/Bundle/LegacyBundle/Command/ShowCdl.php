@@ -59,7 +59,7 @@ class ShowCdl extends CanaleCommand
         $insAnnoCorso  = NULL;   //ultimo anno dell'insegnamento precedente
         $insCiclo = NULL;   //ultimo ciclo dell'insegnamento precedente
         $cdl_listInsYears = array();    //elenco insegnamenti raggruppati per anni
-        $session_user = $this->getSessionUser();
+        $session_user = $this->get('security.context')->getToken()->getUser();
         $session_user_groups = $session_user->getGroups();
         $cdl_listIns = array();
 

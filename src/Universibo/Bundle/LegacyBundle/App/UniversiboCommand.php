@@ -37,7 +37,7 @@ abstract class UniversiboCommand extends BaseCommand
         $this->_initTemplateUniversibo();
     }
 
-    public function getSessionUser()
+    public function get('security.context')->getToken()->getUser()
     {
         return $this->get('security.context')->getToken()->getUser();
     }
@@ -198,7 +198,7 @@ abstract class UniversiboCommand extends BaseCommand
         $template = $this->frontController->getTemplateEngine();
         $krono = $this->frontController->getKrono();
 
-        $session_user = $this->getSessionUser();
+        $session_user = $this->get('security.context')->getToken()->getUser();
 
         //informazioni del MyUniversiBO
         $attivaMyUniversibo = false;
@@ -265,7 +265,7 @@ abstract class UniversiboCommand extends BaseCommand
         $template->assign('common_setHomepage', 'Imposta Homepage');
         $template->assign('common_addBookmarks', 'Aggiungi ai preferiti');
 
-        $session_user = $this->getSessionUser();
+        $session_user = $this->get('security.context')->getToken()->getUser();
         if ($session_user->isOspite()) {
             $template->assign('common_userLoggedIn', 'false');
         } else {
@@ -290,7 +290,7 @@ abstract class UniversiboCommand extends BaseCommand
 
         $num_facolta = count($elenco_facolta);
         $i = 0;
-        $session_user = $this->getSessionUser();
+        $session_user = $this->get('security.context')->getToken()->getUser();
         $session_user_groups = $session_user->getGroups();
         $common_facLinks = array();
         for ($i = 0; $i < $num_facolta; $i++) {

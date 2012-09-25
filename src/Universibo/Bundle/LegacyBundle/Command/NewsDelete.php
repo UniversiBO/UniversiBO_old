@@ -27,7 +27,7 @@ class NewsDelete extends CanaleCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 
-        $user = $this->getSessionUser();
+        $user = $this->get('security.context')->getToken()->getUser();
         $canale = $this->getRequestCanale();
 
         $referente = false;

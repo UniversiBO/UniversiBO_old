@@ -32,7 +32,7 @@ class FileAdd extends UniversiboCommand
         $template = $frontcontroller->getTemplateEngine();
 
         $krono = $frontcontroller->getKrono();
-        $user = $this->getSessionUser();
+        $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user->getRuoli();
 
         if ($user->isOspite()) {

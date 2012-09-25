@@ -29,7 +29,7 @@ class FileStudentiCommentEdit extends UniversiboCommand
 
         $krono = $frontcontroller->getKrono();
 
-        $user = $this->getSessionUser();
+        $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user->getRuoli();
 
         if (!array_key_exists('id_commento', $_GET)

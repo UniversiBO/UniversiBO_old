@@ -34,7 +34,7 @@ class ShowLink extends PluginCommand
         $id_link = $param['id_link'];
 
         $bc        = $this->getBaseCommand();
-        $user      = $bc->getSessionUser();
+        $user      = $bc->get('security.context')->getToken()->getUser();
         $canale    = $bc->getRequestCanale();
 //		$canale    = Canale::retrieveCanale($id_canale);
         $fc        = $bc->getFrontController();

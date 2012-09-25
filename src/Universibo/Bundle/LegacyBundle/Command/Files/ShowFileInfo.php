@@ -26,7 +26,7 @@ class ShowFileInfo extends PluginCommand
     public function execute($param = array())
     {
         $bc = $this->getBaseCommand();
-        $user = $bc->getSessionUser();
+        $user = $bc->get('security.context')->getToken()->getUser();
 
         if (!array_key_exists('id_file', $param)
                 || !preg_match('/^([0-9]{1,9})$/', $param['id_file'])) {

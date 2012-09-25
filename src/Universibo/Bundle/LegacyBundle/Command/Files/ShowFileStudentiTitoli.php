@@ -36,7 +36,7 @@ class ShowFileStudentiTitoli extends PluginCommand
 //		die();
         $num = $param['num'];
         $bc        = $this->getBaseCommand();
-        $user      = $bc->getSessionUser();
+        $user      = $bc->get('security.context')->getToken()->getUser();
         $canale    = $bc->getRequestCanale();
         $fc        = $bc->getFrontController();
         $template  = $fc->getTemplateEngine();

@@ -15,7 +15,7 @@ class ShowPermalink extends UniversiboCommand
     {
         if (!array_key_exists('id_notizia', $_GET)
                 || !preg_match('/^[0-9]+$/', $id_notizia = $_GET['id_notizia'])) {
-            $user = $this->getSessionUser();
+            $user = $this->get('security.context')->getToken()->getUser();
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
                             'msg' => 'ID news non valido', 'file' => __FILE__,
@@ -38,7 +38,7 @@ class ShowPermalink extends UniversiboCommand
 
     private function _newsToArray(NewsItem $news)
     {
-        $user = $this->getSessionUser();
+        $user = $this->get('security.context')->getToken()->getUser();
         $krono = $this->getFrontController()->getKrono();
 
         $newsArray = array();

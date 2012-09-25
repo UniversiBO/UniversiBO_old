@@ -27,7 +27,7 @@ class InteractiveCommandHandler extends UniversiboCommand
     {
         $frontcontroller = $fc = $this->getFrontController();
         $template = $this->frontController->getTemplateEngine();
-        //		$user = $this->getSessionUser();
+        //		$user = $this->get('security.context')->getToken()->getUser();
 
         //se esiste user in $_SESSION o siamo giunti dal login, o siamo nel bel mezzo di una interazione a step.
         // VERIFY decidere se lanciare un errore o meno

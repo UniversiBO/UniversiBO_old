@@ -23,7 +23,7 @@ class NewPasswordStudente extends UniversiboCommand
     {
         $fc = $this->getFrontController();
         $template = $this->frontController->getTemplateEngine();
-        $user = $this->getSessionUser();
+        $user = $this->get('security.context')->getToken()->getUser();
         if (!$user->isOspite()) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),

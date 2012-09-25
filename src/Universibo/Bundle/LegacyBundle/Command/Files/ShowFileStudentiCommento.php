@@ -28,7 +28,7 @@ class ShowFileStudentiCommento extends PluginCommand
     public function execute($param = array())
     {
         $bc = $this->getBaseCommand();
-        $user = $bc->getSessionUser();
+        $user = $bc->get('security.context')->getToken()->getUser();
 
         $fc = $bc->getFrontController();
         $template = $fc->getTemplateEngine();

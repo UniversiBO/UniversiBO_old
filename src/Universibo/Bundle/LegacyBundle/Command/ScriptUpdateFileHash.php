@@ -22,7 +22,7 @@ class ScriptUpdateFileHash extends UniversiboCommand
         $fc = $this->getFrontController();
         $template = $fc->getTemplateEngine();
         $db = $this->getContainer()->get('doctrine.dbal.default_connection');
-        $user = $this->getSessionUser();
+        $user = $this->get('security.context')->getToken()->getUser();
         $filePath = $fc->getAppSetting('filesPath');
 
         $res = $db->executeQuery('SELECT id_file, nome_file FROM file ORDER BY 1');

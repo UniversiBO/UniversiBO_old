@@ -22,7 +22,7 @@ class FileDownload extends UniversiboCommand
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
-        $user = $this->getSessionUser();
+        $user = $this->get('security.context')->getToken()->getUser();
 
         if (!array_key_exists('id_file', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_file'])) {

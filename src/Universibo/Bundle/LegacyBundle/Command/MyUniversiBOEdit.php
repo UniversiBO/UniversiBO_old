@@ -26,7 +26,7 @@ class MyUniversiBOEdit extends UniversiboCommand
 
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
-        $utente = $this->getSessionUser();
+        $utente = $this->get('security.context')->getToken()->getUser();
 
         if ($utente->isOspite())
             Error::throwError(_ERROR_DEFAULT,

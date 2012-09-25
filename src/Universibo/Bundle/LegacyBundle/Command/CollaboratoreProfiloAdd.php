@@ -20,7 +20,7 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
     public function execute()
     {
 
-        $user = $this->getSessionUser();
+        $user = $this->get('security.context')->getToken()->getUser();
         //$canale = & $this->getRequestCanale();
         //		$user_ruoli = $user->getRuoli();
         //		$id_canale = $canale->getIdCanale();

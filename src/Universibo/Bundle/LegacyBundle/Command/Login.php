@@ -23,7 +23,7 @@ class Login extends UniversiboCommand
     {
         $fc = $this->getFrontController();
         $template = $this->frontController->getTemplateEngine();
-        $user = $this->getSessionUser();
+        $user = $this->get('security.context')->getToken()->getUser();
 
         if (array_key_exists('referer', $_GET)) {
             $referer = $_GET['referer'];

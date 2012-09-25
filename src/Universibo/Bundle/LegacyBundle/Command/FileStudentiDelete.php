@@ -28,7 +28,7 @@ class FileStudentiDelete extends UniversiboCommand
         //		$template->assign('common_canaleURI', '/?do=ShowMyUniversiBO');
         //		$template->assign('common_langCanaleNome', 'indietro');
 
-        $user = $this->getSessionUser();
+        $user = $this->get('security.context')->getToken()->getUser();
 
         $referente = false;
         $moderatore = false;

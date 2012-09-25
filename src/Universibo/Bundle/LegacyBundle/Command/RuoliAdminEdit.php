@@ -24,7 +24,7 @@ class RuoliAdminEdit extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 
-        $user = $this->getSessionUser();
+        $user = $this->get('security.context')->getToken()->getUser();
 
         $referente = false;
 

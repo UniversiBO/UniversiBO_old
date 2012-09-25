@@ -34,7 +34,7 @@ class DidatticaGestione extends UniversiboCommand
         $template = $frontcontroller->getTemplateEngine();
 
         $krono = $frontcontroller->getKrono();
-        $user = $this->getSessionUser();
+        $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user->getRuoli();
 
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) { // TODO far si che specifici utenti siano autorizzati (da file di conf) {

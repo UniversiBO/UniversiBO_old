@@ -111,7 +111,7 @@ abstract class CanaleCommand extends UniversiboCommand
         //var_dump($template);
         $canale = $this->getRequestCanale();
         $id_canale = $this->getRequestIdCanale();
-        $user = $this->getSessionUser();
+        $user = $this->get('security.context')->getToken()->getUser();
 
         $template->assign( 'common_canaleMyUniversiBO', '');
         if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
@@ -148,7 +148,7 @@ abstract class CanaleCommand extends UniversiboCommand
     public function updateUltimoAccesso()
     {
         $id_canale = $this->getRequestIdCanale();
-        $user = $this->getSessionUser();
+        $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user->getRuoli();
 
         if (array_key_exists($id_canale, $user_ruoli)) {
@@ -165,7 +165,7 @@ abstract class CanaleCommand extends UniversiboCommand
         if (!$this->isPopup()) {
             $template = $this->frontController->getTemplateEngine();
             $canale = $this->getRequestCanale();
-            $user = $this->getSessionUser();
+            $user = $this->get('security.context')->getToken()->getUser();
 
             //informazioni del menu contatti
             $attivaContatti = $this->get('security.context')->isGranted('ROLE_ADMIN');

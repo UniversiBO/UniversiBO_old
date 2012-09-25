@@ -27,7 +27,7 @@ class ShowInfoDidattica extends UniversiboCommand
         $template = $frontcontroller->getTemplateEngine();
 
         $krono = $frontcontroller->getKrono();
-        $user = $this->getSessionUser();
+        $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user->getRuoli();
 
         if (!array_key_exists('id_canale', $_GET)
@@ -38,7 +38,7 @@ class ShowInfoDidattica extends UniversiboCommand
                             'file' => __FILE__, 'line' => __LINE__));
 
         $id_canale = $_GET['id_canale'];
-        $session_user = $this->getSessionUser();
+        $session_user = $this->get('security.context')->getToken()->getUser();
 
         $info_didattica = InfoDidattica::retrieveInfoDidattica($id_canale);
         $insegnamento = Canale::retrieveCanale($id_canale);

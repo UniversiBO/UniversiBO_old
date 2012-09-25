@@ -28,7 +28,7 @@ class ShowContribute extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 
-        $user = $this->getSessionUser();
+        $user = $this->get('security.context')->getToken()->getUser();
 
         $template->assign('contribute_langTitleAlt', 'Collabora');
         $template
@@ -342,7 +342,7 @@ class ShowContribute extends UniversiboCommand
             $em->flush();
 
             //invio mail notifica
-            $session_user = $this->getSessionUser();
+            $session_user = $this->get('security.context')->getToken()->getUser();
 
             $message = \Swift_Message::newInstance();
 

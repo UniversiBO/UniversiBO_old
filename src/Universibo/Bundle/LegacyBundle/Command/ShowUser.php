@@ -19,7 +19,7 @@ class ShowUser extends UniversiboCommand
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
-        $current_user = $this->getSessionUser();
+        $current_user = $this->get('security.context')->getToken()->getUser();
 
         if (!array_key_exists('id_utente', $_GET)
                 || !preg_match('/^([0-9]{1,9})$/', $_GET['id_utente'])) {

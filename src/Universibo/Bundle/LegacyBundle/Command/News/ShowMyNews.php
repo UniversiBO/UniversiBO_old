@@ -31,7 +31,7 @@ class ShowMyNews extends PluginCommand
     {
         $elenco_id_news		=  $param['id_notizie'];
         $bc        = $this->getBaseCommand();
-        $user      = $bc->getSessionUser();
+        $user      = $bc->get('security.context')->getToken()->getUser();
         $fc        = $bc->getFrontController();
         $template  = $fc->getTemplateEngine();
         $krono     = $fc->getKrono();

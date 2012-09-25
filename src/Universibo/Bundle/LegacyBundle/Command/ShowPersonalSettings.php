@@ -25,7 +25,7 @@ class ShowPersonalSettings extends UniversiboCommand
     {
         $fc = $this->getFrontController();
         $template = $this->frontController->getTemplateEngine();
-        $user = $this->getSessionUser();
+        $user = $this->get('security.context')->getToken()->getUser();
 
         if ($this->sessionUser->isOspite()) {
             Error::throwError(_ERROR_DEFAULT,

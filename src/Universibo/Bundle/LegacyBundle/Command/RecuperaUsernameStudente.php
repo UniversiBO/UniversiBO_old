@@ -22,7 +22,7 @@ class RecuperaUsernameStudente extends UniversiboCommand
     {
         $fc = $this->getFrontController();
         $template = $fc->getTemplateEngine();
-        $user = $this->getSessionUser();
+        $user = $this->get('security.context')->getToken()->getUser();
 
         if (!$user->isOspite()) {
             Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getIdUser(), 'msg'=>'Il recupero dell\'username puo` essere richiesto solo da utenti che non hanno ancora eseguito l\'accesso','file'=>__FILE__,'line'=>__LINE__));

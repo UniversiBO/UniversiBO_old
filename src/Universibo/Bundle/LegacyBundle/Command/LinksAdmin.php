@@ -23,7 +23,7 @@ class LinksAdmin extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 
-        $user = $this->getSessionUser();
+        $user = $this->get('security.context')->getToken()->getUser();
         $template->assign('common_canaleURI', '/?do=ShowMyUniversiBO');
         $template->assign('common_langCanaleNome', 'indietro');
 
