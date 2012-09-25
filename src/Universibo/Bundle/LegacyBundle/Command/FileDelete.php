@@ -87,13 +87,13 @@ class FileDelete extends UniversiboCommand
 
             $elenco_canali = array($id_canale);
 
-            if (!($user->isAdmin() || $referente || ($moderatore && $autore)))
+            if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || ($moderatore && $autore)))
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getIdUser(),
                                 'msg' => "Non hai i diritti per eliminare il file\n La sessione potrebbe essere scaduta",
                                 'file' => __FILE__, 'line' => __LINE__));
 
-        } elseif (!($user->isAdmin() || $autore))
+        } elseif (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $autore))
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
                             'msg' => "Non hai i diritti per eliminare il file\n La sessione potrebbe essere scaduta",
@@ -135,7 +135,7 @@ class FileDelete extends UniversiboCommand
             //controllo diritti su ogni canale di cui ? richiesta la cancellazione
             if (array_key_exists('f14_canale', $_POST)) {
                 foreach ($_POST['f14_canale'] as $key => $value) {
-                    $diritti = $user->isAdmin()
+                    $diritti = $this->get('security.context')->isGranted('ROLE_ADMIN')
                             || (array_key_exists($key, $user_ruoli)
                                     && ($user_ruoli[$key]->isReferente()
                                             || ($user_ruoli[$key]

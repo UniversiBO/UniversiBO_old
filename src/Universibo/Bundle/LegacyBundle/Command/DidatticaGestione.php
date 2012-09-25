@@ -37,7 +37,7 @@ class DidatticaGestione extends UniversiboCommand
         $user = $this->getSessionUser();
         $user_ruoli = $user->getRuoli();
 
-        if (!$user->isAdmin()) { // TODO far si che specifici utenti siano autorizzati (da file di conf) {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) { // TODO far si che specifici utenti siano autorizzati (da file di conf) {
             Error::throwError(_ERROR_DEFAULT,
                     array(
                             'msg' => "Non hai i diritti necessari per accedere a questa pagina\n la sessione potrebbe essere terminata",

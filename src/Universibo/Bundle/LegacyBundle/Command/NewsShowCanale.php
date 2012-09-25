@@ -33,14 +33,14 @@ class NewsShowCanale extends CanaleCommand
         }
 
         $template->assign('NewsShowCanale_addNewsFlag', 'false');
-        if (array_key_exists($id_canale, $user_ruoli) || $user->isAdmin()) {
+        if (array_key_exists($id_canale, $user_ruoli) || $this->get('security.context')->isGranted('ROLE_ADMIN')) {
             if (array_key_exists($id_canale, $user_ruoli)) {
                 $ruolo = $user_ruoli[$id_canale];
                 $referente      = $ruolo->isReferente();
                 $moderatore     = $ruolo->isModeratore();
             }
 
-            if ( $user->isAdmin() || $referente || $moderatore ) {
+            if ( $this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $moderatore ) {
                 $template->assign('NewsShowCanale_addNewsFlag', 'true');
                 $template->assign('NewsShowCanale_addNews', 'Scrivi nuova notizia');
                 $template->assign('NewsShowCanale_addNewsUri', '/?do=NewsAdd&id_canale='.$id_canale);

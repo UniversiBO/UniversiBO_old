@@ -10,3 +10,4 @@ app/phpunit.xml
 universibo/file-universibo
 /htmls/bundles
 vendor
+php-cs-fixer.phar

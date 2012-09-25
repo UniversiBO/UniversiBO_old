@@ -46,7 +46,7 @@ class ShowLinksExtended extends PluginCommand
         $ultima_modifica_canale =  $canale->getUltimaModifica();
 
         $template->assign('showLinks_adminLinksFlag', 'false');
-        if (array_key_exists($id_canale, $user_ruoli) || $user->isAdmin()) {
+        if (array_key_exists($id_canale, $user_ruoli) || $this->get('security.context')->isGranted('ROLE_ADMIN')) {
             $personalizza = true;
 
             if (array_key_exists($id_canale, $user_ruoli)) {
@@ -80,7 +80,7 @@ class ShowLinksExtended extends PluginCommand
 
             $elenco_links_tpl[$i]['tipo'] = ($links->isInternalLink()) ? "interno" : "esterno";
 
-            if (($user->isAdmin() || $referente || ($moderatore && $links->getIdUtente()==$user->getIdUser()))) {
+            if (($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || ($moderatore && $links->getIdUtente()==$user->getIdUser()))) {
                 $elenco_links_tpl[$i]['modifica']="Modifica";
                 $elenco_links_tpl[$i]['modifica_link_uri'] = '/?do=LinkEdit&id_link='.$links->getIdLink().'&id_canale='.$links->getIdCanale();
                 $elenco_links_tpl[$i]['elimina']="Cancella";

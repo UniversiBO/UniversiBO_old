@@ -336,7 +336,7 @@ class FileAdd extends UniversiboCommand
                                 'log' => false,
                                 'template_engine' => &$template));
                 $f12_accept = false;
-            } elseif ($user->isAdmin()) {
+            } elseif ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
                 if ($_POST['f12_permessi_download'] < 0
                         || $_POST['f12_permessi_download'] > User::ALL) {
                     Error::throwError(_ERROR_NOTICE,
@@ -389,7 +389,7 @@ class FileAdd extends UniversiboCommand
             //controllo i diritti_su_tutti_i_canali su cui si vuole fare l'inserimento
             if (array_key_exists('f12_canale', $_POST))
                 foreach ($_POST['f12_canale'] as $key => $value) {
-                    $diritti = $user->isAdmin()
+                    $diritti = $this->get('security.context')->isGranted('ROLE_ADMIN')
                             || (array_key_exists($key, $user_ruoli)
                                     && ($user_ruoli[$key]->isReferente()
                                             || $user_ruoli[$key]

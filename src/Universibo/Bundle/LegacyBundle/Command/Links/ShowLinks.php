@@ -54,7 +54,7 @@ class ShowLinks extends PluginCommand
             $ultimo_accesso = $ruolo->getUltimoAccesso();
         }
 
-        $personalizza = ($referente || $moderatore || $user->isAdmin());
+        $personalizza = ($referente || $moderatore || $this->get('security.context')->isGranted('ROLE_ADMIN'));
 
         $lista_links = Link::selectCanaleLinks($id_canale);
 

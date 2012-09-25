@@ -29,7 +29,7 @@ class FileDocenteAdmin extends UniversiboCommand
         $user = $this->getSessionUser();
         $user_ruoli = $user->getRuoli();
 
-        if (!$user->isAdmin() && !$user->isDocente()) {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN') && !$user->isDocente()) {
             Error::throwError(_ERROR_DEFAULT,
                     array(
                             'msg' => "Non hai i diritti necessari per accedere a questa pagina\n la sessione potrebbe essere terminata",
@@ -81,7 +81,7 @@ class FileDocenteAdmin extends UniversiboCommand
         $ruoli_keys = array_keys($user_ruoli);
         $num_ruoli = count($ruoli_keys);
         for ($i = 0; $i < $num_ruoli; $i++) {
-            if ($user->isAdmin() || $user_ruoli[$ruoli_keys[$i]]->isReferente())
+            if ($this->get('security.context')->isGranted('ROLE_ADMIN') || $user_ruoli[$ruoli_keys[$i]]->isReferente())
                 $elenco_canali[] = $user_ruoli[$ruoli_keys[$i]]->getIdCanale();
         }
 
@@ -158,7 +158,7 @@ class FileDocenteAdmin extends UniversiboCommand
                     // TODO controllo se fileTemp è effettivamente un oggetto di tipo FileItem
                     foreach ($fileTemp->getIdCanali() as $canaleId) {
                         //					var_dump($canaleId);
-                        $diritti = $user->isAdmin()
+                        $diritti = $this->get('security.context')->isGranted('ROLE_ADMIN')
                                 || (array_key_exists($canaleId, $user_ruoli)
                                         && $user_ruoli[$canaleId]
                                                 ->isReferente());
@@ -193,7 +193,7 @@ class FileDocenteAdmin extends UniversiboCommand
                 //controllo i diritti_su_tutti_i_canali su cui si vuole fare l'inserimento
                 foreach ($_POST['f40_canale'] as $key => $value) {
                     // TODO controllo se value è effettivamente un oggetto di tipo Canale e se key è id valido
-                    $diritti = $user->isAdmin()
+                    $diritti = $this->get('security.context')->isGranted('ROLE_ADMIN')
                             || (array_key_exists($key, $user_ruoli)
                                     && $user_ruoli[$key]->isReferente());
                     if (!$diritti) {

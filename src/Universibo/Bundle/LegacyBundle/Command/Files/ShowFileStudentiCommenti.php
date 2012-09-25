@@ -48,7 +48,7 @@ class ShowFileStudentiCommenti extends PluginCommand
 
         $personalizza_not_admin = false;
 
-        if (array_key_exists($id_canale, $user_ruoli) || $user->isAdmin()) {
+        if (array_key_exists($id_canale, $user_ruoli) || $this->get('security.context')->isGranted('ROLE_ADMIN')) {
             $personalizza = true;
 
             if (array_key_exists($id_canale, $user_ruoli)) {
@@ -92,7 +92,7 @@ class ShowFileStudentiCommenti extends PluginCommand
 //				var_dump($elenco_commenti_tpl);
 //				die();
 
-                $this_diritti = ($user->isAdmin() || ($moderatore) || ($referente) || ($id_utente==$user->getIdUser()));
+                $this_diritti = ($this->get('security.context')->isGranted('ROLE_ADMIN') || ($moderatore) || ($referente) || ($id_utente==$user->getIdUser()));
 
                 if ($this_diritti) {
                         $id_commento = $elenco_commenti[$i]->getIdCommento();

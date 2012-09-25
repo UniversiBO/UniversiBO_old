@@ -46,7 +46,7 @@ class ShowLink extends PluginCommand
         $ultima_modifica_canale =  $canale->getUltimaModifica();
 
         $template->assign('showLinks_adminLinksFlag', 'false');
-        if (array_key_exists($id_canale, $user_ruoli) || $user->isAdmin()) {
+        if (array_key_exists($id_canale, $user_ruoli) || $this->get('security.context')->isGranted('ROLE_ADMIN')) {
             $personalizza = true;
 
             if (array_key_exists($id_canale, $user_ruoli)) {

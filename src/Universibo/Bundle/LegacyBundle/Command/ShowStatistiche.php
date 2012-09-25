@@ -15,7 +15,7 @@ class ShowStatistiche extends UniversiboCommand
         $user = $this->getSessionUser();
         $user_ruoli = $user->getRuoli();
 
-        if (!$user->isCollaboratore() && !$user->isAdmin()) {
+        if (!$user->isCollaboratore() && !$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
                             'msg' => "Non hai i diritti necessari per visualizzare la pagina",

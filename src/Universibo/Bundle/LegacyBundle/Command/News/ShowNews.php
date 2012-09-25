@@ -52,7 +52,7 @@ class ShowNews extends PluginCommand
         $personalizza_not_admin = false;
 
         $template->assign('showNews_addNewsFlag', 'false');
-        if ($flag_chkDiritti && (array_key_exists($id_canale, $user_ruoli) || $user->isAdmin())) {
+        if ($flag_chkDiritti && (array_key_exists($id_canale, $user_ruoli) || $this->get('security.context')->isGranted('ROLE_ADMIN'))) {
             $personalizza = true;
 
             if (array_key_exists($id_canale, $user_ruoli)) {
@@ -64,7 +64,7 @@ class ShowNews extends PluginCommand
                 $ultimo_accesso = $ruolo->getUltimoAccesso();
             }
 
-//			if ( $user->isAdmin() || $referente || $moderatore )
+//			if ( $this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $moderatore )
 //			{
 //				$template->assign('showNews_addNewsFlag', 'true');
 //				$template->assign('showNews_addNews', 'Scrivi nuova notizia');
@@ -106,7 +106,7 @@ class ShowNews extends PluginCommand
             for ($i = 0; $i < $ret_news; $i++) {
                 $news = $elenco_news[$i];
                 //var_dump($news);
-                $this_moderatore = ($user->isAdmin() || ($moderatore && $news->getIdUtente()==$user->getIdUser()));
+                $this_moderatore = ($this->get('security.context')->isGranted('ROLE_ADMIN') || ($moderatore && $news->getIdUtente()==$user->getIdUser()));
 
                 $elenco_news_tpl[$i]['titolo']       = $news->getTitolo();
                 $elenco_news_tpl[$i]['notizia']      = $news->getNotizia();
@@ -119,7 +119,7 @@ class ShowNews extends PluginCommand
                 $elenco_news_tpl[$i]['id_notizia']   = $news->getIdNotizia();
 
                 $elenco_news_tpl[$i]['scadenza']     = '';
-                if ( ($news->getDataScadenza()!=NULL) && ( $user->isAdmin() || $referente || $this_moderatore ) && $flag_chkDiritti) {
+                if ( ($news->getDataScadenza()!=NULL) && ( $this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $this_moderatore ) && $flag_chkDiritti) {
                     $elenco_news_tpl[$i]['scadenza'] = 'Scade il '.$krono->k_date('%j/%m/%Y - %H:%i', $news->getDataScadenza() );
                 }
 
@@ -127,7 +127,7 @@ class ShowNews extends PluginCommand
                 $elenco_news_tpl[$i]['modifica_link']= '';
                 $elenco_news_tpl[$i]['elimina']      = '';
                 $elenco_news_tpl[$i]['elimina_link'] = '';
-                if ( ($user->isAdmin() || $referente || $this_moderatore)  && $flag_chkDiritti) {
+                if ( ($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $this_moderatore)  && $flag_chkDiritti) {
                     $elenco_news_tpl[$i]['modifica']     = 'Modifica';
                     $elenco_news_tpl[$i]['modifica_link']= 'NewsEdit&id_news='.$news->getIdNotizia();
                     $elenco_news_tpl[$i]['elimina']      = 'Elimina';

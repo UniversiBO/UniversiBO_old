@@ -226,7 +226,7 @@ public function insertUser(User $user, $password = null)
 
     $user_style = $this->defaultUserStyle[$user->getDefaultStyle()];
     $user_rank  = $this->defaultRanks[$groups];
-    $user_level = ( $user->isAdmin() == true ) ? 1 : ( $user->isCollaboratore() == true ) ? 2 : 0 ;
+    $user_level = ( $this->get('security.context')->isGranted('ROLE_ADMIN') == true ) ? 1 : ( $user->isCollaboratore() == true ) ? 2 : 0 ;
 
     $krono = new Krono();
     $user_timezone =  ($krono->_is_daylight(time()) == true) ? 2 : 1;

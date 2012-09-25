@@ -168,9 +168,9 @@ abstract class CanaleCommand extends UniversiboCommand
             $user = $this->getSessionUser();
 
             //informazioni del menu contatti
-            $attivaContatti = $user->isAdmin();
+            $attivaContatti = $this->get('security.context')->isGranted('ROLE_ADMIN');
 
-            $attivaModificaDiritti = $user->isAdmin();
+            $attivaModificaDiritti = $this->get('security.context')->isGranted('ROLE_ADMIN');
 
             $arrayPublicUsers = array();
             $arrayRuoli = $canale->getRuoli();

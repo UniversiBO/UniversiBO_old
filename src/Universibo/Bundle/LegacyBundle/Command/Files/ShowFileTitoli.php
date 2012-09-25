@@ -47,7 +47,7 @@ class ShowFileTitoli extends PluginCommand
         $personalizza_not_admin = false;
 
         $template->assign('showFileTitoli_addFileFlag', 'false');
-        if (array_key_exists($id_canale, $user_ruoli) || $user->isAdmin()) {
+        if (array_key_exists($id_canale, $user_ruoli) || $this->get('security.context')->isGranted('ROLE_ADMIN')) {
             $personalizza = true;
 
             if (array_key_exists($id_canale, $user_ruoli)) {
@@ -59,7 +59,7 @@ class ShowFileTitoli extends PluginCommand
                 $ultimo_accesso = $ruolo->getUltimoAccesso();
             }
 
-            if ($user->isAdmin() || $referente || $moderatore) {
+            if ($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $moderatore) {
                 $template->assign('showFileTitoli_addFileFlag', 'true');
                 $template
                         ->assign('showFileTitoli_addFile',
@@ -109,7 +109,7 @@ class ShowFileTitoli extends PluginCommand
 
                 $file = $elenco_file[$i];
                 //var_dump($file);
-                $this_moderatore = ($user->isAdmin()
+                $this_moderatore = ($this->get('security.context')->isGranted('ROLE_ADMIN')
                         || ($moderatore
                                 && $file->getIdUtente() == $user->getIdUser()));
 
@@ -133,8 +133,8 @@ class ShowFileTitoli extends PluginCommand
                     $file_tpl['modifica_link'] = '';
                     $file_tpl['elimina'] = '';
                     $file_tpl['elimina_link'] = '';
-                    //if ( ($user->isAdmin() || $referente || $this_moderatore)  && $flag_chkDiritti)
-                    if (($user->isAdmin() || $referente || $this_moderatore)) {
+                    //if ( ($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $this_moderatore)  && $flag_chkDiritti)
+                    if (($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $this_moderatore)) {
                         $file_tpl['modifica'] = 'Modifica';
                         $file_tpl['modifica_link'] = '/?do=FileEdit&id_file='
                                 . $file->getIdFile() . '&id_canale='

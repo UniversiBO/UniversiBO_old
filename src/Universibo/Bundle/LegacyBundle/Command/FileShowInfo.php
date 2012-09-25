@@ -46,7 +46,7 @@ class FileShowInfo extends UniversiboCommand
         //			Non possiedi i diritti necessari, la sessione potrebbe essere scaduta.', 'file' => __FILE__, 'line' => __LINE__, 'log' => true));
         //
         //
-        //		if (($user->isAdmin() || $user->getIdUser() == $file->getIdUser() ))
+        //		if (($this->get('security.context')->isGranted('ROLE_ADMIN') || $user->getIdUser() == $file->getIdUser() ))
         //		{
         //			$file_tpl['modifica']     = 'Modifica';
         //			$file_tpl['modifica_link']= '/?do=FileEdit&id_file='.$file->getIdFile();

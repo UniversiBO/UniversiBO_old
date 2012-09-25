@@ -51,7 +51,7 @@ class LinksAdmin extends UniversiboCommand
             $referente = $ruolo->isReferente();
         }
 
-        if (!$user->isAdmin() && !$referente)
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN') && !$referente)
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
                             'msg' => "Non hai i diritti per modificare i diritti degli utenti su questa pagina.\nLa sessione potrebbe essere scaduta.",

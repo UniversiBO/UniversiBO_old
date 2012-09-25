@@ -67,7 +67,7 @@ class LinkEdit extends CanaleCommand
                             'msg' => 'I parametri passati non sono coerenti',
                             'file' => __FILE__, 'line' => __LINE__));
 
-        if (!($user->isAdmin() || $referente || ($moderatore && $autore)))
+        if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || ($moderatore && $autore)))
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
                             'msg' => "Non hai i diritti per modificare il link\n La sessione potrebbe essere scaduta",

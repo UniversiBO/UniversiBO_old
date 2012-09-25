@@ -44,7 +44,7 @@ class NewsAdd extends CanaleCommand
                             'msg' => "Il servizio news e` disattivato",
                             'file' => __FILE__, 'line' => __LINE__));
 
-        if (!($user->isAdmin() || $referente || $moderatore))
+        if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $moderatore))
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
                             'msg' => "Non hai i diritti per inserire una notizia\n La sessione potrebbe essere scaduta",
@@ -379,7 +379,7 @@ class NewsAdd extends CanaleCommand
             //diritti_su_tutti_i_canali
             if (array_key_exists('f7_canale', $_POST))
                 foreach ($_POST['f7_canale'] as $key => $value) {
-                    $diritti = $user->isAdmin()
+                    $diritti = $this->get('security.context')->isGranted('ROLE_ADMIN')
                             || (array_key_exists($key, $user_ruoli)
                                     && ($user_ruoli[$key]->isReferente()
                                             || $user_ruoli[$key]

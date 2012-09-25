@@ -120,7 +120,7 @@ class ShowFileInfo extends PluginCommand
         }
 
         $autore = ($user->getIdUser() == $file->getIdUtente());
-        if ($autore || $user->isAdmin() || $referente || $moderatore) {
+        if ($autore || $this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $moderatore) {
             $template->assign('showFileInfo_editFlag', 'true');
             $template->assign('showFileInfo_deleteFlag', 'true');
             if ($tipo_file) {

@@ -25,11 +25,11 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
         //		$user_ruoli = $user->getRuoli();
         //		$id_canale = $canale->getIdCanale();
 
-        //$admin = $user->isAdmin();
+        //$admin = $this->get('security.context')->isGranted('ROLE_ADMIN');
         // TODO controllo di questo parametro
         $id_coll = $_GET['id_coll'];
 
-        if (!($user->isAdmin() || ($user->getIdUser() == $id_coll)))
+        if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || ($user->getIdUser() == $id_coll)))
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
                             'msg' => "Non hai i diritti per inserire una notizia\n La sessione potrebbe essere scaduta",

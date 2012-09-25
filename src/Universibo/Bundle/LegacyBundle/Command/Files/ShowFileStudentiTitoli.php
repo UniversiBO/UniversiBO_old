@@ -58,7 +58,7 @@ class ShowFileStudentiTitoli extends PluginCommand
         $personalizza_not_admin = false;
 
         $template->assign('showFileStudentiTitoli_addFileFlag', 'false');
-            if (array_key_exists($id_canale, $user_ruoli) || $user->isAdmin()) {
+            if (array_key_exists($id_canale, $user_ruoli) || $this->get('security.context')->isGranted('ROLE_ADMIN')) {
                 $personalizza = true;
 
                 if (array_key_exists($id_canale, $user_ruoli)) {
@@ -115,7 +115,7 @@ class ShowFileStudentiTitoli extends PluginCommand
 
                 $file = $elenco_file[$i];
                 //var_dump($file);
-                $this_moderatore = ($user->isAdmin() || ($moderatore && $file->getIdUtente()==$user->getIdUser()));
+                $this_moderatore = ($this->get('security.context')->isGranted('ROLE_ADMIN') || ($moderatore && $file->getIdUtente()==$user->getIdUser()));
 
                 $permessi_lettura = $file->getPermessiVisualizza();
                 if ($user->isGroupAllowed($permessi_lettura)) {
@@ -133,8 +133,8 @@ class ShowFileStudentiTitoli extends PluginCommand
                     $file_tpl['modifica_link']= '';
                     $file_tpl['elimina']      = '';
                     $file_tpl['elimina_link'] = '';
-                    //if ( ($user->isAdmin() || $referente || $this_moderatore)  && $flag_chkDiritti)
-                    if (($user->isAdmin() || $referente || $this_moderatore || ($user == $file->getIdUtente()))) {
+                    //if ( ($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $this_moderatore)  && $flag_chkDiritti)
+                    if (($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $this_moderatore || ($user == $file->getIdUtente()))) {
                         $file_tpl['modifica']     = 'Modifica';
                         $file_tpl['modifica_link']= '/?do=FileEdit&id_file='.$file->getIdFile().'&id_canale='.$id_canale;
                         $file_tpl['elimina']      = 'Elimina';

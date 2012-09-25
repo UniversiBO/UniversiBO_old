@@ -66,7 +66,7 @@ class ShowMyNews extends PluginCommand
             for ($i = 0; $i < $ret_news; $i++) {
                 $news = $elenco_news[$i];
                 //var_dump($news);
-                $this_moderatore = ($user->isAdmin() || ($moderatore && $news->getIdUtente()==$user->getIdUser()));
+                $this_moderatore = ($this->get('security.context')->isGranted('ROLE_ADMIN') || ($moderatore && $news->getIdUtente()==$user->getIdUser()));
 
                 $elenco_news_tpl[$i]['titolo']       = $news->getTitolo();
                 $elenco_news_tpl[$i]['notizia']      = $news->getNotizia();
@@ -77,7 +77,7 @@ class ShowMyNews extends PluginCommand
                 $elenco_news_tpl[$i]['id_autore']    = $news->getIdUtente();
 
                 $elenco_news_tpl[$i]['scadenza']     = '';
-                //if ( ($news->getDataScadenza()!=NULL) && ( $user->isAdmin() || $referente || $this_moderatore ) && $flag_chkDiritti)
+                //if ( ($news->getDataScadenza()!=NULL) && ( $this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $this_moderatore ) && $flag_chkDiritti)
                 //{
                 //	$elenco_news_tpl[$i]['scadenza'] = 'Scade il '.$krono->k_date('%j/%m/%Y - %H:%i', $news->getDataScadenza() );
                 //}

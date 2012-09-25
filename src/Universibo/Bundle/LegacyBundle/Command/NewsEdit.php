@@ -74,7 +74,7 @@ class NewsEdit extends CanaleCommand
                             'msg' => 'I parametri passati non sono coerenti',
                             'file' => __FILE__, 'line' => __LINE__));
 
-        if (!($user->isAdmin() || $referente || ($moderatore && $autore)))
+        if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || ($moderatore && $autore)))
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getIdUser(),
                             'msg' => "Non hai i diritti per modificare la notizia\n La sessione potrebbe essere scaduta",
@@ -451,7 +451,7 @@ class NewsEdit extends CanaleCommand
             //			{
             //				foreach ($_POST['f8_canale'] as $key => $value)
             //				{
-            //					$diritti = $user->isAdmin() || (array_key_exists($key, $user_ruoli) && ($user_ruoli[$key]->isReferente() || $user_ruoli[$key]->isModeratore()));
+            //					$diritti = $this->get('security.context')->isGranted('ROLE_ADMIN') || (array_key_exists($key, $user_ruoli) && ($user_ruoli[$key]->isReferente() || $user_ruoli[$key]->isModeratore()));
             //					if (!$diritti)
             //					{
             //						if(!preg_match('/^([0-9]{1,9})$/', $key))

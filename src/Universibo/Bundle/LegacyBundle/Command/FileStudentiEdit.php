@@ -117,7 +117,7 @@ class FileStudentiEdit extends UniversiboCommand
                                 'msg' => "Non hai i diritti per modificare il file\n La sessione potrebbe essere scaduta",
                                 'file' => __FILE__, 'line' => __LINE__));
 
-        } elseif (!($user->isAdmin() || $autore))
+        } elseif (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $autore))
             Error::throwError(_ERROR_DEFAULT,
                     array(
                             'msg' => "Non hai i diritti per modificare il file\n La sessione potrebbe essere scaduta",
@@ -400,7 +400,7 @@ class FileStudentiEdit extends UniversiboCommand
                                 'log' => false,
                                 'template_engine' => &$template));
                 $f24_accept = false;
-            } elseif ($user->isAdmin()) {
+            } elseif ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
                 if ($_POST['f24_permessi_download'] < 0
                         || $_POST['f24_permessi_download'] > User::ALL) {
                     Error::throwError(_ERROR_NOTICE,

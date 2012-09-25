@@ -110,7 +110,7 @@ class FileStudentiAdd extends UniversiboCommand
         //		{
         //			// qui c'? errore TODO
         //			if (array_key_exists('id_canale', $_GET))
-        //				if ($id_canale != $ruoli_keys[$i] && ($user->isAdmin() || $user_ruoli[$ruoli_keys[$i]]->isModeratore() || $user_ruoli[$ruoli_keys[$i]]->isReferente()) )
+        //				if ($id_canale != $ruoli_keys[$i] && ($this->get('security.context')->isGranted('ROLE_ADMIN') || $user_ruoli[$ruoli_keys[$i]]->isModeratore() || $user_ruoli[$ruoli_keys[$i]]->isReferente()) )
         //					$elenco_canali[] = $user_ruoli[$ruoli_keys[$i]]->getIdCanale();
         //		}
         //
@@ -364,7 +364,7 @@ class FileStudentiAdd extends UniversiboCommand
                                 'log' => false,
                                 'template_engine' => &$template));
                 $f23_accept = false;
-            } elseif ($user->isAdmin()) {
+            } elseif ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
                 if ($_POST['f23_permessi_download'] < 0
                         || $_POST['f23_permessi_download'] > User::ALL) {
                     Error::throwError(_ERROR_NOTICE,

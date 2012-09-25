@@ -41,7 +41,7 @@ class InfoDidatticaEdit extends UniversiboCommand
                             'file' => __FILE__, 'line' => __LINE__));
 
         $id_canale = $_GET['id_canale'];
-        if (!$user->isAdmin()
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')
                 && (!array_key_exists($id_canale, $user_ruoli)
                         || !$user_ruoli[$id_canale]->isReferente()))
             Error::throwError(_ERROR_DEFAULT,

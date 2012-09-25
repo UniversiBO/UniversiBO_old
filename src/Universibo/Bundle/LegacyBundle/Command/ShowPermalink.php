@@ -56,7 +56,7 @@ class ShowPermalink extends UniversiboCommand
         $newsArray['id_autore'] = $news->getIdUtente();
 
         $newsArray['scadenza'] = '';
-        /*if (($news->getDataScadenza() != NULL) && ( $user->isAdmin() || $referente || $this_moderatore )) {
+        /*if (($news->getDataScadenza() != NULL) && ( $this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $this_moderatore )) {
             $newsArray['scadenza'] = 'Scade il ' . $krono->k_date('%j/%m/%Y', $news->getDataScadenza());
         }*/
 
