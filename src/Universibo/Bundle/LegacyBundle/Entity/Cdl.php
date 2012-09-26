@@ -250,7 +250,7 @@ class Cdl extends Canale
     public function showMe(RouterInterface $router = null)
     {
         if ($router !== null) {
-            return $router->generate('universibo_legacy_default', array('do' => 'ShowCdl', 'id_canale' => $this->getIdCanale()));
+            return $router->generate('universibo_legacy_cdl', array('id_canale' => $this->getIdCanale()));
         }
 
         return '/?do=ShowCdl&id_canale='.$this->id_canale;

@@ -141,7 +141,7 @@ abstract class UniversiboCommand extends BaseCommand
         $template->assign('common_forumUri', $forum->getMainUri());
 
         $template->assign('common_homepage', 'Homepage');
-        $template->assign('common_homepageUri', $router->generate('universibo_legacy_default'));
+        $template->assign('common_homepageUri', $router->generate('universibo_legacy_home'));
 
         $template->assign('common_rootEmail', $fc->getAppSetting('rootEmail'));
         $template->assign('common_infoEmail', $fc->getAppSetting('infoEmail'));
@@ -325,8 +325,8 @@ abstract class UniversiboCommand extends BaseCommand
         if ($context->isGranted('ROLE_ADMIN') || $context->isGranted('ROLE_COLLABORATOR')) {
             $router = $this->get('router');
 
-            $contactUri = $router->generate('universibo_legacy_default', array('do' => 'ShowContattiDocenti'));
-            $statUri = $router->generate('universibo_legacy_default', array('do' => 'ShowStatistiche'));
+            $contactUri = $router->generate('universibo_legacy_contact_professors');
+            $statUri = $router->generate('universibo_legacy_stats');
 
             $common_servicesLinks[] = array('uri' => $contactUri, 'tipo' => '', 'label' => 'Contatto dei docenti');
             $common_servicesLinks[] = array('uri' => $statUri, 'tipo' => '', 'label' => 'Statistiche');

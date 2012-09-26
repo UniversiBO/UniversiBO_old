@@ -36,16 +36,7 @@ abstract class CanaleCommand extends UniversiboCommand
      */
     public function getRequestIdCanale()
     {
-        if (!array_key_exists('id_canale', $_GET ) ) {
-            if ($this->frontController->getCommandRequest() == 'ShowHome') return 1;
-            else Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getId(), 'msg'=>'il parametro id_canale non e` specificato nella richiesta','file'=>__FILE__,'line'=>__LINE__));
-        }
-
-        if (!preg_match('/^([0-9]+)$/', $_GET['id_canale'] ) ) {
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getId(), 'msg'=>'il parametro id_canale è sintatticamente non valido','file'=>__FILE__,'line'=>__LINE__));
-        }
-
-        return intval($_GET['id_canale']);
+        return intval($this->getRequest()->attributes->get('id_canale', 1));
     }
 
     /**
@@ -192,7 +183,7 @@ abstract class CanaleCommand extends UniversiboCommand
                     //var_dump($user);
                     $contactUser = array();
                     $router = $this->get('router');
-                    $contactUser['utente_link']  = $router->generate('universibo_legacy_default', array('do'=>'ShowUser', 'id_utente'=>$user_temp->getId()));
+                    $contactUser['utente_link']  = $router->generate('universibo_legacy_user', array('id_utente'=>$user_temp->getId()));
                     $contactUser['nome']  = 'FIXME';//$user_temp->getUserPublicGroupName();
                     $contactUser['label'] = $user_temp->getUsername();
                     $contactUser['ruolo'] = ($ruolo->isReferente()) ? 'R' :  (($ruolo->isModeratore()) ? 'M' : 'none');

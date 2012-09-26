@@ -179,7 +179,7 @@ class Facolta extends Canale
     public function showMe(RouterInterface $router = null)
     {
         if ($router !== null) {
-            return $router->generate('universibo_legacy_default', array('do' => 'ShowFacolta', 'id_canale' => $this->getIdCanale()));
+            return $router->generate('universibo_legacy_facolta', array('id_canale' => $this->getIdCanale()));
         }
 
         return '/?do=ShowFacolta&id_canale=' . $this->id_canale;

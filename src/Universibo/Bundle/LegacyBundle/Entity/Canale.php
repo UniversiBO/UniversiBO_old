@@ -594,12 +594,12 @@ class Canale
     {
         if ($router !== null) {
             if ($this->getTipoCanale() == Canale::HOME) {
-                $params = array();
+                return $router->generate('universibo_legacy_home');
             } else {
-                $params = array('do' => 'ShowCanale', 'id_canale' => $this->getIdCanale());
-            }
+                $params = array('id_canale' => $this->getIdCanale());
 
-            return $router->generate('universibo_legacy_default', $params);
+                return $router->generate('universibo_legacy_canale', $params);
+            }
         }
 
         if ($this->getTipoCanale() == Canale::HOME) return '/?do=ShowHome';
