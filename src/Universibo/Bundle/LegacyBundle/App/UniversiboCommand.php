@@ -278,7 +278,7 @@ abstract class UniversiboCommand extends BaseCommand
         }
 
         $template->assign('common_settings', 'Impostazioni personali');
-        $template->assign('common_settingsUri', '/?do=ShowSettings');
+        $template->assign('common_settingsUri', $router->generate('universibo_legacy_settings'));
 
         $template->assign('common_myUniversiBO', 'ShowMyUniversiBO');
         $template->assign('common_myUniversiBOUri', $router->generate('universibo_legacy_myuniversibo'));
@@ -338,22 +338,22 @@ abstract class UniversiboCommand extends BaseCommand
 
         $template->assign('common_info', 'Informazioni');
         $template->assign('common_help', 'Help');
-        $template->assign('common_helpUri', '/?do=ShowHelp');
+        $template->assign('common_helpUri', $router->generate('universibo_legacy_help'));
         $template->assign('common_helpByTopic', 'Help per argomenti');
-        $template->assign('common_helpByTopicUri', '/?do=ShowHelpTopic');
+        $template->assign('common_helpByTopicUri', $router->generate('universibo_legacy_help_topic'));
         $template->assign('common_rules', 'Regolamento');
-        $template->assign('common_rulesUri', '/?do=ShowRules');
+        $template->assign('common_rulesUri', $router->generate('universibo_legacy_rules'));
         $template->assign('common_contacts', 'Chi siamo');
-        $template->assign('common_contactsUri', '/?do=ShowContacts');
+        $template->assign('common_contactsUri', $router->generate('universibo_legacy_contacts'));
         $template->assign('common_contribute', 'Collabora');
-        $template->assign('common_contributeUri', '/?do=ShowContribute');
+        $template->assign('common_contributeUri', $router->generate('universibo_legacy_contribute'));
         $template->assign('common_credits', 'Credits');
-        $template->assign('common_creditsUri', '/?do=ShowCredits');
+        $template->assign('common_creditsUri', $router->generate('universibo_legacy_credits'));
         $template->assign('common_accessibility', 'Accessibilità');
-        $template->assign('common_accessibilityUri', '/?do=ShowAccessibility');
+        $template->assign('common_accessibilityUri', $router->generate('universibo_legacy_accessibility'));
 
         $template->assign('common_manifesto', 'Manifesto');
-        $template->assign('common_manifestoUri', '/?do=ShowManifesto');
+        $template->assign('common_manifestoUri', $router->generate('universibo_legacy_manifesto'));
 
         $template->assign('common_docSf', 'Documentazione');
         $template->assign('common_docSfUri', 'https://wiki.universibo.unibo.it/');

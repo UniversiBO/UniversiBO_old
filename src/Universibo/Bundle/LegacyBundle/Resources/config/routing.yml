@@ -1,12 +1,33 @@
-universibo_legacy_default:
-    pattern: /
-    defaults: { _controller: 'UniversiboLegacyBundle:Default:index' }
+universibo_legacy_accessibility:
+    pattern: /accessibilita/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowAccessibility' }
 universibo_legacy_contribute:
     pattern: /collabora/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowContribute' }
+universibo_legacy_manifesto:
+    pattern: /manifesto/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowManifesto' }
 universibo_legacy_contacts:
     pattern: /chi-siamo/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowContacts' }
+universibo_legacy_help_topic:
+    pattern: /help/topic/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowHelpTopic' }
+universibo_legacy_help:
+    pattern: /help//
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowHelp' }
+universibo_legacy_credits:
+    pattern: /credits/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowCredits' }
 universibo_legacy_myuniversibo:
     pattern: /myuniversibo/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowMyUniversiBO' }
+universibo_legacy_settings:
+    pattern: /settings/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowSettings' }
+universibo_legacy_rules:
+    pattern: /rules/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowRules' }
+universibo_legacy_default:
+    pattern: /
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index' }
