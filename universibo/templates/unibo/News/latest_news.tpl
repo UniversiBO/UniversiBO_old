@@ -1,10 +1,10 @@
 <h2>News</h2>
 {if $showNewsLatest_addNewsFlag == "true" || $showNewsLatest_langNewsShowOthers != ""}
 <div class="comandi">
-	{if $showNewsLatest_addNewsFlag == "true"}<img src="{$common_basePath}//unibo/news_new.gif" width="15" height="15" alt="" />
+	{if $showNewsLatest_addNewsFlag == "true"}<img src="{$common_basePath}/tpl/unibo/news_new.gif" width="15" height="15" alt="" />
 	<a href="{$showNewsLatest_addNewsUri|escape:"htmlall"}">{$showNewsLatest_addNews|escape:"htmlall"|bbcode2html|nl2br}</a>
 	{/if}
-	{if $showNewsLatest_langNewsShowOthers != ""}<img src="{$common_basePath}//unibo/news_all.gif" width="15" height="15" alt="" />
+	{if $showNewsLatest_langNewsShowOthers != ""}<img src="{$common_basePath}/tpl/unibo/news_all.gif" width="15" height="15" alt="" />
 	<a href="{$showNewsLatest_langNewsShowOthersUri|escape:"htmlall"}">{$showNewsLatest_langNewsShowOthers|escape:"htmlall"|bbcode2html|nl2br}</a>
 	{/if}
 </div>

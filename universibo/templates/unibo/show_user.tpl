@@ -3,7 +3,7 @@
 <div class="titoloPagina">
 <h2>Utente: {$showUserNickname}</h2>
 </div>
-<p><span>Email: <a href="mailto:{$showEmailFirstPart}(at){$showEmailSecondPart}">{$showEmailFirstPart}<img src="{$common_basePath}//unibo/chiocciola.gif" width="16" height="16" alt="(at)" />{$showEmailSecondPart}</a>
+<p><span>Email: <a href="mailto:{$showEmailFirstPart}(at){$showEmailSecondPart}">{$showEmailFirstPart}<img src="{$common_basePath}/tpl/unibo/chiocciola.gif" width="16" height="16" alt="(at)" />{$showEmailSecondPart}</a>
 {if $showDiritti == 'true'}
 	&nbsp;<a href="{$showSettings}">Vai alle impostazioni personali</a>
 {/if}
@@ -16,10 +16,10 @@
 	<tr><td colspan="3"><h3>Ruoli</h3></td></tr>
 	{foreach name=ruoli from=$showCanali item=temp_currLink}<tr align="left">
 		<td class="{if ($smarty.foreach.ruoli.iteration % 2) == 0}odd{else}even{/if}"><p class="{if $smarty.foreach.ruoli.iteration%2 == 0}odd{else}even{/if}"><a href="{$temp_currLink.uri}">{$temp_currLink.label|escape:"htmlall"}</a></td>
-		<td class="{if $smarty.foreach.ruoli.iteration%2 == 0}odd{else}even{/if}"><span>{if $temp_currLink.ruolo=="R"}<img src="{$common_basePath}//unibo/icona_r.gif" width="9" height="9" alt="Referente" />{/if}{if $temp_currLink.ruolo=="M"}<img src="{$common_basePath}//unibo/icona_m.gif" width="9" height="9" alt="Moderatore" />{/if}</span></td>
+		<td class="{if $smarty.foreach.ruoli.iteration%2 == 0}odd{else}even{/if}"><span>{if $temp_currLink.ruolo=="R"}<img src="{$common_basePath}/tpl/unibo/icona_r.gif" width="9" height="9" alt="Referente" />{/if}{if $temp_currLink.ruolo=="M"}<img src="{$common_basePath}/tpl/unibo/icona_m.gif" width="9" height="9" alt="Moderatore" />{/if}</span></td>
 		<td class="{if $smarty.foreach.ruoli.iteration%2 == 0}odd{else}even{/if}"><span>
-			{if $showDiritti == 'true'}&nbsp;<img src="{$common_basePath}//unibo/esame_myuniversibo_edit.gif" width="15" height="15" alt="" />&nbsp;<a href="{$temp_currLink.modifica}">modifica</a>
-			&nbsp;<img src="{$common_basePath}//unibo/esame_myuniversibo_del.gif" width="15" height="15" alt="" />&nbsp;<a href="{$temp_currLink.rimuovi}">rimuovi</a>{/if}</span>
+			{if $showDiritti == 'true'}&nbsp;<img src="{$common_basePath}/tpl/unibo/esame_myuniversibo_edit.gif" width="15" height="15" alt="" />&nbsp;<a href="{$temp_currLink.modifica}">modifica</a>
+			&nbsp;<img src="{$common_basePath}/tpl/unibo/esame_myuniversibo_del.gif" width="15" height="15" alt="" />&nbsp;<a href="{$temp_currLink.rimuovi}">rimuovi</a>{/if}</span>
 		</td>
 	</tr>{/foreach}
 	{if $smarty.foreach.ruoli.total == 0}<tr><td>Nessun ruolo</td></tr>{/if}

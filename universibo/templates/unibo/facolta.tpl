@@ -16,7 +16,7 @@
 	<h3>{$temp_fac.name|escape:"html"|upper}</h3>
 	
 	{foreach name=elenco_cdl from=$temp_fac.list item=temp_cdl}
-	<p class="{if $smarty.foreach.elenco_cdl.iteration%2 == 0}odd{else}even{/if}"><a href="{$temp_cdl.link}">{$temp_cdl.cod|escape:"htmlall"} - {$temp_cdl.name|escape:"htmlall"}</a>{if $temp_cdl.forumUri != ''}&nbsp;&nbsp;<a href="{$temp_cdl.forumUri|escape:"htmlall"}">(<img src="{$common_basePath}//unibo/forum_omini_piccoli.gif" width="11" height="12" alt="Vai al forum" border="0"/>&nbsp;forum)</a>{/if}&nbsp;</p>
+	<p class="{if $smarty.foreach.elenco_cdl.iteration%2 == 0}odd{else}even{/if}"><a href="{$temp_cdl.link}">{$temp_cdl.cod|escape:"htmlall"} - {$temp_cdl.name|escape:"htmlall"}</a>{if $temp_cdl.forumUri != ''}&nbsp;&nbsp;<a href="{$temp_cdl.forumUri|escape:"htmlall"}">(<img src="{$common_basePath}/tpl/unibo/forum_omini_piccoli.gif" width="11" height="12" alt="Vai al forum" border="0"/>&nbsp;forum)</a>{/if}&nbsp;</p>
   {/foreach} 
 </div>
 {/foreach}
