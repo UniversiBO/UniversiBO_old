@@ -7,7 +7,7 @@
 $dbms = 'postgres';
 
 $dbhost = '127.0.0.1';
-$dbname = 'universibo';
+$dbname = 'universibo_forum';
 $dbuser = 'universibo';
 $dbpasswd = 'universibo';
 

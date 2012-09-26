@@ -23,6 +23,10 @@
 				<argument>main</argument>
 				<argument>%database_pear_driver%://%database_user%:%database_password%@%database_host%/%database_name%</argument>
 			</call>
+			<call method="registerDSN">
+				<argument>forum</argument>
+				<argument>%database_pear_driver%://%database_user%:%database_password%@%database_host%/%database_name%_forum</argument>
+			</call>
 		</service>
 
 		<service id="universibo_legacy.db.connection.main" class="DB_common"
@@ -30,9 +34,14 @@
 			<argument>main</argument>
 		</service>
 
+		<service id="universibo_legacy.db.connection.forum" class="DB_common"
+			factory-service="universibo_legacy.db.factory" factory-method="getConnection">
+			<argument>forum</argument>
+		</service>
+
 		<service id="universibo_legacy.forum.api"
 			class="Universibo\Bundle\LegacyBundle\App\ForumApi">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			<argument type="service" id="universibo_legacy.db.connection.forum" />
 			<argument>true</argument>
 		</service>
 
