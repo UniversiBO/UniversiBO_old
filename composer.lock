@@ -260,7 +260,7 @@
                 "symfony/symfony": ">=2.0",
                 "doctrine/data-fixtures": "*"
             },
-            "time": "2012-01-18 16:33:12",
+            "time": "2012-01-18 15:33:12",
             "type": "symfony-bundle",
             "installation-source": "dist",
             "autoload": {
