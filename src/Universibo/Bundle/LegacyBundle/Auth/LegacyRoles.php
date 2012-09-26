@@ -34,6 +34,5 @@ class LegacyRoles
                     self::PERSONALE => "Personale non docente",
                     self::ADMIN => "Studenti"
             )
-        }
     );
 }

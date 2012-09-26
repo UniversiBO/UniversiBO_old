@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
+use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
+
 use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
 
 use \Error;
@@ -339,7 +341,7 @@ class FileAdd extends UniversiboCommand
                 $f12_accept = false;
             } elseif ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
                 if ($_POST['f12_permessi_download'] < 0
-                        || $_POST['f12_permessi_download'] > User::ALL) {
+                        || $_POST['f12_permessi_download'] > LegacyRoles::ALL) {
                     Error::throwError(_ERROR_NOTICE,
                             array('id_utente' => $user->getId(),
                                     'msg' => 'Il valore dei diritti di download non e` ammessibile',
@@ -350,7 +352,7 @@ class FileAdd extends UniversiboCommand
                 }
                 $f12_permessi_download = $_POST['f12_permessi_download'];
             } else {
-                if ($_POST['f12_permessi_download'] != User::ALL
+                if ($_POST['f12_permessi_download'] != LegacyRoles::ALL
                         && $_POST['f12_permessi_download']
                                 != ('ROLE_STUDENT' | 'ROLE_PROFESSOR'
                                         | 'ROLE_TUTOR' | 'ROLE_STAFF'
@@ -383,7 +385,7 @@ class FileAdd extends UniversiboCommand
             if (array_key_exists('id_canale', $_GET))
                 $f12_permessi_visualizza = $canale->getPermessi();
             else
-                $f12_permessi_visualizza = User::ALL;
+                $f12_permessi_visualizza = LegacyRoles::ALL;
             // eventualmente dare la possibilità all'admin di metterli diversamente
 
             $f12_canali_inserimento = array();
