@@ -9,8 +9,8 @@
 	<tr><td><p>{$temp_key|escape:"htmlall"}</p></td></tr>
 	{foreach from=$temp_currGroup item=temp_currLink}
 		<tr><td><a href="{$temp_currLink.utente_link|escape:"htmlall"}">{$temp_currLink.label|escape:"htmlall"}</a></td><td>
-		{if $temp_currLink.ruolo=="R"}&nbsp;<img src="tpl/unibo/icona_r.gif" width="9" height="9" alt="Referente" />&nbsp;Referente{/if}</td><td>
-		{if $temp_currLink.ruolo=="M"}&nbsp;<img src="tpl/unibo/icona_m.gif" width="9" height="9" alt="Moderatore" />&nbsp;Moderatore{/if}</td><td>
+		{if $temp_currLink.ruolo=="R"}&nbsp;<img src="{$common_basePath}//unibo/icona_r.gif" width="9" height="9" alt="Referente" />&nbsp;Referente{/if}</td><td>
+		{if $temp_currLink.ruolo=="M"}&nbsp;<img src="{$common_basePath}//unibo/icona_m.gif" width="9" height="9" alt="Moderatore" />&nbsp;Moderatore{/if}</td><td>
 		<a href="{$temp_currLink.edit_link|escape:"htmlall"}">Modifica</a></td></tr>
 	{/foreach}
 {/foreach}

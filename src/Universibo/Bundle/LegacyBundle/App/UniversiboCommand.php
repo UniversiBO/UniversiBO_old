@@ -193,6 +193,7 @@ abstract class UniversiboCommand extends BaseCommand
     {
         $template = $this->frontController->getTemplateEngine();
         $krono = $this->frontController->getKrono();
+        $router = $this->get('router');
 
         $session_user = $this->get('security.context')->getToken()->getUser();
 
@@ -213,7 +214,7 @@ abstract class UniversiboCommand extends BaseCommand
 
                     $canale = Canale::retrieveCanale($ruolo->getIdCanale());
                     $myCanali = array();
-                    $myCanali['uri'] = $canale->showMe();
+                    $myCanali['uri'] = $canale->showMe($router);
                     $myCanali['tipo'] = $canale->getTipoCanale();
                     $myCanali['label'] = ($ruolo->getNome() != '') ? $ruolo->getNome() : $canale->getNomeMyUniversiBO();
                     $myCanali['new'] = ($canale->getUltimaModifica() > $ruolo->getUltimoAccesso()) ? 'true' : 'false';
@@ -280,7 +281,7 @@ abstract class UniversiboCommand extends BaseCommand
         $template->assign('common_settingsUri', '/?do=ShowSettings');
 
         $template->assign('common_myUniversiBO', 'ShowMyUniversiBO');
-        $template->assign('common_myUniversiBOUri', '/?do=ShowMyUniversiBO');
+        $template->assign('common_myUniversiBOUri', $router->generate('universibo_legacy_myuniversibo'));
 
         $template->assign('common_fac', 'Facoltà');
         $elenco_facolta = Facolta::selectFacoltaElenco();
@@ -294,7 +295,7 @@ abstract class UniversiboCommand extends BaseCommand
         for ($i = 0; $i < $num_facolta; $i++) {
             if ($elenco_facolta[$i]->isGroupAllowed($session_user_groups)) {
                 $common_facLinks[$i] = array();
-                $common_facLinks[$i]['uri'] = '/?do=ShowFacolta&id_canale=' . $elenco_facolta[$i]->getIdCanale();
+                $common_facLinks[$i]['uri'] = $elenco_facolta[$i]->showMe($router);
                 $common_facLinks[$i]['label'] = $elenco_facolta[$i]->getNome();
             }
         }
@@ -311,7 +312,7 @@ abstract class UniversiboCommand extends BaseCommand
             $my_canale = $list_canali[$key];
             if ($my_canale->isGroupAllowed($session_user_groups)) {
 
-                $myCanali['uri'] = $my_canale->showMe();
+                $myCanali['uri'] = $my_canale->showMe($router);
                 $myCanali['tipo'] = $my_canale->getTipoCanale();
                 $myCanali['label'] = $my_canale->getNome();
                 //var_dump($ruolo);

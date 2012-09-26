@@ -7,8 +7,8 @@
 {if $common_langCanaleMyUniversiBO != '' }
 	<div class="comandi">
 	{if $common_canaleMyUniversiBO == "remove"}
-		<img src="tpl/unibo/esame_myuniversibo_del.gif" width="15" height="15" alt="" />&nbsp;
-	{else}<img src="tpl/unibo/esame_myuniversibo_add.gif" width="15" height="15" alt="" />&nbsp;
+		<img src="{$common_basePath}//unibo/esame_myuniversibo_del.gif" width="15" height="15" alt="" />&nbsp;
+	{else}<img src="{$common_basePath}//unibo/esame_myuniversibo_add.gif" width="15" height="15" alt="" />&nbsp;
 	{/if}<a href="{$common_canaleMyUniversiBOUri|escape:"htmlall"}">{$common_langCanaleMyUniversiBO|escape:"htmlall"}</a></div>
 {/if}
 </div>

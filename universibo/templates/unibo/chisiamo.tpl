@@ -15,7 +15,7 @@
         {/if}
       </td>
       <td>
-        {if $temp_curr_people.inserisci != 'false'}<img src="tpl/unibo/file_new.gif" width="10" height="9" /><a href="{$temp_curr_people.inserisci|escape:"htmlall"}">&nbsp;Inserisci&nbsp;il&nbsp;tuo&nbsp;profilo</a>{/if}
+        {if $temp_curr_people.inserisci != 'false'}<img src="{$common_basePath}//unibo/file_new.gif" width="10" height="9" /><a href="{$temp_curr_people.inserisci|escape:"htmlall"}">&nbsp;Inserisci&nbsp;il&nbsp;tuo&nbsp;profilo</a>{/if}
       </td>
     </tr>
 {/foreach}

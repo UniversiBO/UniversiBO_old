@@ -1,6 +1,10 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
+use Symfony\Component\Routing\RouterInterface;
+
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
+
 use \DB;
 use \Error;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
@@ -586,9 +590,19 @@ class Canale
      *
      * @return string uri/link che mostra un canale
      */
-    public function showMe()
+    public function showMe(RouterInterface $router = null)
     {
-        if ($this->getTipoCanale() == CANALE_HOME) return '/?do=ShowHome';
+        if ($router !== null) {
+            if ($this->getTipoCanale() == Canale::HOME) {
+                $params = array();
+            } else {
+                $params = array('do' => 'ShowCanale', 'id_canale' => $this->getIdCanale());
+            }
+
+            return $router->generate('universibo_legacy_default', $params);
+        }
+
+        if ($this->getTipoCanale() == Canale::HOME) return '/?do=ShowHome';
         else return '/?do=ShowCanale&id_canale='.$this->id_canale;
     }
 

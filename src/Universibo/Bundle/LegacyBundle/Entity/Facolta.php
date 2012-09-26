@@ -1,5 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
+use Symfony\Component\Routing\RouterInterface;
+
 use \DB;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
@@ -174,8 +176,12 @@ class Facolta extends Canale
      *
      * @return string uri/link che mostra un canale
      */
-    public function showMe()
+    public function showMe(RouterInterface $router = null)
     {
+        if ($router !== null) {
+            return $router->generate('universibo_legacy_default', array('do' => 'ShowFacolta', 'id_canale' => $this->getIdCanale()));
+        }
+
         return '/?do=ShowFacolta&id_canale=' . $this->id_canale;
     }
 

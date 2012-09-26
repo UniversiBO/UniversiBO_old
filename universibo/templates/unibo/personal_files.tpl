@@ -9,7 +9,7 @@
 {cycle name=t_class values="even,odd" print=false advance=false}
 <div class="elenco">
 	<p class="{cycle name=t_class}">&nbsp;{$item.data|escape:"htmlall"} | {$item.nome|escape:"htmlall"} | {$item.dimensione|escape:"htmlall"} KB | 
-	<a href="{$item.editUri|escape:"htmlall"}"><img src="tpl/unibo/news_edt.gif" border="0" width="15" height="15" alt="modifica" hspace="1"/></a></p>
+	<a href="{$item.editUri|escape:"htmlall"}"><img src="{$common_basePath}//unibo/news_edt.gif" border="0" width="15" height="15" alt="modifica" hspace="1"/></a></p>
 </div> 
 {/foreach}
 

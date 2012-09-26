@@ -7,8 +7,8 @@
 {if $common_langCanaleMyUniversiBO != '' }
 	<div class="comandi">
 	{if $common_canaleMyUniversiBO == "remove"}
-		<img src="tpl/black/esame_myuniversibo_del.gif" width="15" height="15" alt="" />&nbsp;
-	{else}<img src="tpl/black/esame_myuniversibo_add.gif" width="15" height="15" alt="" />&nbsp;
+		<img src="{$common_basePath}//black/esame_myuniversibo_del.gif" width="15" height="15" alt="" />&nbsp;
+	{else}<img src="{$common_basePath}//black/esame_myuniversibo_add.gif" width="15" height="15" alt="" />&nbsp;
 	{/if}<a href="{$common_canaleMyUniversiBOUri|escape:"htmlall"}">{$common_langCanaleMyUniversiBO|escape:"htmlall"}</a></div>
 {/if}
 <p>{$cdl_langYear|escape:"htmlall"}</p>
@@ -28,7 +28,7 @@
 		{foreach name=elenco_ins from=$temp_ciclo.list item=temp_ins}
 			{counter name=total_loop}
 			<p class="{cycle name=t_class}">&nbsp;{$temp_ciclo.ciclo|escape:"htmlall"}&gt;&nbsp;
-			<a href="{$temp_ins.uri|escape:"htmlall"}">{$temp_ins.name|escape:"htmlall"} - {$temp_ins.nomeDoc|lower|ucwords|escape:"htmlall"}</a>{if $temp_ins.forumUri != ''}&nbsp;&nbsp;<a href="{$temp_ins.forumUri|escape:"htmlall"}">(<img src="tpl/unibo/forum_omini_piccoli.gif" width="11" height="12" alt="{$cdl_langGoToForum|escape:"htmlall"}" border="0"/>&nbsp;forum)</a>{/if} {if $temp_ins.editUri != ''}&nbsp;&nbsp;<a href="{$temp_ins.editUri|escape:"htmlall"}">(modifica didattica)</a>{/if}</p>
+			<a href="{$temp_ins.uri|escape:"htmlall"}">{$temp_ins.name|escape:"htmlall"} - {$temp_ins.nomeDoc|lower|ucwords|escape:"htmlall"}</a>{if $temp_ins.forumUri != ''}&nbsp;&nbsp;<a href="{$temp_ins.forumUri|escape:"htmlall"}">(<img src="{$common_basePath}//unibo/forum_omini_piccoli.gif" width="11" height="12" alt="{$cdl_langGoToForum|escape:"htmlall"}" border="0"/>&nbsp;forum)</a>{/if} {if $temp_ins.editUri != ''}&nbsp;&nbsp;<a href="{$temp_ins.editUri|escape:"htmlall"}">(modifica didattica)</a>{/if}</p>
 		{/foreach}
 		</div>		
 	{/foreach} 

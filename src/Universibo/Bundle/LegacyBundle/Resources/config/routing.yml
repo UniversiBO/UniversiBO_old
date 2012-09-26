@@ -4,7 +4,9 @@ universibo_legacy_default:
 universibo_legacy_contribute:
     pattern: /collabora/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowContribute' }
-
 universibo_legacy_contacts:
     pattern: /chi-siamo/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowContacts' }
+universibo_legacy_myuniversibo:
+    pattern: /myuniversibo/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowMyUniversiBO' }
