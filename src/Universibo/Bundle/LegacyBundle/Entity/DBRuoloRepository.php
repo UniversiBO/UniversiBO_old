@@ -297,8 +297,20 @@ class DBRuoloRepository extends DBRepository
         $list_keys = array_keys($f7_canale);
         for ($i = 0; $i < $tot; $i++)
             // var_dump($f7_canale[$i]);
-        uasort($f7_canale[$list_keys[$i]], array($this, '_compareCanale'));
+        uasort($f7_canale[$list_keys[$i]], array($this, 'compareCanale'));
 
         return $f7_canale;
+    }
+
+    /**
+     * @param array $a
+     * @param array $b
+     */
+    private static function compareCanale($a, $b)
+    {
+        $nomea = strtolower($a['nome']);
+        $nomeb = strtolower($b['nome']);
+
+        return strnatcasecmp($nomea, $nomeb);
     }
 }
