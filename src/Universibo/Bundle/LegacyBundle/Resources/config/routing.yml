@@ -14,7 +14,7 @@ universibo_legacy_help_topic:
     pattern: /help/topic/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowHelpTopic' }
 universibo_legacy_help:
-    pattern: /help//
+    pattern: /help/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowHelp' }
 universibo_legacy_credits:
     pattern: /credits/
