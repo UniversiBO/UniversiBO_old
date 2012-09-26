@@ -38,31 +38,7 @@ class ErrorHandlers
      */
     public function critical_handler($param)
     {
-        $param['log']= true;
-
-        $log_definition = array(0 => 'timestamp', 1 => 'date', 2 => 'time', 3 => 'error_level', 4 => 'file', 5 => 'line', 6 => 'messaggio' );
-
-        $log = new LogHandler('error','../universibo/log-universibo/',$log_definition);
-
-        $log_array = array( 'timestamp'  => time(),
-                'date'  => date("Y-m-d",time()),
-                'time'  => date("H:i",time()),
-                'error_level'  => 'CRITICAL',
-                'id_utente' => (array_key_exists('id_utente',$param)) ? $param['id_utente'] : -1,
-                'ip_utente' => (isset($_SERVER) && array_key_exists('REMOTE_ADDR',$_SERVER))? $_SERVER['REMOTE_ADDR']: '0.0.0.0',
-                'file'  => $param['file'],
-                'line'  => $param['line'],
-                'messaggio'  => $param['msg']);
-        $log->addLogEntry($log_array);
-
-        //$notifiche[$i]->setFallita(true);
-
-        die( 'Errore Critico: '.$param['msg']. '<br />
-                file: '.$param['file']. '<br />
-                line: '.$param['line']. '<br />
-                log: '.$param['log']. '<br />');
-
-        //header('Redirect: http://location/error_page.php');
+        throw new \Exception($param['msg']);
     }
 
     /**
