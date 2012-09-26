@@ -117,4 +117,14 @@ class User extends BaseUser
 
         return $this;
     }
+
+    /**
+     * @deprecated
+     * @param  integer $groups
+     * @return boolean
+     */
+    public function isGroupAllowed($groups)
+    {
+        return (bool) ($groups & $this->legacyGroups);
+    }
 }
