@@ -24,6 +24,9 @@
     "replaces": {
         "smarty/smarty": "v3.1.11"
     },
+    "require-dev": {
+        "phpunit/phpunit-selenium": "dev-master"
+    },
     "scripts": {
         "post-install-cmd": [
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
