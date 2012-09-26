@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it">
 <head>
 <title>{$common_title|escape:"htmlall"}</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta lang="it" name="keywords" content="{$common_metaKeywords|escape:"htmlall"}" />
 <meta lang="it" name="description" content="{$common_metaDescription|escape:"htmlall"}" />
 {#styleSheet#}
