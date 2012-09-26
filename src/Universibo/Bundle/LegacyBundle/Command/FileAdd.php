@@ -33,7 +33,8 @@ class FileAdd extends UniversiboCommand
 
         $krono = $frontcontroller->getKrono();
         $user = $this->get('security.context')->getToken()->getUser();
-        $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
+        $ruoloRepo = $this->get('universibo_legacy.repository.ruolo');
+        $user_ruoli = $user instanceof User ? $ruoloRepo->findByIdUtente($user->getId()) : array();
 
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             Error::throwError(_ERROR_DEFAULT,
@@ -101,9 +102,9 @@ class FileAdd extends UniversiboCommand
             }
 
             $elenco_canali = array($id_canale);
-            $f12_canale = $user->getRuoliInfoGroupedByYear($id_canale);
+            $f12_canale = $ruoloRepo->getRuoliInfoGroupedByYear($user, $id_canale);
         } else
-            $f12_canale = $user->getRuoliInfoGroupedByYear();
+            $f12_canale = $ruoloRepo->getRuoliInfoGroupedByYear($user);
 
         $f12_accept = false;
 

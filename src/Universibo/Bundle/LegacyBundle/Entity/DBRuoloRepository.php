@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
+use Universibo\Bundle\WebsiteBundle\Entity\User;
+
 use \DB;
 
 /**
@@ -249,5 +251,54 @@ class DBRuoloRepository extends DBRepository
         }
 
         return $ruoli;
+    }
+
+    public function getRuoliInfoGroupedByYear(User $user, $id_canale = null)
+    {
+        $user_ruoli = $this->findByIdUtente($user->getId());
+        $elenco_canali = array();
+        $found = $id_canale == null;
+
+        $isAdmin = $user->hasRole('ROLE_ADMIN');
+
+        foreach ($user_ruoli as $r) {
+            if ($isAdmin || $r->isReferente()) {
+                $elenco_canali[] = $r->getIdCanale();
+
+                if (!$found && $r->getIdCanale() == $id_canale) {
+                    $found = true;
+                }
+            }
+        }
+
+        if (!$found && $isAdmin) {
+            $elenco_canali[] = $id_canale;
+        }
+
+        $elenco_canali_retrieve = array();
+
+        foreach ($elenco_canali as $id_current_canale) {
+            $current_canale = Canale::retrieveCanale($id_current_canale);
+            $elenco_canali_retrieve[$id_current_canale] = $current_canale;
+            $didatticaCanale = PrgAttivitaDidattica::factoryCanale(
+                    $id_current_canale);
+            // var_dump($didatticaCanale);
+            $annoCorso = (count($didatticaCanale) > 0) ? $didatticaCanale[0]
+            ->getAnnoAccademico() : 'altro';
+            $nome_current_canale = $current_canale->getTitolo();
+            $f7_canale[$annoCorso][$id_current_canale] = array(
+                    'nome' => $nome_current_canale,
+                    'spunta' => ($id_canale != null
+                            && $id_current_canale == $id_canale) ? 'true'
+                    : 'false');
+        }
+        krsort($f7_canale);
+        $tot = count($f7_canale);
+        $list_keys = array_keys($f7_canale);
+        for ($i = 0; $i < $tot; $i++)
+            // var_dump($f7_canale[$i]);
+        uasort($f7_canale[$list_keys[$i]], array($this, '_compareCanale'));
+
+        return $f7_canale;
     }
 }

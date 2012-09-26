@@ -25,7 +25,8 @@ class NewsAdd extends CanaleCommand
 
         $user = $this->get('security.context')->getToken()->getUser();
         $canale = $this->getRequestCanale();
-        $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
+        $ruoloRepo = $this->get('universibo_legacy.repository.ruolo');
+        $user_ruoli = $user instanceof User ? $ruoloRepo->findByIdUtente($user->getId()) : array();
         $id_canale = $canale->getIdCanale();
         //		var_dump($user_ruoli);die;
         $referente = false;
@@ -70,7 +71,7 @@ class NewsAdd extends CanaleCommand
         $f7_testo = '';
         $f7_urgente = false;
         $f7_scadenza = false;
-        $f7_canale = $user->getRuoliInfoGroupedByYear($id_canale);
+        $f7_canale = $ruoloRepo->getRuoliInfoGroupedByYear($user, $id_canale);
 
         $f7_accept = false;
 
