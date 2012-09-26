@@ -16,4 +16,24 @@ class LegacyRoles
     const PERSONALE = 32;
     const ADMIN = 64;
     const ALL = 127;
+
+    public static $map = array (
+            'singular' => array (
+                    self::OSPITE => "Ospite",
+                    self::STUDENTE => "Studente",
+                    self::COLLABORATORE => "Studente",
+                    self::TUTOR => "Tutor", self::DOCENTE => "Docente",
+                    self::PERSONALE => "Personale non docente",
+                    self::ADMIN => "Studente"
+            ),
+            'plural' => array (
+                    self::OSPITE => "Ospiti",
+                    self::STUDENTE => "Studenti",
+                    self::COLLABORATORE => "Studenti",
+                    self::TUTOR => "Tutor", self::DOCENTE => "Docenti",
+                    self::PERSONALE => "Personale non docente",
+                    self::ADMIN => "Studenti"
+            )
+        }
+    );
 }
