@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\App;
 
+use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
+
 use Universibo\Bundle\WebsiteBundle\Entity\User;
 
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
@@ -184,12 +186,12 @@ abstract class CanaleCommand extends UniversiboCommand
                     $contactUser = array();
                     $router = $this->get('router');
                     $contactUser['utente_link']  = $router->generate('universibo_legacy_user', array('id_utente'=>$user_temp->getId()));
-                    $contactUser['nome']  = 'FIXME';//$user_temp->getUserPublicGroupName();
+                    $contactUser['nome']  = LegacyRoles::$map['plural'][$user_temp->getLegacyGroups()];
                     $contactUser['label'] = $user_temp->getUsername();
                     $contactUser['ruolo'] = ($ruolo->isReferente()) ? 'R' :  (($ruolo->isModeratore()) ? 'M' : 'none');
                     //var_dump($ruolo);
                     //$arrayUsers[] = $contactUser;
-                    $arrayPublicUsers['FIXME'][] = $contactUser;
+                    $arrayPublicUsers[$contactUser['nome']][] = $contactUser;
                 }
             }
             //ordina $arrayCanali
