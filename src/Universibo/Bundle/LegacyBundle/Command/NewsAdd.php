@@ -1,5 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+
 use Universibo\Bundle\WebsiteBundle\Entity\User;
 
 use \Error;
@@ -461,12 +462,13 @@ Per altri problemi contattare lo staff di UniversiBO
                             substr_replace($notifica_messaggio_sms, '..', 158),
                             0, 160);
 
+                    $userRepo = $this->get('universibo_website.repository.user');
                     $ruoli_canale = $add_canale->getRuoli();
                     foreach ($ruoli_canale as $ruolo_canale) {
                         //la seguente riga l'ho copiata dal diff del deploy precedente
                         //in seguito ad una segnalazione di errore da parte di un tutor
                         //alla riga (ex)335 (ora)339
-                        $notifica_user = $ruolo_canale->getUser();
+                        $notifica_user = $userRepo->find($ruolo_canale->getId());
                         //define('NOTIFICA_NONE'   ,0);
                         //define('NOTIFICA_URGENT' ,1);
                         //define('NOTIFICA_ALL'    ,2);
@@ -476,7 +478,7 @@ Per altri problemi contattare lo staff di UniversiBO
                                                 == NOTIFICA_URGENT)
                                         || $ruolo_canale->getTipoNotifica()
                                                 == NOTIFICA_ALL)) {
-                            $notifica_user = $ruolo_canale->getUser();
+                            $notifica_user = $userRepo->find($ruolo_canale->getId());
                             $notifica_destinatario = 'mail://'
                                     . $notifica_user->getEmail();
 

@@ -4,6 +4,7 @@ namespace Universibo\Bundle\LegacyBundle\Entity;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use \DB;
 use \Error;
+use Universibo\Bundle\WebsiteBundle\Entity\User;
 
 define('NOTIFICA_NONE'   ,0);
 define('NOTIFICA_URGENT' ,1);
@@ -146,22 +147,6 @@ class Ruolo
         return $this->id_canale;
     }
 
-
-
-    /**
-     * Restituisce l'oggetto User collegato al ruolo
-     *
-     * @return User
-     */
-    public function getUser()
-    {
-        if ($this->user == NULL) {
-            $this->user = User::selectUser($this->getId());
-        }
-
-        return $this->user;
-    }
-
     /**
      * Restituisce l'oggetto Canale collegato al ruolo
      *
@@ -175,8 +160,6 @@ class Ruolo
 
         return $this->canale;
     }
-
-
 
     /**
      * Restituisce il nome del canale corrente specificato dal'utente
@@ -258,7 +241,6 @@ class Ruolo
         return $this->tipoNotifica;
     }
 
-
     /**
      * restituisce il livello di notifica dell'utente nel canale corrente
      * define('NOTIFICA_NONE'   ,0);
@@ -295,7 +277,6 @@ class Ruolo
 
         return true;
     }
-
 
     public function setTipoNotifica($tipoNotifica)
     {
@@ -344,8 +325,6 @@ class Ruolo
     {
         return $this->referente;
     }
-
-
 
     /**
      * Verifica se nel ruolo corrente l'utente ? referente del canale
