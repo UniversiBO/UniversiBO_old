@@ -1,3 +1,6 @@
 universibo_legacy_default:
     pattern: /
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index' }
+universibo_legacy_contribute:
+    pattern: /collabora/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowContribute' }

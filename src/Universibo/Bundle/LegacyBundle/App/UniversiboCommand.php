@@ -162,6 +162,7 @@ abstract class UniversiboCommand extends BaseCommand
         $template->assign('common_time', $krono->k_date('%H:%i'));
 
         $template->assign('common_loginUri', $this->get('router')->generate('fos_user_security_check'));
+        $template->assign('common_basePath', $this->getRequest()->getBasePath());
     }
 
     /**
