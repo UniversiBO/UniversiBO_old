@@ -245,7 +245,7 @@ class DBRuoloRepository extends DBRepository
 
         $ruoli = array();
         while ($row = $this->fetchRow($res)) {
-            $ruoli[] = new Ruolo($idUtente, $row[0], $row[5], $row[1], $row[2]==Ruolo::MODERATORE, $row[2]==Ruolo::REFERENTE, $row[3]=='S', $row[4], $row[6]=='S');
+            $ruoli[$row[0]] = new Ruolo($idUtente, $row[0], $row[5], $row[1], $row[2]==Ruolo::MODERATORE, $row[2]==Ruolo::REFERENTE, $row[3]=='S', $row[4], $row[6]=='S');
         }
 
         return $ruoli;

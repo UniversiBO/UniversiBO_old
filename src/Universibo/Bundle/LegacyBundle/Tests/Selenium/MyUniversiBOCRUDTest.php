@@ -12,7 +12,7 @@ class MyUniversiBOCRUDTest extends UniversiBOSeleniumTestCase
 
     public function testAddNotLogged()
     {
-        $this->deleteAllVisibleCookies();
+        $this->logout();
         $this->openCommand('MyUniversiBOAdd','&id_canale=23');
         $this->assertSentences(array('permesso ad utenti non registrati eseguire questa operazione. La sessione potrebbe essere scaduta'));
     }

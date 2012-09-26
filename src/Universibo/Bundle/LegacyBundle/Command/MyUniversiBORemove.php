@@ -1,7 +1,10 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
+use \Error;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -27,19 +30,14 @@ class MyUniversiBORemove extends UniversiboCommand
         $template = $frontcontroller->getTemplateEngine();
         $utente = $this->get('security.context')->getToken()->getUser();
 
-        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY'))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $utente->getId(),
-                            'msg' => "non e` permesso ad utenti non registrati eseguire questa operazione.\n La sessione potrebbe essere scaduta",
-                            'file' => __FILE__, 'line' => __LINE__));
-
-        if (!array_key_exists('id_canale', $_GET)
-                || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $utente->getId(),
-                            'msg' => 'L\'id del canale richiesto non e` valido',
-                            'file' => __FILE__, 'line' => __LINE__));
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return new Response('', 403);
         }
+
+        if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
+            throw new NotFoundHttpException('Invalid Channel ID');
+        }
+
         $id_canale = $_GET['id_canale'];
         $canale = Canale::retrieveCanale($id_canale);
         $template->assign('common_canaleURI', $canale->showMe());
@@ -49,8 +47,10 @@ class MyUniversiBORemove extends UniversiboCommand
                         '/?do=ShowUser&id_utente='
                                 . $utente->getId());
 
-        $ruoli = $utente instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($utente->getId()) : array();
+        $ruoli = $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($utente->getId());
         $this->executePlugin('ShowTopic', array('reference' => 'myuniversibo'));
+
+
         if (array_key_exists($id_canale, $ruoli)) {
             $ruolo = $ruoli[$id_canale];
             $ruolo->setMyUniversiBO(false, true);

@@ -1,5 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use \Error;
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Links\Link;
@@ -26,24 +28,23 @@ class LinkEdit extends CanaleCommand
         $user = $this->get('security.context')->getToken()->getUser();
         $canale = $this->getRequestCanale();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
+        $userId = $user instanceof User ? $user->getId() : 0;
         $id_canale = $canale->getIdCanale();
 
         //diritti
         $referente = false;
         $moderatore = false;
 
-        if (!array_key_exists('id_link', $_GET)
-                || !preg_match('/^([0-9]{1,9})$/', $_GET['id_link'])) {
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'L\'id del link richiesta non e`	valido',
-                            'file' => __FILE__, 'line' => __LINE__));
+        if (!array_key_exists('id_link', $_GET)|| !preg_match('/^([0-9]{1,9})$/', $_GET['id_link'])) {
+            throw new NotFoundHttpException('Invalid link ID');
         }
-        if ($canale->getServizioLinks() == false)
+
+        if ($canale->getServizioLinks() == false) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getId(),
                             'msg' => "Il servizio link e` disattivato",
                             'file' => __FILE__, 'line' => __LINE__));
+        }
 
         if (array_key_exists($id_canale, $user_ruoli)) {
             $ruolo = $user_ruoli[$id_canale];
@@ -53,7 +54,7 @@ class LinkEdit extends CanaleCommand
         }
 
         $link = Link::selectLink($_GET['id_link']);
-        $autore = ($user->getId() == $link->getIdUtente());
+        $autore = ($userId == $link->getIdUtente());
 
         //		//controllo coerenza parametri
         //		$canali_news	= 	$news->getIdCanali();
@@ -63,13 +64,13 @@ class LinkEdit extends CanaleCommand
         $canale_link = $link->getIdCanale();
         if ($id_canale != $canale_link)
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
+                    array('id_utente' => $userId,
                             'msg' => 'I parametri passati non sono coerenti',
                             'file' => __FILE__, 'line' => __LINE__));
 
         if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || ($moderatore && $autore)))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
+                    array('id_utente' => $userId,
                             'msg' => "Non hai i diritti per modificare il link\n La sessione potrebbe essere scaduta",
                             'file' => __FILE__, 'line' => __LINE__));
 
@@ -88,25 +89,6 @@ class LinkEdit extends CanaleCommand
         $f31_URI = $link->getUri();
         $f31_Label = $link->getLabel();
         $f31_Description = $link->getDescription();
-
-        //		$elenco_canali = array ($id_canale);
-        //		$ruoli_keys = array_keys($user_ruoli);
-        //		$num_ruoli = count($ruoli_keys);
-        //		for ($i = 0; $i < $num_ruoli; $i ++)
-        //		{
-        //			if ($id_canale != $ruoli_keys[$i])
-        //				$elenco_canali[] = $user_ruoli[$ruoli_keys[$i]]->getIdCanale();
-        //		}
-        //
-        //		$num_canali = count($elenco_canali);
-        //		for ($i = 0; $i < $num_canali; $i ++)
-        //		{
-        //			$id_current_canale = $elenco_canali[$i];
-        //			$current_canale =  Canale :: retrieveCanale($id_current_canale);
-        //			$nome_current_canale = $current_canale->getTitolo();
-        //			$spunta = (in_array($id_current_canale, $news->getIdCanali())) ? 'true' : 'false';
-        //			$f31_canale[] = array ('id_canale' => $id_current_canale, 'nome_canale' => $nome_current_canale, 'spunta' => $spunta);
-        //		}
 
         $f31_accept = false;
 

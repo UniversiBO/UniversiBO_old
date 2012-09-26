@@ -31,22 +31,22 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
             $this->clickAndWait('name=action');
         }
 
-        self::assertTrue($this->isTextPresent('Benvenuto '.$username), 'Welcome text must be present');
+        $this->assertTrue($this->isTextPresent('Benvenuto '.$username), 'Welcome text must be present');
     }
 
     protected function logout()
     {
         $this->open('/app_dev.php/logout');
-        self::assertTrue($this->isTextPresent('Registrazione studenti'));
-        self::assertTrue($this->isTextPresent('Username smarrito'));
-        self::assertTrue($this->isTextPresent('Password smarrita'));
-        self::assertTrue($this->isTextPresent('I servizi personalizzati sono disponibili solo agli utenti che hanno effettuato il login'));
+        $this->assertTrue($this->isTextPresent('Registrazione studenti'));
+        $this->assertTrue($this->isTextPresent('Username smarrito'));
+        $this->assertTrue($this->isTextPresent('Password smarrita'));
+        $this->assertTrue($this->isTextPresent('I servizi personalizzati sono disponibili solo agli utenti che hanno effettuato il login'));
     }
 
     protected function openCommand($do, $params = '')
     {
         $this->open('/app_dev.php?do='.$do.$params);
-        self::assertTrue(preg_match('/UniversiBO/', $this->getTitle()) !== false, 'UniversiBO should be present in title');
+        $this->assertTrue(preg_match('/UniversiBO/', $this->getTitle()) !== false, 'UniversiBO should be present in title');
     }
 
     protected function assertSentence($sentence)
@@ -57,7 +57,7 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
     protected function assertSentences(array $sentences)
     {
         foreach ($sentences as $sentence) {
-            self::assertTrue($this->isTextPresent($sentence), 'Text: "'.$sentence.'" should be present.');
+            $this->assertTrue($this->isTextPresent($sentence), 'Text: "'.$sentence.'" should be present.');
         }
     }
 }

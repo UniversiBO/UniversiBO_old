@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command\News;
 
+use Universibo\Bundle\WebsiteBundle\Entity\User;
+
 use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
 
@@ -74,7 +76,7 @@ class ShowNews extends PluginCommand
             $personalizza   = false;
             $referente      = false;
             $moderatore     = false;
-            $ultimo_accesso = $user->getLastLogin()->getTimestamp();
+            $ultimo_accesso = $user instanceof User ? $user->getLastLogin()->getTimestamp() : 0;
         }
 /*
         $canale_news = $this->getNumNewsCanale($id_canale);

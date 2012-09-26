@@ -1,5 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
+
 use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
 
 use \Error;
@@ -366,7 +368,7 @@ class FileStudentiAdd extends UniversiboCommand
                 $f23_accept = false;
             } elseif ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
                 if ($_POST['f23_permessi_download'] < 0
-                        || $_POST['f23_permessi_download'] > User::ALL) {
+                        || $_POST['f23_permessi_download'] > LegacyRoles::ALL) {
                     Error::throwError(_ERROR_NOTICE,
                             array('id_utente' => $user->getId(),
                                     'msg' => 'Il valore dei diritti di download non e` ammessibile',
@@ -377,14 +379,14 @@ class FileStudentiAdd extends UniversiboCommand
                 }
                 $f23_permessi_download = $_POST['f23_permessi_download'];
             } else {
-                if ($_POST['f23_permessi_download'] != User::ALL
+                if ($_POST['f23_permessi_download'] != LegacyRoles::ALL
                         && $_POST['f23_permessi_download']
-                                != ('ROLE_STUDENT' | 'ROLE_PROFESSOR'
-                                        | 'ROLE_TUTOR' | 'ROLE_STAFF'
-                                        | 'ROLE_COLLABORATOR' | 'ROLE_ADMIN')) {
+                                != (LegacyRoles::STUDENTE | LegacyRoles::DOCENTE
+                                        | LegacyRoles::TUTOR | LegacyRoles::PERSONALE
+                                        | LegacyRoles::COLLABORATORE | LegacyRoles::ADMIN)) {
                     Error::throwError(_ERROR_NOTICE,
                             array('id_utente' => $user->getId(),
-                                    'msg' => 'Il valore dei diritti di download non ? ammessibile',
+                                    'msg' => 'Il valore dei diritti di download non e` ammessibile',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
                                     'template_engine' => &$template));
@@ -408,7 +410,7 @@ class FileStudentiAdd extends UniversiboCommand
             if (array_key_exists('id_canale', $_GET))
                 $f23_permessi_visualizza = $canale->getPermessi();
             else
-                $f23_permessi_visualizza = User::ALL;
+                $f23_permessi_visualizza = LegacyRoles::ALL;
             // eventualmente dare la possibilit? all'admin di metterli diversamente
 
             //controllo i diritti_su_tutti_i_canali su cui si vuole fare l'inserimento
@@ -506,6 +508,8 @@ class FileStudentiAdd extends UniversiboCommand
 
                 //Ricerco solo i referenti/moderatori per il canale
 
+                $userRepo = $this->get('universibo_website.repository.user');
+
                 $arrayRuoli = $canale->getRuoli();
                 $keys = array_keys($arrayRuoli);
                 $arrayEmailRef = array();
@@ -513,7 +517,7 @@ class FileStudentiAdd extends UniversiboCommand
                 foreach ($keys as $key) {
                     $ruolo = $arrayRuoli[$key];
                     if ($ruolo->isReferente() || $ruolo->isModeratore()) {
-                        $user_temp = User::selectUser($ruolo->getId());
+                        $user_temp = $userRepo->find($ruolo->getId());
                         //Notifichiamo i professori di un nuovo file studente? Noh...
                         if ($user_temp->hasRole('ROLE_COLLABORATOR')
                                 || $user_temp->hasRole('ROLE_ADMIN')) {
@@ -525,7 +529,7 @@ class FileStudentiAdd extends UniversiboCommand
                 $modFileStudenti = explode(';',
                         $frontcontroller->getAppSetting('modFileStudenti'));
                 foreach ($modFileStudenti as $usernameMod) {
-                    $user_temp = User::selectUserUsername($usernameMod);
+                    $user_temp = $userRepo->findOneByUsername($usernameMod);
                     if (!in_array($user_temp->getEmail(), $arrayEmailRef)) {
                         $arrayEmailRef[$i] = $user_temp->getEmail();
                         $i++;

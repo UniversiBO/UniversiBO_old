@@ -146,6 +146,10 @@ class Error
      */
     public static function throwError($error_category=NULL, $param=NULL)
     {
+        if(session_id() == '') {
+            session_start();
+        }
+        
         global $_Error_handlers;
         if ( $error_category === NULL ) $error_category = $this->error_category;
         if ( $param === NULL ) $param =& $this->param;
