@@ -1,7 +1,10 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use \Error;
+use Universibo\Bundle\WebsiteBundle\Entity\User;
+
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Collaboratore;
 /**
@@ -24,26 +27,21 @@ class ShowCollaboratore extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $user = $this->get('security.context')->getToken()->getUser();
-        if (!array_key_exists('id_coll', $_GET)
-                && !ereg('^([0-9]{1,10})$', $_GET['id_coll']))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'L\'utente cercato non e` valido',
-                            'file' => __FILE__, 'line' => __LINE__));
+
+        if (!array_key_exists('id_coll', $_GET) && !ereg('^([0-9]{1,10})$', $_GET['id_coll'])) {
+            throw new NotFoundHttpException('Invalid ID');
+        }
 
         $contacts_path = $frontcontroller->getAppSetting('contactsPath');
 
-        $collaboratore = Collaboratore::selectCollaboratore($_GET['id_coll']);
+        $collaboratore = $this->get('universibo_legacy.repository.collaboratore')->find($_GET['id_coll']);
 
-        if (!$collaboratore)
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'Non ci sono informazioni sul collaboratore scelto',
-                            'file' => __FILE__, 'line' => __LINE__,
-                            'template_engine' => &$template));
+        if (!$collaboratore) {
+            throw new NotFoundHttpException('No collaborator found');
+        }
 
         $curr_user = $this->get('universibo_website.repository.user')->find($collaboratore->getIdUtente());
-        if (($user->getId()) == ($collaboratore->getIdUtente())) {
+        if ($user instanceof User && $user->getId() == $collaboratore->getIdUtente()) {
             $modifica_link = '';
             $modifica = "modifica";
         } else {

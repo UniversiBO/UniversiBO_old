@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
+use Universibo\Bundle\WebsiteBundle\Entity\User;
+
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
@@ -41,6 +43,7 @@ class ShowCdl extends CanaleCommand
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
+        $context = $this->get('security.context');
 
         //@todo fatto sopra
         $cdl = $this -> getRequestCanale();
@@ -60,7 +63,7 @@ class ShowCdl extends CanaleCommand
         $insCiclo = NULL;   //ultimo ciclo dell'insegnamento precedente
         $cdl_listInsYears = array();    //elenco insegnamenti raggruppati per anni
         $session_user = $this->get('security.context')->getToken()->getUser();
-        $session_user_groups = $session_user->getLegacyGroups();
+        $session_user_groups =  $session_user instanceof User ? $session_user->getLegacyGroups() : 1;
         $cdl_listIns = array();
 
         $forum = $this->getContainer()->get('universibo_legacy.forum.api');
@@ -80,7 +83,7 @@ class ShowCdl extends CanaleCommand
 
                     $cdl_listIns[$insAnnoCorso]['list'][$insCiclo] = array('ciclo' => $insCiclo, 'name' => 'Ciclo '.$insCiclo, 'list' => array() );
                 }
-                $allowEdit = ($session_user->hasRole('ROLE_ADMIN') || $session_user->hasRole('ROLE_COLLABORATOR') );
+                $allowEdit = ($context->isGranted('ROLE_ADMIN') || $context->isGranted('ROLE_COLLABORATOR') );
                 $fac = Facolta::selectFacoltaCodice($cdl->getCodiceFacoltaPadre());
                 $editUri = (!$tempPrgAttDid->isSdoppiato())?
                 DidatticaGestione::getEditUrl($tempPrgAttDid->getIdCanale(),$cdl->getIdCanale(), $fac->getIdCanale()) :

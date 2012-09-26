@@ -10,6 +10,7 @@ class ShowFacoltaTest extends UniversiBOSeleniumTestCase
 
     public function testSimple()
     {
+        $this->logout();
         $sentences = array (
                 'FACOLTA\' DI INGEGNERIA - 0021',
         );

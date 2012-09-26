@@ -80,7 +80,7 @@ class ShowFileStudentiTitoli extends PluginCommand
                 $personalizza   = false;
                 $referente      = false;
                 $moderatore     = false;
-                $ultimo_accesso = $user->getLastLogin()->getTimestamp();
+                $ultimo_accesso = $user instanceof User ? $user->getLastLogin()->getTimestamp() : 0;
             }
 
             //Solo se quello che naviga non e` loggato, non compare il link

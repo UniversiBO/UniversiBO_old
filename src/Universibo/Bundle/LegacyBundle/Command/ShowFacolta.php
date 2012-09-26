@@ -1,8 +1,10 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use Universibo\Bundle\LegacyBundle\Entity\Canale;
+use Universibo\Bundle\WebsiteBundle\Entity\User;
 
-use \Error;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
 use Universibo\Bundle\LegacyBundle\Entity\Cdl;
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
@@ -32,12 +34,9 @@ class ShowFacolta extends CanaleCommand
         $canale = $this->getRequestCanale();
         //var_dump($canale);
 
-        if ($canale->getTipoCanale() != Canale::FACOLTA)
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $this->sessionUser->getId(),
-                            'msg' => 'Il tipo canale richiesto non corrisponde al comando selezionato',
-                            'file' => __FILE__, 'line' => __LINE__));
-
+        if ($canale->getTipoCanale() != Canale::FACOLTA) {
+            throw new NotFoundHttpException('Wrong channel type');
+        }
     }
 
     public function execute()
@@ -57,7 +56,7 @@ class ShowFacolta extends CanaleCommand
         $default_anno_accademico = $this->frontController
                 ->getAppSetting('defaultAnnoAccademico');
         $session_user = $this->get('security.context')->getToken()->getUser();
-        $session_user_groups = $session_user->getLegacyGroups();
+        $session_user_groups = $session_user instanceof User ? 1 : $session_user->getLegacyGroups();
 
         //2 livelli di innesstamento facolta/tipocdl/cdl
         for ($i = 0; $i < $num_cdl; $i++) {

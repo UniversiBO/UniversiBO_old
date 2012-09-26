@@ -1,9 +1,10 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
-use \Error;
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
 use Universibo\Bundle\LegacyBundle\Entity\InfoDidattica;
 use Universibo\Bundle\LegacyBundle\Entity\ContattoDocente;
@@ -34,10 +35,7 @@ class ShowInsegnamento extends CanaleCommand
         //var_dump($canale);
 
         if ($canale->getTipoCanale() != Canale::INSEGNAMENTO) {
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $this->sessionUser->getId(),
-                            'msg' => 'Il tipo canale richiesto non corrisponde al comando selezionato',
-                            'file' => __FILE__, 'line' => __LINE__));
+            throw new NotFoundHttpException('Wrong channel type');
         }
     }
 
@@ -65,34 +63,21 @@ class ShowInsegnamento extends CanaleCommand
 
         $contatto = ContattoDocente::getContattoDocente($coddoc);
 
+        $context = $this->get('security.context');
+        $router = $this->get('router');
+
         $template->assign('ins_ContattoDocenteUri', '');
         $template->assign('ins_infoDidEditUri', '');
-        if ($session_user->hasRole('ROLE_ADMIN')
-                || (array_key_exists($id_canale, $user_ruoli)
+        if ($context->isGranted('ROLE_ADMIN') || (array_key_exists($id_canale, $user_ruoli)
                         && $user_ruoli[$id_canale]->isReferente())) {
-            $template
-                    ->assign('ins_infoDidEdit',
-                            '/?do=InfoDidatticaEdit&id_canale='
-                                    . $id_canale);
-            if ($session_user->hasRole('ROLE_ADMIN') || $session_user->hasRole('ROLE_COLLABORATOR'))
+            $template->assign('ins_infoDidEdit', $router->generate('universibo_legacy_default', array('do' => 'InfoDidatticaEdit', 'id_canale' => $id_canale)));
+            if ($context->isGranted('ROLE_ADMIN') ||$context->isGranted('ROLE_COLLABORATOR'))
                 if (!$contatto) {
-                    $template
-                            ->assign('ins_ContattoDocenteUri',
-                                    '/?do=ContattoDocenteAdd&cod_doc='
-                                            . $coddoc . '&id_canale='
-                                            . $id_canale);
-                    $template
-                            ->assign('ins_ContattoDocente',
-                                    'Crea il contatto di questo docente');
+                    $template->assign('ins_ContattoDocenteUri', $router->generate('universibo_legacy_default', array('do' => 'ContattoDocenteAdd', 'id_canale' => $id_canale, 'cod_doc' => $coddoc)));
+                    $template->assign('ins_ContattoDocente', 'Crea il contatto di questo docente');
                 } else {
-                    $template
-                            ->assign('ins_ContattoDocenteUri',
-                                    '/?do=ShowContattoDocente&cod_doc='
-                                            . $coddoc . '&id_canale='
-                                            . $id_canale);
-                    $template
-                            ->assign('ins_ContattoDocente',
-                                    'Visualizza lo stato di questo docente');
+                    $template->assign('ins_ContattoDocenteUri', $router->generate('universibo_legacy_default', array('do' => 'ShowContattoDocente', 'id_canale' => $id_canale, 'cod_doc' => $coddoc)));
+                    $template->assign('ins_ContattoDocente', 'Visualizza lo stato di questo docente');
                 }
         } else {
             $template->assign('ins_infoDidEdit', false);

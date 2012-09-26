@@ -10,6 +10,7 @@ class ShowInsegnamentoTest extends UniversiBOSeleniumTestCase
 
     public function testSimple()
     {
+        $this->logout();
         $sentences = array (
                 'INSEGNAMENTO DI ANALISI MATEMATICA T-1 aa. 2011/2012 OBRECHT ENRICO',
         );

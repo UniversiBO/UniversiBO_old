@@ -1,5 +1,11 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+use Universibo\Bundle\WebsiteBundle\Entity\User;
+
+use Symfony\Component\HttpFoundation\Response;
+
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use \Error;
 use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
@@ -29,23 +35,13 @@ class FileDocenteAdmin extends UniversiboCommand
         $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN') && !$user->hasRole('ROLE_PROFESSOR')) {
-            Error::throwError(_ERROR_DEFAULT,
-                    array(
-                            'msg' => "Non hai i diritti necessari per accedere a questa pagina\n la sessione potrebbe essere terminata",
-                            'file' => __FILE__, 'line' => __LINE__));
-        }
-        /*		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
-        Error :: throw (_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non e` valido', 'file' => __FILE__, 'line' => __LINE__));
+        $context = $this->get('security.context');
+
+        if (!$context->isGranted('ROLE_ADMIN') && !$context->isGranted('ROLE_PROFESSOR')) {
+            return new Response('', 403);
         }
 
-        $canale = & Canale::retrieveCanale($_GET['id_canale']);
-        $id_canale = $canale->getIdCanale();
-        $template->assign('common_canaleURI', $canale->showMe());
-        $template->assign('common_langCanaleNome', $canale->getTitolo());
-         */
-        $template
-                ->assign('common_canaleURI',
+        $template->assign('common_canaleURI',
                         array_key_exists('HTTP_REFERER', $_SERVER) ? $_SERVER['HTTP_REFERER']
                                 : '');
         $template->assign('common_langCanaleNome', 'indietro');
@@ -57,11 +53,9 @@ class FileDocenteAdmin extends UniversiboCommand
         $elenco_canali = array();
         $id_canale = '';
         if (array_key_exists('id_canale', $_GET)) {
-            if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
-                Error::throwError(_ERROR_DEFAULT,
-                        array(
-                                'msg' => 'L\'id del canale richiesto non e` valido',
-                                'file' => __FILE__, 'line' => __LINE__));
+            if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
+                throw new NotFoundHttpException('Invalid Channel ID');
+            }
 
             $canale = Canale::retrieveCanale($_GET['id_canale']);
 
@@ -72,23 +66,20 @@ class FileDocenteAdmin extends UniversiboCommand
 
             $id_canale = $canale->getIdCanale();
             $template->assign('common_canaleURI', $canale->showMe());
-            $template
-                    ->assign('common_langCanaleNome', 'a '
-                            . $canale->getTitolo());
-
+            $template->assign('common_langCanaleNome', 'a '. $canale->getTitolo());
         }
 
-        $ruoli_keys = array_keys($user_ruoli);
-        $num_ruoli = count($ruoli_keys);
-        for ($i = 0; $i < $num_ruoli; $i++) {
-            if ($this->get('security.context')->isGranted('ROLE_ADMIN') || $user_ruoli[$ruoli_keys[$i]]->isReferente())
-                $elenco_canali[] = $user_ruoli[$ruoli_keys[$i]]->getIdCanale();
+        foreach ($user_ruoli as $role) {
+            if ($this->get('security.context')->isGranted('ROLE_ADMIN') || $role->isReferente()) {
+                $elenco_canali[] = $role->getIdCanale();
+            }
         }
 
         $elenco_canali_retrieve = array();
         $num_canali = count($elenco_canali);
-        for ($i = 0; $i < $num_canali; $i++) {
-            $id_current_canale = $elenco_canali[$i];
+
+        foreach ($elenco_canali as $id_current_canale) {
+
             $current_canale = Canale::retrieveCanale($id_current_canale);
             $elenco_canali_retrieve[$id_current_canale] = $current_canale;
             $didatticaCanale = PrgAttivitaDidattica::factoryCanale(

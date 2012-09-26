@@ -10,6 +10,7 @@ class ShowCdlTest extends UniversiBOSeleniumTestCase
 
     public function testSimple()
     {
+        $this->logout();
         $sentences = array (
                 'CORSO DI LAUREA DI ECONOMIA AZIENDALE - 0891',
         );
@@ -20,13 +21,13 @@ class ShowCdlTest extends UniversiBOSeleniumTestCase
 
     public function testNoAcademicalYear1()
     {
-        $this->open('/?do=ShowCdl&id_canale=6172&anno_accademico=2100');
-        $this->assertSentence('The server returned a "404 Not Found".');
+        $this->openCommand('ShowCdl','&id_canale=6172&anno_accademico=2100');
+        $this->assertSentence('Not Found');
     }
 
     public function testNoAcademicalYear2()
     {
-        $this->open('/?do=ShowCdl&id_canale=6172&anno_accademico=2000');
-        $this->assertSentence('The server returned a "404 Not Found".');
+        $this->openCommand('ShowCdl','&id_canale=6172&anno_accademico=2000');
+        $this->assertSentence('Not Found');
     }
 }

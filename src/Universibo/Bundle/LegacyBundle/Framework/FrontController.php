@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Framework;
 
+use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 define('MAIL_KEEPALIVE_NO', 0);
@@ -161,6 +163,9 @@ class FrontController
         $response = $command->execute();
         $command->shutdownCommand();
 
+        if ($response instanceof Response) {
+            return $response;
+        }
 
         if ($response == NULL) $response='default';
         if (array_key_exists($response, $this->commandTemplate)) {
