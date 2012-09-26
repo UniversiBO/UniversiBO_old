@@ -24,7 +24,7 @@ abstract class DBRepository
     public function __construct(\DB_common $db, $convert = false)
     {
         $this->db = $db;
-        $this->convert = $convert;
+        $this->convert = false;
     }
 
     protected function getDb()

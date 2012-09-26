@@ -49,7 +49,7 @@ class ShowPersonalSettings extends UniversiboCommand
                                 . "\n"
                                 . 'Inoltre, potrete scegliere lo stile che preferite.');
         $template
-                ->assignUnicode('showPersonalSettings_langHelp',
+                ->assign('showPersonalSettings_langHelp',
                         'Per qualsiasi problema o spiegazioni contattate lo staff all\'indirizzo [email]'
                                 . $fc->getAppSetting('infoEmail') . '[/email].'
                                 . "\n"
@@ -154,7 +154,7 @@ class ShowPersonalSettings extends UniversiboCommand
 
             $fc->setStyle($f20_personal_style);
             $template
-                    ->assignUnicode('showPersonalSettings_thanks',
+                    ->assign('showPersonalSettings_thanks',
                             'Il profilo personale è stato modificato con successo, si consiglia di testarne il corretto funzionamento.
 Per qualsiasi problema o spiegazioni contatta lo staff all\'indirizzo [email]'
                                     . $fc->getAppSetting('infoEmail')

@@ -33,7 +33,7 @@ class ShowPermalink extends UniversiboCommand
         }
 
         $template = $this->getFrontController()->getTemplateEngine();
-        $template->assignUnicode('news', $this->_newsToArray($news));
+        $template->assign('news', $this->_newsToArray($news));
     }
 
     private function _newsToArray(NewsItem $news)

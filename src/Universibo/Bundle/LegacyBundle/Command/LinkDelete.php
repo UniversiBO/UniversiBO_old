@@ -105,7 +105,7 @@ class LinkDelete extends CanaleCommand
         if (array_key_exists('f30_submit', $_POST)) {
             if ($link->deleteLink()) {
                 $template
-                        ->assignUnicode('f30_langAction',
+                        ->assign('f30_langAction',
                                 "Il link è stato eliminato correttamente");
 
                 return 'success';

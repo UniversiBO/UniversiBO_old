@@ -455,7 +455,7 @@ e modifica il tuo profilo personale nella dopo aver eseguito il login
 Per altri problemi contattare lo staff di UniversiBO
 ' . $frontcontroller->getAppSetting('infoEmail');
 
-                    $notifica_messaggio_sms = mb_convert_encoding('Novità', 'iso-8859-1', 'utf-8'). ' in '
+                    $notifica_messaggio_sms = 'Novità in '
                             . $add_canale->getNome() . ' - ' . $f7_titolo
                             . ' - ' . $f7_testo;
                     $notifica_messaggio_sms = substr(
@@ -538,7 +538,7 @@ Per altri problemi contattare lo staff di UniversiBO
         $template->assign('f7_testo', $f7_testo);
         $template->assign('f7_urgente', $f7_urgente);
         $template->assign('f7_scadenza', $f7_scadenza);
-        $template->assignUnicode('f7_canale', $f7_canale);
+        $template->assign('f7_canale', $f7_canale);
 
         //$topics[] =
         $this->executePlugin('ShowTopic', array('reference' => 'newscollabs'));

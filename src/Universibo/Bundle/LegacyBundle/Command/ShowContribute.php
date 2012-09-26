@@ -32,7 +32,7 @@ class ShowContribute extends UniversiboCommand
 
         $template->assign('contribute_langTitleAlt', 'Collabora');
         $template
-                ->assignUnicode('contribute_langIntro',
+                ->assign('contribute_langIntro',
                         array(
                                 'UniversiBO è un sito che nasce dalla collaborazione tra studenti, docenti e strutture universitarie. I docenti sono stati disponibili a dare il loro contributo e li ringraziamo per questo. Ma per permettere che questo portale continui la sua vita occorre che anche gli studenti collaborino.',
                                 'Se pensate che il servizio che offriamo sia utile e desiderate che continui a essere disponibile per tutti allora aiutateci a rendere questo portale ancora migliore.'));
@@ -40,7 +40,7 @@ class ShowContribute extends UniversiboCommand
                 ->assign('contribute_langTitle',
                         '-- Come fare per collaborare? --');
         $template
-                ->assignUnicode('contribute_langHowToContribute',
+                ->assign('contribute_langHowToContribute',
                         array(
                                 'Non vi chiediamo di dedicare al progetto tutta la vostra vita universitaria!
         Le modalità di collaborazione sono tante e ognuna richiede tempi
@@ -84,7 +84,7 @@ class ShowContribute extends UniversiboCommand
                 ->assign('question_q1',
                         'Saresti disponibile a darci un piccolo contributo(di tempo) per il progetto?');
         $template
-                ->assignUnicode('question_q1Answers',
+                ->assign('question_q1Answers',
                         array('una giornata alla settimana o più;',
                                 'poche ore alla settimana;',
                                 'pochi minuti alla settimana;'));
@@ -95,10 +95,10 @@ class ShowContribute extends UniversiboCommand
                         array('quasi mai;', 'una volta alla settimana;',
                                 'una volta al giorno;', 'vivo connesso;'));
         $template
-                ->assignUnicode('question_q3',
+                ->assign('question_q3',
                         'Quali di queste attività pensi di poter svolgere (anche più di una scelta)?');
         $template
-                ->assignUnicode('question_q3AnswersMulti',
+                ->assign('question_q3AnswersMulti',
                         array(
                                 'attività off-line(contatti con i docenti o studenti, reperimento materiale...);',
                                 'moderatore
@@ -350,14 +350,13 @@ class ShowContribute extends UniversiboCommand
 
             // db encoding is latin1 while Twig needs utf-8 strings
             // TODO remove after changing encoding
-            $questionario->setNome(mb_convert_encoding($q3_nome, 'utf-8', 'iso-8859-1'));
-            $questionario->setCognome(mb_convert_encoding($q3_nome, 'utf-8', 'iso-8859-1'));
-            $questionario->setAltro(mb_convert_encoding($q3_altro, 'utf-8', 'iso-8859-1'));
-            $questionario->setCdl(mb_convert_encoding($q3_cdl, 'utf-8', 'iso-8859-1'));
+            $questionario->setNome($q3_nome);
+            $questionario->setCognome($q3_nome);
+            $questionario->setAltro($q3_altro);
+            $questionario->setCdl($q3_cdl);
 
             $templating = $this->getContainer()->get('templating');
             $body = $templating->render('UniversiboLegacyBundle:Contribute:contributemail.txt.twig', array('questionario' => $questionario, 'user' => $session_user));
-            $body = mb_convert_encoding($body, 'iso-8859-1', 'utf-8');
 
             $notRepo = $this->getContainer()->get('universibo_legacy.repository.notifica.notifica_item');
 
@@ -369,7 +368,7 @@ class ShowContribute extends UniversiboCommand
                  $notRepo->insert($notifica);
             }
 
-            $template->assignUnicode('question_thanks',"Grazie per aver compilato il questionario, la tua richiesta è stata inoltrata ai ragazzi che si occupano del contatto dei nuovi collaboratori.\n Verrai ricontattatato da loro non appena possibile");
+            $template->assign('question_thanks',"Grazie per aver compilato il questionario, la tua richiesta è stata inoltrata ai ragazzi che si occupano del contatto dei nuovi collaboratori.\n Verrai ricontattatato da loro non appena possibile");
 
             return 'questionario_success';
         }

@@ -181,7 +181,7 @@ class FileDelete extends UniversiboCommand
              * @TODO elenco dei canali dai quali è stata effetivamente cancellata la notizia
              */
             $template
-                    ->assignUnicode('fileDelete_langSuccess',
+                    ->assign('fileDelete_langSuccess',
                             "Il file è stato cancellato con successo dalle pagine scelte.");
 
             return 'success';

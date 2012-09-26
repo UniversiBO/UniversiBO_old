@@ -53,7 +53,7 @@ class ShowContattiDocenti extends UniversiboCommand
         //		var_dump($elenco);
         $template->assign('ShowContattiDocenti_contatti', $elenco);
         $template
-                ->assignUnicode('ShowContattiDocenti_titolo',
+                ->assign('ShowContattiDocenti_titolo',
                         'Docenti assegnati per l\'attività offline');
 
         return 'default';

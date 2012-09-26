@@ -39,12 +39,12 @@ class ShowRules extends UniversiboCommand
                 ->assign('rules_langTitle',
                         'REGOLAMENTO PER L\'UTILIZZO DEI SERVIZI');
         $template
-                ->assignUnicode('rules_langFacSubtitle',
+                ->assign('rules_langFacSubtitle',
                         'Università di Bologna');
 
         $template->assign('rules_langForum', 'NORME PER L\'UTILIZZO DEL FORUM');
         $template
-                ->assignUnicode('rules_langForumRules',
+                ->assign('rules_langForumRules',
                         'Se avete domande da fare o, ancora meglio, se avete qualcosa
       da comunicare non esitate ad usufruire del forum facendo attenzione a
       rispettare le seguenti regole e consigli:

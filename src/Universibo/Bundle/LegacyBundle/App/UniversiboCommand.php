@@ -150,9 +150,9 @@ abstract class UniversiboCommand extends BaseCommand
 
         //generali
         $template->assign('common_universibo', 'UniversiBO');
-        $template->assignUnicode('common_metaKeywords', 'universibo, università, facoltà, studenti, bologna, professori, lezioni, materiale didattico, didattica, corsi, studio, studi, novità, appunti, dispense, lucidi, esercizi, esami, temi d\'esame, orari lezione, ingegneria, economia, ateneo');
+        $template->assign('common_metaKeywords', 'universibo, università, facoltà, studenti, bologna, professori, lezioni, materiale didattico, didattica, corsi, studio, studi, novità, appunti, dispense, lucidi, esercizi, esami, temi d\'esame, orari lezione, ingegneria, economia, ateneo');
         $template->assign('common_metaDescription', 'Il portale dedicato agli studenti universitari di Bologna');
-        $template->assignUnicode('common_title', 'UniversiBO: la community degli studenti dell\'Università di Bologna');
+        $template->assign('common_title', 'UniversiBO: la community degli studenti dell\'Università di Bologna');
         $template->assign('common_langNewWindow', 'apre una nuova finestra');
 
         //krono
@@ -229,7 +229,7 @@ abstract class UniversiboCommand extends BaseCommand
         if ($attivaMyUniversibo) {
             $template->assign('common_myLinksAvailable', 'true');
             $template->assign('common_langMyUniversibo', 'My UniversiBO');
-            $template->assignUnicode('common_myLinks', $arrayCanali);
+            $template->assign('common_myLinks', $arrayCanali);
         } else {
             $template->assign('common_myLinksAvailable', 'false');
         }
@@ -272,7 +272,7 @@ abstract class UniversiboCommand extends BaseCommand
             $template->assign('common_userLivello', $role);
 
             $template->assign('common_langWelcomeMsg', 'Benvenuto');
-            $template->assignUnicode('common_langUserLivello', 'Il tuo livello di utenza è');
+            $template->assign('common_langUserLivello', 'Il tuo livello di utenza è');
         }
 
         $template->assign('common_settings', 'Impostazioni personali');
@@ -281,7 +281,7 @@ abstract class UniversiboCommand extends BaseCommand
         $template->assign('common_myUniversiBO', 'ShowMyUniversiBO');
         $template->assign('common_myUniversiBOUri', '/?do=ShowMyUniversiBO');
 
-        $template->assignUnicode('common_fac', 'Facoltà');
+        $template->assign('common_fac', 'Facoltà');
         $elenco_facolta = Facolta::selectFacoltaElenco();
         //var_dump($elenco_facolta);
 
@@ -331,7 +331,7 @@ abstract class UniversiboCommand extends BaseCommand
         }
 
         usort($common_servicesLinks, array($this, '_compareServices'));
-        $template->assignUnicode('common_servicesLinks', $common_servicesLinks);
+        $template->assign('common_servicesLinks', $common_servicesLinks);
 
 
         $template->assign('common_info', 'Informazioni');
@@ -347,7 +347,7 @@ abstract class UniversiboCommand extends BaseCommand
         $template->assign('common_contributeUri', '/?do=ShowContribute');
         $template->assign('common_credits', 'Credits');
         $template->assign('common_creditsUri', '/?do=ShowCredits');
-        $template->assignUnicode('common_accessibility', 'Accessibilità');
+        $template->assign('common_accessibility', 'Accessibilità');
         $template->assign('common_accessibilityUri', '/?do=ShowAccessibility');
 
         $template->assign('common_manifesto', 'Manifesto');
@@ -359,7 +359,7 @@ abstract class UniversiboCommand extends BaseCommand
         //$template->assign('common_projectUri', 'http://universibo.sourceforge.net/');
 
 
-        $template->assignUnicode('common_disclaimer', array('Le informazioni contenute nel sito non hanno carattere di ufficialità.',
+        $template->assign('common_disclaimer', array('Le informazioni contenute nel sito non hanno carattere di ufficialità.',
                 'I contenuti sono mantenuti in maniera volontaria dai partecipanti alla comunità di studenti e docenti di UniversiBO. L\'Università di Bologna - Alma Mater Studiorum non può essere considerata legalmente responsabile di alcun contenuto di questo sito.',
                 'Ogni marchio citato in queste pagine appartiene al legittimo proprietario.' .
                 'Con il contenuto delle pagine appartenenti a questo sito non si è voluto ledere i diritti di nessuno, quindi nel malaugurato caso che questo possa essere avvenuto, vi invitiamo a contattarci affinché le parti in discussione vengano eliminate o chiarite.'));

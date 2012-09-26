@@ -520,7 +520,7 @@ class NewsEdit extends CanaleCommand
                 $canale->setUltimaModifica(time(), true);
 
                 $template
-                        ->assignUnicode('NewsEdit_langSuccess',
+                        ->assign('NewsEdit_langSuccess',
                                 "La notizia è stata modificata con successo.");
 
                 return 'success';
@@ -528,7 +528,7 @@ class NewsEdit extends CanaleCommand
 
         } //end if (array_key_exists('f8_submit', $_POST))
 
-        $template->assignUnicode('f8_titolo', $f8_titolo);
+        $template->assign('f8_titolo', $f8_titolo);
         $template->assign('f8_data_ins_mm', $f8_data_ins_mm);
         $template->assign('f8_data_ins_gg', $f8_data_ins_gg);
         $template->assign('f8_data_ins_aa', $f8_data_ins_aa);
@@ -539,7 +539,7 @@ class NewsEdit extends CanaleCommand
         $template->assign('f8_data_scad_aa', $f8_data_scad_aa);
         $template->assign('f8_data_scad_ora', $f8_data_scad_ora);
         $template->assign('f8_data_scad_min', $f8_data_scad_min);
-        $template->assignUnicode('f8_testo', $f8_testo);
+        $template->assign('f8_testo', $f8_testo);
         $template->assign('f8_urgente', $f8_urgente);
         $template->assign('f8_scadenza', $f8_scadenza);
         $template->assign('f8_canale', $f8_canale);

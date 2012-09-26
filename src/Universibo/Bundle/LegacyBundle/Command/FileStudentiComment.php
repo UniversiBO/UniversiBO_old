@@ -57,7 +57,7 @@ class FileStudentiComment extends UniversiboCommand
             $canali = $file->getIdCanali();
 
             $template
-                    ->assignUnicode('FileStudentiComment_ris',
+                    ->assign('FileStudentiComment_ris',
                             'Esiste già un tuo commento a questo file.');
             $template
                     ->assign('common_canaleURI',
@@ -187,7 +187,7 @@ class FileStudentiComment extends UniversiboCommand
 
                 $canali = $file->getIdCanali();
                 $template
-                        ->assignUnicode('FileStudentiComment_ris',
+                        ->assign('FileStudentiComment_ris',
                                 'Il tuo commento è stato inserito con successo.');
                 $template
                         ->assign('common_canaleURI',

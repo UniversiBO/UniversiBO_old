@@ -168,7 +168,7 @@ class NewsDelete extends CanaleCommand
              * @TODO elenco dei canali dai quali è stata effetivamente cancellata la notizia
              */
             $template
-                    ->assignUnicode('NewsDelete_langSuccess',
+                    ->assign('NewsDelete_langSuccess',
                             "La notizia è stata cancellata dalle pagine scelte.");
 
             return 'success';
