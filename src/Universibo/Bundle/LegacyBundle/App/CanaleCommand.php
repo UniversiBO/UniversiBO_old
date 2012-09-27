@@ -156,6 +156,7 @@ abstract class CanaleCommand extends UniversiboCommand
      */
     public function shutdownCommand()
     {
+        $router = $this->get('router');
 
         if (!$this->isPopup()) {
             $template = $this->frontController->getTemplateEngine();
@@ -184,7 +185,7 @@ abstract class CanaleCommand extends UniversiboCommand
                     $user_temp = $this->get('universibo_website.repository.user')->find($ruolo->getId());
                     //var_dump($user);
                     $contactUser = array();
-                    $router = $this->get('router');
+
                     $contactUser['utente_link']  = $router->generate('universibo_legacy_user', array('id_utente'=>$user_temp->getId()));
                     $contactUser['nome']  = LegacyRoles::$map['plural'][$user_temp->getLegacyGroups()];
                     $contactUser['label'] = $user_temp->getUsername();
@@ -207,7 +208,8 @@ abstract class CanaleCommand extends UniversiboCommand
                 $template->assign('common_langContactsCanale', 'Contatti');
                 //$template->assign('common_contactsCanale', $arrayUsers);
                 $template->assign('common_contactsCanale', $arrayPublicUsers);
-                $template->assign('common_contactsEdit', array('label' => 'Modifica diritti', 'uri' => '/?do=RuoliAdminSearch&id_canale='.$canale->getIdCanale() ) ) ;
+                $contactsEditUri = $router->generate('universibo_legacy_role_admin_search', array('id_canale' => $canale->getIdCanale()));
+                $template->assign('common_contactsEdit', array('label' => 'Modifica diritti', 'uri' => $contactsEditUri));
                 $template->assign('common_contactsEditAvailable', ($attivaModificaDiritti) ? 'true' : 'false');
 
                 $template->assign('common_langLinksCanale', 'Links');

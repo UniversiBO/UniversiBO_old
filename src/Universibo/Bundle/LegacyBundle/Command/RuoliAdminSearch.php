@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
 use Universibo\Bundle\WebsiteBundle\Entity\User;
@@ -34,11 +36,12 @@ class RuoliAdminSearch extends UniversiboCommand
         $arrayPublicUsers = array();
 
 
-        if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
-            Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getId(), 'msg' => 'L\'id del canale richiesto non e` valido', 'file' => __FILE__, 'line' => __LINE__));
+        $id_canale = $this->getRequest()->attributes->get('id_canale');
+        $canale = Canale::retrieveCanale($id_canale);
 
-        $canale = Canale::retrieveCanale($_GET['id_canale']);
-        $id_canale = $canale->getIdCanale();
+        if (!$canale instanceof Canale) {
+            throw new NotFoundHttpException('Canale not found');
+        }
 
         $template->assign('common_canaleURI', $canale->showMe());
         $template->assign('common_langCanaleNome', 'a '.$canale->getTitolo());

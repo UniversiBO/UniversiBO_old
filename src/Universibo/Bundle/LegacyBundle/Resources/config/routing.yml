@@ -44,7 +44,6 @@ universibo_legacy_contact_professor_add:
 universibo_legacy_contact_professors:
     pattern: /docente/contatti/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowContattiDocenti' }
-
 universibo_legacy_error:
     pattern: /error/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowError' }
@@ -75,6 +74,10 @@ universibo_legacy_myuniversibo_remove:
     pattern: /myuniversibo/edit/{id_canale}/
     requirements: { id_canale: \d+ }
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'MyUniversiBORemove' }
+universibo_legacy_role_admin_search:
+    pattern: /role/admin/search/{id_canale}/
+    requirements: { id_canale: \d+ }
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'RuoliAdminSearch' }
 universibo_legacy_settings_profile:
     pattern: /settings/profile/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowPersonalSettings' }
