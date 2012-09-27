@@ -16,6 +16,10 @@ universibo_legacy_insegnamento:
     pattern: /insegnamento/{id_canale}/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowInsegnamento' }
     requirements: { id_canale: \d+ }
+universibo_legacy_insegnamento_info:
+    pattern: /insegnamento/{id_canale}/info
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowInfoDidattica' }
+    requirements: { id_canale: \d+ }
 universibo_legacy_insegnamento_info_edit:
     pattern: /insegnamento/{id_canale}/info/edit
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'InfoDidatticaEdit' }

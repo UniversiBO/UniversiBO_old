@@ -3,7 +3,6 @@ namespace Universibo\Bundle\LegacyBundle\Command;
 
 use \Error;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
@@ -28,37 +27,28 @@ class MyUniversiBORemove extends UniversiboCommand
 
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
+        $router = $this->get('router');
         $utente = $this->get('security.context')->getToken()->getUser();
 
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             return new Response('', 403);
         }
 
-        if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
-            throw new NotFoundHttpException('Invalid Channel ID');
-        }
-
-        $id_canale = $_GET['id_canale'];
+        $id_canale = $this->getRequest()->attributes->get('id_canale');
         $canale = Canale::retrieveCanale($id_canale);
-        $template->assign('common_canaleURI', $canale->showMe());
+        $template->assign('common_canaleURI', $canale->showMe($router));
         $template->assign('common_langCanaleNome', $canale->getNome());
-        $template
-                ->assign('showUser',
-                        '/?do=ShowUser&id_utente='
-                                . $utente->getId());
+        $template->assign('showUser', $router->generate('universibo_legacy_user', array('id_utente' => $utente->getId())));
 
         $ruoli = $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($utente->getId());
         $this->executePlugin('ShowTopic', array('reference' => 'myuniversibo'));
-
 
         if (array_key_exists($id_canale, $ruoli)) {
             $ruolo = $ruoli[$id_canale];
             $ruolo->setMyUniversiBO(false, true);
 
             $forum = $this->getContainer()->get('universibo_legacy.forum.api');
-            $forum
-                    ->removeUserGroup($canale->getForumGroupId(),
-                            $utente->getId());
+            $forum->removeUserGroup($canale->getForumGroupId(), $utente->getId());
 
             return 'success';
         } else {
