@@ -38,7 +38,7 @@ universibo_legacy_contact_professor:
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowContattoDocente' }
     requirements: { cod_doc: \d+ }
 universibo_legacy_contact_professor_add:
-    pattern: /docente/{cod_doc}/contatto/add(
+    pattern: /docente/{cod_doc}/contatto/add/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ContattoDocenteAdd' }
     requirements: { cod_doc: \d+ }
 universibo_legacy_contact_professors:
