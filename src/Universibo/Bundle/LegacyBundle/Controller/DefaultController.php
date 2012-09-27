@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Controller;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use Universibo\Bundle\LegacyBundle\Framework\DefaultReceiver;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +18,10 @@ class DefaultController extends Controller
     {
         $request = $this->getRequest();
 
-        $do = $request->get('do', 'ShowHome');
+        $do = $request->attributes->get('do');
+        if (is_null($do)) {
+            throw new NotFoundHttpException('Legacy route has been removed, please update');
+        }
 
         $base = realpath(__DIR__.'/../../../../..');
         $receiver = new DefaultReceiver('main', $base .'/config.xml', $base . '/framework', $base . '/universibo', $this->container, $do);

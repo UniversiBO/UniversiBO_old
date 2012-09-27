@@ -58,8 +58,6 @@ universibo_legacy_user:
     pattern: /user/{id_utente}/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowUser' }
     requirements: { id_utente: \d+ }
-universibo_legacy_default:
-    pattern: /
-    defaults: { _controller: 'UniversiboLegacyBundle:Default:index' }
 universibo_legacy_home:
     pattern: /
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowHome' }

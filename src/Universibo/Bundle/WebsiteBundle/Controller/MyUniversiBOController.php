@@ -13,7 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class MyUniversiBOController extends Controller
 {
     /**
-     * @Route("/box", name="myuniversibo_box")
+     * @Route("/box/", name="myuniversibo_box")
      * @Template()
      */
     public function boxAction()

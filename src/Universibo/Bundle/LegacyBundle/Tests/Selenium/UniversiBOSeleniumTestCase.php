@@ -9,6 +9,8 @@ use Universibo\Bundle\LegacyBundle\Tests\TestConstants;
 
 abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
 {
+    protected $base = '/app_dev.php';
+
     protected function setUp()
     {
         $this->setBrowser('*firefox');
@@ -22,7 +24,7 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
         }
 
         $this->deleteAllVisibleCookies();
-        $this->open('/app_dev.php/login');
+        $this->openPrefix('/login');
         $this->type('id=username', $username);
         $this->type('id=password', $password);
         $this->clickAndWait('id=_submit');
@@ -34,19 +36,18 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
         $this->assertTrue($this->isTextPresent('Benvenuto '.$username), 'Welcome text must be present');
     }
 
+    protected function openPrefix($url)
+    {
+        return $this->open($this->base.$url);
+    }
+
     protected function logout()
     {
-        $this->open('/app_dev.php/logout');
+        $this->openPrefix('/logout');
         $this->assertTrue($this->isTextPresent('Registrazione studenti'));
         $this->assertTrue($this->isTextPresent('Username smarrito'));
         $this->assertTrue($this->isTextPresent('Password smarrita'));
         $this->assertTrue($this->isTextPresent('I servizi personalizzati sono disponibili solo agli utenti che hanno effettuato il login'));
-    }
-
-    protected function openCommand($do, $params = '')
-    {
-        $this->open('/app_dev.php?do='.$do.$params);
-        $this->assertTrue(preg_match('/UniversiBO/', $this->getTitle()) !== false, 'UniversiBO should be present in title');
     }
 
     protected function assertSentence($sentence)

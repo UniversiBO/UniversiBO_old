@@ -3,7 +3,7 @@ security:
         Universibo\Bundle\WebsiteBundle\Entity\User: sha512
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
+        ROLE_ADMIN:       ROLE_USER,  ROLE_MODERATOR
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
         
     providers:
@@ -26,5 +26,6 @@ security:
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/v3, roles: ROLE_MODERATOR }
         - { path: ^/my, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/admin, roles: ROLE_ADMIN }

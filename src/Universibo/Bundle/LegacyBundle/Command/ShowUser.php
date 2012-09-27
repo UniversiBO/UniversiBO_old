@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use \Error;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Docente;
@@ -23,28 +25,20 @@ class ShowUser extends UniversiboCommand
         $context = $this->get('security.context');
         $current_user = $context->getToken()->getUser();
 
-        if (!array_key_exists('id_utente', $_GET)
-                || !preg_match('/^([0-9]{1,9})$/', $_GET['id_utente'])) {
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'L\'id dell\'utente richiesto non e` valido',
-                            'file' => __FILE__, 'line' => __LINE__));
-        }
-        $user = $this->get('universibo_website.repository.user')->find($id_user = $_GET['id_utente']);
-        $userId = $user instanceof User ? $user->getId() : 0;
+        $userId = $this->getRequest()->attributes->get('id_utente');
+        $user = $this->get('universibo_website.repository.user')->find($userId);
 
         if (!$context->isGranted('IS_AUTHENTICATED_FULLY')) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $userId,
+                    array('id_utente' => 0,
                             'msg' => 'Le schede degli utenti sono visualizzabili solo se si e` registrati',
                             'file' => __FILE__, 'line' => __LINE__));
         }
 
-        if (!$user || $user->isLocked() || !$user->isEnabled()) {
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $userId,
-                            'msg' => 'L\'utente cercato non e` valido',
-                            'file' => __FILE__, 'line' => __LINE__));
+        $currentUserId = $current_user->getId();
+
+        if (!$user instanceof User || $user->isLocked() || !$user->isEnabled()) {
+            throw new NotFoundHttpException('User not found');;
         }
 
         if (!$current_user->hasRole('ROLE_ADMIN') && !$user->hasRole('ROLE_PROFESSOR')
@@ -58,7 +52,7 @@ class ShowUser extends UniversiboCommand
 
         $router = $this->get('router');
 
-        $arrayRuoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
+        $arrayRuoli = $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId());
         $canali = array();
         $arrayCanali = array();
         $keys = array_keys($arrayRuoli);
@@ -93,10 +87,8 @@ class ShowUser extends UniversiboCommand
         $template->assign('showEmailFirstPart', $firstPart);
         $template->assign('showEmailSecondPart', $secondPart);
         $template->assign('showCanali', $arrayCanali);
-        $stessi = false;
-        if ($userId == $id_user) {
-            $stessi = true;
-        }
+
+        $stessi = $currentUserId == $userId;
         $template->assign('showDiritti', $stessi);
 
         $template->assign('showUser_UserHomepage', '');
@@ -106,7 +98,7 @@ class ShowUser extends UniversiboCommand
                     ->assign('showUser_UserHomepage',
                             $doc->getHomepageDocente());
         }
-        $template->assign('showSettings', $router->generate('universibo_legacy_default', array('do' => 'ShowSettings')));
+        $template->assign('showSettings', $router->generate('universibo_legacy_settings'));
 
         return 'default';
     }
