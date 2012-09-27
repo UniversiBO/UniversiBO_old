@@ -34,6 +34,7 @@ class ShowAllFilesStudentiTitoli extends PluginCommand
         $fc        = $bc->getFrontController();
         $template  = $fc->getTemplateEngine();
         $krono     = $fc->getKrono();
+        $router    = $this->get('router');
 
         $personalizza   = false;
         $referente      = false;
@@ -76,7 +77,7 @@ class ShowAllFilesStudentiTitoli extends PluginCommand
                     //$file_tpl['nuova']        = ($flag_chkDiritti && $personalizza_not_admin && $ultimo_accesso < $file->getUltimaModifica()) ? 'true' : 'false';
                     $file_tpl[$i]['nuova']        = ($personalizza_not_admin && $ultimo_accesso < $file->getDataModifica()) ? 'true' : 'false';
                     $file_tpl[$i]['autore']       = $file->getUsername();
-                    $file_tpl[$i]['autore_link']  = '/?do=ShowUser&id_utente='.$file->getIdUtente();
+                    $file_tpl[$i]['autore_link']  = $router->generate('universibo_legacy_user', array('id_utente' => $file->getIdUtente()));
                     $file_tpl[$i]['id_autore']    = $file->getIdUtente();
                     $file_tpl[$i]['dimensione'] = $file->getDimensione();
                     $file_tpl[$i]['voto_medio'] = round($file->getVoto($file->getIdFile()),1);

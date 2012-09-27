@@ -71,7 +71,7 @@ universibo_legacy_myuniversibo_edit:
     requirements: { id_canale: \d+ }
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'MyUniversiBOEdit' }
 universibo_legacy_myuniversibo_remove:
-    pattern: /myuniversibo/edit/{id_canale}/
+    pattern: /myuniversibo/remove/{id_canale}/
     requirements: { id_canale: \d+ }
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'MyUniversiBORemove' }
 universibo_legacy_permalink:

@@ -47,9 +47,7 @@ class ShowSettings extends UniversiboCommand
                             array(
                                     '[url=]Informazioni forum[/url]',
                                     '[url='.$router->generate('universibo_legacy_settings_profile').']Profilo[/url]',
-                                    '[url=/?do=ShowUser&id_utente='
-                                            . $utente->getId()
-                                            . ']Modifica MyUniversiBO[/url]',
+                                    '[url='.$router->generate('universibo_legacy_user', array('id_utente' => $utente->getId())).']Modifica MyUniversiBO[/url]',
                                     '[url=https://outlook.com/ type=extern]Posta di ateneo[/url]',
                                     '[url='.$router->generate('universibo_legacy_contact_professors').']Docenti da contattare[/url]'));
         } else {
