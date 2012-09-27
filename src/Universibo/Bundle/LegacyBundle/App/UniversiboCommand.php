@@ -127,9 +127,9 @@ abstract class UniversiboCommand extends BaseCommand
         @ $template->assign('common_rootUrl', $request_protocol . '://' . $_SERVER['HTTP_HOST'] . '/' . $fc->getRootPath());
         // https://www.universibo.unibo.it/path_universibo2/receiver.php
         @ $template->assign('common_receiverUrl', $request_protocol . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME']);
-        // https://www.universibo.unibo.it/path_universibo2/receiver.php?do=SomeCommand
+        // https://www.universibo.unibo.it/path_universibo2/receiver.php?du=SomeCommand
         @ $template->assign('common_requestUri', $request_protocol . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-        // /path_universibo2/receiver.php?do=SomeCommand
+        // /path_universibo2/receiver.php?du=SomeCommand
         @ $template->assign('common_shortUri', $_SERVER['REQUEST_URI']);
 
 
