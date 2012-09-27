@@ -39,6 +39,12 @@ class DefaultController extends Controller
     private function handleLegacy($do)
     {
         switch ($do) {
+            case 'ShowCanale':
+                return $this->redirect($this->get('router')->generate('universibo_legacy_canale', array('id_canale' => $_GET['id_canale'])));
+            case 'ShowCdl':
+                return $this->redirect($this->get('router')->generate('universibo_legacy_cdl', array('id_canale' => $_GET['id_canale'])));
+            case 'ShowPermalink':
+                return $this->redirect($this->get('router')->generate('universibo_legacy_permalink', array('id_notizia' => $_GET['id_notizia'])));
             case 'ShowUser':
                 return $this->redirect($this->get('router')->generate('universibo_legacy_user', array('id_utente' => $_GET['id_utente'])));
             case 'ShowError':

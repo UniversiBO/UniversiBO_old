@@ -74,6 +74,10 @@ universibo_legacy_myuniversibo_remove:
     pattern: /myuniversibo/edit/{id_canale}/
     requirements: { id_canale: \d+ }
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'MyUniversiBORemove' }
+universibo_legacy_permalink:
+    pattern: /permalink/{id_notizia}/
+    requirements: { id_news: \d+ }
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowPermalink' }
 universibo_legacy_role_admin_search:
     pattern: /role/admin/search/{id_canale}/
     requirements: { id_canale: \d+ }

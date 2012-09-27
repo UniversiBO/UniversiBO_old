@@ -1,7 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use \Error;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
@@ -13,23 +14,11 @@ class ShowPermalink extends UniversiboCommand
 
     public function execute()
     {
-        if (!array_key_exists('id_notizia', $_GET)
-                || !preg_match('/^[0-9]+$/', $id_notizia = $_GET['id_notizia'])) {
-            $user = $this->get('security.context')->getToken()->getUser();
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'ID news non valido', 'file' => __FILE__,
-                            'line' => __LINE__));
-        }
-
         $newsRepo = $this->getContainer()->get('universibo_legacy.repository.news.news_item');
-        $news = $newsRepo->find($id_notizia);
+        $news = $newsRepo->find($id_notizia = $this->getRequest()->attributes->get('id_notizia'));
 
         if (!$news instanceof NewsItem) {
-            Error::throwError(_ERROR_DEFAULT,
-                array('id_notizia' => $id_notizia,
-                        'msg' => 'ID news non trovato', 'file' => __FILE__,
-                        'line' => __LINE__));
+            throw new NotFoundHttpException('News not found');
         }
 
         $template = $this->getFrontController()->getTemplateEngine();
@@ -51,8 +40,7 @@ class ShowPermalink extends UniversiboCommand
         //echo $personalizza,"-" ,$ultimo_accesso,"-", $news->getUltimaModifica()," -- ";
         $newsArray['nuova'] = '';//($personalizza_not_admin == true && $ultimo_accesso < $news->getUltimaModifica()) ? 'true' : 'false';
         $newsArray['autore'] = $news->getUsername();
-        $newsArray['autore_link'] = 'ShowUser&id_utente='
-                . $news->getIdUtente();
+        $newsArray['autore_link'] = $this->get('router')->generate('universibo_legacy_user', array('id_utente' => $news->getIdUtente()));
         $newsArray['id_autore'] = $news->getIdUtente();
 
         $newsArray['scadenza'] = '';

@@ -39,8 +39,6 @@ class FeedGenerator
     public function generateFeed(Canale $canale, Router $router, $legacy = true)
     {
         $context = $router->getContext();
-        $base = $context->getScheme() . '://' . $context->getHost()
-                . '/?do=ShowPermalink&id_notizia=';
 
         $idCanale = $canale->getIdCanale();
 
@@ -58,24 +56,20 @@ class FeedGenerator
         $news = is_array($news) ? $news : array();
 
         foreach ($news as $item) {
-            $this->newsToEntry($feed, $item, $base, $router, $legacy);
+            $this->newsToEntry($feed, $item, $router, $legacy);
         }
 
         return $feed;
     }
 
-    private function newsToEntry(Feed $feed, NewsItem $item, $base,
-            Router $router, $legacy)
+    private function newsToEntry(Feed $feed, NewsItem $item,
+            Router $router)
     {
         $entry = $feed->createEntry();
         $entry->setTitle($item->getTitolo());
 
         $id = $item->getIdNotizia();
-        if ($legacy) {
-            $link = $base . $id;
-        } else {
-            $link = $router->generate('news_show', array('id' => $id), true);
-        }
+        $link = $router->generate('universibo_legacy_permalink', array('id_news' => $id), true);
 
         $entry->setLink($link);
         $entry->addAuthor(array('name' => $item->getUsername()));

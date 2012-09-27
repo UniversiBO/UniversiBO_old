@@ -15,7 +15,7 @@
 		{/if}
 	</span></td><td>
 	<div class="piePagina">
-		{$data|escape:"htmlall"|nl2br}&nbsp;|&nbsp;<a href="/?do={$autore_link|escape:"htmlall"}">{$autore|escape:"htmlall"}</a>&nbsp;|&nbsp;<a href="/?do=ShowPermalink&amp;id_notizia={$id_notizia}">permalink</a>
+		{$data|escape:"htmlall"|nl2br}&nbsp;|&nbsp;<a href="{$autore_link|escape:"htmlall"}">{$autore|escape:"htmlall"}</a>&nbsp;|&nbsp;<a href="/?do=ShowPermalink&amp;id_notizia={$id_notizia}">permalink</a>
 	</div>
 	</td></tr></table>
 </div>
