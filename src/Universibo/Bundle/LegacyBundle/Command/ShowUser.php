@@ -69,8 +69,8 @@ class ShowUser extends UniversiboCommand
                                     ->getNomeMyUniversibo();
                     $canali['ruolo'] = ($ruolo->isReferente()) ? 'R'
                             : (($ruolo->isModeratore()) ? 'M' : 'none');
-                    $canali['modifica'] = $router->generate('universibo_legacy_default', array('do' => 'MyUniversiBOEdit', 'id_canale' => $ruolo->getIdCanale()));
-                    $canali['rimuovi'] = $router->generate('universibo_legacy_default', array('do' => 'MyUniversiBORemove', 'id_canale' => $ruolo->getIdCanale()));
+                    $canali['modifica'] = $router->generate('universibo_legacy_myuniversibo_edit', array('id_canale' => $ruolo->getIdCanale()));
+                    $canali['rimuovi'] = $router->generate('universibo_legacy_myuniversibo_remove', array('id_canale' => $ruolo->getIdCanale()));
                     $arrayCanali[] = $canali;
                 }
             }

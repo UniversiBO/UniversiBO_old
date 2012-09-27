@@ -25,6 +25,7 @@ class ShowSettings extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $utente = $this->get('security.context')->getToken()->getUser();
+        $router = $this->get('router');
 
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             Error::throwError(_ERROR_DEFAULT,
@@ -44,14 +45,13 @@ class ShowSettings extends UniversiboCommand
             $template
                     ->assign('showSettings_langPreferences',
                             array(
-                                    '[url=/?do=ChangePassword]Modifica password[/url]',
                                     '[url=]Informazioni forum[/url]',
-                                    '[url=/?do=ShowPersonalSettings]Profilo[/url]',
+                                    '[url='.$router->generate('universibo_legacy_settings_profile').']Profilo[/url]',
                                     '[url=/?do=ShowUser&id_utente='
                                             . $utente->getId()
                                             . ']Modifica MyUniversiBO[/url]',
                                     '[url=https://outlook.com/ type=extern]Posta di ateneo[/url]',
-                                    '[url=/?do=ShowContattiDocenti]Docenti da contattare[/url]'));
+                                    '[url='.$router->generate('universibo_legacy_contact_professors').']Docenti da contattare[/url]'));
         } else {
             $template
                     ->assign('showSettings_langPreferences',

@@ -25,6 +25,7 @@ class ShowContattiDocenti extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $user = $this->get('security.context')->getToken()->getUser();
+        $router = $this->get('router');
 
         if (!$user->hasRole('ROLE_COLLABORATOR') && !$this->get('security.context')->isGranted('ROLE_ADMIN'))
             Error::throwError(_ERROR_DEFAULT,
@@ -43,8 +44,7 @@ class ShowContattiDocenti extends UniversiboCommand
                 $doc = Docente::selectDocenteFromCod($contatto->getCodDoc());
                 //				if (!$doc) {var_dump($contatto); die;}
                 $elenco[] = array('nome' => $doc->getNomeDoc(),
-                        'URI' => '/?do=ShowContattoDocente&cod_doc='
-                                . $doc->getCodDoc(),
+                        'URI' => $router->generate('universibo_legacy_contact_professor', array('cod_doc' => $doc->getCodDoc())),
                         'stato' => $contatto->getStatoDesc(),
                         'codStato' => $contatto->getStato());
             }

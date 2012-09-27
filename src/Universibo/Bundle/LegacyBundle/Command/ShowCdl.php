@@ -94,7 +94,7 @@ class ShowCdl extends CanaleCommand
                 $cdl_listIns[$insAnnoCorso]['list'][$insCiclo]['list'][] =
                 array( 'name' => $tempPrgAttDid->getNome(),
                         'nomeDoc' => $tempPrgAttDid->getNomeDoc(),
-                        'uri' => $router->generate('universibo_legacy_default', array('do' => 'ShowInsegnamento', 'id_canale' => $tempPrgAttDid->getIdCanale())),
+                        'uri' => $router->generate('universibo_legacy_insegnamento', array('id_canale' => $tempPrgAttDid->getIdCanale())),
                         'editUri' => ($allowEdit)?$editUri:'',
                         'forumUri' =>($tempPrgAttDid->getServizioForum() != false) ? $forum->getForumUri($tempPrgAttDid->getForumForumId()) : '' );
             }

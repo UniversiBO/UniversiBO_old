@@ -2,8 +2,6 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 use Universibo\Bundle\WebsiteBundle\Entity\User;
 
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
 use \Error;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
@@ -31,8 +29,10 @@ class LinksAdmin extends UniversiboCommand
 
         $user = $this->get('security.context')->getToken()->getUser();
         $userId = $user instanceof User ? $user->getId() : 0;
-        $template->assign('common_canaleURI', $router->generate('universibo_legacy_default', array('do' => 'ShowMyUniversiBO')));
+        $template->assign('common_canaleURI', $router->generate('universibo_legacy_myuniversibo'));
         $template->assign('common_langCanaleNome', 'indietro');
+
+        $idCanale = $this->getRequest()->attributes->get('id_canale');
 
         $referente = false;
 
@@ -40,11 +40,7 @@ class LinksAdmin extends UniversiboCommand
         $ruoli = array();
         $arrayPublicUsers = array();
 
-        if (!array_key_exists('id_canale', $_GET)|| !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
-            throw new NotFoundHttpException('Invalid ID');
-        }
-
-        $canale = Canale::retrieveCanale($_GET['id_canale']);
+        $canale = Canale::retrieveCanale($idCanale);
         $id_canale = $canale->getIdCanale();
 
         $template->assign('common_canaleURI', $canale->showMe());
@@ -61,8 +57,8 @@ class LinksAdmin extends UniversiboCommand
                             'msg' => "Non hai i diritti per modificare i diritti degli utenti su questa pagina.\nLa sessione potrebbe essere scaduta.",
                             'file' => __FILE__, 'line' => __LINE__));
 
-        $this->executePlugin('ShowLinksExtended', array('id_canale' => $_GET['id_canale']));
-        $template->assign('add_link_uri', $router->generate('universibo_legacy_default', array('do' => 'LinkAdd', 'id_canale' => $_GET['id_canale'])));
+        $this->executePlugin('ShowLinksExtended', array('id_canale' => $idCanale));
+        $template->assign('add_link_uri', $router->generate('universibo_legacy_link_add', array($idCanale)));
         //		$this->executePlugin('ShowTopic', array('reference' => 'ruoliadmin'));
         return 'default';
     }

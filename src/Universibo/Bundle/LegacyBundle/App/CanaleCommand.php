@@ -115,11 +115,11 @@ abstract class CanaleCommand extends UniversiboCommand
             if (array_key_exists($id_canale, $user_ruoli) && $user_ruoli[$id_canale]->isMyUniversiBO()) {
                 $template->assign( 'common_canaleMyUniversiBO', 'remove');
                 $template->assign( 'common_langCanaleMyUniversiBO', 'Rimuovi questa pagina da MyUniversiBO');
-                $template->assign( 'common_canaleMyUniversiBOUri', '/?do=MyUniversiBORemove&id_canale='.$canale->getIdCanale());
+                $template->assign( 'common_canaleMyUniversiBOUri', $router->generate('universibo_legacy_myuniversibo_remove', array('id_canale' => $canale->getIdCanale())));
             } else {
                 $template->assign( 'common_canaleMyUniversiBO', 'add');
                 $template->assign( 'common_langCanaleMyUniversiBO', 'Aggiungi questa pagina a MyUniversiBO');
-                $template->assign( 'common_canaleMyUniversiBOUri', '/?do=MyUniversiBOAdd&id_canale='.$canale->getIdCanale());
+                $template->assign( 'common_canaleMyUniversiBOUri', $router->generate('universibo_legacy_myuniversibo_add', array('id_canale' => $canale->getIdCanale())));
             }
         } else
             $template->assign( 'common_langCanaleMyUniversiBO', '');

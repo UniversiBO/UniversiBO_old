@@ -70,13 +70,13 @@ class ShowInsegnamento extends CanaleCommand
         $template->assign('ins_infoDidEditUri', '');
         if ($context->isGranted('ROLE_ADMIN') || (array_key_exists($id_canale, $user_ruoli)
                         && $user_ruoli[$id_canale]->isReferente())) {
-            $template->assign('ins_infoDidEdit', $router->generate('universibo_legacy_default', array('do' => 'InfoDidatticaEdit', 'id_canale' => $id_canale)));
+            $template->assign('ins_infoDidEdit', $router->generate('universibo_legacy_insegnamento_info_edit', array('id_canale' => $id_canale)));
             if ($context->isGranted('ROLE_ADMIN') ||$context->isGranted('ROLE_COLLABORATOR'))
                 if (!$contatto) {
-                    $template->assign('ins_ContattoDocenteUri', $router->generate('universibo_legacy_default', array('do' => 'ContattoDocenteAdd', 'id_canale' => $id_canale, 'cod_doc' => $coddoc)));
+                    $template->assign('ins_ContattoDocenteUri', $router->generate('universibo_legacy_contact_professor_add', array('id_canale' => $id_canale, 'cod_doc' => $coddoc)));
                     $template->assign('ins_ContattoDocente', 'Crea il contatto di questo docente');
                 } else {
-                    $template->assign('ins_ContattoDocenteUri', $router->generate('universibo_legacy_default', array('do' => 'ShowContattoDocente', 'id_canale' => $id_canale, 'cod_doc' => $coddoc)));
+                    $template->assign('ins_ContattoDocenteUri', $router->generate('universibo_legacy_contact_professor', array('id_canale' => $id_canale, 'cod_doc' => $coddoc)));
                     $template->assign('ins_ContattoDocente', 'Visualizza lo stato di questo docente');
                 }
         } else {

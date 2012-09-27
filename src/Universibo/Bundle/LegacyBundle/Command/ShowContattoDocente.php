@@ -30,14 +30,6 @@ class ShowContattoDocente extends UniversiboCommand
         $template = $frontcontroller->getTemplateEngine();
         $user = $this->get('security.context')->getToken()->getUser();
 
-        if (!array_key_exists('cod_doc', $_GET)
-                && !ereg('^([0-9]{1,10})$', $_GET['cod_doc']))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'L\'utente cercato non e` valido',
-                            'file' => __FILE__, 'line' => __LINE__,
-                            'template_engine' => &$template));
-
         if (!$user->hasRole('ROLE_COLLABORATOR') && !$this->get('security.context')->isGranted('ROLE_ADMIN'))
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getId(),
@@ -45,7 +37,7 @@ class ShowContattoDocente extends UniversiboCommand
                             'file' => __FILE__, 'line' => __LINE__,
                             'template_engine' => &$template));
 
-        $docente = Docente::selectDocenteFromCod($_GET['cod_doc']);
+        $docente = Docente::selectDocenteFromCod($this->getRequest()->attributes->get('cod_doc'));
 
         if (!$docente)
             Error::throwError(_ERROR_DEFAULT,
@@ -95,7 +87,8 @@ class ShowContattoDocente extends UniversiboCommand
                         . ' ' . $rub_docente['nome'] . ' '
                         . $rub_docente['cognome'] : $docente->getNomedoc();
         $info_docente['sesso'] = ($rub_docente['sesso'] == 1) ? 'm' : 'f';
-        $date = $utente_docente->getLastLogin()->getTimestamp();
+        $date = $utente_docente->getLastLogin();
+        $date = $date instanceof \DateTime ? $date->getTimestamp() : 0;
         $info_docente['ultimo login al sito'] = ($date == 0) ? 'mai loggato'
                 : round((time() - $date) / 86400) . ' gg fa circa';
         $info_docente['email universibo'] = $utente_docente->getEmail();
