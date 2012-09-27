@@ -22,7 +22,7 @@ class ShowInfoDidatticaTest extends UniversiBOSeleniumTestCase
                 'Appelli d\'esame',
         );
 
-        $this->openCommand('ShowInfoDidattica','&id_canale=10507');
+        $this->openPrefix('/insegnamento/10507/info');
         $this->assertSentences($sentences);
     }
 }

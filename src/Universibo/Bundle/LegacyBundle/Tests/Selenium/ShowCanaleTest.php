@@ -12,7 +12,7 @@ class ShowCanaleTest extends UniversiBOSeleniumTestCase
     public function testSimple()
     {
         $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openCommand('ShowCanale', '&id_canale=27');
+        $this->openPrefix('/canale/27');
         $this->assertSentences(
                         array('Test', 'News', 'Scrivi nuova notizia',
                                 'Mostra tutte le news', 'Files',

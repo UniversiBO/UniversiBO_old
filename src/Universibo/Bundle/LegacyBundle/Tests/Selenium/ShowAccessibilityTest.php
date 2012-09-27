@@ -16,7 +16,7 @@ class ShowAccessibilityTest extends UniversiBOSeleniumTestCase
                 'vai al forum',
         );
 
-        $this->openCommand('ShowAccessibility');
+        $this->openPrefix('/accessibilita');
         $this->assertSentences($sentences);
     }
 }

@@ -7,7 +7,7 @@
 <hr />
 <div class="chi_siamo">
 	<h3>::&nbsp;{$collaboratore.username|escape:"html"}&nbsp;::</h3>
-	<img src="{$contacts_path}{$collaboratore.foto|escape:"htmlall"}" alt="foto di {$collaboratore.username|escape:"htmlall"}" width="60" height="80" />
+	<img src="{$common_basePath}/{$contacts_path}{$collaboratore.foto|escape:"htmlall"}" alt="foto di {$collaboratore.username|escape:"htmlall"}" width="60" height="80" />
 	<hr class="hide" />
 	<div>
 		<p><span>Ruolo:</span>&nbsp;{$collaboratore.ruolo|escape:"htmlall"}</p>

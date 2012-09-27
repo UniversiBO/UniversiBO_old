@@ -26,6 +26,9 @@ universibo_legacy_manifesto:
 universibo_legacy_contacts:
     pattern: /chi-siamo/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowContacts' }
+universibo_legacy_collaborator:
+    pattern: /chi-siamo/{username}/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowCollaboratore' }
 universibo_legacy_contact_professors:
     pattern: /contatto-docenti/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowContacts' }

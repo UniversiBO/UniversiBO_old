@@ -15,7 +15,7 @@ class ShowContactsTest extends UniversiBOSeleniumTestCase
                 'bulbis',
         );
 
-        $this->openCommand('ShowContacts');
+        $this->openPrefix('/chi-siamo');
         $this->assertSentences($sentences);
     }
 }

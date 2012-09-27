@@ -15,7 +15,7 @@ class ShowCollaboratoreTest extends UniversiBOSeleniumTestCase
                 'Il mio obiettivo è trovarmi una donna ad Ingegneria. Come un ago in un pagliaio.'
         );
 
-        $this->openCommand('ShowCollaboratore','&id_coll=701');
+        $this->openPrefix('/chi-siamo/Antares');
         $this->assertSentences($sentences);
     }
 }

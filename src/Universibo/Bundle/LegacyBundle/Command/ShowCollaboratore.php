@@ -28,19 +28,24 @@ class ShowCollaboratore extends UniversiboCommand
         $template = $frontcontroller->getTemplateEngine();
         $user = $this->get('security.context')->getToken()->getUser();
 
-        if (!array_key_exists('id_coll', $_GET) && !ereg('^([0-9]{1,10})$', $_GET['id_coll'])) {
-            throw new NotFoundHttpException('Invalid ID');
+        $username = $this->getRequest()->attributes->get('username');
+        $userRepo = $this->get('universibo_website.repository.user');
+
+        $collabUser = $userRepo->findOneByUsername($username);
+
+        if (!$collabUser instanceof User) {
+            throw new NotFoundHttpException('Invalid Username');
         }
 
         $contacts_path = $frontcontroller->getAppSetting('contactsPath');
 
-        $collaboratore = $this->get('universibo_legacy.repository.collaboratore')->find($_GET['id_coll']);
+        $collaboratore = $this->get('universibo_legacy.repository.collaboratore')->findOneByIdUtente($collabUser->getId());
 
         if (!$collaboratore) {
-            throw new NotFoundHttpException('No collaborator found');
+            throw new NotFoundHttpException('Collaborator not found');
         }
 
-        $curr_user = $this->get('universibo_website.repository.user')->find($collaboratore->getIdUtente());
+        $curr_user = $collabUser;
         if ($user instanceof User && $user->getId() == $collaboratore->getIdUtente()) {
             $modifica_link = '';
             $modifica = "modifica";

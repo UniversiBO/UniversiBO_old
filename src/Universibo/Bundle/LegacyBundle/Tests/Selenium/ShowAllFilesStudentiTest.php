@@ -16,7 +16,7 @@ class ShowAllFilesStudentiTest extends UniversiBOSeleniumTestCase
     public function testOrder($order, $orderSentence)
     {
         $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openCommand('ShowAllFilesStudenti', '&order='.$order);
+        $this->openPrefix('/file/studenti?order='.$order);
         $this->assertSentences(array(
                 'Tutti i Files Studenti presenti su UniversiBO',
                 'ordinati per '.$orderSentence

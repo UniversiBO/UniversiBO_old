@@ -15,7 +15,7 @@ class ShowHomeTest extends UniversiBOSeleniumTestCase
                 'la nuova versione della community e degli strumenti per la didattica ideato dagli studenti'
         );
 
-        $this->openCommand('ShowHome');
+        $this->openPrefix('/');
         $this->assertSentences($sentences);
     }
 }

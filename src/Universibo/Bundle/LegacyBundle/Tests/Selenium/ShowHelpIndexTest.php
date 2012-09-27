@@ -17,7 +17,7 @@ class ShowHelpIndexTest extends UniversiBOSeleniumTestCase
                 'Come faccio ad attivare la mia mail d\'Ateneo?'
         );
 
-        $this->openCommand('ShowHelp');
+        $this->openPrefix('/help');
         $this->assertSentences($sentences);
     }
 }

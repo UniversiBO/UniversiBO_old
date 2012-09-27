@@ -13,7 +13,7 @@ class NewsAddTest extends UniversiBOSeleniumTestCase
         // user who reported an issue on this
         $this->login('lgalli');
 
-        $this->openCommand('NewsAdd','&id_canale=11162');
+        $this->openPrefix('/news/add/11162');
 
         $this->type('name=f7_titolo', 'News title');
         $this->type('name=f7_testo', 'News text');

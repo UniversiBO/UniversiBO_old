@@ -10,17 +10,10 @@ class ShowMyUniversiBOTest extends UniversiBOSeleniumTestCase
         parent::setUp();
     }
 
-    public function testLoggedOut()
-    {
-        $this->deleteAllVisibleCookies();
-        $this->openCommand('ShowMyUniversiBO');
-        self::assertTrue($this->isTextPresent('Error!', 'Error message must be present'));
-    }
-
     public function testLoggedIn()
     {
-        $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openCommand('ShowMyUniversiBO');
+        $this->login(TestConstants::STUDENT_USERNAME);
+        $this->openPrefix('/myuniversibo');
         self::assertTrue($this->isTextPresent('My UniversiBO'));
         self::assertTrue($this->isTextPresent('Modifica MyUniversiBO'));
         self::assertTrue($this->isTextPresent('My News'));

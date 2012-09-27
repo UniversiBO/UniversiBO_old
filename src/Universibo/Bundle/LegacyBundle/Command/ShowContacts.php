@@ -26,6 +26,7 @@ class ShowContacts extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $user = $this->get('security.context')->getToken()->getUser();
+        $router = $this->get('router');
 
         $template->assign('contacts_langAltTitle', 'Chi Siamo');
 
@@ -50,8 +51,7 @@ class ShowContacts extends UniversiboCommand
                             'URI' => 'false', 'inserisci' => 'false');
             } else
                 $collaboratori[] = array('username' => $username,
-                        'URI' => '/?do=ShowCollaboratore&id_coll='
-                                . $collaboratore->getId(),
+                        'URI' => $router->generate('universibo_legacy_collaborator', array('username' => $username)),
                         'inserisci' => 'false');
 
         }

@@ -15,7 +15,7 @@ class ShowFacoltaTest extends UniversiBOSeleniumTestCase
                 'FACOLTA\' DI INGEGNERIA - 0021',
         );
 
-        $this->openCommand('ShowFacolta', '&id_canale=2');
+        $this->openPrefix('/facolta/2');
         $this->assertSentences($sentences);
     }
 }

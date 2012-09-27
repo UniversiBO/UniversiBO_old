@@ -13,7 +13,7 @@ class ShowCcontattoDocenteTest extends UniversiBOSeleniumTestCase
     public function testShow()
     {
         $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openCommand('ShowContattoDocente','&cod_doc=012179');
+        $this->openPrefix('/docenti/contatto/012179');
 
         $sentences = array (
                 'Prof. Pier Paolo Abbati Marescotti',
@@ -26,7 +26,7 @@ class ShowCcontattoDocenteTest extends UniversiBOSeleniumTestCase
     public function testUpdate()
     {
         $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openCommand('ShowContattoDocente','&cod_doc=012179');
+        $this->openPrefix('/docenti/contatto/012179');
 
         $report = sha1(rand());
         $this->type('name=f35_report', $report);

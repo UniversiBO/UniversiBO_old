@@ -13,7 +13,7 @@ class ShowSettingsTest extends UniversiBOSeleniumTestCase
     public function testNotLogged()
     {
         $this->logout();
-        $this->openCommand('ShowSettings');
+        $this->openPrefix('/settings');
 
         $this->assertSentences(array('Error!', 'Non hai i diritti per accedere alla pagina', 'la sessione potrebbe essere terminata'));
     }
@@ -30,7 +30,7 @@ class ShowSettingsTest extends UniversiBOSeleniumTestCase
         );
 
         $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openCommand('ShowSettings');
+        $this->openPrefix('/settings');
 
         $this->assertSentences($sentences);
     }

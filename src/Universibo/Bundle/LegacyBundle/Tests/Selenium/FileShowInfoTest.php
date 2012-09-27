@@ -17,7 +17,7 @@ class FileShowInfoTest extends UniversiBOSeleniumTestCase
                 'Descrizione/abstract: robots SEO',
         );
 
-        $this->openCommand('FileShowInfo','&id_file=15051&id_canale=10434');
+        $this->openPrefix('/file/15051/10434/');
 
         $this->assertSentences($sentences);
     }

@@ -10,7 +10,7 @@ class ShowManifestoTest extends UniversiBOSeleniumTestCase
 
     public function testShow()
     {
-        $this->openCommand('ShowManifesto');
+        $this->openPrefix('/manifesto');
 
         $this->assertSentences(array(
                 'aiutare una specie animale che da tempo immemorabile s\'inerpica tutte le mattine per una salitella ai piedi dei colli Bolognesi... si tratta dello studente d\'ingegneria.',

@@ -15,13 +15,13 @@ class ShowContributeTest extends UniversiBOSeleniumTestCase
                 'Come fare per collaborare?',
         );
 
-        $this->openCommand('ShowContribute');
+        $this->openPrefix('/collabora');
         $this->assertSentences($sentences);
     }
 
     public function testSendQuestionario()
     {
-        $this->openCommand('ShowContribute');
+        $this->openPrefix('/collabora');
 
         $this->type('name=f3_nome', 'Nome');
         $this->type('name=f3_cognome', 'Cognome');

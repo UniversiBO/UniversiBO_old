@@ -13,7 +13,7 @@ class NewsShowCanaleTest extends UniversiBOSeleniumTestCase
     public function testNotLogged()
     {
         $this->deleteAllVisibleCookies();
-        $this->openCommand('NewsShowCanale', '&id_canale=1&inizio=0&qta=10');
+        $this->openPrefix('/news/canale/1?inizio=0&qta=10');
         $this->assertSentence('News');
 
         $this->assertFalse($this->isTextPresent('Scrivi nuova notizia'));
@@ -22,13 +22,13 @@ class NewsShowCanaleTest extends UniversiBOSeleniumTestCase
     public function testLogged()
     {
         $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openCommand('NewsShowCanale', '&id_canale=1&inizio=0&qta=10');
+        $this->openPrefix('/news/canale/1?inizio=0&qta=10');
         $this->assertSentences(array('News','Scrivi nuova notizia'));
     }
 
     public function testPermalink()
     {
-        $this->openCommand('NewsShowCanale', '&id_canale=1&inizio=0&qta=10');
+        $this->openPrefix('/news/canale/1?inizio=0&qta=10');
         $this->clickAndWait('link=permalink');
         $this->assertFalse($this->isTextPresent('Error'), 'Should NOT display an error message');
     }

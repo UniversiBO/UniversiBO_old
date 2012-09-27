@@ -20,8 +20,7 @@ class FileAddTest extends UniversiBOSeleniumTestCase
     private function fileCommon($file)
     {
         $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openPrefix('/file/add');
-        $this->openCommand('FileAdd', '&id_canale=10294');
+        $this->openPrefix('/file/add/10294');
         $this->type('name=f12_file', $file);
         $this->type('name=f12_titolo', 'File title');
         $this->type('name=f12_abstract', 'File abstract');
