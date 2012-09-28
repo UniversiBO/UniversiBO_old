@@ -95,9 +95,9 @@ class ShowAllFilesStudentiTitoli extends PluginCommand
 //							$canale_tpl['titolo'] = $canale->getNome();
 //							$canale_tpl['link'] = $canale->showMe();
                             $file_tpl[$i]['canaleTitolo'] = $canale->getNome();
-                            $file_tpl[$i]['canaleLink'] = $canale->showMe();
-                            $file_tpl[$i]['download_uri'] = '/?do=FileDownload&id_file='.$file->getIdFile().'&id_canale='.$canali[$j];
-                            $file_tpl[$i]['show_info_uri'] = '/?do=FileShowInfo&id_file='.$file->getIdFile().'&id_canale='.$canali[$j];
+                            $file_tpl[$i]['canaleLink'] = $canale->showMe($router);
+                            $file_tpl[$i]['download_uri'] = $router->generate('universibo_legacy_file_download', array('id_file' => $file->getIdFile(), 'id_canale' => $canali[$j]));
+                            $file_tpl[$i]['show_info_uri'] = $router->generate('universibo_legacy_file', array('id_file' => $file->getIdFile(), 'id_canale' => $canali[$j]));
                             $file_tpl[$i]['canali'][] = $canale_tpl;
                         }
                     }

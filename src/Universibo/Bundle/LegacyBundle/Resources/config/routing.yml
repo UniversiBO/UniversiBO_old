@@ -12,6 +12,50 @@ universibo_legacy_cdl:
     pattern: /cdl/{id_canale}/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowCdl' }
     requirements: { id_canale: \d+ }
+universibo_legacy_collaborator:
+    pattern: /chi-siamo/{username}/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowCollaboratore' }
+universibo_legacy_contacts:
+    pattern: /chi-siamo/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowContacts' }
+universibo_legacy_contact_professor:
+    pattern: /docente/{cod_doc}/contatto/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowContattoDocente' }
+    requirements: { cod_doc: \d+ }
+universibo_legacy_contact_professor_add:
+    pattern: /docente/{cod_doc}/contatto/add/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ContattoDocenteAdd' }
+    requirements: { cod_doc: \d+ }
+universibo_legacy_contact_professors:
+    pattern: /docente/contatti/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowContattiDocenti' }
+universibo_legacy_credits:
+    pattern: /credits/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowCredits' }
+universibo_legacy_error:
+    pattern: /error/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowError' }
+universibo_legacy_facolta:
+    pattern: /facolta/{id_canale}/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowFacolta' }
+    requirements: { id_canale: \d+ }
+universibo_legacy_file:
+    pattern: /file/{id_file}/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'FileShowInfo' }
+    requirements: { id_file: \d+ }
+universibo_legacy_file_download:
+    pattern: /file/{id_file}/download
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'FileDownload' }
+    requirements: { id_file: \d+ }
+universibo_legacy_file_studenti_edit:
+    pattern: /file/studenti/{id_file}/edit
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'FileStudentiEdit' }
+    requirements: { id_file: \d+ }
+universibo_legacy_help:
+    pattern: /help/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowHelp' }
+universibo_legacy_help_topic:
+    pattern: /help/topic/
 universibo_legacy_insegnamento:
     pattern: /insegnamento/{id_canale}/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowInsegnamento' }
@@ -24,45 +68,9 @@ universibo_legacy_insegnamento_info_edit:
     pattern: /insegnamento/{id_canale}/info/edit
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'InfoDidatticaEdit' }
     requirements: { id_canale: \d+ }
-universibo_legacy_facolta:
-    pattern: /facolta/{id_canale}/
-    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowFacolta' }
-    requirements: { id_canale: \d+ }
 universibo_legacy_manifesto:
     pattern: /manifesto/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowManifesto' }
-universibo_legacy_contacts:
-    pattern: /chi-siamo/
-    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowContacts' }
-universibo_legacy_collaborator:
-    pattern: /chi-siamo/{username}/
-    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowCollaboratore' }
-universibo_legacy_contact_professor:
-    pattern: /docente/{cod_doc}/contatto/
-    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowContattoDocente' }
-    requirements: { cod_doc: \d+ }
-universibo_legacy_contact_professor_add:
-    pattern: /docente/{cod_doc}/contatto/add/
-    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ContattoDocenteAdd' }
-    requirements: { cod_doc: \d+ }
-universibo_legacy_contact_professors:
-    pattern: /docente/contatti/
-    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowContattiDocenti' }
-universibo_legacy_error:
-    pattern: /error/
-    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowError' }
-universibo_legacy_help_topic:
-    pattern: /help/topic/
-    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowHelpTopic' }
-universibo_legacy_help:
-    pattern: /help/
-    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowHelp' }
-universibo_legacy_credits:
-    pattern: /credits/
-    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowCredits' }
-universibo_legacy_stats:
-    pattern: /statistiche/
-    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowStatistics' }
 universibo_legacy_myuniversibo:
     pattern: /myuniversibo/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowMyUniversiBO' }
@@ -86,19 +94,24 @@ universibo_legacy_role_admin_search:
     pattern: /role/admin/search/{id_canale}/
     requirements: { id_canale: \d+ }
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'RuoliAdminSearch' }
+universibo_legacy_rules:
+    pattern: /regolamento/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowRules' }
 universibo_legacy_settings_profile:
     pattern: /settings/profile/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowPersonalSettings' }
 universibo_legacy_settings:
     pattern: /settings/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowSettings' }
-universibo_legacy_rules:
-    pattern: /regolamento/
-    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowRules' }
+universibo_legacy_stats:
+    pattern: /statistiche/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowStatistics' }
 universibo_legacy_user:
     pattern: /user/{id_utente}/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowUser' }
     requirements: { id_utente: \d+ }
+
+# Last by choice
 universibo_legacy_home:
     pattern: /
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowHome' }
