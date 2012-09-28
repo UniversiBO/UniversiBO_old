@@ -52,7 +52,7 @@ class InfoDidatticaEdit extends UniversiboCommand
         $info_didattica = InfoDidattica::retrieveInfoDidattica($id_canale);
         $insegnamento = Canale::retrieveCanale($id_canale);
 
-        $template->assign('common_canaleURI', $insegnamento->showMe());
+        $template->assign('common_canaleURI', $insegnamento->showMe($router));
         $template
                 ->assign('common_langCanaleNome',
                         'a ' . $insegnamento->getTitolo());

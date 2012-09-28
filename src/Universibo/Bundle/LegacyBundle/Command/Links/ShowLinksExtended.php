@@ -75,16 +75,16 @@ class ShowLinksExtended extends PluginCommand
             $elenco_links_tpl[$i]['uri']       		= $links->getUri();
             $elenco_links_tpl[$i]['label']      	= $links->getLabel();
             $elenco_links_tpl[$i]['description']    = $links->getDescription();
-            $elenco_links_tpl[$i]['userlink']    = '/?do=ShowUser&id_utente='.$links->getIdUtente();
+            $elenco_links_tpl[$i]['userlink']    = $router->generate('universibo_legacy_user', array('id_utente' => $links->getIdUtente()));
             $elenco_links_tpl[$i]['user']    = $links->getUsername();
 
             $elenco_links_tpl[$i]['tipo'] = ($links->isInternalLink()) ? "interno" : "esterno";
 
             if (($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || ($moderatore && $links->getIdUtente()==$user->getId()))) {
                 $elenco_links_tpl[$i]['modifica']="Modifica";
-                $elenco_links_tpl[$i]['modifica_link_uri'] = '/?do=LinkEdit&id_link='.$links->getIdLink().'&id_canale='.$links->getIdCanale();
+                $elenco_links_tpl[$i]['modifica_link_uri'] = $router->generate('universibo_legacy_link_edit', array('id_link' => $links->getIdLink(), 'id_canale' => $links->getIdCanale()));
                 $elenco_links_tpl[$i]['elimina']="Cancella";
-                $elenco_links_tpl[$i]['elimina_link_uri'] = '/?do=LinkDelete&id_link='.$links->getIdLink().'&id_canale='.$links->getIdCanale();
+                $elenco_links_tpl[$i]['elimina_link_uri'] = $router->generate('universibo_legacy_link_delete', array('id_link' => $links->getIdLink(), 'id_canale' => $links->getIdCanale()));
             }
         }
 

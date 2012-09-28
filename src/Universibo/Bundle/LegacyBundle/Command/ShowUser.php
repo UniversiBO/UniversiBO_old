@@ -62,7 +62,7 @@ class ShowUser extends UniversiboCommand
                 $canale = Canale::retrieveCanale($ruolo->getIdCanale());
                 if ($canale->isGroupAllowed($current_user->getLegacyGroups())) {
                     $canali = array();
-                    $canali['uri'] = $canale->showMe();
+                    $canali['uri'] = $canale->showMe($router);
                     $canali['tipo'] = $canale->getTipoCanale();
                     $canali['label'] = ($canale->getNome() != '') ? $canale
                                     ->getNome() : $canale

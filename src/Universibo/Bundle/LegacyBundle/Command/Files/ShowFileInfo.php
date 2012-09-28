@@ -26,6 +26,7 @@ class ShowFileInfo extends PluginCommand
     public function execute($param = array())
     {
         $bc = $this->getBaseCommand();
+        $router = $this->get('router');
         $user = $bc->get('security.context')->getToken()->getUser();
         $userId = $user instanceof User ? $user->getId() : 0;
 
@@ -101,7 +102,7 @@ class ShowFileInfo extends PluginCommand
             $parametro_canale = '&id_canale=' . $id_canale;
 
             $user_ruoli = $canale->getRuoli();
-            $template->assign('common_canaleURI', $canale->showMe());
+            $template->assign('common_canaleURI', $canale->showMe($router));
             $template
                     ->assign('common_langCanaleNome',
                             'a ' . $canale->getTitolo());
@@ -125,28 +126,13 @@ class ShowFileInfo extends PluginCommand
         if ($autore || $this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $moderatore) {
             $template->assign('showFileInfo_editFlag', 'true');
             $template->assign('showFileInfo_deleteFlag', 'true');
+
             if ($tipo_file) {
-                $template
-                        ->assign('showFileInfo_editUri',
-                                '/?do=FileStudentiEdit&id_file='
-                                        . $file->getIdFile()
-                                        . $parametro_canale);
-                $template
-                        ->assign('showFileInfo_deleteUri',
-                                '/?do=FileStudentiDelete&id_file='
-                                        . $file->getIdFile()
-                                        . $parametro_canale);
+                $template->assign('showFileInfo_editUri', $router->generate('universibo_legacy_file_studenti_edit', array('id_file' => $file->getIdFile(), 'id_canale' => $id_canale)));
+                $template->assign('showFileInfo_deleteUri', $router->generate('universibo_legacy_file_studenti_delete', array('id_file' => $file->getIdFile(), 'id_canale' => $id_canale)));
             } else {
-                $template
-                        ->assign('showFileInfo_editUri',
-                                '/?do=FileEdit&id_file='
-                                        . $file->getIdFile()
-                                        . $parametro_canale);
-                $template
-                        ->assign('showFileInfo_deleteUri',
-                                '/?do=FileDelete&id_file='
-                                        . $file->getIdFile()
-                                        . $parametro_canale);
+                $template->assign('showFileInfo_editUri', $router->generate('universibo_legacy_file_edit', array('id_file' => $file->getIdFile(), 'id_canale' => $id_canale)));
+                $template->assign('showFileInfo_deleteUri', $router->generate('universibo_legacy_file_delete', array('id_file' => $file->getIdFile(), 'id_canale' => $id_canale)));
             }
         }
 
@@ -159,10 +145,7 @@ class ShowFileInfo extends PluginCommand
             else
                 $voto = round($voto, 1);
             $template->assign('showFileInfo_voto', $voto);
-            $template
-                    ->assign('showFileInfo_addComment',
-                            '/?do=FileStudentiComment&id_file='
-                                    . $file->getIdFile());
+            $template->assign('showFileInfo_addComment', $router->generate('universibo_legacy_file_studenti_comment', array('id_file' => $file->getIdFile())));
         }
 
         $canali_tpl = array();
@@ -171,30 +154,19 @@ class ShowFileInfo extends PluginCommand
             $canale = Canale::retrieveCanale($id_canale);
             $canali_tpl[$id_canale] = array();
             $canali_tpl[$id_canale]['titolo'] = $canale->getTitolo();
-            $canali_tpl[$id_canale]['uri'] = $canale->showMe();
+            $canali_tpl[$id_canale]['uri'] = $canale->showMe($router);
         }
 
-        $template
-                ->assign('showFileInfo_downloadUri',
-                        '/?do=FileDownload&id_file='
-                                . $file->getIdFile() . $parametro_canale);
+        $template->assign('showFileInfo_downloadUri', $router->generate('universibo_legacy_file_download', array('id_file' => $file->getIdFile())));
         $template->assign('showFileInfo_langDelete', 'Elimina');
         $template->assign('showFileInfo_langDownload', 'Scarica');
         $template->assign('showFileInfo_langEdit', 'Modifica');
-        $template
-                ->assign('showFileInfo_uri',
-                        '/?do=showFileInfo&id_file='
-                                . $file->getIdFile() . $parametro_canale);
+        $template->assign('showFileInfo_uri', $router->generate('universibo_legacy_file', array('id_file' => $file->getIdFile())));
         $template->assign('showFileInfo_titolo', $file->getTitolo());
         $template->assign('showFileInfo_descrizione', $file->getDescrizione());
-        $template
-                ->assign('showFileInfo_userLink',
-                        '/?do=ShowUser&id_utente='
-                                . $file->getIdUtente());
+        $template->assign('showFileInfo_userLink', $router->generate('universibo_legacy_user', array('id_utente' => $file->getIdUtente())));
         $template->assign('showFileInfo_username', $file->getUsername());
-        $template
-                ->assign('showFileInfo_dataInserimento',
-                        $krono->k_date('%j/%m/%Y', $file->getDataInserimento()));
+        $template->assign('showFileInfo_dataInserimento',$krono->k_date('%j/%m/%Y', $file->getDataInserimento()));
 
         $template->assign('showFileInfo_new', ($user instanceof User && $file->getDataModifica() < $user->getLastLogin()->getTimestamp()) ? 'true' : 'false');
         $template->assign('showFileInfo_nomeFile', $nomeFile);
@@ -203,16 +175,10 @@ class ShowFileInfo extends PluginCommand
         $template->assign('showFileInfo_hash', $file->getHashFile());
         $template->assign('showFileInfo_categoria', $file->getCategoriaDesc());
         $template->assign('showFileInfo_tipo', $file->getTipoDesc());
-        $template
-                ->assign('showFileInfo_icona',
-                        $fc->getAppSetting('filesTipoIconePath')
-                                . $file->getTipoIcona());
+        $template->assign('showFileInfo_icona', $fc->getAppSetting('filesTipoIconePath'). $file->getTipoIcona());
         $template->assign('showFileInfo_info', $file->getTipoInfo());
         $template->assign('showFileInfo_canali', $canali_tpl);
-        $template
-                ->assign('showFileInfo_paroleChiave', $file->getParoleChiave());
-        $template
-                ->assign('isFileStudente',
-                        (($tipo_file == true) ? 'true' : 'false'));
+        $template->assign('showFileInfo_paroleChiave', $file->getParoleChiave());
+        $template->assign('isFileStudente', (($tipo_file == true) ? 'true' : 'false'));
     }
 }

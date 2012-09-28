@@ -45,7 +45,7 @@ class RuoliAdminEdit extends UniversiboCommand
         $target_username = $target_user->getUsername();
         $target_userUri = '/?do=ShowUser&id_utente='.$target_user->getId();
 
-        $template->assign('common_canaleURI', $canale->showMe());
+        $template->assign('common_canaleURI', $canale->showMe($router));
         $template->assign('common_langCanaleNome', 'a '.$canale->getTitolo());
 
         if (array_key_exists($id_canale, $user_ruoli)) {

@@ -93,7 +93,7 @@ class ShowAllFilesStudentiTitoli extends PluginCommand
                         if ($canale->isGroupAllowed($user->getLegacyGroups())) {
                             $canale_tpl = array();
 //							$canale_tpl['titolo'] = $canale->getNome();
-//							$canale_tpl['link'] = $canale->showMe();
+//							$canale_tpl['link'] = $canale->showMe($router);
                             $file_tpl[$i]['canaleTitolo'] = $canale->getNome();
                             $file_tpl[$i]['canaleLink'] = $canale->showMe($router);
                             $file_tpl[$i]['download_uri'] = $router->generate('universibo_legacy_file_download', array('id_file' => $file->getIdFile(), 'id_canale' => $canali[$j]));

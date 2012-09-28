@@ -16,9 +16,9 @@ use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
  * @subpackage News
  * @version 2.0.0
  * @author Fabrizio Pinto
+ * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
-
 class ShowFileStudentiCommenti extends PluginCommand
 {
     //todo: rivedere la questione diritti per uno studente...
@@ -36,6 +36,7 @@ class ShowFileStudentiCommenti extends PluginCommand
 
         $bc        = $this->getBaseCommand();
         $user      = $bc->get('security.context')->getToken()->getUser();
+        $router    = $this->get('router');
 
         $fc        = $bc->getFrontController();
         $template  = $fc->getTemplateEngine();
@@ -85,7 +86,7 @@ class ShowFileStudentiCommenti extends PluginCommand
                 $id_utente = $elenco_commenti[$i]->getIdUtente();
                 $commenti['commento'] = $elenco_commenti[$i]->getCommento();
                 $commenti['voto'] = $elenco_commenti[$i]->getVoto();
-                $commenti['userLink'] = ('/?do=ShowUser&id_utente='.$id_utente);
+                $commenti['userLink'] = $router->generate('universibo_legacy_user', array('id_utente' => $id_utente));
                 $commenti['userNick'] = $elenco_commenti[$i]->getUsername();
 
 
@@ -97,8 +98,8 @@ class ShowFileStudentiCommenti extends PluginCommand
                 if ($this_diritti) {
                         $id_commento = $elenco_commenti[$i]->getIdCommento();
                         $commenti['dirittiCommento'] = 'true';
-                        $commenti['editCommentoLink'] = '/?do=FileStudentiCommentEdit&id_commento='.$id_commento.'&id_canale='.$id_canale;
-                        $commenti['deleteCommentoLink'] = '/?do=FileStudentiCommentDelete&id_commento='.$id_commento.'&id_canale='.$id_canale;
+                        $commenti['editCommentoLink'] = $router->generate('universibo_legacy_file_studenti_comment_edit', array('id_commento' => $id_commento));
+                        $commenti['deleteCommentoLink'] = $router->generate('universibo_legacy_file_studenti_comment_delete', array('id_commento' => $id_commento));
                     } else {$commenti['dirittiCommento']='false';}
                 $elenco_commenti_tpl[$i] = $commenti;
             }

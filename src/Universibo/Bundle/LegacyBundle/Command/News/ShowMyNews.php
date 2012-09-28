@@ -91,7 +91,7 @@ class ShowMyNews extends PluginCommand
                     if ($canale->isGroupAllowed($user->getLegacyGroups())) {
                         $canale_tpl = array();
                         $canale_tpl['titolo'] = $canale->getNome();
-                        $canale_tpl['link'] = $canale->showMe();
+                        $canale_tpl['link'] = $canale->showMe($router);
                         $elenco_news_tpl[$i]['canali'][] = $canale_tpl;
                     }
                 }

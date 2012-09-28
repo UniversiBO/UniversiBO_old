@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command\Files;
 
+use ZendTest\Navigation\TestAsset\Router;
+
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
 
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
@@ -41,6 +43,7 @@ class ShowFileStudentiTitoli extends PluginCommand
         $fc        = $bc->getFrontController();
         $template  = $fc->getTemplateEngine();
         $krono     = $fc->getKrono();
+        $router    = $this->get('router');
 
         $files_studenti_attivo = $canale->getServizioFilesStudenti();
 
@@ -69,13 +72,6 @@ class ShowFileStudentiTitoli extends PluginCommand
                     $moderatore     = $ruolo->isModeratore();
                     $ultimo_accesso = $ruolo->getUltimoAccesso();
                 }
-
-//				if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') )
-//				{
-//					$template->assign('showFileStudentiTitoli_addFileFlag', 'true');
-//					$template->assign('showFileStudentiTitoli_addFile', 'Inserisci il tuo contributo');
-//					$template->assign('showFileStudentiTitoli_addFileUri', '/?do=FileStudentiAdd&id_canale='.$id_canale);
-//				}
             } else {
                 $personalizza   = false;
                 $referente      = false;
@@ -86,10 +82,10 @@ class ShowFileStudentiTitoli extends PluginCommand
             //Solo se quello che naviga non e` loggato, non compare il link
 
             if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') ) {
-                    $template->assign('showFileStudentiTitoli_addFileFlag', 'true');
-                    $template->assign('showFileStudentiTitoli_addFile', 'Inserisci il tuo contributo');
-                    $template->assign('showFileStudentiTitoli_addFileUri', '/?do=FileStudentiAdd&id_canale='.$id_canale);
-                }
+                $template->assign('showFileStudentiTitoli_addFileFlag', 'true');
+                $template->assign('showFileStudentiTitoli_addFile', 'Inserisci il tuo contributo');
+                $template->assign('showFileStudentiTitoli_addFileUri', $router->generate('universibo_legacy_file_studenti_add', array('id_canale' => $id_canale)));
+            }
 /*
         $canale_news = $this->getNumNewsCanale($id_canale);
 
@@ -127,7 +123,7 @@ class ShowFileStudentiTitoli extends PluginCommand
                     //$file_tpl['nuova']        = ($flag_chkDiritti && $personalizza_not_admin && $ultimo_accesso < $file->getUltimaModifica()) ? 'true' : 'false';
                     $file_tpl['nuova']        = ($personalizza_not_admin && $ultimo_accesso < $file->getDataModifica()) ? 'true' : 'false';
                     $file_tpl['autore']       = $file->getUsername();
-                    $file_tpl['autore_link']  = '/?do=ShowUser&id_utente='.$file->getIdUtente();
+                    $file_tpl['autore_link']  = $router->generate('universibo_legacy_user', array('id_utente' => $file->getIdUtente()));
                     $file_tpl['id_autore']    = $file->getIdUtente();
                     $file_tpl['modifica']     = '';
                     $file_tpl['modifica_link']= '';
@@ -136,18 +132,18 @@ class ShowFileStudentiTitoli extends PluginCommand
                     //if ( ($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $this_moderatore)  && $flag_chkDiritti)
                     if (($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $this_moderatore || ($user == $file->getIdUtente()))) {
                         $file_tpl['modifica']     = 'Modifica';
-                        $file_tpl['modifica_link']= '/?do=FileEdit&id_file='.$file->getIdFile().'&id_canale='.$id_canale;
+                        $file_tpl['modifica_link']= $router->generate('universibo_legacy_file_edit', array('id_file' => $file->getIdFile(), 'id_canale' => $id_canale));
                         $file_tpl['elimina']      = 'Elimina';
-                        $file_tpl['elimina_link'] = '/?do=FileDelete&id_file='.$file->getIdFile().'&id_canale='.$id_canale;
+                        $file_tpl['elimina_link'] = $router->generate('universibo_legacy_file_delete', array('id_file' => $file->getIdFile(), 'id_canale' => $id_canale));
                     }
                     $file_tpl['dimensione'] = $file->getDimensione();
 //	tolto controllo: Il link download va mostrato sempre, il controllo ? effettuato successivamente
 //					$file_tpl['download_uri'] = '';
 //					$permessi_download = $file->getPermessiDownload();
 //					if ($user->isGroupAllowed($permessi_download))
-                    $file_tpl['download_uri'] = '/?do=FileDownload&id_file='.$file->getIdFile().'&id_canale='.$id_canale;
+                    $file_tpl['download_uri'] = $router->generate('universibo_legacy_file_download', array('id_file' => $file->getIdFile(), 'id_canale' => $id_canale));
                     $file_tpl['categoria'] = $file->getCategoriaDesc();
-                    $file_tpl['show_info_uri'] = '/?do=FileShowInfo&id_file='.$file->getIdFile().'&id_canale='.$id_canale;
+                    $file_tpl['show_info_uri'] = $router->generate('universibo_legacy_file', array('id_file' => $file->getIdFile(), 'id_canale' => $id_canale));
 
                     if (!array_key_exists($file->getIdCategoria(), $elenco_file_tpl))
                         $elenco_file_tpl[$file->getIdCategoria()]['desc'] = $file->getCategoriaDesc();

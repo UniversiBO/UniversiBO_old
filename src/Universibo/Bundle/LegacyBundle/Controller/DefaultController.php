@@ -39,16 +39,22 @@ class DefaultController extends Controller
     private function handleLegacy($do)
     {
         switch ($do) {
+            case 'FileDownload':
+                return $this->redirect($this->get('router')->generate('universibo_legacy_file_download', array('id_file' => $_GET['id_file'])), 301);
+            case 'FileShowInfo':
+                return $this->redirect($this->get('router')->generate('universibo_legacy_file', array('id_file' => $_GET['id_file'])), 301);
             case 'ShowCanale':
                 return $this->redirect($this->get('router')->generate('universibo_legacy_canale', array('id_canale' => $_GET['id_canale'])), 301);
             case 'ShowCdl':
                 return $this->redirect($this->get('router')->generate('universibo_legacy_cdl', array('id_canale' => $_GET['id_canale'])), 301);
             case 'ShowError':
-                   return $this->redirect($this->get('router')->generate('universibo_legacy_error'), 301);
+                return $this->redirect($this->get('router')->generate('universibo_legacy_error'), 301);
             case 'ShowFacolta':
                 return $this->redirect($this->get('router')->generate('universibo_legacy_facolta', array('id_canale' => $_GET['id_canale'])), 301);
+            case 'ShowFileInfo':
+                return $this->redirect($this->get('router')->generate('universibo_legacy_file', array('id_file' => $_GET['id_file'])), 301);
             case 'ShowInfoDidattica':
-                  return $this->redirect($this->get('router')->generate('universibo_legacy_insegnamento_info', array('id_canale' => $_GET['id_canale'])), 301);
+                return $this->redirect($this->get('router')->generate('universibo_legacy_insegnamento_info', array('id_canale' => $_GET['id_canale'])), 301);
             case 'ShowInsegnamento':
                 return $this->redirect($this->get('router')->generate('universibo_legacy_insegnamento', array('id_canale' => $_GET['id_canale'])), 301);
             case 'ShowPermalink':

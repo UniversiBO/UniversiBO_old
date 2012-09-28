@@ -55,7 +55,7 @@ class FileStudentiEdit extends UniversiboCommand
         $file_canali = $file->getIdCanali();
 
         $canale = Canale::retrieveCanale($file_canali[0]);
-        $template->assign('common_canaleURI', $canale->showMe());
+        $template->assign('common_canaleURI', $canale->showMe($router));
         $template->assign('common_langCanaleNome', 'a ' . $canale->getTitolo());
 
         //		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
@@ -90,7 +90,7 @@ class FileStudentiEdit extends UniversiboCommand
                                 'file' => __FILE__, 'line' => __LINE__));
 
             $id_canale = $canale->getIdCanale();
-            $template->assign('common_canaleURI', $canale->showMe());
+            $template->assign('common_canaleURI', $canale->showMe($router));
             $template
                     ->assign('common_langCanaleNome',
                             'a ' . $canale->getTitolo());

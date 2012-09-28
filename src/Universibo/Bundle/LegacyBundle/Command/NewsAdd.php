@@ -443,7 +443,7 @@ Testo: ' . $f7_testo . '
 Autore: ' . $user->getUsername() . '
 
 Link: ' . $frontcontroller->getAppSetting('rootUrl') . '/'
-                            . $add_canale->showMe()
+                            . $add_canale->showMe($router)
                             . '
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Informazioni per la cancellazione:

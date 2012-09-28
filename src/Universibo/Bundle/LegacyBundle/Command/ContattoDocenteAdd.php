@@ -66,7 +66,7 @@ class ContattoDocenteAdd extends UniversiboCommand
             $canale = &Canale::retrieveCanale($_GET['id_canale']);
             if ($canale) {
                 $id_canale = $canale->getIdCanale();
-                $template->assign('common_canaleURI', $canale->showMe());
+                $template->assign('common_canaleURI', $canale->showMe($router));
                 $template
                         ->assign('common_langCanaleNome',
                                 'a ' . $canale->getTitolo());

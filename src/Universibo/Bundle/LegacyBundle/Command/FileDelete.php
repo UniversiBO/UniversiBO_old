@@ -21,8 +21,9 @@ class FileDelete extends UniversiboCommand
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
+        $router = $this->get('router');
 
-        $template->assign('common_canaleURI', '/?do=ShowMyUniversiBO');
+        $template->assign('common_canaleURI', $router->generate('universibo_legacy_myuniversibo'));
         $template->assign('common_langCanaleNome', 'indietro');
 
         $user = $this->get('security.context')->getToken()->getUser();
@@ -65,7 +66,7 @@ class FileDelete extends UniversiboCommand
                                 'file' => __FILE__, 'line' => __LINE__));
 
             $id_canale = $canale->getIdCanale();
-            $template->assign('common_canaleURI', $canale->showMe());
+            $template->assign('common_canaleURI', $canale->showMe($router));
             $template
                     ->assign('common_langCanaleNome',
                             'a ' . $canale->getTitolo());

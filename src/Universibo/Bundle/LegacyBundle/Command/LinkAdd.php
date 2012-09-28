@@ -41,7 +41,7 @@ class LinkAdd extends UniversiboCommand
 
                 $canale = Canale::retrieveCanale($_GET['id_canale']);
                 $id_canale = $canale->getIdCanale();
-                $template->assign('common_canaleURI', $canale->showMe());
+                $template->assign('common_canaleURI', $canale->showMe($router));
                 $template->assign('common_langCanaleNome', $canale->getTitolo());
          */
         $template
@@ -81,7 +81,7 @@ class LinkAdd extends UniversiboCommand
                             'file' => __FILE__, 'line' => __LINE__));
 
         $id_canale = $canale->getIdCanale();
-        $template->assign('common_canaleURI', $canale->showMe());
+        $template->assign('common_canaleURI', $canale->showMe($router));
         $template->assign('common_langCanaleNome', 'a ' . $canale->getTitolo());
         if (array_key_exists($id_canale, $user_ruoli)) {
             $ruolo = $user_ruoli[$id_canale];

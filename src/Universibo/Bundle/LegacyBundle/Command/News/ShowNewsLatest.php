@@ -69,7 +69,7 @@ class ShowNewsLatest extends PluginCommand
             if ( $this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $moderatore ) {
                 $template->assign('showNewsLatest_addNewsFlag', 'true');
                 $template->assign('showNewsLatest_addNews', 'Scrivi nuova notizia');
-                $template->assign('showNewsLatest_addNewsUri', '/?do=NewsAdd&id_canale='.$id_canale);
+                $template->assign('showNewsLatest_addNewsUri', $router->generate('universibo_legacy_news_add', array('id_canale' => $id_canale)));
             }
         } else {
             $personalizza   = false;
@@ -91,7 +91,7 @@ class ShowNewsLatest extends PluginCommand
             $template->assign('showNewsLatest_langNewsAvailableFlag', 'true');
             if ($canale_news > $num_news) {
                 $template->assign('showNewsLatest_langNewsShowOthers', 'Mostra tutte le news');
-                $template->assign('showNewsLatest_langNewsShowOthersUri', '/?do=NewsShowCanale&id_canale='.$id_canale.'&inizio=0&qta=10');
+                $template->assign('showNewsLatest_langNewsShowOthersUri', $router->generate('universibo_legacy_news_show_canale', array('id_canale' => $id_canale, 'inizio' => 0, 'qta' => 10)));
             } else {
                 $template->assign('showNewsLatest_langNewsShowOthers', '');
             }

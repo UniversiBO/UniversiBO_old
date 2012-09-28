@@ -49,7 +49,7 @@ class FileStudentiAdd extends UniversiboCommand
 
                 $canale = & Canale::retrieveCanale($_GET['id_canale']);
                 $id_canale = $canale->getIdCanale();
-                $template->assign('common_canaleURI', $canale->showMe());
+                $template->assign('common_canaleURI', $canale->showMe($router));
                 $template->assign('common_langCanaleNome', $canale->getTitolo());
          */
         $template
@@ -90,7 +90,7 @@ class FileStudentiAdd extends UniversiboCommand
                                 'file' => __FILE__, 'line' => __LINE__));
 
             $id_canale = $canale->getIdCanale();
-            $template->assign('common_canaleURI', $canale->showMe());
+            $template->assign('common_canaleURI', $canale->showMe($router));
             $template
                     ->assign('common_langCanaleNome', 'a '
                             . $canale->getTitolo());
@@ -563,11 +563,8 @@ Dimensione: ' . $dimensione_file . ' kB
 Autore: ' . $user->getUsername()
                         . '
 
-Link: https://www.universibo.unibo.it/?do=FileShowInfo&id_file='
-                        . $newFile->getIdFile() . '&id_canale='
-                        . $canale->getIdCanale()
-                        . '
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~';
+Link: '.$router->generate('universibo_legacy_file_download', array('id_file' => $file->getIdFile(), 'id_canale' => $canale->getIdCanale()), true)
+.PHP_EOL.'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~';
 
                 //
                 //						$ruoli_canale = $canale->getRuoli();

@@ -1,5 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+use ZendTest\Navigation\TestAsset\Router;
+
 use \Error;
 
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
@@ -17,8 +19,6 @@ use Universibo\Bundle\LegacyBundle\Framework\LogHandler;
 /**
  * -DidatticaGestione: per le correzioni didattiche
  *
- * @package universibo
- * @subpackage commands
  * @version 2.0.0
  * @author evaimitico
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
@@ -32,6 +32,7 @@ class DidatticaGestione extends UniversiboCommand
 
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
+        $router = $this->get('router');
 
         $krono = $frontcontroller->getKrono();
         $user = $this->get('security.context')->getToken()->getUser();
@@ -49,9 +50,7 @@ class DidatticaGestione extends UniversiboCommand
                         array_key_exists('HTTP_REFERER', $_SERVER) ? $_SERVER['HTTP_REFERER']
                                 : '');
         $template->assign('common_langCanaleNome', 'indietro');
-        $template
-                ->assign('DidatticaGestione_baseUrl',
-                        '/?do=DidatticaGestione');
+        $template->assign('DidatticaGestione_baseUrl', $router->generate('universibo_legacy_didattica_gestione'));
 
         $id_canale = '';
         $id_facolta = '';
@@ -471,6 +470,7 @@ class DidatticaGestione extends UniversiboCommand
      */
     function &_getAttivitaFromCanale($id_canale, $prg_exclude = null)
     {
+        $router = $this->get('router');
         $prgs = PrgAttivitaDidattica::selectPrgAttivitaDidatticaCanale(
                 $id_canale);
         $ret = array();
@@ -479,9 +479,7 @@ class DidatticaGestione extends UniversiboCommand
                 //	 			var_dump($prg);
                 $cdl = &Cdl::selectCdlCodice($prg->getCodiceCdl());
                 $id = $id_canale;
-                $uri = '/?do=DidatticaGestione&id_canale=' . $id_canale
-                        . '&id_cdl=' . $cdl->getIdCanale() . '&id_fac='
-                        . $_GET['id_fac'];
+                $uri =  $router->generate('universibo_legacy_didattica_gestione', array('id_canale' => $id_canale, 'id_cdl' => $cdl->getIdCanale(), 'id_fac' => $_GET['id_fac']));
                 $status = '';
                 if ($prg->isSdoppiato()) {
                     $id .= '#' . $prg->getIdSdop();
@@ -529,7 +527,7 @@ class DidatticaGestione extends UniversiboCommand
     public static function getEditUrl($id_canale, $id_cdl = null, $id_facolta = null,
             $id_sdop = null)
     {
-        $ret = '/?do=DidatticaGestione&id_canale=' . $id_canale;
+        $ret = $router->generate('universibo_legacy_didattica_gestione', array('id_canale' => $id_canale));
         if ($id_cdl != null)
             $ret .= '&id_cdl=' . $id_cdl;
         if ($id_facolta != null)

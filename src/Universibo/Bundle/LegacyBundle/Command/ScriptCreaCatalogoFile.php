@@ -87,7 +87,7 @@ class ScriptCreaCatalogoFile extends UniversiboCommand
                     fwrite($fp,'<subject>'.htmlentities($file->getCategoriaDesc()).'</subject>');
                     fwrite($fp,'<title>'.htmlentities($file->getTitolo()).'</title>');
                     fwrite($fp,'<description>'.htmlentities($file->getDescrizione()).'</description>');
-                    fwrite($fp,'<url>'.htmlentities($urlFile.$file->getIdFile()).'</url>');
+                    fwrite($fp,'<url>'.htmlentities($router->generate('universibo_legacy_file', array('id_file' => $file->getIdFile()), true)).'</url>');
                     fwrite($fp,'</download>');
                     fwrite($fp,"\n");
                     //$download = $root->new_child('download','');

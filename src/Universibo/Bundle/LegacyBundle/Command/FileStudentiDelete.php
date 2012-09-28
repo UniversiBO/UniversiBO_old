@@ -25,9 +25,6 @@ class FileStudentiDelete extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 
-        //		$template->assign('common_canaleURI', '/?do=ShowMyUniversiBO');
-        //		$template->assign('common_langCanaleNome', 'indietro');
-
         $user = $this->get('security.context')->getToken()->getUser();
 
         $referente = false;
@@ -47,7 +44,7 @@ class FileStudentiDelete extends UniversiboCommand
         $file_canali = $file->getIdCanali();
 
         $canale = Canale::retrieveCanale($file_canali[0]);
-        $template->assign('common_canaleURI', $canale->showMe());
+        $template->assign('common_canaleURI', $canale->showMe($router));
         $template->assign('common_langCanaleNome', 'a ' . $canale->getTitolo());
         if ($file === false)
             Error::throwError(_ERROR_DEFAULT,
@@ -73,7 +70,7 @@ class FileStudentiDelete extends UniversiboCommand
                                 'file' => __FILE__, 'line' => __LINE__));
 
             $id_canale = $canale->getIdCanale();
-            $template->assign('common_canaleURI', $canale->showMe());
+            $template->assign('common_canaleURI', $canale->showMe($router));
             $template
                     ->assign('common_langCanaleNome', 'a '
                             . $canale->getTitolo());

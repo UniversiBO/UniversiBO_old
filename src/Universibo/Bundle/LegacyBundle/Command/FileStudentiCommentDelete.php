@@ -26,6 +26,7 @@ class FileStudentiCommentDelete extends UniversiboCommand
 
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
+        $router = $this->getRouter();
 
         $krono = $frontcontroller->getKrono();
 
@@ -119,11 +120,7 @@ class FileStudentiCommentDelete extends UniversiboCommand
             if ($f28_accept == true) {
 
                 CommentoItem::deleteCommentoItem($id_commento);
-                $template
-                        ->assign('common_canaleURI',
-                                '/?do=FileShowInfo&id_file='
-                                        . $id_file_studente . '&id_canale='
-                                        . $id_canale);
+                $template->assign('common_canaleURI', $router->generate('universibo_legacy_file', array('id_file' => $id_file_studente, 'id_canale' => $id_canale)));
 
                 return 'success';
             }

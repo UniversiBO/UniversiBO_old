@@ -1,3 +1,4 @@
+# Please keep rules in alphabetic order
 universibo_legacy_accessibility:
     pattern: /accessibilita/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowAccessibility' }
@@ -32,6 +33,9 @@ universibo_legacy_contact_professors:
 universibo_legacy_credits:
     pattern: /credits/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowCredits' }
+universibo_legacy_didattica_gestione:
+    pattern: /didattica/gestione/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'DidatticaGestione' }
 universibo_legacy_error:
     pattern: /error/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowError' }
@@ -46,6 +50,42 @@ universibo_legacy_file:
 universibo_legacy_file_download:
     pattern: /file/{id_file}/download
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'FileDownload' }
+    requirements: { id_file: \d+ }
+universibo_legacy_file_add:
+    pattern: /file/add/{id_canale}/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'FileAdd' }
+    requirements: { id_canale: \d+ }
+universibo_legacy_file_delete:
+    pattern: /file/{id_file}/delete
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'FileDelete' }
+    requirements: { id_file: \d+ }
+universibo_legacy_file_docente_admin:
+    pattern: /file/admin/{id_canale}/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'FileDocenteAdmin' }
+    requirements: { id_canale: \d+ }
+universibo_legacy_file_edit:
+    pattern: /file/{id_file}/edit
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'FileEdit' }
+    requirements: { id_file: \d+ }
+universibo_legacy_file_studenti_add:
+    pattern: /file/studenti/add/{id_canale}/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'FileStudentiAdd' }
+    requirements: { id_canale: \d+ }
+universibo_legacy_file_studenti_comment:
+    pattern: /file/studenti/{id_file}/comment
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'FileStudentiComment' }
+    requirements: { id_file: \d+ }
+universibo_legacy_file_studenti_comment_delete:
+    pattern: /file/studenti/comment/{id_commento}/delete
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'FileStudentiCommentDelete' }
+    requirements: { id_commento: \d+ }
+universibo_legacy_file_studenti_comment_edit:
+    pattern: /file/studenti/comment/{id_commento}/edit
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'FileStudentiCommentEdit' }
+    requirements: { id_commento: \d+ }
+universibo_legacy_file_studenti_delete:
+    pattern: /file/studenti/{id_file}/delete
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'FileStudentiDelete' }
     requirements: { id_file: \d+ }
 universibo_legacy_file_studenti_edit:
     pattern: /file/studenti/{id_file}/edit

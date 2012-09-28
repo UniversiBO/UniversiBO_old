@@ -40,8 +40,7 @@ class ShowFileStudentiCommento extends PluginCommand
         $id_utente = $commento->getIdUtente();
         $commento_tpl['commento'] = $commento->getCommento();
         $commento_tpl['voto'] = $commento->getVoto();
-        $commento_tpl['userLink'] = ('/?do=ShowUser&id_utente='
-                . $id_utente);
+        $commento_tpl['userLink'] = $this->get('router')->generate('universibo_legacy_user', array('id_utente' => $id_utente));
         $commento_tpl['userNick'] = $commento->getUsername();
 
         $template->assign('showFileStudentiCommenti_commento', $commento_tpl);

@@ -78,7 +78,7 @@ class ShowLinks extends PluginCommand
 
         $template->assign('showLinks_linksList', $elenco_links_tpl);
         $template->assign('showLinks_linksListAvailable', 'true');
-        $template->assign('showLinks_linksAdminUri', '/?do=LinksAdmin&id_canale='.$id_canale);
+        $template->assign('showLinks_linksAdminUri', $router->generate('universibo_legacy_links_admin', array('id_canale' => $id_canale)));
         $template->assign('showLinks_linksAdminLabel', 'Gestione links');
         $template->assign('showLinks_linksPersonalizza', ($personalizza) ? 'true' : 'false');
     }

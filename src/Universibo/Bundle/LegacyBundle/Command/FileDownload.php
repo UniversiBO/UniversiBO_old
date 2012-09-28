@@ -45,10 +45,7 @@ class FileDownload extends UniversiboCommand
                             'msg' => "Il file richiesto non e` presente su database",
                             'file' => __FILE__, 'line' => __LINE__));
 
-        $template
-                ->assign('fileDownload_InfoURI',
-                        '/?do=FileShowInfo&id_file='
-                                . $file->getIdFile());
+        $template->assign('fileDownload_InfoURI', $router->generate('universibo_legacy_file', array('id_file' => $file->getIdFile())));
 
         if ($user->isGroupAllowed($file->getPermessiDownload())) {
             $directoryFile = $frontcontroller->getAppSetting('filesPath');

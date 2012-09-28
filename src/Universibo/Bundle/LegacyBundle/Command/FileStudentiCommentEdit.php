@@ -144,13 +144,8 @@ class FileStudentiCommentEdit extends UniversiboCommand
             //esecuzione operazioni accettazione del form
             if ($f27_accept == true) {
 
-                CommentoItem::updateCommentoItem($id_commento, $f27_commento,
-                        $f27_voto);
-                $template
-                        ->assign('common_canaleURI',
-                                '/?do=FileShowInfo&id_file='
-                                        . $id_file_studente . '&id_canale='
-                                        . $id_canale);
+                CommentoItem::updateCommentoItem($id_commento, $f27_commento, $f27_voto);
+                $template->assign('common_canaleURI',$router->generate('universibo_legacy_file', array('id_file' => $id_file_studente, 'id_canale' => $id_canale)));
 
                 return 'success';
             }

@@ -24,6 +24,7 @@ class FileStudentiComment extends UniversiboCommand
 
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
+        $router = $this->get('router');
 
         $krono = $frontcontroller->getKrono();
         $user = $this->get('security.context')->getToken()->getUser();
@@ -56,17 +57,9 @@ class FileStudentiComment extends UniversiboCommand
         if ($id_commento != NULL) {
             $canali = $file->getIdCanali();
 
-            $template
-                    ->assign('FileStudentiComment_ris',
-                            'Esiste già un tuo commento a questo file.');
-            $template
-                    ->assign('common_canaleURI',
-                            '/?do=FileShowInfo&id_file=' . $id_file
-                                    . '&id_canale=' . $canali[0]);
-            $template
-                    ->assign('FilesStudentiComment_modifica',
-                            '/?do=FileStudentiCommentEdit&id_commento='
-                                    . $id_commento . '&id_canale=' . $canali[0]);
+            $template->assign('FileStudentiComment_ris', 'Esiste già un tuo commento a questo file.');
+            $template->assign('common_canaleURI', $router->generate('universibo_legacy_file', array('id_file' => $id_file, 'id_canale' => $canali[0])));
+            $template->assign('FilesStudentiComment_modifica', $router->generate('universibo_legacy_file_studenti_comment_edit', array('id_canale' => $canali[0], 'id_commento' => $id_commento)));
             $template->assign('esiste_CommentoItem', 'true');
 
             return 'success';
@@ -189,10 +182,7 @@ class FileStudentiComment extends UniversiboCommand
                 $template
                         ->assign('FileStudentiComment_ris',
                                 'Il tuo commento è stato inserito con successo.');
-                $template
-                        ->assign('common_canaleURI',
-                                '/?do=FileShowInfo&id_file=' . $id_file
-                                        . '&id_canale=' . $canali[0]);
+                $template->assign('common_canaleURI', $router->generate('universibo_legacy_file', array('id_file' => $id_file, 'id_canale' => $canali[0])));
 
                 return 'success';
             }

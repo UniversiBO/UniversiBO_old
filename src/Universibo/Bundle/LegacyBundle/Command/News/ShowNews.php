@@ -65,29 +65,15 @@ class ShowNews extends PluginCommand
                 $moderatore     = $ruolo->isModeratore();
                 $ultimo_accesso = $ruolo->getUltimoAccesso();
             }
-
-//			if ( $this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $moderatore )
-//			{
-//				$template->assign('showNews_addNewsFlag', 'true');
-//				$template->assign('showNews_addNews', 'Scrivi nuova notizia');
-//				$template->assign('showNews_addNewsUri', '/?do=NewsAdd&id_canale='.$id_canale);
-//			}
         } else {
             $personalizza   = false;
             $referente      = false;
             $moderatore     = false;
             $ultimo_accesso = $user instanceof User ? $user->getLastLogin()->getTimestamp() : 0;
         }
-/*
-        $canale_news = $this->getNumNewsCanale($id_canale);
 
-        $template->assign('showNews_desc', 'Mostra le ultime '.$num_news.' notizie del canale '.$id_canale.' - '.$titolo_canale);
-*/
-//		var_dump($elenco_id_news);
-//		die();
         $canale_news = count($elenco_id_news);
-//		var_dump($elenco_id_news);
-//		die();
+
         if ($canale_news == 0) {
             $template->assign('showNews_langNewsAvailable', 'Non ci sono notizie da visualizzare');
             $template->assign('showNews_langNewsAvailableFlag', 'false');
@@ -96,7 +82,6 @@ class ShowNews extends PluginCommand
             $template->assign('showNews_langNewsAvailableFlag', 'true');
         }
 
-        //var_dump($elenco_id_news);
         $elenco_news = NewsItem::selectNewsItems($elenco_id_news);
 
         $elenco_news_tpl = array();
@@ -141,6 +126,5 @@ class ShowNews extends PluginCommand
         }
 
         $template->assign('showNews_newsList', $elenco_news_tpl);
-
     }
 }

@@ -45,17 +45,7 @@ class FileEdit extends UniversiboCommand
                             'msg' => "Il file richiesto non e` presente su database",
                             'file' => __FILE__, 'line' => __LINE__));
 
-        $template
-                ->assign('fileEdit_fileUri',
-                        '/?do=FileShowInfo&id_file='
-                                . $file->getIdFile());
-
-        //		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
-        //		{
-        //			Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non ? valido', 'file' => __FILE__, 'line' => __LINE__));
-        //		}
-        //		$canale =  Canale::retrieveCanale($_GET['id_canale']);
-        //		$id_canale = $canale->getIdCanale();
+        $template->assign('fileEdit_fileUri', $router->generate('universibo_legacy_file_download', array('id_file' => $file->getIdFile())));
 
         $template
                 ->assign('common_canaleURI',
@@ -83,7 +73,7 @@ class FileEdit extends UniversiboCommand
                                 'file' => __FILE__, 'line' => __LINE__));
 
             $id_canale = $canale->getIdCanale();
-            $template->assign('common_canaleURI', $canale->showMe());
+            $template->assign('common_canaleURI', $canale->showMe($router));
             $template->assign('common_langCanaleNome', 'a '. $canale->getTitolo());
             if (array_key_exists($id_canale, $user_ruoli)) {
                 $ruolo = $user_ruoli[$id_canale];

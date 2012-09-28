@@ -590,7 +590,7 @@ class Canale
      *
      * @return string uri/link che mostra un canale
      */
-    public function showMe(RouterInterface $router = null)
+    public function showMe(RouterInterface $router)
     {
         if ($router !== null) {
             if ($this->getTipoCanale() == Canale::HOME) {
@@ -601,9 +601,6 @@ class Canale
                 return $router->generate('universibo_legacy_canale', $params);
             }
         }
-
-        if ($this->getTipoCanale() == Canale::HOME) return '/?do=ShowHome';
-        else return '/?do=ShowCanale&id_canale='.$this->id_canale;
     }
 
     /**

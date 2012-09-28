@@ -43,7 +43,7 @@ class LinksAdmin extends UniversiboCommand
         $canale = Canale::retrieveCanale($idCanale);
         $id_canale = $canale->getIdCanale();
 
-        $template->assign('common_canaleURI', $canale->showMe());
+        $template->assign('common_canaleURI', $canale->showMe($router));
         $template->assign('common_langCanaleNome', 'a ' . $canale->getTitolo());
 
         if (array_key_exists($id_canale, $user_ruoli)) {

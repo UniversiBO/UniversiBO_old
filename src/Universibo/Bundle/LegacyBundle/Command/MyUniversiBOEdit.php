@@ -44,7 +44,7 @@ class MyUniversiBOEdit extends UniversiboCommand
         }
 
         $canale = Canale::retrieveCanale($id_canale);
-        $template->assign('common_canaleURI', $canale->showMe());
+        $template->assign('common_canaleURI', $canale->showMe($router));
         $template->assign('common_langCanaleNome', $canale->getNome());
 
         $ruoli = $utente instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($utente->getId()) : array();
