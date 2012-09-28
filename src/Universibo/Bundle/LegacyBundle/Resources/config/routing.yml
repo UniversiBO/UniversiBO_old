@@ -83,7 +83,7 @@ universibo_legacy_file_studenti_comment_edit:
     pattern: /file/studenti/comment/{id_commento}/edit
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'FileStudentiCommentEdit' }
     requirements: { id_commento: \d+ }
-universibo_legacy_file_studenti_delete:
+universibo_legacy_file_studenti:
     pattern: /file/studenti/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowAllFilesStudenti' }
 universibo_legacy_file_studenti_delete:
@@ -99,6 +99,7 @@ universibo_legacy_help:
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowHelp' }
 universibo_legacy_help_topic:
     pattern: /help/topic/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowHelpTopic' }
 universibo_legacy_insegnamento:
     pattern: /insegnamento/{id_canale}/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowInsegnamento' }
@@ -111,10 +112,22 @@ universibo_legacy_insegnamento_info_edit:
     pattern: /insegnamento/{id_canale}/info/edit
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'InfoDidatticaEdit' }
     requirements: { id_canale: \d+ }
-universibo_legacy_links_admin:
-    pattern: /links/{id_canale}/admin/
+universibo_legacy_link_add:
+    pattern: /link/add/{id_canale}/
+    requirements: { id_canale: \d+ }
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'LinkAdd' }
+universibo_legacy_link_admin:
+    pattern: /link/admin/{id_canale}/
     requirements: { id_canale: \d+ }
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'LinksAdmin' }
+universibo_legacy_link_delete:
+    pattern: /link/{id_link}/delete/
+    requirements: { id_link: \d+ }
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'LinkDelete' }
+universibo_legacy_link_edit:
+    pattern: /link/{id_link}/edit/{id_canale}/
+    requirements: { id_link: \d+, id_canale: \d+ }
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'LinkEdit' }
 universibo_legacy_manifesto:
     pattern: /manifesto/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowManifesto' }
@@ -137,6 +150,14 @@ universibo_legacy_news_add:
     pattern: /news/add/{id_canale}/
     requirements: { id_canale: \d+ }
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'NewsAdd' }
+universibo_legacy_news_delete:
+    pattern: /news/{id_news}/delete/
+    requirements: { id_news: \d+ }
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'NewsDelete' }
+universibo_legacy_news_edit:
+    pattern: /news/{id_news}/edit/
+    requirements: { id_news: \d+ }
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'NewsEdit' }
 universibo_legacy_news_show_canale:
     pattern: /news/canale/{id_canale}/
     requirements: { id_canale: \d+ }

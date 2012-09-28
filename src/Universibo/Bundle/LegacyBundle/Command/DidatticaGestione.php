@@ -527,15 +527,22 @@ class DidatticaGestione extends UniversiboCommand
     public static function getEditUrl($id_canale, $id_cdl = null, $id_facolta = null,
             $id_sdop = null)
     {
-        $ret = $router->generate('universibo_legacy_didattica_gestione', array('id_canale' => $id_canale));
-        if ($id_cdl != null)
-            $ret .= '&id_cdl=' . $id_cdl;
-        if ($id_facolta != null)
-            $ret .= '&id_fac=' . $id_facolta;
-        if ($id_sdop != null)
-            $ret .= '&id_sdop=' . $id_sdop;
+        $router = FrontController::getContainer()->get('router');
 
-        return $ret;
+        $data = array('id_canale' => $id_canale);
+
+        if ($id_cdl !== null) {
+            $data['id_cdl'] = $id_cdl;
+        }
+
+        if ($id_facolta !== null) {
+            $data['id_facolta'] = $id_facolta;
+        }
+        if ($id_sdop !== null) {
+            $data['id_sdop'] = $id_sdop;
+        }
+
+        return $router->generate('universibo_legacy_didattica_gestione', $data);
     }
 
     /**

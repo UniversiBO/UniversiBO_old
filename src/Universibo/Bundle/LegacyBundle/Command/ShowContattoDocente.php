@@ -163,7 +163,7 @@ class ShowContattoDocente extends UniversiboCommand
             $f35_id_username = $_POST['f35_id_username'];
 
             if ($f35_stato != $contatto->getStato())
-                $contatto->setStato($f35_stato, $user->getId());
+                $contatto->setStato($f35_stato, $user->getUsername());
 
             if ($f35_id_username != $contatto->getIdUtenteAssegnato()) {
                 if ($f35_id_username != 'null') {
@@ -193,7 +193,7 @@ Stato attuale: ' . $f35_stati[$f35_stato] . '
 Report attuale:
 ' . $contatto->getReport() . '
 
-Link: ' . $router->generate('universibo_legacy_contact_professor', array('id_utenet' =>$docente->getIdUtente()))
+Link: ' . $router->generate('universibo_legacy_contact_professor', array('cod_doc' =>$docente->getCodDoc()))
                     . '
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~';
 

@@ -95,6 +95,7 @@ class ShowMyNews extends PluginCommand
                         $elenco_news_tpl[$i]['canali'][] = $canale_tpl;
                     }
                 }
+                $elenco_news_tpl[$i]['permalink']     = $router->generate('universibo_legacy_permalink', array('id_notizia' => $news->getIdNotizia()));
                 $elenco_news_tpl[$i]['nuova']	   	 = ($news->getUltimaModifica() > $ultimo_accesso) ? 'true' : 'false';
                 $elenco_news_tpl[$i]['modifica']     = '';
                 $elenco_news_tpl[$i]['modifica_link']= '';

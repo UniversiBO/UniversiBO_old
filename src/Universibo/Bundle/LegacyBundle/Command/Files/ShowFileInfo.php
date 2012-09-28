@@ -84,22 +84,22 @@ class ShowFileInfo extends PluginCommand
         $moderatore = false;
         $parametro_canale = '';
 
-        if (array_key_exists('id_canale', $_GET)) {
-            if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
+        $params = array('id_file' => $file->getIdFile());
+
+        if ($id_canale = $this->getBaseCommand()->getRequest()->get('id_canale')) {
+            if (!preg_match('/^([0-9]{1,9})$/', $id_canale))
                 Error::throwError(_ERROR_DEFAULT,
                         array(
                                 'msg' => 'L\'id del canale richiesto non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $canale = Canale::retrieveCanale($_GET['id_canale']);
+            $canale = Canale::retrieveCanale($id_canale);
             if ($canale->getServizioFiles() == false)
                 Error::throwError(_ERROR_DEFAULT,
                         array('msg' => "Il servizio files e` disattivato",
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $id_canale = $canale->getIdCanale();
-
-            $parametro_canale = '&id_canale=' . $id_canale;
+            $params['id_canale'] = $id_canale;
 
             $user_ruoli = $canale->getRuoli();
             $template->assign('common_canaleURI', $canale->showMe($router));

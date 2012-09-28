@@ -1,5 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
+
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use \Error;
@@ -26,17 +29,17 @@ class LinkEdit extends CanaleCommand
     {
 
         $user = $this->get('security.context')->getToken()->getUser();
-        $canale = $this->getRequestCanale();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
         $userId = $user instanceof User ? $user->getId() : 0;
-        $id_canale = $canale->getIdCanale();
 
         //diritti
         $referente = false;
         $moderatore = false;
 
-        if (!array_key_exists('id_link', $_GET)|| !preg_match('/^([0-9]{1,9})$/', $_GET['id_link'])) {
-            throw new NotFoundHttpException('Invalid link ID');
+        $id_canale = $this->getRequest()->get('id_canale');
+        $canale = $this->get('universibo_legacy.repository.canale')->find($id_canale);
+        if (!$canale instanceof Canale) {
+            throw new NotFoundHttpException('Channel with id='.$id_canale.' not found');
         }
 
         if ($canale->getServizioLinks() == false) {
@@ -53,7 +56,8 @@ class LinkEdit extends CanaleCommand
             $moderatore = $ruolo->isModeratore();
         }
 
-        $link = Link::selectLink($_GET['id_link']);
+        $id_link = $this->getRequest()->attributes->get('id_link');
+        $link = $this->get('universibo_legacy.repository.links.link')->find($id_link);
         $autore = ($userId == $link->getIdUtente());
 
         //		//controllo coerenza parametri
@@ -76,8 +80,8 @@ class LinkEdit extends CanaleCommand
 
         $this
                 ->executePlugin('ShowLink',
-                        array('id_link' => $_GET['id_link'],
-                                'id_canale' => $_GET['id_canale']));
+                        array('id_link' => $id_link,
+                                'id_canale' => $id_canale));
 
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
@@ -159,7 +163,7 @@ class LinkEdit extends CanaleCommand
             }
 
             if ($f31_accept === true) {
-                $linkItem = new Link($_GET['id_link'], $id_canale,
+                $linkItem = new Link($id_link, $id_canale,
                         $user->getId(), $f31_URI, $f31_Label,
                         $f31_Description);
                 $linkItem->updateLink();

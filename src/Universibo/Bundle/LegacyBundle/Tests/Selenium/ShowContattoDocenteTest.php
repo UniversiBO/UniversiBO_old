@@ -3,7 +3,7 @@ namespace Universibo\Bundle\LegacyBundle\Tests\Selenium;
 
 use Universibo\Bundle\LegacyBundle\Tests\TestConstants;
 
-class ShowCcontattoDocenteTest extends UniversiBOSeleniumTestCase
+class ShowContattoDocenteTest extends UniversiBOSeleniumTestCase
 {
     protected function setUp()
     {
@@ -13,11 +13,11 @@ class ShowCcontattoDocenteTest extends UniversiBOSeleniumTestCase
     public function testShow()
     {
         $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openPrefix('/docenti/contatto/012179');
+        $this->openPrefix('/docente/012768/contatto/');
 
         $sentences = array (
-                'Prof. Pier Paolo Abbati Marescotti',
-                'pier.abbati@unibo.it',
+                'Prof. Paolo Amadesi',
+                'paolo.amadesi@unibo.it',
         );
 
         $this->assertSentences($sentences);
@@ -26,7 +26,7 @@ class ShowCcontattoDocenteTest extends UniversiBOSeleniumTestCase
     public function testUpdate()
     {
         $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openPrefix('/docenti/contatto/012179');
+        $this->openPrefix('/docente/012768/contatto/');
 
         $report = sha1(rand());
         $this->type('name=f35_report', $report);

@@ -1,5 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use \Error;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
@@ -25,6 +27,7 @@ class LinkDelete extends CanaleCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 
+        $router = $this->get('router');
         $template->assign('common_canaleURI', $router->generate('universibo_legacy_myuniversibo'));
         $template->assign('common_langCanaleNome', 'indietro');
 
@@ -35,15 +38,7 @@ class LinkDelete extends CanaleCommand
 
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
-        if (!array_key_exists('id_link', $_GET)
-                || !preg_match('/^([0-9]{1,9})$/', $_GET['id_link'])) {
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'L\'id del link richiesto non e` valido',
-                            'file' => __FILE__, 'line' => __LINE__));
-        }
-
-        $link = Link::selectLink($_GET['id_link']);
+        $link = $this->get('universibo_legacy.repository.links.link')->find($this->getRequest()->attributes->get('id_link'));
         if ($link === false)
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getId(),
@@ -52,14 +47,20 @@ class LinkDelete extends CanaleCommand
 
         $autore = ($user->getId() == $link->getIdUtente());
 
-        if (array_key_exists('id_canale', $_GET)) {
-            if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
+        $id_canale = $this->getRequest()->attributes->get('id_canale');
+
+        if ($id_canale !== null) {
+            if (!preg_match('/^([0-9]{1,9})$/', $id_canale)) {
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getId(),
                                 'msg' => 'L\'id del canale richiesto non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
+            }
 
-            $canale = Canale::retrieveCanale($_GET['id_canale']);
+            $canale = $this->get('universibo_legacy.repository.canale')->find($id_canale);
+            if (!$canale instanceof Canale) {
+                throw new NotFoundHttpException('Channel not found');
+            }
 
             if ($canale->getServizioLinks() == false)
                 Error::throwError(_ERROR_DEFAULT,
@@ -67,7 +68,6 @@ class LinkDelete extends CanaleCommand
                                 'msg' => 'Il servizio links e` disattivato',
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $id_canale = $canale->getIdCanale();
             $template->assign('common_canaleURI', $canale->showMe($router));
             $template
                     ->assign('common_langCanaleNome', 'a '

@@ -29,6 +29,7 @@ class MyUniversiBORemove extends UniversiboCommand
         $template = $frontcontroller->getTemplateEngine();
         $router = $this->get('router');
         $utente = $this->get('security.context')->getToken()->getUser();
+        $router = $this->get('router');
 
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             return new Response('', 403);

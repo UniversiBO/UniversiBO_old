@@ -26,19 +26,19 @@ class FileShowInfo extends UniversiboCommand
         $krono = $frontcontroller->getKrono();
         $user = $this->get('security.context')->getToken()->getUser();
         $userId = $user instanceof User ? $user->getId() : 0;
+        $id_file = $this->getRequest()->attributes->get('id_file');
 
-        if (!array_key_exists('id_file', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_file'])) {
+        if (!preg_match('/^([0-9]{1,9})$/', $id_file)) {
             throw new NotFoundHttpException('Invalid file ID');
         }
 
-        $id_file = $_GET['id_file'];
         $tipo_file = $this->get('universibo_legacy.repository.files.file_item_studenti')->isFileStudenti($id_file);
 
-        if (array_key_exists('id_canale', $_GET) && preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
-            $this->executePlugin('ShowFileInfo', array('id_file' => $_GET['id_file'],
-                                    'id_canale' => $_GET['id_canale']));
+        if (null != ($id_canale = $this->getRequest()->get('id_canale'))) {
+            $this->executePlugin('ShowFileInfo', array('id_file' => $id_file,
+                                    'id_canale' => $id_canale));
         } else
-            $this->executePlugin('ShowFileInfo', array('id_file' => $_GET['id_file']));
+            $this->executePlugin('ShowFileInfo', array('id_file' => $id_file));
         if ($tipo_file == true) {
             $template->assign('isFileStudente', 'true');
             $this

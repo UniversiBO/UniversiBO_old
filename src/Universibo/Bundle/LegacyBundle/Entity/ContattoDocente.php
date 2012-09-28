@@ -141,12 +141,12 @@ class ContattoDocente
      * @param int s	stato del contatto
      * @param int id id utente di chi effettua le modifiche
      */
-    public function setStato($s, $id = null)
+    public function setStato($s, $username = null)
     {
         $this->stato = $s;
 
-        if ($id != null) {
-            $text = User::getUsernameFromId($id).': modifica dello stato assegnato in '."\n".$this->stato.': '.$this->legend[$s];
+        if ($username != null) {
+            $text = $username.': modifica dello stato assegnato in '."\n".$this->stato.': '.$this->legend[$s];
             $this->appendReport($text);
         }
     }

@@ -31,6 +31,7 @@ class ShowMyUniversiBO extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $utente = $this->get('security.context')->getToken()->getUser();
+        $router = $this->get('router');
 
         $channelRepo = $this->getContainer()->get('universibo_legacy.repository.canale');
 

@@ -30,7 +30,9 @@ class NewsAdd extends CanaleCommand
         $canale = $this->getRequestCanale();
         $ruoloRepo = $this->get('universibo_legacy.repository.ruolo');
         $user_ruoli = $user instanceof User ? $ruoloRepo->findByIdUtente($user->getId()) : array();
+        $userId = $user instanceof User ? $user->getId() : 0;
         $id_canale = $canale->getIdCanale();
+        $router = $this->get('router');
         //		var_dump($user_ruoli);die;
         $referente = false;
         $moderatore = false;
@@ -44,13 +46,13 @@ class NewsAdd extends CanaleCommand
 
         if ($canale->getServizioNews() == false)
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
+                    array('id_utente' => $userId,
                             'msg' => "Il servizio news e` disattivato",
                             'file' => __FILE__, 'line' => __LINE__));
 
         if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $moderatore))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
+                    array('id_utente' => $userId,
                             'msg' => "Non hai i diritti per inserire una notizia\n La sessione potrebbe essere scaduta",
                             'file' => __FILE__, 'line' => __LINE__));
 

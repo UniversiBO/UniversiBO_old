@@ -1,6 +1,5 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use Universibo\Bundle\LegacyBundle\Command\InteractiveCommand\InformativaPrivacyInteractiveCommand;
 
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
@@ -33,8 +32,8 @@ class ShowRules extends UniversiboCommand
                 ->assign('rules_langPrivacySubTitle',
                         'INFORMATIVA SULLA PRIVACY');
         // TODO bisogna trovare un buon posto da cui recuperare l'informativa
-        $testoInformativa = InformativaPrivacyInteractiveCommand::getAttualeInformativaPrivacy();
-        $template->assign('rules_langPrivacy', $testoInformativa['testo']);
+        $informativa = $this->get('universibo_legacy.repository.informativa')->findByTime(time());
+        $template->assign('rules_langPrivacy', $informativa->getTesto());
         $template
                 ->assign('rules_langTitle',
                         'REGOLAMENTO PER L\'UTILIZZO DEI SERVIZI');

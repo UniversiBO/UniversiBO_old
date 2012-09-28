@@ -16,7 +16,7 @@ class ShowRulesTest extends UniversiBOSeleniumTestCase
                 'NORME PER L\'UTILIZZO DEL FORUM'
         );
 
-        $this->openPrefix('/regolamento');
+        $this->openPrefix('/regolamento/');
         $this->assertSentences($sentences);
     }
 }

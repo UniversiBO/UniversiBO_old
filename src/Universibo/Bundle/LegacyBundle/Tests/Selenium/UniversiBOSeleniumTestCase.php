@@ -44,9 +44,6 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
     protected function logout()
     {
         $this->openPrefix('/logout');
-        $this->assertTrue($this->isTextPresent('Registrazione studenti'));
-        $this->assertTrue($this->isTextPresent('Username smarrito'));
-        $this->assertTrue($this->isTextPresent('Password smarrita'));
         $this->assertTrue($this->isTextPresent('I servizi personalizzati sono disponibili solo agli utenti che hanno effettuato il login'));
     }
 

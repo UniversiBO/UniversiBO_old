@@ -13,7 +13,7 @@ class LinkCRUDTest extends UniversiBOSeleniumTestCase
     public function testLinkAddNotLogged()
     {
         $this->deleteAllVisibleCookies();
-        $this->openPrefix('/link/add/1');
+        $this->openPrefix('/link/add/1/');
 
         $this->assertSentences(array('Per questa operazione bisogna essere registrati la sessione potrebbe essere terminata', 'Error!'));
     }
@@ -21,7 +21,7 @@ class LinkCRUDTest extends UniversiBOSeleniumTestCase
     public function testLinkAddLogged()
     {
         $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openPrefix('/link/add/1');
+        $this->openPrefix('/link/add/1/');
 
         $this->assertSentences(array('Aggiungi un nuovo link', 'Indirizzo', 'Etichetta', 'Descrizione'));
 
@@ -36,7 +36,7 @@ class LinkCRUDTest extends UniversiBOSeleniumTestCase
     public function testLinkEditNotLogged()
     {
         $this->deleteAllVisibleCookies();
-        $this->openPrefix('/link/107/edit');
+        $this->openPrefix('/link/107/edit/1/');
 
         $this->assertSentences(array('Error!', 'Non hai i diritti per modificare il link La sessione potrebbe essere scaduta'));
     }
@@ -44,7 +44,7 @@ class LinkCRUDTest extends UniversiBOSeleniumTestCase
     public function testLinkEditLogged()
     {
         $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openPrefix('/link/107/edit/1');
+        $this->openPrefix('/link/107/edit/1/');
 
         $this->type('name=f31_URI', 'http://www.unibo.it/Portale/Ateneo/Strutture/Strutture+di+servizio/80080/AlmaWIFI/default.htm');
         $this->type('name=f31_Label', 'AlmaWIFI - Info');
@@ -57,14 +57,14 @@ class LinkCRUDTest extends UniversiBOSeleniumTestCase
     public function testLinksAdminNotLogged()
     {
         $this->deleteAllVisibleCookies();
-        $this->openPrefix('/link/1/admin');
+        $this->openPrefix('/link/admin/1/');
         $this->assertSentences(array('Error!','La sessione potrebbe essere scaduta.'));
     }
 
     public function testLinksAdminLogged()
     {
         $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openPrefix('/link/1/admin');
+        $this->openPrefix('/link/admin/1/');
         $this->assertSentences(array('Gestione Links','fgiardini', 'Google Italy', 'AlmaWIFI'));
     }
 }

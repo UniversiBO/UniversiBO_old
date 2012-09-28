@@ -79,7 +79,8 @@ class ErrorHandlers
         $log->addLogEntry($log_array);
 
         $page_type = ( array_key_exists('pageType', $_GET) && $_GET['pageType']=='popup' ) ? '&pageType=popup' : '';
-        FrontController::redirectCommand('ShowError'.$page_type);
+        $uri = FrontController::getContainer()->get('router')->generate('universibo_legacy_error', array(), true);
+        FrontController::redirectUri($uri);
         exit(1);
     }
 

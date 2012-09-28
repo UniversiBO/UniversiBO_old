@@ -1,5 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use Universibo\Bundle\WebsiteBundle\Entity\User;
 
 use \Error;
@@ -28,6 +30,7 @@ class MyUniversiBOAdd extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $utente = $this->get('security.context')->getToken()->getUser();
+        $router = $this->get('router');
 
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY'))
             Error::throwError(_ERROR_DEFAULT,
@@ -35,15 +38,13 @@ class MyUniversiBOAdd extends UniversiboCommand
                             'msg' => "Non e` permesso ad utenti non registrati eseguire questa operazione.\n La sessione potrebbe essere scaduta",
                             'file' => __FILE__, 'line' => __LINE__));
 
-        if (!array_key_exists('id_canale', $_GET)
-                || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $utente->getId(),
-                            'msg' => 'L\'id del canale richiesto non e` valido',
-                            'file' => __FILE__, 'line' => __LINE__));
+        $id_canale = $this->getRequest()->attributes->get('id_canale');
+        $canale = $this->get('universibo_legacy.repository.canale')->find($id_canale);
+
+        if (!$canale instanceof Canale) {
+            throw new NotFoundHttpException('Channel not found');
         }
-        $id_canale = $_GET['id_canale'];
-        $canale = Canale::retrieveCanale($id_canale);
+
         $template->assign('common_canaleURI', $canale->showMe($router));
         $template->assign('common_langCanaleNome', $canale->getNome());
 

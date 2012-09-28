@@ -1,5 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 use \Error;
@@ -28,6 +30,7 @@ class LinkAdd extends UniversiboCommand
         $krono = $frontcontroller->getKrono();
         $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
+        $router = $this->get('router');
 
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             Error::throwError(_ERROR_DEFAULT,
@@ -35,15 +38,6 @@ class LinkAdd extends UniversiboCommand
                             'msg' => "Per questa operazione bisogna essere registrati\n la sessione potrebbe essere terminata",
                             'file' => __FILE__, 'line' => __LINE__));
         }
-        /*		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
-                    Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getId(), 'msg' => 'L\'id del canale richiesto non ? valido', 'file' => __FILE__, 'line' => __LINE__));
-                }
-
-                $canale = Canale::retrieveCanale($_GET['id_canale']);
-                $id_canale = $canale->getIdCanale();
-                $template->assign('common_canaleURI', $canale->showMe($router));
-                $template->assign('common_langCanaleNome', $canale->getTitolo());
-         */
         $template
                 ->assign('common_canaleURI',
                         array_key_exists('HTTP_REFERER', $_SERVER) ? $_SERVER['HTTP_REFERER']
@@ -60,19 +54,12 @@ class LinkAdd extends UniversiboCommand
 
         $f29_accept = false;
 
-        if (!array_key_exists('id_canale', $_GET))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'Devi specificare un id del canale',
-                            'file' => __FILE__, 'line' => __LINE__));
+        $id_canale = $this->getRequest()->attributes->get('id_canale');
 
-        if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'L\'id del canale richiesto non e` valido',
-                            'file' => __FILE__, 'line' => __LINE__));
-
-        $canale = Canale::retrieveCanale($_GET['id_canale']);
+        $canale = $this->get('universibo_legacy.repository.canale')->find($id_canale);
+        if (!$canale instanceof Canale) {
+            throw new NotFoundHttpException('Channel not found');
+        }
 
         if ($canale->getServizioLinks() == false)
             Error::throwError(_ERROR_DEFAULT,

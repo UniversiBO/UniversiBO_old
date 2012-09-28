@@ -1,5 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 
 use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
@@ -32,12 +34,16 @@ class FileStudentiAdd extends UniversiboCommand
 
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
+        $router = $this->get('router');
 
         $krono = $frontcontroller->getKrono();
         $user = $this->get('security.context')->getToken()->getUser();
-        $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
+        $user_ruoli = $user instanceof User ? $this
+                        ->get('universibo_legacy.repository.ruolo')
+                        ->findByIdUtente($user->getId()) : array();
 
-        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if (!$this->get('security.context')
+                ->isGranted('IS_AUTHENTICATED_FULLY')) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getId(),
                             'msg' => "Per questa operazione bisogna essere registrati\n la sessione potrebbe essere terminata",
@@ -74,33 +80,29 @@ class FileStudentiAdd extends UniversiboCommand
 
         //		$f23_password = null;
 
-        if (array_key_exists('id_canale', $_GET)) {
-            if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
-                Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getId(),
-                                'msg' => 'L\'id del canale richiesto non e` valido',
-                                'file' => __FILE__, 'line' => __LINE__));
+        $id_canale = $this->getRequest()->attributes->get('id_canale');
+        $canale = $this->get('universibo_legacy.repository.canale')->find($id_canale);
 
-            $canale = Canale::retrieveCanale($_GET['id_canale']);
+        if (!$canale instanceof Canale) {
+            throw new NotFoundHttpException('Channel not found');
+        }
 
-            if ($canale->getServizioFilesStudenti() == false)
-                Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getId(),
-                                'msg' => 'Il servizio files e` disattivato',
-                                'file' => __FILE__, 'line' => __LINE__));
+        if ($canale->getServizioFilesStudenti() == false)
+            Error::throwError(_ERROR_DEFAULT,
+                    array('id_utente' => $user->getId(),
+                            'msg' => 'Il servizio files e` disattivato',
+                            'file' => __FILE__, 'line' => __LINE__));
 
-            $id_canale = $canale->getIdCanale();
-            $template->assign('common_canaleURI', $canale->showMe($router));
-            $template
-                    ->assign('common_langCanaleNome', 'a '
-                            . $canale->getTitolo());
-            if (array_key_exists($id_canale, $user_ruoli)) {
-                $ruolo = &$user_ruoli[$id_canale];
+        $id_canale = $canale->getIdCanale();
+        $template->assign('common_canaleURI', $canale->showMe($router));
+        $template
+                ->assign('common_langCanaleNome',
+                        'a ' . $canale->getTitolo());
+        if (array_key_exists($id_canale, $user_ruoli)) {
+            $ruolo = &$user_ruoli[$id_canale];
 
-                $referente = $ruolo->isReferente();
-                $moderatore = $ruolo->isModeratore();
-            }
-
+            $referente = $ruolo->isReferente();
+            $moderatore = $ruolo->isModeratore();
         }
 
         $f23_canale = $canale->getNome();
@@ -129,7 +131,8 @@ class FileStudentiAdd extends UniversiboCommand
         //		}
         //
         if (array_key_exists('id_canale', $_GET)) {
-            $diritti = $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')
+            $diritti = $this->get('security.context')
+                    ->isGranted('IS_AUTHENTICATED_FULLY')
                     && $canale->isGroupAllowed($user->getLegacyGroups());
             if (!$diritti)
                 Error::throwError(_ERROR_DEFAULT,
@@ -381,9 +384,12 @@ class FileStudentiAdd extends UniversiboCommand
             } else {
                 if ($_POST['f23_permessi_download'] != LegacyRoles::ALL
                         && $_POST['f23_permessi_download']
-                                != (LegacyRoles::STUDENTE | LegacyRoles::DOCENTE
-                                        | LegacyRoles::TUTOR | LegacyRoles::PERSONALE
-                                        | LegacyRoles::COLLABORATORE | LegacyRoles::ADMIN)) {
+                                != (LegacyRoles::STUDENTE
+                                        | LegacyRoles::DOCENTE
+                                        | LegacyRoles::TUTOR
+                                        | LegacyRoles::PERSONALE
+                                        | LegacyRoles::COLLABORATORE
+                                        | LegacyRoles::ADMIN)) {
                     Error::throwError(_ERROR_NOTICE,
                             array('id_utente' => $user->getId(),
                                     'msg' => 'Il valore dei diritti di download non e` ammessibile',
@@ -446,7 +452,8 @@ class FileStudentiAdd extends UniversiboCommand
             //esecuzione operazioni accettazione del form
             if ($f23_accept == true) {
 
-                $transaction = $this->getContainer()->get('universibo_legacy.transaction');
+                $transaction = $this->getContainer()
+                        ->get('universibo_legacy.transaction');
                 ignore_user_abort(1);
                 $transaction->begin();
 
@@ -454,10 +461,9 @@ class FileStudentiAdd extends UniversiboCommand
                         $_FILES['f23_file']['name']);
                 $dimensione_file = (int) ($_FILES['f23_file']['size'] / 1024);
                 $newFile = new FileItemStudenti(0, $f23_permessi_download,
-                        $f23_permessi_visualizza, $user->getId(),
-                        $f23_titolo, $f23_abstract, $f23_data_inserimento,
-                        time(), $dimensione_file, 0, $nome_file,
-                        $f23_categoria,
+                        $f23_permessi_visualizza, $user->getId(), $f23_titolo,
+                        $f23_abstract, $f23_data_inserimento, time(),
+                        $dimensione_file, 0, $nome_file, $f23_categoria,
                         FileItem::guessTipo($_FILES['f23_file']['name']),
                         md5_file($_FILES['f23_file']['tmp_name']), null, '',
                         '', '', '', '');
@@ -560,11 +566,15 @@ Descrizione: ' . $f23_abstract . '
 
 Dimensione: ' . $dimensione_file . ' kB
 
-Autore: ' . $user->getUsername()
-                        . '
+Autore: ' . $user->getUsername() . '
 
-Link: '.$router->generate('universibo_legacy_file_download', array('id_file' => $file->getIdFile(), 'id_canale' => $canale->getIdCanale()), true)
-.PHP_EOL.'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~';
+Link: '
+                        . $router
+                                ->generate('universibo_legacy_file_download',
+                                        array('id_file' => $newFile->getIdFile(),
+                                                'id_canale' => $canale
+                                                        ->getIdCanale()), true)
+                        . PHP_EOL . '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~';
 
                 //
                 //						$ruoli_canale = $canale->getRuoli();

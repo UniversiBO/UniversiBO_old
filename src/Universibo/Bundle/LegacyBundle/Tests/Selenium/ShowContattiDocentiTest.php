@@ -13,7 +13,7 @@ class ShowCcontattiDocentiTest extends UniversiBOSeleniumTestCase
     public function testSimple()
     {
         $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openPrefix('/docenti/contatti');
+        $this->openPrefix('/docente/contatti/');
 
         $sentences = array (
                 'FERRI MASSIMO',

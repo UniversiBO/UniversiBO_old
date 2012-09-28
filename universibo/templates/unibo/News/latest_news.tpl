@@ -11,7 +11,7 @@
 {/if}
 {if $showNewsLatest_langNewsAvailableFlag=="true"}
 	{foreach from=$showNewsLatest_newsList item=temp_news}
-	{include file="News/news.tpl" id_notizia=$temp_news.id_notizia titolo=$temp_news.titolo notizia=$temp_news.notizia autore=$temp_news.autore autore_link=$temp_news.autore_link id_autore=$temp_news.id_autore data=$temp_news.data modifica=$temp_news.modifica modifica_link=$temp_news.modifica_link elimina=$temp_news.elimina elimina_link=$temp_news.elimina_link nuova=$temp_news.nuova scadenza=$temp_news.scadenza }
+	{include file="News/news.tpl" id_notizia=$temp_news.id_notizia titolo=$temp_news.titolo notizia=$temp_news.notizia autore=$temp_news.autore autore_link=$temp_news.autore_link id_autore=$temp_news.id_autore data=$temp_news.data modifica=$temp_news.modifica modifica_link=$temp_news.modifica_link elimina=$temp_news.elimina elimina_link=$temp_news.elimina_link nuova=$temp_news.nuova scadenza=$temp_news.scadenza permalink=$temp_news.permalink}
 	{/foreach}
 {else}
 	<p>{$showNewsLatest_langNewsAvailable}</p>

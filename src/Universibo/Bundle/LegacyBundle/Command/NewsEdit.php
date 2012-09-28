@@ -35,14 +35,8 @@ class NewsEdit extends CanaleCommand
         $referente = false;
         $moderatore = false;
 
-        if (!array_key_exists('id_news', $_GET)
-                || !preg_match('/^([0-9]{1,9})$/', $_GET['id_news'])) {
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'L\'id della notizia richiesta '
-                                    . $_GET['id_news'] . ' non e` valido',
-                            'file' => __FILE__, 'line' => __LINE__));
-        }
+        $id_news = $this->getRequest()->attributes->get('id_news');
+
         if ($canale->getServizioNews() == false)
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getId(),
@@ -56,12 +50,12 @@ class NewsEdit extends CanaleCommand
             $moderatore = $ruolo->isModeratore();
         }
 
-        $news = NewsItem::selectNewsItem($_GET['id_news']);
+        $news = NewsItem::selectNewsItem($id_news);
         if ($news == false)
             Error::throwError(_ERROR_DEFAULT,
                     array(
                             'msg' => 'L\'id della notizia richiesta '
-                                    . $_GET['id_news'] . ' non e` valido',
+                                    . $id_news . ' non e` valido',
                             'file' => __FILE__, 'line' => __LINE__));
 
         $autore = ($user->getId() == $news->getIdUtente());
@@ -80,7 +74,7 @@ class NewsEdit extends CanaleCommand
                             'msg' => "Non hai i diritti per modificare la notizia\n La sessione potrebbe essere scaduta",
                             'file' => __FILE__, 'line' => __LINE__));
 
-        $param = array('id_notizie' => array($_GET['id_news']),
+        $param = array('id_notizie' => array($id_news),
                 'chk_diritti' => false);
         $this->executePlugin('ShowNews', $param);
 

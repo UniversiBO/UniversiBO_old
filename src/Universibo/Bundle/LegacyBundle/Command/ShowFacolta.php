@@ -44,6 +44,7 @@ class ShowFacolta extends CanaleCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $forum = $this->getContainer()->get('universibo_legacy.forum.api');
+        $router = $this->get('router');
 
         //@todo fatto sopra
         $facolta = $this->getRequestCanale();

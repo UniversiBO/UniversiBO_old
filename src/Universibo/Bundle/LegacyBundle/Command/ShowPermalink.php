@@ -48,6 +48,7 @@ class ShowPermalink extends UniversiboCommand
             $newsArray['scadenza'] = 'Scade il ' . $krono->k_date('%j/%m/%Y', $news->getDataScadenza());
         }*/
 
+        $newsArray['permalink']     = $this->generateUrl('universibo_legacy_permalink', array('id_notizia' => $news->getIdNotizia()));
         $newsArray['modifica'] = '';
         $newsArray['modifica_link'] = '';
         $newsArray['elimina'] = '';

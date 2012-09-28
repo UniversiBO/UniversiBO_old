@@ -15,19 +15,19 @@ class ShowCdlTest extends UniversiBOSeleniumTestCase
                 'CORSO DI LAUREA DI ECONOMIA AZIENDALE - 0891',
         );
 
-        $this->openPrefix('/cdl/6172');
+        $this->openPrefix('/cdl/6172/');
         $this->assertSentences($sentences);
     }
 
     public function testNoAcademicalYear1()
     {
-        $this->openPrefix('/cdl/6172&anno_accademico=2100');
+        $this->openPrefix('/cdl/6172/?anno_accademico=2100');
         $this->assertSentence('Not Found');
     }
 
     public function testNoAcademicalYear2()
     {
-        $this->openPrefix('/cdl/6172&anno_accademico=200');
+        $this->openPrefix('/cdl/6172/?anno_accademico=200');
         $this->assertSentence('Not Found');
     }
 }

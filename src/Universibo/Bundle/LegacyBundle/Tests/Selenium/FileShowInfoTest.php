@@ -17,7 +17,7 @@ class FileShowInfoTest extends UniversiBOSeleniumTestCase
                 'Descrizione/abstract: robots SEO',
         );
 
-        $this->openPrefix('/file/15051/10434/');
+        $this->openPrefix('/file/15051/');
 
         $this->assertSentences($sentences);
     }

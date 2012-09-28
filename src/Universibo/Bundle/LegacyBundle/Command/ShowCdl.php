@@ -44,6 +44,7 @@ class ShowCdl extends CanaleCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $context = $this->get('security.context');
+        $router = $this->get('router');
 
         //@todo fatto sopra
         $cdl = $this -> getRequestCanale();
@@ -89,8 +90,6 @@ class ShowCdl extends CanaleCommand
                 DidatticaGestione::getEditUrl($tempPrgAttDid->getIdCanale(),$cdl->getIdCanale(), $fac->getIdCanale()) :
                 DidatticaGestione::getEditUrl($tempPrgAttDid->getIdCanale(),$cdl->getIdCanale(), $fac->getIdCanale(),$tempPrgAttDid->getIdSdop());
 
-                $router = $this->get('router');
-
                 $cdl_listIns[$insAnnoCorso]['list'][$insCiclo]['list'][] =
                 array( 'name' => $tempPrgAttDid->getNome(),
                         'nomeDoc' => $tempPrgAttDid->getNomeDoc(),
@@ -114,14 +113,16 @@ class ShowCdl extends CanaleCommand
 
         if ($anno_accademico < $defaultYear) {
             $template -> assign('cdl_nextYear', ($anno_accademico+1).'/'.($anno_accademico+2) );
-            $template -> assign('cdl_nextYearUri', $router->generate('universibo_legacy_cdl', array('anno_accademico' => $anno_accademico + 1)));
+            $template -> assign('cdl_nextYearUri', $router->generate('universibo_legacy_cdl', array('anno_accademico' => $anno_accademico + 1, 'id_canale' => $cdl->getIdCanale())));
         } else {
             $template -> assign('cdl_nextYearUri', false);
         }
 
-        if ($anno_accademico >= 2002) {
+        if ($anno_accademico > 2002) {
             $template -> assign('cdl_prevYear', ($anno_accademico-1).'/'.($anno_accademico) );
-            $template -> assign('cdl_prevYearUri', $router->generate('universibo_legacy_cdl', array('anno_accademico' => $anno_accademico - 1)));
+            $template -> assign('cdl_prevYearUri', $router->generate('universibo_legacy_cdl', array('anno_accademico' => $anno_accademico - 1, 'id_canale' => $cdl->getIdCanale())));
+        } else {
+            $template -> assign('cdl_prevYearUri', false);
         }
 
         $template -> assign('cdl_langList', 'Elenco insegnamenti attivati su UniversiBO');

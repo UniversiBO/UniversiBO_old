@@ -1,10 +1,11 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
 use Universibo\Bundle\LegacyBundle\Entity\InfoDidattica;
 
-use \Error;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -30,15 +31,14 @@ class ShowInfoDidattica extends UniversiboCommand
         $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
-        if (!array_key_exists('id_canale', $_GET)
-                || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'L\'id del canale richiesto non e` valido',
-                            'file' => __FILE__, 'line' => __LINE__));
+        $id_canale = $this->getRequest()->attributes->get('id_canale');
+        $canale = $this->get('universibo_legacy.repository.canale')->find($id_canale);
 
-        $id_canale = $_GET['id_canale'];
-        $session_user = $this->get('security.context')->getToken()->getUser();
+        if (!$canale instanceof Canale) {
+            throw new NotFoundHttpException('Channel not found');
+        }
+
+        $session_user = $user;
 
         $info_didattica = InfoDidattica::retrieveInfoDidattica($id_canale);
         $insegnamento = Canale::retrieveCanale($id_canale);

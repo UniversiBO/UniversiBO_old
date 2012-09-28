@@ -1,5 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+
 use Zend\Validator\EmailAddress;
 
 use \Error;
@@ -142,11 +143,10 @@ class ShowPersonalSettings extends UniversiboCommand
         }
 
         if ($f20_accept == true) {
-            $user->updateEmail($q20_email);
+            $user->setEmail($q20_email);
             $user->setPhone($q20_cellulare);
-            $user->setDefaultStyle($f20_personal_style);
             $user->setNotifications($f20_livello_notifica);
-            $user->updateUser();
+            $this->get('doctrine.orm.entity_manager')->merge($user);
 
             $forum = $this->getContainer()->get('universibo_legacy.forum.api');
             $forum->updateUserStyle($user);

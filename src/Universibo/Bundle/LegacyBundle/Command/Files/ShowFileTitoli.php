@@ -38,6 +38,7 @@ class ShowFileTitoli extends PluginCommand
         $fc = $bc->getFrontController();
         $template = $fc->getTemplateEngine();
         $krono = $fc->getKrono();
+        $router = $this->get('router');
 
         $id_canale = $canale->getIdCanale();
         $titolo_canale = $canale->getTitolo();

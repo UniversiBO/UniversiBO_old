@@ -50,7 +50,8 @@ class NewsShowCanale extends CanaleCommand
 
 
         $num_news_canale = $this->getNumNewsCanale($id_canale);
-        $quantita = $_GET['qta'];
+        $quantita = $this->getRequest()->get('qta');
+        $inizio = $this->getRequest()->get('inizio');
         $template->assign('NewsShowCanale_numPagineFlag', 'false');
         if ($num_news_canale > $quantita) {
             $pages_flag = 'true';
@@ -58,7 +59,7 @@ class NewsShowCanale extends CanaleCommand
             $n_pag_list =  array();
             $start = 0;
             for ($i = 1; $i <= $num_pagine; $i++) {
-                $n_pag_list[$i] = array('URI' => $router->generate('news_show_canale', array('id_canale' => $id_canale, 'inizio' => $start, 'qta' => $quantita, 'current' => $_GET['inizio'] == $start)));
+                $n_pag_list[$i] = array('URI' => $router->generate('universibo_legacy_news_show_canale', array('id_canale' => $id_canale, 'inizio' => $start, 'qta' => $quantita)), 'current' => ($inizio != $start));
                 $start 	= $start + $quantita;
             }
             $template->assign('NewsShowCanale_numPagine', $n_pag_list);
