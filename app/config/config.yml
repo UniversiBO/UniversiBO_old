@@ -74,5 +74,6 @@ universibo_shibboleth:
     - idAnagraficaUnica
     - isMemberOf
     - sn
+  user_provider: universibo_website.user.provider
     
     

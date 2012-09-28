@@ -27,4 +27,13 @@ class UserRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * @param  User   $user
+     * @return object
+     */
+    public function save(User $user)
+    {
+        return $this->getEntityManager()->merge($user);
+    }
 }

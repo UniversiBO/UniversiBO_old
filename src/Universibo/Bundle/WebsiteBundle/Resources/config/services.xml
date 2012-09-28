@@ -28,5 +28,10 @@
 			class="Universibo\Bundle\WebsiteBundle\Entity\UserRepository" factory-service="doctrine.orm.entity_manager" factory-method="getRepository">
 			<argument>Universibo\Bundle\WebsiteBundle\Entity\User</argument>
 		</service>
+
+		<service id="universibo_website.user.provider"
+			class="Universibo\Bundle\WebsiteBundle\Security\User\UniversiboUseProvider">
+			<argument type="service" id="universibo_website.repository.user"/>
+		</service>
 	</services>
 </container>
