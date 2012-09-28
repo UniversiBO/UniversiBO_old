@@ -14,10 +14,6 @@ UniversiboWebsiteBundle:
 UniversiboLegacyBundle:
     resource: "@UniversiboLegacyBundle/Resources/config/routing.yml"
     prefix:   /
-    
-UniversiboShibbolethBundle:
-    resource: "@UniversiboShibbolethBundle/Resources/config/routing.yml"
-    prefix:   /    
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"

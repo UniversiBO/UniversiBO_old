@@ -68,3 +68,11 @@ universibo_shibboleth:
     logout: 'prelogout.aspx'
   route:
     after_logout: 'homepage'
+  claims:
+    - eppn
+    - givenName
+    - idAnagraficaUnica
+    - isMemberOf
+    - sn
+    
+    

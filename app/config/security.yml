@@ -23,6 +23,7 @@ security:
             logout:
                 path:   /logout
                 target: /
+            shibboleth: ~
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
