@@ -29,6 +29,7 @@ class ShowContattoDocente extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $user = $this->get('security.context')->getToken()->getUser();
+        $router = $this->get('router');
 
         if (!$user->hasRole('ROLE_COLLABORATOR') && !$this->get('security.context')->isGranted('ROLE_ADMIN'))
             Error::throwError(_ERROR_DEFAULT,
@@ -192,8 +193,7 @@ Stato attuale: ' . $f35_stati[$f35_stato] . '
 Report attuale:
 ' . $contatto->getReport() . '
 
-Link: ' . $frontcontroller->getAppSetting('rootUrl') . '/?do='
-                    . get_class($this) . '&id_utente' . $docente->getIdUtente()
+Link: ' . $router->generate('universibo_legacy_contact_professor', array('id_utenet' =>$docente->getIdUtente()))
                     . '
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~';
 

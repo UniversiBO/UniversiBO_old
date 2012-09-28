@@ -178,11 +178,7 @@ class Facolta extends Canale
      */
     public function showMe(RouterInterface $router)
     {
-        if ($router !== null) {
-            return $router->generate('universibo_legacy_facolta', array('id_canale' => $this->getIdCanale()));
-        }
-
-        return '/?do=ShowFacolta&id_canale=' . $this->id_canale;
+        return $router->generate('universibo_legacy_facolta', array('id_canale' => $this->getIdCanale()));
     }
 
     /**
@@ -296,16 +292,6 @@ class Facolta extends Canale
         Facolta::_selectFacolta();
 
         return $result;
-    }
-
-    /**
-     * Restituisce l'uri del command che visulizza il canale
-     *
-     * @return string URI del command
-     */
-    public function getShowUri()
-    {
-        return '/?do=ShowFacolta&id_canale=' . $this->getIdCanale();
     }
 
     /**

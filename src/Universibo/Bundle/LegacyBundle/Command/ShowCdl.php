@@ -114,14 +114,14 @@ class ShowCdl extends CanaleCommand
 
         if ($anno_accademico < $defaultYear) {
             $template -> assign('cdl_nextYear', ($anno_accademico+1).'/'.($anno_accademico+2) );
-            $template -> assign('cdl_nextYearUri', '/?do=ShowCdl&id_canale='.$cdl->getIdCanale().'&anno_accademico='.($anno_accademico+1) );
+            $template -> assign('cdl_nextYearUri', $router->generate('universibo_legacy_cdl', array('anno_accademico' => $anno_accademico + 1)));
         } else {
             $template -> assign('cdl_nextYearUri', false);
         }
 
         if ($anno_accademico >= 2002) {
             $template -> assign('cdl_prevYear', ($anno_accademico-1).'/'.($anno_accademico) );
-            $template -> assign('cdl_prevYearUri', '/?do=ShowCdl&id_canale='.$cdl->getIdCanale().'&anno_accademico='.($anno_accademico-1) );
+            $template -> assign('cdl_prevYearUri', $router->generate('universibo_legacy_cdl', array('anno_accademico' => $anno_accademico - 1)));
         }
 
         $template -> assign('cdl_langList', 'Elenco insegnamenti attivati su UniversiBO');

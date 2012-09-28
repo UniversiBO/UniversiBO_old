@@ -25,6 +25,7 @@ class ShowAllFilesStudenti extends UniversiboCommand
         $template = $frontcontroller->getTemplateEngine();
         $user = $this->get('security.context')->getToken()->getUser();
         $arrayFilesStudenti = array();
+        $router = $this->get('router');
 
         if (!array_key_exists('order', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['order'] ) || ($_GET['order'] > 2) ) {
             Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getId(), 'msg'=>'L\'ordine richiesto non e` valido','file'=>__FILE__,'line'=>__LINE__ ));
@@ -36,25 +37,25 @@ class ShowAllFilesStudenti extends UniversiboCommand
         switch ($order) {
             case 0:
                 $template->assign('showAllFilesStudenti_titoloPagina','ordinati per nome');
-                $template->assign('showAllFilesStudenti_url1','/?do=ShowAllFilesStudenti&order=1');
+                $template->assign('showAllFilesStudenti_url1', $router->generate('universibo_legacy_file_studenti', array('order' => 1)));
                 $template->assign('showAllFilesStudenti_lang1','Mostra i Files Studenti ordinati per data di inserimento');
-                $template->assign('showAllFilesStudenti_url2','/?do=ShowAllFilesStudenti&order=2');
+                $template->assign('showAllFilesStudenti_url2',$router->generate('universibo_legacy_file_studenti', array('order' => 2)));
                 $template->assign('showAllFilesStudenti_lang2','Mostra i Files Studenti ordinati per voto medio');
                 break;
 
             case 1:
                 $template->assign('showAllFilesStudenti_titoloPagina','ordinati per data di inserimento');
-                $template->assign('showAllFilesStudenti_url1','/?do=ShowAllFilesStudenti&order=0');
+                $template->assign('showAllFilesStudenti_url1',$router->generate('universibo_legacy_file_studenti', array('order' => 0)));
                 $template->assign('showAllFilesStudenti_lang1','Mostra i Files Studenti ordinati per nome');
-                $template->assign('showAllFilesStudenti_url2','/?do=ShowAllFilesStudenti&order=2');
+                $template->assign('showAllFilesStudenti_url2',$router->generate('universibo_legacy_file_studenti', array('order' => 2)));
                 $template->assign('showAllFilesStudenti_lang2','Mostra i Files Studenti ordinati per voto medio');
                 break;
 
             case 2:
                 $template->assign('showAllFilesStudenti_titoloPagina','ordinati per voto medio');
-                $template->assign('showAllFilesStudenti_url1','/?do=ShowAllFilesStudenti&order=0');
+                $template->assign('showAllFilesStudenti_url1',$router->generate('universibo_legacy_file_studenti', array('order' => 0)));
                 $template->assign('showAllFilesStudenti_lang1','Mostra i Files Studenti ordinati per nome');
-                $template->assign('showAllFilesStudenti_url2','/?do=ShowAllFilesStudenti&order=1');
+                $template->assign('showAllFilesStudenti_url2',$router->generate('universibo_legacy_file_studenti', array('order' => 1)));
                 $template->assign('showAllFilesStudenti_lang2','Mostra i Files Studenti ordinati per data di inserimento');
                 break;
         }

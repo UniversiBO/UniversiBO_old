@@ -197,11 +197,7 @@ class Insegnamento extends Canale
      */
     public function showMe(RouterInterface $router)
     {
-        if ($router !== null) {
-            return $router->generate('universibo_legacy_insegnamento', array('id_canale' => $this->getIdCanale()));
-        }
-
-        return '/?do=ShowInsegnamento&id_canale=' . $this->id_canale;
+        return $router->generate('universibo_legacy_insegnamento', array('id_canale' => $this->getIdCanale()));
     }
 
     /**

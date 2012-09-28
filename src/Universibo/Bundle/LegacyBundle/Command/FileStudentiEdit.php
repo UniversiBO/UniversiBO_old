@@ -48,10 +48,7 @@ class FileStudentiEdit extends UniversiboCommand
                             'msg' => "Il file richiesto non e` presente su database",
                             'file' => __FILE__, 'line' => __LINE__));
 
-        $template
-                ->assign('fileEdit_fileUri',
-                        '/?do=FileShowInfo&id_file='
-                                . $file->getIdFile());
+        $template->assign('fileEdit_fileUri', $router->generate('universibo_legacy_file', array('id_file' => $file->getIdFile())));
         $file_canali = $file->getIdCanali();
 
         $canale = Canale::retrieveCanale($file_canali[0]);

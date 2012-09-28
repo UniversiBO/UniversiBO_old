@@ -13,13 +13,10 @@
 				<input type="hidden" name="f1_resolution" value="" />
 				<input class="submit" name="_submit" type="submit" value="Login" tabindex="3" onclick="document.form1_a.f1_resolution.value = screen.width;" /><br />
 			</form>
-			<a href="/?do=RegStudente">Registrazione studenti</a><br />
-			<a href="/?do=RecuperaUsernameStudente">Username smarrito</a><br />
-			<a href="/?do=NewPasswordStudente">Password smarrita</a><br />
 		{else}
 		<h3>Logout</h3>
 		<div class="contenuto">
-			<form action="/?do=Logout" name="form2" id="f2" method="post">
+			<form action="{$common_logoutUri}" name="form2" id="f2" method="get">
 			<p>{$common_langWelcomeMsg|escape:"htmlall"|bbcode2html|nl2br} {$common_userUsername|escape:"htmlall"}<br />
 			{$common_langUserLivello|escape:"htmlall"|bbcode2html|nl2br} {foreach from=$common_userLivello item=temp_nomeLivello}{$temp_nomeLivello|escape:"htmlall"} {/foreach}<br />
 			&nbsp;<br />

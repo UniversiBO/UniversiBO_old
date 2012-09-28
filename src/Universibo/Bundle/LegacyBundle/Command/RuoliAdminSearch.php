@@ -26,6 +26,7 @@ class RuoliAdminSearch extends UniversiboCommand
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
+        $router = $this->get('router');
 
         $user = $this->get('security.context')->getToken()->getUser();
 
@@ -85,28 +86,21 @@ class RuoliAdminSearch extends UniversiboCommand
                 foreach ($users_search_keys as $key) {
                     $ruoli_search  = $users_search[$key]->getRuoli();
 
+                    $contactUser = array();
+                    $contactUser['utente_link']  = $router->generate('universibo_legacy_user', array('id_utente' => $users_search[$key]->getId()));
+                    $contactUser['edit_link']  = $router->generate('universibo_legacy_role_admin_edit', array('id_canale' => $id_canale, 'id_utente' => $users_search[$key]->getId()));
+                    $contactUser['nome']  = $users_search[$key]->getUserPublicGroupName();
+                    $contactUser['label'] = $users_search[$key]->getUsername();
+
                     if (array_key_exists($id_canale, $ruoli_search)) {
                         $ruolo_search  = $ruoli_search[$id_canale];
-
-                        $contactUser = array();
-                        $contactUser['utente_link']  = '/?do=ShowUser&id_utente='.$users_search[$key]->getId();
-                        $contactUser['edit_link']  = '/?do=RuoliAdminEdit&id_canale='.$id_canale.'&id_utente='.$users_search[$key]->getId();
-                        $contactUser['nome']  = $users_search[$key]->getUserPublicGroupName();
-                        $contactUser['label'] = $users_search[$key]->getUsername();
                         $contactUser['ruolo'] = ($ruolo_search->isReferente()) ? 'R' :  (($ruolo_search->isModeratore()) ? 'M' : 'none');
-
-                        $arrayPublicUsers[$users_search[$key]->getUserPublicGroupName(false)][] = $contactUser;
                     } else {
-                        $contactUser = array();
-                        $contactUser['utente_link']  = '/?do=ShowUser&id_utente='.$users_search[$key]->getId();
-                        $contactUser['edit_link']  = '/?do=RuoliAdminEdit&id_canale='.$id_canale.'&id_utente='.$users_search[$key]->getId();
-                        $contactUser['nome']  = $users_search[$key]->getUserPublicGroupName();
-                        $contactUser['label'] = $users_search[$key]->getUsername();
+
                         $contactUser['ruolo'] = 'none';
-
-                        $arrayPublicUsers[$users_search[$key]->getUserPublicGroupName(false)][] = $contactUser;
-
                     }
+
+                    $arrayPublicUsers[$users_search[$key]->getUserPublicGroupName(false)][] = $contactUser;
 
                 }
 
@@ -124,8 +118,8 @@ class RuoliAdminSearch extends UniversiboCommand
                     $user = User::selectUser($canale_ruoli[$key]->getId());
                     //var_dump($user);
                     $contactUser = array();
-                    $contactUser['utente_link']  = '/?do=ShowUser&id_utente='.$user->getId();
-                    $contactUser['edit_link']  = '/?do=RuoliAdminEdit&id_canale='.$id_canale.'&id_utente='.$user->getId();
+                    $contactUser['utente_link']  = $router->generate('universibo_legacy_user', array('id_utente' => $user->getId()));
+                    $contactUser['edit_link']  = $router->generate('universibo_legacy_role_admin_edit', array('id_canale' => $id_canale, 'id_utente' => $user->getId()));
                     $contactUser['nome']  = $user->getUserPublicGroupName();
                     $contactUser['label'] = $user->getUsername();
                     $contactUser['ruolo'] = ($canale_ruoli[$key]->isReferente()) ? 'R' :  (($canale_ruoli[$key]->isModeratore()) ? 'M' : 'none');

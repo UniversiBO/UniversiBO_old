@@ -23,6 +23,7 @@ class RuoliAdminEdit extends UniversiboCommand
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
+        $rotuer = $this->get('router');
 
         $user = $this->get('security.context')->getToken()->getUser();
 
@@ -43,7 +44,7 @@ class RuoliAdminEdit extends UniversiboCommand
 
         $target_user = User::selectUser($_GET['id_utente']);
         $target_username = $target_user->getUsername();
-        $target_userUri = '/?do=ShowUser&id_utente='.$target_user->getId();
+        $target_userUri = $router->generate('universibo_legacy_user', array('id_utente' => $target_user->getId()));
 
         $template->assign('common_canaleURI', $canale->showMe($router));
         $template->assign('common_langCanaleNome', 'a '.$canale->getTitolo());

@@ -140,7 +140,6 @@ class FrontController
     /**
      * Executes an action.
      *
-     * Action is in receiver.php?do=someAction
      * A class SomeAction should exists and someAction should be
      * associated with this class in the config file.  Class SomeAction
      * is the command controller that can serve one or more commands.
@@ -228,28 +227,6 @@ class FrontController
 
         return $list;
     }
-
-
-    /**
-     * Permette di redirigere la richiesa su un nuovo Command del receiver corrente
-     *
-     * @param string $command  command identifier to redirect to with parameters in uri sintax es: 'do=ShowFacolta&cod_fac=2148'
-     * @param string $receiver receiver identifier
-     * @todo add ability to redirect on another receiver
-     */
-    public static function redirectCommand($command='', $receiver=NULL)
-    {
-        $request_protocol = (array_key_exists('HTTPS',$_SERVER) && $_SERVER['HTTPS']=='on') ? 'https' : 'http';
-
-        if ($command != '') {
-            $command = 'do='.$command;
-        }
-
-        $url = $request_protocol.'://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'?'.$command;
-
-        self::redirectUri($url);
-    }
-
 
     /**
      * Permette di redirigere la richiesa su un'altra pagina

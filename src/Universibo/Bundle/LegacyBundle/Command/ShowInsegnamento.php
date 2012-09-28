@@ -100,8 +100,9 @@ class ShowInsegnamento extends CanaleCommand
             $obiettivi = '[url=' . $info_didattica->getObiettiviEsameLink()
                     . ']Obiettivi del corso[/url]';
         else
-            $obiettivi = '[url=/?do=ShowInfoDidattica&id_canale='
-                    . $id_canale . '#obiettivi]Obiettivi del corso[/url]';
+            $obiettivi = '[url='.
+        $router->generate('universibo_legacy_insegnamento_info', array('id_canale' => $id_canale)).
+                '#obiettivi]Obiettivi del corso[/url]';
 
         if ($info_didattica->getProgrammaLink() == ''
                 && $info_didattica->getProgramma() == '')
@@ -111,8 +112,7 @@ class ShowInsegnamento extends CanaleCommand
             $programma = '[url=' . $info_didattica->getProgrammaLink()
                     . ']Programma d\'esame[/url]';
         else
-            $programma = '[url=/?do=ShowInfoDidattica&id_canale='
-                    . $id_canale . '#programma]Programma d\'esame[/url]';
+            $programma = '[url='.$router->generate('universibo_legacy_insegnamento_info', array('id_canale' => $id_canale)). '#programma]Programma d\'esame[/url]';
 
         if ($info_didattica->getTestiConsigliatiLink() == ''
                 && $info_didattica->getTestiConsigliati() == '') {
@@ -124,9 +124,7 @@ testi consigliati';
                     . ']Materiale didattico e
 testi consigliati[/url]';
         else
-            $materiale = '[url=/?do=ShowInfoDidattica&id_canale='
-                    . $id_canale
-                    . '#modalita]Materiale didattico e
+            $materiale = '[url='.$router->generate('universibo_legacy_insegnamento_info', array('id_canale' => $id_canale)).  '#modalita]Materiale didattico e
 testi consigliati[/url]';
         '';
 
@@ -138,8 +136,7 @@ testi consigliati[/url]';
             $modalita = '[url=' . $info_didattica->getModalitaLink()
                     . ']Modalità d\'esame[/url]';
         else
-            $modalita = '[url=/?do=ShowInfoDidattica&id_canale='
-                    . $id_canale . '#modalita]Modalità d\'esame[/url]';
+            $modalita = '[url='.$router->generate('universibo_legacy_insegnamento_info', array('id_canale' => $id_canale)). '#modalita]Modalità d\'esame[/url]';
 
         if ($info_didattica->getAppelliLink() == ''
                 && $info_didattica->getAppelli() == '')
@@ -149,8 +146,7 @@ testi consigliati[/url]';
             $appelli = '[url=' . $info_didattica->getAppelliLink()
                     . ']Appelli d\'esame[/url]';
         else
-            $appelli = '[url=/?do=ShowInfoDidattica&id_canale='
-                    . $id_canale . '#appelli]Appelli d\'esame[/url]';
+            $appelli = '[url='.$router->generate('universibo_legacy_insegnamento_info', array('id_canale' => $id_canale)). '#appelli]Appelli d\'esame[/url]';
 
         $orario = '[url=#]Orario delle lezioni[/url]';
 

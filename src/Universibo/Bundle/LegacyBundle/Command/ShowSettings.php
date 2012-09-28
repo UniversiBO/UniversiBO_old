@@ -41,27 +41,18 @@ class ShowSettings extends UniversiboCommand
             $template->assign('showSettings_showAdminPanel', 'false');
         }
 
+        $preferences = array (
+                '[url=]Informazioni forum[/url]',
+                '[url='.$router->generate('universibo_legacy_settings_profile').']Profilo[/url]',
+                '[url='.$router->generate('universibo_legacy_user', array('id_utente' => $utente->getId())).']Modifica MyUniversiBO[/url]',
+                '[url=https://outlook.com/ type=extern]Posta di ateneo[/url]',
+        );
+
         if ($utente->hasRole('ROLE_COLLABORATOR') || $utente->hasRole('ROLE_ADMIN')) {
-            $template
-                    ->assign('showSettings_langPreferences',
-                            array(
-                                    '[url=]Informazioni forum[/url]',
-                                    '[url='.$router->generate('universibo_legacy_settings_profile').']Profilo[/url]',
-                                    '[url='.$router->generate('universibo_legacy_user', array('id_utente' => $utente->getId())).']Modifica MyUniversiBO[/url]',
-                                    '[url=https://outlook.com/ type=extern]Posta di ateneo[/url]',
-                                    '[url='.$router->generate('universibo_legacy_contact_professors').']Docenti da contattare[/url]'));
-        } else {
-            $template
-                    ->assign('showSettings_langPreferences',
-                            array(
-                                    '[url=/?do=ChangePassword]Modifica password[/url]',
-                                    '[url=]Informazioni forum[/url]',
-                                    '[url=/?do=ShowPersonalSettings]Profilo[/url]',
-                                    '[url=/?do=ShowUser&id_utente='
-                                            . $utente->getId()
-                                            . ']Modifica MyUniversiBO[/url]',
-                                    '[url=https://outlook.com/ type=extern]Posta di ateneo[/url]'));
+            $preferences[] = '[url='.$router->generate('universibo_legacy_contact_professors').']Docenti da contattare[/url]';
         }
+
+        $template->assign('showSettings_langPreferences', $preferences);
 
         $template->assign('showSettings_langTitleAlt', 'MyUniversiBO');
         $template
@@ -72,8 +63,7 @@ Tramite questa pagina potrai modificare il tuo profilo, le tue impostazioni pers
         $template
                 ->assign('showSettings_langAdmin',
                         array(
-                                '[url=https://www.universibo.unibo.it/phpPgAdmin/]DB Postgresql locale[/url]',
-                                '[url=/?do=RegUser]Iscrivi nuovo utente[/url]'));
+                                '[url=https://www.universibo.unibo.it/phpPgAdmin/]DB Postgresql locale[/url]'));
 
         return 'default';
     }

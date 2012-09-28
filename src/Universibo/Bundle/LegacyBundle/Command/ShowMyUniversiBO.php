@@ -76,13 +76,7 @@ class ShowMyUniversiBO extends UniversiboCommand
                 ->executePlugin('ShowMyFileTitoli',
                         array('files' => $arrayFilesItems, 'chk_diritti' => false));
 
-        $template
-                ->assign('showMyScheda',
-                        '/?do=ShowUser&id_utente='
-                                . $utente->getId());
-        //		var_dump($arrayFilesItems);
-        //		die();
-
+        $template->assign('showMyScheda',$router->generate('universibo_legacy_user', array('id_utente' => $utente->getId())));
     }
 
     /**

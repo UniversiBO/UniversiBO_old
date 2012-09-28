@@ -27,6 +27,7 @@ class NewsShowCanale extends CanaleCommand
         $canale = $this->getRequestCanale();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
         $id_canale = $canale->getIdCanale();
+        $router = $this->get('router');
 
         if (!array_key_exists('inizio', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['inizio'] ) || !array_key_exists('qta', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['qta'] )) {
             Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getId(), 'msg'=>'Parametri non validi','file'=>__FILE__,'line'=>__LINE__ ));
@@ -43,7 +44,7 @@ class NewsShowCanale extends CanaleCommand
             if ( $this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $moderatore ) {
                 $template->assign('NewsShowCanale_addNewsFlag', 'true');
                 $template->assign('NewsShowCanale_addNews', 'Scrivi nuova notizia');
-                $template->assign('NewsShowCanale_addNewsUri', '/?do=NewsAdd&id_canale='.$id_canale);
+                $template->assign('NewsShowCanale_addNewsUri', $router->generate('universibo_legacy_news_add', array('id_canale' => $id_canale)));
             }
         }
 
@@ -57,7 +58,7 @@ class NewsShowCanale extends CanaleCommand
             $n_pag_list =  array();
             $start = 0;
             for ($i = 1; $i <= $num_pagine; $i++) {
-                $n_pag_list[$i] = array('URI' => '/?do=NewsShowCanale&id_canale='.$id_canale.'&inizio='.$start.'&qta='.$quantita, 'current' => ($_GET['inizio'] == $start) ? 'true' : 'false');
+                $n_pag_list[$i] = array('URI' => $router->generate('news_show_canale', array('id_canale' => $id_canale, 'inizio' => $start, 'qta' => $quantita, 'current' => $_GET['inizio'] == $start)));
                 $start 	= $start + $quantita;
             }
             $template->assign('NewsShowCanale_numPagine', $n_pag_list);

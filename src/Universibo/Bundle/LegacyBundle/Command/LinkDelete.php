@@ -25,7 +25,7 @@ class LinkDelete extends CanaleCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 
-        $template->assign('common_canaleURI', '/?do=ShowMyUniversiBO');
+        $template->assign('common_canaleURI', $router->generate('universibo_legacy_myuniversibo'));
         $template->assign('common_langCanaleNome', 'indietro');
 
         $user = $this->get('security.context')->getToken()->getUser();

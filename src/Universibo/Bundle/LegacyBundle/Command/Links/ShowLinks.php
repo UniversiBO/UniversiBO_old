@@ -38,6 +38,7 @@ class ShowLinks extends PluginCommand
         $canale    = $bc->getRequestCanale();
         $fc        = $bc->getFrontController();
         $template  = $fc->getTemplateEngine();
+        $router    = $this->get('router');
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
         $id_canale = $canale->getIdCanale();

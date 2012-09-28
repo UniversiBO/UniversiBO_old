@@ -99,24 +99,10 @@ class ShowFacolta extends CanaleCommand
                                                 $elencoCdl[$i]
                                                         ->getForumForumId())
                                 : '',
-                        'link' => '/?do=ShowCdl&amp;id_canale='
-                                . $elencoCdl[$i]->getIdCanale()); //.'&amp;anno_accademico='.$default_anno_accademico
+                        'link' => $router->generate('universibo_legacy_cdl', array('id_canale' => $elencoCdl[$i]->getIdCanale())));
             }
         }
-        //var_dump($fac_listCdlType);
 
-        /*  esempio:
-                $fac_listCdl = array(); //cat := lista di cdl
-                $fac_listCdl[] = array('cod' => '0048', 'name' => 'ELETTRONICA', 'link' => '/?do=ShowCDL&amp;id_cdl=0048&amp;anno_accademico=2003');
-                $fac_listCdl[] = array('cod' => '0049', 'name' => 'GESTIONALE', 'link' => '/?do=ShowCDL&amp;id_cdl=0049&amp;anno_accademico=2003');
-                $fac_listCdl[] = array('cod' => '0050', 'name' => 'DEI PROCESSI GESTIONALI', 'link' => '/?do=ShowCDL&amp;id_cdl=0050&amp;anno_accademico=2003');
-                $fac_listCdl[] = array('cod' => '0051', 'name' => 'INFORMATICA', 'link' => '/?do=ShowCDL&amp;id_cdl=0051&amp;anno_accademico=2003');
-
-                $fac_listCdlType = array(); //fac := lista categorie degli anni di cdl
-                $fac_listCdlType[] = array('cod' => '1', 'name' => 'Lauree Triennali/Primo Livello', 'list' => $fac_listCdl);
-                $fac_listCdlType[] = array('cod' => '2', 'name' => 'Lauree Specialistiche', 'list' => $fac_listCdl);
-                $fac_listCdlType[] = array('cod' => '3', 'name' => 'Lauree Vecchio Ordinamento', 'list' => $fac_listCdl);
-         */
         // ordinamento delle categorie
         $sortedFacList = array();
         foreach (array(4, 1, 2, 5, 7, 6, 3) as $n)

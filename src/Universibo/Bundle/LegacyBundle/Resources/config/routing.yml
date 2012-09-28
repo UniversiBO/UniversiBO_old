@@ -84,6 +84,9 @@ universibo_legacy_file_studenti_comment_edit:
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'FileStudentiCommentEdit' }
     requirements: { id_commento: \d+ }
 universibo_legacy_file_studenti_delete:
+    pattern: /file/studenti/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowAllFilesStudenti' }
+universibo_legacy_file_studenti_delete:
     pattern: /file/studenti/{id_file}/delete
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'FileStudentiDelete' }
     requirements: { id_file: \d+ }
@@ -108,6 +111,10 @@ universibo_legacy_insegnamento_info_edit:
     pattern: /insegnamento/{id_canale}/info/edit
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'InfoDidatticaEdit' }
     requirements: { id_canale: \d+ }
+universibo_legacy_links_admin:
+    pattern: /links/{id_canale}/admin/
+    requirements: { id_canale: \d+ }
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'LinksAdmin' }
 universibo_legacy_manifesto:
     pattern: /manifesto/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowManifesto' }
@@ -126,6 +133,14 @@ universibo_legacy_myuniversibo_remove:
     pattern: /myuniversibo/remove/{id_canale}/
     requirements: { id_canale: \d+ }
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'MyUniversiBORemove' }
+universibo_legacy_news_add:
+    pattern: /news/add/{id_canale}/
+    requirements: { id_canale: \d+ }
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'NewsAdd' }
+universibo_legacy_news_show_canale:
+    pattern: /news/canale/{id_canale}/
+    requirements: { id_canale: \d+ }
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'NewsShowCanale' }
 universibo_legacy_permalink:
     pattern: /permalink/{id_notizia}/
     requirements: { id_news: \d+ }

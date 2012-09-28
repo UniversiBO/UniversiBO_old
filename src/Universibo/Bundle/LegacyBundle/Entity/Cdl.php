@@ -252,8 +252,6 @@ class Cdl extends Canale
         if ($router !== null) {
             return $router->generate('universibo_legacy_cdl', array('id_canale' => $this->getIdCanale()));
         }
-
-        return '/?do=ShowCdl&id_canale='.$this->id_canale;
     }
 
 
@@ -313,16 +311,6 @@ class Cdl extends Canale
     }
 
     /**
-     * Restituisce l'uri del command che visulizza il canale
-     *
-     * @return string URI del command
-     */
-     public function getShowUri()
-     {
-         return '/?do=ShowCdl&id_canale='.$this->getIdCanale();
-     }
-
-    /**
      * Restituisce il codice docente del presidente del CDL
      *
      * @return string URI del command
@@ -331,7 +319,6 @@ class Cdl extends Canale
     {
         return $this->cdlCodDoc;
     }
-
 
     /**
      * Imposta il codice docente del presidente del CDL
@@ -342,7 +329,6 @@ class Cdl extends Canale
     {
         $this->cdlCodDoc = $codDoc;
     }
-
 
     /**
      * Ritorna l'id categoria del forum
@@ -364,14 +350,12 @@ class Cdl extends Canale
         $this->cdlForumCatId = $cat_id;
     }
 
-
     public function updateCdl()
     {
         self::getRepository()->update($this);
         // TODO pensare come gestire la cosa
         $this->updateCanale();
     }
-
 
     public function insertCdl()
     {
