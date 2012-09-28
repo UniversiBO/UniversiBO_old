@@ -5,7 +5,7 @@
 
 {include file="avviso_notice.tpl"}
 
-<form action="/?do=ShowPersonalSettings&amp;{$common_pageTypeExt|escape:"htmlall"}" id="f20" method="post">
+<form id="f20" method="post">
 	<p>{$showPersonalSettings_langInfoChangeSettings|escape:"htmlall"|bbcode2html|nl2br}</p>
 	<p><label for="f20_email">{$showPersonalSettings_langEmail|escape:"htmlall"}</label>&nbsp;
 		<input type="text" name="f20_email" id="f20_email" size="50" maxlength="50" value="{$f20_email|escape:"html"}" /></p>

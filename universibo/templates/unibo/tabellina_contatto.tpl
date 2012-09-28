@@ -18,7 +18,7 @@
 	<p>{$collaboratore.obiettivi|escape:"htmlall"|bbcode2html|nl2br}&nbsp;</p>
 	{if $collaboratore.modifica !== ""}
 	  <span class="actions">&nbsp;&nbsp;&nbsp;<img src="{$common_basePath}/tpl/unibo/file_edit_32.gif" width="15" height="15" alt="modifica" />
-	    <a href="/?do={$collaboratore.modifica_link|escape:"htmlall"}">{$collaboratore.modifica|escape:"htmlall"|nl2br}</a>
+	    <a href="{$collaboratore.modifica_link|escape:"htmlall"}">{$collaboratore.modifica|escape:"htmlall"|nl2br}</a>
 	  </span>
 	{/if}  
 	
