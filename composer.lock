@@ -802,16 +802,16 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/kriswallsmith/assetic.git",
-                "reference": "a6baab9b4c4361aca51bf90ee47c1586dff3cb0c"
+                "reference": "e22c5e07e672bb0cf43127e97e9368b53abf4aa8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/kriswallsmith/assetic/zipball/a6baab9b4c4361aca51bf90ee47c1586dff3cb0c",
-                "reference": "a6baab9b4c4361aca51bf90ee47c1586dff3cb0c",
+                "url": "https://github.com/kriswallsmith/assetic/zipball/e22c5e07e672bb0cf43127e97e9368b53abf4aa8",
+                "reference": "e22c5e07e672bb0cf43127e97e9368b53abf4aa8",
                 "shasum": ""
             },
             "require": {
-                "symfony/process": "2.1.*",
+                "symfony/process": ">=2.1.0,<2.3-dev",
                 "php": ">=5.3.1"
             },
             "require-dev": {
@@ -828,7 +828,7 @@
                 "ptachoire/cssembed": "Assetic provides the integration with phpcssembed to embed data uris",
                 "leafo/scssphp-compass": "Assetic provides the integration with the SCSS compass plugin"
             },
-            "time": "1347622188",
+            "time": "1349004759",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1475,20 +1475,23 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle.git",
-                "reference": "e1d150936b84230536fed70037ddbc12b1522553"
+                "reference": "80f1d0f7358ea6a18484012cd409db1912645cc8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle/zipball/e1d150936b84230536fed70037ddbc12b1522553",
-                "reference": "e1d150936b84230536fed70037ddbc12b1522553",
+                "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle/zipball/80f1d0f7358ea6a18484012cd409db1912645cc8",
+                "reference": "80f1d0f7358ea6a18484012cd409db1912645cc8",
                 "shasum": ""
             },
             "require": {
                 "symfony/framework-bundle": "2.1.*",
                 "symfony/security-bundle": "2.1.*",
-                "zendframework/zend-uri": "2.0.0,<2.1.0"
+                "zendframework/zend-uri": ">=2.0.0,<2.1.0"
             },
-            "time": "1348871232",
+            "require-dev": {
+                "symfony/yaml": "2.1.*"
+            },
+            "time": "1349006334",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
@@ -1517,16 +1520,16 @@
         },
         {
             "name": "zendframework/zendframework",
-            "version": "2.0.0",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "git://github.com/zendframework/zf2.git",
-                "reference": "release-2.0.0"
+                "reference": "release-2.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/zendframework/zf2/zipball/release-2.0.0",
-                "reference": "release-2.0.0",
+                "url": "https://github.com/zendframework/zf2/zipball/release-2.0.2",
+                "reference": "release-2.0.2",
                 "shasum": ""
             },
             "require": {
@@ -1591,7 +1594,7 @@
                 "zendframework/zendpdf": "ZendPdf for creating PDF representations of barcodes",
                 "zendframework/zendservice-recaptcha": "ZendService\\ReCaptcha for rendering ReCaptchas in Zend\\Captcha and/or Zend\\Form"
             },
-            "time": "2012-09-04 23:02:46",
+            "time": "2012-09-21 18:28:34",
             "type": "library",
             "extra": {
                 "branch-alias": {
