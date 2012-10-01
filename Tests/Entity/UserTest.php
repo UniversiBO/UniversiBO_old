@@ -39,4 +39,12 @@ class UserTest extends \PHPUnit_Framework_TestCase
     	$this->assertEquals($phone, $this->user->getPhone());
     }
     
+    public function testNotificationAccessors()
+    {
+        $notifications = 1;
+        
+        $this->assertSame($this->user, $this->user->setNotifications($notifications));
+        $this->assertEquals($notifications, $this->user->getNotifications());
+    }
+    
 }
