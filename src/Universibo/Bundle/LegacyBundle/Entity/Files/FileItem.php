@@ -732,7 +732,6 @@ class FileItem
      * Restituisce il tipo di un file su hd tra i tipi ammissibili riconosciuti
      *
      * @param string $nome_file percorso in cui si trova il file
-     * TODO preg_match
      */
     public static function guessTipo($nome_file)
     {

@@ -8,6 +8,8 @@ before_script:
   - composer install --dev
   - psql -c 'CREATE DATABASE universibo_test;' -U postgres
 
+script: phpunit -c app
+
 notifications:
   email: dev_universibo@mama.ing.unibo.it
   irc: "irc.azzurra.org#universibo"
