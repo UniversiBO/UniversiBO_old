@@ -48,7 +48,9 @@ class ShowMyUniversiBO extends UniversiboCommand
         $arrayIdCanaliFiles = array();
         $arrayCanali = array();
 
-        foreach ($utente instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($utente->getId()) : array() as $key => $ruolo) {
+        $ruoli = $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($utente->getId());
+
+        foreach ($ruoli as $key => $ruolo) {
             if ($ruolo->isMyUniversibo()) {
 
                 $canale = $channelRepo->find($ruolo->getIdCanale());

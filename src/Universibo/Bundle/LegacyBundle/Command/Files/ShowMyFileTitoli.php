@@ -35,6 +35,7 @@ class ShowMyFileTitoli extends PluginCommand
         $fc        = $bc->getFrontController();
         $template  = $fc->getTemplateEngine();
         $krono     = $fc->getKrono();
+        $router    = $this->get('router');
 
         $personalizza   = false;
         $referente      = false;
@@ -93,7 +94,7 @@ class ShowMyFileTitoli extends PluginCommand
                             $canale_tpl = array();
                             $canale_tpl['titolo'] = $canale->getNome();
                             $canale_tpl['link'] = $canale->showMe($router);
-                            $file_tpl[$i]['download_uri'] = $router->generate('universibo_legacy_file_download', array('id_file' => $file->getIdFile(), 'id_canale' => $id_canale));
+                            $file_tpl[$i]['download_uri'] = $router->generate('universibo_legacy_file_download', array('id_file' => $file->getIdFile(), 'id_canale' => $id_canale = $canale->getIdCanale()));
                             $file_tpl[$i]['show_info_uri'] = $router->generate('universibo_legacy_file', array('id_file' => $file->getIdFile(), 'id_canale' => $id_canale));
                             $file_tpl[$i]['canali'][] = $canale_tpl;
                         }
