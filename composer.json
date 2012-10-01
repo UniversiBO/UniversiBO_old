@@ -1,0 +1,30 @@
+{
+    "name": "universibo/core-bundle",
+    "type": "symfony-bundle",
+    "description": "UniversiBO CoreBundle",
+    "keywords": ["university"],
+    "homepage": "http://github.com/UniversiBO",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Davide Bellettini",
+            "email": "davide.bellettini@gmail.com"
+        },
+        {
+            "name": "UniversiboCoreBundle Contributors",
+            "homepage": "https://github.com/UniversiBO/UniversiboCoreBundle/graphs/contributors"
+        }
+    ],
+    "require": {
+        "symfony/framework-bundle": "2.1.*",
+    },
+    "require-dev": {
+        "symfony/yaml": "2.1.*"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": { "Universibo\\Bundle\\CoreBundle": "" }
+    },
+    "target-dir": "Universibo/Bundle/CoreBundle"
+}
+
