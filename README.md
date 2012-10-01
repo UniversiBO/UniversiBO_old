@@ -1,0 +1,4 @@
+UniversiboCoreBundle
+====================
+
+UniversiBO core classes
