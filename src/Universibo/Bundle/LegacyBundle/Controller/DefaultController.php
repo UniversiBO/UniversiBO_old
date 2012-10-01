@@ -43,6 +43,8 @@ class DefaultController extends Controller
                 return $this->redirect($this->get('router')->generate('universibo_legacy_file_download', array('id_file' => $_GET['id_file']), true), 301);
             case 'FileShowInfo':
                 return $this->redirect($this->get('router')->generate('universibo_legacy_file', array('id_file' => $_GET['id_file']), true), 301);
+            case 'NewsShowCanale':
+                  return $this->redirect($this->get('router')->generate('universibo_legacy_news_show_canale', array('id_canale' => $_GET['id_canale'], 'qta' => $_GET['qta'], 'inizio' => $_GET['inizio']), true), 301);
             case 'ShowCanale':
                 return $this->redirect($this->get('router')->generate('universibo_legacy_canale', array('id_canale' => $_GET['id_canale']), true), 301);
             case 'ShowCdl':
