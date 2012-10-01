@@ -31,7 +31,7 @@ class ShowRules extends UniversiboCommand
         $template
                 ->assign('rules_langPrivacySubTitle',
                         'INFORMATIVA SULLA PRIVACY');
-        // TODO bisogna trovare un buon posto da cui recuperare l'informativa
+
         $informativa = $this->get('universibo_legacy.repository.informativa')->findByTime(time());
         $template->assign('rules_langPrivacy', $informativa->getTesto());
         $template

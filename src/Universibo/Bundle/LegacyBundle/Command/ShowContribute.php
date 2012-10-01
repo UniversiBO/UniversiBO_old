@@ -348,8 +348,6 @@ class ShowContribute extends UniversiboCommand
             $riceventi = $frontcontroller->getAppSetting('questionariReceiver');
             $array_riceventi = explode(';', $riceventi);
 
-            // db encoding is latin1 while Twig needs utf-8 strings
-            // TODO remove after changing encoding
             $questionario->setNome($q3_nome);
             $questionario->setCognome($q3_nome);
             $questionario->setAltro($q3_altro);
