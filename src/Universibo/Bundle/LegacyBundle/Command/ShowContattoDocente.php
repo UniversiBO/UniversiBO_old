@@ -5,7 +5,7 @@ use \Error;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\ContattoDocente;
 use Universibo\Bundle\LegacyBundle\Entity\Docente;
-use Universibo\Bundle\WebsiteBundle\Entity\User;
+use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;

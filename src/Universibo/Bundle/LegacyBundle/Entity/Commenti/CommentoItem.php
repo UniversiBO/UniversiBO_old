@@ -2,7 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Entity\Commenti;
 use \DB;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
-use Universibo\Bundle\WebsiteBundle\Entity\User;
+use Universibo\Bundle\CoreBundle\Entity\User;
 
 /**
  * CommentoItem class

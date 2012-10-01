@@ -5,7 +5,7 @@ use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 
 use Universibo\Bundle\LegacyBundle\Entity\DBRuoloRepository;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
-use Universibo\Bundle\WebsiteBundle\Entity\User;
+use Universibo\Bundle\CoreBundle\Entity\User;
 
 class UniversiBOAcl
 {

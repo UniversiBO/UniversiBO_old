@@ -2,7 +2,7 @@
 namespace Universibo\Bundle\WebsiteBundle\Command;
 
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
-use Universibo\Bundle\WebsiteBundle\Entity\User;
+use Universibo\Bundle\CoreBundle\Entity\User;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 

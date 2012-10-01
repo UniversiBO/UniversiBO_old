@@ -1,7 +1,7 @@
 <?php
 
 namespace Universibo\Bundle\WebsiteBundle\Security\User;
-use Universibo\Bundle\WebsiteBundle\Entity\User;
+use Universibo\Bundle\CoreBundle\Entity\User;
 
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 

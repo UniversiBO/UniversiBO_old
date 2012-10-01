@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Forum;
 
-use Universibo\Bundle\WebsiteBundle\Entity\User;
+use Universibo\Bundle\CoreBundle\Entity\User;
 
 /**
  * @author Davide Bellettini

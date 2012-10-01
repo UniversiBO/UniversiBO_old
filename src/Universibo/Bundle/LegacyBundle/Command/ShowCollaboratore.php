@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use Universibo\Bundle\WebsiteBundle\Entity\User;
+use Universibo\Bundle\CoreBundle\Entity\User;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

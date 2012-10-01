@@ -4,7 +4,7 @@ namespace Universibo\Bundle\LegacyBundle\Entity;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use \DB;
 use \Error;
-use Universibo\Bundle\WebsiteBundle\Entity\User;
+use Universibo\Bundle\CoreBundle\Entity\User;
 
 define('NOTIFICA_NONE'   ,0);
 define('NOTIFICA_URGENT' ,1);

@@ -5,7 +5,7 @@ use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
 use \DB;
 use \Error;
 use \Krono;
-use Universibo\Bundle\WebsiteBundle\Entity\User;
+use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Forum\ForumApi as ForumApiInterface;
 
 /**

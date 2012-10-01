@@ -4,7 +4,7 @@ namespace Universibo\Bundle\LegacyBundle\Command;
 use \DB;
 use \Error;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
-use Universibo\Bundle\WebsiteBundle\Entity\User;
+use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 
 /**

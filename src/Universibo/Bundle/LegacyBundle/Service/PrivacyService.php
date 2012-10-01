@@ -11,7 +11,7 @@ use Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepLog;
 use Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepLogRepository;
 
 use Universibo\Bundle\LegacyBundle\Entity\DBInformativaRepository;
-use Universibo\Bundle\WebsiteBundle\Entity\User;
+use Universibo\Bundle\CoreBundle\Entity\User;
 
 use Doctrine\DBAL\Connection;
 
