@@ -54,7 +54,7 @@ class DefaultController extends Controller
             case 'ShowFileInfo':
                 return $this->redirect($this->get('router')->generate('universibo_legacy_file', array('id_file' => $_GET['id_file']), true), 301);
             case 'ShowHome':
-                 return $this->redirect($this->get('router')->generate('universibo_legacy_home', array(), true), 301);
+                return $this->redirect($this->get('router')->generate('universibo_legacy_home', array(), true), 301);
             case 'ShowInfoDidattica':
                 return $this->redirect($this->get('router')->generate('universibo_legacy_insegnamento_info', array('id_canale' => $_GET['id_canale']), true), 301);
             case 'ShowInsegnamento':
