@@ -746,11 +746,8 @@ class FileItem
             if ($key === 1) {
                 continue;
             }
-            // TODO ugly hack to support both regular expression type
-            // will be deleted eventually
-            $function = ($pattern[0] === '/' ? 'preg_match' : 'ereg');
 
-            if (@$function($value, $nome_file)) {
+            if (@preg_match($value, $nome_file)) {
                 return $key;
             }
         }
