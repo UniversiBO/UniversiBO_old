@@ -191,3 +191,9 @@ universibo_legacy_user:
 universibo_legacy_home:
     pattern: /
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowHome' }
+universibo_legacy_home_v2:
+    pattern: /v2.php
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowHome', redirect: true }
+universibo_legacy_home_index:
+    pattern: /index.php
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowHome', redirect: true }
