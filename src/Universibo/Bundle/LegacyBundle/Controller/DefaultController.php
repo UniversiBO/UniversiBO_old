@@ -47,6 +47,8 @@ class DefaultController extends Controller
                 return $this->redirect($this->get('router')->generate('universibo_legacy_canale', array('id_canale' => $_GET['id_canale']), true), 301);
             case 'ShowCdl':
                 return $this->redirect($this->get('router')->generate('universibo_legacy_cdl', array('id_canale' => $_GET['id_canale']), true), 301);
+            case 'ShowCredits':
+                return $this->redirect($this->get('router')->generate('universibo_legacy_credits', array(), true), 301);
             case 'ShowError':
                 return $this->redirect($this->get('router')->generate('universibo_legacy_error', array(), true), 301);
             case 'ShowFacolta':
@@ -59,6 +61,8 @@ class DefaultController extends Controller
                 return $this->redirect($this->get('router')->generate('universibo_legacy_insegnamento_info', array('id_canale' => $_GET['id_canale']), true), 301);
             case 'ShowInsegnamento':
                 return $this->redirect($this->get('router')->generate('universibo_legacy_insegnamento', array('id_canale' => $_GET['id_canale']), true), 301);
+            case 'ShowManifesto':
+                  return $this->redirect($this->get('router')->generate('universibo_legacy_manifesto', array(), true), 301);
             case 'ShowPermalink':
                 return $this->redirect($this->get('router')->generate('universibo_legacy_permalink', array('id_notizia' => $_GET['id_notizia']), true), 301);
             case 'ShowUser':
