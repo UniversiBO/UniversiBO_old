@@ -7,6 +7,7 @@ php:
 before_script: 
   - composer install --dev
   - psql -c 'CREATE DATABASE universibo_test;' -U postgres
+  - pear install phpunit/PHPUnit_Selenium
 
 script: phpunit -c app
 
