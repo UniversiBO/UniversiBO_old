@@ -870,7 +870,7 @@ class FrontController
             $templateEngine->default_template_dir  = $this->templateEngine['smarty_template'].$this->templateEngine['styles'][$this->templateEngine['default_template']];
             //fine mia aggiunta
 
-            $templateEngine->template_dir  = $this->templateEngine['smarty_template'].$this->templateEngine['styles'][$this->templateEngine['template_name']];
+            $templateEngine->template_dir  = realpath(__DIR__.'/../Resources/views/');
             $templateEngine->compile_dir   = $this->templateEngine['smarty_compile'].$this->templateEngine['styles'][$this->templateEngine['template_name']];
             $templateEngine->config_dir    = $this->templateEngine['smarty_config'].$this->templateEngine['styles'][$this->templateEngine['template_name']];
             $templateEngine->cache_dir     = $this->templateEngine['smarty_cache'].$this->templateEngine['styles'][$this->templateEngine['template_name']];

@@ -14,32 +14,12 @@
  * @version 2.6.5-dev
  */
 
-class MySmarty extends SmartyBC {
-	
-	
+class MySmarty extends SmartyBC 
+{
     /**
      * The name of the directory where default templates are located.
      *
      * @var string
      */
-    var $default_template_dir    =  'templates';
-    
-    public function assignUnicode($tpl_var, $value)
-    {
-        $this->assign($tpl_var, $value);
-    }
-    
-    /**
-     * @param string $tpl_var
-     * @param mixed $value
-     */
-    public function assignLatin1($tpl_var, $value)
-    {
-        $this->assign($tpl_var, $this->latin1ToUtf8($value));
-    }
-
-	private function latin1ToUtf8($value)
-	{
-	    return is_array($value) ? array_map(array($this, 'latin1ToUtf8'), $value) : mb_convert_encoding($value, 'utf-8', 'iso-8859-1');
-	}
+    public $default_template_dir    =  'templates';
 }
