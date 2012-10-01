@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\WebsiteBundle\Command;
 
-use Universibo\Bundle\WebsiteBundle\Entity\UserRepository;
+use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 use Universibo\Bundle\WebsiteBundle\Entity\User;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;

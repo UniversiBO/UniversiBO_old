@@ -2,7 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Entity\Files;
 
 use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
-use Universibo\Bundle\WebsiteBundle\Entity\UserRepository;
+use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 
 use \DB;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;

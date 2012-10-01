@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Auth;
 
-use Universibo\Bundle\WebsiteBundle\Entity\UserRepository;
+use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 

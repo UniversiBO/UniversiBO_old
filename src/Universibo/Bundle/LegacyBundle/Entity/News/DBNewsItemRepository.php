@@ -5,7 +5,7 @@ use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
 
 use \DB;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
-use Universibo\Bundle\WebsiteBundle\Entity\UserRepository;
+use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 
 /**
  * DBNewsItem repository

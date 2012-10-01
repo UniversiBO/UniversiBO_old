@@ -3,7 +3,7 @@
 namespace Universibo\Bundle\WebsiteBundle\Security\User;
 use Universibo\Bundle\WebsiteBundle\Entity\User;
 
-use Universibo\Bundle\WebsiteBundle\Entity\UserRepository;
+use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 
 use Universibo\Bundle\ShibbolethBundle\Security\User\ShibbolethUserProviderInterface;
 
