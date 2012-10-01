@@ -1,7 +1,6 @@
-parameters:
-#    universibo_core.example.class: Universibo\Bundle\CoreBundle\Example
-
 services:
-#    universibo_core.example:
-#        class: %universibo_core.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+   universibo_core.repository.user:
+     class: Universibo\Bundle\CoreBundle\Entity\UserRepository
+     factory_service: doctrine.orm.entity_manager
+     factory_method: getRepository
+     arguments: ['Universibo\Bundle\CoreBundle\Entity\User']
