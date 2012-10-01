@@ -69,7 +69,7 @@ class User extends BaseUser
 
     /**
      * @param  string                                       $phone
-     * @return \Universibo\Bundle\WebsiteBundle\Entity\User
+     * @return \Universibo\Bundle\CoreBundle\Entity\User
      */
     public function setPhone($phone)
     {
@@ -89,7 +89,7 @@ class User extends BaseUser
     /**
      *
      * @param  integer                                      $notifications
-     * @return \Universibo\Bundle\WebsiteBundle\Entity\User
+     * @return \Universibo\Bundle\CoreBundle\Entity\User
      */
     public function setNotifications($notifications)
     {
@@ -99,8 +99,8 @@ class User extends BaseUser
     }
 
     /**
-     * (non-PHPdoc)
-     * @see FOS\UserBundle\Model.User::getLegacyGroups()
+     * @deprecated
+     * @return number
      */
     public function getLegacyGroups()
     {
@@ -108,8 +108,9 @@ class User extends BaseUser
     }
 
     /**
+     * @deprecated
      * @param  int                                          $legacyGroups
-     * @return \Universibo\Bundle\WebsiteBundle\Entity\User
+     * @return \Universibo\Bundle\CoreBundle\Entity\User
      */
     public function setLegacyGroups($legacyGroups)
     {
