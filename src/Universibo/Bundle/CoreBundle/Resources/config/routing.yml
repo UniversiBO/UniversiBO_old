@@ -1,3 +1,0 @@
-UniversiboCoreBundle_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: UniversiboCoreBundle:Default:index }

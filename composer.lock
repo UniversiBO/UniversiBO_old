@@ -1,5 +1,5 @@
 {
-    "hash": "fa29f365c941fbc561679e13741d6dc7",
+    "hash": "c2adef0638350ab8696731e30a85bdce",
     "packages": [
         {
             "name": "doctrine/common",
@@ -1469,6 +1469,58 @@
             ]
         },
         {
+            "name": "universibo/core-bundle",
+            "version": "dev-master",
+            "target-dir": "Universibo/Bundle/CoreBundle",
+            "source": {
+                "type": "git",
+                "url": "http://github.com/UniversiBO/UniversiboCoreBundle",
+                "reference": "d296fe371581b553341364e07df4c0ba10c881bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/UniversiBO/UniversiboCoreBundle/zipball/d296fe371581b553341364e07df4c0ba10c881bb",
+                "reference": "d296fe371581b553341364e07df4c0ba10c881bb",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/framework-bundle": "2.1.*"
+            },
+            "require-dev": {
+                "symfony/yaml": "2.1.*"
+            },
+            "time": "1349124633",
+            "type": "symfony-bundle",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Universibo\\Bundle\\CoreBundle": ""
+                }
+            },
+            "license": [
+                "GPL"
+            ],
+            "authors": [
+                {
+                    "name": "Davide Bellettini",
+                    "email": "davide.bellettini@gmail.com"
+                },
+                {
+                    "name": "UniversiboCoreBundle Contributors",
+                    "homepage": "https://github.com/UniversiBO/UniversiboCoreBundle/graphs/contributors"
+                }
+            ],
+            "description": "UniversiBO CoreBundle",
+            "homepage": "http://github.com/UniversiBO",
+            "keywords": [
+                "university"
+            ],
+            "support": {
+                "source": "https://github.com/UniversiBO/UniversiboCoreBundle/tree/master",
+                "issues": "https://github.com/UniversiBO/UniversiboCoreBundle/issues"
+            }
+        },
+        {
             "name": "universibo/shibboleth-bundle",
             "version": "dev-master",
             "target-dir": "Universibo/Bundle/ShibbolethBundle",
@@ -1634,6 +1686,7 @@
         "friendsofsymfony/user-bundle": 20,
         "kriswallsmith/assetic": 20,
         "twig/extensions": 20,
-        "universibo/shibboleth-bundle": 20
+        "universibo/shibboleth-bundle": 20,
+        "universibo/core-bundle": 20
     }
 }

@@ -22,11 +22,18 @@
         "kriswallsmith/assetic": "1.1.*@dev",
         "twig/extensions": "1.0.*@dev",
         "universibo/shibboleth-bundle": "@dev",
-        "zendframework/zend-feed": ">=2.0.0,<2.1.0"
+        "zendframework/zend-feed": ">=2.0.0,<2.1.0",
+        "universibo/core-bundle": "dev-master"
     },
     "replaces": {
         "smarty/smarty": "v3.1.11"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "http://github.com/UniversiBO/UniversiboCoreBundle"
+        }
+    ],
     "require-dev": {
     },
     "scripts": {
