@@ -48,7 +48,7 @@ class StepList
 
         if ($steps != null)
             foreach ($steps as $step)
-                // VERIFY lo metto o no il number nell'array?
+                // TODO lo metto o no il number nell'array?
                 $this->Lista_step[] =  new Step($step);
 //		echo 'costruzione ';
 //		var_dump($this);
@@ -75,7 +75,7 @@ class StepList
         for ($i = ($this->lastGoodStep != self::EMPTY_VALUE) ? $this->lastGoodStep : 0; $i <= $this->currentStep; $i++) {
 //			var_dump($i); echo "\n";
             $step = $this->getStep($i);
-            // TODO VERIFY è ammissibile che uno stato sia refused?
+            // TODO è ammissibile che uno stato sia refused?
 //			var_dump($step); die;
             if ($step->getState() != Step::COMPLETATO) {
                 $this->lastGoodStep = max(self::EMPTY_VALUE, $i - 1);
@@ -133,7 +133,7 @@ class StepList
     public function  getFirstStep()
     {
         $this->currentStep = 0;
-        $this->lastGoodStep = self::EMPTY_VALUE;  // VERIFY ha senso modificare anche lastGoodStep?
+        $this->lastGoodStep = self::EMPTY_VALUE;  // TODO ha senso modificare anche lastGoodStep?
 
         return $this->Lista_step[0];
     }

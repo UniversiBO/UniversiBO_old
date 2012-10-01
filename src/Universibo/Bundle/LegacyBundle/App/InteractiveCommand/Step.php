@@ -122,6 +122,6 @@ class Step
 }
 
 define('STEP_COMPLETATO', Step::COMPLETATO);
-define('STEP_RIFIUTATO', Step::RIFIUTATO);  // TODO VERIFY mi sa che è inutile questo valore
+define('STEP_RIFIUTATO', Step::RIFIUTATO);  // TODO mi sa che è inutile questo valore
 define('STEP_VISITATO', Step::VISITATO);
 define('STEP_NONVISITATO', Step::NONVISITATO);

@@ -25,5 +25,6 @@
 		<nature>com.dubture.symfony.core.symfonyNature</nature>
 		<nature>net.sourceforge.phpeclipse.phpnature</nature>
 		<nature>org.eclipse.php.core.PHPNature</nature>
+		<nature>org.eclipse.php.smarty.core.SmartyNature</nature>
 	</natures>
 </projectDescription>

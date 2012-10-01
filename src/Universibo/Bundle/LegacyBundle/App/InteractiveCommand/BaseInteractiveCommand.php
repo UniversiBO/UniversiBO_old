@@ -57,7 +57,7 @@ class BaseInteractiveCommand extends PluginCommand
     /**
      * @access private
      */
-    public $id_utente;  //VERIFY servirà veramente?
+    public $id_utente;  //TODO servirà veramente?
 
 
     /**
@@ -99,7 +99,7 @@ class BaseInteractiveCommand extends PluginCommand
      */
     public function __construct($baseCommand)
     {
-        // TODO VERIFY andrà bene questo costruttore?
+        // TODO andrà bene questo costruttore?
         parent::__construct($baseCommand);
 
         $this->systemValues['bc'] 	= $baseCommand;

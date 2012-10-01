@@ -406,7 +406,7 @@ class CancellazioneUtente
 //			Error::throwError(_ERROR_CRITICAL,array('msg'=>'Could not delete user from banlist table','file'=>__FILE__,'line'=>__LINE__));
 //		}
 
-        //VERIFY se cancellare i messaggi privati o meno
+        //TODO se cancellare i messaggi privati o meno
 //			$sql = "SELECT privmsgs_id
 //				FROM " . PRIVMSGS_TABLE . "
 //				WHERE privmsgs_from_userid = $user_id

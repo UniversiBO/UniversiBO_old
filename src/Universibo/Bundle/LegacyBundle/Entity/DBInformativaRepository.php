@@ -19,7 +19,7 @@ class DBInformativaRepository extends DBRepository
         $query = 'SELECT id_informativa, data_pubblicazione, data_fine, testo FROM  informativa
         WHERE data_pubblicazione <= '.$db->quote( $time ).
         ' AND  (data_fine IS NULL OR data_fine > '.$db->quote( $time ).')' .
-        'ORDER BY id_informativa DESC';  // VERIFY così possiamo già pianificare quando una certa informativa scadrà
+        'ORDER BY id_informativa DESC';  // TODO così possiamo già pianificare quando una certa informativa scadrà
 
         $res = $db->query($query);
         if (DB::isError($res)) {
