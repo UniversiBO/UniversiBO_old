@@ -20,22 +20,6 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('universibo_sso');
 
-        $rootNode
-            ->children()
-                ->arrayNode('idp_url')
-                    ->children()
-                        ->scalarNode('base')->end()
-                        ->scalarNode('info')->end()
-                        ->scalarNode('logout')->end()
-                    ->end()
-                ->end()
-                ->arrayNode('route')
-                    ->children()
-                        ->scalarNode('after_logout')->end()
-                    ->end()
-                ->end()
-            ->end();
-
         return $treeBuilder;
     }
 }

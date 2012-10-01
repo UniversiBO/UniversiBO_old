@@ -358,6 +358,10 @@ abstract class UniversiboCommand extends BaseCommand
 
         $template->assign('common_docSf', 'Documentazione');
         $template->assign('common_docSfUri', 'https://wiki.universibo.unibo.it/');
+
+        $loginResponse = $this->forward('_universibo_sso.controller.userbox:indexAction');
+
+        $template->assign('common_loginBox', $loginResponse->getContent());
         //$template->assign('common_project', 'UniversiBO Open Source Project');
         //$template->assign('common_projectUri', 'http://universibo.sourceforge.net/');
 
