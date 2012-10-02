@@ -59,7 +59,7 @@
         "symfony-app-dir": "app",
         "symfony-web-dir": "web"
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Associazione Universibo",
