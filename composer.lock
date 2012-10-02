@@ -1528,12 +1528,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/UniversiBO/UniversiboLoginActionBundle",
-                "reference": "d049d13f6cd286e9e27bd797e023465ca3f5a99f"
+                "reference": "9019122c4302a4ce855af67e07f77dad6ccc72b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboLoginActionBundle/zipball/d049d13f6cd286e9e27bd797e023465ca3f5a99f",
-                "reference": "d049d13f6cd286e9e27bd797e023465ca3f5a99f",
+                "url": "https://github.com/UniversiBO/UniversiboLoginActionBundle/zipball/9019122c4302a4ce855af67e07f77dad6ccc72b8",
+                "reference": "9019122c4302a4ce855af67e07f77dad6ccc72b8",
                 "shasum": ""
             },
             "require": {
@@ -1542,7 +1542,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1349189863",
+            "time": "1349190377",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
