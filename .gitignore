@@ -9,7 +9,7 @@ app/uploads/*
 /cache.properties
 /nbproject
 universibo/file-universibo
-/htmls/bundles
+/web/bundles
 vendor
 php-cs-fixer.phar
 *debuglog.txt

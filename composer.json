@@ -57,7 +57,7 @@
     },
     "extra": {
         "symfony-app-dir": "app",
-        "symfony-web-dir": "htmls"
+        "symfony-web-dir": "web"
     },
     "minimum-stability": "stable",
     "authors": [
