@@ -3,17 +3,12 @@ namespace Universibo\Bundle\LegacyBundle\Tests\Selenium;
 
 use Universibo\Bundle\LegacyBundle\Tests\TestConstants;
 
-class RuoliAdminSearchTest extends UniversiBOSeleniumTestCase
+class RuoliAdminEditTest extends UniversiBOSeleniumTestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-    }
-
     public function testNotLogged()
     {
         $this->logout();
-        $this->openPrefix('/role/admin/search/1415/');
+        $this->openPrefix('/role/admin/edit/1/81/');
 
         $this->assertSentences(array(
                 'Error',
@@ -21,9 +16,9 @@ class RuoliAdminSearchTest extends UniversiBOSeleniumTestCase
         ));
     }
 
-    public function testSearchUsername()
+    public function testEditBrainHomepage()
     {
-        $this->login(TestConstants::ADMIN_USERNAME);
+            $this->login(TestConstants::ADMIN_USERNAME);
 
         $this->openPrefix('/role/admin/search/1415/');
         $this->assertSentences(array(

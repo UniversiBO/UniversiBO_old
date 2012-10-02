@@ -27,12 +27,12 @@ class RuoliAdminSearch extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $router = $this->get('router');
-
         $user = $this->get('security.context')->getToken()->getUser();
 
         $referente = false;
 
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
+        $userId = $user instanceof User ? $user->getId() : 0;
         $ruoli = array();
         $arrayPublicUsers = array();
 
@@ -52,8 +52,13 @@ class RuoliAdminSearch extends UniversiboCommand
             $referente = $ruolo->isReferente();
         }
 
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN') && !$referente )
-            Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getId(), 'msg' => "Non hai i diritti per modificare i diritti degli utenti su questa pagina.\nLa sessione potrebbe essere scaduta.", 'file' => __FILE__, 'line' => __LINE__));
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN') && !$referente ) {
+            Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $userId, 'msg' => "Non hai i diritti per modificare i diritti degli utenti su questa pagina.\nLa sessione potrebbe essere scaduta.", 'file' => __FILE__, 'line' => __LINE__));
+        }
+
+        $userRepo = $this->get('universibo_core.repository.user');
+
+        $translator = $this->get('universibo_legacy.translator.role_name');
 
         $f16_accept = false;
         //postback
@@ -79,17 +84,19 @@ class RuoliAdminSearch extends UniversiboCommand
             else
                 $f16_email = $_POST['f16_email'];
 
+            $roleRepo = $this->get('universibo_legacy.repository.ruolo');
+
             if ($f16_accept) {
-                $users_search = User::selectUsersSearch($f16_username, $f16_email);
+                $users_search = $userRepo->search($f16_username, $f16_email);
 
                 $users_search_keys = array_keys($users_search);
                 foreach ($users_search_keys as $key) {
-                    $ruoli_search  = $users_search[$key]->getRuoli();
+                    $ruoli_search  = $roleRepo->findByIdUtente($users_search[$key]->getId());
 
                     $contactUser = array();
                     $contactUser['utente_link']  = $router->generate('universibo_legacy_user', array('id_utente' => $users_search[$key]->getId()));
                     $contactUser['edit_link']  = $router->generate('universibo_legacy_role_admin_edit', array('id_canale' => $id_canale, 'id_utente' => $users_search[$key]->getId()));
-                    $contactUser['nome']  = $users_search[$key]->getUserPublicGroupName();
+                    $contactUser['nome']  =  $translator->getUserPublicGroupName($users_search[$key]);
                     $contactUser['label'] = $users_search[$key]->getUsername();
 
                     if (array_key_exists($id_canale, $ruoli_search)) {
@@ -100,7 +107,7 @@ class RuoliAdminSearch extends UniversiboCommand
                         $contactUser['ruolo'] = 'none';
                     }
 
-                    $arrayPublicUsers[$users_search[$key]->getUserPublicGroupName(false)][] = $contactUser;
+                    $arrayPublicUsers[$translator->getUserPublicGroupName($users_search[$key],false)][] = $contactUser;
 
                 }
 
@@ -120,12 +127,12 @@ class RuoliAdminSearch extends UniversiboCommand
                     $contactUser = array();
                     $contactUser['utente_link']  = $router->generate('universibo_legacy_user', array('id_utente' => $user->getId()));
                     $contactUser['edit_link']  = $router->generate('universibo_legacy_role_admin_edit', array('id_canale' => $id_canale, 'id_utente' => $user->getId()));
-                    $contactUser['nome']  = $user->getUserPublicGroupName();
+                    $contactUser['nome']  = $translator->getUserPublicGroupName($user);
                     $contactUser['label'] = $user->getUsername();
                     $contactUser['ruolo'] = ($canale_ruoli[$key]->isReferente()) ? 'R' :  (($canale_ruoli[$key]->isModeratore()) ? 'M' : 'none');
                     //var_dump($ruolo);
                     //$arrayUsers[] = $contactUser;
-                    $arrayPublicUsers[$user->getUserPublicGroupName(false)][$contactUser['label']] = $contactUser;
+                    $arrayPublicUsers[$translator->getUserPublicGroupName($user, false)][$contactUser['label']] = $contactUser;
                 }
             }
         }

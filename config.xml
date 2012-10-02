@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <config>
-	
+
 	<!--Root Folder can be absolute or relative to receiver path -->
 	<rootFolder>../framework/</rootFolder>
 	<rootURL>universibo2devel/htmls/</rootURL>
@@ -8,26 +8,16 @@
 		<application>../universibo/</application>
 		<commands>../universibo/commands/</commands>
 	</paths>
-	
+
 	<receivers>
 		<main>index.php</main>
 	</receivers>
-	
+
 	<defaultCommand>ShowHome</defaultCommand>
 	<commands>
-		<ScriptTest class="ScriptTest" />
-		<!--<ScriptGetLDAPMD5 class="ScriptGetLDAPMD5" />-->
-		
 		<ShowError class="ShowError">
 			<response type="template" name="default">error.tpl</response>
 		</ShowError>
-		<RegistraStudente class="RegistraStudente">
-			<response type="template" name="default">registra_studente.tpl</response>
-		</RegistraStudente>
-		<Login class="Login">
-			<response type="template" name="default">login.tpl</response>
-		</Login>
-		<Logout class="Logout" />
 		<ShowManifesto class="ShowManifesto">
 			<response type="template" name="default">manifesto.tpl</response>
 		</ShowManifesto>
@@ -107,8 +97,7 @@
 			<response type="template" name="default">info_didattica_edit.tpl</response>
 			<response type="template" name="success">info_didattica_edit_success.tpl</response>
 		</InfoDidatticaEdit>
-		
-		
+
 		<ShowMyUniversiBO class="ShowMyUniversiBO">
 			<response type="template" name="default">my_universibo.tpl</response>
 			<pluginCommand name="ShowMyNews" class="News.ShowMyNews" />
@@ -145,34 +134,6 @@
 			<pluginCommand name="ShowTopic" class="Help.ShowTopic" />
 			<pluginCommand name="ShowHelpId" class="Help.ShowHelpId" />
 		</RuoliAdminEdit>
-		
-		<RegStudente class="RegStudente">
-			<response type="template" name="default">reg_studente.tpl</response>
-			<response type="template" name="success">reg_studente_success.tpl</response>
-			<pluginCommand name="ShowTopic" class="Help.ShowTopic" />
-			<pluginCommand name="ShowHelpId" class="Help.ShowHelpId" />
-		</RegStudente>
-		<RegUser class="RegUser">
-			<response type="template" name="default">reg_user.tpl</response>
-			<response type="template" name="success">reg_user_success.tpl</response>
-		</RegUser>
-		<NewPasswordStudente class="NewPasswordStudente">
-			<response type="template" name="default">new_password_studente.tpl</response>
-			<response type="template" name="success">new_password_studente_success.tpl</response>
-		</NewPasswordStudente>
-		<NewPasswordDocente class="NewPasswordDocente">
-			<response type="template" name="default">new_password_docente.tpl</response>
-			<response type="template" name="success">new_password_docente_success.tpl</response>
-		</NewPasswordDocente>
-		<ChangePassword class="ChangePassword">
-			<response type="template" name="default">change_password.tpl</response>
-			<response type="template" name="success">change_password_success.tpl</response>
-		</ChangePassword>
-		<RecuperaUsernameStudente class="RecuperaUsernameStudente">
-			<response type="template" name="default">recupera_username_studente.tpl</response>
-			<response type="template" name="success">recupera_username_studente_success.tpl</response>
-		</RecuperaUsernameStudente>
-		
 		<NewsAdd class="NewsAdd">
 			<response type="template" name="default">news_add.tpl</response>
 			<response type="template" name="success">news_add_success.tpl</response>
@@ -199,13 +160,12 @@
 			<pluginCommand name="ShowTopic" class="Help.ShowTopic" />
 			<pluginCommand name="ShowHelpId" class="Help.ShowHelpId" />
 		</NewsShowCanale>
-		
 		<FileDocenteAdmin class="FileDocenteAdmin">
-            <response type="template" name="success">file_docente_admin_success.tpl</response>
-            <response type="template" name="default">file_docente_admin.tpl</response>
-            <pluginCommand name="ShowTopic" class="Help.ShowTopic" />
-            <pluginCommand name="ShowHelpId" class="Help.ShowHelpId" />
-        </FileDocenteAdmin>
+			<response type="template" name="success">file_docente_admin_success.tpl</response>
+			<response type="template" name="default">file_docente_admin.tpl</response>
+			<pluginCommand name="ShowTopic" class="Help.ShowTopic" />
+			<pluginCommand name="ShowHelpId" class="Help.ShowHelpId" />
+		</FileDocenteAdmin>
 		<FileDownload class="FileDownload">
 			<response type="template" name="file_download_iscriviti">file_download_iscriviti.tpl</response>
 			<response type="template" name="file_download_password">file_download_password.tpl</response>
@@ -274,15 +234,15 @@
 		<ShowPersonalFiles class="ShowPersonalFiles">
 			<response type="template" name="default">personal_files.tpl</response>
 		</ShowPersonalFiles>
-		
-		
+
+
 		<DidatticaGestione class="DidatticaGestione">
-            <response type="template" name="success">didattica_gestione_success.tpl</response>
-            <response type="template" name="default">didattica_gestione.tpl</response>
-            <pluginCommand name="ShowTopic" class="Help.ShowTopic" />
-            <pluginCommand name="ShowHelpId" class="Help.ShowHelpId" />
-        </DidatticaGestione>
-		
+			<response type="template" name="success">didattica_gestione_success.tpl</response>
+			<response type="template" name="default">didattica_gestione.tpl</response>
+			<pluginCommand name="ShowTopic" class="Help.ShowTopic" />
+			<pluginCommand name="ShowHelpId" class="Help.ShowHelpId" />
+		</DidatticaGestione>
+
 		<LinkAdd class="LinkAdd">
 			<response type="template" name="default">link_add.tpl</response>
 			<response type="template" name="success">link_add_success.tpl</response>
@@ -292,18 +252,18 @@
 			<response type="template" name="success">link_delete_success.tpl</response>
 			<pluginCommand name="ShowLink" class="Links.ShowLink" />
 		</LinkDelete>
-		
+
 		<LinkEdit class="LinkEdit">
 			<response type="template" name="default">link_edit.tpl</response>
 			<response type="template" name="success">link_edit_success.tpl</response>
 			<pluginCommand name="ShowLink" class="Links.ShowLink" />
 		</LinkEdit>
-		
+
 		<LinksAdmin class="LinksAdmin">
 			<response type="template" name="default">links_admin.tpl</response>
-		    <pluginCommand name="ShowLinksExtended" class="Links.ShowLinksExtended" />
+			<pluginCommand name="ShowLinksExtended" class="Links.ShowLinksExtended" />
 		</LinksAdmin>
-		
+
 		<ShowContattoDocente class="ShowContattoDocente">
 			<response type="template" name="default">show_contatto_docente.tpl</response>
 		</ShowContattoDocente>
@@ -313,41 +273,24 @@
 		<ContattoDocenteAdd class="ContattoDocenteAdd">
 			<response type="template" name="default">contatto_docente_add.tpl</response>
 		</ContattoDocenteAdd>
-		
+
 		<CollaboratoreProfiloAdd class="CollaboratoreProfiloAdd">
 			<response type="template" name="default">collaboratore_profilo_add.tpl</response>
 		</CollaboratoreProfiloAdd>
-		
-		<InteractiveCommandHandler class="InteractiveCommandHandler">
-			<response type="template" name="default">interactive_command_handler.tpl</response>
-			<!-- restrictedTo="" serve per applicare l'interactiveCommand a gruppi selezionati di utenti. Mettere le costanti (vedi User) dei gruppi voluti separati da virgola  -->
-			<!-- condition=""	serve per imporre dei vincoli sia sull'attivazione che sulla disattivazione del plugin. La condizione deve essere espressa in ConditionLanguage  -->
-			<pluginCommand name="ProvaInteractiveCommand" class="InteractiveCommand.ProvaInteractiveCommand" restrictedTo="USER_COLLABORATORE,USER_ADMIN"  condition="STARTS WHEN 5 + 4 + 3 + 2 + 1 = 15;" /> 
-			<pluginCommand name="InformativaPrivacyInteractiveCommand" class="InteractiveCommand.InformativaPrivacyInteractiveCommand"/>
-		</InteractiveCommandHandler>
-                
-                <ShowPermalink class="ShowPermalink">
-                    	<response type="template" name="default">permalink_show.tpl</response>
-                </ShowPermalink>
-		<!-- 
-		<TestUnit class="TestUnit" />
-		<TestTemplate class="TestTemplate" />
-		 -->
+
+		<ShowPermalink class="ShowPermalink">
+			<response type="template" name="default">permalink_show.tpl</response>
+		</ShowPermalink>
 	</commands>
-	
-	<dbInfo type="DB">
-	    <connection identifier="main">pgsql://universibo:universibo@127.0.0.1/universibo</connection>
-	    <connection identifier="mysql">mysql://my_username:my_password@host/my_dbname</connection>
-	</dbInfo>
-	
+
 	<mailerInfo>
 		<!-- leave smtp empty if don't want to use a smtp server -->
-	    <smtp>---pippo.joker.ing.unibo.it</smtp>
-	    <fromAddress>universibo@unibo.it</fromAddress>
-	    <replyToAddress>universibo@unibo.it</replyToAddress>
-	    <fromName>UniversiBO</fromName>
+		<smtp>---pippo.joker.ing.unibo.it</smtp>
+		<fromAddress>universibo@unibo.it</fromAddress>
+		<replyToAddress>universibo@unibo.it</replyToAddress>
+		<fromName>UniversiBO</fromName>
 	</mailerInfo>
-	
+
 	<templateInfo type="Smarty" debugging="off">
 		<template_dirs>
 			<web_dir>tpl/</web_dir>
@@ -358,30 +301,26 @@
 			<smarty_cache>../universibo/templates_cache/</smarty_cache>
 		</template_dirs>
 		<template_styles default="unibo">
-			<style name="black" dir="black/" />
 			<style name="unibo" dir="unibo/" />
-			<style name="simple" dir="simple/" />
 		</template_styles>
-	</templateInfo>	
-	
+	</templateInfo>
+
 	<langInfo>
-	 	<lang_dir>../universibo/lang/</lang_dir> 
-	 	<lang_default>it</lang_default> 
-	 	<date_separator>/</date_separator> 
-	</langInfo>	
-	
+		<lang_dir>../universibo/lang/</lang_dir>
+		<lang_default>it</lang_default>
+		<date_separator>/</date_separator>
+	</langInfo>
+
 	<smsMobyInfo>
-	    <username>your_username</username>
-	    <password>your_password</password>
-	    <fromName>UniversiBO</fromName>
+		<username>your_username</username>
+		<password>your_password</password>
+		<fromName>UniversiBO</fromName>
 	</smsMobyInfo>
-	
-	<!-- appSettings is an optional node. You can place any thing here 
-                and access it from FrontController->getAppSetting()	-->
+
+	<!-- appSettings is an optional node. You can place any thing here and access 
+		it from FrontController->getAppSetting() -->
 	<appSettings>
-		<adLoginHost>127.0.0.1</adLoginHost>
 		<version>2.6.x-dev</version>
-		<adLoginPort>1525</adLoginPort>
 		<logs>../app/logs</logs>
 		<notificheLock>../universibo/notifiche.lock</notificheLock>
 		<contactsPath>img/contacts/</contactsPath>
@@ -403,8 +342,8 @@
 		<regolamento>../universibo/files/regolamento.txt</regolamento>
 		<staffEmail>staff_universibo@mama.ing.unibo.it</staffEmail>
 		<defaultAnnoAccademico>2011</defaultAnnoAccademico>
-		
-		<!--<antiVirusEnable>true</antiVirusEnable>-->
+
+		<!--<antiVirusEnable>true</antiVirusEnable> -->
 		<antiVirusEnable>false</antiVirusEnable>
 		<antiVirusType>clamav</antiVirusType>
 		<antiVirusClamavCmd>/usr/local/bin/clamscan</antiVirusClamavCmd>

@@ -423,6 +423,7 @@ abstract class UniversiboCommand extends BaseCommand
         $common_calendarLink = array('label' => $krono->k_date('%F'));
         $template->assign('common_calendarLink', $common_calendarLink);
         $template->assign('common_version', $this->frontController->getAppSetting('version'));
+        $template->assign('common_showGoogle', $this->get('kernel')->getEnvironment() === 'prod');
     }
 
     /**

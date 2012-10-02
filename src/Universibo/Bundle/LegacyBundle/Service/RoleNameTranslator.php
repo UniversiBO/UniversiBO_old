@@ -7,6 +7,10 @@ namespace Universibo\Bundle\LegacyBundle\Service;
  *
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
+use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
+
+use Universibo\Bundle\CoreBundle\Entity\User;
+
 class RoleNameTranslator
 {
     private static $translation = array (
@@ -28,5 +32,18 @@ class RoleNameTranslator
         $role = array_pop($roles);
 
         return self::$translation[$role];
+    }
+
+    /**
+     * @param  boolean $singular
+     * @param  mixed   $user
+     * @return string
+     */
+    public function getUserPublicGroupName($user, $singular = true)
+    {
+        $map = LegacyRoles::$map[$singular ? 'singular' : 'plural'];
+        $groups = $user instanceof User ? $user->getLegacyGroups() : LegacyRoles::OSPITE;
+
+        return $map[$groups];
     }
 }

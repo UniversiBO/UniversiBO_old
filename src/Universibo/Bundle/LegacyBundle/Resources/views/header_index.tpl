@@ -8,6 +8,7 @@
 <meta lang="it" name="description" content="{$common_metaDescription|escape:"htmlall"}" />
 <link rel="stylesheet" href="{$common_basePath}/tpl/unibo/style.css" type="text/css" media="all" />
 <script type="text/javascript" src="{$common_basePath}/tpl/unibo/liste.js"></script>
+{if $common_showGoogle}
 {literal}
 <style type="text/css">
 input.gsc-input {
@@ -20,6 +21,7 @@ input.gsc-search-button {
 </style>
 <link rel="stylesheet" href="https://www.google.com/cse/style/look/default.css" type="text/css" />
 {/literal}
+{/if}
 {#favIcon#}
 {*<!--[if IE]><style type="text/css">#header ul.hide {ldelim}display: none !important;{rdelim}</style><![endif]-->*}
 </head> 
@@ -75,6 +77,7 @@ input.gsc-search-button {
 <td>
 	{*<p id="seiIn">sei in: <a href="">Home</a></p>*}
 	<div id="content"> {* COLONNA MENU CENtrALE *}
+	{if $common_showGoogle}
 	{* BEGIN GOOGLE CUSTOM SEARCH ENGINE *}
 	{literal}
     <div id="cse-search-form" style="width: 100%;">Loading</div>
@@ -92,6 +95,7 @@ input.gsc-search-button {
     </script>
     {/literal}
 	{* END GOOGLE CUSTOM SEARCH ENGINE *}
+	{/if}
 	{if $common_alert != ""}
 	<div id="alert">{$common_alert|escape:"htmlall"}</div>
 	{/if}
