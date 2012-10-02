@@ -1,5 +1,9 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
+
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use \Error;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
@@ -27,25 +31,19 @@ class FileEdit extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $krono = $frontcontroller->getKrono();
+        $router = $this->get('router');
 
         $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
+        $userId = $user instanceof User ? $user->getId() : 0;
 
-        if (!array_key_exists('id_file', $_GET)
-                || !preg_match('/^([0-9]{1,9})$/', $_GET['id_file'])) {
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'L\'id del file richiesto non e` valido',
-                            'file' => __FILE__, 'line' => __LINE__));
+        $file = $this->get('universibo_legacy.repository.files.file_item')->find($this->getRequest()->attributes->get('id_file'));
+
+        if (!$file instanceof FileItem) {
+            throw new NotFoundHttpException('File not found');
         }
-        $file = FileItem::selectFileItem($_GET['id_file']);
-        if ($file === false)
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => "Il file richiesto non e` presente su database",
-                            'file' => __FILE__, 'line' => __LINE__));
 
-        $template->assign('fileEdit_fileUri', $router->generate('universibo_legacy_file_download', array('id_file' => $file->getIdFile())));
+        $template->assign('fileEdit_fileUri', $router->generate('universibo_legacy_file', array('id_file' => $file->getIdFile())));
 
         $template
                 ->assign('common_canaleURI',
@@ -56,23 +54,17 @@ class FileEdit extends UniversiboCommand
         $referente = false;
         $moderatore = false;
 
-        $autore = ($user->getId() == $file->getIdUtente());
+        $autore = $user instanceof User && ($user->getId() == $file->getIdUtente());
 
-        if (array_key_exists('id_canale', $_GET)) {
-            if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
-                Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getId(),
-                                'msg' => 'L\'id del canale richiesto non e` valido',
-                                'file' => __FILE__, 'line' => __LINE__));
+        if ($id_canale = $this->getRequest()->attributes->get('id_canale')) {
 
-            $canale = Canale::retrieveCanale($_GET['id_canale']);
+            $canale = Canale::retrieveCanale($id_canale);
             if ($canale->getServizioFiles() == false)
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getId(),
                                 'msg' => "Il servizio files e` disattivato",
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $id_canale = $canale->getIdCanale();
             $template->assign('common_canaleURI', $canale->showMe($router));
             $template->assign('common_langCanaleNome', 'a '. $canale->getTitolo());
             if (array_key_exists($id_canale, $user_ruoli)) {
@@ -85,7 +77,7 @@ class FileEdit extends UniversiboCommand
             $canali_file = $file->getIdCanali();
             if (!in_array($id_canale, $canali_file))
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getId(),
+                        array('id_utente' => $userId,
                                 'msg' => 'I parametri passati non sono coerenti',
                                 'file' => __FILE__, 'line' => __LINE__));
 
@@ -94,13 +86,13 @@ class FileEdit extends UniversiboCommand
             //controllo diritti sul canale
             if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || ($moderatore && $autore)))
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getId(),
+                        array('id_utente' => $userId,
                                 'msg' => "Non hai i diritti per modificare il file\n La sessione potrebbe essere scaduta",
                                 'file' => __FILE__, 'line' => __LINE__));
 
         } elseif (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $autore))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
+                    array('id_utente' => $userId,
                             'msg' => "Non hai i diritti per modificare il file\n La sessione potrebbe essere scaduta",
                             'file' => __FILE__, 'line' => __LINE__));
 
@@ -385,7 +377,7 @@ class FileEdit extends UniversiboCommand
                 $f13_accept = false;
             } elseif ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
                 if ($_POST['f13_permessi_download'] < 0
-                        || $_POST['f13_permessi_download'] > User::ALL) {
+                        || $_POST['f13_permessi_download'] > LegacyRoles::ALL) {
                     Error::throwError(_ERROR_NOTICE,
                             array('id_utente' => $user->getId(),
                                     'msg' => 'Il valore dei diritti di download non e` ammessibile',
@@ -396,11 +388,11 @@ class FileEdit extends UniversiboCommand
                 }
                 $f13_permessi_download = $_POST['f13_permessi_download'];
             } else {
-                if ($_POST['f13_permessi_download'] != User::ALL
+                if ($_POST['f13_permessi_download'] != LegacyRoles::ALL
                         && $_POST['f13_permessi_download']
                                 != ('ROLE_STUDENT' | 'ROLE_PROFESSOR'
                                         | 'ROLE_TUTOR' | 'ROLE_STAFF'
-                                        | 'ROLE_COLLABORATOR' | USER::ADMIN)) {
+                                        | 'ROLE_COLLABORATOR' | LegacyRoles::ADMIN)) {
                     Error::throwError(_ERROR_NOTICE,
                             array('id_utente' => $user->getId(),
                                     'msg' => 'Il valore dei diritti di download non e` ammissibile',
@@ -447,7 +439,7 @@ class FileEdit extends UniversiboCommand
             if (array_key_exists('id_canale', $_GET))
                 $f13_permessi_visualizza = $canale->getPermessi();
             else
-                $f13_permessi_visualizza = User::ALL;
+                $f13_permessi_visualizza = LegacyRoles::ALL;
             // eventualmente dare la possibilità all'admin di metterli diversamente
 
             //esecuzione operazioni accettazione del form

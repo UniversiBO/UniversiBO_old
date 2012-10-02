@@ -127,6 +127,13 @@ class DBFileItemRepository extends DBRepository
         return $id_file_list;
     }
 
+    public function find($id)
+    {
+        $result = $this->findManyById(array($id));
+
+        return is_array($result) ? $result[0] : $result;
+    }
+
     public function findManyById(array $ids)
     {
         $db = $this->getDb();
