@@ -8,7 +8,7 @@ namespace Universibo\Bundle\LegacyBundle\Entity;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBCanale2Repository extends DBRepository
+class Canale2Repository extends DoctrineRepository
 {
 
     /**

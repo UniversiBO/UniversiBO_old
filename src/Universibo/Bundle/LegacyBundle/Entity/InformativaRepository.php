@@ -6,7 +6,7 @@ use \DB;
 /**
  * @todo Informativa Entity
  */
-class DBInformativaRepository extends DBRepository
+class InformativaRepository extends DoctrineRepository
 {
     /**
      * @param  int         $time

@@ -8,7 +8,7 @@ use \DB;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBDocenteRepository extends DBRepository
+class DocenteRepository extends DoctrineRepository
 {
     public function find($id)
     {

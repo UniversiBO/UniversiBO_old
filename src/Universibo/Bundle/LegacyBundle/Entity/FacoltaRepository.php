@@ -8,7 +8,7 @@ use \DB;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBFacoltaRepository extends DBRepository
+class FacoltaRepository extends DoctrineRepository
 {
     /**
      * @var DBCanaleRepository

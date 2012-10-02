@@ -11,7 +11,7 @@ use \DB;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBRuoloRepository extends DBRepository
+class RuoloRepository extends DoctrineRepository
 {
     public function delete(Ruolo $ruolo)
     {

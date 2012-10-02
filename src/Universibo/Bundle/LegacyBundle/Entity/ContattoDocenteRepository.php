@@ -10,7 +10,7 @@ use \Error;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBContattoDocenteRepository extends DBRepository
+class ContattoDocenteRepository extends DoctrineRepository
 {
     /**
      * @param  string          $codDocente
