@@ -325,7 +325,7 @@
 		<notificheLock>../universibo/notifiche.lock</notificheLock>
 		<contactsPath>img/contacts/</contactsPath>
 		<langFile>/location/of/userLanguageFile.txt</langFile>
-		<filesPath>../universibo/file-universibo/</filesPath>
+		<filesPath>../app/uploads/</filesPath>
 		<filesTipoIconePath>img/icone_file/</filesTipoIconePath>
 		<rootUrl>https://www.universibo.unibo.it</rootUrl>
 		<fotoDefault>no_foto.png</fotoDefault>
