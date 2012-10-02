@@ -65,7 +65,7 @@ class ErrorHandlers
 
         $log_definition = array(0 => 'timestamp', 1 => 'date', 2 => 'time', 3 => 'error_level', 4 => 'file', 5 => 'line', 6 => 'messaggio' );
 
-        $log = new LogHandler('error','../universibo/log-universibo/',$log_definition);
+        $log = new LogHandler('error',__DIR__.'/../../../../../app/logs/',$log_definition);
 
         $log_array = array( 'timestamp'  => time(),
                 'date'  => date("Y-m-d",time()),
