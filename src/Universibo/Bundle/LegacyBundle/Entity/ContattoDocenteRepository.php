@@ -49,7 +49,7 @@ class ContattoDocenteRepository extends DoctrineRepository
         if( $rows == 0) return false;
 
         $elenco = array();
-        while ($row = $res->fetchRow())
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM)))
             $elenco[] = new ContattoDocente($row[0], $row[1], $row[2], $row[3], $row[4]);
 
         return $elenco;
