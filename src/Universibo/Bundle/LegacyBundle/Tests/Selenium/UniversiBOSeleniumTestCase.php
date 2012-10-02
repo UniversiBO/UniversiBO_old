@@ -52,10 +52,22 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
         $this->assertSentences(array($sentence));
     }
 
+    protected function assertNotSentence($sentence)
+    {
+        $this->assertNotSentences(array($sentence));
+    }
+
     protected function assertSentences(array $sentences)
     {
         foreach ($sentences as $sentence) {
             $this->assertTrue($this->isTextPresent($sentence), 'Text: "'.$sentence.'" should be present.');
+        }
+    }
+
+    protected function assertNotSentences(array $sentences)
+    {
+        foreach ($sentences as $sentence) {
+            $this->assertFalse($this->isTextPresent($sentence), 'Text: "'.$sentence.'" should be NOT present.');
         }
     }
 }
