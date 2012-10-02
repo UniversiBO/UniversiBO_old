@@ -28,7 +28,7 @@ abstract class DBRepositoryTest extends ContainerAwareTest
         $kernel->boot();
         $db = $kernel->getContainer()->get('universibo_legacy.db.connection.main');
 
-        $db->query(file_get_contents(__DIR__.'/../../../../../../dbms/pgsql/testdb.sql'));
+        $db->query(file_get_contents(__DIR__.'/../../../../../../app/sql/pgsql/testdb.sql'));
 
         $kernel->shutdown();
         restore_error_handler();
