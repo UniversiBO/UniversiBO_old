@@ -576,7 +576,7 @@ class FileItem
      * @param  string $string
      * @return string
      */
-    public function passwordHashFunction($string)
+    public static function passwordHashFunction($string)
     {
         return md5($string);
     }
