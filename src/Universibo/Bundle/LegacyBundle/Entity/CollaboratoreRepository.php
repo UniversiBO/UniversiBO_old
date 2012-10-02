@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
+use Doctrine\DBAL\Connection;
+
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 
 use \DB;
@@ -18,7 +20,11 @@ class CollaboratoreRepository extends DoctrineRepository
      */
     private $userRepository;
 
-    public function __construct(\DB_common $db, UserRepository $userRepository, $convert = false)
+    /**
+     * @param Connection     $db
+     * @param UserRepository $userRepository
+     */
+    public function __construct(Connection $db, UserRepository $userRepository)
     {
         parent::__construct($db);
 
@@ -107,7 +113,7 @@ class CollaboratoreRepository extends DoctrineRepository
     public function insert(Collaboratore $collaboratore)
     {
         ignore_user_abort(1);
-        $db->autoCommit(false);
+        $db->beginTransaction();
         $return = true;
 
         //TODO fare inserimento solo se non già presente
@@ -123,7 +129,6 @@ class CollaboratoreRepository extends DoctrineRepository
         //var_dump($query);
 
         $db->commit();
-        $db->autoCommit(true);
         ignore_user_abort(0);
     }
 }

@@ -12,7 +12,7 @@ class CollaboratoreRepositoryTest extends DoctrineRepositoryTest
     {
         parent::setUp();
 
-        $this->repository = static::$kernel->getContainer()->get('universibo_website.repository.collaboratore');
+        $this->repository = static::$kernel->getContainer()->get('universibo_legacy.repository.collaboratore');
     }
 
     public function testFind()

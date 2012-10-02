@@ -50,8 +50,7 @@ class RuoloRepository extends DoctrineRepository
         $db = $this->getConnection();
 
         $query = 'UPDATE utente_canale SET nome = '.$db->quote($ruolo->getNome()).' WHERE id_utente = '.$db->quote($ruolo->getId()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
-        $res = $db->executeQuery($query);
-        $rows = $db->affectedRows();
+        $rows = $db->executeUpdate($query);
 
         if( $rows == 1) return true;
         elseif( $rows == 0) return false;
@@ -64,8 +63,7 @@ class RuoloRepository extends DoctrineRepository
         $db = $this->getConnection();
 
         $query = 'UPDATE utente_canale SET ultimo_accesso = '.$db->quote($ruolo->getUltimoAccesso()).' WHERE id_utente = '.$db->quote($ruolo->getId()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
-        $res = $db->executeQuery($query);
-        $rows = $db->affectedRows();
+        $rows = $db->executeUpdate($query);
 
         if( $rows == 1) return true;
         elseif( $rows == 0) return false;
@@ -78,8 +76,7 @@ class RuoloRepository extends DoctrineRepository
         $db = $this->getConnection();
 
         $query = 'UPDATE utente_canale SET tipo_notifica = '.$db->quote($ruolo->getTipoNotifica()).' WHERE id_utente = '.$db->quote($ruolo->getId()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
-        $res = $db->executeQuery($query);
-        $rows = $db->affectedRows();
+        $rows = $db->executeUpdate($query);
 
         if( $rows == 1) return true;
         elseif( $rows == 0) return false;
@@ -93,8 +90,7 @@ class RuoloRepository extends DoctrineRepository
 
         $campo_ruolo = ($ruolo->isModeratore()) ? Ruolo::MODERATORE : 0 + ($ruolo->isReferente()) ? Ruolo::REFERENTE : 0;
         $query = 'UPDATE utente_canale SET ruolo = '.$campo_ruolo.' WHERE id_utente = '.$db->quote($ruolo->getId()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
-        $res = $db->executeQuery($query);
-        $rows = $db->affectedRows();
+        $rows = $db->executeUpdate($query);
 
         if( $rows == 1) return true;
         elseif( $rows == 0) return false;
@@ -108,8 +104,7 @@ class RuoloRepository extends DoctrineRepository
 
         $campo_ruolo = (($ruolo->isModeratore()) ? Ruolo::MODERATORE : 0) + (($ruolo->isReferente()) ? Ruolo::REFERENTE : 0);
         $query = 'UPDATE utente_canale SET ruolo = '.$campo_ruolo.' WHERE id_utente = '.$db->quote($ruolo->getId()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
-        $res = $db->executeQuery($query);
-        $rows = $db->affectedRows();
+        $rows = $db->executeUpdate($query);
 
         if( $rows == 1) return true;
         elseif( $rows == 0) return false;
@@ -124,8 +119,7 @@ class RuoloRepository extends DoctrineRepository
         $my_universibo = ($ruolo->isMyUniversibo()) ? 'S' : 'N';
 
         $query = 'UPDATE utente_canale SET my_universibo = '.$db->quote($my_universibo).' WHERE id_utente = '.$db->quote($ruolo->getId()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
-        $res = $db->executeQuery($query);
-        $rows = $db->affectedRows();
+        $rows = $db->executeUpdate($query);
 
         if( $rows == 1) return true;
         elseif( $rows == 0) return false;
@@ -186,7 +180,7 @@ class RuoloRepository extends DoctrineRepository
         if( $rows > 1) $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database: ruolo non unico','file'=>__FILE__,'line'=>__LINE__));
         if( $rows = 0) return false;
 
-        $res->fetchInto($row);
+        false !== ($row = $res->fetch(\PDO::FETCH_NUM));
         $ruolo = new Ruolo($idUtente, $idCanale, $row[4], $row[0], $row[1]==RUOLO_MODERATORE, $row[1]==Ruolo::REFERENTE, $row[2]=='S', $row[3], $row[5]=='S');
 
         return $ruolo;

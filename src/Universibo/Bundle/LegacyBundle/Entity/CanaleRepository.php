@@ -31,8 +31,8 @@ class CanaleRepository extends DoctrineRepository
         $db = $this->getConnection();
 
         $query = 'UPDATE canale SET ultima_modifica = '.$db->quote($canale->getUltimaModifica()).' WHERE id_canale = '.$db->quote($canale->getIdCanale());
-        $res = $db->executeQuery($query);
-        $rows = $db->affectedRows();
+
+        $rows = $db->executeUpdate($query);
 
         if( $rows == 1) return true;
         elseif( $rows == 0) return false;
@@ -122,7 +122,6 @@ class CanaleRepository extends DoctrineRepository
     {
         $db = $this->getConnection();
 
-        $canale->setIdCanale($db->nextID('canale_id_canale'));
         $files_attivo = ( $canale->getServizioFiles() ) ? 'S' : 'N';
         $news_attivo  = ( $canale->getServizioNews()  ) ? 'S' : 'N';
         $links_attivo = ( $canale->getServizioLinks() ) ? 'S' : 'N';
@@ -140,8 +139,7 @@ class CanaleRepository extends DoctrineRepository
             $forum_group_id = NULL ;
         }
 
-        $query = 'INSERT INTO canale (id_canale, tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo, files_studenti_attivo) VALUES ('.
-                $db->quote($canale->getIdCanale()).' , '.
+        $query = 'INSERT INTO canale ( tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo, files_studenti_attivo) VALUES ('.
                 $db->quote($canale->getTipoCanale()).' , '.
                 $db->quote($canale->getNomeCanale()).' , '.
                 $db->quote($canale->getImmagine()).' , '.
@@ -156,6 +154,8 @@ class CanaleRepository extends DoctrineRepository
                 $db->quote($links_attivo).' ,'.
                 $db->quote($files_studenti_attivo).' )';
         $res = $db->executeQuery($query);
+
+        $canale->setIdCanale($db->lastInsertId('canale_id_canale_seq'));
 
         return true;
     }
@@ -192,8 +192,7 @@ class CanaleRepository extends DoctrineRepository
         ' , links_attivo = '.$db->quote($links_attivo).
         ' , files_studenti_attivo = '.$db->quote($files_studenti_attivo).' WHERE id_canale ='.$db->quote($canale->getIdCanale());
 
-        $res = $db->executeQuery($query);
-        $rows = $db->affectedRows();
+        $rows = $db->executeUpdate($query);
 
         if( $rows == 1) return true;
         elseif( $rows == 0) return false;

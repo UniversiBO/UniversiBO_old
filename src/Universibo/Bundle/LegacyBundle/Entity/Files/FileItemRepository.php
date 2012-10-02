@@ -1,6 +1,10 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Files;
 
+use Universibo\Bundle\LegacyBundle\Entity\CanaleRepository;
+
+use Doctrine\DBAL\Connection;
+
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 
 use \DB;
@@ -20,11 +24,11 @@ class FileItemRepository extends DoctrineRepository
     private $userRepository;
 
     /**
-     * @var DBCanaleRepository
+     * @var CanaleRepository
      */
     private $channelRepository;
 
-    public function __construct(\DB_common $db, UserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
+    public function __construct(Connection $db, UserRepository $userRepository, CanaleRepository $channelRepository, $convert = false)
     {
         parent::__construct($db);
 
@@ -59,23 +63,37 @@ class FileItemRepository extends DoctrineRepository
         }
 
         $db = $this->getConnection();
-        array_walk($channelIds, array($db, 'quote'));
+        array_walk($channelIds, 'intval');
 
         $values = implode(',', $channelIds);
 
-        $query = 'SELECT A.id_file FROM file A, file_canale B
-        WHERE A.id_file = B.id_file AND eliminato!='
-        . $db->quote(FileItem::ELIMINATO) . 'AND B.id_canale IN ('
-        . $values
-        . ')
-        ORDER BY A.data_inserimento DESC';
-        $res = $db->limitQuery($query, 0, $limit);
+        $qb = $db->createQueryBuilder();
+
+        $query = $qb
+            ->select('f.id_file')
+            ->from('file', 'f')
+            ->from('file_canale', 'fc')
+            ->andWhere('f.id_file = fc.id_file')
+            ->andWhere('f.eliminato = ?')
+            ->andWhere('fc.id_canale IN (?)')
+            ->orderBy('f.data_inserimento', 'DESC')
+            ->setMaxResults($limit)
+            ->getSQL()
+        ;
+
+        $res = $db->executeQuery($query, array (
+                FileItem::NOT_ELIMINATO,
+                $channelIds
+        ), array(
+                \PDO::PARAM_STR,
+                Connection::PARAM_INT_ARRAY
+        ));
 
         $rows = $res->rowCount();
 
         $ids = array();
 
-        while ($res->fetchInto($row)) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $ids[] = $row[0];
         }
 
@@ -141,7 +159,7 @@ class FileItemRepository extends DoctrineRepository
 
         $query .= ' ORDER BY C.id_file_categoria, data_inserimento DESC';
 
-        $res = &$db->executeQuery($query);
+        $res = $db->executeQuery($query);
 
         //echo $query;
 
@@ -244,7 +262,7 @@ class FileItemRepository extends DoctrineRepository
 
         $db = $this->getConnection();
         ignore_user_abort(1);
-        $db->autoCommit(false);
+        $db->beginTransaction();
 
         foreach ($keywords as $value) {
             if (!in_array($value, $old_elenco_keywords)) {
@@ -260,7 +278,6 @@ class FileItemRepository extends DoctrineRepository
 
         $db->commit();
 
-        $db->autoCommit(true);
         ignore_user_abort(0);
     }
 
@@ -368,15 +385,13 @@ class FileItemRepository extends DoctrineRepository
     {
         $db = $this->getConnection();
 
-        $db->autoCommit(false);
-        $next_id = $db->nextID('file_id_file');
-        $file->setIdFile($next_id);
+        $db->beginTransaction();
         $return = true;
         $eliminata = FileItem::NOT_ELIMINATO;
-        $query = 'INSERT INTO file (id_file, permessi_download, permessi_visualizza, id_utente, titolo,
+        $query = 'INSERT INTO file (permessi_download, permessi_visualizza, id_utente, titolo,
         descrizione, data_inserimento, data_modifica, dimensione, download,
         nome_file, id_categoria, id_tipo_file, hash_file, password, eliminato) VALUES '
-        . '( ' . $next_id . ' , '
+        . '( '
         . $db->quote($file->getPermessiDownload()) . ' , '
         . $db->quote($file->getPermessiVisualizza()) . ' , '
         . $db->quote($file->getIdUtente()) . ' , '
@@ -394,6 +409,7 @@ class FileItemRepository extends DoctrineRepository
         . $db->quote(FileItem::NOT_ELIMINATO) . ' )';
 
         $res = $db->executeQuery($query);
+        $file->setIdFile($db->lastInsertId('file_id_file_seq'));
 
         $db->commit();
     }
@@ -402,7 +418,7 @@ class FileItemRepository extends DoctrineRepository
     {
         $db = $this->getConnection();
 
-        $db->autoCommit(false);
+        $db->beginTransaction();
         $return = true;
         //$scadenza = ($this->getDataScadenza() == NULL) ? ' NULL ' : $db->quote($this->getDataScadenza());
         //$flag_urgente = ($this->isUrgente()) ? NEWS_URGENTE : NEWS_NOT_URGENTE;
@@ -446,7 +462,7 @@ class FileItemRepository extends DoctrineRepository
 
         $elenco_id_canale = array();
 
-        while ($res->fetchInto($row)) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $elenco_id_canale[] = $row[0];
         }
 

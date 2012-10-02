@@ -1,6 +1,10 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Files;
 
+use Universibo\Bundle\LegacyBundle\Entity\CanaleRepository;
+
+use Doctrine\DBAL\Connection;
+
 use \DB;
 use Universibo\Bundle\LegacyBundle\Entity\Commenti\CommentoItem;
 use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
@@ -24,11 +28,11 @@ class FileItemStudentiRepository extends DoctrineRepository
     private $userRepository;
 
     /**
-     * @var DBCanaleRepository
+     * @var CanaleRepository
      */
     private $channelRepository;
 
-    public function __construct(\DB_common $db, UserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
+    public function __construct(Connection $db, UserRepository $userRepository, CanaleRepository $channelRepository)
     {
         parent::__construct($db);
 
@@ -72,7 +76,7 @@ class FileItemStudentiRepository extends DoctrineRepository
 
         $id_files_studenti_list = array();
 
-        while ( $res->fetchInto($row) ) {
+        while ( false !== ($row = $res->fetch(\PDO::FETCH_NUM)) ) {
             $id_files_studenti_list[]= $row[0];
         }
 
@@ -160,7 +164,7 @@ class FileItemStudentiRepository extends DoctrineRepository
         $query = 'SELECT id_canale FROM file_studente_canale WHERE id_file='.$db->quote($id_file);
         $res = $db->executeQuery($query);
 
-        $res->fetchInto($row);
+        false !== ($row = $res->fetch(\PDO::FETCH_NUM));
 
         $return = array($row[0]);
 
@@ -222,7 +226,7 @@ class FileItemStudentiRepository extends DoctrineRepository
 
         $id_file_list = array();
 
-        while ( $res->fetchInto($row) ) {
+        while ( false !== ($row = $res->fetch(\PDO::FETCH_NUM)) ) {
             $id_file_list[]= $row[0];
         }
 

@@ -413,7 +413,7 @@ class DidatticaGestione extends UniversiboCommand
 
                     }
                 }
-                $transaction->commit();
+                $db->commit();
                 ignore_user_abort(0);
 
                 if ($failure) {
