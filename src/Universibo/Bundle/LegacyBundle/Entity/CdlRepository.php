@@ -10,7 +10,7 @@ use \DB;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBCdlRepository extends DBRepository
+class CdlRepository extends DoctrineRepository
 {
     /**
      * @return boolean|Cdl[]

@@ -9,7 +9,7 @@ use \DB;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBInsegnamentoRepository extends DBRepository
+class InsegnamentoRepository extends DoctrineRepository
 {
     /**
      * @var DBPrgAttivitaDidatticaRepository

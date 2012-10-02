@@ -8,7 +8,7 @@ namespace Universibo\Bundle\LegacyBundle\Entity;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBCanaleRepository extends DBRepository
+class CanaleRepository extends DoctrineRepository
 {
     public function getTipoCanaleFromId($id_canale)
     {

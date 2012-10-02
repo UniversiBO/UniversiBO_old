@@ -9,7 +9,7 @@ use \DB;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBPrgAttivitaDidatticaRepository extends DBRepository
+class PrgAttivitaDidatticaRepository extends DoctrineRepository
 {
     public function findByCdlAndYear($cod_cdl, $anno_accademico)
     {

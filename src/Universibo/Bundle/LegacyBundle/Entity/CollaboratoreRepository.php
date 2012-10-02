@@ -11,7 +11,7 @@ use \DB;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBCollaboratoreRepository extends DBRepository
+class CollaboratoreRepository extends DoctrineRepository
 {
     /**
      * @var UserRepository
