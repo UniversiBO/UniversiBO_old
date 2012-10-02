@@ -23,7 +23,7 @@ abstract class DoctrineRepositoryTest extends ContainerAwareTest
         $kernel->boot();
         $db = $kernel->getContainer()->get('doctrine.dbal.default_connection');
 
-        $db->executeUpdate(file_get_contents(__DIR__.'/../../../../../../dbms/pgsql/testdb.sql'));
+        $db->executeUpdate(file_get_contents(__DIR__.'/../../../../../../app/sql/pgsql/testdb.sql'));
 
         $kernel->shutdown();
         restore_error_handler();
