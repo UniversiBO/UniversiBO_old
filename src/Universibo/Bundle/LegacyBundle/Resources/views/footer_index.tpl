@@ -1,30 +1,16 @@
 	</div>
 </td> {* FINE MENU CENTRALE*}
 <td id="rightmenu" width="170"> {* COLONNA MENU DI DESTRA*}
+    {if $common_userLoggedIn == 'true'}
 	<div class="box"> {* primo blocchetto *} 
-		{if $common_userLoggedIn=='false'}
-		<h3>Login</h3>
-		<div class="contenuto">
-			<form action="{$common_loginUri}" name="form1_a" id="f1" method="post">
-				<label for="f1_username">username: </label><br />
-				<input id ="f1_username" name="_username" maxlength="25" type="text" size="15" tabindex="1" /><br />
-				<label for="f1_password">password: </label><br />
-				<input id="f1_password" name="_password" maxlength="25" type="password" size="15" tabindex="2" /><br />
-				<input type="hidden" name="f1_resolution" value="" />
-				<input class="submit" name="_submit" type="submit" value="Login" tabindex="3" onclick="document.form1_a.f1_resolution.value = screen.width;" /><br />
-			</form>
-		{else}
-		<h3>Logout</h3>
+		<h3>Info</h3>
 		<div class="contenuto">
 			<form action="{$common_logoutUri}" name="form2" id="f2" method="get">
 			<p>{$common_langWelcomeMsg|escape:"htmlall"|bbcode2html|nl2br} {$common_userUsername|escape:"htmlall"}<br />
 			{$common_langUserLivello|escape:"htmlall"|bbcode2html|nl2br} {foreach from=$common_userLivello item=temp_nomeLivello}{$temp_nomeLivello|escape:"htmlall"} {/foreach}<br />
-			&nbsp;<br />
-			<input class="submit" name="f2_submit" type="submit" value="LogOut" /><br /></p>
-			</form>
-		{/if}
 		</div>	
 	</div>
+	{/if}
 	{if $common_contactsCanaleAvailable|default:"false" =="true"}
 	<div class="box"> {* secondo blocchetto *}
 	<h3>Contatti</h3>
