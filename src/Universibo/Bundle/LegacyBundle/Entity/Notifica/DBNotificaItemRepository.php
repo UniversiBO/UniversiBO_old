@@ -3,7 +3,7 @@
 namespace Universibo\Bundle\LegacyBundle\Entity\Notifica;
 
 use \DB;
-use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
+use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
 
 /**
  * Canale repository
@@ -11,7 +11,7 @@ use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBNotificaItemRepository extends DBRepository
+class DBNotificaItemRepository extends DoctrineRepository
 {
     public function find($id)
     {
