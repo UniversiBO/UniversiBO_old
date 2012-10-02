@@ -21,7 +21,7 @@ class ShowSettingsTest extends UniversiBOSeleniumTestCase
     public function testAdmin()
     {
         $sentences = array (
-                'Informazioni forum',
+                'I miei file',
                 'Profilo',
                 'Modifica MyUniversiBO',
                 'Posta di ateneo',
