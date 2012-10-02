@@ -12,12 +12,12 @@
 <p>&nbsp;Hash MD5:&nbsp;{$showFileInfo_hash|escape:"htmlall"}</p>
 <p>&nbsp;Presente in:<br />
 	{foreach from=$showFileInfo_canali item=temp_canale}&nbsp;&nbsp;<a href="{$temp_canale.uri|escape:"htmlall"}">{$temp_canale.titolo|escape:"htmlall"}</a><br />{/foreach}</p>
-<p>&nbsp;{$showFileInfo_langDownload|escape:"htmlall"}:&nbsp;<a href="{$showFileInfo_downloadUri|escape:"htmlall"}"><img src="{$common_basePath}/tpl/unibo/file_download_32.gif" width="32" height="32" alt="{$showFileInfo_langDownload|escape:"htmlall"}" border="0" align="top" /></a></p>
+<p>&nbsp;{$showFileInfo_langDownload|escape:"htmlall"}:&nbsp;<a href="{$showFileInfo_downloadUri|escape:"htmlall"}"><img src="{$common_basePath}/bundles/universibolegacy/images/file_download_32.gif" width="32" height="32" alt="{$showFileInfo_langDownload|escape:"htmlall"}" border="0" align="top" /></a></p>
  {if $showFileInfo_editFlag == 'true'}
- <p>&nbsp;{$showFileInfo_langEdit|escape:"htmlall"}:&nbsp;<a href="{$showFileInfo_editUri|escape:"htmlall"}"><img src="{$common_basePath}/tpl/unibo/file_edit_32.gif" width="32" height="32" alt="{$showFileInfo_langEdit|escape:"htmlall"}" border="0" align="top" /></a></p>
+ <p>&nbsp;{$showFileInfo_langEdit|escape:"htmlall"}:&nbsp;<a href="{$showFileInfo_editUri|escape:"htmlall"}"><img src="{$common_basePath}/bundles/universibolegacy/images/file_edit_32.gif" width="32" height="32" alt="{$showFileInfo_langEdit|escape:"htmlall"}" border="0" align="top" /></a></p>
  {/if}
  {if $showFileInfo_deleteFlag == 'true'}
- <p>&nbsp;{$showFileInfo_langDelete|escape:"htmlall"}:&nbsp;<a href="{$showFileInfo_deleteUri|escape:"htmlall"}"><img src="{$common_basePath}/tpl/unibo/file_del_32.gif" width="32" height="32" alt="{$showFileInfo_langDelete|escape:"htmlall"}" border="0" align="top" /></a></p>
+ <p>&nbsp;{$showFileInfo_langDelete|escape:"htmlall"}:&nbsp;<a href="{$showFileInfo_deleteUri|escape:"htmlall"}"><img src="{$common_basePath}/bundles/universibolegacy/images/file_del_32.gif" width="32" height="32" alt="{$showFileInfo_langDelete|escape:"htmlall"}" border="0" align="top" /></a></p>
  {/if}
 </div>
 <p class="comandi"><a href="{$common_canaleURI|escape:"htmlall"}">Torna&nbsp;{$common_langCanaleNome|escape:"htmlall"}</a></p>
