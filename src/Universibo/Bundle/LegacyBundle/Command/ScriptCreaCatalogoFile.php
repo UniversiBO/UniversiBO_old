@@ -44,7 +44,7 @@ class ScriptCreaCatalogoFile extends UniversiboCommand
             if (DB::isError($res))
                 Error :: throwError(_ERROR_DEFAULT, array ('msg' => "Errori nel recupero dei file esistenti", 'file' => __FILE__, 'line' => __LINE__));
 
-            $num = $res->numRows();
+            $num = $res->rowCount();
             //			var_dump($num);
 
             //			$doc = new_xmldoc('1.0');

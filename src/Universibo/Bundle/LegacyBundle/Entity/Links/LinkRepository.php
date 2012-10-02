@@ -93,10 +93,8 @@ class LinkRepository extends DoctrineRepository
     {
         $db = $this->getConnection();
 
-        $link->setIdLink($db->nextID('link_id_link'));
-
-        $query = 'INSERT INTO link (id_link, id_canale, id_utente, uri, label, description) VALUES ('
-        . $link->getIdLink() . ' , ' . $link->getIdCanale() . ' , '
+        $query = 'INSERT INTO link (id_canale, id_utente, uri, label, description) VALUES ('
+        . $link->getIdCanale() . ' , '
         . $link->getIdUtente() . ' , ' . $db->quote($link->getUri())
         . ' , ' . $db->quote($link->getLabel()) . ' , '
         . $db->quote($link->getDescription()) . ' )';
@@ -118,8 +116,7 @@ class LinkRepository extends DoctrineRepository
         . $link->getIdLink();
 
         //echo $query;
-        $res = $db->executeQuery($query);
-        $rows = $db->affectedRows();
+        $rows = $db->executeUpdate($query);
 
         if ($rows == 1)
             return true;
@@ -133,12 +130,12 @@ class LinkRepository extends DoctrineRepository
 
     public function delete(Link $link)
     {
+        $db = $this->getConnection();
 
         $query = 'DELETE FROM link WHERE id_link= '
         . $db->quote($link->getIdLink());
-        $res = $db->executeQuery($query);
 
-        $rows = $db->affectedRows();
+        $rows = $db->executeUpdate($query);
 
         if ($rows == 1)
             return true;

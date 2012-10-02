@@ -88,7 +88,7 @@ class CancellazioneUtente
 
         $db = FrontController::getDbConnection('main');
         ignore_user_abort(1);
-        $db->autoCommit(false);
+        $db->beginTransaction();
 
         foreach ($this->valuesDispatch[$this->idInformativa] as $method) {
             $ret = $this->$method($idUtente);
@@ -100,7 +100,6 @@ class CancellazioneUtente
             }
         }
         $db->commit();
-        $db->autoCommit(true);
         ignore_user_abort(0);
 
         return true;
@@ -225,7 +224,7 @@ class CancellazioneUtente
                 ' WHERE user_id IN '.$this->db->quote(implode(', ', $list['ROLE_ADMIN'])) .
                 ' AND group_id ='. $this->db->quote($groupId);
         $res = $this->db->query($sql);
-        if( DB::isError($res) || ($res->numRows() == 0))
+        if( DB::isError($res) || ($res->rowCount() == 0))
 
             return $list['ROLE_ADMIN'][0];
         $row = $res->fetchRow();
@@ -281,7 +280,7 @@ class CancellazioneUtente
 //	{
 //		$db = FrontController::getDbConnection('main');
 //		ignore_user_abort(1);
-//        $db->autoCommit(false);
+//        $db->beginTransaction();
 
 /*=============== sito==================================================*/
 
@@ -444,7 +443,6 @@ class CancellazioneUtente
 
 //
 //		$db->commit();
-//		$db->autoCommit(true);
 //		ignore_user_abort(0);
 //
 //	}

@@ -120,7 +120,6 @@ class CdlRepository extends DoctrineRepository
         ' WHERE id_canale = '.$db->quote($cdl->getIdCanale());
 
         $res = $db->executeQuery($query);
-        //		$rows =  $db->affectedRows();
     }
 
     public function insert(Cdl $cdl)

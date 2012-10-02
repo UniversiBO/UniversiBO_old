@@ -123,7 +123,7 @@ class PrgAttivitaDidattica extends Canale
     private $id_sdop;
 
     /**
-     * @var DBPrgAttivitaDidatticaRepository
+     * @var PrgAttivitaDidatticaRepository
      */
     private static $repository;
 
@@ -527,7 +527,7 @@ class PrgAttivitaDidattica extends Canale
     }
 
     /**
-     * @return DBPrgAttivitaDidatticaRepository
+     * @return PrgAttivitaDidatticaRepository
      */
     private static function getRepository()
     {

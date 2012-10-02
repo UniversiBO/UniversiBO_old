@@ -64,7 +64,7 @@ class ContattoDocenteRepository extends DoctrineRepository
         $db = $this->getConnection();
 
         ignore_user_abort(1);
-        $db->autoCommit(false);
+        $db->beginTransaction();
         $contattoDocente->setUltimaModifica(time());
         $query = 'UPDATE docente_contatti SET stato = '.$db->quote($contattoDocente->getStato())
         .' , id_utente_assegnato = '.$db->quote($contattoDocente->getIdUtenteAssegnato())
@@ -78,7 +78,6 @@ class ContattoDocenteRepository extends DoctrineRepository
         $this->checkState($contattoDocente);
 
         $db->commit();
-        $db->autoCommit(true);
         ignore_user_abort(0);
 
         return true;
@@ -94,7 +93,7 @@ class ContattoDocenteRepository extends DoctrineRepository
 
         $cod = $this->getCodDoc();
         ignore_user_abort(1);
-        $db->autoCommit(false);
+        $db->beginTransaction();
 
         $query = 'SELECT * FROM docente_contatti WHERE cod_doc = '.$db->quote($cod);
         //        echo $query;		die;
@@ -118,7 +117,6 @@ class ContattoDocenteRepository extends DoctrineRepository
         $this->checkState($contattoDocente);
 
         $db->commit();
-        $db->autoCommit(true);
         ignore_user_abort(0);
 
         return true;

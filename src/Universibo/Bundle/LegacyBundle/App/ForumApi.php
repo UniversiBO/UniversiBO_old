@@ -115,7 +115,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
         //var_dump(unserialize(stripslashes($_COOKIE['phpbb2_data'])));
         // array(2) { ["autologinid"]=> string(0) "" ["userid"]=> string(2) "81" }
 
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT config_name, config_value FROM ' . $this->table_prefix
                 . 'config WHERE config_name IN (' . $db->quote('cookie_path')
@@ -123,17 +123,13 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
                 . $db->quote('cookie_domain') . ',' . $db->quote('cookie_name')
                 . ')';
         $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
         if ($rows != 4)
             Error::throwError(_ERROR_DEFAULT,
                     array(
                             'msg' => 'Impossibile trovare le informazioni di configurazione del forum',
                             'file' => __FILE__, 'line' => __LINE__));
-        while ($res->fetchInto($row)) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             ${$row[0]} = $row[1];
         }
         //echo $cookie_domain;
@@ -173,7 +169,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
                     array('msg' => DB::errorMessage($res), 'file' => __FILE__,
                             'line' => __LINE__));
 
-        $res->fetchInto($row);
+        false !== ($row = $res->fetch(\PDO::FETCH_NUM));
 
         $query = 'UPDATE ' . $this->table_prefix
                 . 'users SET user_lastvisit = ' . $row[0] . ' WHERE user_id = '
@@ -197,7 +193,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
     public function logout()
     {
 
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT config_name, config_value FROM ' . $this->table_prefix
                 . 'config WHERE config_name IN (' . $db->quote('cookie_path')
@@ -209,13 +205,13 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
             Error::throwError(_ERROR_DEFAULT,
                     array('msg' => DB::errorMessage($res), 'file' => __FILE__,
                             'line' => __LINE__));
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
         if ($rows != 4)
             Error::throwError(_ERROR_DEFAULT,
                     array(
                             'msg' => 'Impossibile trovare le informazioni di configurazione del forum',
                             'file' => __FILE__, 'line' => __LINE__));
-        while ($res->fetchInto($row)) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             ${$row[0]} = $row[1];
         }
 
@@ -250,7 +246,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
     public function insertUser(User $user, $password = null)
     {
 
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $groups = $user->getLegacyGroups();
         if ($groups != User::OSPITE && $groups != 'ROLE_STUDENT'
@@ -310,7 +306,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
     public function updateUserStyle(User $user)
     {
 
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $user_style = $this->defaultUserStyle['unibo'];
 
@@ -328,7 +324,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
 
     public function updatePassword(User $user, $password)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'UPDATE ' . $this->table_prefix . 'users SET user_password = '
                 . $db->quote(md5($password)) . ' WHERE user_id = '
@@ -349,7 +345,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
     public function updateUserEmail(User $user)
     {
 
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'UPDATE ' . $this->table_prefix . 'users SET user_email = '
                 . $db->quote($user->getEmail()) . ' WHERE user_id = '
@@ -370,7 +366,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
      */
     public function addUserGroup($userId, $group)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT * FROM ' . $this->table_prefix
                 . 'user_group WHERE group_id = ' . $db->quote($group)
@@ -381,7 +377,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
                     array('msg' => DB::errorMessage($res), 'file' => __FILE__,
                             'line' => __LINE__));
 
-        if ($res->numRows() > 0)
+        if ($res->rowCount() > 0)
             return;
 
         $query = 'INSERT INTO ' . $this->table_prefix
@@ -403,7 +399,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
     public function removeUserGroup($userId, $group)
     {
 
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'DELETE FROM ' . $this->table_prefix
                 . 'user_group WHERE group_id = ' . $db->quote($group)
@@ -440,22 +436,16 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
      */
     public function addForumCategory($cat_title, $cat_order)
     {
-        $db = $this->getDb();
-
-        $next_id = $db->nextId($this->table_prefix . 'categories_id');
+        $db = $this->getConnection();
 
         $query = 'INSERT INTO ' . $this->table_prefix
-                . 'categories ( cat_id, cat_title, cat_order)
-    VALUES (' . $next_id . ', ' . $db->quote($cat_title) . ', ' . $cat_order
+                . 'categories ( cat_title, cat_order)
+    VALUES ( ' . $db->quote($cat_title) . ', ' . $cat_order
                 . ' )';
 
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
+        $db->executeUpdate($query);
 
-        return $next_id;
+        return $db->lastInsertId($this->table_prefix . 'categories_id_seq');
     }
 
     /**
@@ -464,7 +454,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
      */
     public function addForum($title, $desc, $cat_id)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $next_id = $this->getMaxForumId() + 1;
 
@@ -493,22 +483,16 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
      */
     public function addGroup($title, $desc, $id_owner)
     {
-        $db = $this->getDb();
-
-        $next_id = $db->nextId($this->table_prefix . 'groups_id');
+        $db = $this->getConnection();
 
         $query = 'INSERT INTO "' . $this->table_prefix
-                . 'groups" ( "group_id", "group_name", "group_type", "group_description", "group_moderator", "group_single_user")
-    VALUES (' . $db->quote($next_id) . ', ' . $db->quote($title) . ',2 ,'
+                . 'groups" ( "group_name", "group_type", "group_description", "group_moderator", "group_single_user")
+    VALUES (' . $db->quote($title) . ',2 ,'
                 . $db->quote($desc) . ' ,' . $id_owner . ' , 0)';
 
         $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
 
-        return $next_id;
+        return $db->lastInsertId($this->table_prefix . 'groups_id_seq');
     }
 
     /**
@@ -516,22 +500,17 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
      */
     public function addGroupForumPrivilegies($forum_id, $group_id)
     {
-        $db = $this->getDb();
-
-        $next_id = $db->nextId($this->table_prefix . 'groups_id');
+        $db = $this->getConnection();
 
         $query = 'INSERT INTO "' . $this->table_prefix
-                . 'auth_access" ("group_id", "forum_id", "auth_view", "auth_read", "auth_post", "auth_reply",
+                . 'auth_access" ("forum_id", "auth_view", "auth_read", "auth_post", "auth_reply",
     "auth_edit", "auth_delete", "auth_announce", "auth_sticky", "auth_pollcreate", "auth_attachments", "auth_vote", "auth_mod")
-    VALUES (' . $group_id . ', ' . $forum_id
+    VALUES (' . $forum_id
                 . ', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)';
 
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
+        $db->executeUpdate($query);
 
+        return $db->lastInsertId($this->table_prefix . 'groups_id_seq');
     }
 
     /**
@@ -541,7 +520,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
      */
     public function getMaxForumId()
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT MAX(forum_id) as forum_id FROM ' . $this->table_prefix
                 . 'forums';
@@ -552,12 +531,12 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
                     array('msg' => DB::errorMessage($res), 'file' => __FILE__,
                             'line' => __LINE__));
 
-        if ($res->numRows() != 1)
+        if ($res->rowCount() != 1)
             Error::throwError(_ERROR_DEFAULT,
                     array('msg' => 'query max fourm_id non valida',
                             'file' => __FILE__, 'line' => __LINE__));
 
-        $res->fetchInto($row);
+        false !== ($row = $res->fetch(\PDO::FETCH_NUM));
 
         return $row[0];
 
@@ -568,7 +547,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
      */
     public function addForumInsegnamentoNewYear($forum_id, $anno_accademico)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT forum_name FROM "' . $this->table_prefix
                 . 'forums" WHERE forum_id = ' . $forum_id;
@@ -579,7 +558,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
                     array('msg' => DB::errorMessage($res), 'file' => __FILE__,
                             'line' => __LINE__));
 
-        $res->fetchInto($row);
+        false !== ($row = $res->fetch(\PDO::FETCH_NUM));
 
         $vecchio_nome = $row[0];
         $search = ($anno_accademico - 1) . '/' . $anno_accademico . ' ';
@@ -620,38 +599,35 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
     public function getLastPostsForum(User $user, $id_forum, $num = 10)
     {
         // teoricamente se uno ha accesso al canale ha anche accesso al forum
-
         // controllo post più recenti dell'ultimo accesso
 
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $ultimo_login = ($user->getLastLogin()->getTimestamp() == null
                 || $user->getLastLogin()->getTimestamp() == '') ? 0
                 : $user->getLastLogin()->getTimestamp();
-        // @NB se si usa limitQuery() la query non deve avere ';' alla fine
-        $query = 'SELECT t.topic_title, min(p.post_id) FROM '
-                . $this->table_prefix . 'posts p, ' . $this->table_prefix
-                . 'topics t
-    WHERE t.topic_id = p.topic_id
-    AND p.forum_id = ' . $db->quote($id_forum)
-                . '
-    AND p.post_id IN (SELECT pp.post_id FROM ' . $this->table_prefix
-                . 'posts pp WHERE t.topic_id = pp.topic_id ORDER BY pp.post_time ASC)
-    GROUP BY t.topic_title
-    ORDER BY max(p.post_id) DESC';
 
-        // rimosso  AND pp.post_time > '.$ultimo_login.'
+        $qb = $db->createQueryBuilder();
 
-        //var_dump($db);
-        //
-        $res = $db->limitQuery($query, 0, $num);
+        $query = $qb
+            ->select('t.topic_title, MIN(p.post_id)')
+            ->from($this->table_prefix.'posts', 'p')
+            ->from($this->table_prefix.'topics', 't')
+            ->andWhere('t.topic_id = p.topic_id')
+            ->andWhere('p.forum_id = ?')
+            ->andWhere('p.post_id IN ('.
+                $qb->select('pp.post_id')
+                   ->from($this->table_prefix.'posts', 'pp')
+                   ->where('t.topic_id = pp.topic_id').')'
+            )
+            ->groupBy('t.topic_title')
+            ->orderBy('MAX(p.post_id)', 'DESC')
+            ->setMaxResults($num)
+        ;
 
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
 
-        $rows = $res->numRows();
+        $res = $db->executeQuery($query, array($id_forum));
+        $rows = $res->rowCount();
 
         if ($rows == 0) {
             $false = false;
@@ -661,7 +637,7 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
 
         $id_post_list = array();
 
-        while ($res->fetchInto($row)) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $id_post_list[] = array('id' => $row[1], 'name' => $row[0]);
         }
 

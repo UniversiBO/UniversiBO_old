@@ -2,6 +2,8 @@
 
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
+use Doctrine\DBAL\Connection;
+
 /**
  * Canale repository
  *
@@ -12,7 +14,7 @@ class Canale2Repository extends DoctrineRepository
 {
 
     /**
-     * @var DBCanaleRepository
+     * @var CanaleRepository
      */
     private $channelRepository;
 
@@ -34,15 +36,15 @@ class Canale2Repository extends DoctrineRepository
     /**
      * Class constructor
      *
-     * @param \DB_common               $db
-     * @param DBCanaleRepository       $channelRepository
+     * @param Connection               $db
+     * @param CanaleRepository         $channelRepository
      * @param DBCdlRepository          $cdlRepository
      * @param DBFacoltaRepository      $facultyRepository
      * @param DBInsegnamentoRepository $subjectRepository
      * @param boolean                  $convert
      */
-    public function __construct(\DB_common $db,
-            DBCanaleRepository $channelRepository,
+    public function __construct(Connection $db,
+            CanaleRepository $channelRepository,
             DBCdlRepository $cdlRepository,
             DBFacoltaRepository $facultyRepository, DBInsegnamentoRepository $subjectRepository, $convert = False)
     {

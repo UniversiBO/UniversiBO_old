@@ -13,7 +13,7 @@ use \DB;
 class FacoltaRepository extends DoctrineRepository
 {
     /**
-     * @var DBCanaleRepository
+     * @var CanaleRepository
      */
     private $canaleRepository;
 

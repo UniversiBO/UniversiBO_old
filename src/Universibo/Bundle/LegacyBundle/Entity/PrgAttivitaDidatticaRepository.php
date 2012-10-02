@@ -65,7 +65,7 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
             return $array;
         }
         $elenco = array();
-        while (	$res->fetchInto($row) ) {
+        while (	false !== ($row = $res->fetch(\PDO::FETCH_NUM)) ) {
             $prgAtt = new PrgAttivitaDidattica( $row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
                     $row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S',
                     $row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21],
@@ -98,10 +98,8 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
                     . $db->quote($attivita->getCodDoc()) . ' WHERE  id_canale='
                     . $db->quote($attivita->getIdCanale());
 
-        $res = $db->executeQuery($query);
-        //		var_dump($query);
+        $rows = $db->executeUpdate($query);
 
-        $rows = $db->affectedRows();
         if ($rows >= 1)
             return true;
         elseif ($rows == 0)
@@ -262,7 +260,7 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
             $ret = array(); return $ret;
         }
         $elenco = array();
-        while (	$res->fetchInto($row) ) {
+        while (	false !== ($row = $res->fetch(\PDO::FETCH_NUM)) ) {
             $prgAtt = new PrgAttivitaDidattica( $row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
                     $row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S',
                     $row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21],
@@ -318,7 +316,7 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
             $ret = array(); return $ret;
         }
 
-        $res->fetchInto($row);
+        false !== ($row = $res->fetch(\PDO::FETCH_NUM));
         $prgAtt = new PrgAttivitaDidattica( $row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
                 $row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S',
                 $row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21],

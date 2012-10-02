@@ -20,7 +20,7 @@ class CommentoItemRepository extends DoctrineRepository
         . $db->quote(CommentoItem::NOT_ELIMINATO);
         $res = $db->executeQuery($query);
 
-        if ($res->fetchInto($row)) {
+        if (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $commenti = new CommentoItem($id, $row[0], $row[1],
                     $row[2], $row[3], CommentoItem::NOT_ELIMINATO);
         } else
@@ -42,7 +42,7 @@ class CommentoItemRepository extends DoctrineRepository
 
         $commenti_list = array();
 
-        while ($res->fetchInto($row)) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $commenti_list[] = new CommentoItem($row[0], $fileId, $row[1],
                     $row[2], $row[3], CommentoItem::NOT_ELIMINATO);
         }
@@ -59,7 +59,7 @@ class CommentoItemRepository extends DoctrineRepository
         . $db->quote(CommentoItem::NOT_ELIMINATO) . ' GROUP BY id_file';
         $res = $db->executeQuery($query);
 
-        $res->fetchInto($row);
+        false !== ($row = $res->fetch(\PDO::FETCH_NUM));
 
         return $row[0];
     }
@@ -68,16 +68,14 @@ class CommentoItemRepository extends DoctrineRepository
     {
         $db = $this->getConnection();
 
-        $next_id = $db->nextID('file_studente_commenti_id_commento');
-        $return = true;
-        $query = 'INSERT INTO file_studente_commenti (id_commento,id_file,id_utente,commento,voto,eliminato) VALUES ('
-        . $next_id . ',' . $db->quote($id_file_studente) . ','
+        $query = 'INSERT INTO file_studente_commenti (id_file,id_utente,commento,voto,eliminato) VALUES ('
+         . $db->quote($id_file_studente) . ','
         . $db->quote($id_utente) . ',' . $db->quote($commento) . ','
         . $db->quote($voto) . ',' . $db->quote(CommentoItem::NOT_ELIMINATO)
         . ')';
         $res = $db->executeQuery($query);
 
-        return $return;
+        return true;
     }
 
     public function updateFromFields($id_commento, $commento, $voto)
@@ -95,17 +93,15 @@ class CommentoItemRepository extends DoctrineRepository
     {
         $db = $this->getConnection();
 
-        $next_id = $db->nextID('file_studente_commenti_id_commento');
-        $this->id_commento = $next_id;
         $return = true;
-        $query = 'INSERT INTO file_studente_commenti (id_commento,id_file,id_utente,commento,voto,eliminato) VALUES ('
-        . $next_id . ',' . $db->quote($id_file_studente) . ','
+        $query = 'INSERT INTO file_studente_commenti (id_file,id_utente,commento,voto,eliminato) VALUES ('
+        . $db->quote($id_file_studente) . ','
         . $db->quote($id_utente) . ',' . $db->quote($commento) . ','
         . $db->quote($voto) . ',' . $db->quote(CommentoItem::NOT_ELIMINATO)
         . ')';
         $res = $db->executeQuery($query);
 
-        return $return;
+        return true;
     }
 
     public function deleteById($id)

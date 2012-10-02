@@ -21,7 +21,7 @@ class NewsItemRepository extends DoctrineRepository
     private $userRepository;
 
     /**
-     * @var DBCanaleRepository
+     * @var CanaleRepository
      */
     private $channelRepository;
 
@@ -163,17 +163,15 @@ class NewsItemRepository extends DoctrineRepository
         $db = $this->getConnection();
 
         ignore_user_abort(1);
-        $db->autoCommit(false);
-        $next_id = $db->nextID('news_id_news');
-        $return = true;
+        $db->beginTransaction();
         $scadenza = ($newsItem->getDataScadenza() == NULL) ? ' NULL '
                 : $db->quote($newsItem->getDataScadenza());
         $eliminata = ($newsItem->isEliminata()) ? NewsItem::ELIMINATA
                 : NewsItem::NOT_ELIMINATA;
         $flag_urgente = ($newsItem->isUrgente()) ? NewsItem::URGENTE
                 : NewsItem::NOT_URGENTE;
-        $query = 'INSERT INTO news (id_news, titolo, data_inserimento, data_scadenza, notizia, id_utente, eliminata, flag_urgente, data_modifica) VALUES '
-                . '( ' . $next_id . ' , ' . $db->quote($newsItem->getTitolo())
+        $query = 'INSERT INTO news (titolo, data_inserimento, data_scadenza, notizia, id_utente, eliminata, flag_urgente, data_modifica) VALUES '
+                . '( ' . $db->quote($newsItem->getTitolo())
                 . ' , ' . $db->quote($newsItem->getDataIns()) . ' , '
                 . $scadenza . ' , ' . $db->quote($newsItem->getNotizia())
                 . ' , ' . $db->quote($newsItem->getIdUtente()) . ' , '
@@ -182,13 +180,12 @@ class NewsItemRepository extends DoctrineRepository
         $res = $db->executeQuery($query);
         //var_dump($query);
 
-        $newsItem->setIdNotizia($next_id);
+        $newsItem->setIdNotizia($db->lastInsertId('news_id_news_seq'));
 
         $db->commit();
-        $db->autoCommit(true);
         ignore_user_abort(0);
 
-        return $return;
+        return true;
     }
 
     public function getChannelIdList(NewsItem $news)
@@ -249,7 +246,7 @@ class NewsItemRepository extends DoctrineRepository
     {
         $db = $this->getConnection();
 
-        $db->autoCommit(false);
+        $db->beginTransaction();
         $return = true;
         $scadenza = ($news->getDataScadenza() == NULL) ? ' NULL ' : $db->quote($news->getDataScadenza());
         $flag_urgente = ($news->isUrgente()) ? NewsItem::URGENTE : NewsItem::NOT_URGENTE;
@@ -268,7 +265,6 @@ class NewsItemRepository extends DoctrineRepository
         //var_dump($query);
 
         $db->commit();
-        $db->autoCommit(true);
     }
 
     public function findLatestByChannel($channelId, $limit, $offset = 0)
@@ -309,6 +305,7 @@ class NewsItemRepository extends DoctrineRepository
                 Connection::PARAM_INT_ARRAY
         ));
 
+        $id_news_list = array();
         while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $id_news_list[] = $row[0];
         }

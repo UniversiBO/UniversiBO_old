@@ -1,6 +1,8 @@
 <?php
 
 namespace Universibo\Bundle\LegacyBundle\Entity;
+use Doctrine\DBAL\Connection;
+
 use \DB;
 
 /**
@@ -12,11 +14,15 @@ use \DB;
 class InsegnamentoRepository extends DoctrineRepository
 {
     /**
-     * @var DBPrgAttivitaDidatticaRepository
+     * @var PrgAttivitaDidatticaRepository
      */
     private $programmaRepository;
 
-    public function __construct(\DB_common $db, DBPrgAttivitaDidatticaRepository $programmaRepository, $convert = false)
+    /**
+     * @param Connection                     $db
+     * @param PrgAttivitaDidatticaRepository $programmaRepository
+     */
+    public function __construct(Connection $db, PrgAttivitaDidatticaRepository $programmaRepository)
     {
         parent::__construct($db);
 

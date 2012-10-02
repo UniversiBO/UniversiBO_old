@@ -89,7 +89,7 @@ class NotificaItemRepository extends DoctrineRepository
     public function update(NotificaItem $notification)
     {
         $db = $this->getConnection();
-        $db->autoCommit(false);
+        $db->beginTransaction();
 
         $urgente = ($notification->isUrgente()) ? NotificaItem::URGENTE
                 : NotificaItem::NOT_URGENTE;
@@ -108,7 +108,6 @@ class NotificaItemRepository extends DoctrineRepository
         //var_dump($query);
 
         $db->commit();
-        $db->autoCommit(true);
 
         return true;
     }
@@ -117,29 +116,25 @@ class NotificaItemRepository extends DoctrineRepository
     {
         $db = $this->getConnection();
 
-        $db->autoCommit(false);
-        $next_id = $db->nextID('notifica_id_notifica');
-        $return = true;
+        $db->beginTransaction();
         $eliminata = ($notification->isEliminata()) ? NotificaItem::ELIMINATA
                 : NotificaItem::NOT_ELIMINATA;
         $urgente = ($notification->isUrgente()) ? NotificaItem::URGENTE
                 : NotificaItem::NOT_URGENTE;
         //id_notifica urgente messaggio titolo timestamp destinatario eliminata
 
-        $query = 'INSERT INTO notifica (id_notifica, urgente, messaggio, titolo, timestamp, destinatario, eliminata) VALUES '
-                . '( ' . $next_id . ' , ' . $db->quote($urgente) . ' , '
+        $query = 'INSERT INTO notifica (urgente, messaggio, titolo, timestamp, destinatario, eliminata) VALUES '
+                . '( ' . $db->quote($urgente) . ' , '
                 . $db->quote($notification->getMessaggio()) . ' , '
                 . $db->quote($notification->getTitolo()) . ' , '
                 . $db->quote($notification->getDataIns()) . ' , '
                 . $db->quote($notification->getDestinatario()) . ' , '
                 . $db->quote($eliminata) . ' ) ';
-        //echo $query;
-        $res = $db->executeQuery($query);
-        //var_dump($query);
 
-        $notification->setIdNotifica($next_id);
+        $db->executeUpdate($query);
+
+        $notification->setIdNotifica($db->lastInsertId('notifica_id_notifica_seq'));
 
         $db->commit();
-        $db->autoCommit(true);
     }
 }
