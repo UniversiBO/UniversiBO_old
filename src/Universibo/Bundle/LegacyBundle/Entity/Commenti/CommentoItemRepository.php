@@ -128,7 +128,7 @@ class CommentoItemRepository extends DoctrineRepository
         . 'GROUP BY id_file,id_utente,id_commento';
         $res = $db->executeQuery($query);
 
-        $res->fetchInto($ris);
+        $ris = $res->fetch(\PDO::FETCH_NUM);
 
         return $ris[0];
     }
