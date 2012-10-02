@@ -20,28 +20,28 @@ class CollaboratoreRepository extends DoctrineRepository
 
     public function __construct(\DB_common $db, UserRepository $userRepository, $convert = false)
     {
-        parent::__construct($db, $convert);
+        parent::__construct($db);
 
         $this->userRepository = $userRepository;
     }
 
     public function find($id)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT id_utente,	intro, recapito, obiettivi, foto, ruolo FROM collaboratore WHERE id_utente = '
                 . $db->quote($id);
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res))
             $this->throwError('_ERROR_CRITICAL',
                     array('msg' => DB::errorMessage($res), 'file' => __FILE__,
                             'line' => __LINE__));
 
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
         if ($rows == 0)
             return false;
 
-        $row = $this->fetchRow($res);
+        false !== ($row = $res->fetch());
 
         $collaboratore = new Collaboratore($row[0], $row[1], $row[2], $row[3],
                 $row[4], $row[5]);
@@ -57,21 +57,21 @@ class CollaboratoreRepository extends DoctrineRepository
 
     public function findOneByIdUtente($id)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT id_utente,	intro, recapito, obiettivi, foto, ruolo FROM collaboratore WHERE id_utente = '
         . $db->quote($id);
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res))
             $this->throwError('_ERROR_CRITICAL',
                     array('msg' => DB::errorMessage($res), 'file' => __FILE__,
                             'line' => __LINE__));
 
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
         if ($rows == 0)
             return false;
 
-        $row = $this->fetchRow($res);
+        false !== ($row = $res->fetch());
 
         $collaboratore = new Collaboratore($row[0], $row[1], $row[2], $row[3],
                 $row[4], $row[5]);
@@ -87,7 +87,7 @@ class CollaboratoreRepository extends DoctrineRepository
 
     public function findAll($shownOnly = false)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $userRepo = $this->userRepository;
 
@@ -97,17 +97,17 @@ class CollaboratoreRepository extends DoctrineRepository
             $query .= ' WHERE show = ' . $db->quote('Y');
         }
 
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res))
             $this->throwError('_ERROR_CRITICAL',
                     array('msg' => DB::errorMessage($res), 'file' => __FILE__,
                             'line' => __LINE__));
 
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
 
         $collaboratori = array();
 
-        while ($row = $this->fetchRow($res)) {
+        while (false !== ($row = $res->fetch())) {
             $collaboratori[] = $collab = new Collaboratore($row[0], $row[1],
                     $row[2], $row[3], $row[4], $row[5]);
             $collab->setUser($userRepo->find($collab->getIdUtente()));
@@ -131,7 +131,7 @@ class CollaboratoreRepository extends DoctrineRepository
                 . $db->quote($collaboratore->getFotoFilename()) . ' , '
                 . $db->quote($collaboratore->getRuolo()) . ' )';
 
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         //var_dump($query);
         if (DB::isError($res)) {
             $db->rollback();

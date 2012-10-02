@@ -8,40 +8,9 @@
 	</parameters>
 
 	<services>
-	    <service id="universibo_legacy.admin.questionario" class="Universibo\Bundle\LegacyBundle\Admin\QuestionarioAdmin">
-	        <tag name="sonata.admin" manager_type="orm" group="Messaggi" label="Questionari"/>
-	        <argument/>
-	        <argument>Universibo\Bundle\LegacyBundle\Entity\Questionario</argument>
-	        <argument>SonataAdminBundle:CRUD</argument>
-	        <call method="setTranslationDomain">
-              <argument>UniversiBOLegacyBundle</argument>
-          </call>
-	    </service>
-		<service id="universibo_legacy.db.factory"
-			class="Universibo\Bundle\LegacyBundle\Framework\DBConnectionFactory">
-			<call method="registerDSN">
-				<argument>main</argument>
-				<argument>%database_pear_driver%://%database_user%:%database_password%@%database_host%/%database_name%</argument>
-			</call>
-			<call method="registerDSN">
-				<argument>forum</argument>
-				<argument>%database_pear_driver%://%database_user%:%database_password%@%database_host%/%database_name%_forum</argument>
-			</call>
-		</service>
-
-		<service id="universibo_legacy.db.connection.main" class="DB_common"
-			factory-service="universibo_legacy.db.factory" factory-method="getConnection">
-			<argument>main</argument>
-		</service>
-
-		<service id="universibo_legacy.db.connection.forum" class="DB_common"
-			factory-service="universibo_legacy.db.factory" factory-method="getConnection">
-			<argument>forum</argument>
-		</service>
-
 		<service id="universibo_legacy.forum.api"
 			class="Universibo\Bundle\LegacyBundle\App\ForumApi">
-			<argument type="service" id="universibo_legacy.db.connection.forum" />
+			<argument type="service" id="doctrine.dbal.forum_connection" />
 			<argument>true</argument>
 		</service>
 
@@ -78,14 +47,14 @@
 		</service>
 
 		<service id="universibo_legacy.repository.canale"
-			class="Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			class="Universibo\Bundle\LegacyBundle\Entity\CanaleRepository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 			<argument>true</argument>
 		</service>
 
 		<service id="universibo_legacy.repository.canale2"
-			class="Universibo\Bundle\LegacyBundle\Entity\DBCanale2Repository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			class="Universibo\Bundle\LegacyBundle\Entity\Canale2Repository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 			<argument type="service" id="universibo_legacy.repository.canale" />
 			<argument type="service" id="universibo_legacy.repository.cdl" />
 			<argument type="service" id="universibo_legacy.repository.facolta" />
@@ -94,54 +63,54 @@
 		</service>
 
 		<service id="universibo_legacy.repository.cdl"
-			class="Universibo\Bundle\LegacyBundle\Entity\DBCdlRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			class="Universibo\Bundle\LegacyBundle\Entity\CdlRepository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 			<argument>true</argument>
 		</service>
 
 		<service id="universibo_legacy.repository.collaboratore"
-			class="Universibo\Bundle\LegacyBundle\Entity\DBCollaboratoreRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			class="Universibo\Bundle\LegacyBundle\Entity\CollaboratoreRepository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 			<argument type="service" id="universibo_legacy.repository.user" />
 			<argument>true</argument>
 		</service>
 
 		<service id="universibo_legacy.repository.commenti.commento_item"
-			class="Universibo\Bundle\LegacyBundle\Entity\Commenti\DBCommentoItemRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			class="Universibo\Bundle\LegacyBundle\Entity\Commenti\CommentoItemRepository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 			<argument>true</argument>
 		</service>
 
 		<service id="universibo_legacy.repository.contatto_docente"
-			class="Universibo\Bundle\LegacyBundle\Entity\DBContattoDocenteRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			class="Universibo\Bundle\LegacyBundle\Entity\ContattoDocenteRepository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 			<argument>true</argument>
 		</service>
 
 		<service id="universibo_legacy.repository.docente"
-			class="Universibo\Bundle\LegacyBundle\Entity\DBDocenteRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			class="Universibo\Bundle\LegacyBundle\Entity\DocenteRepository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 			<argument>true</argument>
 		</service>
 
 		<service id="universibo_legacy.repository.facolta"
-			class="Universibo\Bundle\LegacyBundle\Entity\DBFacoltaRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			class="Universibo\Bundle\LegacyBundle\Entity\FacoltaRepository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 			<argument type="service" id="universibo_legacy.repository.canale" />
 			<argument>true</argument>
 		</service>
 
 		<service id="universibo_legacy.repository.files.file_item"
-			class="Universibo\Bundle\LegacyBundle\Entity\Files\DBFileItemRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			class="Universibo\Bundle\LegacyBundle\Entity\Files\FileItemRepository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 			<argument type="service" id="universibo_legacy.repository.user" />
 			<argument type="service" id="universibo_legacy.repository.canale" />
 			<argument>true</argument>
 		</service>
 
 		<service id="universibo_legacy.repository.files.file_item_studenti"
-			class="Universibo\Bundle\LegacyBundle\Entity\Files\DBFileItemStudentiRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			class="Universibo\Bundle\LegacyBundle\Entity\Files\FileItemStudentiRepository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 			<argument type="service" id="universibo_legacy.repository.user" />
 			<argument type="service" id="universibo_legacy.repository.canale" />
 			<argument>true</argument>
@@ -158,20 +127,20 @@
 		</service>
 
 		<service id="universibo_legacy.repository.info_didattica"
-			class="Universibo\Bundle\LegacyBundle\Entity\DBInfoDidatticaRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			class="Universibo\Bundle\LegacyBundle\Entity\InfoDidatticaRepository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 			<argument>true</argument>
 		</service>
 
 		<service id="universibo_legacy.repository.informativa"
-			class="Universibo\Bundle\LegacyBundle\Entity\DBInformativaRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			class="Universibo\Bundle\LegacyBundle\Entity\InformativaRepository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 			<argument>true</argument>
 		</service>
 
 		<service id="universibo_legacy.repository.insegnamento"
-			class="Universibo\Bundle\LegacyBundle\Entity\DBInsegnamentoRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			class="Universibo\Bundle\LegacyBundle\Entity\InsegnamentoRepository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 			<argument type="service" id="universibo_legacy.repository.programma" />
 			<argument>true</argument>
 		</service>
@@ -188,35 +157,35 @@
 
 
 		<service id="universibo_legacy.repository.links.link"
-			class="Universibo\Bundle\LegacyBundle\Entity\Links\DBLinkRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			class="Universibo\Bundle\LegacyBundle\Entity\Links\LinkRepository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 			<argument type="service" id="universibo_legacy.repository.user" />
 			<argument>true</argument>
 		</service>
 
 		<service id="universibo_legacy.repository.news.news_item"
-			class="Universibo\Bundle\LegacyBundle\Entity\News\DBNewsItemRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			class="Universibo\Bundle\LegacyBundle\Entity\News\NewsItemRepository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 			<argument type="service" id="universibo_legacy.repository.user" />
 			<argument type="service" id="universibo_legacy.repository.canale" />
 			<argument>true</argument>
 		</service>
 
 		<service id="universibo_legacy.repository.notifica.notifica_item"
-			class="Universibo\Bundle\LegacyBundle\Entity\Notifica\DBNotificaItemRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			class="Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItemRepository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 			<argument>true</argument>
 		</service>
 
 		<service id="universibo_legacy.repository.programma"
-			class="Universibo\Bundle\LegacyBundle\Entity\DBPrgAttivitaDidatticaRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			class="Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidatticaRepository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 			<argument>true</argument>
 		</service>
 
 		<service id="universibo_legacy.repository.ruolo"
-			class="Universibo\Bundle\LegacyBundle\Entity\DBRuoloRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
+			class="Universibo\Bundle\LegacyBundle\Entity\RuoloRepository">
+			<argument type="service" id="doctrine.dbal.default_connection" />
 			<argument>true</argument>
 		</service>
 
@@ -225,30 +194,6 @@
 		<service id="universibo_legacy.routing.channel" public="true"
 			class="Universibo\Bundle\LegacyBundle\Routing\ChannelRouter">
 			<argument type="service" id="router" />
-		</service>
-
-		<service id="universibo_legacy.transaction" public="true"
-			class="Universibo\Bundle\LegacyBundle\Service\DBTransaction">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
-		</service>
-
-		<service id="universibo_legacy.auth.ldap"
-			class="Universibo\Bundle\LegacyBundle\Auth\ActiveDirectoryLogin">
-			<argument>%adlogin_host%</argument>
-			<argument>%adlogin_port%</argument>
-		</service>
-
-		<service id="universibo_legacy.security.authentication.provider"
-			class="Universibo\Bundle\LegacyBundle\Auth\UniversiBOProvider"
-			public="false">
-			<argument type="service" id="universibo_legacy.repository.user" />
-		</service>
-
-		<service id="universibo_legacy.security.authentication.listener"
-			class="Universibo\Bundle\LegacyBundle\Auth\UniversiBOListener"
-			public="false">
-			<argument type="service" id="security.context" />
-			<argument type="service" id="security.authentication.manager" />
 		</service>
 
 		<service id="universibo_legacy.translator.role_name" class="Universibo\Bundle\LegacyBundle\Service\RoleNameTranslator"/>

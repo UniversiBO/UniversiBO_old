@@ -22,14 +22,14 @@ class DocenteRepository extends DoctrineRepository
 
     public function findBy($field, $id)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $cond = $field . ' = ';
 
         $query = 'SELECT id_utente,	cod_doc, nome_doc FROM docente WHERE '
                 . $cond . $db->quote($id);
         //		var_dump($query); die;
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res)) {
             $this
                     ->throwError('_ERROR_CRITICAL',
@@ -37,14 +37,14 @@ class DocenteRepository extends DoctrineRepository
                                     'file' => __FILE__, 'line' => __LINE__));
         }
 
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
         if ($rows == 0) {
             $ret = false;
 
             return $ret;
         }
 
-        $row = $this->fetchRow($res);
+        false !== ($row = $res->fetch());
         $docente = new Docente($row[0], $row[1], $row[2]);
 
         return $docente;
@@ -52,21 +52,21 @@ class DocenteRepository extends DoctrineRepository
 
     public function getInfo(Docente $docente)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT nome, cognome, prefissonome, sesso, email, descrizionestruttura FROM rub_docente WHERE cod_doc = '
         . $db->quote($docente->getCodDoc());
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res))
             Error::throwError(_ERROR_CRITICAL,
                     array('msg' => DB::errorMessage($res), 'file' => __FILE__,
                             'line' => __LINE__));
 
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
         if ($rows == 0)
             return false;
 
-        $row = $this->fetchRow($res);
+        false !== ($row = $res->fetch());
 
         $rubrica = array_combine(
                 array('nome', 'cognome', 'prefissonome', 'sesso', 'email',

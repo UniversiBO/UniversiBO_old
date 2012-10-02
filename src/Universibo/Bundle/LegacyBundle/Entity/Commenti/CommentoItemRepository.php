@@ -9,16 +9,16 @@ use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBCommentoItemRepository extends DoctrineRepository
+class CommentoItemRepository extends DoctrineRepository
 {
     public function find($id)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT id_file,id_utente,commento,voto FROM file_studente_commenti WHERE id_commento='
         . $db->quote($id) . ' AND eliminato = '
         . $db->quote(CommentoItem::NOT_ELIMINATO);
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
 
         if (DB::isError($res))
             $this->throwError('_ERROR_DEFAULT',
@@ -39,13 +39,13 @@ class DBCommentoItemRepository extends DoctrineRepository
 
     public function findByFileId($fileId)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT id_commento,id_utente,commento,voto FROM file_studente_commenti WHERE id_file='
                 . $db->quote($fileId) . ' AND eliminato = '
                 . $db->quote(CommentoItem::NOT_ELIMINATO)
                 . ' ORDER BY voto DESC';
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
 
         if (DB::isError($res))
             $this
@@ -67,12 +67,12 @@ class DBCommentoItemRepository extends DoctrineRepository
 
     public function countByFile($fileId)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT count(*) FROM file_studente_commenti WHERE id_file = '
         . $db->quote($fileId) . ' AND eliminato = '
         . $db->quote(CommentoItem::NOT_ELIMINATO) . ' GROUP BY id_file';
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
 
         if (DB::isError($res)) {
             $this->throwError('_ERROR_DEFAULT',
@@ -88,7 +88,7 @@ class DBCommentoItemRepository extends DoctrineRepository
 
     public function insertFromFields($id_file_studente, $id_utente, $commento, $voto)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $next_id = $db->nextID('file_studente_commenti_id_commento');
         $return = true;
@@ -97,7 +97,7 @@ class DBCommentoItemRepository extends DoctrineRepository
         . $db->quote($id_utente) . ',' . $db->quote($commento) . ','
         . $db->quote($voto) . ',' . $db->quote(CommentoItem::NOT_ELIMINATO)
         . ')';
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res)) {
             $db->rollback();
             $this->throwError('_ERROR_DEFAULT',
@@ -111,13 +111,13 @@ class DBCommentoItemRepository extends DoctrineRepository
 
     public function updateFromFields($id_commento, $commento, $voto)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $return = true;
         $query = 'UPDATE file_studente_commenti SET commento='
         . $db->quote($commento) . ', voto= ' . $db->quote($voto)
         . ' WHERE id_commento=' . $db->quote($id_commento);
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res)) {
             $db->rollback();
             $this->throwError('_ERROR_DEFAULT',
@@ -129,7 +129,7 @@ class DBCommentoItemRepository extends DoctrineRepository
 
     public function insert(CommentoItem $comment)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $next_id = $db->nextID('file_studente_commenti_id_commento');
         $this->id_commento = $next_id;
@@ -139,7 +139,7 @@ class DBCommentoItemRepository extends DoctrineRepository
         . $db->quote($id_utente) . ',' . $db->quote($commento) . ','
         . $db->quote($voto) . ',' . $db->quote(CommentoItem::NOT_ELIMINATO)
         . ')';
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res)) {
             $db->rollback();
             $this->throwError('_ERROR_DEFAULT',
@@ -153,13 +153,13 @@ class DBCommentoItemRepository extends DoctrineRepository
 
     public function deleteById($id)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $return = true;
         $query = 'UPDATE file_studente_commenti SET eliminato = '
         . $db->quote(CommentoItem::ELIMINATO) . 'WHERE id_commento='
         . $db->quote($id);
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res)) {
             $db->rollback();
             $this->throwError('_ERROR_DEFAULT',
@@ -171,7 +171,7 @@ class DBCommentoItemRepository extends DoctrineRepository
 
     public function exists($id_file, $id_utente)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $flag = false;
 
@@ -180,7 +180,7 @@ class DBCommentoItemRepository extends DoctrineRepository
         . $db->quote($id_utente) . ' AND eliminato = '
         . $db->quote(CommentoItem::NOT_ELIMINATO)
         . 'GROUP BY id_file,id_utente,id_commento';
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
 
         if (DB::isError($res))
             $this->throwError('_ERROR_DEFAULT',

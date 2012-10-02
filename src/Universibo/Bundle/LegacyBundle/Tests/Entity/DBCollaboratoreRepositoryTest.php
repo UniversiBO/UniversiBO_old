@@ -1,8 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Tests\Entity;
 
-use Universibo\Bundle\LegacyBundle\Entity\DBCollaboratoreRepository;
-
 class DBCollaboratoreRepositoryTest extends DBRepositoryTest
 {
     /**

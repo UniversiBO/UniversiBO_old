@@ -13,7 +13,7 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
 {
     public function findByCdlAndYear($cod_cdl, $anno_accademico)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $cod_cdl         = $db->quote($cod_cdl);
         $anno_accademico = $db->quote($anno_accademico);
@@ -56,14 +56,14 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
          * bisogna cambiarla ed eventualmente gestire i duplicati via PHP
          */
 
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res)) {
             Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
             return false;
         }
 
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
 
         if ($rows == 0) {
             $array = array();
@@ -86,7 +86,7 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
 
     public function update(PrgAttivitaDidattica $attivita)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         if ($attivita->isSdoppiato())
             $query = 'UPDATE prg_sdoppiamento '
@@ -104,7 +104,7 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
                     . $db->quote($attivita->getCodDoc()) . ' WHERE  id_canale='
                     . $db->quote($attivita->getIdCanale());
 
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         //		var_dump($query);
 
         if (DB::isError($res))
@@ -126,7 +126,7 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
 
     public function findByChannelId($channelId)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $id_canale = $db->quote($channelId);
         //attenzione!!! ...c'? il distinct anche su sdoppiato!!
@@ -171,7 +171,7 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
          * @todo ATTENZIONE! ...questa query non ? portabile.
          * bisogna cambiarla ed eventualmente gestire i duplicati via PHP
          */
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res)) {
             $this
                     ->throwError('_ERROR_CRITICAL',
@@ -179,7 +179,7 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
                                     'file' => __FILE__, 'line' => __LINE__));
         }
 
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
 
         if ($rows == 0) {
             $ret = array();
@@ -187,7 +187,7 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
             return $ret;
         }
         $elenco = array();
-        while ($row = $this->fetchRow($res)) {
+        while (false !== ($row = $res->fetch())) {
             $prgAtt = new PrgAttivitaDidattica($row[13], $row[5], $row[4],
                     $row[0], $row[2], $row[1], $row[3], $row[7] == 'S',
                     $row[6] == 'S', $row[8] == 'S', $row[9], $row[10],
@@ -208,7 +208,7 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
             $cod_materia, $cod_materia_ins, $anno_corso, $anno_corso_ins,
             $cod_ril, $cod_ate)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $anno_accademico = $db->quote( $anno_accademico );
         $cod_corso = $db->quote( $cod_corso );
@@ -272,11 +272,11 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
         ) AS cdl1
         ORDER BY 33, 32, 30, 23';
 
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res))
             $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
 
         if ($rows == 0) {
             $ret = array(); return $ret;
@@ -298,7 +298,7 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
 
     public function findByIdSdoppiamento($id_sdop)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $id_sdop = $db->quote($id_sdop);
         //attenzione!!! ...c'? il distinct anche su sdoppiato!!
@@ -331,12 +331,12 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
          * bisogna cambiarla ed eventualmente gestire i duplicati via PHP
          */
         //		var_dump($query); die;
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res)) {
             $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         }
 
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
 
         if ($rows == 0) {
             $ret = array(); return $ret;

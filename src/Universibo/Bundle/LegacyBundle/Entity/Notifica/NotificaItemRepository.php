@@ -11,7 +11,7 @@ use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBNotificaItemRepository extends DoctrineRepository
+class NotificaItemRepository extends DoctrineRepository
 {
     public function find($id)
     {
@@ -26,7 +26,7 @@ class DBNotificaItemRepository extends DoctrineRepository
             return array();
         }
 
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         //esegue $db->quote() su ogni elemento dell'array
         //array_walk($id_notifiche, array($db, 'quote'));
@@ -40,7 +40,7 @@ class DBNotificaItemRepository extends DoctrineRepository
                 . $values . ') AND eliminata!='
                 . $db->quote(NotificaItem::ELIMINATA);
         //var_dump($query);
-        $res = &$db->query($query);
+        $res = &$db->executeQuery($query);
 
         if (DB::isError($res)) {
             $this
@@ -49,14 +49,14 @@ class DBNotificaItemRepository extends DoctrineRepository
                                     'file' => __FILE__, 'line' => __LINE__));
         }
 
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
 
         if ($rows == 0) {
             return false;
         }
         $notifiche_list = array();
 
-        while ($row = $this->fetchRow($res)) {
+        while (false !== ($row = $res->fetch())) {
             $notifiche_list[] = new NotificaItem($row[0], $row[1], $row[2],
                     $row[3], ($row[4] == NotificaItem::URGENTE),
                     ($row[5] == NotificaItem::ELIMINATA), $row[6]);
@@ -69,12 +69,12 @@ class DBNotificaItemRepository extends DoctrineRepository
 
     public function findToSend()
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT id_notifica, titolo, messaggio, timestamp, urgente, eliminata, destinatario FROM notifica WHERE timestamp <= '
                 . time() . ' AND eliminata='
                 . $db->quote(NotificaItem::NOT_ELIMINATA);
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
 
         if (DB::isError($res)) {
             $this
@@ -82,7 +82,7 @@ class DBNotificaItemRepository extends DoctrineRepository
                             array('msg' => DB::errorMessage($res),
                                     'file' => __FILE__, 'line' => __LINE__));
         }
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
 
         if ($rows == 0) {
             return false;
@@ -90,7 +90,7 @@ class DBNotificaItemRepository extends DoctrineRepository
 
         $notifiche_list = array();
 
-        while ($row = $this->fetchRow($res)) {
+        while (false !== ($row = $res->fetch())) {
             $notifiche_list[] = new NotificaItem($row[0], $row[1], $row[2],
                     $row[3], ($row[4] == NotificaItem::URGENTE),
                     ($row[5] == NotificaItem::ELIMINATA), $row[6]);
@@ -103,7 +103,7 @@ class DBNotificaItemRepository extends DoctrineRepository
 
     public function update(NotificaItem $notification)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
         $db->autoCommit(false);
 
         $urgente = ($notification->isUrgente()) ? NotificaItem::URGENTE
@@ -119,7 +119,7 @@ class DBNotificaItemRepository extends DoctrineRepository
                 . ' WHERE id_notifica = '
                 . $db->quote($notification->getIdNotifica());
         //echo $query;
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         //var_dump($query);
         if (DB::isError($res)) {
             $db->rollback();
@@ -137,7 +137,7 @@ class DBNotificaItemRepository extends DoctrineRepository
 
     public function insert(NotificaItem $notification)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $db->autoCommit(false);
         $next_id = $db->nextID('notifica_id_notifica');
@@ -156,7 +156,7 @@ class DBNotificaItemRepository extends DoctrineRepository
                 . $db->quote($notification->getDestinatario()) . ' , '
                 . $db->quote($eliminata) . ' ) ';
         //echo $query;
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         //var_dump($query);
         if (DB::isError($res)) {
             $db->rollback();

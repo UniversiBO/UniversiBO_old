@@ -1,9 +1,9 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\News;
 
-use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
+use Doctrine\DBAL\Connection;
 
-use \DB;
+use Universibo\Bundle\LegacyBundle\Entity\CanaleRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 
@@ -13,7 +13,7 @@ use Universibo\Bundle\CoreBundle\Entity\UserRepository;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBNewsItemRepository extends DoctrineRepository
+class NewsItemRepository extends DoctrineRepository
 {
     /**
      * @var UserRepository
@@ -25,9 +25,9 @@ class DBNewsItemRepository extends DoctrineRepository
      */
     private $channelRepository;
 
-    public function __construct(\DB_common $db, UserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
+    public function __construct(Connection $db, UserRepository $userRepository, CanaleRepository $channelRepository, $convert = false)
     {
-        parent::__construct($db, $convert);
+        parent::__construct($db);
 
         $this->userRepository = $userRepository;
         $this->channelRepository = $channelRepository;
@@ -42,14 +42,14 @@ class DBNewsItemRepository extends DoctrineRepository
 
     public function findAll()
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         //		$query = 'SELECT titolo, notizia, data_inserimento, data_scadenza, flag_urgente, eliminata, A.id_utente, id_news, username, data_modifica FROM news A, utente B WHERE A.id_utente = B.id_utente AND id_news IN ('.$values.') AND eliminata!='.$db->quote(NewsItem::ELIMINATA);
         $query = 'SELECT titolo, notizia, data_inserimento, data_scadenza, flag_urgente, eliminata, A.id_utente, id_news, data_modifica FROM news A WHERE eliminata='
                 . $db->quote(NewsItem::NOT_ELIMINATA)
                 . ' ORDER BY data_inserimento DESC';
         //var_dump($query);
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
 
         if (DB::isError($res)) {
             $this
@@ -58,13 +58,13 @@ class DBNewsItemRepository extends DoctrineRepository
                                     'file' => __FILE__, 'line' => __LINE__));
         }
 
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
 
         if ($rows == 0)
             return false;
         $news_list = array();
 
-        while ($row = $this->fetchRow($res)) {
+        while (false !== ($row = $res->fetch())) {
             $userRepository = $this->userRepository;
             $username = $userRepository->getUsernameFromId($row[6]);
 
@@ -84,7 +84,7 @@ class DBNewsItemRepository extends DoctrineRepository
             return array();
         }
 
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         array_walk($ids, 'intval');
         $values = implode(',', $ids);
@@ -95,22 +95,14 @@ class DBNewsItemRepository extends DoctrineRepository
                 . $db->quote(NewsItem::NOT_ELIMINATA)
                 . ' ORDER BY data_inserimento DESC';
         //var_dump($query);
-        $res = $db->query($query);
-
-        if (DB::isError($res)) {
-            $this
-                    ->throwError('_ERROR_CRITICAL',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-        }
-
-        $rows = $res->numRows();
+        $res = $db->executeQuery($query);
+        $rows = $res->rowCount();
 
         if ($rows == 0)
             return false;
         $news_list = array();
 
-        while ($row = $this->fetchRow($res)) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $userRepository = $this->userRepository;
             $username = $userRepository->getUsernameFromId($row[6]);
 
@@ -119,14 +111,14 @@ class DBNewsItemRepository extends DoctrineRepository
                     ($row[5] == NewsItem::ELIMINATA), $row[6], $username);
         }
 
-        $res->free();
+        unset($res);
 
         return $news_list;
     }
 
     public function findByCanale($id, $limit = null, $expired = false)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $sql = '';
         $sql .= 'SELECT n.titolo, ';
@@ -161,7 +153,7 @@ class DBNewsItemRepository extends DoctrineRepository
             $sql .= ' LIMIT ' . intval($limit);
         }
 
-        $res = $db->query($sql);
+        $res = $db->executeQuery($sql);
 
         if (DB::isError($res)) {
             $this
@@ -171,7 +163,7 @@ class DBNewsItemRepository extends DoctrineRepository
         }
 
         $news = array();
-        while ($row = $this->fetchRow($res)) {
+        while (false !== ($row = $res->fetch())) {
             $userRepository = $this->userRepository;
 
             $news[] = new NewsItem($row[7], $row[0], $row[1], $row[2], $row[3],
@@ -186,7 +178,7 @@ class DBNewsItemRepository extends DoctrineRepository
 
     public function insert(NewsItem $newsItem)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         ignore_user_abort(1);
         $db->autoCommit(false);
@@ -205,7 +197,7 @@ class DBNewsItemRepository extends DoctrineRepository
                 . ' , ' . $db->quote($newsItem->getIdUtente()) . ' , '
                 . $db->quote($eliminata) . ' , ' . $db->quote($flag_urgente)
                 . ' , ' . $db->quote($newsItem->getUltimaModifica()) . ' )';
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         //var_dump($query);
         if (DB::isError($res)) {
             $db->rollback();
@@ -226,10 +218,10 @@ class DBNewsItemRepository extends DoctrineRepository
 
     public function getChannelIdList(NewsItem $news)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT id_canale FROM news_canale WHERE id_news='.$db->quote($news->getIdNotizia()).' ORDER BY id_canale';
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
 
         if (DB::isError($res)) {
             $this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
@@ -237,7 +229,7 @@ class DBNewsItemRepository extends DoctrineRepository
 
         $elenco_id_canale = array();
 
-        while ($row = $this->fetchRow($res)) {
+        while (false !== ($row = $res->fetch())) {
             $elenco_id_canale[] = $row[0];
         }
 
@@ -248,10 +240,10 @@ class DBNewsItemRepository extends DoctrineRepository
 
     public function removeFromChannel(NewsItem $news, $channelId)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'DELETE FROM news_canale WHERE id_canale='.$db->quote($channelId).' AND id_news='.$db->quote($news->getIdNotizia());
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
 
         if (DB::isError($res)) {
             $this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
@@ -276,10 +268,10 @@ class DBNewsItemRepository extends DoctrineRepository
             return false;
         }
 
-        $db = $this->getDb();
+        $db = $this->getConnection();
         $query = 'INSERT INTO news_canale (id_news, id_canale) VALUES ('.$db->quote($news->getIdNotizia()).','.$db->quote($channelId).')';
 
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res)) {
             return false;
         }
@@ -293,7 +285,7 @@ class DBNewsItemRepository extends DoctrineRepository
 
     public function update(NewsItem $news)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $db->autoCommit(false);
         $return = true;
@@ -310,7 +302,7 @@ class DBNewsItemRepository extends DoctrineRepository
         .' , data_modifica = '.$db->quote($news->getUltimaModifica())
         .' WHERE id_news = '.$db->quote($news->getIdNotizia());
         //echo $query;
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         //var_dump($query);
         if (DB::isError($res)) {
             $db->rollback();
@@ -332,51 +324,50 @@ class DBNewsItemRepository extends DoctrineRepository
             return array();
         }
 
-        $db = $this->getDb();
-        array_walk($channelIds, array($db, 'quote'));
+        array_walk($channelIds, 'intval');
 
-        $values = implode(',', $channelIds);
+        $db = $this->getConnection();
 
-        $query = 'SELECT A.id_news FROM news A, news_canale B
-        WHERE A.id_news = B.id_news AND eliminata!='
-        . $db->quote(NewsItem::ELIMINATA)
-        . 'AND ( data_scadenza IS NULL OR \'' . time()
-        . '\' < data_scadenza ) AND B.id_canale IN (' . $values
-        . ')
-        ORDER BY A.data_inserimento DESC';
-        $res = $db->limitQuery($query, $offset, $limit);
-        //		var_dump($res);
-        //		die();
-        if (DB::isError($res))
-            $this->throwError('_ERROR_DEFAULT',
-                    array('id_utente' => $this->sessionUser->getId(),
-                            'msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
+        $builder = $db->createQueryBuilder();
+        $query = $builder
+            ->select('n.id_news')
+            ->from('news', 'n')
+            ->from('news_canale', 'nc')
+            ->andWhere('n.id_news = nc.id_news')
+            ->andWhere('n.eliminata = ?')
+            ->andWhere('data_scadenza IS NULL OR ? < data_scadenza')
+            ->andWhere('nc.id_canale IN (?)')
+            ->setMaxResults($limit)
+            ->getSQL()
+        ;
 
-        $id_news_list = array();
+        $res = $db->executeQuery($query, array (
+                NewsItem::NOT_ELIMINATA,
+                time(),
+                $channelIds
+        ), array (
+                \PDO::PARAM_STR,
+                \PDO::PARAM_INT,
+                Connection::PARAM_INT_ARRAY
+        ));
 
-        while ($res->fetchInto($row)) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $id_news_list[] = $row[0];
         }
 
-        $res->free();
+        unset($res);
 
         return $id_news_list;
     }
 
     public function countByChannelId($channelId)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT count(A.id_news) FROM news A, news_canale B
         WHERE A.id_news = B.id_news AND eliminata='.$db->quote(NewsItem::NOT_ELIMINATA).
         'AND ( data_scadenza IS NULL OR \''.time().'\' < data_scadenza ) AND B.id_canale = '.$db->quote($channelId).'';
-        $res = $db->getOne($query);
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        }
 
-        return $res;
-
+        return $db->fetchColumn($query);
     }
 }

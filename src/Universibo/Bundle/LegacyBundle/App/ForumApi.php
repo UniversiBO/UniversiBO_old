@@ -1,6 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\App;
-use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
+use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
 
 use \DB;
 use \Error;
@@ -22,7 +22,7 @@ use Universibo\Bundle\LegacyBundle\Forum\ForumApi as ForumApiInterface;
  * @copyright CopyLeft UniversiBO 2001-2003
  */
 
-class ForumApi extends DBRepository implements ForumApiInterface
+class ForumApi extends DoctrineRepository implements ForumApiInterface
 {
 
     /**

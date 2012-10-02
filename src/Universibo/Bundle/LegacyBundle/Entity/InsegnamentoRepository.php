@@ -18,18 +18,18 @@ class InsegnamentoRepository extends DoctrineRepository
 
     public function __construct(\DB_common $db, DBPrgAttivitaDidatticaRepository $programmaRepository, $convert = false)
     {
-        parent::__construct($db, $convert);
+        parent::__construct($db);
 
         $this->programmaRepository = $programmaRepository;
     }
 
     public function findByChannelId($channelId)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo, id_canale, files_studenti_attivo FROM canale WHERE id_canale = '
                 . $db->quote($channelId) . ';';
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res)) {
             $this
                     ->throwError('_ERROR_CRITICAL',
@@ -37,8 +37,8 @@ class InsegnamentoRepository extends DoctrineRepository
                                     'file' => __FILE__, 'line' => __LINE__));
         }
 
-        $rows = $res->numRows();
-        $row = $this->fetchRow($res);
+        $rows = $res->rowCount();
+        false !== ($row = $res->fetch());
         $res->free();
 
         if ($rows > 1) {

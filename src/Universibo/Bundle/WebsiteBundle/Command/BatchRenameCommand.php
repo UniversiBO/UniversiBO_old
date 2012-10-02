@@ -46,7 +46,7 @@ class BatchRenameCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->verboseMessage('Opening database connection', $output);
-        $db = $this->get('universibo_legacy.db.connection.main');
+        $db = $this->get('doctrine.dbal.default_connection');
         $db->autoCommit(false);
 
         $repository = $this->get('universibo_legacy.repository.user');
