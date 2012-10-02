@@ -1,5 +1,5 @@
 {
-    "hash": "5998329a6a150c4eb6cc08842a374cc6",
+    "hash": "faf2988053d75a7e5243843cccd19928",
     "packages": [
         {
             "name": "doctrine/common",
@@ -1731,7 +1731,7 @@
     "aliases": [
 
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": {
         "doctrine/data-fixtures": 20,
         "doctrine/doctrine-fixtures-bundle": 20,
