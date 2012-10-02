@@ -30,12 +30,6 @@ class DocenteRepository extends DoctrineRepository
                 . $cond . $db->quote($id);
         //		var_dump($query); die;
         $res = $db->executeQuery($query);
-        if (DB::isError($res)) {
-            $this
-                    ->throwError('_ERROR_CRITICAL',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-        }
 
         $rows = $res->rowCount();
         if ($rows == 0) {
@@ -44,7 +38,7 @@ class DocenteRepository extends DoctrineRepository
             return $ret;
         }
 
-        false !== ($row = $res->fetch());
+        false !== ($row = $res->fetch(\PDO::FETCH_NUM));
         $docente = new Docente($row[0], $row[1], $row[2]);
 
         return $docente;
@@ -57,22 +51,16 @@ class DocenteRepository extends DoctrineRepository
         $query = 'SELECT nome, cognome, prefissonome, sesso, email, descrizionestruttura FROM rub_docente WHERE cod_doc = '
         . $db->quote($docente->getCodDoc());
         $res = $db->executeQuery($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
 
         $rows = $res->rowCount();
         if ($rows == 0)
             return false;
 
-        false !== ($row = $res->fetch());
+        false !== ($row = $res->fetch(\PDO::FETCH_NUM));
 
         $rubrica = array_combine(
                 array('nome', 'cognome', 'prefissonome', 'sesso', 'email',
                         'descrizionestruttura'), $row);
-
-        $res->free();
 
         return $rubrica;
     }

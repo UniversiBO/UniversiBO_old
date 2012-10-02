@@ -32,8 +32,6 @@ class CanaleRepository extends DoctrineRepository
 
         $query = 'UPDATE canale SET ultima_modifica = '.$db->quote($canale->getUltimaModifica()).' WHERE id_canale = '.$db->quote($canale->getIdCanale());
         $res = $db->executeQuery($query);
-        if (\DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         $rows = $db->affectedRows();
 
         if( $rows == 1) return true;
@@ -158,11 +156,6 @@ class CanaleRepository extends DoctrineRepository
                 $db->quote($links_attivo).' ,'.
                 $db->quote($files_studenti_attivo).' )';
         $res = $db->executeQuery($query);
-        if (\DB::isError($res)) {
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-            return false;
-        }
 
         return true;
     }
@@ -200,8 +193,6 @@ class CanaleRepository extends DoctrineRepository
         ' , files_studenti_attivo = '.$db->quote($files_studenti_attivo).' WHERE id_canale ='.$db->quote($canale->getIdCanale());
 
         $res = $db->executeQuery($query);
-        if (\DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         $rows = $db->affectedRows();
 
         if( $rows == 1) return true;
@@ -215,8 +206,6 @@ class CanaleRepository extends DoctrineRepository
 
         $query = 'SELECT id_canale FROM canale WHERE id_canale = '.$db->quote($id).';';
         $res = $db->executeQuery($query);
-        if (\DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>\DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
         return $res->rowCount() == 1;
     }

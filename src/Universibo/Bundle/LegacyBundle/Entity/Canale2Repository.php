@@ -80,11 +80,8 @@ class Canale2Repository extends DoctrineRepository
         $sql = 'SELECT tipo_canale FROM canale WHERE id_canale = ' . $db->quote($id);
 
         $res = $db->executeQuery($sql);
-        if (\DB::isError($res)) {
-            throw new \Exception($res->getMessage());
-        }
 
-        false !== ($row = $res->fetch());
+        false !== ($row = $res->fetch(\PDO::FETCH_NUM));
         switch ($row[0]) {
             case Canale::FACOLTA:
                 return $this->facultyRepository->find($id);

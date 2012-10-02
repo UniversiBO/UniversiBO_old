@@ -89,13 +89,6 @@ class FacoltaRepository extends DoctrineRepository
 
         $res = $db->executeQuery($query);
 
-        if (DB::isError($res)) {
-            $this
-                    ->throwError('_ERROR_DEFAULT',
-                            array('msg' => $query, 'file' => __FILE__,
-                                    'line' => __LINE__));
-        }
-
         $this->canaleRepository->update($facolta);
     }
 
@@ -117,13 +110,6 @@ class FacoltaRepository extends DoctrineRepository
         . $db->quote($facolta->getUri()) . ' , '
         . $db->quote($facolta->getIdCanale()) . ' )';
         $res = $db->executeQuery($query);
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_CRITICAL',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-
-            return false;
-        }
 
         return true;
     }

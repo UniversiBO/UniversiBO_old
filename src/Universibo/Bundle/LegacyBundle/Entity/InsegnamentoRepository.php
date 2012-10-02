@@ -30,16 +30,9 @@ class InsegnamentoRepository extends DoctrineRepository
         $query = 'SELECT tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo, id_canale, files_studenti_attivo FROM canale WHERE id_canale = '
                 . $db->quote($channelId) . ';';
         $res = $db->executeQuery($query);
-        if (DB::isError($res)) {
-            $this
-                    ->throwError('_ERROR_CRITICAL',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-        }
 
         $rows = $res->rowCount();
-        false !== ($row = $res->fetch());
-        $res->free();
+        false !== ($row = $res->fetch(\PDO::FETCH_NUM));
 
         if ($rows > 1) {
             $this

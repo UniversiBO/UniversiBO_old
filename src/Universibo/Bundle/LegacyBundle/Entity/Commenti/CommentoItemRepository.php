@@ -20,19 +20,12 @@ class CommentoItemRepository extends DoctrineRepository
         . $db->quote(CommentoItem::NOT_ELIMINATO);
         $res = $db->executeQuery($query);
 
-        if (DB::isError($res))
-            $this->throwError('_ERROR_DEFAULT',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-
         if ($res->fetchInto($row)) {
             $commenti = new CommentoItem($id, $row[0], $row[1],
                     $row[2], $row[3], CommentoItem::NOT_ELIMINATO);
         } else
 
             return false;
-
-        $res->free();
 
         return $commenti;
     }
@@ -47,20 +40,12 @@ class CommentoItemRepository extends DoctrineRepository
                 . ' ORDER BY voto DESC';
         $res = $db->executeQuery($query);
 
-        if (DB::isError($res))
-            $this
-                    ->throwError('_ERROR_DEFAULT',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-
         $commenti_list = array();
 
         while ($res->fetchInto($row)) {
             $commenti_list[] = new CommentoItem($row[0], $fileId, $row[1],
                     $row[2], $row[3], CommentoItem::NOT_ELIMINATO);
         }
-
-        $res->free();
 
         return $commenti_list;
     }
@@ -74,14 +59,7 @@ class CommentoItemRepository extends DoctrineRepository
         . $db->quote(CommentoItem::NOT_ELIMINATO) . ' GROUP BY id_file';
         $res = $db->executeQuery($query);
 
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_DEFAULT',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-        }
-
         $res->fetchInto($row);
-        $res->free();
 
         return $row[0];
     }
@@ -98,13 +76,6 @@ class CommentoItemRepository extends DoctrineRepository
         . $db->quote($voto) . ',' . $db->quote(CommentoItem::NOT_ELIMINATO)
         . ')';
         $res = $db->executeQuery($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            $this->throwError('_ERROR_DEFAULT',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-            $return = false;
-        }
 
         return $return;
     }
@@ -118,13 +89,6 @@ class CommentoItemRepository extends DoctrineRepository
         . $db->quote($commento) . ', voto= ' . $db->quote($voto)
         . ' WHERE id_commento=' . $db->quote($id_commento);
         $res = $db->executeQuery($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            $this->throwError('_ERROR_DEFAULT',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-            $return = false;
-        }
     }
 
     public function insert(CommentoItem $comment)
@@ -140,13 +104,6 @@ class CommentoItemRepository extends DoctrineRepository
         . $db->quote($voto) . ',' . $db->quote(CommentoItem::NOT_ELIMINATO)
         . ')';
         $res = $db->executeQuery($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            $this->throwError('_ERROR_DEFAULT',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-            $return = false;
-        }
 
         return $return;
     }
@@ -160,13 +117,6 @@ class CommentoItemRepository extends DoctrineRepository
         . $db->quote(CommentoItem::ELIMINATO) . 'WHERE id_commento='
         . $db->quote($id);
         $res = $db->executeQuery($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            $this->throwError('_ERROR_DEFAULT',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-            $return = false;
-        }
     }
 
     public function exists($id_file, $id_utente)
@@ -182,10 +132,6 @@ class CommentoItemRepository extends DoctrineRepository
         . 'GROUP BY id_file,id_utente,id_commento';
         $res = $db->executeQuery($query);
 
-        if (DB::isError($res))
-            $this->throwError('_ERROR_DEFAULT',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
         $res->fetchInto($ris);
 
         return $ris[0];

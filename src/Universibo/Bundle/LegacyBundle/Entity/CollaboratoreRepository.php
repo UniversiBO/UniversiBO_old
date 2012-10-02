@@ -32,16 +32,12 @@ class CollaboratoreRepository extends DoctrineRepository
         $query = 'SELECT id_utente,	intro, recapito, obiettivi, foto, ruolo FROM collaboratore WHERE id_utente = '
                 . $db->quote($id);
         $res = $db->executeQuery($query);
-        if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
 
         $rows = $res->rowCount();
         if ($rows == 0)
             return false;
 
-        false !== ($row = $res->fetch());
+        false !== ($row = $res->fetch(\PDO::FETCH_NUM));
 
         $collaboratore = new Collaboratore($row[0], $row[1], $row[2], $row[3],
                 $row[4], $row[5]);
@@ -62,16 +58,12 @@ class CollaboratoreRepository extends DoctrineRepository
         $query = 'SELECT id_utente,	intro, recapito, obiettivi, foto, ruolo FROM collaboratore WHERE id_utente = '
         . $db->quote($id);
         $res = $db->executeQuery($query);
-        if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
 
         $rows = $res->rowCount();
         if ($rows == 0)
             return false;
 
-        false !== ($row = $res->fetch());
+        false !== ($row = $res->fetch(\PDO::FETCH_NUM));
 
         $collaboratore = new Collaboratore($row[0], $row[1], $row[2], $row[3],
                 $row[4], $row[5]);
@@ -98,16 +90,12 @@ class CollaboratoreRepository extends DoctrineRepository
         }
 
         $res = $db->executeQuery($query);
-        if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
 
         $rows = $res->rowCount();
 
         $collaboratori = array();
 
-        while (false !== ($row = $res->fetch())) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $collaboratori[] = $collab = new Collaboratore($row[0], $row[1],
                     $row[2], $row[3], $row[4], $row[5]);
             $collab->setUser($userRepo->find($collab->getIdUtente()));
@@ -133,13 +121,6 @@ class CollaboratoreRepository extends DoctrineRepository
 
         $res = $db->executeQuery($query);
         //var_dump($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            $this
-                    ->throwError('_ERROR_CRITICAL',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-        }
 
         $db->commit();
         $db->autoCommit(true);

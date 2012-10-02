@@ -67,9 +67,6 @@ class FileItemStudentiRepository extends DoctrineRepository
                 ''.$group.' ORDER BY '.$quale_ordine;
 
         $res = $db->executeQuery($query);
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_DEFAULT',array('id_utente' => $this->sessionUser->getId(), 'msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        }
 
         $rows = $res->rowCount();
 
@@ -78,8 +75,6 @@ class FileItemStudentiRepository extends DoctrineRepository
         while ( $res->fetchInto($row) ) {
             $id_files_studenti_list[]= $row[0];
         }
-
-        $res->free();
 
         return $this->findMany($id_files_studenti_list);
     }
@@ -115,22 +110,16 @@ class FileItemStudentiRepository extends DoctrineRepository
 
         //echo $query;
 
-        if (DB :: isError($res)) {
-            $this->throwError('_ERROR_CRITICAL', array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
-        }
-
         $rows = $res->rowCount();
 
         if ($rows == 0)
             return false;
         $files_list = array ();
 
-        while (false !== ($row = $res->fetch())) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $username = $this->userRepository->getUsernameFromId($row[3]);
             $files_list[] = new FileItemStudenti($row[0], $row[1], $row[2], $row[3], $row[4], $row[5], $row[6], $row[7], $row[8], $row[9], $row[10], $row[11], $row[12], $row[13], $row[14], $username , $row[15], $row[16], $row[17], $row[18]);
         }
-
-        $res->free();
 
         return $files_list;
     }
@@ -146,9 +135,6 @@ class FileItemStudentiRepository extends DoctrineRepository
         $query = 'INSERT INTO file_studente_canale (id_file, id_canale) VALUES ('.$db->quote($file->getIdFile()).','.$db->quote($channelId).')';
         //? da testare il funzionamento di =
         $res = $db->executeQuery($query);
-        if (DB :: isError($res)) {
-            return false;
-        }
 
         $ids = $file->getIdCanali();
         $ids[] = $channelId;
@@ -163,10 +149,6 @@ class FileItemStudentiRepository extends DoctrineRepository
         $query = 'DELETE FROM file_studente_canale WHERE id_canale='.$db->quote($channelId).' AND id_file='.$db->quote($file->getIdFile());
 
         $res = $db->executeQuery($query);
-
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_DEFAULT', array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
-        }
     }
 
     public function getChannelIds(FileItemStudenti $file)
@@ -177,10 +159,6 @@ class FileItemStudentiRepository extends DoctrineRepository
 
         $query = 'SELECT id_canale FROM file_studente_canale WHERE id_file='.$db->quote($id_file);
         $res = $db->executeQuery($query);
-
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_DEFAULT', array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
-        }
 
         $res->fetchInto($row);
 
@@ -195,10 +173,6 @@ class FileItemStudentiRepository extends DoctrineRepository
 
         $query = 'UPDATE file SET eliminato  = '.$db->quote(FileItem::ELIMINATO).' WHERE id_file = '.$db->quote($file->getIdFile());
         $res = $db->executeQuery($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            $this->throwError('_ERROR_CRITICAL', array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
-        }
 
         return false;
     }
@@ -210,9 +184,6 @@ class FileItemStudentiRepository extends DoctrineRepository
         $query = 'SELECT count(id_file) FROM file_studente_canale WHERE id_file='.$db->quote($fileId).' GROUP BY id_file';
         $res = $db->executeQuery($query);
 
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_DEFAULT', array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
-        }
         $res->fetchInto($ris);
 
         return $ris[0] > 0;
@@ -225,9 +196,6 @@ class FileItemStudentiRepository extends DoctrineRepository
         $query = 'SELECT avg(voto) FROM file_studente_commenti WHERE id_file='.$db->quote($fileId).' AND eliminato = '.$db->quote(CommentoItem::NOT_ELIMINATO).' GROUP BY id_file';
         $res = $db->executeQuery($query);
 
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_DEFAULT', array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
-        }
         $res->fetchInto($ris);
 
         return $ris[0];
@@ -239,10 +207,6 @@ class FileItemStudentiRepository extends DoctrineRepository
 
         $query = 'UPDATE file_studente_commenti SET eliminato = '.$db->quote(CommentoItem::ELIMINATO).'WHERE id_file='.$db->quote($file->getIdFile());
         $res = $db->executeQuery($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            $this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        }
 
         return true;
     }
@@ -256,17 +220,11 @@ class FileItemStudentiRepository extends DoctrineRepository
         'ORDER BY A.id_categoria, A.data_inserimento DESC';
         $res = $db->executeQuery($query);
 
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        }
-
         $id_file_list = array();
 
         while ( $res->fetchInto($row) ) {
             $id_file_list[]= $row[0];
         }
-
-        $res->free();
 
         return $id_file_list;
     }
