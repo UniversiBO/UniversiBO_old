@@ -189,10 +189,11 @@ class CancellazioneUtente
             return array( 'esito' => false, 'msg' => DB::errorMessage($res));
 
         $group_moderator = null;
-        while ( $row_group = $res->fetchRow() ) {
+        while ( false !== ($row_group = $res->fetch())) {
             $group_moderator[$row_group['group_name']] = $row_group['group_id'];
         }
-        $res->free();
+
+        unset($res);
 
         if ( count($group_moderator) > 0 )
             foreach ($group_moderator as $groupName => $groupId) {
@@ -224,13 +225,12 @@ class CancellazioneUtente
                 ' WHERE user_id IN '.$this->db->quote(implode(', ', $list['ROLE_ADMIN'])) .
                 ' AND group_id ='. $this->db->quote($groupId);
         $res = $this->db->query($sql);
-        if( DB::isError($res) || ($res->rowCount() == 0))
 
+        if ($res->rowCount() == 0) {
             return $list['ROLE_ADMIN'][0];
-        $row = $res->fetchRow();
-        $res->free();
+        }
 
-        return $row[0];
+        return $res->fetchColumn();
     }
 
     /**
@@ -352,7 +352,7 @@ class CancellazioneUtente
 //			Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 //		}
 //		$group_moderator = null;
-//		while ( $row_group = $res->fetchRow() )
+//		while ( $row_group = $res->fetch() )
 //		{
 //			$group_moderator[] = $row_group['group_id'];
 //		}
@@ -416,7 +416,7 @@ class CancellazioneUtente
 //			}
 //
 //			// This little bit of code directly from the private messaging section.
-//			while ( $row_privmsgs = $result->fetchRow() )
+//			while ( $row_privmsgs = $result->fetch() )
 //			{
 //				$mark_list[] = $row_privmsgs['privmsgs_id'];
 //			}

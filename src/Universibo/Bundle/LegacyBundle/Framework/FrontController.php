@@ -434,14 +434,6 @@ class FrontController
     }
 
     /**
-     * Imposta lo style del template da visualizzare...
-     */
-    public function setStyle($style)
-    {
-           $_SESSION['template_name'] = $style;
-    }
-
-    /**
      * Restituisce lo style del template da visualizzare...
      */
     public function getStyle()

@@ -372,10 +372,6 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
                 . 'user_group WHERE group_id = ' . $db->quote($group)
                 . ' AND user_id = ' . $db->quote($userId);
         $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
 
         if ($res->rowCount() > 0)
             return;
@@ -385,10 +381,6 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
                 . $db->quote($group) . ', ' . $db->quote($userId) . ', 0)';
 
         $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
     }
 
     /**
@@ -402,14 +394,10 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
         $db = $this->getConnection();
 
         $query = 'DELETE FROM ' . $this->table_prefix
-                . 'user_group WHERE group_id = ' . $db->quote($group)
-                . ' AND user_id = ' . $db->quote($userId);
+                . 'user_group WHERE group_id = ?'
+                . ' AND user_id = ?';
 
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
+        $db->executeUpdate($query, array($group, $userId));
     }
 
     /**
