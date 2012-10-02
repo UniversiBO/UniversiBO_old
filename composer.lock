@@ -617,7 +617,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -719,7 +719,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -806,12 +806,12 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/kriswallsmith/assetic/zipball/e22c5e07e672bb0cf43127e97e9368b53abf4aa8",
+                "url": "https://github.com/kriswallsmith/assetic/zipball/a6baab9b4c4361aca51bf90ee47c1586dff3cb0c",
                 "reference": "e22c5e07e672bb0cf43127e97e9368b53abf4aa8",
                 "shasum": ""
             },
             "require": {
-                "symfony/process": ">=2.1.0,<2.3-dev",
+                "symfony/process": "2.1.*",
                 "php": ">=5.3.1"
             },
             "require-dev": {
@@ -1475,21 +1475,22 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/UniversiBO/UniversiboCoreBundle",
-                "reference": "d296fe371581b553341364e07df4c0ba10c881bb"
+                "reference": "0b4acc58bf437b2b9fc026315467f367baf1305d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboCoreBundle/zipball/d296fe371581b553341364e07df4c0ba10c881bb",
-                "reference": "d296fe371581b553341364e07df4c0ba10c881bb",
+                "url": "https://github.com/UniversiBO/UniversiboCoreBundle/zipball/0b4acc58bf437b2b9fc026315467f367baf1305d",
+                "reference": "0b4acc58bf437b2b9fc026315467f367baf1305d",
                 "shasum": ""
             },
             "require": {
-                "symfony/framework-bundle": "2.1.*"
+                "symfony/framework-bundle": "2.1.*",
+                "friendsofsymfony/user-bundle": "2.0.*@dev"
             },
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1349124633",
+            "time": "1349129999",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
@@ -1531,17 +1532,14 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle/zipball/f10bcebf6bcdd98a01bcdecdaf5edcf681d49c54",
+                "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle/zipball/03cade63f71ee60131f38468fe9c7690a1b9b866",
                 "reference": "f10bcebf6bcdd98a01bcdecdaf5edcf681d49c54",
                 "shasum": ""
             },
             "require": {
+                "zendframework/zend-uri": "2.0.*",
                 "symfony/framework-bundle": "2.1.*",
-                "symfony/security-bundle": "2.1.*",
-                "zendframework/zend-uri": ">=2.0.0,<2.1.0"
-            },
-            "require-dev": {
-                "symfony/yaml": "2.1.*"
+                "symfony/security-bundle": "2.1.*"
             },
             "time": "1349047137",
             "type": "symfony-bundle",
@@ -1671,9 +1669,7 @@
             ]
         }
     ],
-    "packages-dev": [
-
-    ],
+    "packages-dev": null,
     "aliases": [
 
     ],
