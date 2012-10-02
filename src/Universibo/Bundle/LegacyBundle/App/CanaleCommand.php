@@ -86,7 +86,7 @@ abstract class CanaleCommand extends UniversiboCommand
         $groups  = $user instanceof User ? $user->getLegacyGroups(): 1;
 
         if (!$canale->isGroupAllowed($groups)) {
-            throw new \Exception('Not allowed, '.$canale->getIdCanale());
+            throw new \Exception('Not allowed id_canale = '.$canale->getIdCanale().', groups = '.$groups);
         }
 
         $canale->addVisite();
