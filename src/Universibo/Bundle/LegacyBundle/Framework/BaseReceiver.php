@@ -67,7 +67,6 @@ abstract class BaseReceiver
         ini_set('include_path', $this->frameworkPath.$pathDelimiter.ini_get('include_path'));
     }
 
-
     /**
      * Main code for framework activation, includes Error definitions
      * and instantiates FrontController
@@ -81,7 +80,6 @@ abstract class BaseReceiver
         $fc->setConfig( $this->configFile );
 
         $result = $fc->executeCommand();
-        $fc->getDbConnection('main')->disconnect();
 
         return $result;
     }

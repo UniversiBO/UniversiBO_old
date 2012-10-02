@@ -1,7 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Files;
 
-use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 
 use \DB;
@@ -13,7 +12,7 @@ use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBFileItemRepository extends DoctrineRepository
+class FileItemRepository extends DoctrineRepository
 {
     /**
      * @var UserRepository
@@ -27,7 +26,7 @@ class DBFileItemRepository extends DoctrineRepository
 
     public function __construct(\DB_common $db, UserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
     {
-        parent::__construct($db, $convert);
+        parent::__construct($db);
 
         $this->userRepository = $userRepository;
         $this->channelRepository = $channelRepository;
@@ -42,7 +41,7 @@ class DBFileItemRepository extends DoctrineRepository
 
     public function countByChannel($channelId)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT count(A.id_file) FROM file A, file_canale B
         WHERE A.id_file = B.id_file AND eliminato!='
@@ -66,7 +65,7 @@ class DBFileItemRepository extends DoctrineRepository
             return array();
         }
 
-        $db = $this->getDb();
+        $db = $this->getConnection();
         array_walk($channelIds, array($db, 'quote'));
 
         $values = implode(',', $channelIds);
@@ -85,7 +84,7 @@ class DBFileItemRepository extends DoctrineRepository
                             'line' => __LINE__));
         }
 
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
 
         $ids = array();
 
@@ -100,7 +99,7 @@ class DBFileItemRepository extends DoctrineRepository
 
     public function findIdByChannel($channelId)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT A.id_file  FROM file A, file_canale B
         WHERE A.id_file = B.id_file AND eliminato='
@@ -108,7 +107,7 @@ class DBFileItemRepository extends DoctrineRepository
                 . $db->quote($channelId) . ' AND A.data_inserimento < '
                 . $db->quote(time())
                 . 'ORDER BY A.id_categoria, A.data_inserimento DESC';
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
 
         if (DB::isError($res))
             $this
@@ -118,7 +117,7 @@ class DBFileItemRepository extends DoctrineRepository
 
         $id_file_list = array();
 
-        while ($row = $this->fetchRow($res)) {
+        while (false !== ($row = $res->fetch())) {
             $id_file_list[] = $row[0];
         }
 
@@ -136,7 +135,7 @@ class DBFileItemRepository extends DoctrineRepository
 
     public function findManyById(array $ids)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         if (count($ids) == 0) {
             return array();
@@ -165,7 +164,7 @@ class DBFileItemRepository extends DoctrineRepository
 
         $query .= ' ORDER BY C.id_file_categoria, data_inserimento DESC';
 
-        $res = &$db->query($query);
+        $res = &$db->executeQuery($query);
 
         //echo $query;
 
@@ -176,7 +175,7 @@ class DBFileItemRepository extends DoctrineRepository
                                     'file' => __FILE__, 'line' => __LINE__));
         }
 
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
 
         if ($rows == 0)
             return false;
@@ -184,7 +183,7 @@ class DBFileItemRepository extends DoctrineRepository
 
         $userRepo = $this->userRepository;
 
-        while ($row = $this->fetchRow($res)) {
+        while (false !== ($row = $res->fetch())) {
             $username = $userRepo->getUsernameFromId($row[3]);
 
             $files_list[] = new FileItem($row[0], $row[1], $row[2], $row[3],
@@ -200,7 +199,7 @@ class DBFileItemRepository extends DoctrineRepository
 
     public function findAll()
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         //		$query = 'SELECT id_file, permessi_download, permessi_visualizza, A.id_utente, titolo,
         //						 A.descrizione, data_inserimento, data_modifica, dimensione, download,
@@ -217,7 +216,7 @@ class DBFileItemRepository extends DoctrineRepository
 
         $query .= ' ORDER BY C.id_file_categoria, data_inserimento DESC';
 
-        $res = &$db->query($query);
+        $res = &$db->executeQuery($query);
 
         //echo $query;
 
@@ -228,7 +227,7 @@ class DBFileItemRepository extends DoctrineRepository
                             'file' => __FILE__, 'line' => __LINE__));
         }
 
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
 
         if ($rows == 0)
             return false;
@@ -236,7 +235,7 @@ class DBFileItemRepository extends DoctrineRepository
 
         $userRepo = $this->userRepository;
 
-        while ($row = $this->fetchRow($res)) {
+        while (false !== ($row = $res->fetch())) {
             $username = $userRepo->getUsernameFromId($row[3]);
 
             $files_list[] = new FileItem($row[0], $row[1], $row[2], $row[3],
@@ -252,17 +251,17 @@ class DBFileItemRepository extends DoctrineRepository
 
     public function getKeyworkds($fileId)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT keyword FROM file_keywords WHERE id_file='.$db->quote($fileId);
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
 
         if (DB :: isError($res))
             Error :: throwError(_ERROR_DEFAULT, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
 
         $elenco_keywords = array ();
 
-        while ($row = $this->fetchRow($res)) {
+        while (false !== ($row = $res->fetch())) {
             $elenco_keywords[] = $row[0];
         }
 
@@ -273,9 +272,9 @@ class DBFileItemRepository extends DoctrineRepository
 
     public function addKeyword($fileId, $keyword)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
         $query = 'INSERT INTO file_keywords(id_file, keyword) VALUES ('.$db->quote($fileId).' , '.$db->quote($keyword) .');';
-        $res =  $db->query($query);
+        $res =  $db->executeQuery($query);
 
         if (DB :: isError($res)) {
             $this->throwError('_ERROR_DEFAULT', array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
@@ -284,9 +283,9 @@ class DBFileItemRepository extends DoctrineRepository
 
     public function removeKeyword($fileId, $keyword)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
         $query = 'DELETE FROM file_keywords WHERE id_file = '.$db->quote($fileId).' AND keyword = '.$db->quote($keyword);
-        $res =$db->query($query);
+        $res =$db->executeQuery($query);
 
         if (DB :: isError($res)) {
             $this->throwError('_ERROR_DEFAULT', array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
@@ -297,7 +296,7 @@ class DBFileItemRepository extends DoctrineRepository
     {
         $old_elenco_keywords = $this->getKeyworkds($fileId);
 
-        $db = $this->getDb();
+        $db = $this->getConnection();
         ignore_user_abort(1);
         $db->autoCommit(false);
 
@@ -321,11 +320,11 @@ class DBFileItemRepository extends DoctrineRepository
 
     public function updateDownload(FileItem $file)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'UPDATE file SET download = ' . $db->quote($file->getDownLoad())
         . ' WHERE id_file = ' . $db->quote($file->getIdFile());
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res))
             $this->throwError('_ERROR_CRITICAL',
                     array('msg' => DB::errorMessage($res),
@@ -345,10 +344,10 @@ class DBFileItemRepository extends DoctrineRepository
 
     public function getTypes()
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT id_file_tipo, descrizione FROM file_tipo';
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
 
         if (DB::isError($res))
             $this->throwError('_ERROR_DEFAULT',
@@ -357,7 +356,7 @@ class DBFileItemRepository extends DoctrineRepository
 
         $tipi = array();
 
-        while ($row = $this->fetchRow($res)) {
+        while (false !== ($row = $res->fetch())) {
             $tipi[$row[0]] = $row[1];
         }
 
@@ -368,10 +367,10 @@ class DBFileItemRepository extends DoctrineRepository
 
     public function getTypeRegExps()
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT id_file_tipo, pattern_riconoscimento FROM file_tipo';
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
 
         if (DB::isError($res)) {
             $this->throwError('_ERROR_DEFAULT',
@@ -381,7 +380,7 @@ class DBFileItemRepository extends DoctrineRepository
 
         $tipi = array();
 
-        while ($row = $this->fetchRow($res)) {
+        while (false !== ($row = $res->fetch())) {
             $tipi[$row[0]] = $row[1];
         }
 
@@ -392,9 +391,9 @@ class DBFileItemRepository extends DoctrineRepository
 
     public function getCategories()
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
         $query = 'SELECT id_file_categoria, descrizione FROM file_categoria';
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
 
         if (DB::isError($res))
             $this->throwError('_ERROR_CRITICAL',
@@ -403,7 +402,7 @@ class DBFileItemRepository extends DoctrineRepository
 
         $categorie = array();
 
-        while ($row = $this->fetchRow($res)) {
+        while (false !== ($row = $res->fetch())) {
             $categorie[$row[0]] = $row[1];
         }
 
@@ -414,7 +413,7 @@ class DBFileItemRepository extends DoctrineRepository
 
     public function findByUserId($userId, $order = false)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT id_file, permessi_download, permessi_visualizza, A.id_utente, titolo,
         A.descrizione, data_inserimento, data_modifica, dimensione, download,
@@ -425,7 +424,7 @@ class DBFileItemRepository extends DoctrineRepository
         . $db->quote(FileItem::NOT_ELIMINATO) . ' AND id_utente = '
         . $db->quote($userId)
         . ($order ? ' ORDER BY data_inserimento DESC' : '');
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
 
         //echo $query;
 
@@ -435,13 +434,13 @@ class DBFileItemRepository extends DoctrineRepository
                             'line' => __LINE__));
         }
 
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
 
         if ($rows == 0)
             return false;
         $files_list = array();
 
-        while ($row = $this->fetchRow($res)) {
+        while (false !== ($row = $res->fetch())) {
             $username = $this->userRepository->getUsernameFromId($row[3]);
             $files_list[] = new FileItem($row[0], $row[1], $row[2], $row[3],
                     $row[4], $row[5], $row[6], $row[7], $row[8], $row[9],
@@ -456,7 +455,7 @@ class DBFileItemRepository extends DoctrineRepository
 
     public function insert(FileItem $file)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $db->autoCommit(false);
         $next_id = $db->nextID('file_id_file');
@@ -483,7 +482,7 @@ class DBFileItemRepository extends DoctrineRepository
         . $db->quote($file->getPassword()) . ' , '
         . $db->quote(FileItem::NOT_ELIMINATO) . ' )';
 
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
 
         if (DB::isError($res)) {
             $db->rollback();
@@ -498,7 +497,7 @@ class DBFileItemRepository extends DoctrineRepository
 
     public function update(FileItem $file)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $db->autoCommit(false);
         $return = true;
@@ -525,7 +524,7 @@ class DBFileItemRepository extends DoctrineRepository
         . ' , password = ' . $db->quote($file->getPassword())
         . ' WHERE id_file = ' . $db->quote($file->getIdFile());
         //echo $query;
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         //var_dump($query);
         if (DB::isError($res)) {
             $db->rollback();
@@ -543,13 +542,13 @@ class DBFileItemRepository extends DoctrineRepository
     {
         $id_file = $file->getIdFile();
 
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $where = 'WHERE id_file='. $db->quote($id_file);
         $query = 'SELECT id_canale FROM file_canale '.$where;
         $query .= 'UNION SELECT id_canale FROM file_studente_canale '.$where;
 
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
 
         if (DB::isError($res)) {
             $this->throwError('_ERROR_DEFAULT',
@@ -571,7 +570,7 @@ class DBFileItemRepository extends DoctrineRepository
 
     public function addToChannel(FileItem $file, $channelId)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         if (!$this->channelRepository->idExists($channelId)) {
             return false;
@@ -581,7 +580,7 @@ class DBFileItemRepository extends DoctrineRepository
         . $db->quote($file->getIdFile()) . ',' . $db->quote($channelId)
         . ')';
 
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res)) {
             return false;
         }
@@ -595,13 +594,13 @@ class DBFileItemRepository extends DoctrineRepository
 
     public function removeFromChannel(FileItem $file, $channelId)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'DELETE FROM file_canale WHERE id_canale='
         . $db->quote($channelId) . ' AND id_file='
         . $db->quote($file->getIdFile());
         //? da testare il funzionamento di =
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
 
         if (DB::isError($res)) {
             $this->throwError('_ERROR_DEFAULT',
@@ -620,13 +619,13 @@ class DBFileItemRepository extends DoctrineRepository
         $lista_canali = $this->getChannelIds($file);
 
         if (count($lista_canali) == 0) {
-            $db = $this->getDb();
+            $db = $this->getConnection();
 
             $query = 'UPDATE file SET eliminato  = '
             . $db->quote(FileItem::ELIMINATO) . ' WHERE id_file = '
             . $db->quote($file->getIdFile());
             //echo $query;
-            $res = $db->query($query);
+            $res = $db->executeQuery($query);
             //var_dump($query);
             if (DB::isError($res)) {
                 $db->rollback();

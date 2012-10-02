@@ -18,19 +18,19 @@ class ContattoDocenteRepository extends DoctrineRepository
      */
     public function findByCodDocente($codDocente)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT stato, id_utente_assegnato, ultima_modifica, report FROM docente_contatti WHERE cod_doc = '.$db->quote($codDocente);
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res))
             Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
         if ($rows == 0) {
             return false;
         }
 
-        $row = $this->fetchRow($res);
+        false !== ($row = $res->fetch());
 
         return new ContattoDocente($codDocente, $row[0], $row[1], $row[2], $row[3]);
     }
@@ -41,16 +41,16 @@ class ContattoDocenteRepository extends DoctrineRepository
      */
     public function findAll()
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT cod_doc, stato, id_utente_assegnato, ultima_modifica, report FROM docente_contatti ';
         $query.= 'WHERE eliminato = '.$db->quote(ContattoDocente::NOT_ELIMINATO);
 
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res))
             Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
         if( $rows == 0) return false;
 
         $elenco = array();
@@ -66,7 +66,7 @@ class ContattoDocenteRepository extends DoctrineRepository
      */
     public function update(ContattoDocente $contattoDocente)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         ignore_user_abort(1);
         $db->autoCommit(false);
@@ -77,7 +77,7 @@ class ContattoDocenteRepository extends DoctrineRepository
         .' , report = '.$db->quote($contattoDocente->getReport())
         .' WHERE cod_doc = '.$db->quote($contattoDocente->getCodDoc());
         //echo $query;
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         //var_dump($query);
         if (DB::isError($res)) {
             $db->rollback();
@@ -99,7 +99,7 @@ class ContattoDocenteRepository extends DoctrineRepository
      */
     public function insert(ContattoDocente $contattoDocente)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $cod = $this->getCodDoc();
         ignore_user_abort(1);
@@ -107,14 +107,14 @@ class ContattoDocenteRepository extends DoctrineRepository
 
         $query = 'SELECT * FROM docente_contatti WHERE cod_doc = '.$db->quote($cod);
         //        echo $query;		die;
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         //var_dump($query);
         if (DB::isError($res)) {
             $db->rollback();
             Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         }
 
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
         if( $rows > 0) return false;
         $res->free();
 
@@ -126,7 +126,7 @@ class ContattoDocenteRepository extends DoctrineRepository
                 .' , '.$db->quote($contattoDocente->getReport())
                 .' )';
         //		echo $query;		die;
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         //var_dump($query);
         if (DB::isError($res)) {
             $db->rollback();
@@ -147,7 +147,7 @@ class ContattoDocenteRepository extends DoctrineRepository
      */
     private function checkState(ContattoDocente $contattoDocente)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         if ($contattoDocente->getStato() != APERTO && $contattoDocente->getStato() != null) {
             $time	= time();
@@ -156,7 +156,7 @@ class ContattoDocenteRepository extends DoctrineRepository
             .' , id_mod = '.$db->quote($contattoDocente->getIdUtenteAssegnato())
             .' WHERE cod_doc = '.$db->quote($contattoDocente->getCodDoc());
             //echo $query;
-            $res = $db->query($query);
+            $res = $db->executeQuery($query);
             //var_dump($query);
             if (DB::isError($res)) {
                 $db->rollback();

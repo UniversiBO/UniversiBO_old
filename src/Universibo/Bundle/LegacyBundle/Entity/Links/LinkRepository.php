@@ -1,5 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Links;
+use Doctrine\DBAL\Driver\Connection;
+
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 
 use \DB;
@@ -11,51 +13,45 @@ use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBLinkRepository extends DoctrineRepository
+class LinkRepository extends DoctrineRepository
 {
     /**
      * @var UserRepository
      */
     private $userRepository;
 
-    public function __construct(\DB_common $db, UserRepository $userRepository, $convert = false)
+    public function __construct(Connection $db, UserRepository $userRepository, $convert = false)
     {
-        parent::__construct($db, $convert);
+        parent::__construct($db);
 
         $this->userRepository = $userRepository;
     }
 
     public function findByChannelId($channelId)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT id_link, id_canale, id_utente, uri, label, description FROM link WHERE id_canale = ('
         . $db->quote($channelId) . ') ORDER BY id_link DESC';
-        $res = $db->query($query);
-        if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
+        $res = $db->executeQuery($query);
 
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
 
         if ($rows = 0)
             return false;
         $link_list = array();
 
-        while ($row = $this->fetchRow($res)) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $link_list[] = new Link($row[0], $row[1], $row[2], $row[3],
                     $row[4], $row[5]);
         }
-
-        $res->free();
 
         return $link_list;
     }
 
     public function find($id)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
         $result = $this->findMany(array($id));
 
         return is_array($result) ? $result[0] : $result;
@@ -63,7 +59,7 @@ class DBLinkRepository extends DoctrineRepository
 
     public function findMany(array $ids)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         if (count($ids) == 0) {
             $ret = array();
@@ -74,13 +70,9 @@ class DBLinkRepository extends DoctrineRepository
         $values = implode(',', $ids);
         $query = 'SELECT id_link, id_canale, uri, label, description, id_utente FROM link WHERE id_link IN ('
         . $values . ')';
-        $res = $db->query($query);
-        if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
+        $res = $db->executeQuery($query);
 
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
 
         if ($rows == 0) {
             $ret = false;
@@ -89,7 +81,7 @@ class DBLinkRepository extends DoctrineRepository
         }
         $link_list = array();
 
-        while ($row = $this->fetchRow($res)) {
+        while (false !== ($row = $res->fetch())) {
             $link_list[] = new Link($row[0], $row[1], $row[5], $row[2],
                     $row[3], $row[4]);
         }
@@ -101,7 +93,7 @@ class DBLinkRepository extends DoctrineRepository
 
     public function insert(Link $link)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $link->setIdLink($db->nextID('link_id_link'));
 
@@ -111,21 +103,14 @@ class DBLinkRepository extends DoctrineRepository
         . ' , ' . $db->quote($link->getLabel()) . ' , '
         . $db->quote($link->getDescription()) . ' )';
 
-        $res = $db->query($query);
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_CRITICAL',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-
-            return false;
-        }
+        $db->executeUpdate($query);
 
         return true;
     }
 
     public function update(Link $link)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'UPDATE link SET uri = ' . $db->quote($link->getUri())
         . ' , label = ' . $db->quote($link->getLabel())
@@ -135,7 +120,7 @@ class DBLinkRepository extends DoctrineRepository
         . $link->getIdLink();
 
         //echo $query;
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res))
             $this->throwError('_ERROR_DEFAULT',
                     array('msg' => DB::errorMessage($res), 'file' => __FILE__,
@@ -157,11 +142,8 @@ class DBLinkRepository extends DoctrineRepository
 
         $query = 'DELETE FROM link WHERE id_link= '
         . $db->quote($link->getIdLink());
-        $res = $db->query($query);
-        if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
+        $res = $db->executeQuery($query);
+
         $rows = $db->affectedRows();
 
         if ($rows == 1)

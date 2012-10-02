@@ -15,18 +15,16 @@ class RuoloRepository extends DoctrineRepository
 {
     public function delete(Ruolo $ruolo)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
         $query = 'DELETE FROM utente_canale WHERE id_utente = '.$db->quote($ruolo->getIdUtente()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
-        $res = $db->query($query);
-        if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        $res = $db->executeQuery($query);
 
         return true;
     }
 
     public function insert(Ruolo $ruolo)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $campo_ruolo = ($ruolo->isModeratore()) ? Ruolo::MODERATORE : 0 + ($ruolo->isReferente()) ? Ruolo::REFERENTE : 0;
         $my_universibo = ($ruolo->isMyUniversibo()) ? 'S' : 'N';
@@ -42,21 +40,17 @@ class RuoloRepository extends DoctrineRepository
                 $db->quote($ruolo->getNome()).' , '.
                 $db->quote($nascosto).' )';
 
-        $res = $db->query($query);
-        if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        $res = $db->executeQuery($query);
 
         return true;
     }
 
     public function updateNome(Ruolo $ruolo)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'UPDATE utente_canale SET nome = '.$db->quote($ruolo->getNome()).' WHERE id_utente = '.$db->quote($ruolo->getId()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
-        $res = $db->query($query);
-        if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        $res = $db->executeQuery($query);
         $rows = $db->affectedRows();
 
         if( $rows == 1) return true;
@@ -67,12 +61,10 @@ class RuoloRepository extends DoctrineRepository
 
     public function updateUltimoAccesso(Ruolo $ruolo)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'UPDATE utente_canale SET ultimo_accesso = '.$db->quote($ruolo->getUltimoAccesso()).' WHERE id_utente = '.$db->quote($ruolo->getId()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
-        $res = $db->query($query);
-        if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        $res = $db->executeQuery($query);
         $rows = $db->affectedRows();
 
         if( $rows == 1) return true;
@@ -83,10 +75,10 @@ class RuoloRepository extends DoctrineRepository
 
     public function updateTipoNotifica(Ruolo $ruolo)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'UPDATE utente_canale SET tipo_notifica = '.$db->quote($ruolo->getTipoNotifica()).' WHERE id_utente = '.$db->quote($ruolo->getId()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res))
             $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         $rows = $db->affectedRows();
@@ -99,11 +91,11 @@ class RuoloRepository extends DoctrineRepository
 
     public function updateModeratore(Ruolo $ruolo)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $campo_ruolo = ($ruolo->isModeratore()) ? Ruolo::MODERATORE : 0 + ($ruolo->isReferente()) ? Ruolo::REFERENTE : 0;
         $query = 'UPDATE utente_canale SET ruolo = '.$campo_ruolo.' WHERE id_utente = '.$db->quote($ruolo->getId()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res))
             $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         $rows = $db->affectedRows();
@@ -116,11 +108,11 @@ class RuoloRepository extends DoctrineRepository
 
     public function updateReferente(Ruolo $ruolo)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $campo_ruolo = (($ruolo->isModeratore()) ? Ruolo::MODERATORE : 0) + (($ruolo->isReferente()) ? Ruolo::REFERENTE : 0);
         $query = 'UPDATE utente_canale SET ruolo = '.$campo_ruolo.' WHERE id_utente = '.$db->quote($ruolo->getId()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res))
             $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         $rows = $db->affectedRows();
@@ -133,12 +125,12 @@ class RuoloRepository extends DoctrineRepository
 
     public function updateMyUniversibo(Ruolo $ruolo)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $my_universibo = ($ruolo->isMyUniversibo()) ? 'S' : 'N';
 
         $query = 'UPDATE utente_canale SET my_universibo = '.$db->quote($my_universibo).' WHERE id_utente = '.$db->quote($ruolo->getId()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res))
             $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         $rows = $db->affectedRows();
@@ -151,20 +143,18 @@ class RuoloRepository extends DoctrineRepository
 
     public function findByIdCanale($idCanale)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT id_utente, ultimo_accesso, ruolo, my_universibo, notifica, nome, nascosto FROM utente_canale WHERE id_canale = '.$db->quote($idCanale);
-        $res = $db->query($query);
-        if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        $res = $db->executeQuery($query);
 
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
         if ($rows = 0) {
             $ret = array(); return $ret;
         }
 
         $ruoli = array();
-        while (	$res->fetchInto($row) ) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $ruoli[] = new Ruolo($row[0], $idCanale, $row[5], $row[1], $row[2]==Ruolo::MODERATORE, $row[2]==Ruolo::REFERENTE, $row[3]=='S', $row[4], $row[6]=='S');
         }
 
@@ -173,7 +163,7 @@ class RuoloRepository extends DoctrineRepository
 
     public function update(Ruolo $ruolo)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $campo_ruolo = (($ruolo->isModeratore()) ? Ruolo::MODERATORE : 0) + (($ruolo->isReferente()) ? Ruolo::REFERENTE : 0);
         $my_universibo = ($ruolo->isMyUniversibo()) ? 'S' : 'N';
@@ -188,7 +178,7 @@ class RuoloRepository extends DoctrineRepository
         WHERE id_utente = '.$db->quote($ruolo->id_utente).
         ' AND id_canale = '.$db->quote($ruolo->id_canale);
 
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res))
             $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
@@ -197,14 +187,14 @@ class RuoloRepository extends DoctrineRepository
 
     public function find($idUtente, $idCanale)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT ultimo_accesso, ruolo, my_universibo, notifica, nome, nascosto FROM utente_canale WHERE id_utente = '.$db->quote($idUtente).' AND id_canale= '.$db->quote($idCanale);
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res))
             $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
         if( $rows > 1) $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database: ruolo non unico','file'=>__FILE__,'line'=>__LINE__));
         if( $rows = 0) return false;
 
@@ -217,13 +207,13 @@ class RuoloRepository extends DoctrineRepository
 
     public function exists($idUtente, $idCanale)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT id_utente, id_canale FROM utente_canale WHERE id_utente = '.$db->quote($idUtente).' AND id_canale= '.$db->quote($idCanale);
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res))
             $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
         if ($rows >= 1) {
             return false;
         }
@@ -233,20 +223,20 @@ class RuoloRepository extends DoctrineRepository
 
     public function findByIdUtente($idUtente)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT id_canale, ultimo_accesso, ruolo, my_universibo, notifica, nome, nascosto FROM utente_canale WHERE id_utente = '.$db->quote($idUtente);
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res))
             $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
-        $rows = $res->numRows();
+        $rows = $res->rowCount();
         if ($rows = 0) {
             return array();
         }
 
         $ruoli = array();
-        while ($row = $this->fetchRow($res)) {
+        while (false !== ($row = $res->fetch())) {
             $ruoli[$row[0]] = new Ruolo($idUtente, $row[0], $row[5], $row[1], $row[2]==Ruolo::MODERATORE, $row[2]==Ruolo::REFERENTE, $row[3]=='S', $row[4], $row[6]=='S');
         }
 

@@ -1,5 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
+use Doctrine\DBAL\Driver\Connection;
+
 use \DB;
 
 /**
@@ -15,9 +17,9 @@ class FacoltaRepository extends DoctrineRepository
      */
     private $canaleRepository;
 
-    public function __construct(\DB_common $db, DBCanaleRepository $canaleRepository, $convert = false)
+    public function __construct(Connection $db, CanaleRepository $canaleRepository)
     {
-        parent::__construct($db, $convert);
+        parent::__construct($db);
 
         $this->canaleRepository = $canaleRepository;
     }
@@ -27,33 +29,24 @@ class FacoltaRepository extends DoctrineRepository
      */
     public function find($id)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo, files_studenti_attivo, a.id_canale, cod_fac, desc_fac, url_facolta FROM canale a , facolta b WHERE a.id_canale = b.id_canale AND a.id_canale = '
                 . $db->quote($id) . ' ORDER BY 16';
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
 
-        if (DB::isError($res)) {
-            $this
-                    ->throwError('_ERROR_DEFAULT',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-        }
-
-        if ($res->numRows() === 0) {
+        if ($res->rowCount() === 0) {
             return array();
         }
 
         $facolta = null;
 
-        if ($row = $this->fetchRow($res)) {
+        if (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $facolta = new Facolta($row[13], $row[5], $row[4], $row[0],
                     $row[2], $row[1], $row[3], $row[7] == 'S', $row[6] == 'S',
                     $row[8] == 'S', $row[9], $row[10], $row[11] == 'S',
                     $row[12] == 'S', $row[14], $row[15], $row[16]);
         }
-
-        $res->free();
 
         return $facolta;
     }
@@ -63,39 +56,30 @@ class FacoltaRepository extends DoctrineRepository
      */
     public function findAll()
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo, files_studenti_attivo, a.id_canale, cod_fac, desc_fac, url_facolta FROM canale a , facolta b WHERE a.id_canale = b.id_canale ORDER BY 16';
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
 
-        if (DB::isError($res)) {
-            $this
-                    ->throwError('_ERROR_DEFAULT',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-        }
-
-        if ($res->numRows() === 0) {
+        if ($res->rowCount() === 0) {
             return array();
         }
 
         $facolta = array();
 
-        while ($res->fetchInto($row)) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $facolta[] = new Facolta($row[13], $row[5], $row[4], $row[0],
                     $row[2], $row[1], $row[3], $row[7] == 'S', $row[6] == 'S',
                     $row[8] == 'S', $row[9], $row[10], $row[11] == 'S',
                     $row[12] == 'S', $row[14], $row[15], $row[16]);
         }
 
-        $res->free();
-
         return $facolta;
     }
 
     public function update(Facolta $facolta)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'UPDATE facolta SET cod_fac = '
                 . $db->quote($facolta->getCodiceFacolta()) . ', desc_fac = '
@@ -103,7 +87,7 @@ class FacoltaRepository extends DoctrineRepository
                 . $db->quote($facolta->getUri()) . ' WHERE id_canale = '
                 . $db->quote($facolta->getIdCanale());
 
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
 
         if (DB::isError($res)) {
             $this
@@ -117,7 +101,7 @@ class FacoltaRepository extends DoctrineRepository
 
     public function insert(Facolta $facolta)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         if ($this->canaleRepository->insert($facolta) != true) {
             $this->throwError('_ERROR_CRITICAL',
@@ -132,7 +116,7 @@ class FacoltaRepository extends DoctrineRepository
         . $db->quote($facolta->getNome()) . ' , '
         . $db->quote($facolta->getUri()) . ' , '
         . $db->quote($facolta->getIdCanale()) . ' )';
-        $res = $db->query($query);
+        $res = $db->executeQuery($query);
         if (DB::isError($res)) {
             $this->throwError('_ERROR_CRITICAL',
                     array('msg' => DB::errorMessage($res), 'file' => __FILE__,

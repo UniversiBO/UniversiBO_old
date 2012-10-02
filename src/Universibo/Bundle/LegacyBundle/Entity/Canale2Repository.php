@@ -46,7 +46,7 @@ class Canale2Repository extends DoctrineRepository
             DBCdlRepository $cdlRepository,
             DBFacoltaRepository $facultyRepository, DBInsegnamentoRepository $subjectRepository, $convert = False)
     {
-        parent::__construct($db, $convert);
+        parent::__construct($db);
 
         $this->channelRepository = $channelRepository;
         $this->cdlRepository = $cdlRepository;
@@ -75,16 +75,16 @@ class Canale2Repository extends DoctrineRepository
      */
     public function find($id)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $sql = 'SELECT tipo_canale FROM canale WHERE id_canale = ' . $db->quote($id);
 
-        $res = $db->query($sql);
+        $res = $db->executeQuery($sql);
         if (\DB::isError($res)) {
             throw new \Exception($res->getMessage());
         }
 
-        $row = $this->fetchRow($res);
+        false !== ($row = $res->fetch());
         switch ($row[0]) {
             case Canale::FACOLTA:
                 return $this->facultyRepository->find($id);
