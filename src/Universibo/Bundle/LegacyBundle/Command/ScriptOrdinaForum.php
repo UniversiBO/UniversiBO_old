@@ -57,11 +57,10 @@ class ScriptOrdinaForum extends UniversiboCommand
                             ORDER BY forum_name';
 
                 $res = $db->query($query);
-                    if (DB::isError($res)) die($query);
 
                 $order = 0;
                 //var_dump($res);
-                while ( $res->fetchInto($row) ) {
+                while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
                     $order++;
                     $query = 'UPDATE phpbb_forums SET forum_order = '.$order.' WHERE forum_id = '.$row[0].';';
                     $res2 = $db->query($query);

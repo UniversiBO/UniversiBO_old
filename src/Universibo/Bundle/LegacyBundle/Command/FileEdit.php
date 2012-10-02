@@ -436,7 +436,7 @@ class FileEdit extends UniversiboCommand
 
             //e i permessi di visualizzazione??
             // li prendo uguali a quelli del canale,
-            if (array_key_exists('id_canale', $_GET))
+            if (isset($canale) && $canale instanceof Canale)
                 $f13_permessi_visualizza = $canale->getPermessi();
             else
                 $f13_permessi_visualizza = LegacyRoles::ALL;

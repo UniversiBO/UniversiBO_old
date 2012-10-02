@@ -67,7 +67,7 @@ class ScriptCreaCatalogoFile extends UniversiboCommand
             fwrite($fp,'<faculty>'.$faculty.'</faculty>');
             fwrite($fp,"\n");
 
-            while($res->fetchInto($row))
+            while(false !== ($row = $res->fetch(\PDO::FETCH_NUM)))
                 $listaIdFiles[] = $row[0];
             $res->free();
 

@@ -36,10 +36,8 @@ class ScriptIscriviDocentePersonalizzato extends UniversiboCommand
                                 . $db->quote($_GET['cod_doc'])
                                 . ' AND cod_doc NOT IN (SELECT cod_doc FROM docente
          WHERE 1=1)');
-        if (DB::isError($res))
-            die('select docente personalizzato');
 
-        $res->fetchInto($row);
+        $row = $res->fetch(\PDO::FETCH_NUM);
 
         $username = $_GET['new_username'];
 
