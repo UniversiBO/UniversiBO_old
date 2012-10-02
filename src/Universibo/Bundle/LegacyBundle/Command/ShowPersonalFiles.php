@@ -25,6 +25,7 @@ class ShowPersonalFiles extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $user = $this->get('security.context')->getToken()->getUser();
+        $router = $this->get('router');
 
         // controllo che l'utente sia loggato
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY'))
@@ -38,19 +39,22 @@ class ShowPersonalFiles extends UniversiboCommand
         $listaFile = FileItem::selectFileItemsByIdUtente($idUtente, true);
 
         $files = array();
-        foreach ($listaFile as &$item)
+        foreach ($listaFile as $item) {
+            if (!$item instanceof FileItem) {
+                continue;
+            }
+
             $files[$item->getIdFile()] = array(
                     'nome' => $item->getNomeFile(),
                     'data' => $item->getDataInserimento(),
                     'dimensione' => $item->getDimensione(),
-                    'editUri' => $router->generate('universibo_legacy_file_edit', array('id_file' => $file->getIdFile())),
-                    'deleteUri' => $router->generate('universibo_legacy_file_delete', array('id_file' => $file->getIdFile())),
-                    'downloadUri' => $router->generate('universibo_legacy_file_download', array('id_file' => $file->getIdFile()))
+                    'editUri' => $router->generate('universibo_legacy_file_edit', array('id_file' => $item->getIdFile())),
+                    'deleteUri' => $router->generate('universibo_legacy_file_delete', array('id_file' => $item->getIdFile())),
+                    'downloadUri' => $router->generate('universibo_legacy_file_download', array('id_file' => $item->getIdFile()))
             );
+        }
 
         $template->assign('ShowPersonalFiles_listaFile', $files);
-        $template
-                ->assign('ShowPersonalFiles_langTitle', 'Gestisci i tuoi file');
-
+        $template->assign('ShowPersonalFiles_langTitle', 'Gestisci i tuoi file');
     }
 }

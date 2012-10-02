@@ -166,6 +166,9 @@ universibo_legacy_permalink:
     pattern: /permalink/{id_notizia}/
     requirements: { id_news: \d+ }
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowPermalink' }
+universibo_legacy_personal_files:
+    pattern: /myfiles/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowPersonalFiles' }
 universibo_legacy_role_admin_edit:
     pattern: /role/admin/edit/{id_canale}/{id_utente}/
     requirements: { id_canale: \d+, id_utente: \d+ }
