@@ -297,7 +297,7 @@ class FileEdit extends UniversiboCommand
             //parole chiave
             $f13_parole_chiave = array();
             if ($_POST['f13_parole_chiave'] != '') {
-                $parole_chiave = explode("\r\n", $_POST['f13_parole_chiave']);
+                $parole_chiave = preg_split('/((?<!\\\|\r)\n)|((?<!\\\)\r\n)/', $_POST['f13_parole_chiave']);
 
                 foreach ($parole_chiave as $parola) {
                     if (strlen($parola > 40)) {

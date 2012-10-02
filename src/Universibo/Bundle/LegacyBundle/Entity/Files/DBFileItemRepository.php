@@ -308,7 +308,7 @@ class DBFileItemRepository extends DBRepository
         }
 
         foreach ($old_elenco_keywords as $value) {
-            if (!in_array($value,$elenco_keywords)) {
+            if (!in_array($value, $keywords)) {
                 $this->removeKeyword($fileId, $value);
             }
         }

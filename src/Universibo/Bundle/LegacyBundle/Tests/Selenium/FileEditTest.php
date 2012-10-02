@@ -34,12 +34,20 @@ class FileEditTest extends UniversiBOSeleniumTestCase
         $this->assertSentences($sentences);
 
         $this->type('id=f13_abstract', $text = 'robots SEO, '.md5(rand(1,10)));
+        $this->type('id=f13_parole_chiave', implode(PHP_EOL, $keywords = array('robots', 'SEO', md5(rand(1,10)))));
         $this->clickAndWait('name=f13_submit');
 
         $this->assertSentence('modificato con successo');
 
         $this->clickAndWait('link=Torna ai dettagli del file');
 
-        $this->assertSentence($text);
+        $this->assertSentences(array_merge(array($text), $keywords));
+
+        $this->openPrefix('/file/15051/edit');
+        $this->type('id=f13_parole_chiave', $keywords = 'robots');
+        $this->clickAndWait('name=f13_submit');
+        $this->clickAndWait('link=Torna ai dettagli del file');
+
+        $this->assertSentences(array($text, $keywords));
     }
 }
