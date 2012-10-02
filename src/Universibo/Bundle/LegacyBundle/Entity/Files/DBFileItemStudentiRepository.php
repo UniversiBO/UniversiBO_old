@@ -4,7 +4,7 @@ namespace Universibo\Bundle\LegacyBundle\Entity\Files;
 use \DB;
 use Universibo\Bundle\LegacyBundle\Entity\Commenti\CommentoItem;
 use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
-use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
+use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 
 /**
@@ -13,7 +13,7 @@ use Universibo\Bundle\CoreBundle\Entity\UserRepository;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBFileItemStudentiRepository extends DBRepository
+class DBFileItemStudentiRepository extends DoctrineRepository
 {
     const ORDER_TITLE = 0;
     const ORDER_DATE_DESC = 1;

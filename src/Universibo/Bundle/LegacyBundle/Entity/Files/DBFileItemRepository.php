@@ -5,7 +5,7 @@ use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 
 use \DB;
-use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
+use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
 
 /**
  * DBNewsItem repository
@@ -13,7 +13,7 @@ use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBFileItemRepository extends DBRepository
+class DBFileItemRepository extends DoctrineRepository
 {
     /**
      * @var UserRepository

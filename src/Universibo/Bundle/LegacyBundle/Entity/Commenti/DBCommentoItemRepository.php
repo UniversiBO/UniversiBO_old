@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Commenti;
 use \DB;
-use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
+use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
 
 /**
  * DBCommentoItem repository
@@ -9,7 +9,7 @@ use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBCommentoItemRepository extends DBRepository
+class DBCommentoItemRepository extends DoctrineRepository
 {
     public function find($id)
     {

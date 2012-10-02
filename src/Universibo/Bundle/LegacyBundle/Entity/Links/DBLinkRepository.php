@@ -3,7 +3,7 @@ namespace Universibo\Bundle\LegacyBundle\Entity\Links;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 
 use \DB;
-use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
+use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
 
 /**
  * Link repository
@@ -11,7 +11,7 @@ use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBLinkRepository extends DBRepository
+class DBLinkRepository extends DoctrineRepository
 {
     /**
      * @var UserRepository
