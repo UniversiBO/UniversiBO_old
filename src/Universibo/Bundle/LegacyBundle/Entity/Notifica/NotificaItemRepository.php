@@ -42,13 +42,6 @@ class NotificaItemRepository extends DoctrineRepository
         //var_dump($query);
         $res = &$db->executeQuery($query);
 
-        if (DB::isError($res)) {
-            $this
-                    ->throwError('_ERROR_CRITICAL',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-        }
-
         $rows = $res->rowCount();
 
         if ($rows == 0) {
@@ -56,13 +49,13 @@ class NotificaItemRepository extends DoctrineRepository
         }
         $notifiche_list = array();
 
-        while (false !== ($row = $res->fetch())) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $notifiche_list[] = new NotificaItem($row[0], $row[1], $row[2],
                     $row[3], ($row[4] == NotificaItem::URGENTE),
                     ($row[5] == NotificaItem::ELIMINATA), $row[6]);
         }
 
-        $res->free();
+
         //var_dump($notifiche_list);
         return $notifiche_list;
     }
@@ -76,12 +69,6 @@ class NotificaItemRepository extends DoctrineRepository
                 . $db->quote(NotificaItem::NOT_ELIMINATA);
         $res = $db->executeQuery($query);
 
-        if (DB::isError($res)) {
-            $this
-                    ->throwError('_ERROR_CRITICAL',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-        }
         $rows = $res->rowCount();
 
         if ($rows == 0) {
@@ -90,13 +77,11 @@ class NotificaItemRepository extends DoctrineRepository
 
         $notifiche_list = array();
 
-        while (false !== ($row = $res->fetch())) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $notifiche_list[] = new NotificaItem($row[0], $row[1], $row[2],
                     $row[3], ($row[4] == NotificaItem::URGENTE),
                     ($row[5] == NotificaItem::ELIMINATA), $row[6]);
         }
-
-        $res->free();
 
         return $notifiche_list;
     }
@@ -121,13 +106,6 @@ class NotificaItemRepository extends DoctrineRepository
         //echo $query;
         $res = $db->executeQuery($query);
         //var_dump($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            $this
-                    ->throwError('_ERROR_CRITICAL',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-        }
 
         $db->commit();
         $db->autoCommit(true);
@@ -158,13 +136,6 @@ class NotificaItemRepository extends DoctrineRepository
         //echo $query;
         $res = $db->executeQuery($query);
         //var_dump($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            $this
-                    ->throwError('_ERROR_CRITICAL',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-        }
 
         $notification->setIdNotifica($next_id);
 

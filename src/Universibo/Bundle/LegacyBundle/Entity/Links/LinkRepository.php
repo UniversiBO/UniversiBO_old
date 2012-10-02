@@ -81,12 +81,10 @@ class LinkRepository extends DoctrineRepository
         }
         $link_list = array();
 
-        while (false !== ($row = $res->fetch())) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $link_list[] = new Link($row[0], $row[1], $row[5], $row[2],
                     $row[3], $row[4]);
         }
-
-        $res->free();
 
         return $link_list;
     }
@@ -121,10 +119,6 @@ class LinkRepository extends DoctrineRepository
 
         //echo $query;
         $res = $db->executeQuery($query);
-        if (DB::isError($res))
-            $this->throwError('_ERROR_DEFAULT',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
         $rows = $db->affectedRows();
 
         if ($rows == 1)

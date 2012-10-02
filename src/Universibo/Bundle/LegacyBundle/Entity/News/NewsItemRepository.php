@@ -51,20 +51,13 @@ class NewsItemRepository extends DoctrineRepository
         //var_dump($query);
         $res = $db->executeQuery($query);
 
-        if (DB::isError($res)) {
-            $this
-                    ->throwError('_ERROR_CRITICAL',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-        }
-
         $rows = $res->rowCount();
 
         if ($rows == 0)
             return false;
         $news_list = array();
 
-        while (false !== ($row = $res->fetch())) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $userRepository = $this->userRepository;
             $username = $userRepository->getUsernameFromId($row[6]);
 
@@ -72,8 +65,6 @@ class NewsItemRepository extends DoctrineRepository
                     $row[3], $row[8], ($row[4] == NewsItem::URGENTE),
                     ($row[5] == NewsItem::ELIMINATA), $row[6], $username);
         }
-
-        $res->free();
 
         return $news_list;
     }
@@ -155,23 +146,14 @@ class NewsItemRepository extends DoctrineRepository
 
         $res = $db->executeQuery($sql);
 
-        if (DB::isError($res)) {
-            $this
-                    ->throwError('_ERROR_DEFAULT',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-        }
-
         $news = array();
-        while (false !== ($row = $res->fetch())) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $userRepository = $this->userRepository;
 
             $news[] = new NewsItem($row[7], $row[0], $row[1], $row[2], $row[3],
                     $row[8], ($row[4] == NewsItem::URGENTE),
                     ($row[5] == NewsItem::ELIMINATA), $row[9], $row[6]);
         }
-
-        $res->free();
 
         return $news;
     }
@@ -199,13 +181,6 @@ class NewsItemRepository extends DoctrineRepository
                 . ' , ' . $db->quote($newsItem->getUltimaModifica()) . ' )';
         $res = $db->executeQuery($query);
         //var_dump($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            $this
-                    ->throwError('_ERROR_CRITICAL',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-        }
 
         $newsItem->setIdNotizia($next_id);
 
@@ -223,17 +198,11 @@ class NewsItemRepository extends DoctrineRepository
         $query = 'SELECT id_canale FROM news_canale WHERE id_news='.$db->quote($news->getIdNotizia()).' ORDER BY id_canale';
         $res = $db->executeQuery($query);
 
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        }
-
         $elenco_id_canale = array();
 
-        while (false !== ($row = $res->fetch())) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $elenco_id_canale[] = $row[0];
         }
-
-        $res->free();
 
         return $elenco_id_canale;
     }
@@ -244,10 +213,6 @@ class NewsItemRepository extends DoctrineRepository
 
         $query = 'DELETE FROM news_canale WHERE id_canale='.$db->quote($channelId).' AND id_news='.$db->quote($news->getIdNotizia());
         $res = $db->executeQuery($query);
-
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        }
 
         $news->setIdCanali($ids = array_diff ($this->elencoIdCanali, array($id_canale)));
 
@@ -272,9 +237,6 @@ class NewsItemRepository extends DoctrineRepository
         $query = 'INSERT INTO news_canale (id_news, id_canale) VALUES ('.$db->quote($news->getIdNotizia()).','.$db->quote($channelId).')';
 
         $res = $db->executeQuery($query);
-        if (DB::isError($res)) {
-            return false;
-        }
 
         $ids = $news->getIdCanali();
         $ids[] = $channelId;
@@ -304,10 +266,6 @@ class NewsItemRepository extends DoctrineRepository
         //echo $query;
         $res = $db->executeQuery($query);
         //var_dump($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        }
 
         $db->commit();
         $db->autoCommit(true);

@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Tests\Entity;
 
-class DBCollaboratoreRepositoryTest extends DBRepositoryTest
+class CollaboratoreRepositoryTest extends DoctrineRepositoryTest
 {
     /**
      * @var DBCollaboratoreRepository
@@ -12,8 +12,7 @@ class DBCollaboratoreRepositoryTest extends DBRepositoryTest
     {
         parent::setUp();
 
-        $userRepo = static::$kernel->getContainer()->get('universibo_website.repository.user');
-        $this->repository = new DBCollaboratoreRepository($this->db, $userRepo);
+        $this->repository = static::$kernel->getContainer()->get('universibo_website.repository.collaboratore');
     }
 
     public function testFind()

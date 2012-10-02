@@ -49,13 +49,6 @@ class FileItemRepository extends DoctrineRepository
         . $db->quote($id_canale) . '';
         $res = $db->getOne($query);
 
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_CRITICAL',
-                    array('id_utente' => $this->sessionUser->getId(),
-                            'msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-        }
-
         return $res;
     }
 
@@ -77,12 +70,6 @@ class FileItemRepository extends DoctrineRepository
         . ')
         ORDER BY A.data_inserimento DESC';
         $res = $db->limitQuery($query, 0, $limit);
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_DEFAULT',
-                    array('id_utente' => $this->sessionUser->getId(),
-                            'msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-        }
 
         $rows = $res->rowCount();
 
@@ -91,8 +78,6 @@ class FileItemRepository extends DoctrineRepository
         while ($res->fetchInto($row)) {
             $ids[] = $row[0];
         }
-
-        $res->free();
 
         return $this->findManyById($ids);
     }
@@ -109,19 +94,11 @@ class FileItemRepository extends DoctrineRepository
                 . 'ORDER BY A.id_categoria, A.data_inserimento DESC';
         $res = $db->executeQuery($query);
 
-        if (DB::isError($res))
-            $this
-                    ->throwError('_ERROR_DEFAULT',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-
         $id_file_list = array();
 
-        while (false !== ($row = $res->fetch())) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $id_file_list[] = $row[0];
         }
-
-        $res->free();
 
         return $id_file_list;
     }
@@ -168,13 +145,6 @@ class FileItemRepository extends DoctrineRepository
 
         //echo $query;
 
-        if (DB::isError($res)) {
-            $this
-                    ->throwError('_ERROR_CRITICAL',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-        }
-
         $rows = $res->rowCount();
 
         if ($rows == 0)
@@ -183,7 +153,7 @@ class FileItemRepository extends DoctrineRepository
 
         $userRepo = $this->userRepository;
 
-        while (false !== ($row = $res->fetch())) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $username = $userRepo->getUsernameFromId($row[3]);
 
             $files_list[] = new FileItem($row[0], $row[1], $row[2], $row[3],
@@ -191,8 +161,6 @@ class FileItemRepository extends DoctrineRepository
                     $row[10], $row[11], $row[12], $row[13], $row[14],
                     $username, $row[15], $row[16], $row[17], $row[18]);
         }
-
-        $res->free();
 
         return $files_list;
     }
@@ -220,13 +188,6 @@ class FileItemRepository extends DoctrineRepository
 
         //echo $query;
 
-        if (DB::isError($res)) {
-            $this
-            ->throwError('_ERROR_CRITICAL',
-                    array('msg' => DB::errorMessage($res),
-                            'file' => __FILE__, 'line' => __LINE__));
-        }
-
         $rows = $res->rowCount();
 
         if ($rows == 0)
@@ -235,7 +196,7 @@ class FileItemRepository extends DoctrineRepository
 
         $userRepo = $this->userRepository;
 
-        while (false !== ($row = $res->fetch())) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $username = $userRepo->getUsernameFromId($row[3]);
 
             $files_list[] = new FileItem($row[0], $row[1], $row[2], $row[3],
@@ -243,8 +204,6 @@ class FileItemRepository extends DoctrineRepository
                     $row[10], $row[11], $row[12], $row[13], $row[14],
                     $username, $row[15], $row[16], $row[17], $row[18]);
         }
-
-        $res->free();
 
         return $files_list;
     }
@@ -256,16 +215,11 @@ class FileItemRepository extends DoctrineRepository
         $query = 'SELECT keyword FROM file_keywords WHERE id_file='.$db->quote($fileId);
         $res = $db->executeQuery($query);
 
-        if (DB :: isError($res))
-            Error :: throwError(_ERROR_DEFAULT, array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
-
         $elenco_keywords = array ();
 
-        while (false !== ($row = $res->fetch())) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $elenco_keywords[] = $row[0];
         }
-
-        $res->free();
 
         return $elenco_keywords;
     }
@@ -275,10 +229,6 @@ class FileItemRepository extends DoctrineRepository
         $db = $this->getConnection();
         $query = 'INSERT INTO file_keywords(id_file, keyword) VALUES ('.$db->quote($fileId).' , '.$db->quote($keyword) .');';
         $res =  $db->executeQuery($query);
-
-        if (DB :: isError($res)) {
-            $this->throwError('_ERROR_DEFAULT', array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
-        }
     }
 
     public function removeKeyword($fileId, $keyword)
@@ -286,10 +236,6 @@ class FileItemRepository extends DoctrineRepository
         $db = $this->getConnection();
         $query = 'DELETE FROM file_keywords WHERE id_file = '.$db->quote($fileId).' AND keyword = '.$db->quote($keyword);
         $res =$db->executeQuery($query);
-
-        if (DB :: isError($res)) {
-            $this->throwError('_ERROR_DEFAULT', array ('msg' => DB :: errorMessage($res), 'file' => __FILE__, 'line' => __LINE__));
-        }
     }
 
     public function updateKeywords($fileId, array $keywords)
@@ -324,12 +270,7 @@ class FileItemRepository extends DoctrineRepository
 
         $query = 'UPDATE file SET download = ' . $db->quote($file->getDownLoad())
         . ' WHERE id_file = ' . $db->quote($file->getIdFile());
-        $res = $db->executeQuery($query);
-        if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',
-                    array('msg' => DB::errorMessage($res),
-                            'file' => __FILE__, 'line' => __LINE__));
-        $rows = $db->affectedRows();
+        $rows = $db->executeUpdate($query);
 
         if ($rows == 1)
             return true;
@@ -349,18 +290,11 @@ class FileItemRepository extends DoctrineRepository
         $query = 'SELECT id_file_tipo, descrizione FROM file_tipo';
         $res = $db->executeQuery($query);
 
-        if (DB::isError($res))
-            $this->throwError('_ERROR_DEFAULT',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-
         $tipi = array();
 
-        while (false !== ($row = $res->fetch())) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $tipi[$row[0]] = $row[1];
         }
-
-        $res->free();
 
         return $tipi;
     }
@@ -372,19 +306,11 @@ class FileItemRepository extends DoctrineRepository
         $query = 'SELECT id_file_tipo, pattern_riconoscimento FROM file_tipo';
         $res = $db->executeQuery($query);
 
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_DEFAULT',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-        }
-
         $tipi = array();
 
-        while (false !== ($row = $res->fetch())) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $tipi[$row[0]] = $row[1];
         }
-
-        $res->free();
 
         return $tipi;
     }
@@ -395,18 +321,11 @@ class FileItemRepository extends DoctrineRepository
         $query = 'SELECT id_file_categoria, descrizione FROM file_categoria';
         $res = $db->executeQuery($query);
 
-        if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-
         $categorie = array();
 
-        while (false !== ($row = $res->fetch())) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $categorie[$row[0]] = $row[1];
         }
-
-        $res->free();
 
         return $categorie;
     }
@@ -428,27 +347,19 @@ class FileItemRepository extends DoctrineRepository
 
         //echo $query;
 
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_CRITICAL',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-        }
-
         $rows = $res->rowCount();
 
         if ($rows == 0)
             return false;
         $files_list = array();
 
-        while (false !== ($row = $res->fetch())) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $username = $this->userRepository->getUsernameFromId($row[3]);
             $files_list[] = new FileItem($row[0], $row[1], $row[2], $row[3],
                     $row[4], $row[5], $row[6], $row[7], $row[8], $row[9],
                     $row[10], $row[11], $row[12], $row[13], $row[14],
                     $username, $row[15], $row[16], $row[17], $row[18]);
         }
-
-        $res->free();
 
         return $files_list;
     }
@@ -484,15 +395,7 @@ class FileItemRepository extends DoctrineRepository
 
         $res = $db->executeQuery($query);
 
-        if (DB::isError($res)) {
-            $db->rollback();
-            $this->throwError('_ERROR_CRITICAL',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-        }
-
         $db->commit();
-        $db->autoCommit(true);
     }
 
     public function update(FileItem $file)
@@ -526,16 +429,7 @@ class FileItemRepository extends DoctrineRepository
         //echo $query;
         $res = $db->executeQuery($query);
         //var_dump($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            $this->throwError('_ERROR_CRITICAL',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-            $return = false;
-        }
-
         $db->commit();
-        $db->autoCommit(true);
     }
 
     public function getChannelIds(FileItem $file)
@@ -550,18 +444,12 @@ class FileItemRepository extends DoctrineRepository
 
         $res = $db->executeQuery($query);
 
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_DEFAULT',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-        }
-
         $elenco_id_canale = array();
 
         while ($res->fetchInto($row)) {
             $elenco_id_canale[] = $row[0];
         }
-        $res->free();
+
 
         sort($elenco_id_canale);
 
@@ -581,9 +469,6 @@ class FileItemRepository extends DoctrineRepository
         . ')';
 
         $res = $db->executeQuery($query);
-        if (DB::isError($res)) {
-            return false;
-        }
 
         $ids = $file->getIdCanali();
         $ids[] = $channelId;
@@ -601,12 +486,6 @@ class FileItemRepository extends DoctrineRepository
         . $db->quote($file->getIdFile());
         //? da testare il funzionamento di =
         $res = $db->executeQuery($query);
-
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_DEFAULT',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-        }
 
         $file->setIdCanali($ids = array_diff($file->getIdCanali(),array($channelId)));
         if (count($ids) === 0) {
@@ -627,13 +506,6 @@ class FileItemRepository extends DoctrineRepository
             //echo $query;
             $res = $db->executeQuery($query);
             //var_dump($query);
-            if (DB::isError($res)) {
-                $db->rollback();
-                $this->throwError('_ERROR_CRITICAL',
-                        array('msg' => DB::errorMessage($res),
-                                'file' => __FILE__, 'line' => __LINE__));
-            }
-
             return true;
         }
 

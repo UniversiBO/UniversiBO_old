@@ -21,15 +21,7 @@ class InfoDidatticaRepository extends DoctrineRepository
         //var_dump($query);
         //var_dump($res);
 
-        if (DB::isError($res)) {
-            $db->rollback();
-            $this
-                    ->throwError('_ERROR_CRITICAL',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-        }
-
-        if (false !== ($row = $res->fetch())) {
+        if (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             return new InfoDidattica($row[0], $row[1], $row[2], $row[3],
                     $row[4], $row[5], $row[6], $row[7], $row[8], $row[9],
                     $row[10], $row[11], $row[12]);
@@ -47,13 +39,6 @@ class InfoDidatticaRepository extends DoctrineRepository
 
         $res = $db->executeQuery($query);
         //var_dump($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            $this->throwError('_ERROR_CRITICAL',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-        }
-
         return true;
     }
 
@@ -80,13 +65,6 @@ class InfoDidatticaRepository extends DoctrineRepository
 
         $res = $db->executeQuery($query);
         //var_dump($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            $this->throwError('_ERROR_CRITICAL',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-        }
-
         return true;
     }
 
@@ -116,13 +94,6 @@ class InfoDidatticaRepository extends DoctrineRepository
 
         $res = $db->executeQuery($query);
         //var_dump($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            $this->throwError('_ERROR_CRITICAL',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-        }
-
         return true;
     }
 }

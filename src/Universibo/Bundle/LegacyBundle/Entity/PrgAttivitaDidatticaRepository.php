@@ -57,12 +57,6 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
          */
 
         $res = $db->executeQuery($query);
-        if (DB::isError($res)) {
-            Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-            return false;
-        }
-
         $rows = $res->rowCount();
 
         if ($rows == 0) {
@@ -107,11 +101,6 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
         $res = $db->executeQuery($query);
         //		var_dump($query);
 
-        if (DB::isError($res))
-            $this
-                    ->throwError('_ERROR_CRITICAL',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
         $rows = $db->affectedRows();
         if ($rows >= 1)
             return true;
@@ -172,12 +161,6 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
          * bisogna cambiarla ed eventualmente gestire i duplicati via PHP
          */
         $res = $db->executeQuery($query);
-        if (DB::isError($res)) {
-            $this
-                    ->throwError('_ERROR_CRITICAL',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-        }
 
         $rows = $res->rowCount();
 
@@ -187,7 +170,7 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
             return $ret;
         }
         $elenco = array();
-        while (false !== ($row = $res->fetch())) {
+        while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
             $prgAtt = new PrgAttivitaDidattica($row[13], $row[5], $row[4],
                     $row[0], $row[2], $row[1], $row[3], $row[7] == 'S',
                     $row[6] == 'S', $row[8] == 'S', $row[9], $row[10],
@@ -199,7 +182,6 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
 
             $elenco[] = $prgAtt;
         }
-        $res->free();
 
         return $elenco;
     }
@@ -273,8 +255,6 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
         ORDER BY 33, 32, 30, 23';
 
         $res = $db->executeQuery($query);
-        if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
         $rows = $res->rowCount();
 
@@ -291,7 +271,6 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
 
             $elenco[] = $prgAtt;
         }
-        $res->free();
 
         return $elenco;
     }
@@ -332,9 +311,6 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
          */
         //		var_dump($query); die;
         $res = $db->executeQuery($query);
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        }
 
         $rows = $res->rowCount();
 
@@ -348,8 +324,6 @@ class PrgAttivitaDidatticaRepository extends DoctrineRepository
                 $row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21],
                 $row[22], $row[23], $row[24], $row[25], $row[26], $row[27], $row[28], $row[29],
                 $row[30], $row[31], true, $row[32] );
-
-        $res->free();
 
         return $prgAtt;
     }

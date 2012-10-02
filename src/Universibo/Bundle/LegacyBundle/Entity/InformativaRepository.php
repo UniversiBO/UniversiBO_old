@@ -22,17 +22,13 @@ class InformativaRepository extends DoctrineRepository
         'ORDER BY id_informativa DESC';  // TODO così possiamo già pianificare quando una certa informativa scadrà
 
         $res = $db->executeQuery($query);
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        }
 
         $rows = $res->rowCount();
 
         if( $rows = 0) return array();
 
         $list = array();
-        false !== ($row = $res->fetch());
-        $res->free();
+        false !== ($row = $res->fetch(\PDO::FETCH_NUM));
 
         return $this->rowToInformativa($row);
     }

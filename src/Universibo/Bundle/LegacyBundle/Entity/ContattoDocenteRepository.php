@@ -2,7 +2,6 @@
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
 use \DB;
-use \Error;
 
 /**
  * Canale repository
@@ -22,15 +21,13 @@ class ContattoDocenteRepository extends DoctrineRepository
 
         $query = 'SELECT stato, id_utente_assegnato, ultima_modifica, report FROM docente_contatti WHERE cod_doc = '.$db->quote($codDocente);
         $res = $db->executeQuery($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
         $rows = $res->rowCount();
         if ($rows == 0) {
             return false;
         }
 
-        false !== ($row = $res->fetch());
+        false !== ($row = $res->fetch(\PDO::FETCH_NUM));
 
         return new ContattoDocente($codDocente, $row[0], $row[1], $row[2], $row[3]);
     }
@@ -47,8 +44,6 @@ class ContattoDocenteRepository extends DoctrineRepository
         $query.= 'WHERE eliminato = '.$db->quote(ContattoDocente::NOT_ELIMINATO);
 
         $res = $db->executeQuery($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
         $rows = $res->rowCount();
         if( $rows == 0) return false;
@@ -79,10 +74,6 @@ class ContattoDocenteRepository extends DoctrineRepository
         //echo $query;
         $res = $db->executeQuery($query);
         //var_dump($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        }
 
         $this->checkState($contattoDocente);
 
@@ -109,14 +100,9 @@ class ContattoDocenteRepository extends DoctrineRepository
         //        echo $query;		die;
         $res = $db->executeQuery($query);
         //var_dump($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        }
 
         $rows = $res->rowCount();
         if( $rows > 0) return false;
-        $res->free();
 
         $query = 'INSERT INTO docente_contatti (cod_doc,stato,id_utente_assegnato,ultima_modifica,report) VALUES ' .
                 '( ' .$db->quote($contattoDocente->getCodDoc())
@@ -128,10 +114,6 @@ class ContattoDocenteRepository extends DoctrineRepository
         //		echo $query;		die;
         $res = $db->executeQuery($query);
         //var_dump($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        }
 
         $this->checkState($contattoDocente);
 
@@ -158,10 +140,6 @@ class ContattoDocenteRepository extends DoctrineRepository
             //echo $query;
             $res = $db->executeQuery($query);
             //var_dump($query);
-            if (DB::isError($res)) {
-                $db->rollback();
-                Error::throwError(_ERROR_CRITICAL,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-            }
         }
     }
 }
