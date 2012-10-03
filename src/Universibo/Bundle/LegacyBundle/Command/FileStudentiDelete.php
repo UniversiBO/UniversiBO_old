@@ -43,7 +43,7 @@ class FileStudentiDelete extends UniversiboCommand
         $file = FileItemStudenti::selectFileItem($_GET['id_file']);
         $file_canali = $file->getIdCanali();
 
-        $canale = Canale::retrieveCanale($file_canali[0]);
+        $canale = $channelRepo2->find($file_canali[0]);
         $template->assign('common_canaleURI', $canale->showMe($router));
         $template->assign('common_langCanaleNome', 'a ' . $canale->getTitolo());
         if ($file === false)
@@ -61,7 +61,7 @@ class FileStudentiDelete extends UniversiboCommand
                                 'msg' => 'L\'id del canale richiesto non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $canale = Canale::retrieveCanale($_GET['id_canale']);
+            $canale = $channelRepo2->find($_GET['id_canale']);
 
             if ($canale->getServizioFiles() == false)
                 Error::throwError(_ERROR_DEFAULT,
@@ -112,7 +112,7 @@ class FileStudentiDelete extends UniversiboCommand
         }
 
         $file_canali = $file->getIdCanali();
-        $canale = Canale::retrieveCanale($file_canali[0]);
+        $canale = $channelRepo2->find($file_canali[0]);
         $f25_canale = $canale->getTitolo();
         //		$num_canali = count($file_canali);
         //		for ($i = 0; $i < $num_canali; $i ++)
@@ -145,7 +145,7 @@ class FileStudentiDelete extends UniversiboCommand
                                                     ->isModeratore() && $autore)));
                     if (!$diritti) {
                         //$user_ruoli[$key]->getIdCanale();
-                        $canale = Canale::retrieveCanale($key);
+                        $canale = $channelRepo2->find($key);
                         Error::throwError(_ERROR_NOTICE,
                                 array('id_utente' => $user->getId(),
                                         'msg' => 'Non possiedi i diritti di eliminazione nel canale: '
@@ -174,11 +174,11 @@ class FileStudentiDelete extends UniversiboCommand
             //			foreach ($f25_canale_app as $key => $value)
             //			{
             //				$file->removeCanale($key);
-            //				$canale = Canale::retrieveCanale($key);
+            //				$canale = $channelRepo2->find($key);
             //			}
 
             $file->removeCanale($file_canali[0]);
-            $canale = Canale::retrieveCanale($file_canali[0]);
+            $canale = $channelRepo2->find($file_canali[0]);
             $file->deleteFileItem();
             $file->deleteAllCommenti();
 

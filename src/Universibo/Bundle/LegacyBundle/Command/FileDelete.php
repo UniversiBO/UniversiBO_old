@@ -57,7 +57,7 @@ class FileDelete extends UniversiboCommand
                                 'msg' => 'L\'id del canale richiesto non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $canale = &Canale::retrieveCanale($_GET['id_canale']);
+            $canale = &$channelRepo2->find($_GET['id_canale']);
 
             if ($canale->getServizioFiles() == false)
                 Error::throwError(_ERROR_DEFAULT,
@@ -115,7 +115,7 @@ class FileDelete extends UniversiboCommand
         $num_canali = count($file_canali);
         for ($i = 0; $i < $num_canali; $i++) {
             $id_current_canale = $file_canali[$i];
-            $current_canale = &Canale::retrieveCanale($id_current_canale);
+            $current_canale = &$channelRepo2->find($id_current_canale);
             $nome_current_canale = $current_canale->getTitolo();
             if (in_array($id_current_canale, $file->getIdCanali())) {
                 $f14_canale[] = array('id_canale' => $id_current_canale,
@@ -143,7 +143,7 @@ class FileDelete extends UniversiboCommand
                                                     ->isModeratore() && $autore)));
                     if (!$diritti) {
                         //$user_ruoli[$key]->getIdCanale();
-                        $canale = &Canale::retrieveCanale($key);
+                        $canale = &$channelRepo2->find($key);
                         Error::throwError(_ERROR_NOTICE,
                                 array('id_utente' => $user->getId(),
                                         'msg' => 'Non possiedi i diritti di eliminazione nel canale: '
@@ -174,7 +174,7 @@ class FileDelete extends UniversiboCommand
             //cancellazione dai canali richiesti
             foreach ($f14_canale_app as $key => $value) {
                 $file->removeCanale($key);
-                //$canale = Canale::retrieveCanale($key);
+                //$canale = $channelRepo2->find($key);
             }
 
             $file->deleteFileItem();

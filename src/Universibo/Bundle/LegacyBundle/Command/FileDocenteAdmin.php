@@ -216,12 +216,12 @@ class FileDocenteAdmin extends UniversiboCommand
                 //var_dump($f40_canale);
 
                 foreach ($f40_file_inserimento as $newFile) {
-                    $canali_file = &$newFile->getIdCanali();
+                    $canali_file = $newFile->getIdCanali();
                     foreach ($f40_canali_inserimento as $key) {
                         //							var_dump($f40_canali_inserimento); die;
                         if (!in_array($key, $canali_file)) {
                             $newFile->addCanale($key);
-                            $canaleTemp = Canale::retrieveCanale($key);
+                            $canaleTemp = $channelRepo2->find($key);
                             $canaleTemp->setUltimaModifica(time(), true);
                         }
 

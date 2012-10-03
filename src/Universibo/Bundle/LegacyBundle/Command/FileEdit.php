@@ -60,7 +60,7 @@ class FileEdit extends UniversiboCommand
 
         if ($id_canale = $this->getRequest()->attributes->get('id_canale')) {
 
-            $canale = Canale::retrieveCanale($id_canale);
+            $canale = $channelRepo2->find($id_canale);
             if ($canale->getServizioFiles() == false)
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getId(),

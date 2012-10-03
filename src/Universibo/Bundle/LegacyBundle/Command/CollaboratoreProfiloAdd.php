@@ -57,7 +57,7 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
         //		for ($i = 0; $i<$num_canali; $i++)
         //		{
         //			$id_current_canale = $elenco_canali[$i];
-        //			$current_canale = Canale::retrieveCanale($id_current_canale);
+        //			$current_canale = $channelRepo2->find($id_current_canale);
         //			$nome_current_canale = $current_canale->getTitolo();
         //			$spunta = ($id_canale == $id_current_canale ) ? 'true' :'false';
         //			$f7_canale[] = array ('id_canale'=> $id_current_canale, 'nome_canale'=> $nome_current_canale, 'spunta'=> $spunta);

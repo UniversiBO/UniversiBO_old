@@ -53,7 +53,7 @@ class FileStudentiEdit extends UniversiboCommand
         $template->assign('fileEdit_fileUri', $router->generate('universibo_legacy_file', array('id_file' => $file->getIdFile())));
         $file_canali = $file->getIdCanali();
 
-        $canale = Canale::retrieveCanale($file_canali[0]);
+        $canale = $channelRepo2->find($file_canali[0]);
         $template->assign('common_canaleURI', $canale->showMe($router));
         $template->assign('common_langCanaleNome', 'a ' . $canale->getTitolo());
 
@@ -61,7 +61,7 @@ class FileStudentiEdit extends UniversiboCommand
         //		{
         //			Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non e` valido', 'file' => __FILE__, 'line' => __LINE__));
         //		}
-        //		$canale =  Canale::retrieveCanale($_GET['id_canale']);
+        //		$canale =  $channelRepo2->find($_GET['id_canale']);
         //		$id_canale = $canale->getIdCanale();
 
         $template
@@ -82,7 +82,7 @@ class FileStudentiEdit extends UniversiboCommand
                                 'msg' => 'L\'id del canale richiesto non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $canale = Canale::retrieveCanale($_GET['id_canale']);
+            $canale = $channelRepo2->find($_GET['id_canale']);
             if ($canale->getServizioFiles() == false)
                 Error::throwError(_ERROR_DEFAULT,
                         array('msg' => "Il servizio files e` disattivato",
@@ -144,7 +144,7 @@ class FileStudentiEdit extends UniversiboCommand
         //		for ($i = 0; $i<$num_canali; $i++)
         //		{
         //			$id_current_canale = $elenco_canali[$i];
-        //			$current_canale = Canale::retrieveCanale($id_current_canale);
+        //			$current_canale = $channelRepo2->find($id_current_canale);
         //			$nome_current_canale = $current_canale->getTitolo();
         //			$f24_canale[] = array ('nome_canale'=> $nome_current_canale);
         //		}
@@ -465,7 +465,7 @@ class FileStudentiEdit extends UniversiboCommand
                 $file->setParoleChiave($f24_parole_chiave);
 
                 foreach ($elenco_canali as $value) {
-                    $canale = Canale::retrieveCanale($value);
+                    $canale = $channelRepo2->find($value);
                     $canale->setUltimaModifica(time(), true);
                 }
 

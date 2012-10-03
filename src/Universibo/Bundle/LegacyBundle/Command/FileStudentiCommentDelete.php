@@ -64,7 +64,7 @@ class FileStudentiCommentDelete extends UniversiboCommand
                                 'msg' => 'L\'id del canale richiesto non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $canale = Canale::retrieveCanale($_GET['id_canale']);
+            $canale = $channelRepo2->find($_GET['id_canale']);
             $id_canale = $_GET['id_canale'];
             if ($canale->getServizioFilesStudenti() == false)
                 Error::throwError(_ERROR_DEFAULT,

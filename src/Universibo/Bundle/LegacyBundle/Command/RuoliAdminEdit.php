@@ -37,7 +37,7 @@ class RuoliAdminEdit extends UniversiboCommand
         if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
             Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getId(), 'msg' => 'L\'id del canale richiesto non e` valido', 'file' => __FILE__, 'line' => __LINE__));
 
-        $canale = Canale::retrieveCanale($_GET['id_canale']);
+        $canale = $channelRepo2->find($_GET['id_canale']);
         $id_canale = $canale->getIdCanale();
 
         if (!array_key_exists('id_utente', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_utente']))

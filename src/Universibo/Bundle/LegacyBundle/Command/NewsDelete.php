@@ -103,7 +103,7 @@ class NewsDelete extends CanaleCommand
         $num_canali = count($news_canali);
         for ($i = 0; $i < $num_canali; $i++) {
             $id_current_canale = $news_canali[$i];
-            $current_canale = &Canale::retrieveCanale($id_current_canale);
+            $current_canale = &$channelRepo2->find($id_current_canale);
             $nome_current_canale = $current_canale->getTitolo();
             if (in_array($id_current_canale, $news->getIdCanali())) {
                 $f9_canale[] = array('id_canale' => $id_current_canale,
@@ -129,7 +129,7 @@ class NewsDelete extends CanaleCommand
                                                     ->isModeratore() && $autore)));
                     if (!$diritti) {
                         //$user_ruoli[$key]->getIdCanale();
-                        $canale = &Canale::retrieveCanale($key);
+                        $canale = &$channelRepo2->find($key);
                         Error::throwError(_ERROR_NOTICE,
                                 array('id_utente' => $user->getId(),
                                         'msg' => 'Non possiedi i diritti di eliminazione nel canale: '
@@ -160,7 +160,7 @@ class NewsDelete extends CanaleCommand
             //cancellazione dai canali richiesti
             foreach ($f9_canale_app as $key => $value) {
                 $news->removeCanale($key);
-                //$canale = Canale::retrieveCanale($key);
+                //$canale = $channelRepo2->find($key);
             }
 
             $news->deleteNewsItem();
