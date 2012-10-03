@@ -1,5 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -37,7 +38,8 @@ class FileEdit extends UniversiboCommand
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
         $userId = $user instanceof User ? $user->getId() : 0;
 
-        $file = $this->get('universibo_legacy.repository.files.file_item')->find($this->getRequest()->attributes->get('id_file'));
+        $fileRepo = $this->get('universibo_legacy.repository.files.file_item');
+        $file = $fileRepo->find($this->getRequest()->attributes->get('id_file'));
 
         if (!$file instanceof FileItem) {
             throw new NotFoundHttpException('File not found');
@@ -100,10 +102,10 @@ class FileEdit extends UniversiboCommand
         // $f13_file = '';
         $f13_titolo = $file->getTitolo();
         $f13_abstract = $file->getDescrizione();
-        $f13_parole_chiave = $file->getParolechiave();
-        $f13_categorie = FileItem::getCategorie();
+        $f13_parole_chiave = $fileRepo->getKeyworkds($file->getIdFile());
+        $f13_categorie = $fileRepo->getCategories();
         $f13_categoria = $file->getIdCategoria();
-        $f13_tipi = FileItem::getTipi();
+        $f13_tipi = $fileRepo->getTypes();
         $f13_tipo = $file->getIdTipoFile();
         $f13_data_inserimento = $file->getDataInserimento();
         $f13_permessi_download = $file->getPermessiDownload();
@@ -113,11 +115,14 @@ class FileEdit extends UniversiboCommand
         $f13_password = '';
 
         //prendo tutti i canali tra i ruoli più (??) il canale corrente (che per l'admin puo` essere diverso)
-        $elenco_canali = $file->getIdCanali();
+        $elenco_canali = $fileRepo->getChannelIds($file);
         $num_canali = count($elenco_canali);
+
+        $channelRepo2 = $this->get('universibo_legacy.repository.canale2');
+
         for ($i = 0; $i < $num_canali; $i++) {
             $id_current_canale = $elenco_canali[$i];
-            $current_canale = Canale::retrieveCanale($id_current_canale);
+            $current_canale = $channelRepo2->find($id_current_canale);
             $nome_current_canale = $current_canale->getTitolo();
             $f13_canale[] = array('nome_canale' => $nome_current_canale);
         }
@@ -463,12 +468,13 @@ class FileEdit extends UniversiboCommand
                                             : FileItem::passwordHashFunction(
                                                     $f13_password));
 
-                $file->updateFileItem();
-                $file->setParoleChiave($f13_parole_chiave);
+                $fileRepo->update($file);
+                $fileRepo->updateKeywords($file->getIdFile(), $f13_parole_chiave);
 
                 foreach ($elenco_canali as $value) {
-                    $canale = Canale::retrieveCanale($value);
-                    $canale->setUltimaModifica(time(), true);
+                    $canale = $channelRepo2->find($value);
+                    $canale->setUltimaModifica(time(), false);
+                    $channelRepo2->updateUltimaModifica($canale);
                 }
 
                 $db->commit();

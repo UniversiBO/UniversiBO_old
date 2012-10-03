@@ -62,12 +62,14 @@ class FileAdd extends UniversiboCommand
         $referente = false;
         $moderatore = false;
 
+        $fileRepo = $this->get('universibo_legacy.repository.files.file_item');
+
         // valori default form
         $f12_file = '';
         $f12_titolo = '';
         $f12_abstract = '';
         $f12_parole_chiave = array();
-        $f12_categorie = FileItem::getCategorie();
+        $f12_categorie = $fileRepo->getCategories();
         $f12_categoria = 5;
         $f12_data_inserimento = time();
         $f12_permessi_download = '';
@@ -458,7 +460,7 @@ class FileAdd extends UniversiboCommand
                         $f12_titolo, $f12_abstract, $f12_data_inserimento,
                         time(), $dimensione_file, 0, $nome_file,
                         $f12_categoria,
-                        FileItem::guessTipo($_FILES['f12_file']['name']),
+                        FileItem::guessTipo($_FILES['f12_file']['name'], $fileRepo->getTypes()),
                         md5_file($_FILES['f12_file']['tmp_name']),
                         ($f12_password == null) ? $f12_password
                                 : FileItem::passwordHashFunction($f12_password),
@@ -468,9 +470,8 @@ class FileAdd extends UniversiboCommand
                 bisognerebbe non usare il costruttore per dover fare l'insert
                 ma...*/
 
-                $newFile->insertFileItem();
-
-                $newFile->setParoleChiave($f12_parole_chiave);
+                $fileRepo->insert($newFile);
+                $fileRepo->updateKeywords($newFile->getIdFile(), $f12_parole_chiave);
 
                 $nomeFile = $newFile->getNomeFile();
 

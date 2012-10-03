@@ -3,7 +3,6 @@ namespace Universibo\Bundle\LegacyBundle\Command\News;
 
 use Universibo\Bundle\CoreBundle\Entity\User;
 
-use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
 
 /**
@@ -83,7 +82,8 @@ class ShowNews extends PluginCommand
             $template->assign('showNews_langNewsAvailableFlag', 'true');
         }
 
-        $elenco_news = NewsItem::selectNewsItems($elenco_id_news);
+        $newsRepo = $this->get('universibo_legacy.repository.news.news_item');
+        $elenco_news = $newsRepo->findMany($elenco_id_news);
 
         $elenco_news_tpl = array();
 

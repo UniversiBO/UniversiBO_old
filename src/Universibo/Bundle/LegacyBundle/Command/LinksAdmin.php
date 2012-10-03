@@ -1,5 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use Universibo\Bundle\CoreBundle\Entity\User;
 
 use Universibo\Bundle\LegacyBundle\Framework\Error;
@@ -40,7 +42,12 @@ class LinksAdmin extends UniversiboCommand
         $ruoli = array();
         $arrayPublicUsers = array();
 
-        $canale = Canale::retrieveCanale($idCanale);
+        $channelRepo2 = $this->get('universibo_legacy.repository.canale2');
+        $canale = $channelRepo2->find($idCanale);
+
+        if (!$canale instanceof Canale) {
+            throw new NotFoundHttpException('Channel not found');
+        }
         $id_canale = $canale->getIdCanale();
 
         $template->assign('common_canaleURI', $canale->showMe($router));

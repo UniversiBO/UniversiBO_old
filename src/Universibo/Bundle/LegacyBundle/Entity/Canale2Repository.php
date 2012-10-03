@@ -71,6 +71,15 @@ class Canale2Repository extends DoctrineRepository
     }
 
     /**
+     * @param  Canale  $canale
+     * @return boolean
+     */
+    public function updateUltimaModifica(Canale $canale)
+    {
+        return $this->channelRepository->updateUltimaModifica($canale);
+    }
+
+    /**
      * @param  int        $id
      * @throws \Exception
      * @return Canale
