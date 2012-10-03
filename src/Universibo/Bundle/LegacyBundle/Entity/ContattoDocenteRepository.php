@@ -137,12 +137,15 @@ class ContattoDocenteRepository extends DoctrineRepository
         if ($contattoDocente->getStato() != APERTO && $contattoDocente->getStato() != null) {
             $time	= time();
             $query	= 'UPDATE docente SET '
-            .' docente_contattato = '.$db->quote($time)
-            .' , id_mod = '.$db->quote($contattoDocente->getIdUtenteAssegnato())
-            .' WHERE cod_doc = '.$db->quote($contattoDocente->getCodDoc());
-            //echo $query;
-            $res = $db->executeQuery($query);
-            //var_dump($query);
+            .' docente_contattato = ?'
+            .' , id_mod = ?'
+            .' WHERE cod_doc = ?';
+
+            $res = $db->executeQuery($query, array(
+                    time(),
+                    $contattoDocente->getIdUtenteAssegnato(),
+                    $contattoDocente->getCodDoc()
+            ));
         }
     }
 }

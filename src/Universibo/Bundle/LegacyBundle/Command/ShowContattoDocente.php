@@ -168,7 +168,7 @@ class ShowContattoDocente extends UniversiboCommand
                 if ($f35_id_username != 'null') {
                     $notifica_mod = true;
                     $assigned = $this->get('universibo_core.repository.user')->find($f35_id_username);
-                    $contatto->assegna($assigned->getUsername(), $user->getUsername());
+                    $contatto->assegna($assigned->getUsername(),$assigned->getId(),$user->getUsername());
                 }
             }
 
