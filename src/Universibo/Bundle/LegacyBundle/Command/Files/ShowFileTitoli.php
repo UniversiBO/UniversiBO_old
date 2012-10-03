@@ -1,5 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command\Files;
+
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
@@ -87,13 +88,9 @@ class ShowFileTitoli extends PluginCommand
 
         $elenco_id_file = $this->getFileCanale($id_canale);
 
-        //var_dump($elenco_id_file); die();
-        $elenco_file = FileItem::selectFileItems($elenco_id_file);
+        $elenco_file = $this->get('universibo_legacy.repository.files.file_item')->findManyById($elenco_id_file);
         usort($elenco_file, array($this, '_compareFile'));
 
-        //var_dump($elenco_file); die();
-
-        //$elenco_categorie_file_tpl = array();
         $categorie_tpl = array();
         $elenco_file_tpl = array();
 

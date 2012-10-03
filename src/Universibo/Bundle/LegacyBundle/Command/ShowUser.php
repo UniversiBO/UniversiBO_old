@@ -53,13 +53,14 @@ class ShowUser extends UniversiboCommand
         $router = $this->get('router');
 
         $arrayRuoli = $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId());
+        $channelRepo2 = $this->get('universibo_legacy.repository.canale2');
         $canali = array();
         $arrayCanali = array();
         $keys = array_keys($arrayRuoli);
         foreach ($keys as $key) {
             $ruolo = $arrayRuoli[$key];
             if ($ruolo->isMyUniversibo()) {
-                $canale = Canale::retrieveCanale($ruolo->getIdCanale());
+                $canale = $channelRepo2->find($ruolo->getIdCanale());
                 if ($canale->isGroupAllowed($current_user->getLegacyGroups())) {
                     $canali = array();
                     $canali['uri'] = $canale->showMe($router);

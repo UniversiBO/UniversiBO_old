@@ -73,8 +73,10 @@ abstract class CanaleCommand extends UniversiboCommand
      */
     public function _setUpCanaleCanale()
     {
+        $channelRepo = $this->get('universibo_legacy.repository.canale');
+        $channelRepo2 = $this->get('universibo_legacy.repository.canale2');
 
-        $this->requestCanale = Canale::retrieveCanale($this->getRequestIdCanale());
+        $this->requestCanale = $channelRepo2->find($this->getRequestIdCanale());
 
         //$this->requestCanale = $class_name::factoryCanale( $this->getRequestIdCanale() );
 
@@ -89,7 +91,7 @@ abstract class CanaleCommand extends UniversiboCommand
             throw new \Exception('Not allowed id_canale = '.$canale->getIdCanale().', groups = '.$groups);
         }
 
-        $canale->addVisite();
+        $channelRepo->addVisite($canale);
     }
 
     /**
@@ -129,7 +131,7 @@ abstract class CanaleCommand extends UniversiboCommand
         $template->assign( 'common_langCanaleNome', $canale->getNome());
         $template->assign( 'common_canaleURI', $canale->showMe($router));
 
-        if ($canale->getTipoCanale() != CANALE_HOME) {
+        if ($canale->getTipoCanale() != Canale::HOME) {
             $template->assign('common_title', 'UniversiBO: '.$canale->getTitolo());
         }
 
@@ -144,10 +146,12 @@ abstract class CanaleCommand extends UniversiboCommand
     {
         $id_canale = $this->getRequestIdCanale();
         $user = $this->get('security.context')->getToken()->getUser();
-        $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
+        $roleRepo = $this->get('universibo_legacy.repository.ruolo');
+        $user_ruoli = $user instanceof User ? $roleRepo->findByIdUtente($user->getId()) : array();
 
         if (array_key_exists($id_canale, $user_ruoli)) {
-            $user_ruoli[$id_canale]->updateUltimoAccesso(time(), true);
+            $user_ruoli[$id_canale]->updateUltimoAccesso(time(), false);
+            $roleRepo->updateUltimoAccesso($user_ruoli[$id_canale]);
         }
     }
 
@@ -170,7 +174,7 @@ abstract class CanaleCommand extends UniversiboCommand
             $attivaModificaDiritti = $this->get('security.context')->isGranted('ROLE_ADMIN');
 
             $arrayPublicUsers = array();
-            $arrayRuoli = $canale->getRuoli();
+            $arrayRuoli = $this->get('universibo_legacy.repository.ruolo')->findByIdCanale($canale->getIdCanale());
             //var_dump($arrayRuoli);
             $keys = array_keys($arrayRuoli);
             foreach ($keys as $key) {

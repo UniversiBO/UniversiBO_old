@@ -45,8 +45,8 @@ class Canale2Repository extends DoctrineRepository
      */
     public function __construct(Connection $db,
             CanaleRepository $channelRepository,
-            DBCdlRepository $cdlRepository,
-            DBFacoltaRepository $facultyRepository, DBInsegnamentoRepository $subjectRepository, $convert = False)
+            CdlRepository $cdlRepository,
+            FacoltaRepository $facultyRepository, InsegnamentoRepository $subjectRepository, $convert = False)
     {
         parent::__construct($db);
 

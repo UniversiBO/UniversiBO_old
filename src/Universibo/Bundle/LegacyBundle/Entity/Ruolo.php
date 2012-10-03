@@ -181,7 +181,7 @@ class Ruolo
         $this->setNome($nome);
 
         if ($updateDB) {
-            throw new \InvalidParameterException('$updateDB must be false');
+            throw new \InvalidArgumentException('$updateDB must be false');
         }
 
         return true;
@@ -214,7 +214,7 @@ class Ruolo
         $this->setUltimoAccesso($ultimoAccesso);
 
         if ($updateDB) {
-            throw new \InvalidParameterException('$updateDB must be false');
+            throw new \InvalidArgumentException('$updateDB must be false');
         }
 
         return true;
@@ -269,7 +269,7 @@ class Ruolo
         $this->setTipoNotifica($tipoNotifica);
 
         if ($updateDB) {
-            throw new \InvalidParameterException('$updateDB must be false');
+            throw new \InvalidArgumentException('$updateDB must be false');
         }
 
         return true;
@@ -302,7 +302,7 @@ class Ruolo
         $this->setModeratore($moderatore);
 
         if ($updateDB) {
-            throw new \InvalidParameterException('$updateDB must be false');
+            throw new \InvalidArgumentException('$updateDB must be false');
         }
 
         return true;
@@ -345,7 +345,7 @@ class Ruolo
         $this->setReferente($referente);
 
         if ($updateDB) {
-            throw new \InvalidParameterException('$updateDB must be false');
+            throw new \InvalidArgumentException('$updateDB must be false');
         }
 
         return true;
@@ -390,7 +390,7 @@ class Ruolo
         $this->myUniversibo = $my_universibo;
 
         if ($updateDB) {
-            throw new \InvalidParameterException('$updateDB must be false');
+            throw new \InvalidArgumentException('$updateDB must be false');
         }
 
         return true;

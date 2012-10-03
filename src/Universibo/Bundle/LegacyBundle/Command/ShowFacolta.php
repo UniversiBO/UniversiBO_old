@@ -1,5 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+
 use Universibo\Bundle\CoreBundle\Entity\User;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -49,7 +50,7 @@ class ShowFacolta extends CanaleCommand
         //@todo fatto sopra
         $facolta = $this->getRequestCanale();
 
-        $elencoCdl = Cdl::selectCdlElencoFacolta($facolta->getCodiceFacolta());
+        $elencoCdl = $this->get('universibo_legacy.repository.cdl')->findByFacolta($facolta->getCodiceFacolta());
 
         $num_cdl = count($elencoCdl);
         $cdlType = NULL;
