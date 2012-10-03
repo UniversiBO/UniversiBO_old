@@ -5,7 +5,6 @@ use Universibo\Bundle\LegacyBundle\Entity\CanaleRepository;
 
 use Doctrine\DBAL\Connection;
 
-use \DB;
 use Universibo\Bundle\LegacyBundle\Entity\Commenti\CommentoItem;
 use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;

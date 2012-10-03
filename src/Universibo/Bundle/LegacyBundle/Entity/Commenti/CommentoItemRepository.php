@@ -1,6 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Commenti;
-use \DB;
+
 use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
 
 /**

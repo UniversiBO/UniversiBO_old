@@ -3,8 +3,6 @@
 namespace Universibo\Bundle\LegacyBundle\Entity;
 use Doctrine\DBAL\Connection;
 
-use \DB;
-
 /**
  * Canale repository
  *

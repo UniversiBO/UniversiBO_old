@@ -1,8 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
-use \DB;
-
 /**
  * @todo Informativa Entity
  */
