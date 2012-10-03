@@ -218,7 +218,7 @@ class Canale
         $this->ultimaModifica = $timestamp;
 
         if ($updateDB) {
-            throw new \InvalidParameterException('$updateDB must be false');
+            throw new \InvalidArgumentException('$updateDB must be false');
         }
 
         return true;

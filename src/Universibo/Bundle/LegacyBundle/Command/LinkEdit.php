@@ -37,7 +37,9 @@ class LinkEdit extends CanaleCommand
         $moderatore = false;
 
         $id_canale = $this->getRequest()->get('id_canale');
-        $canale = $this->get('universibo_legacy.repository.canale')->find($id_canale);
+        $channelRepo = $this->get('universibo_legacy.repository.canale');
+        $linkRepo = $this->get('universibo_legacy.repository.links.link');
+        $canale = $channelRepo->find($id_canale);
         if (!$canale instanceof Canale) {
             throw new NotFoundHttpException('Channel with id='.$id_canale.' not found');
         }
@@ -166,8 +168,10 @@ class LinkEdit extends CanaleCommand
                 $linkItem = new Link($id_link, $id_canale,
                         $user->getId(), $f31_URI, $f31_Label,
                         $f31_Description);
-                $linkItem->updateLink();
-                $canale->setUltimaModifica(time(), true);
+
+                $linkRepo->update($linkItem);
+                $canale->setUltimaModifica(time());
+                $channelRepo->updateUltimaModifica($canale);
 
                 return 'success';
             }

@@ -29,9 +29,11 @@ class NewsAdd extends CanaleCommand
         $user = $this->get('security.context')->getToken()->getUser();
         $canale = $this->getRequestCanale();
         $ruoloRepo = $this->get('universibo_legacy.repository.ruolo');
+        $channelRepo = $this->get('universibo_legacy.repository.canale2');
         $user_ruoli = $user instanceof User ? $ruoloRepo->findByIdUtente($user->getId()) : array();
         $userId = $user instanceof User ? $user->getId() : 0;
         $id_canale = $canale->getIdCanale();
+        $newsRepo = $this->get('universibo_legacy.repository.news.news_item');
         $router = $this->get('router');
         //		var_dump($user_ruoli);die;
         $referente = false;
@@ -392,7 +394,7 @@ class NewsAdd extends CanaleCommand
                                                     ->isModeratore()));
                     if (!$diritti) {
                         //$user_ruoli[$key]->getIdCanale();
-                        $canale = Canale::retrieveCanale($key);
+                        $canale = $channelRepo2->find($key);
                         Error::throwError(_ERROR_NOTICE,
                                 array('id_utente' => $user->getId(),
                                         'msg' => 'Non possiedi i diritti di inserimento nel canale: '
@@ -420,15 +422,16 @@ class NewsAdd extends CanaleCommand
                         $data_inserimento, $data_scadenza, $data_inserimento,
                         $f7_urgente, false, $user->getId(),
                         $user->getUsername());
-                $notizia->insertNewsItem();
+                $newsRepo->insert($notizia);
 
                 //$num_canali = count($f7_canale);
                 //var_dump($f7_canale);
                 //var_dump($_POST['f7_canale']);
                 foreach ($_POST['f7_canale'] as $key => $value) {
-                    $notizia->addCanale($key);
-                    $add_canale = Canale::retrieveCanale($key);
-                    $add_canale->setUltimaModifica(time(), true);
+                    $newsRepo->addToChannel($notizia, $key);
+                    $add_canale = $channelRepo->find($key);
+                    $add_canale->setUltimaModifica(time(), false);
+                    $channelRepo->updateUltimaModifica($add_canale);
 
                     //notifiche
                     $notifica_titolo = 'Nuova notizia inserita in '
@@ -465,7 +468,10 @@ Per altri problemi contattare lo staff di UniversiBO
                             0, 160);
 
                     $userRepo = $this->get('universibo_website.repository.user');
-                    $ruoli_canale = $add_canale->getRuoli();
+                    $roleRepo = $this->get('universibo_legacy.repository.ruolo');
+                    $notificaRepo = $this->get('universibo_legacy.repository.notifica.notifica_item');
+
+                    $ruoli_canale = $roleRepo->findByIdCanale($add_canale->getIdCanale());
                     foreach ($ruoli_canale as $ruolo_canale) {
                         //la seguente riga l'ho copiata dal diff del deploy precedente
                         //in seguito ad una segnalazione di errore da parte di un tutor
@@ -488,7 +494,7 @@ Per altri problemi contattare lo staff di UniversiBO
                                     $notifica_messaggio, $notifica_dataIns,
                                     $notifica_urgente, $notifica_eliminata,
                                     $notifica_destinatario);
-                            $notifica->insertNotificaItem();
+                            $notificaRepo->insert($notifica);
                         }
                         if ($notifica_user->getPhone() != ''
                                 && $ruolo_canale->isMyUniversiBO()
@@ -506,7 +512,7 @@ Per altri problemi contattare lo staff di UniversiBO
                                     $notifica_messaggio_sms, $notifica_dataIns,
                                     $notifica_urgente, $notifica_eliminata,
                                     $notifica_destinatario);
-                            $notifica->insertNotificaItem();
+                            $notificaRepo->insert($notifica);
                         }
                     }
 
@@ -518,7 +524,7 @@ Per altri problemi contattare lo staff di UniversiBO
                             $notifica_messaggio, $notifica_dataIns,
                             $notifica_urgente, $notifica_eliminata,
                             $notifica_destinatario);
-                    $notifica->insertNotificaItem();
+                    $notificaRepo->insert($notifica);
                 }
 
                 return 'success';

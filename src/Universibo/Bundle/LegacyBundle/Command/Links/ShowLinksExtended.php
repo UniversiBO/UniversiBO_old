@@ -37,7 +37,9 @@ class ShowLinksExtended extends PluginCommand
 
         $bc        = $this->getBaseCommand();
         $user      = $bc->get('security.context')->getToken()->getUser();
-        $canale    = Canale::retrieveCanale($id_canale);
+        $channelRepo2 = $this->get('universibo_legacy.repository.canale2');
+
+        $canale    = $channelRepo2->find($id_canale);
         $fc        = $bc->getFrontController();
         $template  = $fc->getTemplateEngine();
         //BUG strano: se passo per riferimento l'array dei ruoli, si modifica il session user di universibo_command
@@ -65,7 +67,10 @@ class ShowLinksExtended extends PluginCommand
             $ultimo_accesso = $user->getLastLogin()->getTimestamp();
         }
 
-        $lista_links = Link::selectCanaleLinks($id_canale);
+        $linkRepo = $this->get('universibo_legacy.repository.links.link');
+        $userRepo = $this->get('universibo_core.repository.user');
+
+        $lista_links = $linkRepo->findByChannelId($id_canale);
 
         $ret_links = count($lista_links);
         $elenco_links_tpl = array();
@@ -77,7 +82,7 @@ class ShowLinksExtended extends PluginCommand
             $elenco_links_tpl[$i]['label']      	= $links->getLabel();
             $elenco_links_tpl[$i]['description']    = $links->getDescription();
             $elenco_links_tpl[$i]['userlink']    = $router->generate('universibo_legacy_user', array('id_utente' => $links->getIdUtente()));
-            $elenco_links_tpl[$i]['user']    = $links->getUsername();
+            $elenco_links_tpl[$i]['user']    = $userRepo->find($links->getIdUtente());
 
             $elenco_links_tpl[$i]['tipo'] = ($links->isInternalLink()) ? "interno" : "esterno";
 

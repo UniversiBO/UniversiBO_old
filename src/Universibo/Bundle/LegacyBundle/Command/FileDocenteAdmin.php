@@ -1,5 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+
 use Universibo\Bundle\CoreBundle\Entity\User;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -34,12 +35,14 @@ class FileDocenteAdmin extends UniversiboCommand
         $krono = $frontcontroller->getKrono();
         $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
-
+        $router = $this->get('router');
         $context = $this->get('security.context');
 
         if (!$context->isGranted('ROLE_ADMIN') && !$context->isGranted('ROLE_PROFESSOR')) {
             return new Response('', 403);
         }
+
+        $channelRepo2 = $this->get('universibo_legacy.repository.canale2');
 
         $template->assign('common_canaleURI',
                         array_key_exists('HTTP_REFERER', $_SERVER) ? $_SERVER['HTTP_REFERER']
@@ -51,13 +54,13 @@ class FileDocenteAdmin extends UniversiboCommand
         $f40_canale = array();
 
         $elenco_canali = array();
-        $id_canale = '';
-        if (array_key_exists('id_canale', $_GET)) {
-            if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
-                throw new NotFoundHttpException('Invalid Channel ID');
-            }
+        $id_canale = $this->getRequest()->attributes->get('id_canale');
 
-            $canale = Canale::retrieveCanale($_GET['id_canale']);
+
+        if ($id_canale !== null) {
+            if (!($canale = $channelRepo2->find($id_canale)) instanceof Canale) {
+                throw new NotFoundHttpException('Channel not found');
+            }
 
             if ($canale->getServizioFiles() == false)
                 Error::throwError(_ERROR_DEFAULT,
@@ -80,7 +83,7 @@ class FileDocenteAdmin extends UniversiboCommand
 
         foreach ($elenco_canali as $id_current_canale) {
 
-            $current_canale = Canale::retrieveCanale($id_current_canale);
+            $current_canale = $channelRepo2->find($id_current_canale);
             $elenco_canali_retrieve[$id_current_canale] = $current_canale;
             $didatticaCanale = PrgAttivitaDidattica::factoryCanale(
                     $id_current_canale);
@@ -213,12 +216,12 @@ class FileDocenteAdmin extends UniversiboCommand
                 //var_dump($f40_canale);
 
                 foreach ($f40_file_inserimento as $newFile) {
-                    $canali_file = &$newFile->getIdCanali();
+                    $canali_file = $newFile->getIdCanali();
                     foreach ($f40_canali_inserimento as $key) {
                         //							var_dump($f40_canali_inserimento); die;
                         if (!in_array($key, $canali_file)) {
                             $newFile->addCanale($key);
-                            $canaleTemp = Canale::retrieveCanale($key);
+                            $canaleTemp = $channelRepo2->find($key);
                             $canaleTemp->setUltimaModifica(time(), true);
                         }
 

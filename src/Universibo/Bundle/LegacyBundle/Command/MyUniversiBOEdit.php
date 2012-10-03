@@ -1,5 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Universibo\Bundle\CoreBundle\Entity\User;
@@ -44,7 +45,13 @@ class MyUniversiBOEdit extends UniversiboCommand
             throw new NotFoundHttpException('Channel not found');
         }
 
-        $canale = Canale::retrieveCanale($id_canale);
+        $channelRepo2 = $this->get('universibo_legacy.repository.canale2');
+        $canale = $channelRepo2->find($id_canale);
+
+        if (!$canale instanceof Canale) {
+            throw new NotFoundHttpException('Channel not found');
+        }
+
         $template->assign('common_canaleURI', $canale->showMe($router));
         $template->assign('common_langCanaleNome', $canale->getNome());
 
@@ -57,6 +64,8 @@ class MyUniversiBOEdit extends UniversiboCommand
 
         $ruolo = $ruoli[$id_canale];
         $this->executePlugin('ShowTopic', array('reference' => 'myuniversibo'));
+
+        $roleRepo = $this->get('universibo_legacy.repository.ruolo');
 
         if (array_key_exists($id_canale, $ruoli)) {
             $f19_livelli_notifica = Ruolo::getLivelliNotifica();
@@ -102,10 +111,10 @@ class MyUniversiBOEdit extends UniversiboCommand
                     $ruolo->updateNome($f19_nome);
                     $ruolo->updateTipoNotifica($f19_livello_notifica);
 
-                    $ruolo->updateRuolo();
-                    $canale = Canale::retrieveCanale($id_canale);
+                    $roleRepo->update($ruolo);
+                    $canale = $channelRepo2->find($id_canale);
                     $template->assign('showUser', $router->generate('universibo_legacy_user', array('id_utente' => $utente->getId())));
-                    if ($canale->getTipoCanale() == CANALE_INSEGNAMENTO) {
+                    if ($canale->getTipoCanale() == Canale::INSEGNAMENTO) {
                         //troverò un modo per ottenere il cdl! lo giuro!!!
                         // ^ peccato che tu non ti sia firmato... SbiellONE
                     }

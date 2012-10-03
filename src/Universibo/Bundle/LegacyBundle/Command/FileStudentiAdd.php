@@ -1,5 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
@@ -53,7 +54,7 @@ class FileStudentiAdd extends UniversiboCommand
                     Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non ? valido', 'file' => __FILE__, 'line' => __LINE__));
                 }
 
-                $canale = & Canale::retrieveCanale($_GET['id_canale']);
+                $canale = & $channelRepo2->find($_GET['id_canale']);
                 $id_canale = $canale->getIdCanale();
                 $template->assign('common_canaleURI', $canale->showMe($router));
                 $template->assign('common_langCanaleNome', $canale->getTitolo());
@@ -66,13 +67,15 @@ class FileStudentiAdd extends UniversiboCommand
 
         $referente = false;
         $moderatore = false;
+        $fileRepo = $this->get('universibo_legacy.repository.files.file_item');
+        $fileRepos = $this->get('universibo_legacy.repository.files.file_item_studenti');
 
         // valori default form
         $f23_file = '';
         $f23_titolo = '';
         $f23_abstract = '';
         $f23_parole_chiave = array();
-        $f23_categorie = FileItem::getCategorie();
+        $f23_categorie = $fileRepo->getCategories();
         $f23_categoria = 5;
         $f23_data_inserimento = time();
         $f23_permessi_download = '';
@@ -123,7 +126,7 @@ class FileStudentiAdd extends UniversiboCommand
         //		for ($i = 0; $i<$num_canali; $i++)
         //		{
         //			$id_current_canale = $elenco_canali[$i];
-        //			$current_canale = Canale::retrieveCanale($id_current_canale);
+        //			$current_canale = $channelRepo2->find($id_current_canale);
         //			$elenco_canali_retrieve[$id_current_canale] = $current_canale;
         //			$nome_current_canale = $current_canale->getTitolo();
         //			$spunta = ($id_canale == $id_current_canale ) ? 'true' :'false';
@@ -463,7 +466,7 @@ class FileStudentiAdd extends UniversiboCommand
                         $f23_permessi_visualizza, $user->getId(), $f23_titolo,
                         $f23_abstract, $f23_data_inserimento, time(),
                         $dimensione_file, 0, $nome_file, $f23_categoria,
-                        FileItem::guessTipo($_FILES['f23_file']['name']),
+                        FileItem::guessTipo($_FILES['f23_file']['name'], $fileRepo->getTypes()),
                         md5_file($_FILES['f23_file']['tmp_name']), null, '',
                         '', '', '', '');
                 /* gli ultimi parametri dipendono da altre tabelle e
@@ -471,9 +474,8 @@ class FileStudentiAdd extends UniversiboCommand
                  bisognerebbe non usare il costruttore per dover fare l'insert
                  ma...*/
 
-                $newFile->insertFileItem();
-
-                $newFile->setParoleChiave($f23_parole_chiave);
+                $fileRepo->insert($newFile);
+                $fileRepo->updateKeywords($newFile->getIdFile(), $f23_parole_chiave);
 
                 $nomeFile = $newFile->getNomeFile();
 
@@ -508,14 +510,16 @@ class FileStudentiAdd extends UniversiboCommand
                 //$num_canali = count($f23_canale);
                 //var_dump($f23_canale);
 
-                $newFile->addCanale($canale->getIdCanale());
-                $canale->setUltimaModifica(time(), true);
+                $fileRepo->addToChannel($newFile, $canale->getIdCanale());
+                $canale->setUltimaModifica(time(), false);
+                $this->get('universibo_legacy.repository.canale')->updateUltimaModifica($canale);
 
                 //Ricerco solo i referenti/moderatori per il canale
 
                 $userRepo = $this->get('universibo_website.repository.user');
+                $roleRepo = $this->get('universibo_legacy.repository.ruolo');
 
-                $arrayRuoli = $canale->getRuoli();
+                $arrayRuoli = $roleRepo->findByIdCanale($canale->getIdCanale());
                 $keys = array_keys($arrayRuoli);
                 $arrayEmailRef = array();
                 $i = 0;
@@ -540,6 +544,8 @@ class FileStudentiAdd extends UniversiboCommand
                         $i++;
                     }
                 }
+
+                $notificaRepo = $this->get('universibo_legacy.repository.notifica.notifica_item');
 
                 //						var_dump($arrayEmailRef);
                 //						die();
@@ -583,7 +589,7 @@ Link: '
                             $notifica_messaggio, $notifica_dataIns,
                             $notifica_urgente, $notifica_eliminata,
                             $notifica_destinatario);
-                    $notifica->insertNotificaItem();
+                    $notificaRepo->insert($notifica);
                 }
                 //
                 //						//ultima notifica all'archivio

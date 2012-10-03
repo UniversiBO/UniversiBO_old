@@ -50,7 +50,7 @@ class InfoDidatticaEdit extends UniversiboCommand
                             'file' => __FILE__, 'line' => __LINE__));
 
         $info_didattica = InfoDidattica::retrieveInfoDidattica($id_canale);
-        $insegnamento = Canale::retrieveCanale($id_canale);
+        $insegnamento = $channelRepo2->find($id_canale);
 
         $template->assign('common_canaleURI', $insegnamento->showMe($router));
         $template

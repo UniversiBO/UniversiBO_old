@@ -33,6 +33,7 @@ class ShowContattoDocente extends UniversiboCommand
         $userId = $user instanceof User ? $user->getId() : 0;
         $router = $this->get('router');
         $userRepo = $this->get('universibo_core.repository.user');
+        $notificaRepo = $this->get('universibo_legacy.repository.notifica.notifica_item');
 
         $context = $this->get('security.context');
 
@@ -205,7 +206,7 @@ Link: ' . $router->generate('universibo_legacy_contact_professor', array('cod_do
                         $notifica_messaggio, $notifica_dataIns,
                         $notifica_urgente, $notifica_eliminata,
                         $notifica_destinatario);
-                $notifica->insertNotificaItem();
+                $notificaRepo->insert($notifica);
             }
 
             //ultima notifica al responsabile contatto docenti
@@ -214,7 +215,7 @@ Link: ' . $router->generate('universibo_legacy_contact_professor', array('cod_do
             $notifica = new NotificaItem(0, $notifica_titolo,
                     $notifica_messaggio, $notifica_dataIns, $notifica_urgente,
                     $notifica_eliminata, $notifica_destinatario);
-            $notifica->insertNotificaItem();
+            $notificaRepo->insert($notifica);
         }
 
         $template->assign('f35_collab_list', $f35_collab_list);

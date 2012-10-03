@@ -63,7 +63,7 @@ class ContattoDocenteAdd extends UniversiboCommand
         //		var_dump($_SERVER); die;
         if (array_key_exists('id_canale', $_GET)
                 && preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
-            $canale = &Canale::retrieveCanale($_GET['id_canale']);
+            $canale = &$channelRepo2->find($_GET['id_canale']);
             if ($canale) {
                 $id_canale = $canale->getIdCanale();
                 $template->assign('common_canaleURI', $canale->showMe($router));

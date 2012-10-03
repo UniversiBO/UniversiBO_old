@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
+use Doctrine\DBAL\Connection;
+
 use Universibo\Bundle\CoreBundle\Entity\User;
 
 /**
@@ -11,6 +13,17 @@ use Universibo\Bundle\CoreBundle\Entity\User;
  */
 class RuoloRepository extends DoctrineRepository
 {
+    private $channelRepository;
+    private $didatticaRepository;
+
+    public function __construct(Connection $conn, Canale2Repository $channelRepository, PrgAttivitaDidatticaRepository $didatticaRepository)
+    {
+        parent::__construct($conn);
+
+        $this->channelRepository = $channelRepository;
+        $this->didatticaRepository = $didatticaRepository;
+    }
+
     public function delete(Ruolo $ruolo)
     {
         $db = $this->getConnection();
@@ -192,11 +205,8 @@ class RuoloRepository extends DoctrineRepository
         $query = 'SELECT id_utente, id_canale FROM utente_canale WHERE id_utente = '.$db->quote($idUtente).' AND id_canale= '.$db->quote($idCanale);
         $res = $db->executeQuery($query);
         $rows = $res->rowCount();
-        if ($rows >= 1) {
-            return false;
-        }
 
-        return true;
+        return $rows >= 1;
     }
 
     public function findByIdUtente($idUtente)
@@ -244,10 +254,9 @@ class RuoloRepository extends DoctrineRepository
         $elenco_canali_retrieve = array();
 
         foreach ($elenco_canali as $id_current_canale) {
-            $current_canale = Canale::retrieveCanale($id_current_canale);
+            $current_canale = $this->channelRepository->find($id_current_canale);
             $elenco_canali_retrieve[$id_current_canale] = $current_canale;
-            $didatticaCanale = PrgAttivitaDidattica::factoryCanale(
-                    $id_current_canale);
+            $didatticaCanale = $this->didatticaRepository->find($id_current_canale);
             // var_dump($didatticaCanale);
             $annoCorso = (count($didatticaCanale) > 0) ? $didatticaCanale[0]
             ->getAnnoAccademico() : 'altro';

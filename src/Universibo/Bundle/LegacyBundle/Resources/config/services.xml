@@ -186,7 +186,8 @@
 		<service id="universibo_legacy.repository.ruolo"
 			class="Universibo\Bundle\LegacyBundle\Entity\RuoloRepository">
 			<argument type="service" id="doctrine.dbal.default_connection" />
-			<argument>true</argument>
+			<argument type="service" id="universibo_legacy.repository.canale2" />
+			<argument type="service" id="universibo_legacy.repository.programma" />
 		</service>
 
 		<service id="universibo_legacy.repository.user" alias="universibo_website.repository.user"/>

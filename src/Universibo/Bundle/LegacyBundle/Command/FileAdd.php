@@ -48,7 +48,7 @@ class FileAdd extends UniversiboCommand
         Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getId(), 'msg' => 'L\'id del canale richiesto non ? valido', 'file' => __FILE__, 'line' => __LINE__));
         }
 
-        $canale = Canale::retrieveCanale($_GET['id_canale']);
+        $canale = $channelRepo2->find($_GET['id_canale']);
         $id_canale = $canale->getIdCanale();
         $template->assign('common_canaleURI', $canale->showMe($router));
         $template->assign('common_langCanaleNome', $canale->getTitolo());
@@ -62,12 +62,14 @@ class FileAdd extends UniversiboCommand
         $referente = false;
         $moderatore = false;
 
+        $fileRepo = $this->get('universibo_legacy.repository.files.file_item');
+
         // valori default form
         $f12_file = '';
         $f12_titolo = '';
         $f12_abstract = '';
         $f12_parole_chiave = array();
-        $f12_categorie = FileItem::getCategorie();
+        $f12_categorie = $fileRepo->getCategories();
         $f12_categoria = 5;
         $f12_data_inserimento = time();
         $f12_permessi_download = '';
@@ -83,7 +85,7 @@ class FileAdd extends UniversiboCommand
                                 'msg' => 'L\'id del canale richiesto non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $canale = Canale::retrieveCanale($_GET['id_canale']);
+            $canale = $channelRepo2->find($_GET['id_canale']);
 
             if ($canale->getServizioFiles() == false)
                 Error::throwError(_ERROR_DEFAULT,
@@ -399,7 +401,7 @@ class FileAdd extends UniversiboCommand
                                                     ->isModeratore()));
                     if (!$diritti) {
                         //$user_ruoli[$key]->getIdCanale();
-                        $canale = Canale::retrieveCanale($key);
+                        $canale = $channelRepo2->find($key);
                         Error::throwError(_ERROR_NOTICE,
                                 array('id_utente' => $user->getId(),
                                         'msg' => 'Non possiedi i diritti di inserimento nel canale: '
@@ -458,7 +460,7 @@ class FileAdd extends UniversiboCommand
                         $f12_titolo, $f12_abstract, $f12_data_inserimento,
                         time(), $dimensione_file, 0, $nome_file,
                         $f12_categoria,
-                        FileItem::guessTipo($_FILES['f12_file']['name']),
+                        FileItem::guessTipo($_FILES['f12_file']['name'], $fileRepo->getTypes()),
                         md5_file($_FILES['f12_file']['tmp_name']),
                         ($f12_password == null) ? $f12_password
                                 : FileItem::passwordHashFunction($f12_password),
@@ -468,9 +470,8 @@ class FileAdd extends UniversiboCommand
                 bisognerebbe non usare il costruttore per dover fare l'insert
                 ma...*/
 
-                $newFile->insertFileItem();
-
-                $newFile->setParoleChiave($f12_parole_chiave);
+                $fileRepo->insert($newFile);
+                $fileRepo->updateKeywords($newFile->getIdFile(), $f12_parole_chiave);
 
                 $nomeFile = $newFile->getNomeFile();
 
@@ -507,7 +508,7 @@ class FileAdd extends UniversiboCommand
                 if (array_key_exists('f12_canale', $_POST))
                     foreach ($_POST['f12_canale'] as $key => $value) {
                         $newFile->addCanale($key);
-                        $canale = Canale::retrieveCanale($key);
+                        $canale = $channelRepo2->find($key);
                         $canale->setUltimaModifica(time(), true);
 
                         //notifiche

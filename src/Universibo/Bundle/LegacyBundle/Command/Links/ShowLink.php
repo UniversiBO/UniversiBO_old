@@ -36,12 +36,14 @@ class ShowLink extends PluginCommand
         $bc        = $this->getBaseCommand();
         $user      = $bc->get('security.context')->getToken()->getUser();
         $canale    = $bc->getRequestCanale();
-//		$canale    = Canale::retrieveCanale($id_canale);
+//		$canale    = $channelRepo2->find($id_canale);
         $fc        = $bc->getFrontController();
         $template  = $fc->getTemplateEngine();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
         $router    = $this->get('router');
 
+        $linkRepo = $this->get('universibo_legacy.repository.links.link');
+        $userRepo = $this->get('universibo_core.repository.user');
 
         $id_canale = $canale->getIdCanale();
         $ultima_modifica_canale =  $canale->getUltimaModifica();
@@ -65,13 +67,13 @@ class ShowLink extends PluginCommand
             $ultimo_accesso = $user->getLastLogin()->getTimestamp();
         }
 
-        $link = Link::selectLink($id_link);
+        $link = $linkRepo->find($id_link);
 
         $link_tpl['uri']       		= $link->getUri();
         $link_tpl['label']      	= $link->getLabel();
         $link_tpl['description']    = $link->getDescription();
         $link_tpl['userlink']    = $router->generate('universibo_legacy_user', array('id_utente' => $link->getIdUtente()));
-        $link_tpl['user']    = $link->getUsername();
+        $link_tpl['user']    = $userRepo->find($link->getIdUtente())->getUsername();
 
 
         $template->assign('showSingleLink', $link_tpl);

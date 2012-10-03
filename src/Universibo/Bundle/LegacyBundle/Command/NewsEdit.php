@@ -1,5 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
 
 use Universibo\Bundle\LegacyBundle\Framework\Error;
@@ -29,7 +32,9 @@ class NewsEdit extends CanaleCommand
         $user = $this->get('security.context')->getToken()->getUser();
         $canale = $this->getRequestCanale();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
+        $userId = $user instanceof User ? $user->getId() : 0;
         $id_canale = $canale->getIdCanale();
+        $channelRepo2 = $this->get('universibo_legacy.repository.canale2');
 
         //diritti
         $referente = false;
@@ -50,27 +55,26 @@ class NewsEdit extends CanaleCommand
             $moderatore = $ruolo->isModeratore();
         }
 
-        $news = NewsItem::selectNewsItem($id_news);
-        if ($news == false)
-            Error::throwError(_ERROR_DEFAULT,
-                    array(
-                            'msg' => 'L\'id della notizia richiesta '
-                                    . $id_news . ' non e` valido',
-                            'file' => __FILE__, 'line' => __LINE__));
+        $newsRepo = $this->get('universibo_legacy.repository.news.news_item');
 
-        $autore = ($user->getId() == $news->getIdUtente());
+        $news = $newsRepo->find($id_news);
+        if (!$news instanceof NewsItem) {
+            throw new NotFoundHttpException('News not found');
+        }
+
+        $autore = ($userId == $news->getIdUtente());
 
         //controllo coerenza parametri
-        $canali_news = $news->getIdCanali();
+        $canali_news = $newsRepo->getChannelIdList($news);
         if (!in_array($id_canale, $canali_news))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
+                    array('id_utente' => $userId,
                             'msg' => 'I parametri passati non sono coerenti',
                             'file' => __FILE__, 'line' => __LINE__));
 
         if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || ($moderatore && $autore)))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
+                    array('id_utente' => $userId,
                             'msg' => "Non hai i diritti per modificare la notizia\n La sessione potrebbe essere scaduta",
                             'file' => __FILE__, 'line' => __LINE__));
 
@@ -127,11 +131,11 @@ class NewsEdit extends CanaleCommand
         //			$f8_canale[] = array ('id_canale' => $id_current_canale, 'nome_canale' => $nome_current_canale, 'spunta' => $spunta);
         //		}
 
-        $lista_canali = $news->getIdCanali();
+        $lista_canali = $newsRepo->getChannelIdList($news);
         $num_canali = count($lista_canali);
         for ($i = 0; $i < $num_canali; $i++) {
             $id_current_canale = $lista_canali[$i];
-            $current_canale = Canale::retrieveCanale($id_current_canale);
+            $current_canale = $channelRepo2->find($id_current_canale);
             $nome_current_canale = $current_canale->getTitolo();
             $f8_canale[] = array('nome_canale' => $nome_current_canale);
         }
@@ -476,7 +480,7 @@ class NewsEdit extends CanaleCommand
                 $news->setUltimaModifica(time());
                 //$news->setIdUtente($user->getId());
 
-                $news->updateNewsItem();
+                $newsRepo->update($news);
 
                 //$num_canali = count($f8_canale);
                 //var_dump($f8_canale);
@@ -491,7 +495,7 @@ class NewsEdit extends CanaleCommand
                 //					foreach ($_POST['f8_canale'] as $key => $value)
                 //					{
                 //						/*$news->addCanale($key);
-                //						$canale = Canale::retrieveCanale($key);
+                //						$canale = $channelRepo2->find($key);
                 //						$canale->setUltimaModifica(time(), true);*/
                 //						$spunta = ($id_current_canale == $key) ? 'true' : 'false';
                 //						if ($spunta == 'true')
@@ -503,7 +507,7 @@ class NewsEdit extends CanaleCommand
                 //				foreach ($f8_canale as $key => $value)
                 //				{
                 //					if ($value['spunta'] == 'true') $news->addCanale($value['id_canale']);
-                //					$canale = Canale::retrieveCanale($value['id_canale']);
+                //					$canale = $channelRepo2->find($value['id_canale']);
                 //					$canale->setUltimaModifica(time(), true);
                 //
                 //				}
@@ -511,7 +515,8 @@ class NewsEdit extends CanaleCommand
                 /**
                  * @todo l'ultima modifica influenza tutti i canali
                  */
-                $canale->setUltimaModifica(time(), true);
+                $canale->setUltimaModifica(time(), false);
+                $channelRepo2->updateUltimaModifica($canale);
 
                 $template
                         ->assign('NewsEdit_langSuccess',
