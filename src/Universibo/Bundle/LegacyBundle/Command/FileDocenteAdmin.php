@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Universibo\Bundle\LegacyBundle\Framework\Error;
-use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
@@ -81,12 +80,14 @@ class FileDocenteAdmin extends UniversiboCommand
         $elenco_canali_retrieve = array();
         $num_canali = count($elenco_canali);
 
+        $didatticaRepo = $this->get('universibo_legacy.repository.programma');
+        $fileRepo = $this->get('universibo_legacy.repository.files.file_item');
+
         foreach ($elenco_canali as $id_current_canale) {
 
             $current_canale = $channelRepo2->find($id_current_canale);
             $elenco_canali_retrieve[$id_current_canale] = $current_canale;
-            $didatticaCanale = PrgAttivitaDidattica::factoryCanale(
-                    $id_current_canale);
+            $didatticaCanale = $didatticaRepo->findByChannelId($id_current_canale);
             //			var_dump($didatticaCanale);
             $annoCorso = (count($didatticaCanale) > 0) ? $didatticaCanale[0]
                             ->getAnnoAccademico() : 'altro';
@@ -96,8 +97,8 @@ class FileDocenteAdmin extends UniversiboCommand
                     'spunta' => ($id_current_canale == $id_canale) ? 'true'
                             : 'false');
             $listaFile = array();
-            $lista = FileItem::selectFileItems(
-                    FileItem::selectFileCanale($id_current_canale));
+            $fileIds = $fileRepo->findIdByChannel($id_current_canale);
+            $lista = $fileRepo->findManyById($fileIds);
 
             if (!is_array($lista)) {
                 $lista = array();
