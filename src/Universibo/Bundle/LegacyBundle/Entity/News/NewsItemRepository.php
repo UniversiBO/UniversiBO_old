@@ -233,11 +233,7 @@ class NewsItemRepository extends DoctrineRepository
         $db = $this->getConnection();
         $query = 'INSERT INTO news_canale (id_news, id_canale) VALUES ('.$db->quote($news->getIdNotizia()).','.$db->quote($channelId).')';
 
-        $res = $db->executeQuery($query);
-
-        $ids = $news->getIdCanali();
-        $ids[] = $channelId;
-        $news->setIdCanali($ids);
+        $res = $db->executeUpdate($query);
 
         return true;
     }

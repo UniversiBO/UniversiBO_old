@@ -485,10 +485,6 @@ class FileItemRepository extends DoctrineRepository
 
         $res = $db->executeQuery($query);
 
-        $ids = $file->getIdCanali();
-        $ids[] = $channelId;
-        $file->setIdCanali($ids);
-
         return true;
     }
 

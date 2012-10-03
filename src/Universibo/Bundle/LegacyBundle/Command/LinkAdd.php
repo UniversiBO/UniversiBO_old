@@ -1,5 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
@@ -31,6 +32,8 @@ class LinkAdd extends UniversiboCommand
         $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
         $router = $this->get('router');
+        $linkRepo = $this->get('universibo_legacy.repository.links.link');
+        $channelRepo = $this->get('universibo_legacy.repository.canale');
 
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             Error::throwError(_ERROR_DEFAULT,
@@ -146,8 +149,9 @@ class LinkAdd extends UniversiboCommand
             if ($f29_accept === true) {
                 $linkItem = new Link(0, $id_canale, $user->getId(),
                         $f29_URI, $f29_Label, $f29_Description);
-                $linkItem->insertLink();
-                $canale->setUltimaModifica(time(), true);
+                $linkRepo->insert($linkItem);
+                $canale->setUltimaModifica(time(), false);
+                $channelRepo->updateUltimaModifica($canale);
 
                 return 'success';
             }
