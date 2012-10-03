@@ -49,7 +49,7 @@ class FileItemRepository extends DoctrineRepository
         $query = 'SELECT count(A.id_file) FROM file A, file_canale B
         WHERE A.id_file = B.id_file AND eliminato!='
         . $db->quote(FileItem::ELIMINATO) . 'AND B.id_canale = '
-        . $db->quote($id_canale) . '';
+        . $db->quote($channelId) . '';
         $res = $db->getOne($query);
 
         return $res;
@@ -62,9 +62,6 @@ class FileItemRepository extends DoctrineRepository
         }
 
         $db = $this->getConnection();
-        array_walk($channelIds, 'intval');
-
-        $values = implode(',', $channelIds);
 
         $qb = $db->createQueryBuilder();
 
@@ -87,8 +84,6 @@ class FileItemRepository extends DoctrineRepository
                 \PDO::PARAM_STR,
                 Connection::PARAM_INT_ARRAY
         ));
-
-        $rows = $res->rowCount();
 
         $ids = array();
 
@@ -245,14 +240,16 @@ class FileItemRepository extends DoctrineRepository
     {
         $db = $this->getConnection();
         $query = 'INSERT INTO file_keywords(id_file, keyword) VALUES ('.$db->quote($fileId).' , '.$db->quote($keyword) .');';
-        $res =  $db->executeQuery($query);
+
+        return $db->executeQuery($query);
     }
 
     public function removeKeyword($fileId, $keyword)
     {
         $db = $this->getConnection();
         $query = 'DELETE FROM file_keywords WHERE id_file = '.$db->quote($fileId).' AND keyword = '.$db->quote($keyword);
-        $res =$db->executeQuery($query);
+
+        return $db->executeQuery($query);
     }
 
     public function updateKeywords($fileId, array $keywords)
@@ -385,8 +382,7 @@ class FileItemRepository extends DoctrineRepository
         $db = $this->getConnection();
 
         $db->beginTransaction();
-        $return = true;
-        $eliminata = FileItem::NOT_ELIMINATO;
+
         $query = 'INSERT INTO file (permessi_download, permessi_visualizza, id_utente, titolo,
         descrizione, data_inserimento, data_modifica, dimensione, download,
         nome_file, id_categoria, id_tipo_file, hash_file, password, eliminato) VALUES '
@@ -407,7 +403,7 @@ class FileItemRepository extends DoctrineRepository
         . $db->quote($file->getPassword()) . ' , '
         . $db->quote(FileItem::NOT_ELIMINATO) . ' )';
 
-        $res = $db->executeQuery($query);
+        $db->executeUpdate($query);
         $file->setIdFile($db->lastInsertId('file_id_file_seq'));
 
         $db->commit();
@@ -418,7 +414,6 @@ class FileItemRepository extends DoctrineRepository
         $db = $this->getConnection();
 
         $db->beginTransaction();
-        $return = true;
         //$scadenza = ($this->getDataScadenza() == NULL) ? ' NULL ' : $db->quote($this->getDataScadenza());
         //$flag_urgente = ($this->isUrgente()) ? NEWS_URGENTE : NEWS_NOT_URGENTE;
         //$deleted = ($this->isEliminata()) ? NEWS_ELIMINATA : NEWS_NOT_ELIMINATA;
@@ -442,7 +437,7 @@ class FileItemRepository extends DoctrineRepository
         . ' , password = ' . $db->quote($file->getPassword())
         . ' WHERE id_file = ' . $db->quote($file->getIdFile());
         //echo $query;
-        $res = $db->executeQuery($query);
+        $db->executeUpdate($query);
         //var_dump($query);
         $db->commit();
     }
@@ -483,7 +478,7 @@ class FileItemRepository extends DoctrineRepository
         . $db->quote($file->getIdFile()) . ',' . $db->quote($channelId)
         . ')';
 
-        $res = $db->executeQuery($query);
+        $db->executeUpdate($query);
 
         return true;
     }
@@ -496,7 +491,7 @@ class FileItemRepository extends DoctrineRepository
         . $db->quote($channelId) . ' AND id_file='
         . $db->quote($file->getIdFile());
         //? da testare il funzionamento di =
-        $res = $db->executeQuery($query);
+        $db->executeUpdate($query);
 
         $file->setIdCanali($ids = array_diff($file->getIdCanali(),array($channelId)));
         if (count($ids) === 0) {
@@ -514,9 +509,9 @@ class FileItemRepository extends DoctrineRepository
             $query = 'UPDATE file SET eliminato  = '
             . $db->quote(FileItem::ELIMINATO) . ' WHERE id_file = '
             . $db->quote($file->getIdFile());
-            //echo $query;
-            $res = $db->executeQuery($query);
-            //var_dump($query);
+
+            $db->executeUpdate($query);
+
             return true;
         }
 

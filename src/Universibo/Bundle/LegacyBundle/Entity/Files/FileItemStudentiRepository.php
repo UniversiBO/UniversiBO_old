@@ -71,8 +71,6 @@ class FileItemStudentiRepository extends DoctrineRepository
 
         $res = $db->executeQuery($query);
 
-        $rows = $res->rowCount();
-
         $id_files_studenti_list = array();
 
         while ( false !== ($row = $res->fetch(\PDO::FETCH_NUM)) ) {
@@ -137,7 +135,7 @@ class FileItemStudentiRepository extends DoctrineRepository
 
         $query = 'INSERT INTO file_studente_canale (id_file, id_canale) VALUES ('.$db->quote($file->getIdFile()).','.$db->quote($channelId).')';
         //? da testare il funzionamento di =
-        $res = $db->executeQuery($query);
+        $db->executeUpdate($query);
 
         $ids = $file->getIdCanali();
         $ids[] = $channelId;
@@ -151,7 +149,7 @@ class FileItemStudentiRepository extends DoctrineRepository
         $db = $this->getConnection();
         $query = 'DELETE FROM file_studente_canale WHERE id_canale='.$db->quote($channelId).' AND id_file='.$db->quote($file->getIdFile());
 
-        $res = $db->executeQuery($query);
+        $db->executeUpdate($query);
     }
 
     public function getChannelIds(FileItemStudenti $file)
@@ -175,7 +173,7 @@ class FileItemStudentiRepository extends DoctrineRepository
         $db = $this->getConnection();
 
         $query = 'UPDATE file SET eliminato  = '.$db->quote(FileItem::ELIMINATO).' WHERE id_file = '.$db->quote($file->getIdFile());
-        $res = $db->executeQuery($query);
+        $db->executeUpdate($query);
 
         return false;
     }
@@ -209,7 +207,7 @@ class FileItemStudentiRepository extends DoctrineRepository
         $db = $this->getConnection();
 
         $query = 'UPDATE file_studente_commenti SET eliminato = '.$db->quote(CommentoItem::ELIMINATO).'WHERE id_file='.$db->quote($file->getIdFile());
-        $res = $db->executeQuery($query);
+        $db->executeUpdate($query);
 
         return true;
     }
