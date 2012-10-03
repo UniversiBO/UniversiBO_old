@@ -17,12 +17,11 @@ security:
 
         main:
             pattern: ^/
-            anonymous: ~
+            anonymous: true
             form_login:
-                login_path: /login
-            logout:
-                path:   /logout
-                target: /
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+            logout: true
             shibboleth: ~
 
     access_control:
