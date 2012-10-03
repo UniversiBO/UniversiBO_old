@@ -26,6 +26,7 @@ class RuoliAdminEdit extends UniversiboCommand
         $rotuer = $this->get('router');
 
         $user = $this->get('security.context')->getToken()->getUser();
+        $userRepo = $this->get('universibo_core.repository.user');
 
         $referente = false;
 
@@ -42,7 +43,7 @@ class RuoliAdminEdit extends UniversiboCommand
         if (!array_key_exists('id_utente', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_utente']))
             Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getId(), 'msg' => 'L\'id dell\'utente richiesto non e` valido', 'file' => __FILE__, 'line' => __LINE__));
 
-        $target_user = User::selectUser($_GET['id_utente']);
+        $target_user = $userRepo->find($_GET['id_utente']);
         $target_username = $target_user->getUsername();
         $target_userUri = $router->generate('universibo_legacy_user', array('id_utente' => $target_user->getId()));
 
@@ -50,7 +51,7 @@ class RuoliAdminEdit extends UniversiboCommand
         $template->assign('common_langCanaleNome', 'a '.$canale->getTitolo());
 
         if (array_key_exists($id_canale, $user_ruoli)) {
-            $ruolo = & $user_ruoli[$id_canale];
+            $ruolo = $user_ruoli[$id_canale];
             $referente = $ruolo->isReferente();
         }
 

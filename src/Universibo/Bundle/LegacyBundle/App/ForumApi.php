@@ -1,5 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\App;
+use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
+
 use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
 
 use \DB;
@@ -249,10 +251,10 @@ class ForumApi extends DoctrineRepository implements ForumApiInterface
         $db = $this->getConnection();
 
         $groups = $user->getLegacyGroups();
-        if ($groups != User::OSPITE && $groups != 'ROLE_STUDENT'
-                && $groups != 'ROLE_COLLABORATOR' && $groups != 'ROLE_TUTOR'
-                && $groups != 'ROLE_PROFESSOR' && $groups != 'ROLE_STAFF'
-                && $groups != 'ROLE_ADMIN')
+        if ($groups != LegacyRoles::OSPITE && $groups != LegacyRoles::STUDENT
+                && $groups != LegacyRoles::COLLABORATOR && $groups != LegacyRoles::TUTOR
+                && $groups != LegacyRoles::PROFESSOR && $groups != LegacyRoles::STAFF
+                && $groups != LegacyRoles::ADMIN)
 
             return;
         // @todo renderla funzionante anche per utenti che appartengono a pi? gruppi

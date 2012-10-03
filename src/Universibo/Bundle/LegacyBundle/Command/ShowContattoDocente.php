@@ -30,6 +30,7 @@ class ShowContattoDocente extends UniversiboCommand
         $template = $frontcontroller->getTemplateEngine();
         $user = $this->get('security.context')->getToken()->getUser();
         $router = $this->get('router');
+        $userRepo = $this->get('universibo_core.repository.user');
 
         if (!$user->hasRole('ROLE_COLLABORATOR') && !$this->get('security.context')->isGranted('ROLE_ADMIN'))
             Error::throwError(_ERROR_DEFAULT,
@@ -119,11 +120,9 @@ class ShowContattoDocente extends UniversiboCommand
 
         foreach ($lista_collabs as $collab) {
             $id = $collab->getId();
-            //			$username 			= User::getUsernameFromId($id);
             $username = $collab->getUsername();
             $table_collab[$id] = $username;
         }
-        //		var_dump($table_collab); die;
 
         uasort($table_collab, array($this, '_compareUsername'));
 
@@ -168,7 +167,8 @@ class ShowContattoDocente extends UniversiboCommand
             if ($f35_id_username != $contatto->getIdUtenteAssegnato()) {
                 if ($f35_id_username != 'null') {
                     $notifica_mod = true;
-                    $contatto->assegna($f35_id_username, $user->getId());
+                    $assigned = $this->get('universibo_core.repository.user')->find($f35_id_username);
+                    $contatto->assegna($assigned->getUsername(), $user->getUsername());
                 }
             }
 
@@ -198,7 +198,7 @@ Link: ' . $router->generate('universibo_legacy_contact_professor', array('cod_do
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~';
 
             if ($notifica_mod) {
-                $notifica_user = User::selectUser($f35_id_username);
+                $notifica_user = $userRepo->find($f35_id_username);
                 $notifica_destinatario = 'mail://' . $notifica_user->getEmail();
                 $notifica = new NotificaItem(0, $notifica_titolo,
                         $notifica_messaggio, $notifica_dataIns,

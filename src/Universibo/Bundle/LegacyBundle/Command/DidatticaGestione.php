@@ -1,5 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+
 use ZendTest\Navigation\TestAsset\Router;
 
 use Universibo\Bundle\LegacyBundle\Framework\Error;
@@ -33,6 +34,7 @@ class DidatticaGestione extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $router = $this->get('router');
+        $userRepo = $this->get('universibo_core.repository.user');
 
         $krono = $frontcontroller->getKrono();
         $user = $this->get('security.context')->getToken()->getUser();
@@ -219,8 +221,7 @@ class DidatticaGestione extends UniversiboCommand
                 $f41_email = $_POST['f41_email'];
 
             if ($f41_accept) {
-                $users_search = User::selectUsersSearch($f41_username,
-                        $f41_email);
+                $users_search = $userRepo->search($f41_username, $f41_email);
                 $listaDocenti = array();
 
                 foreach ($users_search as $v)
