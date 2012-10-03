@@ -1,10 +1,5 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Files;
-use Universibo\Bundle\LegacyBundle\Entity\Canale;
-
-use \DB;
-use Universibo\Bundle\LegacyBundle\Framework\Error;
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
  * FileItem class
@@ -690,19 +685,16 @@ class FileItem
     }
 
     /**
-     * Imposta il numero dei download dei file
-     *
-     * @param string $download
+     * @param int  $download
+     * @param bool $update_db (must be false)
      */
-
     public function setDownload($download, $update_db = false)
     {
         $this->download = $download;
 
-        if ($update_db == true) {
-            return self::getRepository()->updateDownload($this);
+        if ($update_db) {
+            throw new \InvalidParameterException('$update_db MUST be false');
         }
-
     }
 
     /**
@@ -731,14 +723,8 @@ class FileItem
      *
      * @param string $nome_file percorso in cui si trova il file
      */
-    public static function guessTipo($nome_file)
+    public static function guessTipo($nome_file, array $tipi_regex)
     {
-        static $tipi_regex = NULL;
-
-        if ($tipi_regex == NULL) {
-            $tipi_regex = self::getRepository()->getTypeRegExps();
-        }
-
         foreach ($tipi_regex as $key => $pattern) {
             if ($key === 1) {
                 continue;
@@ -751,189 +737,4 @@ class FileItem
 
         return 1;
     }
-
-    /**
-     * Recupera i possibili tipi di un file
-     *
-     * @static
-     * @return array [id_tipo] => 'descrizione'
-     */
-    public static function getTipi()
-    {
-        static $tipi = null;
-
-        if (is_null($tipi)) {
-            return self::getRepository()->getTypes();
-        }
-
-        return $tipi;
-    }
-
-    /**
-     * Recupera le categorie possibili di un file
-     *
-     * @deprecated
-     * @return array [id_categoria] => 'descrizione'
-     */
-    public static function getCategorie()
-    {
-        static $categorie = null;
-
-        if (is_null($categorie)) {
-            $categorie = self::getRepository()->getCategories();
-        }
-
-        return $categorie;
-    }
-
-    /**
-     * Preleva da database i file del canale $id_canale
-     *
-     * @deprecated
-     * @param  int   $id_canale identificativo su database del canale
-     * @return array elenco FileItem , array vuoto se non ci sono file
-     */
-    public static function selectFileCanale($id_canale)
-    {
-        return self::getRepository()->findIdByChannel($id_canale);
-    }
-
-    /**
-     * Recupera un file dal database
-     *
-     * @static
-     * @param  int      $id_file id del file
-     * @return FileItem
-     */
-    public static function selectFileItem($id_file)
-    {
-        $result = self::selectFileItems(array($id_file));
-
-        return is_array($result) ? $result[0] : $result;
-    }
-
-    /**
-     * Recupera un elenco di file dal database
-     * non ritorna i files eliminati
-     *
-     * @deprecated
-     * @param  array $id_file array elenco di id dei file
-     * @return array FileItem
-     */
-    public static function selectFileItems($id_files)
-    {
-        return self::getRepository()->findManyById($id_files);
-    }
-
-    /**
-     * restituisce tutti i file caricati da un determinato utente
-     *
-     * @param  int     $id_utente NB deve essere un id valido, fate il check prima di invocare il metodo
-     * @param  boolean $order     ordina i file in ordine decrescente di data
-     * @return mixed   false se non trova file, array di fileItem altrimenti
-     */
-    public static function selectFileItemsByIdUtente($userId, $order = false)
-    {
-        return self::getRepository()->findByUserId($userId, $order);
-    }
-
-    /**
-     * Seleziona gli id_canale per i quali il file ? inerente
-     * non si possono fare garanzie sull'ordine dei canali
-     *
-     * @return array elenco degli id_canale
-     */
-    public function getIdCanali()
-    {
-        if (is_null($this->elencoIdCanali)) {
-            $this->elencoIdCanali = self::getRepository()->getChannelIds($this);
-        }
-
-        return $this->elencoIdCanali;
-    }
-
-    public function setIdCanali(array $idCanali)
-    {
-        $this->elencoIdCanali = $idCanali;
-    }
-
-    /**
-     * rimuove il file dal canale specificato
-     *
-     * @param int $id_canale identificativo del canale
-     */
-    public function removeCanale($id_canale)
-    {
-        return self::getRepository()->removeFromChannel($this, $id_canale);
-
-    }
-
-    /**
-     * aggiunge il file al canale specificato
-     *
-     * @param  int     $id_canale identificativo del canale
-     * @return boolean true se esito positivo
-     */
-    public function addCanale($id_canale)
-    {
-        return self::getRepository()->addToChannel($this, $id_canale);
-    }
-
-    /**
-     * Inserisce un file sul DB
-     *
-     * @param  array   $array_id_canali elenco dei canali in cui bisogna inserire il file. Se non si passa un canale si recupera quello corrente.
-     * @return boolean true se avvenua con successo, altrimenti Error object
-     */
-    public function insertFileItem()
-    {
-        ignore_user_abort(1);
-
-        $result = self::getRepository()->insert($this);
-
-        ignore_user_abort(0);
-
-        return $result;
-    }
-
-    /**
-     * Aggiorna le modifiche al file nel DB
-     *
-     * @return boolean true se avvenua con successo, altrimenti lancia Error Critical
-     */
-    public function updateFileItem()
-    {
-        ignore_user_abort(1);
-
-        $return = self::getRepository()->update($this);
-
-        ignore_user_abort(0);
-
-        return $return;
-    }
-
-    /**
-     * controlla se il file ? stato eliminato da tutti i canali in cui era presente, e aggiorna il db
-     *
-     * @return boolean true se avvenua con successo, altrimenti false
-     */
-    public function deleteFileItem()
-    {
-        self::getRepository()->delete($this);
-    }
-
-    /**
-     * @return DBFileItemRepository
-     */
-    private static function getRepository()
-    {
-        if (is_null(self::$repository)) {
-            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.files.file_item');
-        }
-
-        return self::$repository;
-    }
 }
-
-define('FILE_ELIMINATO', FileItem::ELIMINATO);
-define('FILE_NOT_ELIMINATO', FileItem::NOT_ELIMINATO);

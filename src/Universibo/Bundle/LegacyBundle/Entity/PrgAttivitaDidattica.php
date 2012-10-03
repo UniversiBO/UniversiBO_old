@@ -2,7 +2,6 @@
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
 use \DB;
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 /**
  * PrgAttivitaDidattica class.
  *
@@ -441,100 +440,5 @@ class PrgAttivitaDidattica extends Canale
     public function getIdSdop()
     {
         return $this->id_sdop;
-    }
-
-
-
-
-    /**
-     * Crea un oggetto PrgAttivitaDidattica dato il suo numero identificativo id_canale
-     * Ridefinisce il factory method della classe padre per restituire un oggetto
-     * del tipo PrgAttivitaDidattica
-     *
-     * @param  int   $id_canale numero identificativo del canale
-     * @return mixed Facolta se eseguita con successo, false se il canale non esiste
-     */
-    public static function factoryCanale($id_canale)
-    {
-        return self::selectPrgAttivitaDidatticaCanale($id_canale);
-    }
-
-    /**
-     * Seleziona da database un'array di attività didattiche il cui primo elemento
-     * è quello corrispondendete alla chiave indicata, e i successivi sono tutti i suoi sdoppiati
-     *
-     * @static
-     * @param  int   $id_canale identificativo su DB del canale corrispondente al corso di laurea
-     * @return mixed array di PrgAttivitaDidattica se eseguita con successo, false se il canale non esiste
-     */
-    public static function selectPrgAttivitaDidattica($anno_accademico, $cod_corso, $cod_ind, $cod_ori, $cod_materia,
-            $cod_materia_ins, $anno_corso, $anno_corso_ins, $cod_ril, $cod_ate)
-    {
-        return self::getRepository()->find($anno_accademico, $cod_corso, $cod_ind, $cod_ori, $cod_materia,
-            $cod_materia_ins, $anno_corso, $anno_corso_ins, $cod_ril, $cod_ate);
-    }
-
-    /**
-     * Seleziona da database e restituisce un array con chiavi numeriche
-     * di oggetti PrgAttivitaDidattica corrispondenti al codice id_canale
-     * tra gli sdoppiati non sono presi quelli con lo stesso cod_ind e cod_ori
-     *
-     * @deprecated
-     * @param  int   $id_canale identificativo su DB del canale corrispondente al corso di laurea
-     * @return mixed array di PrgAttivitaDidattica se eseguita con successo, false se il canale non esiste
-     */
-    public static function selectPrgAttivitaDidatticaCanale($id_canale)
-    {
-        return self::getRepository()->findByChannelId($id_canale);
-    }
-
-    /**
-     * Seleziona da database e restituisce l'attività didattica sdoppiata
-     * con id id_sdop
-     *
-     * @static
-     * @param  int   $id_sdop identificativo dell'attività sdoppiata
-     * @return mixed PrgAttivitaDidattica se eseguita con successo, false se il canale non esiste
-     */
-    public static function selectPrgAttivitaDidatticaSdoppiata($id_sdop)
-    {
-        return self::getRepository()->findByIdSdoppiamento($id_sdop);
-    }
-
-    /**
-     * Seleziona da database e restituisce un'array contenente l'elenco
-     * in ordine anno/ciclo/alfabetico di tutti le distinte attivit? didattiche
-    * appartenenti al corso di laurea in un dato anno accademico.
-    * Ritorna solo una volta le attivit? mutuate/comuni appartenenti a due
-    * indirizzi/orientamenti distinti, o moduli identici in tutto il resto della chiave
-    *
-    * @deprecated
-    * @param string $cod_cdl stringa a 4 cifre del codice del corso di laurea
-    * @param int $anno_accademico anno accademico
-    * @return array(Insegnamento)
-    */
-    public static function selectPrgAttivitaDidatticaElencoCdl($cod_cdl, $anno_accademico)
-    {
-        return self::getRepository()->findByCdlAndYear($cod_cdl, $anno_accademico);
-    }
-
-    /**
-     * aggiorna i valori di codiceDocente, ciclo, annoCorsoUniversibo
-     */
-    public function updatePrgAttivitaDidattica()
-    {
-        return self::getRepository()->update($this);
-    }
-
-    /**
-     * @return PrgAttivitaDidatticaRepository
-     */
-    private static function getRepository()
-    {
-        if (is_null(self::$repository)) {
-            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.programma');
-        }
-
-        return self::$repository;
     }
 }

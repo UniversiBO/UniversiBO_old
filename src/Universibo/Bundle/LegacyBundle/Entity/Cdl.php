@@ -3,10 +3,6 @@ namespace Universibo\Bundle\LegacyBundle\Entity;
 
 use Symfony\Component\Routing\RouterInterface;
 
-use \DB;
-use Universibo\Bundle\LegacyBundle\Framework\Error;
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
-
 define('CDL_NUOVO_ORDINAMENTO'   ,1);
 define('CDL_SPECIALISTICA'       ,2);
 define('CDL_VECCHIO_ORDINAMENTO' ,3);
@@ -254,62 +250,6 @@ class Cdl extends Canale
         }
     }
 
-
-    /**
-     * Seleziona da database e restituisce l'elenco di tutti gli oggetti Cdl corso di laurea
-     *
-     * @deprecated
-     * @param  boolean $canaliAttivi se restituire solo i Cdl gi? associati ad un canale o tutti
-     * @return mixed   array di Cdl se eseguita con successo, false in caso di errore
-     */
-    public static function selectCdlAll()
-    {
-        return self::getRepository()->findAll();
-    }
-
-    /**
-     * Seleziona da database e restituisce l'oggetto corso di laurea
-     * corrispondente al codice id_canale
-     *
-     * @deprecated
-     * @param  int   $id_canale identificativo su DB del canale corrispondente al corso di laurea
-     * @return mixed Cdl se eseguita con successo, false se il canale non esiste
-     */
-    public static function selectCdlCanale($idCanale)
-    {
-        return self::getRepository()->findByIdCanale($idCanale);
-    }
-
-
-
-    /**
-     * Seleziona da database e restituisce l'oggetto Cdl
-     * corrispondente al codice $cod_cdl
-     *
-     * @deprecated
-     * @param  string  $cod_cdl stringa a 4 cifre del codice d'ateneo del corso di laurea
-     * @return Facolta
-     */
-    public static function selectCdlCodice($codice)
-    {
-        return self::getRepository()->findByCodice($codice);
-    }
-
-
-
-    /**
-     * Seleziona da database e restituisce un'array contenente l'elenco
-     * in ordine alfabetico di tutti i cdl appartenenti alla facolt? data
-     *
-     * @deprecated
-     * @param  string     $cod_facolta stringa a 4 cifre del codice d'ateneo della facolt?
-     * @return array(Cdl)
-     */
-    public static function selectCdlElencoFacolta($codiceFacolta)
-    {
-        return self::getRepository()->findByFacolta($codiceFacolta);
-    }
-
     /**
      * Restituisce il codice docente del presidente del CDL
      *
@@ -348,35 +288,5 @@ class Cdl extends Canale
     public function setForumCatId($cat_id)
     {
         $this->cdlForumCatId = $cat_id;
-    }
-
-    public function updateCdl()
-    {
-        self::getRepository()->update($this);
-        // TODO pensare come gestire la cosa
-        $this->updateCanale();
-    }
-
-    public function insertCdl()
-    {
-        if ($this->insertCanale() != true) {
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>'Errore inserimento Canale','file'=>__FILE__,'line'=>__LINE__));
-
-            return false;
-        }
-
-        return self::getRepository()->insert($this);
-    }
-
-    /**
-     * @return DBCdlRepository
-     */
-    private static function getRepository()
-    {
-        if (is_null(self::$repository)) {
-            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.cdl');
-        }
-
-        return self::$repository;
     }
 }

@@ -1,13 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\News;
 
-use Universibo\Bundle\LegacyBundle\Entity\Canale;
-
-use \DB;
-use Universibo\Bundle\LegacyBundle\Framework\Error;
-
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
-
 /**
  *
  * NewsItem class
@@ -351,30 +344,6 @@ class NewsItem
     }
 
     /**
-     * Recupera una notizia dal database
-     *
-     * @deprecated
-     * @param  int      $id_notizia id della news
-     * @return NewsItem
-     */
-    public static function selectNewsItem ($id_notizia)
-    {
-        return self::getRepository()->find($id_notizia);
-    }
-
-    /**
-     * Recupera un elenco di notizie dal database
-     *
-     * @deprecated
-     * @param  array $id_notizie array elenco di id della news
-     * @return array NewsItems
-     */
-    public static function selectNewsItems (array $ids)
-    {
-        return self::getRepository()->findMany($ids);
-    }
-
-    /**
      * Verifica se la notizia ? scaduta
      *
      * @return boolean
@@ -384,90 +353,8 @@ class NewsItem
         return $this->getDataScadenza() < time();
     }
 
-    /**
-     * Seleziona gli id_canale per i quali la notizia ? inerente
-     *
-     * @return array elenco degli id_canale
-     */
-    public function getIdCanali()
-    {
-        if (is_null($this->elencoIdCanali)) {
-            $this->elencoIdCanali = self::getRepository()->getChannelIdList($this);
-        }
-
-        return $this->elencoIdCanali;
-    }
-
     public function setIdCanali(array $elencoIdCanali)
     {
         $this->elencoIdCanali = $elencoIdCanali;
-    }
-
-    /**
-     * rimuove la notizia dal canale specificato
-     *
-     * @param int $id_canale identificativo del canale
-     */
-    public function removeCanale($id_canale)
-    {
-        return self::getRepository()->removeFromChannel($this, $id_canale);
-    }
-
-    /**
-     * aggiunge la notizia al canale specificato
-     *
-     * @param  int     $id_canale identificativo del canale
-     * @return boolean true se esito positivo
-     */
-    public function addCanale($id_canale)
-    {
-        return self::getRepository()->addToChannel($this, $id_canale);
-    }
-
-    /**
-     * Inserisce una notizia sul DB
-     *
-     * @return boolean true se avvenua con successo, altrimenti Error object
-     */
-    public function insertNewsItem()
-    {
-        return self::getRepository()->insert($this);
-    }
-
-    /**
-     * Aggiorna le modifiche alla notizia nel DB
-     *
-     * @return boolean true se avvenua con successo, altrimenti Error object
-     */
-    public function updateNewsItem()
-    {
-        ignore_user_abort(1);
-
-        $return = self::getRepository()->update($this);
-
-        ignore_user_abort(0);
-
-        return $return;
-    }
-
-    /**
-     * La funzione deleteNewsItem controlla se la notizia ? stata eliminata da tutti i canali in cui era presente, e aggiorna il db
-     */
-
-    public function deleteNewsItem()
-    {
-        return self::getRepository()->delete($this);
-    }
-
-    /**
-     * @return DBNewsItemRepository
-     */
-    private static function getRepository()
-    {
-        if (is_null(self::$repository)) {
-            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.news.news_item');
-        }
-
-        return self::$repository;
     }
 }

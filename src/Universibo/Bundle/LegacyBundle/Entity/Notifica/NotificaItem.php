@@ -1,8 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Notifica;
-use \DB;
 use Universibo\Bundle\LegacyBundle\Framework\Error;
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
  *
@@ -281,39 +279,4 @@ class NotificaItem
     {
         $this->eliminata = $eliminata;
     }
-
-    /**
-     * Inserisce una notifica sul DB
-     *
-     * @deprecated
-     * @param  array   $array_id_canali elenco dei canali in cui bisogna inserire la notifica. Se non si passa un canale si recupera quello corrente.
-     * @return boolean true se avvenua con successo, altrimenti Error object
-     */
-
-    public function insertNotificaItem()
-    {
-        ignore_user_abort(1);
-        $result = self::getRepository()->insert($this);
-        ignore_user_abort(0);
-
-        return $result;
-    }
-
-    /**
-     * @return DBNotificaItemRepository
-     */
-    private static function getRepository()
-    {
-        if (is_null(self::$repository)) {
-            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.notifica.notifica_item');
-        }
-
-        return self::$repository;
-    }
 }
-
-define('NOTIFICA_ELIMINATA', NotificaItem::ELIMINATA);
-define('NOTIFICA_NOT_ELIMINATA', NotificaItem::NOT_ELIMINATA);
-
-define('NOTIFICA_URGENTE', NotificaItem::URGENTE);
-define('NOTIFICA_NOT_URGENTE', NotificaItem::NOT_URGENTE);

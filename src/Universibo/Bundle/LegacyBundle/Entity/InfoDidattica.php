@@ -1,7 +1,5 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
-use \DB;
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
  * InfoDidattica class.
@@ -356,80 +354,5 @@ class InfoDidattica
     public function getOrarioIcsLink()
     {
         return $this->orario_ics_link;
-    }
-
-    /**
-     * Inserisce una nuovo InfoDidattica sul DB
-     *
-     * @return boolean true se avvenua con successo
-     */
-    public function insertInfoDidattica()
-    {
-        return self::getRepository()->insert($this);
-    }
-
-    /**
-     * Modifica una InfoDidattica sul DB
-     *
-     * @return boolean true se avvenua con successo
-     */
-    public function updateInfoDidattica()
-    {
-        return self::getRepository()->update($this);
-    }
-
-    /**
-     * Elimina una InfoDidattica sul DB
-     *
-     * @return boolean true se avvenua con successo
-     */
-    public function deleteInfoDidattica()
-    {
-        return self::getRepository()->delete($this);
-    }
-
-    /**
-     * Seleziona una InfoDidattica da DB dato il suo numero identificativo
-     *
-     * @deprecated
-     * @return InfoDidattica
-     */
-    public static function retrieveInfoDidattica($id_canale)
-    {
-        return self::factoryInfoDidattica($id_canale);
-    }
-
-    /**
-     * Seleziona una InfoDidattica da DB dato il suo numero identificativo
-     *
-     * @deprecated
-     * @return InfoDidattica
-     */
-    public static function factoryInfoDidattica($id_canale)
-    {
-        return self::selectInfoDidattica($id_canale);
-    }
-
-    /**
-     * Seleziona una InfoDidattica da DB dato il suo numero identificativo
-     *
-     * @deprecated
-     * @return InfoDidattica
-     */
-    public static function selectInfoDidattica($id_canale)
-    {
-        return self::getRepository()->find($id_canale);
-    }
-
-    /**
-     * @return DBInfoDidatticaRepository
-     */
-    private static function getRepository()
-    {
-        if (is_null(self::$repository)) {
-            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.info_didattica');
-        }
-
-        return self::$repository;
     }
 }
