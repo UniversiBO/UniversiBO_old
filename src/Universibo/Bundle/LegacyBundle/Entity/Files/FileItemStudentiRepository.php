@@ -110,7 +110,7 @@ class FileItemStudentiRepository extends DoctrineRepository
         C.descrizione, D.descrizione, D.icona, D.info_aggiuntive
         FROM file A, file_categoria C, file_tipo D
         WHERE A.id_categoria = C.id_file_categoria AND id_tipo_file = D.id_file_tipo AND A.id_file  IN ('.$values.') AND eliminato!='.$db->quote(FILE_ELIMINATO);
-        $res = & $db->executeQuery($query);
+        $res = $db->executeQuery($query);
 
         //echo $query;
 

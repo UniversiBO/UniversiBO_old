@@ -202,7 +202,7 @@ class FileItemRepository extends DoctrineRepository
 
         $query .= ' ORDER BY C.id_file_categoria, data_inserimento DESC';
 
-        $res = &$db->executeQuery($query);
+        $res = $db->executeQuery($query);
 
         //echo $query;
 

@@ -40,7 +40,7 @@ class NotificaItemRepository extends DoctrineRepository
                 . $values . ') AND eliminata!='
                 . $db->quote(NotificaItem::ELIMINATA);
         //var_dump($query);
-        $res = &$db->executeQuery($query);
+        $res = $db->executeQuery($query);
 
         $rows = $res->rowCount();
 

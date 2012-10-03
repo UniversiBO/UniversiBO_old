@@ -100,9 +100,8 @@ abstract class UniversiboCommand extends BaseCommand
             $this->_initTemplateIndexUniversibo();
         }
 
-        //riferimenti per ottimizzare gli accessi
-        $templateInfo = & $this->frontController->templateInfo;
         $fc = $this->getFrontController();
+        $templateInfo = $fc->getTemplateEngineSettings();
 
         $template->assign('common_templateBaseDir', $templateInfo['web_dir'] . $templateInfo['styles'][$templateInfo['template_name']]);
 
