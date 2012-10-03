@@ -1,9 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use \DB;
-use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\CoreBundle\Entity\User;
 
 define('NOTIFICA_NONE'   ,0);
@@ -184,7 +182,7 @@ class Ruolo
         $this->setNome($nome);
 
         if ($updateDB) {
-            return self::getRepository()->updateNome($this);
+            throw new \InvalidParameterException('$updateDB must be false');
         }
 
         return true;
@@ -217,7 +215,7 @@ class Ruolo
         $this->setUltimoAccesso($ultimoAccesso);
 
         if ($updateDB) {
-            return self::getRepository()->updateUltimoAccesso($this);
+            throw new \InvalidParameterException('$updateDB must be false');
         }
 
         return true;
@@ -272,7 +270,7 @@ class Ruolo
         $this->setTipoNotifica($tipoNotifica);
 
         if ($updateDB) {
-            return self::getRepository()->updateTipoNotifica($this);
+            throw new \InvalidParameterException('$updateDB must be false');
         }
 
         return true;
@@ -305,7 +303,7 @@ class Ruolo
         $this->setModeratore($moderatore);
 
         if ($updateDB) {
-            return self::getRepository()->updateModeratore($this);
+            throw new \InvalidParameterException('$updateDB must be false');
         }
 
         return true;
@@ -348,7 +346,7 @@ class Ruolo
         $this->setReferente($referente);
 
         if ($updateDB) {
-            return self::getRepository()->updateReferente($this);
+            throw new \InvalidParameterException('$updateDB must be false');
         }
 
         return true;
@@ -393,94 +391,9 @@ class Ruolo
         $this->myUniversibo = $my_universibo;
 
         if ($updateDB) {
-            return self::getRepository()->updateMyUniversibo($this);
+            throw new \InvalidParameterException('$updateDB must be false');
         }
 
         return true;
     }
-
-    /**
-     * Verifica se un ruolo esiste nel database
-     *
-     * @static
-     * @param  int     $id_utente numero identificativo utente
-     * @param  int     $id_canale numero identificativo canale
-     * @return boolean false se il ruolo non esiste
-     */
-    public function ruoloExists($id_utente, $id_canale)
-    {
-        return self::getRepository()->exists($id_utente, $id_utente);
-    }
-
-    /**
-     * Preleva un ruolo da database
-     *
-     * @param  int   $id_utente numero identificativo utente
-     * @param  int   $id_canale numero identificativo canale
-     * @return Ruolo false se il ruolo non esiste
-     */
-    public static function selectRuolo($id_utente, $id_canale)
-    {
-        return self::getRepository()->find($id_utente, $id_canale);
-    }
-
-    /**
-     * Preleva tutti i ruoli di un utente da database
-     *
-     * @deprecated
-     * @param  int   $id_utente numero identificativo utente
-     * @return mixed array di oggetti Ruolo, false se non esistono ruoli
-     */
-    public static function selectUserRuoli($idUtente)
-    {
-        return self::getRepository()->findByIdUtente($idUtente);
-    }
-
-    /**
-     * Preleva tutti i ruoli di un canale da database
-     *
-     * @deprecated
-     * @param  int   $id_canale numero identificativo del canale
-     * @return mixed array di oggetti Ruolo
-     */
-    public static function selectCanaleRuoli($id_canale)
-    {
-        return self::getRepository()->findByIdCanale($id_canale);
-    }
-
-    public function updateRuolo()
-    {
-        return self::getRepository()->update($this);
-    }
-
-    /**
-     * Inserisce un ruolo nel database, se il ruolo esiste gi? ritorna false
-     *
-     * @return boolean true se avvenua con successo, altrimenti false e throws Error object
-     */
-    public function insertRuolo()
-    {
-        return self::getRepository()->insert($this);
-    }
-
-    public function deleteRuolo()
-    {
-        return self::getRepository()->delete($this);
-    }
-
-    /**
-     * @return DBRuoloRepository
-     */
-    private static function getRepository()
-    {
-        if (is_null(self::$repository)) {
-            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.ruolo');
-        }
-
-        return self::$repository;
-    }
 }
-
-define('RUOLO_NONE'        ,Ruolo::NONE);
-define('RUOLO_MODERATORE'  ,Ruolo::MODERATORE);
-define('RUOLO_REFERENTE'   ,Ruolo::REFERENTE);

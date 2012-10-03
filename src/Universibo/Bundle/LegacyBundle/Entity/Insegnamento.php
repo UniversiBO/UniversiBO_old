@@ -2,9 +2,6 @@
 namespace Universibo\Bundle\LegacyBundle\Entity;
 use Symfony\Component\Routing\RouterInterface;
 
-use \DB;
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
-
 /**
  * Insegnamento class.
  *
@@ -260,31 +257,6 @@ class Insegnamento extends Canale
     public function getElencoCodiciCdl()
     {
         return $this->elencoCodiciCDL;
-    }
-
-    /**
-     * Seleziona da database e restituisce l'oggetto Insegnamento
-     * corrispondente al codice id_canale
-     *
-     * @deprecated
-     * @param  int   $id_canale identificativo su DB del canale corrispondente al corso di laurea
-     * @return mixed Insegnamento se eseguita con successo, false se il canale non esiste
-     */
-    public static function selectInsegnamentoCanale($id_canale)
-    {
-        return self::getRepository()->findByChannelId($id_canale);
-    }
-
-    /**
-     * @return DBInsegnamentoRepository
-     */
-    private static function getRepository()
-    {
-        if (is_null(self::$repository)) {
-            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.insegnamento');
-        }
-
-        return self::$repository;
     }
 
 }

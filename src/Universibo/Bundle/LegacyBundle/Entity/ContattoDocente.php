@@ -1,8 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
-
 /**
  * ContattoDocente rappresenta l'insieme di informazioni collegate al
  * contatto di un docente
@@ -70,29 +68,6 @@ class ContattoDocente
         $this->id_utente_assegnato	= $id;
         $this->ultima_modifica		= $mod;
         $this->report	= $report;
-    }
-
-    /**
-     * resituisce il contattoDocente corrispondente al Docente
-     *
-     *	@deprecated
-     *  @param int coddoc è il codice del docente di cui si vuole avere informazioni
-     *  @return mixed resituisce ContattoDocente se esiste il contatto, false altrimenti
-     */
-    public static function getContattoDocente ($codDocente)
-    {
-        return self::getRepository()->findByCodDocente($codDocente);
-    }
-
-    /**
-     * resituisce il contattoDocente corrispondente al Docente
-     *
-     *	@deprecated
-     *  @return mixed resituisce array di ContattoDocente se esistono, false altrimenti
-     */
-    public static function getAllContattoDocente()
-    {
-        return self::getRepository()->findAll();
     }
 
     public function getStato()
@@ -172,32 +147,4 @@ class ContattoDocente
         $this->appendReport($text);
         $this->id_utente_assegnato = $newIdUtente;
     }
-
-    public function updateContattoDocente()
-    {
-        return self::getRepository()->update($this);
-    }
-
-    public function insertContattoDocente()
-    {
-        return self::getRepository()->insert($this);
-    }
-
-    /**
-     * @return DBContattoDocenteRepository
-     */
-    private static function getRepository()
-    {
-        if (is_null(self::$repository)) {
-            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.contatto_docente');
-        }
-
-        return self::$repository;
-    }
 }
-
-define('CHIUSO'  , ContattoDocente::CHIUSO);
-define('APERTO'  , ContattoDocente::APERTO);
-define('KILLED'  , ContattoDocente::KILLED);
-define('CRITIC'  , ContattoDocente::CRITIC);
-define('INATTIVO', ContattoDocente::INATTIVO);

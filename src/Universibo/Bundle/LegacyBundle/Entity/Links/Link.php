@@ -1,8 +1,5 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Links;
-use \DB;
-use Universibo\Bundle\LegacyBundle\Framework\Error;
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
  * Link class
@@ -177,81 +174,8 @@ class Link
     }
 
     /**
-     * Inserisce su Db le informazioni riguardanti un NUOVO link
-     *
-     * @return boolean
-     */
-    public function insertLink()
-    {
-        return self::getRepository()->insert($this);
-    }
-
-    /**
-     * Recupera un link
-     *
-     * @param  int  $id_link id del link
-     * @return Link / false
-     */
-    public static function selectLink($id_link)
-    {
-        return self::getRepository()->find($id_link);
-    }
-
-    /**
-     * Recupera un elenco di link dal database
-     *
-     * @param  array $id_links array elenco di id dei link
-     * @return Link  array di Link
-     */
-    public static function selectLinks($id_links)
-    {
-        return self::getRepository()->findMany($id_links);
-    }
-
-    /**
-     * Aggiorna il contenuto su DB riguardante le informazioni del link
-     *
-     * @return boolean true se avvenua con successo, altrimenti false e throws Error object
-     */
-    public function updateLink()
-    {
-        return self::getRepository()->update($this);
-    }
-
-    /**
-     * Aggiorna il contenuto su DB eliminando un Link
-     *
-     * @return boolean true se avvenua con successo, altrimenti false e throws Error object
-     */
-    public function deleteLink()
-    {
-        return self::getRepository()->delete($this);
-    }
-
-    /**
-     * Recupera un elenco di link riferiti ad un canale dal database
-     *
-     * @param  array $id_canale id del canale
-     * @return Link  array di Link
-     */
-    public static function selectCanaleLinks($id_canale)
-    {
-        return self::getRepository()->findByChannelId($id_canale);
-    }
-
-    /**
-     * Restituisce il nick dello user
-     *
-     * @return il nickname
-     */
-
-    public function getUsername()
-    {
-        return self::getRepository()->getUsername($this);
-    }
-
-    /**
      * La funzione verifica se il link è interno o meno
+     * @deprecated
      * @return boolean
      */
     public function isInternalLink()
@@ -262,17 +186,5 @@ class Link
         //	  	var_dump($uri);
         return preg_match('/^' . str_replace('/', '\\/', $uri) . '.*$/',
                 $this->getUri());
-    }
-
-    /**
-     * @return DBLinkRepository
-     */
-    private static function getRepository()
-    {
-        if (is_null(self::$repository)) {
-            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.links.link');
-        }
-
-        return self::$repository;
     }
 }

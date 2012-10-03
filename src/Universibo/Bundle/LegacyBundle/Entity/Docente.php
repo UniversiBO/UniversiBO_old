@@ -1,8 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
-
 /**
  * Docente class, modella le informazioni relative ai docenti
  *
@@ -78,57 +76,5 @@ class Docente
     {
         return 'http://www.unibo.it/Portale/Strumenti+del+Portale/Rubrica/paginaWebDocente.htm?mat='
                 . $this->getCodDoc();
-    }
-
-    /**
-     * Ritorna le info del docente prese dalla rubrica
-     *
-     * @return array
-     */
-    public function getInfoRubrica()
-    {
-        if ($this->rubricaCache == NULL) {
-            $this->rubricaCache = $this->_getDocenteInfo();
-        }
-
-        return $this->rubricaCache;
-    }
-
-    /**
-     * @access private
-     */
-    private function _getDocenteInfo()
-    {
-        return self::getRepository()->getInfo($this);
-    }
-
-    /**
-     * Ritorna un collaboratori dato l'id_utente del database
-     *
-     * @static
-     * @param  int   $id numero identificativo utente
-     * @return array Collaboratori
-     */
-    public static function selectDocente($id, $isCodiceDocente = false)
-    {
-        return self::getRepository()
-                ->findBy($isCodiceDocente ? 'cod_doc' : 'id_utente', $id);
-    }
-
-    public static function selectDocenteFromCod($codDoc)
-    {
-        return self::selectDocente($codDoc, true);
-    }
-
-    /**
-     * @return DBDocenteRepository
-     */
-    private static function getRepository()
-    {
-        if (is_null(self::$repository)) {
-            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.docente');
-        }
-
-        return self::$repository;
     }
 }

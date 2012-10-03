@@ -1,10 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
-use \DB;
-use Universibo\Bundle\LegacyBundle\Framework\Error;
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
-
 /**
  * Collaboratore class, modella le informazioni relative ai collaboratori
  *
@@ -148,52 +144,5 @@ class Collaboratore
     public function getUser()
     {
         return $this->user;
-    }
-
-    /**
-     * Ritorna un collaboratori dato l'id_utente del database
-     *
-     * @deprecated
-     * @param  int   $id_utente numero identificativo utente
-     * @return array Collaboratori
-     */
-    public static function selectCollaboratore($id)
-    {
-        return self::getRepository()->find($id);
-    }
-
-    /**
-     * Preleva tutti i collaboratori dal database
-     *
-     * @deprecated
-     * @param  int   $id_utente numero identificativo utente
-     * @return array Collaboratori
-     */
-    public static function selectCollaboratoriAll()
-    {
-        return self::getRepository()->findAll();
-    }
-
-    /**
-     * Inserisce il profilo di un nuovo collaboratore sul DB
-     *
-     * @deprecated
-     * @return boolean true se avvenua con successo, altrimenti Error object
-     */
-    public static function insertCollaboratoreItem()
-    {
-        return self::getRepository()->insert($this);
-    }
-
-    /**
-     * @return DBCollaboratoreRepository
-     */
-    private static function getRepository()
-    {
-        if (is_null(self::$repository)) {
-            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.collaboratore');
-        }
-
-        return self::$repository;
     }
 }

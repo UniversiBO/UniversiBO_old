@@ -7,7 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
 use \DB;
 use Universibo\Bundle\LegacyBundle\Framework\Error;
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
  * Canale class.
@@ -188,25 +187,6 @@ class Canale
     }
 
     /**
-     * Ritorna il tipo di canale
-     *
-     * es: $tipo_canale:
-     *  define('CANALE_DEFAULT'   ,1);
-     *  define('CANALE_HOME'      ,2);
-     *  define('CANALE_FACOLTA'   ,3);
-     *  define('CANALE_CDL'       ,4);
-     *  define('CANALE_INSEGNAMENTO' ,5);
-     *
-     * @static
-     * @param  int $id_canale numero identificativo del canale
-     * @return int intero (tipo_canale) se eseguita con successo, false se il canale non esiste
-     */
-    public static function getTipoCanaleFromId($id_canale)
-    {
-        return self::getRepository()->getTipoCanaleFromId($id_canale);
-    }
-
-    /**
      * Ritorna il tipo di canale dato l'id_canale del database
      *
      * @return int
@@ -215,8 +195,6 @@ class Canale
     {
         return $this->tipoCanale;
     }
-
-
 
     /**
      * Ritorna il timestamp dell'ultima modifica eseguita nel canale
@@ -241,7 +219,7 @@ class Canale
         $this->ultimaModifica = $timestamp;
 
         if ($updateDB) {
-            return self::getRepository()->updateUltimaModifica($this);
+            throw new \InvalidParameterException('$updateDB must be false');
         }
 
         return true;
@@ -324,17 +302,6 @@ class Canale
     public function setVisite($visite)
     {
         $this->visite = $visite;
-    }
-
-    /**
-     * Aumenta il numero di visite effettuate nel canale
-     *
-     * @deprecated
-     * @return boolean
-     */
-    public function addVisite($visite = 1)
-    {
-        return self::getRepository()->addVisite($this, $visite);
     }
 
     /**
@@ -604,54 +571,6 @@ class Canale
     }
 
     /**
-     * Crea un oggetto canale dato il suo numero identificativo id_canale del database
-     *
-     * @deprecated
-     * @param  int   $id_canale numero identificativo del canale
-     * @return mixed Canale se eseguita con successo, false se il canale non esiste
-     */
-    public static function selectCanale($id_canale)
-    {
-        $array_canale = Canale::selectCanali( array( 0 => $id_canale ) );
-
-        return $array_canale[0];
-    }
-
-    /**
-     * Crea un elenco (array) di oggetti Canale dato un elenco (array) di loro numeri identificativi id_canale del database
-     *
-     * @deprecated
-     * @param  array $elenco_id_canali array contenente i numeri identificativi del canale
-     * @return mixed array di Canale se eseguita con successo, false se il canale non esiste
-     */
-    public static function selectCanali(array $idCanale)
-    {
-        return self::getRepository()->findManyById($idCanale);
-    }
-
-    /**
-     * Inserisce su Db le informazioni riguardanti un NUOVO canale
-     *
-     * @param  int     $id_canale numero identificativo utente
-     * @return boolean
-     */
-    public function insertCanale()
-    {
-        return self::getRepository()->insert($this);
-    }
-
-    /**
-     * Aggiorna il contenuto su DB riguardante le informazioni del canale
-     *
-     * @deprecated
-     * @return boolean true se avvenua con successo, altrimenti false e throws Error object
-     */
-    public function updateCanale()
-    {
-        return self::getRepository()->update($this);
-    }
-
-    /**
      * Ritorna un array contenente gli oggetti Ruolo associati al canale
      *
      * @return array
@@ -671,32 +590,6 @@ class Canale
     }
 
     /**
-     * Controlla se esiste un canale
-     *
-     * @static
-     *
-     * @param  int     $id_canale id del canale da controllare
-     * @return boolean true se esiste tale canale
-     */
-    public static function canaleExists($id_canale)
-    {
-        if ( $id_canale < 0 ) return false;
-        return self::getRepository()->idExists($id_canale);
-    }
-
-    /**
-     * Crea un elenco (array) di oggetti Canale dato un elenco (array) di loro numeri identificativi id_canale del database
-     *
-     * @deprecated
-     * @param  array $tipoCanali array contenente ila tipologia del canale
-     * @return mixed array di id_canali se eseguita con successo, false se il canale non esiste
-     */
-    public static function selectCanaliTipo($tipoCanale)
-    {
-        return self::getRepository()->findManyByType($tipoCanale);
-    }
-
-    /**
      * compara per nome due canali
      */
     public static function compareByName($a, $b)
@@ -706,23 +599,4 @@ class Canale
 
         return strnatcasecmp($nomea, $nomeb);
     }
-
-    /**
-     * @return CanaleRepository
-     */
-    private static function getRepository()
-    {
-        if (is_null(self::$repository)) {
-            self::$repository = FrontController::getContainer()->get('universibo_legacy.repository.canale');
-        }
-
-        return self::$repository;
-    }
 }
-
-define('CANALE_DEFAULT'      ,Canale::CDEFAULT);
-define('CANALE_HOME'         ,Canale::HOME);
-define('CANALE_FACOLTA'      ,Canale::FACOLTA);
-define('CANALE_CDL'          ,Canale::CDL);
-define('CANALE_INSEGNAMENTO' ,Canale::INSEGNAMENTO);
-//define('CANALE_ESAME_ECO'    ,6);
