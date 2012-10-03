@@ -21,25 +21,25 @@ class User extends BaseUser
      * @ORM\Column(type="string",length=255,nullable=true,name="shib_username")
      * @var string
      */
-    private $shibUsername;
+    protected $shibUsername;
 
     /**
      * @ORM\Column(type="string",length=15,nullable=true)
      * @var string
      */
-    private $phone;
+    protected $phone;
 
     /**
      * @ORM\Column(type="integer")
      * @var integer
      */
-    private $notifications;
+    protected $notifications;
 
     /**
      * @ORM\Column(type="integer", name="groups");
      * @var int
      */
-    private $legacyGroups;
+    protected $legacyGroups;
 
     /**
      * @return string
@@ -127,5 +127,60 @@ class User extends BaseUser
     public function isGroupAllowed($groups)
     {
         return (bool) ($groups & $this->legacyGroups);
+    }
+    
+    /**
+     * Serializes the user.
+     *
+     * The serialized data have to contain the fields used by the equals method and the username.
+     *
+     * @return string
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->password,
+            $this->salt,
+            $this->usernameCanonical,
+            $this->username,
+            $this->expired,
+            $this->locked,
+            $this->credentialsExpired,
+            $this->enabled,
+            $this->id,
+            $this->shibUsername,
+            $this->phone,
+            $this->notifications,
+            $this->legacyGroups
+        ));
+    }
+
+    /**
+     * Unserializes the user.
+     *
+     * @param string $serialized
+     */
+    public function unserialize($serialized)
+    {
+        $data = unserialize($serialized);
+        // add a few extra elements in the array to ensure that we have enough keys when unserializing
+        // older data which does not include all properties.
+        $data = array_merge($data, array_fill(0, 2, null));
+
+        list(
+            $this->password,
+            $this->salt,
+            $this->usernameCanonical,
+            $this->username,
+            $this->expired,
+            $this->locked,
+            $this->credentialsExpired,
+            $this->enabled,
+            $this->id,
+            $this->shibUsername,
+            $this->phone,
+            $this->notifications,
+            $this->legacyGroups
+        ) = $data;
     }
 }
