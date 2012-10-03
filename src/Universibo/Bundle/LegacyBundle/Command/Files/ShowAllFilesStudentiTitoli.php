@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command\Files;
 
+use Universibo\Bundle\LegacyBundle\Framework\Error;
+
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
 
@@ -30,7 +32,8 @@ class ShowAllFilesStudentiTitoli extends PluginCommand
     {
         $elenco_file = $param['files'];
         $bc        = $this->getBaseCommand();
-        $user      = $bc->get('security.context')->getToken()->getUser();
+        $context   = $bc->get('security.context');
+        $user      = $context->getToken()->getUser();
         $fc        = $bc->getFrontController();
         $template  = $fc->getTemplateEngine();
         $krono     = $fc->getKrono();
@@ -40,6 +43,11 @@ class ShowAllFilesStudentiTitoli extends PluginCommand
         $referente      = false;
         $moderatore     = false;
         $personalizza_not_admin = false;
+
+        if (!$context->isGranted('ROLE_ADMIN')) {
+            Error::throwError(_ERROR_DEFAULT,array('msg' => 'non autorizzato', 'file' => __FILE__, 'line' => __LINE__));
+        }
+
         $ultimo_accesso = $user->getLastLogin()->getTimestamp();
 
         $canale_files = count($elenco_file);
@@ -57,6 +65,8 @@ class ShowAllFilesStudentiTitoli extends PluginCommand
         //$elenco_categorie_file_tpl = array();
         $categorie_tpl = array();
         $file_tpl = array();
+
+        $fileRepo = $this->get('universibo_legacy.repository.files.file_item_studenti');
 
         if ($elenco_file ==! false) {
             $ret_file = count($elenco_file);
@@ -80,7 +90,7 @@ class ShowAllFilesStudentiTitoli extends PluginCommand
                     $file_tpl[$i]['autore_link']  = $router->generate('universibo_legacy_user', array('id_utente' => $file->getIdUtente()));
                     $file_tpl[$i]['id_autore']    = $file->getIdUtente();
                     $file_tpl[$i]['dimensione'] = $file->getDimensione();
-                    $file_tpl[$i]['voto_medio'] = round($file->getVoto($file->getIdFile()),1);
+                    $file_tpl[$i]['voto_medio'] = round($fileRepo->getAverageRating($file->getIdFile()),1);
 //	tolto controllo: Il link download va mostrato sempre, il controllo ? effettuato successivamente
 //					$file_tpl['download_uri'] = '';
 //					$permessi_download = $file->getPermessiDownload();
