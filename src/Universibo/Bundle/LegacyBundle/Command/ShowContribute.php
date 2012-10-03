@@ -5,7 +5,7 @@ use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
 
 use Universibo\Bundle\LegacyBundle\Entity\Questionario;
 
-use \Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**

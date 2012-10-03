@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__.'/SmartyBC.class.php';
 /**
  * Project:     Smarty: the PHP compiling template engine
  * File:        Smarty.class.php

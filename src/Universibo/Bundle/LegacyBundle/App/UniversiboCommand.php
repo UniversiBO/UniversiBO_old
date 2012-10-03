@@ -9,7 +9,7 @@ use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\Framework\BaseCommand;
 use Universibo\Bundle\CoreBundle\Entity\User;
 
-use \Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 /**
  * UniversiboCommand is the abstract super class of all command classes
  * used in the universibo application.
@@ -65,7 +65,6 @@ abstract class UniversiboCommand extends BaseCommand
         }
 
         $fc = $this->getFrontController();
-        $fc->getMail(MAIL_KEEPALIVE_CLOSE);
     }
 
     /**

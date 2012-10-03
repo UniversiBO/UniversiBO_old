@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use \Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;

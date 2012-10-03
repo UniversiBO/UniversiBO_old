@@ -9,9 +9,6 @@ define('MAIL_KEEPALIVE_NO', 0);
 define('MAIL_KEEPALIVE_ALIVE', 1);
 define('MAIL_KEEPALIVE_CLOSE', 2);
 
-use \Error;
-use \Krono;
-
 use Symfony\Component\DependencyInjection\Container;
 use Universibo\Bundle\LegacyBundle\App\ErrorHandlers;
 
@@ -457,15 +454,7 @@ class FrontController
      */
     public function _setRootFolder()
     {
-           $elementsFolder = $this->config->getElementsByTagName('rootFolder');
-           if ($elementsFolder == NULL)
-               \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` specificato l\'elemento rootFolder nel file di config','file'=>__FILE__,'line'=>__LINE__));
-           $elementFolderItem = $elementsFolder->item(0);
-           $elementFolderChild =& $elementFolderItem->firstChild;
-           $this->rootFolder = $elementFolderChild->nodeValue;
-           if(is_dir($this->rootFolder)) return;
-           else
-               \Error::throwError(_ERROR_CRITICAL,array('msg'=>'rootFolder errata nel file di config','file'=>__FILE__,'line'=>__LINE__));
+        $this->rootFolder = realpath(__DIR__.'/../../../../..');
     }
 
     /**
@@ -834,9 +823,7 @@ class FrontController
         if ($templateEngine != NULL) {
             return $templateEngine ;
         } else {
-            //define('TEMPLATE_SINGLETON','on');
-            require_once($this->templateEngine['smarty_dir'].'SmartyBC.class.php');
-            require_once($this->templateEngine['smarty_dir'].'MySmarty.class.php');
+            require_once __DIR__.'/../../../../../smarty/MySmarty.class.php';
 
             //			$templateEngine = new Smarty();
 
@@ -869,54 +856,6 @@ class FrontController
     public function getMailer()
     {
         return $this->getContainer()->get('mailer');
-    }
-
-    /**
-     * Factory method that creates a PhpMailer Mail object
-     *
-     * param $keepAlive MAIL_KEEPALIVE_NO||MAIL_KEEPALIVE_ALIVE||MAIL_KEEPALIVE_CLOSE
-     * @return PHPMailer object
-     * @access public
-     */
-
-    public function getMail($keepAlive = MAIL_KEEPALIVE_NO)
-    {
-        static $singleton = null;
-        $mail = null;
-
-        if ($keepAlive == MAIL_KEEPALIVE_ALIVE) {
-            if ($singleton == null) {
-                $singleton = new \PHPMailer();
-                $singleton->IsSMTP(); 							// send via SMTP
-                $singleton->Host = $this->mailerInfo['smtp'];	// SMTP server
-                $singleton->SMTPAuth = false; 					// off SMTP authentication
-                $singleton->From = $this->mailerInfo['fromAddress'];
-                $singleton->FromName = $this->mailerInfo['fromName'];
-                $singleton->WordWrap = 80;
-                $singleton->IsHTML(false);
-                $singleton->AddReplyTo($this->mailerInfo['replyToAddress'], $this->mailerInfo['fromName']);
-                $singleton->SMTPKeepAlive = true;
-            }
-
-            return $singleton;
-
-        } elseif ($keepAlive == MAIL_KEEPALIVE_CLOSE) {
-            if ($singleton != null) {
-                $singleton->SMTPKeepAlive = true;
-            }
-        } elseif ($keepAlive == MAIL_KEEPALIVE_NO) {
-            $mail = new \PHPMailer();
-            $mail -> IsSMTP(); 							// send via SMTP
-            $mail -> Host = $this->mailerInfo['smtp'];	// SMTP server
-            $mail -> SMTPAuth = false; 					// off SMTP authentication
-            $mail -> From = $this->mailerInfo['fromAddress'];
-            $mail -> FromName = $this->mailerInfo['fromName'];
-            $mail -> WordWrap = 80;
-            $mail -> IsHTML(false);
-            $mail -> AddReplyTo($this->mailerInfo['replyToAddress'], $this->mailerInfo['fromName']);
-        }
-
-        return $mail;
     }
 
     /**

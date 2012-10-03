@@ -7,7 +7,7 @@ use Universibo\Bundle\CoreBundle\Entity\User;
 
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
-use \Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 /**
  * CanaleCommand ? la superclasse astratta di tutti i command che utilizzando un oggetto Canale
  *

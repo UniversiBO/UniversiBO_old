@@ -9,7 +9,8 @@ use Universibo\Bundle\LegacyBundle\Tests\TestConstants;
 
 abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
 {
-    protected $base = '/app_dev.php';
+    //protected $base = '/app_dev.php';
+    protected $base = '';
 
     protected function setUp()
     {

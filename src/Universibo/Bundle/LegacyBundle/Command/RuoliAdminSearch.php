@@ -7,7 +7,7 @@ use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
 use Universibo\Bundle\CoreBundle\Entity\User;
 
-use \Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**

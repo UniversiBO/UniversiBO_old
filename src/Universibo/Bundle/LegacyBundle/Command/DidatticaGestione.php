@@ -2,7 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 use ZendTest\Navigation\TestAsset\Router;
 
-use \Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 

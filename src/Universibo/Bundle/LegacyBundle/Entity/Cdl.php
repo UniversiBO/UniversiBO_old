@@ -4,7 +4,7 @@ namespace Universibo\Bundle\LegacyBundle\Entity;
 use Symfony\Component\Routing\RouterInterface;
 
 use \DB;
-use \Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 define('CDL_NUOVO_ORDINAMENTO'   ,1);

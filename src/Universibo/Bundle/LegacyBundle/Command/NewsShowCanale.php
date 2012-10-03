@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use \Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;

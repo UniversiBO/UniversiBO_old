@@ -294,7 +294,7 @@
 	<templateInfo type="Smarty" debugging="off">
 		<template_dirs>
 			<web_dir>tpl/</web_dir>
-			<smarty_dir>../framework/smarty/</smarty_dir>
+			<smarty_dir>../smarty/</smarty_dir>
 			<smarty_template>../universibo/templates/</smarty_template>
 			<smarty_compile>../universibo/templates_compile/</smarty_compile>
 			<smarty_config>../universibo/templates_config/</smarty_config>

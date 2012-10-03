@@ -66,14 +66,19 @@ class ContattoDocenteRepository extends DoctrineRepository
         ignore_user_abort(1);
         $db->beginTransaction();
         $contattoDocente->setUltimaModifica(time());
-        $query = 'UPDATE docente_contatti SET stato = '.$db->quote($contattoDocente->getStato())
-        .' , id_utente_assegnato = '.$db->quote($contattoDocente->getIdUtenteAssegnato())
-        .' , ultima_modifica = '.$db->quote($contattoDocente->getUltimaModifica())
-        .' , report = '.$db->quote($contattoDocente->getReport())
-        .' WHERE cod_doc = '.$db->quote($contattoDocente->getCodDoc());
+        $query = 'UPDATE docente_contatti SET stato = ?'
+        .' , id_utente_assegnato = ?'
+        .' , ultima_modifica = ?'
+        .' , report = ?'
+        .' WHERE cod_doc = ?';
         //echo $query;
-        $res = $db->executeQuery($query);
-        //var_dump($query);
+        $res = $db->executeQuery($query, array (
+                $contattoDocente->getStato(),
+                $contattoDocente->getIdUtenteAssegnato(),
+                $contattoDocente->getUltimaModifica(),
+                $contattoDocente->getReport(),
+                $contattoDocente->getCodDoc()
+        ));
 
         $this->checkState($contattoDocente);
 

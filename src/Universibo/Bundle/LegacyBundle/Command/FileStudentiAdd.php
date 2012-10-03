@@ -6,7 +6,7 @@ use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 
 use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
 
-use \Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;

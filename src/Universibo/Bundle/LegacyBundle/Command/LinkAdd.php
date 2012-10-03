@@ -4,7 +4,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
-use \Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Links\Link;
 
