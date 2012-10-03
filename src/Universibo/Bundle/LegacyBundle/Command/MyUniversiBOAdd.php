@@ -48,7 +48,8 @@ class MyUniversiBOAdd extends UniversiboCommand
         $template->assign('common_canaleURI', $canale->showMe($router));
         $template->assign('common_langCanaleNome', $canale->getNome());
 
-        $ruoli = $utente instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($utente->getId()) : array();
+        $roleRepo = $this->get('universibo_legacy.repository.ruolo');
+        $ruoli = $utente instanceof User ? $roleRepo->findByIdUtente($utente->getId()) : array();
         $this->executePlugin('ShowTopic', array('reference' => 'myuniversibo'));
 
         //		if()
@@ -104,7 +105,7 @@ class MyUniversiBOAdd extends UniversiboCommand
                     $ruolo->updateTipoNotifica($f15_livello_notifica);
                     $ruolo->setMyUniversiBO(true);
 
-                    $ruolo->updateRuolo();
+                    $roleRepo->update($ruolo);
                 } else {
                     $nascosto = false;
                     $ruolo = new Ruolo($utente->getId(), $id_canale,
@@ -113,8 +114,9 @@ class MyUniversiBOAdd extends UniversiboCommand
                     $ruolo->insertRuolo();
                 }
 
-                if ($canale->getTipoCanale() == CANALE_INSEGNAMENTO) {
+                if ($canale->getTipoCanale() == Canale::INSEGNAMENTO) {
                     //trover? un modo per ottenere il cdl! lo giuro!!!
+                    // peccato tu non ti sia firmato, SbiellONE ^^
                 }
 
                 return 'success';

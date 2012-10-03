@@ -5,7 +5,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
-use Universibo\Bundle\LegacyBundle\Entity\ContattoDocente;
 use Universibo\Bundle\LegacyBundle\Entity\Docente;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
@@ -44,13 +43,16 @@ class ShowContattoDocente extends UniversiboCommand
                             'file' => __FILE__, 'line' => __LINE__,
                             'template_engine' => $template));
 
-        $docente = Docente::selectDocenteFromCod($this->getRequest()->attributes->get('cod_doc'));
+        $channelRepo2 = $this->get('universibo_legacy.repository.canale2');
+        $docRepo = $this->get('universibo_legacy.repository.docente');
+        $contRepo = $this->get('universibo_legacy.repository.contatto_docente');
+        $docente = $docRepo->findOneByCodDoc($this->getRequest()->attributes->get('cod_doc'));
 
         if (!$docente) {
             throw new NotFoundHttpException('Docente not found');
         }
         $cod_doc = $docente->getCodDoc();
-        $contatto = ContattoDocente::getContattoDocente($cod_doc);
+        $contatto = $contRepo->findByCodDocente($cod_doc);
 
         if (!$contatto)
             Error::throwError(_ERROR_DEFAULT,
@@ -69,7 +71,7 @@ class ShowContattoDocente extends UniversiboCommand
                             'template_engine' => &$template));
         //		var_dump($docente);
 
-        $rub_docente = $docente->getInfoRubrica();
+        $rub_docente = $docRepo->getInfo($docente);
 
         $rub_presente = true;
 
@@ -103,7 +105,7 @@ class ShowContattoDocente extends UniversiboCommand
         //		var_dump($elenco_ruoli);
         foreach ($elenco_ruoli as $ruolo) {
             $id_canale = $ruolo->getIdCanale();
-            $canale = Canale::retrieveCanale($id_canale);
+            $canale = $channelRepo2->find($id_canale);
             $name = $canale->getNome();
             $date = $ruolo->getUltimoAccesso();
             $info_ruoli[$name] = ($date == 0) ? 'mai loggato'
@@ -174,7 +176,7 @@ class ShowContattoDocente extends UniversiboCommand
             if (trim($_POST['f35_report']) != '')
                 $contatto->appendReport($_POST['f35_report']);
 
-            $contatto->updateContattoDocente();
+            $contRepo->update($contatto);
 
             $notifica_titolo = 'Modifica contatto del docente '
                     . $docente->getNomeDoc();

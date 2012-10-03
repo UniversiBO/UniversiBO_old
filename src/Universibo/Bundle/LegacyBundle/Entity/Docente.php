@@ -14,11 +14,6 @@ namespace Universibo\Bundle\LegacyBundle\Entity;
 class Docente
 {
     /**
-     * @var DBDocenteRepository
-     */
-    private static $repository;
-
-    /**
      * @access private
      */
     public $id_utente;
