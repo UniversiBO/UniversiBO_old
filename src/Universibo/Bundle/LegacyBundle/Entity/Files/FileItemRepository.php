@@ -27,7 +27,7 @@ class FileItemRepository extends DoctrineRepository
      */
     private $channelRepository;
 
-    public function __construct(Connection $db, UserRepository $userRepository, CanaleRepository $channelRepository, $convert = false)
+    public function __construct(Connection $db, UserRepository $userRepository, CanaleRepository $channelRepository)
     {
         parent::__construct($db);
 
