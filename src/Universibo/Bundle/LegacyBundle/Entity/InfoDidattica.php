@@ -71,11 +71,6 @@ class InfoDidattica
      */
     public $orario_ics_link = '';
 
-    /**
-     * @var DBInfoDidatticaRepository
-     */
-    private static $repository;
-
     public function __construct($id_canale, $programma, $programma_link,
             $testi_consigliati, $testi_consigliati_link, $modalita,
             $modalita_link, $obiettivi_esame, $obiettivi_esame_link, $appelli,

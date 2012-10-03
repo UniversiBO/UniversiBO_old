@@ -46,11 +46,6 @@ class Insegnamento extends Canale
     private $elencoCodiciCDL = NULL;
 
     /**
-     * @var DBInsegnamentoRepository
-     */
-    private static $repository;
-
-    /**
      * Crea un oggetto Insegnamento
      *
      * @param  int          $id_canale       identificativo del canale su database

@@ -121,11 +121,6 @@ class PrgAttivitaDidattica extends Canale
     private $id_sdop;
 
     /**
-     * @var PrgAttivitaDidatticaRepository
-     */
-    private static $repository;
-
-    /**
      * Crea un oggetto PrgAttivitaDidattica
      *
      * @param int     $id_canale       identificativo del canale su database

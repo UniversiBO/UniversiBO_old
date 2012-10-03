@@ -81,12 +81,6 @@ class Ruolo
      */
     public $nascosto = false;
 
-
-    /**
-     * @var DBRuoloRepository
-     */
-    private static $repository;
-
     /**
      * Crea un oggetto Ruolo
      *

@@ -66,11 +66,6 @@ class NotificaItem
     private $error = '';
 
     /**
-     * @var DBNotificaItemRepository
-     */
-    private static $repository;
-
-    /**
      * Crea un oggetto NotificaItem con i parametri passati
      *
      *

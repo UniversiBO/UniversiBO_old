@@ -41,11 +41,6 @@ class Facolta extends Canale
     private $facoltaUri = '';
 
     /**
-     * @var DBFacoltaRepository
-     */
-    private static $repository;
-
-    /**
      * Crea un oggetto facolta
      *
      * @see selectFacoltaCanale
