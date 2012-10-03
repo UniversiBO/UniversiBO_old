@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\ContattoDocente;
@@ -29,27 +31,24 @@ class ShowContattoDocente extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $user = $this->get('security.context')->getToken()->getUser();
+        $userId = $user instanceof User ? $user->getId() : 0;
         $router = $this->get('router');
         $userRepo = $this->get('universibo_core.repository.user');
 
-        if (!$user->hasRole('ROLE_COLLABORATOR') && !$this->get('security.context')->isGranted('ROLE_ADMIN'))
+        $context = $this->get('security.context');
+
+        if (!$context->isGranted('ROLE_COLLABORATOR') && !$context->isGranted('ROLE_ADMIN'))
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
+                    array('id_utente' => $userId,
                             'msg' => 'Non hai i diritti necessari per visualizzare la pagina',
                             'file' => __FILE__, 'line' => __LINE__,
-                            'template_engine' => &$template));
+                            'template_engine' => $template));
 
         $docente = Docente::selectDocenteFromCod($this->getRequest()->attributes->get('cod_doc'));
 
-        if (!$docente)
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'L\'utente cercato non e` un docente',
-                            'file' => __FILE__, 'line' => __LINE__,
-                            'template_engine' => &$template));
-
-        //echo 'qui';
-
+        if (!$docente) {
+            throw new NotFoundHttpException('Docente not found');
+        }
         $cod_doc = $docente->getCodDoc();
         $contatto = ContattoDocente::getContattoDocente($cod_doc);
 
