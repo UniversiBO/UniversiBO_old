@@ -19,7 +19,7 @@ class LinkRepository extends DoctrineRepository
      */
     private $userRepository;
 
-    public function __construct(Connection $db, UserRepository $userRepository, $convert = false)
+    public function __construct(Connection $db, UserRepository $userRepository)
     {
         parent::__construct($db);
 
@@ -34,10 +34,6 @@ class LinkRepository extends DoctrineRepository
         . $db->quote($channelId) . ') ORDER BY id_link DESC';
         $res = $db->executeQuery($query);
 
-        $rows = $res->rowCount();
-
-        if ($rows = 0)
-            return false;
         $link_list = array();
 
         while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
@@ -50,7 +46,6 @@ class LinkRepository extends DoctrineRepository
 
     public function find($id)
     {
-        $db = $this->getConnection();
         $result = $this->findMany(array($id));
 
         return is_array($result) ? $result[0] : $result;
@@ -71,13 +66,6 @@ class LinkRepository extends DoctrineRepository
         . $values . ')';
         $res = $db->executeQuery($query);
 
-        $rows = $res->rowCount();
-
-        if ($rows == 0) {
-            $ret = false;
-
-            return $ret;
-        }
         $link_list = array();
 
         while (false !== ($row = $res->fetch(\PDO::FETCH_NUM))) {
