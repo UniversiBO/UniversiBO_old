@@ -256,7 +256,7 @@ class RuoloRepository extends DoctrineRepository
         foreach ($elenco_canali as $id_current_canale) {
             $current_canale = $this->channelRepository->find($id_current_canale);
             $elenco_canali_retrieve[$id_current_canale] = $current_canale;
-            $didatticaCanale = $this->didatticaRepository->find($id_current_canale);
+            $didatticaCanale = $this->didatticaRepository->findByChannelId($id_current_canale);
             // var_dump($didatticaCanale);
             $annoCorso = (count($didatticaCanale) > 0) ? $didatticaCanale[0]
             ->getAnnoAccademico() : 'altro';
