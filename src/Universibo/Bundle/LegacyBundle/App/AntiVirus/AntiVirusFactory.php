@@ -3,8 +3,6 @@ namespace Universibo\Bundle\LegacyBundle\App\AntiVirus;
 
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 /**
- *
- * @package universibo
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, http://www.opensource.org/licenses/gpl-license.php
  * @copyright CopyLeft UniversiBO 2001-2005
