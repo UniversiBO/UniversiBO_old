@@ -1,6 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use \Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use \Canale;
 use \ContattoDocente;
 use \Docente;

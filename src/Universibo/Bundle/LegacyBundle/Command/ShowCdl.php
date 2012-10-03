@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
 
-use \Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 
 use Universibo\Bundle\LegacyBundle\Entity\Facolta;
 

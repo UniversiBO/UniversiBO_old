@@ -2,7 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 
-use \Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**

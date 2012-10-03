@@ -5,7 +5,7 @@ use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use \Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Links\Link;
 

@@ -4,7 +4,7 @@ use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use \Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;

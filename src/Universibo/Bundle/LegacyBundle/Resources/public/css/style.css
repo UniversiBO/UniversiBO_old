@@ -208,7 +208,7 @@ td>#header /* questa regola viene ignorata da exploder*/ {
  */
 #leftmenu {
 	width: 200px;
-	background: white url(pixel.gif) repeat;
+	background: white url('../images/pixel.gif') repeat;
 	padding: 1.4em 0 0;
 	border-bottom: dotted 2px #999;
 }
@@ -567,7 +567,7 @@ td.evidenzia {
 	font-size: 10px;
 	border: solid 1px #999;
 	padding: 0;
-	background: white url(pixel.gif) repeat;
+	background: white url('../images/pixel.gif') repeat;
 	margin: 15px 8px;
 }
 
@@ -754,7 +754,7 @@ td.evidenzia {
 }
 
 .chi_siamo div {
-	background: white url(pixel.gif) repeat;
+	background: white url('../images/pixel.gif') repeat;
 }
 
 .chi_siamo h3 {

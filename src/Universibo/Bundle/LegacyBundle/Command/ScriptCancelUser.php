@@ -2,7 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use \DB;
-use \Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\InteractiveCommand\StoredInteractionInformationRetriever;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;

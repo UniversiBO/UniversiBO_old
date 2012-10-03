@@ -3,7 +3,7 @@ namespace Universibo\Bundle\LegacyBundle\Entity;
 
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use \DB;
-use \Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\CoreBundle\Entity\User;
 
 define('NOTIFICA_NONE'   ,0);

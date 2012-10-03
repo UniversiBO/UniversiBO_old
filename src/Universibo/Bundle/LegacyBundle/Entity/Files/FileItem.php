@@ -3,7 +3,7 @@ namespace Universibo\Bundle\LegacyBundle\Entity\Files;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
 use \DB;
-use \Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 /**

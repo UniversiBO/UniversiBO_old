@@ -14,7 +14,7 @@ class MyUniversiBOCRUDTest extends UniversiBOSeleniumTestCase
     {
         $this->logout();
         $this->openPrefix('/myuniversibo/add/23/');
-        $this->assertEquals('/app_dev.php/login', strstr($this->getLocation(), '/app_dev.php/login'));
+        $this->assertEquals($this->base.'/login', strstr($this->getLocation(), '/app_dev.php/login'));
     }
 
     public function testAddInvalid()

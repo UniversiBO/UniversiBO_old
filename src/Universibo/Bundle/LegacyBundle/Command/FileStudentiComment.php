@@ -1,6 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use \Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\LegacyBundle\Entity\Commenti\CommentoItem;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
