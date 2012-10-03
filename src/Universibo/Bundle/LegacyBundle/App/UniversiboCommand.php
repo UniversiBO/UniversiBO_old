@@ -266,7 +266,6 @@ abstract class UniversiboCommand extends BaseCommand
         } else {
             $template->assign('common_userLoggedIn', 'true');
             $template->assign('common_userUsername', $session_user->getUsername());
-            //$livelli = User::groupsNames();
 
             $role = $this->get('universibo_legacy.translator.role_name')->translate($session_user->getRoles());
             $template->assign('common_userLivello', $role);

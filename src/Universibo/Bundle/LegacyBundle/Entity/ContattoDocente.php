@@ -166,12 +166,11 @@ class ContattoDocente
      * @param int newIdUtente nuovo collaboratore assegnato
      *
      */
-    public function assegna($newIdUtente, $idUtenteMaster)
+    public function assegna($newUsername, $usernameMaster)
     {
-        $text = User::getUsernameFromId($idUtenteMaster).': assegnato docente a '.User::getUsernameFromId($newIdUtente);
+        $text = $usernameMaster.': assegnato docente a '.$newUsername;
         $this->appendReport($text);
         $this->id_utente_assegnato = $newIdUtente;
-
     }
 
     public function updateContattoDocente()

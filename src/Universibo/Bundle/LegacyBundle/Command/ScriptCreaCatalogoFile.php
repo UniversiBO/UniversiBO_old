@@ -1,10 +1,11 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
+use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
+
 use \DB;
 use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
-use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 
 /**
@@ -39,8 +40,8 @@ class ScriptCreaCatalogoFile extends UniversiboCommand
 
             echo "vecchio" ;
             echo " \n" ;
-            $res = $db->query('SELECT id_file FROM file WHERE password IS NULL AND permessi_download = '.$db->quote(User::ALL).' AND eliminato !='.$db->quote(FILE_ELIMINATO).' ORDER BY id_file ASC');
-            //			echo 'SELECT id_file FROM file WHERE password IS NULL AND permessi_download = '.$db->quote(User::ALL).' AND eliminato !='.$db->quote(FILE_ELIMINATO).' ORDER BY id_file ASC';
+            $res = $db->query('SELECT id_file FROM file WHERE password IS NULL AND permessi_download = '.$db->quote(LegacyRoles::ALL).' AND eliminato !='.$db->quote(FILE_ELIMINATO).' ORDER BY id_file ASC');
+            //			echo 'SELECT id_file FROM file WHERE password IS NULL AND permessi_download = '.$db->quote(LegacyRoles::ALL).' AND eliminato !='.$db->quote(FILE_ELIMINATO).' ORDER BY id_file ASC';
             if (DB::isError($res))
                 Error :: throwError(_ERROR_DEFAULT, array ('msg' => "Errori nel recupero dei file esistenti", 'file' => __FILE__, 'line' => __LINE__));
 
