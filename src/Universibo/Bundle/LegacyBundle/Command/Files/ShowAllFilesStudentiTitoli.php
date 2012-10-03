@@ -38,6 +38,7 @@ class ShowAllFilesStudentiTitoli extends PluginCommand
         $template  = $fc->getTemplateEngine();
         $krono     = $fc->getKrono();
         $router    = $this->get('router');
+        $channelRepo2 = $this->get('universibo_legacy.repository.canale2');
 
         $personalizza   = false;
         $referente      = false;
@@ -51,6 +52,7 @@ class ShowAllFilesStudentiTitoli extends PluginCommand
         $ultimo_accesso = $user->getLastLogin()->getTimestamp();
 
         $canale_files = count($elenco_file);
+        $fileRepo = $this->get('universibo_legacy.repository.files.file_item_studenti');
 
         if ($canale_files == 0) {
             $template->assign('showAllFilesStudentiTitoli_langFileAvailable', 'Non ci sono files da visualizzare');
@@ -95,11 +97,11 @@ class ShowAllFilesStudentiTitoli extends PluginCommand
 //					$file_tpl['download_uri'] = '';
 //					$permessi_download = $file->getPermessiDownload();
 //					if ($user->isGroupAllowed($permessi_download))
-                    $canali = $file->getIdCanali();
+                    $canali = $fileRepo->getChannelIds($file);
                     $num_canali =  count($canali);
                     $elenco_canali_tpl = array();
                     for ($j = 0; $j < $num_canali; $j++) {
-                        $canale = Canale::retrieveCanale($canali[$j]);
+                        $canale = $channelRepo2->find($canali[$j]);
                         if ($canale->isGroupAllowed($user->getLegacyGroups())) {
                             $canale_tpl = array();
 //							$canale_tpl['titolo'] = $canale->getNome();

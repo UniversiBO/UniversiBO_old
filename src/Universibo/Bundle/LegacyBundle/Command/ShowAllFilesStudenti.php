@@ -1,7 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
@@ -27,10 +26,7 @@ class ShowAllFilesStudenti extends UniversiboCommand
         $arrayFilesStudenti = array();
         $router = $this->get('router');
 
-        if (!array_key_exists('order', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['order'] ) || ($_GET['order'] > 2) ) {
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getId(), 'msg'=>'L\'ordine richiesto non e` valido','file'=>__FILE__,'line'=>__LINE__ ));
-        }
-        $order = $_GET['order'];
+        $order = intval($this->getRequest()->get('order', 0));
 
         $arrayFilesStudenti = $this->getAllFiles($order);
         $this->executePlugin('ShowAllFilesStudentiTitoli', array('files'=>$arrayFilesStudenti,'chk_diritti'=>false));
