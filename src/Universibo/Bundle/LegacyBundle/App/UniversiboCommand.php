@@ -197,7 +197,8 @@ abstract class UniversiboCommand extends BaseCommand
 
         //informazioni del MyUniversiBO
         $attivaMyUniversibo = false;
-        //		var_dump($session_user);
+
+        $channelRepo2 = $this->get('universibo_legacy.repository.canale2');
 
         if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             $attivaMyUniversibo = true;
@@ -210,7 +211,7 @@ abstract class UniversiboCommand extends BaseCommand
                 if ($ruolo->isMyUniversibo()) {
                     //$attivaMyUniversibo = true;
 
-                    $canale = Canale::retrieveCanale($ruolo->getIdCanale());
+                    $canale = $channelRepo2->find($ruolo->getIdCanale());
                     $myCanali = array();
                     $myCanali['uri'] = $canale->showMe($router);
                     $myCanali['tipo'] = $canale->getTipoCanale();
@@ -281,7 +282,7 @@ abstract class UniversiboCommand extends BaseCommand
         $template->assign('common_myUniversiBOUri', $router->generate('universibo_legacy_myuniversibo'));
 
         $template->assign('common_fac', 'Facoltà');
-        $elenco_facolta = Facolta::selectFacoltaElenco();
+        $elenco_facolta = $this->get('universibo_legacy.repository.facolta')->findAll();
         //var_dump($elenco_facolta);
 
         $num_facolta = count($elenco_facolta);
@@ -302,8 +303,7 @@ abstract class UniversiboCommand extends BaseCommand
         $common_servicesLinks = array();
 
         // servizi per i quali l'utente ha i diritti di accesso
-        $list_id_canali = Canale::selectCanaliTipo(CANALE_DEFAULT);
-        $list_canali = Canale::selectCanali($list_id_canali);
+        $list_canali = $channelRepo2->findManyByType(Canale::CDEFAULT);
         $keys = array_keys($list_canali);
         foreach ($keys as $key) {
             $my_canale = $list_canali[$key];

@@ -97,7 +97,7 @@ class Canale
      *
      * $tipo_canale:
      *  define('CANALE_DEFAULT'      ,1);
-     *  define('CANALE_HOME'         ,2);
+     *  define('Canale::HOME'         ,2);
      *  define('CANALE_FACOLTA'      ,3);
      *  define('CANALE_CDL'          ,4);
      *  define('CANALE_INSEGNAMENTO' ,5);
@@ -496,61 +496,6 @@ class Canale
         $canale->addVisite();
     }
 
-
-
-    /**
-     * Crea un oggetto "figlio di Canale" dato il suo numero identificativo id_canale
-     * Questo metodo utilizza il metodo factory che viene ridefinito nelle
-     * sottoclassi per restituire un oggetto del tipo corrispondente
-     *
-     * @param  int   $id_canale numero identificativo del canale
-     * @return mixed Canale se eseguita con successo, false se il canale non esiste
-     */
-    public static function retrieveCanale($id_canale, $cache = true)
-    {
-        //spalata la cache!!!
-        //dimezza i tempi di esecuzione!!
-        static $cache_canali = array();
-
-        if ($cache == true && array_key_exists($id_canale, $cache_canali))
-            return $cache_canali[$id_canale];
-
-        $tipo_canale =  Canale::getTipoCanaleFromId ( $id_canale );
-        if ($tipo_canale === false )
-            Error::throwError(_ERROR_DEFAULT,array('msg'=>'Il canale richiesto non e` presente','file'=>__FILE__,'line'=>__LINE__));
-
-        $dispatch_array = array (
-                CANALE_DEFAULT      => __NAMESPACE__.'\\Canale',
-                CANALE_HOME         => __NAMESPACE__.'\\Canale',
-                CANALE_FACOLTA      => __NAMESPACE__.'\\Facolta',
-                CANALE_CDL          => __NAMESPACE__.'\\Cdl',
-                CANALE_INSEGNAMENTO => __NAMESPACE__.'\\Insegnamento');
-
-
-        if (!array_key_exists($tipo_canale, $dispatch_array)) {
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>'Il tipo di canale richiesto su database non e` valido, contattare lo staff - '.var_dump($id_canale).var_dump($tipo_canale),'file'=>__FILE__,'line'=>__LINE__));
-        }
-
-        $class_name = $dispatch_array[$tipo_canale];
-        $cache_canali[$id_canale] = call_user_func(array($class_name,'factoryCanale'), $id_canale);
-
-        return $cache_canali[$id_canale];
-    }
-
-
-    /**
-     * Crea un oggetto Canale dato il suo numero identificativo id_canale
-     * Questo metodo viene ridefinito nelle sottoclassi per restituire un oggetto
-     * del tipo corrispondente
-     *
-     * @param  int   $id_canale numero identificativo del canale
-     * @return mixed Canale se eseguita con successo, false se il canale non esiste
-     */
-    public static function factoryCanale($id_canale)
-    {
-        return self::selectCanale($id_canale);
-    }
-
     /**
      * Restituisce l'uri/link che mostra un canale
      *
@@ -567,25 +512,6 @@ class Canale
                 return $router->generate('universibo_legacy_canale', $params);
             }
         }
-    }
-
-    /**
-     * Ritorna un array contenente gli oggetti Ruolo associati al canale
-     *
-     * @return array
-     */
-    public function getRuoli()
-    {
-        if ($this->ruoli == NULL) {
-            $this->ruoli = array();
-            $ruoli = Ruolo::selectCanaleRuoli($this->getIdCanale());
-            $num_elementi = count($ruoli);
-            for ($i=0; $i<$num_elementi; $i++) {
-                $this->ruoli[$ruoli[$i]->getId()] = $ruoli[$i];
-            }
-        }
-        //var_dump($this->ruoli);
-        return $this->ruoli;
     }
 
     /**

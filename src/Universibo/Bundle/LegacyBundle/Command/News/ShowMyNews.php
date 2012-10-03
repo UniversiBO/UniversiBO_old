@@ -2,7 +2,6 @@
 namespace Universibo\Bundle\LegacyBundle\Command\News;
 
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
-use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
 
 /**
@@ -56,7 +55,8 @@ class ShowMyNews extends PluginCommand
         }
 
         //var_dump($elenco_id_news);
-        $elenco_news = NewsItem::selectNewsItems($elenco_id_news);
+        $newsRep = $this->get('universibo_legacy.repository.news.news_item');
+        $elenco_news = $newsRep->findMany($elenco_id_news);
 
         $elenco_news_tpl = array();
 
@@ -83,12 +83,15 @@ class ShowMyNews extends PluginCommand
                 //	$elenco_news_tpl[$i]['scadenza'] = 'Scade il '.$krono->k_date('%j/%m/%Y - %H:%i', $news->getDataScadenza() );
                 //}
 
-                //roba mia
-                $canali = $news->getIdCanali();
+                $canali = $newsRep->getChannelIdList($news);
+                $channelRepo2 = $this->get('universibo_legacy.repository.canale2');
+
                 $num_canali =  count($canali);
                 $elenco_canali_tpl = array();
+                $elenco_news_tpl[$i]['canali']=array();
+
                 for ($j = 0; $j < $num_canali; $j++) {
-                    $canale = Canale::retrieveCanale($canali[$j]);
+                    $canale = $channelRepo2->find($canali[$j]);
                     if ($canale->isGroupAllowed($user->getLegacyGroups())) {
                         $canale_tpl = array();
                         $canale_tpl['titolo'] = $canale->getNome();

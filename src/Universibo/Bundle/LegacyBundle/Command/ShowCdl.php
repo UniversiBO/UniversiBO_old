@@ -1,11 +1,11 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
+
 use Universibo\Bundle\CoreBundle\Entity\User;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
-use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
 
 use Universibo\Bundle\LegacyBundle\Framework\Error;
 
@@ -35,7 +35,7 @@ class ShowCdl extends CanaleCommand
         $canale = $this->getRequestCanale();
         //var_dump($canale);
 
-        if ($canale->getTipoCanale() != CANALE_CDL)
+        if ($canale->getTipoCanale() != Canale::CDL)
             Error::throwError(_ERROR_DEFAULT, array('id_utente' => $this->sessionUser->getId(), 'msg' => 'Il tipo canale richiesto non corrisponde al comando selezionato', 'file' => __FILE__, 'line' => __LINE__));
     }
 
@@ -57,7 +57,8 @@ class ShowCdl extends CanaleCommand
             throw new NotFoundHttpException('Invalid Academical Year');
         }
 
-        $elencoPrgAttDid = PrgAttivitaDidattica::selectPrgAttivitaDidatticaElencoCdl($cdl -> getCodiceCdl(), $anno_accademico);
+        $prgRepo = $this->get('universibo_legacy.repository.programma');
+        $elencoPrgAttDid = $prgRepo->findByCdlAndYear($cdl -> getCodiceCdl(), $anno_accademico);
 
         $num_ins = count($elencoPrgAttDid);
         $insAnnoCorso  = NULL;   //ultimo anno dell'insegnamento precedente
@@ -67,7 +68,8 @@ class ShowCdl extends CanaleCommand
         $session_user_groups =  $session_user instanceof User ? $session_user->getLegacyGroups() : 1;
         $cdl_listIns = array();
 
-        $forum = $this->getContainer()->get('universibo_legacy.forum.api');
+        $forum = $this->get('universibo_legacy.forum.api');
+        $facRepo = $this->get('universibo_legacy.repository.facolta');
         //3 livelli di innestamento cdl/anno_corso/ciclo/insegnamento
         for ($i=0; $i < $num_ins; $i++) {
             $tempPrgAttDid = $elencoPrgAttDid[$i];
@@ -85,7 +87,7 @@ class ShowCdl extends CanaleCommand
                     $cdl_listIns[$insAnnoCorso]['list'][$insCiclo] = array('ciclo' => $insCiclo, 'name' => 'Ciclo '.$insCiclo, 'list' => array() );
                 }
                 $allowEdit = ($context->isGranted('ROLE_ADMIN') || $context->isGranted('ROLE_COLLABORATOR') );
-                $fac = Facolta::selectFacoltaCodice($cdl->getCodiceFacoltaPadre());
+                $fac = $facRepo->findOneByCodiceFacolta($cdl->getCodiceFacoltaPadre());
                 $editUri = (!$tempPrgAttDid->isSdoppiato())?
                 DidatticaGestione::getEditUrl($tempPrgAttDid->getIdCanale(),$cdl->getIdCanale(), $fac->getIdCanale()) :
                 DidatticaGestione::getEditUrl($tempPrgAttDid->getIdCanale(),$cdl->getIdCanale(), $fac->getIdCanale(),$tempPrgAttDid->getIdSdop());

@@ -1,5 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
+
 use Universibo\Bundle\LegacyBundle\Framework\Error;
 
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
@@ -27,7 +29,7 @@ class ShowHome extends CanaleCommand
         $canale = $this->getRequestCanale();
         //var_dump($canale);
 
-        if ($canale->getTipoCanale() != CANALE_HOME)
+        if ($canale->getTipoCanale() != Canale::HOME)
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $this->sessionUser->getId(),
                             'msg' => 'Il tipo canale richiesto non corrisponde al comando selezionato',

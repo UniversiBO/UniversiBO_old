@@ -59,7 +59,8 @@ class ShowLinks extends PluginCommand
 
         $personalizza = ($referente || $moderatore || $this->get('security.context')->isGranted('ROLE_ADMIN'));
 
-        $lista_links = Link::selectCanaleLinks($id_canale);
+        $linkRepo = $this->get('universibo_legacy.repository.links.link');
+        $lista_links = $linkRepo->findByChannelId($id_canale);
 
         $ret_links = count($lista_links);
         $elenco_links_tpl = array();
