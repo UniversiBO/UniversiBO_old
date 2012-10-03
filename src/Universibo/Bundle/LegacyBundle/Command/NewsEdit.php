@@ -495,7 +495,7 @@ class NewsEdit extends CanaleCommand
                 //					foreach ($_POST['f8_canale'] as $key => $value)
                 //					{
                 //						/*$news->addCanale($key);
-                //						$canale = Canale::retrieveCanale($key);
+                //						$canale = $channelRepo2->find($key);
                 //						$canale->setUltimaModifica(time(), true);*/
                 //						$spunta = ($id_current_canale == $key) ? 'true' : 'false';
                 //						if ($spunta == 'true')
@@ -507,7 +507,7 @@ class NewsEdit extends CanaleCommand
                 //				foreach ($f8_canale as $key => $value)
                 //				{
                 //					if ($value['spunta'] == 'true') $news->addCanale($value['id_canale']);
-                //					$canale = Canale::retrieveCanale($value['id_canale']);
+                //					$canale = $channelRepo2->find($value['id_canale']);
                 //					$canale->setUltimaModifica(time(), true);
                 //
                 //				}

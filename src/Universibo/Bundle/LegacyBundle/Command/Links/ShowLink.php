@@ -36,7 +36,7 @@ class ShowLink extends PluginCommand
         $bc        = $this->getBaseCommand();
         $user      = $bc->get('security.context')->getToken()->getUser();
         $canale    = $bc->getRequestCanale();
-//		$canale    = Canale::retrieveCanale($id_canale);
+//		$canale    = $channelRepo2->find($id_canale);
         $fc        = $bc->getFrontController();
         $template  = $fc->getTemplateEngine();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();

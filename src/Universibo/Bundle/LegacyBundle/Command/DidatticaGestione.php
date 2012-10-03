@@ -104,7 +104,7 @@ class DidatticaGestione extends UniversiboCommand
 
             if (Canale::getTipoCanaleFromId($_GET['id_canale'])
                     == CANALE_INSEGNAMENTO) {
-                $canale = &Canale::retrieveCanale(intval($_GET['id_canale']));
+                $canale = &$channelRepo2->find(intval($_GET['id_canale']));
                 $id_canale = $canale->getIdCanale();
                 if ($edit == 'false') {
                     $f41_cur_sel['insegnamento'] = $canale->getTitolo();
@@ -153,7 +153,7 @@ class DidatticaGestione extends UniversiboCommand
             //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id della facolta` richiesta non e` valido', 'file' => __FILE__, 'line' => __LINE__));
 
             if (Canale::getTipoCanaleFromId($_GET['id_fac']) == CANALE_FACOLTA) {
-                $fac = &Canale::retrieveCanale(intval($_GET['id_fac']));
+                $fac = &$channelRepo2->find(intval($_GET['id_fac']));
                 $id_facolta = $fac->getIdCanale();
                 $f41_cur_sel['facolta'] = $fac->getTitolo();
             }
@@ -167,7 +167,7 @@ class DidatticaGestione extends UniversiboCommand
             //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non e` valido', 'file' => __FILE__, 'line' => __LINE__));
 
             if (Canale::getTipoCanaleFromId($_GET['id_cdl']) == CANALE_CDL) {
-                $cdl = &Canale::retrieveCanale(intval($_GET['id_cdl']));
+                $cdl = &$channelRepo2->find(intval($_GET['id_cdl']));
                 // controllo coerenza tra facolta`, cdl e insegnamento
                 if ($id_facolta != '')
                     if ($cdl->getCodiceFacoltaPadre()
@@ -272,7 +272,7 @@ class DidatticaGestione extends UniversiboCommand
                             $prgs[] = PrgAttivitaDidattica::selectPrgAttivitaDidatticaSdoppiata(
                                     (int) $id_sdoppiamento);
                         } else {
-                            $channel = Canale::retrieveCanale($key);
+                            $channel = $channelRepo2->find($key);
                             $atts = $channel->getElencoAttivitaPadre();
                             $prgs[] = $atts[0];
                         }

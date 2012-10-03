@@ -54,7 +54,7 @@ class FileStudentiAdd extends UniversiboCommand
                     Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non ? valido', 'file' => __FILE__, 'line' => __LINE__));
                 }
 
-                $canale = & Canale::retrieveCanale($_GET['id_canale']);
+                $canale = & $channelRepo2->find($_GET['id_canale']);
                 $id_canale = $canale->getIdCanale();
                 $template->assign('common_canaleURI', $canale->showMe($router));
                 $template->assign('common_langCanaleNome', $canale->getTitolo());
@@ -126,7 +126,7 @@ class FileStudentiAdd extends UniversiboCommand
         //		for ($i = 0; $i<$num_canali; $i++)
         //		{
         //			$id_current_canale = $elenco_canali[$i];
-        //			$current_canale = Canale::retrieveCanale($id_current_canale);
+        //			$current_canale = $channelRepo2->find($id_current_canale);
         //			$elenco_canali_retrieve[$id_current_canale] = $current_canale;
         //			$nome_current_canale = $current_canale->getTitolo();
         //			$spunta = ($id_canale == $id_current_canale ) ? 'true' :'false';

@@ -394,7 +394,7 @@ class NewsAdd extends CanaleCommand
                                                     ->isModeratore()));
                     if (!$diritti) {
                         //$user_ruoli[$key]->getIdCanale();
-                        $canale = Canale::retrieveCanale($key);
+                        $canale = $channelRepo2->find($key);
                         Error::throwError(_ERROR_NOTICE,
                                 array('id_utente' => $user->getId(),
                                         'msg' => 'Non possiedi i diritti di inserimento nel canale: '
