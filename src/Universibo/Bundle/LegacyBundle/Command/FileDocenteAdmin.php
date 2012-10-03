@@ -35,7 +35,7 @@ class FileDocenteAdmin extends UniversiboCommand
         $krono = $frontcontroller->getKrono();
         $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
-
+        $router = $this->get('router');
         $context = $this->get('security.context');
 
         if (!$context->isGranted('ROLE_ADMIN') && !$context->isGranted('ROLE_PROFESSOR')) {
