@@ -31,11 +31,6 @@ class NewsItem
     //	var $ELIMINATA='S';
 
     /**
-     * @var DBNewsItemRepository
-     */
-    private static $repository;
-
-    /**
      * @private
      */
     public $titolo='';

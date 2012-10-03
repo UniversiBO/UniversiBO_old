@@ -128,25 +128,6 @@ class FileItem
 
     ///////////////////////////////////////////
 
-    /**
-     * @private
-     */
-    private $elencoIdCanali = NULL;
-
-    /**
-     * @private
-     */
-    private $elencoCanali = NULL;
-
-    /**
-     * @private
-     */
-    private $paroleChiave = NULL;
-
-    /**
-     * @var DBFileItemRepository
-     */
-    private static $repository;
 
     /**
      * Crea un oggetto FileItem con i parametri passati

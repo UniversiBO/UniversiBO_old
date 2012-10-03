@@ -50,11 +50,6 @@ class CommentoItem
     private $eliminato = self::NOT_ELIMINATO;
 
     /**
-     * @var DBCommentoItemRepository
-     */
-    private static $repository;
-
-    /**
      * Crea un oggetto CommentoItem
      * @param $id_file_studente id di un File Studente
      * @param $id_utente id di un utente, quello che ha fatto il commento

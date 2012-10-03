@@ -14,11 +14,6 @@ namespace Universibo\Bundle\LegacyBundle\Entity;
 class Collaboratore
 {
     /**
-     * @var DBCdlRepository
-     */
-    private static $repository;
-
-    /**
      * @access private
      */
     public $id_utente;

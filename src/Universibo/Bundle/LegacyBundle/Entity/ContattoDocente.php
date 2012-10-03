@@ -24,11 +24,6 @@ class ContattoDocente
     const NOT_ELIMINATO = 'N';
 
     /**
-     * @var DBContattoDocenteRepository
-     */
-    private static $repository;
-
-    /**
      * @access private
      */
     public $cod_doc =	null;

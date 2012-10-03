@@ -37,11 +37,6 @@ class Link
     private $description = '';
 
     /**
-     * @var DBLinkRepository
-     */
-    private static $repository;
-
-    /**
      * Crea un oggetto link
      *
      * @param  int    $id_link     identificativo del link su database

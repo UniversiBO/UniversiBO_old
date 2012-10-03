@@ -88,11 +88,6 @@ class Canale
     public $servizioFilesStudenti = false;
 
     /**
-     * @var CanaleRepository
-     */
-    private static $repository;
-
-    /**
      * Crea un oggetto canale
      *
      * $tipo_canale:

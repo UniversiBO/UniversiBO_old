@@ -24,11 +24,6 @@ define('CDL_VECCHIO_ORDINAMENTO' ,3);
 class Cdl extends Canale
 {
     /**
-     * @var DBCdlRepository
-     */
-    private static $repository;
-
-    /**
      * @private
      */
     public $cdlCodice = '';
