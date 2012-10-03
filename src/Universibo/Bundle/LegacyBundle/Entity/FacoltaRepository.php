@@ -2,8 +2,6 @@
 namespace Universibo\Bundle\LegacyBundle\Entity;
 use Doctrine\DBAL\Driver\Connection;
 
-use \DB;
-
 /**
  * Facolta repository
  *

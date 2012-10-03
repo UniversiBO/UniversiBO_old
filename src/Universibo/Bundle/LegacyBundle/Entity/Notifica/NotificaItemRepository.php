@@ -2,7 +2,6 @@
 
 namespace Universibo\Bundle\LegacyBundle\Entity\Notifica;
 
-use \DB;
 use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
 
 /**

@@ -2,8 +2,6 @@
 
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
-use \DB;
-
 /**
  * Canale repository
  *

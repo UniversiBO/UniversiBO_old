@@ -5,7 +5,6 @@ use Symfony\Component\Routing\RouterInterface;
 
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
-use \DB;
 use Universibo\Bundle\LegacyBundle\Framework\Error;
 
 /**

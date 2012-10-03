@@ -1,7 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use \DB;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 //NB: NON ASTRAE DAL LIVELLO DATABASE, PUO' VALER LA PENA SPOSTARE TUTTA LA FUNZIONE DENTRO ForumApi?!?!?!

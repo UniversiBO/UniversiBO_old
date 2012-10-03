@@ -5,8 +5,6 @@ use Doctrine\DBAL\Connection;
 
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 
-use \DB;
-
 /**
  * Canale repository
  *

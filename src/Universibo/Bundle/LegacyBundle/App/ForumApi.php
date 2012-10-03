@@ -4,7 +4,6 @@ use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 
 use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
 
-use \DB;
 use Universibo\Bundle\LegacyBundle\Framework\Error;
 use \Krono;
 use Universibo\Bundle\CoreBundle\Entity\User;

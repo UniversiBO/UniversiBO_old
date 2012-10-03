@@ -3,8 +3,6 @@ namespace Universibo\Bundle\LegacyBundle\Entity;
 
 use Universibo\Bundle\CoreBundle\Entity\User;
 
-use \DB;
-
 /**
  * Ruolo repository
  *
