@@ -36,17 +36,20 @@ class MyUniversiBORemove extends UniversiboCommand
         }
 
         $id_canale = $this->getRequest()->attributes->get('id_canale');
-        $canale = Canale::retrieveCanale($id_canale);
+        $channelRepo2 = $this->get('universibo_legacy.repository.canale2');
+        $canale = $channelRepo2->find($id_canale);
         $template->assign('common_canaleURI', $canale->showMe($router));
         $template->assign('common_langCanaleNome', $canale->getNome());
         $template->assign('showUser', $router->generate('universibo_legacy_user', array('id_utente' => $utente->getId())));
 
-        $ruoli = $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($utente->getId());
+        $roleRepo = $this->get('universibo_legacy.repository.ruolo');
+        $ruoli = $roleRepo->findByIdUtente($utente->getId());
         $this->executePlugin('ShowTopic', array('reference' => 'myuniversibo'));
 
         if (array_key_exists($id_canale, $ruoli)) {
             $ruolo = $ruoli[$id_canale];
-            $ruolo->setMyUniversiBO(false, true);
+            $ruolo->setMyUniversiBO(false);
+            $roleRepo->updateMyUniversibo($ruolo);
 
             $forum = $this->getContainer()->get('universibo_legacy.forum.api');
             $forum->removeUserGroup($canale->getForumGroupId(), $utente->getId());

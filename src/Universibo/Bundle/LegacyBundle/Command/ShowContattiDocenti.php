@@ -1,8 +1,8 @@
 <?php
 
 namespace Universibo\Bundle\LegacyBundle\Command;
+
 use Universibo\Bundle\LegacyBundle\Framework\Error;
-use Universibo\Bundle\LegacyBundle\Entity\ContattoDocente;
 use Universibo\Bundle\LegacyBundle\Entity\Docente;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
@@ -34,14 +34,15 @@ class ShowContattiDocenti extends UniversiboCommand
                             'file' => __FILE__, 'line' => __LINE__,
                             'template_engine' => &$template));
 
-        $lista_contatti = ContattoDocente::getAllContattoDocente();
+        $lista_contatti = $this->get('universibo_legacy.repository.contatto_docente')->findAll();
+        $docRepo = $this->get('universibo_legacy.repository.docente');
 
         $elenco = array();
 
         if ($lista_contatti) {
 
             foreach ($lista_contatti as $contatto) {
-                $doc = Docente::selectDocenteFromCod($contatto->getCodDoc());
+                $doc = $docRepo->findOneByCodDoc($contatto->getCodDoc());
                 //				if (!$doc) {var_dump($contatto); die;}
                 $elenco[] = array('nome' => $doc->getNomeDoc(),
                         'URI' => $router->generate('universibo_legacy_contact_professor', array('cod_doc' => $doc->getCodDoc())),

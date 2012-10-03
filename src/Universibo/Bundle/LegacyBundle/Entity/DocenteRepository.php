@@ -63,4 +63,13 @@ class DocenteRepository extends DoctrineRepository
 
         return $rubrica;
     }
+
+    /**
+     * @param  string   $codDoc
+     * @return Ambigous <boolean, \Universibo\Bundle\LegacyBundle\Entity\Docente>
+     */
+    public function findOneByCodDoc($codDoc)
+    {
+        return $this->findBy('cod_doc', $codDoc);
+    }
 }

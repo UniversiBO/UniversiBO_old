@@ -132,7 +132,7 @@ class ContattoDocenteRepository extends DoctrineRepository
     {
         $db = $this->getConnection();
 
-        if ($contattoDocente->getStato() != APERTO && $contattoDocente->getStato() != null) {
+        if ($contattoDocente->getStato() != ContattoDocente::APERTO && $contattoDocente->getStato() != null) {
             $time	= time();
             $query	= 'UPDATE docente SET '
             .' docente_contattato = ?'

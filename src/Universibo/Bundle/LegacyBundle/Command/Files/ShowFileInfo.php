@@ -1,9 +1,9 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command\Files;
+
 use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
-use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
 
 /**
@@ -28,6 +28,7 @@ class ShowFileInfo extends PluginCommand
         $bc = $this->getBaseCommand();
         $router = $this->get('router');
         $user = $bc->get('security.context')->getToken()->getUser();
+        $channelRepo2 = $this->get('universibo_legacy.repository.canale2');
         $userId = $user instanceof User ? $user->getId() : 0;
 
         if (!array_key_exists('id_file', $param)
@@ -48,12 +49,15 @@ class ShowFileInfo extends PluginCommand
                                 : '');
         $template->assign('common_langCanaleNome', 'indietro');
 
-        $tipo_file = FileItemStudenti::isFileStudenti($param['id_file']);
+        $fileRepo = $this->get('universibo_legacy.repository.files.file_item_studenti');
 
-        if ($tipo_file)
-            $file = FileItemStudenti::selectFileItem($param['id_file']);
-        else
-            $file = FileItem::selectFileItem($param['id_file']);
+        $tipo_file = $fileRepo->isFileStudenti($param['id_file']);
+
+        if (!$tipo_file) {
+            $fileRepo = $this->get('universibo_legacy.repository.files.file_item');
+        }
+        $file = $fileRepo->find($param['id_file']);
+
         //Con questo passaggio dovrei riuscire a verificare se il file che si vuole modificare è un file studente o no
         //true -> è un file studente
         //		var_dump($tipo_file);
@@ -93,7 +97,7 @@ class ShowFileInfo extends PluginCommand
                                 'msg' => 'L\'id del canale richiesto non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $canale = Canale::retrieveCanale($id_canale);
+            $canale = $channelRepo2->find($id_canale);
             if ($canale->getServizioFiles() == false)
                 Error::throwError(_ERROR_DEFAULT,
                         array('msg' => "Il servizio files e` disattivato",
@@ -101,7 +105,8 @@ class ShowFileInfo extends PluginCommand
 
             $params['id_canale'] = $id_canale;
 
-            $user_ruoli = $canale->getRuoli();
+            $roleRepo = $this->get('universibo_legacy.repository.ruolo');
+            $user_ruoli = $roleRepo->findByIdCanale($id_canale);
             $template->assign('common_canaleURI', $canale->showMe($router));
             $template
                     ->assign('common_langCanaleNome',
@@ -113,7 +118,7 @@ class ShowFileInfo extends PluginCommand
                 $moderatore = $ruolo->isModeratore();
             }
             //controllo coerenza parametri
-            $canali_file = $file->getIdCanali();
+            $canali_file = $fileRepo->getChannelIds($file);
             if (!in_array($id_canale, $canali_file)) {
                 Error::throwError(_ERROR_DEFAULT,
                         array(
@@ -149,9 +154,9 @@ class ShowFileInfo extends PluginCommand
         }
 
         $canali_tpl = array();
-        $id_canali = $file->getIdCanali();
+        $id_canali = $fileRepo->getChannelIds($file);
         foreach ($id_canali as $id_canale) {
-            $canale = Canale::retrieveCanale($id_canale);
+            $canale = $channelRepo2->find($id_canale);
             $canali_tpl[$id_canale] = array();
             $canali_tpl[$id_canale]['titolo'] = $canale->getTitolo();
             $canali_tpl[$id_canale]['uri'] = $canale->showMe($router);
@@ -178,7 +183,7 @@ class ShowFileInfo extends PluginCommand
         $template->assign('showFileInfo_icona', $fc->getAppSetting('filesTipoIconePath'). $file->getTipoIcona());
         $template->assign('showFileInfo_info', $file->getTipoInfo());
         $template->assign('showFileInfo_canali', $canali_tpl);
-        $template->assign('showFileInfo_paroleChiave', $file->getParoleChiave());
+        $template->assign('showFileInfo_paroleChiave', $fileRepo->getKeyworkds($file->getIdFile()));
         $template->assign('isFileStudente', (($tipo_file == true) ? 'true' : 'false'));
     }
 }

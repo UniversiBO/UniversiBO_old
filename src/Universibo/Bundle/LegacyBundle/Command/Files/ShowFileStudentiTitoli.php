@@ -3,8 +3,6 @@ namespace Universibo\Bundle\LegacyBundle\Command\Files;
 
 use ZendTest\Navigation\TestAsset\Router;
 
-use Universibo\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
-
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
 
@@ -95,7 +93,7 @@ class ShowFileStudentiTitoli extends PluginCommand
         $elenco_id_file = $this->getFileCanale($id_canale);
 
         //var_dump($elenco_id_file); die();
-        $elenco_file = FileItemStudenti::selectFileItems($elenco_id_file);
+        $elenco_file = $this->get('universibo_legacy.repository.files.file_item_studenti')->findMany($elenco_id_file);
         usort($elenco_file, array($this,'_compareFile'));
 
         //var_dump($elenco_file); die();

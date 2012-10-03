@@ -1,10 +1,9 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+
+use Universibo\Bundle\LegacyBundle\Entity\Insegnamento;
+
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
-use Universibo\Bundle\LegacyBundle\Entity\Canale;
-
-use Universibo\Bundle\LegacyBundle\Entity\InfoDidattica;
 
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
@@ -32,16 +31,16 @@ class ShowInfoDidattica extends UniversiboCommand
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
         $id_canale = $this->getRequest()->attributes->get('id_canale');
-        $canale = $this->get('universibo_legacy.repository.canale')->find($id_canale);
+        $insegnamento = $this->get('universibo_legacy.repository.canale2')->find($id_canale);
 
-        if (!$canale instanceof Canale) {
-            throw new NotFoundHttpException('Channel not found');
+        if (!$insegnamento instanceof Insegnamento) {
+            throw new NotFoundHttpException('Insegnamento not found');
         }
 
         $session_user = $user;
 
-        $info_didattica = InfoDidattica::retrieveInfoDidattica($id_canale);
-        $insegnamento = Canale::retrieveCanale($id_canale);
+        $infoRepo = $this->get('universibo_legacy.repository.info_didattica');
+        $info_didattica = $infoRepo->find($id_canale);
         //var_dump($info_didattica);
 
         $homepageAlternativaLink = $info_didattica

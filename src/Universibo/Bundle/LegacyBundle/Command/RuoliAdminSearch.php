@@ -37,8 +37,11 @@ class RuoliAdminSearch extends UniversiboCommand
         $arrayPublicUsers = array();
 
 
+        $roleRepo = $this->get('universibo_legacy.repository.ruolo');
+
         $id_canale = $this->getRequest()->attributes->get('id_canale');
-        $canale = Canale::retrieveCanale($id_canale);
+        $channelRepo2 = $this->get('universibo_legacy.repository.canale2');
+        $canale = $channelRepo2->find($id_canale);
 
         if (!$canale instanceof Canale) {
             throw new NotFoundHttpException('Canale not found');
@@ -116,7 +119,7 @@ class RuoliAdminSearch extends UniversiboCommand
         }
 
         if (!$f16_accept) {
-            $canale_ruoli = $canale->getRuoli();
+            $canale_ruoli = $roleRepo->findByIdCanale($canale->getIdCanale());
             $ruoli_keys = array_keys($canale_ruoli);
             foreach ($ruoli_keys as $key) {
                 if ($canale_ruoli[$key]->isReferente() || $canale_ruoli[$key]->isModeratore() ) {

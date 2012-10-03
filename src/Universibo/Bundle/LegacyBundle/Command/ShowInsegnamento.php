@@ -6,8 +6,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
-use Universibo\Bundle\LegacyBundle\Entity\InfoDidattica;
-use Universibo\Bundle\LegacyBundle\Entity\ContattoDocente;
 
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
@@ -61,7 +59,8 @@ class ShowInsegnamento extends CanaleCommand
         $coddoc = $array_prg[0]->getCodDoc();
         //		var_dump($coddoc); die;
 
-        $contatto = ContattoDocente::getContattoDocente($coddoc);
+        $contDocRepo = $this->get('universibo_legacy.repository.contatto_docente');
+        $contatto = $contDocRepo->findByCodDocente($coddoc);
 
         $context = $this->get('security.context');
         $router = $this->get('router');
@@ -82,7 +81,8 @@ class ShowInsegnamento extends CanaleCommand
         } else {
             $template->assign('ins_infoDidEdit', false);
         }
-        $info_didattica = InfoDidattica::retrieveInfoDidattica($id_canale);
+
+        $info_didattica = $this->get('universibo_legacy.repository.info_didattica')->find($id_canale);
         //var_dump($info_didattica);
 
         $template

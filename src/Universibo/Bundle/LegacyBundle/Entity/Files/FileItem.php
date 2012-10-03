@@ -431,33 +431,6 @@ class FileItem
     }
 
     /**
-     * Recupera le parole chiave
-     *
-     * @return array di string
-     */
-    public function getParoleChiave()
-    {
-        if ($this->paroleChiave == NULL)
-            $this->paroleChiave = FileKeyWords::selectFileKeyWords(
-                    $this->getIdFile());
-
-        return $this->paroleChiave;
-    }
-
-    /**
-     * Imposta le parole chiave
-     *
-     * @param array di string
-     */
-    public function setParoleChiave($paroleChiave)
-    {
-        FileKeyWords::updateFileKeyWords($this->getIdFile(), $paroleChiave);
-        $this->paroleChiave = $paroleChiave;
-
-        return $this->paroleChiave;
-    }
-
-    /**
      * Imposta l'id del file
      *
      * @param int
