@@ -1,5 +1,5 @@
 {
-    "hash": "4407eac9b455bca2c8c39a4dd5189516",
+    "hash": "faf2988053d75a7e5243843cccd19928",
     "packages": [
         {
             "name": "doctrine/common",
@@ -301,20 +301,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineMigrationsBundle.git",
-                "reference": "3792aa78445773387754c6853bbd7f4dcb31f486"
+                "reference": "b3ec793dc232fb19f025c3ffc9a0757471d78605"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/DoctrineMigrationsBundle/zipball/3792aa78445773387754c6853bbd7f4dcb31f486",
-                "reference": "3792aa78445773387754c6853bbd7f4dcb31f486",
+                "url": "https://github.com/doctrine/DoctrineMigrationsBundle/zipball/b3ec793dc232fb19f025c3ffc9a0757471d78605",
+                "reference": "b3ec793dc232fb19f025c3ffc9a0757471d78605",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
-                "symfony/symfony": ">=2.0",
-                "doctrine/migrations": "*"
+                "doctrine/migrations": "*",
+                "symfony/framework-bundle": ">=2.1.0,<2.3-dev",
+                "doctrine/doctrine-bundle": "1.0.*"
             },
-            "time": "1341472972",
+            "time": "1349789824",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
@@ -353,12 +354,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/migrations",
-                "reference": "3dd738b2a709f4d5185c144292189c6e708ca37d"
+                "reference": "b38ddb190ec78d389b2c2de838b2a4d646ad1ce2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/migrations/zipball/3dd738b2a709f4d5185c144292189c6e708ca37d",
-                "reference": "3dd738b2a709f4d5185c144292189c6e708ca37d",
+                "url": "https://github.com/doctrine/migrations/zipball/b38ddb190ec78d389b2c2de838b2a4d646ad1ce2",
+                "reference": "b38ddb190ec78d389b2c2de838b2a4d646ad1ce2",
                 "shasum": ""
             },
             "require": {
@@ -372,7 +373,7 @@
             "suggest": {
                 "symfony/console": "to run the migration from the console"
             },
-            "time": "1348090059",
+            "time": "1349435713",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -478,18 +479,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle",
-                "reference": "570a24893a65e6e90a649d55f384be810202b6f0"
+                "reference": "51b0fa8fbb637940ebc9060386d95a75fd5ac51a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/zipball/570a24893a65e6e90a649d55f384be810202b6f0",
-                "reference": "570a24893a65e6e90a649d55f384be810202b6f0",
+                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/zipball/51b0fa8fbb637940ebc9060386d95a75fd5ac51a",
+                "reference": "51b0fa8fbb637940ebc9060386d95a75fd5ac51a",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
-                "symfony/framework-bundle": "2.1.*",
-                "symfony/security-bundle": "2.1.*"
+                "symfony/framework-bundle": ">=2.1,<2.3-dev",
+                "symfony/security-bundle": ">=2.1,<2.3-dev"
             },
             "require-dev": {
                 "twig/twig": "*",
@@ -504,7 +505,7 @@
                 "doctrine/doctrine-bundle": "*",
                 "doctrine/mongodb-odm-bundle": "*"
             },
-            "time": "1348823929",
+            "time": "1349476472",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -575,7 +576,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -617,7 +618,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -719,7 +720,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -782,7 +783,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -1475,21 +1476,22 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/UniversiBO/UniversiboCoreBundle",
-                "reference": "eef3948f70dcc07ca3482466e39ca27096ff63d7"
+                "reference": "e0a3ca0770ad0fa7864d5fa8d1d3b1ce2e78a0c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboCoreBundle/zipball/d296fe371581b553341364e07df4c0ba10c881bb",
-                "reference": "eef3948f70dcc07ca3482466e39ca27096ff63d7",
+                "url": "https://github.com/UniversiBO/UniversiboCoreBundle/zipball/e0a3ca0770ad0fa7864d5fa8d1d3b1ce2e78a0c5",
+                "reference": "e0a3ca0770ad0fa7864d5fa8d1d3b1ce2e78a0c5",
                 "shasum": ""
             },
             "require": {
-                "symfony/framework-bundle": "2.1.*"
+                "symfony/framework-bundle": "2.1.*",
+                "friendsofsymfony/user-bundle": "2.0.*@dev"
             },
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1349182078",
+            "time": "1349293696",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
