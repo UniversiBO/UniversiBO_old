@@ -1581,12 +1581,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle.git",
-                "reference": "5d80a3b63575054408c8f36f7498dfee2c68eb3d"
+                "reference": "effa6587fffefe3435efe526a8d34c48448fba98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle/zipball/5d80a3b63575054408c8f36f7498dfee2c68eb3d",
-                "reference": "5d80a3b63575054408c8f36f7498dfee2c68eb3d",
+                "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle/zipball/effa6587fffefe3435efe526a8d34c48448fba98",
+                "reference": "effa6587fffefe3435efe526a8d34c48448fba98",
                 "shasum": ""
             },
             "require": {
@@ -1597,7 +1597,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1349886234",
+            "time": "1349886612",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
