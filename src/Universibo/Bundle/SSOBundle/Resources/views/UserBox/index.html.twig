@@ -8,6 +8,6 @@
   {% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
     <a href="{{ logoutUrl }}">Logout</a>
   {% else %}
-    <a href="{{ path('fos_user_security_login') }}">Login</a>
+    <a href="{{ path('login') }}">Login</a>
   {% endif %}
 </span>
