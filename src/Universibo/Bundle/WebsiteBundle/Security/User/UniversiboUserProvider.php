@@ -45,11 +45,11 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
         $user = $this->userRepository->findOneByShibUsername($claims['eppn']);
 
-        // TODO move elsewhere
-        $user->setLastLogin(new \DateTime());
-        $this->userManager->updateUser($user);
-
         if ($user instanceof User) {
+            // TODO move elsewhere
+            $user->setLastLogin(new \DateTime());
+            $this->userManager->updateUser($user);
+            
             return $user;
         }
 
@@ -59,7 +59,6 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
         switch ($claims['isMemberOf']) {
             case 'Studente':
-                $user = new User();
                 list($username, $dominio) = split('@', $email = $claims['eppn']);
 
                 // actually this password will be never used
