@@ -56,27 +56,30 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         if (!array_key_exists('isMemberOf', $claims) || $claims['isMemberOf'] === null) {
             return null;
         }
-
-        switch ($claims['isMemberOf']) {
-            case 'Studente':
-                list($username, $dominio) = split('@', $email = $claims['eppn']);
-
-                // actually this password will be never used
-                $password = substr(sha1(rand(1,65536)), 0, rand(8,12));
-                $user = new User();
-                $user->setUsername($username);
-                $user->setPlainPassword($password);
-                $user->setEmail($email);
-                $user->setShibUsername($email);
-                $user->setEnabled(true);
-                $user->setLegacyGroups(2);
-                $user->setNotifications(0);
-                $user->setLastLogin(new \DateTime());
-                $user->addRole('ROLE_STUDENT');
-
-                return $this->userManager->updateUser($user);
+        
+        $allowedMemberOf = array('Studente');
+        if(!in_array($memberOf = $claims['isMemberOf'], $allowedMemberOf)) {
+            throw new UsernameNotFoundException('User not found');
         }
-
-        throw new UsernameNotFoundException('User not found');
+        
+        list($username, $dominio) = split('@', $email = $claims['eppn']);
+        
+        $user = new User();
+        $user->setUsername($username);
+        $user->setPlainPassword(substr(sha1(rand(1,65536)), 0, rand(8,12)));
+        $user->setEmail($email);
+        $user->setShibUsername($email);
+        $user->setEnabled(true);
+        $user->setLastLogin(new \DateTime());
+        $user->setNotifications(0);
+        
+        switch ($memberOf) {
+            case 'Studente':
+                // actually this password will be never used
+                $user->setLegacyGroups(2);
+                $user->addRole('ROLE_STUDENT');
+        }
+        
+        return $this->userManager->updateUser($user);
     }
 }
