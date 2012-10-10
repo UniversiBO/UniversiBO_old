@@ -67,7 +67,7 @@ universibo_shibboleth:
     info: 'infoSSO.aspx'
     logout: 'prelogout.aspx'
   route:
-    after_logout: 'homepage'
+    after_logout: 'universibo_legacy_home'
   claims:
     - eppn
     - givenName
