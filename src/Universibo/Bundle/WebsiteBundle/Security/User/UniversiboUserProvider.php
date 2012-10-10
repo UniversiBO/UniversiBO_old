@@ -64,6 +64,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
                 $user->setUsername($username);
                 $user->setPlainPassword($password);
                 $user->setEmail($email);
+                $user->setShibUsername($email);
                 $user->setEnabled(true);
                 $user->setLegacyGroups(2);
                 $user->setNotifications(0);
