@@ -34,7 +34,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
             return null;
         }
 
-        $user = $this->userRepository->findOneByUpn($claims['eppn']);
+        $user = $this->userRepository->findOneByShibUsername($claims['eppn']);
 
         if ($user instanceof User) {
             return $user;
