@@ -1,6 +1,8 @@
 <?php
 
 namespace Universibo\Bundle\WebsiteBundle\Security\User;
+use FOS\UserBundle\Util\UserManipulator;
+
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
 use Universibo\Bundle\CoreBundle\Entity\User;
@@ -17,11 +19,17 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
     private $userRepository;
 
     /**
+     * @var UserManipulator
+     */
+    private $manipulator;
+
+    /**
      * @param UserRepository $userRepository
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, UserManipulator $manipulator)
     {
         $this->userRepository = $userRepository;
+        $this->manipulator = $manipulator;
     }
 
     /**
@@ -48,8 +56,8 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
             case 'Studente':
                 $user = new User();
                 list($username, $dominio) = split('@', $claims['eppn']);
-                $user->setUsername($username);
-                $user->setEmail($claims['eppn']);
+
+                $user = $this->manipulator->create($username, '', $claims['eppn'], true, false);
                 $user->setLegacyGroups(2);
                 $user->addRole('ROLE_STUDENT');
 

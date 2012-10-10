@@ -29,6 +29,7 @@
 		<service id="universibo_website.user.provider"
 			class="Universibo\Bundle\WebsiteBundle\Security\User\UniversiboUserProvider">
 			<argument type="service" id="universibo_website.repository.user"/>
+			<argument type="service" id="fos_user.util.user_manipulator"/>
 		</service>
 	</services>
 </container>
