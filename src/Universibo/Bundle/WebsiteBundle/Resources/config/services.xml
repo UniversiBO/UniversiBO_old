@@ -27,7 +27,7 @@
 		<service id="universibo_website.repository.user" alias="universibo_core.repository.user"/>
 
 		<service id="universibo_website.user.provider"
-			class="Universibo\Bundle\WebsiteBundle\Security\User\UniversiboUseProvider">
+			class="Universibo\Bundle\WebsiteBundle\Security\User\UniversiboUserProvider">
 			<argument type="service" id="universibo_website.repository.user"/>
 		</service>
 	</services>
