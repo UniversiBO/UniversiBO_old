@@ -62,6 +62,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
                 $password = substr(sha1(rand(1,65536)), 0, rand(8,12));
                 $user = $this->manipulator->create($username, $password, $claims['eppn'], true, false);
                 $user->setLegacyGroups(2);
+                $user->setNotifications(0);
                 $user->addRole('ROLE_STUDENT');
 
                 return $this->userRepository->save($user);
