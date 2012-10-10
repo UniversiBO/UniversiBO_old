@@ -1,6 +1,8 @@
 <?php
 
 namespace Universibo\Bundle\WebsiteBundle\Security\User;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+
 use Universibo\Bundle\CoreBundle\Entity\User;
 
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
