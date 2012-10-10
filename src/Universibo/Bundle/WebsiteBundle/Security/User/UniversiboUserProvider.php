@@ -45,6 +45,10 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
         $user = $this->userRepository->findOneByShibUsername($claims['eppn']);
 
+        // TODO move elsewhere
+        $user->setLastLogin(new \DateTime());
+        $this->userManager->updateUser($user);
+
         if ($user instanceof User) {
             return $user;
         }
@@ -68,6 +72,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
                 $user->setEnabled(true);
                 $user->setLegacyGroups(2);
                 $user->setNotifications(0);
+                $user->setLastLogin(new \DateTime());
                 $user->addRole('ROLE_STUDENT');
 
                 return $this->userManager->updateUser($user);
