@@ -576,7 +576,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -783,7 +783,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -807,12 +807,12 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/kriswallsmith/assetic/zipball/e22c5e07e672bb0cf43127e97e9368b53abf4aa8",
+                "url": "https://github.com/kriswallsmith/assetic/zipball/a6baab9b4c4361aca51bf90ee47c1586dff3cb0c",
                 "reference": "e22c5e07e672bb0cf43127e97e9368b53abf4aa8",
                 "shasum": ""
             },
             "require": {
-                "symfony/process": ">=2.1.0,<2.3-dev",
+                "symfony/process": "2.1.*",
                 "php": ">=5.3.1"
             },
             "require-dev": {
@@ -1383,7 +1383,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fabpot/Twig-extensions/zipball/dcdff02fbac1282e6b8f4d0558cc7e9580105688",
+                "url": "https://github.com/fabpot/Twig-extensions/zipball/f904575642b1213db69b4a98f08397e722ba1cae",
                 "reference": "dcdff02fbac1282e6b8f4d0558cc7e9580105688",
                 "shasum": ""
             },
@@ -1581,12 +1581,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle.git",
-                "reference": "effa6587fffefe3435efe526a8d34c48448fba98"
+                "reference": "62410deced7ba94a86c858ebc3b62621849a5b22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle/zipball/effa6587fffefe3435efe526a8d34c48448fba98",
-                "reference": "effa6587fffefe3435efe526a8d34c48448fba98",
+                "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle/zipball/62410deced7ba94a86c858ebc3b62621849a5b22",
+                "reference": "62410deced7ba94a86c858ebc3b62621849a5b22",
                 "shasum": ""
             },
             "require": {
@@ -1597,7 +1597,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1349886612",
+            "time": "1349899888",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
