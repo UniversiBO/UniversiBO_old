@@ -52,6 +52,10 @@ class UserRepository extends EntityRepository
      */
     public function save(User $user)
     {
-        return $this->getEntityManager()->merge($user);
+        $em = $this->getEntityManager();
+        $user = $em->merge($user);
+        $em->flush($user);
+        
+        return $user;
     }
 }
