@@ -2,7 +2,7 @@
 
 namespace Universibo\Bundle\WebsiteBundle\Security\User;
 
-use FOS\UserBundle\Util\UserManipulator;
+use FOS\UserBundle\Model\UserManager;
 
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
@@ -20,17 +20,17 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
     private $userRepository;
 
     /**
-     * @var UserManipulator
+     * @var UserManager
      */
-    private $manipulator;
+    private $userManager;
 
     /**
      * @param UserRepository $userRepository
      */
-    public function __construct(UserRepository $userRepository, UserManipulator $manipulator)
+    public function __construct(UserRepository $userRepository, UserManager $userManager)
     {
         $this->userRepository = $userRepository;
-        $this->manipulator = $manipulator;
+        $this->userManager = $userManager;
     }
 
     /**
@@ -56,16 +56,20 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         switch ($claims['isMemberOf']) {
             case 'Studente':
                 $user = new User();
-                list($username, $dominio) = split('@', $claims['eppn']);
+                list($username, $dominio) = split('@', $email = $claims['eppn']);
 
                 // actually this password will be never used
                 $password = substr(sha1(rand(1,65536)), 0, rand(8,12));
-                $user = $this->manipulator->create($username, $password, $claims['eppn'], true, false);
+                $user = new User();
+                $user->setUsername($username);
+                $user->setPlainPassword($password);
+                $user->setEmail($email);
+                $user->setEnabled(true);
                 $user->setLegacyGroups(2);
                 $user->setNotifications(0);
                 $user->addRole('ROLE_STUDENT');
 
-                return $this->userRepository->save($user);
+                return $this->userManager->updateUser($user);
         }
 
         throw new UsernameNotFoundException('User not found');
