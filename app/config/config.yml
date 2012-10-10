@@ -63,7 +63,7 @@ fos_user:
 
 universibo_shibboleth:
   idp_url:
-    base: 'https://idp.unibo.it/adfs/ls/'
+    base: '%idp_url%'
     info: 'infoSSO.aspx'
     logout: 'prelogout.aspx'
   route:
