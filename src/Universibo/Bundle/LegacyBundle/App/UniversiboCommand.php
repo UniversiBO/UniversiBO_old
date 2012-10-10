@@ -350,7 +350,6 @@ abstract class UniversiboCommand extends BaseCommand
         $template->assign('common_creditsUri', $router->generate('universibo_legacy_credits'));
         $template->assign('common_accessibility', 'Accessibilità');
         $template->assign('common_accessibilityUri', $router->generate('universibo_legacy_accessibility'));
-        $template->assign('common_logoutUri', $router->generate('fos_user_security_logout'));
 
         $template->assign('common_manifesto', 'Manifesto');
         $template->assign('common_manifestoUri', $router->generate('universibo_legacy_manifesto'));
