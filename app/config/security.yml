@@ -23,7 +23,9 @@ security:
             logout:
                 path:   /logout
                 target: /
+                handler: universibo_shibboleth.logout_handler
             shibboleth: ~
+            
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
