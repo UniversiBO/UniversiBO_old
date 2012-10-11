@@ -113,11 +113,11 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         if (!$person instanceof Person) {
             $person = new Person();
             $person->setUniboId($uniboId);
-            $person->setGivenName($givenName);
-            $person->setSurname($surname);
-
-            $this->personRepository->save($person);
         }
+
+        $person->setGivenName($givenName);
+        $person->setSurname($surname);
+        $this->personRepository->save($person);
 
         return $person;
     }
