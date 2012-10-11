@@ -17,7 +17,7 @@ class Version20121011154244 extends AbstractMigration
         
         
         $this->addSql("CREATE SEQUENCE people_id_seq INCREMENT BY 1 MINVALUE 1 START 1");
-        $this->addSql("CREATE TABLE people (id INT NOT NULL, unibo_id INT DEFAULT NULL, given_name VARCHAR(160) NOT NULL, surname VARCHAR(160) DEFAULT NULL, PRIMARY KEY(id))");
+        $this->addSql("CREATE TABLE people (id INT NOT NULL DEFAULT nextval('people_id_seq'), unibo_id INT DEFAULT NULL, given_name VARCHAR(160) NOT NULL, surname VARCHAR(160) DEFAULT NULL, PRIMARY KEY(id))");
         $this->addSql("CREATE UNIQUE INDEX UNIQ_28166A266C57F6ED ON people (unibo_id)");
         $this->addSql("ALTER TABLE fos_user DROP given_name");
         $this->addSql("ALTER TABLE fos_user DROP surname");
@@ -36,5 +36,6 @@ class Version20121011154244 extends AbstractMigration
         
         $this->addSql("ALTER TABLE fos_user ADD given_name VARCHAR(160) DEFAULT NULL");
         $this->addSql("ALTER TABLE fos_user ADD surname VARCHAR(160) DEFAULT NULL");
+        $this->addSql("DROP INDEX IDX_957A6479217BBB47");
     }
 }

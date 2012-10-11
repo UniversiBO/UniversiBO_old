@@ -28,8 +28,9 @@
 
 		<service id="universibo_website.user.provider"
 			class="Universibo\Bundle\WebsiteBundle\Security\User\UniversiboUserProvider">
-			<argument type="service" id="universibo_website.repository.user"/>
+			<argument type="service" id="universibo_core.repository.user"/>
 			<argument type="service" id="fos_user.user_manager"/>
+			<argument type="service" id="universibo_core.repository.person"/>
 		</service>
 	</services>
 </container>

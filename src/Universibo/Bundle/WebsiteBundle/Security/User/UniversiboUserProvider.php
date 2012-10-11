@@ -2,6 +2,10 @@
 
 namespace Universibo\Bundle\WebsiteBundle\Security\User;
 
+use Universibo\Bundle\CoreBundle\Entity\Person;
+
+use Universibo\Bundle\CoreBundle\Entity\PersonRepository;
+
 use FOS\UserBundle\Model\UserManager;
 
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -25,12 +29,18 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
     private $userManager;
 
     /**
+     * @var PersonRepository
+     */
+    private $personRepository;
+
+    /**
      * @param UserRepository $userRepository
      */
-    public function __construct(UserRepository $userRepository, UserManager $userManager)
+    public function __construct(UserRepository $userRepository, UserManager $userManager, PersonRepository $personRepository)
     {
         $this->userRepository = $userRepository;
         $this->userManager = $userManager;
+        $this->personRepository = $personRepository;
     }
 
     /**
@@ -39,8 +49,20 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
      */
     public function loadUserByClaims(array $claims)
     {
-        if (!array_key_exists('eppn', $claims) || $claims['eppn'] === null) {
+        if (!array_key_exists('idAnagraficaUnica', $claims) || $claims['idAnagraficaUnica'] === null) {
             return null;
+        }
+
+        $uniboId = $claims['idAnagraficaUnica'];
+        $person = $this->personRepository->findOneByUniboId($uniboId);
+
+        if (!$person instanceof Person) {
+            $person = new Person();
+            $person->setUniboId($uniboId);
+            $person->setGivenName($claims['givenName']);
+            $person->setSurname($claims['surname']);
+
+            $this->personRepository->save($person);
         }
 
         $user = $this->userRepository->findOneByShibUsername($claims['eppn']);
@@ -48,6 +70,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         if ($user instanceof User) {
             // TODO move elsewhere
             $user->setLastLogin(new \DateTime());
+            $user->setPerson($person);
             $this->userManager->updateUser($user);
 
             return $user;
@@ -71,6 +94,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         $user->setShibUsername($email);
         $user->setEnabled(true);
         $user->setLastLogin(new \DateTime());
+        $user->setMemberOf($memberOf);
         $user->setNotifications(0);
 
         switch ($memberOf) {
