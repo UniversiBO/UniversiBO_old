@@ -49,9 +49,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
         $that = $this;
 
-        $this->allowedMemberOf['PersonaleTA'] = function ($eppn) {
-            $user = new User();
-
+        $this->allowedMemberOf['PersonaleTA'] = function (User $user, $eppn) use ($that) {
             $user->setUsername($that->getUsername($eppn));
             $user->setLegacyGroups(32);
             $user->addRole('ROLE_STAFF');
@@ -111,7 +109,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
                 throw new UsernameNotFoundException('Cannot map user');
             }
 
-            $user = $this->allowedMemberOf[$memberOf]($eppn);
+            $user = $this->allowedMemberOf[$memberOf](new User(), $eppn);
             $user->setNotifications(0);
             $user->setShibUsername($eppn);
             $user->setEmail($eppn);
@@ -132,6 +130,13 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
     {
         list($username, $dominio) = split('@', $eppn);
 
-        return $username;
+        $i = 1;
+        $okUsername = $username;
+
+        while ($this->userManager->findUserByUsername($okUsername) instanceof User) {
+            $okUsername = $username . ++$i;
+        }
+
+        return $okUsername;
     }
 }
