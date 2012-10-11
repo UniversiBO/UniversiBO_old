@@ -66,11 +66,11 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
     public function loadUserByClaims(array $claims)
     {
         $requiredKeys = array(
-                'idAnagraficaUnica',
-                'givenName',
-                'sn',
                 'eppn',
-                'isMemberOf'
+                'givenName',
+                'idAnagraficaUnica',
+                'isMemberOf',
+                'sn'
         );
 
         foreach ($requiredKeys as $key) {
@@ -81,7 +81,8 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
         $uniboId = $claims['idAnagraficaUnica'];
         $person = $this->ensurePerson($uniboId, $claims['givenName'], $claims['sn']);
-        $user = $this->ensureUser($claims['eppn'], $claims['isMemberOf'], $person);
+
+        return $this->ensureUser($claims['eppn'], $claims['isMemberOf'], $person);
     }
 
     private function ensurePerson($uniboId, $givenName, $surname)
@@ -109,7 +110,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
                 throw new UsernameNotFoundException('Cannot map user');
             }
 
-            $user = $this->allowedMemberOf[$memberOf]();
+            $user = $this->allowedMemberOf[$memberOf]($eppn);
             $user->setNotifications(0);
             $user->setShibUsername($eppn);
             $user->setEmail($eppn);
@@ -122,5 +123,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         $user->setPlainPassword(substr(sha1(rand(1,65536)), 0, rand(8,12)));
 
         $this->userManager->updateUser($user);
+
+        return $user;
     }
 }
