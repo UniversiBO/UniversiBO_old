@@ -24,6 +24,30 @@ class User extends BaseUser
     protected $shibUsername;
 
     /**
+     * @ORM\Column(type="string",length=160,nullable=true,name="given_name")
+     * @var string
+     */
+    protected $givenName;
+
+    /**
+     * @ORM\Column(type="string",length=160,nullable=true,name="surname")
+     * @var string
+     */
+    protected $surname;
+
+    /**
+     * @ORM\Column(type="integer", name="person_id",nullable=true)
+     * @var integer
+     */
+    protected $personId;
+
+    /**
+     * @ORM\Column(type="string",length=15,nullable=true,name="member_of")
+     * @var string
+     */
+    protected $memberOf;
+
+    /**
      * @ORM\Column(type="string",length=15,nullable=true)
      * @var string
      */
@@ -68,7 +92,7 @@ class User extends BaseUser
     }
 
     /**
-     * @param  string                                       $phone
+     * @param  string                                    $phone
      * @return \Universibo\Bundle\CoreBundle\Entity\User
      */
     public function setPhone($phone)
@@ -88,7 +112,7 @@ class User extends BaseUser
 
     /**
      *
-     * @param  integer                                      $notifications
+     * @param  integer                                   $notifications
      * @return \Universibo\Bundle\CoreBundle\Entity\User
      */
     public function setNotifications($notifications)
@@ -109,7 +133,7 @@ class User extends BaseUser
 
     /**
      * @deprecated
-     * @param  int                                          $legacyGroups
+     * @param  int                                       $legacyGroups
      * @return \Universibo\Bundle\CoreBundle\Entity\User
      */
     public function setLegacyGroups($legacyGroups)
@@ -128,7 +152,55 @@ class User extends BaseUser
     {
         return (bool) ($groups & $this->legacyGroups);
     }
-    
+
+    public function getGivenName()
+    {
+        return $this->givenName;
+    }
+
+    public function setGivenName($givenName)
+    {
+        $this->givenName = $givenName;
+
+        return $this;
+    }
+
+    public function getSurname()
+    {
+        return $this->surname;
+    }
+
+    public function setSurname($surname)
+    {
+        $this->surname = $surname;
+
+        return $this;
+    }
+
+    public function getPersonId()
+    {
+        return $this->personId;
+    }
+
+    public function setPersonId($personId)
+    {
+        $this->personId = $personId;
+
+        return $this;
+    }
+
+    public function getMemberOf()
+    {
+        return $this->memberOf;
+    }
+
+    public function setMemberOf($memberOf)
+    {
+        $this->memberOf = $memberOf;
+
+        return $this;
+    }
+
     /**
      * Serializes the user.
      *
@@ -151,7 +223,11 @@ class User extends BaseUser
             $this->shibUsername,
             $this->phone,
             $this->notifications,
-            $this->legacyGroups
+            $this->legacyGroups,
+            $this->surname,
+            $this->givenName,
+            $this->personId,
+            $this->memberOf
         ));
     }
 
@@ -180,7 +256,11 @@ class User extends BaseUser
             $this->shibUsername,
             $this->phone,
             $this->notifications,
-            $this->legacyGroups
+            $this->legacyGroups,
+            $this->surname,
+            $this->givenName,
+            $this->personId,
+            $this->memberOf
         ) = $data;
     }
 }

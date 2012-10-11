@@ -9,42 +9,42 @@ class UserTest extends \PHPUnit_Framework_TestCase
      * @var User
      */
     private $user;
-    
+
     protected function setUp()
     {
         $this->user = new User();
     }
-    
+
     public function testShibUsernameAccessors()
     {
         $shibUsername = 'test'.rand(1,20).'@example.com';
-        
+
         $this->assertSame($this->user, $this->user->setShibUsername($shibUsername));
         $this->assertEquals($shibUsername, $this->user->getShibUsername());
     }
-    
+
     public function testLegacyGroupsAccessors()
     {
         $groups = 64;
-        
+
         $this->assertSame($this->user, $this->user->setLegacyGroups($groups));
         $this->assertEquals($groups, $this->user->getLegacyGroups());
     }
-    
+
     public function testPhoneAccessors()
     {
-    	$phone = '+393401234567';
-    
-    	$this->assertSame($this->user, $this->user->setPhone($phone));
-    	$this->assertEquals($phone, $this->user->getPhone());
+        $phone = '+393401234567';
+
+        $this->assertSame($this->user, $this->user->setPhone($phone));
+        $this->assertEquals($phone, $this->user->getPhone());
     }
-    
+
     public function testNotificationAccessors()
     {
         $notifications = 1;
-        
+
         $this->assertSame($this->user, $this->user->setNotifications($notifications));
         $this->assertEquals($notifications, $this->user->getNotifications());
     }
-    
+
 }

@@ -18,20 +18,20 @@ class UserRepository extends EntityRepository
 
         return $user instanceof User ? $user->getUsername() : null;
     }
-    
+
     public function search($usernameQuery, $mailQuery)
     {
         $qb = $this->createQueryBuilder('u');
-        
-        if(strlen($usernameQuery) > 0) {
+
+        if (strlen($usernameQuery) > 0) {
             $qb->andWhere('u.usernameCanonical LIKE ?0');
-        } 
-        
-        if(strlen($mailQuery) > 0) {
+        }
+
+        if (strlen($mailQuery) > 0) {
             $qb->andWhere('u.emailCanonical LIKE ?1');
         }
-        
-        return 
+
+        return
             $qb -> getQuery()
                 -> setParameters(array(mb_strtolower($usernameQuery), mb_strtolower($mailQuery)))
                 -> getResult();
