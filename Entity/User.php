@@ -55,6 +55,12 @@ class User extends BaseUser
     protected $person;
 
     /**
+     * @ORM\Column(type="integer", type="boolean", name="username_locked")
+     * @var boolean
+     */
+    protected $usernameLocked;
+
+    /**
      * @return string
      */
     public function getShibUsername()
@@ -166,6 +172,18 @@ class User extends BaseUser
         return $this;
     }
 
+    public function isUsernameLocked()
+    {
+        return $this->usernameLocked;
+    }
+
+    public function setUsernameLocked($usernameLocked)
+    {
+        $this->usernameLocked = $usernameLocked;
+
+        return $this;
+    }
+
     /**
      * Serializes the user.
      *
@@ -189,7 +207,8 @@ class User extends BaseUser
             $this->phone,
             $this->notifications,
             $this->legacyGroups,
-            $this->memberOf
+            $this->memberOf,
+            $this->usernameLocked
         ));
     }
 
@@ -219,7 +238,8 @@ class User extends BaseUser
             $this->phone,
             $this->notifications,
             $this->legacyGroups,
-            $this->memberOf
+            $this->memberOf,
+            $this->usernameLocked
         ) = $data;
     }
 }

@@ -47,4 +47,11 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($notifications, $this->user->getNotifications());
     }
 
+    public function testUsernameLockedAccessors()
+    {
+        $locked = !$this->user->isUsernameLocked();
+
+        $this->assertSame($this->user, $this->user->setUsernameLocked($locked));
+        $this->assertEquals($notifications, $this->user->isUsernameLocked());
+    }
 }
