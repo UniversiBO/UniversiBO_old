@@ -34,6 +34,11 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
     private $personRepository;
 
     /**
+     * @var array
+     */
+    private $allowedMemberOf = array();
+
+    /**
      * @param UserRepository $userRepository
      */
     public function __construct(UserRepository $userRepository, UserManager $userManager, PersonRepository $personRepository)
@@ -41,6 +46,15 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         $this->userRepository = $userRepository;
         $this->userManager = $userManager;
         $this->personRepository = $personRepository;
+
+        $this->allowedMemberOf['PersonaleTA'] = function ($eppn) {
+            $user = new User();
+
+            list($username, $dominio) = split('@', $eppn);
+            $user->setUsername($username);
+            $user->setLegacyGroups(32);
+            $user->addRole('ROLE_STAFF');
+        };
     }
 
     /**
@@ -49,61 +63,62 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
      */
     public function loadUserByClaims(array $claims)
     {
-        if (!array_key_exists('idAnagraficaUnica', $claims) || $claims['idAnagraficaUnica'] === null) {
-            return null;
+        $requiredKeys = array(
+                'idAnagraficaUnica',
+                'givenName',
+                'sn',
+                'eppn',
+                'isMemberOf'
+        );
+
+        foreach ($requiredKeys as $key) {
+            if (!array_key_exists($key, $claims) || $claims[$key] === null) {
+                return null;
+            }
         }
 
         $uniboId = $claims['idAnagraficaUnica'];
+        $person = $this->ensurePerson($uniboId, $claims['givenName'], $claims['sn']);
+        $user = $this->ensureUser($claims['eppn'], $claims['isMemberOf'], $person);
+    }
+
+    private function ensurePerson($uniboId, $givenName, $surname)
+    {
         $person = $this->personRepository->findOneByUniboId($uniboId);
 
         if (!$person instanceof Person) {
             $person = new Person();
             $person->setUniboId($uniboId);
-            $person->setGivenName($claims['givenName']);
-            $person->setSurname($claims['sn']);
+            $person->setGivenName($givenName);
+            $person->setSurname($surname);
 
             $this->personRepository->save($person);
         }
 
-        $user = $this->userRepository->findOneByShibUsername($claims['eppn']);
+        return $person;
+    }
 
-        if ($user instanceof User) {
-            // TODO move elsewhere
-            $user->setLastLogin(new \DateTime());
-            $user->setPerson($person);
-            $this->userManager->updateUser($user);
+    private function ensureUser($eppn, $memberOf, Person $person)
+    {
+        $user = $this->userRepository->findOneByShibUsername($eppn);
 
-            return $user;
+        if (!$user instanceof User) {
+            if (!array_key_exists($memberOf, $this->allowedMemberOf)) {
+                throw new UsernameNotFoundException('Cannot map user');
+            }
+
+            $user = $this->allowedMemberOf[$memberOf]();
+            $user->setNotifications(0);
+            $user->setShibUsername($eppn);
+            $user->setEmail($eppn);
+            $user->setEnabled(true);
         }
 
-        if (!array_key_exists('isMemberOf', $claims) || $claims['isMemberOf'] === null) {
-            return null;
-        }
-
-        $allowedMemberOf = array('Studente');
-        if (!in_array($memberOf = $claims['isMemberOf'], $allowedMemberOf)) {
-            throw new UsernameNotFoundException('User not found');
-        }
-
-        list($username, $dominio) = split('@', $email = $claims['eppn']);
-
-        $user = new User();
-        $user->setUsername($username);
-        $user->setPlainPassword(substr(sha1(rand(1,65536)), 0, rand(8,12)));
-        $user->setEmail($email);
-        $user->setShibUsername($email);
-        $user->setEnabled(true);
+        $user->setPerson($person);
         $user->setLastLogin(new \DateTime());
         $user->setMemberOf($memberOf);
-        $user->setNotifications(0);
+        $user->setPlainPassword(substr(sha1(rand(1,65536)), 0, rand(8,12)));
 
-        switch ($memberOf) {
-            case 'Studente':
-                // actually this password will be never used
-                $user->setLegacyGroups(2);
-                $user->addRole('ROLE_STUDENT');
-        }
-
-        return $this->userManager->updateUser($user);
+        $this->userManager->updateUser($user);
     }
 }
