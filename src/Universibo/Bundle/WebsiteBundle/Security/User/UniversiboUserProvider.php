@@ -2,6 +2,8 @@
 
 namespace Universibo\Bundle\WebsiteBundle\Security\User;
 
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
+
 use Universibo\Bundle\CoreBundle\Entity\Person;
 
 use Universibo\Bundle\CoreBundle\Entity\PersonRepository;
@@ -81,7 +83,11 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         $uniboId = $claims['idAnagraficaUnica'];
         $person = $this->ensurePerson($uniboId, $claims['givenName'], $claims['sn']);
 
-        return $this->ensureUser($claims['eppn'], $claims['isMemberOf'], $person);
+        try {
+            return $this->ensureUser($claims['eppn'], $claims['isMemberOf'], $person);
+        } catch (DBALException $e) {
+            throw new AuthenticationException('Ambiguous credentials');
+        }
     }
 
     private function ensurePerson($uniboId, $givenName, $surname)
