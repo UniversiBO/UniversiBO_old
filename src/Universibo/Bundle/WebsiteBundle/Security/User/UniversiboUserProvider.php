@@ -2,6 +2,8 @@
 
 namespace Universibo\Bundle\WebsiteBundle\Security\User;
 
+use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
+
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 use Universibo\Bundle\CoreBundle\Entity\Person;
@@ -51,10 +53,24 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
         $that = $this;
 
-        $this->allowedMemberOf['PersonaleTA'] = function (User $user, $eppn) use ($that) {
-            $user->setUsername($that->getUsername($eppn));
-            $user->setLegacyGroups(32);
+        $this->allowedMemberOf['PersonaleTA'] = function (User $user) use ($that) {
+            $user->setLegacyGroups(LegacyRoles::PERSONALE);
             $user->addRole('ROLE_STAFF');
+
+            return $user;
+        };
+
+        $this->allowedMemberOf['Docente'] = function (User $user) {
+            $user->setLegacyGroups(LegacyRoles::DOCENTE);
+            $user->addRole('ROLE_PROFESSOR');
+
+            return $user;
+        };
+
+        $this->allowedMemberOf['Studente'] = function (User $user) {
+            $user->setLegacyGroups(LegacyRoles::STUDENTE);
+            $user->addRole('ROLE_STUDENT');
+            $user->setUsernameLocked(false);
 
             return $user;
         };
@@ -116,6 +132,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
             }
 
             $user = $this->allowedMemberOf[$memberOf](new User(), $eppn);
+            $user->setUsername($this->getUsername($eppn));
             $user->setNotifications(0);
             $user->setShibUsername($eppn);
             $user->setEmail($eppn);
