@@ -51,9 +51,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         $this->userManager = $userManager;
         $this->personRepository = $personRepository;
 
-        $that = $this;
-
-        $this->allowedMemberOf['PersonaleTA'] = function (User $user) use ($that) {
+        $this->allowedMemberOf['PersonaleTA'] = function (User $user) {
             $user->setLegacyGroups(LegacyRoles::PERSONALE);
             $user->addRole('ROLE_STAFF');
 
