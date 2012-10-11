@@ -17,6 +17,12 @@ class Person
     protected $id;
 
     /**
+     * @ORM\Column(type="integer", name="unibo_id",nullable=true, unique=true)
+     * @var integer
+     */
+    protected $uniboId;
+
+    /**
      * @ORM\Column(type="string",length=160,nullable=false,name="given_name")
      * @var string
      */
@@ -28,15 +34,21 @@ class Person
      */
     protected $surname;
 
-    /**
-     * @ORM\Column(type="integer", name="unibo_id",nullable=true, unique=true)
-     * @var integer
-     */
-    protected $uniboId;
-
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getUniboId()
+    {
+        return $this->uniboId;
+    }
+
+    public function setUniboId($uniboId)
+    {
+        $this->uniboId = $uniboId;
+
+        return $this;
     }
 
     public function getGivenName()
@@ -57,18 +69,6 @@ class Person
     public function setSurname($surname)
     {
         $this->surname = $surname;
-    }
-
-    public function getUniboId()
-    {
-        return $this->uniboId;
-    }
-
-    public function setUniboId($uniboId)
-    {
-        $this->uniboId = $uniboId;
-
-        return $this;
     }
 
 }
