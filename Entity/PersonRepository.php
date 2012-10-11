@@ -12,4 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class PersonRepository extends EntityRepository
 {
+    /**
+     * @param  Person $person
+     * @return Person
+     */
+    public function save(Person $person)
+    {
+        $em = $this->getEntityManager();
+        $person = $em->merge($person);
+        $em->flush($person);
+
+        return $person;
+    }
 }
