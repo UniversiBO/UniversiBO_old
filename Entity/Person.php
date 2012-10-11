@@ -59,6 +59,8 @@ class Person
     public function setGivenName($givenName)
     {
         $this->givenName = $givenName;
+
+        return $this;
     }
 
     public function getSurname()
@@ -69,6 +71,8 @@ class Person
     public function setSurname($surname)
     {
         $this->surname = $surname;
+
+        return $this;
     }
 
 }
