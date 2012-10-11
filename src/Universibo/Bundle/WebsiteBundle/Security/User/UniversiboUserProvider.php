@@ -47,11 +47,12 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         $this->userManager = $userManager;
         $this->personRepository = $personRepository;
 
+        $that = $this;
+
         $this->allowedMemberOf['PersonaleTA'] = function ($eppn) {
             $user = new User();
 
-            list($username, $dominio) = split('@', $eppn);
-            $user->setUsername($username);
+            $user->setUsername($that->getUsername($eppn));
             $user->setLegacyGroups(32);
             $user->addRole('ROLE_STAFF');
 
@@ -125,5 +126,12 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         $this->userManager->updateUser($user);
 
         return $user;
+    }
+
+    private function getUsername($eppn)
+    {
+        list($username, $dominio) = split('@', $eppn);
+
+        return $username;
     }
 }
