@@ -21,8 +21,6 @@ class Version20121011154244 extends AbstractMigration
         $this->addSql("CREATE UNIQUE INDEX UNIQ_28166A266C57F6ED ON people (unibo_id)");
         $this->addSql("ALTER TABLE fos_user DROP given_name");
         $this->addSql("ALTER TABLE fos_user DROP surname");
-        $this->addSql("ALTER TABLE fos_user ALTER id DROP DEFAULT");
-        $this->addSql("ALTER TABLE fos_user ALTER groups SET ");
         $this->addSql("ALTER TABLE fos_user ADD CONSTRAINT FK_957A6479217BBB47 FOREIGN KEY (person_id) REFERENCES people (id) NOT DEFERRABLE INITIALLY IMMEDIATE");
         $this->addSql("CREATE INDEX IDX_957A6479217BBB47 ON fos_user (person_id)");
     }
