@@ -60,7 +60,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
             $person = new Person();
             $person->setUniboId($uniboId);
             $person->setGivenName($claims['givenName']);
-            $person->setSurname($claims['surname']);
+            $person->setSurname($claims['sn']);
 
             $this->personRepository->save($person);
         }
