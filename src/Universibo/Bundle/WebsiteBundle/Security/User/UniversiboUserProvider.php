@@ -54,6 +54,8 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
             $user->setUsername($username);
             $user->setLegacyGroups(32);
             $user->addRole('ROLE_STAFF');
+
+            return $user;
         };
     }
 
