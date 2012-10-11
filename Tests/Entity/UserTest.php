@@ -54,4 +54,9 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->user, $this->user->setUsernameLocked($locked));
         $this->assertEquals($locked, $this->user->isUsernameLocked());
     }
+
+    public function testUsernameLockedDefaultValue()
+    {
+        $this->assertTrue($this->user->isUsernameLocked());
+    }
 }

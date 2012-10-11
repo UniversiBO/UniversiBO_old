@@ -58,7 +58,7 @@ class User extends BaseUser
      * @ORM\Column(type="integer", type="boolean", name="username_locked")
      * @var boolean
      */
-    protected $usernameLocked;
+    protected $usernameLocked = true;
 
     /**
      * @return string
