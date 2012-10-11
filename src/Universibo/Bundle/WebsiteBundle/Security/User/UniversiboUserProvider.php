@@ -49,21 +49,21 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
             // TODO move elsewhere
             $user->setLastLogin(new \DateTime());
             $this->userManager->updateUser($user);
-            
+
             return $user;
         }
 
         if (!array_key_exists('isMemberOf', $claims) || $claims['isMemberOf'] === null) {
             return null;
         }
-        
+
         $allowedMemberOf = array('Studente');
-        if(!in_array($memberOf = $claims['isMemberOf'], $allowedMemberOf)) {
+        if (!in_array($memberOf = $claims['isMemberOf'], $allowedMemberOf)) {
             throw new UsernameNotFoundException('User not found');
         }
-        
+
         list($username, $dominio) = split('@', $email = $claims['eppn']);
-        
+
         $user = new User();
         $user->setUsername($username);
         $user->setPlainPassword(substr(sha1(rand(1,65536)), 0, rand(8,12)));
@@ -72,14 +72,14 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         $user->setEnabled(true);
         $user->setLastLogin(new \DateTime());
         $user->setNotifications(0);
-        
+
         switch ($memberOf) {
             case 'Studente':
                 // actually this password will be never used
                 $user->setLegacyGroups(2);
                 $user->addRole('ROLE_STUDENT');
         }
-        
+
         return $this->userManager->updateUser($user);
     }
 }
