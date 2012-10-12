@@ -39,5 +39,14 @@ class PrivacyController extends Controller
      */
     public function acceptAction()
     {
+        $context = $this->get('security.context');
+        if (!$context->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
+        }
+
+        $privacyService = $this->get('universibo_legacy.service.privacy');
+        $privacyService->markAccepted($context->getToken()->getUser());
+
+        return $this->redirect($this->generateUrl('universibo_legacy_home'));
     }
 }
