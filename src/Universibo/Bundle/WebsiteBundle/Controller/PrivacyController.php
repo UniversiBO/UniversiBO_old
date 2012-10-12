@@ -17,15 +17,15 @@ class PrivacyController extends Controller
     public function indexAction()
     {
         $mustAccept = false;
-        
+
         $context = $this->get('security.context');
         if ($context->isGranted('IS_AUTHENTICATED_FULLY')) {
             $user = $context->getToken()->getUser();
             $privacyService = $this->get('universibo_legacy.service.privacy');
-            
+
             $mustAccept = !$privacyService->hasAcceptedPrivacy($user);
         }
-        
+
         return array('mustAccept' => $mustAccept);
     }
 
@@ -36,8 +36,6 @@ class PrivacyController extends Controller
     {
         $policyRepo = $this->get('universibo_legacy.repository.informativa');
         $current = $policyRepo->findByTime(time());
-        
-        
 
         return array('policy' => $current);
     }
