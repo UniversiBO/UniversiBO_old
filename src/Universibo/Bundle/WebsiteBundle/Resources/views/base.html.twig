@@ -23,7 +23,7 @@ input.gsc-search-button {
 {/if}
 {#favIcon#}
 {#<!--[if IE]><style type="text/css">#header ul.hide {ldelim}display: none !important;{rdelim}</style><![endif]-->#}
-</head> 
+</head>
 <body>
 {# inizio tabella di impaginazione GENERALE  #}
 <table width="100%" border="0" cellspacing="0" cellpadding="0" summary="">
@@ -57,7 +57,7 @@ input.gsc-search-button {
 		</div>
 		<hr class="hide" />
 		{# MyUniversiBO #}
-		<div class="box">		
+		<div class="box">
 			<h3 id="MyUniversiBO"><a href="{$common_myUniversiBOUri|escape:"htmlall"}">MyUniversiBO</a></h3>
 			<div class="contenuto">
 				{if $common_myLinksAvailable=="true"}
@@ -72,7 +72,7 @@ input.gsc-search-button {
 				{/if}
 			</div>
 		</div>
-	  {# FINE MEN� DI SINIStrA#}	
+	  {# FINE MEN� DI SINIStrA#}
 </td>
 <td>
 	{#<p id="seiIn">sei in: <a href="">Home</a></p>#}
@@ -82,7 +82,7 @@ input.gsc-search-button {
 	{% raw %}
     <div id="cse-search-form" style="width: 100%;">Loading</div>
     <script src="https://www.google.it/jsapi" type="text/javascript"></script>
-    <script type="text/javascript"> 
+    <script type="text/javascript">
         google.load('search', '1', {language : 'it', style : google.loader.themes.MINIMALIST});
         google.setOnLoadCallback(function() {
         var customSearchOptions = {};  var customSearchControl = new google.search.CustomSearchControl(
@@ -104,12 +104,12 @@ input.gsc-search-button {
 </td> {# FINE MENU CENTRALE#}
 <td id="rightmenu" width="170"> {# COLONNA MENU DI DESTRA#}
     {if $common_userLoggedIn == 'true'}
-	<div class="box"> {# primo blocchetto #} 
+	<div class="box"> {# primo blocchetto #}
 		<h3>Info</h3>
 		<div class="contenuto">
 			<p>{$common_langWelcomeMsg|escape:"htmlall"|bbcode2html|nl2br} {$common_userUsername|escape:"htmlall"}<br />
 			{$common_langUserLivello|escape:"htmlall"|bbcode2html|nl2br} {foreach from=$common_userLivello item=temp_nomeLivello}{$temp_nomeLivello|escape:"htmlall"} {/foreach}<br />
-		</div>	
+		</div>
 	</div>
 	{/if}
 	{if $common_contactsCanaleAvailable|default:"false" =="true"}
@@ -142,7 +142,7 @@ input.gsc-search-button {
 		</div>
 	</div>
 	{/if}
-{#	<div class="box"> 
+{#	<div class="box">
 		<h3>Links</h3>
 		<div class="contenuto">
 <p><img src="{$common_basePath}/bundles/universibolegacy/images/freccia.gif" width="12" height="11" alt="->" />&nbsp;<a title="Questo link apre una nuova pagina" href="http://www.unibo.it" target="_blank">Universit&agrave; di BO</a></p><p><img src="{$common_basePath}/bundles/universibolegacy/images/freccia.gif" width="12" height="11" alt="->" />&nbsp;<a title="Questo link apre una nuova pagina" href="http://www.ing.unibo.it" target="_blank">Facolt&agrave; di Ingegneria</a></p><p><img src="{$common_basePath}/bundles/universibolegacy/images/freccia.gif" width="12" height="11" alt="->" />&nbsp;<a title="Questo link apre una nuova pagina" href="https://uniwex.unibo.it" target="_blank">Uniwex</a></p><p><img src="{$common_basePath}/bundles/universibolegacy/images/freccia.gif" width="12" height="11" alt="->" />&nbsp;<a title="Questo link apre una nuova pagina" href="http://guida.ing.unibo.it" target="_blank">Guida dello Studente</a></p><p><img src="{$common_basePath}/bundles/universibolegacy/images/freccia.gif" width="12" height="11" alt="->" />&nbsp;<a title="Questo link apre una nuova pagina" href="http://www.ing.unibo.it/Ingegneria/dipartimenti.htm" target="_blank">Elenco Dipartimenti</a></p><p><img src="{$common_basePath}/bundles/universibolegacy/images/freccia.gif" width="12" height="11" alt="->" />&nbsp;<a title="Questo link apre una nuova pagina" href="http://www2.unibo.it/avl/org/constud/tutteass/tutteass.htm" target="_blank">Assoc. Studentesche</a></p><p><img src="{$common_basePath}/bundles/universibolegacy/images/freccia.gif" width="12" height="11" alt="->" />&nbsp;<a title="Questo link apre una nuova pagina" href="http://www.nettuno.it/bo/ordineingegneri/" target="_blank">Ordine Ingegneri</a></p><p><img src="{$common_basePath}/bundles/universibolegacy/images/freccia.gif" width="12" height="11" alt="->" />&nbsp;<a title="Questo link apre una nuova pagina" href="http://www.atc.bo.it/" target="_blank">ATC Bologna</a></p><p><img src="{$common_basePath}/bundles/universibolegacy/images/freccia.gif" width="12" height="11" alt="->" />&nbsp;<a title="Questo link apre una nuova pagina" href="http://www.trenitalia.com/" target="_blank">Trenitalia</a></p>
@@ -152,10 +152,10 @@ input.gsc-search-button {
 	{# blocchetto links #}
 {if $showLinks_linksListAvailable|default:"false" =="true"}
 	{include file="Links/show_links.tpl"}
-{/if}	
+{/if}
 {if $showFileStudentiTitoli_langFileAvailableFlag|default:"false" =="true"}
 	{include file="Files/box_show_files_studenti.tpl"}
-{/if}	
+{/if}
 
 
 	<div class="box"> {#quarto blocchetto #}
@@ -177,14 +177,14 @@ input.gsc-search-button {
 			{/foreach}
 		</table>
 	</div>
-	
+
 	{if $common_isSetVisite == 'true'}
 	<div class="box"> {# sesto blocchetto #}
 		<h3>Statistiche</h3>
 		<div class="contenuto">
 			<p>{$common_visite}&nbsp;</p>
 			<span>visite in questa pagina</span>
-		</div> 
+		</div>
 	</div>
 	{/if}
 	<p id="versione">Versione {$common_version|escape:"htmlall"}</p>
@@ -192,12 +192,12 @@ input.gsc-search-button {
 <tr>
 	<td colspan="2">
 		<div id="footer"> {# FONDO PAGINA #}
-		{foreach from=$common_disclaimer item=temp_disclaimer} 
+		{foreach from=$common_disclaimer item=temp_disclaimer}
 			<p>{$temp_disclaimer|escape:"htmlall"|bbcode2html|nl2br}</p>
 		{/foreach}
 		</div>
 	</td>
 </tr>
-</table> 
+</table>
 </body>
 </html>

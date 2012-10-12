@@ -1,0 +1,8 @@
+privacy:
+  pattern: /privacy/
+  defaults: { _controller: 'UniversiboWebsiteBundle:Privacy:index' }
+
+privacy_accept:
+  pattern: /privacy/accept/
+  defaults: { _controller: 'UniversiboWebsiteBundle:Privacy:accept' }
+  requirements: { _method: POST }
