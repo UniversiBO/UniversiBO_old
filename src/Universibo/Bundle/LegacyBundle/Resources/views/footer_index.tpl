@@ -5,7 +5,6 @@
 	<div class="box"> {* primo blocchetto *} 
 		<h3>Info</h3>
 		<div class="contenuto">
-			<form action="{$common_logoutUri}" name="form2" id="f2" method="get">
 			<p>{$common_langWelcomeMsg|escape:"htmlall"|bbcode2html|nl2br} {$common_userUsername|escape:"htmlall"}<br />
 			{$common_langUserLivello|escape:"htmlall"|bbcode2html|nl2br} {foreach from=$common_userLivello item=temp_nomeLivello}{$temp_nomeLivello|escape:"htmlall"} {/foreach}<br />
 		</div>	
