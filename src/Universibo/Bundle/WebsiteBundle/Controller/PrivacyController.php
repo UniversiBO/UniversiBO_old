@@ -1,6 +1,6 @@
 <?php
 
-namespace Universibo\Bundle\LegacyBundle\Controller;
+namespace Universibo\Bundle\WebsiteBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
