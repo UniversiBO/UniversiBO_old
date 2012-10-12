@@ -7,7 +7,7 @@
 <meta lang="it" name="description" content="{$common_metaDescription|escape:"htmlall"}" />
 <link rel="stylesheet" href="{{ asset('/bundles/universibolegacy/css/style.css') }}" type="text/css" media="all" />
 <script type="text/javascript" src="{{ asset('bundles/universibolegacy/js/liste.js') }}"></script>
-{if $common_showGoogle}
+{% if showGoogle|default(false) %}
 {% raw %}
 <style type="text/css">
 input.gsc-input {
@@ -20,7 +20,7 @@ input.gsc-search-button {
 </style>
 <link rel="stylesheet" href="https://www.google.com/cse/style/look/default.css" type="text/css" />
 {% endraw %}
-{/if}
+{% endif %}
 {#favIcon#}
 {#<!--[if IE]><style type="text/css">#header ul.hide {ldelim}display: none !important;{rdelim}</style><![endif]-->#}
 </head>
@@ -29,16 +29,16 @@ input.gsc-search-button {
 <table width="100%" border="0" cellspacing="0" cellpadding="0" summary="">
 <tr>
     <td colspan="3"> {# barra in alto, gif di sinistra LOGO a sfondo BIANCO di dimensioni 150x92,gif per il TITOLO a sfondo del colore della tabella con data e menu di navigazione di dimensioni 600x100 #}
-		<div id="header"><ul class="hide"><li><a href="#content" accesskey="3">Vai&nbsp;al&nbsp;contenuto</a></li><li><a href="#navigazione" accesskey="5">Vai&nbsp;alla&nbsp;navigazione</a></li><li><a href="#MyUniversiBO" accesskey="4">Vai&nbsp;al&nbsp;MyUniversiBO</a></li></ul><a href="{{ path('universibo_legacy_home') }}" accesskey="1"><img alt="www.universibo.unibo.it" src="{{ asset('/bundles/universibolegacy/images/logo.gif') }}" width="200" height="92" /></a><img id="logo" src="{{ asset('/bundles/universibolegacy/images/logo_' ~ logoType | default('default') ~ '.gif') }}" alt="Logo UniversiBO" height="92" width="600" /><p class="TimeInfo">{$common_longDate|escape:"htmlall"} &nbsp;-&nbsp;{$common_time|escape:"htmlall"}</p><a href="#content" class="hide">Salta la navigazione</a></div> {# /header #}
+		<div id="header"><ul class="hide"><li><a href="#content" accesskey="3">Vai&nbsp;al&nbsp;contenuto</a></li><li><a href="#navigazione" accesskey="5">Vai&nbsp;alla&nbsp;navigazione</a></li><li><a href="#MyUniversiBO" accesskey="4">Vai&nbsp;al&nbsp;MyUniversiBO</a></li></ul><a href="{{ path('universibo_legacy_home') }}" accesskey="1"><img alt="www.universibo.unibo.it" src="{{ asset('/bundles/universibolegacy/images/logo.gif') }}" width="200" height="92" /></a><img id="logo" src="{{ asset('/bundles/universibolegacy/images/logo_' ~ logoType | default('default') ~ '.gif') }}" alt="Logo UniversiBO" height="92" width="600" />{% render 'UniversiboWebsiteBundle:Common:date' %}<a href="#content" class="hide">Salta la navigazione</a></div> {# /header #}
 		<div id="menubar">
-			<p id="Menu">&nbsp;<a href="{$common_helpByTopicUri|escape:"htmlall"}">{$common_help|lower|capitalize|escape:"htmlall"}</a>&nbsp;|&nbsp;<a href="{$common_basePath}/{$common_forumUri|escape:"htmlall"}" accesskey="2">{$common_forum|lower|capitalize|escape:"htmlall"}</a>&nbsp;|&nbsp;<a href="{$common_contactsUri|escape:"htmlall"}">{$common_contacts|lower|capitalize|escape:"htmlall"|replace:" ":"&nbsp;"}</a>&nbsp;|&nbsp;<a href="{$common_contributeUri|escape:"htmlall"}">{$common_contribute|lower|capitalize|escape:"htmlall"}</a>&nbsp;|&nbsp;<a href="{$common_accessibilityUri|escape:"htmlall"}">{$common_accessibility|lower|capitalize|escape:"htmlall"}</a>{if $common_userLoggedIn == 'true'}&nbsp;|&nbsp;<a href="{$common_settingsUri|escape:"htmlall"}">{$common_settings|escape:"htmlall"}</a>{/if}&nbsp;|&nbsp;{% render '_universibo_sso.controller.userbox:indexAction' %}</p>
+                    <p id="Menu">&nbsp;<a href="{{ path('universibo_legacy_help_topic') }}">Help</a>&nbsp;|&nbsp;<a href="/forum/" accesskey="2">Forum</a>&nbsp;|&nbsp;<a href="{{ path('universibo_legacy_contacts') }}">Chi&nbsp;Siamo</a></a>&nbsp;|&nbsp;<a href="{{ path('universibo_legacy_contribute') }}">Collabora</a>&nbsp;|&nbsp;<a href="{{ path('universibo_legacy_accessibility') }}">Accessibilità</a>{% if is_granted('IS_AUTHENTICATED_FULLY') %}&nbsp;|&nbsp;<a href="{{ path('universibo_legacy_settings') }}">Impostazioni personali</a>{% endif %}&nbsp;|&nbsp;{% render '_universibo_sso.controller.userbox:indexAction' %}</p>
 		</div> {# /menubar #}
 </td></tr>
 <tr valign="top"> {# INIZIO DEL CORPO CENTRALE DELLA PAGINA (MENU DX E SX E PAG CENTRO) #}
 	<td id="navigazione" class="evidenzia" rowspan="2" width="200">
 		<div id="leftmenu">
 			<ul>
-				<li><a href="{{ path('universibo_legacy_home') }}">{$common_homepage|lower|capitalize|escape:"htmlall"}</a></li>
+				<li><a href="{{ path('universibo_legacy_home') }}">Homepage</a></li>
 				<li>{$common_fac|lower|capitalize|escape:"htmlall"}
 					<ul>{foreach from=$common_facLinks item=temp_currLink}<li><a href="{$temp_currLink.uri|escape:"htmlall"}" >-&nbsp;{$temp_currLink.label|lower|capitalize|escape:"htmlall"}</a></li>{/foreach}</ul>
 				</li>
@@ -50,8 +50,11 @@ input.gsc-search-button {
 			</ul>
 			<ul class="lastElemento">
 				<li>Informazioni
-					<ul>{#<li>-&nbsp;<a href="{$common_helpByTopicUri}" >{$common_help|lower|capitalize|escape:"htmlall"}</a></li>#}<li><a href="{$common_rulesUri}" >-&nbsp;{$common_rules|lower|capitalize|escape:"htmlall"}</a></li>{#<li>-&nbsp;<a href="{$common_contactsUri}" >-&nbsp;{$common_contacts|lower|capitalize|escape:"htmlall"}</a></li>#}{#<li>-&nbsp;<a href="{$common_contributeUri}" >-&nbsp;{$common_contribute|lower|capitalize|escape:"htmlall"}</a></li>#}<li><a href="{$common_manifestoUri}" >-&nbsp;{$common_manifesto|lower|capitalize|escape:"htmlall"}</a></li><li><a href="{$common_creditsUri}" >-&nbsp;{$common_credits|lower|capitalize|escape:"htmlall"}</a></li><li><a href="{$common_docSfUri|escape:"htmlall"}" target="_blank"  title="Apre in un altra finestra" >-&nbsp;{$common_docSf|lower|capitalize|escape:"htmlall"}</a></li>
-					</ul>
+                                    <ul>
+                                        <li><a href="{{ path('universibo_legacy_rules') }}">-&nbsp;Regolamento</a></li>
+                                        <li><a href="{{ path('universibo_legacy_manifesto') }}">-&nbsp;Manifesto</a></li>
+                                        <li><a href="{{ path('universibo_legacy_credits') }}">-&nbsp;Credits</a></li>
+				    </ul>
 				</li>
 			</ul>
 		</div>
@@ -77,7 +80,7 @@ input.gsc-search-button {
 <td>
 	{#<p id="seiIn">sei in: <a href="">Home</a></p>#}
 	<div id="content"> {# COLONNA MENU CENtrALE #}
-	{if $common_showGoogle}
+	{% if showGoogle|default(false) %}
 	{# BEGIN GOOGLE CUSTOM SEARCH ENGINE #}
 	{% raw %}
     <div id="cse-search-form" style="width: 100%;">Loading</div>
@@ -95,7 +98,7 @@ input.gsc-search-button {
     </script>
     {% endraw %}
 	{# END GOOGLE CUSTOM SEARCH ENGINE #}
-	{/if}
+	{% endif %}
 	{if $common_alert != ""}
 	<div id="alert">{$common_alert|escape:"htmlall"}</div>
 	{/if}
@@ -104,45 +107,17 @@ input.gsc-search-button {
 </td> {# FINE MENU CENTRALE#}
 <td id="rightmenu" width="170"> {# COLONNA MENU DI DESTRA#}
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-	<div class="box"> {# primo blocchetto #}
-		<h3>Info</h3>
-		<div class="contenuto">
-			<p>{$common_langWelcomeMsg|escape:"htmlall"|bbcode2html|nl2br} {$common_userUsername|escape:"htmlall"}<br />
-			{$common_langUserLivello|escape:"htmlall"|bbcode2html|nl2br} {foreach from=$common_userLivello item=temp_nomeLivello}{$temp_nomeLivello|escape:"htmlall"} {/foreach}<br />
-		</div>
-	</div>
-	{% endif %}
-	
+        {% render 'UniversiboWebsiteBundle:UserBox:index' %}
+    {% endif %}
+    {% render 'UniversiboWebsiteBundle:Common:calendar' %}
 
-
-	<div class="box"> {#quarto blocchetto #}
-		{#<h3><a href="{$common_calendarLink.uri|escape:"htmlall"}">{$common_calendarLink.label|escape:"htmlall"}</a></h3>#}
-		<h3>{$common_calendarLink.label|escape:"htmlall"}</h3>
-		<table width="100%" cellspacing="0" cellpadding="1" border="0" summary="Calendario">
-			<tr align="center">
-			{foreach name=weekday from=$common_calendarWeekDays item=temp_weekday}
-			 <th class="{if $smarty.foreach.weekday.last}Domeniche{else}Feriali{/if}">{$temp_weekday.numero|escape:"htmlall"|capitalize}</th>
-			{/foreach}
-			</tr>
-			{foreach from=$common_calendar item=temp_week}
-				<tr align="center">
-				{foreach from=$temp_week item=temp_day}
-					{if $temp_day.today=='true'}<td class="Oggi">{$temp_day.numero|escape:"htmlall"}</td>
-					{else}<td class="{if $temp_day.tipo=='none'}Piccolo{elseif $temp_day.tipo=='feriale'}Feriali{elseif $temp_day.tipo=='festivo'}Festivi{elseif $temp_day.tipo=='domenica'}Domeniche{/if}">{$temp_day.numero|escape:"htmlall"}</td>{/if}
-				{/foreach}
-				</tr>
-			{/foreach}
-		</table>
-	</div>
 
 	<p id="versione">Versione {$common_version|escape:"htmlall"}</p>
 </td></tr> {# FINE MENU DI DESTRA#}
 <tr>
 	<td colspan="2">
 		<div id="footer"> {# FONDO PAGINA #}
-		{foreach from=$common_disclaimer item=temp_disclaimer}
-			<p>{$temp_disclaimer|escape:"htmlall"|bbcode2html|nl2br}</p>
-		{/foreach}
+                    {% render 'UniversiboWebsiteBundle:Common:disclaimer' %}
 		</div>
 	</td>
 </tr>

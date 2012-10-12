@@ -1,0 +1,21 @@
+<div class="box">
+    <h3>{{ month }}</h3>
+    <table width="100%" cellspacing="0" cellpadding="1" border="0" summary="Calendario">
+        <tr align="center">
+            {% for weekday in weekDays %}
+                <th class="{{ weekday == 'D' ? 'Domeniche' : 'Feriali' }}">{{weekday|capitalize}}</th>
+            {% endfor %}
+	{foreach name=weekday from=$common_calendarWeekDays item=temp_weekday}
+
+			{/foreach}
+			</tr>
+			{foreach from=$common_calendar item=temp_week}
+				<tr align="center">
+				{foreach from=$temp_week item=temp_day}
+					{if $temp_day.today=='true'}<td class="Oggi">{$temp_day.numero|escape:"htmlall"}</td>
+					{else}<td class="{if $temp_day.tipo=='none'}Piccolo{elseif $temp_day.tipo=='feriale'}Feriali{elseif $temp_day.tipo=='festivo'}Festivi{elseif $temp_day.tipo=='domenica'}Domeniche{/if}">{$temp_day.numero|escape:"htmlall"}</td>{/if}
+				{/foreach}
+				</tr>
+			{/foreach}
+		</table>
+	</div>
