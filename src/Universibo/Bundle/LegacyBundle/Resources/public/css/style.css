@@ -934,7 +934,7 @@ span>p.comandi {
 	background: white;
 }
 
-#informativa {
+#informativa, .rulebox {
 	height: 300px;
 	overflow: auto;
 }
