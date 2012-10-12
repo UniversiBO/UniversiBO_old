@@ -32,7 +32,7 @@
         {
             "type": "vcs",
             "url": "http://github.com/UniversiBO/UniversiboCoreBundle"
-        },
+        }
     ],
     "require-dev": {
     },
