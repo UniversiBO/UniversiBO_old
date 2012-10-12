@@ -72,22 +72,22 @@
         },
         {
             "name": "doctrine/data-fixtures",
-            "version": "v1.0.0-ALPHA2",
+            "version": "v1.0.0-ALPHA3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/data-fixtures.git",
-                "reference": "v1.0.0-ALPHA2"
+                "reference": "v1.0.0-ALPHA3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/data-fixtures/zipball/v1.0.0-ALPHA2",
-                "reference": "v1.0.0-ALPHA2",
+                "url": "https://github.com/doctrine/data-fixtures/zipball/v1.0.0-ALPHA3",
+                "reference": "v1.0.0-ALPHA3",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
             },
-            "time": "2012-01-25 22:23:47",
+            "time": "2012-09-20 03:26:34",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -96,7 +96,7 @@
                 }
             },
             "license": [
-                "LGPL"
+                "MIT"
             ],
             "authors": [
                 {
@@ -354,12 +354,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/migrations",
-                "reference": "b38ddb190ec78d389b2c2de838b2a4d646ad1ce2"
+                "reference": "v1.0-ALPHA1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/migrations/zipball/b38ddb190ec78d389b2c2de838b2a4d646ad1ce2",
-                "reference": "b38ddb190ec78d389b2c2de838b2a4d646ad1ce2",
+                "url": "https://github.com/doctrine/migrations/zipball/v1.0-ALPHA1",
+                "reference": "v1.0-ALPHA1",
                 "shasum": ""
             },
             "require": {
@@ -479,12 +479,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle",
-                "reference": "51b0fa8fbb637940ebc9060386d95a75fd5ac51a"
+                "reference": "30aee5a21d744c7340ae7a3c1cfb98a57e529ff1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/zipball/51b0fa8fbb637940ebc9060386d95a75fd5ac51a",
-                "reference": "51b0fa8fbb637940ebc9060386d95a75fd5ac51a",
+                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/zipball/30aee5a21d744c7340ae7a3c1cfb98a57e529ff1",
+                "reference": "30aee5a21d744c7340ae7a3c1cfb98a57e529ff1",
                 "shasum": ""
             },
             "require": {
@@ -505,7 +505,7 @@
                 "doctrine/doctrine-bundle": "*",
                 "doctrine/mongodb-odm-bundle": "*"
             },
-            "time": "1349476472",
+            "time": "1349988603",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1581,12 +1581,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle.git",
-                "reference": "583b4f94a1134ac5c7af801e6959a9707fe9fedd"
+                "reference": "67e2624f20d403f57917ec1e68eda498c71dc991"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle/zipball/583b4f94a1134ac5c7af801e6959a9707fe9fedd",
-                "reference": "583b4f94a1134ac5c7af801e6959a9707fe9fedd",
+                "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle/zipball/67e2624f20d403f57917ec1e68eda498c71dc991",
+                "reference": "67e2624f20d403f57917ec1e68eda498c71dc991",
                 "shasum": ""
             },
             "require": {
@@ -1597,7 +1597,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1349911055",
+            "time": "1349995520",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
