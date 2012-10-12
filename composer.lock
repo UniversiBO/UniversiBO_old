@@ -1,5 +1,5 @@
 {
-    "hash": "a8a1ff232c38b6d8e45a91bbc5516a0a",
+    "hash": "5bdfab4dc9a63d1e71cc431ec515de70",
     "packages": [
         {
             "name": "doctrine/common",
@@ -479,12 +479,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle",
-                "reference": "30aee5a21d744c7340ae7a3c1cfb98a57e529ff1"
+                "reference": "127391cd83e86bcf97e5d861aac1e39c14d3999d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/zipball/30aee5a21d744c7340ae7a3c1cfb98a57e529ff1",
-                "reference": "30aee5a21d744c7340ae7a3c1cfb98a57e529ff1",
+                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/zipball/127391cd83e86bcf97e5d861aac1e39c14d3999d",
+                "reference": "127391cd83e86bcf97e5d861aac1e39c14d3999d",
                 "shasum": ""
             },
             "require": {
@@ -505,7 +505,7 @@
                 "doctrine/doctrine-bundle": "*",
                 "doctrine/mongodb-odm-bundle": "*"
             },
-            "time": "1349988603",
+            "time": "1350050664",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1523,58 +1523,6 @@
             }
         },
         {
-            "name": "universibo/login-action-bundle",
-            "version": "dev-master",
-            "target-dir": "Universibo/Bundle/LoginActionBundle",
-            "source": {
-                "type": "git",
-                "url": "http://github.com/UniversiBO/UniversiboLoginActionBundle",
-                "reference": "52b20e1f721a81636f6a286b34b5dc8df55f6e53"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboLoginActionBundle/zipball/52b20e1f721a81636f6a286b34b5dc8df55f6e53",
-                "reference": "52b20e1f721a81636f6a286b34b5dc8df55f6e53",
-                "shasum": ""
-            },
-            "require": {
-                "symfony/framework-bundle": "2.1.*"
-            },
-            "require-dev": {
-                "symfony/yaml": "2.1.*"
-            },
-            "time": "1349191915",
-            "type": "symfony-bundle",
-            "installation-source": "source",
-            "autoload": {
-                "psr-0": {
-                    "Universibo\\Bundle\\LoginActionBundle": ""
-                }
-            },
-            "license": [
-                "GPL"
-            ],
-            "authors": [
-                {
-                    "name": "Davide Bellettini",
-                    "email": "davide.bellettini@gmail.com"
-                },
-                {
-                    "name": "UniversiboLoginActionBundle Contributors",
-                    "homepage": "https://github.com/UniversiBO/UniversiboLoginActionBundle/graphs/contributors"
-                }
-            ],
-            "description": "UniversiBO LoginActionBundle",
-            "homepage": "http://github.com/UniversiBO",
-            "keywords": [
-                "university"
-            ],
-            "support": {
-                "source": "https://github.com/UniversiBO/UniversiboLoginActionBundle/tree/master",
-                "issues": "https://github.com/UniversiBO/UniversiboLoginActionBundle/issues"
-            }
-        },
-        {
             "name": "universibo/shibboleth-bundle",
             "version": "dev-master",
             "target-dir": "Universibo/Bundle/ShibbolethBundle",
@@ -1741,7 +1689,6 @@
         "kriswallsmith/assetic": 20,
         "twig/extensions": 20,
         "universibo/shibboleth-bundle": 20,
-        "universibo/core-bundle": 20,
-        "universibo/login-action-bundle": 20
+        "universibo/core-bundle": 20
     }
 }
