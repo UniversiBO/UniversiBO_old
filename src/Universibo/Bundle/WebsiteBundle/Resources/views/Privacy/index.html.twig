@@ -2,7 +2,7 @@
 {% block title %}UniversiBO :: Informativa sulla Privacy{% endblock %}
 {% block content %}
 <h2>Informativa sulla privacy</h2>
-{% render 'UniversiboLegacyBundle:Privacy:box' %}
+{% render 'UniversiboWebsiteBundle:Privacy:box' %}
 <form action="{{ path('privacy_accept') }}" method="POST">
     <input type="submit" value="Accetto"/>
 </form>

@@ -204,12 +204,3 @@ universibo_legacy_home_v2:
 universibo_legacy_home_index:
     pattern: /index.php
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowHome', redirect: true }
-
-privacy:
-  pattern: /privacy/
-  defaults: { _controller: 'UniversiboLegacyBundle:Privacy:index' }
-
-privacy_accept:
-  pattern: /privacy/accept/
-  defaults: { _controller: 'UniversiboLegacyBundle:Privacy:accept' }
-  requirements: { _method: POST }
