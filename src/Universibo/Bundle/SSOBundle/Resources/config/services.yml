@@ -2,11 +2,3 @@ services:
     universibo_sso.controller.userbox:
         class: Universibo\Bundle\SSOBundle\Controller\UserBoxController
         arguments: ['%universibo_shibboleth.idp_url.info%', '%universibo_shibboleth.idp_url.logout%', '@templating', '@router', '%universibo_shibboleth.route.after_logout%']
-    universibo_sso.controller.security:
-        class: Universibo\Bundle\SSOBundle\Controller\SecurityController
-        calls:
-            - ['setContainer', ['@service_container'] ]
-    universibo_sso.controller.metadata:
-        class: Universibo\Bundle\SSOBundle\Controller\MetadataController
-    universibo_sso.service.shibboleth:
-        class: Universibo\Bundle\SSOBundle\Service\ShibbolethService
