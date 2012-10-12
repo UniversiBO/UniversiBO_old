@@ -8,49 +8,27 @@ namespace Universibo\Bundle\ForumBundle\Naming;
 class NameGenerator
 {
     const SEPARATOR = ' - ';
-    /**
-     * @var int
-     */
-    private $year;
 
-    /**
-     * @param int $year Academical Year
-     */
-    public function __construct($year)
-    {
-        $this->year = $year;
-    }
-
-    public function update($title)
+    public function update($title, $year)
     {
         return preg_replace('/aa ([0-9]{4})(\\/\\.\\.)?(\\/[0-9]{4})+/',
-                'aa $1/../' . $this->getLast(), $title);
+                'aa $1/../' . $this->getLast($year), $title);
     }
 
-    public function generate($subjectName, $professorName)
+    public function generate($subjectName, $professorName, $year)
     {
         return $subjectName . self::SEPARATOR
-                . $this->getAcademicalYearString() . self::SEPARATOR
+                . $this->getAcademicalYearString($year) . self::SEPARATOR
                 . $professorName;
     }
 
-    /**
-     * Year getter
-     *
-     * @return number
-     */
-    protected function getYear()
+    protected function getLast($year)
     {
-        return $this->year;
+        return $year + 1;
     }
 
-    protected function getLast()
+    protected function getAcademicalYearString($year)
     {
-        return $this->getYear() + 1;
-    }
-
-    protected function getAcademicalYearString()
-    {
-        return 'aa ' . $this->getYear() . '/' . $this->getLast();
+        return 'aa ' . $year . '/' . $this->getLast($year);
     }
 }
