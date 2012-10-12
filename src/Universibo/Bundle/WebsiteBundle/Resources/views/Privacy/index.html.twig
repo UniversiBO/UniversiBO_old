@@ -3,7 +3,9 @@
 {% block content %}
 <h2>Informativa sulla privacy</h2>
 {% render 'UniversiboWebsiteBundle:Privacy:box' %}
+{% if mustAccept %}
 <form action="{{ path('privacy_accept') }}" method="POST">
     <input type="submit" value="Accetto"/>
 </form>
+{% endif %}
 {% endblock %}
