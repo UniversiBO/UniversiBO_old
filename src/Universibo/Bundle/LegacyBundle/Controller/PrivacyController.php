@@ -1,8 +1,6 @@
 <?php
 
-namespace Universibo\Bundle\WebsiteBundle\Controller;
-
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+namespace Universibo\Bundle\LegacyBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,7 +12,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class PrivacyController extends Controller
 {
     /**
-     * @Route("",name="privacy")
      * @Template()
      */
     public function indexAction()
@@ -34,8 +31,6 @@ class PrivacyController extends Controller
     }
 
     /**
-     * @Route("/accept",name="privacy_accept")
-     * @Method("POST")
      */
     public function acceptAction()
     {
