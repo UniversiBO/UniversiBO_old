@@ -23,8 +23,7 @@
         "twig/extensions": "1.0.*@dev",
         "universibo/shibboleth-bundle": "@dev",
         "zendframework/zend-feed": ">=2.0.0,<2.1.0",
-        "universibo/core-bundle": "dev-master",
-        "universibo/login-action-bundle": "dev-master"
+        "universibo/core-bundle": "dev-master"
     },
     "replaces": {
         "smarty/smarty": "v3.1.11"
@@ -34,10 +33,6 @@
             "type": "vcs",
             "url": "http://github.com/UniversiBO/UniversiboCoreBundle"
         },
-        {
-            "type": "vcs",
-            "url": "http://github.com/UniversiBO/UniversiboLoginActionBundle"
-        }
     ],
     "require-dev": {
     },

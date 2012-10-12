@@ -25,7 +25,6 @@ class AppKernel extends Kernel
                 new Universibo\Bundle\SSOBundle\UniversiboSSOBundle(),
                 new Universibo\Bundle\CoreBundle\UniversiboCoreBundle(),
                 new Universibo\Bundle\ShibbolethBundle\UniversiboShibbolethBundle(),
-                new Universibo\Bundle\LoginActionBundle\UniversiboLoginActionBundle(),
                 new FOS\UserBundle\FOSUserBundle(),
                 );
        
