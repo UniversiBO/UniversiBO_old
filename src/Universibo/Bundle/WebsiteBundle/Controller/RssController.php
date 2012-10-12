@@ -6,15 +6,12 @@ use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Symfony\Component\HttpFoundation\Response;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class RssController extends Controller
 {
     /**
      * @todo ACL
      * @todo manage Facoltà
-     *
-     * @Route("/rss/{idCanale}",name="rss",requirements = {"idCanale" = "\d+"})
      */
     public function indexAction($idCanale)
     {

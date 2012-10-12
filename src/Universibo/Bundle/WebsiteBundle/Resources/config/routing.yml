@@ -6,3 +6,8 @@ privacy_accept:
   pattern: /privacy/accept/
   defaults: { _controller: 'UniversiboWebsiteBundle:Privacy:accept' }
   requirements: { _method: POST }
+
+rss:
+  pattern: /rss/{idCanale}/
+  defaults: { _controller: 'UniversiboWebsiteBundle:Rss:index' }
+  requirements: { idCanale: \d+ }

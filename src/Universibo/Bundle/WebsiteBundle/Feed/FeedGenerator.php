@@ -69,13 +69,13 @@ class FeedGenerator
         $entry->setTitle($item->getTitolo());
 
         $id = $item->getIdNotizia();
-        $link = $router->generate('universibo_legacy_permalink', array('id_news' => $id), true);
+        $link = $router->generate('universibo_legacy_permalink', array('id_notizia' => $id), true);
 
         $entry->setLink($link);
         $entry->addAuthor(array('name' => $item->getUsername()));
         $entry->setContent($item->getNotizia());
-        $entry->setDateCreated($item->getDataIns());
-        $entry->setDateModified($item->getUltimaModifica());
+        $entry->setDateCreated(intval($item->getDataIns()));
+        $entry->setDateModified(intval($item->getUltimaModifica()));
 
         $feed->addEntry($entry);
     }
