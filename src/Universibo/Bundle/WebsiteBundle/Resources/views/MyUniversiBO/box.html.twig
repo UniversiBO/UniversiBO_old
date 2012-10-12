@@ -1,0 +1,18 @@
+{# MyUniversiBO #}
+<div class="box">
+    <h3 id="MyUniversiBO"><a href="{{path('universibo_legacy_myuniversibo')}}">MyUniversiBO</a></h3>
+        <div class="contenuto">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {% for role in roles %}
+                <p><a href="{{ role.link }}">{{ role.name }}</a>
+		{% if role.referente %}&nbsp;<img src="{{ asset('/bundles/universibolegacy/images/icona_r.gif') }}" width="9" height="9" alt="Referente" />{% endif %}
+		{% if role.moderatore %}&nbsp;<img src="{{ asset('/bundles/universibolegacy/images/icona_m.gif') }}" width="9" height="9" alt="Moderatore" />{% endif %}
+		{#{if $temp_currLink.new=="true"}&nbsp;<img src="{$common_basePath}/bundles/universibolegacy/images/icona_new.gif" width="21" height="9" alt="!NEW!" />{/if}</p>#}
+            {% else %}    
+                <p>Non hai pagine in MyUniversiBO</p>
+            {% endfor %}
+            {% else %}
+                <p>I servizi personalizzati sono disponibili solo agli utenti che hanno effettuato il login</p>
+            {% endif %}
+    </div>
+</div>

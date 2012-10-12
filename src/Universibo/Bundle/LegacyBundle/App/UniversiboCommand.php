@@ -437,11 +437,9 @@ abstract class UniversiboCommand extends BaseCommand
     /**
      * Restituisce se un giorno ? festivo o no
      *
-     * @static
-     * @private
      * @return boolean
      */
-    public function _isFestivo($mday, $mese, $anno)
+    private static function _isFestivo($mday, $mese, $anno)
     {
         return ( ($mese == 1 && ($mday == 1 || $mday == 6 )) ||
                 ($mese == 4 && $mday == 25) ||

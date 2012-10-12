@@ -5,17 +5,17 @@
             {% for weekday in weekDays %}
                 <th class="{{ weekday == 'D' ? 'Domeniche' : 'Feriali' }}">{{weekday|capitalize}}</th>
             {% endfor %}
-	{foreach name=weekday from=$common_calendarWeekDays item=temp_weekday}
-
-			{/foreach}
-			</tr>
-			{foreach from=$common_calendar item=temp_week}
-				<tr align="center">
-				{foreach from=$temp_week item=temp_day}
-					{if $temp_day.today=='true'}<td class="Oggi">{$temp_day.numero|escape:"htmlall"}</td>
-					{else}<td class="{if $temp_day.tipo=='none'}Piccolo{elseif $temp_day.tipo=='feriale'}Feriali{elseif $temp_day.tipo=='festivo'}Festivi{elseif $temp_day.tipo=='domenica'}Domeniche{/if}">{$temp_day.numero|escape:"htmlall"}</td>{/if}
-				{/foreach}
-				</tr>
-			{/foreach}
-		</table>
-	</div>
+        </tr>
+        {% for week in data %}
+        <tr align="center">
+            {% for day in week %}
+                {% if day.today == 'true' %}
+                <td class="Oggi">{{ day.numero }}</td>
+                {% else %}
+                <td class="{% if day.tipo=='none' %}Piccolo{% elseif day.tipo=='feriale'%}Feriali{% elseif day.tipo=='festivo' %}Festivi{% elseif day.tipo=='domenica'%}Domeniche{% endif %}">{{ day.numero }}</td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>

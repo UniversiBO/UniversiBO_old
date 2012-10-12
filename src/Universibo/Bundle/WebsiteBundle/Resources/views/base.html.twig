@@ -39,13 +39,13 @@ input.gsc-search-button {
 		<div id="leftmenu">
 			<ul>
 				<li><a href="{{ path('universibo_legacy_home') }}">Homepage</a></li>
-				<li>{$common_fac|lower|capitalize|escape:"htmlall"}
-					<ul>{foreach from=$common_facLinks item=temp_currLink}<li><a href="{$temp_currLink.uri|escape:"htmlall"}" >-&nbsp;{$temp_currLink.label|lower|capitalize|escape:"htmlall"}</a></li>{/foreach}</ul>
+				<li>Facoltà
+					<ul>{% render 'UniversiboWebsiteBundle:ChannelMenu:index' with { type:3 } %}</ul>
 				</li>
 			</ul>
 			<ul>
 				<li>Servizi
-					<ul>{foreach from=$common_servicesLinks item=temp_link}<li><a href="{$temp_link.uri|escape:"htmlall"}" >-&nbsp;{$temp_link.label|lower|capitalize|escape:"htmlall"}</a></li>{/foreach}</ul>
+                                    <ul>{% render 'UniversiboWebsiteBundle:ChannelMenu:index' with { type:1 } %}</ul>
 				</li>
 			</ul>
 			<ul class="lastElemento">
@@ -59,22 +59,7 @@ input.gsc-search-button {
 			</ul>
 		</div>
 		<hr class="hide" />
-		{# MyUniversiBO #}
-		<div class="box">
-			<h3 id="MyUniversiBO"><a href="{$common_myUniversiBOUri|escape:"htmlall"}">MyUniversiBO</a></h3>
-			<div class="contenuto">
-				{if $common_myLinksAvailable=="true"}
-					{foreach name=myuniversibo from=$common_myLinks item=temp_currLink}
-					<p><a href="{$temp_currLink.uri|escape:"htmlall"}">{$temp_currLink.label|escape:"htmlall"}</a>
-					{if $temp_currLink.ruolo=="R"}&nbsp;<img src="{$common_basePath}/bundles/universibolegacy/images/icona_r.gif" width="9" height="9" alt="Referente" />{/if}
-					{if $temp_currLink.ruolo=="M"}&nbsp;<img src="{$common_basePath}/bundles/universibolegacy/images/icona_m.gif" width="9" height="9" alt="Moderatore" />{/if}
-					{if $temp_currLink.new=="true"}&nbsp;<img src="{$common_basePath}/bundles/universibolegacy/images/icona_new.gif" width="21" height="9" alt="!NEW!" />{/if}</p>
-					{/foreach}
-					{if $smarty.foreach.myuniversibo.total == 0}<p>Non hai pagine in MyUniversiBO</p>{/if}
-				{else}<p>I servizi personalizzati sono disponibili solo agli utenti che hanno effettuato il login</p>
-				{/if}
-			</div>
-		</div>
+		{% render 'UniversiboWebsiteBundle:MyUniversiBO:box' %}
 	  {# FINE MEN� DI SINIStrA#}
 </td>
 <td>
@@ -99,9 +84,6 @@ input.gsc-search-button {
     {% endraw %}
 	{# END GOOGLE CUSTOM SEARCH ENGINE #}
 	{% endif %}
-	{if $common_alert != ""}
-	<div id="alert">{$common_alert|escape:"htmlall"}</div>
-	{/if}
         {% block content %}{% endblock %}
         	</div>
 </td> {# FINE MENU CENTRALE#}
@@ -110,9 +92,7 @@ input.gsc-search-button {
         {% render 'UniversiboWebsiteBundle:UserBox:index' %}
     {% endif %}
     {% render 'UniversiboWebsiteBundle:Common:calendar' %}
-
-
-	<p id="versione">Versione {$common_version|escape:"htmlall"}</p>
+    {% render 'UniversiboWebsiteBundle:Common:version' %}
 </td></tr> {# FINE MENU DI DESTRA#}
 <tr>
 	<td colspan="2">
