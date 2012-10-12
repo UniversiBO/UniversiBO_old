@@ -1,3 +1,0 @@
-UniversiboSearchBundle_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: UniversiboSearchBundle:Default:index }
