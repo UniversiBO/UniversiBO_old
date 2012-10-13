@@ -1,0 +1,4 @@
+services:
+  universibo_forum.logout_handler:
+    class: 'Universibo\Bundle\ForumBundle\Security\Http\Logout\PhpBB3LogoutHandler'
+    arguments: []
