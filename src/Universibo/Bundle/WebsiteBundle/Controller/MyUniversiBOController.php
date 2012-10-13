@@ -2,8 +2,6 @@
 
 namespace Universibo\Bundle\WebsiteBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -14,10 +12,10 @@ class MyUniversiBOController extends Controller
      */
     public function boxAction()
     {
-        if(!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             return array('roles' => array());
         }
-        
+
         $user = $this->get('security.context')->getToken()->getUser();
         $rolesRepo = $this->get('universibo_legacy.repository.ruolo');
         $channelRepo = $this->get('universibo_legacy.repository.canale2');

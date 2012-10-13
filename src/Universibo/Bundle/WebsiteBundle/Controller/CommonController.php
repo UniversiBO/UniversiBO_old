@@ -31,7 +31,7 @@ class CommonController extends Controller
                 'Ogni marchio citato in queste pagine appartiene al legittimo proprietario.' .
                 'Con il contenuto delle pagine appartenenti a questo sito non si è voluto ledere i diritti di nessuno, quindi nel malaugurato caso che questo possa essere avvenuto, vi invitiamo a contattarci affinché le parti in discussione vengano eliminate o chiarite.'));
     }
-    
+
     /**
      * @Template()
      */
@@ -92,13 +92,13 @@ class CommonController extends Controller
 
             $tpl_mese[] = $tpl_settimana;
         }
-        
+
         $weekDays = array('L', 'M', 'M', 'G', 'V', 'S', 'D');
 
         return array('weekDays' => $weekDays, 'month' => $krono->k_date('%F'),
             'data' => $tpl_mese);
     }
-    
+
     private function isFestivo($mday, $mese, $anno)
     {
         return ( ($mese == 1 && ($mday == 1 || $mday == 6 )) ||
