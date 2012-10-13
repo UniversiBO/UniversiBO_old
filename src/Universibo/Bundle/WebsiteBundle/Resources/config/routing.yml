@@ -1,13 +1,11 @@
-privacy:
-  pattern: /privacy/
-  defaults: { _controller: 'UniversiboWebsiteBundle:Privacy:index' }
-
-privacy_accept:
-  pattern: /privacy/accept/
-  defaults: { _controller: 'UniversiboWebsiteBundle:Privacy:accept' }
-  requirements: { _method: POST }
-
 rss:
   pattern: /rss/{idCanale}/
   defaults: { _controller: 'UniversiboWebsiteBundle:Rss:index' }
   requirements: { idCanale: \d+ }
+universibo_website_rules:
+  pattern: /regolamento/
+  defaults: { _controller: 'UniversiboWebsiteBundle:Rules:index' }
+universibo_website_rules_accept:
+  pattern: /regolamento/accetta/
+  defaults: { _controller: 'UniversiboWebsiteBundle:Rules:accept' }
+  requirements: { _method: POST }

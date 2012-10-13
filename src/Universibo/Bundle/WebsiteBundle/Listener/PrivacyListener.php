@@ -67,7 +67,7 @@ class PrivacyListener
         }
 
         $controller = $event->getRequest()->attributes->get('_controller');
-        if (preg_match('/privacy/i', $controller)) {
+        if (preg_match('/rules/i', $controller)) {
             return;
         }
 
@@ -82,7 +82,7 @@ class PrivacyListener
 
         $response = new Response();
         $response->setStatusCode(302);
-        $response->headers->set('Location', $this->router->generate('privacy', array(), true));
+        $response->headers->set('Location', $this->router->generate('universibo_website_rules', array(), true));
 
         $event->setResponse($response);
     }

@@ -177,9 +177,6 @@ universibo_legacy_role_admin_search:
     pattern: /role/admin/search/{id_canale}/
     requirements: { id_canale: \d+ }
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'RuoliAdminSearch' }
-universibo_legacy_rules:
-    pattern: /regolamento/
-    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowRules' }
 universibo_legacy_settings_profile:
     pattern: /settings/profile/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowPersonalSettings' }
