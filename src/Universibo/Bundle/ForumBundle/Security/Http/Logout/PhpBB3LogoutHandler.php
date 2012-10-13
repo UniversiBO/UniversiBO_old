@@ -16,7 +16,7 @@ class PhpBB3LogoutHandler implements LogoutHandlerInterface
      * @var ConfigDAOInterface
      */
     private $configDAO;
-    
+
     /*
      * @var SessionDAOInterface
      */
@@ -42,7 +42,7 @@ class PhpBB3LogoutHandler implements LogoutHandlerInterface
 
         $sessionId = $request->cookies->get($name.'_sid');
         $this->sessionDAO->delete($sessionId);
-        
+
         foreach (array('u', 'k', 'sid') as $key) {
             $response->headers->setCookie(new Cookie($name.'_'.$key, null, 0,
                     $path, $domain, $secure));
