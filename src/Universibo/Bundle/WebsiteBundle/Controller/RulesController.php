@@ -70,12 +70,12 @@ class RulesController extends Controller
         $flashBag = $this->getRequest()->getSession()->getFlashBag();
         // TODO begin transaction
         $error = false;
-        
-        if('on' !== $this->getRequest()->request->get('accept_check')) {
+
+        if ('on' !== $this->getRequest()->request->get('accept_check')) {
             $flashBag->add('error', 'Non hai accettato il regolamento!');
             $error = true;
         }
-        
+
         if (!$error && !$user->isUsernameLocked()) {
             $username = $this->getRequest()->request->get('username');
 
@@ -88,9 +88,8 @@ class RulesController extends Controller
                 $this->get('fos_user.user_manager')->updateUser($user);
             }
         }
-        
-        
-        if($error) {
+
+        if ($error) {
             return $this->redirect($this->generateUrl('universibo_website_rules'));
         }
 
