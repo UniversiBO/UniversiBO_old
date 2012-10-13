@@ -52,20 +52,8 @@ doctrine:
         password: "%database_password%"
         charset:  UTF8
   orm:
-    default_entity_manager:  default
-    entity_managers:
-      default:
-        connection: default
-        mappings:
-          FOSUserBundle: ~
-          UniversiboCoreBundle: ~
-          UniversiboLegacyBundle: ~
-          UniversiboWebsiteBundle: ~
-      forum:
-        connection: forum
-        mappings:
-          UniversiboForumBundle: ~
     auto_generate_proxy_classes: "%kernel.debug%"
+    auto_mapping: true
 
 # Swiftmailer Configuration
 swiftmailer:
