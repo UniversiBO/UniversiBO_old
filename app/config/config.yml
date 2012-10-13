@@ -57,6 +57,7 @@ doctrine:
       default:
         connection: default
         mappings:
+          FOSUserBundle: ~
           UniversiboCoreBundle: ~
           UniversiboLegacyBundle: ~
           UniversiboWebsiteBundle: ~

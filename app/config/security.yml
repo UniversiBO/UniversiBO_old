@@ -23,7 +23,9 @@ security:
             logout:
                 path:   /logout
                 target: /
-                handler: universibo_shibboleth.logout_handler
+                handler:
+                  - universibo_shibboleth.logout_handler
+                  - universibo_forum.logout_handler
             shibboleth: ~
             
 
