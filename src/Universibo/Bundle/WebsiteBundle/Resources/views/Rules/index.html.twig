@@ -7,15 +7,18 @@
 <h1>Registrazione</h1>
 {% endif %}
 {% if mustAccept %}
+
 <form action="{{ path('universibo_website_rules_accept') }}" method="POST"
       class="accept-form">
+    {% if app.session.hasFlash('error') %}
+<p class="error">{{app.session.flash('error')}}</p>
+{% endif %}
     {% if not user.usernameLocked %}
-        <h1>Registrazione</h1>
     <label for="username">Scegli un nome utente, non ti sarà possibile cambiarlo
         in futuro</label>
     <input id="username" name="username" value="{{ user.username }}"/>
     {% else %}
-    <p>Gentile {{ user.username }}, per proseguire è necessario
+    <p>Per proseguire è necessario
         accettare regolamento e informativa sulla privacy</p>
     {% endif %}
     <p><input type="checkbox" id="accept_check" name="accept_check"/>

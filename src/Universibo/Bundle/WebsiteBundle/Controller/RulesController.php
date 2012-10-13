@@ -67,21 +67,31 @@ class RulesController extends Controller
 
         $user = $context->getToken()->getUser();
 
+        $flashBag = $this->getRequest()->getSession()->getFlashBag();
         // TODO begin transaction
-        if (!$user->isUsernameLocked()) {
-            $username = $this->getRequest()->post->get('username');
+        $error = false;
+        
+        if('on' !== $this->getRequest()->request->get('accept_check')) {
+            $flashBag->add('error', 'Non hai accettato il regolamento!');
+            $error = true;
+        }
+        
+        if (!$error && !$user->isUsernameLocked()) {
+            $username = $this->getRequest()->request->get('username');
 
             if (!preg_match('/^([[:alnum:]àèéìòù \._]{1,25})$/', $username)) {
-                $flashBag = $this->getRequest()->getSession()->getFlashBag();
                 $flashBag->add('error', 'Username non valido!');
-
-                return $this->redirect($this->generateUrl('universibo_website_rules'));
+                $error = true;
+            } else {
+                $user->setUsername($username);
+                $user->setUsernameLocked(true);
+                $this->get('fos_user.user_manager')->updateUser($user);
             }
-
-            $user->setUsername($username);
-            $user->setUsernameLocked(true);
-
-            $this->get('universibo_core.repository.user')->save($user);
+        }
+        
+        
+        if($error) {
+            return $this->redirect($this->generateUrl('universibo_website_rules'));
         }
 
         $privacyService = $this->get('universibo_legacy.service.privacy');

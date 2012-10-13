@@ -677,7 +677,7 @@ td.evidenzia {
 	padding: 0;
 }
 
-#alert {
+#alert, .error {
 	color: red;
 }
 
