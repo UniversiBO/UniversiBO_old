@@ -2,6 +2,9 @@
 
 namespace Universibo\Bundle\ForumBundle\DAO;
 
+/**
+ * @author Davide Bellettini <davide.bellettini@gmail.com>
+ */
 class PhpBB3PostDAO extends AbstractDAO implements PostDAOInterface
 {
     public function getLatestPosts($forumId, $limit)
