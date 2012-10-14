@@ -152,7 +152,7 @@ testi consigliati[/url]';
 
         $forum = 'Forum';
         if ($insegnamento->getServizioForum()) {
-            $forumApi = $this->getContainer()->get('universibo_legacy.forum.api');
+            $forumApi = $this->getContainer()->get('universibo_forum.router');
             $link = $forumApi->getForumUri($insegnamento->getForumForumId());
             $forum = '[url=' . $link . ']Forum[/url]';
         }

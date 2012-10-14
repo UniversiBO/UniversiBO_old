@@ -48,8 +48,8 @@ class MyUniversiBORemove extends UniversiboCommand
             $ruolo = $ruoli[$id_canale];
             $ruolo->setMyUniversiBO(false, true);
 
-            $forum = $this->getContainer()->get('universibo_legacy.forum.api');
-            $forum->removeUserGroup($canale->getForumGroupId(), $utente->getId());
+            $forum = $this->getContainer()->get('universibo_forum.dao.group');
+            $forum->removeUserFromGroup($utente, $canale->getForumGroupId());
 
             return 'success';
         } else {

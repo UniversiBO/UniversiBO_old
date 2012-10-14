@@ -11,9 +11,9 @@ class ShowRulesTest extends UniversiBOSeleniumTestCase
     public function testSimple()
     {
         $sentences = array (
-                'REGOLAMENTO PER L\'UTILIZZO DEI SERVIZI',
-                'INFORMATIVA SULLA PRIVACY',
-                'NORME PER L\'UTILIZZO DEL FORUM'
+                'Regolamento per l\'utilizzo dei servizi del sito',
+                'Informativa sulla privacy',
+                'Regolamento per l\'utilizzo del forum'
         );
 
         $this->openPrefix('/regolamento/');
