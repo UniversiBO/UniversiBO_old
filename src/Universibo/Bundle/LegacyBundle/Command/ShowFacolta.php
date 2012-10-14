@@ -43,7 +43,7 @@ class ShowFacolta extends CanaleCommand
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
-        $forum = $this->getContainer()->get('universibo_legacy.forum.api');
+        $forumRouter = $this->getContainer()->get('universibo_forum.router');
         $router = $this->get('router');
 
         //@todo fatto sopra
@@ -95,7 +95,7 @@ class ShowFacolta extends CanaleCommand
                         'cod' => $elencoCdl[$i]->getCodiceCdl(),
                         'name' => $elencoCdl[$i]->getNome(),
                         'forumUri' => ($elencoCdl[$i]->getServizioForum()
-                                != false) ? $forum
+                                != false) ? $forumRouter
                                         ->getForumUri(
                                                 $elencoCdl[$i]
                                                         ->getForumForumId())

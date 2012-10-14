@@ -1,13 +1,13 @@
 <?php
+
 namespace Universibo\Bundle\LegacyBundle\App;
 
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
-
 use Universibo\Bundle\CoreBundle\Entity\User;
-
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use \Error;
+
 /**
  * CanaleCommand ? la superclasse astratta di tutti i command che utilizzando un oggetto Canale
  *
@@ -51,19 +51,17 @@ abstract class CanaleCommand extends UniversiboCommand
         return $this->requestCanale;
     }
 
-
     /**
      * Inizializza il CanaleCommand ridefinisce l'init() dell'UniversiboCommand.
      */
     public function initCommand(FrontController $frontController)
     {
-        parent::initCommand( $frontController );
+        parent::initCommand($frontController);
 
         $this->_setUpCanaleCanale();
 
         $this->_setUpTemplateCanale();
     }
-
 
     /**
      * Inizializza le informazioni del canale di CanaleCommand
@@ -73,20 +71,19 @@ abstract class CanaleCommand extends UniversiboCommand
      */
     public function _setUpCanaleCanale()
     {
-
         $this->requestCanale = Canale::retrieveCanale($this->getRequestIdCanale());
 
         //$this->requestCanale = $class_name::factoryCanale( $this->getRequestIdCanale() );
 
-        if ( $this->requestCanale === false )
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $this->sessionUser->getId(), 'msg'=>'Il canale richiesto non è presente','file'=>__FILE__,'line'=>__LINE__));
+        if ($this->requestCanale === false)
+            Error::throwError(_ERROR_DEFAULT, array('id_utente' => $this->sessionUser->getId(), 'msg' => 'Il canale richiesto non è presente', 'file' => __FILE__, 'line' => __LINE__));
 
         $canale = $this->getRequestCanale();
         $user = $this->get('security.context')->getToken()->getUser();
-        $groups  = $user instanceof User ? $user->getLegacyGroups(): 1;
+        $groups = $user instanceof User ? $user->getLegacyGroups() : 1;
 
         if (!$canale->isGroupAllowed($groups)) {
-            throw new \Exception('Not allowed id_canale = '.$canale->getIdCanale().', groups = '.$groups);
+            throw new \Exception('Not allowed id_canale = ' . $canale->getIdCanale() . ', groups = ' . $groups);
         }
 
         $canale->addVisite();
@@ -99,7 +96,6 @@ abstract class CanaleCommand extends UniversiboCommand
      */
     public function _setUpTemplateCanale()
     {
-
         $template = $this->frontController->getTemplateEngine();
         $router = $this->get('router');
 
@@ -108,31 +104,30 @@ abstract class CanaleCommand extends UniversiboCommand
         $id_canale = $this->getRequestIdCanale();
         $user = $this->get('security.context')->getToken()->getUser();
 
-        $template->assign( 'common_canaleMyUniversiBO', '');
+        $template->assign('common_canaleMyUniversiBO', '');
         if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             $user_ruoli = $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId());
 
             if (array_key_exists($id_canale, $user_ruoli) && $user_ruoli[$id_canale]->isMyUniversiBO()) {
-                $template->assign( 'common_canaleMyUniversiBO', 'remove');
-                $template->assign( 'common_langCanaleMyUniversiBO', 'Rimuovi questa pagina da MyUniversiBO');
-                $template->assign( 'common_canaleMyUniversiBOUri', $router->generate('universibo_legacy_myuniversibo_remove', array('id_canale' => $canale->getIdCanale())));
+                $template->assign('common_canaleMyUniversiBO', 'remove');
+                $template->assign('common_langCanaleMyUniversiBO', 'Rimuovi questa pagina da MyUniversiBO');
+                $template->assign('common_canaleMyUniversiBOUri', $router->generate('universibo_legacy_myuniversibo_remove', array('id_canale' => $canale->getIdCanale())));
             } else {
-                $template->assign( 'common_canaleMyUniversiBO', 'add');
-                $template->assign( 'common_langCanaleMyUniversiBO', 'Aggiungi questa pagina a MyUniversiBO');
-                $template->assign( 'common_canaleMyUniversiBOUri', $router->generate('universibo_legacy_myuniversibo_add', array('id_canale' => $canale->getIdCanale())));
+                $template->assign('common_canaleMyUniversiBO', 'add');
+                $template->assign('common_langCanaleMyUniversiBO', 'Aggiungi questa pagina a MyUniversiBO');
+                $template->assign('common_canaleMyUniversiBOUri', $router->generate('universibo_legacy_myuniversibo_add', array('id_canale' => $canale->getIdCanale())));
             }
         } else
-            $template->assign( 'common_langCanaleMyUniversiBO', '');
+            $template->assign('common_langCanaleMyUniversiBO', '');
 
-        $template->assign( 'common_isSetVisite', 'true' );
-        $template->assign( 'common_visite', $canale->getVisite() );
-        $template->assign( 'common_langCanaleNome', $canale->getNome());
-        $template->assign( 'common_canaleURI', $canale->showMe($router));
+        $template->assign('common_isSetVisite', 'true');
+        $template->assign('common_visite', $canale->getVisite());
+        $template->assign('common_langCanaleNome', $canale->getNome());
+        $template->assign('common_canaleURI', $canale->showMe($router));
 
-        if ($canale->getTipoCanale() != CANALE_HOME) {
-            $template->assign('common_title', 'UniversiBO: '.$canale->getTitolo());
+        if ($canale->getTipoCanale() != Canale::HOME) {
+            $template->assign('common_title', 'UniversiBO: ' . $canale->getTitolo());
         }
-
     }
 
     /**
@@ -186,10 +181,10 @@ abstract class CanaleCommand extends UniversiboCommand
                     //var_dump($user);
                     $contactUser = array();
 
-                    $contactUser['utente_link']  = $router->generate('universibo_legacy_user', array('id_utente'=>$user_temp->getId()));
-                    $contactUser['nome']  = LegacyRoles::$map['plural'][$user_temp->getLegacyGroups()];
+                    $contactUser['utente_link'] = $router->generate('universibo_legacy_user', array('id_utente' => $user_temp->getId()));
+                    $contactUser['nome'] = LegacyRoles::$map['plural'][$user_temp->getLegacyGroups()];
                     $contactUser['label'] = $user_temp->getUsername();
-                    $contactUser['ruolo'] = ($ruolo->isReferente()) ? 'R' :  (($ruolo->isModeratore()) ? 'M' : 'none');
+                    $contactUser['ruolo'] = ($ruolo->isReferente()) ? 'R' : (($ruolo->isModeratore()) ? 'M' : 'none');
                     //var_dump($ruolo);
                     //$arrayUsers[] = $contactUser;
                     $arrayPublicUsers[$contactUser['nome']][] = $contactUser;
@@ -197,11 +192,10 @@ abstract class CanaleCommand extends UniversiboCommand
             }
             //ordina $arrayCanali
             //usort($arrayUsers, array('CanaleCommand','_compareMyUniversiBO'));
-
             //assegna al template
             if ($attivaContatti) {
                 //var_dump($arrayPublicUsers);
-                uksort($arrayPublicUsers, array($this,'_compareContattiKeys'));
+                uksort($arrayPublicUsers, array($this, '_compareContattiKeys'));
                 //var_dump($arrayPublicUsers);
 
                 $template->assign('common_contactsCanaleAvailable', 'true');
@@ -216,25 +210,22 @@ abstract class CanaleCommand extends UniversiboCommand
             }
 
             //$template->assign('common_contactsCanaleAvailable', 'false');
-
             // elenco post nuovi contestuale al canale
             if ($this->requestCanale->getServizioForum()) {
                 //				$newposts = 'false';
-                $list_post		=	array();
+                $list_post = array();
                 if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-                    $fa = $this->getContainer()->get('universibo_legacy.forum.api');
-                    $id_posts_list 	=  $fa->getLastPostsForum($user, $canale->getForumForumId());
+                    $fa = $this->get('universibo_forum.dao.post');
 
-                    if ($id_posts_list != false) {
-                        //						$newposts = 'true';
-                        foreach ($id_posts_list as $curr_post) {
-                            $list_post[]= array('URI' => $fa->getPostUri($curr_post['id']), 'desc' => $curr_post['name']);
-                        }
+                    $id_posts_list = $fa->getLatestPosts($canale->getForumForumId(), 10);
+
+                    foreach ($id_posts_list as $curr_post) {
+                        $list_post[] = array('URI' => $fa->getPostUri($curr_post['id']), 'desc' => $curr_post['name']);
                     }
                 }
                 //				$template->assign( 'common_newPostsAvailable', $newposts);
-                $template->assign( 'common_newPostsAvailable', 'true');
-                $template->assign( 'common_newPostsList', $list_post);
+                $template->assign('common_newPostsAvailable', 'true');
+                $template->assign('common_newPostsList', $list_post);
             }
         }
 
@@ -251,18 +242,26 @@ abstract class CanaleCommand extends UniversiboCommand
         //		if ($posA==$posB) return 0;
         //		return ($posA > $posB) ? 1 : -1;
         switch ($a) {
-            case 'Docenti': $posA = 0; break;
-            case 'Personale': $posA = 1; break;
-            case 'Tutor': $posA = 2; break;
-            case 'Studenti': $posA = 3; break;
+            case 'Docenti': $posA = 0;
+                break;
+            case 'Personale': $posA = 1;
+                break;
+            case 'Tutor': $posA = 2;
+                break;
+            case 'Studenti': $posA = 3;
+                break;
         }
         switch ($b) {
-            case 'Docenti': $posB = 0; break;
-            case 'Personale': $posB = 1; break;
-            case 'Tutor': $posB = 2; break;
-            case 'Studenti': $posB = 3; break;
+            case 'Docenti': $posB = 0;
+                break;
+            case 'Personale': $posB = 1;
+                break;
+            case 'Tutor': $posB = 2;
+                break;
+            case 'Studenti': $posB = 3;
+                break;
         }
-        if ($posA==$posB)
+        if ($posA == $posB)
             return strcmp($b["label"], $a["label"]);
         return ($posA < $posB) ? 1 : -1;
     }
