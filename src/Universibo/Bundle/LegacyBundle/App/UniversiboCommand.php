@@ -101,10 +101,8 @@ abstract class UniversiboCommand extends BaseCommand
         }
 
         //riferimenti per ottimizzare gli accessi
-        $templateInfo = & $this->frontController->templateInfo;
         $fc = $this->getFrontController();
 
-        $template->assign('common_templateBaseDir', $templateInfo['web_dir'] . $templateInfo['styles'][$templateInfo['template_name']]);
 
         $tpsettings = $this->frontController->getTemplateEngineSettings();
         $temp_template_list = $tpsettings['styles'];
@@ -135,10 +133,9 @@ abstract class UniversiboCommand extends BaseCommand
 
         $router = $this->get('router');
 
-        $forum = $this->getContainer()->get('universibo_legacy.forum.api');
         $template->assign('common_forum', 'Forum');
-        $template->assign('common_forumDir', $forum->getPath());
-        $template->assign('common_forumUri', $forum->getMainUri());
+        $template->assign('common_forumDir', '/forum/');
+        $template->assign('common_forumUri', '/forum/index.php');
 
         $template->assign('common_homepage', 'Homepage');
         $template->assign('common_homepageUri', $router->generate('universibo_legacy_home'));
