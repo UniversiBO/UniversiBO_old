@@ -9,15 +9,21 @@ use Universibo\Bundle\CoreBundle\Entity\User;
 interface UserDAOInterface
 {
     /**
-     * @param  User    $user
-     * @return boolean
+     * @param  User $user
+     * @return int
      */
-    public function exists(User $user);
+    public function find(User $user);
 
     /**
      * @param User $user
      */
     public function create(User $user);
+
+    /**
+     * @param  User $user
+     * @return int
+     */
+    public function findOrCreate(User $user);
 
     /**
      * @param User $user

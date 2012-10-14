@@ -2,8 +2,6 @@
 
 namespace Universibo\Bundle\ForumBundle\DAO;
 
-use Universibo\Bundle\CoreBundle\Entity\User;
-
 /**
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
@@ -27,8 +25,35 @@ EOF;
         return $conn->executeUpdate($sql, array($id));
     }
 
-    public function create(User $user)
+    public function create($userId, $ip, $userAgent)
     {
-        // TODO method stub
+        $query = <<<EOT
+INSERT
+    INTO {$this->getPrefix()}sessions
+    (
+        session_id,
+        session_user_id,
+        session_last_visit,
+        session_start,
+        session_time,
+        session_ip,
+        session_browser
+    )
+    VALUES
+        (?, ?, ?, ?, ?, ?, ?)
+EOT;
+        $sessionId = md5(uniqid(rand(), 1));
+
+        $this->getConnection()->executeUpdate($query, array(
+            $sessionId,
+            $userId,
+            $time = time(),
+            $time,
+            $time,
+            $ip,
+            $userAgent
+        ));
+
+        return $sessionId;
     }
 }
