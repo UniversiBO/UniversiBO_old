@@ -1,51 +1,29 @@
 <?php
 namespace Universibo\Bundle\ForumBundle\Security\Http\Logout;
 
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Logout\LogoutHandlerInterface;
-use Universibo\Bundle\ForumBundle\DAO\ConfigDAOInterface;
-use Universibo\Bundle\ForumBundle\DAO\SessionDAOInterface;
+use Universibo\Bundle\ForumBundle\Security\ForumSession\ForumSessionInterface;
 
 class PhpBB3LogoutHandler implements LogoutHandlerInterface
 
 {
     /**
-     * @var ConfigDAOInterface
+     *
+     * @var ForumSessionInterface
      */
-    private $configDAO;
+    private $session;
 
-    /*
-     * @var SessionDAOInterface
-     */
-    private $sessionDAO;
-
-    /**
-     * @param ConfigDAOInterface $configDAO
-     */
-    public function __construct(ConfigDAOInterface $configDAO,
-            SessionDAOInterface $sessionDAO)
+    public function __construct(ForumSessionInterface $session)
     {
-        $this->configDAO = $configDAO;
-        $this->sessionDAO = $sessionDAO;
+        $this->session = $session;
     }
 
     public function logout(Request $request, Response $response,
             TokenInterface $token)
     {
-        $domain = $this->configDAO->getValue('cookie_domain');
-        $name = $this->configDAO->getValue('cookie_name');
-        $path = $this->configDAO->getValue('cookie_path');
-        $secure = $this->configDAO->getValue('cookie_secure');
-
-        $sessionId = $request->cookies->get($name.'_sid');
-        $this->sessionDAO->delete($sessionId);
-
-        foreach (array('u', 'k', 'sid') as $key) {
-            $response->headers->setCookie(new Cookie($name.'_'.$key, null, 0,
-                    $path, $domain, $secure));
-        }
+        $this->session->logout($request->cookies, $response);
     }
 }
