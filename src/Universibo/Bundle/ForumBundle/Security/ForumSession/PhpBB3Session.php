@@ -52,7 +52,7 @@ class PhpBB3Session implements ForumSessionInterface
             $this->userDAO->create($user);
         }
 
-        $this->createNewSession($user, $response);
+        $this->createNewSession($user, $request, $response);
     }
 
     public function logout(ParameterBag $cookies, Response $response)
@@ -76,7 +76,8 @@ class PhpBB3Session implements ForumSessionInterface
         return $this->session->get('phpbb_sid');
     }
 
-    private function createNewSession(User $user, Response $response)
+    private function createNewSession(User $user, Request $request,
+            Response $response)
     {
 
     }
