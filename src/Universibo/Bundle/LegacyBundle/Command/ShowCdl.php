@@ -67,7 +67,7 @@ class ShowCdl extends CanaleCommand
         $session_user_groups =  $session_user instanceof User ? $session_user->getLegacyGroups() : 1;
         $cdl_listIns = array();
 
-        $forum = $this->getContainer()->get('universibo_legacy.forum.api');
+        $forum = $this->getContainer()->get('universibo_forum.router');
         //3 livelli di innestamento cdl/anno_corso/ciclo/insegnamento
         for ($i=0; $i < $num_ins; $i++) {
             $tempPrgAttDid = $elencoPrgAttDid[$i];
