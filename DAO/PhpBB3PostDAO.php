@@ -10,7 +10,7 @@ class PhpBB3PostDAO extends AbstractDAO implements PostDAOInterface
 SELECT t.topic_title, min(p.post_id)
     FROM
         {$this->getPrefix()}posts p,
-        {$this->getPrefix()}topics t,
+        {$this->getPrefix()}topics t
     WHERE
         t.topic_id = p.topic_id
     AND p.forum_id = ?
