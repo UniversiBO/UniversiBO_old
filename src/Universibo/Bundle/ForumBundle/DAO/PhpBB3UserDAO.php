@@ -17,29 +17,43 @@ INSERT into {$this->getPrefix()}users
     username,
     username_clean,
     user_email,
-    user_regdate
+    user_regdate,
+    group_id
 )
 VALUES
-    (?, ?, ?, ?)
+    (?, ?, ?, ?, 3)
 EOT;
 
-        return $this->getConnection()->executeUpdate($query, array(
+        $this->getConnection()->executeUpdate($query, array(
             $user->getUsername(),
             $user->getUsernameCanonical(),
             $user->getEmail(),
             time()
         ));
+
+        return $this->getConnection()->lastInsertId('phpbb_users_seq');
     }
 
-    public function exists(User $user)
+    public function find(User $user)
     {
         $query = <<<EOT
-SELECT COUNT(*)
+SELECT user_id
     FROM {$this->getPrefix()}users
     WHERE username = ?
 EOT;
 
-        return $this->getConnection()->fetchColumn($query, array($user->getUsername())) > 0;
+        return $this->getConnection()->fetchColumn($query, array($user->getUsername()));
+    }
+
+    public function findOrCreate(User $user)
+    {
+        $id = $this->find($user);
+
+        if ($id > 0) {
+            return $id;
+        }
+
+        return $this->create($user);
     }
 
     public function update(User $user)

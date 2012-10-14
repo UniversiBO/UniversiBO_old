@@ -48,11 +48,9 @@ class PhpBB3Session implements ForumSessionInterface
 
     public function login(User $user, Request $request, Response $response)
     {
-        if (!$this->userDAO->exists($user)) {
-            $this->userDAO->create($user);
-        }
+        $userId = $this->userDAO->findOrCreate($user);
 
-        $this->createNewSession($user, $request, $response);
+        $this->createNewSession($userId, $request, $response);
     }
 
     public function logout(ParameterBag $cookies, Response $response)
@@ -78,9 +76,23 @@ class PhpBB3Session implements ForumSessionInterface
         return $this->session->get('phpbb_sid');
     }
 
-    private function createNewSession(User $user, Request $request,
+    private function createNewSession($userId, Request $request,
             Response $response)
     {
+        $ip = $request->server->get('REMOTE_ADDR');
+        $userAgent = $request->server->get('HTTP_USER_AGENT');
+        $sid = $this->sessionDAO->create($userId, $ip, $userAgent);
 
+        $domain = $this->configDAO->getValue('cookie_domain');
+        $name = $this->configDAO->getValue('cookie_name');
+        $path = $this->configDAO->getValue('cookie_path');
+        $secure = $this->configDAO->getValue('cookie_secure');
+
+        $response->headers->setCookie(new Cookie($name.'_sid', $sid,
+                time() + 3600, $path, $domain, $secure));
+        $response->headers->setCookie(new Cookie($name.'_u', $userId,
+                time() + 3600, $path, $domain, $secure));
+        $response->headers->setCookie(new Cookie($name.'_k', '',
+                time() + 3600, $path, $domain, $secure));
     }
 }
