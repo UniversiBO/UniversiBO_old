@@ -3,6 +3,7 @@ namespace Universibo\Bundle\ForumBundle\Security\ForumSession;
 
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\ForumBundle\DAO\ConfigDAOInterface;
@@ -30,7 +31,7 @@ class PhpBB3Session implements ForumSessionInterface
         $this->sessionDAO = $sessionDAO;
     }
 
-    public function login(User $user, Response $response)
+    public function login(User $user, Request $request, Response $response)
     {
     }
 
@@ -50,4 +51,8 @@ class PhpBB3Session implements ForumSessionInterface
         }
     }
 
+    public function getSessionId(Request $request)
+    {
+        return $request->getSession()->get('phpbb_sid');
+    }
 }
