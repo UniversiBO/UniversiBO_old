@@ -2,6 +2,9 @@
 
 namespace Universibo\Bundle\ForumBundle\DAO;
 
+/**
+ * @author Davide Bellettini <davide.bellettini@gmail.com>
+ */
 class PhpBB3ConfigDAO extends AbstractDAO implements ConfigDAOInterface
 {
     /**
