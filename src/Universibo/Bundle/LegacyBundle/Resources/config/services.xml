@@ -42,7 +42,8 @@
 		<service id="universibo_legacy.forum.api"
 			class="Universibo\Bundle\LegacyBundle\App\ForumApi">
 			<argument type="service" id="universibo_legacy.db.connection.forum" />
-			<argument>true</argument>
+                        <argument type="service" id="universibo_legacy.krono" />
+                        <argument type="service" id="universibo_forum.session"/>
 		</service>
 
 		<service id="universibo_legacy.krono" class="Krono">
@@ -230,12 +231,6 @@
 		<service id="universibo_legacy.transaction" public="true"
 			class="Universibo\Bundle\LegacyBundle\Service\DBTransaction">
 			<argument type="service" id="universibo_legacy.db.connection.main" />
-		</service>
-
-		<service id="universibo_legacy.auth.ldap"
-			class="Universibo\Bundle\LegacyBundle\Auth\ActiveDirectoryLogin">
-			<argument>%adlogin_host%</argument>
-			<argument>%adlogin_port%</argument>
 		</service>
 
 		<service id="universibo_legacy.security.authentication.provider"

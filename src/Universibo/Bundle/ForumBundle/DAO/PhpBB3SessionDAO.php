@@ -2,6 +2,8 @@
 
 namespace Universibo\Bundle\ForumBundle\DAO;
 
+use Universibo\Bundle\CoreBundle\Entity\User;
+
 class PhpBB3SessionDAO extends AbstractDAO implements SessionDAOInterface
 {
     /**
@@ -20,5 +22,10 @@ DELETE
 EOF;
 
         return $conn->executeUpdate($sql, array($id));
+    }
+
+    public function create(User $user)
+    {
+        // TODO method stub
     }
 }

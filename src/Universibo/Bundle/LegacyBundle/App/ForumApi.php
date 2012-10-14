@@ -1,11 +1,13 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\App;
-use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
 
-use \DB;
-use \Error;
-use \Krono;
+use DB;
+use DB_common;
+use Error;
+use Krono;
 use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\ForumBundle\Security\ForumSession\ForumSessionInterface;
+use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
 use Universibo\Bundle\LegacyBundle\Forum\ForumApi as ForumApiInterface;
 
 /**
@@ -54,6 +56,31 @@ class ForumApi extends DBRepository implements ForumApiInterface
             'ROLE_PROFESSOR' => 11, 'ROLE_STAFF' => 12, 'ROLE_ADMIN' => 1);
 
     /**
+     * @var Krono
+     */
+    private $krono;
+
+    /**
+     * @var ForumSessionInterface
+     */
+    private $forumSession;
+
+    /**
+     *
+     * @param DB_common             $db
+     * @param Krono                 $krono
+     * @param ForumSessionInterface $forumSession
+     */
+    public function __construct(DB_common $db, Krono $krono,
+            ForumSessionInterface $forumSession)
+    {
+        parent::__construct($db);
+
+        $this->krono = $krono;
+        $this->forumSession = $forumSession;
+    }
+
+    /**
      * esegue la codifica esadecimale di un ipv4 nel formato separato da punti
      * es: '127.0.0.1' -> '7f000001'
      *
@@ -86,9 +113,7 @@ class ForumApi extends DBRepository implements ForumApiInterface
      */
     public function getOnlySid()
     {
-        $sid = $_SESSION['phpbb_sid'];
-
-        return $sid;
+        return $this->forumSession->getSessionId();
     }
 
     /**
@@ -109,6 +134,7 @@ class ForumApi extends DBRepository implements ForumApiInterface
      */
     public function login(User $user)
     {
+        throw new \Exception('Deprecated method');
 
         //mappa informazioni salvate nei cookie da phpbb2
 
@@ -196,49 +222,7 @@ class ForumApi extends DBRepository implements ForumApiInterface
      */
     public function logout()
     {
-
-        $db = $this->getDb();
-
-        $query = 'SELECT config_name, config_value FROM ' . $this->table_prefix
-                . 'config WHERE config_name IN (' . $db->quote('cookie_path')
-                . ',' . $db->quote('cookie_secure') . ','
-                . $db->quote('cookie_domain') . ',' . $db->quote('cookie_name')
-                . ')';
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-        $rows = $res->numRows();
-        if ($rows != 4)
-            Error::throwError(_ERROR_DEFAULT,
-                    array(
-                            'msg' => 'Impossibile trovare le informazioni di configurazione del forum',
-                            'file' => __FILE__, 'line' => __LINE__));
-        while ($res->fetchInto($row)) {
-            ${$row[0]} = $row[1];
-        }
-
-        $cookie_value = '';
-
-        //bug qui: errore nome cookie
-        setcookie($cookie_name . '_data', $cookie_value, time() + 3600,
-                $cookie_path, $cookie_domain, $cookie_secure);
-
-        setcookie($cookie_name . '_sid', '', time() - 3600, $cookie_path,
-                $cookie_domain, $cookie_secure);
-
-        $query = 'DELETE FROM ' . $this->table_prefix
-                . 'sessions WHERE session_id = '
-                . $db->quote(self::getOnlySid()) . ';';
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-
-        $_SESSION['phpbb_sid'] = '';
-
+        throw new \Exception('Deprecated method');
     }
 
     /**
@@ -267,7 +251,7 @@ class ForumApi extends DBRepository implements ForumApiInterface
                 == true) ? 1
                 : ($user->hasRole('ROLE_COLLABORATOR') == true) ? 2 : 0;
 
-        $krono = new Krono();
+        $krono = $this->krono;
         $user_timezone = ($krono->_is_daylight(time()) == true) ? 2 : 1;
 
         if ($user->hasRole('ROLE_PROFESSOR') || $user->hasRole('ROLE_TUTOR')) {
@@ -309,36 +293,12 @@ class ForumApi extends DBRepository implements ForumApiInterface
      */
     public function updateUserStyle(User $user)
     {
-
-        $db = $this->getDb();
-
-        $user_style = $this->defaultUserStyle['unibo'];
-
-        $query = 'UPDATE ' . $this->table_prefix . 'users SET user_style = '
-                . $db->quote($user_style) . ' WHERE user_id = '
-                . $db->quote($user->getId());
-
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-
+        throw new \Exception('Deprecated method');
     }
 
     public function updatePassword(User $user, $password)
     {
-        $db = $this->getDb();
-
-        $query = 'UPDATE ' . $this->table_prefix . 'users SET user_password = '
-                . $db->quote(md5($password)) . ' WHERE user_id = '
-                . $db->quote($user->getId());
-
-        $res = $db->query($query);
-        if (DB::isError($res))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
+        throw new \Exception('Deprecated method');
     }
 
     /**
@@ -348,6 +308,7 @@ class ForumApi extends DBRepository implements ForumApiInterface
      */
     public function updateUserEmail(User $user)
     {
+        throw new \Exception('Deprecated method');
 
         $db = $this->getDb();
 
