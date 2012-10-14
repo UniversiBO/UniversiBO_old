@@ -100,12 +100,9 @@ class ForumApi extends DBRepository implements ForumApiInterface
      */
     public function getSidForUri()
     {
-        //echo $_SESSION['phpbb_sid'];
-        if (session_id() !== '' && array_key_exists('phpbb_sid', $_SESSION)
-                && $_SESSION['phpbb_sid'] != '')
+        $sid = $this->getOnlySid();
 
-            return 'sid=' . $_SESSION['phpbb_sid'];
-        return '';
+        return $sid !== '' ? 'sid='.$sid : '';
     }
 
     /**
@@ -392,7 +389,7 @@ class ForumApi extends DBRepository implements ForumApiInterface
     public function getForumUri($id_forum)
     {
         return $this->getPath() . 'viewforum.php?f=' . $id_forum . '&'
-                . self::getSidForUri();
+                . $this->getSidForUri();
     }
 
     /**
