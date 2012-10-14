@@ -69,7 +69,7 @@ class PhpBB3Session implements ForumSessionInterface
             $response->headers->setCookie(new Cookie($name.'_'.$key, null, 0,
                     $path, $domain, $secure));
         }
-        
+
         $this->session->set('phpbb_sid', null);
     }
 
