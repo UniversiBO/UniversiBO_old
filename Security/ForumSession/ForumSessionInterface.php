@@ -33,7 +33,7 @@ interface ForumSessionInterface
     /**
      * Gets the session id
      *
-     * @param Request $request
+     * @return string
      */
-    public function getSessionId(Request $request);
+    public function getSessionId();
 }
