@@ -39,13 +39,6 @@
 			<argument>forum</argument>
 		</service>
 
-		<service id="universibo_legacy.forum.api"
-			class="Universibo\Bundle\LegacyBundle\App\ForumApi">
-			<argument type="service" id="universibo_legacy.db.connection.forum" />
-                        <argument type="service" id="universibo_legacy.krono" />
-                        <argument type="service" id="universibo_forum.session"/>
-		</service>
-
 		<service id="universibo_legacy.krono" class="Krono">
 			<argument>it</argument>
 			<argument>it</argument>
