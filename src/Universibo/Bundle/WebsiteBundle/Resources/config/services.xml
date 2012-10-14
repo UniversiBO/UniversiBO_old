@@ -36,8 +36,9 @@
                 <service id="universibo_website.listener.privacy"
                          class="Universibo\Bundle\WebsiteBundle\Listener\PrivacyListener">
                     <argument type="service" id="security.context"/>
-                    <argument type="service" id="universibo_legacy.service.privacy"/>
                     <argument type="service" id="router"/>
+                    <argument type="service" id="universibo_legacy.service.privacy"/>
+                    <argument type="service" id="universibo_forum.session"/>
 
                     <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
                 </service>

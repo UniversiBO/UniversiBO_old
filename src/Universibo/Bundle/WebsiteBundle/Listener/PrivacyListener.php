@@ -2,11 +2,15 @@
 
 namespace Universibo\Bundle\WebsiteBundle\Listener;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
+use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\ForumBundle\Security\ForumSession\ForumSessionInterface;
 use Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepLogRepository;
 use Universibo\Bundle\LegacyBundle\Service\PrivacyService;
 
@@ -29,6 +33,11 @@ class PrivacyListener
     private $privacyService;
 
     /**
+     * @var ForumSessionInterface
+     */
+    private $forumSession;
+
+    /**
      * @var RouterInterface
      */
     private $router;
@@ -39,11 +48,13 @@ class PrivacyListener
      * @param StepLogRepository        $stepLogRepository
      */
     public function __construct(SecurityContextInterface $securityContext,
-            PrivacyService $privacyService, RouterInterface $router)
+            RouterInterface $router, PrivacyService $privacyService,
+            ForumSessionInterface $forumSession)
     {
         $this->securityContext = $securityContext;
-        $this->privacyService = $privacyService;
         $this->router = $router;
+        $this->privacyService = $privacyService;
+        $this->forumSession = $forumSession;
     }
 
     /**
@@ -76,6 +87,7 @@ class PrivacyListener
 
         if ($accepted) {
             $session->set($key, true);
+            $this->handleForumLogin($user, $request, $event);
 
             return;
         }
@@ -84,6 +96,14 @@ class PrivacyListener
         $response->setStatusCode(302);
         $response->headers->set('Location', $this->router->generate('universibo_website_rules', array(), true));
 
+        $event->setResponse($response);
+    }
+
+    private function handleForumLogin(User $user, Request $request,
+            GetResponseEvent $event)
+    {
+        $response = new RedirectResponse($request->getRequestUri());
+        $this->forumSession->login($user, $request, $response);
         $event->setResponse($response);
     }
 }
