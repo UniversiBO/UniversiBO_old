@@ -2,12 +2,18 @@ services:
   universibo_forum.dao.config:
     class: 'Universibo\Bundle\ForumBundle\DAO\PhpBB3ConfigDAO'
     arguments: ['@doctrine.dbal.forum_connection']
+  universibo_forum.dao.post:
+    class: 'Universibo\Bundle\ForumBundle\DAO\PhpBB3PostDAO'
+    arguments: ['@doctrine.dbal.forum_connection']
   universibo_forum.dao.session:
     class: 'Universibo\Bundle\ForumBundle\DAO\PhpBB3SessionDAO'
     arguments: ['@doctrine.dbal.forum_connection']
   universibo_forum.dao.user:
     class: 'Universibo\Bundle\ForumBundle\DAO\PhpBB3UserDAO'
     arguments: ['@doctrine.dbal.forum_connection']
+  universibo_forum.router:
+    class: 'Universibo\Bundle\ForumBundle\Routing\ForumRouter'
+    arguments: ['@universibo_forum.session']
   universibo_forum.session:
     class: 'Universibo\Bundle\ForumBundle\Security\ForumSession\PhpBB3Session'
     arguments:
