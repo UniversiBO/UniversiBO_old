@@ -39,7 +39,7 @@ class User extends BaseUser
      * @ORM\Column(type="integer")
      * @var integer
      */
-    protected $notifications;
+    protected $notifications = 0;
 
     /**
      * @ORM\Column(type="integer", name="groups");
