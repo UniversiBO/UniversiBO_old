@@ -354,7 +354,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/migrations",
-                "reference": "v1.0-ALPHA1"
+                "reference": "b38ddb190ec78d389b2c2de838b2a4d646ad1ce2"
             },
             "dist": {
                 "type": "zip",
@@ -1476,12 +1476,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/UniversiBO/UniversiboCoreBundle",
-                "reference": "7f99f8ba1afaff52f0c7065404503ad80802dfaa"
+                "reference": "4a75c5290ed94f28f4e2239a9f47641619fff257"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboCoreBundle/zipball/7f99f8ba1afaff52f0c7065404503ad80802dfaa",
-                "reference": "7f99f8ba1afaff52f0c7065404503ad80802dfaa",
+                "url": "https://github.com/UniversiBO/UniversiboCoreBundle/zipball/4a75c5290ed94f28f4e2239a9f47641619fff257",
+                "reference": "4a75c5290ed94f28f4e2239a9f47641619fff257",
                 "shasum": ""
             },
             "require": {
@@ -1491,7 +1491,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1349974110",
+            "time": "1350305090",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
@@ -1529,7 +1529,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle.git",
-                "reference": "a53356c1595a9847f532dc7b314c2cbc113686bd"
+                "reference": "f29326618b9587c89a7495be641f928a11f0317f"
             },
             "dist": {
                 "type": "zip",
@@ -1545,7 +1545,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1350236123",
+            "time": "1350303326",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
