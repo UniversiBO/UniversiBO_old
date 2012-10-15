@@ -354,7 +354,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/migrations",
-                "reference": "b38ddb190ec78d389b2c2de838b2a4d646ad1ce2"
+                "reference": "v1.0-ALPHA1"
             },
             "dist": {
                 "type": "zip",
@@ -1529,12 +1529,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle.git",
-                "reference": "f29326618b9587c89a7495be641f928a11f0317f"
+                "reference": "6f994cec34504ee2c82ea5dbea842f24b775ebe7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle/zipball/a53356c1595a9847f532dc7b314c2cbc113686bd",
-                "reference": "a53356c1595a9847f532dc7b314c2cbc113686bd",
+                "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle/zipball/6f994cec34504ee2c82ea5dbea842f24b775ebe7",
+                "reference": "6f994cec34504ee2c82ea5dbea842f24b775ebe7",
                 "shasum": ""
             },
             "require": {
@@ -1545,7 +1545,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1350303326",
+            "time": "1350343989",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
