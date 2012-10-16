@@ -3,7 +3,9 @@ namespace Universibo\Bundle\WebsiteBundle\Listener;
 
 use Swift_Mailer;
 use Swift_Message;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Templating\EngineInterface;
 use Universibo\Bundle\ShibbolethBundle\Security\Authentication\Event\AuthenticationFailedEvent;
 
@@ -20,18 +22,35 @@ class AuthenticationFailedListener
     private $logger;
 
     /**
+     * @var RouterInterface
+     */
+    private $router;
+
+    /**
      * @var EngineInterface
      */
     private $templateEngine;
 
+    /**
+     *
+     * @param Swift_Mailer    $mailer
+     * @param LoggerInterface $logger
+     * @param RouterInterface $router
+     * @param EngineInterface $templateEngine
+     */
     public function __construct(Swift_Mailer $mailer, LoggerInterface $logger,
-            EngineInterface $templateEngine)
+            RouterInterface $router, EngineInterface $templateEngine)
     {
         $this->mailer = $mailer;
         $this->logger = $logger;
+        $this->router = $router;
         $this->templateEngine = $templateEngine;
     }
 
+    /**
+     *
+     * @param AuthenticationFailedEvent $event
+     */
     public function onAuthenticationFailed(AuthenticationFailedEvent $event)
     {
         $claims = $event->getClaims();
@@ -43,7 +62,6 @@ class AuthenticationFailedListener
             ->setSubject('Autenticazione Fallita')
             ->setFrom('associazione.universibo@unibo.it')
             ->setTo('dev_universibo@mama.ing.unibo.it')
-            ->setCc('info_universibo@mama.ing.unibo.it')
             ->setBody($this->templateEngine->render('UniversiboWebsiteBundle:Shibboleth:emailDev.txt.twig', array('claims' => $claims)))
         ;
 
@@ -57,5 +75,7 @@ class AuthenticationFailedListener
 
         $this->mailer->send($messageDev);
         $this->mailer->send($messageUser);
+
+        $event->setResponse(new RedirectResponse($this->router->generate('universibo_website_auth_failed')));
     }
 }
