@@ -46,6 +46,7 @@
                 <service id="universibo_website.listener.auth.failure"
                          class="Universibo\Bundle\WebsiteBundle\Listener\AuthenticationFailedListener">
                     <argument type="service" id="mailer"/>
+                    <argument type="service" id="logger"/>
                     <argument type="service" id="templating"/>
 
                     <tag name="kernel.event_listener" event="universibo_shibboleth.auth_failed" method="onAuthenticationFailed" />

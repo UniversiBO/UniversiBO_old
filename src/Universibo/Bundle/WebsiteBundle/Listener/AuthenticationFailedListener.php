@@ -3,6 +3,7 @@ namespace Universibo\Bundle\WebsiteBundle\Listener;
 
 use Swift_Mailer;
 use Swift_Message;
+use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Templating\EngineInterface;
 use Universibo\Bundle\ShibbolethBundle\Security\Authentication\Event\AuthenticationFailedEvent;
 
@@ -14,19 +15,29 @@ class AuthenticationFailedListener
     private $mailer;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * @var EngineInterface
      */
     private $templateEngine;
 
-    public function __construct(Swift_Mailer $mailer, EngineInterface $templateEngine)
+    public function __construct(Swift_Mailer $mailer, LoggerInterface $logger,
+            EngineInterface $templateEngine)
     {
         $this->mailer = $mailer;
+        $this->logger = $logger;
         $this->templateEngine = $templateEngine;
     }
 
     public function onAuthenticationFailed(AuthenticationFailedEvent $event)
     {
         $claims = $event->getClaims();
+
+        $this->logger->err('Shibboleth Auth failed, eppn: '.$claims['eppn'].
+                ', id: '.$claims['idAnagraficaUnica']);
 
         $messageDev = Swift_Message::newInstance()
             ->setSubject('Autenticazione Fallita')
