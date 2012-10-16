@@ -23,9 +23,6 @@ class FileShowInfo extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
 
         $template = $frontcontroller->getTemplateEngine();
-        $krono = $frontcontroller->getKrono();
-        $user = $this->get('security.context')->getToken()->getUser();
-        $userId = $user instanceof User ? $user->getId() : 0;
         $id_file = $this->getRequest()->attributes->get('id_file');
 
         if (!preg_match('/^([0-9]{1,9})$/', $id_file)) {
