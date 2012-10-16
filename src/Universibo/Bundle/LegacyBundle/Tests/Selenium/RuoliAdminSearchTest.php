@@ -35,4 +35,16 @@ class RuoliAdminSearchTest extends UniversiBOSeleniumTestCase
 
         $this->assertSentences(array('Studenti', 'fgiardini'));
     }
+
+    public function testBackLink()
+    {
+        $this->login(TestConstants::ADMIN_USERNAME);
+
+        $this->openPrefix('/role/admin/search/1415/');
+        $this->clickAndWait('link=Torna a Area collaboratori');
+
+        $expected = $this->base .'/canale/1415/';
+        $this->assertEquals($expected, strstr($this->getLocation(), $expected));
+        $this->assertSentence('Area collaboratori');
+    }
 }
