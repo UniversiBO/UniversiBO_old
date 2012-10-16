@@ -2,6 +2,9 @@ rss:
   pattern: /rss/{idCanale}/
   defaults: { _controller: 'UniversiboWebsiteBundle:Rss:index' }
   requirements: { idCanale: \d+ }
+universibo_website_auth_failed:
+  pattern: /auth-failed/
+  defaults: { _controller: 'UniversiboWebsiteBundle:AuthFailed:index' }
 universibo_website_rules:
   pattern: /regolamento/
   defaults: { _controller: 'UniversiboWebsiteBundle:Rules:index' }
