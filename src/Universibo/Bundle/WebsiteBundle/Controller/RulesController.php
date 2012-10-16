@@ -82,6 +82,11 @@ class RulesController extends Controller
             if (!preg_match('/^([[:alnum:]àèéìòù \._]{1,25})$/', $username)) {
                 $flashBag->add('error', 'Username non valido!');
                 $error = true;
+            } elseif ($username !== $user->getUsername() &&
+                    $this->get('universibo_core.repository.user')
+                    ->usernameExists($username)) {
+                $flashBag->add('error', $username.': username non disponibile!');
+                $error = true;
             } else {
                 $user->setUsername($username);
                 $user->setUsernameLocked(true);
