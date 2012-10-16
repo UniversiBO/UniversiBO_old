@@ -19,6 +19,17 @@ class UserRepository extends EntityRepository
         return $user instanceof User ? $user->getUsername() : null;
     }
 
+    /**
+     * Tells if a username exists
+     *
+     * @param  string  $username
+     * @return boolean
+     */
+    public function usernameExists($username)
+    {
+        return $this->findOneByUsername($username) instanceof User;
+    }
+
     public function search($usernameQuery, $mailQuery)
     {
         $qb = $this->createQueryBuilder('u');
