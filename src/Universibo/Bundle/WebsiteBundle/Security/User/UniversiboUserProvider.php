@@ -2,22 +2,16 @@
 
 namespace Universibo\Bundle\WebsiteBundle\Security\User;
 
-use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
-
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
-
-use Universibo\Bundle\CoreBundle\Entity\Person;
-
-use Universibo\Bundle\CoreBundle\Entity\PersonRepository;
-
+use DateTime;
+use Doctrine\DBAL\DBALException;
 use FOS\UserBundle\Model\UserManager;
-
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
-
+use Universibo\Bundle\CoreBundle\Entity\Person;
+use Universibo\Bundle\CoreBundle\Entity\PersonRepository;
 use Universibo\Bundle\CoreBundle\Entity\User;
-
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
-
+use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 use Universibo\Bundle\ShibbolethBundle\Security\User\ShibbolethUserProviderInterface;
 
 class UniversiboUserProvider implements ShibbolethUserProviderInterface
@@ -138,7 +132,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         }
 
         $user->setPerson($person);
-        $user->setLastLogin(new \DateTime());
+        $user->setLastLogin(new DateTime());
         $user->setMemberOf($memberOf);
         $user->setPlainPassword(substr(sha1(rand(1,65536)), 0, rand(8,12)));
 
