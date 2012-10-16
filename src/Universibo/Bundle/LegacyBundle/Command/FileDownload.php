@@ -1,8 +1,10 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use \Error;
-use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
+
+use Error;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
+use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 
 /**
  * FileDownload: si occupa del download di un file
@@ -23,27 +25,22 @@ class FileDownload extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $user = $this->get('security.context')->getToken()->getUser();
+        $request = $this->getRequest();
+        $router = $this->get('router');
 
-        if (!array_key_exists('id_file', $_GET)
-                || !preg_match('/^([0-9]{1,9})$/', $_GET['id_file'])) {
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'L\'id del file richiesto non e` valido',
-                            'file' => __FILE__, 'line' => __LINE__));
-        }
-
+        $fileId = $request->attributes->get('id_file');
         $template
                 ->assign('common_canaleURI',
                         array_key_exists('HTTP_REFERER', $_SERVER) ? $_SERVER['HTTP_REFERER']
                                 : '');
         $template->assign('common_langCanaleNome', 'indietro');
 
-        $file = FileItem::selectFileItem($_GET['id_file']);
-        if ($file === false)
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => "Il file richiesto non e` presente su database",
-                            'file' => __FILE__, 'line' => __LINE__));
+        $fileRepo = $this->get('universibo_legacy.repository.file.file_item');
+        $file = $fileRepo->find($fileId);
+
+        if (!$file instanceof FileItem) {
+            throw new NotFoundHttpException('File not found!');
+        }
 
         $template->assign('fileDownload_InfoURI', $router->generate('universibo_legacy_file', array('id_file' => $file->getIdFile())));
 
