@@ -10,7 +10,7 @@ Utente: {{ user.username }} (id: {{ questionario.idUtente }})
 Utente: Anonimo
 {% endif %}
 Tempo disponibile: {{ questionario.tempoDisponibile }}
-Tempo internet: {{ questionario.tempoDisponibile }}
+Tempo internet: {{ questionario.tempoInternet }}
 Attività offline: {% if(questionario.attivitaOffline == 'S') %}sì{% else %}no{% endif %}
 
 Moderazione: {% if(questionario.attivitaModeratore == 'S') %}sì{% else %}no{% endif %}
