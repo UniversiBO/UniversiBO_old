@@ -148,9 +148,8 @@ class ShowPersonalSettings extends UniversiboCommand
             $user->setNotifications($f20_livello_notifica);
             $this->get('doctrine.orm.entity_manager')->merge($user);
 
-            $forum = $this->getContainer()->get('universibo_legacy.forum.api');
-            $forum->updateUserStyle($user);
-            $forum->updateUserEmail($user);
+            $dao = $this->getContainer()->get('universibo_forum.dao.user');
+            $dao->update($user);
 
             $fc->setStyle($f20_personal_style);
             $template
