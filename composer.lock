@@ -1422,22 +1422,22 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.10.1",
+            "version": "v1.10.2",
             "source": {
                 "type": "git",
                 "url": "git://github.com/fabpot/Twig.git",
-                "reference": "v1.10.1"
+                "reference": "v1.10.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fabpot/Twig/zipball/v1.10.1",
-                "reference": "v1.10.1",
+                "url": "https://github.com/fabpot/Twig/zipball/v1.10.2",
+                "reference": "v1.10.2",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "2012-10-15 00:35:01",
+            "time": "2012-10-15 01:23:34",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1529,12 +1529,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle.git",
-                "reference": "6f994cec34504ee2c82ea5dbea842f24b775ebe7"
+                "reference": "d1b544c9ec42035c133c99dede3c938511777798"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle/zipball/6f994cec34504ee2c82ea5dbea842f24b775ebe7",
-                "reference": "6f994cec34504ee2c82ea5dbea842f24b775ebe7",
+                "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle/zipball/d1b544c9ec42035c133c99dede3c938511777798",
+                "reference": "d1b544c9ec42035c133c99dede3c938511777798",
                 "shasum": ""
             },
             "require": {
@@ -1545,7 +1545,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1350343989",
+            "time": "1350401040",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
