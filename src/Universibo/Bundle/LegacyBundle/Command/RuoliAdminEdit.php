@@ -23,13 +23,14 @@ class RuoliAdminEdit extends UniversiboCommand
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
-        $rotuer = $this->get('router');
+        $router = $this->get('router');
+        $ruoloRepo = $this->get('universibo_legacy.repository.ruolo');
 
         $user = $this->get('security.context')->getToken()->getUser();
 
         $referente = false;
 
-        $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
+        $user_ruoli = $user instanceof User ? $ruoloRepo->findByIdUtente($user->getId()) : array();
         $ruoli = array();
         $arrayPublicUsers = array();
 
@@ -60,7 +61,7 @@ class RuoliAdminEdit extends UniversiboCommand
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN') && $user->getId() == $target_user->getId() )
             Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getId(), 'msg' => 'non e` permesso modificare i propri diritti in una pagina', 'file' => __FILE__, 'line' => __LINE__));
 
-        $target_ruoli = $target_user->getRuoli();
+        $target_ruoli = $ruoloRepo->findByIdUtente($target_user->getId());
         if (!array_key_exists($id_canale, $target_ruoli))
             $target_ruolo = null;
         else
