@@ -50,6 +50,7 @@
                     <argument type="service" id="router"/>
                     <argument type="service" id="templating"/>
                     <argument>%mailer_from%</argument>
+                    <argument>%mailer_from_name%</argument>
                     <argument>%mailer_dev%</argument>
                     <argument>%mailer_info%</argument>
 
