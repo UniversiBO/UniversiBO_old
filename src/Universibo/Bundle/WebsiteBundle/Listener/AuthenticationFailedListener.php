@@ -32,6 +32,21 @@ class AuthenticationFailedListener
     private $templateEngine;
 
     /**
+     * @var string
+     */
+    private $mailFrom;
+
+    /**
+     * @var string
+     */
+    private $devMailTo;
+
+    /**
+     * @var string
+     */
+    private $infoMailTo;
+
+    /**
      *
      * @param Swift_Mailer    $mailer
      * @param LoggerInterface $logger
@@ -39,12 +54,16 @@ class AuthenticationFailedListener
      * @param EngineInterface $templateEngine
      */
     public function __construct(Swift_Mailer $mailer, LoggerInterface $logger,
-            RouterInterface $router, EngineInterface $templateEngine)
+            RouterInterface $router, EngineInterface $templateEngine, $mailFrom,
+            $devMailTo, $infoMailTo)
     {
         $this->mailer = $mailer;
         $this->logger = $logger;
         $this->router = $router;
         $this->templateEngine = $templateEngine;
+        $this->mailFrom = $mailFrom;
+        $this->devMailTo = $devMailTo;
+        $this->infoMailTo = $infoMailTo;
     }
 
     /**
@@ -67,8 +86,8 @@ class AuthenticationFailedListener
 
         $messageUser = Swift_Message::newInstance()
             ->setSubject('Attivazione manuale account UniversiBO')
-            ->setFrom('associazione.universibo@unibo.it')
-            //->setTo($claims['eppn'])
+            ->setFrom($this->mailFrom)
+            ->setTo($claims['eppn'])
             ->setCc('info_universibo@mama.ing.unibo.it')
             ->setBody($this->templateEngine->render('UniversiboWebsiteBundle:Shibboleth:emailUser.txt.twig', array('claims' => $claims)))
         ;

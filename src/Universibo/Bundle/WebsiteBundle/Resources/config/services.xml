@@ -49,6 +49,9 @@
                     <argument type="service" id="logger"/>
                     <argument type="service" id="router"/>
                     <argument type="service" id="templating"/>
+                    <argument>%mailer_from%</argument>
+                    <argument>%mailer_dev%</argument>
+                    <argument>%mailer_info%</argument>
 
                     <tag name="kernel.event_listener" event="universibo_shibboleth.auth_failed" method="onAuthenticationFailed" />
                 </service>
