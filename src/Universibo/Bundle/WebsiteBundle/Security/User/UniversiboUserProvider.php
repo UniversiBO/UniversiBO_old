@@ -123,6 +123,10 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
                 throw new UsernameNotFoundException('Cannot map user');
             }
 
+            if ($this->userRepository->findOneByEmail($eppn) instanceof User) {
+                throw new AuthenticationException('Email exists');
+            }
+
             $user = $this->allowedMemberOf[$memberOf](new User(), $eppn);
             $user->setUsername($this->getUsername($eppn));
             $user->setNotifications(0);
@@ -137,6 +141,10 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         $user->setPlainPassword(substr(sha1(rand(1,65536)), 0, rand(8,12)));
 
         $this->userManager->updateUser($user);
+
+        if ($this->userRepository->countByPerson($person) > 0) {
+            throw new AuthenticationException('Person with multiple users');
+        }
 
         return $user;
     }
