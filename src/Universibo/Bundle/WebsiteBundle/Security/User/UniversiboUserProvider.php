@@ -59,13 +59,13 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
             return $user;
         };
 
-//        $this->allowedMemberOf['Studente'] = function (User $user) {
-//            $user->setLegacyGroups(LegacyRoles::STUDENTE);
-//            $user->addRole('ROLE_STUDENT');
-//            $user->setUsernameLocked(false);
-//
-//            return $user;
-//        };
+        $this->allowedMemberOf['Studente'] = function (User $user) {
+            $user->setLegacyGroups(LegacyRoles::STUDENTE);
+            $user->addRole('ROLE_STUDENT');
+            $user->setUsernameLocked(false);
+
+            return $user;
+        };
     }
 
     /**
