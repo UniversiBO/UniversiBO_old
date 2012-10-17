@@ -48,6 +48,24 @@ class UserRepository extends EntityRepository
                 -> getResult();
     }
 
+    public function countByPerson(Person $person)
+    {
+        $dql = <<<EOT
+SELECT COUNT(u)
+    FROM UniversiboCoreBundle:User u
+    WHERE
+            u.person = ?
+        AND u.locked = ?
+EOT;
+
+        return $this
+            ->getEntityManager()
+            ->createQuery($dql)
+            ->execute(array($person, false))
+            ->getSingleScalarResult()
+        ;
+    }
+
     public function findCollaborators()
     {
         $qb = $this->createQueryBuilder('u');
