@@ -2,7 +2,7 @@ set :application, "UniversiBO"
 set :domain,      "universibo.unibo.it"
 set :deploy_to,   "/var/www/universibo"
 set :app_path,    "app"
-set :web_path,    "htmls"
+set :web_path,    "web"
 
 set :repository,  "git@github.com:UniversiBO/UniversiBO.git"
 set :scm,         :git
