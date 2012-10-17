@@ -117,7 +117,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         try {
             return $this->ensureUser($claims['eppn'], $claims['isMemberOf'], $person);
         } catch (DBALException $e) {
-            throw new AuthenticationException('Ambiguous credentials');
+            throw new AuthenticationException('DBAL exception: '.$e->getMessage());
         }
     }
 
