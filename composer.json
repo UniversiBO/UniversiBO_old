@@ -1,0 +1,30 @@
+{
+    "name": "universibo/forum-bundle",
+    "type": "symfony-bundle",
+    "description": "UniversiBO ForumBundle",
+    "keywords": ["university","phpbb3"],
+    "homepage": "http://github.com/UniversiBO",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Davide Bellettini",
+            "email": "davide.bellettini@gmail.com"
+        },
+        {
+            "name": "UniversiboForumBundle Contributors",
+            "homepage": "https://github.com/UniversiBO/UniversiboForumBundle/graphs/contributors"
+        }
+    ],
+    "require": {
+        "symfony/framework-bundle": "2.1.*",
+    },
+    "require-dev": {
+        "symfony/yaml": "2.1.*"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": { "Universibo\\Bundle\\ForumBundle": "" }
+    },
+    "target-dir": "Universibo/Bundle/ForumBundle"
+}
+
