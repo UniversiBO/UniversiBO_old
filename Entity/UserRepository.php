@@ -54,8 +54,8 @@ class UserRepository extends EntityRepository
 SELECT COUNT(u)
     FROM UniversiboCoreBundle:User u
     WHERE
-            u.person = ?
-        AND u.locked = ?
+            u.person = ?1
+        AND u.locked = ?2
 EOT;
 
         return $this
