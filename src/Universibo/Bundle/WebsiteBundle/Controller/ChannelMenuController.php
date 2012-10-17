@@ -19,13 +19,13 @@ class ChannelMenuController extends Controller
                         ->getToken()->getUser() : null;
 
         $acl = $this->get('universibo_legacy.acl');
-        $router = $this->get('router');
+        $router = $this->get('universibo_legacy.routing.channel');
 
         $channelRepo = $this->get('universibo_legacy.repository.canale2');
 
         foreach ($channelRepo->findManyByType($type) as $item) {
             if ($acl->canRead($user, $item)) {
-                $allowed[] = array('name' => $item->getNome(), 'url' => $item->showMe($router));
+                $allowed[] = array('name' => $item->getNome(), 'url' => $router->generate($item));
             }
         }
 
