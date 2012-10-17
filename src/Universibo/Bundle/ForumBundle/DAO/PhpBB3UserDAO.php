@@ -9,7 +9,7 @@ use Universibo\Bundle\CoreBundle\Entity\User;
  */
 class PhpBB3UserDAO extends AbstractDAO implements UserDAOInterface
 {
-    public function create(User $user)
+    public function create(User $user, $group)
     {
         $query = <<<EOT
 INSERT into {$this->getPrefix()}users
@@ -21,14 +21,15 @@ INSERT into {$this->getPrefix()}users
     group_id
 )
 VALUES
-    (?, ?, ?, ?, 3)
+    (?, ?, ?, ?, ?)
 EOT;
 
         $this->getConnection()->executeUpdate($query, array(
             $user->getUsername(),
             $user->getUsernameCanonical(),
             $user->getEmail(),
-            time()
+            time(),
+            $group
         ));
 
         return $this->getConnection()->lastInsertId('phpbb_users_seq');
@@ -58,5 +59,14 @@ EOT;
 
     public function update(User $user)
     {
+        $query = <<<EOT
+UPDATE {$this->getPrefix()}users
+    SET user_email = ?
+    WHERE username = ?
+EOT;
+
+        return $this->getConnection()->executeUpdate($query,
+                array($user->getEmail(),  $user->getUsername())) > 0;
+
     }
 }
