@@ -4,7 +4,7 @@ set :deploy_to,   "/var/www/universibo"
 set :app_path,    "app"
 set :web_path,    "web"
 
-set :repository,  "git@github.com:UniversiBO/UniversiBO.git"
+set :repository,  "git://github.com/UniversiBO/UniversiBO.git"
 set :scm,         :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `subversion`, `mercurial`, `perforce`, `subversion` or `none`
 
