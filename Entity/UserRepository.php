@@ -58,12 +58,14 @@ SELECT COUNT(u)
         AND u.locked = ?2
 EOT;
 
-        return $this
+        $query = $this
             ->getEntityManager()
             ->createQuery($dql)
-            ->execute(array($person, false))
-            ->getSingleScalarResult()
         ;
+
+        $query->execute(array($person));
+
+        return $query->getSingleScalarResult();
     }
 
     public function findCollaborators()
