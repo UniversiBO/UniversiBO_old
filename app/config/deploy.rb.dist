@@ -15,8 +15,8 @@ role :web,        domain                         # Your HTTP server, Apache/etc
 role :app,        domain                         # This may be the same as your `Web` server
 role :db,         domain, :primary => true       # This is where Rails migrations will run
 
-set  :shared_files,    [web_path + "/.htaccess", "app/config/parameters.ini", "config.xml", "config_cli.xml", web_path + "/forum/config.php"]
-set  :shared_children, [app_path + "/logs", web_path + "/img/contacts", web_path + "/uploads", web_path + "/forum/images/avatars","universibo/file-universibo", "universibo/log-universibo", app_path + "/data", web_path + "/linux", web_path + "/latex"]
+set  :shared_files,    [web_path + "/.htaccess", "app/config/parameters.ini", "config.xml", "config_cli.xml"]
+set  :shared_children, [app_path + "/logs", web_path + "/img/contacts", web_path + "/uploads", "universibo/file-universibo", "universibo/log-universibo", app_path + "/data", web_path + "/linux", web_path + "/latex"]
 
 set  :update_vendors, false
 set  :use_composer,   true
