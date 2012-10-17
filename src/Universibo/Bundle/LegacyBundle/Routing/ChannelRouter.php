@@ -35,7 +35,7 @@ class ChannelRouter
             self::BASE . 'Insegnamento' => 'universibo_legacy_show_insegnamento',
             self::BASE . 'PrgattivitaDidattica' => 'universibo_legacy_show_insegnamento',
 
-            'default' => 'universibo_legacy_show_canale',
+            'default' => 'universibo_legacy_canale',
         );
     }
 
@@ -52,7 +52,7 @@ class ChannelRouter
 
         return $this
             ->router
-            ->generate($route, array('id' => $channel->getIdCanale()), $absolute)
+            ->generate($route, array('id_canale' => $channel->getIdCanale()), $absolute)
         ;
     }
 
