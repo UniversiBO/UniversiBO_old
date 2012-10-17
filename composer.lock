@@ -1,5 +1,5 @@
 {
-    "hash": "5bdfab4dc9a63d1e71cc431ec515de70",
+    "hash": "7e93326f1f73630ef8bf18404f214825",
     "packages": [
         {
             "name": "doctrine/common",
@@ -18,7 +18,7 @@
             "require": {
                 "php": ">=5.3.2"
             },
-            "time": "2012-09-20 05:55:18",
+            "time": "2012-09-19 22:55:18",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -54,9 +54,9 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes Schmitt",
+                    "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -129,7 +129,7 @@
                 "php": ">=5.3.2",
                 "doctrine/common": "2.3.*"
             },
-            "time": "2012-09-20 05:56:37",
+            "time": "2012-09-19 22:56:37",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -203,7 +203,7 @@
             "suggest": {
                 "doctrine/orm": "The Doctrine ORM integration is optional in the bundle."
             },
-            "time": "2012-09-07 21:18:21",
+            "time": "2012-09-07 14:18:21",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -262,7 +262,7 @@
                 "symfony/symfony": ">=2.0",
                 "doctrine/data-fixtures": "*"
             },
-            "time": "2012-01-18 16:33:12",
+            "time": "2012-01-18 08:33:12",
             "type": "symfony-bundle",
             "installation-source": "dist",
             "autoload": {
@@ -425,7 +425,7 @@
             "suggest": {
                 "symfony/yaml": "If you want to use YAML Metadata Mapping Driver"
             },
-            "time": "2012-09-20 06:03:34",
+            "time": "2012-09-19 23:03:34",
             "bin": [
                 "bin/doctrine",
                 "bin/doctrine.php"
@@ -561,7 +561,7 @@
                 "symfony/framework-bundle": "2.*",
                 "jms/cg": "1.0.0"
             },
-            "time": "2012-01-02 20:50:26",
+            "time": "2012-01-02 12:50:26",
             "type": "symfony-bundle",
             "installation-source": "dist",
             "autoload": {
@@ -603,7 +603,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-01-02 20:40:52",
+            "time": "2012-01-02 12:40:52",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -662,7 +662,7 @@
                 "doctrine/doctrine-bundle": "*",
                 "doctrine/orm": "*"
             },
-            "time": "2012-09-21 08:56:32",
+            "time": "2012-09-21 01:56:32",
             "type": "symfony-bundle",
             "installation-source": "dist",
             "autoload": {
@@ -677,7 +677,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -705,7 +705,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-01-02 21:32:49",
+            "time": "2012-01-02 13:32:49",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -768,7 +768,7 @@
                 "symfony/form": "*",
                 "symfony/validator": "*"
             },
-            "time": "2012-09-06 16:12:03",
+            "time": "2012-09-06 09:12:03",
             "type": "symfony-bundle",
             "installation-source": "dist",
             "autoload": {
@@ -807,12 +807,12 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/kriswallsmith/assetic/zipball/a6baab9b4c4361aca51bf90ee47c1586dff3cb0c",
+                "url": "https://github.com/kriswallsmith/assetic/zipball/e22c5e07e672bb0cf43127e97e9368b53abf4aa8",
                 "reference": "e22c5e07e672bb0cf43127e97e9368b53abf4aa8",
                 "shasum": ""
             },
             "require": {
-                "symfony/process": "2.1.*",
+                "symfony/process": ">=2.1.0,<2.3-dev",
                 "php": ">=5.3.1"
             },
             "require-dev": {
@@ -888,7 +888,7 @@
                 "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
                 "ext-mongo": "Allow sending log messages to a MongoDB server"
             },
-            "time": "2012-08-29 11:53:20",
+            "time": "2012-08-29 04:53:20",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -937,7 +937,7 @@
             "require": {
                 "symfony/framework-bundle": "2.1.*"
             },
-            "time": "2012-09-11 05:10:08",
+            "time": "2012-09-10 22:10:08",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -984,7 +984,7 @@
                 "symfony/framework-bundle": "2.1.*",
                 "doctrine/common": ">=2.1,<2.4-dev"
             },
-            "time": "2012-08-29 10:02:19",
+            "time": "2012-08-29 03:02:19",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1035,7 +1035,7 @@
                 "doctrine/orm": ">=2.1,<2.4-dev",
                 "twig/twig": ">=1.8,<2.0-dev"
             },
-            "time": "2012-08-28 07:16:11",
+            "time": "2012-08-28 00:16:11",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1076,7 +1076,7 @@
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "2012-07-13 16:46:37",
+            "time": "2012-07-13 09:46:37",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1140,7 +1140,7 @@
             "suggest": {
                 "symfony/twig-bundle": "2.1.*"
             },
-            "time": "2012-08-28 10:22:44",
+            "time": "2012-08-28 03:22:44",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1197,7 +1197,7 @@
                 "symfony/yaml": "2.1.*",
                 "symfony/config": "2.1.*"
             },
-            "time": "2012-08-21 14:05:54",
+            "time": "2012-08-21 07:05:54",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1233,12 +1233,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/SwiftmailerBundle",
-                "reference": "v2.1.0"
+                "reference": "v2.1.0-RC2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/SwiftmailerBundle/zipball/v2.1.0",
-                "reference": "v2.1.0",
+                "url": "https://github.com/symfony/SwiftmailerBundle/zipball/v2.1.0-RC2",
+                "reference": "v2.1.0-RC2",
                 "shasum": ""
             },
             "require": {
@@ -1251,7 +1251,7 @@
                 "symfony/http-kernel": "2.1.*",
                 "symfony/config": "2.1.*"
             },
-            "time": "2012-08-28 10:21:09",
+            "time": "2012-08-28 03:21:09",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1340,7 +1340,7 @@
                 "propel/propel1": "dev-master",
                 "monolog/monolog": "dev-master"
             },
-            "time": "2012-09-20 07:13:00",
+            "time": "2012-09-20 00:13:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1383,7 +1383,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fabpot/Twig-extensions/zipball/f904575642b1213db69b4a98f08397e722ba1cae",
+                "url": "https://github.com/fabpot/Twig-extensions/zipball/dcdff02fbac1282e6b8f4d0558cc7e9580105688",
                 "reference": "dcdff02fbac1282e6b8f4d0558cc7e9580105688",
                 "shasum": ""
             },
@@ -1476,12 +1476,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/UniversiBO/UniversiboCoreBundle",
-                "reference": "f3acc213b9302afd67ffeb61c7ade326dcb47f05"
+                "reference": "beeda99b468350de9dd52f9451aa19be7383da12"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboCoreBundle/zipball/f3acc213b9302afd67ffeb61c7ade326dcb47f05",
-                "reference": "f3acc213b9302afd67ffeb61c7ade326dcb47f05",
+                "url": "https://github.com/UniversiBO/UniversiboCoreBundle/zipball/beeda99b468350de9dd52f9451aa19be7383da12",
+                "reference": "beeda99b468350de9dd52f9451aa19be7383da12",
                 "shasum": ""
             },
             "require": {
@@ -1491,7 +1491,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1350476424",
+            "time": "1350483637",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
@@ -1520,6 +1520,59 @@
             "support": {
                 "source": "https://github.com/UniversiBO/UniversiboCoreBundle/tree/master",
                 "issues": "https://github.com/UniversiBO/UniversiboCoreBundle/issues"
+            }
+        },
+        {
+            "name": "universibo/forum-bundle",
+            "version": "dev-master",
+            "target-dir": "Universibo/Bundle/ForumBundle",
+            "source": {
+                "type": "git",
+                "url": "http://github.com/UniversiBO/UniversiboForumBundle",
+                "reference": "ad763832eb364609bcab9ddd35d7cafc83590f08"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/UniversiBO/UniversiboForumBundle/zipball/ad763832eb364609bcab9ddd35d7cafc83590f08",
+                "reference": "ad763832eb364609bcab9ddd35d7cafc83590f08",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/framework-bundle": "2.1.*"
+            },
+            "require-dev": {
+                "symfony/yaml": "2.1.*"
+            },
+            "time": "1350487457",
+            "type": "symfony-bundle",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Universibo\\Bundle\\ForumBundle": ""
+                }
+            },
+            "license": [
+                "GPL"
+            ],
+            "authors": [
+                {
+                    "name": "Davide Bellettini",
+                    "email": "davide.bellettini@gmail.com"
+                },
+                {
+                    "name": "UniversiboForumBundle Contributors",
+                    "homepage": "https://github.com/UniversiBO/UniversiboForumBundle/graphs/contributors"
+                }
+            ],
+            "description": "UniversiBO ForumBundle",
+            "homepage": "http://github.com/UniversiBO",
+            "keywords": [
+                "university",
+                "phpbb3"
+            ],
+            "support": {
+                "source": "https://github.com/UniversiBO/UniversiboForumBundle/tree/master",
+                "issues": "https://github.com/UniversiBO/UniversiboForumBundle/issues"
             }
         },
         {
@@ -1648,7 +1701,7 @@
                 "zendframework/zendpdf": "ZendPdf for creating PDF representations of barcodes",
                 "zendframework/zendservice-recaptcha": "ZendService\\ReCaptcha for rendering ReCaptchas in Zend\\Captcha and/or Zend\\Form"
             },
-            "time": "2012-09-21 18:28:34",
+            "time": "2012-09-21 11:28:34",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1689,6 +1742,7 @@
         "kriswallsmith/assetic": 20,
         "twig/extensions": 20,
         "universibo/shibboleth-bundle": 20,
-        "universibo/core-bundle": 20
+        "universibo/core-bundle": 20,
+        "universibo/forum-bundle": 20
     }
 }
