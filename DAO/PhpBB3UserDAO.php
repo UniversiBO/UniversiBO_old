@@ -46,7 +46,7 @@ EOT;
         return $this->getConnection()->fetchColumn($query, array($user->getUsername()));
     }
 
-    public function findOrCreate(User $user)
+    public function findOrCreate(User $user, $group)
     {
         $id = $this->find($user);
 
@@ -54,7 +54,7 @@ EOT;
             return $id;
         }
 
-        return $this->create($user);
+        return $this->create($user, $group);
     }
 
     public function update(User $user)
