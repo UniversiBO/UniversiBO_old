@@ -17,16 +17,28 @@ interface UserDAOInterface
     /**
      * @param User $user
      */
-    public function create(User $user, $group);
+    public function create(User $user);
 
     /**
      * @param  User $user
      * @return int
      */
-    public function findOrCreate(User $user, $group);
+    public function findOrCreate(User $user);
 
     /**
      * @param User $user
      */
     public function update(User $user);
+    
+    /**
+     * @param User $user
+     * @param int  $groupId
+     */
+    public function addUserToGroup(User $user, $groupId);
+
+    /**
+     * @param User $user
+     * @param int  $groupId
+     */
+    public function removeUserFromGroup(User $user, $groupId);
 }
