@@ -5,6 +5,7 @@ namespace Universibo\Bundle\WebsiteBundle\Security\User;
 use DateTime;
 use Doctrine\DBAL\DBALException;
 use FOS\UserBundle\Model\UserManager;
+use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Universibo\Bundle\CoreBundle\Entity\Person;
@@ -32,18 +33,30 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
     private $personRepository;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * @var array
      */
     private $allowedMemberOf = array();
 
     /**
-     * @param UserRepository $userRepository
+     *
+     * @param UserRepository   $userRepository
+     * @param UserManager      $userManager
+     * @param PersonRepository $personRepository
+     * @param LoggerInterface  $logger
      */
-    public function __construct(UserRepository $userRepository, UserManager $userManager, PersonRepository $personRepository)
+    public function __construct(UserRepository $userRepository,
+            UserManager $userManager, PersonRepository $personRepository,
+            LoggerInterface $logger)
     {
         $this->userRepository = $userRepository;
         $this->userManager = $userManager;
         $this->personRepository = $personRepository;
+        $this->logger = $logger;
 
         $this->allowedMemberOf['PersonaleTA'] = function (User $user) {
             $user->setLegacyGroups(LegacyRoles::PERSONALE);
@@ -68,11 +81,21 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         };
     }
 
+    public function loadUserByClaims(array $claims)
+    {
+        try {
+            $this->doLoadUserByClaims($claims);
+        } catch (AuthenticationException $e) {
+            $this->logger->err('loadUserByClaims exception: '.$e->getMessage());
+            throw $e;
+        }
+    }
+
     /**
      * (non-PHPdoc)
      * @see Universibo\Bundle\ShibbolethBundle\Security\User.ShibbolethUserProviderInterface::loadUserByClaims()
      */
-    public function loadUserByClaims(array $claims)
+    private function doLoadUserByClaims(array $claims)
     {
         $requiredKeys = array(
                 'eppn',
