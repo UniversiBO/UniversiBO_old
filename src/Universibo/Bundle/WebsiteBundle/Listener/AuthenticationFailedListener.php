@@ -84,9 +84,9 @@ class AuthenticationFailedListener
                 ', id: '.$claims['idAnagraficaUnica']);
 
         $messageDev = Swift_Message::newInstance()
-            ->setSubject('Autenticazione Fallita')
-            ->setFrom('associazione.universibo@unibo.it')
-            ->setTo('dev_universibo@mama.ing.unibo.it')
+            ->setSubject('Autenticazione Shibboleth Fallita')
+            ->setFrom(array($this->mailFrom => $this->mailFromName))
+            ->setTo($this->devMailTo)
             ->setBody($this->templateEngine->render('UniversiboWebsiteBundle:Shibboleth:emailDev.txt.twig', array('claims' => $claims)))
         ;
 
