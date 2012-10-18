@@ -4,6 +4,7 @@ namespace Universibo\Bundle\WebsiteBundle\Security\User;
 
 use DateTime;
 use Doctrine\DBAL\DBALException;
+use Doctrine\ORM\NonUniqueResultException;
 use FOS\UserBundle\Model\UserManager;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -166,9 +167,13 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         if ($this->userRepository->countByPerson($person) > 1) {
             throw new AuthenticationException('Person with multiple users');
         }
-        
-        if($user->isLocked()) {
-            return $this->userRepository->findOneNotLocked($user->getPerson());
+
+        if ($user->isLocked()) {
+            try {
+                return $this->userRepository->findOneNotLocked($user->getPerson());
+            } catch (NonUniqueResultException $e) {
+                throw new AuthenticationException('Non unique result: '.$e->getMessage());
+            }
         }
 
         return $user;
