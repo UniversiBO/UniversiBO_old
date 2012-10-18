@@ -131,9 +131,8 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
         $person->setGivenName($givenName);
         $person->setSurname($surname);
-        $this->personRepository->save($person);
 
-        return $person;
+        return $this->personRepository->save($person);
     }
 
     private function ensureUser($eppn, $memberOf, Person $person)
