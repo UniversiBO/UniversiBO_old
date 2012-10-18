@@ -76,4 +76,12 @@ EOT;
 
         return $qb->getQuery()->getResult();
     }
+    
+    /**
+     * @return User
+     */
+    public function findOneNotLocked()
+    {
+        return $this->findOneByLocked(false);
+    }
 }
