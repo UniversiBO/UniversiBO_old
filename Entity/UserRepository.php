@@ -80,7 +80,7 @@ EOT;
     }
 
     /**
-     * @param Person $person
+     * @param  Person                   $person
      * @throws NonUniqueResultException
      * @return User
      */
@@ -99,7 +99,7 @@ EOT;
             ->createQuery($dql)
             ->setParameter(0, $person)
         ;
-        
+
         return $query->getSingleResult();
     }
 }
