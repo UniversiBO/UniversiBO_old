@@ -45,7 +45,7 @@ class TestNotificationCommand extends ContainerAwareCommand
     {
         $repo = $this->get('universibo_legacy.repository.notifica.notifica_item');
         $notifica = new NotificaItem(0, 'Test mail', 'Test body', time(), false,
-                false, 'mail://'.$this->getContainer()->getParameter('mail_dev'));
+                false, 'mail://'.$this->getContainer()->getParameter('mailer_dev'));
 
         $repo->insert($notifica);
     }
