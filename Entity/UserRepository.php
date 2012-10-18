@@ -76,7 +76,7 @@ EOT;
 
         return $qb->getQuery()->getResult();
     }
-    
+
     /**
      * @return User
      */
