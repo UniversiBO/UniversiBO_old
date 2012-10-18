@@ -80,8 +80,10 @@ class AuthenticationFailedListener
     {
         $claims = $event->getClaims();
 
+        $exception = $event->getException();
+        $msg = $exception instanceof \Exception ? $exception->getMessage() : 'none';
         $this->logger->err('Shibboleth Auth failed, eppn: '.$claims['eppn'].
-                ', id: '.$claims['idAnagraficaUnica']);
+                ', id: '.$claims['idAnagraficaUnica'].', exception: '.$msg);
 
         $messageDev = Swift_Message::newInstance()
             ->setSubject('Autenticazione Shibboleth Fallita')
