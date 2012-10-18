@@ -165,7 +165,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
         $this->userManager->updateUser($user);
 
-        if ($this->userRepository->countByPerson($person) > 0) {
+        if ($this->userRepository->countByPerson($person) > 1) {
             throw new AuthenticationException('Person with multiple users');
         }
 
