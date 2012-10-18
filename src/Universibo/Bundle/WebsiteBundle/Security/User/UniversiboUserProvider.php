@@ -107,7 +107,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
         $missingKeys = array_diff($requiredKeys, array_keys($claims));
         if (count($missingKeys) > 0) {
-            throw new AuthenticationException('Missing claims: '.implode($missingKeys));
+            throw new AuthenticationException('Missing claims: '.implode(', ', $missingKeys));
         }
 
         $uniboId = $claims['idAnagraficaUnica'];
