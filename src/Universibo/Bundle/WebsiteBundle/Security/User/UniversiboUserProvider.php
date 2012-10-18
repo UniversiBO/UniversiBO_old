@@ -168,7 +168,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         }
         
         if($user->isLocked()) {
-            return $this->userRepository->findNotLocked($user->getPerson());
+            return $this->userRepository->findOneNotLocked($user->getPerson());
         }
 
         return $user;
