@@ -3,6 +3,8 @@
 namespace Universibo\Bundle\CoreBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Universibo\Bundle\CoreBundle\Entity\Person;
 
 /**
  * BatchRenameRepository
@@ -78,10 +80,26 @@ EOT;
     }
 
     /**
+     * @param Person $person
+     * @throws NonUniqueResultException
      * @return User
      */
-    public function findOneNotLocked()
+    public function findOneNotLocked(Person $person)
     {
-        return $this->findOneByLocked(false);
+        $dql = <<<EOT
+SELECT u
+    FROM UniversiboCoreBundle:User u
+    WHERE
+            u.person = ?0
+        AND u.locked = false
+EOT;
+
+        $query = $this
+            ->getEntityManager()
+            ->createQuery($dql)
+            ->setParameter(0, $person)
+        ;
+        
+        return $query->getSingleResult();
     }
 }
