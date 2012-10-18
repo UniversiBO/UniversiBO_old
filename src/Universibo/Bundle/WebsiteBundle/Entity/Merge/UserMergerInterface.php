@@ -1,5 +1,5 @@
 <?php
-namespace Universibo\Bundle\WebsiteBundle\Auth\Merge;
+namespace Universibo\Bundle\WebsiteBundle\Entity\Merge;
 
 use Universibo\Bundle\CoreBundle\Entity\Person;
 use Universibo\Bundle\CoreBundle\Entity\User;
