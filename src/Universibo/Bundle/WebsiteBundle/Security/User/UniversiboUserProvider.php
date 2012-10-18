@@ -84,7 +84,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
     public function loadUserByClaims(array $claims)
     {
         try {
-            $this->doLoadUserByClaims($claims);
+            return $this->doLoadUserByClaims($claims);
         } catch (AuthenticationException $e) {
             $this->logger->err('loadUserByClaims exception: '.$e->getMessage());
             throw $e;
