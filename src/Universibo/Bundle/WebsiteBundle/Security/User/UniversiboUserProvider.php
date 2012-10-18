@@ -166,6 +166,10 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         if ($this->userRepository->countByPerson($person) > 1) {
             throw new AuthenticationException('Person with multiple users');
         }
+        
+        if($user->isLocked()) {
+            return $this->userRepository->findNotLocked($user->getPerson());
+        }
 
         return $user;
     }
