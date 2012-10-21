@@ -26,6 +26,7 @@ class FileDownload extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $user = $this->get('security.context')->getToken()->getUser();
+        $userId = $user instanceof User ? $user->getId() : 0;
         $request = $this->getRequest();
         $router = $this->get('router');
 
@@ -55,12 +56,12 @@ class FileDownload extends UniversiboCommand
 
             if (!file_exists($nomeFile))
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getId(),
+                        array('id_utente' => $userId,
                                 'msg' => 'Impossibile trovare il file richiesto, contattare l\'amministratore del sito',
                                 'file' => __FILE__, 'line' => __LINE__));
             if (md5_file($nomeFile) != $file->getHashFile())
                 Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getId(),
+                        array('id_utente' => $userId,
                                 'msg' => 'Il file richiesto risulta corrotto, contattare l\'amministratore del sito',
                                 'file' => __FILE__, 'line' => __LINE__));
 
@@ -75,7 +76,7 @@ class FileDownload extends UniversiboCommand
 
                 if (!array_key_exists('f11_file_password', $_POST))
                     Error::throwError(_ERROR_DEFAULT,
-                            array('id_utente' => $user->getId(),
+                            array('id_utente' => $userId,
                                     'msg' => 'Il form inviato non e` valido',
                                     'file' => __FILE__, 'line' => __LINE__));
 
@@ -135,7 +136,7 @@ class FileDownload extends UniversiboCommand
         }
 
         Error::throwError(_ERROR_DEFAULT,
-                array('id_utente' => $user->getId(),
+                array('id_utente' => $userId,
                         'msg' => 'Non e` permesso eseguire il download del file.
                 Non possiedi i diritti necessari.', 'file' => __FILE__,
                         'line' => __LINE__, 'log' => true));
