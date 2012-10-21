@@ -35,7 +35,7 @@ class FileDownload extends UniversiboCommand
                                 : '');
         $template->assign('common_langCanaleNome', 'indietro');
 
-        $fileRepo = $this->get('universibo_legacy.repository.file.file_item');
+        $fileRepo = $this->get('universibo_legacy.repository.files.file_item');
         $file = $fileRepo->find($fileId);
 
         if (!$file instanceof FileItem) {
