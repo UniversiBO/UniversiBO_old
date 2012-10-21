@@ -3,6 +3,7 @@ namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Error;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 
@@ -44,7 +45,8 @@ class FileDownload extends UniversiboCommand
 
         $template->assign('fileDownload_InfoURI', $router->generate('universibo_legacy_file', array('id_file' => $file->getIdFile())));
 
-        if ($user->isGroupAllowed($file->getPermessiDownload())) {
+        $groups = $user instanceof User ? $user->getLegacyGroups() : 1;
+        if ($file->getPermessiDownload() & $groups) {
             $directoryFile = $frontcontroller->getAppSetting('filesPath');
             //$directoryFileUri = $frontcontroller->getAppSetting('directoryFileUri');
 
