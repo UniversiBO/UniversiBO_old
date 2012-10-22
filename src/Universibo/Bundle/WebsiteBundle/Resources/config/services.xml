@@ -57,5 +57,12 @@
 
                     <tag name="kernel.event_listener" event="universibo_shibboleth.auth_failed" method="onAuthenticationFailed" />
                 </service>
+
+                <service id="universibo_website.merge.user"
+                         class="Universibo\Bundle\WebsiteBundle\Entity\Merge\UserMerger">
+                    <argument type="service" id="universibo_core.repository.user"/>
+                    <argument type="service" id="universibo_legacy.repository.files.file_item"/>
+                    <argument type="service" id="universibo_legacy.repository.commenti.commento_item"/>
+                </service>
 	</services>
 </container>

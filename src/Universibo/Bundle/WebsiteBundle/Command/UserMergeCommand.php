@@ -54,6 +54,8 @@ class UserMergeCommand extends ContainerAwareCommand
         if (count($users) <= 1) {
             throw new LogicException('Please provide at least 2 usernames');
         }
+
+        $merger = $this->get('universibo_website.merge.user');
     }
 
     private function get($id)
