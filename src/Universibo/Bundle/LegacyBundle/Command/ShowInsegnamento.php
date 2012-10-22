@@ -39,12 +39,11 @@ class ShowInsegnamento extends CanaleCommand
 
     public function execute()
     {
-        $session_user = $this->get('security.context')->getToken()->getUser();
-        $session_user_groups = $session_user instanceof User ? $session_user->getLegacyGroups() : 1;
+        $user = $this->get('security.context')->getToken()->getUser();
         $id_canale = $this->getRequestIdCanale();
         $insegnamento = $this->getRequestCanale();
 
-        $user_ruoli = $session_user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
+        $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
         // ??
         $insegnamento->getTitolo();

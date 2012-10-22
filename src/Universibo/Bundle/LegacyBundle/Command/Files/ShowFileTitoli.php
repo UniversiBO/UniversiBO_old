@@ -109,7 +109,7 @@ class ShowFileTitoli extends PluginCommand
                         || ($moderatore
                                 && $file->getIdUtente() == $user->getId()));
 
-                $groups = $user instanceof User ? $user->getGroups() : 1;
+                $groups = $user instanceof User ? $user->getLegacyGroups() : 1;
 
                 $permessi_lettura = $file->getPermessiVisualizza();
                 if ($permessi_lettura & $groups) {
