@@ -3,6 +3,7 @@ namespace Universibo\Bundle\LegacyBundle\Entity\News;
 
 use DB;
 use DB_common;
+use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
@@ -31,6 +32,21 @@ class DBNewsItemRepository extends DBRepository
 
         $this->userRepository = $userRepository;
         $this->channelRepository = $channelRepository;
+    }
+
+    public function countByUser(User $user)
+    {
+        $db = $this->getDb();
+
+        $query = <<<EOT
+SELECT COUNT(*)
+    FROM news n
+    WHERE n.id_utente = {$db->quote($user->getId())}
+EOT;
+        $res = $db->query($query);
+        $row = $res->fetchRow();
+
+        return intval($row[0]);
     }
 
     public function find($id)

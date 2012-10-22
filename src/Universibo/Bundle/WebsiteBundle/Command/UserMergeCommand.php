@@ -1,11 +1,13 @@
 <?php
 namespace Universibo\Bundle\WebsiteBundle\Command;
 
+use InvalidArgumentException;
 use LogicException;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Universibo\Bundle\CoreBundle\Entity\User;
 
 /**
  * Batch rename users
@@ -55,7 +57,24 @@ class UserMergeCommand extends ContainerAwareCommand
             throw new LogicException('Please provide at least 2 usernames');
         }
 
+        $userRepo = $this->get('universibo_core.repository.user');
         $merger = $this->get('universibo_website.merge.user');
+
+        $output->setDecorated(true);
+        foreach ($users as $username) {
+            $user = $userRepo->findOneByUsername($username);
+            if (!$user instanceof User) {
+                throw new InvalidArgumentException('Username not found');
+            }
+
+            $output->writeln('<info>Resources owned by '.$username.':</info>');
+            $owned = $merger->getOwnedResources($user);
+
+            foreach ($owned as $key => $resource) {
+                $output->write('    '.$resource['description'].': ');
+                $output->writeln($resource['count']);
+            }
+        }
     }
 
     private function get($id)

@@ -1,11 +1,14 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Files;
 
-use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
+use DB;
+use DB_common;
+use Error;
+use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
-
-use \DB;
+use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
+use Universibo\Bundle\LegacyBundle\Entity\MergeableRepositoryInterface;
 
 /**
  * DBNewsItem repository
@@ -13,7 +16,7 @@ use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBFileItemRepository extends DBRepository
+class DBFileItemRepository extends DBRepository implements MergeableRepositoryInterface
 {
     /**
      * @var UserRepository
@@ -25,7 +28,7 @@ class DBFileItemRepository extends DBRepository
      */
     private $channelRepository;
 
-    public function __construct(\DB_common $db, UserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
+    public function __construct(DB_common $db, UserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
     {
         parent::__construct($db, $convert);
 
@@ -59,7 +62,7 @@ class DBFileItemRepository extends DBRepository
 
         return $res;
     }
-
+    
     public function findLatestByChannels(array $channelIds, $limit)
     {
         if (count($channelIds) === 0) {
@@ -96,6 +99,21 @@ class DBFileItemRepository extends DBRepository
         $res->free();
 
         return $this->findManyById($ids);
+    }
+
+    public function countByUser(User $user)
+    {
+        $db = $this->getDb();
+
+        $query = <<<EOT
+SELECT COUNT(*)
+    FROM file f
+    WHERE f.id_utente = {$db->quote($user->getId())}
+EOT;
+        $res = $db->query($query);
+        $row = $res->fetchRow();
+
+        return intval($row[0]);
     }
 
     public function findIdByChannel($channelId)
@@ -639,5 +657,10 @@ class DBFileItemRepository extends DBRepository
         }
 
         return false;
+    }
+    
+    public function transferOwnership(User $source, User $target)
+    {
+        throw new RuntimeException('Not implemented');
     }
 }

@@ -17,6 +17,12 @@ use Universibo\Bundle\LegacyBundle\Entity\News\DBNewsItemRepository;
 class UserMerger implements UserMergerInterface
 {
     /**
+     * Retrievers
+     * @var array
+     */
+    private $retrievers = array();
+
+    /**
      * @param UserRepository           $userRepository
      * @param DBFileItemRepository     $fileItemRepository
      * @param DBCommentoItemRepository $commentoRepository
@@ -37,11 +43,47 @@ class UserMerger implements UserMergerInterface
             PostDAOInterface $postDAO,
             UserDAOInterface $userDAO)
     {
+        $this->retrievers['file'] = array(
+            'description' => 'Uploaded files',
+            'count' => function(User $user) use ($fileItemRepository) {
+                return $fileItemRepository->countByUser($user);
+            }
+        );
 
+        $this->retrievers['comment'] = array(
+            'description' => 'File comments',
+            'count' => function(User $user) use ($commentoRepository) {
+                return $commentoRepository->countByUser($user);
+            }
+        );
+
+        $this->retrievers['news'] = array(
+            'description' => 'Sent news',
+            'count' => function(User $user) use ($newsRepository) {
+                return $newsRepository->countByUser($user);
+            }
+        );
+
+        $this->retrievers['link'] = array(
+            'description' => 'Added links',
+            'count' => function(User $user) use ($linkRepository) {
+                return $linkRepository->countByUser($user);
+            }
+        );
     }
 
     public function getOwnedResources(User $user)
     {
+        $owned = array();
+
+        foreach ($this->retrievers as $key => $retriever) {
+            $owned[$key] = array (
+                'count' =>  $retriever['count']($user),
+                'description' => $retriever['description']
+            );
+        }
+
+        return $owned;
     }
 
     public function getUsersFromPerson(Person $person, $includeLocked = false)

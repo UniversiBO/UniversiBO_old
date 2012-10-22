@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Commenti;
-use \DB;
+
+use DB;
+use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
 
 /**
@@ -11,6 +13,21 @@ use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
  */
 class DBCommentoItemRepository extends DBRepository
 {
+    public function countByUser(User $user)
+    {
+        $db = $this->getDb();
+
+        $query = <<<EOT
+SELECT COUNT(*)
+    FROM file_studente_commenti f
+    WHERE f.id_utente = {$db->quote($user->getId())}
+EOT;
+        $res = $db->query($query);
+        $row = $res->fetchRow();
+
+        return intval($row[0]);
+    }
+
     public function find($id)
     {
         $db = $this->getDb();

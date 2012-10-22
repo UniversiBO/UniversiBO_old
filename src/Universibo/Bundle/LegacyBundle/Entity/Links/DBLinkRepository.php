@@ -1,9 +1,13 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Links;
-use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 
-use \DB;
+use DB;
+use DB_common;
+use RuntimeException;
+use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
+use Universibo\Bundle\LegacyBundle\Entity\MergeableRepositoryInterface;
 
 /**
  * Link repository
@@ -11,14 +15,14 @@ use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBLinkRepository extends DBRepository
+class DBLinkRepository extends DBRepository implements MergeableRepositoryInterface
 {
     /**
      * @var UserRepository
      */
     private $userRepository;
 
-    public function __construct(\DB_common $db, UserRepository $userRepository, $convert = false)
+    public function __construct(DB_common $db, UserRepository $userRepository, $convert = false)
     {
         parent::__construct($db, $convert);
 
@@ -51,6 +55,21 @@ class DBLinkRepository extends DBRepository
         $res->free();
 
         return $link_list;
+    }
+
+    public function countByUser(User $user)
+    {
+        $db = $this->getDb();
+
+        $query = <<<EOT
+SELECT COUNT(*)
+    FROM link l
+    WHERE l.id_utente = {$db->quote($user->getId())}
+EOT;
+        $res = $db->query($query);
+        $row = $res->fetchRow();
+
+        return intval($row[0]);
     }
 
     public function find($id)
@@ -177,5 +196,10 @@ class DBLinkRepository extends DBRepository
     public function getUsername(Link $link)
     {
         return $this->userRepository->getUsernameFromId($link->getIdUtente());
+    }
+
+    public function transferOwnership(User $source, User $target)
+    {
+        throw new RuntimeException('Not implemented');
     }
 }
