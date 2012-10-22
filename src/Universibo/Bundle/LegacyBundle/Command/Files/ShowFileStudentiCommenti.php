@@ -30,26 +30,24 @@ class ShowFileStudentiCommenti extends PluginCommand
      */
     public function execute($param = array())
     {
-        //$flag_chkDiritti	=  $param['chk_diritti'];
-//		var_dump($param['id_notizie']);
-//		die();
-
         $bc        = $this->getBaseCommand();
         $user      = $bc->get('security.context')->getToken()->getUser();
+        $userId    = $user instanceof User ? $user->getId() : 0;
         $router    = $this->get('router');
 
         $fc        = $bc->getFrontController();
         $template  = $fc->getTemplateEngine();
-        $krono     = $fc->getKrono();
 
         $file = FileItemStudenti::selectFileItem($param['id_file']);
         $id_canali = $file->getIdCanali();
         $id_canale = $id_canali[0];
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
+
         $personalizza_not_admin = false;
 
-        if (array_key_exists($id_canale, $user_ruoli) || $this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        if (array_key_exists($id_canale, $user_ruoli) ||
+                $this->get('security.context')->isGranted('ROLE_ADMIN')) {
             $personalizza = true;
 
             if (array_key_exists($id_canale, $user_ruoli)) {
@@ -65,7 +63,8 @@ class ShowFileStudentiCommenti extends PluginCommand
             $personalizza   = false;
             $referente      = false;
             $moderatore     = false;
-            $ultimo_accesso = $user->getLastLogin()->getTimestamp();
+
+            $ultimo_accesso = $user instanceof User ? $user->getLastLogin()->getTimestamp() : 0;
         }
 /*
         $canale_news = $this->getNumNewsCanale($id_canale);
@@ -79,6 +78,7 @@ class ShowFileStudentiCommenti extends PluginCommand
 //		var_dump($elenco_commenti);
 //	    die();
 
+        $userRepo = $this->get('universibo_core.repository.user');
 
         if ($elenco_commenti ==! false) {
             for ($i = 0; $i < $num_commenti; $i++) {
@@ -87,13 +87,10 @@ class ShowFileStudentiCommenti extends PluginCommand
                 $commenti['commento'] = $elenco_commenti[$i]->getCommento();
                 $commenti['voto'] = $elenco_commenti[$i]->getVoto();
                 $commenti['userLink'] = $router->generate('universibo_legacy_user', array('id_utente' => $id_utente));
-                $commenti['userNick'] = $elenco_commenti[$i]->getUsername();
+                $commenti['userNick'] = $userRepo->getUsernameFromId($id_utente);
 
 
-//				var_dump($elenco_commenti_tpl);
-//				die();
-
-                $this_diritti = ($this->get('security.context')->isGranted('ROLE_ADMIN') || ($moderatore) || ($referente) || ($id_utente==$user->getId()));
+                $this_diritti = ($this->get('security.context')->isGranted('ROLE_ADMIN') || ($moderatore) || ($referente) || ($id_utente==$userId));
 
                 if ($this_diritti) {
                         $id_commento = $elenco_commenti[$i]->getIdCommento();

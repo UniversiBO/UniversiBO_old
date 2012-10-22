@@ -1,8 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Commenti;
-use \DB;
+
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
-use Universibo\Bundle\CoreBundle\Entity\User;
 
 /**
  * CommentoItem class
@@ -184,18 +183,6 @@ class CommentoItem
     public static function quantiCommenti($id_file)
     {
         return self::getRepository()->countByFile($id_file);
-    }
-
-    /**
-     * Restituisce il nick dello user
-     *
-     * @deprecated
-     * @return il nickname
-     */
-
-    public function getUsername()
-    {
-        return User::getUsernameFromId($this->id_utente);
     }
 
     /**
