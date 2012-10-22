@@ -30,12 +30,10 @@ class ChannelRouter
     {
         $this->router = $router;
         $this->routes = array (
-            self::BASE . 'Cdl' => 'universibo_legacy_show_cdl',
-            self::BASE . 'Facolta' => 'universibo_legacy_show_facolta',
-            self::BASE . 'Insegnamento' => 'universibo_legacy_show_insegnamento',
+            self::BASE . 'Cdl' => 'universibo_legacy_cdl',
+            self::BASE . 'Facolta' => 'universibo_legacy_facolta',
+            self::BASE . 'Insegnamento' => 'universibo_legacy_insegnamento',
             self::BASE . 'PrgattivitaDidattica' => 'universibo_legacy_show_insegnamento',
-
-            'default' => 'universibo_legacy_canale',
         );
     }
 
@@ -62,8 +60,13 @@ class ChannelRouter
      */
     private function getRoute(Canale $channel)
     {
-        return array_key_exists($class = get_class($channel), $this->routes) ? $this
-                        ->routes[$class] : $this->routes['default'];
+        foreach($this->routes as $class => $route)
+        {
+            if($channel instanceof $class) {
+                return $route;
+            }
+        }
+        
+        return 'universibo_legacy_canale';
     }
-
 }
