@@ -1,11 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\News;
 
-use Universibo\Bundle\LegacyBundle\Entity\Canale;
-
-use \DB;
-use \Error;
-
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 /**

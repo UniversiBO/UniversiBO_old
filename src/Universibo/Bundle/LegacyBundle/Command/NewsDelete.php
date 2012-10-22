@@ -1,10 +1,12 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
 
-use \Error;
-use Universibo\Bundle\LegacyBundle\Entity\Canale;
+use Error;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
+use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
 
 /**
  * NewsDelete: elimina una notizia, mostra il form e gestisce la cancellazione
@@ -28,6 +30,7 @@ class NewsDelete extends CanaleCommand
         $template = $frontcontroller->getTemplateEngine();
 
         $user = $this->get('security.context')->getToken()->getUser();
+        $userId = $user instanceof User ? $user->getId() : 0;
         $canale = $this->getRequestCanale();
 
         $referente = false;
@@ -36,16 +39,9 @@ class NewsDelete extends CanaleCommand
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
         $id_canale = $canale->getIdCanale();
 
-        if (!array_key_exists('id_news', $_GET)
-                || !preg_match('/^([0-9]{1,9})$/', $_GET['id_news'])) {
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'L\'id della notizia richiesta non e` valido',
-                            'file' => __FILE__, 'line' => __LINE__));
-        }
         if ($canale->getServizioNews() == false)
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
+                    array('id_utente' => $userId,
                             'msg' => "Il servizio news e` disattivato",
                             'file' => __FILE__, 'line' => __LINE__));
 
@@ -62,16 +58,13 @@ class NewsDelete extends CanaleCommand
             $moderatore = $ruolo->isModeratore();
         }
 
-        $news = NewsItem::selectNewsItem($_GET['id_news']);
-        if ($news === false)
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => "La notizia richiesta non e` presente su database",
-                            'file' => __FILE__, 'line' => __LINE__));
-        //$news-> getIdCanali();
-        /*var_dump($news->getNotizia());
-        die();
-         */
+        $idNews = $this->getRequest()->attributes->get('id_news');
+        $newsRepo = $this->get('universibo_legacy.repository.news.news_item');
+        $news = $newsRepo->find($idNews);
+
+        if (!$news instanceof NewsItem) {
+            throw new NotFoundHttpException('News with ID '.$idNews. ' not found!');
+        }
 
         //controllo coerenza parametri
         $canali_news = $news->getIdCanali();
@@ -103,7 +96,7 @@ class NewsDelete extends CanaleCommand
         $num_canali = count($news_canali);
         for ($i = 0; $i < $num_canali; $i++) {
             $id_current_canale = $news_canali[$i];
-            $current_canale = &Canale::retrieveCanale($id_current_canale);
+            $current_canale = Canale::retrieveCanale($id_current_canale);
             $nome_current_canale = $current_canale->getTitolo();
             if (in_array($id_current_canale, $news->getIdCanali())) {
                 $f9_canale[] = array('id_canale' => $id_current_canale,
@@ -175,7 +168,7 @@ class NewsDelete extends CanaleCommand
         }
 
         //visualizza notizia
-        $param = array('id_notizie' => array($_GET['id_news']),
+        $param = array('id_notizie' => array($idNews),
                 'chk_diritti' => false);
         $this->executePlugin('ShowNews', $param);
 

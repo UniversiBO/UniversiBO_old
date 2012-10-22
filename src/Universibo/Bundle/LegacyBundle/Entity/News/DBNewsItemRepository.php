@@ -1,11 +1,11 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\News;
 
-use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
-
-use \DB;
-use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
+use DB;
+use DB_common;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
+use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
+use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
 
 /**
  * DBNewsItem repository
@@ -25,7 +25,7 @@ class DBNewsItemRepository extends DBRepository
      */
     private $channelRepository;
 
-    public function __construct(\DB_common $db, UserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
+    public function __construct(DB_common $db, UserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
     {
         parent::__construct($db, $convert);
 
@@ -257,7 +257,7 @@ class DBNewsItemRepository extends DBRepository
             $this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         }
 
-        $news->setIdCanali($ids = array_diff ($this->elencoIdCanali, array($id_canale)));
+        $news->setIdCanali($ids = array_diff ($news->getIdCanali(), array($channelId)));
 
         if (count($ids) === 0) {
             $this->delete($news);
