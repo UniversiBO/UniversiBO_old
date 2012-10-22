@@ -8,7 +8,7 @@
 <p>&nbsp;Categoria:&nbsp;{$showFileInfo_categoria|escape:"htmlall"}</p>
 <p>&nbsp;Dimensione:&nbsp;{$showFileInfo_dimensione|escape:"htmlall"} kB</p>
 <p>&nbsp;Scaricato:&nbsp;{$showFileInfo_download|escape:"htmlall"} volte</p>
-<p>&nbsp;Formato file:<img src="{$common_basePath}/{$showFileInfo_icona|escape:"htmlall"}" width="32" height="32" alt="{$showFileInfo_tipo|escape:"htmlall"}" border="0" />&nbsp;{$showFileInfo_info|escape:"htmlall"|nl2br|bbcode2html}</p>
+<p>&nbsp;Formato file:<img src="{$common_basePath}/bundles/universibolegacy/images/icone_file/{$showFileInfo_icona|escape:"htmlall"}" width="32" height="32" alt="{$showFileInfo_tipo|escape:"htmlall"}" border="0" />&nbsp;{$showFileInfo_info|escape:"htmlall"|nl2br|bbcode2html}</p>
 <p>&nbsp;Hash MD5:&nbsp;{$showFileInfo_hash|escape:"htmlall"}</p>
 <p>&nbsp;Presente in:<br />
 	{foreach from=$showFileInfo_canali item=temp_canale}&nbsp;&nbsp;<a href="{$temp_canale.uri|escape:"htmlall"}">{$temp_canale.titolo|escape:"htmlall"}</a><br />{/foreach}</p>

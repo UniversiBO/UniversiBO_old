@@ -177,7 +177,7 @@ class ShowFileInfo extends PluginCommand
         $template->assign('showFileInfo_hash', $file->getHashFile());
         $template->assign('showFileInfo_categoria', $file->getCategoriaDesc());
         $template->assign('showFileInfo_tipo', $file->getTipoDesc());
-        $template->assign('showFileInfo_icona', $fc->getAppSetting('filesTipoIconePath'). $file->getTipoIcona());
+        $template->assign('showFileInfo_icona', $file->getTipoIcona());
         $template->assign('showFileInfo_info', $file->getTipoInfo());
         $template->assign('showFileInfo_canali', $canali_tpl);
         $template->assign('showFileInfo_paroleChiave', $file->getParoleChiave());
