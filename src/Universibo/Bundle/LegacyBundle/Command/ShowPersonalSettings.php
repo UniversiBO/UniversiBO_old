@@ -31,7 +31,7 @@ class ShowPersonalSettings extends UniversiboCommand
 
         if (!$context->isGranted('IS_AUTHENTICATED_FULLY')) {
             Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
+                    array('id_utente' => 0,
                             'msg' => 'La modifica del profilo non puo` essere eseguita da utenti con livello ospite.'
                                     . "\n"
                                     . 'La sessione potrebbe essere scaduta, eseguire il login',
@@ -146,7 +146,7 @@ class ShowPersonalSettings extends UniversiboCommand
             $user->setEmail($q20_email);
             $user->setPhone($q20_cellulare);
             $user->setNotifications($f20_livello_notifica);
-            $this->get('doctrine.orm.entity_manager')->merge($user);
+            $user = $this->get('universibo_core.repository.user')->save($user);
 
             $dao = $this->getContainer()->get('universibo_forum.dao.user');
             $dao->update($user);
