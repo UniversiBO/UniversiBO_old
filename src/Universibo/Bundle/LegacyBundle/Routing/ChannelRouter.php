@@ -60,13 +60,12 @@ class ChannelRouter
      */
     private function getRoute(Canale $channel)
     {
-        foreach($this->routes as $class => $route)
-        {
-            if($channel instanceof $class) {
+        foreach ($this->routes as $class => $route) {
+            if ($channel instanceof $class) {
                 return $route;
             }
         }
-        
+
         return 'universibo_legacy_canale';
     }
 }
