@@ -1,6 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command\Files;
 
+use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
 
@@ -40,7 +41,8 @@ class ShowAllFilesStudentiTitoli extends PluginCommand
         $referente      = false;
         $moderatore     = false;
         $personalizza_not_admin = false;
-        $ultimo_accesso = $user->getLastLogin()->getTimestamp();
+        $ultimo_accesso = $user instanceof User ? $user->getLastLogin()->getTimestamp() : 0;
+        $groups = $user instanceof User ? $user->getLegacyGroups() : 1;
 
         $canale_files = count($elenco_file);
 
@@ -68,7 +70,7 @@ class ShowAllFilesStudentiTitoli extends PluginCommand
                 $this_moderatore = ($this->get('security.context')->isGranted('ROLE_ADMIN') || ($moderatore && $file->getIdUtente()==$user->getId()));
 
                 $permessi_lettura = $file->getPermessiVisualizza();
-                if ($user->isGroupAllowed($permessi_lettura)) {
+                if ($permessi_lettura & $groups) {
 
                     $file_tpl[$i]['titolo']       = $file->getTitolo();
                     //$file_tpl['notizia']      = $file->getNotizia();
@@ -90,7 +92,7 @@ class ShowAllFilesStudentiTitoli extends PluginCommand
                     $elenco_canali_tpl = array();
                     for ($j = 0; $j < $num_canali; $j++) {
                         $canale = Canale::retrieveCanale($canali[$j]);
-                        if ($canale->isGroupAllowed($user->getLegacyGroups())) {
+                        if ($canale->isGroupAllowed($groups)) {
                             $canale_tpl = array();
 //							$canale_tpl['titolo'] = $canale->getNome();
 //							$canale_tpl['link'] = $canale->showMe($router);

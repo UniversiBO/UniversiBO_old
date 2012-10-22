@@ -1,9 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use \Error;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
  * ShowAllFilesStudenti e\' un comando che permette di visualizzare tutti i
@@ -23,14 +21,11 @@ class ShowAllFilesStudenti extends UniversiboCommand
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
-        $user = $this->get('security.context')->getToken()->getUser();
-        $arrayFilesStudenti = array();
         $router = $this->get('router');
 
-        if (!array_key_exists('order', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['order'] ) || ($_GET['order'] > 2) ) {
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getId(), 'msg'=>'L\'ordine richiesto non e` valido','file'=>__FILE__,'line'=>__LINE__ ));
-        }
-        $order = $_GET['order'];
+        $request = $this->getRequest();
+        $order = $request->get('order', 0);
+
 
         $arrayFilesStudenti = $this->getAllFiles($order);
         $this->executePlugin('ShowAllFilesStudentiTitoli', array('files'=>$arrayFilesStudenti,'chk_diritti'=>false));
