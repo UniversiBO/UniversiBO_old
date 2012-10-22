@@ -34,8 +34,8 @@ class Item
     private $index;
 
     /**
-     * @param  int                                              $id
-     * @return \Universibo\Bundle\LegacyBundle\Entity\Help\Item
+     * @param  int  $id
+     * @return Item
      */
     public function setId($id)
     {
@@ -53,8 +53,8 @@ class Item
     }
 
     /**
-     * @param  string                                           $title
-     * @return \Universibo\Bundle\LegacyBundle\Entity\Help\Item
+     * @param  string $title
+     * @return Item
      */
     public function setTitle($title)
     {
@@ -90,8 +90,8 @@ class Item
     }
 
     /**
-     * @param  int                                              $lastEdit
-     * @return \Universibo\Bundle\LegacyBundle\Entity\Help\Item
+     * @param  int  $lastEdit
+     * @return Item
      */
     public function setLastEdit($lastEdit)
     {
@@ -109,8 +109,8 @@ class Item
     }
 
     /**
-     * @param  int                                              $index
-     * @return \Universibo\Bundle\LegacyBundle\Entity\Help\Item
+     * @param  int  $index
+     * @return Item
      */
     public function setIndex($index)
     {

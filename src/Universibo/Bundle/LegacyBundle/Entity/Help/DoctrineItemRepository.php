@@ -1,7 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Help;
-use Doctrine\DBAL\Connection;
 
+use Doctrine\DBAL\Connection;
+use PDO;
 use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
 
 class DoctrineItemRepository extends DoctrineRepository
@@ -47,7 +48,7 @@ class DoctrineItemRepository extends DoctrineRepository
     {
         $items = array();
 
-        while (false !== ($row = $stmt->fetch(\PDO::FETCH_ASSOC))) {
+        while (false !== ($row = $stmt->fetch(PDO::FETCH_ASSOC))) {
             $items[] = $this->rowToItem($row);
         }
 

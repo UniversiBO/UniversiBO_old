@@ -24,8 +24,8 @@ class Topic
     private $index;
 
     /**
-     * @param  string                                            $reference
-     * @return \Universibo\Bundle\LegacyBundle\Entity\Help\Topic
+     * @param  string $reference
+     * @return Topic
      */
     public function setReference($reference)
     {
@@ -43,8 +43,8 @@ class Topic
     }
 
     /**
-     * @param  string                                            $title
-     * @return \Universibo\Bundle\LegacyBundle\Entity\Help\Topic
+     * @param  string $title
+     * @return Topic
      */
     public function setTitle($title)
     {
@@ -62,8 +62,8 @@ class Topic
     }
 
     /**
-     * @param  int                                               $index
-     * @return \Universibo\Bundle\LegacyBundle\Entity\Help\Topic
+     * @param  int   $index
+     * @return Topic
      */
     public function setIndex($index)
     {

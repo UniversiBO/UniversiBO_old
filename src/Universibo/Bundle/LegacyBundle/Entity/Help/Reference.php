@@ -19,8 +19,8 @@ class Reference
     private $helpId;
 
     /**
-     * @param  string                                                $id
-     * @return \Universibo\Bundle\LegacyBundle\Entity\Help\Reference
+     * @param  string    $id
+     * @return Reference
      */
     public function setId($id)
     {
@@ -38,8 +38,8 @@ class Reference
     }
 
     /**
-     * @param  int                                                   $helpId
-     * @return \Universibo\Bundle\LegacyBundle\Entity\Help\Reference
+     * @param  int       $helpId
+     * @return Reference
      */
     public function setHelpId($helpId)
     {
