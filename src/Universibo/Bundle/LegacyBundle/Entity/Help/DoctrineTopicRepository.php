@@ -1,6 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Help;
 
+use PDO;
 use Universibo\Bundle\LegacyBundle\Entity\DoctrineRepository;
 
 class DoctrineTopicRepository extends DoctrineRepository
@@ -36,7 +37,7 @@ class DoctrineTopicRepository extends DoctrineRepository
     {
         $items = array();
 
-        while (false !== ($row = $stmt->fetch(\PDO::FETCH_ASSOC))) {
+        while (false !== ($row = $stmt->fetch(PDO::FETCH_ASSOC))) {
             $items[] = $this->rowToItem($row);
         }
 
@@ -45,7 +46,7 @@ class DoctrineTopicRepository extends DoctrineRepository
 
     private function fetchOne($stmt)
     {
-        if (false !== ($row = $stmt->fetch(\PDO::FETCH_ASSOC))) {
+        if (false !== ($row = $stmt->fetch(PDO::FETCH_ASSOC))) {
             return $this->rowToItem($row);
         }
 
