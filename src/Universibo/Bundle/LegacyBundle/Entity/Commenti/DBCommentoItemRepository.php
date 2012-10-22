@@ -4,6 +4,7 @@ namespace Universibo\Bundle\LegacyBundle\Entity\Commenti;
 use DB;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
+use Universibo\Bundle\LegacyBundle\Entity\MergeableRepositoryInterface;
 
 /**
  * DBCommentoItem repository
@@ -11,7 +12,7 @@ use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBCommentoItemRepository extends DBRepository
+class DBCommentoItemRepository extends DBRepository implements MergeableRepositoryInterface
 {
     public function countByUser(User $user)
     {
@@ -206,5 +207,9 @@ EOT;
         $res->fetchInto($ris);
 
         return $ris[0];
+    }
+
+    public function transferOwnership(User $source, User $target)
+    {
     }
 }

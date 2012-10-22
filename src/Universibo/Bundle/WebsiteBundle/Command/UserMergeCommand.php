@@ -61,13 +61,15 @@ class UserMergeCommand extends ContainerAwareCommand
         $merger = $this->get('universibo_website.merge.user');
 
         $output->setDecorated(true);
-        foreach ($users as $username) {
+
+        $output->writeln('<question>Please choose the target user</question>');
+        foreach ($users as $id => $username) {
             $user = $userRepo->findOneByUsername($username);
             if (!$user instanceof User) {
                 throw new InvalidArgumentException('Username not found');
             }
 
-            $output->writeln('<info>Resources owned by '.$username.':</info>');
+            $output->writeln('<info>'.($id+1).') '.$username.'</info>');
             $owned = $merger->getOwnedResources($user);
 
             foreach ($owned as $key => $resource) {
@@ -75,6 +77,15 @@ class UserMergeCommand extends ContainerAwareCommand
                 $output->writeln($resource['count']);
             }
         }
+
+        $dialog = $this->getHelperSet()->get('dialog');
+        $choosen = $dialog->ask(
+                $output,
+                'enter number: ',
+                null
+        );
+
+        $output->writeln('Your choice is: '.$choosen);
     }
 
     private function get($id)

@@ -7,6 +7,7 @@ use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
+use Universibo\Bundle\LegacyBundle\Entity\MergeableRepositoryInterface;
 
 /**
  * DBNewsItem repository
@@ -14,7 +15,7 @@ use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBNewsItemRepository extends DBRepository
+class DBNewsItemRepository extends DBRepository implements MergeableRepositoryInterface
 {
     /**
      * @var UserRepository
@@ -394,5 +395,9 @@ EOT;
 
         return $res;
 
+    }
+
+    public function transferOwnership(User $source, User $target)
+    {
     }
 }
