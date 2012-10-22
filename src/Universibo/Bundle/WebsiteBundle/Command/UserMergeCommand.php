@@ -1,8 +1,9 @@
 <?php
 namespace Universibo\Bundle\WebsiteBundle\Command;
 
+use LogicException;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -20,6 +21,12 @@ class UserMergeCommand extends ContainerAwareCommand
         $this
             ->setName('universibo:user:merge')
             ->setDescription('Merge multiple accounts in one')
+            ->addArgument(
+                'user',
+                InputArgument::IS_ARRAY | InputArgument::REQUIRED,
+                'List of users to merge'
+            )
+
         ;
     }
 
@@ -38,7 +45,7 @@ class UserMergeCommand extends ContainerAwareCommand
     /**
      * @param  InputInterface  $input
      * @param  OutputInterface $output
-     * @throws \LogicException
+     * @throws LogicException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
