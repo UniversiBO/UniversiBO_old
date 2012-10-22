@@ -1,11 +1,13 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use \Error;
 
+use Error;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Commenti\CommentoItem;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
-use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
  * FileStudentiCommentDelete: Cancella un commento di un File Studente
@@ -26,25 +28,22 @@ class FileStudentiCommentDelete extends UniversiboCommand
 
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
-        $router = $this->getRouter();
-
-        $krono = $frontcontroller->getKrono();
+        $router = $this->get('router');
 
         $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
-        if (!array_key_exists('id_commento', $_GET)
-                || !preg_match('/^([0-9]{1,9})$/', $_GET['id_commento'])) {
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'L\'id del commento non e` valido',
-                            'file' => __FILE__, 'line' => __LINE__));
+        $request = $this->getRequest();
+        $commentId = $request->attributes->get('id_commento');
+        $commentRepo = $this->get('universibo_legacy.repository.commenti.commento_item');
+        $comment = $commentRepo->find($commentId);
+
+        if (!$comment instanceof CommentoItem) {
+            throw new NotFoundHttpException('Comment not found');
         }
 
-        $id_commento = $_GET['id_commento'];
-        $commento = CommentoItem::selectCommentoItem($id_commento);
-        $id_utente = $commento->getIdUtente();
-        $id_file_studente = $commento->getIdFileStudente();
+        $id_utente = $comment->getIdUtente();
+        $id_file_studente = $comment->getIdFileStudente();
 
         $template
                 ->assign('common_canaleURI',
@@ -57,23 +56,23 @@ class FileStudentiCommentDelete extends UniversiboCommand
 
         $autore = ($id_utente == $user->getId());
 
-        if (array_key_exists('id_canale', $_GET)) {
-            if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
+        $channelId = $request->get('id_canale');
+        if ($channelId !== null) {
+            if (!preg_match('/^([0-9]{1,9})$/', $channelId))
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getId(),
                                 'msg' => 'L\'id del canale richiesto non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $canale = Canale::retrieveCanale($_GET['id_canale']);
-            $id_canale = $_GET['id_canale'];
+            $canale = Canale::retrieveCanale($channelId);
             if ($canale->getServizioFilesStudenti() == false)
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getId(),
                                 'msg' => "Il servizio files studenti e` disattivato",
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            if (array_key_exists($id_canale, $user_ruoli)) {
-                $ruolo = $user_ruoli[$id_canale];
+            if (array_key_exists($channelId, $user_ruoli)) {
+                $ruolo = $user_ruoli[$channelId];
 
                 $referente = $ruolo->isReferente();
                 $moderatore = $ruolo->isModeratore();
@@ -86,10 +85,10 @@ class FileStudentiCommentDelete extends UniversiboCommand
 
             //			var_dump($canali_file);
             //			die();
-            //			if (!in_array($id_canale, $canali_file))
+            //			if (!in_array($channelId, $canali_file))
             //				 Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getId(), 'msg' => 'I parametri passati non sono coerenti', 'file' => __FILE__, 'line' => __LINE__));
 
-            $elenco_canali = array($id_canale);
+            $elenco_canali = array($channelId);
 
             //controllo diritti sul canale
             if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $moderatore || $autore))
@@ -109,7 +108,7 @@ class FileStudentiCommentDelete extends UniversiboCommand
 
         $this
                 ->executePlugin('ShowFileStudentiCommento',
-                        array('id_commento' => $id_commento));
+                        array('id_commento' => $commentId));
 
         $f28_accept = false;
 
@@ -119,8 +118,8 @@ class FileStudentiCommentDelete extends UniversiboCommand
             //esecuzione operazioni accettazione del form
             if ($f28_accept == true) {
 
-                CommentoItem::deleteCommentoItem($id_commento);
-                $template->assign('common_canaleURI', $router->generate('universibo_legacy_file', array('id_file' => $id_file_studente, 'id_canale' => $id_canale)));
+                CommentoItem::deleteCommentoItem($commentId);
+                $template->assign('common_canaleURI', $router->generate('universibo_legacy_file', array('id_file' => $id_file_studente, 'id_canale' => $channelId)));
 
                 return 'success';
             }

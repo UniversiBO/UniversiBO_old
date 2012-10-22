@@ -3,7 +3,7 @@
 <h2>Cancella questo commento</h2>
 </div>
 {include file="avviso_notice.tpl"}
-{include file=Files/show_file_studenti_commento.tpl}
+{include file="Files/show_file_studenti_commento.tpl"}
 <form method="post" enctype="multipart/form-data">
 	<p><input class="submit" type="submit" id="" name="f28_submit" size="20" value="Invia" /></p>
 </form>
