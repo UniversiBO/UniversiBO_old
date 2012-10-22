@@ -2,6 +2,10 @@
 
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
+use DB;
+use DB_common;
+use Exception;
+
 /**
  * Canale repository
  *
@@ -34,17 +38,18 @@ class DBCanale2Repository extends DBRepository
     /**
      * Class constructor
      *
-     * @param \DB_common               $db
+     * @param DB_common                $db
      * @param DBCanaleRepository       $channelRepository
      * @param DBCdlRepository          $cdlRepository
      * @param DBFacoltaRepository      $facultyRepository
      * @param DBInsegnamentoRepository $subjectRepository
      * @param boolean                  $convert
      */
-    public function __construct(\DB_common $db,
+    public function __construct(DB_common $db,
             DBCanaleRepository $channelRepository,
             DBCdlRepository $cdlRepository,
-            DBFacoltaRepository $facultyRepository, DBInsegnamentoRepository $subjectRepository, $convert = False)
+            DBFacoltaRepository $facultyRepository,
+            DBInsegnamentoRepository $subjectRepository, $convert = False)
     {
         parent::__construct($db, $convert);
 
@@ -69,8 +74,8 @@ class DBCanale2Repository extends DBRepository
     }
 
     /**
-     * @param  int        $id
-     * @throws \Exception
+     * @param  int       $id
+     * @throws Exception
      * @return Canale
      */
     public function find($id)
@@ -80,8 +85,8 @@ class DBCanale2Repository extends DBRepository
         $sql = 'SELECT tipo_canale FROM canale WHERE id_canale = ' . $db->quote($id);
 
         $res = $db->query($sql);
-        if (\DB::isError($res)) {
-            throw new \Exception($res->getMessage());
+        if (DB::isError($res)) {
+            throw new Exception($res->getMessage());
         }
 
         $row = $this->fetchRow($res);
