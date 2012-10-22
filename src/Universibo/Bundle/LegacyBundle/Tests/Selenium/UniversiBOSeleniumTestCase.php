@@ -29,8 +29,9 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
         $this->type('id=password', $password);
         $this->clickAndWait('id=_submit');
 
-        if ($this->isTextPresent('Informativa sulla privacy')) {
-            $this->clickAndWait('name=action');
+        if ($this->isTextPresent('Ho letto e accetto')) {
+            $this->click('id=accept_check');
+            $this->clickAndWait('id=accept_submit');
         }
 
         $this->assertTrue($this->isTextPresent('Benvenuto '.$username), 'Welcome text must be present');
