@@ -45,30 +45,22 @@ class UserMerger implements UserMergerInterface
     {
         $this->retrievers['file'] = array(
             'description' => 'Uploaded files',
-            'count' => function(User $user) use ($fileItemRepository) {
-                return $fileItemRepository->countByUser($user);
-            }
+            'repository' => $fileItemRepository
         );
 
         $this->retrievers['comment'] = array(
             'description' => 'File comments',
-            'count' => function(User $user) use ($commentoRepository) {
-                return $commentoRepository->countByUser($user);
-            }
+            'repository' => $commentoRepository
         );
 
         $this->retrievers['news'] = array(
             'description' => 'Sent news',
-            'count' => function(User $user) use ($newsRepository) {
-                return $newsRepository->countByUser($user);
-            }
+            'repository' => $newsRepository
         );
 
         $this->retrievers['link'] = array(
             'description' => 'Added links',
-            'count' => function(User $user) use ($linkRepository) {
-                return $linkRepository->countByUser($user);
-            }
+            'repository' => $linkRepository
         );
     }
 
@@ -78,7 +70,7 @@ class UserMerger implements UserMergerInterface
 
         foreach ($this->retrievers as $key => $retriever) {
             $owned[$key] = array (
-                'count' =>  $retriever['count']($user),
+                'count' =>  $retriever->countByUser($user),
                 'description' => $retriever['description']
             );
         }
