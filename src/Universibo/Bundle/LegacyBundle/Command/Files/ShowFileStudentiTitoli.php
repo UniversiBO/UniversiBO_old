@@ -90,6 +90,7 @@ class ShowFileStudentiTitoli extends PluginCommand
 */
 
         $elenco_id_file = $this->getFileCanale($id_canale);
+        //var_dump($elenco_id_file); die;
 
         //var_dump($elenco_id_file); die();
         $elenco_file = FileItemStudenti::selectFileItems($elenco_id_file);

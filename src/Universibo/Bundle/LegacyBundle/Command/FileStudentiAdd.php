@@ -27,6 +27,11 @@ class FileStudentiAdd extends UniversiboCommand
 
     public function execute()
     {
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            Error::throwError(_ERROR_DEFAULT, array('id_utente' => 0,
+                    'msg' => "Per questa operazione bisogna essere registrati\n la sessione potrebbe essere terminata",
+                    'file' => __FILE__, 'line' => __LINE__));
+        }
 
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
@@ -39,13 +44,7 @@ class FileStudentiAdd extends UniversiboCommand
                         ->get('universibo_legacy.repository.ruolo')
                         ->findByIdUtente($user->getId()) : array();
 
-        if (!$this->get('security.context')
-                ->isGranted('IS_AUTHENTICATED_FULLY')) {
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => "Per questa operazione bisogna essere registrati\n la sessione potrebbe essere terminata",
-                            'file' => __FILE__, 'line' => __LINE__));
-        }
+
         /*		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
                     Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non ? valido', 'file' => __FILE__, 'line' => __LINE__));
                 }
@@ -126,7 +125,6 @@ class FileStudentiAdd extends UniversiboCommand
         //			$f23_canale[] = array ('id_canale'=> $id_current_canale, 'nome_canale'=> $nome_current_canale, 'spunta'=> $spunta);
         //		}
         //
-        if (array_key_exists('id_canale', $_GET)) {
             $diritti = $this->get('security.context')
                     ->isGranted('IS_AUTHENTICATED_FULLY')
                     && $canale->isGroupAllowed($user->getLegacyGroups());
@@ -135,7 +133,6 @@ class FileStudentiAdd extends UniversiboCommand
                         array('id_utente' => $user->getId(),
                                 'msg' => "Non hai i diritti per inserire un file\n La sessione potrebbe essere scaduta",
                                 'file' => __FILE__, 'line' => __LINE__));
-        }
 
         $f23_accept = false;
 
@@ -469,6 +466,8 @@ class FileStudentiAdd extends UniversiboCommand
                  ma...*/
 
                 $newFile->insertFileItem();
+                $fileRepository = $this->get('universibo_legacy.repository.files.file_item_studenti');
+                $fileRepository->addToChannel($newFile, $id_canale);
 
                 $newFile->setParoleChiave($f23_parole_chiave);
 
