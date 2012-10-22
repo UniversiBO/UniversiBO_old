@@ -63,6 +63,12 @@
                     <argument type="service" id="universibo_core.repository.user"/>
                     <argument type="service" id="universibo_legacy.repository.files.file_item"/>
                     <argument type="service" id="universibo_legacy.repository.commenti.commento_item"/>
+                    <argument type="service" id="universibo_legacy.repository.news.news_item"/>
+                    <argument type="service" id="universibo_legacy.repository.links.link"/>
+                    <argument type="service" id="universibo_legacy.repository.ruolo"/>
+                    <argument type="service" id="universibo_legacy.repository.docente"/>
+                    <argument type="service" id="universibo_forum.dao.post"/>
+                    <argument type="service" id="universibo_forum.dao.user"/>
                 </service>
 	</services>
 </container>
