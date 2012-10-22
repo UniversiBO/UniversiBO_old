@@ -1,12 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
+use Error;
 use Symfony\Component\Routing\RouterInterface;
-
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
-
-use \DB;
-use \Error;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
