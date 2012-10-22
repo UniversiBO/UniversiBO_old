@@ -81,9 +81,13 @@ class UserMergeCommand extends ContainerAwareCommand
         $dialog = $this->getHelperSet()->get('dialog');
         $choosen = $dialog->ask(
                 $output,
-                'enter number: ',
+                'Please enter number: ',
                 null
         );
+
+        if (!preg_match('/^[0-9]+$/', $choosen) || !array_key_exists($choosen - 1, $users)) {
+            throw new \InvalidArgumentException('Invalid number provided');
+        }
 
         $output->writeln('Your choice is: '.$choosen);
     }
