@@ -2,11 +2,12 @@
 
 namespace Universibo\Bundle\LegacyBundle\App;
 
-use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
+use Error;
+use Exception;
 use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
-use \Error;
 
 /**
  * CanaleCommand ? la superclasse astratta di tutti i command che utilizzando un oggetto Canale
@@ -83,7 +84,7 @@ abstract class CanaleCommand extends UniversiboCommand
         $groups = $user instanceof User ? $user->getLegacyGroups() : 1;
 
         if (!$canale->isGroupAllowed($groups)) {
-            throw new \Exception('Not allowed id_canale = ' . $canale->getIdCanale() . ', groups = ' . $groups);
+            throw new Exception('Not allowed id_canale = ' . $canale->getIdCanale() . ', groups = ' . $groups);
         }
 
         $canale->addVisite();
