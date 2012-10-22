@@ -26,9 +26,7 @@ class FileStudentiComment extends UniversiboCommand
         $template = $frontcontroller->getTemplateEngine();
         $router = $this->get('router');
 
-        $krono = $frontcontroller->getKrono();
         $user = $this->get('security.context')->getToken()->getUser();
-        $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             Error::throwError(_ERROR_DEFAULT,
@@ -36,24 +34,18 @@ class FileStudentiComment extends UniversiboCommand
                             'msg' => "Per questa operazione bisogna essere registrati\n la sessione potrebbe essere terminata",
                             'file' => __FILE__, 'line' => __LINE__));
         }
-        if (!array_key_exists('id_file', $_GET)
-                || !preg_match('/^([0-9]{1,9})$/', $_GET['id_file'])) {
-            Error::throwError(_ERROR_DEFAULT,
-                    array('msg' => 'L\'id del file richiesto non e` valido',
-                            'file' => __FILE__, 'line' => __LINE__));
+
+        $fileId = $this->getRequest()->attributes->get('id_file');
+        $fileRepo = $this->get('universibo_legacy.repository.files.file_item_studenti');
+        $file = $fileRepo->find($fileId);
+
+        if (!$file instanceof FileItemStudenti) {
+            throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('File not found');
         }
-        $file = FileItemStudenti::selectFileItem($_GET['id_file']);
-        if ($file === false)
-            Error::throwError(_ERROR_DEFAULT,
-                    array(
-                            'msg' => "Il file richiesto non e` presente su database",
-                            'file' => __FILE__, 'line' => __LINE__));
 
         //Controllo che non esista già un commento da parte di questo utente
         $template->assign('esiste_CommentoItem', 'false');
-        $id_file = $_GET['id_file'];
-        $id_commento = CommentoItem::esisteCommento($id_file,
-                $user->getId());
+        $id_commento = CommentoItem::esisteCommento($fileId, $user->getId());
         if ($id_commento != NULL) {
             $canali = $file->getIdCanali();
 
@@ -70,7 +62,7 @@ class FileStudentiComment extends UniversiboCommand
                         array_key_exists('HTTP_REFERER', $_SERVER) ? $_SERVER['HTTP_REFERER']
                                 : '');
         $template->assign('common_langCanaleNome', 'indietro');
-        $id_file = $_GET['id_file'];
+        $id_file = $fileId;
 
         // valori default form
         $f26_commento = '';
@@ -120,63 +112,6 @@ class FileStudentiComment extends UniversiboCommand
 
                 CommentoItem::insertCommentoItem($id_file, $user->getId(),
                         $f26_commento, $f26_voto);
-                //
-                //				if (array_key_exists('f26_canale', $_POST))
-                //					foreach ($_POST['f26_canale'] as $key => $value)
-                //					{
-                //						$newFile->addCanale($key);
-                //						$canale = $elenco_canali_retrieve[$key];
-                //						$canale->setUltimaModifica(time(), true);
-                //
-                //
-                //						//notifiche
-                //						require_once('Notifica/NotificaItem'.PHP_EXTENSION);
-                //						$notifica_titolo = 'Nuovo file inserito in '.$canale->getNome();
-                //						$notifica_titolo = substr($notifica_titolo,0 , 199);
-                //						$notifica_dataIns = $f26_data_inserimento;
-                //						$notifica_urgente = false;
-                //						$notifica_eliminata = false;
-                //						$notifica_messaggio =
-                //'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                //Titolo File: '.$f26_titolo.'
-                //
-                //Descrizione: '.$f26_commento.'
-                //
-                //Dimensione: '.$dimensione_file.' kB
-                //
-                //Autore: '.$user->getUsername().'
-                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                //Informazioni per la cancellazione:
-                //
-                //Per rimuoverti, vai all\'indirizzo:
-                //'.$frontcontroller->getAppSetting('rootUrl').'
-                //e modifica il tuo profilo personale nella dopo aver eseguito il login
-                //Per altri problemi contattare lo staff di UniversiBO
-                //'.$frontcontroller->getAppSetting('infoEmail');
-                //
-                //						$ruoli_canale = $canale->getRuoli();
-                //						foreach ($ruoli_canale as $ruolo_canale)
-                //						{
-                //									//define('NOTIFICA_NONE'   ,0);
-                //									//define('NOTIFICA_URGENT' ,1);
-                //									//define('NOTIFICA_ALL'    ,2);
-                //							if ($ruolo_canale->isMyUniversiBO() && ($ruolo_canale->getTipoNotifica()==NOTIFICA_URGENT || $ruolo_canale->getTipoNotifica()==NOTIFICA_ALL) )
-                //							{
-                //								$notifica_user = $ruolo_canale->getUser();
-                //								$notifica_destinatario = 'mail://'.$notifica_user->getEmail();
-                //
-                //								$notifica = new NotificaItem(0, $notifica_titolo, $notifica_messaggio, $notifica_dataIns, $notifica_urgente, $notifica_eliminata, $notifica_destinatario );
-                //								$notifica->insertNotificaItem();
-                //							}
-                //						}
-                //
-                //						//ultima notifica all'archivio
-                //						$notifica_destinatario = 'mail://'.$frontcontroller->getAppSetting('rootEmail');;
-                //
-                //						$notifica = new NotificaItem(0, $notifica_titolo, $notifica_messaggio, $notifica_dataIns, $notifica_urgente, $notifica_eliminata, $notifica_destinatario );
-                //						$notifica->insertNotificaItem();
-                //
-                //					}
 
                 $canali = $file->getIdCanali();
                 $template
