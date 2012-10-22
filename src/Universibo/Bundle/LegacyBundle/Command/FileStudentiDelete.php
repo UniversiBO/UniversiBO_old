@@ -2,10 +2,11 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Error;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
-use Universibo\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
+use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 
 /**
  * FileStudentiDelete: elimina un file studente, mostra il form e gestisce la cancellazione
@@ -26,6 +27,7 @@ class FileStudentiDelete extends UniversiboCommand
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
+        $router = $this->get('router');
 
         $user = $this->get('security.context')->getToken()->getUser();
 
@@ -33,26 +35,17 @@ class FileStudentiDelete extends UniversiboCommand
         $moderatore = false;
 
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
+        $file = $this->get('universibo_legacy.repository.files.file_item_studenti')->find($this->getRequest()->attributes->get('id_file'));
 
-        if (!array_key_exists('id_file', $_GET)
-                || !preg_match('/^([0-9]{1,9})$/', $_GET['id_file'])) {
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'L\'id del file richiesto non e` valido',
-                            'file' => __FILE__, 'line' => __LINE__));
+        if (!$file instanceof FileItem) {
+            throw new NotFoundHttpException('File not found');
         }
 
-        $file = FileItemStudenti::selectFileItem($_GET['id_file']);
         $file_canali = $file->getIdCanali();
 
         $canale = Canale::retrieveCanale($file_canali[0]);
         $template->assign('common_canaleURI', $canale->showMe($router));
         $template->assign('common_langCanaleNome', 'a ' . $canale->getTitolo());
-        if ($file === false)
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => "Il file richiesto non e` presente su database",
-                            'file' => __FILE__, 'line' => __LINE__));
 
         $autore = ($user->getId() == $file->getIdUtente());
 

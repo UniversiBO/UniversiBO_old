@@ -34,7 +34,7 @@ class FileStudentiEdit extends UniversiboCommand
         $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
-        $file = $this->get('universibo_legacy.repository.files.file_item')->find($this->getRequest()->attributes->get('id_file'));
+        $file = $this->get('universibo_legacy.repository.files.file_item_studenti')->find($this->getRequest()->attributes->get('id_file'));
 
         if (!$file instanceof FileItem) {
             throw new NotFoundHttpException('File not found');
