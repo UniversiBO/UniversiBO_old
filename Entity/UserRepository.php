@@ -102,4 +102,13 @@ EOT;
 
         return $query->getSingleResult();
     }
+    
+    public function save(User $user)
+    {
+        $em = $this->getEntityManager();
+        $user = $em->merge($user);
+        $em->flush($user);
+        
+        return $user;
+    }
 }
