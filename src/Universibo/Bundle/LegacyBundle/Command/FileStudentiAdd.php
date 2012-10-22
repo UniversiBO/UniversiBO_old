@@ -89,7 +89,6 @@ class FileStudentiAdd extends UniversiboCommand
                             'msg' => 'Il servizio files e` disattivato',
                             'file' => __FILE__, 'line' => __LINE__));
 
-        $id_canale = $canale->getIdCanale();
         $template->assign('common_canaleURI', $canale->showMe($router));
         $template
                 ->assign('common_langCanaleNome',

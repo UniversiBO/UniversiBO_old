@@ -2,6 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Error;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\User;
 use Universibo\Bundle\LegacyBundle\App\AntiVirus\AntiVirusFactory;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
@@ -30,22 +31,23 @@ class FileAdd extends UniversiboCommand
         $template = $frontcontroller->getTemplateEngine();
 
         $krono = $frontcontroller->getKrono();
-        $user = $this->get('security.context')->getToken()->getUser();
+        $context = $this->get('security.context');
+        $user = $context->getToken()->getUser();
         $ruoloRepo = $this->get('universibo_legacy.repository.ruolo');
         $user_ruoli = $user instanceof User ? $ruoloRepo->findByIdUtente($user->getId()) : array();
 
-        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if (!$context->isGranted('IS_AUTHENTICATED_FULLY')) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getId(),
                             'msg' => "Per questa operazione bisogna essere registrati\n la sessione potrebbe essere terminata",
                             'file' => __FILE__, 'line' => __LINE__));
         }
-        /*		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
+        /*		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $channelId)) {
         Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getId(), 'msg' => 'L\'id del canale richiesto non ? valido', 'file' => __FILE__, 'line' => __LINE__));
         }
 
-        $canale = Canale::retrieveCanale($_GET['id_canale']);
-        $id_canale = $canale->getIdCanale();
+        $canale = Canale::retrieveCanale($channelId);
+        $channelId = $canale->getIdCanale();
         $template->assign('common_canaleURI', $canale->showMe($router));
         $template->assign('common_langCanaleNome', $canale->getTitolo());
          */
@@ -72,14 +74,21 @@ class FileAdd extends UniversiboCommand
 
         $elenco_canali = array();
 
-        if (array_key_exists('id_canale', $_GET)) {
-            if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
+        $channelId = $this->getRequest()->get('id_canale');
+
+        if ($channelId !== null) {
+            if (!preg_match('/^([0-9]{1,9})$/', $channelId))
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getId(),
                                 'msg' => 'L\'id del canale richiesto non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $canale = Canale::retrieveCanale($_GET['id_canale']);
+            $channelRepo = $this->get('universibo_legacy.repository.canale2');
+            $canale = $channelRepo->find($channelId);
+
+            if (!$canale instanceof Canale) {
+                throw new NotFoundHttpException('Channel not found');
+            }
 
             if ($canale->getServizioFiles() == false)
                 Error::throwError(_ERROR_DEFAULT,
@@ -87,20 +96,20 @@ class FileAdd extends UniversiboCommand
                                 'msg' => "Il servizio files e` disattivato",
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $id_canale = $canale->getIdCanale();
+            $channelId = $canale->getIdCanale();
             $template->assign('common_canaleURI', $canale->showMe($router));
             $template
                     ->assign('common_langCanaleNome', 'a '
                             . $canale->getTitolo());
-            if (array_key_exists($id_canale, $user_ruoli)) {
-                $ruolo = $user_ruoli[$id_canale];
+            if (array_key_exists($channelId, $user_ruoli)) {
+                $ruolo = $user_ruoli[$channelId];
 
                 $referente = $ruolo->isReferente();
                 $moderatore = $ruolo->isModeratore();
             }
 
-            $elenco_canali = array($id_canale);
-            $f12_canale = $ruoloRepo->getRuoliInfoGroupedByYear($user, $id_canale);
+            $elenco_canali = array($channelId);
+            $f12_canale = $ruoloRepo->getRuoliInfoGroupedByYear($user, $channelId);
         } else
             $f12_canale = $ruoloRepo->getRuoliInfoGroupedByYear($user);
 
@@ -335,7 +344,7 @@ class FileAdd extends UniversiboCommand
                                 'log' => false,
                                 'template_engine' => &$template));
                 $f12_accept = false;
-            } elseif ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            } elseif ($context->isGranted('ROLE_ADMIN')) {
                 if ($_POST['f12_permessi_download'] < 0
                         || $_POST['f12_permessi_download'] > LegacyRoles::ALL) {
                     Error::throwError(_ERROR_NOTICE,
@@ -388,7 +397,7 @@ class FileAdd extends UniversiboCommand
             //controllo i diritti_su_tutti_i_canali su cui si vuole fare l'inserimento
             if (array_key_exists('f12_canale', $_POST))
                 foreach ($_POST['f12_canale'] as $key => $value) {
-                    $diritti = $this->get('security.context')->isGranted('ROLE_ADMIN')
+                    $diritti = $context->isGranted('ROLE_ADMIN')
                             || (array_key_exists($key, $user_ruoli)
                                     && ($user_ruoli[$key]->isReferente()
                                             || $user_ruoli[$key]
