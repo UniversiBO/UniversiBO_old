@@ -70,7 +70,7 @@ class UserMerger implements UserMergerInterface
 
         foreach ($this->retrievers as $key => $retriever) {
             $owned[$key] = array (
-                'count' =>  $retriever->countByUser($user),
+                'count' =>  $retriever['repository']->countByUser($user),
                 'description' => $retriever['description']
             );
         }
