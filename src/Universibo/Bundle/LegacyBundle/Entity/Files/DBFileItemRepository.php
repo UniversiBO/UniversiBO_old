@@ -62,7 +62,7 @@ class DBFileItemRepository extends DBRepository implements MergeableRepositoryIn
 
         return $res;
     }
-    
+
     public function findLatestByChannels(array $channelIds, $limit)
     {
         if (count($channelIds) === 0) {
@@ -658,7 +658,7 @@ EOT;
 
         return false;
     }
-    
+
     public function transferOwnership(User $source, User $target)
     {
         throw new RuntimeException('Not implemented');
