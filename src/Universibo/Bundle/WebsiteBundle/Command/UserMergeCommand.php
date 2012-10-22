@@ -22,9 +22,9 @@ class UserMergeCommand extends ContainerAwareCommand
             ->setName('universibo:user:merge')
             ->setDescription('Merge multiple accounts in one')
             ->addArgument(
-                'user',
+                'username',
                 InputArgument::IS_ARRAY | InputArgument::REQUIRED,
-                'List of users to merge'
+                'Username to merge'
             )
 
         ;
@@ -49,6 +49,11 @@ class UserMergeCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $users = $input->getArgument('username');
+
+        if (count($users) <= 1) {
+            throw new LogicException('Please provide at least 2 usernames');
+        }
     }
 
     private function get($id)
