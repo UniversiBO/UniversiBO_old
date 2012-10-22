@@ -1,12 +1,10 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use Zend\Validator\EmailAddress;
-
-use \Error;
-
+use Error;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Ruolo;
+use Zend\Validator\EmailAddress;
 /**
  * ShowPersonalSettings is an extension of UniversiboCommand class.
  *

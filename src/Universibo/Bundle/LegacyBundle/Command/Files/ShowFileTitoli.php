@@ -1,7 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command\Files;
-use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 
+use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
 
 /**

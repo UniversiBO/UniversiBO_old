@@ -1,10 +1,10 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use Universibo\Bundle\CoreBundle\Entity\User;
 
-use \Error;
-use Universibo\Bundle\LegacyBundle\Entity\Canale;
+use Error;
+use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
 /**
  * LinksAdminSearch: permette la ricerca di links all'interno di un canale

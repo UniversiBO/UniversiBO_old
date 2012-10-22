@@ -1,9 +1,9 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 
-use \Error;
+use Error;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
+use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 
 /**
  * ShowAllFilesStudenti e\' un comando che permette di visualizzare tutti i

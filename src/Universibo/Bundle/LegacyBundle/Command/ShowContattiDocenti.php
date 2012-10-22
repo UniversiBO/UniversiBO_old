@@ -1,10 +1,11 @@
 <?php
 
 namespace Universibo\Bundle\LegacyBundle\Command;
-use \Error;
+
+use Error;
+use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\ContattoDocente;
 use Universibo\Bundle\LegacyBundle\Entity\Docente;
-use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
  * ShowContacts is an extension of UniversiboCommand class.

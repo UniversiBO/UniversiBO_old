@@ -1,12 +1,12 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
-
-use Universibo\Bundle\LegacyBundle\Entity\Questionario;
-
-use \Error;
+use Error;
+use Swift_Message;
+use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
+use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
+use Universibo\Bundle\LegacyBundle\Entity\Questionario;
 
 /**
  * ShowContributes is an extension of UniversiboCommand class.
@@ -343,7 +343,7 @@ class ShowContribute extends UniversiboCommand
             //invio mail notifica
             $session_user = $this->get('security.context')->getToken()->getUser();
 
-            $message = \Swift_Message::newInstance();
+            $message = Swift_Message::newInstance();
 
             $riceventi = $frontcontroller->getAppSetting('questionariReceiver');
             $array_riceventi = explode(';', $riceventi);

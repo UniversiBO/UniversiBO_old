@@ -1,9 +1,11 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use \Error;
+
+use Error;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Commenti\CommentoItem;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
-use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
  * FileStudentiComment: si occupa dell'inserimento di un nuovo commento per il File Studente
@@ -40,7 +42,7 @@ class FileStudentiComment extends UniversiboCommand
         $file = $fileRepo->find($fileId);
 
         if (!$file instanceof FileItemStudenti) {
-            throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('File not found');
+            throw new NotFoundHttpException('File not found');
         }
 
         //Controllo che non esista già un commento da parte di questo utente

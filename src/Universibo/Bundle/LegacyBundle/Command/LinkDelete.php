@@ -1,11 +1,11 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use \Error;
-use Universibo\Bundle\LegacyBundle\Entity\Canale;
+use Error;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
-use Universibo\Bundle\LegacyBundle\Entity\Links\Link;
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
 /**
  * LinkDelete: elimina un link, mostra il form e gestisce la cancellazione

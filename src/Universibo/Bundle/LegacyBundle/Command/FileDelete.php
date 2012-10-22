@@ -1,9 +1,11 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use \Error;
-use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
+
+use Error;
+use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
+use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 /**
  * NewsDelete: elimina una notizia, mostra il form e gestisce la cancellazione
  *

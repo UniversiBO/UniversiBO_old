@@ -1,9 +1,9 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use \Error;
 
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
+use Error;
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
+use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
  * ShowHome: mostra la homepage

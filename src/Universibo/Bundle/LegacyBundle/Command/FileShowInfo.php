@@ -2,7 +2,6 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**

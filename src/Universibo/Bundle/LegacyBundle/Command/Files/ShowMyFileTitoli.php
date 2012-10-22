@@ -2,7 +2,6 @@
 namespace Universibo\Bundle\LegacyBundle\Command\Files;
 
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
-
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
 
 /**

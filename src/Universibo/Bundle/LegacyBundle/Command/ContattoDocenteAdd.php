@@ -1,10 +1,11 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use \Error;
-use \Canale;
-use \ContattoDocente;
-use \Docente;
+
+use Error;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
+use Universibo\Bundle\LegacyBundle\Entity\ContattoDocente;
+use Universibo\Bundle\LegacyBundle\Entity\Docente;
 
 /**
  * ContattoDocenteAdd is an extension of UniversiboCommand class.

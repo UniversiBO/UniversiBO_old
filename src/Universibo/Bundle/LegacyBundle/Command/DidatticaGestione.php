@@ -1,18 +1,16 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use ZendTest\Navigation\TestAsset\Router;
 
-use \Error;
-
+use Error;
+use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
-
+use Universibo\Bundle\LegacyBundle\Command\DidatticaGestione;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Cdl;
 use Universibo\Bundle\LegacyBundle\Entity\Docente;
 use Universibo\Bundle\LegacyBundle\Entity\Facolta;
 use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
-use Universibo\Bundle\CoreBundle\Entity\User;
-
+use Universibo\Bundle\LegacyBundle\Entity\Ruolo;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\Framework\LogHandler;
 

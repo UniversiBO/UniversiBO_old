@@ -1,17 +1,12 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use Universibo\Bundle\CoreBundle\Entity\User;
-
+use Error;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
-use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
-
-use \Error;
-
-use Universibo\Bundle\LegacyBundle\Entity\Facolta;
-
+use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
+use Universibo\Bundle\LegacyBundle\Entity\Facolta;
+use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 /**
  * ShowCdl: mostra un corso di laurea

@@ -1,14 +1,14 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use \Error;
+use DateTime;
+use Error;
+use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\ContattoDocente;
 use Universibo\Bundle\LegacyBundle\Entity\Docente;
-use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
-use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 /**
  * ShowContacts is an extension of UniversiboCommand class.
  *
@@ -89,7 +89,7 @@ class ShowContattoDocente extends UniversiboCommand
                         . $rub_docente['cognome'] : $docente->getNomedoc();
         $info_docente['sesso'] = ($rub_docente['sesso'] == 1) ? 'm' : 'f';
         $date = $utente_docente->getLastLogin();
-        $date = $date instanceof \DateTime ? $date->getTimestamp() : 0;
+        $date = $date instanceof DateTime ? $date->getTimestamp() : 0;
         $info_docente['ultimo login al sito'] = ($date == 0) ? 'mai loggato'
                 : round((time() - $date) / 86400) . ' gg fa circa';
         $info_docente['email universibo'] = $utente_docente->getEmail();

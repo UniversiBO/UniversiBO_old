@@ -2,9 +2,8 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
-use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
+use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
 
 /**
  * @author Davide Bellettini <davide.bellettini@gmail.com>

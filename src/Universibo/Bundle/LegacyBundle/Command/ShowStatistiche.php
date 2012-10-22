@@ -1,7 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use \DB;
-use \Error;
+
+use Error;
+use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 class ShowStatistiche extends UniversiboCommand

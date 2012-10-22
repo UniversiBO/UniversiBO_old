@@ -1,13 +1,11 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use Universibo\Bundle\CoreBundle\Entity\User;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
-use Universibo\Bundle\LegacyBundle\Entity\Canale;
-
-use Universibo\Bundle\LegacyBundle\Entity\Cdl;
+use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
+use Universibo\Bundle\LegacyBundle\Entity\Cdl;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 /**

@@ -1,6 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use \Error;
+
+use Error;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Collaboratore;
 

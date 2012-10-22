@@ -1,13 +1,12 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
+use Error;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
-use \Error;
+use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Docente;
-use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
-use Universibo\Bundle\CoreBundle\Entity\User;
 
 /**
  *Questa classe consente la visualizzazione e la possibile modifica

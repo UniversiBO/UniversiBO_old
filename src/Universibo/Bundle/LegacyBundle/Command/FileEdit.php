@@ -1,15 +1,13 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 
+use Error;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
-use \Error;
-use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
-use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
-use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
+use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
+use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 
 /**
  * FileAdd: si occupa dell'inserimento di un file in un canale

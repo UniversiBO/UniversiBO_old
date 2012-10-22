@@ -1,5 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
+
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**

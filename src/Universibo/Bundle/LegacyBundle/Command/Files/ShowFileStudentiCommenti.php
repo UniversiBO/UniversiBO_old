@@ -1,8 +1,9 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command\Files;
 
-use Universibo\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
+use Symfony\Component\Security\Core\User\User;
 use Universibo\Bundle\LegacyBundle\Entity\Commenti\CommentoItem;
+use Universibo\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
 
 /**
@@ -26,7 +27,7 @@ class ShowFileStudentiCommenti extends PluginCommand
     /**
      * Esegue il plugin
      *
-     * @param l'id del file di cui si voglio i commenti
+     * @param array l'id del file di cui si voglio i commenti
      */
     public function execute($param = array())
     {
