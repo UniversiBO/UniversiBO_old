@@ -31,6 +31,7 @@ class FileStudentiAdd extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $router = $this->get('router');
+        $channelRouter = $this->get('universibo_legacy.routing.channel');
 
         $krono = $frontcontroller->getKrono();
         $user = $this->get('security.context')->getToken()->getUser();
@@ -77,7 +78,7 @@ class FileStudentiAdd extends UniversiboCommand
         //		$f23_password = null;
 
         $id_canale = $this->getRequest()->attributes->get('id_canale');
-        $canale = $this->get('universibo_legacy.repository.canale')->find($id_canale);
+        $canale = $this->get('universibo_legacy.repository.canale2')->find($id_canale);
 
         if (!$canale instanceof Canale) {
             throw new NotFoundHttpException('Channel not found');
@@ -89,7 +90,7 @@ class FileStudentiAdd extends UniversiboCommand
                             'msg' => 'Il servizio files e` disattivato',
                             'file' => __FILE__, 'line' => __LINE__));
 
-        $template->assign('common_canaleURI', $canale->showMe($router));
+        $template->assign('common_canaleURI', $channelRouter->generate($canale));
         $template
                 ->assign('common_langCanaleNome',
                         'a ' . $canale->getTitolo());
