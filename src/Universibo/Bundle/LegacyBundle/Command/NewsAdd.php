@@ -1,12 +1,10 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
+use Error;
 use Universibo\Bundle\CoreBundle\Entity\User;
-
-use \Error;
-
-use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
 use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
 /**
@@ -17,6 +15,7 @@ use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
  * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @author GNU/Mel <gnu.mel@gmail.com>
+ * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
@@ -471,6 +470,9 @@ Per altri problemi contattare lo staff di UniversiBO
                         //in seguito ad una segnalazione di errore da parte di un tutor
                         //alla riga (ex)335 (ora)339
                         $notifica_user = $userRepo->find($ruolo_canale->getId());
+                        if (!$user instanceof User) {
+                            continue;
+                        }
                         //define('NOTIFICA_NONE'   ,0);
                         //define('NOTIFICA_URGENT' ,1);
                         //define('NOTIFICA_ALL'    ,2);
