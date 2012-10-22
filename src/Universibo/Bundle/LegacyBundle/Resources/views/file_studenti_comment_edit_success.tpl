@@ -2,7 +2,7 @@
 
 <div class="titoloPagina">
 <h2>Modifica il commento al file</h2>
-<p>Il commento � stato modificato correttamente</p>
+<p>Il commento è stato modificato correttamente</p>
 </div>
 {include file="avviso_notice.tpl"}
 

@@ -1,6 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command\Files;
-use Universibo\Bundle\LegacyBundle\Entity\Commenti\CommentoItem;
+
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
 
 /**
@@ -28,22 +28,23 @@ class ShowFileStudentiCommento extends PluginCommand
     public function execute($param = array())
     {
         $bc = $this->getBaseCommand();
-        $user = $bc->get('security.context')->getToken()->getUser();
 
         $fc = $bc->getFrontController();
         $template = $fc->getTemplateEngine();
-        $krono = $fc->getKrono();
 
-        $commento = CommentoItem::selectCommentoItem($param['id_commento']);
-        $commento_tpl = array();
+        $commentRepo = $this->get('universibo_legacy.repository.commenti.commento_item');
+        $userRepo = $this->get('universibo_core.repository.user');
+        $comment = $commentRepo->find($param['id_commento']);
 
-        $id_utente = $commento->getIdUtente();
-        $commento_tpl['commento'] = $commento->getCommento();
-        $commento_tpl['voto'] = $commento->getVoto();
-        $commento_tpl['userLink'] = $this->get('router')->generate('universibo_legacy_user', array('id_utente' => $id_utente));
-        $commento_tpl['userNick'] = $commento->getUsername();
+        $comment_tpl = array();
 
-        $template->assign('showFileStudentiCommenti_commento', $commento_tpl);
+        $id_utente = $comment->getIdUtente();
+        $comment_tpl['commento'] = $comment->getCommento();
+        $comment_tpl['voto'] = $comment->getVoto();
+        $comment_tpl['userLink'] = $this->get('router')->generate('universibo_legacy_user', array('id_utente' => $id_utente));
+        $comment_tpl['userNick'] = $userRepo->getUsernameFromId($id_utente);
+
+        $template->assign('showFileStudentiCommenti_commento', $comment_tpl);
     }
 
 }

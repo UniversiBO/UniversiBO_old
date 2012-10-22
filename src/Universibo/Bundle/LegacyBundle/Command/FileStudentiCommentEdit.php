@@ -1,11 +1,13 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
-use \Error;
 
+use Error;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Commenti\CommentoItem;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
-use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
  * FileStudentiCommentEdit: Modifica un commento di un File Studente
@@ -16,6 +18,7 @@ use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @author Fabrizio Pinto
  * @author Daniele Tiles
+ * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 class FileStudentiCommentEdit extends UniversiboCommand
@@ -27,23 +30,21 @@ class FileStudentiCommentEdit extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 
-        $krono = $frontcontroller->getKrono();
-
+        $router = $this->get('router');
         $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
-        if (!array_key_exists('id_commento', $_GET)
-                || !preg_match('/^([0-9]{1,9})$/', $_GET['id_commento'])) {
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'L\'id del commento non e` valido',
-                            'file' => __FILE__, 'line' => __LINE__));
+        $request = $this->getRequest();
+        $commentId = $request->attributes->get('id_commento');
+        $commentRepo = $this->get('universibo_legacy.repository.commenti.commento_item');
+        $comment = $commentRepo->find($commentId);
+
+        if (!$comment instanceof CommentoItem) {
+            throw new NotFoundHttpException('Comment not found');
         }
 
-        $id_commento = $_GET['id_commento'];
-        $commentoItem = CommentoItem::selectCommentoItem($id_commento);
-        $id_utente = $commentoItem->getIdUtente();
-        $id_file_studente = $commentoItem->getIdFileStudente();
+        $id_utente = $comment->getIdUtente();
+        $id_file_studente = $comment->getIdFileStudente();
 
         $template
                 ->assign('common_canaleURI',
@@ -56,15 +57,15 @@ class FileStudentiCommentEdit extends UniversiboCommand
 
         $autore = ($id_utente == $user->getId());
 
-        if (array_key_exists('id_canale', $_GET)) {
-            if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
+        $id_canale = $request->get('id_canale');
+        if ($id_canale !== null) {
+            if (!preg_match('/^([0-9]{1,9})$/', $id_canale))
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getId(),
                                 'msg' => 'L\'id del canale richiesto non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $canale = Canale::retrieveCanale($_GET['id_canale']);
-            $id_canale = $_GET['id_canale'];
+            $canale = Canale::retrieveCanale($id_canale);
             if ($canale->getServizioFilesStudenti() == false)
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getId(),
@@ -105,12 +106,12 @@ class FileStudentiCommentEdit extends UniversiboCommand
 
         // valori default form
         // $f27_file = '';
-        $f27_commento = $commentoItem->getCommento();
-        $f27_voto = $commentoItem->getVoto();
+        $f27_commento = $comment->getCommento();
+        $f27_voto = $comment->getVoto();
 
         $this
                 ->executePlugin('ShowFileStudentiCommento',
-                        array('id_commento' => $id_commento));
+                        array('id_commento' => $commentId));
 
         $f27_accept = false;
 
@@ -144,7 +145,7 @@ class FileStudentiCommentEdit extends UniversiboCommand
             //esecuzione operazioni accettazione del form
             if ($f27_accept == true) {
 
-                CommentoItem::updateCommentoItem($id_commento, $f27_commento, $f27_voto);
+                CommentoItem::updateCommentoItem($commentId, $f27_commento, $f27_voto);
                 $template->assign('common_canaleURI',$router->generate('universibo_legacy_file', array('id_file' => $id_file_studente, 'id_canale' => $id_canale)));
 
                 return 'success';
