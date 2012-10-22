@@ -32,7 +32,6 @@ class DidatticaGestione extends UniversiboCommand
         $template = $frontcontroller->getTemplateEngine();
         $router = $this->get('router');
 
-        $krono = $frontcontroller->getKrono();
         $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
@@ -100,14 +99,14 @@ class DidatticaGestione extends UniversiboCommand
 
             if (Canale::getTipoCanaleFromId($_GET['id_canale'])
                     == CANALE_INSEGNAMENTO) {
-                $canale = &Canale::retrieveCanale(intval($_GET['id_canale']));
+                $canale = Canale::retrieveCanale(intval($_GET['id_canale']));
                 $id_canale = $canale->getIdCanale();
                 if ($edit == 'false') {
                     $f41_cur_sel['insegnamento'] = $canale->getTitolo();
                     $listaPrgs = $canale->getElencoAttivitaPadre();
                     $prg = $listaPrgs[0];
-                    $cdl = &Cdl::selectCdlCodice($prg->getCodiceCdl());
-                    $fac = &Facolta::selectFacoltaCodice(
+                    $cdl = Cdl::selectCdlCodice($prg->getCodiceCdl());
+                    $fac = Facolta::selectFacoltaCodice(
                             $cdl->getCodiceFacoltaPadre());
                     $f41_cur_sel['docente'] = $prg->getNomeDoc();
                     $f41_cur_sel['codice docente'] = $prg->getCodDoc();
@@ -149,7 +148,7 @@ class DidatticaGestione extends UniversiboCommand
             //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id della facolta` richiesta non e` valido', 'file' => __FILE__, 'line' => __LINE__));
 
             if (Canale::getTipoCanaleFromId($_GET['id_fac']) == CANALE_FACOLTA) {
-                $fac = &Canale::retrieveCanale(intval($_GET['id_fac']));
+                $fac = Canale::retrieveCanale(intval($_GET['id_fac']));
                 $id_facolta = $fac->getIdCanale();
                 $f41_cur_sel['facolta'] = $fac->getTitolo();
             }
@@ -163,7 +162,7 @@ class DidatticaGestione extends UniversiboCommand
             //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non e` valido', 'file' => __FILE__, 'line' => __LINE__));
 
             if (Canale::getTipoCanaleFromId($_GET['id_cdl']) == CANALE_CDL) {
-                $cdl = &Canale::retrieveCanale(intval($_GET['id_cdl']));
+                $cdl = Canale::retrieveCanale(intval($_GET['id_cdl']));
                 // controllo coerenza tra facolta`, cdl e insegnamento
                 if ($id_facolta != '')
                     if ($cdl->getCodiceFacoltaPadre()
@@ -258,7 +257,7 @@ class DidatticaGestione extends UniversiboCommand
                     $prgs[] = PrgAttivitaDidattica::selectPrgAttivitaDidatticaSdoppiata(
                             (int) $id_sdop);
                 else
-                    $prgs[] = &$prg;
+                    $prgs[] = $prg;
                 //				var_dump($prgs); die;
                 if (array_key_exists('f41_alts', $_POST))
                     foreach ($_POST['f41_alts'] as $key => $value) {
@@ -342,9 +341,10 @@ class DidatticaGestione extends UniversiboCommand
             if ($f41_accept == true) {
                 //				var_dump($mods);
                 $failure = false;
-                $transaction = $this->getContainer()->get('uiversibo_legacy.transaction');
+                // TODO BEGIN TRANSACTION
+                //$transaction = $this->getContainer()->get('uiversibo_legacy.transaction');
                 ignore_user_abort(1);
-                $transaction->begin();
+                //$transaction->begin();
 
                 // TODO manca log delle modifiche
                 $keys = array_keys($mods);
@@ -354,7 +354,7 @@ class DidatticaGestione extends UniversiboCommand
                     if ($esito == false) {
                         //						echo 'qui'; die;
                         $failure = true;
-                        $transaction->rollback();
+                        // TODO $transaction->rollback();
                         break;
                     } else
                         $this
@@ -411,7 +411,8 @@ class DidatticaGestione extends UniversiboCommand
 
                     }
                 }
-                $transaction->commit();
+                // TODO commit
+                //$transaction->commit();
                 ignore_user_abort(0);
 
                 if ($failure) {
@@ -475,7 +476,7 @@ class DidatticaGestione extends UniversiboCommand
         foreach ($prgs as $prg)
             if ($prg_exclude == null || $prg != $prg_exclude) {
                 //	 			var_dump($prg);
-                $cdl = &Cdl::selectCdlCodice($prg->getCodiceCdl());
+                $cdl = Cdl::selectCdlCodice($prg->getCodiceCdl());
                 $id = $id_canale;
                 $uri =  $router->generate('universibo_legacy_didattica_gestione', array('id_canale' => $id_canale, 'id_cdl' => $cdl->getIdCanale(), 'id_fac' => $_GET['id_fac']));
                 $status = '';
