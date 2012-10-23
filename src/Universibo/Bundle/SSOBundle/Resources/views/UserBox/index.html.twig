@@ -1,6 +1,6 @@
 <span class="sso-login-box">
   {% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
-    {{ app.session.shibboletClaims.eppn|default(app.user.shibUsername) }}
+    {{ app.session.get('shibboletClaims').eppn|default(app.user.shibUsername) }}
   {% endif %}
   <a href="{{ infoUrl }}">
     <img src="{{ asset('bundles/universibosso/images/ssologo18x18.png') }}" alt="{% trans %}universibo_sso.info{% endtrans %}" title="{% trans %}universibo_sso.info{% endtrans %}"/>
