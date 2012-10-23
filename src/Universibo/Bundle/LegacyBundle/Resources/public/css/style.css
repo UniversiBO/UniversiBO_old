@@ -131,7 +131,7 @@ td>#header /* questa regola viene ignorata da exploder*/ {
 	padding: 0;
 	margin: 0 !important;
 	border: 0 none !important;
-	font-size: 10px;
+	font-size: 12px;
 }
 
 /*#Info
@@ -147,9 +147,10 @@ td>#header /* questa regola viene ignorata da exploder*/ {
 	clear: left;
 	background: #888;
 	margin: 0;
-	padding: 2px 0 4px;
+	padding-top: 4px;
 	width: 100%;
 	vertical-align: middle;
+	height: 20px;
 }
 
 #menubar a:hover,#menubar a:focus {
@@ -162,6 +163,23 @@ td>#header /* questa regola viene ignorata da exploder*/ {
 	position: relative;
 	left: 202px;
 	font-weight: bold;
+	color: white;
+}
+
+#loginbox img {
+	margin-top: 1px;
+}
+
+#loginbox {
+	position: absolute;
+	right: 5px;
+	font-weight: bold;
+	margin-top: -4px;
+	color: #333333;
+}
+
+#loginbox p {
+	vertical-align: middle
 }
 
 #header .TimeInfo {
