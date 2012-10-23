@@ -48,6 +48,15 @@ class CommonController extends Controller
     {
         return array();
     }
+    
+    /**
+     * @Template()
+     * @return array
+     */
+    public function rssAction($channel)
+    {
+        return array('channelId' => $channel->getIdCanale());
+    }
 
     /**
      * @Template()

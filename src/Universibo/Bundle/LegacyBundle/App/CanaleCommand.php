@@ -234,6 +234,10 @@ abstract class CanaleCommand extends UniversiboCommand
                 $template->assign('common_forumLink', $forumRouter->getForumUri($canale->getForumForumId()));
             }
         }
+        
+        $rssResponse = $this->forward('UniversiboWebsiteBundle:Common:rss', 
+                array('channel' => $canale));
+        $template->assign('common_rss', $rssResponse->getContent());
 
         $this->updateUltimoAccesso();
 
