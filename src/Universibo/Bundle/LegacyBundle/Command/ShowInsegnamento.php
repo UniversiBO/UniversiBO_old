@@ -171,7 +171,6 @@ testi consigliati[/url]';
         if($forum && count($tpl_tabella) > 0)
             $tpl_tabella[] = $forum;
 
-        $template->assign('forum_link', $forum);
         $template->assign('ins_tabella', $tpl_tabella);
 
         $template->assign('ins_title', $insegnamento->getTitolo());
