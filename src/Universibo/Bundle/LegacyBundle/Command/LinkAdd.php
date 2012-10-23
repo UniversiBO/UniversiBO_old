@@ -56,7 +56,7 @@ class LinkAdd extends UniversiboCommand
 
         $id_canale = $this->getRequest()->attributes->get('id_canale');
 
-        $canale = $this->get('universibo_legacy.repository.canale')->find($id_canale);
+        $canale = $this->get('universibo_legacy.repository.canale2')->find($id_canale);
         if (!$canale instanceof Canale) {
             throw new NotFoundHttpException('Channel not found');
         }
