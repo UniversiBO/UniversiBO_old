@@ -45,8 +45,8 @@ class ShowNews extends PluginCommand
         $router    = $this->get('router');
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
+        $id_canale = $canale->getIdCanale();
         if ($flag_chkDiritti) {
-            $id_canale = $canale->getIdCanale();
             $titolo_canale =  $canale->getTitolo();
             $ultima_modifica_canale =  $canale->getUltimaModifica();
             $canale    = $bc->getRequestCanale();
