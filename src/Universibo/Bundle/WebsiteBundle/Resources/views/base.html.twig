@@ -5,12 +5,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta lang="it" name="keywords" content="{$common_metaKeywords|escape:"htmlall"}" />
 <meta lang="it" name="description" content="{$common_metaDescription|escape:"htmlall"}" />
-{% javascripts '@UniversiboLegacyBundle/Resources/public/js/*' output='js/compiled/main.js' %}
+{% javascripts '@UniversiboLegacyBundle/Resources/public/js/*'
+ output='js/compiled/main.js' filter='yui_js'%}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 {% stylesheets 
     '@UniversiboLegacyBundle/Resources/public/css/*'
-    output="css/compiled/main.css" %}
+    output="css/compiled/main.css" filter='yui_css'%}
     <link rel="stylesheet" href="{{ asset_url }}" />
 {% endstylesheets %}
 {% if showGoogle|default(false) %}
