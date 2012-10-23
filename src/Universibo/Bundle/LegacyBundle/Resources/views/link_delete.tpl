@@ -4,7 +4,7 @@
 </div>
 {include file="avviso_notice.tpl"}
 
-{include file=Links/single_link.tpl}
+{include file="Links/single_link.tpl"}
 
 <form method="post">
 	<p><input class="submit" type="submit" id="f30_submit" name="f30_submit" size="20" value="Elimina questo link" /></p>
