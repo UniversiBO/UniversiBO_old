@@ -28,7 +28,12 @@ class UserMergeCommand extends ContainerAwareCommand
                 InputArgument::IS_ARRAY | InputArgument::REQUIRED,
                 'Username to merge'
             )
-
+            ->addOption(
+                'target',
+                't',
+                InputArgument::OPTIONAL,
+                'Target username, won\'t ask for confirmation'
+            )
         ;
     }
 
@@ -83,13 +88,18 @@ class UserMergeCommand extends ContainerAwareCommand
 
         $dialog = $this->getHelperSet()->get('dialog');
 
-        do {
-            $choosen = $dialog->ask(
-                    $output,
-                    sprintf('Please choose target user (%d-%d) or oress CTRL+D to abort: ', 1, count($users)),
-                    null
-            );
-        } while (!preg_match('/^[0-9]+$/', $choosen--) || !array_key_exists($choosen, $users));
+        $key = array_search($input->getOption('target'), $usernames);
+        if(!$key) {
+            do {
+                $choosen = $dialog->ask(
+                        $output,
+                        sprintf('Please choose target user (%d-%d) or oress CTRL+D to abort: ', 1, count($users)),
+                        null
+                );
+            } while (!preg_match('/^[0-9]+$/', $choosen--) || !array_key_exists($choosen, $users));
+        } else {
+            $choosen = $key;
+        }
 
         $output->writeln('Target user: '.$users[$choosen]);
         $target = $users[$choosen];
