@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
+
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
 
 /**
@@ -16,6 +18,7 @@ class ShowCanale extends CanaleCommand
 {
     public function execute()
     {
+        $this->ensureChannelType(Canale::CDEFAULT);
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 

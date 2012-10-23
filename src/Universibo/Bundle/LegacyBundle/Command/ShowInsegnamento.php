@@ -28,13 +28,8 @@ class ShowInsegnamento extends CanaleCommand
     public function initCommand(FrontController $frontController)
     {
         parent::initCommand($frontController);
-
-        $canale = $this->getRequestCanale();
-        //var_dump($canale);
-
-        if ($canale->getTipoCanale() != Canale::INSEGNAMENTO) {
-            throw new NotFoundHttpException('Wrong channel type');
-        }
+        
+        $this->ensureChannelType(Canale::INSEGNAMENTO);
     }
 
     public function execute()

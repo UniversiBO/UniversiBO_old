@@ -26,15 +26,9 @@ class ShowFacolta extends CanaleCommand
      */
     public function initCommand(FrontController $frontController)
     {
-
         parent::initCommand($frontController);
-
-        $canale = $this->getRequestCanale();
-        //var_dump($canale);
-
-        if ($canale->getTipoCanale() != Canale::FACOLTA) {
-            throw new NotFoundHttpException('Wrong channel type');
-        }
+        
+        $this->ensureChannelType(Canale::FACOLTA);
     }
 
     public function execute()

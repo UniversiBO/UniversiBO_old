@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
+
 use Error;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
@@ -26,16 +28,13 @@ class ShowCdl extends CanaleCommand
     public function initCommand(FrontController $frontController)
     {
         parent::initCommand($frontController);
-
-        $canale = $this->getRequestCanale();
-        //var_dump($canale);
-
-        if ($canale->getTipoCanale() != CANALE_CDL)
-            Error::throwError(_ERROR_DEFAULT, array('id_utente' => $this->sessionUser->getId(), 'msg' => 'Il tipo canale richiesto non corrisponde al comando selezionato', 'file' => __FILE__, 'line' => __LINE__));
+        
+        $this->ensureChannelType(Canale::CDL);
     }
 
     public function execute()
     {
+        
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $context = $this->get('security.context');
