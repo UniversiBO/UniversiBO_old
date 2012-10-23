@@ -37,7 +37,11 @@
 				<p><img src="{$common_basePath}/bundles/universibolegacy/images/freccia.gif" width="11" height="10" alt="" />&nbsp;<a title="Questo link apre una nuova pagina" target="_blank" href="{$common_newPostsList[temp_currPost].URI|escape:"htmlall"}">{$common_newPostsList[temp_currPost].desc|escape:"htmlall"}</a></p>
 			{sectionelse}<p>Non ci sono post nel forum</p>
 			{/section}
+                        {if $forum_link}
+                        <p>Visita il {$forum_link|bbcode2html}</p>
+                        {/if}
 		</div>
+                
 	</div>
 	{/if}
 {*	<div class="box"> 

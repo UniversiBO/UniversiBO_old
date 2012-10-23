@@ -85,7 +85,7 @@ class ShowInsegnamento extends CanaleCommand
 
         if ($info_didattica->getObiettiviEsameLink() == ''
                 && $info_didattica->getObiettiviEsame() == '')
-            $obiettivi = 'Obiettivi del corso';
+            $obiettivi = false;
         elseif ($info_didattica->getObiettiviEsameLink() != ''
                 && $info_didattica->getObiettiviEsame() == '')
             $obiettivi = '[url=' . $info_didattica->getObiettiviEsameLink()
@@ -97,7 +97,7 @@ class ShowInsegnamento extends CanaleCommand
 
         if ($info_didattica->getProgrammaLink() == ''
                 && $info_didattica->getProgramma() == '')
-            $programma = 'Programma d\'esame';
+            $programma = false;
         elseif ($info_didattica->getProgrammaLink() != ''
                 && $info_didattica->getProgramma() == '')
             $programma = '[url=' . $info_didattica->getProgrammaLink()
@@ -107,8 +107,7 @@ class ShowInsegnamento extends CanaleCommand
 
         if ($info_didattica->getTestiConsigliatiLink() == ''
                 && $info_didattica->getTestiConsigliati() == '') {
-            $materiale = 'Materiale didattico e
-testi consigliati';
+            $materiale = false;
         } elseif ($info_didattica->getTestiConsigliatiLink() != ''
                 && $info_didattica->getTestiConsigliati() == '')
             $materiale = '[url=' . $info_didattica->getTestiConsigliatiLink()
@@ -120,8 +119,10 @@ testi consigliati[/url]';
         '';
 
         if ($info_didattica->getModalitaLink() == ''
-                && $info_didattica->getModalita() == '')
-            $modalita = 'Modalità d\'esame';
+                && $info_didattica->getModalita() == '') {
+            $modalita = false;
+        }
+        
         elseif ($info_didattica->getModalitaLink() != ''
                 && $info_didattica->getModalita() == '')
             $modalita = '[url=' . $info_didattica->getModalitaLink()
@@ -131,7 +132,7 @@ testi consigliati[/url]';
 
         if ($info_didattica->getAppelliLink() == ''
                 && $info_didattica->getAppelli() == '')
-            $appelli = 'Appelli d\'esame';
+            $appelli = false;
         elseif ($info_didattica->getAppelliLink() != ''
                 && $info_didattica->getAppelli() == '')
             $appelli = '[url=' . $info_didattica->getAppelliLink()
@@ -139,24 +140,38 @@ testi consigliati[/url]';
         else
             $appelli = '[url='.$router->generate('universibo_legacy_insegnamento_info', array('id_canale' => $id_canale)). '#appelli]Appelli d\'esame[/url]';
 
-        $orario = '[url=#]Orario delle lezioni[/url]';
+        //$orario = '[url=#]Orario delle lezioni[/url]';
 
-        $forum = 'Forum';
         if ($insegnamento->getServizioForum()) {
             $forumApi = $this->getContainer()->get('universibo_forum.router');
             $link = $forumApi->getForumUri($insegnamento->getForumForumId());
             $forum = '[url=' . $link . ']Forum[/url]';
+        } else {
+            $forum = false;
         }
 
-        $tpl_tabella[] = $obiettivi;
-        $tpl_tabella[] = $programma;
-        $tpl_tabella[] = $materiale;
-        $tpl_tabella[] = $modalita;
-        $tpl_tabella[] = $appelli;
+        $tpl_tabella = array();
+        
+        if($obiettivi)
+            $tpl_tabella[] = $obiettivi;
+        
+        if($programma)
+            $tpl_tabella[] = $programma;
+        
+        if($materiale)
+            $tpl_tabella[] = $materiale;
+        
+        if($modalita)
+            $tpl_tabella[] = $modalita;
+        
+        if($appelli)
+            $tpl_tabella[] = $appelli;
         // per rimettere l'orario decommentare qui
         //$tpl_tabella[] = $orario;
-        $tpl_tabella[] = $forum;
+        if($forum && count($tpl_tabella) > 0)
+            $tpl_tabella[] = $forum;
 
+        $template->assign('forum_link', $forum);
         $template->assign('ins_tabella', $tpl_tabella);
 
         $template->assign('ins_title', $insegnamento->getTitolo());

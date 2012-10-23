@@ -12,7 +12,9 @@
 <p>Le informazioni del corso posso essere consultate anche alla pagina<br /><a href="{$ins_homepageAlternativaLink|escape:"htmlall"}">{$ins_homepageAlternativaLink|escape:"htmlall"}</a></p>
 {/if}</div>
 
+{if count($ins_tabella) > 0}
 {include file="tabellina_due_colonne.tpl" arrayToShow=$ins_tabella}
+{/if}
 {if $ins_infoDidEdit != ""}<div class="comandi"><p><a href="{$ins_infoDidEdit|escape:"htmlall"|nl2br}">Modifica le informazioni dell'esame</a></p></div>{/if}
 
 <hr />
