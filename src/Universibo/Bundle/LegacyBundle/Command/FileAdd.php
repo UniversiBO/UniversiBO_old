@@ -359,12 +359,10 @@ class FileAdd extends UniversiboCommand
             } else {
                 if ($_POST['f12_permessi_download'] != LegacyRoles::ALL
                         && $_POST['f12_permessi_download']
-                                != ('ROLE_STUDENT' | 'ROLE_PROFESSOR'
-                                        | 'ROLE_TUTOR' | 'ROLE_STAFF'
-                                        | 'ROLE_COLLABORATOR' | 'ROLE_ADMIN')) {
+                                != (LegacyRoles::ALL & ~LegacyRoles::OSPITE)) {
                     Error::throwError(_ERROR_NOTICE,
                             array('id_utente' => $user->getId(),
-                                    'msg' => 'Il valore dei diritti di download non e` ammessibile',
+                                    'msg' => 'Il valore dei diritti di download non è ammissibile',
                                     'file' => __FILE__, 'line' => __LINE__,
                                     'log' => false,
                                     'template_engine' => &$template));
