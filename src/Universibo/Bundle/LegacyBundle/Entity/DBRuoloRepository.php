@@ -459,7 +459,7 @@ EOT;
         foreach($sourceRoles as $role) {
             $targetRole = $this->find($target->getId(), $role->getIdCanale());
             if($targetRole instanceof Ruolo) {
-                echo 'exists', PHP_EOL;$targetRole->setModeratore($role->isModeratore() || $targetRole->isModeratore());
+                $targetRole->setModeratore($role->isModeratore() || $targetRole->isModeratore());
                 $targetRole->setReferente($role->isReferente() || $targetRole->isReferente());
                 $targetRole->setNascosto($role->isNascosto() || $targetRole->isNascosto());
                 $targetRole->setMyUniversibo($role->isMyUniversibo() || $targetRole->isMyUniversibo());
@@ -467,7 +467,6 @@ EOT;
                 $this->update($targetRole);
                 $this->delete($role);                
             } else {
-echo 'NO', PHP_EOL;
                 $this->delete($role);
                 $role->setId($target->getId());
                 $this->insert($role);
