@@ -11,21 +11,21 @@ use Universibo\Bundle\CoreBundle\Entity\User;
 class PhpBB3PostDAO extends AbstractDAO implements PostDAOInterface
 {
     /**
-     * @var UserDAOInterface 
+     * @var UserDAOInterface
      */
     private $userDAO;
-    
+
     public function __construct(Connection $connection, UserDAOInterface $userDAO)
     {
         parent::__construct($connection);
-        
+
         $this->userDAO = $userDAO;
     }
-    
+
     public function countByUser(User $user)
     {
         $userId = $this->userDAO->findOrCreate($user);
-        
+
         $query = <<<EOT
 SELECT COUNT(*)
     FROM
@@ -37,15 +37,15 @@ EOT;
             ->getConnection()
             ->executeQuery($query, array($userId))
         ;
-        
+
         return $result->fetchColumn();
     }
-    
+
     public function transferOwnership(User $source, User $target)
     {
         $sourceId =  $this->userDAO->findOrCreate($source);
         $targetId =  $this->userDAO->findOrCreate($target);
-        
+
         $query = <<<EOT
 UPDATE {$this->getPrefix()}posts p
     SET
@@ -59,7 +59,7 @@ EOT;
             ->executeUpdate($query, array($targetId, $sourceId))
         ;
     }
-    
+
     public function getLatestPosts($forumId, $limit)
     {
         $query = <<<EOF

@@ -29,7 +29,7 @@ interface UserDAOInterface
      * @param User $user
      */
     public function update(User $user);
-    
+
     /**
      * @param User $user
      * @param int  $groupId

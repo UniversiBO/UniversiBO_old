@@ -25,7 +25,7 @@ VALUES
 EOT;
 
         $groupId = $this->getGroup($user);
-        
+
         $this->getConnection()->executeUpdate($query, array(
             $user->getUsername(),
             $user->getUsernameCanonical(),
@@ -35,11 +35,11 @@ EOT;
         ));
 
         $id = $this->getConnection()->lastInsertId('phpbb_users_seq');
-        
-        if($groupId > 2) {
+
+        if ($groupId > 2) {
             $this->addToGroup($id, $groupId);
         }
-        
+
         return $id;
     }
 
@@ -75,11 +75,11 @@ UPDATE {$this->getPrefix()}users
 EOT;
 
         $groupId = $this->getGroup($user);
-        
-        if($groupId > 2) {
+
+        if ($groupId > 2) {
             $this->addToGroup($user->getId(), $groupId);
         }
-        
+
         return $this->getConnection()->executeUpdate($query,
                 array($user->getEmail(),$groupId,
                     $user->getUsername())) > 0;
@@ -92,10 +92,11 @@ EOT;
         }
 
         $userId = $this->findOrCreate($user);
+
         return $this->addToGroup($userId, $groupId);
     }
 
-    
+
 
     public function removeUserFromGroup(User $user, $groupId)
     {
@@ -144,7 +145,7 @@ EOT;
 
         return $result->fetchColumn() > 0;
     }
-    
+
     private function getGroup(User $user)
     {
         // be careful when adding groups
@@ -163,7 +164,7 @@ EOT;
         // ROLE_USER
         return 2;
     }
-    
+
     private function findWithGroup(User $user)
     {
         $query = <<<EOT
@@ -175,8 +176,9 @@ EOT;
 
         return $result->fetch();
     }
-    
-    private function addToGroup($userId, $groupId) {
+
+    private function addToGroup($userId, $groupId)
+    {
         $this->addRole($userId, $groupId);
         if ($this->inGroup($userId, $groupId)) {
             return false;
@@ -191,8 +193,9 @@ EOT;
 
         $this->getConnection()->executeUpdate($query, array($groupId, $userId));
     }
-    
-    private function addRole($userId, $groupId) {
+
+    private function addRole($userId, $groupId)
+    {
         if ($this->hasRole($userId, $groupId)) {
             return false;
         }
@@ -206,7 +209,7 @@ EOT;
 
         $this->getConnection()->executeUpdate($query, array($groupId, $userId));
     }
-    
+
     private function hasRole($userId, $groupId)
     {
         $query = <<<EOT
