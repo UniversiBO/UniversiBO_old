@@ -112,7 +112,8 @@ class ShowFileStudentiTitoli extends PluginCommand
                 $this_moderatore = ($this->get('security.context')->isGranted('ROLE_ADMIN') || ($moderatore && $file->getIdUtente()==$user->getId()));
 
                 $permessi_lettura = $file->getPermessiVisualizza();
-                if ($user->isGroupAllowed($permessi_lettura)) {
+                $allowed = $user instanceof User ? $user->isGroupAllowed($groups) : $permessi_lettura & 1;
+                if ($allowed) {
                     $file_tpl = array();
                     $file_tpl['titolo']       = $file->getTitolo();
                     //$file_tpl['notizia']      = $file->getNotizia();
