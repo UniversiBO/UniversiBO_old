@@ -52,6 +52,7 @@ class ShowNewsLatest extends PluginCommand
 
         $personalizza_not_admin = false;
 
+        $template->assign('showNewsLatest_rss', $router->generate('rss', array('idCanale' => $id_canale)));
         $template->assign('showNewsLatest_addNewsFlag', 'false');
         if (array_key_exists($id_canale, $user_ruoli) || $this->get('security.context')->isGranted('ROLE_ADMIN')) {
             $personalizza = true;

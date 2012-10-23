@@ -42,6 +42,7 @@ class ShowNews extends PluginCommand
         $fc        = $bc->getFrontController();
         $template  = $fc->getTemplateEngine();
         $krono     = $fc->getKrono();
+        $router    = $this->get('router');
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
         if ($flag_chkDiritti) {
@@ -53,6 +54,7 @@ class ShowNews extends PluginCommand
 
         $personalizza_not_admin = false;
 
+        $template->assign('showNews_rss', $router->generate('rss', array('idCanale' => $id_canale)));
         $template->assign('showNews_addNewsFlag', 'false');
         if ($flag_chkDiritti && (array_key_exists($id_canale, $user_ruoli) || $this->get('security.context')->isGranted('ROLE_ADMIN'))) {
             $personalizza = true;
