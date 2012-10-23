@@ -3,7 +3,7 @@ namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Error;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\User\User;
+use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\AntiVirus\AntiVirusFactory;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
