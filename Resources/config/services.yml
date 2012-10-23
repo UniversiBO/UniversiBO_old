@@ -4,7 +4,9 @@ services:
     arguments: ['@doctrine.dbal.forum_connection']
   universibo_forum.dao.post:
     class: 'Universibo\Bundle\ForumBundle\DAO\PhpBB3PostDAO'
-    arguments: ['@doctrine.dbal.forum_connection']
+    arguments: 
+      - '@doctrine.dbal.forum_connection'
+      - '@universibo_forum.dao.user'
   universibo_forum.dao.session:
     class: 'Universibo\Bundle\ForumBundle\DAO\PhpBB3SessionDAO'
     arguments: ['@doctrine.dbal.forum_connection']
