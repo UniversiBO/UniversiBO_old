@@ -470,7 +470,7 @@ Per altri problemi contattare lo staff di UniversiBO
                         //in seguito ad una segnalazione di errore da parte di un tutor
                         //alla riga (ex)335 (ora)339
                         $notifica_user = $userRepo->find($ruolo_canale->getId());
-                        if (!$user instanceof User) {
+                        if (!$notifica_user instanceof User) {
                             continue;
                         }
                         //define('NOTIFICA_NONE'   ,0);
@@ -482,7 +482,6 @@ Per altri problemi contattare lo staff di UniversiBO
                                                 == NOTIFICA_URGENT)
                                         || $ruolo_canale->getTipoNotifica()
                                                 == NOTIFICA_ALL)) {
-                            $notifica_user = $userRepo->find($ruolo_canale->getId());
                             $notifica_destinatario = 'mail://'
                                     . $notifica_user->getEmail();
 
