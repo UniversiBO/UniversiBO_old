@@ -6,6 +6,10 @@
                 <source>universibo_sso.info</source>
                 <target>Informazioni sul Single Sign-On di Ateneo</target>
             </trans-unit>
+            <trans-unit id="2">
+                <source>universibo_sso.login_title</source>
+                <target>Accesso Utenti Registrati</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

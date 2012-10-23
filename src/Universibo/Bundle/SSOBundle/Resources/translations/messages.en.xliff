@@ -6,6 +6,10 @@
                 <source>universibo_sso.info</source>
                 <target>About University of Bologna Single Sign-On system</target>
             </trans-unit>
+            <trans-unit id="2">
+                <source>universibo_sso.login_title</source>
+                <target>Registered User Login</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
