@@ -62,7 +62,7 @@ class UserMergeCommand extends ContainerAwareCommand
 
         $output->setDecorated(true);
 
-        $output->writeln('<question>Please choose the target user</question>');
+        $output->writeln('Merging users:');
         foreach ($users as $id => $username) {
             $user = $userRepo->findOneByUsername($username);
             if (!$user instanceof User) {
@@ -79,17 +79,16 @@ class UserMergeCommand extends ContainerAwareCommand
         }
 
         $dialog = $this->getHelperSet()->get('dialog');
-        $choosen = $dialog->ask(
-                $output,
-                'Please enter number: ',
-                null
-        );
 
-        if (!preg_match('/^[0-9]+$/', $choosen) || !array_key_exists($choosen - 1, $users)) {
-            throw new \InvalidArgumentException('Invalid number provided');
-        }
+        do {
+            $choosen = $dialog->ask(
+                    $output,
+                    sprintf('Please choose target user (%d-%d) or oress CTRL+D to abort: ', 1, count($users)),
+                    null
+            );
+        } while (!preg_match('/^[0-9]+$/', $choosen--) || !array_key_exists($choosen, $users));
 
-        $output->writeln('Your choice is: '.$choosen);
+        $output->writeln('Merging into '.$users[$choosen]);
     }
 
     private function get($id)
