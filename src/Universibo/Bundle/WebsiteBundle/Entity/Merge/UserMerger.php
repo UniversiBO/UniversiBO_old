@@ -68,6 +68,11 @@ class UserMerger implements UserMergerInterface
             'repository' => $linkRepository
         );
         
+        $this->retrievers['post'] = array(
+        		'description' => 'Forum posts',
+        		'repository' => $postDAO
+        );
+        
         $this->userRepository = $userRepository;
     }
 
