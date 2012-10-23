@@ -46,7 +46,7 @@ class ShowSettings extends UniversiboCommand
                 '[url='.$router->generate('universibo_legacy_personal_files').']I miei file[/url]',
                 '[url='.$router->generate('universibo_legacy_settings_profile').']Profilo[/url]',
                 '[url='.$router->generate('universibo_legacy_user', array('id_utente' => $utente->getId())).']Modifica MyUniversiBO[/url]',
-                '[url=https://outlook.com/ type=extern]Mail di ateneo[/url]',
+                '[url=https://www.dsa.unibo.it/AccessoPostaStudenti type=extern]Mail di ateneo[/url]',
         );
 
         if ($utente->hasRole('ROLE_COLLABORATOR') || $utente->hasRole('ROLE_ADMIN')) {
