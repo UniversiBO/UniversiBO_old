@@ -136,6 +136,13 @@ class Ruolo
     {
         return $this->id_utente;
     }
+    
+    public function setId($id)
+    {
+        $this->id_utente = $id;
+        
+        return $this;
+    }
 
     /**
      * Ritorna l'ID del canale nel database
@@ -334,6 +341,13 @@ class Ruolo
     public function isNascosto()
     {
         return $this->nascosto;
+    }
+    
+    public function setNascosto($nascosto)
+    {
+        $this->nascosto = $nascosto;
+        
+        return $this;
     }
 
     /**

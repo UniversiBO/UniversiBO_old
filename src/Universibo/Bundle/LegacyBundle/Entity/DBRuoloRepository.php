@@ -1,5 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
+use Universibo\Bundle\CoreBundle\Entity\MergeableRepositoryInterface;
 
 use Universibo\Bundle\CoreBundle\Entity\User;
 
@@ -11,15 +12,21 @@ use \DB;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBRuoloRepository extends DBRepository
+class DBRuoloRepository extends DBRepository implements
+        MergeableRepositoryInterface
 {
     public function delete(Ruolo $ruolo)
     {
         $db = $this->getDb();
-        $query = 'DELETE FROM utente_canale WHERE id_utente = '.$db->quote($ruolo->getIdUtente()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
+        $query = 'DELETE FROM utente_canale WHERE id_utente = '
+                . $db->quote($ruolo->getId()) . ' AND id_canale = '
+                . $db->quote($ruolo->getIdCanale());
         $res = $db->query($query);
         if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this
+                    ->throwError('_ERROR_CRITICAL',
+                            array('msg' => DB::errorMessage($res),
+                                    'file' => __FILE__, 'line' => __LINE__));
 
         return true;
     }
@@ -28,23 +35,26 @@ class DBRuoloRepository extends DBRepository
     {
         $db = $this->getDb();
 
-        $campo_ruolo = ($ruolo->isModeratore()) ? Ruolo::MODERATORE : 0 + ($ruolo->isReferente()) ? Ruolo::REFERENTE : 0;
+        $campo_ruolo = ($ruolo->isModeratore()) ? Ruolo::MODERATORE
+                : 0 + ($ruolo->isReferente()) ? Ruolo::REFERENTE : 0;
         $my_universibo = ($ruolo->isMyUniversibo()) ? 'S' : 'N';
         $nascosto = ($ruolo->isNascosto()) ? 'S' : 'N';
 
-        $query = 'INSERT INTO utente_canale(id_utente, id_canale, ultimo_accesso, ruolo, my_universibo, notifica, nome, nascosto) VALUES ( '.
-                $db->quote($ruolo->id_utente).' , '.
-                $db->quote($ruolo->id_canale).' , '.
-                $db->quote($ruolo->ultimoAccesso).' , '.
-                $db->quote($campo_ruolo).' , '.
-                $db->quote($my_universibo).' , '.
-                $db->quote($ruolo->getTipoNotifica()).' , '.
-                $db->quote($ruolo->getNome()).' , '.
-                $db->quote($nascosto).' )';
+        $query = 'INSERT INTO utente_canale(id_utente, id_canale, ultimo_accesso, ruolo, my_universibo, notifica, nome, nascosto) VALUES ( '
+                . $db->quote($ruolo->id_utente) . ' , '
+                . $db->quote($ruolo->id_canale) . ' , '
+                . $db->quote($ruolo->ultimoAccesso) . ' , '
+                . $db->quote($campo_ruolo) . ' , ' . $db->quote($my_universibo)
+                . ' , ' . $db->quote($ruolo->getTipoNotifica()) . ' , '
+                . $db->quote($ruolo->getNome()) . ' , ' . $db->quote($nascosto)
+                . ' )';
 
         $res = $db->query($query);
         if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this
+                    ->throwError('_ERROR_CRITICAL',
+                            array('msg' => DB::errorMessage($res),
+                                    'file' => __FILE__, 'line' => __LINE__));
 
         return true;
     }
@@ -53,15 +63,28 @@ class DBRuoloRepository extends DBRepository
     {
         $db = $this->getDb();
 
-        $query = 'UPDATE utente_canale SET nome = '.$db->quote($ruolo->getNome()).' WHERE id_utente = '.$db->quote($ruolo->getId()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
+        $query = 'UPDATE utente_canale SET nome = '
+                . $db->quote($ruolo->getNome()) . ' WHERE id_utente = '
+                . $db->quote($ruolo->getId()) . ' AND id_canale = '
+                . $db->quote($ruolo->getIdCanale());
         $res = $db->query($query);
         if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this
+                    ->throwError('_ERROR_CRITICAL',
+                            array('msg' => DB::errorMessage($res),
+                                    'file' => __FILE__, 'line' => __LINE__));
         $rows = $db->affectedRows();
 
-        if( $rows == 1) return true;
-        elseif( $rows == 0) return false;
-        else $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database: ruolo non unico','file'=>__FILE__,'line'=>__LINE__));
+        if ($rows == 1)
+            return true;
+        elseif ($rows == 0)
+            return false;
+        else
+            $this
+                    ->throwError('_ERROR_CRITICAL',
+                            array(
+                                    'msg' => 'Errore generale database: ruolo non unico',
+                                    'file' => __FILE__, 'line' => __LINE__));
         return false;
     }
 
@@ -69,15 +92,28 @@ class DBRuoloRepository extends DBRepository
     {
         $db = $this->getDb();
 
-        $query = 'UPDATE utente_canale SET ultimo_accesso = '.$db->quote($ruolo->getUltimoAccesso()).' WHERE id_utente = '.$db->quote($ruolo->getId()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
+        $query = 'UPDATE utente_canale SET ultimo_accesso = '
+                . $db->quote($ruolo->getUltimoAccesso())
+                . ' WHERE id_utente = ' . $db->quote($ruolo->getId())
+                . ' AND id_canale = ' . $db->quote($ruolo->getIdCanale());
         $res = $db->query($query);
         if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this
+                    ->throwError('_ERROR_CRITICAL',
+                            array('msg' => DB::errorMessage($res),
+                                    'file' => __FILE__, 'line' => __LINE__));
         $rows = $db->affectedRows();
 
-        if( $rows == 1) return true;
-        elseif( $rows == 0) return false;
-        else $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database: ruolo non unico','file'=>__FILE__,'line'=>__LINE__));
+        if ($rows == 1)
+            return true;
+        elseif ($rows == 0)
+            return false;
+        else
+            $this
+                    ->throwError('_ERROR_CRITICAL',
+                            array(
+                                    'msg' => 'Errore generale database: ruolo non unico',
+                                    'file' => __FILE__, 'line' => __LINE__));
         return false;
     }
 
@@ -85,15 +121,28 @@ class DBRuoloRepository extends DBRepository
     {
         $db = $this->getDb();
 
-        $query = 'UPDATE utente_canale SET tipo_notifica = '.$db->quote($ruolo->getTipoNotifica()).' WHERE id_utente = '.$db->quote($ruolo->getId()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
+        $query = 'UPDATE utente_canale SET tipo_notifica = '
+                . $db->quote($ruolo->getTipoNotifica()) . ' WHERE id_utente = '
+                . $db->quote($ruolo->getId()) . ' AND id_canale = '
+                . $db->quote($ruolo->getIdCanale());
         $res = $db->query($query);
         if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this
+                    ->throwError('_ERROR_CRITICAL',
+                            array('msg' => DB::errorMessage($res),
+                                    'file' => __FILE__, 'line' => __LINE__));
         $rows = $db->affectedRows();
 
-        if( $rows == 1) return true;
-        elseif( $rows == 0) return false;
-        else $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database: ruolo non unico','file'=>__FILE__,'line'=>__LINE__));
+        if ($rows == 1)
+            return true;
+        elseif ($rows == 0)
+            return false;
+        else
+            $this
+                    ->throwError('_ERROR_CRITICAL',
+                            array(
+                                    'msg' => 'Errore generale database: ruolo non unico',
+                                    'file' => __FILE__, 'line' => __LINE__));
         return false;
     }
 
@@ -101,16 +150,29 @@ class DBRuoloRepository extends DBRepository
     {
         $db = $this->getDb();
 
-        $campo_ruolo = ($ruolo->isModeratore()) ? Ruolo::MODERATORE : 0 + ($ruolo->isReferente()) ? Ruolo::REFERENTE : 0;
-        $query = 'UPDATE utente_canale SET ruolo = '.$campo_ruolo.' WHERE id_utente = '.$db->quote($ruolo->getId()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
+        $campo_ruolo = ($ruolo->isModeratore()) ? Ruolo::MODERATORE
+                : 0 + ($ruolo->isReferente()) ? Ruolo::REFERENTE : 0;
+        $query = 'UPDATE utente_canale SET ruolo = ' . $campo_ruolo
+                . ' WHERE id_utente = ' . $db->quote($ruolo->getId())
+                . ' AND id_canale = ' . $db->quote($ruolo->getIdCanale());
         $res = $db->query($query);
         if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this
+                    ->throwError('_ERROR_CRITICAL',
+                            array('msg' => DB::errorMessage($res),
+                                    'file' => __FILE__, 'line' => __LINE__));
         $rows = $db->affectedRows();
 
-        if( $rows == 1) return true;
-        elseif( $rows == 0) return false;
-        else $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database: ruolo non unico','file'=>__FILE__,'line'=>__LINE__));
+        if ($rows == 1)
+            return true;
+        elseif ($rows == 0)
+            return false;
+        else
+            $this
+                    ->throwError('_ERROR_CRITICAL',
+                            array(
+                                    'msg' => 'Errore generale database: ruolo non unico',
+                                    'file' => __FILE__, 'line' => __LINE__));
         return false;
     }
 
@@ -118,16 +180,29 @@ class DBRuoloRepository extends DBRepository
     {
         $db = $this->getDb();
 
-        $campo_ruolo = (($ruolo->isModeratore()) ? Ruolo::MODERATORE : 0) + (($ruolo->isReferente()) ? Ruolo::REFERENTE : 0);
-        $query = 'UPDATE utente_canale SET ruolo = '.$campo_ruolo.' WHERE id_utente = '.$db->quote($ruolo->getId()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
+        $campo_ruolo = (($ruolo->isModeratore()) ? Ruolo::MODERATORE : 0)
+                + (($ruolo->isReferente()) ? Ruolo::REFERENTE : 0);
+        $query = 'UPDATE utente_canale SET ruolo = ' . $campo_ruolo
+                . ' WHERE id_utente = ' . $db->quote($ruolo->getId())
+                . ' AND id_canale = ' . $db->quote($ruolo->getIdCanale());
         $res = $db->query($query);
         if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this
+                    ->throwError('_ERROR_CRITICAL',
+                            array('msg' => DB::errorMessage($res),
+                                    'file' => __FILE__, 'line' => __LINE__));
         $rows = $db->affectedRows();
 
-        if( $rows == 1) return true;
-        elseif( $rows == 0) return false;
-        else $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database: ruolo non unico','file'=>__FILE__,'line'=>__LINE__));
+        if ($rows == 1)
+            return true;
+        elseif ($rows == 0)
+            return false;
+        else
+            $this
+                    ->throwError('_ERROR_CRITICAL',
+                            array(
+                                    'msg' => 'Errore generale database: ruolo non unico',
+                                    'file' => __FILE__, 'line' => __LINE__));
         return false;
     }
 
@@ -137,15 +212,28 @@ class DBRuoloRepository extends DBRepository
 
         $my_universibo = ($ruolo->isMyUniversibo()) ? 'S' : 'N';
 
-        $query = 'UPDATE utente_canale SET my_universibo = '.$db->quote($my_universibo).' WHERE id_utente = '.$db->quote($ruolo->getId()).' AND id_canale = '.$db->quote($ruolo->getIdCanale());
+        $query = 'UPDATE utente_canale SET my_universibo = '
+                . $db->quote($my_universibo) . ' WHERE id_utente = '
+                . $db->quote($ruolo->getId()) . ' AND id_canale = '
+                . $db->quote($ruolo->getIdCanale());
         $res = $db->query($query);
         if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this
+                    ->throwError('_ERROR_CRITICAL',
+                            array('msg' => DB::errorMessage($res),
+                                    'file' => __FILE__, 'line' => __LINE__));
         $rows = $db->affectedRows();
 
-        if( $rows == 1) return true;
-        elseif( $rows == 0) return false;
-        else $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database: ruolo non unico','file'=>__FILE__,'line'=>__LINE__));
+        if ($rows == 1)
+            return true;
+        elseif ($rows == 0)
+            return false;
+        else
+            $this
+                    ->throwError('_ERROR_CRITICAL',
+                            array(
+                                    'msg' => 'Errore generale database: ruolo non unico',
+                                    'file' => __FILE__, 'line' => __LINE__));
         return false;
     }
 
@@ -153,19 +241,26 @@ class DBRuoloRepository extends DBRepository
     {
         $db = $this->getDb();
 
-        $query = 'SELECT id_utente, ultimo_accesso, ruolo, my_universibo, notifica, nome, nascosto FROM utente_canale WHERE id_canale = '.$db->quote($idCanale);
+        $query = 'SELECT id_utente, ultimo_accesso, ruolo, my_universibo, notifica, nome, nascosto FROM utente_canale WHERE id_canale = '
+                . $db->quote($idCanale);
         $res = $db->query($query);
         if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this
+                    ->throwError('_ERROR_CRITICAL',
+                            array('msg' => DB::errorMessage($res),
+                                    'file' => __FILE__, 'line' => __LINE__));
 
         $rows = $res->numRows();
         if ($rows = 0) {
-            $ret = array(); return $ret;
+            $ret = array();
+            return $ret;
         }
 
         $ruoli = array();
-        while (	$res->fetchInto($row) ) {
-            $ruoli[] = new Ruolo($row[0], $idCanale, $row[5], $row[1], $row[2]==Ruolo::MODERATORE, $row[2]==Ruolo::REFERENTE, $row[3]=='S', $row[4], $row[6]=='S');
+        while ($res->fetchInto($row)) {
+            $ruoli[] = new Ruolo($row[0], $idCanale, $row[5], $row[1],
+                    $row[2] == Ruolo::MODERATORE, $row[2] == Ruolo::REFERENTE,
+                    $row[3] == 'S', $row[4], $row[6] == 'S');
         }
 
         return $ruoli;
@@ -175,22 +270,27 @@ class DBRuoloRepository extends DBRepository
     {
         $db = $this->getDb();
 
-        $campo_ruolo = (($ruolo->isModeratore()) ? Ruolo::MODERATORE : 0) + (($ruolo->isReferente()) ? Ruolo::REFERENTE : 0);
+        $campo_ruolo = (($ruolo->isModeratore()) ? Ruolo::MODERATORE : 0)
+                + (($ruolo->isReferente()) ? Ruolo::REFERENTE : 0);
         $my_universibo = ($ruolo->isMyUniversibo()) ? 'S' : 'N';
         $nascosto = ($ruolo->isNascosto()) ? 'S' : 'N';
 
-        $query = 'UPDATE utente_canale SET ultimo_accesso = '.$db->quote($ruolo->ultimoAccesso).
-        ', ruolo = '.$db->quote($campo_ruolo).
-        ', my_universibo = '.$db->quote($my_universibo).
-        ', notifica = '.$db->quote($ruolo->getTipoNotifica()).
-        ', nome = '.$db->quote($ruolo->getNome()).
-        ', nascosto = '.$db->quote($nascosto).'
-        WHERE id_utente = '.$db->quote($ruolo->id_utente).
-        ' AND id_canale = '.$db->quote($ruolo->id_canale);
+        $query = 'UPDATE utente_canale SET ultimo_accesso = '
+                . $db->quote($ruolo->ultimoAccesso) . ', ruolo = '
+                . $db->quote($campo_ruolo) . ', my_universibo = '
+                . $db->quote($my_universibo) . ', notifica = '
+                . $db->quote($ruolo->getTipoNotifica()) . ', nome = '
+                . $db->quote($ruolo->getNome()) . ', nascosto = '
+                . $db->quote($nascosto) . '
+        WHERE id_utente = ' . $db->quote($ruolo->getId())
+                . ' AND id_canale = ' . $db->quote($ruolo->getIdCanale());
 
         $res = $db->query($query);
         if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this
+                    ->throwError('_ERROR_CRITICAL',
+                            array('msg' => DB::errorMessage($res),
+                                    'file' => __FILE__, 'line' => __LINE__));
 
         return true;
     }
@@ -199,17 +299,30 @@ class DBRuoloRepository extends DBRepository
     {
         $db = $this->getDb();
 
-        $query = 'SELECT ultimo_accesso, ruolo, my_universibo, notifica, nome, nascosto FROM utente_canale WHERE id_utente = '.$db->quote($idUtente).' AND id_canale= '.$db->quote($idCanale);
+        $query = 'SELECT ultimo_accesso, ruolo, my_universibo, notifica, nome, nascosto FROM utente_canale WHERE id_utente = '
+                . $db->quote($idUtente) . ' AND id_canale= '
+                . $db->quote($idCanale);
         $res = $db->query($query);
         if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this
+                    ->throwError('_ERROR_CRITICAL',
+                            array('msg' => DB::errorMessage($res),
+                                    'file' => __FILE__, 'line' => __LINE__));
 
         $rows = $res->numRows();
-        if( $rows > 1) $this->throwError('_ERROR_CRITICAL',array('msg'=>'Errore generale database: ruolo non unico','file'=>__FILE__,'line'=>__LINE__));
-        if( $rows = 0) return false;
+        if ($rows > 1)
+            $this
+                    ->throwError('_ERROR_CRITICAL',
+                            array(
+                                    'msg' => 'Errore generale database: ruolo non unico',
+                                    'file' => __FILE__, 'line' => __LINE__));
+        if ($rows == 0)
+            return false;
 
         $res->fetchInto($row);
-        $ruolo = new Ruolo($idUtente, $idCanale, $row[4], $row[0], $row[1]==RUOLO_MODERATORE, $row[1]==Ruolo::REFERENTE, $row[2]=='S', $row[3], $row[5]=='S');
+        $ruolo = new Ruolo($idUtente, $idCanale, $row[4], $row[0],
+                $row[1] == RUOLO_MODERATORE, $row[1] == Ruolo::REFERENTE,
+                $row[2] == 'S', $row[3], $row[5] == 'S');
 
         return $ruolo;
 
@@ -219,10 +332,15 @@ class DBRuoloRepository extends DBRepository
     {
         $db = $this->getDb();
 
-        $query = 'SELECT id_utente, id_canale FROM utente_canale WHERE id_utente = '.$db->quote($idUtente).' AND id_canale= '.$db->quote($idCanale);
+        $query = 'SELECT id_utente, id_canale FROM utente_canale WHERE id_utente = '
+                . $db->quote($idUtente) . ' AND id_canale= '
+                . $db->quote($idCanale);
         $res = $db->query($query);
         if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this
+                    ->throwError('_ERROR_CRITICAL',
+                            array('msg' => DB::errorMessage($res),
+                                    'file' => __FILE__, 'line' => __LINE__));
         $rows = $res->numRows();
         if ($rows >= 1) {
             return false;
@@ -235,10 +353,14 @@ class DBRuoloRepository extends DBRepository
     {
         $db = $this->getDb();
 
-        $query = 'SELECT id_canale, ultimo_accesso, ruolo, my_universibo, notifica, nome, nascosto FROM utente_canale WHERE id_utente = '.$db->quote($idUtente);
+        $query = 'SELECT id_canale, ultimo_accesso, ruolo, my_universibo, notifica, nome, nascosto FROM utente_canale WHERE id_utente = '
+                . $db->quote($idUtente);
         $res = $db->query($query);
         if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this
+                    ->throwError('_ERROR_CRITICAL',
+                            array('msg' => DB::errorMessage($res),
+                                    'file' => __FILE__, 'line' => __LINE__));
 
         $rows = $res->numRows();
         if ($rows = 0) {
@@ -247,7 +369,9 @@ class DBRuoloRepository extends DBRepository
 
         $ruoli = array();
         while ($row = $this->fetchRow($res)) {
-            $ruoli[$row[0]] = new Ruolo($idUtente, $row[0], $row[5], $row[1], $row[2]==Ruolo::MODERATORE, $row[2]==Ruolo::REFERENTE, $row[3]=='S', $row[4], $row[6]=='S');
+            $ruoli[$row[0]] = new Ruolo($idUtente, $row[0], $row[5], $row[1],
+                    $row[2] == Ruolo::MODERATORE, $row[2] == Ruolo::REFERENTE,
+                    $row[3] == 'S', $row[4], $row[6] == 'S');
         }
 
         return $ruoli;
@@ -284,20 +408,20 @@ class DBRuoloRepository extends DBRepository
                     $id_current_canale);
             // var_dump($didatticaCanale);
             $annoCorso = (count($didatticaCanale) > 0) ? $didatticaCanale[0]
-            ->getAnnoAccademico() : 'altro';
+                            ->getAnnoAccademico() : 'altro';
             $nome_current_canale = $current_canale->getTitolo();
             $f7_canale[$annoCorso][$id_current_canale] = array(
                     'nome' => $nome_current_canale,
                     'spunta' => ($id_canale != null
                             && $id_current_canale == $id_canale) ? 'true'
-                    : 'false');
+                            : 'false');
         }
         krsort($f7_canale);
         $tot = count($f7_canale);
         $list_keys = array_keys($f7_canale);
         for ($i = 0; $i < $tot; $i++)
-            // var_dump($f7_canale[$i]);
-        uasort($f7_canale[$list_keys[$i]], array($this, 'compareCanale'));
+        // var_dump($f7_canale[$i]);
+            uasort($f7_canale[$list_keys[$i]], array($this, 'compareCanale'));
 
         return $f7_canale;
     }
@@ -313,4 +437,42 @@ class DBRuoloRepository extends DBRepository
 
         return strnatcasecmp($nomea, $nomeb);
     }
+    
+    public function countByUser(User $user)
+    {
+        $db = $this->getDb();
+
+        $query = <<<EOT
+SELECT COUNT(*)
+    FROM utente_canale uc
+    WHERE uc.id_utente = {$db->quote($user->getId())}
+EOT;
+        $res = $db->query($query);
+        $row = $res->fetchRow();
+
+        return intval($row[0]);
+    }
+    public function transferOwnership(User $source, User $target)
+    {
+        $sourceRoles = $this->findByIdUtente($source->getId());
+        
+        foreach($sourceRoles as $role) {
+            $targetRole = $this->find($target->getId(), $role->getIdCanale());
+            if($targetRole instanceof Ruolo) {
+                echo 'exists', PHP_EOL;$targetRole->setModeratore($role->isModeratore() || $targetRole->isModeratore());
+                $targetRole->setReferente($role->isReferente() || $targetRole->isReferente());
+                $targetRole->setNascosto($role->isNascosto() || $targetRole->isNascosto());
+                $targetRole->setMyUniversibo($role->isMyUniversibo() || $targetRole->isMyUniversibo());
+                
+                $this->update($targetRole);
+                $this->delete($role);                
+            } else {
+echo 'NO', PHP_EOL;
+                $this->delete($role);
+                $role->setId($target->getId());
+                $this->insert($role);
+            }
+        }
+    }
+
 }

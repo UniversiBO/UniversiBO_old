@@ -69,8 +69,13 @@ class UserMerger implements UserMergerInterface
         );
         
         $this->retrievers['post'] = array(
-        		'description' => 'Forum posts',
-        		'repository' => $postDAO
+            'description' => 'Forum posts',
+        	'repository' => $postDAO
+        );
+        
+        $this->retrievers['roles'] = array(
+        		'description' => 'Roles',
+        		'repository' => $ruoloRepository
         );
         
         $this->userRepository = $userRepository;
