@@ -68,11 +68,12 @@ class NewsDelete extends CanaleCommand
 
         //controllo coerenza parametri
         $canali_news = $news->getIdCanali();
-        if (!in_array($id_canale, $canali_news))
+        if (!in_array($id_canale, $canali_news)) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getId(),
                             'msg' => 'I parametri passati non sono coerenti',
                             'file' => __FILE__, 'line' => __LINE__));
+        }
 
         $autore = ($user->getId() == $news->getIdUtente());
         if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || ($moderatore && $autore)))

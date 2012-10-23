@@ -41,7 +41,7 @@ abstract class CanaleCommand extends UniversiboCommand
      */
     public function getRequestIdCanale()
     {
-        return intval($this->getRequest()->attributes->get('id_canale', 1));
+        return intval($this->getRequest()->get('id_canale', 1));
     }
 
     /**
