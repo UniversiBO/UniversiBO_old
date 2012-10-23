@@ -23,9 +23,15 @@ use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
 
 class FileAdd extends UniversiboCommand
 {
-
     public function execute()
     {
+        if (!$context->isGranted('IS_AUTHENTICATED_FULLY')) {
+        	Error::throwError(_ERROR_DEFAULT,
+        			array('id_utente' => 0,
+        					'msg' => "Per questa operazione bisogna essere registrati\n la sessione potrebbe essere terminata",
+        					'file' => __FILE__, 'line' => __LINE__));
+        }
+        
         $router = $this->get('router');
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
@@ -34,14 +40,9 @@ class FileAdd extends UniversiboCommand
         $context = $this->get('security.context');
         $user = $context->getToken()->getUser();
         $ruoloRepo = $this->get('universibo_legacy.repository.ruolo');
-        $user_ruoli = $user instanceof User ? $ruoloRepo->findByIdUtente($user->getId()) : array();
+        $user_ruoli = $ruoloRepo->findByIdUtente($user->getId());
 
-        if (!$context->isGranted('IS_AUTHENTICATED_FULLY')) {
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => "Per questa operazione bisogna essere registrati\n la sessione potrebbe essere terminata",
-                            'file' => __FILE__, 'line' => __LINE__));
-        }
+        
         /*		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $channelId)) {
         Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getId(), 'msg' => 'L\'id del canale richiesto non ? valido', 'file' => __FILE__, 'line' => __LINE__));
         }
