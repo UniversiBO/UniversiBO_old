@@ -509,6 +509,7 @@ class FileAdd extends UniversiboCommand
                 //$num_canali = count($f12_canale);
                 //var_dump($f12_canale);
                 if (array_key_exists('f12_canale', $_POST))
+                    $userRepo = $this->get('universibo_core.repository.user');
                     foreach ($_POST['f12_canale'] as $key => $value) {
                         $newFile->addCanale($key);
                         $canale = Canale::retrieveCanale($key);
@@ -557,7 +558,8 @@ class FileAdd extends UniversiboCommand
                                             == NOTIFICA_URGENT
                                             || $ruolo_canale->getTipoNotifica()
                                                     == NOTIFICA_ALL)) {
-                                $notifica_user = $ruolo_canale->getUser();
+                                $notifica_user = $userRepo->find($ruolo_canale->getId());
+                                
                                 $notifica_destinatario = 'mail://'
                                         . $notifica_user->getEmail();
 
