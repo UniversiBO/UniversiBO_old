@@ -1,4 +1,6 @@
 *~
+/css/compiled
+/js/compiled
 app/cache
 app/config/deploy.rb
 app/logs
