@@ -38,7 +38,8 @@ class LinkDelete extends CanaleCommand
 
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
-        $link = $this->get('universibo_legacy.repository.links.link')->find($this->getRequest()->attributes->get('id_link'));
+        $linkId = $this->getRequest()->attributes->get('id_link');
+        $link = $this->get('universibo_legacy.repository.links.link')->find($linkId);
         if ($link === false)
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getId(),
@@ -47,17 +48,17 @@ class LinkDelete extends CanaleCommand
 
         $autore = ($user->getId() == $link->getIdUtente());
 
-        $id_canale = $this->getRequest()->attributes->get('id_canale');
+        $channelId = $this->getRequest()->attributes->get('id_canale');
 
-        if ($id_canale !== null) {
-            if (!preg_match('/^([0-9]{1,9})$/', $id_canale)) {
+        if ($channelId !== null) {
+            if (!preg_match('/^([0-9]{1,9})$/', $channelId)) {
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getId(),
                                 'msg' => 'L\'id del canale richiesto non e` valido',
                                 'file' => __FILE__, 'line' => __LINE__));
             }
 
-            $canale = $this->get('universibo_legacy.repository.canale')->find($id_canale);
+            $canale = $this->get('universibo_legacy.repository.canale2')->find($channelId);
             if (!$canale instanceof Canale) {
                 throw new NotFoundHttpException('Channel not found');
             }
@@ -73,8 +74,8 @@ class LinkDelete extends CanaleCommand
                     ->assign('common_langCanaleNome', 'a '
                             . $canale->getTitolo());
 
-            if (array_key_exists($id_canale, $user_ruoli)) {
-                $ruolo = $user_ruoli[$id_canale];
+            if (array_key_exists($channelId, $user_ruoli)) {
+                $ruolo = $user_ruoli[$channelId];
 
                 $referente = $ruolo->isReferente();
                 $moderatore = $ruolo->isModeratore();
@@ -82,7 +83,7 @@ class LinkDelete extends CanaleCommand
 
             //controllo coerenza parametri
             $canale_link = $link->getIdCanale();
-            if ($id_canale != $canale_link)
+            if ($channelId != $canale_link)
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getId(),
                                 'msg' => 'I parametri passati non sono coerenti',
@@ -115,8 +116,8 @@ class LinkDelete extends CanaleCommand
         //$this->executePlugin('ShowTopic', array('reference' => 'filescollabs'));
         $this
                 ->executePlugin('ShowLink',
-                        array('id_link' => $_GET['id_link'],
-                                'id_canale' => $_GET['id_canale']));
+                        array('id_link' => $linkId,
+                                'id_canale' => $channelId));
 
         return 'default';
     }
