@@ -36,7 +36,12 @@ class MyUniversiBORemove extends UniversiboCommand
         }
 
         $id_canale = $this->getRequest()->attributes->get('id_canale');
-        $canale = Canale::retrieveCanale($id_canale);
+        $canale = $this->get('universibo_legacy.repository.canale2')->find($id_canale);
+
+        if (!$canale instanceof Canale) {
+            throw new NotFoundHttpException('Channel not found');
+        }
+        
         $template->assign('common_canaleURI', $canale->showMe($router));
         $template->assign('common_langCanaleNome', $canale->getNome());
         $template->assign('showUser', $router->generate('universibo_legacy_user', array('id_utente' => $utente->getId())));
