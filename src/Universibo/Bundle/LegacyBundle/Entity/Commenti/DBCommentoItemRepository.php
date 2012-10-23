@@ -211,5 +211,18 @@ EOT;
 
     public function transferOwnership(User $source, User $target)
     {
+        $db = $this->getDb();
+        
+        $query = <<<EOT
+UPDATE file_studente_commenti
+    SET id_utente = {$target->getId()}
+    WHERE id_utente = {$source->getId()}
+EOT;
+        $res = $db->query($query);
+        if (DB::isError($res)) {
+        	$this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        }
+        
+        return $db->affectedRows();
     }
 }

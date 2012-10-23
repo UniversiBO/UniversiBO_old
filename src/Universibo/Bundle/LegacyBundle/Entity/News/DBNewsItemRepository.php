@@ -403,11 +403,10 @@ EOT;
         
         $query = <<<EOT
 UPDATE news
-    SET id_utente = {$db->quote($target->getId())}
-    WHERE id_utente = id_utente = {$db->quote($source->getId())}
-                
+    SET id_utente = {$target->getId()}
+    WHERE id_utente = {$source->getId()}
 EOT;
-        $res = $db->execute($query);
+        $res = $db->query($query);
         if (DB::isError($res)) {
         	$this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         }
