@@ -23,6 +23,8 @@ set  :use_composer,   true
 set  :use_sudo,      false
 set  :keep_releases,  3
 
+
+before 'deploy:create_symlink', 'symfony:assetic:dump'
 before 'symfony:composer:install', 'composer:copy_vendors'
 before 'symfony:composer:update', 'composer:copy_vendors'
 
