@@ -2,6 +2,8 @@
 
 namespace Universibo\Bundle\LegacyBundle\App;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use Error;
 use Exception;
 use Universibo\Bundle\CoreBundle\Entity\User;
@@ -265,6 +267,18 @@ abstract class CanaleCommand extends UniversiboCommand
         if ($posA == $posB)
             return strcmp($b["label"], $a["label"]);
         return ($posA < $posB) ? 1 : -1;
+    }
+    
+    protected function ensureChannelType($allowedType)
+    {
+        $this->ensureChannelTypes(array($allowedType));
+    }
+    
+    protected function ensureChannelTypes(array $allowedTypes)
+    {
+        if(!in_array($this->getRequestCanale()->getTipoCanale(), $allowedTypes)) {
+            throw new NotFoundHttpException('Wrong channel type');
+        }
     }
 
     //where is my key in my array
