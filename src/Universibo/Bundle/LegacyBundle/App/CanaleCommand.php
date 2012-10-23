@@ -220,7 +220,6 @@ abstract class CanaleCommand extends UniversiboCommand
                 $list_post = array();
                 if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
                     $fa = $this->get('universibo_forum.dao.post');
-                    
 
                     $id_posts_list = $fa->getLatestPosts($canale->getForumForumId(), 10);
 
@@ -234,8 +233,8 @@ abstract class CanaleCommand extends UniversiboCommand
                 $template->assign('common_forumLink', $forumRouter->getForumUri($canale->getForumForumId()));
             }
         }
-        
-        $rssResponse = $this->forward('UniversiboWebsiteBundle:Common:rss', 
+
+        $rssResponse = $this->forward('UniversiboWebsiteBundle:Common:rss',
                 array('channel' => $canale));
         $template->assign('common_rss', $rssResponse->getContent());
 

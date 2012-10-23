@@ -39,7 +39,7 @@ class CommonController extends Controller
     {
         return array('version' => '2.6.x-dev');
     }
-    
+
     /**
      * @Template()
      * @return array
@@ -48,7 +48,7 @@ class CommonController extends Controller
     {
         return array();
     }
-    
+
     /**
      * @Template()
      * @return array

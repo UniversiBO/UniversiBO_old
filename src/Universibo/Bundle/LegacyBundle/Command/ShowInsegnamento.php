@@ -121,9 +121,7 @@ testi consigliati[/url]';
         if ($info_didattica->getModalitaLink() == ''
                 && $info_didattica->getModalita() == '') {
             $modalita = false;
-        }
-        
-        elseif ($info_didattica->getModalitaLink() != ''
+        } elseif ($info_didattica->getModalitaLink() != ''
                 && $info_didattica->getModalita() == '')
             $modalita = '[url=' . $info_didattica->getModalitaLink()
                     . ']Modalità d\'esame[/url]';
@@ -151,19 +149,19 @@ testi consigliati[/url]';
         }
 
         $tpl_tabella = array();
-        
+
         if($obiettivi)
             $tpl_tabella[] = $obiettivi;
-        
+
         if($programma)
             $tpl_tabella[] = $programma;
-        
+
         if($materiale)
             $tpl_tabella[] = $materiale;
-        
+
         if($modalita)
             $tpl_tabella[] = $modalita;
-        
+
         if($appelli)
             $tpl_tabella[] = $appelli;
         // per rimettere l'orario decommentare qui

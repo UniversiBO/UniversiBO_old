@@ -368,10 +368,10 @@ abstract class UniversiboCommand extends BaseCommand
         //calendario
         $calendarResponse = $this->forward('UniversiboWebsiteBundle:Common:calendar');
         $template->assign('common_calendarBox', $calendarResponse->getContent());
-        
+
         $calendarResponse = $this->forward('UniversiboWebsiteBundle:Common:assets');
         $template->assign('common_assets', $calendarResponse->getContent());
-        
+
         $template->assign('common_version', $this->frontController->getAppSetting('version'));
         $template->assign('common_showGoogle', $this->get('kernel')->getEnvironment() === 'prod');
     }
