@@ -2,10 +2,13 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Error;
+use stdClass;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\InfoDidattica;
+use Zend\Validator\Uri;
 /**
  * ShowCdl: mostra un corso di laurea
  * Mostra i collegamenti a tutti gli insegnamenti attivi nel corso di laurea
@@ -25,7 +28,7 @@ class InfoDidatticaEdit extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 
-        $krono = $frontcontroller->getKrono();
+        $router = $this->get('router');
         $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
@@ -35,14 +38,13 @@ class InfoDidatticaEdit extends UniversiboCommand
                                 : '');
         $template->assign('common_langCanaleNome', 'indietro');
 
-        if (!array_key_exists('id_canale', $_GET)
-                || !preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'L\'id del canale richiesto non ? valido',
-                            'file' => __FILE__, 'line' => __LINE__));
+        $id_canale = $this->getRequest()->attributes->get('id_canale');
+        
+        $canale = $this->get('universibo_legacy.repository.canale2')->find($id_canale);
+        if (!$canale instanceof Canale) {
+        	throw new NotFoundHttpException('Channel not found');
+        }
 
-        $id_canale = $_GET['id_canale'];
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')
                 && (!array_key_exists($id_canale, $user_ruoli)
                         || !$user_ruoli[$id_canale]->isReferente()))
@@ -80,6 +82,12 @@ class InfoDidatticaEdit extends UniversiboCommand
         $f18_appelliInfo = $info_didattica->getAppelli();
 
         $f18_orarioIcsLink = $info_didattica->getOrarioIcsLink();
+        
+        $zendUri = new Uri(array('allowRelative' => false));
+        
+        $valid = function($uri) use ($zendUri){
+            return $uri === '' || $zendUri->isValid($uri);
+        };
 
         $f18_accept = false;
         if (array_key_exists('f18_submit', $_POST)) {
@@ -112,8 +120,7 @@ class InfoDidatticaEdit extends UniversiboCommand
             $f18_modalitaInfo = $_POST['f18_modalitaInfo'];
             $f18_appelliInfo = $_POST['f18_appelliInfo'];
 
-            if (!ereg('(^(http(s)?|ftp)://|^.{0}$)',
-                    $_POST['f18_obiettiviLink'])) {
+            if (!$valid($_POST['f18_obiettiviLink'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getId(),
                                 'msg' => 'L\'URL del link alla pagina degli obiettivi deve iniziare con https://, http:// o ftp://, verificare di non aver lasciato spazi vuoti',
@@ -125,8 +132,7 @@ class InfoDidatticaEdit extends UniversiboCommand
             } else
                 $f18_obiettiviLink = $_POST['f18_obiettiviLink'];
 
-            if (!ereg('(^(http(s)?|ftp)://|^.{0}$)',
-                    $_POST['f18_programmaLink'])) {
+            if (!$valid($_POST['f18_programmaLink'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getId(),
                                 'msg' => 'L\'URL del link alla pagina del programma deve iniziare con https://, http:// o ftp://, verificare di non aver lasciato spazi vuoti',
@@ -138,7 +144,7 @@ class InfoDidatticaEdit extends UniversiboCommand
             } else
                 $f18_programmaLink = $_POST['f18_programmaLink'];
 
-            if (!ereg('(^(http(s)?|ftp)://|^.{0}$)',
+            if (!$valid(
                     $_POST['f18_materialeLink'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getId(),
@@ -151,7 +157,7 @@ class InfoDidatticaEdit extends UniversiboCommand
             } else
                 $f18_materialeLink = $_POST['f18_materialeLink'];
 
-            if (!ereg('(^(http(s)?|ftp)://|^.{0}$)', $_POST['f18_modalitaLink'])) {
+            if (!$valid( $_POST['f18_modalitaLink'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getId(),
                                 'msg' => 'L\'URL del link alla pagina delle modalit? d\'esame deve iniziare con https://, http:// o ftp://, verificare di non aver lasciato spazi vuoti',
@@ -163,7 +169,7 @@ class InfoDidatticaEdit extends UniversiboCommand
             }
             $f18_modalitaLink = $_POST['f18_modalitaLink'];
 
-            if (!ereg('(^(http(s)?|ftp)://|^.{0}$)', $_POST['f18_appelliLink'])) {
+            if (!$valid( $_POST['f18_appelliLink'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getId(),
                                 'msg' => 'L\'URL del link alla pagina degli appelli deve iniziare con https://, http:// o ftp://, verificare di non aver lasciato spazi vuoti',
@@ -175,7 +181,7 @@ class InfoDidatticaEdit extends UniversiboCommand
             } else
                 $f18_appelliLink = $_POST['f18_appelliLink'];
 
-            if (!ereg('(^(http(s)?|ftp)://|^.{0}$)', $_POST['f18_homepageLink'])) {
+            if (!$valid($_POST['f18_homepageLink'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getId(),
                                 'msg' => 'L\'URL del link alla pagina degli appelli deve iniziare con https://, http:// o ftp://, verificare di non aver lasciato spazi vuoti',
@@ -187,8 +193,7 @@ class InfoDidatticaEdit extends UniversiboCommand
             } else
                 $f18_homepageLink = $_POST['f18_homepageLink'];
 
-            if (!ereg('(^(http(s)?|ftp)://|^.{0}$)',
-                    $_POST['f18_orarioIcsLink'])) {
+            if (!$valid($_POST['f18_orarioIcsLink'])) {
                 Error::throwError(_ERROR_NOTICE,
                         array('id_utente' => $user->getId(),
                                 'msg' => 'L\'URL del link alla pagina dell\'orario in formato ics deve iniziare con https://, http:// o ftp://, verificare di non aver lasciato spazi vuoti',
@@ -255,7 +260,7 @@ class InfoDidatticaEdit extends UniversiboCommand
         $template->assign('f18_materialeLink', $f18_materialeLink);
         $template->assign('f18_materialeInfo', $f18_materialeInfo);
 
-        $template->assign('infoDid_langModalitaInfo', 'Modalit? d\'esame');
+        $template->assign('infoDid_langModalitaInfo', 'Modalità d\'esame');
         $template
                 ->assign('infoDid_langModalitaLink',
                         'Link a pagina esterna alternativa con modalità d\'esame');
