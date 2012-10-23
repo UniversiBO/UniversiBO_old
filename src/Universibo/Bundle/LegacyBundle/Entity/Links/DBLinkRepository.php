@@ -172,6 +172,7 @@ EOT;
 
     public function delete(Link $link)
     {
+        $db = $this->getDb();
 
         $query = 'DELETE FROM link WHERE id_link= '
         . $db->quote($link->getIdLink());
