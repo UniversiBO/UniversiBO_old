@@ -400,7 +400,7 @@ EOT;
     public function transferOwnership(User $source, User $target)
     {
         $db = $this->getDb();
-        
+
         $query = <<<EOT
 UPDATE news
     SET id_utente = {$target->getId()}
@@ -408,9 +408,9 @@ UPDATE news
 EOT;
         $res = $db->query($query);
         if (DB::isError($res)) {
-        	$this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         }
-        
+
         return $db->affectedRows();
     }
 }

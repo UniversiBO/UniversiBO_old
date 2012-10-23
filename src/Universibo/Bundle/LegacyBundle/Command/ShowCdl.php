@@ -3,7 +3,6 @@ namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
-use Error;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
@@ -28,13 +27,13 @@ class ShowCdl extends CanaleCommand
     public function initCommand(FrontController $frontController)
     {
         parent::initCommand($frontController);
-        
+
         $this->ensureChannelType(Canale::CDL);
     }
 
     public function execute()
     {
-        
+
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $context = $this->get('security.context');

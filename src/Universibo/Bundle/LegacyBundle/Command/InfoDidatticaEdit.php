@@ -2,7 +2,6 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Error;
-use stdClass;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
@@ -39,10 +38,10 @@ class InfoDidatticaEdit extends UniversiboCommand
         $template->assign('common_langCanaleNome', 'indietro');
 
         $id_canale = $this->getRequest()->attributes->get('id_canale');
-        
+
         $canale = $this->get('universibo_legacy.repository.canale2')->find($id_canale);
         if (!$canale instanceof Canale) {
-        	throw new NotFoundHttpException('Channel not found');
+            throw new NotFoundHttpException('Channel not found');
         }
 
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')
@@ -82,10 +81,10 @@ class InfoDidatticaEdit extends UniversiboCommand
         $f18_appelliInfo = $info_didattica->getAppelli();
 
         $f18_orarioIcsLink = $info_didattica->getOrarioIcsLink();
-        
+
         $zendUri = new Uri(array('allowRelative' => false));
-        
-        $valid = function($uri) use ($zendUri){
+
+        $valid = function($uri) use ($zendUri) {
             return $uri === '' || $zendUri->isValid($uri);
         };
 

@@ -37,14 +37,14 @@ class MyUniversiBOEdit extends UniversiboCommand
                     array('id_utente' => $utente->getId(),
                             'msg' => "non e` permesso ad utenti non registrati eseguire questa operazione.\n La sessione potrebbe essere scaduta",
                             'file' => __FILE__, 'line' => __LINE__));
-        
+
         $id_canale = $this->getRequest()->attributes->get('id_canale');
         $canale = $this->get('universibo_legacy.repository.canale2')->find($id_canale);
 
         if (!$canale instanceof Canale) {
             throw new NotFoundHttpException('Channel not found');
         }
-        
+
         $template->assign('common_canaleURI', $canale->showMe($router));
         $template->assign('common_langCanaleNome', $canale->getNome());
 

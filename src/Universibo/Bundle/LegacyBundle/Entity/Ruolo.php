@@ -136,11 +136,11 @@ class Ruolo
     {
         return $this->id_utente;
     }
-    
+
     public function setId($id)
     {
         $this->id_utente = $id;
-        
+
         return $this;
     }
 
@@ -342,11 +342,11 @@ class Ruolo
     {
         return $this->nascosto;
     }
-    
+
     public function setNascosto($nascosto)
     {
         $this->nascosto = $nascosto;
-        
+
         return $this;
     }
 

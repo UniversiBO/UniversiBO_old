@@ -27,12 +27,12 @@ class FileAdd extends UniversiboCommand
     {
         $context = $this->get('security.context');
         if (!$context->isGranted('IS_AUTHENTICATED_FULLY')) {
-        	Error::throwError(_ERROR_DEFAULT,
-        			array('id_utente' => 0,
-        					'msg' => "Per questa operazione bisogna essere registrati\n la sessione potrebbe essere terminata",
-        					'file' => __FILE__, 'line' => __LINE__));
+            Error::throwError(_ERROR_DEFAULT,
+                    array('id_utente' => 0,
+                            'msg' => "Per questa operazione bisogna essere registrati\n la sessione potrebbe essere terminata",
+                            'file' => __FILE__, 'line' => __LINE__));
         }
-        
+
         $router = $this->get('router');
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
@@ -42,7 +42,7 @@ class FileAdd extends UniversiboCommand
         $ruoloRepo = $this->get('universibo_legacy.repository.ruolo');
         $user_ruoli = $ruoloRepo->findByIdUtente($user->getId());
 
-        
+
         /*		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $channelId)) {
         Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getId(), 'msg' => 'L\'id del canale richiesto non ? valido', 'file' => __FILE__, 'line' => __LINE__));
         }
@@ -559,7 +559,7 @@ class FileAdd extends UniversiboCommand
                                             || $ruolo_canale->getTipoNotifica()
                                                     == NOTIFICA_ALL)) {
                                 $notifica_user = $userRepo->find($ruolo_canale->getId());
-                                
+
                                 $notifica_destinatario = 'mail://'
                                         . $notifica_user->getEmail();
 

@@ -34,17 +34,17 @@ class RuoliAdminEdit extends UniversiboCommand
         $user_ruoli = $user instanceof User ? $ruoloRepo->findByIdUtente($user->getId()) : array();
         $ruoli = array();
         $arrayPublicUsers = array();
-        
+
         $request = $this->getRequest();
         $channelId = $request->get('id_canale');
-        
+
         $channelRepo = $this->get('universibo_legacy.repository.canale2');
         $channel = $channelRepo->find($channelId);
-        
-        if(!$channel instanceof Canale) {
+
+        if (!$channel instanceof Canale) {
             throw new NotFoundHttpException('Channel not foun');
         }
-        
+
         $userRepo = $this->get('universibo_core.repository.user');
 
         $targetUserId = $request->get('id_utente');

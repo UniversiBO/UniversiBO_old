@@ -268,15 +268,15 @@ abstract class CanaleCommand extends UniversiboCommand
             return strcmp($b["label"], $a["label"]);
         return ($posA < $posB) ? 1 : -1;
     }
-    
+
     protected function ensureChannelType($allowedType)
     {
         $this->ensureChannelTypes(array($allowedType));
     }
-    
+
     protected function ensureChannelTypes(array $allowedTypes)
     {
-        if(!in_array($this->getRequestCanale()->getTipoCanale(), $allowedTypes)) {
+        if (!in_array($this->getRequestCanale()->getTipoCanale(), $allowedTypes)) {
             throw new NotFoundHttpException('Wrong channel type');
         }
     }

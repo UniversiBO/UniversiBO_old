@@ -3,7 +3,6 @@ namespace Universibo\Bundle\LegacyBundle\Entity\Links;
 
 use DB;
 use DB_common;
-use RuntimeException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
@@ -201,7 +200,7 @@ EOT;
     public function transferOwnership(User $source, User $target)
     {
         $db = $this->getDb();
-        
+
         $query = <<<EOT
 UPDATE link
     SET id_utente = {$target->getId()}
@@ -209,9 +208,9 @@ UPDATE link
 EOT;
         $res = $db->query($query);
         if (DB::isError($res)) {
-        	$this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
         }
-        
+
         return $db->affectedRows();
     }
 }

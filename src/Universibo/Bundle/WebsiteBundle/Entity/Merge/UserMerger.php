@@ -21,7 +21,7 @@ class UserMerger implements UserMergerInterface
      * @var array
      */
     private $retrievers = array();
-    
+
     /*
      * @var UserRepository
      */
@@ -67,17 +67,17 @@ class UserMerger implements UserMergerInterface
             'description' => 'Added links',
             'repository' => $linkRepository
         );
-        
+
         $this->retrievers['post'] = array(
             'description' => 'Forum posts',
-        	'repository' => $postDAO
+            'repository' => $postDAO
         );
-        
+
         $this->retrievers['roles'] = array(
-        		'description' => 'Roles',
-        		'repository' => $ruoloRepository
+                'description' => 'Roles',
+                'repository' => $ruoloRepository
         );
-        
+
         $this->userRepository = $userRepository;
     }
 
@@ -98,34 +98,34 @@ class UserMerger implements UserMergerInterface
     public function getUsersFromPerson(Person $person, $includeLocked = false)
     {
         $users = $this->userRepository->findByPerson($person);
-        
-        if($includeLocked) {
+
+        if ($includeLocked) {
             return $users;
         }
-        
+
         $unlockedUsers = array();
-        
-        foreach($users as $user) {
-            if(!$user->isLocked()) {
+
+        foreach ($users as $user) {
+            if (!$user->isLocked()) {
                 $unlockedUsers[] = $user;
             }
         }
-        
+
         return $unlockedUsers;
     }
 
     public function merge(User $target, array $others)
     {
-        foreach($this->retrievers as $retriever) {
-            foreach($others as $source) {
+        foreach ($this->retrievers as $retriever) {
+            foreach ($others as $source) {
                 $retriever['repository']->transferOwnership($source, $target);
             }
-            
+
             $source->setLocked(true);
             $this->userRepository->save($source);
         }
 
-        $target->setLocked(false);        
+        $target->setLocked(false);
         $this->userRepository->save($target);
     }
 }

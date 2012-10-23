@@ -85,6 +85,7 @@ class DBRuoloRepository extends DBRepository implements
                             array(
                                     'msg' => 'Errore generale database: ruolo non unico',
                                     'file' => __FILE__, 'line' => __LINE__));
+
         return false;
     }
 
@@ -114,6 +115,7 @@ class DBRuoloRepository extends DBRepository implements
                             array(
                                     'msg' => 'Errore generale database: ruolo non unico',
                                     'file' => __FILE__, 'line' => __LINE__));
+
         return false;
     }
 
@@ -143,6 +145,7 @@ class DBRuoloRepository extends DBRepository implements
                             array(
                                     'msg' => 'Errore generale database: ruolo non unico',
                                     'file' => __FILE__, 'line' => __LINE__));
+
         return false;
     }
 
@@ -173,6 +176,7 @@ class DBRuoloRepository extends DBRepository implements
                             array(
                                     'msg' => 'Errore generale database: ruolo non unico',
                                     'file' => __FILE__, 'line' => __LINE__));
+
         return false;
     }
 
@@ -203,6 +207,7 @@ class DBRuoloRepository extends DBRepository implements
                             array(
                                     'msg' => 'Errore generale database: ruolo non unico',
                                     'file' => __FILE__, 'line' => __LINE__));
+
         return false;
     }
 
@@ -234,6 +239,7 @@ class DBRuoloRepository extends DBRepository implements
                             array(
                                     'msg' => 'Errore generale database: ruolo non unico',
                                     'file' => __FILE__, 'line' => __LINE__));
+
         return false;
     }
 
@@ -253,6 +259,7 @@ class DBRuoloRepository extends DBRepository implements
         $rows = $res->numRows();
         if ($rows = 0) {
             $ret = array();
+
             return $ret;
         }
 
@@ -437,7 +444,7 @@ class DBRuoloRepository extends DBRepository implements
 
         return strnatcasecmp($nomea, $nomeb);
     }
-    
+
     public function countByUser(User $user)
     {
         $db = $this->getDb();
@@ -455,17 +462,17 @@ EOT;
     public function transferOwnership(User $source, User $target)
     {
         $sourceRoles = $this->findByIdUtente($source->getId());
-        
-        foreach($sourceRoles as $role) {
+
+        foreach ($sourceRoles as $role) {
             $targetRole = $this->find($target->getId(), $role->getIdCanale());
-            if($targetRole instanceof Ruolo) {
+            if ($targetRole instanceof Ruolo) {
                 $targetRole->setModeratore($role->isModeratore() || $targetRole->isModeratore());
                 $targetRole->setReferente($role->isReferente() || $targetRole->isReferente());
                 $targetRole->setNascosto($role->isNascosto() || $targetRole->isNascosto());
                 $targetRole->setMyUniversibo($role->isMyUniversibo() || $targetRole->isMyUniversibo());
-                
+
                 $this->update($targetRole);
-                $this->delete($role);                
+                $this->delete($role);
             } else {
                 $this->delete($role);
                 $role->setId($target->getId());
