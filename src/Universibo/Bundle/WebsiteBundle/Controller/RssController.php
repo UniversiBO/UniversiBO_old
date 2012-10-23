@@ -15,7 +15,7 @@ class RssController extends Controller
      */
     public function indexAction($idCanale)
     {
-        $canaleRepo = $this->get('universibo_legacy.repository.canale');
+        $canaleRepo = $this->get('universibo_legacy.repository.canale2');
         $channel = $canaleRepo->find($idCanale);
 
         if (!$channel instanceof Canale) {
