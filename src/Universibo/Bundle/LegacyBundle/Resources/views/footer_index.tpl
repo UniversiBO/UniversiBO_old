@@ -55,26 +55,7 @@
 	{include file="Files/box_show_files_studenti.tpl"}
 {/if}	
 
-
-	<div class="box"> {*quarto blocchetto *}
-		{*<h3><a href="{$common_calendarLink.uri|escape:"htmlall"}">{$common_calendarLink.label|escape:"htmlall"}</a></h3>*}
-		<h3>{$common_calendarLink.label|escape:"htmlall"}</h3>
-		<table width="100%" cellspacing="0" cellpadding="1" border="0" summary="Calendario">
-			<tr align="center">
-			{foreach name=weekday from=$common_calendarWeekDays item=temp_weekday}
-			 <th class="{if $smarty.foreach.weekday.last}Domeniche{else}Feriali{/if}">{$temp_weekday.numero|escape:"htmlall"|capitalize}</th>
-			{/foreach}
-			</tr>
-			{foreach from=$common_calendar item=temp_week}
-				<tr align="center">
-				{foreach from=$temp_week item=temp_day}
-					{if $temp_day.today=='true'}<td class="Oggi">{$temp_day.numero|escape:"htmlall"}</td>
-					{else}<td class="{if $temp_day.tipo=='none'}Piccolo{elseif $temp_day.tipo=='feriale'}Feriali{elseif $temp_day.tipo=='festivo'}Festivi{elseif $temp_day.tipo=='domenica'}Domeniche{/if}">{$temp_day.numero|escape:"htmlall"}</td>{/if}
-				{/foreach}
-				</tr>
-			{/foreach}
-		</table>
-	</div>
+	{$common_calendarBox}
 	
 	{if $common_isSetVisite == 'true'}
 	<div class="box"> {* sesto blocchetto *}

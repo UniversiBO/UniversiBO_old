@@ -1,15 +1,12 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\App;
 
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
-
+use Error;
+use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Facolta;
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\Framework\BaseCommand;
-use Universibo\Bundle\CoreBundle\Entity\User;
-
-use \Error;
+use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 /**
  * UniversiboCommand is the abstract super class of all command classes
  * used in the universibo application.
@@ -369,54 +366,9 @@ abstract class UniversiboCommand extends BaseCommand
         $template->assign('common_isSetVisite', 'N');
 
         //calendario
-        $curr_timestamp = time();
-        $curr_mday = date("j", $curr_timestamp);  //inizializzo giorno corrente
-        $curr_mese = date("n", $curr_timestamp);  //inizializzo mese corrente
-        $curr_anno = date("Y", $curr_timestamp);  //inizializzo anno corrente
-        //inizializzo variabili del primo giorno del mese
-        $inizio_mese_timestamp = mktime(0, 0, 0, $curr_mese, 1, $curr_anno);
-        $inizio_mese_wday = date("w", $inizio_mese_timestamp);
-
-        $giorni_del_mese = date("t", $curr_timestamp); //inizializzo numero giorni del mese corrente
-        //inizializzazione contatore dei giorni del mese (con offset giorni vuoti prima dell'1 del mese)
-        $conta_mday = ($inizio_mese_wday == 0) ? -5 : 2 - $inizio_mese_wday;
-
-        /* if($inizio_mese_wday==0) $conta_mday=-5;
-         else $conta_mday=2-$inizio_mese_wday; */
-
-        $conta_wday = 1;  //variabile contatore dei giorni della settimana
-        $tpl_mese = array();
-
-        while ($conta_mday <= $giorni_del_mese) {
-            $tpl_settimana = array();
-
-            //disegno una settimana
-            do {
-                //disegna_giorno($tipo,$numero);
-                $c_string = "$conta_mday";
-                $today = ($conta_mday == $curr_mday) ? 'true' : 'false';
-                if ($conta_mday < 1 || $conta_mday > $giorni_del_mese)
-                    $tpl_day = array('numero' => '-', 'tipo' => 'empty', 'today' => $today);
-                elseif ($this->_isFestivo($conta_mday, $curr_mese, $curr_anno))
-                $tpl_day = array('numero' => $c_string, 'tipo' => 'festivo', 'today' => $today);
-                elseif ($conta_wday % 7 == 0)
-                $tpl_day = array('numero' => $c_string, 'tipo' => 'domenica', 'today' => $today);
-                else
-                    $tpl_day = array('numero' => $c_string, 'tipo' => 'feriale', 'today' => $today);
-
-                //$tpl_day = array('numero' => $c_string, 'tipo' => $tipo, 'today' => $today);
-                $tpl_settimana[] = $tpl_day;
-                $conta_wday++;
-                $conta_mday++;
-            } while ($conta_wday % 7 != 1);
-
-            $tpl_mese[] = $tpl_settimana;
-        }
-        $template->assign('common_calendarWeekDays', array('L', 'M', 'M', 'G', 'V', 'S', 'D'));
-        $template->assign('common_calendar', $tpl_mese);
-        $template->assign('common_langCalendar', 'Calendario');
-        $common_calendarLink = array('label' => $krono->k_date('%F'));
-        $template->assign('common_calendarLink', $common_calendarLink);
+        $calendarResponse = $this->forward('UniversiboWebsiteBundle:Common:calendar');
+        $template->assign('common_calendarBox', $calendarResponse->getContent());
+        
         $template->assign('common_version', $this->frontController->getAppSetting('version'));
         $template->assign('common_showGoogle', $this->get('kernel')->getEnvironment() === 'prod');
     }
