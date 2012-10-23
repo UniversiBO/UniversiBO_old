@@ -4,7 +4,7 @@
 </div>
 {include file="avviso_notice.tpl"}
 
-<p>Il download del file è permesso solo agli utenti registrati facenti parte dell'università di bologna.<br />
+<p>Il download del file è permesso solo agli utenti facenti parte dell'Università di Bologna.<br />
 Esegui il login, cliccando sul link in alto a destra.<br />
 <p>La sessione potrebbe essere scaduta.</p>
 <p> <a href="{$fileDownload_InfoURI|escape:"htmlall"}">Torna&nbsp;indietro</a></p>
