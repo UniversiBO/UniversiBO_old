@@ -25,6 +25,7 @@ class FileAdd extends UniversiboCommand
 {
     public function execute()
     {
+        $context = $this->get('security.context');
         if (!$context->isGranted('IS_AUTHENTICATED_FULLY')) {
         	Error::throwError(_ERROR_DEFAULT,
         			array('id_utente' => 0,
@@ -37,7 +38,6 @@ class FileAdd extends UniversiboCommand
         $template = $frontcontroller->getTemplateEngine();
 
         $krono = $frontcontroller->getKrono();
-        $context = $this->get('security.context');
         $user = $context->getToken()->getUser();
         $ruoloRepo = $this->get('universibo_legacy.repository.ruolo');
         $user_ruoli = $ruoloRepo->findByIdUtente($user->getId());
