@@ -1,0 +1,9 @@
+{% javascripts '@UniversiboLegacyBundle/Resources/public/js/*'
+ output='js/compiled/main.js' filter='?yui_js'%}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% stylesheets 
+    '@UniversiboLegacyBundle/Resources/public/css/*'
+    output="css/compiled/main.css" filter='?yui_css'%}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+{% endstylesheets %}

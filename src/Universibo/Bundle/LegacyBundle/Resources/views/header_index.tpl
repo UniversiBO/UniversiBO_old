@@ -6,8 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta lang="it" name="keywords" content="{$common_metaKeywords|escape:"htmlall"}" />
 <meta lang="it" name="description" content="{$common_metaDescription|escape:"htmlall"}" />
-<link rel="stylesheet" href="{$common_basePath}/bundles/universibolegacy/css/style.css" type="text/css" media="all" />
-<script type="text/javascript" src="{$common_basePath}/bundles/universibolegacy/js/liste.js"></script>
+{$common_assets}
 {if $common_showGoogle}
 {literal}
 <style type="text/css">

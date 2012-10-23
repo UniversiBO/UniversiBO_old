@@ -39,6 +39,15 @@ class CommonController extends Controller
     {
         return array('version' => '2.6.x-dev');
     }
+    
+    /**
+     * @Template()
+     * @return array
+     */
+    public function assetsAction()
+    {
+        return array();
+    }
 
     /**
      * @Template()
