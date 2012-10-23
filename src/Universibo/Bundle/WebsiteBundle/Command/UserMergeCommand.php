@@ -51,9 +51,9 @@ class UserMergeCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $users = $input->getArgument('username');
+        $usernames = $input->getArgument('username');
 
-        if (count($users) <= 1) {
+        if (count($usernames) <= 1) {
             throw new LogicException('Please provide at least 2 usernames');
         }
 
@@ -63,7 +63,8 @@ class UserMergeCommand extends ContainerAwareCommand
         $output->setDecorated(true);
 
         $output->writeln('Merging users:');
-        foreach ($users as $id => $username) {
+        $users = array();
+        foreach ($usernames as $id => $username) {
             $user = $userRepo->findOneByUsername($username);
             if (!$user instanceof User) {
                 throw new InvalidArgumentException('Username not found');
@@ -76,6 +77,8 @@ class UserMergeCommand extends ContainerAwareCommand
                 $output->write('    '.$resource['description'].': ');
                 $output->writeln($resource['count']);
             }
+
+            $users[$id] = $user;
         }
 
         $dialog = $this->getHelperSet()->get('dialog');
@@ -88,7 +91,21 @@ class UserMergeCommand extends ContainerAwareCommand
             );
         } while (!preg_match('/^[0-9]+$/', $choosen--) || !array_key_exists($choosen, $users));
 
-        $output->writeln('Merging into '.$users[$choosen]);
+        $output->writeln('Target user: '.$users[$choosen]);
+        $target = $users[$choosen];
+        $others = array_diff($users, array($target));
+
+        $start = microtime(true);
+        $this->get('universibo_website.merge.user')->merge($target, $others);
+        $elapsed = microtime(true) - $start;
+
+        if ($elapsed < 1.0) {
+            $message = 'less than one second';
+        } else {
+            $message = sprintf('%.2f seconds', $elapsed);
+        }
+
+        $output->writeln('<info>Operation took '.$message.'</info>');
     }
 
     private function get($id)
