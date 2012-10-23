@@ -47,11 +47,11 @@ EOT;
         $targetId =  $this->userDAO->findOrCreate($target);
 
         $query = <<<EOT
-UPDATE {$this->getPrefix()}posts p
+UPDATE {$this->getPrefix()}posts
     SET
-        p.poster_id = ?
+        poster_id = ?
     WHERE
-        p.poster_id = ?
+        poster_id = ?
 EOT;
 
         return $this
