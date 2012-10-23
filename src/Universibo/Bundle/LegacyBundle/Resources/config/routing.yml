@@ -172,7 +172,7 @@ universibo_legacy_personal_files:
 universibo_legacy_role_admin_edit:
     pattern: /role/admin/edit/{id_canale}/{id_utente}/
     requirements: { id_canale: \d+, id_utente: \d+ }
-    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'RuoliAdminSearch' }
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'RuoliAdminEdit' }
 universibo_legacy_role_admin_search:
     pattern: /role/admin/search/{id_canale}/
     requirements: { id_canale: \d+ }
