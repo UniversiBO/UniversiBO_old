@@ -67,7 +67,6 @@ class LinkAdd extends UniversiboCommand
                             'msg' => "Il servizio links e` disattivato",
                             'file' => __FILE__, 'line' => __LINE__));
 
-        $id_canale = $canale->getIdCanale();
         $template->assign('common_canaleURI', $canale->showMe($router));
         $template->assign('common_langCanaleNome', 'a ' . $canale->getTitolo());
         if (array_key_exists($id_canale, $user_ruoli)) {
