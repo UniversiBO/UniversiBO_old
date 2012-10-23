@@ -21,6 +21,11 @@ class UserMerger implements UserMergerInterface
      * @var array
      */
     private $retrievers = array();
+    
+    /*
+     * @var UserRepository
+     */
+    private $userRepository;
 
     /**
      * @param UserRepository           $userRepository
@@ -62,6 +67,8 @@ class UserMerger implements UserMergerInterface
             'description' => 'Added links',
             'repository' => $linkRepository
         );
+        
+        $this->userRepository = $userRepository;
     }
 
     public function getOwnedResources(User $user)
@@ -80,9 +87,29 @@ class UserMerger implements UserMergerInterface
 
     public function getUsersFromPerson(Person $person, $includeLocked = false)
     {
+        $users = $this->userRepository->findByPerson($person);
+        
+        if($includeLocked) {
+            return $users;
+        }
+        
+        $unlockedUsers = array();
+        
+        foreach($users as $user) {
+            if(!$user->isLocked()) {
+                $unlockedUsers[] = $user;
+            }
+        }
+        
+        return $unlockedUsers;
     }
 
     public function merge(User $target, array $others)
     {
+        foreach($this->retrievers as $retriever) {
+            foreach($others as $source) {
+                $retriever['repository']->transferOwnership($source, $target);
+            }
+        }
     }
 }

@@ -7,7 +7,7 @@ use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
-use Universibo\Bundle\LegacyBundle\Entity\MergeableRepositoryInterface;
+use Universibo\Bundle\CoreBundle\Entity\MergeableRepositoryInterface;
 
 /**
  * DBNewsItem repository
