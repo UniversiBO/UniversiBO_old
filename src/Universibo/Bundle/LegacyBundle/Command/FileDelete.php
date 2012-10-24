@@ -2,6 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Error;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
@@ -35,46 +36,34 @@ class FileDelete extends UniversiboCommand
 
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
-        if (!array_key_exists('id_file', $_GET)
-                || !preg_match('/^([0-9]{1,9})$/', $_GET['id_file'])) {
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'L\'id del file richiesto non e` valido',
-                            'file' => __FILE__, 'line' => __LINE__));
+        
+        $request = $this->getRequest();
+        $fileId = $request->attributes->get('id_file');
+        
+        $fileRepo = $this->get('universibo_legacy.repository.files.file_item');
+        $file = $fileRepo->find($fileId);
+        
+        if(!$file instanceof FileItem) {
+            throw new NotFoundHttpException('File not found');
         }
-
-        $file = &FileItem::selectFileItem($_GET['id_file']);
-        if ($file === false)
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => "Il file richiesto non e` presente su database",
-                            'file' => __FILE__, 'line' => __LINE__));
+        
 
         $autore = ($user->getId() == $file->getIdUtente());
+        $channelId = intval($request->get('id_canale', 0));
+        $channelRepo = $this->get('universibo_legacy.repository.canale2');
+        
+        if ($channelId > 0) {
+            $canale = $channelRepo->find($channelId);
+            
+            if(!$canale instanceof Canale || !$canale->getServizioFiles()) {
+                throw new NotFoundHttpException('Channel not found');
+            }
 
-        if (array_key_exists('id_canale', $_GET)) {
-            if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
-                Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getId(),
-                                'msg' => 'L\'id del canale richiesto non e` valido',
-                                'file' => __FILE__, 'line' => __LINE__));
-
-            $canale = &Canale::retrieveCanale($_GET['id_canale']);
-
-            if ($canale->getServizioFiles() == false)
-                Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getId(),
-                                'msg' => "Il servizio files e` disattivato",
-                                'file' => __FILE__, 'line' => __LINE__));
-
-            $id_canale = $canale->getIdCanale();
             $template->assign('common_canaleURI', $canale->showMe($router));
-            $template
-                    ->assign('common_langCanaleNome',
-                            'a ' . $canale->getTitolo());
+            $template->assign('common_langCanaleNome', 'a ' . $canale->getTitolo());
 
-            if (array_key_exists($id_canale, $user_ruoli)) {
-                $ruolo = &$user_ruoli[$id_canale];
+            if (array_key_exists($channelId, $user_ruoli)) {
+                $ruolo = &$user_ruoli[$channelId];
 
                 $referente = $ruolo->isReferente();
                 $moderatore = $ruolo->isModeratore();
@@ -82,13 +71,13 @@ class FileDelete extends UniversiboCommand
 
             //controllo coerenza parametri
             $canali_file = $file->getIdCanali();
-            if (!in_array($id_canale, $canali_file))
+            if (!in_array($channelId, $canali_file))
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getId(),
                                 'msg' => 'I parametri passati non sono coerenti',
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $elenco_canali = array($id_canale);
+            $elenco_canali = array($channelId);
 
             if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || ($moderatore && $autore)))
                 Error::throwError(_ERROR_DEFAULT,
@@ -117,7 +106,7 @@ class FileDelete extends UniversiboCommand
         $num_canali = count($file_canali);
         for ($i = 0; $i < $num_canali; $i++) {
             $id_current_canale = $file_canali[$i];
-            $current_canale = &Canale::retrieveCanale($id_current_canale);
+            $current_canale = $channelRepo->find($id_current_canale);
             $nome_current_canale = $current_canale->getTitolo();
             if (in_array($id_current_canale, $file->getIdCanali())) {
                 $f14_canale[] = array('id_canale' => $id_current_canale,
@@ -145,7 +134,7 @@ class FileDelete extends UniversiboCommand
                                                     ->isModeratore() && $autore)));
                     if (!$diritti) {
                         //$user_ruoli[$key]->getIdCanale();
-                        $canale = &Canale::retrieveCanale($key);
+                        $canale = $channelRepo->find($key);
                         Error::throwError(_ERROR_NOTICE,
                                 array('id_utente' => $user->getId(),
                                         'msg' => 'Non possiedi i diritti di eliminazione nel canale: '
@@ -176,7 +165,6 @@ class FileDelete extends UniversiboCommand
             //cancellazione dai canali richiesti
             foreach ($f14_canale_app as $key => $value) {
                 $file->removeCanale($key);
-                //$canale = Canale::retrieveCanale($key);
             }
 
             $file->deleteFileItem();
@@ -189,10 +177,6 @@ class FileDelete extends UniversiboCommand
 
             return 'success';
         }
-
-        //visualizza notizia
-        //$param = array('id_notizie'=>array($_GET['id_news']), 'chk_diritti' => false );
-        //$this->executePlugin('ShowNews', $param );
 
         $template
                 ->assign('f14_langAction',
