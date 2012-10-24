@@ -20,15 +20,9 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
 
     public function execute()
     {
-
         $user = $this->get('security.context')->getToken()->getUser();
-        //$canale = & $this->getRequestCanale();
-        //		$user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
-        //		$id_canale = $canale->getIdCanale();
-
-        //$admin = $this->get('security.context')->isGranted('ROLE_ADMIN');
-        // TODO controllo di questo parametro
-        $id_coll = $_GET['id_coll'];
+        
+        $id_coll = $this->getRequest()->get('id_coll');
 
         if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || ($user->getId() == $id_coll)))
             Error::throwError(_ERROR_DEFAULT,
@@ -36,8 +30,8 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
                             'msg' => "Non hai i diritti per inserire una notizia\n La sessione potrebbe essere scaduta",
                             'file' => __FILE__, 'line' => __LINE__));
 
-        $frontcontroller = &$this->getFrontController();
-        $template = &$frontcontroller->getTemplateEngine();
+        $frontcontroller = $this->getFrontController();
+        $template = $frontcontroller->getTemplateEngine();
 
         // valori default form
         $f36_foto = '';

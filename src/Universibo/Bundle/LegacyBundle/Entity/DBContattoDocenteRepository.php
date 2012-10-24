@@ -1,8 +1,9 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
-use \DB;
-use \Error;
+use DB;
+use Error;
+use Universibo\Bundle\LegacyBundle\Entity\ContattoDocente;
 
 /**
  * Canale repository
@@ -13,10 +14,20 @@ use \Error;
 class DBContattoDocenteRepository extends DBRepository
 {
     /**
+     * @deprecated
      * @param  string          $codDocente
      * @return ContattoDocente
      */
     public function findByCodDocente($codDocente)
+    {
+        return $this->findOneByCodDoc($codDocente);
+    }
+            
+    /**
+     * @param  string          $codDocente
+     * @return ContattoDocente
+     */
+    public function findOneByCodDoc($codDocente)        
     {
         $db = $this->getDb();
 
@@ -34,10 +45,10 @@ class DBContattoDocenteRepository extends DBRepository
 
         return new ContattoDocente($codDocente, $row[0], $row[1], $row[2], $row[3]);
     }
-
+    
     /**
      *
-     * @return boolean|\Universibo\Bundle\LegacyBundle\Entity\ContattoDocente[]
+     * @return boolean|ContattoDocente[]
      */
     public function findAll()
     {
