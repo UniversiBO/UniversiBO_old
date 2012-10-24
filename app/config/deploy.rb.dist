@@ -30,10 +30,10 @@ before 'symfony:composer:update', 'composer:copy_vendors'
 
 namespace :composer do
   task :copy_vendors, :except => { :no_release => true } do
-#    pretty_print "--> Copy vendor file from previous release"
+    capifony_pretty_print "--> Copy vendor file from previous release"
 
     run "vendorDir=#{current_path}/vendor; if [ -d $vendorDir ] || [ -h $vendorDir ]; then cp -a $vendorDir #{latest_release}/vendor; fi;"
-#    puts_ok
+    capifony_puts_ok
   end
 end
 
@@ -41,19 +41,30 @@ set :dev_only_files, [web_path + "/app_dev.php"]
 set :production, true
 
 after 'symfony:cache:warmup', 'pff:productify'
+after 'pff:productify', 'apc:clear'
+
+namespace :apc do
+  desc "Clears APC cache"
+  task :clear, :roles => :app,  :except => { :no_release => true } do
+    capifony_pretty_print "--> Dumping all assets to the filesystem"
+
+    run "#{try_sudo} sh -c 'cd #{latest_release} && #{php_bin} #{symfony_console} apc:clear --env=#{symfony_env_prod} --no-debug'"
+  capifony_puts_ok
+  end
+end
 
 namespace :pff do
   desc "Remove app_dev.php, check.php and config.php from production deployment"
   task :productify, :except => { :production => false } do
     if dev_only_files
-#      pretty_print "--> Removing app_dev.php, config.php, and check.php from web"
+      capifony_pretty_print "--> Removing app_dev.php, config.php, and check.php from web"
       dev_only_files.map do |dev_file|
         run "rm -f #{latest_release}/#{dev_file}"
       end
-#      puts_ok
+      capifony_puts_ok
     else
-#      pretty_print "--> We wanted to remove dev only files but none were listed"
-#      puts_ok
+      capifony_pretty_print "--> We wanted to remove dev only files but none were listed"
+      capifony_puts_ok
     end
   end
 end
