@@ -2,6 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\App;
 
 use Error;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Facolta;
@@ -21,6 +22,11 @@ use Universibo\Bundle\LegacyBundle\Framework\FrontController;
  */
 abstract class UniversiboCommand extends BaseCommand
 {
+    /**
+     * @var Canale
+     */
+    private $requestCanale;
+    
     /**
      * Inizializza l' UniversiboCommand ridefinisce l'init() del BaseCommand.
      */
@@ -432,5 +438,28 @@ abstract class UniversiboCommand extends BaseCommand
             return -1;
         if ($a['label'] > $b['label'])
             return +1;
+    }
+    
+    /**
+     * Ensures channel
+     * 
+     * @return Canale
+     * @throws NotFoundHttpException
+     */
+    protected function getRequestCanale()
+    {
+        if(null === $this->requestCanale) {
+            $channelId = $this->getRequest()->get('id_canale');
+            $channelRepo = $this->get('universibo_legacy.repository.canale2');
+            $canale = $channelRepo->find($channelId);
+        
+            if(!$canale instanceof Canale) {
+                throw new NotFoundHttpException('Channel not found');
+            }
+            
+            $this->requestCanale = $canale;
+        }
+        
+        return $this->requestCanale;
     }
 }

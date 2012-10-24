@@ -2,10 +2,8 @@
 
 namespace Universibo\Bundle\LegacyBundle\App;
 
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
-use Error;
 use Exception;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
@@ -28,30 +26,14 @@ use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 abstract class CanaleCommand extends UniversiboCommand
 {
     /**
-     * @var Canale
-     */
-    private $requestCanale;
-
-    /**
      * Restituisce l'id_canale corrente, se non ? specificato nella richiesta HTTP-GET si considera
      * default l'homepage id_canale = 1
      *
-     * @static
      * @return int
      */
     public function getRequestIdCanale()
     {
         return intval($this->getRequest()->get('id_canale', 1));
-    }
-
-    /**
-     * Restituisce l'oggetto canale della richiesta web corrente
-     *
-     * @return Canale
-     */
-    public function getRequestCanale()
-    {
-        return $this->requestCanale;
     }
 
     /**
@@ -69,19 +51,10 @@ abstract class CanaleCommand extends UniversiboCommand
     /**
      * Inizializza le informazioni del canale di CanaleCommand
      * Esegue il dispatch inizializzndo il corretto sottotipo di 'canale'
-     *
-     * @private
      */
-    public function _setUpCanaleCanale()
+    private function _setUpCanaleCanale()
     {
-        $channelRepo = $this->get('universibo_legacy.repository.canale2');
-        $canale = $channelRepo->find($this->getRequestIdCanale());
-        
-        if(!$canale instanceof Canale) {
-            throw new NotFoundHttpException('Channel not found');
-        }
-        
-        $this->requestCanale = $canale;
+        $canale = $this->getRequestCanale();
 
         $user = $this->get('security.context')->getToken()->getUser();
         $groups = $user instanceof User ? $user->getLegacyGroups() : 1;
@@ -96,9 +69,8 @@ abstract class CanaleCommand extends UniversiboCommand
     /**
      * Inizializza le informazioni del canale di CanaleCommand
      *
-     * @private
      */
-    public function _setUpTemplateCanale()
+    private function _setUpTemplateCanale()
     {
         $template = $this->frontController->getTemplateEngine();
         $router = $this->get('router');
