@@ -446,7 +446,7 @@ abstract class UniversiboCommand extends BaseCommand
      * @return Canale
      * @throws NotFoundHttpException
      */
-    protected function getRequestCanale($force = true)
+    public function getRequestCanale($force = true)
     {
         if (null === $this->requestCanale) {
             $channelId = $this->getRequest()->get('id_canale');
