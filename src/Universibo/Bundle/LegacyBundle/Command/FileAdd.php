@@ -43,7 +43,7 @@ class FileAdd extends UniversiboCommand
         $user_ruoli = $ruoloRepo->findByIdUtente($user->getId());
 
 
-        /*		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $channelId)) {
+        /*		if (!array_key_exists('id_canale', _GET) || !preg_match('/^([0-9]{1,9})$/', $channelId)) {
         Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getId(), 'msg' => 'L\'id del canale richiesto non ? valido', 'file' => __FILE__, 'line' => __LINE__));
         }
 
@@ -386,7 +386,7 @@ class FileAdd extends UniversiboCommand
             }
             //e i permessi di visualizzazione??
             // li prendo uguali a quelli del canale,
-            if (array_key_exists('id_canale', $_GET))
+            if ($canale instanceof Canale)
                 $f12_permessi_visualizza = $canale->getPermessi();
             else
                 $f12_permessi_visualizza = LegacyRoles::ALL;
@@ -488,9 +488,9 @@ class FileAdd extends UniversiboCommand
                                     'file' => __FILE__, 'line' => __LINE__));
                 }
 
+                $antiVirus = AntiVirusFactory::getAntiVirus($frontcontroller);
                 //controllo antivirus
-                if ($antiVirus = AntiVirusFactory::getAntiVirus(
-                        $frontcontroller)) {
+                if ($antiVirus) {
                     if ($antiVirus
                             ->checkFile(
                                     $frontcontroller
