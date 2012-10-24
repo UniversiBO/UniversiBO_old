@@ -74,14 +74,15 @@ abstract class CanaleCommand extends UniversiboCommand
      */
     public function _setUpCanaleCanale()
     {
-        $this->requestCanale = Canale::retrieveCanale($this->getRequestIdCanale());
+        $channelRepo = $this->get('universibo_legacy.repository.canale2');
+        $canale = $channelRepo->find($this->getRequestIdCanale());
+        
+        if(!$canale instanceof Canale) {
+            throw new NotFoundHttpException('Channel not found');
+        }
+        
+        $this->requestCanale = $canale;
 
-        //$this->requestCanale = $class_name::factoryCanale( $this->getRequestIdCanale() );
-
-        if ($this->requestCanale === false)
-            Error::throwError(_ERROR_DEFAULT, array('id_utente' => $this->sessionUser->getId(), 'msg' => 'Il canale richiesto non è presente', 'file' => __FILE__, 'line' => __LINE__));
-
-        $canale = $this->getRequestCanale();
         $user = $this->get('security.context')->getToken()->getUser();
         $groups = $user instanceof User ? $user->getLegacyGroups() : 1;
 
