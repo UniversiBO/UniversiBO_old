@@ -47,13 +47,6 @@ class FileStudentiEdit extends UniversiboCommand
         $template->assign('common_canaleURI', $canale->showMe($router));
         $template->assign('common_langCanaleNome', 'a ' . $canale->getTitolo());
 
-        //		if (!array_key_exists('id_canale', $_GET) || !preg_match('/^([0-9]{1,9})$/', $channelId))
-        //		{
-        //			Error :: throwError(_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non e` valido', 'file' => __FILE__, 'line' => __LINE__));
-        //		}
-        //		$canale =  Canale::retrieveCanale($channelId);
-        //		$id_canale = $canale->getIdCanale();
-
         $template
                 ->assign('common_canaleURI',
                         array_key_exists('HTTP_REFERER', $_SERVER) ? $_SERVER['HTTP_REFERER']
@@ -427,7 +420,7 @@ class FileStudentiEdit extends UniversiboCommand
 
             //e i permessi di visualizzazione??
             // li prendo uguali a quelli del canale,
-            if (array_key_exists('id_canale', $_GET))
+            if ($canale instanceof Canale)
                 $f24_permessi_visualizza = $canale->getPermessi();
             else
                 $f24_permessi_visualizza = LegacyRoles::ALL;
