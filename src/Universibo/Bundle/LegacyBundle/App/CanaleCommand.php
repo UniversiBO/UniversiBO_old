@@ -74,6 +74,7 @@ abstract class CanaleCommand extends UniversiboCommand
     {
         $template = $this->frontController->getTemplateEngine();
         $router = $this->get('router');
+        $channelRouter = $this->get('universibo_legacy.routing.channel');
 
         //var_dump($template);
         $canale = $this->getRequestCanale();
@@ -99,7 +100,7 @@ abstract class CanaleCommand extends UniversiboCommand
         $template->assign('common_isSetVisite', 'true');
         $template->assign('common_visite', $canale->getVisite());
         $template->assign('common_langCanaleNome', $canale->getNome());
-        $template->assign('common_canaleURI', $canale->showMe($router));
+        $template->assign('common_canaleURI', $channelRouter->generate($canale));
 
         if ($canale->getTipoCanale() != Canale::HOME) {
             $template->assign('common_title', 'UniversiBO: ' . $canale->getTitolo());

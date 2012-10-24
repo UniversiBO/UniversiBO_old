@@ -34,6 +34,7 @@ class FileAdd extends UniversiboCommand
         }
 
         $router = $this->get('router');
+        $channelRouter = $this->get('universibo_legacy.routing.channel');
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 
@@ -42,20 +43,7 @@ class FileAdd extends UniversiboCommand
         $ruoloRepo = $this->get('universibo_legacy.repository.ruolo');
         $user_ruoli = $ruoloRepo->findByIdUtente($user->getId());
 
-
-        /*		if (!array_key_exists('id_canale', _GET) || !preg_match('/^([0-9]{1,9})$/', $channelId)) {
-        Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getId(), 'msg' => 'L\'id del canale richiesto non ? valido', 'file' => __FILE__, 'line' => __LINE__));
-        }
-
-        $canale = Canale::retrieveCanale($channelId);
-        $channelId = $canale->getIdCanale();
-        $template->assign('common_canaleURI', $canale->showMe($router));
-        $template->assign('common_langCanaleNome', $canale->getTitolo());
-         */
-        $template
-                ->assign('common_canaleURI',
-                        array_key_exists('HTTP_REFERER', $_SERVER) ? $_SERVER['HTTP_REFERER']
-                                : '');
+        $template->assign('common_canaleURI',$request->server->get('HTTP_REFERER', ''));
         $template->assign('common_langCanaleNome', 'indietro');
 
         $referente = false;
@@ -98,7 +86,7 @@ class FileAdd extends UniversiboCommand
                                 'file' => __FILE__, 'line' => __LINE__));
 
             $channelId = $canale->getIdCanale();
-            $template->assign('common_canaleURI', $canale->showMe($router));
+            $template->assign('common_canaleURI', $channelRouter->generate($canale));
             $template
                     ->assign('common_langCanaleNome', 'a '
                             . $canale->getTitolo());

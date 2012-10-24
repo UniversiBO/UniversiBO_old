@@ -29,7 +29,6 @@ class MyUniversiBOAdd extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $utente = $this->get('security.context')->getToken()->getUser();
-        $router = $this->get('router');
 
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY'))
             Error::throwError(_ERROR_DEFAULT,
@@ -44,7 +43,8 @@ class MyUniversiBOAdd extends UniversiboCommand
             throw new NotFoundHttpException('Channel not found');
         }
 
-        $template->assign('common_canaleURI', $canale->showMe($router));
+        $channelRouter = $this->get('universibo_legacy.routing.channel');
+        $template->assign('common_canaleURI', $channelRouter->generate($canale));
         $template->assign('common_langCanaleNome', $canale->getNome());
 
         $ruoli = $utente instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($utente->getId()) : array();

@@ -50,6 +50,7 @@ class ShowUser extends UniversiboCommand
         }
 
         $router = $this->get('router');
+        $channelRouter = $this->get('universibo_legacy.routing.channel');
 
         $arrayRuoli = $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId());
         $canali = array();
@@ -61,7 +62,7 @@ class ShowUser extends UniversiboCommand
                 $canale = Canale::retrieveCanale($ruolo->getIdCanale());
                 if ($canale->isGroupAllowed($current_user->getLegacyGroups())) {
                     $canali = array();
-                    $canali['uri'] = $canale->showMe($router);
+                    $canali['uri'] = $channelRouter->generate($canale);
                     $canali['tipo'] = $canale->getTipoCanale();
                     $canali['label'] = ($canale->getNome() != '') ? $canale
                                     ->getNome() : $canale

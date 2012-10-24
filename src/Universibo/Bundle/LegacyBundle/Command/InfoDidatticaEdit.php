@@ -27,7 +27,6 @@ class InfoDidatticaEdit extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 
-        $router = $this->get('router');
         $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
@@ -55,7 +54,8 @@ class InfoDidatticaEdit extends UniversiboCommand
         $info_didattica = InfoDidattica::retrieveInfoDidattica($id_canale);
         $insegnamento = Canale::retrieveCanale($id_canale);
 
-        $template->assign('common_canaleURI', $insegnamento->showMe($router));
+        $channelRouter = $this->get('universibo_legacy.routing.channel');
+        $template->assign('common_canaleURI', $channelRouter->generate($insegnamento));
         $template
                 ->assign('common_langCanaleNome',
                         'a ' . $insegnamento->getTitolo());

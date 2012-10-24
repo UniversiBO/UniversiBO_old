@@ -45,7 +45,8 @@ class MyUniversiBOEdit extends UniversiboCommand
             throw new NotFoundHttpException('Channel not found');
         }
 
-        $template->assign('common_canaleURI', $canale->showMe($router));
+        $channelRouter = $this->get('universibo_legacy.routing.channel');
+        $template->assign('common_canaleURI', $channelRouter->generate($canale));
         $template->assign('common_langCanaleNome', $canale->getNome());
 
         $ruoli = $utente instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($utente->getId()) : array();

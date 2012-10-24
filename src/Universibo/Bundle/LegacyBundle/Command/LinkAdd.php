@@ -27,10 +27,8 @@ class LinkAdd extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 
-        $krono = $frontcontroller->getKrono();
         $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
-        $router = $this->get('router');
 
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             Error::throwError(_ERROR_DEFAULT,
@@ -67,7 +65,8 @@ class LinkAdd extends UniversiboCommand
                             'msg' => "Il servizio links e` disattivato",
                             'file' => __FILE__, 'line' => __LINE__));
 
-        $template->assign('common_canaleURI', $canale->showMe($router));
+        $channelRouter = $this->get('universibo_legacy.routing.channel');
+        $template->assign('common_canaleURI', $channelRouter->generate($canale));
         $template->assign('common_langCanaleNome', 'a ' . $canale->getTitolo());
         if (array_key_exists($id_canale, $user_ruoli)) {
             $ruolo = $user_ruoli[$id_canale];

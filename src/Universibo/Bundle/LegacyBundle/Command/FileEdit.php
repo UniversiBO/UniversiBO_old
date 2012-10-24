@@ -56,13 +56,15 @@ class FileEdit extends UniversiboCommand
 
         $canale = $this->getRequestCanale(false);
         if ($canale instanceof Canale) {
+            $id_canale = $canale->getIdCanale();
             if ($canale->getServizioFiles() == false)
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getId(),
                                 'msg' => "Il servizio files e` disattivato",
                                 'file' => __FILE__, 'line' => __LINE__));
 
-            $template->assign('common_canaleURI', $canale->showMe($router));
+            $channelRouter = $this->get('universibo_legacy.routing.channel');
+            $template->assign('common_canaleURI', $channelRouter->generate($canale));
             $template->assign('common_langCanaleNome', 'a '. $canale->getTitolo());
             if (array_key_exists($id_canale, $user_ruoli)) {
                 $ruolo = $user_ruoli[$id_canale];

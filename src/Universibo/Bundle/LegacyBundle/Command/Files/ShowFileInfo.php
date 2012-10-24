@@ -88,14 +88,9 @@ class ShowFileInfo extends PluginCommand
 
         $params = array('id_file' => $file->getIdFile());
 
-        if ($id_canale = $this->getBaseCommand()->getRequest()->get('id_canale')) {
-            if (!preg_match('/^([0-9]{1,9})$/', $id_canale))
-                Error::throwError(_ERROR_DEFAULT,
-                        array(
-                                'msg' => 'L\'id del canale richiesto non e` valido',
-                                'file' => __FILE__, 'line' => __LINE__));
-
-            $canale = Canale::retrieveCanale($id_canale);
+        $channelRouter = $this->get('universibo_legacy.routing.channel');
+        $canale = $this->getBaseCommand()->getRequestCanale(false);
+        if ($canale instanceof Canale) {
             if ($canale->getServizioFiles() == false)
                 Error::throwError(_ERROR_DEFAULT,
                         array('msg' => "Il servizio files e` disattivato",
@@ -104,7 +99,7 @@ class ShowFileInfo extends PluginCommand
             $params['id_canale'] = $id_canale;
 
             $user_ruoli = $canale->getRuoli();
-            $template->assign('common_canaleURI', $canale->showMe($router));
+            $template->assign('common_canaleURI', $channelRouter->generate($canale));
             $template
                     ->assign('common_langCanaleNome',
                             'a ' . $canale->getTitolo());
@@ -156,7 +151,7 @@ class ShowFileInfo extends PluginCommand
             $canale = Canale::retrieveCanale($id_canale);
             $canali_tpl[$id_canale] = array();
             $canali_tpl[$id_canale]['titolo'] = $canale->getTitolo();
-            $canali_tpl[$id_canale]['uri'] = $canale->showMe($router);
+            $canali_tpl[$id_canale]['uri'] = $channelRouter->generate($canale);
         }
 
         $template->assign('showFileInfo_downloadUri', $router->generate('universibo_legacy_file_download', array('id_file' => $file->getIdFile())));

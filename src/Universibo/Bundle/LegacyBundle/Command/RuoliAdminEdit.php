@@ -52,7 +52,8 @@ class RuoliAdminEdit extends UniversiboCommand
         $target_username = $target_user->getUsername();
         $target_userUri = $router->generate('universibo_legacy_user', array('id_utente' => $target_user->getId()));
 
-        $template->assign('common_canaleURI', $channel->showMe($router));
+        $channelRouter = $this->get('universibo_legacy.routing.channel');
+        $template->assign('common_canaleURI', $channelRouter->generate($channel));
         $template->assign('common_langCanaleNome', 'a '.$channel->getTitolo());
 
         if (array_key_exists($channelId, $user_ruoli)) {

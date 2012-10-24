@@ -191,7 +191,7 @@ abstract class UniversiboCommand extends BaseCommand
     public function _shutdownTemplateIndexUniversibo()
     {
         $template = $this->frontController->getTemplateEngine();
-        $krono = $this->frontController->getKrono();
+        $channelRouter = $this->get('universibo_legacy.routing.channel');
         $router = $this->get('router');
 
         $session_user = $this->get('security.context')->getToken()->getUser();
@@ -213,7 +213,7 @@ abstract class UniversiboCommand extends BaseCommand
 
                     $canale = Canale::retrieveCanale($ruolo->getIdCanale());
                     $myCanali = array();
-                    $myCanali['uri'] = $canale->showMe($router);
+                    $myCanali['uri'] = $channelRouter->generate($canale);
                     $myCanali['tipo'] = $canale->getTipoCanale();
                     $myCanali['label'] = ($ruolo->getNome() != '') ? $ruolo->getNome() : $canale->getNomeMyUniversiBO();
                     $myCanali['new'] = ($canale->getUltimaModifica() > $ruolo->getUltimoAccesso()) ? 'true' : 'false';
@@ -261,7 +261,6 @@ abstract class UniversiboCommand extends BaseCommand
         $template->assign('common_setHomepage', 'Imposta Homepage');
         $template->assign('common_addBookmarks', 'Aggiungi ai preferiti');
 
-        $session_user = $this->get('security.context')->getToken()->getUser();
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             $template->assign('common_userLoggedIn', 'false');
         } else {
@@ -288,13 +287,12 @@ abstract class UniversiboCommand extends BaseCommand
 
         $num_facolta = count($elenco_facolta);
         $i = 0;
-        $session_user = $this->get('security.context')->getToken()->getUser();
         $session_user_groups = $session_user instanceof User ? $session_user->getLegacyGroups() : 1;
         $common_facLinks = array();
         for ($i = 0; $i < $num_facolta; $i++) {
             if ($elenco_facolta[$i]->isGroupAllowed($session_user_groups)) {
                 $common_facLinks[$i] = array();
-                $common_facLinks[$i]['uri'] = $elenco_facolta[$i]->showMe($router);
+                $common_facLinks[$i]['uri'] = $channelRouter->generate($elenco_facolta[$i]);
                 $common_facLinks[$i]['label'] = $elenco_facolta[$i]->getNome();
             }
         }
@@ -311,7 +309,7 @@ abstract class UniversiboCommand extends BaseCommand
             $my_canale = $list_canali[$key];
             if ($my_canale->isGroupAllowed($session_user_groups)) {
 
-                $myCanali['uri'] = $my_canale->showMe($router);
+                $myCanali['uri'] = $channelRouter->generate($my_canale);
                 $myCanali['tipo'] = $my_canale->getTipoCanale();
                 $myCanali['label'] = $my_canale->getNome();
                 //var_dump($ruolo);

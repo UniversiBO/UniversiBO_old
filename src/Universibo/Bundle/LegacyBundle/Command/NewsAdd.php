@@ -31,8 +31,8 @@ class NewsAdd extends CanaleCommand
         $user_ruoli = $user instanceof User ? $ruoloRepo->findByIdUtente($user->getId()) : array();
         $userId = $user instanceof User ? $user->getId() : 0;
         $id_canale = $canale->getIdCanale();
-        $router = $this->get('router');
-        //		var_dump($user_ruoli);die;
+        $channelRouter = $this->get('universibo_legacy.routing.channel');
+
         $referente = false;
         $moderatore = false;
 
@@ -443,8 +443,7 @@ Testo: ' . $f7_testo . '
 
 Autore: ' . $user->getUsername() . '
 
-Link: ' . $frontcontroller->getAppSetting('rootUrl') . '/'
-                            . $add_canale->showMe($router)
+Link: ' . $channelRouter->generate($add_canale, true)
                             . '
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Informazioni per la cancellazione:

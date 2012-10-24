@@ -63,6 +63,7 @@ class ShowAllFilesStudentiTitoli extends PluginCommand
         if ($elenco_file ==! false) {
             $ret_file = count($elenco_file);
 
+            $channelRouter = $this->get('universibo_legacy.routing.channel');
             for ($i = 0; $i < $ret_file; $i++) {
 
                 $file = $elenco_file[$i];
@@ -90,14 +91,15 @@ class ShowAllFilesStudentiTitoli extends PluginCommand
                     $canali = $file->getIdCanali();
                     $num_canali =  count($canali);
                     $elenco_canali_tpl = array();
+
+
                     for ($j = 0; $j < $num_canali; $j++) {
                         $canale = Canale::retrieveCanale($canali[$j]);
                         if ($canale->isGroupAllowed($groups)) {
                             $canale_tpl = array();
-//							$canale_tpl['titolo'] = $canale->getNome();
-//							$canale_tpl['link'] = $canale->showMe($router);
                             $file_tpl[$i]['canaleTitolo'] = $canale->getNome();
-                            $file_tpl[$i]['canaleLink'] = $canale->showMe($router);
+                           
+                            $file_tpl[$i]['canaleLink'] = $channelRouter->generate($canale);
                             $file_tpl[$i]['download_uri'] = $router->generate('universibo_legacy_file_download', array('id_file' => $file->getIdFile(), 'id_canale' => $canali[$j]));
                             $file_tpl[$i]['show_info_uri'] = $router->generate('universibo_legacy_file', array('id_file' => $file->getIdFile(), 'id_canale' => $canali[$j]));
                             $file_tpl[$i]['canali'][] = $canale_tpl;

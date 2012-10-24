@@ -42,7 +42,8 @@ class MyUniversiBORemove extends UniversiboCommand
             throw new NotFoundHttpException('Channel not found');
         }
 
-        $template->assign('common_canaleURI', $canale->showMe($router));
+        $channelRouter = $this->get('universibo_legacy.routing.channel');
+        $template->assign('common_canaleURI', $channelRouter->generate($canale));
         $template->assign('common_langCanaleNome', $canale->getNome());
         $template->assign('showUser', $router->generate('universibo_legacy_user', array('id_utente' => $utente->getId())));
 

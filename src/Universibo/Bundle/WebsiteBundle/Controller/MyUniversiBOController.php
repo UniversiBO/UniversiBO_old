@@ -19,7 +19,6 @@ class MyUniversiBOController extends Controller
         $user = $this->get('security.context')->getToken()->getUser();
         $rolesRepo = $this->get('universibo_legacy.repository.ruolo');
         $channelRepo = $this->get('universibo_legacy.repository.canale2');
-        $router = $this->get('router');
 
         $roles = $rolesRepo->findByIdUtente($user->getId());
 
@@ -35,7 +34,7 @@ class MyUniversiBOController extends Controller
                     $name = $channel->getNome();
                 }
 
-                $displayRoles[] = array ('link' => $channel->showMe($router),
+                $displayRoles[] = array ('link' => $channelRouter->generate($channel),
                     'name' => $name, 'referente' => $role->isReferente(),
                     'moderatore' => $role->isModeratore());
             }

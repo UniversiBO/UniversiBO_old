@@ -582,24 +582,6 @@ class Canale
     }
 
     /**
-     * Restituisce l'uri/link che mostra un canale
-     *
-     * @return string uri/link che mostra un canale
-     */
-    public function showMe(RouterInterface $router)
-    {
-        if ($router !== null) {
-            if ($this->getTipoCanale() == Canale::HOME) {
-                return $router->generate('universibo_legacy_home');
-            } else {
-                $params = array('id_canale' => $this->getIdCanale());
-
-                return $router->generate('universibo_legacy_canale', $params);
-            }
-        }
-    }
-
-    /**
      * Crea un oggetto canale dato il suo numero identificativo id_canale del database
      *
      * @deprecated

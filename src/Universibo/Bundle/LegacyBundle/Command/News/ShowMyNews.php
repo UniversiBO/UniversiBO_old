@@ -39,8 +39,9 @@ class ShowMyNews extends PluginCommand
         $router    = $this->get('router');
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
         $personalizza_not_admin = false;
+        
+        $channelRouter = $this->get('universibo_legacy.routing.channel');
 
-//		$template->assign('showMyNews_addNewsFlag', 'false');
         $personalizza   = false;
         $referente      = false;
         $moderatore     = false;
@@ -93,7 +94,7 @@ class ShowMyNews extends PluginCommand
                     if ($canale->isGroupAllowed($user->getLegacyGroups())) {
                         $canale_tpl = array();
                         $canale_tpl['titolo'] = $canale->getNome();
-                        $canale_tpl['link'] = $canale->showMe($router);
+                        $canale_tpl['link'] = $channelRouter->generate($canale);
                         $elenco_news_tpl[$i]['canali'][] = $canale_tpl;
                     }
                 }

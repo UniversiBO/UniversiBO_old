@@ -25,7 +25,8 @@ class FileDelete extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $router = $this->get('router');
-
+        $channelRouter = $this->get('universibo_legacy.routing.channel');
+        
         $template->assign('common_canaleURI', $router->generate('universibo_legacy_myuniversibo'));
         $template->assign('common_langCanaleNome', 'indietro');
 
@@ -57,7 +58,7 @@ class FileDelete extends UniversiboCommand
                 throw new NotFoundHttpException('Channel not found');
             }
 
-            $template->assign('common_canaleURI', $canale->showMe($router));
+            $template->assign('common_canaleURI', $channelRouter->generate($canale));
             $template->assign('common_langCanaleNome', 'a ' . $canale->getTitolo());
 
             if (array_key_exists($channelId, $user_ruoli)) {

@@ -28,7 +28,8 @@ class FileStudentiEdit extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $router = $this->get('router');
-
+        $channelRouter = $this->get('universibo_legacy.routing.channel');
+        
         $krono = $frontcontroller->getKrono();
 
         $user = $this->get('security.context')->getToken()->getUser();
@@ -44,7 +45,7 @@ class FileStudentiEdit extends UniversiboCommand
         $file_canali = $file->getIdCanali();
 
         $canale = Canale::retrieveCanale($file_canali[0]);
-        $template->assign('common_canaleURI', $canale->showMe($router));
+        $template->assign('common_canaleURI', $channelRouter->generate($canale));
         $template->assign('common_langCanaleNome', 'a ' . $canale->getTitolo());
 
         $template
@@ -75,7 +76,7 @@ class FileStudentiEdit extends UniversiboCommand
                                 'file' => __FILE__, 'line' => __LINE__));
 
             $id_canale = $canale->getIdCanale();
-            $template->assign('common_canaleURI', $canale->showMe($router));
+            $template->assign('common_canaleURI', $channelRouter->generate($canale));
             $template
                     ->assign('common_langCanaleNome',
                             'a ' . $canale->getTitolo());

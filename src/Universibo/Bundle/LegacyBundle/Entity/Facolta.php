@@ -1,8 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
-use Symfony\Component\Routing\RouterInterface;
 
-use \DB;
+use DB;
+use Symfony\Component\Routing\RouterInterface;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 global $__facoltaElencoCodice;
@@ -51,9 +51,6 @@ class Facolta extends Canale
     /**
      * Crea un oggetto facolta
      *
-     * @see selectFacoltaCanale
-     * @see selectFacoltaCodice
-     * @see selectFacoltaElenco
      * @param  int     $id_canale       identificativo del canae su database
      * @param  int     $permessi        privilegi di accesso gruppi {@see User}
      * @param  int     $ultima_modifica timestamp
@@ -169,16 +166,6 @@ class Facolta extends Canale
     public static function factoryCanale($id_canale)
     {
         return Facolta::selectFacoltaCanale($id_canale);
-    }
-
-    /**
-     * Restituisce l'uri/link che mostra un canale
-     *
-     * @return string uri/link che mostra un canale
-     */
-    public function showMe(RouterInterface $router)
-    {
-        return $router->generate('universibo_legacy_facolta', array('id_canale' => $this->getIdCanale()));
     }
 
     /**

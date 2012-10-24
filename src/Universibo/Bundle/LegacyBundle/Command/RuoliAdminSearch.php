@@ -41,7 +41,8 @@ class RuoliAdminSearch extends UniversiboCommand
             throw new NotFoundHttpException('Canale not found');
         }
 
-        $template->assign('common_canaleURI', $canale->showMe($router));
+        $channelRouter = $this->get('universibo_legacy.routing.channel');
+        $template->assign('common_canaleURI', $channelRouter->generate($canale));
         $template->assign('common_langCanaleNome', 'a '.$canale->getTitolo());
 
         if (array_key_exists($id_canale, $user_ruoli)) {

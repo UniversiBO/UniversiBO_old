@@ -241,19 +241,6 @@ class Cdl extends Canale
     }
 
     /**
-     * Restituisce l'uri/link che mostra un canale
-     *
-     * @return string uri/link che mostra un canale
-     */
-    public function showMe(RouterInterface $router)
-    {
-        if ($router !== null) {
-            return $router->generate('universibo_legacy_cdl', array('id_canale' => $this->getIdCanale()));
-        }
-    }
-
-
-    /**
      * Seleziona da database e restituisce l'elenco di tutti gli oggetti Cdl corso di laurea
      *
      * @deprecated

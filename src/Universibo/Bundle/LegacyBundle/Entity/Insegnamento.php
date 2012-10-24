@@ -191,16 +191,6 @@ class Insegnamento extends Canale
     }
 
     /**
-     * Restituisce l'uri/link che mostra un canale
-     *
-     * @return string uri/link che mostra un canale
-     */
-    public function showMe(RouterInterface $router)
-    {
-        return $router->generate('universibo_legacy_insegnamento', array('id_canale' => $this->getIdCanale()));
-    }
-
-    /**
      * Restituisce il nome dell'insegnamento:
      * Se ? impostato un nome del canale nella tabella canale lo restituisce
      * Altrimenti se l'Insegnamento ? composta da una sola PrgAttivitaDidattica padre ne restituisce il nome

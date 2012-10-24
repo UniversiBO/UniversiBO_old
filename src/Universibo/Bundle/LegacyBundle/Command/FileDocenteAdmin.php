@@ -57,7 +57,8 @@ class FileDocenteAdmin extends UniversiboCommand
             }
 
             $id_canale = $canale->getIdCanale();
-            $template->assign('common_canaleURI', $canale->showMe($router));
+            $channelRouter = $this->get('universibo_legacy.routing.channel');
+            $template->assign('common_canaleURI', $channelRouter->generate($canale));
             $template->assign('common_langCanaleNome', 'a '. $canale->getTitolo());
         }
 
