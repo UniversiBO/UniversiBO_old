@@ -43,7 +43,7 @@ class FileStudentiDelete extends UniversiboCommand
             throw new NotFoundHttpException('File not found');
         }
 
-        $canDelete = $context->hasRole('ROLE_ADMIN') ||
+        $canDelete = $context->isGranted('ROLE_ADMIN') ||
                 $file->getIdUtente() == $userId;
 
         $file_canali = $file->getIdCanali();
