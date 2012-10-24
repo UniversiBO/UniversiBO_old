@@ -51,7 +51,7 @@ class FileStudentiDelete extends UniversiboCommand
         if (!$canDelete) {
             $roleRepo = $this->get('universibo_legacy.repository.ruolo');
 
-            foreach ($file_canali[0] as $channelId) {
+            foreach ($file_canali as $channelId) {
                 $currentRole = $roleRepo->find($userId, $channelId);
 
                 if ($currentRole instanceof Ruolo &&
