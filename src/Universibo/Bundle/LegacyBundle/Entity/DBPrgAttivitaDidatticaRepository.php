@@ -18,31 +18,31 @@ class DBPrgAttivitaDidatticaRepository extends DBRepository
     {
         return $this->findAcademicalYear($cod_cdl, 'MAX');
     }
-    
+
     public function findMinAcademicalYear($cod_cdl)
     {
         return $this->findAcademicalYear($cod_cdl, 'MIN');
     }
-    
+
     protected function findAcademicalYear($cod_cdl, $mode)
     {
         $db = $this->getDb();
-        
+
         $query =<<<EOT
 SELECT $mode (anno_accademico)
     FROM prg_insegnamento
-        WHERE 
+        WHERE
             cod_corso = {$db->quote($cod_cdl)}
 EOT;
         $res = $db->query($query);
-        
-        if(DB::isError($res)) {
+
+        if (DB::isError($res)) {
             throw new DBALException(DB::errorMessage($res));
         }
-        
-        $result = $res->fetchRow(); 
+
+        $result = $res->fetchRow();
         $res->free();
-        
+
         return $result[0];
     }
     public function findByCdlAndYear($cod_cdl, $anno_accademico)

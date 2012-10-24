@@ -24,7 +24,6 @@ class ShowHelpTopic extends UniversiboCommand
         $template = $frontcontroller->getTemplateEngine();
         $template->assign('showHelpTopic_langAltTitle', 'Help');
 
-
         $references = array();
         $topics = array();
 

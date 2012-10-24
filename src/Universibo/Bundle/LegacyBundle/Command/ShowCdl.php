@@ -7,7 +7,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Facolta;
-use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 /**
  * ShowCdl: mostra un corso di laurea
@@ -43,14 +42,14 @@ class ShowCdl extends CanaleCommand
         $cdl = $this -> getRequestCanale();
 
         $prgRepo = $this->get('universibo_legacy.repository.programma');
-        
+
         $minYear = $prgRepo->findMinAcademicalYear($cdl->getCodiceCdl());
         $maxYear = $prgRepo->findMaxAcademicalYear($cdl->getCodiceCdl());
-        
+
         $request = $this->getRequest();
         $academicalYear = $request->get('anno_accademico', $maxYear);
 
-        if (!preg_match('/^([0-9]{4})$/', $academicalYear) || 
+        if (!preg_match('/^([0-9]{4})$/', $academicalYear) ||
                 $academicalYear > $maxYear || $academicalYear < $minYear) {
             throw new NotFoundHttpException('No subjects academical year');
         }
