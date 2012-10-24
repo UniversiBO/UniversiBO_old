@@ -1,7 +1,7 @@
 <?php
 
-use Symfony\Component\ClassLoader\ApcUniversalClassLoader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use Symfony\Component\ClassLoader\ApcClassLoader;
 
 define('PHP_EXTENSION', '.php');
 define('UNIVERSIBO_ROOT', realpath(__DIR__.'/..'));
