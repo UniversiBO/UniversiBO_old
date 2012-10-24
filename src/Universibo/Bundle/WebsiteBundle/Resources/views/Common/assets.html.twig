@@ -3,7 +3,7 @@
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 {% stylesheets
-    '@UniversiboLegacyBundle/Resources/public/css/*'
-    output="css/compiled/main.css" filter='?yui_css'%}
+    'bundles/universibolegacy/css/*'
+    output="css/compiled/main.css" filter='cssrewrite,?yui_css'%}
     <link rel="stylesheet" href="{{ asset_url }}" />
 {% endstylesheets %}
