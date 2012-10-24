@@ -25,8 +25,8 @@ class ScriptCancelUser extends UniversiboCommand
         $fc = $this->getFrontController();
         $template = $fc->getTemplateEngine();
 
-        if (!isset($_GET['username'])) {echo 'devi specificare lo username dell\'utente da cancellare'; die; }
-        $nick  = $_GET['username'];
+        if (!isset($_XXGET['username'])) {echo 'devi specificare lo username dell\'utente da cancellare'; die; }
+        $nick  = $_XXGET['username'];
         if (!User::usernameExists($nick)) {echo 'username inesistente'; die; }
         $user = User::selectUserUsername($nick);
         $idUtente = $user->getId();
