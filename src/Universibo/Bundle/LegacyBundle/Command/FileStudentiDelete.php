@@ -73,7 +73,7 @@ class FileStudentiDelete extends UniversiboCommand
         $channelRepo  = $this->get('universibo_legacy.repository.canale2');
         $channel = $channelRepo->find($file_canali[0]);
 
-        $cRouter = $this->get('universibo_legacy.routing.canale');
+        $cRouter = $this->get('universibo_legacy.routing.channel');
 
         $template->assign('common_canaleURI', $cRouter->generate($channel));
         $template->assign('common_langCanaleNome', 'a ' . $channel->getTitolo());
