@@ -2,9 +2,7 @@
   {% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
     {{ app.session.get('shibbolethClaims').eppn|default(app.user.shibUsername) }}
   {% endif %}
-  <a href="{{ infoUrl }}">
-    <img src="{{ asset('bundles/universibosso/images/ssologo18x18.png') }}" alt="{% trans %}universibo_sso.info{% endtrans %}" title="{% trans %}universibo_sso.info{% endtrans %}"/>
-  </a>
+  <a href="{{ infoUrl }}"><img src="{{ asset('bundles/universibosso/images/ssologo18x18.png') }}" alt="{% trans %}universibo_sso.info{% endtrans %}" title="{% trans %}universibo_sso.info{% endtrans %}"/></a>
   {% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
     <a href="{{ path('universibo_shibboleth_prelogout') }}">Logout</a>
   {% else %}
