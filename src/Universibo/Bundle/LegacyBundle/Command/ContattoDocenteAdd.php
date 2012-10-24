@@ -31,28 +31,28 @@ class ContattoDocenteAdd extends UniversiboCommand
         $context = $this->get('security.context');
         $user = $context->getToken()->getUser();
         $userId = $user instanceof User ? $user->getId() : 0;
-        
-        if(!$context->isGranted('ROLE_COLLABORATOR') && 
+
+        if(!$context->isGranted('ROLE_COLLABORATOR') &&
                 !$context->isGranted('ROLE_ADMIN')) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $userId,
                             'msg' => 'Non hai i diritti necessari per visualizzare la pagina',
                             'file' => __FILE__, 'line' => __LINE__));
         }
-        
+
         $request = $this->getRequest();
         $codDoc = $request->get('cod_doc');
         $docenteRepo = $this->get('universibo_legacy.repository.docente');
         $docente = $docenteRepo->find($codDoc);
-        
+
         if (!$docente instanceof Docente) {
             throw new NotFoundHttpException('Docente not found');
         }
-        
+
         $contattoRepo = $this->get('universibo_legacy.repository.contatto_docente');
         $contatto = $contattoRepo->findOneByCodDoc($codDoc);
-        
-        if(!$contatto instanceof ContattoDocente) {
+
+        if (!$contatto instanceof ContattoDocente) {
             $contatto = new ContattoDocente($codDoc, 1, null, null,'');
             $esito = $contattoRepo->insert($contatto);
         } else {
@@ -60,7 +60,7 @@ class ContattoDocenteAdd extends UniversiboCommand
         }
 
         $this->assignBacklink($request, $template);
-        
+
         $template->assign('ContattoDocenteAdd_esito',
                         ($esito) ? ' Il contatto del docente è stato inserito con successo'
                                 : 'Il contatto del docente non è stato inserito');
@@ -68,23 +68,23 @@ class ContattoDocenteAdd extends UniversiboCommand
 
         return 'default';
     }
-    
+
     private function assignBacklink(Request $request, $template)
     {
         $channelId = $request->get('id_canale', '');
-        if(preg_match('/^([0-9]{1,9})$/', $channelId)) {
+        if (preg_match('/^([0-9]{1,9})$/', $channelId)) {
             $channelRepo = $this->get('universibo_legacy.repository.canale2');
             $channel = $channelRepo->find($channelId);
-            
-            if($channel instanceof Canale) {
+
+            if ($channel instanceof Canale) {
                 $channelRouter = $this->get('universibo_legacy.routing.channel');
                 $template->assign('common_canaleURI',$channelRouter->generate($channel));
                 $template->assign('common_langCanaleNome', $channel->getTitolo());
-                
+
                 return;
             }
         }
-        
+
         $template->assign('common_canaleURI', $request->server->get('HTTP_REFERER'));
         $template->assign('common_langCanaleNome', 'indietro');
     }

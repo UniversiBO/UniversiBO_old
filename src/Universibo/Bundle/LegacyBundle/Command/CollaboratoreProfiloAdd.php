@@ -21,7 +21,7 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
     public function execute()
     {
         $user = $this->get('security.context')->getToken()->getUser();
-        
+
         $id_coll = $this->getRequest()->get('id_coll');
 
         if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || ($user->getId() == $id_coll)))

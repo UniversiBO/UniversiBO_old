@@ -49,7 +49,7 @@ class FileDocenteAdmin extends UniversiboCommand
 
         $elenco_canali = array();
         $id_canale = '';
-        
+
         $canale = $this->getRequestCanale(false);
         if ($canale instanceof Canale) {
             if ($canale->getServizioFiles() == false) {

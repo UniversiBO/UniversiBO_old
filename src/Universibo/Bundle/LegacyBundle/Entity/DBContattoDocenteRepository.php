@@ -22,12 +22,12 @@ class DBContattoDocenteRepository extends DBRepository
     {
         return $this->findOneByCodDoc($codDocente);
     }
-            
+
     /**
      * @param  string          $codDocente
      * @return ContattoDocente
      */
-    public function findOneByCodDoc($codDocente)        
+    public function findOneByCodDoc($codDocente)
     {
         $db = $this->getDb();
 
@@ -45,7 +45,7 @@ class DBContattoDocenteRepository extends DBRepository
 
         return new ContattoDocente($codDocente, $row[0], $row[1], $row[2], $row[3]);
     }
-    
+
     /**
      *
      * @return boolean|ContattoDocente[]

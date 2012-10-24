@@ -26,7 +26,7 @@ abstract class UniversiboCommand extends BaseCommand
      * @var Canale
      */
     private $requestCanale;
-    
+
     /**
      * Inizializza l' UniversiboCommand ridefinisce l'init() del BaseCommand.
      */
@@ -439,39 +439,39 @@ abstract class UniversiboCommand extends BaseCommand
         if ($a['label'] > $b['label'])
             return +1;
     }
-    
+
     /**
      * Ensures channel
-     * 
+     *
      * @return Canale
      * @throws NotFoundHttpException
      */
     protected function getRequestCanale($force = true)
     {
-        if(null === $this->requestCanale) {
+        if (null === $this->requestCanale) {
             $channelId = $this->getRequest()->get('id_canale');
-            
-            if($channelId === null) {
-                if($force) {
+
+            if ($channelId === null) {
+                if ($force) {
                     throw new NotFoundHttpException('No channel ID');
                 }
-                
+
                 return null;
             }
-            
+
             $channelRepo = $this->get('universibo_legacy.repository.canale2');
             $canale = $channelRepo->find($channelId);
-        
-            if(!$canale instanceof Canale) {
+
+            if (!$canale instanceof Canale) {
                 throw new NotFoundHttpException('Channel not found');
             }
-            
+
             $this->requestCanale = $canale;
         }
-        
+
         return $this->requestCanale;
     }
-    
+
     protected function throwUnauthorized()
     {
          Error::throwError(_ERROR_DEFAULT, array(

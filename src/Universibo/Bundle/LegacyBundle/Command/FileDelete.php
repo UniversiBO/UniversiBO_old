@@ -36,26 +36,24 @@ class FileDelete extends UniversiboCommand
 
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
-        
         $request = $this->getRequest();
         $fileId = $request->attributes->get('id_file');
-        
+
         $fileRepo = $this->get('universibo_legacy.repository.files.file_item');
         $file = $fileRepo->find($fileId);
-        
-        if(!$file instanceof FileItem) {
+
+        if (!$file instanceof FileItem) {
             throw new NotFoundHttpException('File not found');
         }
-        
 
         $autore = ($user->getId() == $file->getIdUtente());
         $channelId = intval($request->get('id_canale', 0));
         $channelRepo = $this->get('universibo_legacy.repository.canale2');
-        
+
         if ($channelId > 0) {
             $canale = $channelRepo->find($channelId);
-            
-            if(!$canale instanceof Canale || !$canale->getServizioFiles()) {
+
+            if (!$canale instanceof Canale || !$canale->getServizioFiles()) {
                 throw new NotFoundHttpException('Channel not found');
             }
 

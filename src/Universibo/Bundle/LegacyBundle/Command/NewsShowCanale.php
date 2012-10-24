@@ -1,7 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use Error;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
@@ -28,7 +27,7 @@ class NewsShowCanale extends CanaleCommand
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
         $id_canale = $canale->getIdCanale();
         $router = $this->get('router');
-        
+
         $request = $this->getRequest();
         $inizio = $request->get('inizio', 0);
         $quantita = $request->get('qta', 10);

@@ -3,7 +3,6 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Error;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\AntiVirus\AntiVirusFactory;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
@@ -23,9 +22,10 @@ use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
  * @author Daniele Tiles
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
-class FileStudentiAdd extends UniversiboCommand {
-
-    public function execute() {
+class FileStudentiAdd extends UniversiboCommand
+{
+    public function execute()
+    {
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             Error::throwError(_ERROR_DEFAULT, array('id_utente' => 0,
                 'msg' => "Per questa operazione bisogna essere registrati\n la sessione potrebbe essere terminata",

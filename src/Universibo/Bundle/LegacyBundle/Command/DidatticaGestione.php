@@ -34,7 +34,7 @@ class DidatticaGestione extends UniversiboCommand
 
         $user = $this->get('security.context')->getToken()->getUser();
 
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) { 
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             Error::throwError(_ERROR_DEFAULT,
                     array('msg' => "Non hai i diritti necessari per accedere a questa pagina\n la sessione potrebbe essere terminata",
                             'file' => __FILE__, 'line' => __LINE__));
@@ -54,7 +54,7 @@ class DidatticaGestione extends UniversiboCommand
         $esamiAlternativi = '';
 
         $idSdop = $request->get('id_sdop', '');
-        
+
         // controllo se è stato scelta un'attività sdoppiata
         if (preg_match('/^([0-9]{1,9})$/', $idSdop)) {
             $prg_sdop = PrgAttivitaDidattica::selectPrgAttivitaDidatticaSdoppiata(
@@ -122,7 +122,7 @@ class DidatticaGestione extends UniversiboCommand
                 if (count($esamiAlternativi) == 0)
                     $esamiAlternativi = '';
                 // la modifica del docente è permessa solo quando è insegnamento padre e  non e` attivo il forum dell'insegnamento
-                
+
                 if ($idSdop != '' && ($canale->getForumForumId() == null
                                 || $canale->getForumForumId() == 0))
                     $docenteEdit = true;

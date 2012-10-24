@@ -4,9 +4,7 @@ namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Error;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
-use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 use Universibo\Bundle\LegacyBundle\Entity\Ruolo;
 
@@ -21,9 +19,10 @@ use Universibo\Bundle\LegacyBundle\Entity\Ruolo;
  * @author Daniele Tiles
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
-class FileStudentiDelete extends UniversiboCommand {
-
-    public function execute() {
+class FileStudentiDelete extends UniversiboCommand
+{
+    public function execute()
+    {
         $context = $this->get('security.context');
 
         if (!$context->isGranted('IS_AUTHENTICATED_FULLY')) {
@@ -48,14 +47,14 @@ class FileStudentiDelete extends UniversiboCommand {
                 $file->getIdUtente() == $userId;
 
         $file_canali = $file->getIdCanali();
-        
+
         if (!$canDelete) {
             $roleRepo = $this->get('universibo_legacy.repository.ruolo');
 
             foreach ($file_canali[0] as $channelId) {
                 $currentRole = $roleRepo->find($userId, $channelId);
 
-                if ($currentRole instanceof Ruolo && 
+                if ($currentRole instanceof Ruolo &&
                     ($currentRole->isModeratore() ||
                         $currentRole->isReferente())) {
                     $canDelete = true;
@@ -63,17 +62,17 @@ class FileStudentiDelete extends UniversiboCommand {
                 }
             }
         }
-        
-        if(!$canDelete) {
+
+        if (!$canDelete) {
             Error::throwError(_ERROR_DEFAULT, array('id_utente' => $user->getId(),
                 'msg' => "Non hai i diritti per eliminare il file\n".
                 " La sessione potrebbe essere scaduta",
                 'file' => __FILE__, 'line' => __LINE__));
         }
-        
+
         $channelRepo  = $this->get('universibo_legacy.repository.canale2');
         $channel = $channelRepo->find($file_canali[0]);
-        
+
         $cRouter = $this->get('universibo_legacy.routing.canale');
 
         $template->assign('common_canaleURI', $cRouter->generate($channel));

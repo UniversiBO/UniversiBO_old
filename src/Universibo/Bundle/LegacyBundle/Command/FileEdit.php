@@ -431,7 +431,6 @@ class FileEdit extends UniversiboCommand
                 $f13_password = null;
             }
 
-            
             //e i permessi di visualizzazione??
             // li prendo uguali a quelli del canale,
             if ($canale instanceof Canale)
