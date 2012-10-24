@@ -50,8 +50,8 @@ class PhpBB3Session implements ForumSessionInterface
     {
         $userId = $this->userDAO->findOrCreate($user);
 
-        $this->createNewSession($userId, $request, $response);
-        $request->getSession()->set('phpbb_upn', $user->getShibUsername());
+        $claims = $request->getSession()->get('shibbolethClaims', array('eppn' => ''));
+        $this->createNewSession($userId, $request, $response, $claims['eppn']);
     }
 
     public function logout(ParameterBag $cookies, Response $response)
@@ -78,7 +78,7 @@ class PhpBB3Session implements ForumSessionInterface
     }
 
     private function createNewSession($userId, Request $request,
-            Response $response)
+            Response $response, $upn)
     {
         $ip = $request->server->get('REMOTE_ADDR');
         $userAgent = $request->server->get('HTTP_USER_AGENT');
@@ -94,6 +94,8 @@ class PhpBB3Session implements ForumSessionInterface
         $response->headers->setCookie(new Cookie($name.'_u', $userId,
                 time() + 3600, $path, $domain, $secure));
         $response->headers->setCookie(new Cookie($name.'_k', '',
+                time() + 3600, $path, $domain, $secure));
+        $response->headers->setCookie(new Cookie($name.'_shibsession', $upn,
                 time() + 3600, $path, $domain, $secure));
     }
 }
