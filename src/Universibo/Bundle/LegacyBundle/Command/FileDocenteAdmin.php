@@ -28,7 +28,7 @@ class FileDocenteAdmin extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 
-        $krono = $frontcontroller->getKrono();
+        $router = $this->get('router');
         $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
@@ -49,17 +49,12 @@ class FileDocenteAdmin extends UniversiboCommand
 
         $elenco_canali = array();
         $id_canale = '';
-        if (array_key_exists('id_canale', $_GET)) {
-            if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
-                throw new NotFoundHttpException('Invalid Channel ID');
+        
+        $canale = $this->getRequestCanale(false);
+        if ($canale instanceof Canale) {
+            if ($canale->getServizioFiles() == false) {
+                throw new NotFoundHttpException('File service disabled');
             }
-
-            $canale = Canale::retrieveCanale($_GET['id_canale']);
-
-            if ($canale->getServizioFiles() == false)
-                Error::throwError(_ERROR_DEFAULT,
-                        array('msg' => "Il servizio files e` disattivato",
-                                'file' => __FILE__, 'line' => __LINE__));
 
             $id_canale = $canale->getIdCanale();
             $template->assign('common_canaleURI', $canale->showMe($router));
@@ -73,7 +68,6 @@ class FileDocenteAdmin extends UniversiboCommand
         }
 
         $elenco_canali_retrieve = array();
-        $num_canali = count($elenco_canali);
 
         foreach ($elenco_canali as $id_current_canale) {
 
