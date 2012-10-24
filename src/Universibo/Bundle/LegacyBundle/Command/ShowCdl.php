@@ -42,15 +42,20 @@ class ShowCdl extends CanaleCommand
         //@todo fatto sopra
         $cdl = $this -> getRequestCanale();
 
-        $defaultYear = $this->frontController->getAppSetting('defaultAnnoAccademico');
+        $prgRepo = $this->get('universibo_legacy.repository.programma');
+        
+        $minYear = $prgRepo->findMinAcademicalYear($cdl->getCodiceCdl());
+        $maxYear = $prgRepo->findMaxAcademicalYear($cdl->getCodiceCdl());
+        
+        $request = $this->getRequest();
+        $academicalYear = $request->get('anno_accademico', $maxYear);
 
-        if ( !array_key_exists('anno_accademico', $_GET) )
-            $anno_accademico = $defaultYear;
-        elseif ( !preg_match( '/^([0-9]{4})$/', $anno_accademico = $_GET['anno_accademico']) || $anno_accademico > $defaultYear || $anno_accademico < 2001) {
-            throw new NotFoundHttpException('Invalid Academical Year');
+        if (!preg_match('/^([0-9]{4})$/', $academicalYear) || 
+                $academicalYear > $maxYear || $academicalYear < $minYear) {
+            throw new NotFoundHttpException('No subjects academical year');
         }
 
-        $elencoPrgAttDid = PrgAttivitaDidattica::selectPrgAttivitaDidatticaElencoCdl($cdl -> getCodiceCdl(), $anno_accademico);
+        $elencoPrgAttDid = $prgRepo->findByCdlAndYear($cdl-> getCodiceCdl(), $academicalYear);
 
         $num_ins = count($elencoPrgAttDid);
         $insAnnoCorso  = NULL;   //ultimo anno dell'insegnamento precedente
@@ -102,18 +107,18 @@ class ShowCdl extends CanaleCommand
 
         $template -> assign('cdl_langYear', 'anno accademico' );
 
-        $template -> assign('cdl_thisYear', ($anno_accademico).'/'.($anno_accademico+1) );
+        $template -> assign('cdl_thisYear', ($academicalYear).'/'.($academicalYear+1) );
 
-        if ($anno_accademico < $defaultYear) {
-            $template -> assign('cdl_nextYear', ($anno_accademico+1).'/'.($anno_accademico+2) );
-            $template -> assign('cdl_nextYearUri', $router->generate('universibo_legacy_cdl', array('anno_accademico' => $anno_accademico + 1, 'id_canale' => $cdl->getIdCanale())));
+        if ($academicalYear < $maxYear) {
+            $template -> assign('cdl_nextYear', ($academicalYear+1).'/'.($academicalYear+2) );
+            $template -> assign('cdl_nextYearUri', $router->generate('universibo_legacy_cdl', array('anno_accademico' => $academicalYear + 1, 'id_canale' => $cdl->getIdCanale())));
         } else {
             $template -> assign('cdl_nextYearUri', false);
         }
 
-        if ($anno_accademico > 2002) {
-            $template -> assign('cdl_prevYear', ($anno_accademico-1).'/'.($anno_accademico) );
-            $template -> assign('cdl_prevYearUri', $router->generate('universibo_legacy_cdl', array('anno_accademico' => $anno_accademico - 1, 'id_canale' => $cdl->getIdCanale())));
+        if ($academicalYear > $minYear) {
+            $template -> assign('cdl_prevYear', ($academicalYear-1).'/'.($academicalYear) );
+            $template -> assign('cdl_prevYearUri', $router->generate('universibo_legacy_cdl', array('anno_accademico' => $academicalYear - 1, 'id_canale' => $cdl->getIdCanale())));
         } else {
             $template -> assign('cdl_prevYearUri', false);
         }

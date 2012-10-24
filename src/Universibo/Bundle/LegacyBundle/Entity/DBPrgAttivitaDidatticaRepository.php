@@ -1,7 +1,10 @@
 <?php
 
 namespace Universibo\Bundle\LegacyBundle\Entity;
-use \DB;
+
+use DB;
+use Doctrine\DBAL\DBALException;
+use Error;
 
 /**
  * Canale repository
@@ -11,6 +14,37 @@ use \DB;
  */
 class DBPrgAttivitaDidatticaRepository extends DBRepository
 {
+    public function findMaxAcademicalYear($cod_cdl)
+    {
+        return $this->findAcademicalYear($cod_cdl, 'MAX');
+    }
+    
+    public function findMinAcademicalYear($cod_cdl)
+    {
+        return $this->findAcademicalYear($cod_cdl, 'MIN');
+    }
+    
+    protected function findAcademicalYear($cod_cdl, $mode)
+    {
+        $db = $this->getDb();
+        
+        $query =<<<EOT
+SELECT $mode (anno_accademico)
+    FROM prg_insegnamento
+        WHERE 
+            cod_corso = {$db->quote($cod_cdl)}
+EOT;
+        $res = $db->query($query);
+        
+        if(DB::isError($res)) {
+            throw new DBALException(DB::errorMessage($res));
+        }
+        
+        $result = $res->fetchRow(); 
+        $res->free();
+        
+        return $result[0];
+    }
     public function findByCdlAndYear($cod_cdl, $anno_accademico)
     {
         $db = $this->getDb();
