@@ -187,7 +187,7 @@ abstract class CanaleCommand extends UniversiboCommand
 
             //$template->assign('common_contactsCanaleAvailable', 'false');
             // elenco post nuovi contestuale al canale
-            if ($this->requestCanale->getServizioForum()) {
+            if ($this->getRequestCanale()->getServizioForum()) {
                 $forumRouter = $this->get('universibo_forum.router');
                 //				$newposts = 'false';
                 $list_post = array();
