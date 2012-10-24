@@ -51,6 +51,7 @@ class PhpBB3Session implements ForumSessionInterface
         $userId = $this->userDAO->findOrCreate($user);
 
         $this->createNewSession($userId, $request, $response);
+        $request->getSession()->set('phpbb_upn', $user->getShibUsername());
     }
 
     public function logout(ParameterBag $cookies, Response $response)
