@@ -1,4 +1,5 @@
 <?php
+
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Error;
@@ -19,85 +20,56 @@ use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
  * @author Daniele Tiles
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
+class FileStudentiDelete extends UniversiboCommand {
 
-class FileStudentiDelete extends UniversiboCommand
-{
-
-    public function execute()
-    {
+    public function execute() {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $router = $this->get('router');
 
         $user = $this->get('security.context')->getToken()->getUser();
+        $userId = $user instanceof User ? $user->getId() : 0;
 
         $referente = false;
         $moderatore = false;
-
-        $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
-        $file = $this->get('universibo_legacy.repository.files.file_item_studenti')->find($this->getRequest()->attributes->get('id_file'));
-
+        
+        $fileStudentiRepo = $this->get('universibo_legacy.repository.files.file_item_studenti');
+        $file = $fileStudentiRepo->find($this->getRequest()->attributes->get('id_file'));
+        
         if (!$file instanceof FileItem) {
             throw new NotFoundHttpException('File not found');
         }
 
-        $file_canali = $file->getIdCanali();
+        $user_ruoli = $userId > 0 ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($userId) : array();
+        
 
+        
+
+        $file_canali = $file->getIdCanali();
         $canale = Canale::retrieveCanale($file_canali[0]);
+
         $template->assign('common_canaleURI', $canale->showMe($router));
         $template->assign('common_langCanaleNome', 'a ' . $canale->getTitolo());
 
-        $autore = ($user->getId() == $file->getIdUtente());
+        $autore = ($userId == $file->getIdUtente());
 
-        if (array_key_exists('id_canale', $_GET)) {
-            if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
-                Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getId(),
-                                'msg' => 'L\'id del canale richiesto non e` valido',
-                                'file' => __FILE__, 'line' => __LINE__));
+        $id_canale = $canale->getIdCanale();
+        $template->assign('common_canaleURI', $canale->showMe($router));
+        $template->assign('common_langCanaleNome', 'a ' . $canale->getTitolo());
 
-            $canale = Canale::retrieveCanale($_GET['id_canale']);
+        if (array_key_exists($id_canale, $user_ruoli)) {
+            $ruolo = $user_ruoli[$id_canale];
 
-            if ($canale->getServizioFiles() == false)
-                Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getId(),
-                                'msg' => "Il servizio files e` disattivato",
-                                'file' => __FILE__, 'line' => __LINE__));
+            $referente = $ruolo->isReferente();
+            $moderatore = $ruolo->isModeratore();
+        }
 
-            $id_canale = $canale->getIdCanale();
-            $template->assign('common_canaleURI', $canale->showMe($router));
-            $template
-                    ->assign('common_langCanaleNome', 'a '
-                            . $canale->getTitolo());
+        $elenco_canali = array($id_canale);
 
-            if (array_key_exists($id_canale, $user_ruoli)) {
-                $ruolo = $user_ruoli[$id_canale];
-
-                $referente = $ruolo->isReferente();
-                $moderatore = $ruolo->isModeratore();
-            }
-
-            //controllo coerenza parametri
-            $canali_file = $file->getIdCanali();
-            if (!in_array($id_canale, $canali_file))
-                Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getId(),
-                                'msg' => 'I parametri passati non sono coerenti',
-                                'file' => __FILE__, 'line' => __LINE__));
-
-            $elenco_canali = array($id_canale);
-
-            if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $moderatore || $autore))
-                Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getId(),
-                                'msg' => "Non hai i diritti per eliminare il file\n La sessione potrebbe essere scaduta",
-                                'file' => __FILE__, 'line' => __LINE__));
-
-        } elseif (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $autore))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => "Non hai i diritti per eliminare il file\n La sessione potrebbe essere scaduta",
-                            'file' => __FILE__, 'line' => __LINE__));
+        if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $moderatore || $autore))
+            Error::throwError(_ERROR_DEFAULT, array('id_utente' => $user->getId(),
+                'msg' => "Non hai i diritti per eliminare il file\n La sessione potrebbe essere scaduta",
+                'file' => __FILE__, 'line' => __LINE__));
 
         //$elenco_canali = array ($id_canale);
         $ruoli_keys = array_keys($user_ruoli);
@@ -106,21 +78,7 @@ class FileStudentiDelete extends UniversiboCommand
             $elenco_canali[] = $user_ruoli[$ruoli_keys[$i]]->getIdCanale();
         }
 
-        $file_canali = $file->getIdCanali();
-        $canale = Canale::retrieveCanale($file_canali[0]);
         $f25_canale = $canale->getTitolo();
-        //		$num_canali = count($file_canali);
-        //		for ($i = 0; $i < $num_canali; $i ++)
-        //		{
-        //			$id_current_canale = $file_canali[$i];
-        //			$current_canale =  Canale :: retrieveCanale($id_current_canale);
-        //			$nome_current_canale = $current_canale->getTitolo();
-        //			if (in_array($id_current_canale, $file->getIdCanali()))
-        //			{
-        //				$f25_canale[] = array ('id_canale' => $id_current_canale, 'nome_canale' => $nome_current_canale, 'spunta' => 'true');
-        //			}
-        //		}
-
         $f25_accept = false;
 
         //postback
@@ -135,19 +93,18 @@ class FileStudentiDelete extends UniversiboCommand
                 foreach ($_POST['f25_canale'] as $key => $value) {
                     $diritti = $this->get('security.context')->isGranted('ROLE_ADMIN')
                             || (array_key_exists($key, $user_ruoli)
-                                    && ($user_ruoli[$key]->isReferente()
-                                            || ($user_ruoli[$key]
-                                                    ->isModeratore() && $autore)));
+                            && ($user_ruoli[$key]->isReferente()
+                            || ($user_ruoli[$key]
+                                    ->isModeratore() && $autore)));
                     if (!$diritti) {
                         //$user_ruoli[$key]->getIdCanale();
                         $canale = Canale::retrieveCanale($key);
-                        Error::throwError(_ERROR_NOTICE,
-                                array('id_utente' => $user->getId(),
-                                        'msg' => 'Non possiedi i diritti di eliminazione nel canale: '
-                                                . $canale->getTitolo(),
-                                        'file' => __FILE__, 'line' => __LINE__,
-                                        'log' => false,
-                                        'template_engine' => &$template));
+                        Error::throwError(_ERROR_NOTICE, array('id_utente' => $user->getId(),
+                            'msg' => 'Non possiedi i diritti di eliminazione nel canale: '
+                            . $canale->getTitolo(),
+                            'file' => __FILE__, 'line' => __LINE__,
+                            'log' => false,
+                            'template_engine' => &$template));
                         $f25_accept = false;
                     } else
                         $f25_canale_app[$key] = $value;
@@ -158,7 +115,6 @@ class FileStudentiDelete extends UniversiboCommand
             //				$f25_accept = false;
             //				Error :: throwError(_ERROR_NOTICE, array ('id_utente' => $user->getId(), 'msg' => 'Devi selezionare almeno una pagina:', 'file' => __FILE__, 'line' => __LINE__, 'log' => false, 'template_engine' => & $template));
             //			}
-
         }
 
         //accettazione della richiesta
@@ -177,9 +133,7 @@ class FileStudentiDelete extends UniversiboCommand
             $file->deleteFileItem();
             $file->deleteAllCommenti();
 
-            $template
-                    ->assign('fileDelete_langSuccess',
-                            "Il file è stato cancellato con successo dalle pagine scelte.");
+            $template->assign('fileDelete_langSuccess', "Il file è stato cancellato con successo dalle pagine scelte.");
 
             return 'success';
         }
@@ -190,13 +144,12 @@ class FileStudentiDelete extends UniversiboCommand
 
         $template->assign('f25_langAction', "Elimina il file dal canale");
         $template->assign('f25_canale', $f25_canale);
-        $template
-                ->assign('fileDelete_flagCanali',
-                        (count($f25_canale)) ? 'true' : 'false');
+        $template->assign('fileDelete_flagCanali', (count($f25_canale)) ? 'true' : 'false');
 
         //$this->executePlugin('ShowTopic', array('reference' => 'filestudenti'));
         $this->executePlugin('ShowTopic', array('reference' => 'filescollabs'));
 
         return 'default';
     }
+
 }

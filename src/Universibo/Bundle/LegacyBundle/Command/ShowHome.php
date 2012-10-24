@@ -24,6 +24,7 @@ class ShowHome extends CanaleCommand
     {
         parent::initCommand($frontController);
 
+        $this->getRequest()->attributes->set('id_canale', 1);
         $canale = $this->getRequestCanale();
         //var_dump($canale);
 
