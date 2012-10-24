@@ -1,10 +1,10 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
-use Universibo\Bundle\LegacyBundle\Entity\Cdl;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
@@ -39,14 +39,30 @@ class ShowFacolta extends CanaleCommand
 
         //@todo fatto sopra
         $facolta = $this->getRequestCanale();
+        $codFac = $facolta->getCodiceFacolta();
 
-        $elencoCdl = Cdl::selectCdlElencoFacolta($facolta->getCodiceFacolta());
+        $prgRepo = $this->get('universibo_legacy.repository.programma');
+
+        $minYear = $prgRepo->findMinAcademicalYearFacolta($codFac);
+        $maxYear = $prgRepo->findMaxAcademicalYearFacolta($codFac);
+
+        if ($minYear === null || $maxYear === null) {
+            $currentYear = intval($this->getFrontController()->getAppSetting('defaultAnnoAccademico'));
+            $minYear = $maxYear = $currentYear;
+        } else {
+            $currentYear = intval($this->getRequest()->get('anno_accademico', $maxYear));
+        }
+
+        if ($currentYear > $maxYear || $currentYear < $minYear) {
+            throw new NotFoundHttpException('Academical Year Not found');
+        }
+
+        $cdlRepo = $this->get('universibo_legacy.repository.cdl');
+        $elencoCdl = $cdlRepo->findByFacolta($codFac, $currentYear);
 
         $num_cdl = count($elencoCdl);
         $cdlType = NULL;
         $fac_listCdlType = array();
-        $default_anno_accademico = $this->frontController
-                ->getAppSetting('defaultAnnoAccademico');
         $session_user = $this->get('security.context')->getToken()->getUser();
         $session_user_groups = $session_user instanceof User ? $session_user->getLegacyGroups() : 1;
 
@@ -91,7 +107,7 @@ class ShowFacolta extends CanaleCommand
                                                 $elencoCdl[$i]
                                                         ->getForumForumId())
                                 : '',
-                        'link' => $router->generate('universibo_legacy_cdl', array('id_canale' => $elencoCdl[$i]->getIdCanale())));
+                        'link' => $router->generate('universibo_legacy_cdl', array('anno_accademico' => $currentYear, 'id_canale' => $elencoCdl[$i]->getIdCanale())));
             }
         }
 
@@ -115,6 +131,17 @@ class ShowFacolta extends CanaleCommand
         $param = array('num' => 4);
         $this->executePlugin('ShowNewsLatest', $param);
         $this->executePlugin('ShowLinks', array('num' => 12));
+
+        $response = $this->forward('UniversiboWebsiteBundle:Didactics:academicalYear', array(
+                'min' => $minYear,
+                'max' => $maxYear,
+                'current' => $currentYear,
+                'route' => 'universibo_legacy_facolta',
+                'params' => array('id_canale' => $facolta->getIdCanale())
+        ));
+
+        $template->assign('fac_langYear', 'Anno Accademico');
+        $template->assign('fac_yearBox', $response->getContent());
 
         return 'default';
     }

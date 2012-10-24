@@ -14,6 +14,16 @@ use Error;
  */
 class DBPrgAttivitaDidatticaRepository extends DBRepository
 {
+    public function findMaxAcademicalYearFacolta($cod_fac)
+    {
+        return $this->findAcademicalYearFacolta($cod_fac, 'MAX');
+    }
+
+    public function findMinAcademicalYearFacolta($cod_fac)
+    {
+        return $this->findAcademicalYearFacolta($cod_fac, 'MIN');
+    }
+
     public function findMaxAcademicalYear($cod_cdl)
     {
         return $this->findAcademicalYear($cod_cdl, 'MAX');
@@ -45,6 +55,31 @@ EOT;
 
         return $result[0];
     }
+
+    protected function findAcademicalYearFacolta($cod_fac, $mode)
+    {
+        $db = $this->getDb();
+
+        $query =<<<EOT
+SELECT $mode (p.anno_accademico)
+    FROM prg_insegnamento p, classi_corso c
+        WHERE
+                p.cod_corso = c.cod_corso
+            AND c.cod_fac = {$db->quote($cod_fac)}
+EOT;
+
+        $res = $db->query($query);
+
+        if (DB::isError($res)) {
+            throw new DBALException(DB::errorMessage($res));
+        }
+
+        $result = $res->fetchRow();
+        $res->free();
+
+        return $result[0];
+    }
+
     public function findByCdlAndYear($cod_cdl, $anno_accademico)
     {
         $db = $this->getDb();

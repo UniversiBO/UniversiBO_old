@@ -8,6 +8,8 @@
 	{if $common_langCanaleMyUniversiBO != '' }
 	<div class="comandi">{if $common_canaleMyUniversiBO == "remove"}<img src="{$common_basePath}//black/esame_myuniversibo_del.gif" width="15" height="15" alt="" />&nbsp;{else}<img src="{$common_basePath}//black/esame_myuniversibo_add.gif" width="15" height="15" alt="" />&nbsp;{/if}<a href="{$common_canaleMyUniversiBOUri|escape:"htmlall"}">{$common_langCanaleMyUniversiBO|escape:"htmlall"}</a></div>
 	{/if}
+<p>{$fac_langYear|escape:"htmlall"}</p>
+{$fac_yearBox}
 <h4>{$fac_langList|escape:"htmlall"}</h4>
 </div>
 {foreach from=$fac_list item=temp_fac}

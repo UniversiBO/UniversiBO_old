@@ -86,13 +86,28 @@ class DBCdlRepository extends DBRepository
         return $cdl;
     }
 
-    public function findByFacolta($codiceFacolta)
+    public function findByFacolta($codiceFacolta, $annoAccademico = null)
     {
         $db = $this->getDb();
 
+        if ($annoAccademico !== null) {
+            $and = <<<EOT
+AND EXISTS (
+    SELECT p.*
+    FROM prg_insegnamento p
+    WHERE
+            b.cod_corso = p.cod_corso
+        AND p.anno_accademico = {$db->quote($annoAccademico)}
+)
+EOT;
+
+        } else {
+            $and = '';
+        }
+
         $query = 'SELECT tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo,files_studenti_attivo,
         a.id_canale, cod_corso, desc_corso, categoria, cod_fac, cod_doc, cat_id FROM canale a , classi_corso b WHERE a.id_canale = b.id_canale
-        AND b.cod_fac = '.$db->quote($codiceFacolta).' ORDER BY 17 , 15 ';
+        AND b.cod_fac = '.$db->quote($codiceFacolta).$and.' ORDER BY 17 , 15 ';
 
         $res = $db->query($query);
         if (DB::isError($res))
