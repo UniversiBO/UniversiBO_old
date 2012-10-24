@@ -54,9 +54,8 @@ class FileEdit extends UniversiboCommand
 
         $autore = $user instanceof User && ($user->getId() == $file->getIdUtente());
 
-        if ($id_canale = $this->getRequest()->attributes->get('id_canale')) {
-
-            $canale = Canale::retrieveCanale($id_canale);
+        $canale = $this->getRequestCanale(false);
+        if ($canale instanceof Canale) {
             if ($canale->getServizioFiles() == false)
                 Error::throwError(_ERROR_DEFAULT,
                         array('id_utente' => $user->getId(),
@@ -432,9 +431,10 @@ class FileEdit extends UniversiboCommand
                 $f13_password = null;
             }
 
+            
             //e i permessi di visualizzazione??
             // li prendo uguali a quelli del canale,
-            if (array_key_exists('id_canale', $_GET))
+            if ($canale instanceof Canale)
                 $f13_permessi_visualizza = $canale->getPermessi();
             else
                 $f13_permessi_visualizza = LegacyRoles::ALL;
