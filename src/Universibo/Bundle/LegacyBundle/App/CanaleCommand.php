@@ -233,6 +233,8 @@ abstract class CanaleCommand extends UniversiboCommand
                 break;
             case 'Studenti': $posA = 3;
                 break;
+            default:
+                $posA = 4;
         }
         switch ($b) {
             case 'Docenti': $posB = 0;
@@ -243,6 +245,8 @@ abstract class CanaleCommand extends UniversiboCommand
                 break;
             case 'Studenti': $posB = 3;
                 break;
+            default:
+                $posB = 4;
         }
         if ($posA == $posB)
             return strcmp($b["label"], $a["label"]);
