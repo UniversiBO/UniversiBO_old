@@ -109,21 +109,15 @@ class ShowCdl extends CanaleCommand
 
         $template -> assign('cdl_langYear', 'anno accademico' );
 
-        $template -> assign('cdl_thisYear', ($academicalYear).'/'.($academicalYear+1) );
+        $response = $this->forward('UniversiboWebsiteBundle:Didactics:academicalYear', array(
+                'min' => $minYear,
+                'max' => $maxYear,
+                'current' => $academicalYear,
+                'route' => 'universibo_legacy_cdl',
+                'params' => array('id_canale' => $cdl->getIdCanale())
+        ));
 
-        if ($academicalYear < $maxYear) {
-            $template -> assign('cdl_nextYear', ($academicalYear+1).'/'.($academicalYear+2) );
-            $template -> assign('cdl_nextYearUri', $router->generate('universibo_legacy_cdl', array('anno_accademico' => $academicalYear + 1, 'id_canale' => $cdl->getIdCanale())));
-        } else {
-            $template -> assign('cdl_nextYearUri', false);
-        }
-
-        if ($academicalYear > $minYear) {
-            $template -> assign('cdl_prevYear', ($academicalYear-1).'/'.($academicalYear) );
-            $template -> assign('cdl_prevYearUri', $router->generate('universibo_legacy_cdl', array('anno_accademico' => $academicalYear - 1, 'id_canale' => $cdl->getIdCanale())));
-        } else {
-            $template -> assign('cdl_prevYearUri', false);
-        }
+        $template->assign('cdl_yearBox', $response->getContent());
 
         $template -> assign('cdl_langList', 'Elenco insegnamenti attivati su UniversiBO');
         $template -> assign('cdl_langGoToForum', 'Link al forum');

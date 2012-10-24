@@ -1,0 +1,7 @@
+<p>{% if years.prev %}
+<a href="{{ years.prev.uri }}">{{years.prev.label}}</a>&nbsp;&lt;&lt;&nbsp;
+{% endif %}
+{{years.current.label}}
+{% if years.next %}
+&nbsp;&gt;&gt;&nbsp;<a href="{{ years.next.uri }}">{{years.next.label}}</a>
+{% endif %}</p>
