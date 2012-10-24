@@ -28,5 +28,5 @@ $loader->add('',__DIR__.'/../framework/smarty');
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 AnnotationRegistry::registerFile(__DIR__.'/../vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php');
 
-$loader = new ApcClassLoader('sf2', $loader);
-$loader->register(true);
+#$loader = new ApcClassLoader('sf2', $loader);
+#$loader->register(true);
