@@ -471,4 +471,14 @@ abstract class UniversiboCommand extends BaseCommand
         
         return $this->requestCanale;
     }
+    
+    protected function throwUnauthorized()
+    {
+         Error::throwError(_ERROR_DEFAULT, array(
+             'id_utente' => 0,
+             'msg' => 'Non hai i diritti per eseguire questa operazione'.
+                 "\nLa sessione potrebbe essere scaduta",
+             'file' => __FILE__, 'line' => __LINE__)
+         );
+    }
 }
