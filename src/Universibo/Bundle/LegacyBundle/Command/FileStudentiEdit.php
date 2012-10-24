@@ -29,7 +29,7 @@ class FileStudentiEdit extends UniversiboCommand
         $template = $frontcontroller->getTemplateEngine();
         $router = $this->get('router');
         $channelRouter = $this->get('universibo_legacy.routing.channel');
-        
+
         $krono = $frontcontroller->getKrono();
 
         $user = $this->get('security.context')->getToken()->getUser();

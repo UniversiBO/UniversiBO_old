@@ -2,7 +2,6 @@
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
 use Error;
-use Symfony\Component\Routing\RouterInterface;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 define('CDL_NUOVO_ORDINAMENTO'   ,1);
@@ -265,8 +264,6 @@ class Cdl extends Canale
         return self::getRepository()->findByIdCanale($idCanale);
     }
 
-
-
     /**
      * Seleziona da database e restituisce l'oggetto Cdl
      * corrispondente al codice $cod_cdl
@@ -279,8 +276,6 @@ class Cdl extends Canale
     {
         return self::getRepository()->findByCodice($codice);
     }
-
-
 
     /**
      * Seleziona da database e restituisce un'array contenente l'elenco

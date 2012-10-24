@@ -2,7 +2,6 @@
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
 use DB;
-use Symfony\Component\Routing\RouterInterface;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 global $__facoltaElencoCodice;

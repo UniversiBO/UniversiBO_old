@@ -46,15 +46,15 @@ class ShowCdl extends CanaleCommand
         $maxYear = $prgRepo->findMaxAcademicalYear($cdl->getCodiceCdl());
         $request = $this->getRequest();
         $academicalYear = $request->get('anno_accademico', $maxYear);
-        
-        if($maxYear !== null) {
+
+        if ($maxYear !== null) {
             $elencoPrgAttDid = $prgRepo->findByCdlAndYear($cdl-> getCodiceCdl(), $academicalYear);
         } else {
             $academicalYear = $frontcontroller->getAppSetting('defaultAnnoAccademico');
             $minYear = $maxYear = $academicalYear;
             $elencoPrgAttDid = array();
         }
-        
+
         if (!preg_match('/^([0-9]{4})$/', $academicalYear) ||
             $academicalYear > $maxYear || $academicalYear < $minYear) {
             throw new NotFoundHttpException('No subjects in academical year');

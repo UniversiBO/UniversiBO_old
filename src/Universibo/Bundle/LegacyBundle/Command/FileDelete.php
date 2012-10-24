@@ -26,7 +26,7 @@ class FileDelete extends UniversiboCommand
         $template = $frontcontroller->getTemplateEngine();
         $router = $this->get('router');
         $channelRouter = $this->get('universibo_legacy.routing.channel');
-        
+
         $template->assign('common_canaleURI', $router->generate('universibo_legacy_myuniversibo'));
         $template->assign('common_langCanaleNome', 'indietro');
 

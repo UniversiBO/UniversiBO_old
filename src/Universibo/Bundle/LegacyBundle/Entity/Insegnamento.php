@@ -1,6 +1,5 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
-use Symfony\Component\Routing\RouterInterface;
 
 use \DB;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;

@@ -92,13 +92,12 @@ class ShowAllFilesStudentiTitoli extends PluginCommand
                     $num_canali =  count($canali);
                     $elenco_canali_tpl = array();
 
-
                     for ($j = 0; $j < $num_canali; $j++) {
                         $canale = Canale::retrieveCanale($canali[$j]);
                         if ($canale->isGroupAllowed($groups)) {
                             $canale_tpl = array();
                             $file_tpl[$i]['canaleTitolo'] = $canale->getNome();
-                           
+
                             $file_tpl[$i]['canaleLink'] = $channelRouter->generate($canale);
                             $file_tpl[$i]['download_uri'] = $router->generate('universibo_legacy_file_download', array('id_file' => $file->getIdFile(), 'id_canale' => $canali[$j]));
                             $file_tpl[$i]['show_info_uri'] = $router->generate('universibo_legacy_file', array('id_file' => $file->getIdFile(), 'id_canale' => $canali[$j]));

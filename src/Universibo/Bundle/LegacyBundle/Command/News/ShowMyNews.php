@@ -39,7 +39,7 @@ class ShowMyNews extends PluginCommand
         $router    = $this->get('router');
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
         $personalizza_not_admin = false;
-        
+
         $channelRouter = $this->get('universibo_legacy.routing.channel');
 
         $personalizza   = false;
