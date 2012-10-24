@@ -81,5 +81,7 @@ universibo_shibboleth:
     - isMemberOf
     - sn
   user_provider: universibo_website.user.provider
-    
-    
+
+ornicar_apc:
+  host: %apc_host%
+  web_dir: %kernel.root_dir%/../web
