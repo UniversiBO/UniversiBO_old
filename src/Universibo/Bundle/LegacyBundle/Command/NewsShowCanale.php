@@ -2,6 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Error;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
 
@@ -27,9 +28,13 @@ class NewsShowCanale extends CanaleCommand
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
         $id_canale = $canale->getIdCanale();
         $router = $this->get('router');
+        
+        $request = $this->getRequest();
+        $inizio = $request->get('inizio', 0);
+        $quantita = $request->get('qta', 10);
 
-        if (!array_key_exists('inizio', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['inizio'] ) || !array_key_exists('qta', $_GET) || !preg_match('/^([0-9]{1,9})$/', $_GET['qta'] )) {
-            Error::throwError(_ERROR_DEFAULT,array('id_utente' => $user->getId(), 'msg'=>'Parametri non validi','file'=>__FILE__,'line'=>__LINE__ ));
+        if (!preg_match('/^([0-9]{1,9})$/', $inizio ) || !preg_match('/^([0-9]{1,9})$/', $quantita)) {
+            throw new NotFoundHttpException('Invalid parameters');
         }
 
         $template->assign('NewsShowCanale_addNewsFlag', 'false');
@@ -49,8 +54,6 @@ class NewsShowCanale extends CanaleCommand
 
 
         $num_news_canale = $this->getNumNewsCanale($id_canale);
-        $quantita = $this->getRequest()->get('qta');
-        $inizio = $this->getRequest()->get('inizio');
         $template->assign('NewsShowCanale_numPagineFlag', 'false');
         if ($num_news_canale > $quantita) {
             $pages_flag = 'true';
@@ -65,7 +68,7 @@ class NewsShowCanale extends CanaleCommand
             $template->assign('NewsShowCanale_numPagineFlag', 'true');
         }
 
-        $lista_notizie = $this->getLatestNewsCanale($_GET['inizio'],$quantita,$id_canale);
+        $lista_notizie = $this->getLatestNewsCanale($inizio,$quantita,$id_canale);
         $param = array('id_notizie'=> $lista_notizie, 'chk_diritti' => true);
         $this->executePlugin('ShowNews', $param );
 
@@ -81,11 +84,11 @@ class NewsShowCanale extends CanaleCommand
      * @param  int   $id_canale identificativo su database del canale
      * @return array elenco NewsItem , false se non ci sono notizie
      */
-    public function getLatestNewsCanale($startNum, $qta, $id_canale)
+    public function getLatestNewsCanale($startNum, $quantita, $id_canale)
     {
         $newsRepo = $this->getContainer()->get('universibo_legacy.repository.news.news_item');
 
-        return $newsRepo->findLatestByChannel($id_canale, $qta, $startNum);
+        return $newsRepo->findLatestByChannel($id_canale, $quantita, $startNum);
     }
 
     /**
