@@ -44,9 +44,9 @@ class ShowCdl extends CanaleCommand
 
         $minYear = $prgRepo->findMinAcademicalYear($cdl->getCodiceCdl());
         $maxYear = $prgRepo->findMaxAcademicalYear($cdl->getCodiceCdl());
+        $request = $this->getRequest();
         $academicalYear = $request->get('anno_accademico', $maxYear);
         
-        $request = $this->getRequest();
         if($maxYear !== null) {
             $elencoPrgAttDid = $prgRepo->findByCdlAndYear($cdl-> getCodiceCdl(), $academicalYear);
         } else {
@@ -63,7 +63,6 @@ class ShowCdl extends CanaleCommand
         $num_ins = count($elencoPrgAttDid);
         $insAnnoCorso  = NULL;   //ultimo anno dell'insegnamento precedente
         $insCiclo = NULL;   //ultimo ciclo dell'insegnamento precedente
-        $cdl_listInsYears = array();    //elenco insegnamenti raggruppati per anni
         $session_user = $this->get('security.context')->getToken()->getUser();
         $session_user_groups =  $session_user instanceof User ? $session_user->getLegacyGroups() : 1;
         $cdl_listIns = array();
