@@ -32,7 +32,6 @@ class ShowCdl extends CanaleCommand
 
     public function execute()
     {
-
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $context = $this->get('security.context');
@@ -45,16 +44,21 @@ class ShowCdl extends CanaleCommand
 
         $minYear = $prgRepo->findMinAcademicalYear($cdl->getCodiceCdl());
         $maxYear = $prgRepo->findMaxAcademicalYear($cdl->getCodiceCdl());
-
+        
         $request = $this->getRequest();
-        $academicalYear = $request->get('anno_accademico', $maxYear);
-
-        if (!preg_match('/^([0-9]{4})$/', $academicalYear) ||
-                $academicalYear > $maxYear || $academicalYear < $minYear) {
-            throw new NotFoundHttpException('No subjects academical year');
+        if($maxYear !== null) {
+            $elencoPrgAttDid = $prgRepo->findByCdlAndYear($cdl-> getCodiceCdl(), $academicalYear);
+        } else {
+            $academicalYear = $frontcontroller->getAppSetting('defaultAnnoAccademico');
+            $minYear = $maxYear = $academicalYear;
+            $elencoPrgAttDid = array();
         }
-
-        $elencoPrgAttDid = $prgRepo->findByCdlAndYear($cdl-> getCodiceCdl(), $academicalYear);
+        
+        $academicalYear = $request->get('anno_accademico', $maxYear);
+        if (!preg_match('/^([0-9]{4})$/', $academicalYear) ||
+            $academicalYear > $maxYear || $academicalYear < $minYear) {
+            throw new NotFoundHttpException('No subjects in academical year');
+        }
 
         $num_ins = count($elencoPrgAttDid);
         $insAnnoCorso  = NULL;   //ultimo anno dell'insegnamento precedente
