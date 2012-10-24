@@ -27,32 +27,25 @@ class DidatticaGestione extends UniversiboCommand
 
     public function execute()
     {
-
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $router = $this->get('router');
+        $request = $this->getREquest();
 
         $user = $this->get('security.context')->getToken()->getUser();
-        $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) { // TODO far si che specifici utenti siano autorizzati (da file di conf) {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) { 
             Error::throwError(_ERROR_DEFAULT,
-                    array(
-                            'msg' => "Non hai i diritti necessari per accedere a questa pagina\n la sessione potrebbe essere terminata",
+                    array('msg' => "Non hai i diritti necessari per accedere a questa pagina\n la sessione potrebbe essere terminata",
                             'file' => __FILE__, 'line' => __LINE__));
         }
 
-        $template
-                ->assign('common_canaleURI',
-                        array_key_exists('HTTP_REFERER', $_SERVER) ? $_SERVER['HTTP_REFERER']
-                                : '');
+        $template->assign('common_canaleURI',$request->server->get('HTTP_REFERER'));
         $template->assign('common_langCanaleNome', 'indietro');
         $template->assign('DidatticaGestione_baseUrl', $router->generate('universibo_legacy_didattica_gestione'));
 
-        $id_canale = '';
         $id_facolta = '';
         $id_cdl = '';
-        $id_sdop = '';
 
         $f41_cur_sel = '';
         $edit = 'false';
@@ -60,13 +53,13 @@ class DidatticaGestione extends UniversiboCommand
 
         $esamiAlternativi = '';
 
+        $idSdop = $request->get('id_sdop', '');
+        
         // controllo se è stato scelta un'attività sdoppiata
-        if (array_key_exists('id_sdop', $_GET)
-                && preg_match('/^([0-9]{1,9})$/', $_GET['id_sdop'])) {
+        if (preg_match('/^([0-9]{1,9})$/', $idSdop)) {
             $prg_sdop = PrgAttivitaDidattica::selectPrgAttivitaDidatticaSdoppiata(
-                    (int) $_GET['id_sdop']);
+                    (int) $idSdop);
             if ($prg_sdop !== false) {
-                $id_sdop = $_GET['id_sdop'];
                 $edit = 'true';
                 $cdl = Cdl::selectCdlCodice($prg_sdop->getCodiceCdl());
                 $fac = Facolta::selectFacoltaCodice(
@@ -91,16 +84,15 @@ class DidatticaGestione extends UniversiboCommand
         }
 
         // controllo canale scelto
-        //		if (array_key_exists('id_canale', $_GET))
-        if (array_key_exists('id_canale', $_GET)
-                && preg_match('/^([0-9]{1,9})$/', $_GET['id_canale'])) {
-            //			if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_canale']))
+        $channelId = $request->get('id_canale', '');
+        if (preg_match('/^([0-9]{1,9})$/', $channelId)) {
+            //			if (!preg_match('/^([0-9]{1,9})$/', $channelId))
             //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non e` valido', 'file' => __FILE__, 'line' => __LINE__));
 
-            if (Canale::getTipoCanaleFromId($_GET['id_canale'])
+            if (Canale::getTipoCanaleFromId($channelId)
                     == CANALE_INSEGNAMENTO) {
-                $canale = Canale::retrieveCanale(intval($_GET['id_canale']));
-                $id_canale = $canale->getIdCanale();
+                $canale = Canale::retrieveCanale(intval($channelId));
+                $channelId = $canale->getIdCanale();
                 if ($edit == 'false') {
                     $f41_cur_sel['insegnamento'] = $canale->getTitolo();
                     $listaPrgs = $canale->getElencoAttivitaPadre();
@@ -122,16 +114,16 @@ class DidatticaGestione extends UniversiboCommand
                     $edit = 'true';
 
                     $esamiAlternativi = DidatticaGestione::_getAttivitaFromCanale(
-                            $id_canale, $prg);
+                            $channelId, $prg);
                 } else
                     $esamiAlternativi = DidatticaGestione::_getAttivitaFromCanale(
-                            $id_canale, $prg_sdop);
-                //				$esamiAlternativi = DidatticaGestione::_getAttivitaFromCanale($id_canale);
+                            $channelId, $prg_sdop);
+                //				$esamiAlternativi = DidatticaGestione::_getAttivitaFromCanale($channelId);
                 if (count($esamiAlternativi) == 0)
                     $esamiAlternativi = '';
                 // la modifica del docente è permessa solo quando è insegnamento padre e  non e` attivo il forum dell'insegnamento
-                if (!array_key_exists('id_sdop', $_GET)
-                        && ($canale->getForumForumId() == null
+                
+                if ($idSdop != '' && ($canale->getForumForumId() == null
                                 || $canale->getForumForumId() == 0))
                     $docenteEdit = true;
                 else
@@ -140,34 +132,27 @@ class DidatticaGestione extends UniversiboCommand
             }
         }
 
+        $facultyId = $request->get('id_fac');
         // controllo facolta` scelta
-        //		if (array_key_exists('id_fac', $_GET))
-        if (array_key_exists('id_fac', $_GET)
-                && preg_match('/^([0-9]{1,9})$/', $_GET['id_fac'])) {
-            //			if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_fac']))
-            //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id della facolta` richiesta non e` valido', 'file' => __FILE__, 'line' => __LINE__));
-
-            if (Canale::getTipoCanaleFromId($_GET['id_fac']) == CANALE_FACOLTA) {
-                $fac = Canale::retrieveCanale(intval($_GET['id_fac']));
+        if (preg_match('/^([0-9]{1,9})$/',$facultyId)) {
+            $facultyId = intval($facultyId);
+            if (Canale::getTipoCanaleFromId($facultyId) == Canale::FACOLTA) {
+                $fac = Canale::retrieveCanale($facultyId);
                 $id_facolta = $fac->getIdCanale();
                 $f41_cur_sel['facolta'] = $fac->getTitolo();
             }
         }
 
+        $cdlId = $request->get('id_cdl');
         // controllo cdl
-        //		if (array_key_exists('id_cdl', $_GET))
-        if (array_key_exists('id_cdl', $_GET)
-                && preg_match('/^([0-9]{1,9})$/', $_GET['id_cdl'])) {
-            //			if (!preg_match('/^([0-9]{1,9})$/', $_GET['id_cdl']))
-            //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non e` valido', 'file' => __FILE__, 'line' => __LINE__));
-
-            if (Canale::getTipoCanaleFromId($_GET['id_cdl']) == CANALE_CDL) {
-                $cdl = Canale::retrieveCanale(intval($_GET['id_cdl']));
+        if (preg_match('/^([0-9]{1,9})$/', $cdlId)) {
+            if (Canale::getTipoCanaleFromId($cdlId) == CANALE_CDL) {
+                $cdl = Canale::retrieveCanale(intval($cdlId));
                 // controllo coerenza tra facolta`, cdl e insegnamento
                 if ($id_facolta != '')
                     if ($cdl->getCodiceFacoltaPadre()
                             == $fac->getCodiceFacolta())
-                        if ($id_canale == ''
+                        if ($channelId == ''
                                 || in_array($cdl->getCodiceCdl(),
                                         $canale->getElencoCodiciCdl())) {
                             $id_cdl = $cdl->getIdCanale();
@@ -236,7 +221,7 @@ class DidatticaGestione extends UniversiboCommand
 
         $f41_accept = false;
         // submit della modifica delle attivita`
-        if (array_key_exists('f41_submit', $_POST) && $id_canale != '') {
+        if (array_key_exists('f41_submit', $_POST) && $channelId != '') {
             $f41_accept = true;
             //			var_dump($_POST); die;
             if (!array_key_exists('f41_edit_sel', $_POST)
@@ -253,20 +238,20 @@ class DidatticaGestione extends UniversiboCommand
                 $prgs = array();
                 $tmpEdit = $_POST['f41_edit_sel'];
 
-                if ($id_sdop != '')
+                if ($idSdop != '')
                     $prgs[] = PrgAttivitaDidattica::selectPrgAttivitaDidatticaSdoppiata(
-                            (int) $id_sdop);
+                            (int) $idSdop);
                 else
                     $prgs[] = $prg;
                 //				var_dump($prgs); die;
                 if (array_key_exists('f41_alts', $_POST))
                     foreach ($_POST['f41_alts'] as $key => $value) {
                         if (strstr($key, '#') != false) {
-                            list($id_channel, $id_sdoppiamento) = explode('#',
+                            list($id_channel, $idSdoppiamento) = explode('#',
                                     $key);
-                            //							var_dump($key); var_dump($id_sdoppiamento); die;
+                            //							var_dump($key); var_dump($idSdoppiamento); die;
                             $prgs[] = PrgAttivitaDidattica::selectPrgAttivitaDidatticaSdoppiata(
-                                    (int) $id_sdoppiamento);
+                                    (int) $idSdoppiamento);
                         } else {
                             $channel = Canale::retrieveCanale($key);
                             $atts = $channel->getElencoAttivitaPadre();
@@ -358,8 +343,8 @@ class DidatticaGestione extends UniversiboCommand
                         break;
                     } else
                         $this
-                                ->_log($user->getId(), $id_canale, $id_cdl,
-                                        $id_facolta, $id_sdop, $mods[$i]);
+                                ->_log($user->getId(), $channelId, $id_cdl,
+                                        $id_facolta, $idSdop, $mods[$i]);
                     //aggiorno il referente della materia in caso di modifica docente
                     if (array_key_exists('doc', $mods[$i])) {
                         $doc = Docente::selectDocenteFromCod(
@@ -467,18 +452,19 @@ class DidatticaGestione extends UniversiboCommand
     /**
      * Recupera le attività associate ad un insegnamento, escludendo un eventuale attività
      */
-    function &_getAttivitaFromCanale($id_canale, $prg_exclude = null)
+    function &_getAttivitaFromCanale($channelId, $prg_exclude = null)
     {
         $router = $this->get('router');
         $prgs = PrgAttivitaDidattica::selectPrgAttivitaDidatticaCanale(
-                $id_canale);
+                $channelId);
         $ret = array();
         foreach ($prgs as $prg)
             if ($prg_exclude == null || $prg != $prg_exclude) {
                 //	 			var_dump($prg);
                 $cdl = Cdl::selectCdlCodice($prg->getCodiceCdl());
-                $id = $id_canale;
-                $uri =  $router->generate('universibo_legacy_didattica_gestione', array('id_canale' => $id_canale, 'id_cdl' => $cdl->getIdCanale(), 'id_fac' => $_GET['id_fac']));
+                $id = $channelId;
+                $facultyId = $this->getRequest()->get('id_fac');
+                $uri =  $router->generate('universibo_legacy_didattica_gestione', array('id_canale' => $channelId, 'id_cdl' => $cdl->getIdCanale(), 'id_fac' => $facultyId));
                 $status = '';
                 if ($prg->isSdoppiato()) {
                     $id .= '#' . $prg->getIdSdop();
@@ -497,7 +483,7 @@ class DidatticaGestione extends UniversiboCommand
         return $ret;
     }
 
-    public function _log($id_utente, $id_canale, $id_cdl, $id_facolta, $id_sdop,
+    public function _log($id_utente, $channelId, $id_cdl, $id_facolta, $idSdop,
             $modified)
     {
         $log_definition = array(0 => 'timestamp', 1 => 'date', 2 => 'time',
@@ -523,12 +509,12 @@ class DidatticaGestione extends UniversiboCommand
     /**
      * @return string
      */
-    public static function getEditUrl($id_canale, $id_cdl = null, $id_facolta = null,
-            $id_sdop = null)
+    public static function getEditUrl($channelId, $id_cdl = null, $id_facolta = null,
+            $idSdop = null)
     {
         $router = FrontController::getContainer()->get('router');
 
-        $data = array('id_canale' => $id_canale);
+        $data = array('id_canale' => $channelId);
 
         if ($id_cdl !== null) {
             $data['id_cdl'] = $id_cdl;
@@ -537,8 +523,8 @@ class DidatticaGestione extends UniversiboCommand
         if ($id_facolta !== null) {
             $data['id_facolta'] = $id_facolta;
         }
-        if ($id_sdop !== null) {
-            $data['id_sdop'] = $id_sdop;
+        if ($idSdop !== null) {
+            $data['id_sdop'] = $idSdop;
         }
 
         return $router->generate('universibo_legacy_didattica_gestione', $data);
