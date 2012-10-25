@@ -34,5 +34,8 @@ security:
             shibboleth: ~
     access_control:
       - { path: ^/my, roles: IS_AUTHENTICATED_FULLY }
+      - { path: \badd\b, roles: IS_AUTHENTICATED_FULLY }
+      - { path: \bdelete\b, roles: IS_AUTHENTICATED_FULLY }
+      - { path: \bedit\b, roles: IS_AUTHENTICATED_FULLY }
       - { path: ^/admin, roles: ROLE_ADMIN }
       - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
