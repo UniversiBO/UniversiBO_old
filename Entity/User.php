@@ -147,7 +147,7 @@ class User extends BaseUser
     public function setLegacyGroups($legacyGroups)
     {
         $this->legacyGroups = $legacyGroups;
-        
+
         $this->updateRoles();
 
         return $this;

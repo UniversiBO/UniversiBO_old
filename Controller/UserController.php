@@ -5,8 +5,17 @@ namespace Universibo\Bundle\CoreBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * User information controller
+ */
 class UserController extends Controller
 {
+    /**
+     * Tells if the username is available
+     *
+     * @param  string   $username
+     * @return Response
+     */
     public function availableAction($username)
     {
         $exists = $this
