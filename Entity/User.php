@@ -7,6 +7,7 @@ use Universibo\Bundle\CoreBundle\Entity\User;
 /**
  * @ORM\Entity(repositoryClass="Universibo\Bundle\CoreBundle\Entity\UserRepository")
  * @ORM\Table(name="fos_user")
+ * @ORM\HasLifecycleCallbacks
  */
 class User extends BaseUser
 {
