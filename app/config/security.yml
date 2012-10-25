@@ -32,10 +32,7 @@ security:
                   - universibo_shibboleth.logout_handler
                   - universibo_forum.logout_handler
             shibboleth: ~
-            
-
     access_control:
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/v3, roles: ROLE_MODERATOR }
-        - { path: ^/my, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/admin, roles: ROLE_ADMIN }
+      - { path: ^/my, roles: IS_AUTHENTICATED_FULLY }
+      - { path: ^/admin, roles: ROLE_ADMIN }
+      - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
