@@ -23,6 +23,11 @@ class DBContattoDocenteRepository extends DBRepository
         return $this->findOneByCodDoc($codDocente);
     }
 
+    public function find($id)
+    {
+        return $this->findOneByCodDoc($id);
+    }
+
     /**
      * @param  string          $codDocente
      * @return ContattoDocente

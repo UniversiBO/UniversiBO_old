@@ -3,6 +3,8 @@ namespace Universibo\Bundle\LegacyBundle\Command;
 
 use DateTime;
 use Error;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
@@ -26,47 +28,37 @@ class ShowContattoDocente extends UniversiboCommand
 
     public function execute()
     {
+        $context = $this->get('security.context');
+        if (!$context->isGranted('ROLE_COLLABORATOR')) {
+            throw new AccessDeniedHttpException('Collaborators only');
+        }
+
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
-        $user = $this->get('security.context')->getToken()->getUser();
+
+        $user = $context->getToken()->getUser();
         $router = $this->get('router');
 
-        if (!$user->hasRole('ROLE_COLLABORATOR') && !$this->get('security.context')->isGranted('ROLE_ADMIN'))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'Non hai i diritti necessari per visualizzare la pagina',
-                            'file' => __FILE__, 'line' => __LINE__,
-                            'template_engine' => &$template));
+        $docenteRepo = $this->get('universibo_legacy.repository.docente');
+        $codDoc = $this->getRequest()->attributes->get('cod_doc');
+        $docente = $docenteRepo->find($codDoc);
 
-        $docente = Docente::selectDocenteFromCod($this->getRequest()->attributes->get('cod_doc'));
+        if ($docente instanceof Docente) {
+            throw new NotFoundHttpException('Professor not found');
+        }
 
-        if (!$docente)
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'L\'utente cercato non e` un docente',
-                            'file' => __FILE__, 'line' => __LINE__,
-                            'template_engine' => &$template));
+        $contattoRepo = $this->get('universibo_legacy.repository.contatto_docente');
+        $contatto = $contattoRepo->find($codDoc);
 
-        //echo 'qui';
+        if (!$contatto instanceof ContattoDocente) {
+            throw new NotFoundHttpException('Professor contact not found');
+        }
 
-        $cod_doc = $docente->getCodDoc();
-        $contatto = ContattoDocente::getContattoDocente($cod_doc);
+        $utente_docente = $this->get('universibo_core.repository.user')->find($docente->getIdUtente());
 
-        if (!$contatto)
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'Non esiste contatto di tale docente',
-                            'file' => __FILE__, 'line' => __LINE__,
-                            'template_engine' => &$template));
-
-        $utente_docente = $this->get('universibo_website.repository.user')->find($docente->getIdUtente());
-
-        if (!$utente_docente)
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'Non esiste tale utente',
-                            'file' => __FILE__, 'line' => __LINE__,
-                            'template_engine' => &$template));
+        if (!$utente_docente) {
+            throw new NotFoundHttpException('Professor user not found');
+        }
         //		var_dump($docente);
 
         $rub_docente = $docente->getInfoRubrica();
@@ -88,8 +80,8 @@ class ShowContattoDocente extends UniversiboCommand
                         . ' ' . $rub_docente['nome'] . ' '
                         . $rub_docente['cognome'] : $docente->getNomedoc();
         $info_docente['sesso'] = ($rub_docente['sesso'] == 1) ? 'm' : 'f';
-        $date = $utente_docente->getLastLogin();
-        $date = $date instanceof DateTime ? $date->getTimestamp() : 0;
+        $datetime = $utente_docente->getLastLogin();
+        $date = $datetime instanceof DateTime ? $datetime->getTimestamp() : 0;
         $info_docente['ultimo login al sito'] = ($date == 0) ? 'mai loggato'
                 : round((time() - $date) / 86400) . ' gg fa circa';
         $info_docente['email universibo'] = $utente_docente->getEmail();
