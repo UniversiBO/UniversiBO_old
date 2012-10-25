@@ -2,6 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\App;
 
 use Error;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
@@ -470,13 +471,8 @@ abstract class UniversiboCommand extends BaseCommand
         return $this->requestCanale;
     }
 
-    protected function throwUnauthorized()
+    protected function throwUnauthorized($message = null)
     {
-         Error::throwError(_ERROR_DEFAULT, array(
-             'id_utente' => 0,
-             'msg' => 'Non hai i diritti per eseguire questa operazione'.
-                 "\nLa sessione potrebbe essere scaduta",
-             'file' => __FILE__, 'line' => __LINE__)
-         );
+        throw new AccessDeniedHttpException($message);
     }
 }
