@@ -61,6 +61,6 @@ class UniversiBOAcl
 
     private function getLegacyGroups(User $user = null)
     {
-        return is_null($user) ? LegacyRoles::OSPITE : $user->getLegacyGroups();
+        return $user instanceof User ? $user->getLegacyGroups() : LegacyRoles::OSPITE;
     }
 }
