@@ -1,8 +1,8 @@
 <?php
 namespace Universibo\Bundle\CoreBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Entity\User as BaseUser;
+use Universibo\Bundle\CoreBundle\Entity\User;
 
 /**
  * @ORM\Entity(repositoryClass="Universibo\Bundle\CoreBundle\Entity\UserRepository")
@@ -61,6 +61,18 @@ class User extends BaseUser
     protected $usernameLocked = true;
 
     /**
+     * @var array
+     */
+    private static $legacyGroupsMap = array (
+        2  => 'ROLE_STUDENT',
+        4  => 'ROLE_COLLABORATOR',
+        8  => 'ROLE_TUTOR',
+        16 => 'ROLE_PROFESSOR',
+        32 => 'ROLE_STAFF',
+        64 => 'ROLE_ADMIN'
+    );
+
+    /**
      * @return string
      */
     public function getShibUsername()
@@ -87,8 +99,8 @@ class User extends BaseUser
     }
 
     /**
-     * @param  string                                    $phone
-     * @return \Universibo\Bundle\CoreBundle\Entity\User
+     * @param  string $phone
+     * @return User
      */
     public function setPhone($phone)
     {
@@ -107,8 +119,8 @@ class User extends BaseUser
 
     /**
      *
-     * @param  integer                                   $notifications
-     * @return \Universibo\Bundle\CoreBundle\Entity\User
+     * @param  integer $notifications
+     * @return User
      */
     public function setNotifications($notifications)
     {
@@ -128,8 +140,8 @@ class User extends BaseUser
 
     /**
      * @deprecated
-     * @param  int                                       $legacyGroups
-     * @return \Universibo\Bundle\CoreBundle\Entity\User
+     * @param  int  $legacyGroups
+     * @return User
      */
     public function setLegacyGroups($legacyGroups)
     {
@@ -241,5 +253,20 @@ class User extends BaseUser
             $this->memberOf,
             $this->usernameLocked
         ) = $data;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updateRoles()
+    {
+        foreach (self::$legacyGroupsMap as $groups => $role) {
+            if ($this->getLegacyGroups() & $groups) {
+                $this->addRole($role);
+            } else {
+                $this->removeRole($role);
+            }
+        }
     }
 }

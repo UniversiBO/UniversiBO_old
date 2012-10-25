@@ -59,4 +59,42 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertTrue($this->user->isUsernameLocked());
     }
+
+    /**
+     * @dataProvider provider
+     * @param type $legacyGroups
+     * @param type $role
+     */
+    public function testGroupsConversion($legacyGroups, $role)
+    {
+        $this->user->setLegacyGroups($legacyGroups);
+        $this->user->updateRoles();
+
+        $this->assertTrue($this->user->hasRole($role), $role .' should be present');
+    }
+
+    /**
+     * @dataProvider provider
+     * @param type $legacyGroups
+     * @param type $role
+     */
+    public function testGroupsConversion2($legacyGroups, $role)
+    {
+        $this->user->addRole($role);
+        $this->user->updateRoles();
+
+        $this->assertFalse($this->user->hasRole($role), $role .' should not be present');
+    }
+
+    public function provider()
+    {
+        return array (
+            array(2 , 'ROLE_STUDENT'),
+            array(4 , 'ROLE_COLLABORATOR'),
+            array(8 , 'ROLE_TUTOR'),
+            array(16, 'ROLE_PROFESSOR'),
+            array(32, 'ROLE_STAFF'),
+            array(64, 'ROLE_ADMIN'),
+        );
+    }
 }
