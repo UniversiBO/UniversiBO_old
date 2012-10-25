@@ -43,7 +43,7 @@ class ShowContattoDocente extends UniversiboCommand
         $codDoc = $this->getRequest()->attributes->get('cod_doc');
         $docente = $docenteRepo->find($codDoc);
 
-        if ($docente instanceof Docente) {
+        if (!$docente instanceof Docente) {
             throw new NotFoundHttpException('Professor not found');
         }
 
