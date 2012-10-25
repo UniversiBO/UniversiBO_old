@@ -24,6 +24,11 @@ abstract class Contact
     private $verifiedAt;
 
     /**
+     * @var DateTime
+     */
+    private $verificationSentAt;
+
+    /**
      * @param  string  $verificationToken
      * @return Contact
      */
@@ -82,5 +87,24 @@ abstract class Contact
     public function getVerifiedAt()
     {
         return $this->verifiedAt;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getVerificationSentAt()
+    {
+        return $this->verificationSentAt;
+    }
+
+    /**
+     * @param  DateTime $verificationSentAt
+     * @return Contact
+     */
+    public function setVerificationSentAt(DateTime $verificationSentAt)
+    {
+        $this->verificationSentAt = $verificationSentAt;
+
+        return $this;
     }
 }

@@ -34,4 +34,12 @@ abstract class ContactTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->contact, $this->contact->setVerifiedAt($verifiedAt));
         $this->assertEquals($verifiedAt, $this->contact->getVerifiedAt());
     }
+
+    public function testVerificationSentAtAccessors()
+    {
+        $verifiedAt = new \DateTime;
+
+        $this->assertSame($this->contact, $this->contact->setVerificationSentAt($verifiedAt));
+        $this->assertEquals($verifiedAt, $this->contact->getVerificationSentAt());
+    }
 }
