@@ -1,6 +1,7 @@
 <?php
 namespace Universibo\Bundle\CoreBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Universibo\Bundle\CoreBundle\Entity\User;
 
