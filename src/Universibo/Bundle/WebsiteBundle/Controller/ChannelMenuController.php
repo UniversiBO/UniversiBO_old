@@ -23,9 +23,6 @@ class ChannelMenuController extends Controller
             $user = null;
         }
 
-        $user = $scontext->isGranted('IS_AUTHENTICATED_FULLY') ? $scontext
-                        ->getToken()->getUser() : null;
-
         $acl = $this->get('universibo_legacy.acl');
         $router = $this->get('universibo_legacy.routing.channel');
 
