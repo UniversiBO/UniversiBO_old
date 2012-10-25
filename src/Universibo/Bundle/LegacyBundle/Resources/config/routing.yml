@@ -16,6 +16,9 @@ universibo_legacy_cdl:
 universibo_legacy_collaborator:
     pattern: /chi-siamo/{username}/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowCollaboratore' }
+universibo_legacy_collaborator_add:
+    pattern: /chi-siamo/{id_coll}/add/
+    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'CollaboratoreProfiloAdd' }
 universibo_legacy_contacts:
     pattern: /chi-siamo/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowContacts' }
