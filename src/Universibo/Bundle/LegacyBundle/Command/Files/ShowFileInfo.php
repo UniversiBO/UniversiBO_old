@@ -2,10 +2,10 @@
 namespace Universibo\Bundle\LegacyBundle\Command\Files;
 
 use Error;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
-use Universibo\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
 use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
 
 /**
@@ -34,11 +34,9 @@ class ShowFileInfo extends PluginCommand
 
         if (!array_key_exists('id_file', $param)
                 || !preg_match('/^([0-9]{1,9})$/', $param['id_file'])) {
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $userId,
-                            'msg' => 'L\'id del file richiesto non e` valido',
-                            'file' => __FILE__, 'line' => __LINE__));
+            throw new NotFoundHttpException('Invalid file ID');
         }
+        $fileId = $param['id_file'];
 
         $fc = $bc->getFrontController();
         $template = $fc->getTemplateEngine();
@@ -50,25 +48,20 @@ class ShowFileInfo extends PluginCommand
                                 : '');
         $template->assign('common_langCanaleNome', 'indietro');
 
-        $tipo_file = FileItemStudenti::isFileStudenti($param['id_file']);
+        $fileStudRepo = $this->get('universibo_legacy.repository.files.file_item_studenti');
+        $isStudent = $fileStudRepo->isFileStudenti($fileId);
 
-        if ($tipo_file)
-            $file = FileItemStudenti::selectFileItem($param['id_file']);
-        else
-            $file = FileItem::selectFileItem($param['id_file']);
-        //Con questo passaggio dovrei riuscire a verificare se il file che si vuole modificare è un file studente o no
-        //true -> è un file studente
-        //		var_dump($tipo_file);
-        //		die();
+        if ($isStudent) {
+            $fileRepo = $fileStudRepo;
+        } else {
+            $fileRepo = $this->get('universibo_legacy.repository.files.file_item');
+        }
 
-        if ($file === false)
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $userId,
-                            'msg' => "Il file richiesto non e` presente su database",
-                            'file' => __FILE__, 'line' => __LINE__));
+        $file = $fileRepo->find($fileId);
+        if (!$file instanceof FileItem) {
+            throw new NotFoundHttpException('File not found');
+        }
 
-        //var_dump($file);
-        $directoryFile = $fc->getAppSetting('filesPath');
         $nomeFile = $file->getIdFile() . '_' . $file->getNomeFile();
         $groups = $user instanceof User ? $user->getLegacyGroups() : 1;
 
@@ -84,12 +77,12 @@ class ShowFileInfo extends PluginCommand
         $template->assign('showFileInfo_deleteFlag', 'false');
         $referente = false;
         $moderatore = false;
-        $parametro_canale = '';
 
         $params = array('id_file' => $file->getIdFile());
 
         $channelRouter = $this->get('universibo_legacy.routing.channel');
         $canale = $this->getBaseCommand()->getRequestCanale(false);
+        $id_canale = $canale->getId();
         if ($canale instanceof Canale) {
             if ($canale->getServizioFiles() == false)
                 Error::throwError(_ERROR_DEFAULT,
@@ -124,7 +117,7 @@ class ShowFileInfo extends PluginCommand
             $template->assign('showFileInfo_editFlag', 'true');
             $template->assign('showFileInfo_deleteFlag', 'true');
 
-            if ($tipo_file) {
+            if ($isStudent) {
                 $template->assign('showFileInfo_editUri', $router->generate('universibo_legacy_file_studenti_edit', array('id_file' => $file->getIdFile(), 'id_canale' => $id_canale)));
                 $template->assign('showFileInfo_deleteUri', $router->generate('universibo_legacy_file_studenti_delete', array('id_file' => $file->getIdFile(), 'id_canale' => $id_canale)));
             } else {
@@ -133,14 +126,14 @@ class ShowFileInfo extends PluginCommand
             }
         }
 
-        if ($tipo_file) {
-            $voto = FileItemStudenti::getVoto($param['id_file']);
-            //			var_dump($voto);
-            //			die();
-            if ($voto == NULL)
+        if ($isStudent) {
+            $voto = $fileRepo->getAverageRating($fileId);
+
+            if ($voto == NULL) {
                 $voto = 'Non esistono ancora voti per questo file';
-            else
+            } else {
                 $voto = round($voto, 1);
+            }
             $template->assign('showFileInfo_voto', $voto);
             $template->assign('showFileInfo_addComment', $router->generate('universibo_legacy_file_studenti_comment', array('id_file' => $file->getIdFile())));
         }
@@ -176,6 +169,6 @@ class ShowFileInfo extends PluginCommand
         $template->assign('showFileInfo_info', $file->getTipoInfo());
         $template->assign('showFileInfo_canali', $canali_tpl);
         $template->assign('showFileInfo_paroleChiave', $file->getParoleChiave());
-        $template->assign('isFileStudente', (($tipo_file == true) ? 'true' : 'false'));
+        $template->assign('isFileStudente', (($isStudent == true) ? 'true' : 'false'));
     }
 }
