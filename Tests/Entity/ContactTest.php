@@ -1,15 +1,21 @@
 <?php
 namespace Universibo\Bundle\CoreBundle\Tests\Entity;
 
+use DateTime;
 use Universibo\Bundle\CoreBundle\Entity\Contact;
 use Universibo\Bundle\CoreBundle\Entity\User;
 
-abstract class ContactTest extends \PHPUnit_Framework_TestCase
+class ContactTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Contact
      */
-    protected $contact;
+    private $contact;
+
+    protected function setUp()
+    {
+        $this->contact = new Contact();
+    }
 
     public function testTokenAccessors()
     {
@@ -17,6 +23,14 @@ abstract class ContactTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($this->contact, $this->contact->setVerificationToken($token));
         $this->assertEquals($token, $this->contact->getVerificationToken());
+    }
+
+    public function testValueAccessors()
+    {
+        $value = sha1(rand());
+
+        $this->assertSame($this->contact, $this->contact->setValue($value));
+        $this->assertEquals($value, $this->contact->getValue());
     }
 
     public function testUserAccessors()
@@ -29,7 +43,7 @@ abstract class ContactTest extends \PHPUnit_Framework_TestCase
 
     public function testVerifiedAtAccessors()
     {
-        $verifiedAt = new \DateTime;
+        $verifiedAt = new DateTime;
 
         $this->assertSame($this->contact, $this->contact->setVerifiedAt($verifiedAt));
         $this->assertEquals($verifiedAt, $this->contact->getVerifiedAt());
@@ -37,9 +51,16 @@ abstract class ContactTest extends \PHPUnit_Framework_TestCase
 
     public function testVerificationSentAtAccessors()
     {
-        $verifiedAt = new \DateTime;
+        $verifiedAt = new DateTime;
 
         $this->assertSame($this->contact, $this->contact->setVerificationSentAt($verifiedAt));
         $this->assertEquals($verifiedAt, $this->contact->getVerificationSentAt());
+    }
+
+    public function testVerified()
+    {
+        $this->assertFalse($this->contact->isVerified());
+        $this->contact->setVerifiedAt(new DateTime);
+        $this->assertTrue($this->contact->isVerified());
     }
 }

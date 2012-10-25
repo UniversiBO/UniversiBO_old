@@ -3,10 +3,9 @@
 namespace Universibo\Bundle\CoreBundle\Entity;
 
 use DateTime;
-use Universibo\Bundle\CoreBundle\Entity\Contact;
 use Universibo\Bundle\CoreBundle\Entity\User;
 
-abstract class Contact
+class Contact
 {
     /**
      * @var User
@@ -16,7 +15,17 @@ abstract class Contact
     /**
      * @var string
      */
+    private $value;
+
+    /**
+     * @var string
+     */
     private $verificationToken;
+
+    /**
+     * @var DateTime
+     */
+    private $verificationSentAt;
 
     /**
      * @var DateTime
@@ -24,9 +33,50 @@ abstract class Contact
     private $verifiedAt;
 
     /**
-     * @var DateTime
+     * @return User
      */
-    private $verificationSentAt;
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param  User    $user
+     * @return Contact
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * @param  string  $value
+     * @return Contact
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVerificationToken()
+    {
+        return $this->verificationToken;
+    }
 
     /**
      * @param  string  $verificationToken
@@ -40,33 +90,31 @@ abstract class Contact
     }
 
     /**
-     * Gets the verification token
-     *
-     * @return string
+     * @return DateTime
      */
-    public function getVerificationToken()
+    public function getVerificationSentAt()
     {
-        return $this->verificationToken;
+        return $this->verificationSentAt;
     }
 
     /**
      *
-     * @param  User    $user
+     * @param  DateTime $verificationSentAt
      * @return Contact
      */
-    public function setUser(User $user)
+    public function setVerificationSentAt(DateTime $verificationSentAt)
     {
-        $this->user = $user;
+        $this->verificationSentAt = $verificationSentAt;
 
         return $this;
     }
 
     /**
-     * @return User
+     * @return DateTime
      */
-    public function getUser()
+    public function getVerifiedAt()
     {
-        return $this->user;
+        return $this->verifiedAt;
     }
 
     /**
@@ -82,29 +130,10 @@ abstract class Contact
     }
 
     /**
-     * @return DateTime
+     * @return boolean
      */
-    public function getVerifiedAt()
+    public function isVerified()
     {
-        return $this->verifiedAt;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getVerificationSentAt()
-    {
-        return $this->verificationSentAt;
-    }
-
-    /**
-     * @param  DateTime $verificationSentAt
-     * @return Contact
-     */
-    public function setVerificationSentAt(DateTime $verificationSentAt)
-    {
-        $this->verificationSentAt = $verificationSentAt;
-
-        return $this;
+        return $this->verifiedAt !== null;
     }
 }
