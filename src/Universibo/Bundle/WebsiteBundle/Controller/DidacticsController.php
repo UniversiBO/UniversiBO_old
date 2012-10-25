@@ -10,7 +10,7 @@ class DidacticsController extends Controller
      * @Template()
      * @return array
      */
-    public function academicalYearAction($min, $max, $current, $route, array $params)
+    public function academicYearAction($min, $max, $current, $route, array $params)
     {
 
         $years = array();

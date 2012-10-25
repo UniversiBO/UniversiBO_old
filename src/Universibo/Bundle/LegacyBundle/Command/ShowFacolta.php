@@ -43,8 +43,8 @@ class ShowFacolta extends CanaleCommand
 
         $prgRepo = $this->get('universibo_legacy.repository.programma');
 
-        $minYear = $prgRepo->findMinAcademicalYearFacolta($codFac);
-        $maxYear = $prgRepo->findMaxAcademicalYearFacolta($codFac);
+        $minYear = $prgRepo->findMinAcademicYearFacolta($codFac);
+        $maxYear = $prgRepo->findMaxAcademicYearFacolta($codFac);
 
         if ($minYear === null || $maxYear === null) {
             $currentYear = intval($this->getFrontController()->getAppSetting('defaultAnnoAccademico'));
@@ -54,7 +54,7 @@ class ShowFacolta extends CanaleCommand
         }
 
         if ($currentYear > $maxYear || $currentYear < $minYear) {
-            throw new NotFoundHttpException('Academical Year Not found');
+            throw new NotFoundHttpException('Academic Year Not found');
         }
 
         $cdlRepo = $this->get('universibo_legacy.repository.cdl');
@@ -132,7 +132,7 @@ class ShowFacolta extends CanaleCommand
         $this->executePlugin('ShowNewsLatest', $param);
         $this->executePlugin('ShowLinks', array('num' => 12));
 
-        $response = $this->forward('UniversiboWebsiteBundle:Didactics:academicalYear', array(
+        $response = $this->forward('UniversiboWebsiteBundle:Didactics:academicYear', array(
                 'min' => $minYear,
                 'max' => $maxYear,
                 'current' => $currentYear,

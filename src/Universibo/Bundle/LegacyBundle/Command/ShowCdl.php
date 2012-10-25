@@ -42,22 +42,22 @@ class ShowCdl extends CanaleCommand
 
         $prgRepo = $this->get('universibo_legacy.repository.programma');
 
-        $minYear = $prgRepo->findMinAcademicalYear($cdl->getCodiceCdl());
-        $maxYear = $prgRepo->findMaxAcademicalYear($cdl->getCodiceCdl());
+        $minYear = $prgRepo->findMinAcademicYear($cdl->getCodiceCdl());
+        $maxYear = $prgRepo->findMaxAcademicYear($cdl->getCodiceCdl());
         $request = $this->getRequest();
-        $academicalYear = $request->get('anno_accademico', $maxYear);
+        $academicYear = $request->get('anno_accademico', $maxYear);
 
         if ($maxYear !== null) {
-            $elencoPrgAttDid = $prgRepo->findByCdlAndYear($cdl-> getCodiceCdl(), $academicalYear);
+            $elencoPrgAttDid = $prgRepo->findByCdlAndYear($cdl-> getCodiceCdl(), $academicYear);
         } else {
-            $academicalYear = $frontcontroller->getAppSetting('defaultAnnoAccademico');
-            $minYear = $maxYear = $academicalYear;
+            $academicYear = $frontcontroller->getAppSetting('defaultAnnoAccademico');
+            $minYear = $maxYear = $academicYear;
             $elencoPrgAttDid = array();
         }
 
-        if (!preg_match('/^([0-9]{4})$/', $academicalYear) ||
-            $academicalYear > $maxYear || $academicalYear < $minYear) {
-            throw new NotFoundHttpException('No subjects in academical year');
+        if (!preg_match('/^([0-9]{4})$/', $academicYear) ||
+            $academicYear > $maxYear || $academicYear < $minYear) {
+            throw new NotFoundHttpException('No subjects in academic year');
         }
 
         $num_ins = count($elencoPrgAttDid);
@@ -109,10 +109,10 @@ class ShowCdl extends CanaleCommand
 
         $template -> assign('cdl_langYear', 'anno accademico' );
 
-        $response = $this->forward('UniversiboWebsiteBundle:Didactics:academicalYear', array(
+        $response = $this->forward('UniversiboWebsiteBundle:Didactics:academicYear', array(
                 'min' => $minYear,
                 'max' => $maxYear,
-                'current' => $academicalYear,
+                'current' => $academicYear,
                 'route' => 'universibo_legacy_cdl',
                 'params' => array('id_canale' => $cdl->getIdCanale())
         ));

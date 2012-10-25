@@ -19,13 +19,13 @@ class ShowCdlTest extends UniversiBOSeleniumTestCase
         $this->assertSentences($sentences);
     }
 
-    public function testNoAcademicalYear1()
+    public function testNoAcademicYear1()
     {
         $this->openPrefix('/cdl/6172/?anno_accademico=2100');
         $this->assertSentence('Not Found');
     }
 
-    public function testNoAcademicalYear2()
+    public function testNoAcademicYear2()
     {
         $this->openPrefix('/cdl/6172/?anno_accademico=200');
         $this->assertSentence('Not Found');

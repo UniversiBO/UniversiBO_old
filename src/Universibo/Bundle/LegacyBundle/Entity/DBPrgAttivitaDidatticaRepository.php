@@ -14,27 +14,27 @@ use Error;
  */
 class DBPrgAttivitaDidatticaRepository extends DBRepository
 {
-    public function findMaxAcademicalYearFacolta($cod_fac)
+    public function findMaxAcademicYearFacolta($cod_fac)
     {
-        return $this->findAcademicalYearFacolta($cod_fac, 'MAX');
+        return $this->findAcademicYearFacolta($cod_fac, 'MAX');
     }
 
-    public function findMinAcademicalYearFacolta($cod_fac)
+    public function findMinAcademicYearFacolta($cod_fac)
     {
-        return $this->findAcademicalYearFacolta($cod_fac, 'MIN');
+        return $this->findAcademicYearFacolta($cod_fac, 'MIN');
     }
 
-    public function findMaxAcademicalYear($cod_cdl)
+    public function findMaxAcademicYear($cod_cdl)
     {
-        return $this->findAcademicalYear($cod_cdl, 'MAX');
+        return $this->findAcademicYear($cod_cdl, 'MAX');
     }
 
-    public function findMinAcademicalYear($cod_cdl)
+    public function findMinAcademicYear($cod_cdl)
     {
-        return $this->findAcademicalYear($cod_cdl, 'MIN');
+        return $this->findAcademicYear($cod_cdl, 'MIN');
     }
 
-    protected function findAcademicalYear($cod_cdl, $mode)
+    protected function findAcademicYear($cod_cdl, $mode)
     {
         $db = $this->getDb();
 
@@ -56,7 +56,7 @@ EOT;
         return $result[0];
     }
 
-    protected function findAcademicalYearFacolta($cod_fac, $mode)
+    protected function findAcademicYearFacolta($cod_fac, $mode)
     {
         $db = $this->getDb();
 
