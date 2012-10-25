@@ -64,7 +64,7 @@ Tramite questa pagina potrai modificare il tuo profilo, le tue impostazioni pers
         $template
                 ->assign('showSettings_langAdmin',
                         array(
-                                '[url=https://www.universibo.unibo.it/phpPgAdmin/]DB Postgresql locale[/url]'));
+                                '[url=https://www.universibo.unibo.it/phppgadmin/]DB Postgresql locale[/url]'));
 
         return 'default';
     }
