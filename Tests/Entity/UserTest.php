@@ -68,7 +68,6 @@ class UserTest extends \PHPUnit_Framework_TestCase
     public function testGroupsConversion($legacyGroups, $role)
     {
         $this->user->setLegacyGroups($legacyGroups);
-        $this->user->updateRoles();
 
         $this->assertTrue($this->user->hasRole($role), $role .' should be present');
     }
@@ -81,9 +80,9 @@ class UserTest extends \PHPUnit_Framework_TestCase
     public function testGroupsConversion2($legacyGroups, $role)
     {
         $this->user->addRole($role);
-        $this->user->updateRoles();
-
-        $this->assertFalse($this->user->hasRole($role), $role .' should not be present');
+        $this->assertEquals($legacyGroups, $this->user->getLegacyGroups());
+        $this->user->removeRole($role);
+        $this->assertEquals(0, $this->user->getLegacyGroups());
     }
 
     public function provider()

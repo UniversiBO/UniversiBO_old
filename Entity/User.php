@@ -147,6 +147,8 @@ class User extends BaseUser
     public function setLegacyGroups($legacyGroups)
     {
         $this->legacyGroups = $legacyGroups;
+        
+        $this->updateRoles();
 
         return $this;
     }
@@ -257,8 +259,7 @@ class User extends BaseUser
     }
 
     /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
+     * @ORM\PostLoad
      */
     public function updateRoles()
     {
@@ -268,6 +269,28 @@ class User extends BaseUser
             } else {
                 parent::removeRole($role);
             }
+        }
+    }
+
+    public function addRole($role)
+    {
+        parent::addRole($role);
+
+        $key = array_search($role, self::$legacyGroupsMap);
+
+        if (false !== $key) {
+            $this->legacyGroups = $this->legacyGroups | $key;
+        }
+    }
+
+    public function removeRole($role)
+    {
+        parent::removeRole($role);
+
+        $key = array_search($role, self::$legacyGroupsMap);
+
+        if (false !== $key) {
+            $this->legacyGroups = $this->legacyGroups & ~$key;
         }
     }
 }
