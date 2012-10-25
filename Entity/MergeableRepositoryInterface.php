@@ -1,8 +1,11 @@
 <?php
+/**
+ * @author Davide Bellettini <davide.bellettini@gmail.com>
+ */
 namespace Universibo\Bundle\CoreBundle\Entity;
 
 /**
- * @author Davide Bellettini <davide.bellettini@gmail.com>
+ * Interface implemented by repositories which want to merge entities
  */
 interface MergeableRepositoryInterface
 {

@@ -1,10 +1,15 @@
 <?php
-
+/**
+ * @author Davide Bellettini <davide.bellettini@gmail.com>
+ */
 namespace Universibo\Bundle\CoreBundle\Entity;
 
 use DateTime;
 use Universibo\Bundle\CoreBundle\Entity\User;
 
+/**
+ * Class representing a contact (e.g. phone number or email address)
+ */
 class Contact
 {
     /**

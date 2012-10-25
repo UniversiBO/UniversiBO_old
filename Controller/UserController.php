@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * @author Davide Bellettini <davide.bellettini@gmail.com>
+ * @license GPL v2 or later
+ */
 namespace Universibo\Bundle\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
