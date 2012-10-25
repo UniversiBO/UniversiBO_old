@@ -14,6 +14,14 @@ class ChannelMenuController extends Controller
     public function indexAction($type, $allowed = array())
     {
         $scontext = $this->get('security.context');
+        $token = $scontext->getToken();
+
+        if ($token !== null) {
+            $user = $scontext->isGranted('IS_AUTHENTICATED_FULLI') ?
+                    $token->getUser() : null;
+        } else {
+            $user = null;
+        }
 
         $user = $scontext->isGranted('IS_AUTHENTICATED_FULLY') ? $scontext
                         ->getToken()->getUser() : null;
