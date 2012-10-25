@@ -264,9 +264,9 @@ class User extends BaseUser
     {
         foreach (self::$legacyGroupsMap as $groups => $role) {
             if ($this->getLegacyGroups() & $groups) {
-                $this->addRole($role);
+                parent::addRole($role);
             } else {
-                $this->removeRole($role);
+                parent::removeRole($role);
             }
         }
     }
