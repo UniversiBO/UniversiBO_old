@@ -38,6 +38,8 @@ class Contact
     private $verifiedAt;
 
     /**
+     * User getter
+     * 
      * @return User
      */
     public function getUser()
@@ -46,6 +48,8 @@ class Contact
     }
 
     /**
+     * User setter
+     * 
      * @param  User    $user
      * @return Contact
      */
@@ -57,6 +61,8 @@ class Contact
     }
 
     /**
+     * Value getter
+     * 
      * @return string
      */
     public function getValue()
@@ -65,6 +71,8 @@ class Contact
     }
 
     /**
+     * Value setter
+     * 
      * @param  string  $value
      * @return Contact
      */
@@ -76,6 +84,8 @@ class Contact
     }
 
     /**
+     * Verification token getter
+     * 
      * @return string
      */
     public function getVerificationToken()
@@ -84,6 +94,8 @@ class Contact
     }
 
     /**
+     * Verification token setter
+     * 
      * @param  string  $verificationToken
      * @return Contact
      */
@@ -95,6 +107,8 @@ class Contact
     }
 
     /**
+     * Last verification sending date getter
+     * 
      * @return DateTime
      */
     public function getVerificationSentAt()
@@ -103,7 +117,8 @@ class Contact
     }
 
     /**
-     *
+     * Last verification sending date setter
+     * 
      * @param  DateTime $verificationSentAt
      * @return Contact
      */
@@ -115,6 +130,8 @@ class Contact
     }
 
     /**
+     * Verification date getter
+     * 
      * @return DateTime
      */
     public function getVerifiedAt()
@@ -123,7 +140,8 @@ class Contact
     }
 
     /**
-     *
+     * Verification date setter
+     * 
      * @param  DateTime $verifiedAt
      * @return Contact
      */
@@ -135,6 +153,8 @@ class Contact
     }
 
     /**
+     * Returns true if contact has been verified
+     * 
      * @return boolean
      */
     public function isVerified()
