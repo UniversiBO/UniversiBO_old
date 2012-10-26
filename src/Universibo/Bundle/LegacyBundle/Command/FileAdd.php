@@ -33,6 +33,7 @@ class FileAdd extends UniversiboCommand
                             'file' => __FILE__, 'line' => __LINE__));
         }
 
+        $request = $this->getRequest();
         $router = $this->get('router');
         $channelRouter = $this->get('universibo_legacy.routing.channel');
         $frontcontroller = $this->getFrontController();

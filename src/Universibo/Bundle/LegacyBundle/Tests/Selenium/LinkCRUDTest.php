@@ -12,7 +12,7 @@ class LinkCRUDTest extends UniversiBOSeleniumTestCase
 
     public function testLinkAddNotLogged()
     {
-        $this->deleteAllVisibleCookies();
+        $this->logout();
         $this->openPrefix('/link/add/1/');
 
         $this->assertLoginRequired();
