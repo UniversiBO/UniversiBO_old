@@ -51,7 +51,7 @@ class Contact
 
     /**
      * Id getter
-     * 
+     *
      * @return integer
      */
     public function getId()
