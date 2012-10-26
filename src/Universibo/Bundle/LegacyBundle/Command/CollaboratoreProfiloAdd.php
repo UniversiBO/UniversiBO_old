@@ -2,6 +2,9 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Error;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Collaboratore;
 
@@ -20,15 +23,29 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
 
     public function execute()
     {
-        $user = $this->get('security.context')->getToken()->getUser();
-
+        $context = $this->get('security.context');
+        $user = $context->getToken()->getUser();
         $id_coll = $this->getRequest()->get('id_coll');
 
-        if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || ($user->getId() == $id_coll)))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => "Non hai i diritti per inserire una notizia\n La sessione potrebbe essere scaduta",
-                            'file' => __FILE__, 'line' => __LINE__));
+        $userRepo = $this->get('universibo_core.repository.user');
+        $collabUser = $userRepo->find($id_coll);
+
+        if (!$collabUser instanceof User) {
+            throw new NotFoundHttpException('User not found');
+        }
+
+        $collabRepo = $this->get('universibo_legacy.repository.collaboratore');
+        if ($collabRepo->find($id_coll) instanceof Collaboratore) {
+            return $this->redirectProfile($collabUser);
+        }
+
+        if ($id_coll != $user->getId()) {
+            if (!$context->isGranted('ROLE_ADMIN')) {
+                throw new AccessDeniedHttpException('Not admin nor same user');
+            }
+        } else {
+            $collabUser = $user;
+        }
 
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
@@ -134,17 +151,13 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
 
             //esecuzione operazioni accettazione del form
             if ($f36_accept == true) {
-
                 //id_news = 0 per inserimento, $id_canali array dei canali in cui inserire
-                $collaboratore = new Collaboratore($user->getId(),
+                $collaboratore = new Collaboratore($collabUser->getId(),
                         $f36_intro, $f36_recapito, $f36_obiettivi, $f36_foto,
                         $f36_ruolo);
-                $collaboratore->insertCollaboratoreItem();
+                $collabRepo->insert($collaboratore);
 
-                //$num_canali = count($f7_canale);
-                //var_dump($f7_canale);
-                //var_dump($_POST['f7_canale']);
-
+                return $this->redirectProfile($collabUser);
             } //end if (array_key_exists('f7_submit', $_POST))
         }
         $template->assign('f36_foto', $f36_foto);
@@ -158,5 +171,13 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
         //$topics[] =
         //$this->executePlugin('ShowTopic', array('reference' => 'newscollabs'));
         return 'default';
+    }
+
+    private function redirectProfile(User $user)
+    {
+       $url = $this->generateUrl('universibo_legacy_collaborator',
+                        array('username' => $user->getUsername()));
+
+       return $this->redirect($url);
     }
 }

@@ -180,7 +180,7 @@ class Collaboratore
      * @deprecated
      * @return boolean true se avvenua con successo, altrimenti Error object
      */
-    public static function insertCollaboratoreItem()
+    public function insertCollaboratoreItem()
     {
         return self::getRepository()->insert($this);
     }

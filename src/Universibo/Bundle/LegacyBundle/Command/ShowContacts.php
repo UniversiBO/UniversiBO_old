@@ -24,7 +24,8 @@ class ShowContacts extends UniversiboCommand
 
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
-        $user = $this->get('security.context')->getToken()->getUser();
+        $context = $this->get('security.context');
+        $user = $context->getToken()->getUser();
         $router = $this->get('router');
 
         $template->assign('contacts_langAltTitle', 'Chi Siamo');
@@ -36,14 +37,14 @@ class ShowContacts extends UniversiboCommand
         foreach ($infoCollaboratori as $collaboratore) {
             $username = $collaboratore->getUsername();
 
-            $coll = Collaboratore::selectCollaboratore(
-                    $collaboratore->getId());
+            $idColl = $collaboratore->getId();
+            $coll = Collaboratore::selectCollaboratore($idColl);
             if (!$coll) {
-                $name = $user instanceof User ? $user->getUsername() : $user;
-                if ($name == $username)
+                $name = $user instanceof User ? $user->getUsername() : '';
+                if ($name == $username || $context->isGranted('ROLE_ADMIN'))
                     $collaboratori[] = array('username' => $username,
                             'URI' => 'false',
-                            'inserisci' => '');
+                            'inserisci' => $router->generate('universibo_legacy_collaborator_add', array('id_coll' => $idColl)));
                 else
                     $collaboratori[] = array('username' => $username,
                             'URI' => 'false', 'inserisci' => 'false');

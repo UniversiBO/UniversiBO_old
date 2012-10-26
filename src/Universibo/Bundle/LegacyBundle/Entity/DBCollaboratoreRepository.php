@@ -57,32 +57,7 @@ class DBCollaboratoreRepository extends DBRepository
 
     public function findOneByIdUtente($id)
     {
-        $db = $this->getDb();
-
-        $query = 'SELECT id_utente,	intro, recapito, obiettivi, foto, ruolo FROM collaboratore WHERE id_utente = '
-        . $db->quote($id);
-        $res = $db->query($query);
-        if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-
-        $rows = $res->numRows();
-        if ($rows == 0)
-            return false;
-
-        $row = $this->fetchRow($res);
-
-        $collaboratore = new Collaboratore($row[0], $row[1], $row[2], $row[3],
-                $row[4], $row[5]);
-
-        $userRepo = $this->userRepository;
-
-        if (($user = $userRepo->find($collaboratore->getIdUtente())) instanceof User) {
-            $collaboratore->setUser($user);
-        }
-
-        return $collaboratore;
+        return $this->find($id);
     }
 
     public function findAll($shownOnly = false)
@@ -118,9 +93,9 @@ class DBCollaboratoreRepository extends DBRepository
 
     public function insert(Collaboratore $collaboratore)
     {
+        $db = $this->getDb();
         ignore_user_abort(1);
         $db->autoCommit(false);
-        $return = true;
 
         //TODO fare inserimento solo se non già presente
         $query = 'INSERT INTO collaboratore (id_utente, intro, recapito, obiettivi, foto, ruolo) VALUES '
