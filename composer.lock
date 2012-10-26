@@ -1107,22 +1107,22 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v4.2.1",
+            "version": "v4.2.2",
             "source": {
                 "type": "git",
                 "url": "git://github.com/swiftmailer/swiftmailer.git",
-                "reference": "v4.2.1"
+                "reference": "v4.2.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/swiftmailer/swiftmailer/zipball/v4.2.1",
-                "reference": "v4.2.1",
+                "url": "https://github.com/swiftmailer/swiftmailer/zipball/v4.2.2",
+                "reference": "v4.2.2",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "2012-07-13 09:46:37",
+            "time": "2012-10-25 01:30:40",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1522,12 +1522,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/UniversiBO/UniversiboCoreBundle",
-                "reference": "52ef25c2bdd266a9ade4e599a626eb9ee19878cd"
+                "reference": "a3d7f67fa40d7db31a3a1e1cc6709898acdc4249"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboCoreBundle/zipball/52ef25c2bdd266a9ade4e599a626eb9ee19878cd",
-                "reference": "52ef25c2bdd266a9ade4e599a626eb9ee19878cd",
+                "url": "https://github.com/UniversiBO/UniversiboCoreBundle/zipball/a3d7f67fa40d7db31a3a1e1cc6709898acdc4249",
+                "reference": "a3d7f67fa40d7db31a3a1e1cc6709898acdc4249",
                 "shasum": ""
             },
             "require": {
@@ -1537,7 +1537,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1350982481",
+            "time": "1351209547",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
@@ -1628,12 +1628,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle.git",
-                "reference": "632de524058260dd33147127007f9ac53f526ca9"
+                "reference": "c57a0887c9856ee3ee6f415b12b09c8117dfbd07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle/zipball/632de524058260dd33147127007f9ac53f526ca9",
-                "reference": "632de524058260dd33147127007f9ac53f526ca9",
+                "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle/zipball/c57a0887c9856ee3ee6f415b12b09c8117dfbd07",
+                "reference": "c57a0887c9856ee3ee6f415b12b09c8117dfbd07",
                 "shasum": ""
             },
             "require": {
@@ -1644,7 +1644,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1351007434",
+            "time": "1351195883",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
