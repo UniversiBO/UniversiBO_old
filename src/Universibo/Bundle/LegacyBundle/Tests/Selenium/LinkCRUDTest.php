@@ -15,7 +15,7 @@ class LinkCRUDTest extends UniversiBOSeleniumTestCase
         $this->deleteAllVisibleCookies();
         $this->openPrefix('/link/add/1/');
 
-        $this->assertSentences(array('Per questa operazione bisogna essere registrati la sessione potrebbe essere terminata', 'Error!'));
+        $this->assertLoginRequired();
     }
 
     public function testLinkAddLogged()
@@ -35,10 +35,9 @@ class LinkCRUDTest extends UniversiBOSeleniumTestCase
 
     public function testLinkEditNotLogged()
     {
-        $this->deleteAllVisibleCookies();
+        $this->logout();
         $this->openPrefix('/link/107/edit/1/');
-
-        $this->assertSentences(array('Error!', 'Non hai i diritti per modificare il link La sessione potrebbe essere scaduta'));
+        $this->assertLoginRequired();
     }
 
     public function testLinkEditLogged()
@@ -58,7 +57,7 @@ class LinkCRUDTest extends UniversiBOSeleniumTestCase
     {
         $this->deleteAllVisibleCookies();
         $this->openPrefix('/link/admin/1/');
-        $this->assertSentences(array('Error!','La sessione potrebbe essere scaduta.'));
+        $this->assertLoginRequired();
     }
 
     public function testLinksAdminLogged()

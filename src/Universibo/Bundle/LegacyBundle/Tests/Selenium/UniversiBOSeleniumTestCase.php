@@ -71,4 +71,14 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
             $this->assertFalse($this->isTextPresent($sentence), 'Text: "'.$sentence.'" should be NOT present.');
         }
     }
+
+    protected function assertLoginRequired()
+    {
+        $this->assertEquals('/app_dev.php/login', strstr($this->getLocation(), '/app_dev.php/login'));
+        $this->assertSentences(array (
+            'login',
+            'username',
+            'password'
+        ));
+    }
 }

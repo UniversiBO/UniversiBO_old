@@ -13,19 +13,15 @@ class RuoliAdminSearchTest extends UniversiBOSeleniumTestCase
     public function testNotLogged()
     {
         $this->logout();
-        $this->openPrefix('/role/admin/search/1415/');
-
-        $this->assertSentences(array(
-                'Error',
-                'Non hai i diritti per modificare i diritti degli utenti su questa pagina. La sessione potrebbe essere scaduta.'
-        ));
+        $this->openPrefix('/role/search/1415/');
+        $this->assertLoginRequired();
     }
 
     public function testSearchUsername()
     {
         $this->login(TestConstants::ADMIN_USERNAME);
 
-        $this->openPrefix('/role/admin/search/1415/');
+        $this->openPrefix('/role/search/1415/');
         $this->assertSentences(array(
                 'Modifica i diritti nella pagina',
                 'Area collaboratori'

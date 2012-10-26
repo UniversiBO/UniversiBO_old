@@ -14,8 +14,7 @@ class ShowSettingsTest extends UniversiBOSeleniumTestCase
     {
         $this->logout();
         $this->openPrefix('/my/settings/');
-
-        $this->assertSentences(array('Login', 'username', 'password'));
+        $this->assertLoginRequired();
     }
 
     public function testStudent()

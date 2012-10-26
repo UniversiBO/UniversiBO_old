@@ -12,14 +12,9 @@ class FileEditTest extends UniversiBOSeleniumTestCase
 
     public function testNotLogged()
     {
-        $sentences = array (
-                'Error!',
-                'Non hai i diritti per modificare il file La sessione potrebbe essere scaduta'
-        );
-
         $this->logout();
         $this->openPrefix('/file/15051/edit');
-        $this->assertSentences($sentences);
+        $this->assertLoginRequired();
     }
 
     public function testSimple()
