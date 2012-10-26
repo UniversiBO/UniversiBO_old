@@ -14,7 +14,7 @@ class NewsShowCanaleTest extends UniversiBOSeleniumTestCase
     {
         $this->logout();
         $this->openPrefix('/news/canale/1?inizio=0&qta=10');
-        $this->assertLoginRequired();
+        $this->assertNotSentence('Scrivi nuova notizia');
     }
 
     public function testLogged()

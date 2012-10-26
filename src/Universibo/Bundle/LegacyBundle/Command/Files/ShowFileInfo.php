@@ -80,9 +80,10 @@ class ShowFileInfo extends PluginCommand
         $params = array('id_file' => $file->getIdFile());
 
         $channelRouter = $this->get('universibo_legacy.routing.channel');
-        $canale = $this->getBaseCommand()->getRequestCanale(false);
+        $bc = $this->getBaseCommand();
+        $canale = $bc->getRequestCanale(false);
+        $id_canale = $bc->getRequest()->get('id_canale');
         if ($canale instanceof Canale) {
-            $id_canale = $canale->getId();
             if ($canale->getServizioFiles() == false)
                 Error::throwError(_ERROR_DEFAULT,
                         array('msg' => "Il servizio files e` disattivato",

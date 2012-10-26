@@ -22,7 +22,8 @@ class NewsShowCanale extends CanaleCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 
-        $user = $this->get('security.context')->getToken()->getUser();
+        $context = $this->get('security.context');
+        $user = $context->getToken()->getUser();
         $canale = $this->getRequestCanale();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
         $id_canale = $canale->getIdCanale();
@@ -37,14 +38,14 @@ class NewsShowCanale extends CanaleCommand
         }
 
         $template->assign('NewsShowCanale_addNewsFlag', 'false');
-        if (array_key_exists($id_canale, $user_ruoli) || $this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        if (array_key_exists($id_canale, $user_ruoli) || $context->isGranted('ROLE_ADMIN')) {
             if (array_key_exists($id_canale, $user_ruoli)) {
                 $ruolo = $user_ruoli[$id_canale];
                 $referente      = $ruolo->isReferente();
                 $moderatore     = $ruolo->isModeratore();
             }
 
-            if ( $this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $moderatore ) {
+            if ($context->isGranted('ROLE_ADMIN') || $referente || $moderatore ) {
                 $template->assign('NewsShowCanale_addNewsFlag', 'true');
                 $template->assign('NewsShowCanale_addNews', 'Scrivi nuova notizia');
                 $template->assign('NewsShowCanale_addNewsUri', $router->generate('universibo_legacy_news_add', array('id_canale' => $id_canale)));

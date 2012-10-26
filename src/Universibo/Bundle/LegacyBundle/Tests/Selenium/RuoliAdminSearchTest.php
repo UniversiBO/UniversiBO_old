@@ -36,7 +36,7 @@ class RuoliAdminSearchTest extends UniversiBOSeleniumTestCase
     {
         $this->login(TestConstants::ADMIN_USERNAME);
 
-        $this->openPrefix('/role/admin/search/1415/');
+        $this->openPrefix('/role/search/1415/');
         $this->clickAndWait('link=Torna a Area collaboratori');
 
         $expected = $this->base .'/canale/1415/';
