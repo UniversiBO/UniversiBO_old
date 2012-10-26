@@ -8,7 +8,6 @@ use Doctrine\ORM\NonUniqueResultException;
 use FOS\UserBundle\Model\UserManager;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Universibo\Bundle\CoreBundle\Entity\Person;
 use Universibo\Bundle\CoreBundle\Entity\PersonRepository;
 use Universibo\Bundle\CoreBundle\Entity\User;
