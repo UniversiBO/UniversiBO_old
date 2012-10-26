@@ -15,7 +15,7 @@ class CollaboratoreTest extends UniversiBOEntityTest
     protected function setUp()
     {
         $this->collaboratore = new Collaboratore(0, 'intro intro',
-                '3381407176', 'obiettivi obiettivi', 'nofoto.gif',
+                '3381407176', 'obiettivi obiettivi', 'test.png',
                 'ruolo ruolo');
     }
 
@@ -27,8 +27,21 @@ class CollaboratoreTest extends UniversiBOEntityTest
         $this->assertEquals('intro intro', $collaboratore->getIntro());
         $this->assertEquals('3381407176', $collaboratore->getRecapito());
         $this->assertEquals('obiettivi obiettivi',$collaboratore->getObiettivi());
-        $this->assertEquals('0_nofoto.gif', $collaboratore->getFotoFilename());
+        $this->assertEquals('0_test.png', $collaboratore->getFotoFilename());
         $this->assertEquals('ruolo ruolo', $collaboratore->getRuolo());
+    }
+
+    /**
+     * @ticket 200
+     */
+    public function testNoPhoto()
+    {
+        $defaultFilename = 'no_foto.png';
+
+        $collaboratore = $this->collaboratore;
+
+        $collaboratore->setFotoFilename($defaultFilename);
+        $this->assertEquals($defaultFilename, $collaboratore->getFotoFilename());
     }
 
     /**

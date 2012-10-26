@@ -58,10 +58,9 @@ class Collaboratore
     private $user;
 
     /**
-     * @final
-     * @access private
+     * @var string
      */
-    public $fotoDefault = 'no_foto.png';
+    private $fotoDefault = 'no_foto.png';
 
     public function __construct($id_utente, $intro, $recapito, $obiettivi, $foto, $ruolo )
     {
@@ -125,7 +124,9 @@ class Collaboratore
 
     public function getFotoFilename()
     {
-        return ($this->foto != NULL) ? $this->getIdUtente().'_'.$this->foto : $this->fotoDefault;
+        $prefix = $this->foto === $this->fotoDefault ? '' : $this->getIdUtente().'_';
+
+        return $prefix.$this->foto;
     }
 
     public function setFotoFilename($foto)
