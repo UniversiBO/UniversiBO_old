@@ -66,7 +66,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
             return $user;
         };
 
-        $this->allowedMemberOf[''] = $this->allowedMemberOf['PersonaleTA'];
+        $this->allowedMemberOf['default'] = $this->allowedMemberOf['PersonaleTA'];
 
         $this->allowedMemberOf['Docente'] = function (User $user) {
             $user->setLegacyGroups(LegacyRoles::DOCENTE);
@@ -144,7 +144,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
         if (!$user instanceof User) {
             if (!array_key_exists($memberOf, $this->allowedMemberOf)) {
-                throw new UsernameNotFoundException('Cannot map user');
+                $memberOf = 'default';
             }
 
             if ($this->userRepository->findOneByEmail($eppn) instanceof User) {
