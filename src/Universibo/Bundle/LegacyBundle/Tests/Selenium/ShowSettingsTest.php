@@ -13,15 +13,15 @@ class ShowSettingsTest extends UniversiBOSeleniumTestCase
     public function testNotLogged()
     {
         $this->logout();
-        $this->openPrefix('/settings/');
+        $this->openPrefix('/my/settings/');
 
-        $this->assertSentences(array('Error!', 'Non hai i diritti per accedere alla pagina', 'la sessione potrebbe essere terminata'));
+        $this->assertSentences(array('Login', 'username', 'password'));
     }
 
     public function testStudent()
     {
         $this->login(TestConstants::STUDENT_USERNAME);
-        $this->openPrefix('/settings/');
+        $this->openPrefix('/my/settings/');
 
         $this->assertSentences($this->getBaseSentences());
         $this->assertNotSentences($this->getAdminSentences());
@@ -35,7 +35,7 @@ class ShowSettingsTest extends UniversiBOSeleniumTestCase
         $sentences[] = 'DB Postgresql locale';
 
         $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openPrefix('/settings/');
+        $this->openPrefix('/my/settings/');
 
         $this->assertSentences(array_merge($this->getBaseSentences(), $this->getAdminSentences()));
     }
