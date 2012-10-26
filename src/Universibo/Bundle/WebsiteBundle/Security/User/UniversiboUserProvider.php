@@ -65,7 +65,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
             return $user;
         };
-        
+
         $this->allowedMemberOf[''] = $this->allowedMemberOf['PersonaleTA'];
 
         $this->allowedMemberOf['Docente'] = function (User $user) {
