@@ -30,21 +30,25 @@ class Contact
     private $user;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=false)
      * @var string
      */
     private $value;
 
     /**
+     * @ORM\Column(type="integer", length=128, nullable=true, name="verification_token")
      * @var string
      */
     private $verificationToken;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true, name="verification_sent_at")
      * @var DateTime
      */
     private $verificationSentAt;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true, name="verified_at")
      * @var DateTime
      */
     private $verifiedAt;
