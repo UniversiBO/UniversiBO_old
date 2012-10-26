@@ -5,14 +5,26 @@
 namespace Universibo\Bundle\CoreBundle\Entity;
 
 use DateTime;
+use Doctrine\ORM\Mapping as ORM;
 use Universibo\Bundle\CoreBundle\Entity\User;
 
 /**
+ * @ORM\Entity(repositoryClass="Universibo\Bundle\CoreBundle\Entity\ContactRepository")
+ * @ORM\Table(name="contacts")
  * Class representing a contact (e.g. phone number or email address)
  */
 class Contact
 {
     /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", cascade={"all"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @var User
      */
     private $user;
@@ -38,8 +50,18 @@ class Contact
     private $verifiedAt;
 
     /**
-     * User getter
+     * Id getter
      * 
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * User getter
+     *
      * @return User
      */
     public function getUser()
@@ -49,7 +71,7 @@ class Contact
 
     /**
      * User setter
-     * 
+     *
      * @param  User    $user
      * @return Contact
      */
@@ -62,7 +84,7 @@ class Contact
 
     /**
      * Value getter
-     * 
+     *
      * @return string
      */
     public function getValue()
@@ -72,7 +94,7 @@ class Contact
 
     /**
      * Value setter
-     * 
+     *
      * @param  string  $value
      * @return Contact
      */
@@ -85,7 +107,7 @@ class Contact
 
     /**
      * Verification token getter
-     * 
+     *
      * @return string
      */
     public function getVerificationToken()
@@ -95,7 +117,7 @@ class Contact
 
     /**
      * Verification token setter
-     * 
+     *
      * @param  string  $verificationToken
      * @return Contact
      */
@@ -108,7 +130,7 @@ class Contact
 
     /**
      * Last verification sending date getter
-     * 
+     *
      * @return DateTime
      */
     public function getVerificationSentAt()
@@ -118,7 +140,7 @@ class Contact
 
     /**
      * Last verification sending date setter
-     * 
+     *
      * @param  DateTime $verificationSentAt
      * @return Contact
      */
@@ -131,7 +153,7 @@ class Contact
 
     /**
      * Verification date getter
-     * 
+     *
      * @return DateTime
      */
     public function getVerifiedAt()
@@ -141,7 +163,7 @@ class Contact
 
     /**
      * Verification date setter
-     * 
+     *
      * @param  DateTime $verifiedAt
      * @return Contact
      */
@@ -154,7 +176,7 @@ class Contact
 
     /**
      * Returns true if contact has been verified
-     * 
+     *
      * @return boolean
      */
     public function isVerified()

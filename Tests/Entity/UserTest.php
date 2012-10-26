@@ -15,14 +15,6 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $this->user = new User();
     }
 
-    public function testShibUsernameAccessors()
-    {
-        $shibUsername = 'test'.rand(1,20).'@example.com';
-
-        $this->assertSame($this->user, $this->user->setShibUsername($shibUsername));
-        $this->assertEquals($shibUsername, $this->user->getShibUsername());
-    }
-
     public function testLegacyGroupsAccessors()
     {
         $groups = 64;

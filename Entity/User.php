@@ -20,12 +20,6 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\Column(type="string",length=255,nullable=true,name="shib_username")
-     * @var string
-     */
-    protected $shibUsername;
-
-    /**
      * @ORM\Column(type="string",length=15,nullable=true,name="member_of")
      * @var string
      */
@@ -73,24 +67,6 @@ class User extends BaseUser
         32 => 'ROLE_STAFF',
         64 => 'ROLE_ADMIN'
     );
-
-    /**
-     * @return string
-     */
-    public function getShibUsername()
-    {
-        return $this->shibUsername;
-    }
-
-    /**
-     * @param string $shibUsername
-     */
-    public function setShibUsername($shibUsername)
-    {
-        $this->shibUsername = $shibUsername;
-
-        return $this;
-    }
 
     /**
      * @return string
@@ -219,7 +195,6 @@ class User extends BaseUser
             $this->credentialsExpired,
             $this->enabled,
             $this->id,
-            $this->shibUsername,
             $this->phone,
             $this->notifications,
             $this->legacyGroups,
@@ -250,7 +225,6 @@ class User extends BaseUser
             $this->credentialsExpired,
             $this->enabled,
             $this->id,
-            $this->shibUsername,
             $this->phone,
             $this->notifications,
             $this->legacyGroups,
