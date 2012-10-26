@@ -14,12 +14,6 @@ class Version20120925142409 extends AbstractMigration
     {
         $this->addSql('DELETE FROM fos_user');
         $this->addSql("SELECT setval('fos_user_id_seq', (SELECT MAX(id_utente) FROM utente))");
-        $sql = '';
-        $sql .= "INSERT INTO fos_user";
-        $sql .= "(id, username, username_canonical, shib_username, email, email_canonical, enabled, salt, password, locked, expired, roles, credentials_expired, notifications, groups, last_login, phone)";
-        $sql .= "(SELECT id_utente, username, LOWER(username), ad_username, email, LOWER(email), true, '', '', ban = 'S', false, '', false, notifica, groups, to_timestamp(ultimo_login), phone FROM utente WHERE sospeso <> 'S' ORDER BY id_utente);";
-        
-        $this->addSql($sql);
         
         $roles = array (
                 'ROLE_STUDENT' => 2,
