@@ -74,7 +74,8 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
 
     protected function assertLoginRequired()
     {
-        $this->assertEquals('/app_dev.php/login', strstr($this->getLocation(), '/app_dev.php/login'));
+        $location = $this->base . '/login';
+        $this->assertEquals($location, strstr($this->getLocation(), $location));
         $this->assertSentences(array (
             'login',
             'username',
