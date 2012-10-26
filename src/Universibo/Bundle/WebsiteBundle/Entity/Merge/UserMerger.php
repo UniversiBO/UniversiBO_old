@@ -119,10 +119,10 @@ class UserMerger implements UserMergerInterface
         foreach ($this->retrievers as $retriever) {
             foreach ($others as $source) {
                 $retriever['repository']->transferOwnership($source, $target);
-            }
 
-            $source->setLocked(true);
-            $this->userRepository->save($source);
+                $source->setLocked(true);
+                $this->userRepository->save($source);
+            }
         }
 
         $target->setLocked(false);
