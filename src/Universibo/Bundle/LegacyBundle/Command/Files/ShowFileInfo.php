@@ -64,13 +64,9 @@ class ShowFileInfo extends PluginCommand
         $nomeFile = $file->getIdFile() . '_' . $file->getNomeFile();
         $groups = $user instanceof User ? $user->getLegacyGroups() : 1;
 
-        if (!$file->getPermessiVisualizza() & $groups)
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user instanceof User ? $user->getId() : 0,
-                            'msg' => 'Non e` permesso visualizzare il file.
-            Non possiedi i diritti necessari, la sessione potrebbe essere scaduta.',
-                            'file' => __FILE__, 'line' => __LINE__,
-                            'log' => true));
+        if (!$file->getPermessiVisualizza() & $groups) {
+            throw new AccessDeniedHttpException('Unauthorized to view file');
+        }
 
         $template->assign('showFileInfo_editFlag', 'false');
         $template->assign('showFileInfo_deleteFlag', 'false');
