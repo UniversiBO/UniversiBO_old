@@ -14,7 +14,7 @@ class NewsEditTest extends UniversiBOSeleniumTestCase
     {
         $this->login(TestConstants::ADMIN_USERNAME);
 
-            $this->openPrefix('/news/11134/edit/1/');
+        $this->openPrefix('/news/11134/edit/1/');
 
         $this->type('name=f8_titolo', 'News title');
         $this->type('name=f8_testo', 'News text');
