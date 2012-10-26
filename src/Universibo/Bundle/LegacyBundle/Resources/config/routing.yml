@@ -158,8 +158,8 @@ universibo_legacy_news_delete:
     requirements: { id_news: \d+ }
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'NewsDelete' }
 universibo_legacy_news_edit:
-    pattern: /news/{id_news}/edit/
-    requirements: { id_news: \d+ }
+    pattern: /news/{id_news}/edit/{id_canale}/
+    requirements: { id_news: \d+, id_canale: \d+ }
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'NewsEdit' }
 universibo_legacy_news_show_canale:
     pattern: /news/canale/{id_canale}/

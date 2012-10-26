@@ -46,6 +46,10 @@ class ChannelRouter
      */
     public function generate(Canale $channel, $absolute = false)
     {
+        if ($channel->getTipoCanale() == Canale::HOME) {
+            return $this->router->generate('universibo_legacy_home');
+        }
+
         $route = $this->getRoute($channel);
 
         return $this

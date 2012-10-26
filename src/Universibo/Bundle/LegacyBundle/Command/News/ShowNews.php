@@ -119,7 +119,7 @@ class ShowNews extends PluginCommand
                 $elenco_news_tpl[$i]['elimina_link'] = '';
                 if ( ($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $this_moderatore)  && $flag_chkDiritti) {
                     $elenco_news_tpl[$i]['modifica']     = 'Modifica';
-                    $elenco_news_tpl[$i]['modifica_link']= $router->generate('universibo_legacy_news_edit', array('id_news' => $news->getIdNotizia()));
+                    $elenco_news_tpl[$i]['modifica_link']= $router->generate('universibo_legacy_news_edit', array('id_news' => $news->getIdNotizia(), 'id_canale' => $id_canale));
                     $elenco_news_tpl[$i]['elimina']      = 'Elimina';
                     $elenco_news_tpl[$i]['elimina_link'] = $router->generate('universibo_legacy_news_delete', array('id_news' => $news->getIdNotizia(), 'id_canale' => $id_canale));
                 }

@@ -55,7 +55,7 @@ class LinkCRUDTest extends UniversiBOSeleniumTestCase
 
     public function testLinksAdminNotLogged()
     {
-        $this->deleteAllVisibleCookies();
+        $this->logout();
         $this->openPrefix('/link/admin/1/');
         $this->assertLoginRequired();
     }
