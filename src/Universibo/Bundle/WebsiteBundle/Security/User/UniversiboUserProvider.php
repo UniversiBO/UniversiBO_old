@@ -139,21 +139,16 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
     private function ensureUser($eppn, $memberOf, Person $person)
     {
-        $user = $this->userRepository->findOneByShibUsername($eppn);
+        $user = $this->userRepository->findOneByEmail($eppn);
 
         if (!$user instanceof User) {
             if (!array_key_exists($memberOf, $this->allowedMemberOf)) {
                 $memberOf = 'default';
             }
 
-            if ($this->userRepository->findOneByEmail($eppn) instanceof User) {
-                throw new AuthenticationException('Email exists');
-            }
-
             $user = $this->allowedMemberOf[$memberOf](new User(), $eppn);
             $user->setUsername($this->getUsername($eppn));
             $user->setNotifications(0);
-            $user->setShibUsername($eppn);
             $user->setEmail($eppn);
             $user->setEnabled(true);
         }
