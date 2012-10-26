@@ -77,9 +77,9 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
         $location = $this->base . '/login';
         $this->assertEquals($location, strstr($this->getLocation(), $location));
         $this->assertSentences(array (
-            'login',
-            'username',
-            'password'
+            'Login',
+            'Username:',
+            'Password:'
         ));
     }
 }
