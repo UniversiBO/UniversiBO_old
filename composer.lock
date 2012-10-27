@@ -479,12 +479,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle",
-                "reference": "fe0f21f6abfe1303c58839c18bedc09135247909"
+                "reference": "4c3dceb4c00b2a287b77aa176f1cba46a378bf63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/zipball/fe0f21f6abfe1303c58839c18bedc09135247909",
-                "reference": "fe0f21f6abfe1303c58839c18bedc09135247909",
+                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/zipball/4c3dceb4c00b2a287b77aa176f1cba46a378bf63",
+                "reference": "4c3dceb4c00b2a287b77aa176f1cba46a378bf63",
                 "shasum": ""
             },
             "require": {
@@ -505,7 +505,7 @@
                 "doctrine/doctrine-bundle": "*",
                 "doctrine/mongodb-odm-bundle": "*"
             },
-            "time": "1350660447",
+            "time": "1351332254",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1628,12 +1628,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle.git",
-                "reference": "38e3bfb385ec18a8b2992bf5d2a7dcea96a693d4"
+                "reference": "b77cf119062903a0bdb2b06852f8bed5fb13b119"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle/zipball/38e3bfb385ec18a8b2992bf5d2a7dcea96a693d4",
-                "reference": "38e3bfb385ec18a8b2992bf5d2a7dcea96a693d4",
+                "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle/zipball/b77cf119062903a0bdb2b06852f8bed5fb13b119",
+                "reference": "b77cf119062903a0bdb2b06852f8bed5fb13b119",
                 "shasum": ""
             },
             "require": {
@@ -1644,7 +1644,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1351272252",
+            "time": "1351360458",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
