@@ -65,7 +65,7 @@ class FileAdd extends UniversiboCommand
         $elenco_canali = array();
 
         $channelId = $this->getRequest()->get('id_canale');
-        
+
         $filesPath = $this->get('kernel')->getRootDir().'/data/uploads/';
         if ($channelId !== null) {
             if (!preg_match('/^([0-9]{1,9})$/', $channelId))
