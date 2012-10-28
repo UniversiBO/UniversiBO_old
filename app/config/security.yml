@@ -31,6 +31,7 @@ security:
                 handler:
                   - universibo_shibboleth.logout_handler
                   - universibo_forum.logout_handler
+                invalidate_session: false
             shibboleth: ~
     access_control:
       - { path: ^/my, roles: IS_AUTHENTICATED_FULLY }
