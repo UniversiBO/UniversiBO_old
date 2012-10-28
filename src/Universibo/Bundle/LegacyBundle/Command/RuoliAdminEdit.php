@@ -61,8 +61,9 @@ class RuoliAdminEdit extends UniversiboCommand
             $referente = $ruolo->isReferente();
         }
 
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN') && !$referente )
-            Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getId(), 'msg' => "Non hai i diritti per modificare i diritti degli utenti su questa pagina.\nLa sessione potrebbe essere scaduta.", 'file' => __FILE__, 'line' => __LINE__));
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN') && !$referente ) {
+            throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException('Not allowed to manage roles');
+        }
 
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN') && $user->getId() == $target_user->getId() )
             Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $user->getId(), 'msg' => 'non e` permesso modificare i propri diritti in una pagina', 'file' => __FILE__, 'line' => __LINE__));

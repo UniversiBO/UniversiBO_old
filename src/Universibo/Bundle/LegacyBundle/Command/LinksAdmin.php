@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use Error;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
@@ -53,10 +53,7 @@ class LinksAdmin extends UniversiboCommand
         }
 
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN') && !$referente)
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $userId,
-                            'msg' => "Non hai i diritti per modificare i diritti degli utenti su questa pagina.\nLa sessione potrebbe essere scaduta.",
-                            'file' => __FILE__, 'line' => __LINE__));
+            throw new AccessDeniedHttpException('Not allowed to manage links');
 
         $this->executePlugin('ShowLinksExtended', array('id_canale' => $idCanale));
         $template->assign('add_link_uri', $router->generate('universibo_legacy_link_add', array('id_canale' => $idCanale)));

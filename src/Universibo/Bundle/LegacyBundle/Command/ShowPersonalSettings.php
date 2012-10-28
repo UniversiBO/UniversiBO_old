@@ -27,15 +27,6 @@ class ShowPersonalSettings extends UniversiboCommand
         $context = $this->get('security.context');
         $user = $context->getToken()->getUser();
 
-        if (!$context->isGranted('IS_AUTHENTICATED_FULLY')) {
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => 0,
-                            'msg' => 'La modifica del profilo non puo` essere eseguita da utenti con livello ospite.'
-                                    . "\n"
-                                    . 'La sessione potrebbe essere scaduta, eseguire il login',
-                            'file' => __FILE__, 'line' => __LINE__));
-        }
-
         $template->assign('showPersonalSettings_langEmail', 'Modifica Email');
         $template->assign('showPersonalSettings_langPhone', 'Cellulare:');
         $template

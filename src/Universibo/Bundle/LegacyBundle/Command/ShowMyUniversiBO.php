@@ -1,7 +1,6 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use Error;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
@@ -31,13 +30,6 @@ class ShowMyUniversiBO extends UniversiboCommand
         $channelRepo = $this->getContainer()->get('universibo_legacy.repository.canale');
 
         //procedure per ricavare e mostrare le ultime 5 notizie dei canali a cui si ? iscritto...
-
-        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY'))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => 0, 'msg' => 'Non esiste una pagina MyUniversiBO per utenti ospite.
-                                                                                                     Se sei uno studente registrati cliccando su Registrazione Studenti nel menu di destra.
-                                                                                                     La sessione potrebbe essere scaduta verifica di aver abilitato i cookie.',
-                            'file' => __FILE__, 'line' => __LINE__));
 
         $arrayIdCanaliNews = array();
         $arrayIdCanaliFiles = array();

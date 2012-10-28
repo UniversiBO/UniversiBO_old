@@ -2,6 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Error;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
@@ -72,10 +73,7 @@ class LinkEdit extends CanaleCommand
                             'file' => __FILE__, 'line' => __LINE__));
 
         if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || ($moderatore && $autore)))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $userId,
-                            'msg' => "Non hai i diritti per modificare il link\n La sessione potrebbe essere scaduta",
-                            'file' => __FILE__, 'line' => __LINE__));
+            throw new AccessDeniedHttpException('Not allowed to edit link');
 
         $this
                 ->executePlugin('ShowLink',
@@ -84,8 +82,6 @@ class LinkEdit extends CanaleCommand
 
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
-
-        $krono = $frontcontroller->getKrono();
 
         // valori default form
 

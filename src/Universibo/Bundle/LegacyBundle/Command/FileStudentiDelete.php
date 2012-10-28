@@ -2,7 +2,7 @@
 
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use Error;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
@@ -64,10 +64,7 @@ class FileStudentiDelete extends UniversiboCommand
         }
 
         if (!$canDelete) {
-            Error::throwError(_ERROR_DEFAULT, array('id_utente' => $user->getId(),
-                'msg' => "Non hai i diritti per eliminare il file\n".
-                " La sessione potrebbe essere scaduta",
-                'file' => __FILE__, 'line' => __LINE__));
+            throw new AccessDeniedHttpException('Not allowed to delete file');
         }
 
         $channelRepo  = $this->get('universibo_legacy.repository.canale2');

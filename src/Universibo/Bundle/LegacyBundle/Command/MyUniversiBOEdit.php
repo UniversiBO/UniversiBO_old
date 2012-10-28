@@ -32,11 +32,6 @@ class MyUniversiBOEdit extends UniversiboCommand
         $utente = $this->get('security.context')->getToken()->getUser();
         $router = $this->get('router');
 
-        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY'))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $utente->getId(),
-                            'msg' => "non e` permesso ad utenti non registrati eseguire questa operazione.\n La sessione potrebbe essere scaduta",
-                            'file' => __FILE__, 'line' => __LINE__));
 
         $id_canale = $this->getRequest()->attributes->get('id_canale');
         $canale = $this->get('universibo_legacy.repository.canale2')->find($id_canale);

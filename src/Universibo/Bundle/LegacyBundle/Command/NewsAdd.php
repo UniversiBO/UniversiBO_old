@@ -2,6 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Error;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
@@ -49,11 +50,9 @@ class NewsAdd extends CanaleCommand
                             'msg' => "Il servizio news e` disattivato",
                             'file' => __FILE__, 'line' => __LINE__));
 
-        if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $moderatore))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $userId,
-                            'msg' => "Non hai i diritti per inserire una notizia\n La sessione potrebbe essere scaduta",
-                            'file' => __FILE__, 'line' => __LINE__));
+        if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $moderatore)) {
+            throw new AccessDeniedHttpException('Not allowed to add news');
+        }
 
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();

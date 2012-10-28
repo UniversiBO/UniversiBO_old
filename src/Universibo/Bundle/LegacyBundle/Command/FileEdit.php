@@ -2,6 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Error;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
@@ -83,17 +84,11 @@ class FileEdit extends UniversiboCommand
             $elenco_canali = array($id_canale);
 
             //controllo diritti sul canale
-            if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || ($moderatore && $autore)))
-                Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $userId,
-                                'msg' => "Non hai i diritti per modificare il file\n La sessione potrebbe essere scaduta",
-                                'file' => __FILE__, 'line' => __LINE__));
-
+            if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || ($moderatore && $autore))) {
+                throw new AccessDeniedHttpException('Not allowed to edit file');
+            }
         } elseif (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $autore))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $userId,
-                            'msg' => "Non hai i diritti per modificare il file\n La sessione potrebbe essere scaduta",
-                            'file' => __FILE__, 'line' => __LINE__));
+            throw new AccessDeniedHttpException('Not allowed to edit file');
 
         // valori default form
         // $f13_file = '';

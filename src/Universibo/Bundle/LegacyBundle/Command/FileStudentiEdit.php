@@ -2,6 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Error;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
@@ -98,16 +99,10 @@ class FileStudentiEdit extends UniversiboCommand
 
             //controllo diritti sul canale
             if (!($autore||$admin))
-                Error::throwError(_ERROR_DEFAULT,
-                        array(
-                                'msg' => "Non hai i diritti per modificare il file\n La sessione potrebbe essere scaduta",
-                                'file' => __FILE__, 'line' => __LINE__));
+                throw new AccessDeniedHttpException('Not allowed to edit file');
 
         } elseif (!($admin || $autore))
-            Error::throwError(_ERROR_DEFAULT,
-                    array(
-                            'msg' => "Non hai i diritti per modificare il file\n La sessione potrebbe essere scaduta",
-                            'file' => __FILE__, 'line' => __LINE__));
+            throw new AccessDeniedHttpException('Not allowed to edit file');
 
         // valori default form
         // $f24_file = '';

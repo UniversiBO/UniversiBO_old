@@ -2,6 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Error;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
@@ -92,16 +93,9 @@ class FileStudentiCommentDelete extends UniversiboCommand
 
             //controllo diritti sul canale
             if (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $moderatore || $autore))
-                Error::throwError(_ERROR_DEFAULT,
-                        array('id_utente' => $user->getId(),
-                                'msg' => "Non hai i diritti per eliminare il commento\n La sessione potrebbe essere scaduta",
-                                'file' => __FILE__, 'line' => __LINE__));
-
+                throw new AccessDeniedHttpException('Not allowed to delete comment');
         } elseif (!($this->get('security.context')->isGranted('ROLE_ADMIN') || $autore))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => "Non hai i diritti per eliminare il commento\n La sessione potrebbe essere scaduta",
-                            'file' => __FILE__, 'line' => __LINE__));
+            throw new AccessDeniedHttpException('Not allowed to delete comment');
 
         // valori default form
         // $f28_file = '';

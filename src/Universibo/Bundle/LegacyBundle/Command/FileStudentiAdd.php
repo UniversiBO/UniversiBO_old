@@ -3,6 +3,7 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Error;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\AntiVirus\AntiVirusFactory;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
@@ -89,9 +90,7 @@ class FileStudentiAdd extends UniversiboCommand
                         ->isGranted('IS_AUTHENTICATED_FULLY')
                 && $canale->isGroupAllowed($user->getLegacyGroups());
         if (!$diritti)
-            Error::throwError(_ERROR_DEFAULT, array('id_utente' => $user->getId(),
-                'msg' => "Non hai i diritti per inserire un file\n La sessione potrebbe essere scaduta",
-                'file' => __FILE__, 'line' => __LINE__));
+            throw new AccessDeniedException('Not allowed to upload file');
 
         $f23_accept = false;
 

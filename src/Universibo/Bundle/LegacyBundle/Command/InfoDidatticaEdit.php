@@ -2,6 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Error;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
@@ -46,10 +47,7 @@ class InfoDidatticaEdit extends UniversiboCommand
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')
                 && (!array_key_exists($id_canale, $user_ruoli)
                         || !$user_ruoli[$id_canale]->isReferente()))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => "Non hai i diritti per eseguire l\'perazione richiesta.\nLa sessione potrebbe essere scaduta",
-                            'file' => __FILE__, 'line' => __LINE__));
+                throw new AccessDeniedHttpException('Not allowed to edit didactics');
 
         $info_didattica = InfoDidattica::retrieveInfoDidattica($id_canale);
         $insegnamento = Canale::retrieveCanale($id_canale);

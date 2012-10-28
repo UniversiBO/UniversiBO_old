@@ -2,6 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Error;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
@@ -51,7 +52,7 @@ class RuoliAdminSearch extends UniversiboCommand
         }
 
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN') && !$referente ) {
-            Error :: throwError(_ERROR_DEFAULT, array ('id_utente' => $userId, 'msg' => "Non hai i diritti per modificare i diritti degli utenti su questa pagina.\nLa sessione potrebbe essere scaduta.", 'file' => __FILE__, 'line' => __LINE__));
+            throw new AccessDeniedHttpException('Not allowed to manage roles');
         }
 
         $userRepo = $this->get('universibo_core.repository.user');
