@@ -28,7 +28,7 @@ class User extends BaseUser
     protected $memberOf;
 
     /**
-     * @Assert\Regex("/^\+39[0-9]{9,10}")
+     * @Assert\Regex("/^\+39[0-9]{9,10}$/")
      * @ORM\Column(type="string",length=15,nullable=true)
      * @var string
      */
