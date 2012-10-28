@@ -4,6 +4,7 @@ namespace Universibo\Bundle\SSOBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * @author Davide Bellettini <davide.bellettini@gmail.com>
@@ -22,22 +23,23 @@ class UserBoxController
     private $router;
 
     /**
-     * @var string
+     * @var SecurityContextInterface
      */
-    private $afterLogoutRoute;
+    private $securityContext;
 
-    public function __construct($infoUrl, $logoutUrl, $templating, RouterInterface $router, $afterLogoutRoute)
+    public function __construct($infoUrl, $logoutUrl, $templating,
+            RouterInterface $router, SecurityContextInterface $securityContext)
     {
         $this->infoUrl = $infoUrl;
         $this->logoutUrl = $logoutUrl;
         $this->templating = $templating;
         $this->router = $router;
-        $this->afterLogoutRoute = $afterLogoutRoute;
+        $this->securityContext = $securityContext;
     }
 
     public function indexAction(Request $request)
     {
-        $context = $this->get('security.context');
+        $context = $this->securityContext;
         $claims = $request->getSession()->get('shibbolethClaims', array());
 
         $hasClaims = count($claims) > 0;
