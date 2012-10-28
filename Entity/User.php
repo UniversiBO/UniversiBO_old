@@ -286,4 +286,10 @@ class User extends BaseUser
     {
         return $this->contacts;
     }
+    
+    public function setContacts($contacts) {
+        $this->contacts = $contacts;
+        
+        return $this;
+    }
 }
