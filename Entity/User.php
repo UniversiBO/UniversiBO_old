@@ -61,7 +61,7 @@ class User extends BaseUser
     
     /**
      *
-     * @ORM\OneToMany(targetEntity="Contact", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Contact", mappedBy="user",cascade={"persist", "merge"})
      * @var type 
      */
     protected $contacts;
@@ -259,6 +259,21 @@ class User extends BaseUser
             } else {
                 parent::removeRole($role);
             }
+        }
+    }
+    
+    /**
+     * @ORM\PostLoad @ORM\PrePersist @ORM\PreUpdate
+     */
+    public function ensureContact()
+    {
+        if(count($this->contacts) == 0) {
+            $contact = new Contact();
+            $contact->setUser($this);
+            $email = $this->getEmail();
+            $contact->setValue($email);
+            
+            $this->contacts->add($contact);
         }
     }
 

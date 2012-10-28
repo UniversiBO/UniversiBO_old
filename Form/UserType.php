@@ -28,7 +28,9 @@ class UserType extends AbstractType
                 'type' => new ContactType(),
                 'prototype' => true,
                 'by_reference' => false,
-                'label' => 'Email di contatto'
+                'allow_add' => true,
+                'allow_delete' => true,
+                'label' => 'Contatti'
             ))
         ;
     }
