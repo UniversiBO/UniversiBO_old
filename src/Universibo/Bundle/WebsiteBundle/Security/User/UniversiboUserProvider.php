@@ -5,6 +5,7 @@ namespace Universibo\Bundle\WebsiteBundle\Security\User;
 use DateTime;
 use Doctrine\DBAL\DBALException;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use FOS\UserBundle\Model\UserManager;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -169,6 +170,8 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
                 return $this->userRepository->findOneNotLocked($user->getPerson());
             } catch (NonUniqueResultException $e) {
                 throw new AuthenticationException('Non unique result: '.$e->getMessage());
+            } catch (NoResultException $e) {
+                throw new AuthenticationException('No result: '.$e->getMessage());
             }
         }
 
