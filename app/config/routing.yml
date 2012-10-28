@@ -16,6 +16,9 @@ UniversiboShibbolethBundle:
 
 login:
     pattern: /login
+    
+logout:
+    pattern: /logout
 
 homepage:
     pattern: /
