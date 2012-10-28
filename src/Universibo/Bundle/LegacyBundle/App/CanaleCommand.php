@@ -2,7 +2,6 @@
 
 namespace Universibo\Bundle\LegacyBundle\App;
 
-use Exception;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Universibo\Bundle\CoreBundle\Entity\User;
@@ -195,11 +194,12 @@ abstract class CanaleCommand extends UniversiboCommand
                 $list_post = array();
                 if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
                     $fa = $this->get('universibo_forum.dao.post');
+                    $fr = $this->get('universibo_forum.router');
 
                     $id_posts_list = $fa->getLatestPosts($canale->getForumForumId(), 10);
 
                     foreach ($id_posts_list as $curr_post) {
-                        $list_post[] = array('URI' => $fa->getPostUri($curr_post['id']), 'desc' => $curr_post['name']);
+                        $list_post[] = array('URI' => $fr->getPostUri($curr_post['id']), 'desc' => $curr_post['name']);
                     }
                 }
                 //				$template->assign( 'common_newPostsAvailable', $newposts);
