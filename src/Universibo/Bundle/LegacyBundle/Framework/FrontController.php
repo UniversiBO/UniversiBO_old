@@ -1,19 +1,19 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Framework;
 
-use Symfony\Component\HttpFoundation\Response;
-
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
 define('MAIL_KEEPALIVE_NO', 0);
 define('MAIL_KEEPALIVE_ALIVE', 1);
 define('MAIL_KEEPALIVE_CLOSE', 2);
 
-use \DB;
-use \Error;
-use \Krono;
-
+use DOMDocument;
+use Krono;
+use MySmarty;
+use PHPMailer;
+use Smarty;
+use Swift_Mailer;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\LegacyBundle\App\ErrorHandlers;
 
 /**
@@ -377,7 +377,7 @@ class FrontController
            //		$config = new XmlDoc();
            //		$config->parse($configFile);
 
-           $config = new \DOMDocument();
+           $config = new DOMDocument();
            //var_dump($config);
            $config->load($configFile);
 
@@ -784,8 +784,9 @@ class FrontController
                 break;
             }
         }
-        if(!isset($commandNode) ||is_null($commandNode))
-            \Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non esiste il comando '.$commandString.' nel file di config','file'=>__FILE__,'line'=>__LINE__));
+        if(!isset($commandNode) ||is_null($commandNode)) {
+            throw new NotFoundHttpException('Command not in configuration');
+        }
 
                     $this->commandClass = $commandNode->getAttribute('class');
                     //		var_dump($commandNode->attributes[0]->value);
@@ -865,7 +866,7 @@ class FrontController
             //			$templateEngine = new Smarty();
 
             //mia aggiunta per tentativo di template "differenziali"
-            $templateEngine = new \MySmarty();
+            $templateEngine = new MySmarty();
 
             $templateEngine->default_template_dir  = $this->templateEngine['smarty_template'].$this->templateEngine['styles'][$this->templateEngine['default_template']];
             //fine mia aggiunta
@@ -888,7 +889,7 @@ class FrontController
     }
 
     /**
-     * @return \Swift_Mailer
+     * @return Swift_Mailer
      */
     public function getMailer()
     {
@@ -910,7 +911,7 @@ class FrontController
 
         if ($keepAlive == MAIL_KEEPALIVE_ALIVE) {
             if ($singleton == null) {
-                $singleton = new \PHPMailer();
+                $singleton = new PHPMailer2();
                 $singleton->IsSMTP(); 							// send via SMTP
                 $singleton->Host = $this->mailerInfo['smtp'];	// SMTP server
                 $singleton->SMTPAuth = false; 					// off SMTP authentication
@@ -929,7 +930,7 @@ class FrontController
                 $singleton->SMTPKeepAlive = true;
             }
         } elseif ($keepAlive == MAIL_KEEPALIVE_NO) {
-            $mail = new \PHPMailer();
+            $mail = new PHPMailer2();
             $mail -> IsSMTP(); 							// send via SMTP
             $mail -> Host = $this->mailerInfo['smtp'];	// SMTP server
             $mail -> SMTPAuth = false; 					// off SMTP authentication
