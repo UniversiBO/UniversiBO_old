@@ -784,7 +784,7 @@ class FrontController
                 break;
             }
         }
-        if(!isset($commandNode) ||is_null($commandNode)) {
+        if (!isset($commandNode) ||is_null($commandNode)) {
             throw new NotFoundHttpException('Command not in configuration');
         }
 

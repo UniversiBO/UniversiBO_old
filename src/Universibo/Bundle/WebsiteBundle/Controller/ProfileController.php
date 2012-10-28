@@ -65,7 +65,7 @@ class ProfileController extends Controller
             $userManager->updateUser($user);
             $em->flush();
 
-            $this->get('session')->setFlash('notice', 'Il profilo è stato aggiornato');
+            $this->get('session')->setFlash('notice', 'Il tuo profilo è stato aggiornato.');
         }
 
         return $this->redirect($this->generateUrl('universibo_website_profile_edit', array(), true));

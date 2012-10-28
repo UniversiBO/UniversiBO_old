@@ -1,17 +1,21 @@
 {% extends 'UniversiboWebsiteBundle::base.html.twig' %}
 {% block content %}
-<div class="titoloPagina"><h2>Profilo</h2></div>
+<div class="titoloPagina">
+<h2>Profilo</h2>
+</div>
+<div class="flash-notice-container">
+{% if app.session.hasFlash('notice') %}
+    <span class="flash-notice">
+        {{ app.session.flash('notice') }}
+    </span>
+{% endif %}
+</div>
 <p>In questa pagina potete modificare gli indirizzi email e il numero di
     cellulare dove volete ricevere le notifiche, di cui potete specificare il livello.
 Rimuovendo tutti gli indirizzi la mail di contatto sarà reimpostata a
 <strong>{{ app.user.email }}</strong>.</p>
 <p><strong>Attenzione:</strong> il numero di telefono deve essere inserito
     completo del prefisso internazionale +39.</p>
-{% if app.session.hasFlash('notice') %}
-    <div class="flash-notice">
-        {{ app.session.flash('notice') }}
-    </div>
-{% endif %}
 <form action="{{ path('universibo_website_profile_update') }}" method="post"
     {{ form_enctype(form) }} class="u3form">
     {{ form_errors(form)  }}

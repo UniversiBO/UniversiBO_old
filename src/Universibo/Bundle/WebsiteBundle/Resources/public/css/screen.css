@@ -34,3 +34,22 @@
     text-align: left;
     margin-left: 4px;
 }
+
+.flash-notice-container, .flash-error-container {
+    text-align: left;
+    margin-top: -10px;
+    height: 10px;
+}
+.flash-notice, .flash-error {
+    padding: 4px;
+    font-weight: bold;
+    clear: both;
+}
+
+.flash-notice {
+    color: green;
+}
+
+.flash-error {
+    color: red;
+}
