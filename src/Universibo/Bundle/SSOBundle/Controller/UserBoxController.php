@@ -46,7 +46,7 @@ class UserBoxController
         $logged = $context->isGranted('IS_AUTHENTICATED_FULLY');
         $failed = $hasClaims && !$logged;
 
-        $wreply = '?wreply='.urlencode($this->generateUrl('homepage', array(), true));
+        $wreply = '?wreply='.urlencode($this->router->generate('homepage', array(), true));
         $logoutUrl = $failed ? $this->logoutUrl.$wreply :
             $this->router->generate('universibo_shibboleth_prelogout');
 
