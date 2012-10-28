@@ -20,7 +20,6 @@ class ProfileController extends Controller
     public function editAction()
     {
         $user = $this->get('security.context')->getToken()->getUser();
-        $this->ensureAtLeastOneContact($user, $this->getDoctrine()->getEntityManager());
 
         $form = $this
                 ->createForm(new UserType(), $user)
@@ -63,8 +62,6 @@ class ProfileController extends Controller
                 $em->remove($contact);
             }
 
-            $this->ensureAtLeastOneContact($user, $em);
-
             $userManager->updateUser($user);
             $em->flush();
 
@@ -72,17 +69,6 @@ class ProfileController extends Controller
         }
 
         return $this->redirect($this->generateUrl('universibo_website_profile_edit', array(), true));
-    }
-
-    private function ensureAtLeastOneContact($user, $em)
-    {
-        if (count($user->getContacts()) === 0) {
-            $contact = new \Universibo\Bundle\CoreBundle\Entity\Contact();
-            $contact->setUser($user);
-            $email = $user->getEmail();
-            $contact->setValue($email);
-            $em->persist($contact);
-        }
     }
 
     private function getUserForm()
