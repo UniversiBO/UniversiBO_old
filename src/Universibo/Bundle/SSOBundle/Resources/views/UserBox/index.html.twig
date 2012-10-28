@@ -1,9 +1,9 @@
 <span class="sso-login-box">
-  {% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
-    {{ app.session.get('shibbolethClaims').eppn|default(app.user.email) }}
+  {% if(claims.eppn|default(false)) %}
+    {{ claims.eppn|default(app.user) }}
   {% endif %}
   <a href="{{ infoUrl }}"><img src="{{ asset('bundles/universibosso/images/ssologo18x18.png') }}" alt="{% trans %}universibo_sso.info{% endtrans %}" title="{% trans %}universibo_sso.info{% endtrans %}"/></a>
-  {% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
+  {% if (claims.eppn|default(false)) %}
     <a href="{{ path('universibo_shibboleth_prelogout') }}">Logout</a>
   {% else %}
     <a href="{{ path('login') }}" title="{% trans %}universibo_sso.login_title{% endtrans %}">Login</a>
