@@ -7,6 +7,8 @@ namespace Universibo\Bundle\CoreBundle\Entity;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Universibo\Bundle\CoreBundle\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass="Universibo\Bundle\CoreBundle\Entity\ContactRepository")
@@ -30,6 +32,7 @@ class Contact
     private $user;
 
     /**
+     * @Assert\Email()
      * @ORM\Column(type="string", length=255, nullable=false)
      * @var string
      */

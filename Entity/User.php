@@ -1,6 +1,7 @@
 <?php
 namespace Universibo\Bundle\CoreBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Universibo\Bundle\CoreBundle\Entity\User;
@@ -55,6 +56,13 @@ class User extends BaseUser
      * @var boolean
      */
     protected $usernameLocked = true;
+    
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Contact", mappedBy="user")
+     * @var type 
+     */
+    protected $contacts;
 
     /**
      * @var array
@@ -67,6 +75,11 @@ class User extends BaseUser
         32 => 'ROLE_STAFF',
         64 => 'ROLE_ADMIN'
     );
+    
+    public function __construct()
+    {
+        $this->contacts = new ArrayCollection();
+    }
 
     /**
      * @return string
@@ -267,5 +280,10 @@ class User extends BaseUser
         if (false !== $key) {
             $this->legacyGroups = $this->legacyGroups & ~$key;
         }
+    }
+    
+    public function getContacts()
+    {
+        return $this->contacts;
     }
 }
