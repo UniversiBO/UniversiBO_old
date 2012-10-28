@@ -47,7 +47,8 @@ class UserBoxController
         $failed = $hasClaims && !$logged;
 
         $wreply = '?wreply='.urlencode($this->generateUrl('homepage', array(), true));
-        $logoutUrl = $failed ? $this->logoutUrl.$wreply : $this->generateUrl('universibo_shibboleth_prelogout');
+        $logoutUrl = $failed ? $this->logoutUrl.$wreply :
+            $this->router->generate('universibo_shibboleth_prelogout');
 
         if ($hasClaims) {
             $eppn = $claims['eppn'];
