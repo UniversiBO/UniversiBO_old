@@ -102,8 +102,6 @@ INSERT
         utente
     WHERE
             sospeso = 'N'
-        AND email <> ad_username
-    
 EOT;
         $this->addSql($query);
         
