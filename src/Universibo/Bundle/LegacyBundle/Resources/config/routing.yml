@@ -135,18 +135,18 @@ universibo_legacy_manifesto:
     pattern: /manifesto/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowManifesto' }
 universibo_legacy_myuniversibo:
-    pattern: /myuniversibo/
+    pattern: /my/universibo/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowMyUniversiBO' }
 universibo_legacy_myuniversibo_add:
-    pattern: /myuniversibo/add/{id_canale}/
+    pattern: /my/universibo/add/{id_canale}/
     requirements: { id_canale: \d+ }
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'MyUniversiBOAdd' }
 universibo_legacy_myuniversibo_edit:
-    pattern: /myuniversibo/edit/{id_canale}/
+    pattern: /my/universibo/edit/{id_canale}/
     requirements: { id_canale: \d+ }
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'MyUniversiBOEdit' }
 universibo_legacy_myuniversibo_remove:
-    pattern: /myuniversibo/remove/{id_canale}/
+    pattern: /my/universibo/remove/{id_canale}/
     requirements: { id_canale: \d+ }
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'MyUniversiBORemove' }
 universibo_legacy_news_add:
@@ -170,7 +170,7 @@ universibo_legacy_permalink:
     requirements: { id_news: \d+ }
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowPermalink' }
 universibo_legacy_personal_files:
-    pattern: /myfiles/
+    pattern: /my/files/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowPersonalFiles' }
 universibo_legacy_role_admin_edit:
     pattern: /role/edit/{id_canale}/{id_utente}/
@@ -180,9 +180,6 @@ universibo_legacy_role_admin_search:
     pattern: /role/search/{id_canale}/
     requirements: { id_canale: \d+ }
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'RuoliAdminSearch' }
-universibo_legacy_settings_profile:
-    pattern: /my/settings/profile/
-    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowPersonalSettings' }
 universibo_legacy_settings:
     pattern: /my/settings/
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowSettings' }

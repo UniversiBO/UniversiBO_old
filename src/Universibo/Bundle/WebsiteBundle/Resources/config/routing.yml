@@ -12,3 +12,10 @@ universibo_website_rules_accept:
   pattern: /regolamento/accetta/
   defaults: { _controller: 'UniversiboWebsiteBundle:Rules:accept' }
   requirements: { _method: POST }
+universibo_website_profile_edit:
+  pattern: /my/profile/
+  defaults: { _controller: 'UniversiboWebsiteBundle:Profile:edit' }
+universibo_website_profile_update:
+  pattern: /my/profile/update/
+  defaults: { _controller: 'UniversiboWebsiteBundle:Profile:update' }
+  requirements: { _method: POST }

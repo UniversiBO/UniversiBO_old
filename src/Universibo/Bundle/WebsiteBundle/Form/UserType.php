@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\WebsiteBundle\Form;
 
-use Symfony\Component\Form\Tests\FormBuilderInterface;
+use Symfony\Component\Form\FormBuilderInterface;
 use Universibo\Bundle\CoreBundle\Form\UserType as BaseUserType;
 
 class UserType extends BaseUserType

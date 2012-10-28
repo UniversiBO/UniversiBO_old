@@ -13,7 +13,7 @@ class ShowMyUniversiBOTest extends UniversiBOSeleniumTestCase
     public function testLoggedIn()
     {
         $this->login(TestConstants::STUDENT_USERNAME);
-        $this->openPrefix('/myuniversibo');
+        $this->openPrefix('/my/universibo');
         self::assertTrue($this->isTextPresent('My UniversiBO'));
         self::assertTrue($this->isTextPresent('Modifica MyUniversiBO'));
         self::assertTrue($this->isTextPresent('My News'));

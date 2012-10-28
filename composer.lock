@@ -1,5 +1,5 @@
 {
-    "hash": "515f491f3b3ee2fe287ffc4bf25e3778",
+    "hash": "04fb98d9467ccb9ca584a0fefb5a0bbe",
     "packages": [
         {
             "name": "doctrine/common",
@@ -1522,12 +1522,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/UniversiBO/UniversiboCoreBundle",
-                "reference": "04ac12a28b4df76c3214033b76c344705f957ecf"
+                "reference": "16bf1f8c5eb9ff442a0442b98880c21ad7a62f7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboCoreBundle/zipball/04ac12a28b4df76c3214033b76c344705f957ecf",
-                "reference": "04ac12a28b4df76c3214033b76c344705f957ecf",
+                "url": "https://github.com/UniversiBO/UniversiboCoreBundle/zipball/16bf1f8c5eb9ff442a0442b98880c21ad7a62f7b",
+                "reference": "16bf1f8c5eb9ff442a0442b98880c21ad7a62f7b",
                 "shasum": ""
             },
             "require": {
@@ -1537,7 +1537,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1351434067",
+            "time": "1351440520",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
