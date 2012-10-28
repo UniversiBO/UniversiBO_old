@@ -65,7 +65,8 @@ class FileAdd extends UniversiboCommand
         $elenco_canali = array();
 
         $channelId = $this->getRequest()->get('id_canale');
-
+        
+        $filesPath = $this->get('kernel')->getRootDir().'/data/uploads/';
         if ($channelId !== null) {
             if (!preg_match('/^([0-9]{1,9})$/', $channelId))
                 Error::throwError(_ERROR_DEFAULT,
@@ -468,7 +469,7 @@ class FileAdd extends UniversiboCommand
                 $nomeFile = $newFile->getNomeFile();
 
                 if (move_uploaded_file($_FILES['f12_file']['tmp_name'],
-                        $frontcontroller->getAppSetting('filesPath')
+                        $filesPath
                                 . $nomeFile) === false) {
                     $transaction->rollback();
                     Error::throwError(_ERROR_DEFAULT,
