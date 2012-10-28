@@ -192,25 +192,22 @@ abstract class CanaleCommand extends UniversiboCommand
                 $forumRouter = $this->get('universibo_forum.router');
                 //				$newposts = 'false';
                 $list_post = array();
-                if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-                    $fa = $this->get('universibo_forum.dao.post');
-                    $fr = $this->get('universibo_forum.router');
+                $fa = $this->get('universibo_forum.dao.post');
+                $fr = $this->get('universibo_forum.router');
 
-                    $id_posts_list = $fa->getLatestPosts($canale->getForumForumId(), 10);
+                $id_posts_list = $fa->getLatestPosts($canale->getForumForumId(), 10);
 
-                    foreach ($id_posts_list as $curr_post) {
-                        $list_post[] = array('URI' => $fr->getPostUri($curr_post['id']), 'desc' => $curr_post['topic_title']);
-                    }
+                foreach ($id_posts_list as $curr_post) {
+                    $list_post[] = array('URI' => $fr->getPostUri($curr_post['id']), 'desc' => $curr_post['topic_title']);
                 }
-                //				$template->assign( 'common_newPostsAvailable', $newposts);
+
                 $template->assign('common_newPostsAvailable', 'true');
                 $template->assign('common_newPostsList', $list_post);
                 $template->assign('common_forumLink', $forumRouter->getForumUri($canale->getForumForumId()));
             }
         }
 
-        $rssResponse = $this->forward('UniversiboWebsiteBundle:Common:rss',
-                array('channel' => $canale));
+        $rssResponse = $this->forward('UniversiboWebsiteBundle:Common:rss', array('channel' => $canale));
         $template->assign('common_rss', $rssResponse->getContent());
 
         $this->updateUltimoAccesso();
