@@ -198,7 +198,7 @@ abstract class CanaleCommand extends UniversiboCommand
                 $id_posts_list = $fa->getLatestPosts($canale->getForumForumId(), 10);
 
                 foreach ($id_posts_list as $curr_post) {
-                    $list_post[] = array('URI' => $fr->getPostUri($curr_post['post_id']), 'desc' => $curr_post['topic_title']);
+                    $list_post[] = array('URI' => $fr->getPostUri($curr_post['min']), 'desc' => $curr_post['topic_title']);
                 }
 
                 $template->assign('common_newPostsAvailable', 'true');
