@@ -13,8 +13,17 @@ class UserType extends AbstractType
         $builder
             ->add('username')
             ->add('email')
-            ->add('phone')
-            ->add('notifications')
+            ->add('phone', null, array (
+                'label' => 'Cellulare'
+            ))
+            ->add('notifications', 'choice', array(
+                'label' => 'Livello di notifica',
+                'choices' => array (
+                    0 => 'Nessuna',
+                    1 => 'Solo urgenti',
+                    2 => 'Tutte'
+                )
+            ))
         ;
     }
 
