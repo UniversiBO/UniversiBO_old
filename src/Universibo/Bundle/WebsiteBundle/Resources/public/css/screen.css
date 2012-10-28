@@ -1,0 +1,36 @@
+.u3form label {
+    float: left;
+    width: 150px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.u3form input, .u3form textarea{
+    width: 180px;
+    margin-bottom: 5px;
+}
+
+.u3form textarea{
+    width: 250px;
+    height: 150px;
+}
+
+.u3form .boxes{
+    width: 1em;
+}
+
+.u3form .submitButton {
+    margin-left: 150px;
+    margin-top: 5px;
+    width: 90px;
+    height: 20px;
+}
+
+.u3form br {
+    clear: left;
+}
+
+.u3form {
+    text-align: left;
+    margin-left: 4px;
+}

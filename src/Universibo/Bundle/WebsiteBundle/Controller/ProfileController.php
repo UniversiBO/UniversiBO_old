@@ -35,11 +35,41 @@ class ProfileController extends Controller
         $request = $this->getRequest();
         $form = $this->getUserForm();
 
-        $form->bind($request);
+        $originalContacts = array();
 
+        foreach ($user->getContacts() as $contact) {
+            $originalContacts[] = $contact;
+        }
+
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $form->bind($request);
         if ($form->isValid()) {
             $userManager = $this->get('fos_user.user_manager');
-            $userManager->updateUser($user, true);
+
+            foreach ($user->getContacts() as $contact) {
+                foreach ($originalContacts as $key => $toDel) {
+                    if ($toDel->getId() === $contact->getId()) {
+                        unset($originalContacts[$key]);
+                    }
+                }
+            }
+
+            foreach ($originalContacts as $contact) {
+                $user->getContacts()->removeElement($contact);
+                $em->remove($contact);
+            }
+
+            if (count($user->getContacts()) === 0) {
+                $contact = new \Universibo\Bundle\CoreBundle\Entity\Contact();
+                $contact->setUser($user);
+                $email = $user->getEmail();
+                $contact->setValue($email);
+                $em->persist($contact);
+            }
+
+            $userManager->updateUser($user);
+            $em->flush();
 
             $this->get('session')->setFlash('notice', 'Il profilo è stato aggiornato');
         }
