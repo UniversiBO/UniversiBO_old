@@ -37,9 +37,30 @@ class UserBoxController
 
     public function indexAction(Request $request)
     {
+        $context = $this->get('security.context');
         $claims = $request->getSession()->get('shibbolethClaims', array());
-        $logoutUrl = $this->logoutUrl.'?wreply='.$this->router->generate($this->afterLogoutRoute, array(), true);
 
-        return $this->templating->renderResponse('UniversiboSSOBundle:UserBox:index.html.twig', array('infoUrl' => $this->infoUrl, 'logoutUrl' => $logoutUrl, 'claims' => $claims));
+        $hasClaims = count($claims) > 0;
+        $logged = $context->isGranted('IS_AUTHENTICATED_FULLY');
+        $failed = $hasClaims && !$logged;
+
+        $wreply = '?wreply='.urlencode($this->generateUrl('homepage', array(), true));
+        $logoutUrl = $failed ? $this->logoutUrl.$wreply : $this->generateUrl('universibo_shibboleth_prelogout');
+
+        if ($hasClaims) {
+            $eppn = $claims['eppn'];
+        } elseif ($logged) {
+            $eppn = $context->getToken()->getUser()->getEmail();
+        } else {
+            $eppn = '';
+        }
+
+        $data = array (
+            'eppn' => $eppn,
+            'showEppn' => $eppn !== '',
+            'logoutUrl' => $logoutUrl
+        ) ;
+
+        return $this->templating->renderResponse('UniversiboSSOBundle:UserBox:index.html.twig', $data);
     }
 }
