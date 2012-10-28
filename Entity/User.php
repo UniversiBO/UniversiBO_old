@@ -5,6 +5,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Universibo\Bundle\CoreBundle\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Universibo\Bundle\CoreBundle\Entity\UserRepository")
@@ -27,6 +28,7 @@ class User extends BaseUser
     protected $memberOf;
 
     /**
+     * @Assert\Regex("/^\+39[0-9]{9,10}")
      * @ORM\Column(type="string",length=15,nullable=true)
      * @var string
      */

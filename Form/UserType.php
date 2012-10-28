@@ -26,8 +26,6 @@ class UserType extends AbstractType
             ))
             ->add('contacts', 'collection', array(
                 'type' => new ContactType(),
-                'allow_add' => true,
-                'allow_delete' => true,
                 'prototype' => true,
                 'by_reference' => false,
                 'label' => 'Email di contatto'
