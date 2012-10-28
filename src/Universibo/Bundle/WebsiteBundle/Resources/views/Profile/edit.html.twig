@@ -15,7 +15,11 @@ Rimuovendo tutti gli indirizzi la mail di contatto sarà reimpostata a
 <form action="{{ path('universibo_website_profile_update') }}" method="post"
     {{ form_enctype(form) }} class="u3form">
     {{ form_errors(form)  }}
-    {{ form_row(form.phone) }}<br/>
+    <div>
+    {{ form_label(form.phone) }}
+    {{ form_widget(form.phone) }}
+    (ricevi le notifiche urgenti via SMS)
+    </div>
     {{ form_label(form.contacts) }}
     <ul class="contacts" data-prototype="{{ form_widget(form.contacts.vars.prototype)|e }}">
     {% for contact in form.contacts %}
