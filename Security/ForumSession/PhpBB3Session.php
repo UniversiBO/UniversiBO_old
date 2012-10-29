@@ -82,14 +82,16 @@ class PhpBB3Session implements ForumSessionInterface
     {
         $ip = $request->server->get('REMOTE_ADDR');
         $userAgent = $request->server->get('HTTP_USER_AGENT');
-        $sid = $this->sessionDAO->create($userId, $ip, $userAgent);
 
         $domain = $this->configDAO->getValue('cookie_domain');
         $name = $this->configDAO->getValue('cookie_name');
         $path = $this->configDAO->getValue('cookie_path');
         $secure = $this->configDAO->getValue('cookie_secure');
+        
+        $sid = $request->cookies->get($name.'_sid');
+        $actualSid = $this->sessionDAO->create($userId, $ip, $userAgent, $sid);
 
-        $response->headers->setCookie(new Cookie($name.'_sid', $sid,
+        $response->headers->setCookie(new Cookie($name.'_sid', $actualSid,
                 time() + 3600, $path, $domain, $secure));
         $response->headers->setCookie(new Cookie($name.'_u', $userId,
                 time() + 3600, $path, $domain, $secure));
