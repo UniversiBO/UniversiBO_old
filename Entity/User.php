@@ -278,6 +278,24 @@ class User extends BaseUser
             $this->contacts->add($contact);
         }
     }
+    
+    /**
+     * @ORM\PostLoad @ORM\PrePersist @ORM\PreUpdate
+     */
+    public function avoidDuplicatedContacts()
+    {
+        $values = array();
+        
+        foreach($this->contacts as $contact) {
+            $value = $contact->getValue();
+            
+            if(in_array($value, $values)) {
+                $this->contacts->remove($contact);
+            } else {
+                $values[] = $value;                
+            }
+        }
+    }
 
     public function addRole($role)
     {
