@@ -2,3 +2,9 @@
 # www.google.com/support/webmasters/bin/answer.py?hl=en&answer=156449
 
 User-agent: *
+
+Disallow /my/*
+Disallow /login
+Disallow /logout
+Disallow /shiblogout
+Disallow /prelogout
