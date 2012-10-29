@@ -265,7 +265,9 @@ class User extends BaseUser
     }
     
     /**
-     * @ORM\PostLoad @ORM\PrePersist @ORM\PreUpdate
+     * @ORM\PostLoad
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
      */
     public function ensureContact()
     {
@@ -280,7 +282,8 @@ class User extends BaseUser
     }
     
     /**
-     * @ORM\PrePersist @ORM\PreUpdate
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
      */
     public function avoidDuplicatedContacts()
     {
