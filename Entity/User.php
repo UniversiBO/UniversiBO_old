@@ -284,13 +284,13 @@ class User extends BaseUser
      */
     public function avoidDuplicatedContacts()
     {
-        $values = array();
+        $toRemove = $values = array();
         
         foreach($this->contacts as $contact) {
             $value = $contact->getValue();
             
             if(in_array($value, $values)) {
-                $this->contacts->remove($contact);
+                $this->contacts->removeElement($contact);
             } else {
                 $values[] = $value;                
             }
