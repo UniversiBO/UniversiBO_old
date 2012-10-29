@@ -14,7 +14,7 @@ interface SessionDAOInterface
      * @param  User   $user
      * @return string
      */
-    public function create($userId, $ip, $userAgent, $id = null());
+    public function create($userId, $ip, $userAgent, $id = null);
 
     /**
      * Deletes a session given the id
