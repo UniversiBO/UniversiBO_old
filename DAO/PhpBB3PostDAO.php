@@ -63,7 +63,7 @@ EOT;
     public function getLatestPosts($forumId, $limit)
     {
         $query = <<<EOF
-SELECT t.topic_title, min(p.post_id) AS post_id
+SELECT t.topic_title, min(p.post_id)
     FROM
         {$this->getPrefix()}posts p,
         {$this->getPrefix()}topics t
