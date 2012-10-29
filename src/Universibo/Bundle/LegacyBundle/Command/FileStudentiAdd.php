@@ -445,6 +445,8 @@ class FileStudentiAdd extends UniversiboCommand
                     $ruolo = $arrayRuoli[$key];
                     if ($ruolo->isReferente() || $ruolo->isModeratore()) {
                         $user_temp = $userRepo->find($ruolo->getId());
+                        if(!$user_temp instanceof User)
+                            continue;
                         //Notifichiamo i professori di un nuovo file studente? Noh...
                         if ($user_temp->hasRole('ROLE_COLLABORATOR')
                                 || $user_temp->hasRole('ROLE_ADMIN')) {
@@ -458,6 +460,8 @@ class FileStudentiAdd extends UniversiboCommand
                 $modFileStudenti = explode(';', $frontcontroller->getAppSetting('modFileStudenti'));
                 foreach ($modFileStudenti as $usernameMod) {
                     $user_temp = $userRepo->findOneByUsername($usernameMod);
+                    if(!$user_temp instanceof User)
+                        continue;
 
                     foreach ($user_temp->getContacts() as $contact) {
                         if (!in_array($contact->getValue(), $arrayEmailRef)) {
