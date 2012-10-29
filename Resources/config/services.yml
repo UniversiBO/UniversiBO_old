@@ -15,7 +15,10 @@ services:
     arguments: ['@doctrine.dbal.forum_connection']
   universibo_forum.router:
     class: 'Universibo\Bundle\ForumBundle\Routing\ForumRouter'
-    arguments: ['@universibo_forum.session']
+    arguments:
+      - '@universibo_forum.session'
+      - '@request'
+    scope: 'request'
   universibo_forum.session:
     class: 'Universibo\Bundle\ForumBundle\Security\ForumSession\PhpBB3Session'
     arguments:
@@ -23,7 +26,6 @@ services:
       - '@universibo_forum.dao.config'
       - '@universibo_forum.dao.session'
       - '@universibo_forum.dao.user'
-    scope: 'request'
   universibo_forum.logout_handler:
     class: 'Universibo\Bundle\ForumBundle\Security\Http\Logout\PhpBB3LogoutHandler'
     arguments: ['@universibo_forum.session']

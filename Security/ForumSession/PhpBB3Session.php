@@ -75,7 +75,7 @@ class PhpBB3Session implements ForumSessionInterface
     public function getSessionId(Request $request)
     {
         $name = $this->configDAO->getValue('cookie_name').'_sid';
-        
+
         return $request->cookies->get($name, $this->session->get('phpbb_sid'));
     }
 
@@ -89,7 +89,7 @@ class PhpBB3Session implements ForumSessionInterface
         $name = $this->configDAO->getValue('cookie_name');
         $path = $this->configDAO->getValue('cookie_path');
         $secure = $this->configDAO->getValue('cookie_secure');
-        
+
         $sid = $request->cookies->get($name.'_sid');
         $actualSid = $this->sessionDAO->create($userId, $ip, $userAgent, $sid);
 
@@ -101,7 +101,7 @@ class PhpBB3Session implements ForumSessionInterface
                 time() + 3600, $path, $domain, $secure));
         $response->headers->setCookie(new Cookie($name.'_shibsession', $upn,
                 time() + 3600, $path, $domain, $secure));
-        
+
         $this->session->set('phpbb_sid', $actualSid);
     }
 }

@@ -18,7 +18,7 @@ class ForumRouter
      * @var ForumSessionInterface
      */
     private $forumSession;
-    
+
     /**
      * @var Request
      */
@@ -27,7 +27,7 @@ class ForumRouter
     /**
      * @param ForumSessionInterface $forumSession
      */
-    public function __construct(ForumSessionInterface $forumSession, 
+    public function __construct(ForumSessionInterface $forumSession,
             Request $request)
     {
         $this->forumSession = $forumSession;
@@ -44,7 +44,7 @@ class ForumRouter
     {
         return $this->addSid('/forum/viewforum.php?f='.$forumId);
     }
-    
+
     /**
      * Gets a forum uri
      *
