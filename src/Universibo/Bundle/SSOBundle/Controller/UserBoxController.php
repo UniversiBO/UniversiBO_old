@@ -61,7 +61,8 @@ class UserBoxController
         $data = array (
             'eppn' => $eppn,
             'showEppn' => $eppn !== '',
-            'logoutUrl' => $logoutUrl
+            'logoutUrl' => $logoutUrl,
+            'infoUrl' => $this->infoUrl
         ) ;
 
         return $this->templating->renderResponse('UniversiboSSOBundle:UserBox:index.html.twig', $data);
