@@ -17,7 +17,7 @@ class ChannelMenuController extends Controller
         $token = $scontext->getToken();
 
         if ($token !== null) {
-            $user = $scontext->isGranted('IS_AUTHENTICATED_FULLI') ?
+            $user = $scontext->isGranted('IS_AUTHENTICATED_FULLY') ?
                     $token->getUser() : null;
         } else {
             $user = null;
