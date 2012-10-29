@@ -1522,12 +1522,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/UniversiBO/UniversiboCoreBundle",
-                "reference": "137492e6f07d70ed0ae4a73606a5ecea715716c2"
+                "reference": "266381c6df8587459070fc5cdeca9a3e80d46559"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboCoreBundle/zipball/137492e6f07d70ed0ae4a73606a5ecea715716c2",
-                "reference": "137492e6f07d70ed0ae4a73606a5ecea715716c2",
+                "url": "https://github.com/UniversiBO/UniversiboCoreBundle/zipball/266381c6df8587459070fc5cdeca9a3e80d46559",
+                "reference": "266381c6df8587459070fc5cdeca9a3e80d46559",
                 "shasum": ""
             },
             "require": {
@@ -1537,7 +1537,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1351529789",
+            "time": "1351531475",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
@@ -1575,12 +1575,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/UniversiBO/UniversiboForumBundle",
-                "reference": "6f3d6f20fb629323282c3047870aae38fbb0a4cf"
+                "reference": "2ff1d11b89c30b193075981611608e02a4567434"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboForumBundle/zipball/6f3d6f20fb629323282c3047870aae38fbb0a4cf",
-                "reference": "6f3d6f20fb629323282c3047870aae38fbb0a4cf",
+                "url": "https://github.com/UniversiBO/UniversiboForumBundle/zipball/2ff1d11b89c30b193075981611608e02a4567434",
+                "reference": "2ff1d11b89c30b193075981611608e02a4567434",
                 "shasum": ""
             },
             "require": {
@@ -1589,7 +1589,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1351506840",
+            "time": "1351532881",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
