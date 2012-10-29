@@ -280,7 +280,7 @@ class User extends BaseUser
     }
     
     /**
-     * @ORM\PostLoad @ORM\PrePersist @ORM\PreUpdate
+     * @ORM\PrePersist @ORM\PreUpdate
      */
     public function avoidDuplicatedContacts()
     {
