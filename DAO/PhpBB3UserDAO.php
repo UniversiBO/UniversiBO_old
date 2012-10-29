@@ -2,6 +2,7 @@
 
 namespace Universibo\Bundle\ForumBundle\DAO;
 
+use Doctrine\DBAL\Connection;
 use Universibo\Bundle\CoreBundle\Entity\User;
 
 /**
@@ -9,6 +10,17 @@ use Universibo\Bundle\CoreBundle\Entity\User;
  */
 class PhpBB3UserDAO extends AbstractDAO implements UserDAOInterface
 {
+    /**
+     *
+     * @var array
+     */
+    // be careful when adding groups
+    // these must be from higher level to lower
+    private static $translations = array (
+        'ROLE_ADMIN' => 5,
+        'ROLE_MODERATOR' => 4,
+    );
+    
     public function create(User $user)
     {
         $query = <<<EOT
@@ -76,8 +88,17 @@ EOT;
 
         $groupId = $this->getGroup($user);
 
+        $userId = $user->getId();
         if ($groupId > 2) {
-            $this->addToGroup($user->getId(), $groupId);
+            $this->addToGroup($userId, $groupId);
+        }
+        
+        $roles = array_flip(self::$translations);
+        
+        foreach($this->getRemovableGroups($userId) as $removableId) {
+            if(!$user->hasRole($roles[$removableId])) {
+                $this->removeUserFromGroup($user, $removableId);
+            }
         }
 
         return $this->getConnection()->executeUpdate($query,
@@ -95,8 +116,6 @@ EOT;
 
         return $this->addToGroup($userId, $groupId);
     }
-
-
 
     public function removeUserFromGroup(User $user, $groupId)
     {
@@ -132,6 +151,28 @@ EOT;
 
         return $result->fetchColumn() > 0;
     }
+    
+    private function getRemovableGroups($userId)
+    {
+        $query = <<<EOT
+SELECT group_id
+    FROM {$this->getPrefix()}user_group
+    WHERE
+            group_id IN (?)
+        AND user_id = ?
+EOT;
+    
+        $groupIds = array_values(self::$translations);
+        $result = $this->getConnection()->executeQuery($query, array(
+            $groupIds,
+            $userId
+        ), array(
+            Connection::PARAM_INT_ARRAY,
+            null,
+        ));
+
+        return $result->fetchAll();
+    }
 
     private function groupExists($groupId)
     {
@@ -148,14 +189,8 @@ EOT;
 
     private function getGroup(User $user)
     {
-        // be careful when adding groups
-        // these must be from higher level to lower
-        $translations = array (
-            'ROLE_ADMIN' => 5,
-            'ROLE_MODERATOR' => 4,
-        );
-
-        foreach ($translations as $role => $group) {
+        
+        foreach (self::$translations as $role => $group) {
             if ($user->hasRole($role)) {
                 return $group;
             }
