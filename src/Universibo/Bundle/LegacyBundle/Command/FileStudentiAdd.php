@@ -448,7 +448,7 @@ class FileStudentiAdd extends UniversiboCommand
                         if(!$user_temp instanceof User)
                             continue;
                         //Notifichiamo i professori di un nuovo file studente? Noh...
-                        if ($user_temp->hasRole('ROLE_COLLABORATOR')
+                        if ($user_temp->hasRole('ROLE_MODERATOR')
                                 || $user_temp->hasRole('ROLE_ADMIN')) {
                             foreach ($user_temp->getContacts() as $contact) {
                                 $arrayEmailRef[$i] = $contact->getValue();

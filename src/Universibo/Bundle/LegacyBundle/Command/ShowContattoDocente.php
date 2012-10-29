@@ -29,7 +29,7 @@ class ShowContattoDocente extends UniversiboCommand
     public function execute()
     {
         $context = $this->get('security.context');
-        if (!$context->isGranted('ROLE_COLLABORATOR')) {
+        if (!$context->isGranted('ROLE_MODERATOR')) {
             throw new AccessDeniedHttpException('Collaborators only');
         }
 

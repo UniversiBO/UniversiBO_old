@@ -84,7 +84,7 @@ class ShowCdl extends CanaleCommand
 
                     $cdl_listIns[$insAnnoCorso]['list'][$insCiclo] = array('ciclo' => $insCiclo, 'name' => 'Ciclo '.$insCiclo, 'list' => array() );
                 }
-                $allowEdit = ($context->isGranted('ROLE_ADMIN') || $context->isGranted('ROLE_COLLABORATOR') );
+                $allowEdit = ($context->isGranted('ROLE_ADMIN') || $context->isGranted('ROLE_MODERATOR') );
                 $fac = Facolta::selectFacoltaCodice($cdl->getCodiceFacoltaPadre());
                 $editUri = (!$tempPrgAttDid->isSdoppiato())?
                 DidatticaGestione::getEditUrl($tempPrgAttDid->getIdCanale(),$cdl->getIdCanale(), $fac->getIdCanale()) :

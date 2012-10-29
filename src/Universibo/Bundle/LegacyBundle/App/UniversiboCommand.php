@@ -320,7 +320,7 @@ abstract class UniversiboCommand extends BaseCommand
 
         $context = $this->get('security.context');
 
-        if ($context->isGranted('ROLE_ADMIN') || $context->isGranted('ROLE_COLLABORATOR')) {
+        if ($context->isGranted('ROLE_ADMIN') || $context->isGranted('ROLE_MODERATOR')) {
             $router = $this->get('router');
 
             $contactUri = $router->generate('universibo_legacy_contact_professors');

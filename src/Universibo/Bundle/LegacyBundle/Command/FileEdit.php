@@ -386,7 +386,7 @@ class FileEdit extends UniversiboCommand
                         && $_POST['f13_permessi_download']
                                 != ('ROLE_STUDENT' | 'ROLE_PROFESSOR'
                                         | 'ROLE_TUTOR' | 'ROLE_STAFF'
-                                        | 'ROLE_COLLABORATOR' | LegacyRoles::ADMIN)) {
+                                        | 'ROLE_MODERATOR' | LegacyRoles::ADMIN)) {
                     Error::throwError(_ERROR_NOTICE,
                             array('id_utente' => $user->getId(),
                                     'msg' => 'Il valore dei diritti di download non e` ammissibile',
