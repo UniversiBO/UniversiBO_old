@@ -284,6 +284,7 @@ class User extends BaseUser
      */
     public function avoidDuplicatedContacts()
     {
+        $values = array();
         foreach($this->contacts as $contact) {
             $value = $contact->getValue();
             
