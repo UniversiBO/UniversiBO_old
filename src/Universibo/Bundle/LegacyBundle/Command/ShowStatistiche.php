@@ -16,7 +16,7 @@ class ShowStatistiche extends UniversiboCommand
         $user = $this->get('security.context')->getToken()->getUser();
         $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
 
-        if (!$user->hasRole('ROLE_COLLABORATOR') && !$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        if (!$user->hasRole('ROLE_MODERATOR') && !$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getId(),
                             'msg' => "Non hai i diritti necessari per visualizzare la pagina",

@@ -19,7 +19,7 @@ class RoleNameTranslator
             'ROLE_PROFESSOR' => 'Docente',
             'ROLE_STAFF' => 'Personale non docente',
             'ROLE_TUTOR' => 'Tutor',
-            'ROLE_COLLABORATOR' => 'Collaboratore'
+            'ROLE_MODERATOR' => 'Collaboratore'
     );
 
     /**

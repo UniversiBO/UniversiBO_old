@@ -1,0 +1,12 @@
+Ciao {{ user.username }},
+
+qualcuno, presubilmente tu, ha aggiunto questo indirizzo e-mail al proprio
+account UniversiBO, per ragioni di sicurezza è necessario validare l'indirizzo.
+
+Per confermare clicca: {{ url('universibo_website_contact_verify', { token: contact.verificationToken }) }}
+Per annullare clicca: {{ url('universibo_website_contact_cancel', { token: contact.verificationToken }) }}
+
+Se non sei proprietario dell'account {{ user.username }} su UniversiBO ti
+invitiamo a ricontattarci.
+
+Lo staff di UniversiBO

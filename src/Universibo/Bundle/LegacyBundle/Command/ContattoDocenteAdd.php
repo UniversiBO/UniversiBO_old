@@ -33,7 +33,7 @@ class ContattoDocenteAdd extends UniversiboCommand
         $user = $context->getToken()->getUser();
         $userId = $user instanceof User ? $user->getId() : 0;
 
-        if(!$context->isGranted('ROLE_COLLABORATOR') &&
+        if(!$context->isGranted('ROLE_MODERATOR') &&
                 !$context->isGranted('ROLE_ADMIN')) {
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $userId,

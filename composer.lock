@@ -479,12 +479,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle",
-                "reference": "f40491011280f45831de53e11000634db60a8e95"
+                "reference": "49ab3721c609e485c7031b2bd63f33309bde17b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/zipball/f40491011280f45831de53e11000634db60a8e95",
-                "reference": "f40491011280f45831de53e11000634db60a8e95",
+                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/zipball/49ab3721c609e485c7031b2bd63f33309bde17b6",
+                "reference": "49ab3721c609e485c7031b2bd63f33309bde17b6",
                 "shasum": ""
             },
             "require": {
@@ -505,7 +505,7 @@
                 "doctrine/doctrine-bundle": "*",
                 "doctrine/mongodb-odm-bundle": "*"
             },
-            "time": "1351443620",
+            "time": "1351510888",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1522,12 +1522,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/UniversiBO/UniversiboCoreBundle",
-                "reference": "1ee12b8accf18f013e502fee1114d0dd67a08a43"
+                "reference": "266381c6df8587459070fc5cdeca9a3e80d46559"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboCoreBundle/zipball/1ee12b8accf18f013e502fee1114d0dd67a08a43",
-                "reference": "1ee12b8accf18f013e502fee1114d0dd67a08a43",
+                "url": "https://github.com/UniversiBO/UniversiboCoreBundle/zipball/266381c6df8587459070fc5cdeca9a3e80d46559",
+                "reference": "266381c6df8587459070fc5cdeca9a3e80d46559",
                 "shasum": ""
             },
             "require": {
@@ -1537,7 +1537,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1351461939",
+            "time": "1351531475",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
@@ -1575,12 +1575,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/UniversiBO/UniversiboForumBundle",
-                "reference": "2ea9c06dcf61965f29a58f7bcdd99f8f65a48ec6"
+                "reference": "2ff1d11b89c30b193075981611608e02a4567434"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboForumBundle/zipball/2ea9c06dcf61965f29a58f7bcdd99f8f65a48ec6",
-                "reference": "2ea9c06dcf61965f29a58f7bcdd99f8f65a48ec6",
+                "url": "https://github.com/UniversiBO/UniversiboForumBundle/zipball/2ff1d11b89c30b193075981611608e02a4567434",
+                "reference": "2ff1d11b89c30b193075981611608e02a4567434",
                 "shasum": ""
             },
             "require": {
@@ -1589,7 +1589,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1351493507",
+            "time": "1351532881",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {

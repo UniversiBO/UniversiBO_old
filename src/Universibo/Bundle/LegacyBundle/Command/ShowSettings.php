@@ -49,7 +49,7 @@ class ShowSettings extends UniversiboCommand
                 '[url=https://www.dsa.unibo.it/AccessoPostaStudenti type=extern]Mail di ateneo[/url]',
         );
 
-        if ($utente->hasRole('ROLE_COLLABORATOR') || $utente->hasRole('ROLE_ADMIN')) {
+        if ($utente->hasRole('ROLE_MODERATOR') || $utente->hasRole('ROLE_ADMIN')) {
             $preferences[] = '[url='.$router->generate('universibo_legacy_contact_professors').']Docenti da contattare[/url]';
         }
 

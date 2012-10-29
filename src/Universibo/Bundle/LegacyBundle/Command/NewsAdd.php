@@ -480,14 +480,17 @@ Per altri problemi contattare lo staff di UniversiBO
                                                 == NOTIFICA_URGENT)
                                         || $ruolo_canale->getTipoNotifica()
                                                 == NOTIFICA_ALL)) {
-                            $notifica_destinatario = 'mail://'
-                                    . $notifica_user->getEmail();
 
-                            $notifica = new NotificaItem(0, $notifica_titolo,
-                                    $notifica_messaggio, $notifica_dataIns,
-                                    $notifica_urgente, $notifica_eliminata,
-                                    $notifica_destinatario);
-                            $notifica->insertNotificaItem();
+                            foreach ($notifica_user->getContacts() as $contact) {
+                                $notifica_destinatario = 'mail://'
+                                        . $contact->getValue();
+
+                                $notifica = new NotificaItem(0, $notifica_titolo,
+                                        $notifica_messaggio, $notifica_dataIns,
+                                        $notifica_urgente, $notifica_eliminata,
+                                        $notifica_destinatario);
+                                $notifica->insertNotificaItem();
+                            }
                         }
                         if ($notifica_user->getPhone() != ''
                                 && $ruolo_canale->isMyUniversiBO()

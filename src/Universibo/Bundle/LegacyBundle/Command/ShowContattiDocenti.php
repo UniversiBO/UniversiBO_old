@@ -28,7 +28,7 @@ class ShowContattiDocenti extends UniversiboCommand
         $user = $this->get('security.context')->getToken()->getUser();
         $router = $this->get('router');
 
-        if (!$user->hasRole('ROLE_COLLABORATOR') && !$this->get('security.context')->isGranted('ROLE_ADMIN'))
+        if (!$user->hasRole('ROLE_MODERATOR') && !$this->get('security.context')->isGranted('ROLE_ADMIN'))
             Error::throwError(_ERROR_DEFAULT,
                     array('id_utente' => $user->getId(),
                             'msg' => 'Non hai i diritti necessari per visualizzare la pagina',

@@ -62,7 +62,7 @@ class ShowInsegnamento extends CanaleCommand
         if ($context->isGranted('ROLE_ADMIN') || (array_key_exists($id_canale, $user_ruoli)
                         && $user_ruoli[$id_canale]->isReferente())) {
             $template->assign('ins_infoDidEdit', $router->generate('universibo_legacy_insegnamento_info_edit', array('id_canale' => $id_canale)));
-            if ($context->isGranted('ROLE_ADMIN') ||$context->isGranted('ROLE_COLLABORATOR'))
+            if ($context->isGranted('ROLE_ADMIN') ||$context->isGranted('ROLE_MODERATOR'))
                 if (!$contatto) {
                     $template->assign('ins_ContattoDocenteUri', $router->generate('universibo_legacy_contact_professor_add', array('id_canale' => $id_canale, 'cod_doc' => $coddoc)));
                     $template->assign('ins_ContattoDocente', 'Crea il contatto di questo docente');

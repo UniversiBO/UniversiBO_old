@@ -52,7 +52,7 @@ class ForumApi extends DBRepository implements ForumApiInterface
      * Ranks e livelli da assegnare agli utenti inizialmente
      */
     private $defaultRanks = array('ROLE_STUDENT' => 0,
-            'ROLE_COLLABORATOR' => 9, 'ROLE_TUTOR' => 10,
+            'ROLE_MODERATOR' => 9, 'ROLE_TUTOR' => 10,
             'ROLE_PROFESSOR' => 11, 'ROLE_STAFF' => 12, 'ROLE_ADMIN' => 1);
 
     /**
@@ -235,7 +235,7 @@ class ForumApi extends DBRepository implements ForumApiInterface
 
         $groups = $user->getLegacyGroups();
         if ($groups != User::OSPITE && $groups != 'ROLE_STUDENT'
-                && $groups != 'ROLE_COLLABORATOR' && $groups != 'ROLE_TUTOR'
+                && $groups != 'ROLE_MODERATOR' && $groups != 'ROLE_TUTOR'
                 && $groups != 'ROLE_PROFESSOR' && $groups != 'ROLE_STAFF'
                 && $groups != 'ROLE_ADMIN')
 
@@ -246,7 +246,7 @@ class ForumApi extends DBRepository implements ForumApiInterface
         $user_rank = $this->defaultRanks[$groups];
         $user_level = ($this->get('security.context')->isGranted('ROLE_ADMIN')
                 == true) ? 1
-                : ($user->hasRole('ROLE_COLLABORATOR') == true) ? 2 : 0;
+                : ($user->hasRole('ROLE_MODERATOR') == true) ? 2 : 0;
 
         $krono = $this->krono;
         $user_timezone = ($krono->_is_daylight(time()) == true) ? 2 : 1;

@@ -49,7 +49,10 @@ class ProfileController extends Controller
         if ($form->isValid()) {
             $userManager = $this->get('fos_user.user_manager');
 
+            $user->avoidDuplicatedContacts();
             foreach ($user->getContacts() as $contact) {
+                $contact->setUser($user);
+
                 foreach ($originalContacts as $key => $toDel) {
                     if ($toDel->getId() === $contact->getId()) {
                         unset($originalContacts[$key]);
