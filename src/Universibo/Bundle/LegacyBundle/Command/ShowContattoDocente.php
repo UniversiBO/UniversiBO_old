@@ -191,12 +191,16 @@ Link: ' . $router->generate('universibo_legacy_contact_professor', array('cod_do
 
             if ($notifica_mod) {
                 $notifica_user = User::selectUser($f35_id_username);
-                $notifica_destinatario = 'mail://' . $notifica_user->getEmail();
-                $notifica = new NotificaItem(0, $notifica_titolo,
+
+                foreach ($notifica_user->getContacts() as $contact) {
+                    $notifica_destinatario = 'mail://' . $contact->getValue();
+                    $notifica = new NotificaItem(0, $notifica_titolo,
                         $notifica_messaggio, $notifica_dataIns,
                         $notifica_urgente, $notifica_eliminata,
                         $notifica_destinatario);
-                $notifica->insertNotificaItem();
+                    $notifica->insertNotificaItem();
+                }
+
             }
 
             //ultima notifica al responsabile contatto docenti

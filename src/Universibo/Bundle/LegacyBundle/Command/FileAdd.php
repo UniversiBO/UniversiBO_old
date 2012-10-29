@@ -550,15 +550,17 @@ class FileAdd extends UniversiboCommand
                                                     == NOTIFICA_ALL)) {
                                 $notifica_user = $userRepo->find($ruolo_canale->getId());
 
-                                $notifica_destinatario = 'mail://'
-                                        . $notifica_user->getEmail();
+                                foreach ($notifica_user->getContacts() as $contact) {
+                                    $notifica_destinatario = 'mail://'
+                                        . $contact->getValue();
 
-                                $notifica = new NotificaItem(0,
+                                    $notifica = new NotificaItem(0,
                                         $notifica_titolo, $notifica_messaggio,
                                         $notifica_dataIns, $notifica_urgente,
                                         $notifica_eliminata,
                                         $notifica_destinatario);
-                                $notifica->insertNotificaItem();
+                                    $notifica->insertNotificaItem();
+                                }
                             }
                         }
 
