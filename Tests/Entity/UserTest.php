@@ -81,7 +81,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         return array (
             array(2 , 'ROLE_STUDENT'),
-            array(4 , 'ROLE_COLLABORATOR'),
+            array(4 , 'ROLE_MODERATOR'),
             array(8 , 'ROLE_TUTOR'),
             array(16, 'ROLE_PROFESSOR'),
             array(32, 'ROLE_STAFF'),

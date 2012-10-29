@@ -71,7 +71,7 @@ class User extends BaseUser
      */
     private static $legacyGroupsMap = array (
         2  => 'ROLE_STUDENT',
-        4  => 'ROLE_COLLABORATOR',
+        4  => 'ROLE_MODERATOR',
         8  => 'ROLE_TUTOR',
         16 => 'ROLE_PROFESSOR',
         32 => 'ROLE_STAFF',
