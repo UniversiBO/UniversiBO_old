@@ -4,6 +4,7 @@
  */
 namespace Universibo\Bundle\ForumBundle\Routing;
 
+use Symfony\Component\HttpFoundation\Request;
 use Universibo\Bundle\ForumBundle\Security\ForumSession\ForumSessionInterface;
 
 /**
@@ -17,13 +18,20 @@ class ForumRouter
      * @var ForumSessionInterface
      */
     private $forumSession;
+    
+    /**
+     * @var Request
+     */
+    private $request;
 
     /**
      * @param ForumSessionInterface $forumSession
      */
-    public function __construct(ForumSessionInterface $forumSession)
+    public function __construct(ForumSessionInterface $forumSession, 
+            Request $request)
     {
         $this->forumSession = $forumSession;
+        $this->request = $request;
     }
 
     /**
@@ -67,7 +75,7 @@ class ForumRouter
      */
     private function addSid($uri, $character = '&')
     {
-        $sid = $this->forumSession->getSessionId();
+        $sid = $this->forumSession->getSessionId($this->request);
 
         if (strlen($sid) > 0) {
             $uri .= $character.'sid='.$sid;

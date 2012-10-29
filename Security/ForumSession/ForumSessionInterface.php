@@ -35,5 +35,5 @@ interface ForumSessionInterface
      *
      * @return string
      */
-    public function getSessionId();
+    public function getSessionId(Request $request);
 }

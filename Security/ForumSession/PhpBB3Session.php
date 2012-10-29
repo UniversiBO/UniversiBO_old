@@ -72,9 +72,11 @@ class PhpBB3Session implements ForumSessionInterface
         $this->session->set('phpbb_sid', null);
     }
 
-    public function getSessionId()
+    public function getSessionId(Request $request)
     {
-        return $this->session->get('phpbb_sid');
+        $name = $this->configDAO->getValue('cookie_name').'_sid';
+        
+        return $request->cookies->get($name, $this->session->get('phpbb_sid'));
     }
 
     private function createNewSession($userId, Request $request,
