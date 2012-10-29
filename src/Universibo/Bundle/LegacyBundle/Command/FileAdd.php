@@ -549,6 +549,8 @@ class FileAdd extends UniversiboCommand
                                             || $ruolo_canale->getTipoNotifica()
                                                     == NOTIFICA_ALL)) {
                                 $notifica_user = $userRepo->find($ruolo_canale->getId());
+                                if(!$notifica_user instanceof User)
+                                    continue;
 
                                 foreach ($notifica_user->getContacts() as $contact) {
                                     $notifica_destinatario = 'mail://'
