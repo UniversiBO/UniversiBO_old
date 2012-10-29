@@ -50,7 +50,7 @@ class ProfileController extends Controller
             $userManager = $this->get('fos_user.user_manager');
 
             foreach ($user->getContacts() as $contact) {
-                $contact-setUser($user);
+                $contact->setUser($user);
 
                 foreach ($originalContacts as $key => $toDel) {
                     if ($toDel->getId() === $contact->getId()) {
