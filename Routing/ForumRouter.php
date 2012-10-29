@@ -45,7 +45,7 @@ class ForumRouter
      */
     public function getIndexUri()
     {
-        return $this->addSid('/forum/index.php'.$forumId);
+        return $this->addSid('/forum/index.php', '?');
     }
 
     /**
@@ -65,12 +65,12 @@ class ForumRouter
      * @param  string $uri
      * @return string
      */
-    private function addSid($uri)
+    private function addSid($uri, $character = '&')
     {
         $sid = $this->forumSession->getSessionId();
 
         if (strlen($sid) > 0) {
-            $uri .= '&sid='.$sid;
+            $uri .= $character.'sid='.$sid;
         }
 
         return $uri;

@@ -99,5 +99,7 @@ class PhpBB3Session implements ForumSessionInterface
                 time() + 3600, $path, $domain, $secure));
         $response->headers->setCookie(new Cookie($name.'_shibsession', $upn,
                 time() + 3600, $path, $domain, $secure));
+        
+        $this->session->set('phpbb_sid', $actualSid);
     }
 }
