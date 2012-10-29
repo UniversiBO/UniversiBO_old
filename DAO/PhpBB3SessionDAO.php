@@ -45,6 +45,8 @@ EOT;
 
         if (is_null($sessionId) || !preg_match('/^[a-f0-9]+$/i', $sessionId)) {
             $sessionId = md5(uniqid(rand(), 1));
+        } else {
+            $this->delete($sessionId);
         }
 
         $this->getConnection()->executeUpdate($query, array(
