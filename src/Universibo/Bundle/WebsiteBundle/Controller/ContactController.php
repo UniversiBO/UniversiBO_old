@@ -32,7 +32,9 @@ class ContactController extends Controller
         }
 
         $contact->setVerifiedAt(new DateTime());
-        $this->getDoctrine()->getEntityManager()->merge($contact);
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->merge($contact);
+        $em->flush();
 
         return array('message' => 'La tua mail è stata verificata con successo!');
     }
