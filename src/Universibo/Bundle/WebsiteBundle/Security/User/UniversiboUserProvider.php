@@ -3,12 +3,14 @@
 namespace Universibo\Bundle\WebsiteBundle\Security\User;
 
 use DateTime;
-use Doctrine\DBAL\DBALException;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use FOS\UserBundle\Model\UserManager;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Universibo\Bundle\CoreBundle\Entity\Group;
+use Universibo\Bundle\CoreBundle\Entity\GroupRepository;
 use Universibo\Bundle\CoreBundle\Entity\Person;
 use Universibo\Bundle\CoreBundle\Entity\PersonRepository;
 use Universibo\Bundle\CoreBundle\Entity\User;
@@ -18,6 +20,11 @@ use Universibo\Bundle\ShibbolethBundle\Security\User\ShibbolethUserProviderInter
 
 class UniversiboUserProvider implements ShibbolethUserProviderInterface
 {
+    /**
+     * @var EntityManager
+     */
+    private $entityManager;
+
     /**
      * @var UserRepository
      */
@@ -34,52 +41,47 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
     private $personRepository;
 
     /**
-     * @var LoggerInterface
+     * @var GroupRepository
      */
-    private $logger;
+    private $groupRepository;
 
     /**
+     * MemberOf -> Group mapping
+     *
      * @var array
      */
-    private $allowedMemberOf = array();
+    private static $groupMap = array(
+        'default'  => array(
+            'legacy' => LegacyRoles::PERSONALE,
+            'locked' => true
+        ),
+        'Docente'  => array(
+            'legacy' => LegacyRoles::DOCENTE,
+            'locked' => true
+        ),
+        'Studente' => array(
+            'legacy' => LegacyRoles::STUDENTE,
+            'locked' => false
+        )
+    );
 
     /**
+     * Class constructor
      *
      * @param UserRepository   $userRepository
      * @param UserManager      $userManager
      * @param PersonRepository $personRepository
      * @param LoggerInterface  $logger
      */
-    public function __construct(UserRepository $userRepository, UserManager $userManager, PersonRepository $personRepository, LoggerInterface $logger)
+    public function __construct(EntityManager $entityManager,
+            UserRepository $userRepository, UserManager $userManager,
+            PersonRepository $personRepository, GroupRepository $groupRepository)
     {
+        $this->entityManager = $entityManager;
         $this->userRepository = $userRepository;
         $this->userManager = $userManager;
         $this->personRepository = $personRepository;
-        $this->logger = $logger;
-
-        $this->allowedMemberOf['PersonaleTA'] = function (User $user) {
-                    $user->setLegacyGroups(LegacyRoles::PERSONALE);
-                    $user->addRole('ROLE_STAFF');
-
-                    return $user;
-                };
-
-        $this->allowedMemberOf['default'] = $this->allowedMemberOf['PersonaleTA'];
-
-        $this->allowedMemberOf['Docente'] = function (User $user) {
-                    $user->setLegacyGroups(LegacyRoles::DOCENTE);
-                    $user->addRole('ROLE_PROFESSOR');
-
-                    return $user;
-                };
-
-        $this->allowedMemberOf['Studente'] = function (User $user) {
-                    $user->setLegacyGroups(LegacyRoles::STUDENTE);
-                    $user->addRole('ROLE_STUDENT');
-                    $user->setUsernameLocked(false);
-
-                    return $user;
-                };
+        $this->groupRepository = $groupRepository;
     }
 
     /**
@@ -90,6 +92,27 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
      * @throws AuthenticationException
      */
     public function loadUserByClaims(array $claims)
+    {
+        $this->ensureClaimsAvailable($claims);
+        $person = $this->findOrCreatePerson($claims['idAnagraficaUnica'],
+                $claims['givenName'], $claims['sn']);
+
+        $user = $this->loadUser($person);
+
+        if ($user === null) {
+            return $this->createUser($user, $claims['eppn'], $claims['isMemberOf']);
+        }
+
+        return $this->updateGroupAndEmail($user, $claims['eppn'], $claims['isMemberOf']);
+    }
+
+    /**
+     * Throws an exception if some claim is missing
+     *
+     * @param  array                   $claims
+     * @throws AuthenticationException
+     */
+    private function ensureClaimsAvailable(array $claims)
     {
         // eppn              : unibo.it e-mail address
         // givenName         : first name
@@ -108,27 +131,35 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         if (count($missingKeys) > 0) {
             throw new AuthenticationException('Missing claims: ' . implode(', ', $missingKeys));
         }
-
-        return $this->doLoadUserByClaims($claims);
     }
 
     /**
-     * (non-PHPdoc)
-     * @see Universibo\Bundle\ShibbolethBundle\Security\User.ShibbolethUserProviderInterface::loadUserByClaims()
+     * Gets a user for person
+     *
+     * @param  Person                  $person
+     * @return User|null
+     * @throws AuthenticationException if multiple users
      */
-    private function doLoadUserByClaims(array $claims)
+    private function loadUser(Person $person)
     {
-        $uniboId = $claims['idAnagraficaUnica'];
-        $person = $this->ensurePerson($uniboId, $claims['givenName'], $claims['sn']);
-
         try {
-            return $this->ensureUser($claims['eppn'], $claims['isMemberOf'], $person);
-        } catch (DBALException $e) {
-            throw new AuthenticationException('DBAL exception: ' . $e->getMessage());
+            return $this->userRepository->findOneNotLocked($person);
+        } catch (NonUniqueResultException $e) {
+            throw new AuthenticationException('Person with multiple users');
+        } catch (NoResultException $e) {
+            return null;
         }
     }
 
-    private function ensurePerson($uniboId, $givenName, $surname)
+    /**
+     * Finds or creates a person, updating givenName and surname
+     *
+     * @param  integer $uniboId
+     * @param  string  $givenName
+     * @param  string  $surname
+     * @return Person
+     */
+    private function findOrCreatePerson($uniboId, $givenName, $surname)
     {
         $person = $this->personRepository->findOneByUniboId($uniboId);
 
@@ -143,47 +174,27 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         return $this->personRepository->save($person);
     }
 
-    private function ensureUser($eppn, $memberOf, Person $person)
+    private function createUser(Person $person, $eppn, $isMemberOf)
     {
-        $user = $this->userRepository->findOneByEmail($eppn);
-
-        if (!$user instanceof User) {
-            if (!array_key_exists($memberOf, $this->allowedMemberOf)) {
-                $memberOf = 'default';
-            }
-
-            $user = $this->allowedMemberOf[$memberOf](new User(), $eppn);
-            $user->setUsername($this->getUsername($eppn));
-            $user->setNotifications(0);
-            $user->setEmail($eppn);
-            $user->setEnabled(true);
-        }
-
+        $user = new User();
+        $user->setUsername($this->getAvailableUsername($eppn));
+        $user->setEmail($eppn);
         $user->setPerson($person);
         $user->setLastLogin(new DateTime());
-        $user->setMemberOf($memberOf);
-        $user->setPlainPassword(substr(sha1(rand(1, 65536)), 0, rand(8, 12)));
 
+        $this->setUserGroup($user, $isMemberOf);
         $this->userManager->updateUser($user);
-
-        if ($this->userRepository->countByPerson($person) > 1) {
-            throw new AuthenticationException('Person with multiple users');
-        }
-
-        if ($user->isLocked()) {
-            try {
-                return $this->userRepository->findOneNotLocked($user->getPerson());
-            } catch (NonUniqueResultException $e) {
-                throw new AuthenticationException('Non unique result: ' . $e->getMessage());
-            } catch (NoResultException $e) {
-                throw new AuthenticationException('No result: ' . $e->getMessage());
-            }
-        }
 
         return $user;
     }
 
-    private function getUsername($eppn)
+    /**
+     * Gets an available username
+     *
+     * @param  string $eppn
+     * @return string
+     */
+    private function getAvailableUsername($eppn)
     {
         list($username, $dominio) = split('@', $eppn);
 
@@ -197,4 +208,68 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         return $okUsername;
     }
 
+    /**
+     * Updates group and email (old group is not removed)
+     *
+     * @param  User   $user
+     * @param  string $eppn
+     * @param  string $isMemberOf
+     * @return User
+     */
+    private function updateGroupAndEmail(User $user, $eppn, $isMemberOf)
+    {
+        $this->setUserGroup($user, $isMemberOf);
+        $user->setEmail($eppn);
+
+        return $user;
+    }
+
+    /**
+     * Sets users to group
+     *
+     * @param User   $user
+     * @param string $isMemberOf
+     */
+    private function setUserGroup(User $user, $isMemberOf)
+    {
+        $key = array_key_exists($isMemberOf, self::$groupMap) ? $key : 'default';
+
+        $user->setLegacyGroups(self::$groupMap[$key]['legacy']);
+        $user->setUsernameLocked(self::$groupMap[$key]['locked']);
+
+        $this->addFosGroup($user, $isMemberOf);
+    }
+
+    /**
+     * Adds a FOSUserBundle group to user
+     *
+     * @param User   $user
+     * @param string $isMemberOf
+     */
+    private function addFosGroup(User $user, $isMemberOf)
+    {
+        $groupName = 'MemberOf'.($isMemberOf !== '' ? ucfirst($isMemberOf) : 'Empty');
+        $group = $this->findOrCreateGroup($groupName);
+
+        $user->addGroup($group);
+    }
+
+    /**
+     * Finds or creates a group
+     *
+     * @param  string $groupName
+     * @return Group
+     */
+    private function findOrCreateGroup($groupName)
+    {
+        $group = $this->groupRepository->findOneByName($groupName);
+
+        if ($group === null) {
+            $group = new Group($groupName);
+            $this->entityManager->persist($group);
+            $this->entityManager->flush($group);
+        }
+
+        return $group;
+    }
 }
