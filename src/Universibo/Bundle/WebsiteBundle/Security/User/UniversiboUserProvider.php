@@ -221,7 +221,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         $this->setUserGroup($user, $isMemberOf);
         $user->setEmail($eppn);
 
-        return $user;
+        return $this->userRepository->save($user);
     }
 
     /**
@@ -248,7 +248,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
      */
     private function addFosGroup(User $user, $isMemberOf)
     {
-        $groupName = 'MemberOf'.($isMemberOf !== '' ? ucfirst($isMemberOf) : 'Empty');
+        $groupName = 'MemberOf'.(!empty($isMemberOf) ? ucfirst($isMemberOf) : 'Empty');
         $group = $this->findOrCreateGroup($groupName);
 
         $user->addGroup($group);
