@@ -1,5 +1,5 @@
 {
-    "hash": "2608731564e1b4192ed6fcb1a673b9ee",
+    "hash": "ff51e7298a6032aeead1e8dc777e9134",
     "packages": [
         {
             "name": "doctrine/common",
@@ -1779,6 +1779,46 @@
     ],
     "packages-dev": [
         {
+            "name": "alexandresalome/php-selenium",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alexandresalome/PHP-Selenium.git",
+                "reference": "1.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/alexandresalome/PHP-Selenium/zipball/1.0.1",
+                "reference": "1.0.1",
+                "shasum": ""
+            },
+            "require-dev": {
+                "symfony/dom-crawler": "dev-master"
+            },
+            "time": "2012-07-10 04:39:20",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "Selenium": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexandre Salomé",
+                    "email": "alexandre.salome@gmail.com",
+                    "homepage": "http://alexandre-salome.fr/"
+                }
+            ],
+            "description": "PHP Library for Selenium",
+            "keywords": [
+                "selenium"
+            ]
+        },
+        {
             "name": "behat/behat",
             "version": "v2.4.4",
             "source": {
@@ -2044,6 +2084,54 @@
                 "browser",
                 "web",
                 "gui"
+            ]
+        },
+        {
+            "name": "behat/mink-selenium-driver",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/Behat/MinkSeleniumDriver.git",
+                "reference": "v1.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/Behat/MinkSeleniumDriver/zipball/v1.0.1",
+                "reference": "v1.0.1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.1",
+                "behat/mink": ">=1.4.0,<1.5.0",
+                "symfony/dom-crawler": ">=2.0.0,<2.2.0",
+                "alexandresalome/php-selenium": "@dev"
+            },
+            "time": "2012-07-05 14:18:18",
+            "type": "mink-driver",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "Behat\\Mink\\Driver": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Konstantin Kudryashov",
+                    "email": "ever.zet@gmail.com",
+                    "homepage": "http://everzet.com"
+                }
+            ],
+            "description": "Selenium driver for Mink framework",
+            "homepage": "http://mink.behat.org/",
+            "keywords": [
+                "javascript",
+                "testing",
+                "browser",
+                "ajax",
+                "selenium"
             ]
         },
         {
