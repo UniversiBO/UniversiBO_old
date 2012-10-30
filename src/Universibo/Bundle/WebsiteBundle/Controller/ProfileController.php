@@ -78,7 +78,7 @@ class ProfileController extends Controller
             foreach ($toVerify as $contact) {
                 $bytes = openssl_random_pseudo_bytes(32);
                 $contact->setVerificationToken(sha1($bytes));
-                $contact->setVerificationSentAt(new DateTime());
+                $contact->setVerificationSentAt(new \DateTime());
 
                 $body = $this->renderView('UniversiboWebsiteBundle:Profile:emailValidation.txt.twig',
                         array('user' => $user, 'contact' => $contact));
