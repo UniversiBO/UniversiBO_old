@@ -58,7 +58,7 @@ INSERT
         to_timestamp(ultimo_login),
         false,
         false,
-        'x',
+        'a:0:{}',
         false,
         phone,
         notifica,
