@@ -3,6 +3,7 @@
 namespace Universibo\Bundle\WebsiteBundle\Controller;
 
 use DateTime;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
