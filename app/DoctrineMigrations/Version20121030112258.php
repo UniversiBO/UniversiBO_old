@@ -26,17 +26,21 @@ class Version20121030112258 extends AbstractMigration
         $this->addSql("ALTER TABLE fos_user_user_group ADD CONSTRAINT FK_B3C77447FE54D947 FOREIGN KEY (group_id) REFERENCES fos_group (id) NOT DEFERRABLE INITIALLY IMMEDIATE");
         
         $groups = array (
+            'Students'            => array(),
+            'Moderators'          => array('ROLE_MODERATOR'),
+            'Tutors'              => array(),
+            'Professors'          => array(),
+            'Staff'               => array(),
             'Administrators'      => array('ROLE_ADMIN'),
-            'Moderators'          => array('ROLE_MODERATOR'), 
-            'MemberOfStudente'    => array('ROLE_STUDENT'), 
-            'MemberOfDocente'     => array('ROLE_PROFESSOR'), 
-            'MemberOfPersonaleTA' => array('ROLE_STAFF'), 
+            'MemberOfStudente'    => array(), 
+            'MemberOfDocente'     => array(), 
+            'MemberOfPersonaleTA' => array(), 
             'MemberOfEmpty'       => array()
         );
         
         $sql = 'INSERT INTO fos_group (name, roles) VALUES (?, ?)';
-        foreach($groups as $group => $role) {
-            $this->addSql($sql, array($group, serialize(array($role))));
+        foreach($groups as $group => $roles) {
+            $this->addSql($sql, array($group, serialize($roles)));
         }
     }
 
