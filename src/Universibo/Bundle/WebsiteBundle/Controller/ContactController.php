@@ -43,10 +43,14 @@ class ContactController extends Controller
     public function cancelAction($token)
     {
         $contactRepo = $this->get('universibo_core.repository.contact');
-        $contact = $contactRepo->findOneByToken($token);
+        $contact = $contactRepo->findOneByVerificationToken($token);
 
         if ($contact === null) {
             throw new NotFoundHttpException('Contact not found');
+        }
+
+        if ($contact->isVerified()) {
+            return array('message' => 'La mail è già stata verificata in prececenza.');
         }
 
         $user = $contact->getUser();
@@ -59,6 +63,6 @@ class ContactController extends Controller
         $em->merge($user);
         $em->flush();
 
-        return array();
+        return array('La verifica del contatto è stata annullata con successo.');
     }
 }
