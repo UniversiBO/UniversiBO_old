@@ -5,6 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Entity\Group as BaseGroup;
 
 /**
+ * @ORM\Entity
  * @ORM\Table(name="fos_group")
  */
 class Group extends BaseGroup
