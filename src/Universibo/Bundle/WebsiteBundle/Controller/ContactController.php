@@ -17,7 +17,7 @@ class ContactController extends Controller
     public function verifyAction($token)
     {
         $contactRepo = $this->get('universibo_core.repository.contact');
-        $contact = $contactRepo->findOneByToken($token);
+        $contact = $contactRepo->findOneByVerificationToken($token);
 
         if ($contact === null) {
             throw new NotFoundHttpException('Contact not found');
