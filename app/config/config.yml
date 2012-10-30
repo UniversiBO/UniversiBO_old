@@ -66,6 +66,8 @@ fos_user:
     db_driver: orm
     user_class: 'Universibo\Bundle\CoreBundle\Entity\User'
     firewall_name: main
+    group:
+      group_class: 'Universibo\Bundle\CoreBundle\Entity\Group'
 
 universibo_shibboleth:
   idp_url:
