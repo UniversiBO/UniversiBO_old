@@ -81,7 +81,7 @@ class Contact
      * @param  User    $user
      * @return Contact
      */
-    public function setUser(User $user)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
