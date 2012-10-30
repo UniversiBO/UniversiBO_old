@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * @ORM\Entity(repositoryClass="Universibo\Bundle\CoreBundle\Entity\ContactRepository")
  * @ORM\Table(name="contacts")

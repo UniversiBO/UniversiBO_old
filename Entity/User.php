@@ -22,6 +22,15 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Universibo\Bundle\CoreBundle\Entity\Group")
+     * @ORM\JoinTable(name="fos_user_user_group",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
+     * )
+     */
+    protected $groups;
+
+    /**
      * @ORM\Column(type="string",length=15,nullable=true,name="member_of")
      * @var string
      */
@@ -58,11 +67,11 @@ class User extends BaseUser
      * @var boolean
      */
     protected $usernameLocked = true;
-    
+
     /**
      *
      * @ORM\OneToMany(targetEntity="Contact", mappedBy="user",cascade={"persist", "merge"})
-     * @var type 
+     * @var type
      */
     protected $contacts;
 
@@ -77,12 +86,13 @@ class User extends BaseUser
         32 => 'ROLE_STAFF',
         64 => 'ROLE_ADMIN'
     );
-    
+
     public function __construct()
     {
         parent::__construct();
-        
+
         $this->contacts = new ArrayCollection();
+        $this->groups   = new ArrayCollection();
     }
 
     /**
@@ -263,7 +273,7 @@ class User extends BaseUser
             }
         }
     }
-    
+
     /**
      * @ORM\PostLoad
      * @ORM\PrePersist
@@ -271,16 +281,16 @@ class User extends BaseUser
      */
     public function ensureContact()
     {
-        if(count($this->contacts) == 0) {
+        if (count($this->contacts) == 0) {
             $contact = new Contact();
             $contact->setUser($this);
             $email = $this->getEmail();
             $contact->setValue($email);
-            
+
             $this->contacts->add($contact);
         }
     }
-    
+
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
@@ -288,13 +298,13 @@ class User extends BaseUser
     public function avoidDuplicatedContacts()
     {
         $values = array();
-        foreach($this->contacts as $contact) {
+        foreach ($this->contacts as $contact) {
             $value = $contact->getValue();
-            
-            if(in_array($value, $values)) {
+
+            if (in_array($value, $values)) {
                 $this->contacts->removeElement($contact);
             } else {
-                $values[] = $value;                
+                $values[] = $value;
             }
         }
     }
@@ -320,15 +330,16 @@ class User extends BaseUser
             $this->legacyGroups = $this->legacyGroups & ~$key;
         }
     }
-    
+
     public function getContacts()
     {
         return $this->contacts;
     }
-    
-    public function setContacts($contacts) {
+
+    public function setContacts($contacts)
+    {
         $this->contacts = $contacts;
-        
+
         return $this;
     }
 }
