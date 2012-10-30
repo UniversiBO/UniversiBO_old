@@ -1,3 +1,14 @@
+fos_advanced_encoder:
+  encoders:
+    md5:
+      algorithm: md5
+      iterations: 1
+      encode_as_base64: false
+    sha1:
+      algorithm: sha1
+      iterations: 1
+      encode_as_base64: false
+      
 security:
     encoders:
         Universibo\Bundle\CoreBundle\Entity\User: sha512
