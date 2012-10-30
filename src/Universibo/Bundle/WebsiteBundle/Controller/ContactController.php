@@ -23,7 +23,7 @@ class ContactController extends Controller
             throw new NotFoundHttpException('Contact not found');
         }
 
-        if (!$this->getUser()->isEqualTo($contact->getUser())) {
+        if ($this->getUser()->getId() !== $contact->getUser()->getId()) {
             return array('message' => 'Il token non corrisponde all\'utente loggato.');
         }
 
