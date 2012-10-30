@@ -218,7 +218,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
      */
     private function updateGroupAndEmail(User $user, $eppn, $isMemberOf)
     {
-        $this->setUserGroup($user, $isMemberOf);
+        $this->setUserGroup($user, $isMemberOf, true);
         $user->setEmail($eppn);
 
         return $this->userRepository->save($user);
@@ -230,7 +230,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
      * @param User   $user
      * @param string $isMemberOf
      */
-    private function setUserGroup(User $user, $isMemberOf)
+    private function setUserGroup(User $user, $isMemberOf, $usernameLocked = false)
     {
         $key = array_key_exists($isMemberOf, self::$groupMap) ? $key : 'default';
 
@@ -238,7 +238,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
             $user->setLegacyGroups(self::$groupMap[$key]['legacy']);
         }
 
-        $user->setUsernameLocked(self::$groupMap[$key]['locked']);
+        $user->setUsernameLocked($usernameLocked||self::$groupMap[$key]['locked']);
 
         $this->addFosGroup($user, $isMemberOf);
     }
