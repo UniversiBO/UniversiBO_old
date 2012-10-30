@@ -100,6 +100,11 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
      */
     private function doLoadUserByClaims(array $claims)
     {
+        // eppn              : unibo.it e-mail address
+        // givenName         : first name
+        // idAnagraficaUnica : person unique id
+        // isMemberOf        : group: Docente, Studente, PersonaleTA or empty
+        // sn                : surname
         $requiredKeys = array(
                 'eppn',
                 'givenName',

@@ -136,10 +136,11 @@ abstract class UniversiboCommand extends BaseCommand
 
 
         $router = $this->get('router');
+        $forumRouter = $this->get('universibo_forum.router');
 
         $template->assign('common_forum', 'Forum');
         $template->assign('common_forumDir', 'forum/');
-        $template->assign('common_forumUri', 'forum/index.php');
+        $template->assign('common_forumUri', $forumRouter->getIndexUri());
 
         $template->assign('common_homepage', 'Homepage');
         $template->assign('common_homepageUri', $router->generate('universibo_legacy_home'));
