@@ -19,3 +19,11 @@ universibo_website_profile_update:
   pattern: /my/profile/update/
   defaults: { _controller: 'UniversiboWebsiteBundle:Profile:update' }
   requirements: { _method: POST }
+universibo_website_contact_verify:
+  pattern: /my/email/verify/
+  defaults: { _controller: 'UniversiboWebsiteBundle:Contact:verify' }
+  requirements: { _method: GET }
+universibo_website_contact_cancel:
+  pattern: /my/email/cancel/
+  defaults: { _controller: 'UniversiboWebsiteBundle:Contact:cancel' }
+  requirements: { _method: GET }

@@ -50,8 +50,12 @@ class ProfileController extends Controller
             $userManager = $this->get('fos_user.user_manager');
 
             $user->avoidDuplicatedContacts();
+            $toVerify = array();
             foreach ($user->getContacts() as $contact) {
                 $contact->setUser($user);
+                if (!$contact->isVerified() && $contact->getValue() !== $user->getEmail()) {
+                    $toVerify[] = $contact;
+                }
 
                 foreach ($originalContacts as $key => $toDel) {
                     if ($toDel->getId() === $contact->getId()) {
@@ -63,6 +67,29 @@ class ProfileController extends Controller
             foreach ($originalContacts as $contact) {
                 $user->getContacts()->removeElement($contact);
                 $em->remove($contact);
+            }
+
+            $mailer = $this->get('mailer');
+            $mailFrom = array(
+                $this->container->getParameter('mailer_from') =>
+                $this->container->getParameter('mailer_from_name')
+            );
+
+            foreach ($toVerify as $contact) {
+                $bytes = openssl_random_pseudo_bytes(32);
+                $contact->setVerificationToken(sha1($bytes));
+
+                $body = $this->renderView('UniversiboWebsiteBundle:Profile:emailValidation.txt.twig',
+                        array('user' => $user, 'contact' => $contact));
+
+                $message = \Swift_Message::newInstance()
+                    ->setTo($contact->getValue())
+                    ->setSubject('[UniversiBO] Verifica Indirizzo E-mail')
+                    ->setBody($body)
+                    ->setFrom($mailFrom)
+                ;
+
+                $mailer->send($message);
             }
 
             $userManager->updateUser($user);
