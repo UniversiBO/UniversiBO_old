@@ -38,7 +38,7 @@ class Contact
     private $value;
 
     /**
-     * @ORM\Column(type="integer", length=128, nullable=true, name="verification_token")
+     * @ORM\Column(type="string", length=128, nullable=true, name="verification_token")
      * @var string
      */
     private $verificationToken;

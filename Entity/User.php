@@ -1,9 +1,11 @@
 <?php
 namespace Universibo\Bundle\CoreBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 use FOS\AdvancedEncoderBundle\Security\Encoder\EncoderAwareInterface;
 use FOS\UserBundle\Entity\User as BaseUser;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Universibo\Bundle\CoreBundle\Entity\UserRepository")
@@ -435,10 +437,10 @@ class User extends BaseUser implements EncoderAwareInterface
     /**
      * Contacts setter
      *
-     * @param  ArrayCollection $contacts
+     * @param  Collection $contacts
      * @return User
      */
-    public function setContacts(ArrayCollection $contacts)
+    public function setContacts(Collection $contacts)
     {
         $this->contacts = $contacts;
 
