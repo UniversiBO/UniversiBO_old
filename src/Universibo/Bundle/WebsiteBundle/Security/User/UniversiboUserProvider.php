@@ -232,7 +232,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
      */
     private function setUserGroup(User $user, $isMemberOf, $usernameLocked = false)
     {
-        $key = array_key_exists($isMemberOf, self::$groupMap) ? $key : 'default';
+        $key = array_key_exists($isMemberOf, self::$groupMap) ? $isMemberOf : 'default';
 
         if ($user->getLegacyGroups() < 1) {
             $user->setLegacyGroups(self::$groupMap[$key]['legacy']);
