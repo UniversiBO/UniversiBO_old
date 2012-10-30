@@ -35,4 +35,29 @@ class ContactController extends Controller
 
         return array('message' => 'La tua mail è stata verificata con successo!');
     }
+
+    /**
+     * @Template()
+     */
+    public function cancelAction($token)
+    {
+        $contactRepo = $this->get('universibo_core.repository.contact');
+        $contact = $contactRepo->findOneByToken($token);
+
+        if ($contact === null) {
+            throw new NotFoundHttpException('Contact not found');
+        }
+
+        $user = $contact->getUser();
+
+        $user->getContacts()->remove($contact);
+        $user->ensureContact();
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->remove($contact);
+        $em->merge($user);
+        $em->flush();
+
+        return array();
+    }
 }

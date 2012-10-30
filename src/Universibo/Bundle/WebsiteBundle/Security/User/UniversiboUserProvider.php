@@ -100,7 +100,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         $user = $this->loadUser($person);
 
         if ($user === null) {
-            return $this->createUser($user, $claims['eppn'], $claims['isMemberOf']);
+            return $this->createUser($person, $claims['eppn'], $claims['isMemberOf']);
         }
 
         return $this->updateGroupAndEmail($user, $claims['eppn'], $claims['isMemberOf']);
