@@ -20,10 +20,10 @@ universibo_website_profile_update:
   defaults: { _controller: 'UniversiboWebsiteBundle:Profile:update' }
   requirements: { _method: POST }
 universibo_website_contact_verify:
-  pattern: /my/email/verify/
+  pattern: /my/email/verify/{token}/
   defaults: { _controller: 'UniversiboWebsiteBundle:Contact:verify' }
   requirements: { _method: GET }
 universibo_website_contact_cancel:
-  pattern: /my/email/cancel/
+  pattern: /my/email/cancel/{token}/
   defaults: { _controller: 'UniversiboWebsiteBundle:Contact:cancel' }
   requirements: { _method: GET }
