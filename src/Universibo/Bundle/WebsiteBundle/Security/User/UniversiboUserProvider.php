@@ -234,7 +234,10 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
     {
         $key = array_key_exists($isMemberOf, self::$groupMap) ? $key : 'default';
 
-        $user->setLegacyGroups(self::$groupMap[$key]['legacy']);
+        if ($user->getLegacyGroups() < 1) {
+            $user->setLegacyGroups(self::$groupMap[$key]['legacy']);
+        }
+
         $user->setUsernameLocked(self::$groupMap[$key]['locked']);
 
         $this->addFosGroup($user, $isMemberOf);
