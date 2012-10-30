@@ -64,6 +64,6 @@ class ContactController extends Controller
         $em->merge($user);
         $em->flush();
 
-        return array('La verifica del contatto è stata annullata con successo.');
+        return array('message' => 'La verifica del contatto è stata annullata con successo.');
     }
 }
