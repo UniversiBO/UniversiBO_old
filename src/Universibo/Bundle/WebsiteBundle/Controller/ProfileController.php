@@ -36,14 +36,15 @@ class ProfileController extends Controller
 
         $request = $this->getRequest();
         $form = $this->getUserForm();
+        $em = $this->getDoctrine()->getEntityManager();
 
         $originalContacts = array();
+        $originalEmails = array();
 
         foreach ($user->getContacts() as $contact) {
             $originalContacts[] = $contact;
+            $originalEmail[] = $originalEmail;
         }
-
-        $em = $this->getDoctrine()->getEntityManager();
 
         $form->bind($request);
         if ($form->isValid()) {
@@ -53,7 +54,9 @@ class ProfileController extends Controller
             $toVerify = array();
             foreach ($user->getContacts() as $contact) {
                 $contact->setUser($user);
-                if (!$contact->isVerified() && $contact->getValue() !== $user->getEmail()) {
+
+                $email = $contact->getValue();
+                if (!in_array($email, $originalEmail) && $email !== $user->getEmail()) {
                     $toVerify[] = $contact;
                 }
 
@@ -79,6 +82,7 @@ class ProfileController extends Controller
                 $bytes = openssl_random_pseudo_bytes(32);
                 $contact->setVerificationToken(sha1($bytes));
                 $contact->setVerificationSentAt(new \DateTime());
+                $contact->setVerifiedAt(null);
 
                 $body = $this->renderView('UniversiboWebsiteBundle:Profile:emailValidation.txt.twig',
                         array('user' => $user, 'contact' => $contact));
