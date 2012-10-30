@@ -84,9 +84,34 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         };
     }
 
+    /**
+     *
+     * @param  array                   $claims
+     * @return User
+     * @throws AuthenticationException
+     * @throws AuthenticationException
+     */
     public function loadUserByClaims(array $claims)
     {
         try {
+            // eppn              : unibo.it e-mail address
+            // givenName         : first name
+            // idAnagraficaUnica : person unique id
+            // isMemberOf        : group: Docente, Studente, PersonaleTA or empty
+            // sn                : surname
+            $requiredKeys = array(
+                    'eppn',
+                    'givenName',
+                    'idAnagraficaUnica',
+                    'isMemberOf',
+                    'sn'
+            );
+
+            $missingKeys = array_diff($requiredKeys, array_keys($claims));
+            if (count($missingKeys) > 0) {
+                throw new AuthenticationException('Missing claims: '.implode(', ', $missingKeys));
+            }
+
             return $this->doLoadUserByClaims($claims);
         } catch (AuthenticationException $e) {
             $this->logger->err('loadUserByClaims exception: '.$e->getMessage());
@@ -100,24 +125,6 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
      */
     private function doLoadUserByClaims(array $claims)
     {
-        // eppn              : unibo.it e-mail address
-        // givenName         : first name
-        // idAnagraficaUnica : person unique id
-        // isMemberOf        : group: Docente, Studente, PersonaleTA or empty
-        // sn                : surname
-        $requiredKeys = array(
-                'eppn',
-                'givenName',
-                'idAnagraficaUnica',
-                'isMemberOf',
-                'sn'
-        );
-
-        $missingKeys = array_diff($requiredKeys, array_keys($claims));
-        if (count($missingKeys) > 0) {
-            throw new AuthenticationException('Missing claims: '.implode(', ', $missingKeys));
-        }
-
         $uniboId = $claims['idAnagraficaUnica'];
         $person = $this->ensurePerson($uniboId, $claims['givenName'], $claims['sn']);
 
