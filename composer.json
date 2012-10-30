@@ -44,7 +44,8 @@
         "behat/behat": "2.4.*@stable",
         "behat/symfony2-extension": "*",
         "behat/mink-extension": "*",
-        "behat/mink-browserkit-driver": "*"
+        "behat/mink-browserkit-driver": "*",
+        "behat/mink-selenium-driver": "*"
     },
     "config": {
         "bin-dir": "bin/"
