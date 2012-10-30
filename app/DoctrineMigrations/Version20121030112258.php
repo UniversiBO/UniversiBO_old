@@ -28,10 +28,10 @@ class Version20121030112258 extends AbstractMigration
         $groups = array (
             'Students'            => array(),
             'Moderators'          => array('ROLE_MODERATOR'),
+            'Administrators'      => array('ROLE_ADMIN'),
             'Tutors'              => array(),
             'Professors'          => array(),
             'Staff'               => array(),
-            'Administrators'      => array('ROLE_ADMIN'),
             'MemberOfStudente'    => array(), 
             'MemberOfDocente'     => array(), 
             'MemberOfPersonaleTA' => array(), 
