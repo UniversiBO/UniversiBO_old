@@ -43,7 +43,7 @@ class ProfileController extends Controller
 
         foreach ($user->getContacts() as $contact) {
             $originalContacts[] = $contact;
-            $originalEmail[] = $originalEmail;
+            $originalEmail[] = $contact->getValue();
         }
 
         $form->bind($request);
