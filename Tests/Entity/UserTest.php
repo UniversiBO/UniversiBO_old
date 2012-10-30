@@ -3,7 +3,7 @@ namespace Universibo\Bundle\CoreBundle\Tests\Entity;
 
 use Universibo\Bundle\CoreBundle\Entity\User;
 
-class UserTest extends \PHPUnit_Framework_TestCase
+class UserTest extends EntityTest
 {
     /**
      * @var User
@@ -13,6 +13,11 @@ class UserTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->user = new User();
+    }
+
+    public function testEncoderNameAccessors()
+    {
+        $this->autoTestAccessor($this->user, 'encoderName', 'md5', true);
     }
 
     public function testLegacyGroupsAccessors()

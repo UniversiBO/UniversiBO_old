@@ -17,7 +17,8 @@
     ],
     "require": {
         "symfony/framework-bundle": "2.1.*",
-        "friendsofsymfony/user-bundle": "2.0.*@dev"
+        "friendsofsymfony/user-bundle": "2.0.*@dev",
+        "friendsofsymfony/advanced-encoder-bundle": "@dev"
     },
     "require-dev": {
         "symfony/yaml": "2.1.*"

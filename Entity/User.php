@@ -3,8 +3,8 @@ namespace Universibo\Bundle\CoreBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use FOS\AdvancedEncoderBundle\Security\Encoder\EncoderAwareInterface;
 use FOS\UserBundle\Entity\User as BaseUser;
-use Universibo\Bundle\CoreBundle\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -12,9 +12,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="fos_user")
  * @ORM\HasLifecycleCallbacks
  */
-class User extends BaseUser
+class User extends BaseUser implements EncoderAwareInterface
 {
     /**
+     * User auto-increment id
+     *
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -22,6 +24,8 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * FOSUserBundle groups
+     *
      * @ORM\ManyToMany(targetEntity="Universibo\Bundle\CoreBundle\Entity\Group")
      * @ORM\JoinTable(name="fos_user_user_group",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
@@ -31,12 +35,24 @@ class User extends BaseUser
     protected $groups;
 
     /**
+     * FOSAdvancedEncoderBundle encoder name
+     *
+     * @ORM\Column(type="string",length=15,nullable=true, name="encoder_name")
+     * @var string
+     */
+    protected $encoderName;
+
+    /**
+     * Unibo memberOf attribuite
+     *
      * @ORM\Column(type="string",length=15,nullable=true,name="member_of")
      * @var string
      */
     protected $memberOf;
 
     /**
+     * Mobile phone number
+     *
      * @Assert\Regex("/^\+39[0-9]{9,10}$/")
      * @ORM\Column(type="string",length=15,nullable=true)
      * @var string
@@ -44,18 +60,25 @@ class User extends BaseUser
     protected $phone;
 
     /**
+     * Notifications level
+     *
      * @ORM\Column(type="integer")
      * @var integer
      */
     protected $notifications = 0;
 
     /**
+     * Legacy groups
+     *
      * @ORM\Column(type="integer", name="groups");
+     * @deprecated
      * @var int
      */
     protected $legacyGroups;
 
     /**
+     * Person this account belongs to
+     *
      * @ORM\ManyToOne(targetEntity="Person", cascade={"all"}, fetch="EAGER")
      * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
      * @var Person
@@ -63,15 +86,18 @@ class User extends BaseUser
     protected $person;
 
     /**
+     * If set to false the user will be able to change his own username
+     *
      * @ORM\Column(type="integer", type="boolean", name="username_locked")
      * @var boolean
      */
     protected $usernameLocked = true;
 
     /**
+     * Contacts list
      *
      * @ORM\OneToMany(targetEntity="Contact", mappedBy="user",cascade={"persist", "merge"})
-     * @var type
+     * @var ArrayCollection
      */
     protected $contacts;
 
@@ -87,6 +113,9 @@ class User extends BaseUser
         64 => 'ROLE_ADMIN'
     );
 
+    /**
+     * Class constructor
+     */
     public function __construct()
     {
         parent::__construct();
@@ -96,6 +125,8 @@ class User extends BaseUser
     }
 
     /**
+     * Mobile phone number getter
+     *
      * @return string
      */
     public function getPhone()
@@ -104,6 +135,8 @@ class User extends BaseUser
     }
 
     /**
+     * Mobile phone number setter
+     *
      * @param  string $phone
      * @return User
      */
@@ -115,6 +148,8 @@ class User extends BaseUser
     }
 
     /**
+     * Notification level getter
+     *
      * @return number
      */
     public function getNotifications()
@@ -123,6 +158,7 @@ class User extends BaseUser
     }
 
     /**
+     * Notification level setter
      *
      * @param  integer $notifications
      * @return User
@@ -135,8 +171,10 @@ class User extends BaseUser
     }
 
     /**
+     * Legacy groups (bitwise) getter
+     *
      * @deprecated
-     * @return number
+     * @return integer
      */
     public function getLegacyGroups()
     {
@@ -144,6 +182,8 @@ class User extends BaseUser
     }
 
     /**
+     * Legacy (bitwise) groups setter
+     *
      * @deprecated
      * @param  int  $legacyGroups
      * @return User
@@ -158,6 +198,8 @@ class User extends BaseUser
     }
 
     /**
+     * Bitwise operation on groups
+     *
      * @deprecated
      * @param  integer $groups
      * @return boolean
@@ -167,11 +209,21 @@ class User extends BaseUser
         return (bool) ($groups & $this->legacyGroups);
     }
 
+    /**
+     * Unibo memberOf attribute getter
+     *
+     * @return string
+     */
     public function getMemberOf()
     {
         return $this->memberOf;
     }
 
+    /**
+     * Unibo memberOf attribute setter
+     * @param  string $memberOf
+     * @return User
+     */
     public function setMemberOf($memberOf)
     {
         $this->memberOf = $memberOf;
@@ -179,11 +231,21 @@ class User extends BaseUser
         return $this;
     }
 
+    /**
+     * Person getter
+     *
+     * @return Person
+     */
     public function getPerson()
     {
         return $this->person;
     }
 
+    /**
+     * Person setter
+     * @param  Person $person
+     * @return User   fluent interface
+     */
     public function setPerson(Person $person)
     {
         $this->person = $person;
@@ -191,11 +253,21 @@ class User extends BaseUser
         return $this;
     }
 
+    /**
+     * If true the user is allowed to change his own username
+     *
+     * @return boolean
+     */
     public function isUsernameLocked()
     {
         return $this->usernameLocked;
     }
 
+    /**
+     * If set to true the user is allowed to change his own username
+     * @param  boolean $usernameLocked
+     * @return User
+     */
     public function setUsernameLocked($usernameLocked)
     {
         $this->usernameLocked = $usernameLocked;
@@ -261,6 +333,7 @@ class User extends BaseUser
     }
 
     /**
+     * Keeps coherence between roles and Legacy Groups
      * @ORM\PostLoad
      */
     public function updateRoles()
@@ -275,6 +348,8 @@ class User extends BaseUser
     }
 
     /**
+     * Ensures that at least one contact is present
+     *
      * @ORM\PostLoad
      * @ORM\PrePersist
      * @ORM\PreUpdate
@@ -292,6 +367,8 @@ class User extends BaseUser
     }
 
     /**
+     * Avoids duplicated contact emails
+     *
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
@@ -309,6 +386,12 @@ class User extends BaseUser
         }
     }
 
+    /**
+     * Ads a role
+     *
+     * @param  string $role
+     * @return User
+     */
     public function addRole($role)
     {
         parent::addRole($role);
@@ -318,8 +401,16 @@ class User extends BaseUser
         if (false !== $key) {
             $this->legacyGroups = $this->legacyGroups | $key;
         }
+
+        return $this;
     }
 
+    /**
+     * Removes a role
+     *
+     * @param  string $role
+     * @return User
+     */
     public function removeRole($role)
     {
         parent::removeRole($role);
@@ -329,16 +420,38 @@ class User extends BaseUser
         if (false !== $key) {
             $this->legacyGroups = $this->legacyGroups & ~$key;
         }
+
+        return $this;
     }
 
+    /**
+     * Contacts getter
+     *
+     * @return ArrayCollection
+     */
     public function getContacts()
     {
         return $this->contacts;
     }
 
-    public function setContacts($contacts)
+    /**
+     * Encoder name getter
+     *
+     * @return string
+     */
+    public function getEncoderName()
     {
-        $this->contacts = $contacts;
+        return $this->encoderName;
+    }
+    /**
+     * Encoder name setter
+     *
+     * @param  string $encoderName
+     * @return User
+     */
+    public function setEncoderName($encoderName)
+    {
+        $this->encoderName = $encoderName;
 
         return $this;
     }
