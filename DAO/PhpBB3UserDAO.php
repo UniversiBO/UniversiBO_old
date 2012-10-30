@@ -171,7 +171,13 @@ EOT;
             null,
         ));
 
-        return $result->fetchAll();
+        $removable = array();
+        
+        while(false !== ($value = $result->fetchColumn())) {
+            $removable[] = $value;
+        }
+        
+        return $removable;
     }
 
     private function groupExists($groupId)
