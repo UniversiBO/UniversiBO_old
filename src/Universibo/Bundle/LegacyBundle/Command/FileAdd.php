@@ -496,6 +496,8 @@ class FileAdd extends UniversiboCommand
                     }
                 }
 
+                $contactService = $this->get('universibo_core.contact.service');
+
                 //$num_canali = count($f12_canale);
                 //var_dump($f12_canale);
                 if (array_key_exists('f12_canale', $_POST))
@@ -552,9 +554,9 @@ class FileAdd extends UniversiboCommand
                                 if(!$notifica_user instanceof User)
                                     continue;
 
-                                foreach ($notifica_user->getContacts() as $contact) {
+                                foreach ($contactService->getUserEmails($user) as $email) {
                                     $notifica_destinatario = 'mail://'
-                                        . $contact->getValue();
+                                        . $email;
 
                                     $notifica = new NotificaItem(0,
                                         $notifica_titolo, $notifica_messaggio,

@@ -436,6 +436,7 @@ class FileStudentiAdd extends UniversiboCommand
                 //Ricerco solo i referenti/moderatori per il canale
 
                 $userRepo = $this->get('universibo_website.repository.user');
+                $contactService = $this->get('universibo_core.contact.service');
 
                 $arrayRuoli = $canale->getRuoli();
                 $keys = array_keys($arrayRuoli);
@@ -450,8 +451,8 @@ class FileStudentiAdd extends UniversiboCommand
                         //Notifichiamo i professori di un nuovo file studente? Noh...
                         if ($user_temp->hasRole('ROLE_MODERATOR')
                                 || $user_temp->hasRole('ROLE_ADMIN')) {
-                            foreach ($user_temp->getContacts() as $contact) {
-                                $arrayEmailRef[$i] = $contact->getValue();
+                            foreach ($contactService->getEmails($user_temp) as $email) {
+                                $arrayEmailRef[$i] = $email;
                                 $i++;
                             }
                         }
@@ -463,9 +464,9 @@ class FileStudentiAdd extends UniversiboCommand
                     if(!$user_temp instanceof User)
                         continue;
 
-                    foreach ($user_temp->getContacts() as $contact) {
-                        if (!in_array($contact->getValue(), $arrayEmailRef)) {
-                            $arrayEmailRef[$i] = $contact->getValue();
+                    foreach ($contactService->getEmails($user_temp) as $email) {
+                        if (!in_array($email, $arrayEmailRef)) {
+                            $arrayEmailRef[$i] = $email;
                             $i++;
                         }
                     }

@@ -52,6 +52,7 @@ class ProfileController extends Controller
 
             $user->avoidDuplicatedContacts();
             $toVerify = array();
+
             foreach ($user->getContacts() as $contact) {
                 $contact->setUser($user);
 

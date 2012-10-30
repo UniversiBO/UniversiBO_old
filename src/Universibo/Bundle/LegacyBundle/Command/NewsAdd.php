@@ -481,9 +481,9 @@ Per altri problemi contattare lo staff di UniversiBO
                                         || $ruolo_canale->getTipoNotifica()
                                                 == NOTIFICA_ALL)) {
 
-                            foreach ($notifica_user->getContacts() as $contact) {
-                                $notifica_destinatario = 'mail://'
-                                        . $contact->getValue();
+                            $contactService = $this->get('universibo_core.contact.service');
+                            foreach ($contactService->getEmails($notifica_user) as $email) {
+                                $notifica_destinatario = 'mail://'.$email;
 
                                 $notifica = new NotificaItem(0, $notifica_titolo,
                                         $notifica_messaggio, $notifica_dataIns,
