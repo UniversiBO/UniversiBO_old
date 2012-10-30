@@ -159,8 +159,8 @@ EOT;
         $sql .= '    FROM news n';
         $sql .= '    INNER JOIN news_canale nc';
         $sql .= '        ON nc.id_news = n.id_news';
-        $sql .= '    INNER JOIN utente u';
-        $sql .= '        ON u.id_utente = n.id_utente';
+        $sql .= '    INNER JOIN fos_user u';
+        $sql .= '        ON u.id = n.id_utente';
         $sql .= '    WHERE nc.id_canale = ' . $db->quote($id);
         $sql .= '        AND n.eliminata = '
                 . $db->quote(NewsItem::NOT_ELIMINATA);
