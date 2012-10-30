@@ -50,9 +50,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
      * @param PersonRepository $personRepository
      * @param LoggerInterface  $logger
      */
-    public function __construct(UserRepository $userRepository,
-            UserManager $userManager, PersonRepository $personRepository,
-            LoggerInterface $logger)
+    public function __construct(UserRepository $userRepository, UserManager $userManager, PersonRepository $personRepository, LoggerInterface $logger)
     {
         $this->userRepository = $userRepository;
         $this->userManager = $userManager;
@@ -60,28 +58,28 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         $this->logger = $logger;
 
         $this->allowedMemberOf['PersonaleTA'] = function (User $user) {
-            $user->setLegacyGroups(LegacyRoles::PERSONALE);
-            $user->addRole('ROLE_STAFF');
+                    $user->setLegacyGroups(LegacyRoles::PERSONALE);
+                    $user->addRole('ROLE_STAFF');
 
-            return $user;
-        };
+                    return $user;
+                };
 
         $this->allowedMemberOf['default'] = $this->allowedMemberOf['PersonaleTA'];
 
         $this->allowedMemberOf['Docente'] = function (User $user) {
-            $user->setLegacyGroups(LegacyRoles::DOCENTE);
-            $user->addRole('ROLE_PROFESSOR');
+                    $user->setLegacyGroups(LegacyRoles::DOCENTE);
+                    $user->addRole('ROLE_PROFESSOR');
 
-            return $user;
-        };
+                    return $user;
+                };
 
         $this->allowedMemberOf['Studente'] = function (User $user) {
-            $user->setLegacyGroups(LegacyRoles::STUDENTE);
-            $user->addRole('ROLE_STUDENT');
-            $user->setUsernameLocked(false);
+                    $user->setLegacyGroups(LegacyRoles::STUDENTE);
+                    $user->addRole('ROLE_STUDENT');
+                    $user->setUsernameLocked(false);
 
-            return $user;
-        };
+                    return $user;
+                };
     }
 
     /**
@@ -93,30 +91,25 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
      */
     public function loadUserByClaims(array $claims)
     {
-        try {
-            // eppn              : unibo.it e-mail address
-            // givenName         : first name
-            // idAnagraficaUnica : person unique id
-            // isMemberOf        : group: Docente, Studente, PersonaleTA or empty
-            // sn                : surname
-            $requiredKeys = array(
-                    'eppn',
-                    'givenName',
-                    'idAnagraficaUnica',
-                    'isMemberOf',
-                    'sn'
-            );
+        // eppn              : unibo.it e-mail address
+        // givenName         : first name
+        // idAnagraficaUnica : person unique id
+        // isMemberOf        : group: Docente, Studente, PersonaleTA or empty
+        // sn                : surname
+        $requiredKeys = array(
+            'eppn',
+            'givenName',
+            'idAnagraficaUnica',
+            'isMemberOf',
+            'sn'
+        );
 
-            $missingKeys = array_diff($requiredKeys, array_keys($claims));
-            if (count($missingKeys) > 0) {
-                throw new AuthenticationException('Missing claims: '.implode(', ', $missingKeys));
-            }
-
-            return $this->doLoadUserByClaims($claims);
-        } catch (AuthenticationException $e) {
-            $this->logger->err('loadUserByClaims exception: '.$e->getMessage());
-            throw $e;
+        $missingKeys = array_diff($requiredKeys, array_keys($claims));
+        if (count($missingKeys) > 0) {
+            throw new AuthenticationException('Missing claims: ' . implode(', ', $missingKeys));
         }
+
+        return $this->doLoadUserByClaims($claims);
     }
 
     /**
@@ -131,7 +124,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         try {
             return $this->ensureUser($claims['eppn'], $claims['isMemberOf'], $person);
         } catch (DBALException $e) {
-            throw new AuthenticationException('DBAL exception: '.$e->getMessage());
+            throw new AuthenticationException('DBAL exception: ' . $e->getMessage());
         }
     }
 
@@ -169,7 +162,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         $user->setPerson($person);
         $user->setLastLogin(new DateTime());
         $user->setMemberOf($memberOf);
-        $user->setPlainPassword(substr(sha1(rand(1,65536)), 0, rand(8,12)));
+        $user->setPlainPassword(substr(sha1(rand(1, 65536)), 0, rand(8, 12)));
 
         $this->userManager->updateUser($user);
 
@@ -181,9 +174,9 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
             try {
                 return $this->userRepository->findOneNotLocked($user->getPerson());
             } catch (NonUniqueResultException $e) {
-                throw new AuthenticationException('Non unique result: '.$e->getMessage());
+                throw new AuthenticationException('Non unique result: ' . $e->getMessage());
             } catch (NoResultException $e) {
-                throw new AuthenticationException('No result: '.$e->getMessage());
+                throw new AuthenticationException('No result: ' . $e->getMessage());
             }
         }
 
@@ -203,4 +196,5 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
         return $okUsername;
     }
+
 }
