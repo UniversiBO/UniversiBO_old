@@ -173,7 +173,7 @@ class Contact
      * @param  DateTime $verifiedAt
      * @return Contact
      */
-    public function setVerifiedAt(DateTime $verifiedAt)
+    public function setVerifiedAt(DateTime $verifiedAt = null)
     {
         $this->verifiedAt = $verifiedAt;
 
