@@ -57,6 +57,7 @@ class ContactController extends Controller
 
         $user->getContacts()->remove($contact);
         $user->ensureContact();
+        $contact->setUser(null);
 
         $em = $this->getDoctrine()->getEntityManager();
         $em->remove($contact);
