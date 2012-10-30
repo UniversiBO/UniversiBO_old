@@ -17,9 +17,13 @@ class Version20121030125240 extends AbstractMigration
         
         $this->addSql("ALTER TABLE fos_user ADD encoder_name VARCHAR(15) DEFAULT NULL");
         
-        $this->addSql("UPDATE fos_user fu SET salt = (SELECT u.salt FROM utente u WHERE u.id_utente = fu.id)");
-        $this->addSql("UPDATE fos_user fu SET password = (SELECT u.password FROM utente u WHERE u.id_utente = fu.id)");
-        $this->addSql("UPDATE fos_user fu SET encoder_name = (SELECT u.algoritmo FROM utente u WHERE u.id_utente = fu.id)");
+        $map = array ('salt' => 'salt', 'password' => 'password', 'encoder_name' => 'algoritmo');
+        
+        foreach($map as $target => $source) {
+            $subquery = "SELECT u.$source FROM utente u WHERE u.id_utente = fu.id";
+            
+            $this->addSql("UPDATE fos_user fu SET $target = ($subquery) WHERE EXISTS($subquery)");
+        }
     }
 
     public function down(Schema $schema)
