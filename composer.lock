@@ -1,5 +1,5 @@
 {
-    "hash": "ff51e7298a6032aeead1e8dc777e9134",
+    "hash": "7c665899c3b1957d86079e61233bb4e0",
     "packages": [
         {
             "name": "doctrine/common",
@@ -470,6 +470,51 @@
             "keywords": [
                 "database",
                 "orm"
+            ]
+        },
+        {
+            "name": "friendsofsymfony/advanced-encoder-bundle",
+            "version": "dev-master",
+            "target-dir": "FOS/AdvancedEncoderBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfSymfony/FOSAdvancedEncoderBundle",
+                "reference": "9c69e092db63d21d9c6e22991ae5e5bbaf45c1ac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/FriendsOfSymfony/FOSAdvancedEncoderBundle/zipball/9c69e092db63d21d9c6e22991ae5e5bbaf45c1ac",
+                "reference": "9c69e092db63d21d9c6e22991ae5e5bbaf45c1ac",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": "2.1.*",
+                "symfony/security-bundle": "2.1.*"
+            },
+            "time": "1340143509",
+            "type": "symfony-bundle",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "FOS\\AdvancedEncoderBundle": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christophe Coevoet",
+                    "email": "stof@notk.org"
+                }
+            ],
+            "description": "Symfony2 bundle adding a way to specify the encoder on a user instance basis",
+            "homepage": "https://github.com/friendsofsymfony/FOSAdvancedEncoderBundle",
+            "keywords": [
+                "Symfony2",
+                "security",
+                "encoder"
             ]
         },
         {
@@ -2196,6 +2241,7 @@
         "doctrine/migrations": 20,
         "doctrine/doctrine-migrations-bundle": 20,
         "friendsofsymfony/user-bundle": 20,
+        "friendsofsymfony/advanced-encoder-bundle": 20,
         "kriswallsmith/assetic": 20,
         "twig/extensions": 20,
         "universibo/shibboleth-bundle": 20,
