@@ -17,7 +17,7 @@ class Version20121026172131 extends AbstractMigration
         
         $roles = array (
                 'ROLE_STUDENT' => 2,
-                'ROLE_COLLABORATOR' => 4,
+                'ROLE_MODERATOR' => 4,
                 'ROLE_TUTOR' => 8,
                 'ROLE_PROFESSOR' => 16,
                 'ROLE_STAFF' => 32,
