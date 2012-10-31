@@ -195,7 +195,7 @@ class Contact
      *
      * @return boolean
      */
-    public function isValidationSent()
+    public function isTokenSent()
     {
         return $this->verificationSentAt !== null;
     }
