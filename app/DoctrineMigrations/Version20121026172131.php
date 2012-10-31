@@ -94,6 +94,24 @@ INSERT
     (
         user_id,
         value,
+    )
+    SELECT
+        id_utente,
+        email,
+    FROM
+        utente
+    WHERE
+            sospeso = 'N'
+        AND ad_username <> email
+EOT;
+        $this->addSql($query);
+        
+        $query =<<<EOT
+INSERT 
+    INTO contacts
+    (
+        user_id,
+        value,
         verified_at
     )
     SELECT
@@ -104,6 +122,7 @@ INSERT
         utente
     WHERE
             sospeso = 'N'
+        AND ad_username = email
 EOT;
         $this->addSql($query);
         
