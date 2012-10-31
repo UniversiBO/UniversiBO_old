@@ -80,7 +80,7 @@ class ProfileController extends Controller
             }
 
             $verificationService = $this->get('universibo_website.contact.verification');
-            $verificationService->sendVerificationEmails();
+            $verificationService->sendVerificationEmails($user);
 
             $userManager->updateUser($user);
             $em->flush();
