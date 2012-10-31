@@ -180,6 +180,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         $user->setUsername($this->getAvailableUsername($eppn));
         $user->setEmail($eppn);
         $user->setPerson($person);
+        $user->setPlainPassword(sha1(uniqid()));
         $user->setLastLogin(new DateTime());
 
         $this->setUserGroup($user, $isMemberOf);
