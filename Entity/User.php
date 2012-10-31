@@ -268,7 +268,6 @@ class User extends BaseUser implements EncoderAwareInterface
             $this->phone,
             $this->notifications,
             $this->legacyGroups,
-            $this->memberOf,
             $this->usernameLocked
         ));
     }
@@ -298,7 +297,6 @@ class User extends BaseUser implements EncoderAwareInterface
             $this->phone,
             $this->notifications,
             $this->legacyGroups,
-            $this->memberOf,
             $this->usernameLocked
         ) = $data;
     }
