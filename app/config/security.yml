@@ -45,6 +45,7 @@ security:
                 invalidate_session: false
             shibboleth: ~
     access_control:
+      - { path: ^/_internal, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
       - { path: ^/my, roles: IS_AUTHENTICATED_FULLY }
       - { path: \badd\b, roles: IS_AUTHENTICATED_FULLY }
       - { path: \badmin\b, roles: IS_AUTHENTICATED_FULLY }
