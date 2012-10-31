@@ -97,7 +97,7 @@ INSERT
     )
     SELECT
         id_utente,
-        email,
+        email
     FROM
         utente
     WHERE
