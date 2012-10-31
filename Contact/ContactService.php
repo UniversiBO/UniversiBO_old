@@ -20,7 +20,7 @@ class ContactService
         $emails = array();
         
         foreach($user->getContacts() as $contact) {
-            if($contact->isVerified()) {
+            if($contact->isVerified() || !$contact->isVerificationSent()) {
                 $emails[] = $contact->getValue();
             }
         }
