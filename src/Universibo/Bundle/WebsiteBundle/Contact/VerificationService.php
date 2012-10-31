@@ -63,7 +63,7 @@ class VerificationService
     public function sendVerificationEmails(User $user)
     {
         foreach ($user->getContacts() as $contact) {
-            if (!$contact->isValidated() && !$contact->isValidationSent() ) {
+            if (!$contact->isVerified() && !$contact->isTokenSent() ) {
                 if ($contact->getValue() === $user->getEmail()) {
                     $contact->setValidatedAt(new DateTime());
                 } else {
