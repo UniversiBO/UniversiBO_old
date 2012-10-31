@@ -25,9 +25,10 @@ Rimuovendo tutti gli indirizzi la mail di contatto sarà reimpostata a
     (ricevi le notifiche urgenti via SMS)
     </div>
     {{ form_label(form.contacts) }}
+    {% form_theme form.contacts.vars.prototype with 'UniversiboWebsiteBundle:Profile:fields.html.twig' %}
     <ul class="contacts" data-prototype="{{ form_widget(form.contacts.vars.prototype)|e }}">
     {% for contact in form.contacts %}
-        {% form_theme contact.value with 'UniversiboWebsiteBundle:Profile:fields.html.twig' %}
+
         <li>{{ form_row(contact.value) }}</li>
     {% endfor %}
     </ul><br/>
