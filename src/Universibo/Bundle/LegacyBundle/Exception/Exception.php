@@ -1,6 +1,6 @@
 <?php
 
-namespace Universibo;
+namespace Universibo\Bundle\LegacyBundle\Exception;
 
 /**
  * @author Davide Bellettini

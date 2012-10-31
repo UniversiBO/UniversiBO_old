@@ -2,6 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\App;
 
 use \Error;
+use Universibo\Bundle\LegacyBundle\Exception\Exception;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\Framework\LogHandler;
 
@@ -38,7 +39,7 @@ class ErrorHandlers
      */
     public function critical_handler($param)
     {
-        throw new \Exception($param['msg']);
+        throw new Exception($param['msg']);
     }
 
     /**
