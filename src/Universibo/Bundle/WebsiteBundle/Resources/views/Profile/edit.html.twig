@@ -27,6 +27,7 @@ Rimuovendo tutti gli indirizzi la mail di contatto sarà reimpostata a
     {{ form_label(form.contacts) }}
     <ul class="contacts" data-prototype="{{ form_widget(form.contacts.vars.prototype)|e }}">
     {% for contact in form.contacts %}
+        {% form_theme contact.value with 'UniversiboWebsiteBundle:Profile:fields.html.twig' %}
         <li>{{ form_row(contact.value) }}</li>
     {% endfor %}
     </ul><br/>

@@ -1,0 +1,16 @@
+{% use 'form_div_layout.html.twig' with form_widget_simple as base_form_widget_simple %}
+
+{% block form_widget_simple %}
+    {{ block('base_form_widget_simple') }}&nbsp;
+    {% if form.parent.vars.value.verified %}
+    <img src="{{ asset('/bundles/universibowebsite/images/action_check.png')}}"
+        alt="Indirizzo verificato" title="Indirizzo verificato"/>
+    {% else %}
+    <img src="{{ asset('/bundles/universibowebsite/images/time.png')}}"
+        alt="Indirizzo in attesa di verifica" title="Indirizzo in attesa di verifica"/>
+    {% endif %}
+    <a href="#" class="remove-item"><img src="{{ asset('/bundles/universibowebsite/images/action_delete.png')}}"
+                     alt="Elimina" title="Elimina"/></a>
+
+
+{% endblock %}

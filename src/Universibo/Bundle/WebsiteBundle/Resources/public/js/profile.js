@@ -37,8 +37,7 @@ function addContactForm(collectionHolder, $newLinkLi) {
 }
 
 function addTagFormDeleteLink($tagFormLi) {
-    var $removeFormA = $('<a href="#">Rimuovi</a>');
-    $tagFormLi.find('input').first().after($removeFormA);
+    var $removeFormA = $tagFormLi.find('.remove-item').last();
 
     $removeFormA.on('click', function(e) {
         // prevent the link from creating a "#" on the URL
