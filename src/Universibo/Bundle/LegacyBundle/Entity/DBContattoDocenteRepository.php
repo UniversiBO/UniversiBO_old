@@ -117,7 +117,7 @@ class DBContattoDocenteRepository extends DBRepository
     {
         $db = $this->getDb();
 
-        $cod = $this->getCodDoc();
+        $cod = $contattoDocente->getCodDoc();
         ignore_user_abort(1);
         $db->autoCommit(false);
 
