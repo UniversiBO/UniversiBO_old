@@ -93,7 +93,7 @@ INSERT
     INTO contacts
     (
         user_id,
-        value,
+        value
     )
     SELECT
         id_utente,
