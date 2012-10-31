@@ -32,9 +32,18 @@ class UserRepository extends EntityRepository
         return $this->findOneByUsername($username) instanceof User;
     }
 
-    public function search($usernameQuery, $mailQuery)
+    public function search($usernameQuery, $mailQuery, $showLocked = false,
+            $showDisabled = false)
     {
         $qb = $this->createQueryBuilder('u');
+        
+        if(!$showLocked) {
+            $qb->andWhere('u.locked = false');
+        }
+        
+        if(!$showDisabled) {
+            $qb->andWhere('u.enabled = true');
+        }
 
         if (strlen($usernameQuery) > 0) {
             $qb->andWhere('u.usernameCanonical LIKE ?0');
