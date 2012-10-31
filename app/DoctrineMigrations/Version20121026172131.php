@@ -93,11 +93,13 @@ INSERT
     INTO contacts
     (
         user_id,
-        value
+        value,
+        verified_at
     )
     SELECT
         id_utente,
-        email
+        email,
+        localtimestamp
     FROM
         utente
     WHERE
