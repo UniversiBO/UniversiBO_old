@@ -78,6 +78,7 @@
                     <argument>%mailer_from%</argument>
                     <argument>%mailer_from_name%</argument>
                     <argument type="service" id="templating"/>
+                    <argument type="service" id="doctrine.orm.entity_manager"/>
                 </service>
 	</services>
 </container>
