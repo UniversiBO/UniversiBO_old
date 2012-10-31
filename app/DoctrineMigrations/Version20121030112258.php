@@ -32,10 +32,11 @@ class Version20121030112258 extends AbstractMigration
             'Tutors'              => array(),
             'Professors'          => array(),
             'Staff'               => array(),
-            'MemberOfStudente'    => array(), 
+            'MemberOfAccreditato' => array(),
             'MemberOfDocente'     => array(), 
+            'MemberOfEsterno'     => array(),
             'MemberOfPersonaleTA' => array(), 
-            'MemberOfEmpty'       => array()
+            'MemberOfStudente'    => array(), 
         );
         
         $sql = 'INSERT INTO fos_group (name, roles) VALUES (?, ?)';
