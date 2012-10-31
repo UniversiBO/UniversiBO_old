@@ -13,6 +13,7 @@ use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\ForumBundle\Security\ForumSession\ForumSessionInterface;
 use Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepLogRepository;
 use Universibo\Bundle\LegacyBundle\Service\PrivacyService;
+use Universibo\Bundle\WebsiteBundle\Contact\VerificationService;
 
 /**
  * Privacy policy listener
@@ -43,18 +44,26 @@ class PrivacyListener
     private $router;
 
     /**
+     * Verification service
+     *
+     * @var VerificationService
+     */
+    private $verificationService;
+
+    /**
      *
      * @param SecurityContextInterface $securityContext
      * @param StepLogRepository        $stepLogRepository
      */
     public function __construct(SecurityContextInterface $securityContext,
             RouterInterface $router, PrivacyService $privacyService,
-            ForumSessionInterface $forumSession)
+            ForumSessionInterface $forumSession, VerificationService $verificationService)
     {
         $this->securityContext = $securityContext;
         $this->router = $router;
         $this->privacyService = $privacyService;
         $this->forumSession = $forumSession;
+        $this->verificationService = $verificationService;
     }
 
     /**
@@ -88,6 +97,7 @@ class PrivacyListener
         if ($accepted) {
             $session->set($key, true);
             $this->handleForumLogin($user, $request, $event);
+            $this->verificationService->sendVerificationEmails($user);
 
             return;
         }

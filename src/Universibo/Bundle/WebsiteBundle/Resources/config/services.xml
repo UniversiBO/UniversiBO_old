@@ -41,6 +41,7 @@
                     <argument type="service" id="router"/>
                     <argument type="service" id="universibo_legacy.service.privacy"/>
                     <argument type="service" id="universibo_forum.session"/>
+                    <argument type="service" id="universibo_website.contact.verification"/>
 
                     <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
                 </service>
