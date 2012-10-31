@@ -59,7 +59,7 @@ class ProfileController extends Controller
                 $email = $contact->getValue();
                 if (!in_array($email, $originalEmails) && $email !== $user->getEmail()) {
                     $contact->setVerificationSentAt(null);
-                    $contact->setValidatedAt(null);
+                    $contact->setVerifiedAt(null);
                     $toVerify[] = $contact;
                 }
 

@@ -65,7 +65,7 @@ class VerificationService
         foreach ($user->getContacts() as $contact) {
             if (!$contact->isVerified() && !$contact->isTokenSent() ) {
                 if ($contact->getValue() === $user->getEmail()) {
-                    $contact->setValidatedAt(new DateTime());
+                    $contact->setVerifiedAt(new DateTime());
                 } else {
                     $bytes = openssl_random_pseudo_bytes(32);
                     $contact->setVerificationToken(sha1($bytes));
