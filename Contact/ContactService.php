@@ -21,7 +21,7 @@ class ContactService
         
         foreach($user->getContacts() as $contact) {
             if($contact->isVerified()) {
-                $emails[] = $contact->getEmail();
+                $emails[] = $contact->getValue();
             }
         }
         
