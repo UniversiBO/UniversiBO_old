@@ -150,7 +150,7 @@ class Contact
      * @param  DateTime $verificationSentAt
      * @return Contact
      */
-    public function setVerificationSentAt(DateTime $verificationSentAt)
+    public function setVerificationSentAt(DateTime $verificationSentAt = null)
     {
         $this->verificationSentAt = $verificationSentAt;
 
@@ -188,5 +188,15 @@ class Contact
     public function isVerified()
     {
         return $this->verifiedAt !== null;
+    }
+    
+    /**
+     * Returns true if verification has been sent
+     *
+     * @return boolean
+     */
+    public function isValidationSent()
+    {
+        return $this->verificationSentAt !== null;
     }
 }
