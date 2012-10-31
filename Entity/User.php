@@ -44,14 +44,6 @@ class User extends BaseUser implements EncoderAwareInterface
     protected $encoderName;
 
     /**
-     * Unibo memberOf attribuite
-     *
-     * @ORM\Column(type="string",length=15,nullable=true,name="member_of")
-     * @var string
-     */
-    protected $memberOf;
-
-    /**
      * Mobile phone number
      *
      * @Assert\Regex("/^\+39[0-9]{9,10}$/")
@@ -208,28 +200,6 @@ class User extends BaseUser implements EncoderAwareInterface
     public function isGroupAllowed($groups)
     {
         return (bool) ($groups & $this->legacyGroups);
-    }
-
-    /**
-     * Unibo memberOf attribute getter
-     *
-     * @return string
-     */
-    public function getMemberOf()
-    {
-        return $this->memberOf;
-    }
-
-    /**
-     * Unibo memberOf attribute setter
-     * @param  string $memberOf
-     * @return User
-     */
-    public function setMemberOf($memberOf)
-    {
-        $this->memberOf = $memberOf;
-
-        return $this;
     }
 
     /**
