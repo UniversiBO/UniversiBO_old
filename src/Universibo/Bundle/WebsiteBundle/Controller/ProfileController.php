@@ -57,7 +57,9 @@ class ProfileController extends Controller
                 $contact->setUser($user);
 
                 $email = $contact->getValue();
-                if (!in_array($email, $originalEmail) && $email !== $user->getEmail()) {
+                if (!in_array($email, $originalEmails) && $email !== $user->getEmail()) {
+                    $contact->setVerificationSentAt(null);
+                    $contact->setValidatedAt(null);
                     $toVerify[] = $contact;
                 }
 
@@ -73,30 +75,12 @@ class ProfileController extends Controller
                 $em->remove($contact);
             }
 
-            $mailer = $this->get('mailer');
-            $mailFrom = array(
-                $this->container->getParameter('mailer_from') =>
-                $this->container->getParameter('mailer_from_name')
-            );
-
             foreach ($toVerify as $contact) {
-                $bytes = openssl_random_pseudo_bytes(32);
-                $contact->setVerificationToken(sha1($bytes));
-                $contact->setVerificationSentAt(new \DateTime());
                 $contact->setVerifiedAt(null);
-
-                $body = $this->renderView('UniversiboWebsiteBundle:Profile:emailValidation.txt.twig',
-                        array('user' => $user, 'contact' => $contact));
-
-                $message = \Swift_Message::newInstance()
-                    ->setTo($contact->getValue())
-                    ->setSubject('[UniversiBO] Verifica Indirizzo E-mail')
-                    ->setBody($body)
-                    ->setFrom($mailFrom)
-                ;
-
-                $mailer->send($message);
             }
+
+            $verificationService = $this->get('universibo_website.contact.verification');
+            $verificationService->sendVerificationEmails();
 
             $userManager->updateUser($user);
             $em->flush();

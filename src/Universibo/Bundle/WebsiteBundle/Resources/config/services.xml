@@ -71,5 +71,13 @@
                     <argument type="service" id="universibo_forum.dao.post"/>
                     <argument type="service" id="universibo_forum.dao.user"/>
                 </service>
+
+                <service id="universibo_website.contact.verification"
+                         class="Universibo\Bundle\WebsiteBundle\Contact\VerificationService">
+                    <argument type="service" id="mailer"/>
+                    <argument>%mailer_from%</argument>
+                    <argument>%mailer_from_name%</argument>
+                    <argument type="service" id="templating"/>
+                </service>
 	</services>
 </container>
