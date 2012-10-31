@@ -194,7 +194,7 @@ Link: ' . $router->generate('universibo_legacy_contact_professor', array('cod_do
 
                 if ($notifica_user instanceof User) {
                     $contactService = $this->get('universibo_core.contact.service');
-                    foreach ($contactService->getEmails($notifica_user) as $email) {
+                    foreach ($contactService->getUserEmails($notifica_user) as $email) {
                         $notifica_destinatario = 'mail://' . $email;
                         $notifica = new NotificaItem(0, $notifica_titolo,
                             $notifica_messaggio, $notifica_dataIns,
