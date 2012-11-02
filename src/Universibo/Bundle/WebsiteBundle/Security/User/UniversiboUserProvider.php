@@ -115,6 +115,8 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         }
 
         $this->entityManager->commit();
+
+        return $user;
     }
 
     /**
