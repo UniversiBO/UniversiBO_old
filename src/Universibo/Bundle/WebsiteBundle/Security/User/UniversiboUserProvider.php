@@ -357,6 +357,23 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
     private function pickUser(array $users)
     {
-        throw new Exception('TODO: implement pickUser');
+        $studio = array();
+        $nonStudio = array();
+
+        foreach ($users as $user) {
+            if (preg_match('/@studio.unibo.it$/', $user->getEmail())) {
+                $studio[$user->getId()] = $user;
+            } else {
+                $nonStudio[$user->getId()] = $user;
+            }
+        }
+
+        if (count($nonStudio) > 0) {
+            $key = min(array_keys($nonStudio));
+        } else {
+            $key = min(array_keys($studio));
+        }
+
+        return $users[$key];
     }
 }
