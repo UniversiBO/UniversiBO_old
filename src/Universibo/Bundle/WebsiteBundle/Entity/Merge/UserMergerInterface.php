@@ -1,6 +1,7 @@
 <?php
 namespace Universibo\Bundle\WebsiteBundle\Entity\Merge;
 
+use LogicException;
 use Universibo\Bundle\CoreBundle\Entity\Person;
 use Universibo\Bundle\CoreBundle\Entity\User;
 
@@ -19,7 +20,7 @@ interface UserMergerInterface
      * @param User  $target
      * @param array $others user to merge and lock
      */
-    public function merge(User $target, array $others);
+    public function merge(User $target, array $others, Person $person = null);
 
     /**
      * Gets the resources owned by a user (files, etc)
@@ -27,4 +28,13 @@ interface UserMergerInterface
      * @return array
      */
     public function getOwnedResources(User $user);
+
+    /**
+     * Gets the target person
+     *
+     * @param  array          $users
+     * @return User|null
+     * @throws LogicException if users belong to different people
+     */
+    public function getTargetPerson(array $users);
 }

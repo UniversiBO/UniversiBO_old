@@ -86,6 +86,9 @@ class UserMergeCommand extends ContainerAwareCommand
             $users[$id] = $user;
         }
 
+        $merger = $this->get('universibo_website.merge.user');
+        $person = $merger->getTargetPerson($users);
+
         $dialog = $this->getHelperSet()->get('dialog');
 
         $key = array_search($input->getOption('target'), $usernames);
@@ -106,7 +109,7 @@ class UserMergeCommand extends ContainerAwareCommand
         $others = array_diff($users, array($target));
 
         $start = microtime(true);
-        $this->get('universibo_website.merge.user')->merge($target, $others);
+        $merger->merge($target, $others, $person);
         $elapsed = microtime(true) - $start;
 
         if ($elapsed < 1.0) {

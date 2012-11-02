@@ -2,6 +2,7 @@
 
 namespace Universibo\Bundle\WebsiteBundle\Entity\Merge;
 
+use LogicException;
 use Universibo\Bundle\CoreBundle\Entity\Person;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
@@ -114,18 +115,56 @@ class UserMerger implements UserMergerInterface
         return $unlockedUsers;
     }
 
-    public function merge(User $target, array $others)
+    public function merge(User $target, array $others, Person $person = null)
     {
+        $users = $others;
+        $users[] = $target;
+
+        if ($person === null) {
+            $person = $this->getTargetPerson($users);
+        }
+
         foreach ($this->retrievers as $retriever) {
             foreach ($others as $source) {
                 $retriever['repository']->transferOwnership($source, $target);
 
                 $source->setLocked(true);
+                $source->setPerson($person);
                 $this->userRepository->save($source);
             }
         }
 
+        $target->setPerson($person);
         $target->setLocked(false);
         $this->userRepository->save($target);
+    }
+
+    /**
+     * Gets the target person
+     *
+     * @param  array          $users
+     * @return Person|null
+     * @throws LogicException
+     */
+    public function getTargetPerson(array $users)
+    {
+        $people = array();
+
+        foreach ($users as $user) {
+            $person = $user->getPerson();
+            if ($person !== null) {
+                $people[$person->getId()] = $person;
+            }
+        }
+
+        if (count($people) === 0) {
+            return null;
+        }
+
+        if (count($people) > 1) {
+            throw new LogicException('Users belong to different people');
+        }
+
+        return $people[0];
     }
 }
