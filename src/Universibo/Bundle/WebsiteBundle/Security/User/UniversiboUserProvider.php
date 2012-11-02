@@ -93,11 +93,14 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
     public function loadUserByClaims(array $claims)
     {
         $this->ensureClaimsAvailable($claims);
+
+        // i want to keep person even if transaction fails
+        $person = $this->findOrCreatePerson($claims['idAnagraficaUnica'],
+                $claims['givenName'], $claims['sn']);
+
         $this->entityManager->beginTransaction();
 
         try {
-            $person = $this->findOrCreatePerson($claims['idAnagraficaUnica'], $claims['givenName'], $claims['sn']);
-
             $user = $this->loadUser($person);
 
             if ($user === null) {
@@ -109,6 +112,12 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
             } else {
                 $user->setPerson($person);
                 $user = $this->updateGroupAndEmail($user, $claims['eppn'], $claims['isMemberOf']);
+            }
+
+            if ($this->userRepository->countByPerson($person) > 1) {
+                if (!$this->automerge($person)) {
+                    throw new AuthenticationException('Person with multiple users');
+                }
             }
         } catch (Exception $e) {
             $this->entityManager->rollback();
@@ -291,4 +300,15 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         return $group;
     }
 
+    /**
+     * Auto merging function
+     *
+     * @todo method stub
+     * @param  \Universibo\Bundle\CoreBundle\Entity\Person $person
+     * @return boolean
+     */
+    private function automerge(Person $person)
+    {
+        return false;
+    }
 }
