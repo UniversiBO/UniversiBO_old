@@ -6,6 +6,7 @@ use DateTime;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
+use Exception;
 use FOS\UserBundle\Model\UserManager;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -109,7 +110,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
                 $user->setPerson($person);
                 $user = $this->updateGroupAndEmail($user, $claims['eppn'], $claims['isMemberOf']);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->entityManager->rollback();
             throw $e;
         }
