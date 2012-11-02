@@ -94,16 +94,19 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
     public function loadUserByClaims(array $claims)
     {
         $this->ensureClaimsAvailable($claims);
+        $this->entityManager->beginTransaction();
         $person = $this->findOrCreatePerson($claims['idAnagraficaUnica'],
                 $claims['givenName'], $claims['sn']);
 
         $user = $this->loadUser($person);
 
         if ($user === null) {
-            return $this->createUser($person, $claims['eppn'], $claims['isMemberOf']);
+            $user = $this->createUser($person, $claims['eppn'], $claims['isMemberOf']);
+        } else {
+            $user = $this->updateGroupAndEmail($user, $claims['eppn'], $claims['isMemberOf']);
         }
 
-        return $this->updateGroupAndEmail($user, $claims['eppn'], $claims['isMemberOf']);
+        $this->entityManager->commit();
     }
 
     /**
