@@ -51,11 +51,11 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
      * @var array
      */
     private static $groupMap = array(
-        'default'  => array(
+        'default' => array(
             'legacy' => LegacyRoles::PERSONALE,
             'locked' => true
         ),
-        'Docente'  => array(
+        'Docente' => array(
             'legacy' => LegacyRoles::DOCENTE,
             'locked' => true
         ),
@@ -73,9 +73,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
      * @param PersonRepository $personRepository
      * @param LoggerInterface  $logger
      */
-    public function __construct(EntityManager $entityManager,
-            UserRepository $userRepository, UserManager $userManager,
-            PersonRepository $personRepository, GroupRepository $groupRepository)
+    public function __construct(EntityManager $entityManager, UserRepository $userRepository, UserManager $userManager, PersonRepository $personRepository, GroupRepository $groupRepository)
     {
         $this->entityManager = $entityManager;
         $this->userRepository = $userRepository;
@@ -95,15 +93,20 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
     {
         $this->ensureClaimsAvailable($claims);
         $this->entityManager->beginTransaction();
-        $person = $this->findOrCreatePerson($claims['idAnagraficaUnica'],
-                $claims['givenName'], $claims['sn']);
 
-        $user = $this->loadUser($person);
+        try {
+            $person = $this->findOrCreatePerson($claims['idAnagraficaUnica'], $claims['givenName'], $claims['sn']);
 
-        if ($user === null) {
-            $user = $this->createUser($person, $claims['eppn'], $claims['isMemberOf']);
-        } else {
-            $user = $this->updateGroupAndEmail($user, $claims['eppn'], $claims['isMemberOf']);
+            $user = $this->loadUser($person);
+
+            if ($user === null) {
+                $user = $this->createUser($person, $claims['eppn'], $claims['isMemberOf']);
+            } else {
+                $user = $this->updateGroupAndEmail($user, $claims['eppn'], $claims['isMemberOf']);
+            }
+        } catch (\Exception $e) {
+            $this->entityManager->rollback();
+            throw $e;
         }
 
         $this->entityManager->commit();
@@ -242,7 +245,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
             $user->setLegacyGroups(self::$groupMap[$key]['legacy']);
         }
 
-        $user->setUsernameLocked($usernameLocked||self::$groupMap[$key]['locked']);
+        $user->setUsernameLocked($usernameLocked || self::$groupMap[$key]['locked']);
 
         $this->addFosGroup($user, $isMemberOf);
     }
@@ -255,7 +258,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
      */
     private function addFosGroup(User $user, $isMemberOf)
     {
-        $groupName = 'MemberOf'.(!empty($isMemberOf) ? ucfirst($isMemberOf) : 'Empty');
+        $groupName = 'MemberOf' . (!empty($isMemberOf) ? ucfirst($isMemberOf) : 'Empty');
         $group = $this->findOrCreateGroup($groupName);
 
         $user->addGroup($group);
@@ -279,4 +282,5 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
         return $group;
     }
+
 }
