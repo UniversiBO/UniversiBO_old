@@ -304,7 +304,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
      * Auto merging function
      *
      * @todo method stub
-     * @param  \Universibo\Bundle\CoreBundle\Entity\Person $person
+     * @param  Person  $person
      * @return boolean
      */
     private function automerge(Person $person)
