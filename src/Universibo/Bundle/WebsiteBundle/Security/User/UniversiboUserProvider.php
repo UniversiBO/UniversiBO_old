@@ -18,6 +18,7 @@ use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 use Universibo\Bundle\ShibbolethBundle\Security\User\ShibbolethUserProviderInterface;
+use Universibo\Bundle\WebsiteBundle\Entity\Merge\UserMergerInterface;
 
 class UniversiboUserProvider implements ShibbolethUserProviderInterface
 {
@@ -47,6 +48,11 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
     private $groupRepository;
 
     /**
+     * @var UserMergerInterface
+     */
+    private $userMerger;
+
+    /**
      * MemberOf -> Group mapping
      *
      * @var array
@@ -69,18 +75,23 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
     /**
      * Class constructor
      *
-     * @param UserRepository   $userRepository
-     * @param UserManager      $userManager
-     * @param PersonRepository $personRepository
-     * @param LoggerInterface  $logger
+     * @param UserRepository      $userRepository
+     * @param UserManager         $userManager
+     * @param PersonRepository    $personRepository
+     * @param LoggerInterface     $logger
+     * @param UserMergerInterface $userMerger
      */
-    public function __construct(EntityManager $entityManager, UserRepository $userRepository, UserManager $userManager, PersonRepository $personRepository, GroupRepository $groupRepository)
+    public function __construct(EntityManager $entityManager,
+            UserRepository $userRepository, UserManager $userManager,
+            PersonRepository $personRepository, GroupRepository $groupRepository,
+            UserMergerInterface $userMerger)
     {
         $this->entityManager = $entityManager;
         $this->userRepository = $userRepository;
         $this->userManager = $userManager;
         $this->personRepository = $personRepository;
         $this->groupRepository = $groupRepository;
+        $this->userMerger = $userMerger;
     }
 
     /**
@@ -115,7 +126,8 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
             }
 
             if ($this->userRepository->countByPerson($person) > 1) {
-                if (!$this->automerge($person)) {
+                $user = $this->automerge($person);
+                if ($user === null) {
                     throw new AuthenticationException('Person with multiple users');
                 }
             }
@@ -309,6 +321,42 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
      */
     private function automerge(Person $person)
     {
-        return false;
+        $merger = $this->userMerger;
+        $users = $merger->getUsersFromPerson($person);
+
+        $usersWithResources = array();
+
+        foreach ($users as $user) {
+            $resources = $merger->getOwnedResources($user);
+            unset($resources['roles']);
+
+            $count = 0;
+            foreach ($resources as $resource) {
+                $count += $resource['count'];
+            }
+
+            if ($count > 0) {
+                $usersWithResources[$user->getId()] = $user;
+            }
+        }
+
+        if (count($usersWithResources) > 1) {
+            return null;
+        }
+
+        if (count($usersWithResources) === 1) {
+            $target = $usersWithResources[0];
+        } else {
+            $target = $this->pickUser($users);
+        }
+
+        $others = array_diff($users, array($target));
+
+        $this->userMerger->merge($target, $others, $person);
+    }
+
+    private function pickUser(array $users)
+    {
+        throw new Exception('TODO: implement pickUser');
     }
 }
