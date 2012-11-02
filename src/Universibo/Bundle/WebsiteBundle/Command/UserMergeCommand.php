@@ -86,7 +86,6 @@ class UserMergeCommand extends ContainerAwareCommand
             $users[$id] = $user;
         }
 
-        $merger = $this->get('universibo_website.merge.user');
         $person = $merger->getTargetPerson($users);
 
         $dialog = $this->getHelperSet()->get('dialog');
