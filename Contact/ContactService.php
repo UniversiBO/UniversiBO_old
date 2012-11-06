@@ -51,8 +51,6 @@ class ContactService
             if (!in_array($contact, $contactArray)) {
                 $user->getContacts()->removeElement($contact);
                 $this->objectManager->remove($contact);
-            } else {
-                $contacts[$contact->getValue()][] = $contact;
             }
         }
 
@@ -68,6 +66,8 @@ class ContactService
             } elseif (!$contact->isVerified()) {
                 $contact->setVerifiedAt(new \DateTime);
             }
+
+            $contacts[$contact->getValue()][] = $contact;
         }
 
         foreach ($contacts as $value => $list) {
