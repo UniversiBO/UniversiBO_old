@@ -162,6 +162,12 @@ class ContactServiceTest extends \PHPUnit_Framework_TestCase
 
         $this
             ->objectManager
+            ->expects($this->atLeastOnce())
+            ->method('flush')
+        ;
+
+        $this
+            ->objectManager
             ->expects($this->once())
             ->method('remove')
             ->with($this->isInstanceOf('Universibo\\Bundle\\CoreBundle\\Entity\\Contact'))

@@ -79,7 +79,11 @@ class ContactService
             }
         }
 
-        return $this->objectManager->merge($user);
+        $return = $this->objectManager->merge($user);
+
+        $this->objectManager->flush();
+
+        return $return;
     }
 
     /**
