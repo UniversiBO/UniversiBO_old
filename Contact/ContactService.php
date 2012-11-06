@@ -46,6 +46,8 @@ class ContactService
         }
 
         $user = $this->objectManager->merge($user);
+
+        $this->objectManager->flush($user);
         $this->objectManager->refresh($user);
 
         foreach ($user->getContacts() as $contact) {
