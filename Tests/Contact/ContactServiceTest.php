@@ -178,4 +178,34 @@ class ContactServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($mergedUser->getContacts()));
         $this->assertEquals($email2, $mergedUser->getContacts()->first()->getValue());
     }
+
+    public function testTokenSentDate()
+    {
+        $user = new User();
+
+        $email = 'test@example.com';
+        $user->setEmail($email);
+
+        $newContact = new Contact();
+        $email2 = 'test2@example.com';
+
+        $newContact->setValue($email2);
+
+        $contacts = $user->getContacts();
+        $contacts->add($newContact);
+
+        // expects goes BEFORE call
+        $this
+            ->objectManager
+            ->expects($this->atLeastOnce())
+            ->method('merge')
+            ->with($this->equalTo($user))
+            ->will($this->returnValue($user))
+        ;
+
+        $now = new DateTime;
+        $this->service->updateUserEmails($user, array(), array($email2 => $now));
+
+        $this->assertEquals($now, $newContact->getVerificationSentAt());
+    }
 }

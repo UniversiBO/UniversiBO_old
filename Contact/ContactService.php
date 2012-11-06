@@ -35,7 +35,8 @@ class ContactService
      * @param  array $oldAddresses
      * @return User
      */
-    public function updateUserEmails(User $user, $verifiedEmails = array())
+    public function updateUserEmails(User $user, array $verifiedEmails = array(),
+            array $sentAtDates = array())
     {
         $contactArray = array();
 
@@ -61,7 +62,7 @@ class ContactService
             $verified = $value === $user->getEmail() || in_array($value, $verifiedEmails);
 
             if (!$verified) {
-                $contact->setVerificationSentAt(null);
+                $contact->setVerificationSentAt(isset($sentAtDates[$value]) ? $sentAtDates[$value] : null);
                 $contact->setVerifiedAt(null);
             } elseif (!$contact->isVerified()) {
                 $contact->setVerifiedAt(new \DateTime);
