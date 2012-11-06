@@ -74,4 +74,19 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Universibo\\Bundle\\CoreBundle\\Entity\\User', $user);
         $this->assertEquals($mockedUser, $user);
     }
+
+    public function testNoPersonExistingEmailSimple()
+    {
+        $this->markTestIncomplete();
+    }
+
+    public function testExistingPersonDifferentEmailSimple()
+    {
+        $this->markTestIncomplete();
+    }
+
+    public function testExistingPersonDifferentEmailConflict()
+    {
+        $this->markTestIncomplete();
+    }
 }
