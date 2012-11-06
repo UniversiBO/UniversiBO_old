@@ -36,54 +36,23 @@ class ProfileController extends Controller
 
         $request = $this->getRequest();
         $form = $this->getUserForm();
-        $em = $this->getDoctrine()->getEntityManager();
 
-        $originalContacts = array();
-        $originalEmails = array();
+        $verifiedEmails = array();
 
         foreach ($user->getContacts() as $contact) {
-            $originalContacts[] = $contact;
-            $originalEmails[] = $contact->getValue();
+            if ($contact->isVerified()) {
+                $verifiedEmails[] = $contact->getValue();
+            }
         }
+
+        $contactService = $this->get('universibo_core.contact.service');
 
         $form->bind($request);
         if ($form->isValid()) {
-            $userManager = $this->get('fos_user.user_manager');
-
-            $user->avoidDuplicatedContacts();
-            $toVerify = array();
-
-            foreach ($user->getContacts() as $contact) {
-                $contact->setUser($user);
-
-                $email = $contact->getValue();
-                if (!in_array($email, $originalEmails) && $email !== $user->getEmail()) {
-                    $contact->setVerificationSentAt(null);
-                    $contact->setVerifiedAt(null);
-                    $toVerify[] = $contact;
-                }
-
-                foreach ($originalContacts as $key => $toDel) {
-                    if ($toDel->getId() === $contact->getId()) {
-                        unset($originalContacts[$key]);
-                    }
-                }
-            }
-
-            foreach ($originalContacts as $contact) {
-                $user->getContacts()->removeElement($contact);
-                $em->remove($contact);
-            }
-
-            foreach ($toVerify as $contact) {
-                $contact->setVerifiedAt(null);
-            }
+            $user = $contactService->updateUserEmails($user, $verifiedEmails);
 
             $verificationService = $this->get('universibo_website.contact.verification');
             $verificationService->sendVerificationEmails($user);
-
-            $userManager->updateUser($user);
-            $em->flush();
 
             $this->get('session')->setFlash('notice', 'Il tuo profilo è stato aggiornato.');
         }
