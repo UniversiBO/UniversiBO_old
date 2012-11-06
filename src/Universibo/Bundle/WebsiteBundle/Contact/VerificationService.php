@@ -88,5 +88,7 @@ class VerificationService
                 }
             }
         }
+
+        $this->entityManager->flush();
     }
 }
