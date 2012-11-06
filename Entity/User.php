@@ -336,26 +336,6 @@ class User extends BaseUser implements EncoderAwareInterface
     }
 
     /**
-     * Avoids duplicated contact emails
-     *
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function avoidDuplicatedContacts()
-    {
-        $values = array();
-        foreach ($this->contacts as $contact) {
-            $value = $contact->getValue();
-
-            if (in_array($value, $values)) {
-                $this->contacts->removeElement($contact);
-            } else {
-                $values[] = $value;
-            }
-        }
-    }
-
-    /**
      * Ads a role
      *
      * @param  string $role

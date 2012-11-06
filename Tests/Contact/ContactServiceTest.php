@@ -160,6 +160,13 @@ class ContactServiceTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($user))
         ;
 
+        $this
+            ->objectManager
+            ->expects($this->once())
+            ->method('remove')
+            ->with($this->isInstanceOf('Universibo\\Bundle\\CoreBundle\\Entity\\Contact'))
+        ;
+
         $mergedUser = $this->service->updateUserEmails($user);
 
         $this->assertEquals(1, count($mergedUser->getContacts()));

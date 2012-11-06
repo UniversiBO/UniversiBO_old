@@ -39,7 +39,6 @@ class ContactService
     {
         $contactArray = array();
 
-        $user->avoidDuplicatedContacts();
         foreach ($user->getContacts() as $contact) {
             $contact->setUser($user);
             $contactArray[] = $contact;
@@ -47,10 +46,13 @@ class ContactService
 
         $user = $this->objectManager->merge($user);
 
+        $contacts = array();
         foreach ($user->getContacts() as $contact) {
             if (!in_array($contact, $contactArray)) {
                 $user->getContacts()->removeElement($contact);
                 $this->objectManager->remove($contact);
+            } else {
+                $contacts[$contact->getValue()][] = $contact;
             }
         }
 
@@ -65,6 +67,15 @@ class ContactService
                 $contact->setVerifiedAt(null);
             } elseif (!$contact->isVerified()) {
                 $contact->setVerifiedAt(new \DateTime);
+            }
+        }
+
+        foreach ($contacts as $value => $list) {
+            while (count($list) > 1) {
+                $contact = array_pop($list);
+
+                $user->getContacts()->removeElement($contact);
+                $this->objectManager->remove($contact);
             }
         }
 
