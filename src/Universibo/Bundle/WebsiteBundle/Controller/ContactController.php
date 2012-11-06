@@ -77,6 +77,6 @@ class ContactController extends Controller
 
     private function redirectToProfile()
     {
-        return $this->redirect($this->generateUrl('universibo_website_profile'));
+        return $this->redirect($this->generateUrl('universibo_website_profile_edit'));
     }
 }
