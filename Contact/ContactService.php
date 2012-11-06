@@ -45,20 +45,20 @@ class ContactService
 
         $user = $this->objectManager->merge($user);
         $user->avoidDuplicatedContacts();
-        
+
         foreach ($user->getContacts() as $contact) {
             if (!in_array($contact, $contactArray)) {
                 $user->getContacts()->removeElement($contact);
                 $this->objectManager->remove($contact);
-            } 
+            }
         }
 
         $user->ensureContact();
         foreach ($user->getContacts() as $contact) {
             $value = $contact->getValue();
-            
+
             $verified = $value === $user->getEmail() || in_array($value, $verifiedEmails);
-            
+
             if (!$verified) {
                 $contact->setVerifiedAt(null);
             } elseif (!$contact->isVerified()) {

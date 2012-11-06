@@ -84,7 +84,7 @@ class ContactServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($newContact->isVerified(), 'Should not be verified');
         $this->assertSame($newContact, $contacts[0]);
         $this->assertSame($user, $newContact->getUser(), 'User should be set');
-        
+
         $this->service->updateUserEmails($user, array($email2));
         $this->assertTrue($newContact->isVerified(), 'Should be verified');
     }
@@ -128,7 +128,7 @@ class ContactServiceTest extends \PHPUnit_Framework_TestCase
         $contact = $mergedContacts->first();
         $this->assertEquals($email, $contact->getValue());
     }
-    
+
     public function testDuplicated()
     {
         $user = new User();
@@ -143,7 +143,7 @@ class ContactServiceTest extends \PHPUnit_Framework_TestCase
 
         $contacts = $user->getContacts();
         $contacts->add($newContact);
-        
+
         $dupContact = clone $newContact;
         $contacts->add($dupContact);
 
@@ -155,9 +155,9 @@ class ContactServiceTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($user))
             ->will($this->returnValue($user))
         ;
-        
+
         $mergedUser = $this->service->updateUserEmails($user);
-        
+
         $this->assertEquals(1, count($mergedUser->getContacts()));
         $this->assertEquals($email2, $mergedUser->getContacts()->first()->getValue());
     }
