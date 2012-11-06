@@ -43,7 +43,7 @@ class ContactServiceTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($user))
         ;
 
-        $this->service->updateUserEmails($user, array());
+        $this->service->updateUserEmails($user);
 
         $this->assertEquals(1, count($user->getContacts()), 'Should have exactly 1 contact');
         $contacts = $user->getContacts();
@@ -76,7 +76,7 @@ class ContactServiceTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($user))
         ;
 
-        $this->service->updateUserEmails($user, array());
+        $this->service->updateUserEmails($user);
         $this->assertEquals(1, count($contacts), 'User should have 1 contact');
 
         $this->assertSame($newContact, $contacts[0]);
@@ -107,7 +107,7 @@ class ContactServiceTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($user))
         ;
 
-        $this->service->updateUserEmails($user, array());
+        $this->service->updateUserEmails($user);
         $contacts->removeElement($newContact);
 
         $clonedUser = clone $user;
@@ -115,11 +115,44 @@ class ContactServiceTest extends \PHPUnit_Framework_TestCase
         $clonedContacts->add($newContact);
         $clonedUser->setContacts($clonedContacts);
 
-        $mergedUser = $this->service->updateUserEmails($user, array($email2));
+        $mergedUser = $this->service->updateUserEmails($user);
         $mergedContacts = $mergedUser->getContacts();
 
         $this->assertEquals(1, count($mergedContacts));
         $contact = $mergedContacts->first();
         $this->assertEquals($email, $contact->getValue());
+    }
+    
+    public function testDuplicated()
+    {
+        $user = new User();
+
+        $email = 'test@example.com';
+        $user->setEmail($email);
+
+        $newContact = new Contact();
+        $email2 = 'test2@example.com';
+
+        $newContact->setValue($email2);
+
+        $contacts = $user->getContacts();
+        $contacts->add($newContact);
+        
+        $dupContact = clone $newContact;
+        $contacts->add($dupContact);
+
+        // expects goes BEFORE call
+        $this
+            ->objectManager
+            ->expects($this->atLeastOnce())
+            ->method('merge')
+            ->with($this->equalTo($user))
+            ->will($this->returnValue($user))
+        ;
+        
+        $mergedUser = $this->service->updateUserEmails($user);
+        
+        $this->assertEquals(1, count($mergedUser->getContacts()));
+        $this->assertEquals($email2, $mergedUser->getContacts()->first()->getValue());
     }
 }

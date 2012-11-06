@@ -44,6 +44,7 @@ class ContactService
         }
 
         $user = $this->objectManager->merge($user);
+        $user->avoidDuplicatedContacts();
         
         foreach ($user->getContacts() as $contact) {
             if (!in_array($contact, $contactArray)) {
