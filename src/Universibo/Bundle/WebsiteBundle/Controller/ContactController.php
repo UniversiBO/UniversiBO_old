@@ -24,11 +24,15 @@ class ContactController extends Controller
         }
 
         if ($this->getUser()->getId() !== $contact->getUser()->getId()) {
-            return array('message' => 'Il token non corrisponde all\'utente loggato.');
+            $this->get('session')->setFlash('error', 'Il token non corrisponde all\'utente loggato.');
+
+            return $this->redirectToProfile();
         }
 
         if ($contact->isVerified()) {
-            return array('message' => 'Il la mail è già stata verificata.');
+            $this->get('session')->setFlash('notice', 'Il la mail è già stata verificata.');
+
+            return $this->redirectToProfile();
         }
 
         $contact->setVerifiedAt(new DateTime());
@@ -36,7 +40,9 @@ class ContactController extends Controller
         $em->merge($contact);
         $em->flush();
 
-        return array('message' => 'La tua mail è stata verificata con successo!');
+        $this->get('session')->setFlash('notice', 'La tua mail è stata verificata con successo!');
+
+        return $this->redirectToProfile();
     }
 
     /**
@@ -67,5 +73,10 @@ class ContactController extends Controller
         $em->flush();
 
         return array('message' => 'La verifica del contatto è stata annullata con successo.');
+    }
+
+    private function redirectToProfile()
+    {
+        return $this->redirect($this->generateUrl('universibo_website_profile'));
     }
 }
