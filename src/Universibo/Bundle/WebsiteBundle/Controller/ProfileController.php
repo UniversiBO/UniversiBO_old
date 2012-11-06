@@ -60,12 +60,16 @@ class ProfileController extends Controller
 
         $form->bind($request);
         if ($form->isValid()) {
-            $user = $contactService->updateUserEmails($user, $verifiedEmails);
+            if (count($user->getContacts()) > 3) {
+                $this->get('session')->setFlash('error', 'È possibile specificare al massimo 3 indirizzi email');
+            } else {
+                $user = $contactService->updateUserEmails($user, $verifiedEmails);
 
-            $verificationService = $this->get('universibo_website.contact.verification');
-            $verificationService->sendVerificationEmails($user);
+                $verificationService = $this->get('universibo_website.contact.verification');
+                $verificationService->sendVerificationEmails($user);
 
-            $this->get('session')->setFlash('notice', 'Il tuo profilo è stato aggiornato.');
+                $this->get('session')->setFlash('notice', 'Il tuo profilo è stato aggiornato.');
+            }
         }
 
         return $this->redirect($this->generateUrl('universibo_website_profile_edit', array(), true));

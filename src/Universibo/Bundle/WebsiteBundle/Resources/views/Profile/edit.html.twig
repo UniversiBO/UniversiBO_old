@@ -9,8 +9,13 @@
         {{ app.session.flash('notice') }}
     </span>
 {% endif %}
+{% if app.session.hasFlash('error') %}
+    <span class="flash-error">
+        {{ app.session.flash('error') }}
+    </span>
+{% endif %}
 </div>
-<p>In questa pagina potete modificare gli indirizzi email e il numero di
+<p>In questa pagina potete modificare gli indirizzi email (massimo 3) e il numero di
     cellulare dove volete ricevere le notifiche, di cui potete specificare il livello.
 Rimuovendo tutti gli indirizzi la mail di contatto sarà reimpostata a
 <strong>{{ app.user.email }}</strong>.</p>
