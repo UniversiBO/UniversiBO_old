@@ -2,7 +2,7 @@ Ciao {{ user.username }},
 
 qualcuno, presubilmente tu, ha aggiunto questo indirizzo e-mail al proprio
 account UniversiBO, per ragioni di sicurezza è necessario verificarlo. 
-Stiamo inoltre procedendo alla verifica di tutti gli indirizzi inseriti in passato.
+Stiamo inoltre procedendo, in fase di login, alla verifica degli indirizzi inseriti in passato.
 
 Per confermare clicca: {{ url('universibo_website_contact_verify', { token: contact.verificationToken }) }}
 Per annullare clicca: {{ url('universibo_website_contact_cancel', { token: contact.verificationToken }) }}
