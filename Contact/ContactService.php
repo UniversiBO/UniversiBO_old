@@ -46,7 +46,6 @@ class ContactService
 
         $user = $this->objectManager->merge($user);
 
-        $contacts = array();
         foreach ($user->getContacts() as $contact) {
             if (!in_array($contact, $contactArray)) {
                 $user->getContacts()->removeElement($contact);
@@ -54,6 +53,7 @@ class ContactService
             }
         }
 
+        $contacts = array();
         $user->ensureContact();
         foreach ($user->getContacts() as $contact) {
             $value = $contact->getValue();
