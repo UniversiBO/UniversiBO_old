@@ -63,8 +63,11 @@ class ContactServiceTest extends \PHPUnit_Framework_TestCase
         $newContact = new Contact();
         $email2 = 'test2@example.com';
 
-        $newContact->setValue($email2);
-        $newContact->setVerifiedAt(new DateTime);
+        $newContact
+            ->setValue($email2)
+            ->setVerifiedAt(new DateTime)
+            ->setVerificationSentAt(new DateTime)
+        ;
 
         $contacts = $user->getContacts();
         $contacts->add($newContact);
@@ -82,6 +85,7 @@ class ContactServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($contacts), 'User should have 1 contact');
 
         $this->assertFalse($newContact->isVerified(), 'Should not be verified');
+        $this->assertNull($newContact->getVerificationSentAt());
         $this->assertSame($newContact, $contacts[0]);
         $this->assertSame($user, $newContact->getUser(), 'User should be set');
 

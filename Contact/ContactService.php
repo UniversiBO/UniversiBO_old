@@ -60,6 +60,7 @@ class ContactService
             $verified = $value === $user->getEmail() || in_array($value, $verifiedEmails);
 
             if (!$verified) {
+                $contact->setVerificationSentAt(null);
                 $contact->setVerifiedAt(null);
             } elseif (!$contact->isVerified()) {
                 $contact->setVerifiedAt(new \DateTime);
