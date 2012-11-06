@@ -189,7 +189,7 @@ class Contact
     {
         return $this->verifiedAt !== null;
     }
-    
+
     /**
      * Returns true if verification has been sent
      *

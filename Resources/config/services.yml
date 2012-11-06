@@ -21,4 +21,5 @@ services:
     arguments: ['Universibo\Bundle\CoreBundle\Entity\User']
   universibo_core.contact.service:
     class: Universibo\Bundle\CoreBundle\Contact\ContactService
-   
+    arguments:
+      - '@doctrine.orm.entity_manager'

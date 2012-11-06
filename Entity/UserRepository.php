@@ -36,12 +36,12 @@ class UserRepository extends EntityRepository
             $showDisabled = false)
     {
         $qb = $this->createQueryBuilder('u');
-        
-        if(!$showLocked) {
+
+        if (!$showLocked) {
             $qb->andWhere('u.locked = false');
         }
-        
-        if(!$showDisabled) {
+
+        if (!$showDisabled) {
             $qb->andWhere('u.enabled = true');
         }
 
