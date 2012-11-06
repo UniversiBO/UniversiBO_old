@@ -163,6 +163,14 @@ class ContactServiceTest extends \PHPUnit_Framework_TestCase
         $this
             ->objectManager
             ->expects($this->atLeastOnce())
+            ->method('refresh')
+            ->with($this->equalTo($user))
+            ->will($this->returnValue($user))
+        ;
+
+        $this
+            ->objectManager
+            ->expects($this->atLeastOnce())
             ->method('flush')
         ;
 
