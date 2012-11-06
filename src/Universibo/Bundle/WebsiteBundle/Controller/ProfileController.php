@@ -37,11 +37,22 @@ class ProfileController extends Controller
         $request = $this->getRequest();
         $form = $this->getUserForm();
 
+        $sentAtDates = array();
         $verifiedEmails = array();
 
+        // TODO get from config
+        $threshold = new \DateTime('24 hours ago');
+
         foreach ($user->getContacts() as $contact) {
+            $value = $contact->getValue();
             if ($contact->isVerified()) {
-                $verifiedEmails[] = $contact->getValue();
+                $verifiedEmails[] = $value;
+            }
+
+            $sentAt = $contact->getVerificationSentAt();
+
+            if ($sentAt > $threshold) {
+                $sentAtDates[$value] = $sentAt;
             }
         }
 
