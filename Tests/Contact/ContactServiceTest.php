@@ -2,6 +2,7 @@
 
 namespace Universibo\Bundle\CoreBundle\Tests\Contact;
 
+use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
 use Universibo\Bundle\CoreBundle\Contact\ContactService;
 use Universibo\Bundle\CoreBundle\Entity\Contact;
@@ -63,6 +64,7 @@ class ContactServiceTest extends \PHPUnit_Framework_TestCase
         $email2 = 'test2@example.com';
 
         $newContact->setValue($email2);
+        $newContact->setVerifiedAt(new DateTime);
 
         $contacts = $user->getContacts();
         $contacts->add($newContact);
@@ -79,8 +81,12 @@ class ContactServiceTest extends \PHPUnit_Framework_TestCase
         $this->service->updateUserEmails($user);
         $this->assertEquals(1, count($contacts), 'User should have 1 contact');
 
+        $this->assertFalse($newContact->isVerified(), 'Should not be verified');
         $this->assertSame($newContact, $contacts[0]);
         $this->assertSame($user, $newContact->getUser(), 'User should be set');
+        
+        $this->service->updateUserEmails($user, array($email2));
+        $this->assertTrue($newContact->isVerified(), 'Should be verified');
     }
 
     public function testRemove()
