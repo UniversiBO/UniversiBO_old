@@ -1568,12 +1568,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/UniversiBO/UniversiboCoreBundle",
-                "reference": "848c0bbe0e805fdd0912825ff6331d8b214fe785"
+                "reference": "6360e63520327fe3fc647bd44febe730bf948800"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboCoreBundle/archive/848c0bbe0e805fdd0912825ff6331d8b214fe785.zip",
-                "reference": "848c0bbe0e805fdd0912825ff6331d8b214fe785",
+                "url": "https://github.com/UniversiBO/UniversiboCoreBundle/archive/6360e63520327fe3fc647bd44febe730bf948800.zip",
+                "reference": "6360e63520327fe3fc647bd44febe730bf948800",
                 "shasum": ""
             },
             "require": {
@@ -1585,7 +1585,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1352216233",
+            "time": "1352216473",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
