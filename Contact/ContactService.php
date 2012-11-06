@@ -38,13 +38,14 @@ class ContactService
     public function updateUserEmails(User $user, $verifiedEmails = array())
     {
         $contactArray = array();
+
+        $user->avoidDuplicatedContacts();
         foreach ($user->getContacts() as $contact) {
             $contact->setUser($user);
             $contactArray[] = $contact;
         }
 
         $user = $this->objectManager->merge($user);
-        $user->avoidDuplicatedContacts();
 
         foreach ($user->getContacts() as $contact) {
             if (!in_array($contact, $contactArray)) {
