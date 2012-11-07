@@ -29,11 +29,8 @@
 		<service id="universibo_website.user.provider"
 			class="Universibo\Bundle\WebsiteBundle\Security\User\UniversiboUserProvider">
 			<argument type="service" id="doctrine.orm.entity_manager"/>
+                        <argument type="service" id="universibo_core.repository.person"/>
                         <argument type="service" id="universibo_core.repository.user"/>
-			<argument type="service" id="fos_user.user_manager"/>
-			<argument type="service" id="universibo_core.repository.person"/>
-                        <argument type="service" id="universibo_core.repository.group"/>
-                        <argument type="service" id="universibo_website.merge.user"/>
 		</service>
 
                 <service id="universibo_website.listener.privacy"

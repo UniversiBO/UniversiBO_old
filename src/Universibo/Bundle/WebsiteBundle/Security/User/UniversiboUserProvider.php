@@ -2,7 +2,9 @@
 
 namespace Universibo\Bundle\WebsiteBundle\Security\User;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\User\User;
+use Universibo\Bundle\CoreBundle\Entity\Person;
 use Universibo\Bundle\CoreBundle\Entity\PersonRepository;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 use Universibo\Bundle\ShibbolethBundle\Security\User\ShibbolethUserProviderInterface;
@@ -14,6 +16,13 @@ use Universibo\Bundle\ShibbolethBundle\Security\User\ShibbolethUserProviderInter
  */
 class UniversiboUserProvider implements ShibbolethUserProviderInterface
 {
+    /**
+     * Object manager
+     *
+     * @var ObjectManager
+     */
+    private $objectManager;
+
     /**
      * Person repository
      *
@@ -31,12 +40,15 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
     /**
      * Class constructor
      *
+     * @param ObjectManager    $objectManager
      * @param PersonRepository $personRepository
      * @param UserRepository   $userRepository
      */
-    public function __construct(PersonRepository $personRepository,
+    public function __construct(ObjectManager $objectManager,
+            PersonRepository $personRepository,
             UserRepository $userRepository)
     {
+        $this->objectManager = $objectManager;
         $this->personRepository = $personRepository;
         $this->userRepository = $userRepository;
     }
@@ -51,8 +63,23 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
     {
         $uniboId = $claims['idAnagraficaUnica'];
 
-        $person = $this->personRepository->findOneByUniboId($uniboId);
+        $person = $this->findOrCreatePerson($uniboId, $claims['givenName'], $claims['sn']);
 
         return $this->userRepository->findOneNotLocked($person);
+    }
+
+    private function findOrCreatePerson($uniboId, $givenName, $surname)
+    {
+        $person = $this->personRepository->findOneByUniboId($uniboId);
+
+        if ($person === null) {
+            $person = new Person();
+            $person->setUniboId($uniboId);
+        }
+
+        $person->setGivenName($givenName);
+        $person->setSurname($surname);
+
+        return $this->objectManager->merge($person);
     }
 }
