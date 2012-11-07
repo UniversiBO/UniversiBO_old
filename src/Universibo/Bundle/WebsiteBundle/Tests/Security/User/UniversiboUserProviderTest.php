@@ -60,7 +60,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
                 $this->personRepository, $this->userRepository, $this->userManager);
     }
 
-    public function testExistingPersonNoUserSimple()
+    public function testExistingPersonExistingUserSimple()
     {
         $person = new Person();
         $person->setUniboId(42);
