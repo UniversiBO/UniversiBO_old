@@ -230,7 +230,49 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
 
     public function testExistingPersonDifferentEmailSimple()
     {
-        $this->markTestIncomplete();
+        $person = new Person();
+        $person->setUniboId(42);
+        $person->setGivenName('Nome');
+        $person->setSurname('cognome');
+
+        $mockedUser = new User();
+        $mockedUser->setPerson($person);
+        $mockedUser->setEmail('nome.cognome@unibo.it');
+
+        $claims = array (
+            'eppn' => 'x'.$mockedUser->getEmail(),
+            'idAnagraficaUnica' => $person->getUniboId(),
+            'isMemberOf' => 'Docente',
+            'givenName' => $person->getGivenName(),
+            'sn' => $person->getSurname()
+        );
+
+        $this->personRepository
+             ->expects($this->atLeastOnce())
+             ->method('findOneByUniboId')
+             ->with($this->equalTo($person->getUniboId()))
+             ->will($this->returnValue($person));
+
+        $this->userRepository
+             ->expects($this->atLeastOnce())
+             ->method('findOneNotLocked')
+             ->with($this->equalTo($person))
+             ->will($this->returnValue($mockedUser));
+
+        $this
+            ->objectManager
+            ->expects($this->atLeastOnce())
+            ->method('merge')
+            ->will($this->returnArgument(0))
+        ;
+
+        $user = $this->provider->loadUserByClaims($claims);
+
+        $this->assertInstanceOf('Universibo\\Bundle\\CoreBundle\\Entity\\User', $user);
+        $this->assertEquals($mockedUser, $user);
+        $this->assertEquals($claims['eppn'], $user->getEmail());
+
+        $this->personAssertions($user->getPerson(), $claims);
     }
 
     public function testExistingPersonDifferentEmailConflict()
