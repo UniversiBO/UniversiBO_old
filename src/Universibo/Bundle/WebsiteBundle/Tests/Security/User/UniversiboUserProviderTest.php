@@ -3,6 +3,7 @@
 namespace Universibo\Bundle\WebsiteBundle\Tests\Security\User;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Universibo\Bundle\CoreBundle\Entity\Person;
@@ -275,9 +276,104 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         $this->personAssertions($user->getPerson(), $claims);
     }
 
+    /**
+     * @expectedException Symfony\Component\Security\Core\Exception\AuthenticationException
+     */
+    public function testNonUniqueResultException()
+    {
+        $person = new Person();
+        $person->setUniboId(42);
+        $person->setGivenName('Nome');
+        $person->setSurname('cognome');
+
+        $mockedUser = new User();
+        $mockedUser->setPerson($person);
+        $mockedUser->setEmail('nome.cognome@unibo.it');
+
+        $claims = array (
+            'eppn' => $mockedUser->getEmail(),
+            'idAnagraficaUnica' => $person->getUniboId(),
+            'isMemberOf' => 'Docente',
+            'givenName' => $person->getGivenName(),
+            'sn' => $person->getSurname()
+        );
+
+        $this->personRepository
+             ->expects($this->atLeastOnce())
+             ->method('findOneByUniboId')
+             ->with($this->equalTo($person->getUniboId()))
+             ->will($this->returnValue($person));
+
+        $this->userRepository
+             ->expects($this->atLeastOnce())
+             ->method('findOneNotLocked')
+             ->with($this->equalTo($person))
+             ->will($this->throwException(new NonUniqueResultException()))
+        ;
+
+        $this
+            ->objectManager
+            ->expects($this->atLeastOnce())
+            ->method('merge')
+            ->will($this->returnArgument(0))
+        ;
+
+        $this->provider->loadUserByClaims($claims);
+    }
+
+    /**
+     * @expectedException Symfony\Component\Security\Core\Exception\AuthenticationException
+     */
     public function testExistingPersonDifferentEmailConflict()
     {
-        $this->markTestIncomplete();
+        $person = new Person();
+        $person->setUniboId(42);
+        $person->setGivenName('Nome');
+        $person->setSurname('cognome');
+
+        $mockedUser = new User();
+        $mockedUser->setPerson($person);
+        $mockedUser->setEmail('nome.cognome@unibo.it');
+
+        $claims = array (
+            'eppn' => 'x'.$mockedUser->getEmail(),
+            'idAnagraficaUnica' => $person->getUniboId(),
+            'isMemberOf' => 'Docente',
+            'givenName' => $person->getGivenName(),
+            'sn' => $person->getSurname()
+        );
+
+        $mockedUser2 = new User();
+        $mockedUser2->setEmail($claims['eppn']);
+
+        $this->personRepository
+             ->expects($this->atLeastOnce())
+             ->method('findOneByUniboId')
+             ->with($this->equalTo($person->getUniboId()))
+             ->will($this->returnValue($person));
+
+        $this->userRepository
+             ->expects($this->atLeastOnce())
+             ->method('findOneNotLocked')
+             ->with($this->equalTo($person))
+             ->will($this->returnValue($mockedUser))
+        ;
+
+        $this->userManager
+             ->expects($this->atLeastOnce())
+             ->method('findUserByEmail')
+             ->with($this->equalTo($claims['eppn']))
+             ->will($this->returnValue($mockedUser2))
+        ;
+
+        $this
+            ->objectManager
+            ->expects($this->atLeastOnce())
+            ->method('merge')
+            ->will($this->returnArgument(0))
+        ;
+
+        $this->provider->loadUserByClaims($claims);
     }
 
     public function provider()

@@ -3,8 +3,10 @@
 namespace Universibo\Bundle\WebsiteBundle\Security\User;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use FOS\UserBundle\Model\UserManagerInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Universibo\Bundle\CoreBundle\Entity\Person;
 use Universibo\Bundle\CoreBundle\Entity\PersonRepository;
 use Universibo\Bundle\CoreBundle\Entity\User;
@@ -102,6 +104,10 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         if ($user === null) {
             $user = $this->userManager->findUserByEmail($eppn);
         } elseif ($user->getEmail() !== $eppn) {
+            if ($this->userManager->findUserByEmail($eppn) !== null) {
+                throw new AuthenticationException('Person with multiple accounts');
+            }
+
             $user->setEmail($eppn);
         }
 
@@ -157,12 +163,14 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
             return $this->userRepository->findOneNotLocked($person);
         } catch (NoResultException $e) {
             return null;
+        } catch (NonUniqueResultException $e) {
+            throw new AuthenticationException('Non unique result');
         }
     }
 
     private function getAvailableUsername($eppn)
     {
-        list($username, $domain) = split('@', $eppn);
+        list($username, $domain) = explode('@', $eppn);
 
         // TODO fake implementation
         $targetUsername = $username;
