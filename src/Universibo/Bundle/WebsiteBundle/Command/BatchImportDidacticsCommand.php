@@ -1,9 +1,9 @@
 <?php
 namespace Universibo\Bundle\WebsiteBundle\Command;
 
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
 /**
  * ChangePassword is an extension of UniversiboCommand class.
@@ -17,7 +17,7 @@ use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class BatchImportDidacticsCommand extends UniversiboCommand
+class BatchImportDidacticsCommand extends ContainerAwareCommand
 {
     private $verbose;
 

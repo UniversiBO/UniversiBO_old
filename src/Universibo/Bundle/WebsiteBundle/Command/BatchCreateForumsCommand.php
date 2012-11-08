@@ -1,8 +1,10 @@
 <?php
-namespace Universibo\Bundle\LegacyBundle\Command;
+namespace Universibo\Bundle\WebsiteBundle\Command;
 
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Universibo\Bundle\CoreBundle\Entity\User;
-use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Cdl;
 use Universibo\Bundle\LegacyBundle\Entity\Insegnamento;
 use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
@@ -13,21 +15,41 @@ use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
  * Si occupa della modifica della password di un utente
  * NON ASTRAE DAL LIVELLO DATABASE!!!
  *
- * @package universibo
- * @subpackage commands
- * @version 2.0.0
+ * @version 2.6.0
  * @author Ilias Bartolini <brain79@virgilio.it>
+ * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
-class ScriptCreaForum extends UniversiboCommand
+class BatchCreateForumsCommand extends ContainerAwareCommand
 {
-    public $anno_accademico = 2012;
+    private $anno_accademico = 2012;
 
-    public function execute()
+    private $verbose;
+
+    protected function configure()
+    {
+        $this
+            ->setName('universibo:professors:register')
+            ->setDescription('Batch register professors')
+        ;
+    }
+
+    /**
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     */
+    protected function initialize(InputInterface $input,
+            OutputInterface $output)
+    {
+        parent::initialize($input, $output);
+
+        $this->verbose = $input->getOption('verbose');
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $anno_accademico = $this->anno_accademico;
 
-        $fc = $this->getFrontController();
         $db = $this->getContainer()->get('doctrine.dbal.default_connection');
 
         $db->beginTransaction();
@@ -137,11 +159,10 @@ class ScriptCreaForum extends UniversiboCommand
                     }
 
                 }
-                if($prg_att->getServizioForum()==true)
-                    echo '   -- forum gia\' attivo ',$prg_att->getIdCanale(),"\n";
-
+                if ($prg_att->getServizioForum()==true) {
+                    $output->writeln('   -- forum gia\' attivo '.$prg_att->getIdCanale());
+                }
             }
-
         }
 
         //manca chiamare una funzione per ordinare tutti i forum
