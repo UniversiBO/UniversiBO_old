@@ -21,19 +21,19 @@ class Docente
     private static $repository;
 
     /**
-     * @access private
+     * @var integer
      */
-    public $id_utente;
+    private $idUtente;
 
     /**
-     * @access private
+     * @var string
      */
-    public $codDoc;
+    private $codDoc;
 
     /**
-     * @access private
+     * @var string
      */
-    public $nomeDoc;
+    private $nomeDoc;
 
     /**
      * @access private
@@ -45,10 +45,10 @@ class Docente
      */
     public $rubricaCache = null;
 
-    public function __construct($id_utente, $cod_doc, $nome_doc,
+    public function __construct($idUtente = 0, $cod_doc ='', $nome_doc='',
             $rubrica = null)
     {
-        $this->id_utente = $id_utente;
+        $this->idUtente = $idUtente;
         $this->codDoc = $cod_doc;
         $this->nomeDoc = $nome_doc;
         $this->rubricaCache = $rubrica;
@@ -56,12 +56,12 @@ class Docente
 
     public function getIdUtente()
     {
-        return $this->id_utente;
+        return $this->idUtente;
     }
 
-    public function setIdUtente($id_utente)
+    public function setIdUtente($idUtente)
     {
-        $this->id_utente = $id_utente;
+        $this->idUtente = $idUtente;
     }
 
     public function getCodDoc()
@@ -103,7 +103,7 @@ class Docente
     }
 
     /**
-     * Ritorna un collaboratori dato l'id_utente del database
+     * Ritorna un collaboratori dato l'idUtente del database
      *
      * @static
      * @param  int   $id numero identificativo utente
@@ -112,7 +112,7 @@ class Docente
     public static function selectDocente($id, $isCodiceDocente = false)
     {
         return self::getRepository()
-                ->findBy($isCodiceDocente ? 'cod_doc' : 'id_utente', $id);
+                ->findBy($isCodiceDocente ? 'cod_doc' : 'idUtente', $id);
     }
 
     public static function selectDocenteFromCod($codDoc)

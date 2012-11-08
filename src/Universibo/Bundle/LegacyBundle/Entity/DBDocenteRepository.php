@@ -1,6 +1,9 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
-use \DB;
+
+use DB;
+use Doctrine\DBAL\DBALException;
+use Error;
 
 /**
  * Canale repository
@@ -48,6 +51,27 @@ class DBDocenteRepository extends DBRepository
         $docente = new Docente($row[0], $row[1], $row[2]);
 
         return $docente;
+    }
+
+    public function insert(Docente $docente)
+    {
+        $db = $this->getDb();
+
+        $query = <<<EOT
+
+INSERT INTO docente
+    (id_utente, cod_doc, nome_doc)
+VALUES
+    (
+        {$db->quote($docente->getIdUtente())},
+        {$db->quote($docente->getCodDoc())},
+        {$db->quote($docente->getNomeDoc())}
+    )
+EOT;
+        $db->execute($query);
+        if (DB::isError($res)) {
+            throw new DBALException(DB::errorMessage($res));
+        }
     }
 
     public function getInfo(Docente $docente)
