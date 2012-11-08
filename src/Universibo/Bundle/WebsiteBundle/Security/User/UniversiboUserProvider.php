@@ -112,7 +112,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         }
 
         if ($user === null) {
-            $user = new User();
+            $user = $this->userManager->createUser();
             $user->setUsername($this->getAvailableUsername($eppn));
             $user->setEmail($eppn);
 
