@@ -1,10 +1,10 @@
 <?php
 
 namespace Universibo\Bundle\LegacyBundle\Tests\Service;
-use Universibo\Bundle\LegacyBundle\Service\PrivacyService;
 
+use ReflectionProperty;
 use Universibo\Bundle\CoreBundle\Entity\User;
-
+use Universibo\Bundle\LegacyBundle\Service\PrivacyService;
 use Universibo\Bundle\LegacyBundle\Tests\Entity\DoctrineRepositoryTest;
 
 class PrivacyServiceTest extends DoctrineRepositoryTest
@@ -29,7 +29,7 @@ class PrivacyServiceTest extends DoctrineRepositoryTest
     {
         $user = new User();
 
-        $reflection = new \ReflectionProperty($user, 'id');
+        $reflection = new ReflectionProperty($user, 'id');
         $reflection->setAccessible(true);
         $reflection->setValue($user, 100);
 
