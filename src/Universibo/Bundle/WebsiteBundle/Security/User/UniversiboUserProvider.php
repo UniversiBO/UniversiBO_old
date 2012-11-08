@@ -101,6 +101,8 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         $user = $this->findUserByPerson($person);
         if ($user === null) {
             $user = $this->userManager->findUserByEmail($eppn);
+        } elseif ($user->getEmail() !== $eppn) {
+            $user->setEmail($eppn);
         }
 
         if ($user === null) {
