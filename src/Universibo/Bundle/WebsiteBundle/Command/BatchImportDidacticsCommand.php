@@ -1,5 +1,5 @@
 <?php
-namespace Universibo\Bundle\LegacyBundle\Command;
+namespace Universibo\Bundle\WebsiteBundle\Command;
 
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 
@@ -15,17 +15,35 @@ use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
+class BatchImportDidacticsCommand extends UniversiboCommand
 {
-    public function execute()
+    private $verbose;
+
+    protected function configure()
     {
-        $fc = $this->getFrontController();
-        $template = $fc->getTemplateEngine();
+        $this
+            ->setName('universibo:ditactics:import')
+            ->setDescription('Batch import didactics')
+        ;
+    }
+
+    /**
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     */
+    protected function initialize(InputInterface $input,
+            OutputInterface $output)
+    {
+        parent::initialize($input, $output);
+
+        $this->verbose = $input->getOption('verbose');
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
         $db = $this->getContainer()->get('doctrine.dbal.default_connection');
 
         $db->beginTransaction();
-
-        $anno_accademico = 2012;
 
         $query = 'SELECT anno_accademico, cod_corso, cod_ind, cod_ori, cod_materia,
                 anno_corso, cod_materia_ins, anno_corso_ins, cod_ril, cod_modulo,
@@ -36,10 +54,12 @@ class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
 
         $res = $db->executeQuery($query);
 
-        echo $num_rows = $res->rowCount() ,"\n\n";
+        $num_rows = $res->rowCount();
+        $output->writeln('Input rowCount: '.$num_rows);
+        $output->writeln('');
 
         while ( false !== ($row = $res->fetch()) ) {
-            echo "---------------","\n";
+            $output->writeln('---------------');
 
             $query3 = 'SELECT * FROM prg_insegnamento  WHERE
             anno_accademico = '.$db->quote($row[0]).' AND anno_corso = '.$db->quote($row[5]).'
@@ -50,17 +70,18 @@ class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
 
             $res3= $db->executeQuery($query3);
 
-            echo $num_rows3 = $res3->rowCount();
-            if ($num_rows3 == 0) {
+            $num_rows3 = $res3->rowCount();
+            $output->writeln('prg_insegnamento rowCount: '.$num_rows3);
 
+            if ($num_rows3 == 0) {
                 //$id_canale = $db->nextId('canale_id_canale');
 
                 $query4 = 'INSERT INTO canale(tipo_canale,nome_canale,immagine,visite,ultima_modifica,permessi_groups,files_attivo,news_attivo
                 ,forum_attivo,id_forum,group_id,links_attivo,files_studenti_attivo) VALUES (5,\'\',\'\',0,'.time().',127,\'S\',\'S\',\'N\',0,0,\'S\',\'S\');';
-                $res4= $db->executeQuery($query4);
+                $db->executeQuery($query4);
 
                 $id_canale = $db->lastInsertId('canale_id_canale_seq');
-                echo $id_canale, PHP_EOL;
+                $output->writeln('New channel with id: '.$id_canale);
 
                 $query5 = 'INSERT INTO prg_insegnamento (anno_accademico,cod_corso,cod_ind,cod_ori,cod_materia,anno_corso,cod_materia_ins,
                 anno_corso_ins,cod_ril,cod_modulo,cod_doc,flag_titolare_modulo,id_canale,cod_orario,tipo_ciclo,cod_ate,anno_corso_universibo)
@@ -69,10 +90,10 @@ class ScriptAggiungiPrgInsegnamento extends UniversiboCommand
                 '.$db->quote($row[10]).', '.$db->quote($row[11]).', '.$db->quote($id_canale).', NULL , '.$db->quote($row[12]).',
                 '.$db->quote($row[13]).', '.$db->quote($row[14]).');';
 
-                $res5= $db->executeQuery($query5);
+                $db->executeQuery($query5);
 
                 $query7 = 'INSERT INTO info_didattica (id_canale) VALUES ( '.$id_canale.' );';
-                $res7= $db->executeQuery($query7);
+                $db->executeQuery($query7);
             }
         }
 
