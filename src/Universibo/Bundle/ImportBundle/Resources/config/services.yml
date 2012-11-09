@@ -1,0 +1,7 @@
+parameters:
+#    universibo_import.example.class: Universibo\Bundle\ImportBundle\Example
+
+services:
+#    universibo_import.example:
+#        class: %universibo_import.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

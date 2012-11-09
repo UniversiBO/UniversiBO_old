@@ -27,7 +27,9 @@ class AppKernel extends Kernel
                 new Universibo\Bundle\ShibbolethBundle\UniversiboShibbolethBundle(),
                 new FOS\UserBundle\FOSUserBundle(),
                 new FOS\AdvancedEncoderBundle\FOSAdvancedEncoderBundle(),
-                new Ornicar\ApcBundle\OrnicarApcBundle()
+                new Ornicar\ApcBundle\OrnicarApcBundle(),
+            new Universibo\Bundle\ImportBundle\UniversiboImportBundle(),
+            new Universibo\Bundle\DidacticsBundle\UniversiboDidacticsBundle(),
                 );
        
 
