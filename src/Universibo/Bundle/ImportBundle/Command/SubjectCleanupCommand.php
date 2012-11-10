@@ -54,7 +54,8 @@ EOT;
         $affected = $this
             ->getContainer()
             ->get('doctrine.dbal.default_connection')
-            ->executeUpdate($query);
+            ->executeUpdate($query)
+        ;
 
         $output->writeln($affected . ' records deleted.');
     }
