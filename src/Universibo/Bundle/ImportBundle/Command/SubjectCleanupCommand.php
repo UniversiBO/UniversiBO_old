@@ -42,7 +42,7 @@ DELETE
     (
         SELECT i.*
             FROM prg_insegnamento i
-            WHERE i.cod_materia = m.cod_materia
+            WHERE i.cod_materia = cm.cod_materia
     )
     AND NOT EXISTS
     (
@@ -51,7 +51,10 @@ DELETE
             WHERE s.cod_materia = cm.cod_materia
     )
 EOT;
-        $affected = $this->get('doctrine.dbal.default_connection')->executeUpdate($query);
+        $affected = $this
+            ->getContainer()
+            ->get('doctrine.dbal.default_connection')
+            ->executeUpdate($query);
 
         $output->writeln($affected . ' records deleted.');
     }
