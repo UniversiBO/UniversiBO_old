@@ -40,7 +40,8 @@ DELETE
     FROM classi_materie cm
     WHERE NOT EXISTS
     (
-        SELECT i.* FROM prg_insegnamento i
+        SELECT i.*
+            FROM prg_insegnamento i
             WHERE i.cod_materia = m.cod_materia
     )
     AND NOT EXISTS
