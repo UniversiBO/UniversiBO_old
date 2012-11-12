@@ -9,7 +9,5 @@ _wdt:
 _profiler:
     resource: "@WebProfilerBundle/Resources/config/routing/profiler.xml"
     prefix:   /_profiler
-fos_user_security:
-    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 _main:
     resource: routing.yml
