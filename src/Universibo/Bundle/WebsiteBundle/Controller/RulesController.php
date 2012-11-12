@@ -45,9 +45,7 @@ class RulesController extends Controller
      */
     public function mainBoxAction()
     {
-        $file = $this->get('kernel')->getRootDir().'/data/rules.txt';
-
-        return array('rules' => file_get_contents($file));
+        return array();
     }
 
     /**
