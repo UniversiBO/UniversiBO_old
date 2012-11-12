@@ -59,6 +59,13 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->provider = new UniversiboUserProvider($this->objectManager,
                 $this->personRepository, $this->userRepository, $this->userManager);
+
+        $this
+            ->userManager
+            ->expects($this->any())
+            ->method('createUser')
+            ->will($this->returnValue(new User()))
+        ;
     }
 
     public function testExistingPersonExistingUserSimple()
