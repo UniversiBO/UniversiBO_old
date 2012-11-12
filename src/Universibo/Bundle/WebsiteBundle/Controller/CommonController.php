@@ -1,35 +1,47 @@
 <?php
 namespace Universibo\Bundle\WebsiteBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use DateTime;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class CommonController extends Controller
 {
     /**
-     * @Template()
-     * @return array
+     * @return Response
      */
     public function dateAction()
     {
         $krono = $this->get('universibo_legacy.krono');
 
-        return array(
+        $params = array(
             'longDate' => $krono->k_date('%j %F %Y'),
             'time' => $krono->k_date('%H:%i')
         );
+
+       $response = $this->render('UniversiboWebsiteBundle:Common:date.html.twig', $params);
+       $response->setPublic();
+       $response->setMaxAge(5);
+
+       return $response;
     }
 
     /**
-     * @Template()
-     * @return array
+     * @return Response
      */
     public function disclaimerAction()
     {
-       return array('disclaimer' => array('Le informazioni contenute nel sito non hanno carattere di ufficialità.',
+       $params = array('disclaimer' => array('Le informazioni contenute nel sito non hanno carattere di ufficialità.',
                 'I contenuti sono mantenuti in maniera volontaria dai partecipanti alla comunità di studenti e docenti di UniversiBO. L\'Università di Bologna - Alma Mater Studiorum non può essere considerata legalmente responsabile di alcun contenuto di questo sito.',
                 'Ogni marchio citato in queste pagine appartiene al legittimo proprietario.' .
                 'Con il contenuto delle pagine appartenenti a questo sito non si è voluto ledere i diritti di nessuno, quindi nel malaugurato caso che questo possa essere avvenuto, vi invitiamo a contattarci affinché le parti in discussione vengano eliminate o chiarite.'));
+
+       $response = $this->render('UniversiboWebsiteBundle:Common:disclaimer.html.twig', $params);
+       $response->setPublic();
+       $response->setExpires(new DateTime('tomorrow'));
+
+       return $response;
     }
 
     /**
@@ -113,8 +125,14 @@ class CommonController extends Controller
 
         $weekDays = array('L', 'M', 'M', 'G', 'V', 'S', 'D');
 
-        return array('weekDays' => $weekDays, 'month' => $krono->k_date('%F'),
+        $params = array('weekDays' => $weekDays, 'month' => $krono->k_date('%F'),
             'data' => $tpl_mese);
+
+        $response = $this->render('UniversiboWebsiteBundle:Common:calendar.html.twig', $params);
+        $response->setPublic();
+        $response->setExpires(new DateTime('tomorrow'));
+
+        return $response;
     }
 
     private function isFestivo($mday, $mese, $anno)

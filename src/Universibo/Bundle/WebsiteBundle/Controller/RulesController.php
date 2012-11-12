@@ -36,7 +36,7 @@ class RulesController extends Controller
         $policyRepo = $this->get('universibo_legacy.repository.informativa');
         $current = $policyRepo->findByTime(time());
 
-        $response = $this->render('UniversiboWebsite:Rules:privacy.twig.html', array('policy' => $current));
+        $response = $this->render('UniversiboWebsiteBundle:Rules:privacyBox.html.twig', array('policy' => $current));
         $response->setPublic();
         $response->setMaxAge(60);
 
@@ -45,7 +45,7 @@ class RulesController extends Controller
 
     public function mainBoxAction()
     {
-        $response = $this->render('UniversiboWebsite:Rules:mainBox.twig.html');
+        $response = $this->render('UniversiboWebsiteBundle:Rules:mainBox.html.twig');
         $response->setPublic();
         $response->setMaxAge(3600 * 24);
 
@@ -54,7 +54,7 @@ class RulesController extends Controller
 
     public function forumBoxAction()
     {
-        $response = $this->render('UniversiboWebsite:Rules:forumBox.twig.html');
+        $response = $this->render('UniversiboWebsiteBundle:Rules:forumBox.html.twig');
         $response->setPublic();
         $response->setMaxAge(3600 * 24);
 
