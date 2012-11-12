@@ -45,10 +45,15 @@ class UserBoxController
         $hasClaims = count($claims) > 0;
         $logged = $context->isGranted('IS_AUTHENTICATED_FULLY');
         $failed = $hasClaims && !$logged;
+        $shibDisabled = $logged && !$hasClaims;
 
-        $wreply = '?wreply='.urlencode($this->router->generate('universibo_shibboleth_logout', array(), true));
-        $logoutUrl = $failed ? $this->logoutUrl.$wreply :
+        if ($shibDisabled) {
+            $logoutUrl = $this->router->generate('universibo_shibboleth_logout');
+        } else {
+            $wreply = '?wreply='.urlencode($this->router->generate('universibo_shibboleth_logout', array(), true));
+            $logoutUrl = $failed ? $this->logoutUrl.$wreply :
             $this->router->generate('universibo_shibboleth_prelogout');
+        }
 
         if ($hasClaims) {
             $eppn = $claims['eppn'];
