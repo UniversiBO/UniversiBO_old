@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Universibo\Bundle\CoreBundle\Entity\UniboGroup
  *
- * @ORM\Table()
+ * @ORM\Table(name="ismemberof")
  * @ORM\Entity(repositoryClass="Universibo\Bundle\CoreBundle\Entity\UniboGroupRepository")
  */
 class UniboGroup
@@ -24,7 +24,7 @@ class UniboGroup
     /**
      * @var string $name
      *
-     * @ORM\Column(name="name", type="string", length=20)
+     * @ORM\Column(name="name", type="string", length=20, unique=true)
      */
     private $name;
 
