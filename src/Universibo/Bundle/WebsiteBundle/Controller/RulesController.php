@@ -30,30 +30,35 @@ class RulesController extends Controller
     }
 
     /**
-     * @Template()
      */
     public function privacyBoxAction()
     {
         $policyRepo = $this->get('universibo_legacy.repository.informativa');
         $current = $policyRepo->findByTime(time());
 
-        return array('policy' => $current);
+        $response = $this->render('UniversiboWebsite:Rules:privacy.twig.html', array('policy' => $current));
+        $response->setPublic();
+        $response->setMaxAge(60);
+
+        return $response;
     }
 
-    /**
-     * @Template()
-     */
     public function mainBoxAction()
     {
-        return array();
+        $response = $this->render('UniversiboWebsite:Rules:mainBox.twig.html');
+        $response->setPublic();
+        $response->setMaxAge(3600 * 24);
+
+        return $response;
     }
 
-    /**
-     * @Template()
-     */
     public function forumBoxAction()
     {
-        return array();
+        $response = $this->render('UniversiboWebsite:Rules:forumBox.twig.html');
+        $response->setPublic();
+        $response->setMaxAge(3600 * 24);
+
+        return $response;
     }
 
     /**
