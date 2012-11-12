@@ -59,6 +59,12 @@
                     <tag name="kernel.event_listener" event="universibo_shibboleth.auth_failed" method="onAuthenticationFailed" />
                 </service>
 
+                <service id="universibo_website.encoder.md5"
+                         class="Universibo\Bundle\WebsiteBundle\Security\Encoder\Md5Encoder"/>
+
+                <service id="universibo_website.encoder.sha1"
+                         class="Universibo\Bundle\WebsiteBundle\Security\Encoder\Sha1Encoder"/>
+
                 <service id="universibo_website.merge.user"
                          class="Universibo\Bundle\WebsiteBundle\Entity\Merge\UserMerger">
                     <argument type="service" id="universibo_core.repository.user"/>
