@@ -9,6 +9,7 @@ use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Universibo\Bundle\CoreBundle\Entity\Person;
 use Universibo\Bundle\CoreBundle\Entity\PersonRepository;
+use Universibo\Bundle\CoreBundle\Entity\UniboGroupRepository;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
@@ -50,6 +51,13 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
     private $userManager;
 
     /**
+     * Unibo Group repository
+     *
+     * @var UniboGroupRepository
+     */
+    private $uniboGroupRepository;
+
+    /**
      * MemberOf handlers
      *
      * @var array
@@ -63,15 +71,17 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
      * @param PersonRepository     $personRepository
      * @param UserRepository       $userRepository
      * @param UserManagerInterface $userManager
+     * @param UniboGroupRepository $uniboGroupRepository
      */
     public function __construct(ObjectManager $objectManager,
             PersonRepository $personRepository, UserRepository $userRepository,
-            UserManagerInterface $userManager)
+            UserManagerInterface $userManager, UniboGroupRepository $uniboGroupRepository)
     {
         $this->objectManager = $objectManager;
         $this->personRepository = $personRepository;
         $this->userRepository = $userRepository;
         $this->userManager = $userManager;
+        $this->uniboGroupRepository = $uniboGroupRepository;
 
         $this->memberOfHandlers['Docente'] = function($user) {
             $user->setLegacyGroups(LegacyRoles::DOCENTE);
@@ -120,6 +130,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
             $key = array_key_exists($memberOf, $this->memberOfHandlers) ? $memberOf : 'default';
             $this->memberOfHandlers[$key]($user);
+            $user->getUniboGroups()->add($this->uniboGroupRepository->findOrCreate($memberOf));
         }
 
         $user->setPerson($person);

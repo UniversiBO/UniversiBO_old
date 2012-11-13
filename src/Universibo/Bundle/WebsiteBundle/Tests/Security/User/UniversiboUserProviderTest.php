@@ -8,6 +8,7 @@ use Doctrine\ORM\NoResultException;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Universibo\Bundle\CoreBundle\Entity\Person;
 use Universibo\Bundle\CoreBundle\Entity\PersonRepository;
+use Universibo\Bundle\CoreBundle\Entity\UniboGroupRepository;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
@@ -50,15 +51,24 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
      */
     private $userManager;
 
+    /**
+     * Unibo Group repository
+     *
+     * @var UniboGroupRepository
+     */
+    private $uniboGroupRepository;
+
     protected function setUp()
     {
         $this->objectManager = $this->getMock('Doctrine\\Common\\Persistence\\ObjectManager');
         $this->personRepository = $this->getMock('Universibo\\Bundle\\CoreBundle\\Entity\\PersonRepository', array('findOneByUniboId'), array(), '', false);
         $this->userRepository = $this->getMock('Universibo\\Bundle\\CoreBundle\\Entity\\UserRepository', array('findOneByEmail', 'findOneNotLocked'), array(), '', false);
         $this->userManager = $this->getMock('FOS\\UserBundle\\Model\\UserManagerInterface');
+        $this->uniboGroupRepository = $this->getMock('Universibo\\Bundle\\CoreBundle\\Entity\\UniboGroupRepository', array('findOrCreate'), array(), '', false);
 
         $this->provider = new UniversiboUserProvider($this->objectManager,
-                $this->personRepository, $this->userRepository, $this->userManager);
+                $this->personRepository, $this->userRepository, $this->userManager,
+                $this->uniboGroupRepository);
 
         $this
             ->userManager
@@ -173,12 +183,20 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
             ->method('updateUser')
         ;
 
+        $this->expectsFindOrCreateUniboGroup($memberOf);
+
         $user = $this->provider->loadUserByClaims($claims);
 
         $this->assertInstanceOf('Universibo\\Bundle\\CoreBundle\\Entity\\User', $user);
         $this->assertEquals($claims['eppn'], $user->getEmail());
         $this->assertEquals($legacyGroups, $user->getLegacyGroups());
         $this->assertEquals($usernameLocked, $user->isUsernameLocked());
+
+        $this->assertEquals(1, count($user->getUniboGroups()), '1 unibo group should be present');
+
+        $group = $user->getUniboGroups()->first();
+
+        $this->assertEquals($claims['isMemberOf'], $group->getName());
 
         $person = $user->getPerson();
         $this->personAssertions($person, $claims);
@@ -392,6 +410,20 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
             array('Esterno', LegacyRoles::PERSONALE, true),
             array('Accreditato', LegacyRoles::PERSONALE, true),
         );
+    }
+
+    private function expectsFindOrCreateUniboGroup($name)
+    {
+        $group = new \Universibo\Bundle\CoreBundle\Entity\UniboGroup();
+        $group->setName($name);
+
+        $this
+            ->uniboGroupRepository
+            ->expects($this->once())
+            ->method('findOrCreate')
+            ->with($this->equalTo($name))
+            ->will($this->returnValue($group))
+        ;
     }
 
     private function personAssertions(Person $person, array $claims)
