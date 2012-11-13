@@ -3,6 +3,7 @@
 namespace Universibo\Bundle\CoreBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Universibo\Bundle\CoreBundle\Entity\UniboGroup;
 
 /**
  * UniboGroupRepository
@@ -12,4 +13,25 @@ use Doctrine\ORM\EntityRepository;
  */
 class UniboGroupRepository extends EntityRepository
 {
+    /**
+     * Finds a group from DB or creates it
+     *
+     * @param  string     $name
+     * @return UniboGroup
+     */
+    public function findOrCreate($name)
+    {
+        $group = $this->findOneByName($name);
+
+        if ($group === null) {
+            $group = new UniboGroup();
+            $group->setName($name);
+
+            $em = $this->getEntityManager();
+            $em->persist($group);
+            $em->flush($group);
+        }
+
+        return $group;
+    }
 }
