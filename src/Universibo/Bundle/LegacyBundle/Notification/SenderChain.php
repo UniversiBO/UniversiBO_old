@@ -1,5 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Notification;
+
+use InvalidArgumentException;
 use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
 
 /**
@@ -10,7 +12,7 @@ use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
 class SenderChain implements SenderInterface
 {
     /**
-     * @var Sender[]
+     * @var SenderInterface[]
      */
     private $senders = array();
 
@@ -35,7 +37,7 @@ class SenderChain implements SenderInterface
     public function unregister(SenderInterface $sender)
     {
         if (false === ($key = array_search($sender, $this->senders, true))) {
-            throw new \InvalidArgumentException('Sender was not registered');
+            throw new InvalidArgumentException('Sender was not registered');
         }
 
         unset($this->senders[$key]);
@@ -49,6 +51,6 @@ class SenderChain implements SenderInterface
             }
         }
 
-        throw new \InvalidArgumentException('Protocol not supported');
+        throw new InvalidArgumentException('Protocol not supported');
     }
 }
