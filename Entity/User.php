@@ -3,10 +3,9 @@ namespace Universibo\Bundle\CoreBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 use FOS\AdvancedEncoderBundle\Security\Encoder\EncoderAwareInterface;
 use FOS\UserBundle\Entity\User as BaseUser;
-use Symfony\Component\Validator\Constraints as Assert;
+use Universibo\Bundle\CoreBundle\Entity\User;
 
 /**
  * @ORM\Entity(repositoryClass="Universibo\Bundle\CoreBundle\Entity\UserRepository")
@@ -34,6 +33,18 @@ class User extends BaseUser implements EncoderAwareInterface
      * )
      */
     protected $groups;
+
+    /**
+     * FOSUserBundle groups
+     *
+     * @ORM\ManyToMany(targetEntity="Universibo\Bundle\CoreBundle\Entity\UniboGroup")
+     * @ORM\JoinTable(name="fos_user_ismemberof",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="ismemberof_id", referencedColumnName="id")}
+     * )
+     * @var Collection
+     */
+    protected $uniboGroups;
 
     /**
      * FOSAdvancedEncoderBundle encoder name
@@ -113,8 +124,9 @@ class User extends BaseUser implements EncoderAwareInterface
     {
         parent::__construct();
 
-        $this->contacts = new ArrayCollection();
-        $this->groups   = new ArrayCollection();
+        $this->contacts    = new ArrayCollection();
+        $this->groups      = new ArrayCollection();
+        $this->uniboGroups = new ArrayCollection();
     }
 
     /**
@@ -397,6 +409,29 @@ class User extends BaseUser implements EncoderAwareInterface
     }
 
     /**
+     * Unibo Groups
+     *
+     * @return Collection
+     */
+    public function getUniboGroups()
+    {
+        return $this->uniboGroups;
+    }
+
+    /**
+     * Set unibo groups collection
+     *
+     * @param  Collection $uniboGroups
+     * @return User
+     */
+    public function setUniboGroups(Collection $uniboGroups)
+    {
+        $this->uniboGroups = $uniboGroups;
+
+        return $this;
+    }
+
+    /**
      * Encoder name getter
      *
      * @return string
@@ -405,6 +440,7 @@ class User extends BaseUser implements EncoderAwareInterface
     {
         return $this->encoderName;
     }
+
     /**
      * Encoder name setter
      *
