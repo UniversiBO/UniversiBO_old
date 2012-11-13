@@ -1,8 +1,9 @@
 <?php
 namespace Universibo\Bundle\WebsiteBundle\Command;
 
+use Exception;
+use LogicException;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -36,14 +37,14 @@ class NotificationsSendCommand extends ContainerAwareCommand
     /**
      * @param  InputInterface  $input
      * @param  OutputInterface $output
-     * @throws \LogicException
+     * @throws LogicException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $lock = $this->get('kernel')->getRootDir() . '/data/notifications.lock';
 
         if (!is_resource($fp = fopen($lock, 'a'))) {
-            throw new \Exception('Cannot open lock file: ' . $lock);
+            throw new Exception('Cannot open lock file: ' . $lock);
         }
 
         flock($fp, LOCK_EX);
@@ -65,7 +66,7 @@ class NotificationsSendCommand extends ContainerAwareCommand
                             . $notification->getIdNotifica();
                     $output->writeln($msg);
                     $logger->info($msg);
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     $err = 'Exception sending notification '
                             . $notification->getIdNotifica() . ': '
                             . $e->getMessage();
