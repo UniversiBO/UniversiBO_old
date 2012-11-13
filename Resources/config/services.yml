@@ -14,6 +14,11 @@ services:
     factory_service: doctrine.orm.entity_manager
     factory_method: getRepository
     arguments: ['Universibo\Bundle\CoreBundle\Entity\Person']
+  universibo_core.repository.unibo_group:
+    class: Universibo\Bundle\CoreBundle\Entity\UniboGroupRepository
+    factory_service: doctrine.orm.entity_manager
+    factory_method: getRepository
+    arguments: ['Universibo\Bundle\CoreBundle\Entity\UniboGroup']
   universibo_core.repository.user:
     class: Universibo\Bundle\CoreBundle\Entity\UserRepository
     factory_service: doctrine.orm.entity_manager
