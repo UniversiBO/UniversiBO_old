@@ -1,5 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Notification;
+
+use Swift_Mailer;
+use Swift_Message;
 use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
 
 /**
@@ -10,11 +13,11 @@ use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
 class SwiftMailerSender extends AbstractSender
 {
     /**
-     * @var \Swift_Mailer
+     * @var Swift_Mailer
      */
     private $mailer;
 
-    public function __construct(\Swift_Mailer $mailer)
+    public function __construct(Swift_Mailer $mailer)
     {
         $this->mailer = $mailer;
     }
@@ -26,7 +29,7 @@ class SwiftMailerSender extends AbstractSender
 
     protected function doSend(NotificaItem $notification)
     {
-        $message = \Swift_Message::newInstance()
+        $message = Swift_Message::newInstance()
                 ->setFrom(array('associazione.universibo@unibo.it' => 'Associazione UniversiBO'))
                 ->setTo($notification->getIndirizzo())
                 ->setSubject(
