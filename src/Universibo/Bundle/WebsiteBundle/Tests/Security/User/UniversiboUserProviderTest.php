@@ -62,7 +62,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
     {
         $this->objectManager = $this->getMock('Doctrine\\Common\\Persistence\\ObjectManager');
         $this->personRepository = $this->getMock('Universibo\\Bundle\\CoreBundle\\Entity\\PersonRepository', array('findOneByUniboId'), array(), '', false);
-        $this->userRepository = $this->getMock('Universibo\\Bundle\\CoreBundle\\Entity\\UserRepository', array('findOneByEmail', 'findOneNotLocked'), array(), '', false);
+        $this->userRepository = $this->getMock('Universibo\\Bundle\\CoreBundle\\Entity\\UserRepository', array('findOneByEmail', 'findOneAllowedToLogin'), array(), '', false);
         $this->userManager = $this->getMock('FOS\\UserBundle\\Model\\UserManagerInterface');
         $this->uniboGroupRepository = $this->getMock('Universibo\\Bundle\\CoreBundle\\Entity\\UniboGroupRepository', array('findOrCreate'), array(), '', false);
 
@@ -88,6 +88,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         $mockedUser = new User();
         $mockedUser->setPerson($person);
         $mockedUser->setEmail('nome.cognome@unibo.it');
+        $mockedUser->setEnabled(true);
 
         $claims = array (
             'eppn' => $mockedUser->getEmail(),
@@ -105,7 +106,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->userRepository
              ->expects($this->atLeastOnce())
-             ->method('findOneNotLocked')
+             ->method('findOneAllowedToLogin')
              ->with($this->equalTo($person))
              ->will($this->returnValue($mockedUser));
 
@@ -116,11 +117,14 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnArgument(0))
         ;
 
+        $this->expectsFindOrCreateUniboGroup($claims['isMemberOf']);
+
         $user = $this->provider->loadUserByClaims($claims);
 
         $this->assertInstanceOf('Universibo\\Bundle\\CoreBundle\\Entity\\User', $user);
         $this->assertEquals($mockedUser, $user);
 
+        $this->assertGroup($user, $claims['isMemberOf']);
         $this->personAssertions($user->getPerson(), $claims);
     }
 
@@ -159,7 +163,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         $this
             ->userRepository
             ->expects($this->atLeastOnce())
-            ->method('findOneNotLocked')
+            ->method('findOneAllowedToLogin')
             ->will($this->throwException(new NoResultException()))
         ;
 
@@ -192,12 +196,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($legacyGroups, $user->getLegacyGroups());
         $this->assertEquals($usernameLocked, $user->isUsernameLocked());
 
-        $this->assertEquals(1, count($user->getUniboGroups()), '1 unibo group should be present');
-
-        $group = $user->getUniboGroups()->first();
-
-        $this->assertEquals($claims['isMemberOf'], $group->getName());
-
+        $this->assertGroup($user, $claims['isMemberOf']);
         $person = $user->getPerson();
         $this->personAssertions($person, $claims);
     }
@@ -215,6 +214,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         $mockedUser = new User();
         $mockedUser->setEmail($claims['eppn']);
         $mockedUser->setUsername('username');
+        $mockedUser->setEnabled(true);
 
         $this
             ->personRepository
@@ -245,13 +245,120 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnArgument(0))
         ;
 
+        $this->expectsFindOrCreateUniboGroup($claims['isMemberOf']);
+
         $user = $this->provider->loadUserByClaims($claims);
 
         $this->assertSame($mockedUser, $user);
 
         $person = $user->getPerson();
-
+        $this->assertGroup($user, $claims['isMemberOf']);
         $this->personAssertions($person, $claims);
+    }
+
+    /**
+     * @expectedException Symfony\Component\Security\Core\Exception\AuthenticationException
+     */
+    public function testNoPersonExistingEmailLocked()
+    {
+        $claims = array (
+            'eppn' => 'nome.cognome@unibo.it',
+            'idAnagraficaUnica' => 42,
+            'isMemberOf' => 'Docente',
+            'givenName' => 'Nome',
+            'sn' => 'Cognome'
+        );
+
+        $mockedUser = new User();
+        $mockedUser->setEmail($claims['eppn']);
+        $mockedUser->setUsername('username');
+        $mockedUser->setLocked(true);
+        $mockedUser->setEnabled(true);
+
+        $this
+            ->personRepository
+            ->expects($this->atLeastOnce())
+            ->method('findOneByUniboId')
+            ->with($this->equalTo($claims['idAnagraficaUnica']))
+            ->will($this->returnValue(null))
+        ;
+
+        $this
+            ->userManager
+            ->expects($this->atLeastOnce())
+            ->method('findUserByEmail')
+            ->with($this->equalTo($claims['eppn']))
+            ->will($this->returnValue($mockedUser))
+        ;
+
+        $this
+            ->userManager
+            ->expects($this->atLeastOnce())
+            ->method('updateUser')
+        ;
+
+        $this
+            ->objectManager
+            ->expects($this->atLeastOnce())
+            ->method('merge')
+            ->will($this->returnArgument(0))
+        ;
+
+        $this->expectsFindOrCreateUniboGroup($claims['isMemberOf']);
+
+        $this->provider->loadUserByClaims($claims);
+    }
+
+    /**
+     * @expectedException Symfony\Component\Security\Core\Exception\AuthenticationException
+     */
+    public function testNoPersonExistingEmailDisabled()
+    {
+        $claims = array (
+            'eppn' => 'nome.cognome@unibo.it',
+            'idAnagraficaUnica' => 42,
+            'isMemberOf' => 'Docente',
+            'givenName' => 'Nome',
+            'sn' => 'Cognome'
+        );
+
+        $mockedUser = new User();
+        $mockedUser->setEmail($claims['eppn']);
+        $mockedUser->setUsername('username');
+        $mockedUser->setEnabled(false);
+
+        $this
+            ->personRepository
+            ->expects($this->atLeastOnce())
+            ->method('findOneByUniboId')
+            ->with($this->equalTo($claims['idAnagraficaUnica']))
+            ->will($this->returnValue(null))
+        ;
+
+        $this
+            ->userManager
+            ->expects($this->atLeastOnce())
+            ->method('findUserByEmail')
+            ->with($this->equalTo($claims['eppn']))
+            ->will($this->returnValue($mockedUser))
+        ;
+
+        $this
+            ->userManager
+            ->expects($this->atLeastOnce())
+            ->method('updateUser')
+        ;
+
+        $this
+            ->objectManager
+            ->expects($this->atLeastOnce())
+            ->method('merge')
+            ->will($this->returnArgument(0))
+        ;
+
+        $this->expectsFindOrCreateUniboGroup($claims['isMemberOf']);
+
+        $this->provider->loadUserByClaims($claims);
     }
 
     public function testExistingPersonDifferentEmailSimple()
@@ -264,6 +371,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         $mockedUser = new User();
         $mockedUser->setPerson($person);
         $mockedUser->setEmail('nome.cognome@unibo.it');
+        $mockedUser->setEnabled(true);
 
         $claims = array (
             'eppn' => 'x'.$mockedUser->getEmail(),
@@ -281,7 +389,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->userRepository
              ->expects($this->atLeastOnce())
-             ->method('findOneNotLocked')
+             ->method('findOneAllowedToLogin')
              ->with($this->equalTo($person))
              ->will($this->returnValue($mockedUser));
 
@@ -292,12 +400,15 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnArgument(0))
         ;
 
+        $this->expectsFindOrCreateUniboGroup($claims['isMemberOf']);
+
         $user = $this->provider->loadUserByClaims($claims);
 
         $this->assertInstanceOf('Universibo\\Bundle\\CoreBundle\\Entity\\User', $user);
         $this->assertEquals($mockedUser, $user);
         $this->assertEquals($claims['eppn'], $user->getEmail());
 
+        $this->assertGroup($user, $claims['isMemberOf']);
         $this->personAssertions($user->getPerson(), $claims);
     }
 
@@ -331,7 +442,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->userRepository
              ->expects($this->atLeastOnce())
-             ->method('findOneNotLocked')
+             ->method('findOneAllowedToLogin')
              ->with($this->equalTo($person))
              ->will($this->throwException(new NonUniqueResultException()))
         ;
@@ -379,7 +490,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->userRepository
              ->expects($this->atLeastOnce())
-             ->method('findOneNotLocked')
+             ->method('findOneAllowedToLogin')
              ->with($this->equalTo($person))
              ->will($this->returnValue($mockedUser))
         ;
@@ -410,6 +521,14 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
             array('Esterno', LegacyRoles::PERSONALE, true),
             array('Accreditato', LegacyRoles::PERSONALE, true),
         );
+    }
+
+    private function assertGroup(User $user, $groupName)
+    {
+        $this->assertEquals(1, count($user->getUniboGroups()), '1 unibo group should be present');
+
+        $group = $user->getUniboGroups()->first();
+        $this->assertEquals($groupName, $group->getName());
     }
 
     private function expectsFindOrCreateUniboGroup($name)
