@@ -130,6 +130,8 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
             $user->setUsername($this->getAvailableUsername($eppn));
             $user->setEmail($eppn);
             $user->setPhone('');
+            // x will never match any hash, as wanted
+            $user->setPassword('x');
 
             $key = array_key_exists($memberOf, $this->memberOfHandlers) ? $memberOf : 'default';
             $this->memberOfHandlers[$key]($user);

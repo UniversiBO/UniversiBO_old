@@ -204,6 +204,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         $person = $user->getPerson();
         $this->userAssertions($user);
         $this->assertSame('', $user->getPhone(), 'Phone should be an empty string');
+        $this->assertNotNull($user->getPassword());
         $this->personAssertions($person, $claims);
     }
 
