@@ -134,7 +134,18 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
             $this->memberOfHandlers[$key]($user);
         }
 
-        $user->getUniboGroups()->add($this->uniboGroupRepository->findOrCreate($memberOf));
+        $found = false;
+        foreach ($user->getUniboGroups() as $group) {
+            if ($group->getName() === $memberOf) {
+                $found = true;
+                break;
+            }
+        }
+
+        if (!$found) {
+            $user->getUniboGroups()->add($this->uniboGroupRepository->findOrCreate($memberOf));
+        }
+
         $user->setPerson($person);
         $user->setLastLogin(new DateTime());
         $this->userManager->updateUser($user);

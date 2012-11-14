@@ -99,6 +99,10 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
             'sn' => $person->getSurname()
         );
 
+        $group = new UniboGroup();
+        $group->setName($claims['isMemberOf']);
+        $mockedUser->getUniboGroups()->add($group);
+
         $this->personRepository
              ->expects($this->atLeastOnce())
              ->method('findOneByUniboId')
@@ -117,8 +121,6 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
             ->method('merge')
             ->will($this->returnArgument(0))
         ;
-
-        $this->expectsFindOrCreateUniboGroup($claims['isMemberOf']);
 
         $user = $this->provider->loadUserByClaims($claims);
 
