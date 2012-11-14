@@ -203,6 +203,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertGroup($user, $claims['isMemberOf']);
         $person = $user->getPerson();
         $this->userAssertions($user);
+        $this->assertSame('', $user->getPhone(), 'Phone should be an empty string');
         $this->personAssertions($person, $claims);
     }
 

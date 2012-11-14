@@ -129,6 +129,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
             $user->setEnabled(true);
             $user->setUsername($this->getAvailableUsername($eppn));
             $user->setEmail($eppn);
+            $user->setPhone('');
 
             $key = array_key_exists($memberOf, $this->memberOfHandlers) ? $memberOf : 'default';
             $this->memberOfHandlers[$key]($user);
