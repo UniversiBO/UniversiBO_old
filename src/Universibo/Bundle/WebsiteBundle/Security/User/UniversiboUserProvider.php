@@ -123,6 +123,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
         if ($user === null) {
             $user = $this->userManager->createUser();
+            $user->setEnabled(true);
             $user->setUsername($this->getAvailableUsername($eppn));
             $user->setEmail($eppn);
 
@@ -135,6 +136,10 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
         $user->setPerson($person);
         $this->userManager->updateUser($user);
+
+        if ($user->isLocked() || !$user->isEnabled()) {
+            throw new AuthenticationException('User is locked or not enabled');
+        }
 
         return $user;
     }

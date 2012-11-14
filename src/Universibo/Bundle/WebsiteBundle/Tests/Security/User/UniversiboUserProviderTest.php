@@ -88,6 +88,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         $mockedUser = new User();
         $mockedUser->setPerson($person);
         $mockedUser->setEmail('nome.cognome@unibo.it');
+        $mockedUser->setEnabled(true);
 
         $claims = array (
             'eppn' => $mockedUser->getEmail(),
@@ -215,6 +216,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         $mockedUser = new User();
         $mockedUser->setEmail($claims['eppn']);
         $mockedUser->setUsername('username');
+        $mockedUser->setEnabled(true);
 
         $this
             ->personRepository
@@ -254,6 +256,107 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         $this->personAssertions($person, $claims);
     }
 
+    /**
+     * @expectedException Symfony\Component\Security\Core\Exception\AuthenticationException
+     */
+    public function testNoPersonExistingEmailLocked()
+    {
+        $claims = array (
+            'eppn' => 'nome.cognome@unibo.it',
+            'idAnagraficaUnica' => 42,
+            'isMemberOf' => 'Docente',
+            'givenName' => 'Nome',
+            'sn' => 'Cognome'
+        );
+
+        $mockedUser = new User();
+        $mockedUser->setEmail($claims['eppn']);
+        $mockedUser->setUsername('username');
+        $mockedUser->setLocked(true);
+        $mockedUser->setEnabled(true);
+
+        $this
+            ->personRepository
+            ->expects($this->atLeastOnce())
+            ->method('findOneByUniboId')
+            ->with($this->equalTo($claims['idAnagraficaUnica']))
+            ->will($this->returnValue(null))
+        ;
+
+        $this
+            ->userManager
+            ->expects($this->atLeastOnce())
+            ->method('findUserByEmail')
+            ->with($this->equalTo($claims['eppn']))
+            ->will($this->returnValue($mockedUser))
+        ;
+
+        $this
+            ->userManager
+            ->expects($this->atLeastOnce())
+            ->method('updateUser')
+        ;
+
+        $this
+            ->objectManager
+            ->expects($this->atLeastOnce())
+            ->method('merge')
+            ->will($this->returnArgument(0))
+        ;
+
+        $this->provider->loadUserByClaims($claims);
+    }
+
+    /**
+     * @expectedException Symfony\Component\Security\Core\Exception\AuthenticationException
+     */
+    public function testNoPersonExistingEmailDisabled()
+    {
+        $claims = array (
+            'eppn' => 'nome.cognome@unibo.it',
+            'idAnagraficaUnica' => 42,
+            'isMemberOf' => 'Docente',
+            'givenName' => 'Nome',
+            'sn' => 'Cognome'
+        );
+
+        $mockedUser = new User();
+        $mockedUser->setEmail($claims['eppn']);
+        $mockedUser->setUsername('username');
+        $mockedUser->setEnabled(false);
+
+        $this
+            ->personRepository
+            ->expects($this->atLeastOnce())
+            ->method('findOneByUniboId')
+            ->with($this->equalTo($claims['idAnagraficaUnica']))
+            ->will($this->returnValue(null))
+        ;
+
+        $this
+            ->userManager
+            ->expects($this->atLeastOnce())
+            ->method('findUserByEmail')
+            ->with($this->equalTo($claims['eppn']))
+            ->will($this->returnValue($mockedUser))
+        ;
+
+        $this
+            ->userManager
+            ->expects($this->atLeastOnce())
+            ->method('updateUser')
+        ;
+
+        $this
+            ->objectManager
+            ->expects($this->atLeastOnce())
+            ->method('merge')
+            ->will($this->returnArgument(0))
+        ;
+
+        $this->provider->loadUserByClaims($claims);
+    }
+
     public function testExistingPersonDifferentEmailSimple()
     {
         $person = new Person();
@@ -264,6 +367,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         $mockedUser = new User();
         $mockedUser->setPerson($person);
         $mockedUser->setEmail('nome.cognome@unibo.it');
+        $mockedUser->setEnabled(true);
 
         $claims = array (
             'eppn' => 'x'.$mockedUser->getEmail(),
