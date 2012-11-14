@@ -93,7 +93,7 @@ EOT;
      * @throws NonUniqueResultException
      * @return User
      */
-    public function findOneNotLocked(Person $person)
+    public function findOneAllowedToLogin(Person $person)
     {
         $dql = <<<EOT
 SELECT u
@@ -101,6 +101,7 @@ SELECT u
     WHERE
             u.person = ?0
         AND u.locked = false
+        AND u.enabled = true
 EOT;
 
         $query = $this
