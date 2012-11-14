@@ -117,11 +117,14 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnArgument(0))
         ;
 
+        $this->expectsFindOrCreateUniboGroup($claims['isMemberOf']);
+
         $user = $this->provider->loadUserByClaims($claims);
 
         $this->assertInstanceOf('Universibo\\Bundle\\CoreBundle\\Entity\\User', $user);
         $this->assertEquals($mockedUser, $user);
 
+        $this->assertGroup($user, $claims['isMemberOf']);
         $this->personAssertions($user->getPerson(), $claims);
     }
 
@@ -193,12 +196,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($legacyGroups, $user->getLegacyGroups());
         $this->assertEquals($usernameLocked, $user->isUsernameLocked());
 
-        $this->assertEquals(1, count($user->getUniboGroups()), '1 unibo group should be present');
-
-        $group = $user->getUniboGroups()->first();
-
-        $this->assertEquals($claims['isMemberOf'], $group->getName());
-
+        $this->assertGroup($user, $claims['isMemberOf']);
         $person = $user->getPerson();
         $this->personAssertions($person, $claims);
     }
@@ -247,12 +245,14 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnArgument(0))
         ;
 
+        $this->expectsFindOrCreateUniboGroup($claims['isMemberOf']);
+
         $user = $this->provider->loadUserByClaims($claims);
 
         $this->assertSame($mockedUser, $user);
 
         $person = $user->getPerson();
-
+        $this->assertGroup($user, $claims['isMemberOf']);
         $this->personAssertions($person, $claims);
     }
 
@@ -304,6 +304,8 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnArgument(0))
         ;
 
+        $this->expectsFindOrCreateUniboGroup($claims['isMemberOf']);
+
         $this->provider->loadUserByClaims($claims);
     }
 
@@ -354,6 +356,8 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnArgument(0))
         ;
 
+        $this->expectsFindOrCreateUniboGroup($claims['isMemberOf']);
+
         $this->provider->loadUserByClaims($claims);
     }
 
@@ -396,12 +400,15 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnArgument(0))
         ;
 
+        $this->expectsFindOrCreateUniboGroup($claims['isMemberOf']);
+
         $user = $this->provider->loadUserByClaims($claims);
 
         $this->assertInstanceOf('Universibo\\Bundle\\CoreBundle\\Entity\\User', $user);
         $this->assertEquals($mockedUser, $user);
         $this->assertEquals($claims['eppn'], $user->getEmail());
 
+        $this->assertGroup($user, $claims['isMemberOf']);
         $this->personAssertions($user->getPerson(), $claims);
     }
 
@@ -514,6 +521,14 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
             array('Esterno', LegacyRoles::PERSONALE, true),
             array('Accreditato', LegacyRoles::PERSONALE, true),
         );
+    }
+
+    private function assertGroup(User $user, $groupName)
+    {
+        $this->assertEquals(1, count($user->getUniboGroups()), '1 unibo group should be present');
+
+        $group = $user->getUniboGroups()->first();
+        $this->assertEquals($groupName, $group->getName());
     }
 
     private function expectsFindOrCreateUniboGroup($name)

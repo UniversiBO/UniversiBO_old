@@ -121,19 +121,19 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
             $user->setEmail($eppn);
         }
 
+        $memberOf = $claims['isMemberOf'];
+
         if ($user === null) {
             $user = $this->userManager->createUser();
             $user->setEnabled(true);
             $user->setUsername($this->getAvailableUsername($eppn));
             $user->setEmail($eppn);
 
-            $memberOf = $claims['isMemberOf'];
-
             $key = array_key_exists($memberOf, $this->memberOfHandlers) ? $memberOf : 'default';
             $this->memberOfHandlers[$key]($user);
-            $user->getUniboGroups()->add($this->uniboGroupRepository->findOrCreate($memberOf));
         }
 
+        $user->getUniboGroups()->add($this->uniboGroupRepository->findOrCreate($memberOf));
         $user->setPerson($person);
         $this->userManager->updateUser($user);
 
