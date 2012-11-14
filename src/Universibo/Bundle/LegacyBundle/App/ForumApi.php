@@ -4,11 +4,11 @@ namespace Universibo\Bundle\LegacyBundle\App;
 use DB;
 use DB_common;
 use Error;
+use Exception;
 use Krono;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\ForumBundle\Security\ForumSession\ForumSessionInterface;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
-use Universibo\Bundle\LegacyBundle\Forum\ForumApi as ForumApiInterface;
 
 /**
  * La classe Forum fornisce un'API esterna per le operazioni sul forum PHPBB 2.0.x
@@ -24,7 +24,7 @@ use Universibo\Bundle\LegacyBundle\Forum\ForumApi as ForumApiInterface;
  * @copyright CopyLeft UniversiBO 2001-2003
  */
 
-class ForumApi extends DBRepository implements ForumApiInterface
+class ForumApi extends DBRepository
 {
 
     /**
@@ -96,7 +96,7 @@ class ForumApi extends DBRepository implements ForumApiInterface
     }
 
     /**
-     * @return string: id di sessione del forum 'sid=f454e54ea75ae45aef75920b02751ac' altrimenti false
+     * @return string id di sessione del forum 'sid=f454e54ea75ae45aef75920b02751ac' altrimenti false
      */
     public function getSidForUri()
     {
@@ -131,7 +131,7 @@ class ForumApi extends DBRepository implements ForumApiInterface
      */
     public function login(User $user)
     {
-        throw new \Exception('Deprecated method');
+        throw new Exception('Deprecated method');
 
         //mappa informazioni salvate nei cookie da phpbb2
 
@@ -219,7 +219,7 @@ class ForumApi extends DBRepository implements ForumApiInterface
      */
     public function logout()
     {
-        throw new \Exception('Deprecated method');
+        throw new Exception('Deprecated method');
     }
 
     /**
@@ -290,12 +290,12 @@ class ForumApi extends DBRepository implements ForumApiInterface
      */
     public function updateUserStyle(User $user)
     {
-        throw new \Exception('Deprecated method');
+        throw new Exception('Deprecated method');
     }
 
     public function updatePassword(User $user, $password)
     {
-        throw new \Exception('Deprecated method');
+        throw new Exception('Deprecated method');
     }
 
     /**
@@ -305,7 +305,7 @@ class ForumApi extends DBRepository implements ForumApiInterface
      */
     public function updateUserEmail(User $user)
     {
-        throw new \Exception('Deprecated method');
+        throw new Exception('Deprecated method');
 
         $db = $this->getDb();
 
