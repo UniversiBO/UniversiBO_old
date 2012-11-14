@@ -176,7 +176,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
     private function findUserByPerson(Person $person)
     {
         try {
-            return $this->userRepository->findOneNotLocked($person);
+            return $this->userRepository->findOneAllowedToLogin($person);
         } catch (NoResultException $e) {
             return null;
         } catch (NonUniqueResultException $e) {

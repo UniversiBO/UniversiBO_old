@@ -62,7 +62,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
     {
         $this->objectManager = $this->getMock('Doctrine\\Common\\Persistence\\ObjectManager');
         $this->personRepository = $this->getMock('Universibo\\Bundle\\CoreBundle\\Entity\\PersonRepository', array('findOneByUniboId'), array(), '', false);
-        $this->userRepository = $this->getMock('Universibo\\Bundle\\CoreBundle\\Entity\\UserRepository', array('findOneByEmail', 'findOneNotLocked'), array(), '', false);
+        $this->userRepository = $this->getMock('Universibo\\Bundle\\CoreBundle\\Entity\\UserRepository', array('findOneByEmail', 'findOneAllowedToLogin'), array(), '', false);
         $this->userManager = $this->getMock('FOS\\UserBundle\\Model\\UserManagerInterface');
         $this->uniboGroupRepository = $this->getMock('Universibo\\Bundle\\CoreBundle\\Entity\\UniboGroupRepository', array('findOrCreate'), array(), '', false);
 
@@ -106,7 +106,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->userRepository
              ->expects($this->atLeastOnce())
-             ->method('findOneNotLocked')
+             ->method('findOneAllowedToLogin')
              ->with($this->equalTo($person))
              ->will($this->returnValue($mockedUser));
 
@@ -163,7 +163,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         $this
             ->userRepository
             ->expects($this->atLeastOnce())
-            ->method('findOneNotLocked')
+            ->method('findOneAllowedToLogin')
             ->will($this->throwException(new NoResultException()))
         ;
 
@@ -389,7 +389,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->userRepository
              ->expects($this->atLeastOnce())
-             ->method('findOneNotLocked')
+             ->method('findOneAllowedToLogin')
              ->with($this->equalTo($person))
              ->will($this->returnValue($mockedUser));
 
@@ -442,7 +442,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->userRepository
              ->expects($this->atLeastOnce())
-             ->method('findOneNotLocked')
+             ->method('findOneAllowedToLogin')
              ->with($this->equalTo($person))
              ->will($this->throwException(new NonUniqueResultException()))
         ;
@@ -490,7 +490,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->userRepository
              ->expects($this->atLeastOnce())
-             ->method('findOneNotLocked')
+             ->method('findOneAllowedToLogin')
              ->with($this->equalTo($person))
              ->will($this->returnValue($mockedUser))
         ;
