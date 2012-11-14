@@ -8,6 +8,7 @@ use Doctrine\ORM\NoResultException;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Universibo\Bundle\CoreBundle\Entity\Person;
 use Universibo\Bundle\CoreBundle\Entity\PersonRepository;
+use Universibo\Bundle\CoreBundle\Entity\UniboGroup;
 use Universibo\Bundle\CoreBundle\Entity\UniboGroupRepository;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
@@ -537,7 +538,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
 
     private function expectsFindOrCreateUniboGroup($name)
     {
-        $group = new \Universibo\Bundle\CoreBundle\Entity\UniboGroup();
+        $group = new UniboGroup();
         $group->setName($name);
 
         $this
