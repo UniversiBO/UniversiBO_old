@@ -125,6 +125,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($mockedUser, $user);
 
         $this->assertGroup($user, $claims['isMemberOf']);
+        $this->userAssertions($user);
         $this->personAssertions($user->getPerson(), $claims);
     }
 
@@ -198,6 +199,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertGroup($user, $claims['isMemberOf']);
         $person = $user->getPerson();
+        $this->userAssertions($user);
         $this->personAssertions($person, $claims);
     }
 
@@ -253,6 +255,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
 
         $person = $user->getPerson();
         $this->assertGroup($user, $claims['isMemberOf']);
+        $this->userAssertions($user);
         $this->personAssertions($person, $claims);
     }
 
@@ -409,6 +412,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($claims['eppn'], $user->getEmail());
 
         $this->assertGroup($user, $claims['isMemberOf']);
+        $this->userAssertions($user);
         $this->personAssertions($user->getPerson(), $claims);
     }
 
@@ -543,6 +547,11 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($name))
             ->will($this->returnValue($group))
         ;
+    }
+
+    private function userAssertions(User $user)
+    {
+        $this->assertInstanceOf('DateTime', $user->getLastLogin());
     }
 
     private function personAssertions(Person $person, array $claims)

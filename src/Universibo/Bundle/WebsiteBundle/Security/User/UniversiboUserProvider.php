@@ -2,6 +2,7 @@
 
 namespace Universibo\Bundle\WebsiteBundle\Security\User;
 
+use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -135,6 +136,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
         $user->getUniboGroups()->add($this->uniboGroupRepository->findOrCreate($memberOf));
         $user->setPerson($person);
+        $user->setLastLogin(new DateTime());
         $this->userManager->updateUser($user);
 
         if ($user->isLocked() || !$user->isEnabled()) {
