@@ -4,6 +4,8 @@ namespace Universibo\Bundle\LegacyBundle\Entity;
 use DB;
 use Doctrine\DBAL\DBALException;
 use Error;
+use Universibo\Bundle\CoreBundle\Entity\MergeableRepositoryInterface;
+use Universibo\Bundle\CoreBundle\Entity\User;
 
 /**
  * Canale repository
@@ -11,7 +13,7 @@ use Error;
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL v2 or later
  */
-class DBDocenteRepository extends DBRepository
+class DBDocenteRepository extends DBRepository implements MergeableRepositoryInterface
 {
     public function find($id)
     {
@@ -99,5 +101,56 @@ EOT;
         $res->free();
 
         return $rubrica;
+    }
+
+    /**
+     * Counts how many professors are connected with this user
+     * should be 0 or 1, but more if db has errors
+     *
+     * @param  User          $user
+     * @return integer
+     * @throws DBALException
+     */
+    public function countByUser(User $user)
+    {
+        $db = $this->getDb();
+
+        $query = <<<EOT
+SELECT COUNT(*)
+    FROM docente
+    WHERE id_utente = {$user->getId()}
+EOT;
+        $res = $db->query($query);
+        if (DB::isError($res)) {
+            throw new DBALException(DB::errorMessage($res));
+        }
+
+        $row = $this->fetchRow($res);
+        $res->free();
+
+        return $row[0];
+    }
+
+    /**
+     * Transfers the ownership
+     *
+     * @param  User          $source
+     * @param  User          $target
+     * @throws DBALException
+     */
+    public function transferOwnership(User $source, User $target)
+    {
+        $db = $this->getDb();
+
+        $query = <<<EOT
+UPDATE docente
+    SET id_utente = {$target->getId()}
+    WHERE id_utente = {$source->getId()}
+EOT;
+        $res = $db->query($query);
+
+        if (DB::isError($res)) {
+            throw new DBALException(DB::errorMessage($res));
+        }
     }
 }

@@ -79,6 +79,11 @@ class UserMerger implements UserMergerInterface
                 'repository' => $ruoloRepository
         );
 
+        $this->retrievers['professors'] = array(
+                'description' => 'Docente table',
+                'repository' => $docenteRepository
+        );
+
         $this->userRepository = $userRepository;
     }
 
@@ -165,6 +170,6 @@ class UserMerger implements UserMergerInterface
             throw new LogicException('Users belong to different people');
         }
 
-        return $people[0];
+        return array_pop($people);
     }
 }
