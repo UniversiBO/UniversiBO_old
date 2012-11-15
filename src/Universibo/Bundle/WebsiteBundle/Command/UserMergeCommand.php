@@ -62,7 +62,7 @@ class UserMergeCommand extends ContainerAwareCommand
             throw new LogicException('Please provide at least 2 usernames');
         }
 
-        $userRepo = $this->get('universibo_core.repository.user');
+        $userManager = $this->get('fos_user.user_manager');
         $merger = $this->get('universibo_website.merge.user');
 
         $output->setDecorated(true);
@@ -70,10 +70,12 @@ class UserMergeCommand extends ContainerAwareCommand
         $output->writeln('Merging users:');
         $users = array();
         foreach ($usernames as $id => $username) {
-            $user = $userRepo->findOneByUsername($username);
+            $user = $userManager->findUserByUsername($username);
             if (!$user instanceof User) {
                 throw new InvalidArgumentException('Username not found');
             }
+            
+            $username = $user->getUsername();
 
             $output->writeln('<info>'.($id+1).') '.$username.'</info>');
             $owned = $merger->getOwnedResources($user);
