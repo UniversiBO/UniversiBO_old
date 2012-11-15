@@ -231,7 +231,7 @@ class User extends BaseUser implements EncoderAwareInterface
      * @param  Person $person
      * @return User   fluent interface
      */
-    public function setPerson(Person $person)
+    public function setPerson(Person $person = null)
     {
         $this->person = $person;
 
