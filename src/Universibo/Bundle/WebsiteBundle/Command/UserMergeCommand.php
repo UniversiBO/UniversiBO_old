@@ -92,7 +92,8 @@ class UserMergeCommand extends ContainerAwareCommand
 
         $dialog = $this->getHelperSet()->get('dialog');
 
-        $key = array_search($input->getOption('target'), $usernames);
+        array_walk($usernames, function (&$value, $key) { $value = strtolower($value); });
+        $key = array_search(strtolower($input->getOption('target')), $usernames);
         if (!$key) {
             do {
                 $choosen = $dialog->ask(
