@@ -101,21 +101,15 @@ class ShowContattoDocente extends UniversiboCommand
             $info_ruoli[$name] = ($date == 0) ? 'mai loggato'
                     : round((time() - $date) / 86400) . ' gg fa circa';
         }
-        //		var_dump($info_ruoli);
 
-        // TODO mi sa che questa lista è incompleta: cercare user con groups = 4 o = 64
-        //		$lista_collabs = Collaboratore::selectCollaboratoriAll();
         $lista_collabs = $this->_getCollaboratoriUniversibo();
         $table_collab = array();
-        //		var_dump($lista_collabs); die;
 
         foreach ($lista_collabs as $collab) {
             $id = $collab->getId();
-            //			$username 			= User::getUsernameFromId($id);
             $username = $collab->getUsername();
             $table_collab[$id] = $username;
         }
-        //		var_dump($table_collab); die;
 
         uasort($table_collab, 'strcasecmp');
 
