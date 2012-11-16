@@ -37,14 +37,9 @@ class ShowMyNews extends PluginCommand
         $template  = $fc->getTemplateEngine();
         $krono     = $fc->getKrono();
         $router    = $this->get('router');
-        $user_ruoli = $user instanceof User ? $this->get('universibo_legacy.repository.ruolo')->findByIdUtente($user->getId()) : array();
-        $personalizza_not_admin = false;
 
         $channelRouter = $this->get('universibo_legacy.routing.channel');
 
-        $personalizza   = false;
-        $referente      = false;
-        $moderatore     = false;
         $ultimo_accesso = $user->getLastLogin()->getTimestamp();
 
         //parte ricopiata da studiare...
@@ -68,8 +63,6 @@ class ShowMyNews extends PluginCommand
 
             for ($i = 0; $i < $ret_news; $i++) {
                 $news = $elenco_news[$i];
-                //var_dump($news);
-                $this_moderatore = ($this->get('security.context')->isGranted('ROLE_ADMIN') || ($moderatore && $news->getIdUtente()==$user->getId()));
 
                 $elenco_news_tpl[$i]['titolo']       = $news->getTitolo();
                 $elenco_news_tpl[$i]['notizia']      = $news->getNotizia();
@@ -88,7 +81,6 @@ class ShowMyNews extends PluginCommand
                 //roba mia
                 $canali = $news->getIdCanali();
                 $num_canali =  count($canali);
-                $elenco_canali_tpl = array();
                 for ($j = 0; $j < $num_canali; $j++) {
                     $canale = Canale::retrieveCanale($canali[$j]);
                     if ($canale->isGroupAllowed($user->getLegacyGroups())) {
@@ -104,9 +96,7 @@ class ShowMyNews extends PluginCommand
                 $elenco_news_tpl[$i]['modifica_link']= '';
                 $elenco_news_tpl[$i]['elimina']      = '';
                 $elenco_news_tpl[$i]['elimina_link'] = '';
-
             }
-
         }
 
         $template->assign('showMyNews_newsList', $elenco_news_tpl);
