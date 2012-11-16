@@ -117,7 +117,7 @@ class ShowContattoDocente extends UniversiboCommand
         }
         //		var_dump($table_collab); die;
 
-        uasort($table_collab, array($this, '_compareUsername'));
+        uasort($table_collab, 'strcasecmp');
 
         // valori default form
 
@@ -245,13 +245,4 @@ Link: ' . $router->generate('universibo_legacy_contact_professor', array('cod_do
 
         return $userRepo->findCollaborators();
     }
-
-    public function _compareUsername($a, $b)
-    {
-        if (strnatcmp($a['nome'], $b['nome']) > 0)
-            return +1;
-        else
-            return -1;
-    }
-
 }
