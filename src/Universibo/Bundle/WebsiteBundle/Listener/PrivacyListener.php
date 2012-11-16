@@ -86,8 +86,9 @@ class PrivacyListener
             return;
         }
 
-        $controller = $event->getRequest()->attributes->get('_controller');
-        if (preg_match('/rules/i', $controller)) {
+        $controller = $request->attributes->get('_controller');
+        if (preg_match('/rules/i', $controller) ||
+                preg_match('/logout/', $request->getRequestUri())) {
             return;
         }
 

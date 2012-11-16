@@ -74,7 +74,7 @@ class UserMergeCommand extends ContainerAwareCommand
             if (!$user instanceof User) {
                 throw new InvalidArgumentException('Username not found');
             }
-            
+
             $username = $user->getUsername();
 
             $output->writeln('<info>'.($id+1).') '.$username.'</info>');
