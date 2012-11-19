@@ -75,6 +75,8 @@ class DefaultController extends Controller
                   return $this->redirect($this->get('router')->generate('universibo_legacy_manifesto', array(), true), 301);
             case 'ShowPermalink':
                 return $this->redirect($this->get('router')->generate('universibo_legacy_permalink', array('id_notizia' => $_GET['id_notizia']), true), 301);
+            case 'ShowRules':
+                return $this->redirect($this->get('router')->generate('universibo_legacy_rules', array(), true), 301);
             case 'ShowUser':
                 return $this->redirect($this->get('router')->generate('universibo_legacy_user', array('id_utente' => $_GET['id_utente']), true), 301);
 
