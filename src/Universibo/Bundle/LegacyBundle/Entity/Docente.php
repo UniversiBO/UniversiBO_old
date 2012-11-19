@@ -112,7 +112,7 @@ class Docente
     public static function selectDocente($id, $isCodiceDocente = false)
     {
         return self::getRepository()
-                ->findBy($isCodiceDocente ? 'cod_doc' : 'idUtente', $id);
+                ->findBy($isCodiceDocente ? 'cod_doc' : 'id_utente', $id);
     }
 
     public static function selectDocenteFromCod($codDoc)
