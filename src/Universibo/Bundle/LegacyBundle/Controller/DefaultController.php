@@ -83,7 +83,7 @@ class DefaultController extends Controller
                 return $this->redirect($router->generate('universibo_legacy_user', array('id_utente' => $_GET['id_utente']), true), 301);
 
             default:
-                throw new NotFoundHttpException('Legacy url not mapped');
+                throw new NotFoundHttpException("Legacy do=$do not mapped");
         }
     }
 }
