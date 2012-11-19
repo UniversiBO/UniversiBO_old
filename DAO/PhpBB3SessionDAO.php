@@ -56,7 +56,7 @@ EOT;
             $time,
             $time,
             $ip,
-            $userAgent
+            substr($userAgent, 0, 150)
         ));
 
         return $sessionId;
