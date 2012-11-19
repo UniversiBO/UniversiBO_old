@@ -24,7 +24,7 @@ class Contact
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", cascade={"persist", "merge"}, fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="User", cascade={"persist", "merge"}, fetch="EAGER", inversedBy="contacts")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @var User
      */
