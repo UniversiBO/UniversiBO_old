@@ -524,12 +524,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle",
-                "reference": "809734e26fa68023f27e3752d370092fb1160e59"
+                "reference": "30dfe0b2bdea9cc54750092ebe19d05423d662fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/archive/809734e26fa68023f27e3752d370092fb1160e59.zip",
-                "reference": "809734e26fa68023f27e3752d370092fb1160e59",
+                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/archive/30dfe0b2bdea9cc54750092ebe19d05423d662fb.zip",
+                "reference": "30dfe0b2bdea9cc54750092ebe19d05423d662fb",
                 "shasum": ""
             },
             "require": {
@@ -550,7 +550,7 @@
                 "doctrine/doctrine-bundle": "*",
                 "doctrine/mongodb-odm-bundle": "*"
             },
-            "time": "1352986811",
+            "time": "1353269280",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1568,12 +1568,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/UniversiBO/UniversiboCoreBundle",
-                "reference": "c008ad02c9feb1022997a7685d66e1a806557317"
+                "reference": "6ef394e28141e10ca78d321ee5871f578f5c86f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboCoreBundle/archive/c008ad02c9feb1022997a7685d66e1a806557317.zip",
-                "reference": "c008ad02c9feb1022997a7685d66e1a806557317",
+                "url": "https://github.com/UniversiBO/UniversiboCoreBundle/archive/6ef394e28141e10ca78d321ee5871f578f5c86f9.zip",
+                "reference": "6ef394e28141e10ca78d321ee5871f578f5c86f9",
                 "shasum": ""
             },
             "require": {
@@ -1585,7 +1585,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1352983824",
+            "time": "1353326362",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
@@ -1725,7 +1725,6 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1352730173",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
@@ -1750,7 +1749,8 @@
             "homepage": "http://github.com/UniversiBO",
             "keywords": [
                 "shibboleth"
-            ]
+            ],
+            "time": "1352730173"
         },
         {
             "name": "zendframework/zendframework",
