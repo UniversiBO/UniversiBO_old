@@ -51,6 +51,8 @@ class DefaultController extends Controller
                 return $this->redirect($this->get('router')->generate('universibo_legacy_cdl', array('id_canale' => $_GET['id_canale']), true), 301);
             case 'ShowCredits':
                 return $this->redirect($this->get('router')->generate('universibo_legacy_credits', array(), true), 301);
+            case 'ShowContacts':
+                return $this->redirect($this->get('router')->generate('universibo_legacy_contacts', array(), true), 301);
             case 'ShowError':
                 return $this->redirect($this->get('router')->generate('universibo_legacy_error', array(), true), 301);
             case 'ShowFacolta':
