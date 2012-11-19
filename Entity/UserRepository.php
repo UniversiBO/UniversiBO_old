@@ -13,6 +13,12 @@ use Doctrine\ORM\NonUniqueResultException;
  */
 class UserRepository extends EntityRepository
 {
+    /**
+     * Converts id into username
+     * 
+     * @param integer $id
+     * @return string
+     */
     public function getUsernameFromId($id)
     {
         $user = $this->find($id);
