@@ -15,8 +15,8 @@ class UserRepository extends EntityRepository
 {
     /**
      * Converts id into username
-     * 
-     * @param integer $id
+     *
+     * @param  integer $id
      * @return string
      */
     public function getUsernameFromId($id)
