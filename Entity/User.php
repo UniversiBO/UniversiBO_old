@@ -332,10 +332,6 @@ class User extends BaseUser implements EncoderAwareInterface
 
     /**
      * Ensures that at least one contact is present
-     *
-     * @ORM\PostLoad
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
      */
     public function ensureContact()
     {

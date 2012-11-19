@@ -81,11 +81,23 @@ EOT;
 
     public function findCollaborators()
     {
-        $qb = $this->createQueryBuilder('u');
+        $dql = <<<EOT
+SELECT u, c
+    FROM 
+        UniversiboCoreBundle:User u
+    LEFT JOIN u.contacts c
+    WHERE
+            u.legacyGroups IN (:groups)
+        AND u.locked = false
+        AND u.enabled = true
+EOT;
+        $query = $this
+            ->getEntityManager()
+            ->createQuery($dql)
+            ->setParameter('groups', array(4, 64))
+        ;
 
-        $qb->add('where', $qb->expr()->in('u.legacyGroups', array(4, 64)));
-
-        return $qb->getQuery()->getResult();
+        return $query->getResult();
     }
 
     /**
