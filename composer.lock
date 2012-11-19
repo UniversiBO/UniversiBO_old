@@ -1656,12 +1656,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/UniversiBO/UniversiboForumBundle",
-                "reference": "7a2aa6fbd60346f3ef6dbeb0e7cbe73c78685514"
+                "reference": "44c4433fcb262472e8e9c67f709d9099af3ba153"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboForumBundle/archive/7a2aa6fbd60346f3ef6dbeb0e7cbe73c78685514.zip",
-                "reference": "7a2aa6fbd60346f3ef6dbeb0e7cbe73c78685514",
+                "url": "https://github.com/UniversiBO/UniversiboForumBundle/archive/44c4433fcb262472e8e9c67f709d9099af3ba153.zip",
+                "reference": "44c4433fcb262472e8e9c67f709d9099af3ba153",
                 "shasum": ""
             },
             "require": {
@@ -1670,7 +1670,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1351612037",
+            "time": "1353367408",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
@@ -1725,6 +1725,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
+            "time": "1352730173",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
@@ -1749,8 +1750,7 @@
             "homepage": "http://github.com/UniversiBO",
             "keywords": [
                 "shibboleth"
-            ],
-            "time": "1352730173"
+            ]
         },
         {
             "name": "zendframework/zendframework",
