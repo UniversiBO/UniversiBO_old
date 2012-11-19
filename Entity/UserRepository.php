@@ -4,7 +4,6 @@ namespace Universibo\Bundle\CoreBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
-use Universibo\Bundle\CoreBundle\Entity\Person;
 
 /**
  * BatchRenameRepository
@@ -32,6 +31,15 @@ class UserRepository extends EntityRepository
         return $this->findOneByUsername($username) instanceof User;
     }
 
+    /**
+     * User search feature
+     *
+     * @param  string  $usernameQuery
+     * @param  string  $mailQuery
+     * @param  boolean $showLocked
+     * @param  boolean $showDisabled
+     * @return User[]
+     */
     public function search($usernameQuery, $mailQuery, $showLocked = false,
             $showDisabled = false)
     {
@@ -59,14 +67,21 @@ class UserRepository extends EntityRepository
                 -> getResult();
     }
 
+    /**
+     * Counts how many users belong to a person
+     *
+     * @param  Person $person
+     * @return type
+     */
     public function countByPerson(Person $person)
     {
         $dql = <<<EOT
 SELECT COUNT(u)
     FROM UniversiboCoreBundle:User u
     WHERE
-            u.person = ?0
-        AND u.locked = false
+            u.person  = ?0
+        AND u.locked  = false
+        AND u.enabled = true
 EOT;
 
         $query = $this
@@ -79,11 +94,16 @@ EOT;
         return $query->getSingleScalarResult();
     }
 
+    /**
+     * Finds all the collaborators
+     *
+     * @return User[]
+     */
     public function findCollaborators()
     {
         $dql = <<<EOT
 SELECT u, c
-    FROM 
+    FROM
         UniversiboCoreBundle:User u
     LEFT JOIN u.contacts c
     WHERE
@@ -125,6 +145,12 @@ EOT;
         return $query->getSingleResult();
     }
 
+    /**
+     * Merges an user and flushes the entity manager
+     *
+     * @param  User $user
+     * @return User
+     */
     public function save(User $user)
     {
         $em = $this->getEntityManager();
