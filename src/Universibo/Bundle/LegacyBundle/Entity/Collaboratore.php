@@ -7,6 +7,7 @@ namespace Universibo\Bundle\LegacyBundle\Entity;
  * @package universibo
  * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
+ * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL, <{@link http://www.opensource.org/licenses/gpl-license.php}>
  * @copyright CopyLeft UniversiBO 2001-2004
  */
@@ -14,29 +15,24 @@ namespace Universibo\Bundle\LegacyBundle\Entity;
 class Collaboratore
 {
     /**
-     * @var DBCdlRepository
+     * @var integer
      */
-    private static $repository;
+    private $id_utente;
 
     /**
-     * @access private
+     * @var string
      */
-    public $id_utente;
+    private $intro;
 
     /**
-     * @access private
+     * @var string
      */
-    public $intro;
+    private $ruolo;
 
     /**
-     * @access private
+     * @var string
      */
-    public $ruolo;
-
-    /**
-     * @access private
-     */
-    public $recapito;
+    private $recapito;
 
     /**
      * @var string
@@ -44,9 +40,9 @@ class Collaboratore
     private $obiettivi;
 
     /**
-     * @access private
+     * @var string
      */
-    public $foto;
+    private $foto;
 
     /**
      * @var User
