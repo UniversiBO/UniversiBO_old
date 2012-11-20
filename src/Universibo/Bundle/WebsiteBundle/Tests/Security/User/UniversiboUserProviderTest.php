@@ -148,6 +148,10 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
             'sn' => 'Cognome'
         );
 
+        if (empty($memberOf)) {
+            $memberOf = 'Nessuno';
+        }
+
         $this
             ->personRepository
             ->expects($this->atLeastOnce())
@@ -200,7 +204,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($legacyGroups, $user->getLegacyGroups());
         $this->assertEquals($usernameLocked, $user->isUsernameLocked());
 
-        $this->assertGroup($user, $claims['isMemberOf']);
+        $this->assertGroup($user, $memberOf);
         $person = $user->getPerson();
         $this->userAssertions($user);
         $this->assertSame('', $user->getPhone(), 'Phone should be an empty string');
@@ -528,6 +532,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
             array('Laureato', LegacyRoles::STUDENTE, false),
             array('Studente', LegacyRoles::STUDENTE, false),
             array('PersonaleTA', LegacyRoles::PERSONALE, true),
+            array(null, LegacyRoles::PERSONALE, true),
             array('Esterno', LegacyRoles::PERSONALE, true),
             array('Accreditato', LegacyRoles::PERSONALE, true),
         );

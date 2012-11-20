@@ -126,7 +126,6 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
         $memberOf = $claims['isMemberOf'];
 
-        // TODO make a test case for this
         if (empty($memberOf)) {
             $memberOf = 'Nessuno';
         }
