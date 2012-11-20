@@ -34,11 +34,12 @@ class ShowContacts extends UniversiboCommand
         $template->assign('contacts_path', $contacts_path);
 
         $infoCollaboratori = $this->get('universibo_website.repository.user')->findCollaborators();
+        $collabRepo = $this->get('universibo_legacy.repository.collaboratore');
         foreach ($infoCollaboratori as $collaboratore) {
             $username = $collaboratore->getUsername();
 
             $idColl = $collaboratore->getId();
-            $coll = Collaboratore::selectCollaboratore($idColl);
+            $coll = $collabRepo->find($idColl);
             if (!$coll) {
                 $name = $user instanceof User ? $user->getUsername() : '';
                 if ($name == $username || $context->isGranted('ROLE_ADMIN'))
