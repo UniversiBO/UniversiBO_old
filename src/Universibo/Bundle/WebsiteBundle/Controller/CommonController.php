@@ -22,7 +22,7 @@ class CommonController extends Controller
 
        $response = $this->render('UniversiboWebsiteBundle:Common:date.html.twig', $params);
        $response->setPublic();
-       $response->setMaxAge(5);
+       $response->setSharedMaxAge(5);
 
        return $response;
     }

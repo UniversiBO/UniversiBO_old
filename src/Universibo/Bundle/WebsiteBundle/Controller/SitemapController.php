@@ -50,7 +50,7 @@ class SitemapController extends Controller
         }
 
         $response->setPublic();
-        $response->setMaxAge(3600 * 24);
+        $response->setSharedMaxAge(3600 * 24);
         $response->setContent($document->saveXML());
 
         return $response;
