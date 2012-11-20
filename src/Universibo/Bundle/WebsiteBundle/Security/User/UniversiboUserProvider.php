@@ -13,6 +13,7 @@ use Universibo\Bundle\CoreBundle\Entity\PersonRepository;
 use Universibo\Bundle\CoreBundle\Entity\UniboGroupRepository;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
+use Universibo\Bundle\LegacyBundle\App\Constants;
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 use Universibo\Bundle\ShibbolethBundle\Security\User\ShibbolethUserProviderInterface;
 
@@ -136,6 +137,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
             $user->setUsername($this->getAvailableUsername($eppn));
             $user->setEmail($eppn);
             $user->setPhone('');
+            $user->setNotifications(Constants::NOTIFICA_ALL);
             // x will never match any hash, as wanted
             $user->setPassword('x');
 

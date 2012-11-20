@@ -12,6 +12,7 @@ use Universibo\Bundle\CoreBundle\Entity\UniboGroup;
 use Universibo\Bundle\CoreBundle\Entity\UniboGroupRepository;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
+use Universibo\Bundle\LegacyBundle\App\Constants;
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 use Universibo\Bundle\WebsiteBundle\Security\User\UniversiboUserProvider;
 
@@ -203,6 +204,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($claims['eppn'], $user->getEmail());
         $this->assertEquals($legacyGroups, $user->getLegacyGroups());
         $this->assertEquals($usernameLocked, $user->isUsernameLocked());
+        $this->assertEquals(Constants::NOTIFICA_ALL, $user->getNotifications());
 
         $this->assertGroup($user, $memberOf);
         $person = $user->getPerson();
