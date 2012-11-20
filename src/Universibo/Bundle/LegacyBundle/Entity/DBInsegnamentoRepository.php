@@ -18,6 +18,13 @@ class DBInsegnamentoRepository extends DBRepository
      */
     private $programmaRepository;
 
+    /**
+     * Class constructor
+     *
+     * @param DB_common                        $db
+     * @param DBPrgAttivitaDidatticaRepository $programmaRepository
+     * @param type                             $convert
+     */
     public function __construct(DB_common $db, DBPrgAttivitaDidatticaRepository $programmaRepository, $convert = false)
     {
         parent::__construct($db, $convert);
@@ -25,6 +32,11 @@ class DBInsegnamentoRepository extends DBRepository
         $this->programmaRepository = $programmaRepository;
     }
 
+    /**
+     *
+     * @param  type                 $channelId
+     * @return boolean|Insegnamento
+     */
     public function findByChannelId($channelId)
     {
         $db = $this->getDb();
@@ -51,7 +63,7 @@ class DBInsegnamentoRepository extends DBRepository
                                     'file' => __FILE__, 'line' => __LINE__));
         }
 
-        if ($rows = 0)
+        if ($rows == 0)
             return false;
 
         $elenco_attivita = $this->programmaRepository->findByChannelId($channelId);
