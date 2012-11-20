@@ -124,6 +124,11 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
         $memberOf = $claims['isMemberOf'];
 
+        // TODO make a test case for this
+        if (empty($memberOf)) {
+            $memberOf = 'Nessuno';
+        }
+
         if ($user === null) {
             $user = $this->userManager->createUser();
             $user->setEnabled(true);
