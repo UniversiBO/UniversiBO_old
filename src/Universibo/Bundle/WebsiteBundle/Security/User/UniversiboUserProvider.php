@@ -93,6 +93,8 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
             $user->setUsernameLocked(false);
         };
 
+        $this->memberOfHandlers['Laureato'] = $this->memberOfHandlers['Studente'];
+
         $this->memberOfHandlers['default'] = function($user) {
             $user->setLegacyGroups(LegacyRoles::PERSONALE);
         };

@@ -525,6 +525,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
     {
         return array (
             array('Docente', LegacyRoles::DOCENTE, true),
+            array('Laureato', LegacyRoles::STUDENTE, false),
             array('Studente', LegacyRoles::STUDENTE, false),
             array('PersonaleTA', LegacyRoles::PERSONALE, true),
             array('Esterno', LegacyRoles::PERSONALE, true),
