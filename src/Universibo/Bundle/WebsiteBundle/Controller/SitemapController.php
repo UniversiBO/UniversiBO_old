@@ -30,6 +30,7 @@ class SitemapController extends Controller
         $this->createUrl($document, $root, $this->generateUrl('universibo_legacy_contacts', array(), true));
         $this->createUrl($document, $root, $this->generateUrl('universibo_legacy_accessibility', array(), true));
         $this->createUrl($document, $root, $this->generateUrl('universibo_legacy_credits', array(), true));
+        $this->createUrl($document, $root, $this->generateUrl('universibo_legacy_contribute', array(), true));
 
         $channelRepo = $this->get('universibo_legacy.repository.canale2');
         $channelRouter = $this->get('universibo_legacy.routing.channel');
