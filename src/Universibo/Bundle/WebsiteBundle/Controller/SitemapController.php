@@ -34,12 +34,17 @@ class SitemapController extends Controller
         $channelRepo = $this->get('universibo_legacy.repository.canale2');
         $channelRouter = $this->get('universibo_legacy.routing.channel');
 
-        $types = array (Canale::FACOLTA, Canale::CDEFAULT, Canale::CDL);
+        $types = array (
+            Canale::FACOLTA => 'weekly',
+            Canale::CDEFAULT => 'daily',
+            Canale::CDL => 'daily',
+            Canale::INSEGNAMENTO => 'daily'
+        );
 
-        foreach ($types as $type) {
+        foreach ($types as $type => $changefreq) {
             foreach ($channelRepo->findManyByType($type) as $channel) {
                 if ($channel->isGroupAllowed(LegacyRoles::OSPITE)) {
-                    $this->createUrl($document, $root, $channelRouter->generate($channel, true), 'daily');
+                    $this->createUrl($document, $root, $channelRouter->generate($channel, true), $changefreq);
                 }
             }
         }
