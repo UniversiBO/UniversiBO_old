@@ -57,6 +57,8 @@ class DefaultController extends Controller
                 return $this->redirect($router->generate('universibo_legacy_credits', array(), true), 301);
             case 'ShowContacts':
                 return $this->redirect($router->generate('universibo_legacy_contacts', array(), true), 301);
+            case 'ShowContribute':
+                return $this->redirect($router->generate('universibo_legacy_contribute', array(), true), 301);
             case 'ShowError':
                 return $this->redirect($router->generate('universibo_legacy_error', array(), true), 301);
             case 'ShowFacolta':
