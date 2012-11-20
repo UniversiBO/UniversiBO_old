@@ -19,6 +19,9 @@ universibo_website_profile_update:
   pattern: /my/profile/update/
   defaults: { _controller: 'UniversiboWebsiteBundle:Profile:update' }
   requirements: { _method: POST }
+universibo_website_sitemap:
+  pattern: /sitemap.xml
+  defaults: { _controller: 'UniversiboWebsiteBundle:Sitemap:index' }
 universibo_website_contact_verify:
   pattern: /my/email/verify/{token}/
   defaults: { _controller: 'UniversiboWebsiteBundle:Contact:verify' }
