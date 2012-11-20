@@ -1,7 +1,9 @@
 <?php
 
 namespace Universibo\Bundle\LegacyBundle\Entity;
-use \DB;
+
+use DB;
+use DB_common;
 
 /**
  * Canale repository
@@ -16,7 +18,7 @@ class DBInsegnamentoRepository extends DBRepository
      */
     private $programmaRepository;
 
-    public function __construct(\DB_common $db, DBPrgAttivitaDidatticaRepository $programmaRepository, $convert = false)
+    public function __construct(DB_common $db, DBPrgAttivitaDidatticaRepository $programmaRepository, $convert = false)
     {
         parent::__construct($db, $convert);
 
