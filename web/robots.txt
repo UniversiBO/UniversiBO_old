@@ -3,8 +3,8 @@
 
 User-agent: *
 
-Disallow /my/*
-Disallow /login
-Disallow /logout
-Disallow /shiblogout
-Disallow /prelogout
+Disallow: /my/*
+Disallow: /login
+Disallow: /logout
+Disallow: /shiblogout
+Disallow: /prelogout
