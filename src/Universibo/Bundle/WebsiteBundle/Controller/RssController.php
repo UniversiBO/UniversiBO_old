@@ -45,6 +45,8 @@ class RssController extends Controller
         $response->headers
                 ->set('Content-Type', 'application/rss+xml; charset=utf-8');
         $response->setContent($feed->export('rss'));
+        $response->setPublic();
+        $response->setSharedMaxAge(60);
 
         return $response;
     }
