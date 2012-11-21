@@ -554,7 +554,7 @@ class FileAdd extends UniversiboCommand
                                 if(!$notifica_user instanceof User)
                                     continue;
 
-                                foreach ($contactService->getUserEmails($user) as $email) {
+                                foreach ($contactService->getUserEmails($notifica_user) as $email) {
                                     $notifica_destinatario = 'mail://'
                                         . $email;
 
