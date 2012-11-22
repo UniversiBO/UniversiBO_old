@@ -3,6 +3,7 @@
 namespace Universibo\Bundle\ForumBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Forum security controller
