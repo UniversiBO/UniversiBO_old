@@ -49,6 +49,7 @@ security:
       - { path: \bedit\b, roles: IS_AUTHENTICATED_FULLY }
       - { path: ^/admin, roles: ROLE_ADMIN }
       - { path: ^/gestione, roles: ROLE_MODERATOR }
+      - { path: ^/forumlogin, roles: IS_AUTHENTICATED_FULLY }
       - { path: ^/role, roles: IS_AUTHENTICATED_FULLY }
       - { path: ^/user, roles: IS_AUTHENTICATED_FULLY }
       - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
