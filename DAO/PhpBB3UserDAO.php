@@ -20,7 +20,7 @@ class PhpBB3UserDAO extends AbstractDAO implements UserDAOInterface
         'ROLE_ADMIN' => 5,
         'ROLE_MODERATOR' => 4,
     );
-    
+
     public function create(User $user)
     {
         $query = <<<EOT
@@ -92,11 +92,11 @@ EOT;
         if ($groupId > 2) {
             $this->addToGroup($userId, $groupId);
         }
-        
+
         $roles = array_flip(self::$translations);
-        
-        foreach($this->getRemovableGroups($userId) as $removableId) {
-            if(!$user->hasRole($roles[$removableId])) {
+
+        foreach ($this->getRemovableGroups($userId) as $removableId) {
+            if (!$user->hasRole($roles[$removableId])) {
                 $this->removeUserFromGroup($user, $removableId);
             }
         }
@@ -151,7 +151,7 @@ EOT;
 
         return $result->fetchColumn() > 0;
     }
-    
+
     private function getRemovableGroups($userId)
     {
         $query = <<<EOT
@@ -161,7 +161,7 @@ SELECT group_id
             group_id IN (?)
         AND user_id = ?
 EOT;
-    
+
         $groupIds = array_values(self::$translations);
         $result = $this->getConnection()->executeQuery($query, array(
             $groupIds,
@@ -172,11 +172,11 @@ EOT;
         ));
 
         $removable = array();
-        
-        while(false !== ($value = $result->fetchColumn())) {
+
+        while (false !== ($value = $result->fetchColumn())) {
             $removable[] = $value;
         }
-        
+
         return $removable;
     }
 
@@ -195,7 +195,7 @@ EOT;
 
     private function getGroup(User $user)
     {
-        
+
         foreach (self::$translations as $role => $group) {
             if ($user->hasRole($role)) {
                 return $group;

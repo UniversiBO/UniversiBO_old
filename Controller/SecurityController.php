@@ -18,9 +18,9 @@ class SecurityController extends Controller
         $forumSession = $this->get('universibo_forum.session');
         $target = $request->query->get('wreply', $this->generateUrl('homepage'));
         $response = $this->redirect($target);
-         
+
         $forumSession->login($this->getUser(), $request, $response);
-        
+
         return $response;
     }
 }
