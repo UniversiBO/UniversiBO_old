@@ -139,10 +139,10 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
      * @param integer $legacyGroups
      * @param boolean $usernameLocked
      */
-    public function testNoPersonNoUser($memberOf, $legacyGroups, $usernameLocked)
+    public function testNoPersonNoUser($memberOf, $legacyGroups, $usernameLocked, $eppn = 'nome.cognome@unibo.it')
     {
         $claims = array (
-            'eppn' => 'nome.cognome@unibo.it',
+            'eppn' => $eppn,
             'idAnagraficaUnica' => 42,
             'isMemberOf' => $memberOf,
             'givenName' => 'Nome',
@@ -536,6 +536,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
             array('Studente', LegacyRoles::STUDENTE, false),
             array('PersonaleTA', LegacyRoles::PERSONALE, true),
             array(null, LegacyRoles::PERSONALE, true),
+            array(null, LegacyRoles::STUDENTE, false, 'nome.cognome@studio.unibo.it'),
             array('Esterno', LegacyRoles::PERSONALE, true),
             array('Accreditato', LegacyRoles::PERSONALE, true),
         );
