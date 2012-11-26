@@ -95,6 +95,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         };
 
         $this->memberOfHandlers['Laureato'] = $this->memberOfHandlers['Studente'];
+        $this->memberOfHandlers['Preiscritto'] = $this->memberOfHandlers['Studente'];
 
         $this->memberOfHandlers['default'] = function($user) {
             $user->setLegacyGroups(LegacyRoles::PERSONALE);
