@@ -27,7 +27,13 @@ class DefaultController extends Controller
         $base = realpath(__DIR__.'/../../../../..');
         $receiver = new DefaultReceiver('main', $base .'/config.xml', $base . '/framework', $base . '/universibo', $this->container, $do);
 
-        return new Response($receiver->main());
+        $result = $receiver->main();
+
+        if ($result instanceof Response) {
+            return $result;
+        }
+
+        return new Response($result);
     }
 
     /**
