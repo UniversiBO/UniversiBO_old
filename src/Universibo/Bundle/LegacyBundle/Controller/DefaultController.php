@@ -53,7 +53,7 @@ class DefaultController extends Controller
                 return $this->redirect($router->generate('universibo_legacy_file', array('id_file' => $_GET['id_file']), true), 301);
             case 'NewsShowCanale':
                   return $this->redirect($router->generate('universibo_legacy_news_show_canale', array('id_canale' => $_GET['id_canale'], 'qta' => $_GET['qta'], 'inizio' => $_GET['inizio']), true), 301);
-            case 'RegUser':
+            case 'RegStudente':
                 return $this->redirect($router->generate('login', array(), true), 301);
             case 'ShowAccessibility':
                 return $this->redirect($router->generate('universibo_legacy_accessibility', array(), true), 301);
