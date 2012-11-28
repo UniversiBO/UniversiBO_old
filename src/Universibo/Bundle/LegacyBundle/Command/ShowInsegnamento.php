@@ -21,18 +21,14 @@ use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 class ShowInsegnamento extends CanaleCommand
 {
-    /**
-     * Inizializza il comando ShowInsegnamento ridefinisce l'initCommand() di CanaleCommand
-     */
-    public function initCommand(FrontController $frontController)
-    {
-        parent::initCommand($frontController);
-
-        $this->ensureChannelType(Canale::INSEGNAMENTO);
-    }
-
     public function execute()
     {
+        $check = $this->ensureChannelType(Canale::INSEGNAMENTO);
+
+        if ($check !== null) {
+            return $check;
+        }
+
         $user = $this->get('security.context')->getToken()->getUser();
         $id_canale = $this->getRequestIdCanale();
         $insegnamento = $this->getRequestCanale();

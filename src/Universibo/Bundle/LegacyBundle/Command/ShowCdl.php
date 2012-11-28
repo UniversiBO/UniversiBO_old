@@ -26,12 +26,16 @@ class ShowCdl extends CanaleCommand
     public function initCommand(FrontController $frontController)
     {
         parent::initCommand($frontController);
-
-        $this->ensureChannelType(Canale::CDL);
     }
 
     public function execute()
     {
+        $check = $this->ensureChannelType(Canale::CDL);
+
+        if ($check !== null) {
+            return $check;
+        }
+
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $context = $this->get('security.context');

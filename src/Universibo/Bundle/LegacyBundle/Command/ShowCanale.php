@@ -18,7 +18,11 @@ class ShowCanale extends CanaleCommand
 {
     public function execute()
     {
-        $this->ensureChannelType(Canale::CDEFAULT);
+        $check = $this->ensureChannelType(Canale::CDEFAULT);
+        if ($check !== null) {
+            return $check;
+        }
+
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
 

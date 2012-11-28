@@ -19,19 +19,14 @@ use Universibo\Bundle\LegacyBundle\Framework\FrontController;
  */
 class ShowFacolta extends CanaleCommand
 {
-
-    /**
-     * Inizializza il comando ShowFacolta ridefinisce l'initCommand() di CanaleCommand
-     */
-    public function initCommand(FrontController $frontController)
-    {
-        parent::initCommand($frontController);
-
-        $this->ensureChannelType(Canale::FACOLTA);
-    }
-
     public function execute()
     {
+        $check = $this->ensureChannelType(Canale::FACOLTA);
+
+        if ($check !== null) {
+            return $check;
+        }
+
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $forumRouter = $this->getContainer()->get('universibo_forum.router');

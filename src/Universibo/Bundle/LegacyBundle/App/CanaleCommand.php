@@ -2,7 +2,6 @@
 
 namespace Universibo\Bundle\LegacyBundle\App;
 
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
@@ -257,13 +256,17 @@ abstract class CanaleCommand extends UniversiboCommand
 
     protected function ensureChannelType($allowedType)
     {
-        $this->ensureChannelTypes(array($allowedType));
+        return $this->ensureChannelTypes(array($allowedType));
     }
 
     protected function ensureChannelTypes(array $allowedTypes)
     {
-        if (!in_array($this->getRequestCanale()->getTipoCanale(), $allowedTypes)) {
-            throw new NotFoundHttpException('Wrong channel type');
+        $channel = $this->getRequestCanale();
+
+        if (!in_array($channel->getTipoCanale(), $allowedTypes)) {
+            $channelRouter = $this->get('universibo_legacy.routing.channel');
+
+            return $this->redirect($channelRouter->generate($channel, true));
         }
     }
 
