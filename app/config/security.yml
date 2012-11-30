@@ -32,6 +32,7 @@ security:
             anonymous: ~
             form_login:
                 login_path: /login
+                default_target_path: /my/universibo
             logout:
                 path:   /logout
                 target: /
