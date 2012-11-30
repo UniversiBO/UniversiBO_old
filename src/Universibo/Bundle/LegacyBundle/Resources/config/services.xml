@@ -53,6 +53,8 @@
 		<service id="universibo_legacy.notification.sender.swift"
 			public="false" class="Universibo\Bundle\LegacyBundle\Notification\SwiftMailerSender">
 			<argument type="service" id="mailer" />
+                        <argument>%mailer_from%</argument>
+                        <argument>%mailer_from_name%</argument>
 		</service>
 
 		<service id="universibo_legacy.notification.sender"

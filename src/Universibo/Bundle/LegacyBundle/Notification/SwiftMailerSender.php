@@ -17,9 +17,17 @@ class SwiftMailerSender extends AbstractSender
      */
     private $mailer;
 
-    public function __construct(Swift_Mailer $mailer)
+    /**
+     * From address and name
+     *
+     * @var array
+     */
+    private $from;
+
+    public function __construct(Swift_Mailer $mailer, $fromAddress, $fromName)
     {
         $this->mailer = $mailer;
+        $this->from = array($fromAddress => $fromName);
     }
 
     public function supports(NotificaItem $notification)
@@ -30,7 +38,7 @@ class SwiftMailerSender extends AbstractSender
     protected function doSend(NotificaItem $notification)
     {
         $message = Swift_Message::newInstance()
-                ->setFrom(array('associazione.universibo@unibo.it' => 'Associazione UniversiBO'))
+                ->setFrom($this->from)
                 ->setTo($notification->getIndirizzo())
                 ->setSubject(
                         str_replace("\n", " - ",
