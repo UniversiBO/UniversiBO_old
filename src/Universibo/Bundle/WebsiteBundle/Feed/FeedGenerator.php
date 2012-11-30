@@ -66,7 +66,10 @@ class FeedGenerator
             Router $router)
     {
         $entry = $feed->createEntry();
-        $entry->setTitle($item->getTitolo());
+        $title = $item->getTitolo();
+
+        // TODO i18n
+        $entry->setTitle(empty($title) ? 'Nessun titolo' : $title);
 
         $id = $item->getIdNotizia();
         $link = $router->generate('universibo_legacy_permalink', array('id_notizia' => $id), true);
