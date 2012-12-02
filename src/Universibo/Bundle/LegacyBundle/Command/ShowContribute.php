@@ -343,8 +343,6 @@ class ShowContribute extends UniversiboCommand
             //invio mail notifica
             $session_user = $this->get('security.context')->getToken()->getUser();
 
-            $message = Swift_Message::newInstance();
-
             $riceventi = $frontcontroller->getAppSetting('questionariReceiver');
             $array_riceventi = explode(';', $riceventi);
 
@@ -358,7 +356,7 @@ class ShowContribute extends UniversiboCommand
 
             $notRepo = $this->getContainer()->get('universibo_legacy.repository.notifica.notifica_item');
 
-            foreach ($array_riceventi as $key => $value) {
+            foreach ($array_riceventi as $value) {
                  $notifica = new NotificaItem(0, 'Nuovo questionario',
                                     $body, time(),
                                     true, false,
