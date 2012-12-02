@@ -349,7 +349,7 @@ class ShowContribute extends UniversiboCommand
             $array_riceventi = explode(';', $riceventi);
 
             $questionario->setNome($q3_nome);
-            $questionario->setCognome($q3_nome);
+            $questionario->setCognome($q3_cognome);
             $questionario->setAltro($q3_altro);
             $questionario->setCdl($q3_cdl);
 
