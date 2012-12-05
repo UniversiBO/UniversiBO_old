@@ -135,10 +135,12 @@ class UserMerger implements UserMergerInterface
 
                 $source->setLocked(true);
                 $source->setPerson($person);
+                $this->ensureMergedPrefix($source);
                 $this->userRepository->save($source);
             }
         }
 
+        $this->removeMergedPrefix($targed);
         $target->setPerson($person);
         $target->setLocked(false);
         $this->userRepository->save($target);
@@ -171,5 +173,24 @@ class UserMerger implements UserMergerInterface
         }
 
         return array_pop($people);
+    }
+    
+    /**
+     * Ensures that email starts with user.merged
+     * 
+     * @param \Universibo\Bundle\CoreBundle\Entity\User $user
+     */
+    private function ensureMergedPrefix(User $user)
+    {
+        if(!preg_match('/^merged/', $user->getEmail()))  {
+            $newEmail = 'merged.' . $user->getId() . '.' . $user->getEmail();
+            $user->setEmail($newEmail);
+        }
+    }
+    
+    private function removeMergedPrefix(User $user)
+    {
+        $newEmail = preg_replace('/^merged\\.([0-9]+\.)?/', '', $user->getEmail());
+        $user->setEmail($newEmail);
     }
 }
