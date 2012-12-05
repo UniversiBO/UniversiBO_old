@@ -113,23 +113,23 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "2.3.0",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal",
-                "reference": "2.3.0"
+                "reference": "2.3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/dbal/zipball/2.3.0",
-                "reference": "2.3.0",
+                "url": "https://github.com/doctrine/dbal/archive/2.3.1.zip",
+                "reference": "2.3.1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
                 "doctrine/common": "2.3.*"
             },
-            "time": "2012-09-19 22:56:37",
+            "time": "2012-12-04 21:06:56",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -404,16 +404,16 @@
         },
         {
             "name": "doctrine/orm",
-            "version": "2.3.0",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "git://github.com/doctrine/doctrine2.git",
-                "reference": "2.3.0"
+                "reference": "2.3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/doctrine2/zipball/2.3.0",
-                "reference": "2.3.0",
+                "url": "https://github.com/doctrine/doctrine2/archive/2.3.1.zip",
+                "reference": "2.3.1",
                 "shasum": ""
             },
             "require": {
@@ -425,7 +425,7 @@
             "suggest": {
                 "symfony/yaml": "If you want to use YAML Metadata Mapping Driver"
             },
-            "time": "2012-09-19 23:03:34",
+            "time": "2012-12-04 22:04:25",
             "bin": [
                 "bin/doctrine",
                 "bin/doctrine.php"
@@ -524,12 +524,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle",
-                "reference": "f6eec68194b2b079f12d0663fefe7e6970f36bb3"
+                "reference": "7fa43fc9c675a0db2ff21234b089d494bc4b1663"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/archive/f6eec68194b2b079f12d0663fefe7e6970f36bb3.zip",
-                "reference": "f6eec68194b2b079f12d0663fefe7e6970f36bb3",
+                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/archive/7fa43fc9c675a0db2ff21234b089d494bc4b1663.zip",
+                "reference": "7fa43fc9c675a0db2ff21234b089d494bc4b1663",
                 "shasum": ""
             },
             "require": {
@@ -550,7 +550,7 @@
                 "doctrine/doctrine-bundle": "*",
                 "doctrine/mongodb-odm-bundle": "*"
             },
-            "time": "1354226717",
+            "time": "1354541011",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1656,12 +1656,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/UniversiBO/UniversiboForumBundle",
-                "reference": "7012672972776447fce206f6897f6e6d109e1a07"
+                "reference": "b9d16df8745ade16d334469180a88d45f766044f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboForumBundle/archive/7012672972776447fce206f6897f6e6d109e1a07.zip",
-                "reference": "7012672972776447fce206f6897f6e6d109e1a07",
+                "url": "https://github.com/UniversiBO/UniversiboForumBundle/archive/b9d16df8745ade16d334469180a88d45f766044f.zip",
+                "reference": "b9d16df8745ade16d334469180a88d45f766044f",
                 "shasum": ""
             },
             "require": {
@@ -1670,7 +1670,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1353591577",
+            "time": "1354712329",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
