@@ -140,7 +140,7 @@ class UserMerger implements UserMergerInterface
             }
         }
 
-        $this->removeMergedPrefix($targed);
+        $this->removeMergedPrefix($target);
         $target->setPerson($person);
         $target->setLocked(false);
         $this->userRepository->save($target);
