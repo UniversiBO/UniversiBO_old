@@ -51,6 +51,19 @@ EOT;
         if ($groupId > 2) {
             $this->addToGroup($id, $groupId);
         }
+        
+        $newestQuery = <<<EOT
+UPDATE {$this->getPrefix()}config
+    SET
+        config_value = ?
+    WHERE
+        config_name = 'newest_user_id'
+EOT;
+        
+        $this
+            ->getConnection()
+            ->executeUpdate($newestQuery, array($id))
+        ;
 
         return $id;
     }
