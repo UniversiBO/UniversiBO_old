@@ -95,7 +95,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->provider->loadUserByClaims($claims);
     }
-    
+
     /**
      * @expectedException Symfony\Component\Security\Core\Exception\AuthenticationException
      */
