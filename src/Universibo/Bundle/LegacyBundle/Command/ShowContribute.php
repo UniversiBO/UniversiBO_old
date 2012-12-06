@@ -2,7 +2,6 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Error;
-use Swift_Message;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;

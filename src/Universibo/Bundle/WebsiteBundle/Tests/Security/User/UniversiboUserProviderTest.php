@@ -95,7 +95,6 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->provider->loadUserByClaims($claims);
     }
-    
 
     public function testExistingPersonExistingUserSimple()
     {
