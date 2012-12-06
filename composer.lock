@@ -142,6 +142,7 @@
                     "Doctrine\\DBAL": "lib/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -315,7 +316,7 @@
                 "symfony/framework-bundle": ">=2.1.0,<2.3-dev",
                 "doctrine/doctrine-bundle": "1.0.*"
             },
-            "time": "1350561870",
+            "time": "2012-10-18 12:04:30",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
@@ -373,7 +374,7 @@
             "suggest": {
                 "symfony/console": "to run the migration from the console"
             },
-            "time": "1350643044",
+            "time": "2012-10-19 10:37:24",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -442,6 +443,7 @@
                     "Doctrine\\ORM": "lib/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -492,7 +494,7 @@
                 "symfony/framework-bundle": "2.1.*",
                 "symfony/security-bundle": "2.1.*"
             },
-            "time": "1340143509",
+            "time": "2012-06-19 22:05:09",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
@@ -550,7 +552,7 @@
                 "doctrine/doctrine-bundle": "*",
                 "doctrine/mongodb-odm-bundle": "*"
             },
-            "time": "1354714568",
+            "time": "2012-12-05 13:36:08",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -563,6 +565,7 @@
                     "FOS\\UserBundle": ""
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -874,7 +877,7 @@
                 "ptachoire/cssembed": "Assetic provides the integration with phpcssembed to embed data uris",
                 "leafo/scssphp-compass": "Assetic provides the integration with the SCSS compass plugin"
             },
-            "time": "1354022858",
+            "time": "2012-11-27 13:27:38",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -982,7 +985,7 @@
             "require": {
                 "symfony/framework-bundle": ">=2.0,<2.2-dev"
             },
-            "time": "1339606427",
+            "time": "2012-06-13 16:53:47",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
@@ -1482,7 +1485,7 @@
             "require": {
                 "twig/twig": "1.*"
             },
-            "time": "1349889206",
+            "time": "2012-10-10 17:13:26",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1585,7 +1588,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1353326362",
+            "time": "2012-11-19 11:59:22",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
@@ -1630,7 +1633,7 @@
                 "reference": "b29f57acc879a30d20be9657a06427d5b53c54c3",
                 "shasum": ""
             },
-            "time": "1352457829",
+            "time": "2012-11-09 10:43:49",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -1656,12 +1659,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/UniversiBO/UniversiboForumBundle",
-                "reference": "557830777266da3fea5f07cf47ade6e4d2e723d1"
+                "reference": "aad7dc0d6cb0c212f84e3811f089e8bde77726a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboForumBundle/archive/557830777266da3fea5f07cf47ade6e4d2e723d1.zip",
-                "reference": "557830777266da3fea5f07cf47ade6e4d2e723d1",
+                "url": "https://github.com/UniversiBO/UniversiboForumBundle/archive/aad7dc0d6cb0c212f84e3811f089e8bde77726a5.zip",
+                "reference": "aad7dc0d6cb0c212f84e3811f089e8bde77726a5",
                 "shasum": ""
             },
             "require": {
@@ -1670,7 +1673,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1354716161",
+            "time": "2012-12-06 19:46:42",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
@@ -1725,7 +1728,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1354280035",
+            "time": "2012-11-30 12:53:55",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
