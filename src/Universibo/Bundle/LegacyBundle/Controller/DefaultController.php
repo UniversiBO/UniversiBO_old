@@ -63,6 +63,15 @@ class DefaultController extends Controller
                 return $this->redirect($router->generate('universibo_legacy_cdl', array('id_canale' => $_GET['id_canale']), true), 301);
             case 'ShowCredits':
                 return $this->redirect($router->generate('universibo_legacy_credits', array(), true), 301);
+            case 'ShowCollaboratore':
+                $userRepo = $this->get('universibo_core.repository.user');
+                $userId = $this->getRequest()->query->get('id_coll');
+                $user = $userRepo->find($userId);
+                if ($user === null) {
+                    throw new NotFoundHttpException('User not found');
+                }
+
+                return $this->redirect($router->generate('universibo_legacy_collaborator', array('username' => $user->getUsername()), true), 301);
             case 'ShowContacts':
                 return $this->redirect($router->generate('universibo_legacy_contacts', array(), true), 301);
             case 'ShowContribute':
