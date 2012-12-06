@@ -80,6 +80,23 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         ;
     }
 
+    /**
+     * @expectedException Symfony\Component\Security\Core\Exception\AuthenticationException
+     */
+    public function testEmptyIdAnagraficaUnicaThrowsException()
+    {
+        $claims = array (
+            'eppn' => 'docente.fittizio@unibo.it',
+            'idAnagraficaUnica' => null,
+            'isMemberOf' => 'Docente',
+            'givenName' => 'Given Name',
+            'sn' => 'Surname'
+        );
+
+        $this->provider->loadUserByClaims($claims);
+    }
+    
+
     public function testExistingPersonExistingUserSimple()
     {
         $person = new Person();

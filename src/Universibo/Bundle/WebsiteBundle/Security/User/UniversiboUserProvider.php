@@ -112,7 +112,11 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
     {
         $uniboId = $claims['idAnagraficaUnica'];
         $eppn = $claims['eppn'];
-
+        
+        if(empty($uniboId)) {
+            throw new AuthenticationException('No idAnagraficaUnica given');
+        }
+        
         $person = $this->findOrCreatePerson($uniboId, $claims['givenName'], $claims['sn']);
 
         $user = $this->findUserByPerson($person);
