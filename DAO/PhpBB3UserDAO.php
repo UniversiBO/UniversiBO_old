@@ -64,6 +64,19 @@ EOT;
             ->getConnection()
             ->executeUpdate($newestQuery, array($id))
         ;
+        
+        $newestQuery2 = <<<EOT
+UPDATE {$this->getPrefix()}config
+    SET
+        config_value = ?
+    WHERE
+        config_name = 'newest_username'
+EOT;
+        
+        $this
+            ->getConnection()
+            ->executeUpdate($newestQuery2, array($user->getUsername()))
+        ;
 
         return $id;
     }
