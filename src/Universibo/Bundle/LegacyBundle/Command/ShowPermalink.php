@@ -21,12 +21,12 @@ class ShowPermalink extends UniversiboCommand
         }
 
         $template = $this->getFrontController()->getTemplateEngine();
+        $template->assign('title', $news->getTitolo() . ' :: UniversiBO');
         $template->assign('news', $this->_newsToArray($news));
     }
 
     private function _newsToArray(NewsItem $news)
     {
-        $user = $this->get('security.context')->getToken()->getUser();
         $krono = $this->getFrontController()->getKrono();
 
         $newsArray = array();
