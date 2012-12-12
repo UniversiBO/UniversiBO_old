@@ -1,4 +1,8 @@
 <?php
+/**
+ * @author Davide Bellettini <davide.bellettini@gmail.com>
+ * @license GPLv2
+ */
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -6,11 +10,16 @@ use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
 
 /**
- * @author Davide Bellettini <davide.bellettini@gmail.com>
+ * ShowPermalink Legacy Command
  */
 class ShowPermalink extends UniversiboCommand
 {
 
+    /**
+     * Controller action
+     * 
+     * @throws NotFoundHttpException
+     */
     public function execute()
     {
         $newsRepo = $this->getContainer()->get('universibo_legacy.repository.news.news_item');
@@ -25,6 +34,12 @@ class ShowPermalink extends UniversiboCommand
         $template->assign('news', $this->_newsToArray($news));
     }
 
+    /**
+     * Populates an array from a NewsItem object
+     * 
+     * @param NewsItem $news
+     * @return array
+     */
     private function _newsToArray(NewsItem $news)
     {
         $krono = $this->getFrontController()->getKrono();
