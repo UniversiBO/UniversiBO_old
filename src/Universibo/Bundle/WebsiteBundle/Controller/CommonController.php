@@ -5,6 +5,7 @@ use DateTime;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Universibo\Bundle\WebsiteBundle\UniversiboWebsiteBundle;
 
 class CommonController extends Controller
 {
@@ -49,7 +50,7 @@ class CommonController extends Controller
      */
     public function versionAction()
     {
-        return array('version' => '2.6.x-dev');
+        return array('version' => UniversiboWebsiteBundle::VERSION);
     }
 
     /**

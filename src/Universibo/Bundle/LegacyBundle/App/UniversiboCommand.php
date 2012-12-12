@@ -9,6 +9,7 @@ use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Facolta;
 use Universibo\Bundle\LegacyBundle\Framework\BaseCommand;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
+use Universibo\Bundle\WebsiteBundle\UniversiboWebsiteBundle;
 /**
  * UniversiboCommand is the abstract super class of all command classes
  * used in the universibo application.
@@ -375,10 +376,10 @@ abstract class UniversiboCommand extends BaseCommand
         $calendarResponse = $this->forward('UniversiboWebsiteBundle:Common:calendar');
         $template->assign('common_calendarBox', $calendarResponse->getContent());
 
-        $calendarResponse = $this->forward('UniversiboWebsiteBundle:Common:assets');
-        $template->assign('common_assets', $calendarResponse->getContent());
+        $assetsResponse = $this->forward('UniversiboWebsiteBundle:Common:assets');
+        $template->assign('common_assets', $assetsResponse->getContent());
 
-        $template->assign('common_version', $this->frontController->getAppSetting('version'));
+        $template->assign('common_version', UniversiboWebsiteBundle::VERSION);
         $template->assign('common_showGoogle', $this->get('kernel')->getEnvironment() === 'prod');
     }
 
