@@ -17,7 +17,7 @@ class ShowPermalink extends UniversiboCommand
 
     /**
      * Controller action
-     * 
+     *
      * @throws NotFoundHttpException
      */
     public function execute()
@@ -36,8 +36,8 @@ class ShowPermalink extends UniversiboCommand
 
     /**
      * Populates an array from a NewsItem object
-     * 
-     * @param NewsItem $news
+     *
+     * @param  NewsItem $news
      * @return array
      */
     private function _newsToArray(NewsItem $news)
