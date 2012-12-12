@@ -21,7 +21,7 @@ class ShowPermalink extends UniversiboCommand
         }
 
         $template = $this->getFrontController()->getTemplateEngine();
-        $template->assign('title', $news->getTitolo() . ' :: UniversiBO');
+        $template->assign('common_title', $news->getTitolo() . ' :: UniversiBO');
         $template->assign('news', $this->_newsToArray($news));
     }
 
