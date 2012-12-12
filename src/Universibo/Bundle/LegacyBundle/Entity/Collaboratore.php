@@ -116,10 +116,10 @@ class Collaboratore
 
     public function getFotoFilename()
     {
-        if(empty($this->foto)) {
+        if (empty($this->foto)) {
             $this->foto = $this->fotoDefault;
         }
-        
+
         $prefix = $this->foto === $this->fotoDefault ? '' : $this->getIdUtente().'_';
 
         return $prefix.$this->foto;

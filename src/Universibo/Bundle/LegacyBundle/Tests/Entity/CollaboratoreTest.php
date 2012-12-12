@@ -43,7 +43,7 @@ class CollaboratoreTest extends UniversiBOEntityTest
         $collaboratore->setFotoFilename($defaultFilename);
         $this->assertEquals($defaultFilename, $collaboratore->getFotoFilename());
     }
-    
+
     /**
      * @ticket 200
      */
