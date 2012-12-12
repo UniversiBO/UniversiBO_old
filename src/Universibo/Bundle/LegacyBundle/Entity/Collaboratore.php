@@ -54,13 +54,13 @@ class Collaboratore
      */
     private $fotoDefault = 'no_foto.png';
 
-    public function __construct($id_utente, $intro, $recapito, $obiettivi, $foto, $ruolo )
+    public function __construct($id_utente, $intro, $recapito, $obiettivi, $foto, $ruolo)
     {
         $this->id_utente	= $id_utente;
         $this->intro		= $intro;
         $this->ruolo		= $ruolo;
         $this->recapito 	= $recapito;
-        $this->foto			= $foto;
+        $this->foto             = $foto;
         $this->obiettivi	= $obiettivi;
     }
 
@@ -116,6 +116,10 @@ class Collaboratore
 
     public function getFotoFilename()
     {
+        if(empty($this->foto)) {
+            $this->foto = $this->fotoDefault;
+        }
+        
         $prefix = $this->foto === $this->fotoDefault ? '' : $this->getIdUtente().'_';
 
         return $prefix.$this->foto;
