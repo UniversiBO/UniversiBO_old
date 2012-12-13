@@ -221,6 +221,12 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         }
     }
 
+    /**
+     * Gets the available username, by adding a number at the end if needed
+     * 
+     * @param string $eppn email address (UPN)
+     * @return string
+     */
     private function getAvailableUsername($eppn)
     {
         list($username, $domain) = explode('@', $eppn);
@@ -236,6 +242,12 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         return $targetUsername;
     }
     
+    /**
+     * Ensure that a user has a Unibo group
+     * 
+     * @param User $user
+     * @param string $groupName
+     */
     private function ensureGroup(User $user, $groupName)
     {
         $found = false;
