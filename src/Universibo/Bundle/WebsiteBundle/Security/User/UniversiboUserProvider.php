@@ -139,6 +139,13 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         if (empty($memberOf)) {
             $memberOf = 'Nessuno';
         }
+        
+        if(preg_match('/;/', $memberOf)) {
+            $multiMemberOf = explode(';', $memberOf);
+            $memberOf = $multiMemberOf[0];
+        } else {
+            $multiMemberOf = array($memberOf);
+        }
 
         if ($user === null) {
             $user = $this->userManager->createUser();
@@ -159,16 +166,8 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
             $this->memberOfHandlers[$key]($user);
         }
 
-        $found = false;
-        foreach ($user->getUniboGroups() as $group) {
-            if ($group->getName() === $memberOf) {
-                $found = true;
-                break;
-            }
-        }
-
-        if (!$found) {
-            $user->getUniboGroups()->add($this->uniboGroupRepository->findOrCreate($memberOf));
+        foreach($multiMemberOf as $groupName) {
+            $this->ensureGroup($user, $groupName);
         }
 
         $user->setPerson($person);
@@ -235,5 +234,20 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         }
 
         return $targetUsername;
+    }
+    
+    private function ensureGroup(User $user, $groupName)
+    {
+        $found = false;
+        foreach ($user->getUniboGroups() as $group) {
+            if ($group->getName() === $groupName) {
+                $found = true;
+                break;
+            }
+        }
+
+        if (!$found) {
+            $user->getUniboGroups()->add($this->uniboGroupRepository->findOrCreate($groupName));
+        }
     }
 }

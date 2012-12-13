@@ -164,6 +164,72 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         $this->userAssertions($user);
         $this->personAssertions($user->getPerson(), $claims);
     }
+    
+    
+    public function testExistingPersonExistingMultipleMemberOf()
+    {
+        $person = new Person();
+        $person->setUniboId(42);
+        $person->setGivenName('Nome');
+        $person->setSurname('cognome');
+
+        $mockedUser = new User();
+        $mockedUser->setPerson($person);
+        $mockedUser->setEmail('nome.cognome@unibo.it');
+        $mockedUser->setEnabled(true);
+
+        $claims = array (
+            'eppn' => $mockedUser->getEmail(),
+            'idAnagraficaUnica' => $person->getUniboId(),
+            'isMemberOf' => 'Docente;AssegnistaDiRicerca',
+            'givenName' => $person->getGivenName(),
+            'sn' => $person->getSurname()
+        );
+        
+        
+        $docenteGroup = new UniboGroup();
+        $docenteGroup->setName('Docente');
+        
+        $assGroup = new UniboGroup();
+        $assGroup->setName('AssegnistaDiRicerca');
+
+        $this
+            ->uniboGroupRepository
+            ->expects($this->exactly(2))
+            ->method('findOrCreate')
+            ->will($this->onConsecutiveCalls($docenteGroup, $assGroup))
+        ;
+        
+
+        $this->personRepository
+             ->expects($this->atLeastOnce())
+             ->method('findOneByUniboId')
+             ->with($this->equalTo($person->getUniboId()))
+             ->will($this->returnValue($person));
+
+        $this->userRepository
+             ->expects($this->atLeastOnce())
+             ->method('findOneAllowedToLogin')
+             ->with($this->equalTo($person))
+             ->will($this->returnValue($mockedUser));
+
+        $this
+            ->objectManager
+            ->expects($this->atLeastOnce())
+            ->method('merge')
+            ->will($this->returnArgument(0))
+        ;
+
+        $user = $this->provider->loadUserByClaims($claims);
+
+        $this->assertInstanceOf('Universibo\\Bundle\\CoreBundle\\Entity\\User', $user);
+        $this->assertEquals($mockedUser, $user);
+
+        $this->assertGroup($user, 'Docente');
+        $this->assertGroup($user, 'AssegnistaDiRicerca');
+        $this->userAssertions($user);
+        $this->personAssertions($user->getPerson(), $claims);
+    }
 
     /**
      * @dataProvider provider
@@ -576,10 +642,18 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
 
     private function assertGroup(User $user, $groupName)
     {
-        $this->assertEquals(1, count($user->getUniboGroups()), '1 unibo group should be present');
+        $uniboGroups = $user->getUniboGroups();
+        $this->assertGreaterThanOrEqual(1, count($uniboGroups), 'At least 1 unibo group should be present');
 
-        $group = $user->getUniboGroups()->first();
-        $this->assertEquals($groupName, $group->getName());
+        $found = false;
+        foreach($uniboGroups as $group) {
+            if($group->getName() === $groupName) {
+                $found = true;
+                break;
+            }
+        }
+        
+        $this->assertTrue($found, 'Group with name '.$groupName.' should exists');
     }
 
     private function expectsFindOrCreateUniboGroup($name)
