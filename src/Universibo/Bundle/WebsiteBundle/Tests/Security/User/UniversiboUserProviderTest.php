@@ -164,8 +164,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         $this->userAssertions($user);
         $this->personAssertions($user->getPerson(), $claims);
     }
-    
-    
+
     public function testExistingPersonExistingMultipleMemberOf()
     {
         $person = new Person();
@@ -185,11 +184,10 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
             'givenName' => $person->getGivenName(),
             'sn' => $person->getSurname()
         );
-        
-        
+
         $docenteGroup = new UniboGroup();
         $docenteGroup->setName('Docente');
-        
+
         $assGroup = new UniboGroup();
         $assGroup->setName('AssegnistaDiRicerca');
 
@@ -199,7 +197,6 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
             ->method('findOrCreate')
             ->will($this->onConsecutiveCalls($docenteGroup, $assGroup))
         ;
-        
 
         $this->personRepository
              ->expects($this->atLeastOnce())
@@ -646,13 +643,13 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertGreaterThanOrEqual(1, count($uniboGroups), 'At least 1 unibo group should be present');
 
         $found = false;
-        foreach($uniboGroups as $group) {
-            if($group->getName() === $groupName) {
+        foreach ($uniboGroups as $group) {
+            if ($group->getName() === $groupName) {
                 $found = true;
                 break;
             }
         }
-        
+
         $this->assertTrue($found, 'Group with name '.$groupName.' should exists');
     }
 

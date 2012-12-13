@@ -139,8 +139,8 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         if (empty($memberOf)) {
             $memberOf = 'Nessuno';
         }
-        
-        if(preg_match('/;/', $memberOf)) {
+
+        if (preg_match('/;/', $memberOf)) {
             $multiMemberOf = explode(';', $memberOf);
             $memberOf = $multiMemberOf[0];
         } else {
@@ -166,7 +166,7 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
             $this->memberOfHandlers[$key]($user);
         }
 
-        foreach($multiMemberOf as $groupName) {
+        foreach ($multiMemberOf as $groupName) {
             $this->ensureGroup($user, $groupName);
         }
 
@@ -223,8 +223,8 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
     /**
      * Gets the available username, by adding a number at the end if needed
-     * 
-     * @param string $eppn email address (UPN)
+     *
+     * @param  string $eppn email address (UPN)
      * @return string
      */
     private function getAvailableUsername($eppn)
@@ -241,11 +241,11 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
         return $targetUsername;
     }
-    
+
     /**
      * Ensure that a user has a Unibo group
-     * 
-     * @param User $user
+     *
+     * @param User   $user
      * @param string $groupName
      */
     private function ensureGroup(User $user, $groupName)
