@@ -20,5 +20,5 @@ monolog:
         shibboleth:
             type: stream
             path: %kernel.logs_dir%/shibboleth-%kernel.environment%.log
-            channel: shibboleth
-            level: warn
+            channels: shibboleth
+            level: warning
