@@ -17,3 +17,8 @@ monolog:
             type:  stream
             path:  %kernel.logs_dir%/%kernel.environment%.log
             level: debug
+        shibboleth:
+            type: stream
+            path: %kernel.logs_dir%/shibboleth-%kernel.environment%.log
+            channel: shibboleth
+            level: warn
