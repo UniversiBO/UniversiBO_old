@@ -7,6 +7,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use FOS\UserBundle\Model\UserManagerInterface;
+use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Universibo\Bundle\CoreBundle\Entity\Person;
 use Universibo\Bundle\CoreBundle\Entity\PersonRepository;
@@ -60,6 +61,13 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
     private $uniboGroupRepository;
 
     /**
+     * Logger
+     *
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * MemberOf handlers
      *
      * @var array
@@ -74,16 +82,19 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
      * @param UserRepository       $userRepository
      * @param UserManagerInterface $userManager
      * @param UniboGroupRepository $uniboGroupRepository
+     * @param LoggerInterface      $logger
      */
     public function __construct(ObjectManager $objectManager,
             PersonRepository $personRepository, UserRepository $userRepository,
-            UserManagerInterface $userManager, UniboGroupRepository $uniboGroupRepository)
+            UserManagerInterface $userManager, UniboGroupRepository $uniboGroupRepository,
+            LoggerInterface $logger)
     {
         $this->objectManager = $objectManager;
         $this->personRepository = $personRepository;
         $this->userRepository = $userRepository;
         $this->userManager = $userManager;
         $this->uniboGroupRepository = $uniboGroupRepository;
+        $this->logger = $logger;
 
         $this->memberOfHandlers['Docente'] = function($user) {
             $user->setLegacyGroups(LegacyRoles::DOCENTE);
@@ -110,6 +121,8 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
      */
     public function loadUserByClaims(array $claims)
     {
+        $this->logMissingClaims($claims);
+
         $uniboId = $claims['idAnagraficaUnica'];
         $eppn = $claims['eppn'];
 
@@ -260,6 +273,31 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
 
         if (!$found) {
             $user->getUniboGroups()->add($this->uniboGroupRepository->findOrCreate($groupName));
+        }
+    }
+
+    /**
+     * Checks the claims and detects empty values, by logging messages
+     *
+     * @param array $claims
+     */
+    private function logMissingClaims(array $claims)
+    {
+        $existingClaims = array();
+        $missingClaims = array();
+
+        foreach ($claims as $key => $claim) {
+            if (empty($claim)) {
+                $missingClaims[] = $key;
+            } else {
+                $existingClaims[$key] = $claim;
+            }
+        }
+
+        if (count($missingClaims) > 0) {
+            $msg = 'User has claims '. json_encode($existingClaims);
+            $msg .= ' missing: ' . implode(', ', $missingClaims);
+            $this->logger->warn($msg);
         }
     }
 }

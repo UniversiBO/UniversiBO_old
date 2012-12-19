@@ -54,6 +54,13 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
     private $userManager;
 
     /**
+     * Logger
+     *
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * Unibo Group repository
      *
      * @var UniboGroupRepository
@@ -67,10 +74,11 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
         $this->userRepository = $this->getMock('Universibo\\Bundle\\CoreBundle\\Entity\\UserRepository', array('findOneByEmail', 'findOneAllowedToLogin'), array(), '', false);
         $this->userManager = $this->getMock('FOS\\UserBundle\\Model\\UserManagerInterface');
         $this->uniboGroupRepository = $this->getMock('Universibo\\Bundle\\CoreBundle\\Entity\\UniboGroupRepository', array('findOrCreate'), array(), '', false);
+        $this->logger = $this->getMock('Symfony\\Component\\HttpKernel\\Log\\LoggerInterface');
 
         $this->provider = new UniversiboUserProvider($this->objectManager,
                 $this->personRepository, $this->userRepository, $this->userManager,
-                $this->uniboGroupRepository);
+                $this->uniboGroupRepository, $this->logger);
 
         $this
             ->userManager
@@ -85,6 +93,12 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testEmptyIdAnagraficaUnicaThrowsException()
     {
+        $this
+            ->logger
+            ->expects($this->once())
+            ->method('warn')
+        ;
+
         $claims = array (
             'eppn' => 'docente.fittizio@unibo.it',
             'idAnagraficaUnica' => null,
@@ -101,6 +115,12 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testEmptyEppnThrowsException()
     {
+        $this
+            ->logger
+            ->expects($this->once())
+            ->method('warn')
+        ;
+
         $claims = array (
             'eppn' => null,
             'idAnagraficaUnica' => 42,
