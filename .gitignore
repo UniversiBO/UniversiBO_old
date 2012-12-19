@@ -15,3 +15,4 @@ app/uploads/*
 vendor
 php-cs-fixer.phar
 *debuglog.txt
+.idea
