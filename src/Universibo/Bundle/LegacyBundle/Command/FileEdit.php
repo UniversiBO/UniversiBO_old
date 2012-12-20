@@ -5,7 +5,6 @@ use Error;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
-use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
@@ -21,12 +20,10 @@ use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class FileEdit extends UniversiboCommand
+class FileEdit extends FileCommon
 {
-
     public function execute()
     {
-
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $krono = $frontcontroller->getKrono();
@@ -360,44 +357,8 @@ class FileEdit extends UniversiboCommand
             } else
                 $f13_tipo = $_POST['f13_tipo'];
 
-            //permessi_download
-            if (!preg_match('/^([0-9]{1,3})$/', $_POST['f13_permessi_download'])) {
-                Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getId(),
-                                'msg' => 'Il formato del campo minuto di inserimento non e` valido',
-                                'file' => __FILE__, 'line' => __LINE__,
-                                'log' => false,
-                                'template_engine' => &$template));
-                $f13_accept = false;
-            } elseif ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
-                if ($_POST['f13_permessi_download'] < 0
-                        || $_POST['f13_permessi_download'] > LegacyRoles::ALL) {
-                    Error::throwError(_ERROR_NOTICE,
-                            array('id_utente' => $user->getId(),
-                                    'msg' => 'Il valore dei diritti di download non e` ammessibile',
-                                    'file' => __FILE__, 'line' => __LINE__,
-                                    'log' => false,
-                                    'template_engine' => &$template));
-                    $f13_accept = false;
-                }
-                $f13_permessi_download = $_POST['f13_permessi_download'];
-            } else {
-                if ($_POST['f13_permessi_download'] != LegacyRoles::ALL
-                        && $_POST['f13_permessi_download']
-                                != ('ROLE_STUDENT' | 'ROLE_PROFESSOR'
-                                        | 'ROLE_TUTOR' | 'ROLE_STAFF'
-                                        | 'ROLE_MODERATOR' | LegacyRoles::ADMIN)) {
-                    Error::throwError(_ERROR_NOTICE,
-                            array('id_utente' => $user->getId(),
-                                    'msg' => 'Il valore dei diritti di download non e` ammissibile',
-                                    'file' => __FILE__, 'line' => __LINE__,
-                                    'log' => false,
-                                    'template_engine' => &$template));
-                    $f13_accept = false;
-                }
-                $f13_permessi_download = $_POST['f13_permessi_download'];
-
-            }
+            $f13_permessi_download = $_POST['f13_permessi_download'];
+            $this->validateDownloadPermissions($f13_permessi_download, $user, $template);
 
             $edit_password = true;
             //password

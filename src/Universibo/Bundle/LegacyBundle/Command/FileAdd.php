@@ -5,7 +5,6 @@ use Error;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\AntiVirus\AntiVirusFactory;
-use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
@@ -21,7 +20,7 @@ use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class FileAdd extends UniversiboCommand
+class FileAdd extends FileCommon
 {
     public function execute()
     {
@@ -326,41 +325,8 @@ class FileAdd extends UniversiboCommand
             } else
                 $f12_categoria = $_POST['f12_categoria'];
 
-            //permessi_download
-            if (!preg_match('/^([0-9]{1,3})$/', $_POST['f12_permessi_download'])) {
-                Error::throwError(_ERROR_NOTICE,
-                        array('id_utente' => $user->getId(),
-                                'msg' => 'I permessi di download non sono validi',
-                                'file' => __FILE__, 'line' => __LINE__,
-                                'log' => false,
-                                'template_engine' => &$template));
-                $f12_accept = false;
-            } elseif ($context->isGranted('ROLE_ADMIN')) {
-                if ($_POST['f12_permessi_download'] < 0
-                        || $_POST['f12_permessi_download'] > LegacyRoles::ALL) {
-                    Error::throwError(_ERROR_NOTICE,
-                            array('id_utente' => $user->getId(),
-                                    'msg' => 'Il valore dei diritti di download non è ammissibile',
-                                    'file' => __FILE__, 'line' => __LINE__,
-                                    'log' => false,
-                                    'template_engine' => &$template));
-                    $f12_accept = false;
-                }
-                $f12_permessi_download = $_POST['f12_permessi_download'];
-            } else {
-                if ($_POST['f12_permessi_download'] != LegacyRoles::ALL
-                        && $_POST['f12_permessi_download']
-                                != (LegacyRoles::ALL & ~LegacyRoles::OSPITE)) {
-                    Error::throwError(_ERROR_NOTICE,
-                            array('id_utente' => $user->getId(),
-                                    'msg' => 'Il valore dei diritti di download non è ammissibile',
-                                    'file' => __FILE__, 'line' => __LINE__,
-                                    'log' => false,
-                                    'template_engine' => &$template));
-                    $f12_accept = false;
-                }
-                $f12_permessi_download = $_POST['f12_permessi_download'];
-            }
+            $f12_permessi_download = $_POST['f12_permessi_download'];
+            $this->validateDownloadPermissions($f12_permessi_download, $user, $template);
 
             //password non necessita controlli
             if ($_POST['f12_password'] != $_POST['f12_password_confirm']) {
