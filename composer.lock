@@ -1,5 +1,5 @@
 {
-    "hash": "179d9810b83bb72ff59b72e44a84a3d5",
+    "hash": "2a045beef84813fd6a01bdb00339bf56",
     "packages": [
         {
             "name": "doctrine/common",
@@ -521,38 +521,33 @@
         },
         {
             "name": "friendsofsymfony/user-bundle",
-            "version": "dev-master",
+            "version": "v1.3.0",
             "target-dir": "FOS/UserBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle",
-                "reference": "af60afd29a9007cebd7fd5271efe2ce22e886c37"
+                "reference": "v1.3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/archive/af60afd29a9007cebd7fd5271efe2ce22e886c37.zip",
-                "reference": "af60afd29a9007cebd7fd5271efe2ce22e886c37",
+                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/zipball/v1.3.0",
+                "reference": "v1.3.0",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
-                "symfony/framework-bundle": ">=2.1,<2.3-dev",
-                "symfony/security-bundle": ">=2.1,<2.3-dev"
+                "symfony/framework-bundle": "2.1.*",
+                "symfony/security-bundle": "2.1.*"
             },
             "require-dev": {
                 "twig/twig": "*",
                 "doctrine/doctrine-bundle": "*",
                 "swiftmailer/swiftmailer": "*",
                 "willdurand/propel-typehintable-behavior": "dev-master",
-                "symfony/validator": "2.1.*",
-                "symfony/yaml": "2.1.*"
+                "symfony/yaml": "2.1.*",
+                "symfony/validator": "2.1.*"
             },
-            "suggest": {
-                "doctrine/couchdb-odm-bundle": "*",
-                "doctrine/doctrine-bundle": "*",
-                "doctrine/mongodb-odm-bundle": "*"
-            },
-            "time": "2012-12-20 17:26:02",
+            "time": "2012-10-05 15:21:26",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1575,24 +1570,24 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/UniversiBO/UniversiboCoreBundle",
-                "reference": "6ef394e28141e10ca78d321ee5871f578f5c86f9"
+                "reference": "16c553bab9f61bae98d429f29d9492c6c65b1d08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/UniversiBO/UniversiboCoreBundle/archive/6ef394e28141e10ca78d321ee5871f578f5c86f9.zip",
-                "reference": "6ef394e28141e10ca78d321ee5871f578f5c86f9",
+                "url": "https://api.github.com/repos/UniversiBO/UniversiboCoreBundle/zipball/16c553bab9f61bae98d429f29d9492c6c65b1d08",
+                "reference": "16c553bab9f61bae98d429f29d9492c6c65b1d08",
                 "shasum": ""
             },
             "require": {
                 "symfony/framework-bundle": "2.1.*",
-                "friendsofsymfony/user-bundle": "2.0.*@dev",
+                "friendsofsymfony/user-bundle": ">=1.3.0",
                 "friendsofsymfony/advanced-encoder-bundle": "@dev",
                 "doctrine/orm": "*"
             },
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "2012-11-19 11:59:22",
+            "time": "2012-12-21 12:43:52",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
@@ -2284,7 +2279,6 @@
         "doctrine/doctrine-fixtures-bundle": 20,
         "doctrine/migrations": 20,
         "doctrine/doctrine-migrations-bundle": 20,
-        "friendsofsymfony/user-bundle": 20,
         "friendsofsymfony/advanced-encoder-bundle": 20,
         "kriswallsmith/assetic": 20,
         "twig/extensions": 20,
