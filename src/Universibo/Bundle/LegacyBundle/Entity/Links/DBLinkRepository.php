@@ -2,7 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Entity\Links;
 
 use DB;
-use DB_common;
+use \Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
@@ -21,7 +21,7 @@ class DBLinkRepository extends DBRepository implements MergeableRepositoryInterf
      */
     private $userRepository;
 
-    public function __construct(DB_common $db, UserRepository $userRepository, $convert = false)
+    public function __construct(\Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper $db, UserRepository $userRepository, $convert = false)
     {
         parent::__construct($db, $convert);
 

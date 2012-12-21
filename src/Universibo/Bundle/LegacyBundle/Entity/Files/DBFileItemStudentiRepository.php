@@ -29,7 +29,7 @@ class DBFileItemStudentiRepository extends DBRepository
      */
     private $channelRepository;
 
-    public function __construct(\DB_common $db, UserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
+    public function __construct(\Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper $db, UserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
     {
         parent::__construct($db, $convert);
 
@@ -112,7 +112,7 @@ class DBFileItemStudentiRepository extends DBRepository
         C.descrizione, D.descrizione, D.icona, D.info_aggiuntive
         FROM file A, file_categoria C, file_tipo D
         WHERE A.id_categoria = C.id_file_categoria AND id_tipo_file = D.id_file_tipo AND A.id_file  IN ('.$values.') AND eliminato!='.$db->quote(FileItem::ELIMINATO);
-        $res = & $db->query($query);
+        $res = $db->query($query);
 
         //echo $query;
 

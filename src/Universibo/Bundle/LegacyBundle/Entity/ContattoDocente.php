@@ -158,6 +158,11 @@ class ContattoDocente
 
     public function getIdUtenteAssegnato()
     {
+        if(null !== $this->id_utente_assegnato &&
+                !preg_match('/^\d+$/', $this->id_utente_assegnato)) {
+            $this->id_utente_assegnato = null;
+        }
+
         return $this->id_utente_assegnato;
     }
 
