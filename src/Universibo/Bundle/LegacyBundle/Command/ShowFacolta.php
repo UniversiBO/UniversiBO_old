@@ -36,20 +36,43 @@ class ShowFacolta extends CanaleCommand
         $facolta = $this->getRequestCanale();
         $codFac = $facolta->getCodiceFacolta();
 
-        $prgRepo = $this->get('universibo_legacy.repository.programma');
-
-        $minYear = $prgRepo->findMinAcademicYearFacolta($codFac);
-        $maxYear = $prgRepo->findMaxAcademicYearFacolta($codFac);
-
-        if ($minYear === null || $maxYear === null) {
-            $currentYear = intval($this->getFrontController()->getAppSetting('defaultAnnoAccademico'));
-            $minYear = $maxYear = $currentYear;
+        $academicYear = $this->getRequest()->get('anno_accademico');
+        if ($academicYear === 'all') {
+            $currentYear = null;
+            $template->assign('fac_langYear', 'Tutti gli anni accademici');
+            $template->assign('fac_yearBox', null);
         } else {
-            $currentYear = intval($this->getRequest()->get('anno_accademico', $maxYear));
-        }
+            $template->assign('fac_yearAll', $router->generate('universibo_legacy_facolta', array(
+                'id_canale' => $facolta->getIdCanale(),
+                'anno_accademico' => 'all'
+            )));
 
-        if ($currentYear > $maxYear || $currentYear < $minYear) {
-            throw new NotFoundHttpException('Academic Year Not found');
+            $prgRepo = $this->get('universibo_legacy.repository.programma');
+
+            $minYear = $prgRepo->findMinAcademicYearFacolta($codFac);
+            $maxYear = $prgRepo->findMaxAcademicYearFacolta($codFac);
+
+            if ($minYear === null || $maxYear === null) {
+                $currentYear = intval($this->getFrontController()->getAppSetting('defaultAnnoAccademico'));
+                $minYear = $maxYear = $currentYear;
+            } else {
+                $currentYear = intval($this->getRequest()->get('anno_accademico', $maxYear));
+            }
+
+            if ($currentYear > $maxYear || $currentYear < $minYear) {
+                throw new NotFoundHttpException('Academic Year Not found');
+            }
+
+            $response = $this->forward('UniversiboWebsiteBundle:Didactics:academicYear', array(
+                'min' => $minYear,
+                'max' => $maxYear,
+                'current' => $currentYear,
+                'route' => 'universibo_legacy_facolta',
+                'params' => array('id_canale' => $facolta->getIdCanale())
+            ));
+
+            $template->assign('fac_langYear', 'Anno Accademico');
+            $template->assign('fac_yearBox', $response->getContent());
         }
 
         $cdlRepo = $this->get('universibo_legacy.repository.cdl');
@@ -126,17 +149,6 @@ class ShowFacolta extends CanaleCommand
         $param = array('num' => 4);
         $this->executePlugin('ShowNewsLatest', $param);
         $this->executePlugin('ShowLinks', array('num' => 12));
-
-        $response = $this->forward('UniversiboWebsiteBundle:Didactics:academicYear', array(
-                'min' => $minYear,
-                'max' => $maxYear,
-                'current' => $currentYear,
-                'route' => 'universibo_legacy_facolta',
-                'params' => array('id_canale' => $facolta->getIdCanale())
-        ));
-
-        $template->assign('fac_langYear', 'Anno Accademico');
-        $template->assign('fac_yearBox', $response->getContent());
 
         return 'default';
     }
