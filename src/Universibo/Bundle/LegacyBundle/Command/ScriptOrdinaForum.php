@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use DB;
+use Universibo\Bundle\LegacyBundle\PearDB\DB;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Cdl;
 

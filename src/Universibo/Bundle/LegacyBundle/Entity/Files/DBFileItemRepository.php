@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Files;
 
-use DB;
+use Universibo\Bundle\LegacyBundle\PearDB\DB;
 use Error;
 use Universibo\Bundle\CoreBundle\Entity\MergeableRepositoryInterface;
 use Universibo\Bundle\CoreBundle\Entity\User;

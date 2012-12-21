@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
-use DB;
+use Universibo\Bundle\LegacyBundle\PearDB\DB;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 global $__facoltaElencoCodice;

@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Links;
 
-use DB;
+use Universibo\Bundle\LegacyBundle\PearDB\DB;
 use Universibo\Bundle\CoreBundle\Entity\MergeableRepositoryInterface;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;

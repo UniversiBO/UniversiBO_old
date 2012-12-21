@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\App;
 
-use DB;
+use Universibo\Bundle\LegacyBundle\PearDB\DB;
 use Error;
 use Exception;
 use Krono;
