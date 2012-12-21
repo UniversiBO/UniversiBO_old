@@ -2,7 +2,7 @@
 
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\AntiVirus\AntiVirusFactory;

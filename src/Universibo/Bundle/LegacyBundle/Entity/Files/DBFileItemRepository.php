@@ -2,7 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Entity\Files;
 
 use Universibo\Bundle\LegacyBundle\PearDB\DB;
-use Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\CoreBundle\Entity\MergeableRepositoryInterface;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;

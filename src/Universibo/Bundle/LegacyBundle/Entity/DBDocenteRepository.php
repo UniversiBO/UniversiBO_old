@@ -3,7 +3,7 @@ namespace Universibo\Bundle\LegacyBundle\Entity;
 
 use Universibo\Bundle\LegacyBundle\PearDB\DB;
 use Doctrine\DBAL\DBALException;
-use Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\CoreBundle\Entity\MergeableRepositoryInterface;
 use Universibo\Bundle\CoreBundle\Entity\User;
 

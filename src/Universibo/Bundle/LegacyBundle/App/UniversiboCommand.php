@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\App;
 
-use Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;

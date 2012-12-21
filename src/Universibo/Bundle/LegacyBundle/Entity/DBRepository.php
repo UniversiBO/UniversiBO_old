@@ -2,7 +2,7 @@
 
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
-use Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Exception;
 use PDO;
 use Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;

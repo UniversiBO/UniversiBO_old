@@ -2,7 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\App;
 
 use Universibo\Bundle\LegacyBundle\PearDB\DB;
-use Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Exception;
 use Krono;
 use Universibo\Bundle\CoreBundle\Entity\User;

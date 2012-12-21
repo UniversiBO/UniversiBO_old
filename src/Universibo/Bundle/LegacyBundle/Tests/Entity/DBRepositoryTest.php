@@ -2,7 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Tests\Entity;
 
 use AppKernel;
-use Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Exception;
 use Universibo\Bundle\LegacyBundle\App\ErrorHandlers;
 use Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;

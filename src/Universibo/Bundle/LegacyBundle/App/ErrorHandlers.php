@@ -1,8 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\App;
 
-use \Error;
 use Universibo\Bundle\LegacyBundle\Exception\Exception;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\Framework\LogHandler;
 

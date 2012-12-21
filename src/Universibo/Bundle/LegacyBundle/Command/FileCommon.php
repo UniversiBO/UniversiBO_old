@@ -8,7 +8,7 @@
 
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Smarty;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;

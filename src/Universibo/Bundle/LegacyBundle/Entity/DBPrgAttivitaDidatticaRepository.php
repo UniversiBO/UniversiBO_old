@@ -4,7 +4,7 @@ namespace Universibo\Bundle\LegacyBundle\Entity;
 
 use Universibo\Bundle\LegacyBundle\PearDB\DB;
 use Doctrine\DBAL\DBALException;
-use Error;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 
 /**
  * Canale repository

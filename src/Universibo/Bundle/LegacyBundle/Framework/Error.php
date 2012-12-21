@@ -1,4 +1,5 @@
 <?php
+namespace Universibo\Bundle\LegacyBundle\Framework;
 
 /**
  * @todo si pu? implementare uno stack per gli handlers
@@ -11,7 +12,6 @@ $_Error_handlers = array();
 
 global $_Error_repository;
 $_Error_repository = array();
-
 
 /**
  * Error class for error creation, handling, collecting and retrieving
@@ -29,19 +29,18 @@ class Error
     /**
      * @private
      */
-    var $error_category;
+    public $error_category;
 
     /**
      * @private
      */
-    var $param;
-
+    public $param;
 
     /**
      * Constructor: creates an Error object.
      *
-     * @param int $error_category defines the error category, see the predefined constants
-     * @param mixed $param error parameters, can be an arbitral value.
+     * @param int   $error_category defines the error category, see the predefined constants
+     * @param mixed $param          error parameters, can be an arbitral value.
      *             example: array('msg'=>'this is yet another error message','file'=>__FILE__,'line'=>__LINE__)
      *             error handlers functions must be able to handle $param type.
      */
@@ -56,7 +55,7 @@ class Error
      *
      * @return int error parameters
      */
-    function getParam()
+    public function getParam()
     {
         return $this->param;
     }
@@ -66,7 +65,7 @@ class Error
      *
      * @param mixed $param error parameters
      */
-    function setParam($param)
+    public function setParam($param)
     {
         $this->param = $param;
     }
@@ -76,16 +75,14 @@ class Error
      *
      * @param array $param error parameters
      */
-    function appendParam($param)
+    public function appendParam($param)
     {
         if(is_array($this->param))
             if(is_array($param))
-            foreach ($param as $key => $value)
-            {
+            foreach ($param as $key => $value) {
                 if (!array_key_exists($key, $this->param))
                     $this->param[$key] = $value;
-            }
-            else
+            } else
                 if (!array_key_exists($key, $this->param))
                 $this->param[$key] = $value;
     }
@@ -95,16 +92,15 @@ class Error
      *
      * @return int error category
      */
-    function getCategory()
+    public function getCategory()
     {
         return $this->error_category;
     }
 
-
     /**
      * Static method that defines current error handler callback function, for given error category
      *
-     * @param int $error_category see the predefined error category constants
+     * @param int   $error_category   see the predefined error category constants
      * @param mixed $handler_function can be a string
      *               example: 'my_function_name'
      *				or an array to use class methods
@@ -116,20 +112,19 @@ class Error
         $_Error_handlers[$error_category] = $handler_function;
     }
 
-
     /**
      * Static method that returns current error handler callback function for given error category
      *
      * @static
-     * @param int $error_category see the predefined error category constants
+     * @param  int   $error_category see the predefined error category constants
      * @return mixed current handler function
      */
-    function getHandler($error_category)
+    public function getHandler($error_category)
     {
         global $_Error_handlers;
+
         return $_Error_handlers[$error_category];
     }
-
 
     /**
      * Method that thows an error invoking current error handler callback function for given error category
@@ -138,18 +133,18 @@ class Error
      * without parameters on a given error object istance
      *
      * @static optional
-     * @param int $error_category defines the error category, see the predefined constants
-     * @param mixed $param error parameters, can be an arbitral value.
+     * @param int   $error_category defines the error category, see the predefined constants
+     * @param mixed $param          error parameters, can be an arbitral value.
      *             example: array('msg'=>'this is yet another error message','file'=>__FILE__,'line'=>__LINE__)
      *             error handlers functions must be able to handle $param type.
      * @return mixed the given handler callback function value
      */
     public static function throwError($error_category=NULL, $param=NULL)
     {
-        if(session_id() == '') {
+        if (session_id() == '') {
             session_start();
         }
-        
+
         global $_Error_handlers;
         if ( $error_category === NULL ) $error_category = $this->error_category;
         if ( $param === NULL ) $param =& $this->param;
@@ -163,33 +158,29 @@ class Error
      * without parameters on a given error object istance
      *
      * @static optional
-     * @param int $error_category defines the error category, see the predefined constants
-     * @param mixed $param error parameters, can be an arbitral value.
+     * @param int   $error_category defines the error category, see the predefined constants
+     * @param mixed $param          error parameters, can be an arbitral value.
      *             example: array('msg'=>'this is yet another error message','file'=>__FILE__,'line'=>__LINE__)
      *             error handlers functions must be able to handle $param type.
      */
-    function collect($error_category=NULL, $param=NULL)
+    public function collect($error_category=NULL, $param=NULL)
     {
         global $_Error_repository;
 
-        if ( $error_category !== NULL && $param !== NULL )
-        {
+        if ($error_category !== NULL && $param !== NULL) {
             $temp_error = new Error($error_category, $param);
             $_Error_repository[] = $temp_error;
-        }
-        else
-        {
+        } else {
             $_Error_repository[] = $this;
         }
 
     }
 
-
     /**
      * Method that retrieve the first instance in error repository of given error category
      * Errors are removed from repository
      *
-     * @param int $error_category defines the error category, see the predefined constants
+     * @param  int   $error_category defines the error category, see the predefined constants
      * @return mixed Error class object if successfull, false if no more Errors are in the repository
      */
     public static function retrieve($error_category)
@@ -198,13 +189,12 @@ class Error
         global $_Error_repository;
 
         $count = count($_Error_repository);
-        for ($i=0; $i<$count; $i++)
-        {
+        for ($i=0; $i<$count; $i++) {
             //var_dump($_Error_repository);
-            if ( $_Error_repository[$i] !== NULL  &&  $_Error_repository[$i]->error_category === $error_category )
-            {
+            if ($_Error_repository[$i] !== NULL  &&  $_Error_repository[$i]->error_category === $error_category) {
                 $current_error = $_Error_repository[$i];
                 $_Error_repository[$i] = NULL;
+
                 return $current_error;
             }
 
