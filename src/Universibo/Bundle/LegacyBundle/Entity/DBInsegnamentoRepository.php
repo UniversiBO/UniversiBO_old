@@ -3,7 +3,7 @@
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
 use DB;
-use \Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
+use Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
 
 /**
  * Canale repository
@@ -21,11 +21,11 @@ class DBInsegnamentoRepository extends DBRepository
     /**
      * Class constructor
      *
-     * @param \Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper $db
-     * @param DBPrgAttivitaDidatticaRepository                         $programmaRepository
-     * @param type                                                     $convert
+     * @param ConnectionWrapper                $db
+     * @param DBPrgAttivitaDidatticaRepository $programmaRepository
+     * @param boolean                          $convert
      */
-    public function __construct(\Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper $db, DBPrgAttivitaDidatticaRepository $programmaRepository, $convert = false)
+    public function __construct(ConnectionWrapper $db, DBPrgAttivitaDidatticaRepository $programmaRepository, $convert = false)
     {
         parent::__construct($db, $convert);
 
@@ -34,7 +34,7 @@ class DBInsegnamentoRepository extends DBRepository
 
     /**
      *
-     * @param  type                 $channelId
+     * @param  integer              $channelId
      * @return boolean|Insegnamento
      */
     public function findByChannelId($channelId)

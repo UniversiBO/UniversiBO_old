@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
-use \DB;
+
+use DB;
+use Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
 
 /**
  * Facolta repository
@@ -15,7 +17,7 @@ class DBFacoltaRepository extends DBRepository
      */
     private $canaleRepository;
 
-    public function __construct(\Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper $db, DBCanaleRepository $canaleRepository, $convert = false)
+    public function __construct(ConnectionWrapper $db, DBCanaleRepository $canaleRepository, $convert = false)
     {
         parent::__construct($db, $convert);
 

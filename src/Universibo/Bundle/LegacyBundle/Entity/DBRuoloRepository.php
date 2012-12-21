@@ -1,10 +1,9 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
+
+use DB;
 use Universibo\Bundle\CoreBundle\Entity\MergeableRepositoryInterface;
-
 use Universibo\Bundle\CoreBundle\Entity\User;
-
-use \DB;
 
 /**
  * Ruolo repository
