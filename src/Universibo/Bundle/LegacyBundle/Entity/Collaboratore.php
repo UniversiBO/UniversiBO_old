@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
+use Universibo\Bundle\CoreBundle\Entity\User;
+
 /**
  * Collaboratore class, modella le informazioni relative ai collaboratori
  *
