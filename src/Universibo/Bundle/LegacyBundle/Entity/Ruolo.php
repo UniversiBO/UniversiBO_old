@@ -1,10 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
-use Universibo\Bundle\LegacyBundle\Framework\FrontController;
-use \DB;
-use \Error;
 use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 define('NOTIFICA_NONE'   ,0);
 define('NOTIFICA_URGENT' ,1);
@@ -93,20 +91,17 @@ class Ruolo
     /**
      * Crea un oggetto Ruolo
      *
-     * @see selectRuolo
-     * @param  int     $id_utente      numero identificativo utente
-     * @param  int     $id_canale      numero identificativo canale
-     * @param  string  $nome           nome		identificativo del ruolo (stringa personalizzata dall'utente per identificare il canale)
-     * @param  int     $ultimo_accesso timestamp dell'ultimo accesso al canale da parete dell'utente
-     * @param  boolean $moderatore     true se l'utente possiede diritti di moderatore sul canale
-     * @param  boolean $referente      true se l'utente possiede diritti di referente sul canale
-     * @param  boolean $my_universibo  true se l'utente ha inserito il canale tra i suoi preferiti
-     * @param  boolean $nascosto       se il ruolo ? nascosto o visibile da tutti
-     * @param  User    $user           riferimento all'oggetto User
-     * @param  Canale  $canale         riferimento all'oggetto Canale
-     * @return Ruolo
+     * @param int     $id_utente      numero identificativo utente
+     * @param int     $id_canale      numero identificativo canale
+     * @param string  $nome           nome		identificativo del ruolo (stringa personalizzata dall'utente per identificare il canale)
+     * @param int     $ultimo_accesso timestamp dell'ultimo accesso al canale da parete dell'utente
+     * @param boolean $moderatore     true se l'utente possiede diritti di moderatore sul canale
+     * @param boolean $referente      true se l'utente possiede diritti di referente sul canale
+     * @param boolean $my_universibo  true se l'utente ha inserito il canale tra i suoi preferiti
+     * @param boolean $nascosto       se il ruolo ? nascosto o visibile da tutti
+     * @param User    $user           riferimento all'oggetto User
+     * @param Canale  $canale         riferimento all'oggetto Canale
      */
-
     public function __construct($id_utente, $id_canale, $nome, $ultimo_accesso, $moderatore, $referente, $my_universibo, $notifica, $nascosto, $user=NULL, $canale=NULL)
     {
         $this->id_utente = $id_utente;
@@ -124,7 +119,6 @@ class Ruolo
 
         $this->nascosto = $nascosto;
     }
-
 
 
     /**
@@ -416,14 +410,14 @@ class Ruolo
     /**
      * Verifica se un ruolo esiste nel database
      *
-     * @static
+     * @deprecated
      * @param  int     $id_utente numero identificativo utente
      * @param  int     $id_canale numero identificativo canale
      * @return boolean false se il ruolo non esiste
      */
-    public function ruoloExists($id_utente, $id_canale)
+    public static function ruoloExists($id_utente, $id_canale)
     {
-        return self::getRepository()->exists($id_utente, $id_utente);
+        return self::getRepository()->exists($id_utente, $id_canale);
     }
 
     /**
@@ -495,6 +489,6 @@ class Ruolo
     }
 }
 
-define('RUOLO_NONE'        ,Ruolo::NONE);
-define('RUOLO_MODERATORE'  ,Ruolo::MODERATORE);
-define('RUOLO_REFERENTE'   ,Ruolo::REFERENTE);
+define('RUOLO_NONE'      , Ruolo::NONE);
+define('RUOLO_MODERATORE', Ruolo::MODERATORE);
+define('RUOLO_REFERENTE' , Ruolo::REFERENTE);
