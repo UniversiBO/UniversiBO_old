@@ -51,10 +51,13 @@ class ShowCollaboratore extends UniversiboCommand
             $modifica = "";
         }
 
+        $contactService = $this->get('universibo_core.contact.service');
+        list($email) = $contactService->getUserEmails($curr_user);
+
         $arrayContatti = array('username' => $curr_user->getUsername(),
                 'intro' => $collaboratore->getIntro(),
                 'ruolo' => $collaboratore->getRuolo(),
-                'email' => $curr_user->getEmail(),
+                'email' => $email,
                 'recapito' => $collaboratore->getRecapito(),
                 'obiettivi' => $collaboratore->getObiettivi(),
                 'foto' => $collaboratore->getFotoFilename(),
