@@ -8,7 +8,6 @@
 namespace Universibo\Bundle\LegacyBundle\PearDB;
 
 use Doctrine\DBAL\Connection;
-use RuntimeException;
 use Universibo\Bundle\LegacyBundle\PearDB\ResultWrapper;
 
 // Ugly hack
@@ -17,7 +16,7 @@ class_exists('DB');
 /**
  * Pear::DB connection wrapper
  */
-class ConnectionWrapper
+class ConnectionWrapper extends AbstractWrapper
 {
     /**
      * Wrapped connection
@@ -55,18 +54,6 @@ class ConnectionWrapper
     }
 
     /**
-     * __call magic method, to throw exceptions instead of fatal rerror
-     *
-     * @param  string           $methodName
-     * @param  mixed            $args
-     * @throws RuntimeException
-     */
-    public function __call($methodName, $args)
-    {
-        throw new RuntimeException('Method '. $methodName. ' not implemented');
-    }
-
-    /**
      * Executes a query
      *
      * @param  string        $query
@@ -86,6 +73,14 @@ class ConnectionWrapper
         return new ResultWrapper($stmt);
     }
 
+    /**
+     * Executes a limit query
+     *
+     * @param  string        $query
+     * @param  integer       $offset
+     * @param  integer       $maxResults
+     * @return ResultWrapper
+     */
     public function limitQuery($query, $offset, $maxResults)
     {
         $query .= ' LIMIT ' . $maxResults . ' OFFSET ' .$offset;
@@ -93,26 +88,72 @@ class ConnectionWrapper
         return $this->query($query);
     }
 
+    /**
+     * Identifier quoting
+     *
+     * @param  string $str
+     * @return string
+     */
     public function quoteIdentifier($str)
     {
         return $this->connection->quoteIdentifier($str);
     }
 
+    /**
+     * Affected rows
+     *
+     * @return integer
+     */
     public function affectedRows()
     {
         return $this->affectedRows;
     }
 
+    /**
+     * Fetches one column given a statement
+     *
+     * @param  string $statement
+     * @return mixed
+     */
     public function getOne($statement)
     {
         return $this->connection->fetchColumn($statement);
     }
 
+    /**
+     * Closes the connection
+     *
+     * @return void
+     */
     public function disconnect()
     {
-        return $this->connection->close();
+        $this->connection->close();
     }
 
+    /**
+     * Enables/disables autocommit
+     *
+     * @param boolean $value
+     */
+    public function autocommit($value)
+    {
+        if ($value) {
+            if ($this->connection->isTransactionActive()) {
+                $this->connection->commit();
+            }
+        } else {
+            if (!$this->connection->isTransactionActive()) {
+                $this->connection->beginTransaction();
+            }
+        }
+    }
+
+    /**
+     * Executes an update
+     *
+     * @param string $query
+     * @param array  $params
+     */
     private function executeUpdate($query, $params = array())
     {
         $this->affectedRows = $this->connection->executeUpdate($query, $params);
