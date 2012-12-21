@@ -21,7 +21,7 @@
    			<argument type="service" id="doctrine.dbal.default_connection" />
 		</service>
 
-		<service id="universibo_legacy.krono" class="Krono">
+		<service id="universibo_legacy.krono" class="Universibo\Bundle\LegacyBundle\Framework\Krono">
 			<argument>it</argument>
 			<argument>it</argument>
 			<argument>/</argument>

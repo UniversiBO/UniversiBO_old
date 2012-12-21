@@ -1,4 +1,6 @@
 <?php
+namespace Universibo\Bundle\LegacyBundle\Framework;
+
 /*
 +--+ Project Name: KronoClass
 +--+ Version: 0.6
@@ -123,10 +125,10 @@ class Krono
     {
         $this->day_name_ext=
         array(
-                'it'=>array('Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'),
+                'it'=>array('Domenica','Lunedï¿½','Martedï¿½','Mercoledï¿½','Giovedï¿½','Venerdï¿½','Sabato'),
                 'en'=>array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'),
                 'de'=>array('Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'),
-                'fr'=>array('Dimanche','Lundì','Mardì','Mercredì','Jeudì','Vendredì','Samedì'),
+                'fr'=>array('Dimanche','Lundï¿½','Mardï¿½','Mercredï¿½','Jeudï¿½','Vendredï¿½','Samedï¿½'),
                 'es'=>array('Domingo','Lunes','Martes','Miercole','Jueves','Viernes','Sabado'),
                 'id'=>array('Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'),
                 'no'=>array('Mandag','Tirsdag','Onsdag','Torsdag','Fredag','Lordag','Sondag'),

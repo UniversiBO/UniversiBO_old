@@ -6,7 +6,6 @@ define('MAIL_KEEPALIVE_ALIVE', 1);
 define('MAIL_KEEPALIVE_CLOSE', 2);
 
 use DOMDocument;
-use Krono;
 use MySmarty;
 use Smarty;
 use Swift_Mailer;
