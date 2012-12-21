@@ -1,11 +1,12 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Files;
 
-use \DB;
+use DB;
+use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 use Universibo\Bundle\LegacyBundle\Entity\Commenti\CommentoItem;
 use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
-use Universibo\Bundle\CoreBundle\Entity\UserRepository;
+use Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
 
 /**
  * DBNewsItem repository
@@ -29,7 +30,7 @@ class DBFileItemStudentiRepository extends DBRepository
      */
     private $channelRepository;
 
-    public function __construct(\Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper $db, UserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
+    public function __construct(ConnectionWrapper $db, UserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
     {
         parent::__construct($db, $convert);
 
