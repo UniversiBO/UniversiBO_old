@@ -1,13 +1,17 @@
 <?php
 
 namespace Universibo\Bundle\LegacyBundle\Entity;
-use \Error;
-use \Exception;
+
+use Error;
+use Exception;
+use PDO;
+use Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
+use Universibo\Bundle\LegacyBundle\PearDB\ResultWrapper;
 
 abstract class DBRepository
 {
     /**
-     * @var \DB_common
+     * @var ConnectionWrapper
      */
     private $db;
 
@@ -19,17 +23,27 @@ abstract class DBRepository
     /**
      * Class constructor
      *
-     * @param \DB_common $db
+     * @param ConnectionWrapper $db
      */
-    public function __construct(\DB_common $db, $convert = false)
+    public function __construct(ConnectionWrapper $db, $convert = false)
     {
         $this->db = $db;
         $this->convert = false;
     }
 
+    /**
+     * Gets the connection wrapper
+     *
+     * @return ConnectionWrapper
+     */
     protected function getDb()
     {
         return $this->db;
+    }
+
+    protected function getConnection()
+    {
+        return $this->getDb()->unwrap();
     }
 
     /**
@@ -46,15 +60,9 @@ abstract class DBRepository
         Error::throwError(constant($level), $param);
     }
 
-    protected function fetchRow(\DB_result $res)
+    protected function fetchRow(ResultWrapper $res)
     {
-        $row = $res->fetchRow();
-
-        if ($this->convert) {
-            $row = self::convertToUtf8($row);
-        }
-
-        return $row;
+        return $res->unwrap()->fetch(PDO::FETCH_NUM);
     }
 
     protected function isConvert()

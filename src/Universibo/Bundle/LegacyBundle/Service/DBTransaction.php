@@ -1,6 +1,9 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Service;
 
+use Doctrine\DBAL\Driver\Connection;
+use Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
+
 /**
  * Encapsulates transaction management
  *
@@ -8,18 +11,17 @@ namespace Universibo\Bundle\LegacyBundle\Service;
  */
 class DBTransaction implements TransactionInterface
 {
-
     /**
-     * @var \DB_common
+     * @var Connection
      */
     private $db;
 
     /**
-     * @param \DB_common $db
+     * @param ConnectionWrapper $db
      */
-    public function __construct(\DB_common $db)
+    public function __construct(ConnectionWrapper $db)
     {
-        $this->db = $db;
+        $this->db = $db->unwrap();
     }
 
     /**
@@ -28,9 +30,7 @@ class DBTransaction implements TransactionInterface
      */
     public function begin()
     {
-        if (($result = $this->db->autoCommit(false)) instanceof \DB_error) {
-            throw new TransactionException($result->__toString());
-        }
+        $this->db->beginTransaction();
     }
 
     /**
@@ -39,9 +39,8 @@ class DBTransaction implements TransactionInterface
      */
     public function commit()
     {
-        if (($result = $this->db->autoCommit(true)) instanceof \DB_error) {
-            throw new Exception($result->__toString());
-        }
+        if($this->db->isTransactionActive())
+            $this->db->commit();
     }
 
     /**
@@ -50,9 +49,7 @@ class DBTransaction implements TransactionInterface
      */
     public function rollback()
     {
-        if (($result = $this->db->rollback()) instanceof \DB_error) {
-            throw new TransactionException($result->__toString());
-        }
+        if($this->db->isTransactionActive())
+            $this->db->rollBack();
     }
-
 }

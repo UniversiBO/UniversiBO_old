@@ -430,7 +430,6 @@ class FileStudentiAdd extends UniversiboCommand
                 //$num_canali = count($f23_canale);
                 //var_dump($f23_canale);
 
-                $newFile->addCanale($canale->getIdCanale());
                 $canale->setUltimaModifica(time(), true);
 
                 //Ricerco solo i referenti/moderatori per il canale

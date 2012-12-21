@@ -1,9 +1,10 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
+use DB;
+use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
-
-use \DB;
+use Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
 
 /**
  * Canale repository
@@ -18,7 +19,8 @@ class DBCollaboratoreRepository extends DBRepository
      */
     private $userRepository;
 
-    public function __construct(\DB_common $db, UserRepository $userRepository, $convert = false)
+    public function __construct(ConnectionWrapper $db,
+            UserRepository $userRepository, $convert = false)
     {
         parent::__construct($db, $convert);
 

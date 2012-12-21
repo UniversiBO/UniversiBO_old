@@ -110,6 +110,7 @@ class ShowFileStudentiTitoli extends PluginCommand
                 $file = $elenco_file[$i];
                 //var_dump($file);
                 $this_moderatore = ($this->get('security.context')->isGranted('ROLE_ADMIN') || ($moderatore && $file->getIdUtente()==$user->getId()));
+                $userId = $user instanceof User ? $user->getId() : 0;
 
                 $permessi_lettura = $file->getPermessiVisualizza();
                 $allowed = $user instanceof User ? $user->isGroupAllowed($permessi_lettura) : $permessi_lettura & 1;
@@ -129,7 +130,7 @@ class ShowFileStudentiTitoli extends PluginCommand
                     $file_tpl['elimina']      = '';
                     $file_tpl['elimina_link'] = '';
                     //if ( ($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $this_moderatore)  && $flag_chkDiritti)
-                    if (($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $this_moderatore || ($user == $file->getIdUtente()))) {
+                    if (($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || $this_moderatore || ($userId == $file->getIdUtente()))) {
                         $file_tpl['modifica']     = 'Modifica';
                         $file_tpl['modifica_link']= $router->generate('universibo_legacy_file_edit', array('id_file' => $file->getIdFile(), 'id_canale' => $id_canale));
                         $file_tpl['elimina']      = 'Elimina';

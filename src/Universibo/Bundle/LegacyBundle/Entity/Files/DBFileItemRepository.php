@@ -2,7 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Entity\Files;
 
 use DB;
-use DB_common;
+use \Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
 use Error;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
@@ -28,7 +28,7 @@ class DBFileItemRepository extends DBRepository implements MergeableRepositoryIn
      */
     private $channelRepository;
 
-    public function __construct(DB_common $db, UserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
+    public function __construct(\Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper $db, UserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
     {
         parent::__construct($db, $convert);
 
@@ -183,7 +183,7 @@ EOT;
 
         $query .= ' ORDER BY C.id_file_categoria, data_inserimento DESC';
 
-        $res = &$db->query($query);
+        $res = $db->query($query);
 
         //echo $query;
 
@@ -599,11 +599,7 @@ EOT;
         . $db->quote($file->getIdFile()) . ',' . $db->quote($channelId)
         . ')';
 
-        $res = $db->query($query);
-        if (DB::isError($res)) {
-            return false;
-        }
-
+        $this->getConnection()->executeUpdate($query);
         $ids = $file->getIdCanali();
         $ids[] = $channelId;
         $file->setIdCanali($ids);
