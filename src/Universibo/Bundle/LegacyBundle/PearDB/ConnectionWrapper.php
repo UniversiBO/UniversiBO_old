@@ -48,9 +48,13 @@ class ConnectionWrapper extends AbstractWrapper
      * @param  mixed  $input
      * @return string
      */
-    public function quote($input = null)
+    public function quote($input = null, $type = null)
     {
-        return $this->connection->quote($input);
+        if (null === $input) {
+            return 'NULL';
+        }
+
+        return $this->connection->quote($input, $type = null);
     }
 
     /**
@@ -146,6 +150,44 @@ class ConnectionWrapper extends AbstractWrapper
                 $this->connection->beginTransaction();
             }
         }
+    }
+
+    /**
+     * Gets next sequence value PostgreSQL only
+     * @param  string $sequence
+     * @return type
+     */
+    public function nextId($sequence)
+    {
+        $sequence .= '_seq';
+
+        return $this->connection->fetchColumn("SELECT nextval('$sequence')");
+    }
+
+    /**
+     * Commits the transaction
+     */
+    public function commit()
+    {
+        $this->connection->commit();
+    }
+
+    /**
+     * Rolls the transaction back
+     */
+    public function rollback()
+    {
+        $this->connection->rollBack();
+    }
+
+    /**
+     * Returns underlying connection
+     *
+     * @return Connection
+     */
+    public function unwrap()
+    {
+        return $this->connection;
     }
 
     /**

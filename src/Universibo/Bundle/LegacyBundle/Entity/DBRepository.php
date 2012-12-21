@@ -31,9 +31,19 @@ abstract class DBRepository
         $this->convert = false;
     }
 
+    /**
+     * Gets the connection wrapper
+     *
+     * @return ConnectionWrapper
+     */
     protected function getDb()
     {
         return $this->db;
+    }
+
+    protected function getConnection()
+    {
+        return $this->getDb()->unwrap();
     }
 
     /**

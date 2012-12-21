@@ -599,11 +599,7 @@ EOT;
         . $db->quote($file->getIdFile()) . ',' . $db->quote($channelId)
         . ')';
 
-        $res = $db->query($query);
-        if (DB::isError($res)) {
-            return false;
-        }
-
+        $this->getConnection()->executeUpdate($query);
         $ids = $file->getIdCanali();
         $ids[] = $channelId;
         $file->setIdCanali($ids);

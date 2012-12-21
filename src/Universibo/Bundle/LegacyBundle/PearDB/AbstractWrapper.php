@@ -21,8 +21,13 @@ abstract class AbstractWrapper
      * @param  mixed            $args
      * @throws RuntimeException
      */
-    public function __call($methodName, $args)
+    public function __call($name, $arguments)
     {
-        throw new RuntimeException('Method '. $methodName. ' not implemented');
+        throw new RuntimeException('Method '. $name. ' not implemented');
+    }
+
+    public static function __callStatic($name, $arguments)
+    {
+        throw new RuntimeException('Static method '. $name. ' not implemented');
     }
 }

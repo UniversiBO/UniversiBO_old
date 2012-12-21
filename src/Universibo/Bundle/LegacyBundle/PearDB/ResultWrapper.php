@@ -82,11 +82,4 @@ class ResultWrapper extends AbstractWrapper
     {
         return $this->statement->fetch(PDO::FETCH_NUM);
     }
-
-    public function autocommit($value)
-    {
-        if ($value) {
-
-        }
-    }
 }

@@ -1,27 +1,29 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Tests\Entity;
 
-use Universibo\Bundle\LegacyBundle\Tests\ContainerAwareTest;
-
-use \Error;
+use AppKernel;
+use Error;
+use Exception;
 use Universibo\Bundle\LegacyBundle\App\ErrorHandlers;
+use Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
+use Universibo\Bundle\LegacyBundle\Tests\ContainerAwareTest;
 
 abstract class DBRepositoryTest extends ContainerAwareTest
 {
     /**
-     * @var \DB_pgsql
+     * @var ConnectionWrapper
      */
     protected $db;
 
     /**
-     * @var \AppKernel
+     * @var AppKernel
      */
     protected static $kernel;
 
     public static function setUpBeforeClass()
     {
         Error::setHandler(ErrorHandlers::LEVEL_CRITICAL, function ($param) {
-            throw new \Exception($param['msg']);
+            throw new Exception($param['msg']);
         });
 
         $kernel = self::createKernel();
@@ -40,11 +42,6 @@ abstract class DBRepositoryTest extends ContainerAwareTest
         $kernel->boot();
 
         $this->db = $kernel->getContainer()->get('universibo_legacy.db.connection.main');
-
-        if (\DB::isError($this->db)) {
-            $this->markTestSkipped('No DB available');
-        }
-
         $this->db->autocommit(false);
     }
 
@@ -55,7 +52,7 @@ abstract class DBRepositoryTest extends ContainerAwareTest
 
     protected function tearDown()
     {
-        if ($this->db instanceof \Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper) {
+        if ($this->db instanceof ConnectionWrapper) {
             $this->db->rollback();
             $this->db->disconnect();
         }
