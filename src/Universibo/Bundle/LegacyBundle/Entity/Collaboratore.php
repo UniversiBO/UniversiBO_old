@@ -1,52 +1,71 @@
 <?php
-namespace Universibo\Bundle\LegacyBundle\Entity;
-
-use Universibo\Bundle\CoreBundle\Entity\User;
-
 /**
- * Collaboratore class, modella le informazioni relative ai collaboratori
- *
- * @package universibo
- * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL, <{@link http://www.opensource.org/licenses/gpl-license.php}>
- * @copyright CopyLeft UniversiBO 2001-2004
+ * @copyright CopyLeft UniversiBO 2001-2012
  */
+namespace Universibo\Bundle\LegacyBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use Universibo\Bundle\CoreBundle\Entity\User;
+
+/**
+ * Collaborator entity
+ * @ORM\Table(name="collaboratore")
+ * @ORM\Entity(repositoryClass="Universibo\Bundle\LegacyBundle\Entity\CollaboratoreRepository")
+ */
 class Collaboratore
 {
     /**
-     * @var integer
+     * @var integer $id
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="collaboratore_id_seq", allocationSize=1, initialValue=1)
      */
-    private $id_utente;
+    private $id;
 
     /**
+     * @ORM\Column(name="intro", type="text", nullable=true)
      * @var string
      */
     private $intro;
 
     /**
+     * @ORM\Column(name="ruolo", type="string", length=255, nullable=true)
      * @var string
      */
     private $ruolo;
 
     /**
+     * @ORM\Column(name="recapito", type="string", length=255, nullable=true)
      * @var string
      */
     private $recapito;
 
     /**
+     * @ORM\Column(name="obiettivi", type="text", nullable=true)
      * @var string
      */
     private $obiettivi;
 
-    /**
+     /**
+     * @ORM\Column(name="foto", type="string", length=255, nullable=true)
      * @var string
      */
     private $foto;
 
     /**
+     * @ORM\Column(name="show", type="string", length=1, nullable=false)
+     * @var string
+     */
+    private $show = 'N';
+
+    /**
+     * @ORM\OneToOne(targetEntity="Universibo\Bundle\CoreBundle\Entity\User")
+     * @ORM\JoinColumn(name="id_utente", referencedColumnName="id")
      * @var User
      */
     private $user;
@@ -56,7 +75,8 @@ class Collaboratore
      */
     private $fotoDefault = 'no_foto.png';
 
-    public function __construct($id_utente, $intro, $recapito, $obiettivi, $foto, $ruolo)
+    public function __construct($id_utente = 0, $intro = '', $recapito = '',
+            $obiettivi = '', $foto = null, $ruolo = '')
     {
         $this->id_utente	= $id_utente;
         $this->intro		= $intro;
@@ -66,14 +86,14 @@ class Collaboratore
         $this->obiettivi	= $obiettivi;
     }
 
-    public function getIdUtente()
+    public function getId()
     {
-        return $this->id_utente;
+        return $this->id;
     }
 
-    public function setIdUtente($id_utente)
+    public function getIdUtente()
     {
-        $this->id_utente = $id_utente;
+        return $this->getUser()->getId();
     }
 
     public function getIntro()
@@ -147,5 +167,28 @@ class Collaboratore
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Show getter
+     *
+     * @return boolean
+     */
+    public function getShow()
+    {
+        return $this->show === 'Y';
+    }
+
+    /**
+     * Set if the collaborator is shown or not
+     *
+     * @param  boolean       $show
+     * @return Collaboratore
+     */
+    public function setShow($show)
+    {
+        $this->show = $show ? 'Y' : 'N';
+
+        return $this;
     }
 }

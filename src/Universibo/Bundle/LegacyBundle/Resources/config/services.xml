@@ -78,10 +78,8 @@
 		</service>
 
 		<service id="universibo_legacy.repository.collaboratore"
-			class="Universibo\Bundle\LegacyBundle\Entity\DBCollaboratoreRepository">
-			<argument type="service" id="universibo_legacy.db.connection.main" />
-			<argument type="service" id="universibo_legacy.repository.user" />
-			<argument>true</argument>
+                	class="Universibo\Bundle\LegacyBundle\Entity\CollaboratoreRepository" factory-service="doctrine.orm.entity_manager" factory-method="getRepository">
+			<argument>Universibo\Bundle\LegacyBundle\Entity\Collaboratore</argument>
 		</service>
 
 		<service id="universibo_legacy.repository.commenti.commento_item"

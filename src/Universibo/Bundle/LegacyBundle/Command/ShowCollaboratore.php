@@ -36,7 +36,7 @@ class ShowCollaboratore extends UniversiboCommand
 
         $contacts_path = $frontcontroller->getAppSetting('contactsPath');
 
-        $collaboratore = $this->get('universibo_legacy.repository.collaboratore')->findOneByIdUtente($collabUser->getId());
+        $collaboratore = $this->get('universibo_legacy.repository.collaboratore')->findOneByUser($collabUser);
 
         if (!$collaboratore) {
             throw new NotFoundHttpException('Collaborator not found');

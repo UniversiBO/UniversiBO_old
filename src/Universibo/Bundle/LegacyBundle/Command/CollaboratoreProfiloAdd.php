@@ -152,9 +152,13 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
             //esecuzione operazioni accettazione del form
             if ($f36_accept == true) {
                 //id_news = 0 per inserimento, $id_canali array dei canali in cui inserire
-                $collaboratore = new Collaboratore($collabUser->getId(),
-                        $f36_intro, $f36_recapito, $f36_obiettivi, $f36_foto,
-                        $f36_ruolo);
+                $collaboratore = new Collaboratore();
+                $collaboratore->setUser($collabUser);
+                $collaboratore->setIntro($f36_intro);
+                $collaboratore->setRecapito($f36_recapito);
+                $collaboratore->setObiettivi($f36_obiettivi);
+                $collaboratore->setFotoFilename($f36_foto);
+                $collaboratore->setRuolo($f36_ruolo);
                 $collabRepo->insert($collaboratore);
 
                 return $this->redirectProfile($collabUser);
