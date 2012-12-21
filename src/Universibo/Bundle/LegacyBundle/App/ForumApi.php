@@ -2,13 +2,13 @@
 namespace Universibo\Bundle\LegacyBundle\App;
 
 use DB;
-use \Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
 use Error;
 use Exception;
 use Krono;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\ForumBundle\Security\ForumSession\ForumSessionInterface;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
+use Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
 
 /**
  * La classe Forum fornisce un'API esterna per le operazioni sul forum PHPBB 2.0.x
@@ -67,11 +67,11 @@ class ForumApi extends DBRepository
 
     /**
      *
-     * @param \Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper $db
-     * @param Krono                                                    $krono
-     * @param ForumSessionInterface                                    $forumSession
+     * @param ConnectionWrapper     $db
+     * @param Krono                 $krono
+     * @param ForumSessionInterface $forumSession
      */
-    public function __construct(\Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper $db, Krono $krono,
+    public function __construct(ConnectionWrapper $db, Krono $krono,
             ForumSessionInterface $forumSession)
     {
         parent::__construct($db);
@@ -106,7 +106,7 @@ class ForumApi extends DBRepository
     }
 
     /**
-     * @return string: id di sessione del forum 'sid=f454e54ea75ae45aef75920b02751ac' altrimenti false
+     * @return string id di sessione del forum 'sid=f454e54ea75ae45aef75920b02751ac' altrimenti false
      */
     public function getOnlySid()
     {
@@ -570,7 +570,7 @@ class ForumApi extends DBRepository
 
     /**
      *
-     * @param user $user
+     * @param User $user
      * @param	int   id del forum di cui controllare i messaggi nuovi. se passato 0 vengono
      * cercati gli ultimi post su tutto il forum a cui l'utente ha diritto di accesso
      * @return mixed array di array( id degli ultimi messaggi del forum, nome topic) , false se nessun messaggio nuovo
