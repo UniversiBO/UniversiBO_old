@@ -70,7 +70,6 @@ abstract class UniversiboCommand extends BaseCommand
         }
 
         $fc = $this->getFrontController();
-        $fc->getMail(MAIL_KEEPALIVE_CLOSE);
     }
 
     /**
