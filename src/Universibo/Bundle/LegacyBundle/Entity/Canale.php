@@ -519,7 +519,7 @@ class Canale
         $this->requestCanale = Canale::selectCanale( $this->getRequestIdCanale() );
 
         if ( $this->requestCanale === false )
-            \Error::throwError(_ERROR_DEFAULT,array('msg'=>'Il canale richiesto non e` presente','file'=>__FILE__,'line'=>__LINE__));
+            Error::throwError(_ERROR_DEFAULT,array('msg'=>'Il canale richiesto non e` presente','file'=>__FILE__,'line'=>__LINE__));
 
         $canale = $this->getRequestCanale();
         $canale->addVisite();
