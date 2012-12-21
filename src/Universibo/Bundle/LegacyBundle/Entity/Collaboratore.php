@@ -75,17 +75,6 @@ class Collaboratore
      */
     private $fotoDefault = 'no_foto.png';
 
-    public function __construct($id_utente = 0, $intro = '', $recapito = '',
-            $obiettivi = '', $foto = null, $ruolo = '')
-    {
-        $this->id_utente	= $id_utente;
-        $this->intro		= $intro;
-        $this->ruolo		= $ruolo;
-        $this->recapito 	= $recapito;
-        $this->foto             = $foto;
-        $this->obiettivi	= $obiettivi;
-    }
-
     public function getId()
     {
         return $this->id;
