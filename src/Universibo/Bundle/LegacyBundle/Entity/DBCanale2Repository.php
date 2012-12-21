@@ -49,7 +49,7 @@ class DBCanale2Repository extends DBRepository
             DBCanaleRepository $channelRepository,
             DBCdlRepository $cdlRepository,
             DBFacoltaRepository $facultyRepository,
-            DBInsegnamentoRepository $subjectRepository, $convert = False)
+            DBInsegnamentoRepository $subjectRepository, $convert = false)
     {
         parent::__construct($db, $convert);
 
