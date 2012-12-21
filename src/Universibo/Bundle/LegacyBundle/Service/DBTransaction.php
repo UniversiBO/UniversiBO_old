@@ -39,7 +39,8 @@ class DBTransaction implements TransactionInterface
      */
     public function commit()
     {
-        $this->db->commit();
+        if($this->db->isTransactionActive())
+            $this->db->commit();
     }
 
     /**
@@ -48,6 +49,7 @@ class DBTransaction implements TransactionInterface
      */
     public function rollback()
     {
-        $this->db->rollBack();
+        if($this->db->isTransactionActive())
+            $this->db->rollBack();
     }
 }
