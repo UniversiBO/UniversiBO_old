@@ -1,38 +1,14 @@
-DROP TABLE IF EXISTS utente;
-DROP SEQUENCE IF EXISTS utente_id_utente_seq;
-
-CREATE SEQUENCE utente_id_utente_seq
+DROP TABLE IF EXISTS collaboratore;
+DROP SEQUENCE IF EXISTS collaboratore_id_seq;
+CREATE SEQUENCE collaboratore_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MINVALUE
     NO MAXVALUE
+    NO MINVALUE
     CACHE 1;
 
-CREATE TABLE utente (
-    id_utente integer DEFAULT nextval(('"utente_id_utente_seq"'::text)::regclass) NOT NULL,
-    username character varying(25) NOT NULL,
-    password character varying(40) NOT NULL,
-    email character varying(255),
-    ultimo_login integer,
-    inoltro_email character(1) DEFAULT 'N'::bpchar,
-    ad_username character varying(255) DEFAULT ''::character varying,
-    groups integer,
-    ban character(1) DEFAULT 'N'::bpchar,
-    notifica integer NOT NULL,
-    phone character varying(15) DEFAULT ''::character varying,
-    default_style character varying(10) DEFAULT ''::character varying,
-    sospeso character(1) DEFAULT 'N'::bpchar NOT NULL,
-    algoritmo character varying(8) DEFAULT 'md5'::character varying NOT NULL,
-    salt character varying(8) DEFAULT ''::character varying NOT NULL,
-    lower character varying(25)
-);
-
-    
-ALTER TABLE ONLY utente
-    ADD CONSTRAINT utente_pkey PRIMARY KEY (id_utente);
-    
-DROP TABLE IF EXISTS collaboratore;
 CREATE TABLE collaboratore (
+    id integer NOT NULL DEFAULT nextval('collaboratore_id_seq'),
     id_utente integer NOT NULL,
     intro text,
     recapito character varying(255),

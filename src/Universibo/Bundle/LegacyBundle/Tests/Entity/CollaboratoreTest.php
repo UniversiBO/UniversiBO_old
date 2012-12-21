@@ -1,5 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Tests\Entity;
+
+use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Entity\Collaboratore;
 
 class CollaboratoreTest extends UniversiBOEntityTest
@@ -14,9 +16,20 @@ class CollaboratoreTest extends UniversiBOEntityTest
      */
     protected function setUp()
     {
-        $this->collaboratore = new Collaboratore(0, 'intro intro',
-                '3381407176', 'obiettivi obiettivi', 'test.png',
-                'ruolo ruolo');
+        $this->collaboratore = new Collaboratore();
+
+        $this->collaboratore->setIntro('intro intro');
+        $this->collaboratore->setRecapito('3381407176');
+        $this->collaboratore->setObiettivi('obiettivi obiettivi');
+        $this->collaboratore->setFotoFilename('test.png');
+        $this->collaboratore->setRuolo('ruolo ruolo');
+
+        $user = new User();
+        $property = new \ReflectionProperty($user, 'id');
+        $property->setAccessible(true);
+        $property->setValue($user, 0);
+
+        $this->collaboratore->setUser($user);
     }
 
     public function testGetters()
@@ -71,7 +84,6 @@ class CollaboratoreTest extends UniversiBOEntityTest
     public function accessorDataProvider()
     {
         return array(
-                array('idUtente', 42),
                 array('intro', 'Lorem ipsum'),
                 array('recapito', 'hello'),
                 array('obiettivi', 'find a girlfriend'),

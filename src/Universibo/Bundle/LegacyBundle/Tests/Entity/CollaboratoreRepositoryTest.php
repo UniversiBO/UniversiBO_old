@@ -14,8 +14,10 @@ class DBCollaboratoreRepositoryTest extends DBRepositoryTest
     {
         parent::setUp();
 
-        $userRepo = static::$kernel->getContainer()->get('universibo_website.repository.user');
-        $this->repository = new DBCollaboratoreRepository($this->db, $userRepo);
+        $container = static::$kernel->getContainer();
+
+        $userRepo = $container->get('universibo_core.repository.user');
+        $this->repository = $container->get('universibo_legacy.repository.collaboratore');
     }
 
     public function testFind()

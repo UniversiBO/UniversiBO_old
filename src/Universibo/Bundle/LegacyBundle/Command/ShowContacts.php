@@ -39,7 +39,7 @@ class ShowContacts extends UniversiboCommand
             $username = $collaboratore->getUsername();
 
             $idColl = $collaboratore->getId();
-            $coll = $collabRepo->find($idColl);
+            $coll = $collabRepo->findOneByUser($collaboratore);
             if (!$coll) {
                 $name = $user instanceof User ? $user->getUsername() : '';
                 if ($name == $username || $context->isGranted('ROLE_ADMIN'))

@@ -82,7 +82,7 @@ class Collaboratore
 
     public function getIdUtente()
     {
-        return $this->getUser()->getId();
+        return $this->user !== null ? $this->getUser()->getId() : null;
     }
 
     public function getIntro()
