@@ -645,15 +645,15 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
     public function provider()
     {
         return array (
-            array('Docente', LegacyRoles::DOCENTE, true),
+            array('Docente', LegacyRoles::DOCENTE, false),
             array('Laureato', LegacyRoles::STUDENTE, false),
             array('Preiscritto', LegacyRoles::STUDENTE, false),
             array('Studente', LegacyRoles::STUDENTE, false),
-            array('PersonaleTA', LegacyRoles::PERSONALE, true),
-            array(null, LegacyRoles::PERSONALE, true),
+            array('PersonaleTA', LegacyRoles::PERSONALE, false),
+            array(null, LegacyRoles::PERSONALE, false),
             array(null, LegacyRoles::STUDENTE, false, 'nome.cognome@studio.unibo.it'),
-            array('Esterno', LegacyRoles::PERSONALE, true),
-            array('Accreditato', LegacyRoles::PERSONALE, true),
+            array('Esterno', LegacyRoles::PERSONALE, false),
+            array('Accreditato', LegacyRoles::PERSONALE, false),
         );
     }
 
