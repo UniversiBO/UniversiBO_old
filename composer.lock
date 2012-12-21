@@ -1,5 +1,5 @@
 {
-    "hash": "60478ecc20f5eeee86519e163868b69d",
+    "hash": "179d9810b83bb72ff59b72e44a84a3d5",
     "packages": [
         {
             "name": "doctrine/common",
@@ -1384,16 +1384,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.1.5",
+            "version": "v2.1.6",
             "source": {
                 "type": "git",
                 "url": "git://github.com/symfony/symfony.git",
-                "reference": "v2.1.5"
+                "reference": "v2.1.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/symfony/archive/v2.1.5.zip",
-                "reference": "v2.1.5",
+                "url": "https://github.com/symfony/symfony/archive/v2.1.6.zip",
+                "reference": "v2.1.6",
                 "shasum": ""
             },
             "require": {
@@ -1442,7 +1442,7 @@
                 "propel/propel1": "dev-master",
                 "monolog/monolog": "1.*"
             },
-            "time": "2012-12-20 14:27:50",
+            "time": "2012-12-21 10:24:53",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
