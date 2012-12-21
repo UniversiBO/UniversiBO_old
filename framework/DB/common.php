@@ -1147,7 +1147,7 @@ class DB_common extends PEAR
      *
      * @see DB_result, DB_common::prepare(), DB_common::execute()
      */
-    function &query($query, $params = array())
+    function query($query, $params = array())
     {
         if (sizeof($params) > 0) {
             $sth = $this->prepare($query);
