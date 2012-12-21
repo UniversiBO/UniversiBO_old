@@ -3,7 +3,7 @@
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
 use DB;
-use DB_common;
+use \Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
 use Exception;
 
 /**
@@ -38,14 +38,14 @@ class DBCanale2Repository extends DBRepository
     /**
      * Class constructor
      *
-     * @param DB_common                $db
-     * @param DBCanaleRepository       $channelRepository
-     * @param DBCdlRepository          $cdlRepository
-     * @param DBFacoltaRepository      $facultyRepository
-     * @param DBInsegnamentoRepository $subjectRepository
-     * @param boolean                  $convert
+     * @param \Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper $db
+     * @param DBCanaleRepository                                       $channelRepository
+     * @param DBCdlRepository                                          $cdlRepository
+     * @param DBFacoltaRepository                                      $facultyRepository
+     * @param DBInsegnamentoRepository                                 $subjectRepository
+     * @param boolean                                                  $convert
      */
-    public function __construct(DB_common $db,
+    public function __construct(\Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper $db,
             DBCanaleRepository $channelRepository,
             DBCdlRepository $cdlRepository,
             DBFacoltaRepository $facultyRepository,

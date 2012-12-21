@@ -3,7 +3,7 @@
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
 use DB;
-use DB_common;
+use \Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
 
 /**
  * Canale repository
@@ -21,11 +21,11 @@ class DBInsegnamentoRepository extends DBRepository
     /**
      * Class constructor
      *
-     * @param DB_common                        $db
-     * @param DBPrgAttivitaDidatticaRepository $programmaRepository
-     * @param type                             $convert
+     * @param \Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper $db
+     * @param DBPrgAttivitaDidatticaRepository                         $programmaRepository
+     * @param type                                                     $convert
      */
-    public function __construct(DB_common $db, DBPrgAttivitaDidatticaRepository $programmaRepository, $convert = false)
+    public function __construct(\Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper $db, DBPrgAttivitaDidatticaRepository $programmaRepository, $convert = false)
     {
         parent::__construct($db, $convert);
 

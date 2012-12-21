@@ -55,7 +55,7 @@ abstract class DBRepositoryTest extends ContainerAwareTest
 
     protected function tearDown()
     {
-        if ($this->db instanceof \DB_common) {
+        if ($this->db instanceof \Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper) {
             $this->db->rollback();
             $this->db->disconnect();
         }

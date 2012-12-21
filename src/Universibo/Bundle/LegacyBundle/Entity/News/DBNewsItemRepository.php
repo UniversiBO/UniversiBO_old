@@ -2,7 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Entity\News;
 
 use DB;
-use DB_common;
+use \Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
@@ -27,7 +27,7 @@ class DBNewsItemRepository extends DBRepository implements MergeableRepositoryIn
      */
     private $channelRepository;
 
-    public function __construct(DB_common $db, UserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
+    public function __construct(\Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper $db, UserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
     {
         parent::__construct($db, $convert);
 

@@ -29,7 +29,7 @@ class DBFileItemStudentiRepository extends DBRepository
      */
     private $channelRepository;
 
-    public function __construct(\DB_common $db, UserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
+    public function __construct(\Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper $db, UserRepository $userRepository, DBCanaleRepository $channelRepository, $convert = false)
     {
         parent::__construct($db, $convert);
 

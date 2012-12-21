@@ -2,7 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\App;
 
 use DB;
-use DB_common;
+use \Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
 use Error;
 use Exception;
 use Krono;
@@ -67,11 +67,11 @@ class ForumApi extends DBRepository
 
     /**
      *
-     * @param DB_common             $db
-     * @param Krono                 $krono
-     * @param ForumSessionInterface $forumSession
+     * @param \Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper $db
+     * @param Krono                                                    $krono
+     * @param ForumSessionInterface                                    $forumSession
      */
-    public function __construct(DB_common $db, Krono $krono,
+    public function __construct(\Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper $db, Krono $krono,
             ForumSessionInterface $forumSession)
     {
         parent::__construct($db);

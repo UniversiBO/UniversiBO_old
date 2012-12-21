@@ -10,14 +10,14 @@ class DBTransaction implements TransactionInterface
 {
 
     /**
-     * @var \DB_common
+     * @var \Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper
      */
     private $db;
 
     /**
-     * @param \DB_common $db
+     * @param \Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper $db
      */
-    public function __construct(\DB_common $db)
+    public function __construct(\Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper $db)
     {
         $this->db = $db;
     }

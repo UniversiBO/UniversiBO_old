@@ -8,6 +8,7 @@
 namespace Universibo\Bundle\LegacyBundle\PearDB;
 
 use Doctrine\DBAL\Driver\Statement;
+use PDO;
 
 /**
  * Pear::DB result wrapper
@@ -36,8 +37,20 @@ class ResultWrapper
         return $this->statement->rowCount();
     }
 
+    public function fetchInto(&$row)
+    {
+        $row = $this->statement->fetch(PDO::FETCH_NUM);
+
+        return $row !== false;
+    }
+
     public function free()
     {
         $this->statement = null;
+    }
+
+    public function fetchRow()
+    {
+        return $this->statement->fetch(PDO::FETCH_NUM);
     }
 }
