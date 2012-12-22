@@ -39,8 +39,8 @@ class Informativa
     }
 
     /**
-     * @param  int                                                $id
-     * @return \Universibo\Bundle\LegacyBundle\Entity\Informativa
+     * @param  int         $id
+     * @return Informativa
      */
     public function setId($id)
     {
@@ -76,8 +76,8 @@ class Informativa
     }
 
     /**
-     * @param  int                                                $dataFine
-     * @return \Universibo\Bundle\LegacyBundle\Entity\Informativa
+     * @param  int         $dataFine
+     * @return Informativa
      */
     public function setDataFine($dataFine)
     {
@@ -95,8 +95,8 @@ class Informativa
     }
 
     /**
-     * @param  string                                             $testo
-     * @return \Universibo\Bundle\LegacyBundle\Entity\Informativa
+     * @param  string      $testo
+     * @return Informativa
      */
     public function setTesto($testo)
     {
