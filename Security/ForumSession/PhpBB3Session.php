@@ -32,10 +32,10 @@ class PhpBB3Session implements ForumSessionInterface
      * @var UserDAOInterface
      */
     private $userDAO;
-    
+
     /**
      * Cookie name
-     * 
+     *
      * @var string
      */
     private $cookieName;
@@ -111,18 +111,18 @@ class PhpBB3Session implements ForumSessionInterface
 
         $this->session->set('phpbb_sid', $actualSid);
     }
-    
+
     /**
      * Gets the cookie name
-     * 
+     *
      * @return string
      */
     private function getCookieName()
     {
-        if(null === $this->cookieName) {
+        if (null === $this->cookieName) {
             $this->cookieName = $this->configDAO->getValue('cookie_name');
         }
-        
+
         return $this->cookieName;
     }
 }

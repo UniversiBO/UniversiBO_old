@@ -51,7 +51,7 @@ EOT;
         if ($groupId > 2) {
             $this->addToGroup($id, $groupId);
         }
-        
+
         $newestQuery = <<<EOT
 UPDATE {$this->getPrefix()}config
     SET
@@ -59,12 +59,12 @@ UPDATE {$this->getPrefix()}config
     WHERE
         config_name = 'newest_user_id'
 EOT;
-        
+
         $this
             ->getConnection()
             ->executeUpdate($newestQuery, array($id))
         ;
-        
+
         $newestQuery2 = <<<EOT
 UPDATE {$this->getPrefix()}config
     SET
@@ -72,7 +72,7 @@ UPDATE {$this->getPrefix()}config
     WHERE
         config_name = 'newest_username'
 EOT;
-        
+
         $this
             ->getConnection()
             ->executeUpdate($newestQuery2, array($user->getUsername()))
