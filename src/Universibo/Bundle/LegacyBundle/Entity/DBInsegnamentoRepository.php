@@ -2,8 +2,8 @@
 
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
-use Universibo\Bundle\LegacyBundle\PearDB\DB;
 use Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
+use Universibo\Bundle\LegacyBundle\PearDB\DB;
 
 /**
  * Canale repository
@@ -72,5 +72,58 @@ class DBInsegnamentoRepository extends DBRepository
                 $row[2], $row[1], $row[3], $row[7] == 'S', $row[6] == 'S',
                 $row[8] == 'S', $row[9], $row[10], $row[11] == 'S',
                 $row[13] == 'S', $elenco_attivita);
+    }
+
+    /**
+     * Finds all channels of type "Insegnamento"
+     *
+     * @param  boolean        $full
+     * @return Insegnamento[]
+     */
+    public function findAll($full = false)
+    {
+        $query = <<<EOT
+SELECT
+    nome_canale,
+    immagine,
+    visite,
+    ultima_modifica,
+    permessi_groups,
+    files_attivo,
+    news_attivo,
+    forum_attivo,
+    id_forum,
+    group_id,
+    links_attivo,
+    id_canale,
+    files_studenti_attivo
+FROM
+    canale
+WHERE
+    tipo_canale = ?
+EOT;
+
+        $stmt = $this
+            ->getConnection()
+            ->executeQuery($query, array(
+                 Canale::INSEGNAMENTO
+            ))
+        ;
+
+        $insegnamenti = array();
+
+        while (false !== ($row = $stmt->fetch())) {
+            $attivita = $full ? $this->programmaRepository->findByChannelId($row['id_canale']) : array();
+
+            $insegnamenti[] = new Insegnamento($row['id_canale'],
+                    $row['permessi_groups'], $row['ultima_modifica'],
+                    Canale::INSEGNAMENTO, $row['immagine'], $row['nome_canale'],
+                    $row['visite'], $row['news_attivo'], $row['files_attivo'],
+                    $row['forum_attivo'], $row['id_forum'],
+                    $row['group_id'], $row['links_attivo'],
+                    $row['files_studenti_attivo'], $attivita);
+        }
+
+        return $insegnamenti;
     }
 }
