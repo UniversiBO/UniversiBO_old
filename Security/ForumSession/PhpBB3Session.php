@@ -32,6 +32,13 @@ class PhpBB3Session implements ForumSessionInterface
      * @var UserDAOInterface
      */
     private $userDAO;
+    
+    /**
+     * Cookie name
+     * 
+     * @var string
+     */
+    private $cookieName;
 
     /**
      * @param ConfigDAOInterface $configDAO
@@ -57,7 +64,7 @@ class PhpBB3Session implements ForumSessionInterface
     public function logout(ParameterBag $cookies, Response $response)
     {
         $domain = $this->configDAO->getValue('cookie_domain');
-        $name = $this->configDAO->getValue('cookie_name');
+        $name = $this->getCookieName();
         $path = $this->configDAO->getValue('cookie_path');
         $secure = $this->configDAO->getValue('cookie_secure');
 
@@ -74,7 +81,7 @@ class PhpBB3Session implements ForumSessionInterface
 
     public function getSessionId(Request $request)
     {
-        $name = $this->configDAO->getValue('cookie_name').'_sid';
+        $name = $this->getCookieName();
 
         return $request->cookies->get($name, $this->session->get('phpbb_sid'));
     }
@@ -86,7 +93,7 @@ class PhpBB3Session implements ForumSessionInterface
         $userAgent = $request->server->get('HTTP_USER_AGENT');
 
         $domain = $this->configDAO->getValue('cookie_domain');
-        $name = $this->configDAO->getValue('cookie_name');
+        $name = $this->getCookieName();
         $path = $this->configDAO->getValue('cookie_path');
         $secure = $this->configDAO->getValue('cookie_secure');
 
@@ -103,5 +110,19 @@ class PhpBB3Session implements ForumSessionInterface
                 time() + 3600, $path, $domain, $secure));
 
         $this->session->set('phpbb_sid', $actualSid);
+    }
+    
+    /**
+     * Gets the cookie name
+     * 
+     * @return string
+     */
+    private function getCookieName()
+    {
+        if(null === $this->cookieName) {
+            $this->cookieName = $this->configDAO->getValue('cookie_name');
+        }
+        
+        return $this->cookieName;
     }
 }
