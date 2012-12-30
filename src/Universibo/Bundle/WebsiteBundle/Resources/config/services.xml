@@ -62,6 +62,9 @@
                     <tag name="kernel.event_listener" event="universibo_shibboleth.auth_failed" method="onAuthenticationFailed" />
                 </service>
 
+                <service id="universibo_website.privacy.logout_handler"
+                         class="Universibo\Bundle\WebsiteBundle\Security\Http\Logout\PrivacyLogoutHandler"/>
+
                 <service id="universibo_website.encoder.md5"
                          class="Universibo\Bundle\WebsiteBundle\Security\Encoder\Md5Encoder"/>
 
