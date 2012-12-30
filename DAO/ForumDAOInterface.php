@@ -14,4 +14,13 @@ interface ForumDAOInterface
      * Gets the maximum Forum ID
      */
     public function getMaxId();
+
+    /**
+     * Creates a new forum
+     *
+     * @param string  $title
+     * @param string  $description
+     * @param integer $parentId
+     */
+    public function create($title, $description, $parentId);
 }
