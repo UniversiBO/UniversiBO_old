@@ -49,29 +49,34 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
         $this->verbose = $input->getOption('verbose');
     }
 
+    /**
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $anno_accademico = $input->getArgument('academic_year');
 
-        $db = $this->getContainer()->get('doctrine.dbal.default_connection');
+        $container = $this->getContainer();
+        $db = $container->get('doctrine.dbal.default_connection');
 
         $db->beginTransaction();
 
-        $forum = $this->getContainer()->get('universibo_legacy.forum.api');
-        $max_forum_id = $forum->getMaxForumId();
+        $forumDAO = $container->get('universibo_forum.dao.forum');
+        $maxForumId = $forumDAO->getMaxId();
 
-        echo 'max_forum_id: ', $max_forum_id, "\n";
+        $output->writeln('Max forum ID = '.$maxForumId);
 
-        $cdlAll = Cdl::selectCdlAll();
-        //var_dump($cdlAll);
+        $cdlRepo = $container->get('universibo_legacy.repository.cdl');
+        $cdlAll = $cdlRepo->findAll();
 
         foreach ($cdlAll as $cdl) {
-            echo $cdl->getCodiceCdl(),' - ', $cdl->getTitolo(),"\n";
+            $output->writeln($cdl->getCodiceCdl(),' - ', $cdl->getTitolo());
 
             // creo categoria
             if ($cdl->getForumCatId()=='') {
                 $cat_id = $forum->addForumCategory($cdl->getCodiceCdl().' - '.ucwords( strtolower( $cdl->getNome())), $cdl->getCodiceCdl());
-                echo ' > ','creata categoria: ',$cat_id,"\n";
+                $output->writeln(' > ','creata categoria: '.$cat_id);
 
                 $cdl->setForumCatId($cat_id);
                 $cdl->updateCdl();
@@ -181,7 +186,7 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
      */
     public function selectIdUtenteFromCodDoc($cod_doc)
     {
-        $db = $this->getContainer()->get('doctrine.dbal.default_connection');
+        $db = $this->getAliases()->get('doctrine.dbal.default_connection');
         $query = 'SELECT id_utente FROM docente WHERE cod_doc = '.$db->quote($cod_doc);
 
         $res = $db->executeQuery($query);
@@ -233,6 +238,17 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
         $row = $res->fetch();
 
         return $row[0];
+
+    }
+
+    /**
+     * Finds or creates DegreeCourse forum
+     *
+     * @param  Cdl     $degreeCourse
+     * @return integer the forum ID
+     */
+    private function findOrCreateDegreeCourseForum(Cdl $degreeCourse)
+    {
 
     }
 }
