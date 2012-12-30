@@ -17,8 +17,8 @@ class PhpBB3UserDAO extends AbstractDAO implements UserDAOInterface
     // be careful when adding groups
     // these must be from higher level to lower
     private static $translations = array (
-        'ROLE_ADMIN' => 5,
-        'ROLE_MODERATOR' => 4,
+        'ROLE_ADMIN' => 10024,
+        'ROLE_MODERATOR' => 6,
     );
 
     public function create(User $user)
