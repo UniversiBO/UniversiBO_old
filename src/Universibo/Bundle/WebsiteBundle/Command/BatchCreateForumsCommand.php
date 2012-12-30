@@ -50,6 +50,9 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
     }
 
     /**
+     * Creates forum for every Degree Course
+     * president of degree course's council can moderate forum
+     *
      * @param InputInterface  $input
      * @param OutputInterface $output
      */
@@ -67,52 +70,54 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
 
         $output->writeln('Max forum ID = '.$maxForumId);
 
-        $cdlRepo = $container->get('universibo_legacy.repository.cdl');
-        $cdlAll = $cdlRepo->findAll();
+        $degreeCourseRepo = $container->get('universibo_legacy.repository.cdl');
+        $degreeCourseAll = $degreeCourseRepo->findAll();
 
-        foreach ($cdlAll as $cdl) {
-            $output->writeln($cdl->getCodiceCdl(),' - ', $cdl->getTitolo());
+        foreach ($degreeCourseAll as $degreeCourse) {
+            $output->writeln($degreeCourse->getCodiceCdl(),' - ', $degreeCourse->getTitolo());
+
+            $this->findOrCreateDegreeCourseForum($degreeCourse);
 
             // creo categoria
-            if ($cdl->getForumCatId()=='') {
-                $cat_id = $forum->addForumCategory($cdl->getCodiceCdl().' - '.ucwords( strtolower( $cdl->getNome())), $cdl->getCodiceCdl());
+            if ($degreeCourse->getForumCatId()=='') {
+                $cat_id = $forum->addForumCategory($degreeCourse->getCodiceCdl().' - '.ucwords( strtolower( $degreeCourse->getNome())), $degreeCourse->getCodiceCdl());
                 $output->writeln(' > ','creata categoria: '.$cat_id);
 
-                $cdl->setForumCatId($cat_id);
-                $cdl->updateCdl();
+                $degreeCourse->setForumCatId($cat_id);
+                $degreeCourse->updateCdl();
                 echo ' > ','aggiornato cdl con nuova categoria: ',$cat_id,"\n";
             } else
-                $cat_id = $cdl->getForumCatId();
+                $cat_id = $degreeCourse->getForumCatId();
 
             // creo forum cdl se ? attivo su universibo
-            $id_utente = $this->selectIdUtenteFromCodDoc($cdl->getCodDocente()); //presidente cdl pu? essere null
+            $id_utente = $this->selectIdUtenteFromCodDoc($degreeCourse->getCodDocente()); //presidente cdl pu? essere null
 
-            if ($cdl->isGroupAllowed(User::OSPITE) && $cdl->getServizioForum()==false) {
-                $forum_id = $forum->addForum($cdl->getCodiceCdl().' - '.ucwords(strtolower($cdl->getNome())),
-                            'Forum riservato alla discussione generale sul CdL '.$cdl->getCodiceCdl(), $cat_id);
-                $cdl->setForumForumId($forum_id);
-                $cdl->setServizioForum(true);
+            if ($degreeCourse->isGroupAllowed(User::OSPITE) && $degreeCourse->getServizioForum()==false) {
+                $forum_id = $forum->addForum($degreeCourse->getCodiceCdl().' - '.ucwords(strtolower($degreeCourse->getNome())),
+                            'Forum riservato alla discussione generale sul CdL '.$degreeCourse->getCodiceCdl(), $cat_id);
+                $degreeCourse->setForumForumId($forum_id);
+                $degreeCourse->setServizioForum(true);
 
                 echo ' > ','creato forum cdl : ',$forum_id,'-'.$cat_id,"\n";
 
                 if ($id_utente != null) {
-                    $group_id = $forum->addGroup('Moderatori '.$cdl->getCodiceCdl(), 'Moderatori del cdl'.$cdl->getCodiceCdl().' - '.ucwords(strtolower($cdl->getNome())), $id_utente );
+                    $group_id = $forum->addGroup('Moderatori '.$degreeCourse->getCodiceCdl(), 'Moderatori del cdl'.$degreeCourse->getCodiceCdl().' - '.ucwords(strtolower($degreeCourse->getNome())), $id_utente );
                     echo ' > ','creato gruppo forum cdl : ',$group_id,"\n";
 
                     $forum->addGroupForumPrivilegies($forum_id, $group_id);
                     echo ' > ','aggiunti privilegi cdl : ',$group_id,' - '.$forum_id,"\n";
 
-                    $cdl->setForumGroupId($group_id);
+                    $degreeCourse->setForumGroupId($group_id);
                 } else
                     echo ' > ','presidente cdl non trovato: ',$forum_id,"\n";
 
-                $cdl->updateCdl();
+                $degreeCourse->updateCdl();
                 echo ' > ','aggiornato il canale con il nuovo forum e categoria: ',$forum_id,"\n";
 
-            } elseif ($cdl->isGroupAllowed(User::OSPITE))
-                echo ' > ','forum cdl gia\' presente: ',$cdl->getForumForumId(),' - '.$cdl->getForumGroupId()."\n";
+            } elseif ($degreeCourse->isGroupAllowed(User::OSPITE))
+                echo ' > ','forum cdl gia\' presente: ',$degreeCourse->getForumForumId(),' - '.$degreeCourse->getForumGroupId()."\n";
 
-            $elenco_prgAttivitaDidattica = PrgAttivitaDidattica::selectPrgAttivitaDidatticaElencoCdl($cdl->getCodiceCdl(), $anno_accademico);
+            $elenco_prgAttivitaDidattica = PrgAttivitaDidattica::selectPrgAttivitaDidatticaElencoCdl($degreeCourse->getCodiceCdl(), $anno_accademico);
 
             //creo i forum degli insegnmanti
             foreach ($elenco_prgAttivitaDidattica as $prg_att) {
@@ -249,6 +254,10 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
      */
     private function findOrCreateDegreeCourseForum(Cdl $degreeCourse)
     {
+        $forumId = $degreeCourse->getForumForumId();
 
+        if ($forumId > 0) {
+            return $forumId;
+        }
     }
 }
