@@ -18,9 +18,10 @@ interface ForumDAOInterface
     /**
      * Creates a new forum
      *
-     * @param string  $title
-     * @param string  $description
-     * @param integer $parentId
+     * @param  string  $title
+     * @param  string  $description
+     * @param  integer $parentId
+     * @return integer forum id
      */
     public function create($title, $description, $parentId);
 }
