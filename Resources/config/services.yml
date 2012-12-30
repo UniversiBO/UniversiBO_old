@@ -29,3 +29,5 @@ services:
   universibo_forum.logout_handler:
     class: 'Universibo\Bundle\ForumBundle\Security\Http\Logout\PhpBB3LogoutHandler'
     arguments: ['@universibo_forum.session']
+  universibo_forum.naming.generator:
+    class: 'Universibo\Bundle\ForumBundle\Naming\NameGenerator'
