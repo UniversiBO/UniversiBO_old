@@ -1,7 +1,11 @@
 <?php
+/**
+ * @copyright (c) 2002-2012, Associazione UniversiBO
+ */
 namespace Universibo\Bundle\WebsiteBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Universibo\Bundle\CoreBundle\Entity\User;
@@ -22,15 +26,14 @@ use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
  */
 class BatchCreateForumsCommand extends ContainerAwareCommand
 {
-    private $anno_accademico = 2012;
-
     private $verbose;
 
     protected function configure()
     {
         $this
-            ->setName('universibo:professors:register')
-            ->setDescription('Batch register professors')
+            ->setName('universibo:forum:create')
+            ->setDescription('Batch create forums')
+            ->addArgument('academic_year', InputArgument::REQUIRED, 'Academic Year (e.g. 2012)');
         ;
     }
 
@@ -48,7 +51,7 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $anno_accademico = $this->anno_accademico;
+        $anno_accademico = $input->getArgument('academic_year');
 
         $db = $this->getContainer()->get('doctrine.dbal.default_connection');
 
