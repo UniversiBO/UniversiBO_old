@@ -57,7 +57,10 @@ class PhpBB3Session implements ForumSessionInterface
     {
         $userId = $this->userDAO->findOrCreate($user);
 
-        $claims = $request->getSession()->get('shibbolethClaims', array('eppn' => ''));
+        $claims = $request->getSession()->get('shibbolethClaims');
+        if (!is_array($claims)) {
+            $claims = array('eppn' => '');
+        }
         $this->createNewSession($userId, $request, $response, $claims['eppn']);
     }
 
