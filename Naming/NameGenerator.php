@@ -24,7 +24,7 @@ class NameGenerator
     public function update($title, $year)
     {
         return preg_replace('/aa ([0-9]{4})(\\/\\.\\.)?(\\/[0-9]{4})+/',
-                'aa $1/../' . $this->getLast($year), $title);
+                'aa $1/../' . ($year + 1), $title);
     }
 
     /**
