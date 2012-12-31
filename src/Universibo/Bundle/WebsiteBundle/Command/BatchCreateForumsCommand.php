@@ -10,6 +10,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\ForumBundle\DAO\ForumDAOInterface;
+use Universibo\Bundle\ForumBundle\DAO\GroupDAOInterface;
 use Universibo\Bundle\ForumBundle\Naming\NameGenerator;
 use Universibo\Bundle\LegacyBundle\Entity\Cdl;
 use Universibo\Bundle\LegacyBundle\Entity\DBInsegnamentoRepository;
@@ -196,5 +197,11 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
         $target->setForumForumId($source->getForumForumId());
         $target->setForumGroupId($source->getForumGroupId());
         $target->setServizioForum($source->getServizioForum());
+    }
+
+    private function createModeratorGroup(GroupDAOInterface $groupDAO,
+            $forumId, User $moderator, $moderatorGroupName)
+    {
+
     }
 }
