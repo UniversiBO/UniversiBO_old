@@ -42,9 +42,8 @@ interface ForumDAOInterface
      * Renames a forum
      *
      * @param  integer $forumId
-     * @param  string  $title
-     * @param  string  $description
+     * @param  string  $name
      * @return boolean true if forum exists, false otherwise
      */
-    public function rename($forumId, $title, $description);
+    public function rename($forumId, $name);
 }
