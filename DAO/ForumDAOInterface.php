@@ -37,4 +37,14 @@ interface ForumDAOInterface
      * @return integer forum id
      */
     public function create($title, $description, $type, $parentId = 0);
+
+    /**
+     * Renames a forum
+     *
+     * @param  integer $forumId
+     * @param  string  $title
+     * @param  string  $description
+     * @return boolean true if forum exists, false otherwise
+     */
+    public function rename($forumId, $title, $description);
 }
