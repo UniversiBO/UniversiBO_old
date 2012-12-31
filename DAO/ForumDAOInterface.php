@@ -11,7 +11,19 @@ namespace Universibo\Bundle\ForumBundle\DAO;
 interface ForumDAOInterface
 {
     /**
+     * Category forum (e.g. no posts inside)
+     */
+    const TYPE_CATEGORY = 0;
+
+    /**
+     * Plain forum
+     */
+    const TYPE_FORUM = 1;
+
+    /**
      * Gets the maximum Forum ID
+     *
+     * @return integer max forum ID
      */
     public function getMaxId();
 
@@ -20,8 +32,9 @@ interface ForumDAOInterface
      *
      * @param  string  $title
      * @param  string  $description
-     * @param  integer $parentId
+     * @param  integer $type        either TYPE_CATEGORY or TYPE_FORUM
+     * @param  integer $parentId    parent forum, 0 is the root
      * @return integer forum id
      */
-    public function create($title, $description, $parentId);
+    public function create($title, $description, $type, $parentId = 0);
 }
