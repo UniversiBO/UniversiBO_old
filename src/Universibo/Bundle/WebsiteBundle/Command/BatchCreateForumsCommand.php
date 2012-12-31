@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\ForumBundle\DAO\ForumDAOInterface;
 use Universibo\Bundle\LegacyBundle\Entity\Cdl;
 use Universibo\Bundle\LegacyBundle\Entity\Insegnamento;
 use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
@@ -185,74 +186,37 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
     }
 
     /**
-     * @todo questa funzione qui fa schifo, bisogna creare una classe Docente che estente Utente (?)
+     * Gets a similar subject
      *
-     * @return int id_utente, null se non esiste il cod_doc
+     * @param  Insegnamento    $ins
+     * @param  OutputInterface $output
+     * @return integer|null
      */
-    public function selectIdUtenteFromCodDoc($cod_doc)
-    {
-        $db = $this->getAliases()->get('doctrine.dbal.default_connection');
-        $query = 'SELECT id_utente FROM docente WHERE cod_doc = '.$db->quote($cod_doc);
-
-        $res = $db->executeQuery($query);
-
-        if ($res->rowCount() == 0 )
-            return null;
-
-        $row = $res->fetch();
-
-        return $row[0];
-    }
-
-    /**
-     * @todo questa funzione qui fa schifo,
-     *
-     * @return Insegnamento
-     */
-    public function selectInsegnamentoConForumSimile($ins)
+    public function selectInsegnamentoConForumSimile(Insegnamento $ins, OutputInterface $output)
     {
         $elencoAtt = $ins->getElencoAttivitaPadre();
 
         //se sono pi? attivit? unite... non ci impazzisco.
-        if (count($elencoAtt) > 1) return null;
-
-        $att = $elencoAtt[0];
-
-        $db = $this->getContainer()->get('doctrine.dbal.default_connection');
-        $query = 'SELECT c.id_canale FROM canale c, prg_insegnamento pi WHERE
-                c.id_canale=pi.id_canale
-                AND c.forum_attivo IS NOT NULL
-                AND c.id_forum IS NOT NULL
-                AND c.group_id IS NOT NULL
-                AND pi.cod_materia_ins='.$db->quote($att->getCodMateriaIns()).'
-                AND pi.cod_ril='.$db->quote($att->getCodRil()).'
-                AND pi.cod_materia = '.$db->quote($att->getCodMateria()).'
-                AND pi.cod_doc = '.$db->quote($att->getCodDoc()).'
-                AND anno_accademico = '.$db->quote($this->anno_accademico - 1).'
-                AND pi.cod_corso = '.$db->quote($att->getCodiceCdl());
-
-        $res = $db->executeQuery($query);
-
-        if ($res->rowCount() == 0 )
+        if (!is_array($elencoAtt) || count($elencoAtt) !== 1) {
             return null;
+        }
+
+        list($att) = $elencoAtt;
+
+        $prgRepo = $this->getContainer()->get('universibo_legacy.repository.programma');
+
+        $count = 0;
+        $channelId = $prgRepo->getPreviousYearWithForum($att, $count);
 
         //se ce ne sono di pi? prendo il primo
-        if ($res->rowCount() > 1 )
-            echo '   #### c\'erano '.$res->rowCount().' forum simili, ho preso solo il primo',"\n";
+        if ($count > 1) {
+            $output->writeln('   #### c\'erano '.$res->rowCount().' forum simili, ho preso solo il primo');
+        }
 
-        $row = $res->fetch();
-
-        return $row[0];
-
+        return $channelId;
     }
 
-    /**
-     * Finds or creates DegreeCourse forum
-     *
-     * @param  Cdl     $degreeCourse
-     * @return integer the forum ID
-     */
-    private function findOrCreateDegreeCourseForum(Cdl $degreeCourse)
+    private function findOrCreateDegreeCourseForum(Cdl $degreeCourse, ForumDAOInterface $forumDAO)
     {
         $forumId = $degreeCourse->getForumForumId();
 

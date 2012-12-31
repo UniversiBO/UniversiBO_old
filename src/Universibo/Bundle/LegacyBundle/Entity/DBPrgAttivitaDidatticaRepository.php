@@ -2,9 +2,10 @@
 
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
-use Universibo\Bundle\LegacyBundle\PearDB\DB;
 use Doctrine\DBAL\DBALException;
+use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
 use Universibo\Bundle\LegacyBundle\Framework\Error;
+use Universibo\Bundle\LegacyBundle\PearDB\DB;
 
 /**
  * Canale repository
@@ -421,5 +422,38 @@ EOT;
         $res->free();
 
         return $prgAtt;
+    }
+
+    /**
+     * Finds previous year's channel
+     *
+     * @param  PrgAttivitaDidattica $att
+     * @param  integer              $count
+     * @return null|integer         channel id
+     */
+    public function getPreviousYearWithForum(PrgAttivitaDidattica $att, &$count)
+    {
+        $db = $this->getConnection();
+
+        $query = 'SELECT c.id_canale FROM canale c, prg_insegnamento pi WHERE
+        c.id_canale=pi.id_canale
+        AND c.forum_attivo IS NOT NULL
+        AND c.id_forum IS NOT NULL
+        AND c.group_id IS NOT NULL
+        AND pi.cod_materia_ins='.$db->quote($att->getCodMateriaIns()).'
+        AND pi.cod_ril='.$db->quote($att->getCodRil()).'
+        AND pi.cod_materia = '.$db->quote($att->getCodMateria()).'
+        AND pi.cod_doc = '.$db->quote($att->getCodDoc()).'
+        AND anno_accademico = '.$db->quote($this->anno_accademico - 1).'
+        AND pi.cod_corso = '.$db->quote($att->getCodiceCdl());
+
+        $res = $db->executeQuery($query);
+
+        $count = $res->rowCount();
+
+        if ($res->rowCount() === 0)
+            return null;
+
+        return intval($res->fetchColumn());
     }
 }

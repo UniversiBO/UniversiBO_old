@@ -153,4 +153,20 @@ EOT;
             throw new DBALException(DB::errorMessage($res));
         }
     }
+
+    /**
+     * Gets professor's user id
+     *
+     * @param  string       $cod_doc professor code (unibo)
+     * @return integer|null user id
+     */
+    public function getUserIdFromCodDoc($cod_doc)
+    {
+        $db = $this->getConnection();
+        $query = 'SELECT id_utente FROM docente WHERE cod_doc = ?';
+
+        $userId = $db->fetchColumn($query, array($cod_doc));
+
+        return $userId ? $userId : null;
+    }
 }
