@@ -1,7 +1,7 @@
 <?php
 /**
  * @copyright (c) 2012, Associazione UniversiBO
- * @license GPLv3
+ * @license GPLv3 or later
  */
 namespace Universibo\Bundle\ForumBundle\DAO;
 
