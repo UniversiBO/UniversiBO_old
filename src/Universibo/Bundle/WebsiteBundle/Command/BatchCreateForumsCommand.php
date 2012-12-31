@@ -97,7 +97,7 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
      * @param  OutputInterface $output
      * @return integer|null
      */
-    public function selectInsegnamentoConForumSimile(Insegnamento $ins, OutputInterface $output)
+    public function selectSimilarSubject(Insegnamento $ins, OutputInterface $output)
     {
         $elencoAtt = $ins->getElencoAttivitaPadre();
 
@@ -148,7 +148,7 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
                     continue;
                 }
 
-                $similarId = $this->selectInsegnamentoConForumSimile($subject);
+                $similarId = $this->selectSimilarSubject($subject);
 
                 if ($similarId === null) {
                     $this->createNewSubjectForum($subject);
