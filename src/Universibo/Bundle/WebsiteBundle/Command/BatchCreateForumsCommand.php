@@ -10,7 +10,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\ForumBundle\DAO\ForumDAOInterface;
+use Universibo\Bundle\ForumBundle\Naming\NameGenerator;
 use Universibo\Bundle\LegacyBundle\Entity\Cdl;
+use Universibo\Bundle\LegacyBundle\Entity\DBInsegnamentoRepository;
+use Universibo\Bundle\LegacyBundle\Entity\DBPrgAttivitaDidatticaRepository;
 use Universibo\Bundle\LegacyBundle\Entity\Insegnamento;
 use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
 
@@ -27,7 +30,19 @@ use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
  */
 class BatchCreateForumsCommand extends ContainerAwareCommand
 {
+    /**
+     * Verbose option
+     *
+     * @var boolean
+     */
     private $verbose;
+
+    /**
+     * Academic year
+     *
+     * @var integer
+     */
+    private $academicYear;
 
     protected function configure()
     {
@@ -48,18 +63,42 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
         parent::initialize($input, $output);
 
         $this->verbose = $input->getOption('verbose');
+        $this->academicYear = $input->getArgument('academic_year');
     }
 
     /**
      * Creates forum for every Degree Course
-     * president of degree course's council can moderate forum
      *
      * @param InputInterface  $input
      * @param OutputInterface $output
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $anno_accademico = $input->getArgument('academic_year');
+        $container = $this->getContainer();
+
+        $degreeCourseRepo = $container->get('universibo_legacy.repository.cdl');
+        $forumDAO         = $container->get('universibo_forum.dao.forum');
+        $activityRepo     = $container->get('universibo_legacy.repository.attivita');
+        $subjectRepo      = $container->get('universibo_legacy.repository.insegnamento');
+
+        $output->writeln('Max forum ID = '.$forumDAO->getMaxId());
+
+        foreach ($degreeCourseRepo->findAll() as $degreeCourse) {
+            $forumId = $this->findOrCreateDegreeCourseForum($degreeCourse, $forumDAO);
+            $this->createSubjectForums($degreeCourse, $forumId, $forumDAO, $activityRepo, $subjectRepo);
+            $forumDAO->sortForumsAlphabetically($forumId);
+        }
+    }
+
+    /**
+     * Old execute function
+     *
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     */
+    protected function oldStuff(InputInterface $input, OutputInterface $output)
+    {
+        $academicYear = $input->getArgument('academic_year');
 
         $container = $this->getContainer();
         $db = $container->get('doctrine.dbal.default_connection');
@@ -73,8 +112,6 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
 
         foreach ($degreeCourseRepo->findAll() as $degreeCourse) {
             $output->writeln($degreeCourse->getCodiceCdl(),' - ', $degreeCourse->getTitolo());
-
-            $this->findOrCreateDegreeCourseForum($degreeCourse);
 
             // creo categoria
             if ($degreeCourse->getForumCatId()=='') {
@@ -115,7 +152,7 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
             } elseif ($degreeCourse->isGroupAllowed(User::OSPITE))
                 echo ' > ','forum cdl gia\' presente: ',$degreeCourse->getForumForumId(),' - '.$degreeCourse->getForumGroupId()."\n";
 
-            $elenco_prgAttivitaDidattica = PrgAttivitaDidattica::selectPrgAttivitaDidatticaElencoCdl($degreeCourse->getCodiceCdl(), $anno_accademico);
+            $elenco_prgAttivitaDidattica = PrgAttivitaDidattica::selectPrgAttivitaDidatticaElencoCdl($degreeCourse->getCodiceCdl(), $academicYear);
 
             //creo i forum degli insegnmanti
             foreach ($elenco_prgAttivitaDidattica as $prg_att) {
@@ -157,7 +194,7 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
                         $ins_simile = Insegnamento::selectInsegnamentoCanale($simile);
                         echo '   - forum simile a: '.$ins_simile->getIdCanale(),' - '.str_replace("\n",' ',$ins_simile->getNome()),"\n";
 
-                        $forum->addForumInsegnamentoNewYear($ins_simile->getForumForumId(), $anno_accademico);
+                        $forum->addForumInsegnamentoNewYear($ins_simile->getForumForumId(), $academicYear);
                         echo '   - aggiornato il nome del forum con il nuovo anno accademico ',$ins_simile->getForumForumId(),"\n";
 
                         $insegnamento->setForumGroupId($ins_simile->getForumGroupId());
@@ -220,5 +257,74 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
         if ($forumId > 0) {
             return $forumId;
         }
+    }
+
+    private function createSubjectForums( OutputInterface $output,
+            Cdl $degreeCourse, $courseForumId, ForumDAOInterface $forumDAO,
+            DBPrgAttivitaDidatticaRepository $activityRepo,
+            DBInsegnamentoRepository $subjectRepo)
+    {
+        $nameGenerator = $this->get('universibo_forum.naming.generator');
+
+        foreach ($activityRepo->findByCdlAndYear($degreeCourse, $this->academicYear) as $activity) {
+            if (!$activity->isSdoppiato() && $activity->isGroupAllowed(User::OSPITE)
+                    && !$activity->getServizioForum()) {
+                $channelId = $activity->getIdCanale();
+                $subject = $subjectRepo->findByChannelId($channelId) ?: null;
+
+                if ($subject === null) {
+                    $output->writeln('No subject for channel id = '.$channelId);
+                    continue;
+                }
+
+                $similarId = $this->selectInsegnamentoConForumSimile($subject);
+
+                if ($similarId === null) {
+                    $this->createNewSubjectForum($subject);
+                } else {
+                    $similar = $subjectRepo->findByChannelId($similar);
+                    $this->setSimilarForum($similar, $subject, $forumDAO, $nameGenerator);
+                }
+
+                $subjectRepo->updateForumSettings($subject);
+            }
+        }
+    }
+
+    private function createNewSubjectForum(Insegnamento $subject, $parentId,
+            NameGenerator $generator)
+    {
+
+    }
+
+    /**
+     * Sets the same forum for similar subjects
+     *
+     * @param Insegnamento      $source
+     * @param Insegnamento      $target
+     * @param ForumDAOInterface $forumDAO
+     * @param NameGenerator     $nameGenerator
+     */
+    private function setSimilarForum(Insegnamento $source, Insegnamento $target,
+            ForumDAOInterface $forumDAO, NameGenerator $nameGenerator)
+    {
+        $this->copyForumSettings($source, $target);
+        $forumId = $source->getForumForumId();
+        $name = $forumDAO->getForumName($forumId);
+        $newName = $nameGenerator->update($name, $this->academicYear);
+        $forumDAO->rename($forumId, $newName);
+    }
+
+    /**
+     * Copies forum setting from $source to $target
+     *
+     * @param Insegnamento $source
+     * @param Insegnamento $target
+     */
+    private function copyForumSettings(Insegnamento $source, Insegnamento $target)
+    {
+        $target->setForumForumId($source->getForumForumId());
+        $target->setForumGroupId($source->getForumGroupId());
+        $target->setServizioForum($source->getServizioForum());
     }
 }
