@@ -54,4 +54,12 @@ interface ForumDAOInterface
      * @return integer affected forums count
      */
     public function sortForumsAlphabetically($parentId);
+
+    /**
+     * Gets the forum name
+     *
+     * @param  integer $forumId
+     * @return string
+     */
+    public function getForumName($forumId);
 }

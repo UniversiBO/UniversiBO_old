@@ -81,4 +81,28 @@ EOT;
     public function sortForumsAlphabetically($parentId)
     {
     }
+
+    /**
+     * Gets the forum name
+     *
+     * @param  integer $forumId
+     * @return string  forum name
+     */
+    public function getForumName($forumId)
+    {
+        $query = <<<EOT
+SELECT
+   forum_name
+FROM
+   {$this->getPrefix()}forums
+WHERE
+   forum_id = ?
+EOT;
+
+        return $this
+            ->getConnection()
+            ->fetchColumn($query, array($forumId))
+            ?: null
+        ;
+    }
 }
