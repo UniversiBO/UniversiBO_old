@@ -67,14 +67,11 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
         $db->beginTransaction();
 
         $forumDAO = $container->get('universibo_forum.dao.forum');
-        $maxForumId = $forumDAO->getMaxId();
-
-        $output->writeln('Max forum ID = '.$maxForumId);
+        $output->writeln('Max forum ID = '.$forumDAO->getMaxId());
 
         $degreeCourseRepo = $container->get('universibo_legacy.repository.cdl');
-        $degreeCourseAll = $degreeCourseRepo->findAll();
 
-        foreach ($degreeCourseAll as $degreeCourse) {
+        foreach ($degreeCourseRepo->findAll() as $degreeCourse) {
             $output->writeln($degreeCourse->getCodiceCdl(),' - ', $degreeCourse->getTitolo());
 
             $this->findOrCreateDegreeCourseForum($degreeCourse);
@@ -210,7 +207,7 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
 
         //se ce ne sono di pi? prendo il primo
         if ($count > 1) {
-            $output->writeln('   #### c\'erano '.$res->rowCount().' forum simili, ho preso solo il primo');
+            $output->writeln('   #### c\'erano '.$count.' forum simili, ho preso solo il primo');
         }
 
         return $channelId;
