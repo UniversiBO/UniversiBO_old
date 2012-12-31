@@ -10,4 +10,12 @@ namespace Universibo\Bundle\ForumBundle\DAO;
  */
 interface GroupDAOInterface
 {
+    /**
+     * Creates a new group
+     *
+     * @param  string  $name
+     * @param  string  $description
+     * @return integer group id
+     */
+    public function create($name, $description);
 }
