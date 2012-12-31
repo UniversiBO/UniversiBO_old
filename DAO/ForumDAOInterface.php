@@ -46,4 +46,12 @@ interface ForumDAOInterface
      * @return boolean true if forum exists, false otherwise
      */
     public function rename($forumId, $name);
+
+    /**
+     * Sorts forums alphabetically
+     *
+     * @param  integer $parentId
+     * @return integer affected forums count
+     */
+    public function sortForumsAlphabetically($parentId);
 }
