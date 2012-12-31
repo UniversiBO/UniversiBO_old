@@ -70,4 +70,15 @@ EOT;
             )) > 0
         ;
     }
+
+    /**
+     * Sorts forums alphabetically
+     *
+     * @todo implementation
+     * @param  integer $parentId
+     * @return integer affected forums count
+     */
+    public function sortForumsAlphabetically($parentId)
+    {
+    }
 }
