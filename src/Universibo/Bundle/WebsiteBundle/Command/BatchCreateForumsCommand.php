@@ -97,7 +97,7 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
      * @param  OutputInterface $output
      * @return integer|null
      */
-    public function selectSimilarSubject(Insegnamento $ins, OutputInterface $output)
+    private function selectSimilarSubject(Insegnamento $ins, OutputInterface $output)
     {
         $elencoAtt = $ins->getElencoAttivitaPadre();
 
