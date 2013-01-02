@@ -46,6 +46,7 @@ class BatchRegisterProfessorsCommand extends ContainerAwareCommand
         $container = $this->getContainer();
         $db = $container->get('doctrine.dbal.default_connection');
         $userManager = $container->get('fos_user.user_manager');
+        $forumUserDAO = $container->get('universibo_forum.dao.user');
 
         $res = $db->executeQuery('SELECT cod_doc, nome_doc, email FROM docente2 WHERE cod_doc NOT IN (SELECT cod_doc FROM docente WHERE 1=1)');
 
@@ -62,6 +63,7 @@ class BatchRegisterProfessorsCommand extends ContainerAwareCommand
                 $user->setLegacyGroups(LegacyRoles::DOCENTE);
 
                 $userManager->updateUser($user);
+                $forumUserDAO->create($user);
 
                 $docente = new Docente();
                 $docente->setIdUtente($user->getId());
