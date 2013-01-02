@@ -1,11 +1,10 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
-use Universibo\Bundle\LegacyBundle\Entity\ContattoDocente;
-use Universibo\Bundle\LegacyBundle\Entity\InfoDidattica;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
@@ -16,6 +15,7 @@ use Universibo\Bundle\LegacyBundle\Framework\FrontController;
  * @subpackage commands
  * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
+ * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
@@ -45,10 +45,15 @@ class ShowInsegnamento extends CanaleCommand
         $array_prg = $insegnamento->getElencoAttivitaPadre();
         //		var_dump($prg); die;
 
+        if (count($array_prg) === 0) {
+            throw new NotFoundHttpException('Missing data');
+        }
+
         $coddoc = $array_prg[0]->getCodDoc();
         //		var_dump($coddoc); die;
 
-        $contatto = ContattoDocente::getContattoDocente($coddoc);
+        $contactRepo = $this->get('universibo_legacy.repository.contatto_docente');
+        $contatto = $contactRepo->findOneByCodDoc($coddoc);
 
         $context = $this->get('security.context');
         $router = $this->get('router');
@@ -69,7 +74,9 @@ class ShowInsegnamento extends CanaleCommand
         } else {
             $template->assign('ins_infoDidEdit', false);
         }
-        $info_didattica = InfoDidattica::retrieveInfoDidattica($id_canale);
+
+        $infoDidatticaRepo = $this->get('universibo_legacy.repository.info_didattica');
+        $info_didattica = $infoDidatticaRepo-> find($id_canale);
         //var_dump($info_didattica);
 
         $template
