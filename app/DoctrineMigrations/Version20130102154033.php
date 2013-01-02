@@ -11,11 +11,13 @@ class Version20130102154033 extends AbstractMigration
     {
         $this->addSql('ALTER TABLE classi_corso ADD CONSTRAINT classi_corso_id_canale_fkey FOREIGN KEY (id_canale) REFERENCES canale(id_canale) ON DELETE CASCADE ON UPDATE CASCADE');
         $this->addSql('ALTER TABLE facolta ADD CONSTRAINT facolta_id_canale_fkey FOREIGN KEY (id_canale) REFERENCES canale(id_canale) ON DELETE CASCADE ON UPDATE CASCADE');
+        $this->addSql('ALTER TABLE docente ADD CONSTRAINT docente_id_utente_fkey FOREIGN KEY (id_utente) REFERENCES fos_user(id) ON DELETE SET NULL');
     }
 
     public function down(Schema $schema)
     {
         $this->addSql('ALTER TABLE classi_corso DROP CONSTRAINT classi_corso_id_canale_fkey');
         $this->addSql('ALTER TABLE facolta DROP CONSTRAINT facolta_id_canale_fkey');
+        $this->addSql('ALTER TABLE docente DROP CONSTRAINT docente_id_utente_fkey');
     }
 }
