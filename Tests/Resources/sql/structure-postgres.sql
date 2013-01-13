@@ -4,6 +4,9 @@
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
 
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
@@ -28,6 +31,7 @@ SET search_path = public, pg_catalog;
 CREATE DOMAIN varchar_ci AS character varying(255) NOT NULL DEFAULT ''::character varying;
 
 
+ALTER DOMAIN public.varchar_ci OWNER TO universibo_forum_test;
 
 --
 -- Name: _varchar_ci_equal(varchar_ci, varchar_ci); Type: FUNCTION; Schema: public; Owner: universibo
@@ -38,6 +42,7 @@ CREATE FUNCTION _varchar_ci_equal(varchar_ci, varchar_ci) RETURNS boolean
     AS $_$SELECT LOWER($1) = LOWER($2)$_$;
 
 
+ALTER FUNCTION public._varchar_ci_equal(varchar_ci, varchar_ci) OWNER TO universibo_forum_test;
 
 --
 -- Name: _varchar_ci_greater_equals(varchar_ci, varchar_ci); Type: FUNCTION; Schema: public; Owner: universibo
@@ -48,6 +53,7 @@ CREATE FUNCTION _varchar_ci_greater_equals(varchar_ci, varchar_ci) RETURNS boole
     AS $_$SELECT LOWER($1) >= LOWER($2)$_$;
 
 
+ALTER FUNCTION public._varchar_ci_greater_equals(varchar_ci, varchar_ci) OWNER TO universibo_forum_test;
 
 --
 -- Name: _varchar_ci_greater_than(varchar_ci, varchar_ci); Type: FUNCTION; Schema: public; Owner: universibo
@@ -58,6 +64,7 @@ CREATE FUNCTION _varchar_ci_greater_than(varchar_ci, varchar_ci) RETURNS boolean
     AS $_$SELECT LOWER($1) > LOWER($2)$_$;
 
 
+ALTER FUNCTION public._varchar_ci_greater_than(varchar_ci, varchar_ci) OWNER TO universibo_forum_test;
 
 --
 -- Name: _varchar_ci_less_equal(varchar_ci, varchar_ci); Type: FUNCTION; Schema: public; Owner: universibo
@@ -68,6 +75,7 @@ CREATE FUNCTION _varchar_ci_less_equal(varchar_ci, varchar_ci) RETURNS boolean
     AS $_$SELECT LOWER($1) <= LOWER($2)$_$;
 
 
+ALTER FUNCTION public._varchar_ci_less_equal(varchar_ci, varchar_ci) OWNER TO universibo_forum_test;
 
 --
 -- Name: _varchar_ci_less_than(varchar_ci, varchar_ci); Type: FUNCTION; Schema: public; Owner: universibo
@@ -78,6 +86,7 @@ CREATE FUNCTION _varchar_ci_less_than(varchar_ci, varchar_ci) RETURNS boolean
     AS $_$SELECT LOWER($1) < LOWER($2)$_$;
 
 
+ALTER FUNCTION public._varchar_ci_less_than(varchar_ci, varchar_ci) OWNER TO universibo_forum_test;
 
 --
 -- Name: _varchar_ci_not_equal(varchar_ci, varchar_ci); Type: FUNCTION; Schema: public; Owner: universibo
@@ -88,6 +97,7 @@ CREATE FUNCTION _varchar_ci_not_equal(varchar_ci, varchar_ci) RETURNS boolean
     AS $_$SELECT LOWER($1) != LOWER($2)$_$;
 
 
+ALTER FUNCTION public._varchar_ci_not_equal(varchar_ci, varchar_ci) OWNER TO universibo_forum_test;
 
 --
 -- Name: <; Type: OPERATOR; Schema: public; Owner: universibo
@@ -104,6 +114,7 @@ CREATE OPERATOR < (
 );
 
 
+ALTER OPERATOR public.< (varchar_ci, varchar_ci) OWNER TO universibo_forum_test;
 
 --
 -- Name: <=; Type: OPERATOR; Schema: public; Owner: universibo
@@ -120,6 +131,7 @@ CREATE OPERATOR <= (
 );
 
 
+ALTER OPERATOR public.<= (varchar_ci, varchar_ci) OWNER TO universibo_forum_test;
 
 --
 -- Name: <>; Type: OPERATOR; Schema: public; Owner: universibo
@@ -136,6 +148,7 @@ CREATE OPERATOR <> (
 );
 
 
+ALTER OPERATOR public.<> (varchar_ci, varchar_ci) OWNER TO universibo_forum_test;
 
 --
 -- Name: =; Type: OPERATOR; Schema: public; Owner: universibo
@@ -154,6 +167,7 @@ CREATE OPERATOR = (
 );
 
 
+ALTER OPERATOR public.= (varchar_ci, varchar_ci) OWNER TO universibo_forum_test;
 
 --
 -- Name: >; Type: OPERATOR; Schema: public; Owner: universibo
@@ -170,6 +184,7 @@ CREATE OPERATOR > (
 );
 
 
+ALTER OPERATOR public.> (varchar_ci, varchar_ci) OWNER TO universibo_forum_test;
 
 --
 -- Name: >=; Type: OPERATOR; Schema: public; Owner: universibo
@@ -186,6 +201,7 @@ CREATE OPERATOR >= (
 );
 
 
+ALTER OPERATOR public.>= (varchar_ci, varchar_ci) OWNER TO universibo_forum_test;
 
 SET default_tablespace = '';
 
@@ -208,6 +224,7 @@ CREATE TABLE phpbb_acl_groups (
 );
 
 
+ALTER TABLE public.phpbb_acl_groups OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_acl_options_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -221,6 +238,7 @@ CREATE SEQUENCE phpbb_acl_options_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_acl_options_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_acl_options; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -238,6 +256,7 @@ CREATE TABLE phpbb_acl_options (
 );
 
 
+ALTER TABLE public.phpbb_acl_options OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_acl_roles_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -251,6 +270,7 @@ CREATE SEQUENCE phpbb_acl_roles_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_acl_roles_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_acl_roles; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -266,6 +286,7 @@ CREATE TABLE phpbb_acl_roles (
 );
 
 
+ALTER TABLE public.phpbb_acl_roles OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_acl_roles_data; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -280,6 +301,7 @@ CREATE TABLE phpbb_acl_roles_data (
 );
 
 
+ALTER TABLE public.phpbb_acl_roles_data OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_acl_users; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -298,6 +320,7 @@ CREATE TABLE phpbb_acl_users (
 );
 
 
+ALTER TABLE public.phpbb_acl_users OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_attachments_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -311,6 +334,7 @@ CREATE SEQUENCE phpbb_attachments_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_attachments_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_attachments; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -344,6 +368,7 @@ CREATE TABLE phpbb_attachments (
 );
 
 
+ALTER TABLE public.phpbb_attachments OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_banlist_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -357,6 +382,7 @@ CREATE SEQUENCE phpbb_banlist_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_banlist_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_banlist; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -379,6 +405,7 @@ CREATE TABLE phpbb_banlist (
 );
 
 
+ALTER TABLE public.phpbb_banlist OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_bbcodes; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -400,6 +427,7 @@ CREATE TABLE phpbb_bbcodes (
 );
 
 
+ALTER TABLE public.phpbb_bbcodes OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_bookmarks; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -413,6 +441,7 @@ CREATE TABLE phpbb_bookmarks (
 );
 
 
+ALTER TABLE public.phpbb_bookmarks OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_bots_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -426,6 +455,7 @@ CREATE SEQUENCE phpbb_bots_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_bots_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_bots; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -443,6 +473,7 @@ CREATE TABLE phpbb_bots (
 );
 
 
+ALTER TABLE public.phpbb_bots OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_config; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -456,6 +487,7 @@ CREATE TABLE phpbb_config (
 );
 
 
+ALTER TABLE public.phpbb_config OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_confirm; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -473,6 +505,7 @@ CREATE TABLE phpbb_confirm (
 );
 
 
+ALTER TABLE public.phpbb_confirm OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_disallow_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -486,6 +519,7 @@ CREATE SEQUENCE phpbb_disallow_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_disallow_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_disallow; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -497,6 +531,7 @@ CREATE TABLE phpbb_disallow (
 );
 
 
+ALTER TABLE public.phpbb_disallow OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_drafts_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -510,6 +545,7 @@ CREATE SEQUENCE phpbb_drafts_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_drafts_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_drafts; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -530,6 +566,7 @@ CREATE TABLE phpbb_drafts (
 );
 
 
+ALTER TABLE public.phpbb_drafts OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_extension_groups_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -543,6 +580,7 @@ CREATE SEQUENCE phpbb_extension_groups_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_extension_groups_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_extension_groups; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -565,6 +603,7 @@ CREATE TABLE phpbb_extension_groups (
 );
 
 
+ALTER TABLE public.phpbb_extension_groups OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_extensions_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -578,6 +617,7 @@ CREATE SEQUENCE phpbb_extensions_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_extensions_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_extensions; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -591,6 +631,7 @@ CREATE TABLE phpbb_extensions (
 );
 
 
+ALTER TABLE public.phpbb_extensions OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_forums_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -604,6 +645,7 @@ CREATE SEQUENCE phpbb_forums_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_forums_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_forums; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -677,6 +719,7 @@ CREATE TABLE phpbb_forums (
 );
 
 
+ALTER TABLE public.phpbb_forums OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_forums_access; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -691,6 +734,7 @@ CREATE TABLE phpbb_forums_access (
 );
 
 
+ALTER TABLE public.phpbb_forums_access OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_forums_track; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -706,6 +750,7 @@ CREATE TABLE phpbb_forums_track (
 );
 
 
+ALTER TABLE public.phpbb_forums_track OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_forums_watch; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -721,6 +766,7 @@ CREATE TABLE phpbb_forums_watch (
 );
 
 
+ALTER TABLE public.phpbb_forums_watch OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_groups_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -734,6 +780,7 @@ CREATE SEQUENCE phpbb_groups_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_groups_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_groups; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -776,6 +823,7 @@ CREATE TABLE phpbb_groups (
 );
 
 
+ALTER TABLE public.phpbb_groups OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_icons_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -789,6 +837,7 @@ CREATE SEQUENCE phpbb_icons_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_icons_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_icons; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -806,6 +855,7 @@ CREATE TABLE phpbb_icons (
 );
 
 
+ALTER TABLE public.phpbb_icons OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_lang_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -819,6 +869,7 @@ CREATE SEQUENCE phpbb_lang_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_lang_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_lang; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -834,6 +885,7 @@ CREATE TABLE phpbb_lang (
 );
 
 
+ALTER TABLE public.phpbb_lang OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_log_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -847,6 +899,7 @@ CREATE SEQUENCE phpbb_log_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_log_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_log; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -871,6 +924,7 @@ CREATE TABLE phpbb_log (
 );
 
 
+ALTER TABLE public.phpbb_log OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_login_attempts; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -889,6 +943,7 @@ CREATE TABLE phpbb_login_attempts (
 );
 
 
+ALTER TABLE public.phpbb_login_attempts OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_moderator_cache; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -908,6 +963,7 @@ CREATE TABLE phpbb_moderator_cache (
 );
 
 
+ALTER TABLE public.phpbb_moderator_cache OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_modules_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -921,6 +977,7 @@ CREATE SEQUENCE phpbb_modules_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_modules_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_modules; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -946,6 +1003,7 @@ CREATE TABLE phpbb_modules (
 );
 
 
+ALTER TABLE public.phpbb_modules OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_poll_options; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -961,6 +1019,7 @@ CREATE TABLE phpbb_poll_options (
 );
 
 
+ALTER TABLE public.phpbb_poll_options OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_poll_votes; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -976,6 +1035,7 @@ CREATE TABLE phpbb_poll_votes (
 );
 
 
+ALTER TABLE public.phpbb_poll_votes OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_posts_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -989,6 +1049,7 @@ CREATE SEQUENCE phpbb_posts_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_posts_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_posts; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1041,6 +1102,7 @@ CREATE TABLE phpbb_posts (
 );
 
 
+ALTER TABLE public.phpbb_posts OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_privmsgs_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -1054,6 +1116,7 @@ CREATE SEQUENCE phpbb_privmsgs_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_privmsgs_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_privmsgs; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1098,6 +1161,7 @@ CREATE TABLE phpbb_privmsgs (
 );
 
 
+ALTER TABLE public.phpbb_privmsgs OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_privmsgs_folder_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -1111,6 +1175,7 @@ CREATE SEQUENCE phpbb_privmsgs_folder_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_privmsgs_folder_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_privmsgs_folder; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1126,6 +1191,7 @@ CREATE TABLE phpbb_privmsgs_folder (
 );
 
 
+ALTER TABLE public.phpbb_privmsgs_folder OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_privmsgs_rules_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -1139,6 +1205,7 @@ CREATE SEQUENCE phpbb_privmsgs_rules_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_privmsgs_rules_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_privmsgs_rules; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1163,6 +1230,7 @@ CREATE TABLE phpbb_privmsgs_rules (
 );
 
 
+ALTER TABLE public.phpbb_privmsgs_rules OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_privmsgs_to; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1191,6 +1259,7 @@ CREATE TABLE phpbb_privmsgs_to (
 );
 
 
+ALTER TABLE public.phpbb_privmsgs_to OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_profile_fields_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -1204,6 +1273,7 @@ CREATE SEQUENCE phpbb_profile_fields_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_profile_fields_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_profile_fields; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1241,6 +1311,7 @@ CREATE TABLE phpbb_profile_fields (
 );
 
 
+ALTER TABLE public.phpbb_profile_fields OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_profile_fields_data; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1252,6 +1323,7 @@ CREATE TABLE phpbb_profile_fields_data (
 );
 
 
+ALTER TABLE public.phpbb_profile_fields_data OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_profile_fields_lang; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1269,6 +1341,7 @@ CREATE TABLE phpbb_profile_fields_lang (
 );
 
 
+ALTER TABLE public.phpbb_profile_fields_lang OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_profile_lang; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1285,6 +1358,7 @@ CREATE TABLE phpbb_profile_lang (
 );
 
 
+ALTER TABLE public.phpbb_profile_lang OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_ranks_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -1298,6 +1372,7 @@ CREATE SEQUENCE phpbb_ranks_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_ranks_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_ranks; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1314,6 +1389,7 @@ CREATE TABLE phpbb_ranks (
 );
 
 
+ALTER TABLE public.phpbb_ranks OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_reports_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -1327,6 +1403,7 @@ CREATE SEQUENCE phpbb_reports_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_reports_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_reports; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1352,6 +1429,7 @@ CREATE TABLE phpbb_reports (
 );
 
 
+ALTER TABLE public.phpbb_reports OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_reports_reasons_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -1365,6 +1443,7 @@ CREATE SEQUENCE phpbb_reports_reasons_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_reports_reasons_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_reports_reasons; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1379,6 +1458,7 @@ CREATE TABLE phpbb_reports_reasons (
 );
 
 
+ALTER TABLE public.phpbb_reports_reasons OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_search_results; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1393,6 +1473,7 @@ CREATE TABLE phpbb_search_results (
 );
 
 
+ALTER TABLE public.phpbb_search_results OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_search_wordlist_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -1406,6 +1487,7 @@ CREATE SEQUENCE phpbb_search_wordlist_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_search_wordlist_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_search_wordlist; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1421,6 +1503,7 @@ CREATE TABLE phpbb_search_wordlist (
 );
 
 
+ALTER TABLE public.phpbb_search_wordlist OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_search_wordmatch; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1436,6 +1519,7 @@ CREATE TABLE phpbb_search_wordmatch (
 );
 
 
+ALTER TABLE public.phpbb_search_wordmatch OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_sessions; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1466,6 +1550,7 @@ CREATE TABLE phpbb_sessions (
 );
 
 
+ALTER TABLE public.phpbb_sessions OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_sessions_keys; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1481,6 +1566,7 @@ CREATE TABLE phpbb_sessions_keys (
 );
 
 
+ALTER TABLE public.phpbb_sessions_keys OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_sitelist_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -1494,6 +1580,7 @@ CREATE SEQUENCE phpbb_sitelist_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_sitelist_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_sitelist; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1508,6 +1595,7 @@ CREATE TABLE phpbb_sitelist (
 );
 
 
+ALTER TABLE public.phpbb_sitelist OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_smilies_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -1521,6 +1609,7 @@ CREATE SEQUENCE phpbb_smilies_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_smilies_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_smilies; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1542,6 +1631,7 @@ CREATE TABLE phpbb_smilies (
 );
 
 
+ALTER TABLE public.phpbb_smilies OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_styles_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -1555,6 +1645,7 @@ CREATE SEQUENCE phpbb_styles_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_styles_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_styles; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1575,6 +1666,7 @@ CREATE TABLE phpbb_styles (
 );
 
 
+ALTER TABLE public.phpbb_styles OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_styles_imageset_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -1588,6 +1680,7 @@ CREATE SEQUENCE phpbb_styles_imageset_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_styles_imageset_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_styles_imageset; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1601,6 +1694,7 @@ CREATE TABLE phpbb_styles_imageset (
 );
 
 
+ALTER TABLE public.phpbb_styles_imageset OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_styles_imageset_data_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -1614,6 +1708,7 @@ CREATE SEQUENCE phpbb_styles_imageset_data_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_styles_imageset_data_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_styles_imageset_data; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1633,6 +1728,7 @@ CREATE TABLE phpbb_styles_imageset_data (
 );
 
 
+ALTER TABLE public.phpbb_styles_imageset_data OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_styles_template_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -1646,6 +1742,7 @@ CREATE SEQUENCE phpbb_styles_template_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_styles_template_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_styles_template; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1665,6 +1762,7 @@ CREATE TABLE phpbb_styles_template (
 );
 
 
+ALTER TABLE public.phpbb_styles_template OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_styles_template_data; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1681,6 +1779,7 @@ CREATE TABLE phpbb_styles_template_data (
 );
 
 
+ALTER TABLE public.phpbb_styles_template_data OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_styles_theme_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -1694,6 +1793,7 @@ CREATE SEQUENCE phpbb_styles_theme_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_styles_theme_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_styles_theme; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1712,6 +1812,7 @@ CREATE TABLE phpbb_styles_theme (
 );
 
 
+ALTER TABLE public.phpbb_styles_theme OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_topics_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -1725,6 +1826,7 @@ CREATE SEQUENCE phpbb_topics_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_topics_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_topics; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1791,6 +1893,7 @@ CREATE TABLE phpbb_topics (
 );
 
 
+ALTER TABLE public.phpbb_topics OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_topics_posted; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1806,6 +1909,7 @@ CREATE TABLE phpbb_topics_posted (
 );
 
 
+ALTER TABLE public.phpbb_topics_posted OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_topics_track; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1823,6 +1927,7 @@ CREATE TABLE phpbb_topics_track (
 );
 
 
+ALTER TABLE public.phpbb_topics_track OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_topics_watch; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1838,6 +1943,7 @@ CREATE TABLE phpbb_topics_watch (
 );
 
 
+ALTER TABLE public.phpbb_topics_watch OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_user_group; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1855,6 +1961,7 @@ CREATE TABLE phpbb_user_group (
 );
 
 
+ALTER TABLE public.phpbb_user_group OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_users_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -1868,6 +1975,7 @@ CREATE SEQUENCE phpbb_users_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_users_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_users; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1984,6 +2092,7 @@ CREATE TABLE phpbb_users (
 );
 
 
+ALTER TABLE public.phpbb_users OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_warnings_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -1997,6 +2106,7 @@ CREATE SEQUENCE phpbb_warnings_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_warnings_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_warnings; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -2015,6 +2125,7 @@ CREATE TABLE phpbb_warnings (
 );
 
 
+ALTER TABLE public.phpbb_warnings OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_words_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -2028,6 +2139,7 @@ CREATE SEQUENCE phpbb_words_seq
     CACHE 1;
 
 
+ALTER TABLE public.phpbb_words_seq OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_words; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -2040,6 +2152,7 @@ CREATE TABLE phpbb_words (
 );
 
 
+ALTER TABLE public.phpbb_words OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_zebra; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -2057,6 +2170,7 @@ CREATE TABLE phpbb_zebra (
 );
 
 
+ALTER TABLE public.phpbb_zebra OWNER TO universibo_forum_test;
 
 --
 -- Name: phpbb_acl_options_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
@@ -3227,6 +3341,17 @@ CREATE INDEX phpbb_users_user_type ON phpbb_users USING btree (user_type);
 --
 
 CREATE UNIQUE INDEX phpbb_users_username_clean ON phpbb_users USING btree (username_clean);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
 
 --
 -- PostgreSQL database dump complete

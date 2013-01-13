@@ -4,7 +4,7 @@ php:
   - 5.4
 
 before_script: 
-  - psql -c 'CREATE DATABASE universibo_forum_test;' -U postgres
+  - cat Tests/Resources/sql/init-postgres.sql | psql -U postgres
   - cat Tests/Resources/sql/structure-postgres.sql | psql -U postgres universibo_forum_test
   - composer install --dev
 

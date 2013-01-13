@@ -20,6 +20,6 @@ class PhpBB3ConfigDAO extends AbstractDAO implements ConfigDAOInterface
         $sql .= 'FROM '.$this->getPrefix().'config ';
         $sql .= 'WHERE config_name = ?';
 
-        return $conn->fetchColumn($sql, array($name));
+        return $conn->fetchColumn($sql, array($name)) ?: null;
     }
 }
