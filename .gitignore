@@ -1,3 +1,5 @@
+*.swp
+*~
 /nbproject/
 php-cs-fixer.phar
 vendor
