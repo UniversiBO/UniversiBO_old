@@ -68,4 +68,15 @@ class ForumTest extends PHPUnit_Framework_TestCase
     {
         $this->forum->setType(4);
     }
+
+    public function testParentIdAccessors()
+    {
+        $forum = $this->forum;
+
+        $id = rand(1, 200);
+
+        $this->assertSame($forum, $forum->setParentId($id));
+
+        $this->assertEquals($id, $forum->getParentId());
+    }
 }

@@ -54,6 +54,13 @@ class Forum
     private $type;
 
     /**
+     * Parent ID
+     *
+     * @var integer
+     */
+    private $parentId;
+
+    /**
      * ID getter
      *
      * @return integer
@@ -140,6 +147,29 @@ class Forum
         }
 
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Parent Forum ID getter
+     *
+     * @return integer
+     */
+    public function getParentId()
+    {
+        return $this->parentId;
+    }
+
+    /**
+     * Parent Forum ID setter
+     *
+     * @param  integer $parentId
+     * @return Forum
+     */
+    public function setParentId($parentId)
+    {
+        $this->parentId = $parentId;
 
         return $this;
     }
