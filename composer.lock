@@ -315,21 +315,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineMigrationsBundle.git",
-                "reference": "e494aceebe05200c3f5e7b54c9facf2cf0b2099c"
+                "reference": "99c0192804134a8c1d0588777bd98bdbc2dbb554"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/DoctrineMigrationsBundle/archive/e494aceebe05200c3f5e7b54c9facf2cf0b2099c.zip",
-                "reference": "e494aceebe05200c3f5e7b54c9facf2cf0b2099c",
+                "url": "https://github.com/doctrine/DoctrineMigrationsBundle/archive/99c0192804134a8c1d0588777bd98bdbc2dbb554.zip",
+                "reference": "99c0192804134a8c1d0588777bd98bdbc2dbb554",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
                 "doctrine/migrations": "*",
                 "symfony/framework-bundle": ">=2.1.0,<2.3-dev",
-                "doctrine/doctrine-bundle": "1.0.*"
+                "doctrine/doctrine-bundle": ">=1.0,<2.0"
             },
-            "time": "2012-10-18 12:04:30",
+            "time": "2013-01-12 20:06:22",
             "type": "symfony-bundle",
             "autoload": {
                 "psr-0": {
@@ -1683,21 +1683,23 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/UniversiBO/UniversiboForumBundle",
-                "reference": "79a187884c9d8bfce36346f614574b901d2ea55c"
+                "reference": "0519f838b2e59314957867b5beca7b5ad9841dba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UniversiBO/UniversiboForumBundle/zipball/79a187884c9d8bfce36346f614574b901d2ea55c",
-                "reference": "79a187884c9d8bfce36346f614574b901d2ea55c",
+                "url": "https://api.github.com/repos/UniversiBO/UniversiboForumBundle/zipball/0519f838b2e59314957867b5beca7b5ad9841dba",
+                "reference": "0519f838b2e59314957867b5beca7b5ad9841dba",
                 "shasum": ""
             },
             "require": {
-                "symfony/framework-bundle": "2.1.*"
+                "symfony/framework-bundle": "2.1.*",
+                "doctrine/doctrine-bundle": ">=1.0.0,<1.1.0"
             },
             "require-dev": {
-                "symfony/yaml": "2.1.*"
+                "symfony/yaml": "2.1.*",
+                "symfony/class-loader": "2.1.*"
             },
-            "time": "2012-12-31 15:25:44",
+            "time": "2013-01-13 22:54:05",
             "type": "symfony-bundle",
             "autoload": {
                 "psr-0": {
