@@ -444,7 +444,7 @@ EOT;
         AND pi.cod_ril='.$db->quote($att->getCodRil()).'
         AND pi.cod_materia = '.$db->quote($att->getCodMateria()).'
         AND pi.cod_doc = '.$db->quote($att->getCodDoc()).'
-        AND anno_accademico = '.$db->quote($this->anno_accademico - 1).'
+        AND anno_accademico = '.$db->quote($att->getAnnoAccademico() - 1).'
         AND pi.cod_corso = '.$db->quote($att->getCodiceCdl());
 
         $res = $db->executeQuery($query);
