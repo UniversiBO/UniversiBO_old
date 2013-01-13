@@ -6,6 +6,8 @@
 
 namespace Universibo\Bundle\ForumBundle\Entity;
 
+use InvalidArgumentException;
+
 /**
  * Forum Entity
  *
@@ -134,7 +136,7 @@ class Forum
     public function setType($type)
     {
         if (!in_array($type, array(self::TYPE_CATEGORY, self::TYPE_FORUM))) {
-            throw new \InvalidArgumentException('Forum type invalid');
+            throw new InvalidArgumentException('Forum type invalid');
         }
 
         $this->type = $type;
