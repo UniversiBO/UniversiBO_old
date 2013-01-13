@@ -40,4 +40,14 @@ class ForumTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($name, $forum->getName());
     }
 
+    public function testDescriptionAccessors()
+    {
+        $forum = $this->forum;
+
+        $description = 'Forum description';
+
+        $this->assertSame($forum, $forum->setDescription($description));
+
+        $this->assertEquals($description, $forum->getDescription());
+    }
 }

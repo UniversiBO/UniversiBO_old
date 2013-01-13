@@ -28,6 +28,13 @@ class Forum
     private $name;
 
     /**
+     * Forum description
+     *
+     * @var string
+     */
+    private $description;
+
+    /**
      * ID getter
      *
      * @return integer
@@ -72,4 +79,28 @@ class Forum
 
         return $this;
     }
+
+    /**
+     * Description getter
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Description setter
+     *
+     * @param  string $description
+     * @return Forum
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
 }
