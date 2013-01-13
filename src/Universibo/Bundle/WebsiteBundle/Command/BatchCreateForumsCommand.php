@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Universibo\Bundle\CoreBundle\Entity\User;
-use Universibo\Bundle\ForumBundle\DAO\ForumDAOInterface;
+use Universibo\Bundle\ForumBundle\DAO\ForumRepository;
 use Universibo\Bundle\ForumBundle\DAO\GroupDAOInterface;
 use Universibo\Bundle\ForumBundle\Naming\NameGenerator;
 use Universibo\Bundle\LegacyBundle\Entity\Cdl;
@@ -121,7 +121,7 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
         return $channelId;
     }
 
-    private function findOrCreateDegreeCourseForum(Cdl $degreeCourse, ForumDAOInterface $forumDAO)
+    private function findOrCreateDegreeCourseForum(Cdl $degreeCourse, ForumRepository $forumDAO)
     {
         $forumId = $degreeCourse->getForumForumId();
 
@@ -131,7 +131,7 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
     }
 
     private function createSubjectForums( OutputInterface $output,
-            Cdl $degreeCourse, $courseForumId, ForumDAOInterface $forumDAO,
+            Cdl $degreeCourse, $courseForumId, ForumRepository $forumDAO,
             DBPrgAttivitaDidatticaRepository $activityRepo,
             DBInsegnamentoRepository $subjectRepo)
     {
@@ -171,13 +171,13 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
     /**
      * Sets the same forum for similar subjects
      *
-     * @param Insegnamento      $source
-     * @param Insegnamento      $target
-     * @param ForumDAOInterface $forumDAO
-     * @param NameGenerator     $nameGenerator
+     * @param Insegnamento    $source
+     * @param Insegnamento    $target
+     * @param ForumRepository $forumDAO
+     * @param NameGenerator   $nameGenerator
      */
     private function setSimilarForum(Insegnamento $source, Insegnamento $target,
-            ForumDAOInterface $forumDAO, NameGenerator $nameGenerator)
+            ForumRepository $forumDAO, NameGenerator $nameGenerator)
     {
         $this->copyForumSettings($source, $target);
         $forumId = $source->getForumForumId();
