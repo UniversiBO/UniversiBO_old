@@ -2,7 +2,194 @@
 -- PostgreSQL database dump
 --
 
+SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+--
+-- Name: varchar_ci; Type: DOMAIN; Schema: public; Owner: universibo
+--
+
+CREATE DOMAIN varchar_ci AS character varying(255) NOT NULL DEFAULT ''::character varying;
+
+
+
+--
+-- Name: _varchar_ci_equal(varchar_ci, varchar_ci); Type: FUNCTION; Schema: public; Owner: universibo
+--
+
+CREATE FUNCTION _varchar_ci_equal(varchar_ci, varchar_ci) RETURNS boolean
+    LANGUAGE sql STRICT
+    AS $_$SELECT LOWER($1) = LOWER($2)$_$;
+
+
+
+--
+-- Name: _varchar_ci_greater_equals(varchar_ci, varchar_ci); Type: FUNCTION; Schema: public; Owner: universibo
+--
+
+CREATE FUNCTION _varchar_ci_greater_equals(varchar_ci, varchar_ci) RETURNS boolean
+    LANGUAGE sql STRICT
+    AS $_$SELECT LOWER($1) >= LOWER($2)$_$;
+
+
+
+--
+-- Name: _varchar_ci_greater_than(varchar_ci, varchar_ci); Type: FUNCTION; Schema: public; Owner: universibo
+--
+
+CREATE FUNCTION _varchar_ci_greater_than(varchar_ci, varchar_ci) RETURNS boolean
+    LANGUAGE sql STRICT
+    AS $_$SELECT LOWER($1) > LOWER($2)$_$;
+
+
+
+--
+-- Name: _varchar_ci_less_equal(varchar_ci, varchar_ci); Type: FUNCTION; Schema: public; Owner: universibo
+--
+
+CREATE FUNCTION _varchar_ci_less_equal(varchar_ci, varchar_ci) RETURNS boolean
+    LANGUAGE sql STRICT
+    AS $_$SELECT LOWER($1) <= LOWER($2)$_$;
+
+
+
+--
+-- Name: _varchar_ci_less_than(varchar_ci, varchar_ci); Type: FUNCTION; Schema: public; Owner: universibo
+--
+
+CREATE FUNCTION _varchar_ci_less_than(varchar_ci, varchar_ci) RETURNS boolean
+    LANGUAGE sql STRICT
+    AS $_$SELECT LOWER($1) < LOWER($2)$_$;
+
+
+
+--
+-- Name: _varchar_ci_not_equal(varchar_ci, varchar_ci); Type: FUNCTION; Schema: public; Owner: universibo
+--
+
+CREATE FUNCTION _varchar_ci_not_equal(varchar_ci, varchar_ci) RETURNS boolean
+    LANGUAGE sql STRICT
+    AS $_$SELECT LOWER($1) != LOWER($2)$_$;
+
+
+
+--
+-- Name: <; Type: OPERATOR; Schema: public; Owner: universibo
+--
+
+CREATE OPERATOR < (
+    PROCEDURE = _varchar_ci_less_than,
+    LEFTARG = varchar_ci,
+    RIGHTARG = varchar_ci,
+    COMMUTATOR = >,
+    NEGATOR = >=,
+    RESTRICT = scalarltsel,
+    JOIN = scalarltjoinsel
+);
+
+
+
+--
+-- Name: <=; Type: OPERATOR; Schema: public; Owner: universibo
+--
+
+CREATE OPERATOR <= (
+    PROCEDURE = _varchar_ci_less_equal,
+    LEFTARG = varchar_ci,
+    RIGHTARG = varchar_ci,
+    COMMUTATOR = >=,
+    NEGATOR = >,
+    RESTRICT = scalarltsel,
+    JOIN = scalarltjoinsel
+);
+
+
+
+--
+-- Name: <>; Type: OPERATOR; Schema: public; Owner: universibo
+--
+
+CREATE OPERATOR <> (
+    PROCEDURE = _varchar_ci_not_equal,
+    LEFTARG = varchar_ci,
+    RIGHTARG = varchar_ci,
+    COMMUTATOR = <>,
+    NEGATOR = =,
+    RESTRICT = neqsel,
+    JOIN = neqjoinsel
+);
+
+
+
+--
+-- Name: =; Type: OPERATOR; Schema: public; Owner: universibo
+--
+
+CREATE OPERATOR = (
+    PROCEDURE = _varchar_ci_equal,
+    LEFTARG = varchar_ci,
+    RIGHTARG = varchar_ci,
+    COMMUTATOR = =,
+    NEGATOR = <>,
+    MERGES,
+    HASHES,
+    RESTRICT = eqsel,
+    JOIN = eqjoinsel
+);
+
+
+
+--
+-- Name: >; Type: OPERATOR; Schema: public; Owner: universibo
+--
+
+CREATE OPERATOR > (
+    PROCEDURE = _varchar_ci_greater_than,
+    LEFTARG = varchar_ci,
+    RIGHTARG = varchar_ci,
+    COMMUTATOR = <,
+    NEGATOR = <=,
+    RESTRICT = scalargtsel,
+    JOIN = scalargtjoinsel
+);
+
+
+
+--
+-- Name: >=; Type: OPERATOR; Schema: public; Owner: universibo
+--
+
+CREATE OPERATOR >= (
+    PROCEDURE = _varchar_ci_greater_equals,
+    LEFTARG = varchar_ci,
+    RIGHTARG = varchar_ci,
+    COMMUTATOR = <=,
+    NEGATOR = <,
+    RESTRICT = scalargtsel,
+    JOIN = scalargtjoinsel
+);
+
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
 
 --
 -- Name: phpbb_acl_groups; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
