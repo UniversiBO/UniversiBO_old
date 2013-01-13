@@ -14,6 +14,16 @@ namespace Universibo\Bundle\ForumBundle\Entity;
 class Forum
 {
     /**
+     * Plain forum type
+     */
+    const TYPE_FORUM = 0;
+
+    /**
+     * Category (forum without posts)
+     */
+    const TYPE_CATEGORY = 1;
+
+    /**
      * Forum ID
      *
      * @var integer
@@ -33,6 +43,13 @@ class Forum
      * @var string
      */
     private $description;
+
+    /**
+     * Forum type
+     *
+     * @var integer
+     */
+    private $type;
 
     /**
      * ID getter
@@ -103,4 +120,25 @@ class Forum
         return $this;
     }
 
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Forum type either TYPE_FORUM or TYPE_CATEGORY
+     *
+     * @param  integer $type
+     * @return Forum
+     */
+    public function setType($type)
+    {
+        if (!in_array($type, array(self::TYPE_CATEGORY, self::TYPE_FORUM))) {
+            throw new \InvalidArgumentException('Forum type invalid');
+        }
+
+        $this->type = $type;
+
+        return $this;
+    }
 }

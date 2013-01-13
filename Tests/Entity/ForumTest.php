@@ -50,4 +50,22 @@ class ForumTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($description, $forum->getDescription());
     }
+
+    public function testTypeAccessors()
+    {
+        $forum = $this->forum;
+
+        $type = Forum::TYPE_CATEGORY;
+
+        $this->assertSame($forum, $forum->setType($type));
+        $this->assertEquals($type, $forum->getType());
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testInvalidType()
+    {
+        $this->forum->setType(4);
+    }
 }
