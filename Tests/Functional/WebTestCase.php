@@ -31,8 +31,9 @@ class WebTestCase extends BaseWebTestCase
     {
         if (null === static::$kernel) {
             static::$kernel = static::createKernel();
-            static::$kernel->boot();
         }
+
+        static::$kernel->boot();
 
         return static::$kernel->getContainer();
     }
