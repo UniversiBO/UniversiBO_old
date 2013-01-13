@@ -17,10 +17,7 @@ class PhpBB3ConfigDAOTest extends WebTestCase
 
     public static function setUpBeforeClass()
     {
-        static::$kernel = $kernel = static::createKernel();
-        $kernel->boot();
-
-        self::$configDAO = $kernel->getContainer()->get('universibo_forum.dao.config');
+        self::$configDAO = static::getContainer()->get('universibo_forum.dao.config');
     }
 
     public function testNotFoundReturnsNull()
