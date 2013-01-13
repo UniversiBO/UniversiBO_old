@@ -129,6 +129,11 @@ class Forum
         return $this;
     }
 
+    /**
+     * Forum type getter
+     *
+     * @return integer
+     */
     public function getType()
     {
         return $this->type;
