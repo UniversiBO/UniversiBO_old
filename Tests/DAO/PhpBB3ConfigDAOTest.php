@@ -27,4 +27,9 @@ class PhpBB3ConfigDAOTest extends WebTestCase
     {
         $this->assertNull(self::$configDAO->getValue('foobar'));
     }
+
+    public function testSimple()
+    {
+        $this->assertEquals(1, self::$configDAO->getValue('test'));
+    }
 }
