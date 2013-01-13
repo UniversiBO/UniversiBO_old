@@ -77,16 +77,16 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
         $container = $this->getContainer();
 
         $degreeCourseRepo = $container->get('universibo_legacy.repository.cdl');
-        $forumDAO         = $container->get('universibo_forum.dao.forum');
+        $forumRepository  = $container->get('universibo_forum.repository.forum');
         $activityRepo     = $container->get('universibo_legacy.repository.attivita');
         $subjectRepo      = $container->get('universibo_legacy.repository.insegnamento');
 
-        $output->writeln('Max forum ID = '.$forumDAO->getMaxId());
+        $output->writeln('Max forum ID = '.$forumRepository->getMaxId());
 
         foreach ($degreeCourseRepo->findAll() as $degreeCourse) {
-            $forumId = $this->findOrCreateDegreeCourseForum($degreeCourse, $forumDAO);
-            $this->createSubjectForums($degreeCourse, $forumId, $forumDAO, $activityRepo, $subjectRepo);
-            $forumDAO->sortForumsAlphabetically($forumId);
+            $forumId = $this->findOrCreateDegreeCourseForum($degreeCourse, $forumRepository);
+            $this->createSubjectForums($degreeCourse, $forumId, $forumRepository, $activityRepo, $subjectRepo);
+            $forumRepository->sortForumsAlphabetically($forumId);
         }
     }
 
@@ -121,7 +121,7 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
         return $channelId;
     }
 
-    private function findOrCreateDegreeCourseForum(Cdl $degreeCourse, ForumRepository $forumDAO)
+    private function findOrCreateDegreeCourseForum(Cdl $degreeCourse, ForumRepository $forumRepository)
     {
         $forumId = $degreeCourse->getForumForumId();
 
@@ -131,7 +131,7 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
     }
 
     private function createSubjectForums( OutputInterface $output,
-            Cdl $degreeCourse, $courseForumId, ForumRepository $forumDAO,
+            Cdl $degreeCourse, $courseForumId, ForumRepository $forumRepository,
             DBPrgAttivitaDidatticaRepository $activityRepo,
             DBInsegnamentoRepository $subjectRepo)
     {
@@ -154,7 +154,7 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
                     $this->createNewSubjectForum($subject);
                 } else {
                     $similar = $subjectRepo->findByChannelId($similar);
-                    $this->setSimilarForum($similar, $subject, $forumDAO, $nameGenerator);
+                    $this->setSimilarForum($similar, $subject, $forumRepository, $nameGenerator);
                 }
 
                 $subjectRepo->update($subject);
@@ -173,17 +173,17 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
      *
      * @param Insegnamento    $source
      * @param Insegnamento    $target
-     * @param ForumRepository $forumDAO
+     * @param ForumRepository $forumRepository
      * @param NameGenerator   $nameGenerator
      */
     private function setSimilarForum(Insegnamento $source, Insegnamento $target,
-            ForumRepository $forumDAO, NameGenerator $nameGenerator)
+            ForumRepository $forumRepository, NameGenerator $nameGenerator)
     {
         $this->copyForumSettings($source, $target);
         $forumId = $source->getForumForumId();
-        $name = $forumDAO->getForumName($forumId);
+        $name = $forumRepository->getForumName($forumId);
         $newName = $nameGenerator->update($name, $this->academicYear);
-        $forumDAO->rename($forumId, $newName);
+        $forumRepository->rename($forumId, $newName);
     }
 
     /**
