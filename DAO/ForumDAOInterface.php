@@ -30,13 +30,13 @@ interface ForumDAOInterface
     /**
      * Creates a new forum
      *
-     * @param  string  $title
+     * @param  string  $name
      * @param  string  $description
      * @param  integer $type        either TYPE_CATEGORY or TYPE_FORUM
      * @param  integer $parentId    parent forum, 0 is the root
      * @return integer forum id
      */
-    public function create($title, $description, $type, $parentId = 0);
+    public function create($name, $description, $type, $parentId = 0);
 
     /**
      * Renames a forum

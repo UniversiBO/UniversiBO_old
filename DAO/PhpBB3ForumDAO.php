@@ -19,14 +19,34 @@ class PhpBB3ForumDAO extends AbstractDAO implements ForumDAOInterface
      * Creates a new forum
      *
      * @todo implementation
-     * @param  string  $title
+     * @param  string  $name
      * @param  string  $description
      * @param  integer $type
      * @param  integer $parentId
      * @return integer forum id
      */
-    public function create($title, $description, $type, $parentId = 0)
+    public function create($name, $description, $type, $parentId = 0)
     {
+        $query = <<<EOT
+INSERT INTO {$this->getPrefix()}forums
+(
+    forum_name,
+    forum_desc,
+    forum_type,
+    parent_id
+)
+VALUES (?, ?, ?, ?)
+
+EOT;
+        $this
+            ->getConnection()
+            ->executeUpdate($query, array($name, $description, $type, $parentId))
+        ;
+
+        return $this
+            ->getConnection()
+            ->lastInsertId($this->getPrefix().'forums_seq')
+        ;
     }
 
     /**
