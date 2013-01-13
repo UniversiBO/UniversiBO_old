@@ -15,6 +15,7 @@ use Universibo\Bundle\ForumBundle\Entity\ForumRepository;
 use Universibo\Bundle\ForumBundle\Naming\NameGenerator;
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 use Universibo\Bundle\LegacyBundle\Entity\Cdl;
+use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBCdlRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBDocenteRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBInsegnamentoRepository;
@@ -84,12 +85,13 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
         $forumRepository  = $container->get('universibo_forum.repository.forum');
         $activityRepo     = $container->get('universibo_legacy.repository.programma');
         $subjectRepo      = $container->get('universibo_legacy.repository.insegnamento');
+        $channelRepo      = $container->get('universibo_legacy.repository.canale');
 
         $output->writeln('Max forum ID = '.$forumRepository->getMaxId());
 
         foreach ($degreeCourseRepo->findAll() as $degreeCourse) {
             $forumId = $this->findOrCreateDegreeCourseForum($degreeCourse, $degreeCourseRepo, $forumRepository);
-            $this->createSubjectForums($output, $degreeCourse, $forumId, $forumRepository, $activityRepo, $subjectRepo);
+            $this->createSubjectForums($output, $degreeCourse, $forumId, $forumRepository, $activityRepo, $subjectRepo, $channelRepo);
             $forumRepository->sortAlphabetically($forumId);
         }
     }
@@ -152,7 +154,7 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
     private function createSubjectForums( OutputInterface $output,
             Cdl $degreeCourse, $courseForumId, ForumRepository $forumRepository,
             DBPrgAttivitaDidatticaRepository $activityRepo,
-            DBInsegnamentoRepository $subjectRepo)
+            DBInsegnamentoRepository $subjectRepo, DBCanaleRepository $channelRepo)
     {
         $nameGenerator = $this->getContainer()->get('universibo_forum.naming.generator');
         $profRepo = $this->getContainer()->get('universibo_legacy.repository.docente');
@@ -173,11 +175,11 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
                 if ($similarId === null) {
                     $this->createNewSubjectForum($subject, $courseForumId, $nameGenerator, $forumRepository, $profRepo);
                 } else {
-                    $similar = $subjectRepo->findByChannelId($similar);
+                    $similar = $subjectRepo->findByChannelId($similarId);
                     $this->setSimilarForum($similar, $subject, $forumRepository, $nameGenerator);
                 }
 
-                $subjectRepo->update($subject);
+                $channelRepo->update($subject);
             }
         }
     }
