@@ -6,8 +6,6 @@
 
 namespace Universibo\Bundle\ForumBundle\Entity;
 
-use Universibo\Bundle\ForumBundle\Entity\Forum;
-
 /**
  * Forum Entity
  *
@@ -21,6 +19,13 @@ class Forum
      * @var integer
      */
     private $id;
+
+    /**
+     * Forum name
+     *
+     * @var string
+     */
+    private $name;
 
     /**
      * ID getter
@@ -41,6 +46,29 @@ class Forum
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Name getter
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Name setter
+     *
+     * @param  string $name
+     * @return Forum
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
 
         return $this;
     }
