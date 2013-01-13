@@ -79,6 +79,31 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $defaultConn = $this->getContainer()->get('doctrine.dbal.default_connection');
+        $forumConn = $this->getContainer()->get('doctrine.dbal.forum_connection');
+
+        try {
+            $defaultConn->beginTransaction();
+            $forumConn->beginTransaction();
+            $this->doExecute($input, $output);
+            $defaultConn->commit();
+            $forumConn->commit();
+        } catch (Exception $e) {
+            $defaultConn->rollback();
+            $forumConn->rollback();
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Creates forum for every Degree Course
+     *
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     */
+    protected function doExecute(InputInterface $input, OutputInterface $output)
+    {
         $container = $this->getContainer();
 
         $degreeCourseRepo = $container->get('universibo_legacy.repository.cdl');
