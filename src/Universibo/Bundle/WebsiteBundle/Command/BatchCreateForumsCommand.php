@@ -4,6 +4,7 @@
  */
 namespace Universibo\Bundle\WebsiteBundle\Command;
 
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,10 +15,9 @@ use Universibo\Bundle\ForumBundle\Entity\Forum;
 use Universibo\Bundle\ForumBundle\Entity\ForumRepository;
 use Universibo\Bundle\ForumBundle\Naming\NameGenerator;
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Cdl;
 use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
-use Universibo\Bundle\LegacyBundle\Entity\DBCdlRepository;
-use Universibo\Bundle\LegacyBundle\Entity\DBDocenteRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBInsegnamentoRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBPrgAttivitaDidatticaRepository;
 use Universibo\Bundle\LegacyBundle\Entity\Insegnamento;
@@ -114,11 +114,17 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
 
         $output->writeln('Max forum ID = '.$forumRepository->getMaxId());
 
+        $rootForum = $forumRepository->findOneByName('Didattica');
+        $parentId = $rootForum !== null ? $rootForum->getId() : 0;
+
         foreach ($degreeCourseRepo->findAll() as $degreeCourse) {
-            $forumId = $this->findOrCreateDegreeCourseForum($degreeCourse, $degreeCourseRepo, $forumRepository);
+            $output->writeln('Degree course: '.$degreeCourse->getCodiceCdl());
+            $forumId = $this->findOrCreateDegreeCourseForum($degreeCourse, $parentId, $channelRepo, $forumRepository);
             $this->createSubjectForums($output, $degreeCourse, $forumId, $forumRepository, $activityRepo, $subjectRepo, $channelRepo);
             $forumRepository->sortAlphabetically($forumId);
         }
+
+        $forumRepository->sortAlphabetically($parentId);
     }
 
     /**
@@ -152,11 +158,11 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
         return $channelId;
     }
 
-    private function findOrCreateDegreeCourseForum(Cdl $degreeCourse, DBCdlRepository $courseRepo, ForumRepository $forumRepository)
+    private function findOrCreateDegreeCourseForum(Cdl $degreeCourse, $parentId, DBCanaleRepository $channelRepo, ForumRepository $forumRepository)
     {
         $forumId = $degreeCourse->getForumForumId();
 
-        if ($forumId > 0) {
+        if ($forumId > 0 && null !== $forumRepository->find($forumId)) {
             return $forumId;
         }
 
@@ -164,7 +170,7 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
 
         $forum = new Forum();
 
-        $forum->setParentId(0);
+        $forum->setParentId($parentId);
         $forum->setName($code . ' - ' . $degreeCourse->getNome());
         $forum->setDescription('Forum riservato alla discussione generale sul CdL '.$code);
         $forum->setType(Forum::TYPE_FORUM);
@@ -172,6 +178,8 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
         $forumRepository->save($forum);
         $newForumId = $forum->getId();
         $degreeCourse->setForumForumId($newForumId);
+
+        $channelRepo->update($degreeCourse);
 
         return $newForumId;
     }
@@ -182,7 +190,6 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
             DBInsegnamentoRepository $subjectRepo, DBCanaleRepository $channelRepo)
     {
         $nameGenerator = $this->getContainer()->get('universibo_forum.naming.generator');
-        $profRepo = $this->getContainer()->get('universibo_legacy.repository.docente');
 
         foreach ($activityRepo->findByCdlAndYear($degreeCourse->getCodiceCdl(), $this->academicYear) as $activity) {
             if (!$activity->isSdoppiato() && $activity->isGroupAllowed(LegacyRoles::OSPITE)
@@ -195,29 +202,28 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
                     continue;
                 }
 
-                $similarId = $this->selectSimilarSubject($subject, $output);
+                if (!$this->checkForum($subject, $forumRepository)) {
+                    $similarId = $this->selectSimilarSubject($subject, $output);
+                    $similar = $similarId !== null ? $subjectRepo->findByChannelId($similarId) : null;
 
-                if ($similarId === null) {
-                    $this->createNewSubjectForum($subject, $courseForumId, $nameGenerator, $forumRepository, $profRepo);
-                } else {
-                    $similar = $subjectRepo->findByChannelId($similarId);
-                    $this->setSimilarForum($similar, $subject, $forumRepository, $nameGenerator);
+                    if ($similar === null || !$this->checkForum($similar, $forumRepository)) {
+                        $this->createNewSubjectForum($subject, $courseForumId, $forumRepository);
+                    } else {
+                        $this->setSimilarForum($similar, $subject, $forumRepository, $nameGenerator);
+                    }
+
+                    $channelRepo->update($subject);
                 }
-
-                $channelRepo->update($subject);
             }
         }
     }
 
     private function createNewSubjectForum(Insegnamento $subject, $parentId,
-            NameGenerator $generator, ForumRepository $forumRepository, DBDocenteRepository $profRepo)
+            ForumRepository $forumRepository)
     {
-        list($activity) = $subject->getElencoAttivita();
-        $professor = $profRepo->find($activity->getCodDoc());
-
         $forum = new Forum();
 
-        $forum->setName($generator->generate($subject->getNome(), $professor->getNomeDoc(), $this->academicYear));
+        $forum->setName($subject->getNomeCanale());
         $forum->setParentId($parentId);
         $forum->setType(Forum::TYPE_FORUM);
         $forum->setDescription('');
@@ -238,10 +244,14 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
     private function setSimilarForum(Insegnamento $source, Insegnamento $target,
             ForumRepository $forumRepository, NameGenerator $nameGenerator)
     {
-        $this->copyForumSettings($source, $target);
         $forumId = $source->getForumForumId();
-
         $forum = $forumRepository->find($forumId);
+
+        if (null === $forum) {
+            throw new \LogicException('Forum not found');
+        }
+
+        $this->copyForumSettings($source, $target);
 
         $name = $forum->getName();
         $newName = $nameGenerator->update($name, $this->academicYear);
@@ -250,6 +260,8 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
         $forumRepository->save($forum);
 
         $target->setForumForumId($forum->getId());
+
+        return true;
     }
 
     /**
@@ -269,5 +281,12 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
             $forumId, User $moderator, $moderatorGroupName)
     {
 
+    }
+
+    private function checkForum(Canale $channel, ForumRepository $forumRepo)
+    {
+        $id = $channel->getForumForumId();
+
+        return $id > 0 && $forumRepo->find($id) !== null;
     }
 }
