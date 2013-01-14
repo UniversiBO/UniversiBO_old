@@ -5,6 +5,7 @@
 namespace Universibo\Bundle\WebsiteBundle\Command;
 
 use Exception;
+use LogicException;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -248,7 +249,7 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
         $forum = $forumRepository->find($forumId);
 
         if (null === $forum) {
-            throw new \LogicException('Forum not found');
+            throw new LogicException('Forum not found');
         }
 
         $this->copyForumSettings($source, $target);
@@ -277,12 +278,27 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
         $target->setServizioForum($source->getServizioForum());
     }
 
+    /**
+     * Creates a moderator group
+     *
+     * @param GroupDAOInterface $groupDAO
+     * @param integer           $forumId
+     * @param User              $moderator
+     * @param string            $moderatorGroupName
+     */
     private function createModeratorGroup(GroupDAOInterface $groupDAO,
             $forumId, User $moderator, $moderatorGroupName)
     {
 
     }
 
+    /**
+     * Returns true if forum exists
+     *
+     * @param  Canale          $channel
+     * @param  ForumRepository $forumRepo
+     * @return boolean
+     */
     private function checkForum(Canale $channel, ForumRepository $forumRepo)
     {
         $id = $channel->getForumForumId();
