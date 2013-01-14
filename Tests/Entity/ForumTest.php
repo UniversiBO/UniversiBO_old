@@ -79,4 +79,9 @@ class ForumTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($id, $forum->getParentId());
     }
+
+    public function testParentIdDefaultValue()
+    {
+        $this->assertSame(0, $this->forum->getParentId());
+    }
 }

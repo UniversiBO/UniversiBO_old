@@ -58,7 +58,7 @@ class Forum
      *
      * @var integer
      */
-    private $parentId;
+    private $parentId = 0;
 
     /**
      * ID getter
