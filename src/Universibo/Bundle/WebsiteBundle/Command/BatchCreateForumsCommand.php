@@ -1,6 +1,7 @@
 <?php
 /**
  * @copyright (c) 2002-2012, Associazione UniversiBO
+ * @license GPLv2, {@link http://opensource.org/licenses/gpl-2.0.php}
  */
 namespace Universibo\Bundle\WebsiteBundle\Command;
 
@@ -29,10 +30,9 @@ use Universibo\Bundle\LegacyBundle\Entity\Insegnamento;
  * Si occupa della modifica della password di un utente
  * NON ASTRAE DAL LIVELLO DATABASE!!!
  *
- * @version 2.6.0
+ * @version 2.6.5
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @author Davide Bellettini <davide.bellettini@gmail.com>
- * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 class BatchCreateForumsCommand extends ContainerAwareCommand
 {
@@ -50,6 +50,9 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
      */
     private $academicYear;
 
+    /**
+     * Configures the command
+     */
     protected function configure()
     {
         $this
@@ -159,12 +162,19 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
         return $channelId;
     }
 
+    /**
+     * Finds a forum or creates it
+     *
+     * @param  Cdl                $degreeCourse
+     * @param  integer            $parentId
+     * @param  DBCanaleRepository $channelRepo
+     * @param  ForumRepository    $forumRepository
+     * @return integer
+     */
     private function findOrCreateDegreeCourseForum(Cdl $degreeCourse, $parentId, DBCanaleRepository $channelRepo, ForumRepository $forumRepository)
     {
-        $forumId = $degreeCourse->getForumForumId();
-
-        if ($forumId > 0 && null !== $forumRepository->find($forumId)) {
-            return $forumId;
+        if ($this->checkForum($degreeCourse, $forumRepository)) {
+            return $degreeCourse->getForumForumId();
         }
 
         $code = $degreeCourse->getCodiceCdl();
@@ -185,6 +195,17 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
         return $newForumId;
     }
 
+    /**
+     * Create forums for subjects
+     *
+     * @param OutputInterface                  $output
+     * @param Cdl                              $degreeCourse
+     * @param integer                          $courseForumId
+     * @param ForumRepository                  $forumRepository
+     * @param DBPrgAttivitaDidatticaRepository $activityRepo
+     * @param DBInsegnamentoRepository         $subjectRepo
+     * @param DBCanaleRepository               $channelRepo
+     */
     private function createSubjectForums( OutputInterface $output,
             Cdl $degreeCourse, $courseForumId, ForumRepository $forumRepository,
             DBPrgAttivitaDidatticaRepository $activityRepo,
@@ -219,6 +240,13 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
         }
     }
 
+    /**
+     * Creates a new forum for a subject
+     *
+     * @param Insegnamento    $subject
+     * @param integer         $parentId
+     * @param ForumRepository $forumRepository
+     */
     private function createNewSubjectForum(Insegnamento $subject, $parentId,
             ForumRepository $forumRepository)
     {
