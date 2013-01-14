@@ -16,14 +16,19 @@ use InvalidArgumentException;
 class Forum
 {
     /**
-     * Plain forum type
-     */
-    const TYPE_FORUM = 0;
-
-    /**
      * Category (forum without posts)
      */
-    const TYPE_CATEGORY = 1;
+    const TYPE_CATEGORY = 0;
+
+    /**
+     * Plain forum type
+     */
+    const TYPE_FORUM = 1;
+
+    /**
+     * Link forum type
+     */
+    const TYPE_LINK = 1;
 
     /**
      * Forum ID
@@ -147,7 +152,7 @@ class Forum
      */
     public function setType($type)
     {
-        if (!in_array($type, array(self::TYPE_CATEGORY, self::TYPE_FORUM))) {
+        if (!in_array($type, array(self::TYPE_CATEGORY, self::TYPE_FORUM, self::TYPE_LINK))) {
             throw new InvalidArgumentException('Forum type invalid');
         }
 
