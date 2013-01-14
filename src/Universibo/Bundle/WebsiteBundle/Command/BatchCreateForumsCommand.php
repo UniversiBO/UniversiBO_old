@@ -121,10 +121,10 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
             $output->writeln('Degree course: '.$degreeCourse->getCodiceCdl());
             $forumId = $this->findOrCreateDegreeCourseForum($degreeCourse, $parentId, $channelRepo, $forumRepository);
             $this->createSubjectForums($output, $degreeCourse, $forumId, $forumRepository, $activityRepo, $subjectRepo, $channelRepo);
-            $forumRepository->sortAlphabetically($forumId);
+            //$forumRepository->sortAlphabetically($forumId);
         }
 
-        $forumRepository->sortAlphabetically($parentId);
+        //$forumRepository->sortAlphabetically($parentId);
     }
 
     /**
