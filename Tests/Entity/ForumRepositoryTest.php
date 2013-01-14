@@ -76,4 +76,35 @@ class PhpBB3ForumRepositoryTest extends WebTestCase
         $this->assertEquals($parentId, $loaded->getParentId());
         $this->assertEquals($type, $loaded->getType());
     }
+
+    public function testFindOneByName()
+    {
+        $repo = self::$forumRepository;
+
+        $name = 'Forum name';
+
+        // cleaning up
+        while (null !== ($forum = $repo->findOneByName($name))) {
+            $repo->delete($forum);
+        }
+
+        $forum = new Forum();
+
+        $forum
+            ->setName($name)
+            ->setDescription($description = 'Forum description')
+            ->setType($type = Forum::TYPE_FORUM)
+        ;
+
+        $repo->save($forum);
+
+        $found = $repo->findOneByName($name);
+
+        $this->assertInstanceOf('Universibo\\Bundle\\ForumBundle\\Entity\\Forum', $found);
+
+        $this->assertEquals($name, $found->getName());
+        $this->assertEquals($description, $found->getDescription());
+        $this->assertEquals($type, $found->getType());
+        $this->assertEquals($forum->getId(), $found->getId());
+    }
 }

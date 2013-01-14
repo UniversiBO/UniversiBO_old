@@ -146,21 +146,25 @@ EOT;
            ->fetchAssoc($query, array($id))
        ;
 
-       if (!$row) {
-           return null;
-       }
+       return $this->rowToForum($row);
+    }
 
-       $forum = new Forum();
+    /**
+     * Finds a forum by name
+     *
+     * @param  string     $name
+     * @return Forum|null
+     */
+    public function findOneByName($name)
+    {
+        $query = 'SELECT * FROM ' . $this->getPrefix().'forums WHERE forum_name = ?';
 
-       $forum
-           ->setId($row['forum_id'])
-           ->setName($row['forum_name'])
-           ->setDescription($row['forum_desc'])
-           ->setType($row['forum_type'])
-           ->setParentId($row['parent_id'])
-       ;
+        $row = $this
+            ->getConnection()
+            ->fetchAssoc($query, array($name))
+        ;
 
-       return $forum;
+        return $this->rowToForum($row);
     }
 
     /**
@@ -214,5 +218,47 @@ EOT;
         return $this
             ->getConnection()
             ->executeUpdate($query, array($fromValue)) > 0;
+    }
+
+    /**
+     * Converts a row array to a forum object
+     *
+     * @param  mixed      $row
+     * @return Forum|null
+     */
+    private function rowToForum($row)
+    {
+        if (!is_array($row)) {
+            return null;
+        }
+
+        $forum = new Forum();
+
+        return $forum
+            ->setId($row['forum_id'])
+            ->setName($row['forum_name'])
+            ->setDescription($row['forum_desc'])
+            ->setType($row['forum_type'])
+            ->setParentId($row['parent_id'])
+        ;
+    }
+
+    public function delete(Forum $forum)
+    {
+        $leftRight = $this->getLeftRight($id = $forum->getId());
+
+        if ($leftRight['left_id'] !== $leftRight['right_id'] - 1) {
+            throw new \LogicException('Delete nested forums first!');
+        }
+
+        $this->incrementLeft($leftRight['left_id'], -2);
+        $this->incrementRight($leftRight['right_id'], -2);
+
+        $query = 'DELETE FROM '.$this->getPrefix().'forums WHERE forum_id = ?';
+
+        return $this
+            ->getConnection()
+            ->executeUpdate($query, array($id)) > 0
+        ;
     }
 }
