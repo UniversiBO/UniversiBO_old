@@ -6,6 +6,8 @@
 
 namespace Universibo\Bundle\ForumBundle\Entity;
 
+use LogicException;
+
 /**
  * Forum Repository
  *
@@ -79,12 +81,19 @@ class ForumRepository extends Repository
         return $this->rowToForum($row);
     }
 
+    /**
+     * Deletes a forum
+     *
+     * @param  Forum          $forum
+     * @return boolean
+     * @throws LogicException if nested forums exists
+     */
     public function delete(Forum $forum)
     {
         $leftRight = $this->getLeftRight($id = $forum->getId());
 
         if ($leftRight['left_id'] !== $leftRight['right_id'] - 1) {
-            throw new \LogicException('Delete nested forums first!');
+            throw new LogicException('Delete nested forums first!');
         }
 
         $this->incrementLeft($leftRight['left_id'], -2);
@@ -215,16 +224,38 @@ EOT;
         ;
     }
 
+    /**
+     * Increments right_id field
+     *
+     * @param  integer $fromValue
+     * @param  integer $amount
+     * @return integer affected rows
+     */
     private function incrementRight($fromValue, $amount = 1)
     {
         return $this->incrementField($fromValue, 'right_id', $amount);
     }
 
+    /**
+     * Increments left_id field
+     *
+     * @param  integer $fromValue
+     * @param  integer $amount
+     * @return integer affected rows
+     */
     private function incrementLeft($fromValue, $amount = 1)
     {
         return $this->incrementField($fromValue, 'right_id', $amount);
     }
 
+    /**
+     * Increments $field field
+     *
+     * @param integer $fromValue
+     * @param string field
+     * @param  integer $amount
+     * @return integer affected rows
+     */
     private function incrementField($fromValue, $field, $amount)
     {
         $query = <<<EOT
@@ -236,7 +267,7 @@ EOT;
 
         return $this
             ->getConnection()
-            ->executeUpdate($query, array($fromValue)) > 0;
+            ->executeUpdate($query, array($fromValue));
     }
 
     /**
