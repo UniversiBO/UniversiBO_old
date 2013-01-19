@@ -1,6 +1,7 @@
 <?php
 namespace Universibo\Bundle\WebsiteBundle\Command;
 
+use PDO;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -60,7 +61,7 @@ class BatchImportDidacticsCommand extends ContainerAwareCommand
         $output->writeln('Input rowCount: '.$num_rows);
         $output->writeln('');
 
-        while ( false !== ($row = $res->fetch()) ) {
+        while ( false !== ($row = $res->fetch(PDO::FETCH_NUM)) ) {
             $output->writeln('---------------');
 
             $query3 = 'SELECT * FROM prg_insegnamento  WHERE
