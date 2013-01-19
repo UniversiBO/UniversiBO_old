@@ -24,7 +24,7 @@ class BatchImportDidacticsCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('universibo:ditactics:import')
+            ->setName('universibo:didactics:import')
             ->setDescription('Batch import didactics')
         ;
     }
