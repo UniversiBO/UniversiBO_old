@@ -64,6 +64,11 @@ class Docente
         $this->idUtente = $idUtente;
     }
 
+    public function setCodDoc($codDoc)
+    {
+        $this->codDoc = $codDoc;
+    }
+
     public function getCodDoc()
     {
         return $this->codDoc;
