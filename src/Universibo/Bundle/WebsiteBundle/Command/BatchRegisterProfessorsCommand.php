@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * @copyright (c) 2002-2013, Associazione UniversiBO
+ * @license GPLv2, {@link http://opensource.org/licenses/gpl-2.0.php}
+ */
 namespace Universibo\Bundle\WebsiteBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -15,12 +18,14 @@ use Universibo\Bundle\LegacyBundle\Entity\Docente;
  * @version 2.6.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @author Davide Bellettini <davide.bellettini@gmail.com>
- * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 class BatchRegisterProfessorsCommand extends ContainerAwareCommand
 {
     private $verbose;
 
+    /**
+     * Configures command's name and options
+     */
     protected function configure()
     {
         $this
@@ -30,6 +35,8 @@ class BatchRegisterProfessorsCommand extends ContainerAwareCommand
     }
 
     /**
+     * Initalize method
+     *
      * @param InputInterface  $input
      * @param OutputInterface $output
      */
@@ -41,6 +48,12 @@ class BatchRegisterProfessorsCommand extends ContainerAwareCommand
         $this->verbose = $input->getOption('verbose');
     }
 
+    /**
+     * Command body
+     *
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $container = $this->getContainer();
@@ -62,6 +75,7 @@ class BatchRegisterProfessorsCommand extends ContainerAwareCommand
                 $user->setEmail($email);
                 $user->setNotifications(Constants::NOTIFICA_NONE);
                 $user->setLegacyGroups(LegacyRoles::DOCENTE);
+                $user->setPassword('x');
 
                 $userManager->updateUser($user);
                 $forumUserDAO->create($user);
