@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * @copyright (c) 2002-2013, Associazione UniversiBO
+ * @license GPLv2
+ */
 namespace Universibo\Bundle\WebsiteBundle\Listener;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -11,7 +14,6 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\ForumBundle\Security\ForumSession\ForumSessionInterface;
-use Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepLogRepository;
 use Universibo\Bundle\LegacyBundle\Service\PrivacyService;
 use Universibo\Bundle\WebsiteBundle\Contact\VerificationService;
 
@@ -19,7 +21,7 @@ use Universibo\Bundle\WebsiteBundle\Contact\VerificationService;
  * Privacy policy listener
  *
  * @author Davide Bellettini <davide.bellettini@gmail.com>
- * @license GPLv2 or later
+
  */
 class PrivacyListener
 {
@@ -51,9 +53,13 @@ class PrivacyListener
     private $verificationService;
 
     /**
+     * Class constructor
      *
      * @param SecurityContextInterface $securityContext
-     * @param StepLogRepository        $stepLogRepository
+     * @param RouterInterface          $router
+     * @param PrivacyService           $privacyService
+     * @param ForumSessionInterface    $forumSession
+     * @param VerificationService      $verificationService
      */
     public function __construct(SecurityContextInterface $securityContext,
             RouterInterface $router, PrivacyService $privacyService,
@@ -110,6 +116,13 @@ class PrivacyListener
         $event->setResponse($response);
     }
 
+    /**
+     * Logs the user in and redirects back
+     *
+     * @param User             $user
+     * @param Request          $request
+     * @param GetResponseEvent $event
+     */
     private function handleForumLogin(User $user, Request $request,
             GetResponseEvent $event)
     {
