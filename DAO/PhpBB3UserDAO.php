@@ -138,7 +138,7 @@ EOT;
             return false;
         }
 
-        $userId = $this->findOrCreate($user);
+        $userId = $user->getForumId();
 
         return $this->addToGroup($userId, $groupId);
     }
@@ -149,7 +149,7 @@ EOT;
             return false;
         }
 
-        $userId = $this->findOrCreate($user);
+        $userId = $user->getForumId();
         if (!$this->inGroup($userId, $groupId)) {
             return false;
         }
