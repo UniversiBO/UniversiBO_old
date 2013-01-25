@@ -1678,12 +1678,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/UniversiBO/UniversiboForumBundle",
-                "reference": "1acd90ea919e98f44fcb26c595c1b4f54f7d29d5"
+                "reference": "b99db854fd9210ab9d0dea018a1eb5db8fb9aa3a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UniversiBO/UniversiboForumBundle/zipball/1acd90ea919e98f44fcb26c595c1b4f54f7d29d5",
-                "reference": "1acd90ea919e98f44fcb26c595c1b4f54f7d29d5",
+                "url": "https://api.github.com/repos/UniversiBO/UniversiboForumBundle/zipball/b99db854fd9210ab9d0dea018a1eb5db8fb9aa3a",
+                "reference": "b99db854fd9210ab9d0dea018a1eb5db8fb9aa3a",
                 "shasum": ""
             },
             "require": {
@@ -1694,7 +1694,7 @@
                 "symfony/yaml": "2.1.*",
                 "symfony/class-loader": "2.1.*"
             },
-            "time": "2013-01-25 01:26:09",
+            "time": "2013-01-25 01:55:24",
             "type": "symfony-bundle",
             "autoload": {
                 "psr-0": {
