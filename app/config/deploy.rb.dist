@@ -12,8 +12,8 @@ set :model_manager, "doctrine"
 # Or: `propel`
 
 role :web,        domain                         # Your HTTP server, Apache/etc
-role :app,        domain                         # This may be the same as your `Web` server
-role :db,         domain, :primary => true       # This is where Rails migrations will run
+role :app,        domain, :primary => true       # This may be the same as your `Web` server
+role :db,         domain                         # This is where Rails migrations will run
 
 set  :shared_files,    [web_path + "/.htaccess", "app/config/parameters.ini", "app/config/mailer.yml", "config.xml", "config_cli.xml"]
 set  :shared_children, [app_path + "/logs", web_path + "/img/contacts", web_path + "/uploads", "universibo/log-universibo", app_path + "/data", web_path + "/linux", web_path + "/latex", app_path + "/Resources/java"]
