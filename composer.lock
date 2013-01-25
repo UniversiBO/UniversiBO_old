@@ -1624,12 +1624,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/UniversiBO/UniversiboCoreBundle",
-                "reference": "16c553bab9f61bae98d429f29d9492c6c65b1d08"
+                "reference": "9153e29438b9fb80d293c92dc064dcf78623e78a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UniversiBO/UniversiboCoreBundle/zipball/16c553bab9f61bae98d429f29d9492c6c65b1d08",
-                "reference": "16c553bab9f61bae98d429f29d9492c6c65b1d08",
+                "url": "https://api.github.com/repos/UniversiBO/UniversiboCoreBundle/zipball/9153e29438b9fb80d293c92dc064dcf78623e78a",
+                "reference": "9153e29438b9fb80d293c92dc064dcf78623e78a",
                 "shasum": ""
             },
             "require": {
@@ -1641,7 +1641,7 @@
             "require-dev": {
                 "symfony/yaml": "2.1.*"
             },
-            "time": "2012-12-21 12:43:52",
+            "time": "2013-01-25 01:20:52",
             "type": "symfony-bundle",
             "autoload": {
                 "psr-0": {
@@ -1678,12 +1678,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/UniversiBO/UniversiboForumBundle",
-                "reference": "d2048f4a64a81b98e7000ea1c2476fe657f022d1"
+                "reference": "1acd90ea919e98f44fcb26c595c1b4f54f7d29d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UniversiBO/UniversiboForumBundle/zipball/d2048f4a64a81b98e7000ea1c2476fe657f022d1",
-                "reference": "d2048f4a64a81b98e7000ea1c2476fe657f022d1",
+                "url": "https://api.github.com/repos/UniversiBO/UniversiboForumBundle/zipball/1acd90ea919e98f44fcb26c595c1b4f54f7d29d5",
+                "reference": "1acd90ea919e98f44fcb26c595c1b4f54f7d29d5",
                 "shasum": ""
             },
             "require": {
@@ -1694,7 +1694,7 @@
                 "symfony/yaml": "2.1.*",
                 "symfony/class-loader": "2.1.*"
             },
-            "time": "2013-01-25 00:55:33",
+            "time": "2013-01-25 01:26:09",
             "type": "symfony-bundle",
             "autoload": {
                 "psr-0": {
