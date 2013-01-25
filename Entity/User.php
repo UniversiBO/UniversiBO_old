@@ -24,6 +24,13 @@ class User extends BaseUser implements EncoderAwareInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    
+    /**
+     * User forum id
+     *
+     * @ORM\Column(type="integer", name="forum_id")
+     */
+    protected $forumId;
 
     /**
      * FOSUserBundle groups
@@ -451,4 +458,26 @@ class User extends BaseUser implements EncoderAwareInterface
 
         return $this;
     }
+    
+    /**
+     * Gets forum user table id
+     * 
+     * @return integer
+     */
+    public function getForumId() {
+        return $this->forumId;
+    }
+
+    /**
+     * Sets forum user table id
+     * 
+     * @param integer $forumId
+     * @return User
+     */
+    public function setForumId($forumId) {
+        $this->forumId = $forumId;
+        return $this;
+    }
+
+
 }
