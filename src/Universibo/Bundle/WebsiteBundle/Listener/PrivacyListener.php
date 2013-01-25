@@ -5,6 +5,7 @@
  */
 namespace Universibo\Bundle\WebsiteBundle\Listener;
 
+use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,6 +54,12 @@ class PrivacyListener
     private $verificationService;
 
     /**
+     * User manager
+     * @var UserManagerInterface
+     */
+    private $userManager;
+
+    /**
      * Class constructor
      *
      * @param SecurityContextInterface $securityContext
@@ -60,16 +67,19 @@ class PrivacyListener
      * @param PrivacyService           $privacyService
      * @param ForumSessionInterface    $forumSession
      * @param VerificationService      $verificationService
+     * @param UserManagerInterface     $userManager
      */
     public function __construct(SecurityContextInterface $securityContext,
             RouterInterface $router, PrivacyService $privacyService,
-            ForumSessionInterface $forumSession, VerificationService $verificationService)
+            ForumSessionInterface $forumSession, VerificationService $verificationService,
+            UserManagerInterface $userManager)
     {
         $this->securityContext = $securityContext;
         $this->router = $router;
         $this->privacyService = $privacyService;
         $this->forumSession = $forumSession;
         $this->verificationService = $verificationService;
+        $this->userManager = $userManager;
     }
 
     /**
@@ -128,6 +138,8 @@ class PrivacyListener
     {
         $response = new RedirectResponse($request->getRequestUri());
         $this->forumSession->login($user, $request, $response);
+        $this->userManager->updateUser($user);
+
         $event->setResponse($response);
     }
 }
