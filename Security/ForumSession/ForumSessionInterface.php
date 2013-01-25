@@ -16,10 +16,9 @@ interface ForumSessionInterface
     /**
      * Forum login, creates record on forum table if needed
      *
-     * @param  User     $user
-     * @param  Request  $request
-     * @param  Response $response
-     * @return integer  User id
+     * @param User     $user
+     * @param Request  $request
+     * @param Response $response
      */
     public function login(User $user, Request $request, Response $response);
 

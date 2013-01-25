@@ -55,7 +55,7 @@ class PhpBB3Session implements ForumSessionInterface
 
     public function login(User $user, Request $request, Response $response)
     {
-        $userId = $this->userDAO->findOrCreate($user);
+        $userId = $user->getForumId() ?: $this->userDAO->findOrCreate($user);
 
         $claims = $request->getSession()->get('shibbolethClaims');
         if (!is_array($claims) || !isset($claims['eppn'])) {
@@ -63,7 +63,7 @@ class PhpBB3Session implements ForumSessionInterface
         }
         $this->createNewSession($userId, $request, $response, $claims['eppn']);
 
-        return $userId;
+        $user->setForumId($userId);
     }
 
     public function logout(ParameterBag $cookies, Response $response)
