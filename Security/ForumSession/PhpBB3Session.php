@@ -62,6 +62,8 @@ class PhpBB3Session implements ForumSessionInterface
             $claims = array('eppn' => '');
         }
         $this->createNewSession($userId, $request, $response, $claims['eppn']);
+
+        return $userId;
     }
 
     public function logout(ParameterBag $cookies, Response $response)
