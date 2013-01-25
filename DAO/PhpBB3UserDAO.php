@@ -239,9 +239,11 @@ SELECT user_id, group_id
     FROM {$this->getPrefix()}users
     WHERE username = ?
 EOT;
-        $result = $this->getConnection()->executeQuery($query, array($user->getUsername()));
 
-        return $result->fetch();
+        return $this
+            ->getConnection()
+            ->fetchAssoc($query, array ($user->getUsername()))
+        ;
     }
 
     private function addToGroup($userId, $groupId)
