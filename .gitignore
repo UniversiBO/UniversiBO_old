@@ -2,6 +2,7 @@
 *debuglog.txt
 *~
 .idea
+.vagrant
 /app/Resources/java/
 /bin/
 /build.xml
