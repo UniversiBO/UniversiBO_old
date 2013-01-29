@@ -1,5 +1,3 @@
-$postgres_default_version = '9.1'
-
 import 'lapp_packages.class.pp'
 import 'lapp_config.class.pp'
 
