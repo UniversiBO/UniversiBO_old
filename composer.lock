@@ -1,5 +1,5 @@
 {
-    "hash": "f20e1b8739df428e4f64ef872c365f8f",
+    "hash": "da056b9040fc7e90e0a00ac05ff58f58",
     "packages": [
         {
             "name": "doctrine/common",
@@ -76,19 +76,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal",
-                "reference": "4c33f633c48eeafe3408b308f6fc51743a21a3b7"
+                "reference": "fd45c6f6baa618d871f3201fabe76df5043abb1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/dbal/archive/4c33f633c48eeafe3408b308f6fc51743a21a3b7.zip",
-                "reference": "4c33f633c48eeafe3408b308f6fc51743a21a3b7",
+                "url": "https://github.com/doctrine/dbal/archive/fd45c6f6baa618d871f3201fabe76df5043abb1e.zip",
+                "reference": "fd45c6f6baa618d871f3201fabe76df5043abb1e",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
                 "doctrine/common": "2.3.*"
             },
-            "time": "2013-01-07 20:03:43",
+            "time": "2013-01-20 11:50:36",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -202,18 +202,116 @@
             ]
         },
         {
+            "name": "guzzle/guzzle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/guzzle",
+                "reference": "v3.1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/guzzle/guzzle/archive/v3.1.2.zip",
+                "reference": "v3.1.2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "ext-curl": "*",
+                "symfony/event-dispatcher": ">=2.1"
+            },
+            "replace": {
+                "guzzle/common": "self.version",
+                "guzzle/http": "self.version",
+                "guzzle/parser": "self.version",
+                "guzzle/batch": "self.version",
+                "guzzle/cache": "self.version",
+                "guzzle/inflection": "self.version",
+                "guzzle/iterator": "self.version",
+                "guzzle/log": "self.version",
+                "guzzle/plugin": "self.version",
+                "guzzle/plugin-async": "self.version",
+                "guzzle/plugin-backoff": "self.version",
+                "guzzle/plugin-cache": "self.version",
+                "guzzle/plugin-cookie": "self.version",
+                "guzzle/plugin-curlauth": "self.version",
+                "guzzle/plugin-history": "self.version",
+                "guzzle/plugin-log": "self.version",
+                "guzzle/plugin-mock": "self.version",
+                "guzzle/plugin-oauth": "self.version",
+                "guzzle/service": "self.version",
+                "guzzle/stream": "self.version",
+                "guzzle/plugin-md5": "self.version"
+            },
+            "require-dev": {
+                "doctrine/common": "*",
+                "symfony/class-loader": "*",
+                "monolog/monolog": "1.*",
+                "zend/zend-log1": "1.12",
+                "zend/zend-cache1": "1.12",
+                "zendframework/zend-cache": "2.0.*",
+                "zendframework/zend-log": "2.0.*",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "suggest": {
+                "symfony/class-loader": "*",
+                "monolog/monolog": "*",
+                "zend/zend-cache": "2.0.0beta3",
+                "zend/zend-log": "2.0.0beta3"
+            },
+            "time": "2013-01-28 00:07:40",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Guzzle\\Tests": "tests/",
+                    "Guzzle": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                },
+                {
+                    "name": "Guzzle Community",
+                    "homepage": "https://github.com/guzzle/guzzle/contributors"
+                }
+            ],
+            "description": "Guzzle is a PHP HTTP client library and framework for building RESTful web service clients",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "framework",
+                "curl",
+                "http",
+                "rest",
+                "http client",
+                "client",
+                "web service"
+            ]
+        },
+        {
             "name": "symfony/config",
             "version": "2.1.x-dev",
             "target-dir": "Symfony/Component/Config",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Config",
-                "reference": "4acb9aa24eeba54f3c18c776dcd9ff7d2b959603"
+                "reference": "v2.1.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Config/archive/4acb9aa24eeba54f3c18c776dcd9ff7d2b959603.zip",
-                "reference": "4acb9aa24eeba54f3c18c776dcd9ff7d2b959603",
+                "url": "https://github.com/symfony/Config/archive/v2.1.7.zip",
+                "reference": "v2.1.7",
                 "shasum": ""
             },
             "require": {
@@ -250,12 +348,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DependencyInjection",
-                "reference": "6cd2da866d07a2133846e04b8f92c066703e94f3"
+                "reference": "5895e96c79c6506b2381bad9b0575ee3488e6be2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/DependencyInjection/archive/6cd2da866d07a2133846e04b8f92c066703e94f3.zip",
-                "reference": "6cd2da866d07a2133846e04b8f92c066703e94f3",
+                "url": "https://github.com/symfony/DependencyInjection/archive/5895e96c79c6506b2381bad9b0575ee3488e6be2.zip",
+                "reference": "5895e96c79c6506b2381bad9b0575ee3488e6be2",
                 "shasum": ""
             },
             "require": {
@@ -269,7 +367,7 @@
                 "symfony/yaml": "2.1.*",
                 "symfony/config": "2.1.*"
             },
-            "time": "2013-01-09 08:51:07",
+            "time": "2013-01-22 07:14:57",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -300,12 +398,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DoctrineBridge",
-                "reference": "625e2f0c0f40ae025bf429d74887609b3fb64789"
+                "reference": "v2.1.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/DoctrineBridge/archive/625e2f0c0f40ae025bf429d74887609b3fb64789.zip",
-                "reference": "625e2f0c0f40ae025bf429d74887609b3fb64789",
+                "url": "https://github.com/symfony/DoctrineBridge/archive/v2.1.7.zip",
+                "reference": "v2.1.7",
                 "shasum": ""
             },
             "require": {
@@ -319,7 +417,7 @@
                 "symfony/form": "2.1.*",
                 "symfony/validator": "2.1.*"
             },
-            "time": "2013-01-09 08:51:07",
+            "time": "2013-01-11 00:31:43",
             "type": "symfony-bridge",
             "autoload": {
                 "psr-0": {
@@ -350,12 +448,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher",
-                "reference": "593ca3bb9ed5eccc1156c402102d9b5bb07cd783"
+                "reference": "v2.1.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/EventDispatcher/archive/593ca3bb9ed5eccc1156c402102d9b5bb07cd783.zip",
-                "reference": "593ca3bb9ed5eccc1156c402102d9b5bb07cd783",
+                "url": "https://github.com/symfony/EventDispatcher/archive/v2.1.7.zip",
+                "reference": "v2.1.7",
                 "shasum": ""
             },
             "require": {
@@ -368,7 +466,7 @@
                 "symfony/dependency-injection": "2.1.*",
                 "symfony/http-kernel": "2.1.*"
             },
-            "time": "2013-01-09 08:51:07",
+            "time": "2013-01-11 00:31:43",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -399,12 +497,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem",
-                "reference": "42a7645a7d8d2acaef6af4c23a9345a13508ddaf"
+                "reference": "v2.1.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Filesystem/archive/42a7645a7d8d2acaef6af4c23a9345a13508ddaf.zip",
-                "reference": "42a7645a7d8d2acaef6af4c23a9345a13508ddaf",
+                "url": "https://github.com/symfony/Filesystem/archive/v2.1.7.zip",
+                "reference": "v2.1.7",
                 "shasum": ""
             },
             "require": {
@@ -441,12 +539,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/FrameworkBundle",
-                "reference": "3c48ab3b77e1fcbd2281e131f37de8160d1bf0d9"
+                "reference": "560fa830a1dc6009c5cc0910f1db3b2224014bcd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/FrameworkBundle/archive/3c48ab3b77e1fcbd2281e131f37de8160d1bf0d9.zip",
-                "reference": "3c48ab3b77e1fcbd2281e131f37de8160d1bf0d9",
+                "url": "https://github.com/symfony/FrameworkBundle/archive/560fa830a1dc6009c5cc0910f1db3b2224014bcd.zip",
+                "reference": "560fa830a1dc6009c5cc0910f1db3b2224014bcd",
                 "shasum": ""
             },
             "require": {
@@ -470,7 +568,7 @@
                 "symfony/form": "2.1.*",
                 "symfony/validator": "2.1.*"
             },
-            "time": "2013-01-09 08:51:07",
+            "time": "2013-01-22 07:14:57",
             "type": "symfony-bundle",
             "autoload": {
                 "psr-0": {
@@ -501,18 +599,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation",
-                "reference": "229cc2272d62f4141c17254d15511532e6e46ce0"
+                "reference": "v2.1.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/HttpFoundation/archive/229cc2272d62f4141c17254d15511532e6e46ce0.zip",
-                "reference": "229cc2272d62f4141c17254d15511532e6e46ce0",
+                "url": "https://github.com/symfony/HttpFoundation/archive/v2.1.7.zip",
+                "reference": "v2.1.7",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2013-01-09 08:51:07",
+            "time": "2013-01-11 00:31:43",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -544,12 +642,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel",
-                "reference": "c40b512d466b132c8446a25a1e7fb0d60a49c65e"
+                "reference": "e57b260d74b04671d26cc37c2049b90924bb636d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/HttpKernel/archive/c40b512d466b132c8446a25a1e7fb0d60a49c65e.zip",
-                "reference": "c40b512d466b132c8446a25a1e7fb0d60a49c65e",
+                "url": "https://github.com/symfony/HttpKernel/archive/e57b260d74b04671d26cc37c2049b90924bb636d.zip",
+                "reference": "e57b260d74b04671d26cc37c2049b90924bb636d",
                 "shasum": ""
             },
             "require": {
@@ -575,7 +673,7 @@
                 "symfony/dependency-injection": "2.1.*",
                 "symfony/finder": "2.1.*"
             },
-            "time": "2013-01-11 10:35:43",
+            "time": "2013-01-17 23:11:33",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -606,12 +704,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Routing",
-                "reference": "fd28ee5bb7a9dd817dbe18605c0c4c7d7f82cfa9"
+                "reference": "v2.1.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Routing/archive/fd28ee5bb7a9dd817dbe18605c0c4c7d7f82cfa9.zip",
-                "reference": "fd28ee5bb7a9dd817dbe18605c0c4c7d7f82cfa9",
+                "url": "https://github.com/symfony/Routing/archive/v2.1.7.zip",
+                "reference": "v2.1.7",
                 "shasum": ""
             },
             "require": {
@@ -659,12 +757,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Templating",
-                "reference": "d18645d17c6e583168489485aee54a0d737f9252"
+                "reference": "v2.1.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Templating/archive/d18645d17c6e583168489485aee54a0d737f9252.zip",
-                "reference": "d18645d17c6e583168489485aee54a0d737f9252",
+                "url": "https://github.com/symfony/Templating/archive/v2.1.7.zip",
+                "reference": "v2.1.7",
                 "shasum": ""
             },
             "require": {
@@ -701,12 +799,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Translation",
-                "reference": "331f25563a58ec768b59137f8ef34cb5fb1ab330"
+                "reference": "v2.1.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Translation/archive/331f25563a58ec768b59137f8ef34cb5fb1ab330.zip",
-                "reference": "331f25563a58ec768b59137f8ef34cb5fb1ab330",
+                "url": "https://github.com/symfony/Translation/archive/v2.1.7.zip",
+                "reference": "v2.1.7",
                 "shasum": ""
             },
             "require": {
@@ -745,95 +843,7 @@
             "homepage": "http://symfony.com"
         }
     ],
-    "packages-dev": [
-        {
-            "name": "symfony/class-loader",
-            "version": "2.1.x-dev",
-            "target-dir": "Symfony/Component/ClassLoader",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/ClassLoader",
-                "reference": "585c3e06bf46799b082b52f9ac0d60b5847d6157"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/symfony/ClassLoader/archive/585c3e06bf46799b082b52f9ac0d60b5847d6157.zip",
-                "reference": "585c3e06bf46799b082b52f9ac0d60b5847d6157",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "require-dev": {
-                "symfony/finder": "2.1.*"
-            },
-            "time": "2013-01-09 08:51:07",
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Symfony\\Component\\ClassLoader": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony ClassLoader Component",
-            "homepage": "http://symfony.com"
-        },
-        {
-            "name": "symfony/yaml",
-            "version": "2.1.x-dev",
-            "target-dir": "Symfony/Component/Yaml",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/Yaml",
-                "reference": "7dd042765a3299d7cb1627ca9e6ffdb59fc54058"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/symfony/Yaml/archive/7dd042765a3299d7cb1627ca9e6ffdb59fc54058.zip",
-                "reference": "7dd042765a3299d7cb1627ca9e6ffdb59fc54058",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "time": "2013-01-09 08:51:07",
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Symfony\\Component\\Yaml": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Yaml Component",
-            "homepage": "http://symfony.com"
-        }
-    ],
+    "packages-dev": null,
     "aliases": [
 
     ],
