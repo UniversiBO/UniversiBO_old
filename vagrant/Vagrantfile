@@ -34,6 +34,9 @@ Vagrant::Config.run do |config|
   # Changing default v-root to ..
   config.vm.share_folder "v-root", "/vagrant", ".."
 
+  # Launch shell command
+  config.vm.provision :shell, :path => "bash/init.sh"
+
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.
   config.vm.provision :puppet do |puppet|
