@@ -234,6 +234,7 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
                     $similar = $similarId !== null ? $subjectRepo->findByChannelId($similarId) : null;
 
                     if ($similar === null || !$this->checkForum($similar, $forumRepository)) {
+                        $output->writeln('Creating subject forum for '. $subject->getNomeCanale());
                         $this->createNewSubjectForum($subject, $courseForumId, $forumRepository);
                     } else {
                         $this->setSimilarForum($similar, $subject, $forumRepository, $nameGenerator);
