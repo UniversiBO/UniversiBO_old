@@ -179,20 +179,25 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
 
         $code = $degreeCourse->getCodiceCdl();
 
-        $forum = new Forum();
+        $client = $this->getContainer()->get('universibo_forum.api.client');
 
-        $forum->setParentId($parentId);
-        $forum->setName($code . ' - ' . $degreeCourse->getNome());
-        $forum->setDescription('Forum riservato alla discussione generale sul CdL '.$code);
-        $forum->setType(Forum::TYPE_FORUM);
+        $data = $client
+            ->post('forum', null, array (
+                'name' => $code . ' - ' . $degreeCourse->getNome(),
+                'description' => 'Forum riservato alla discussione generale sul CdL '.$code,
+                'parent_id' => $parentId,
+                'type' => Forum::TYPE_FORUM
+            ))
+            ->send()
+            ->json()
+        ;
 
-        $forumRepository->save($forum);
-        $newForumId = $forum->getId();
-        $degreeCourse->setForumForumId($newForumId);
+        $forumId = $data['forum_id'];
 
+        $degreeCourse->setForumForumId($forumId);
         $channelRepo->update($degreeCourse);
 
-        return $newForumId;
+        return $forumId;
     }
 
     /**
@@ -250,16 +255,23 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
     private function createNewSubjectForum(Insegnamento $subject, $parentId,
             ForumRepository $forumRepository)
     {
-        $forum = new Forum();
+        static $i = 0;
 
-        $forum->setName($subject->getNomeCanale());
-        $forum->setParentId($parentId);
-        $forum->setType(Forum::TYPE_FORUM);
-        $forum->setDescription('');
+        echo ++$i, PHP_EOL;
 
-        $forumRepository->save($forum);
+        $client = $this->getContainer()->get('universibo_forum.api.client');
 
-        $subject->setForumForumId($forum->getId());
+        $data = $client
+            ->post('forum', null, array (
+                'name' => $subject->getNomeCanale(),
+                'parent_id' => $parentId,
+                'type' => Forum::TYPE_FORUM
+            ))
+            ->send()
+            ->json()
+        ;
+
+        $subject->setForumForumId($data['forum_id']);
     }
 
     /**
