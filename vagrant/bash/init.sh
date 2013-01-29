@@ -1,5 +1,6 @@
 #!/bin/bash
 
+aptitude update
 
 if [ `which git | wc -l` -eq 0 ]; then
     aptitude install git
@@ -13,3 +14,4 @@ function puppet_install {
 }
 
 puppet_install 'puppetlabs/postgresql'
+puppet_install 'puppetlabs/apache'

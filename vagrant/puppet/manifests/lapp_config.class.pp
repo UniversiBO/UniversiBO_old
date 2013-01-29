@@ -1,0 +1,3 @@
+class lapp_config
+{
+}
