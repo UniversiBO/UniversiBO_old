@@ -4,7 +4,7 @@ gem update
 
 PUPPET_DIR=/etc/puppet/
 
-if [ !-d $PUPPET_DIR ]; then
+if [ ! -d $PUPPET_DIR ]; then
     mkdir $PUPPET_DIR
 fi
 
