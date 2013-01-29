@@ -2,7 +2,7 @@ services:
   universibo_forum.api.client:
     class: 'Guzzle\Http\Client'
     arguments:
-      - 'http://%forum_host%/forum/api'
+      - '%forum_api%'
   universibo_forum.dao.config:
     class: 'Universibo\Bundle\ForumBundle\DAO\PhpBB3ConfigDAO'
     arguments: ['@doctrine.dbal.forum_connection']
