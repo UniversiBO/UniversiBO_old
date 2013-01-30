@@ -1,0 +1,2145 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+SET search_path = public, pg_catalog;
+
+--
+-- Name: plpgsql_call_handler(); Type: FUNCTION; Schema: public; Owner: universibo
+--
+
+CREATE FUNCTION plpgsql_call_handler() RETURNS language_handler
+    LANGUAGE c
+    AS '$libdir/plpgsql', 'plpgsql_call_handler';
+
+
+ALTER FUNCTION public.plpgsql_call_handler() OWNER TO universibo;
+
+--
+-- Name: argomento_id_argomento_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE argomento_id_argomento_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.argomento_id_argomento_seq OWNER TO universibo;
+
+--
+-- Name: argomento_set_id_argomento__seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE argomento_set_id_argomento__seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.argomento_set_id_argomento__seq OWNER TO universibo;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: canale; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE canale (
+    id_canale integer NOT NULL,
+    tipo_canale integer NOT NULL,
+    nome_canale character varying(200),
+    immagine character varying(50),
+    visite integer NOT NULL,
+    ultima_modifica integer,
+    permessi_groups integer,
+    files_attivo character(1),
+    news_attivo character(1),
+    forum_attivo character(1),
+    id_forum integer,
+    group_id integer,
+    links_attivo character(1),
+    files_studenti_attivo character(1)
+);
+
+
+ALTER TABLE public.canale OWNER TO universibo;
+
+--
+-- Name: canale_id_canale_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE canale_id_canale_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.canale_id_canale_seq OWNER TO universibo;
+
+--
+-- Name: canale_id_canale_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: universibo
+--
+
+ALTER SEQUENCE canale_id_canale_seq OWNED BY canale.id_canale;
+
+
+--
+-- Name: canale_noforum; Type: VIEW; Schema: public; Owner: universibo
+--
+
+CREATE VIEW canale_noforum AS
+    SELECT canale.id_canale, canale.tipo_canale, canale.nome_canale, canale.immagine, canale.visite, canale.ultima_modifica, canale.permessi_groups, canale.files_attivo, canale.news_attivo, canale.forum_attivo, canale.id_forum, canale.group_id, canale.links_attivo, canale.files_studenti_attivo FROM canale WHERE (canale.forum_attivo = 'N'::bpchar);
+
+
+ALTER TABLE public.canale_noforum OWNER TO universibo;
+
+--
+-- Name: classi_corso; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE classi_corso (
+    cod_corso character varying(4) NOT NULL,
+    desc_corso character varying(150) NOT NULL,
+    id_canale integer,
+    cat_id integer,
+    cod_doc character varying(6),
+    cod_fac character varying(4),
+    categoria integer
+);
+
+
+ALTER TABLE public.classi_corso OWNER TO universibo;
+
+--
+-- Name: classi_materie; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE classi_materie (
+    cod_materia character varying(5) NOT NULL,
+    desc_materia character varying(200) NOT NULL
+);
+
+
+ALTER TABLE public.classi_materie OWNER TO universibo;
+
+--
+-- Name: collaboratore_id_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE collaboratore_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.collaboratore_id_seq OWNER TO universibo;
+
+--
+-- Name: collaboratore; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE collaboratore (
+    id_utente integer,
+    intro text,
+    recapito character varying(255),
+    obiettivi text,
+    foto character varying(255),
+    ruolo character varying(255),
+    show character varying(1) DEFAULT 'N'::bpchar NOT NULL,
+    id integer DEFAULT nextval('collaboratore_id_seq'::regclass) NOT NULL
+);
+
+
+ALTER TABLE public.collaboratore OWNER TO universibo;
+
+--
+-- Name: contacts_id_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE contacts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.contacts_id_seq OWNER TO universibo;
+
+--
+-- Name: contacts; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE contacts (
+    id integer DEFAULT nextval('contacts_id_seq'::regclass) NOT NULL,
+    user_id integer,
+    value character varying(255) NOT NULL,
+    verification_token character varying(128),
+    verification_sent_at timestamp(0) without time zone DEFAULT NULL::timestamp without time zone,
+    verified_at timestamp(0) without time zone DEFAULT NULL::timestamp without time zone
+);
+
+
+ALTER TABLE public.contacts OWNER TO universibo;
+
+--
+-- Name: docente; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE docente (
+    id_utente integer NOT NULL,
+    cod_doc character varying(6) NOT NULL,
+    nome_doc character varying(150),
+    docente_contattato integer DEFAULT 0,
+    id_mod integer
+);
+
+
+ALTER TABLE public.docente OWNER TO universibo;
+
+--
+-- Name: docente2; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE docente2 (
+    cod_doc character varying(6) NOT NULL,
+    email character varying(255),
+    nome_doc character varying(150)
+);
+
+
+ALTER TABLE public.docente2 OWNER TO universibo;
+
+--
+-- Name: docente_contatti; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE docente_contatti (
+    cod_doc character varying(6) NOT NULL,
+    stato integer DEFAULT 1 NOT NULL,
+    id_utente_assegnato integer,
+    ultima_modifica integer,
+    report text DEFAULT ''::text NOT NULL,
+    eliminato character(1) DEFAULT 'N'::bpchar NOT NULL
+);
+
+
+ALTER TABLE public.docente_contatti OWNER TO universibo;
+
+--
+-- Name: COLUMN docente_contatti.eliminato; Type: COMMENT; Schema: public; Owner: universibo
+--
+
+COMMENT ON COLUMN docente_contatti.eliminato IS 'Eliminazione logica';
+
+
+--
+-- Name: facolta; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE facolta (
+    cod_fac character varying(4) NOT NULL,
+    desc_fac character varying(150) NOT NULL,
+    url_facolta character varying(80),
+    id_canale integer,
+    cod_doc character(6)
+);
+
+
+ALTER TABLE public.facolta OWNER TO universibo;
+
+--
+-- Name: file; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE file (
+    id_file integer DEFAULT nextval(('"file_id_file_seq"'::text)::regclass) NOT NULL,
+    permessi_download integer NOT NULL,
+    permessi_visualizza integer NOT NULL,
+    id_utente integer NOT NULL,
+    titolo character varying(150) NOT NULL,
+    descrizione text,
+    data_inserimento integer NOT NULL,
+    data_modifica integer NOT NULL,
+    dimensione integer NOT NULL,
+    download integer NOT NULL,
+    nome_file character varying(256) NOT NULL,
+    id_categoria integer NOT NULL,
+    id_tipo_file integer NOT NULL,
+    hash_file character varying(40) NOT NULL,
+    password character varying(40),
+    eliminato character(1) NOT NULL
+);
+
+
+ALTER TABLE public.file OWNER TO universibo;
+
+--
+-- Name: file_canale; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE file_canale (
+    id_file integer NOT NULL,
+    id_canale integer NOT NULL
+);
+
+
+ALTER TABLE public.file_canale OWNER TO universibo;
+
+--
+-- Name: file_categoria; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE file_categoria (
+    id_file_categoria integer NOT NULL,
+    descrizione character varying(128) NOT NULL
+);
+
+
+ALTER TABLE public.file_categoria OWNER TO universibo;
+
+--
+-- Name: file_categoria_id_file_categoria_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE file_categoria_id_file_categoria_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.file_categoria_id_file_categoria_seq OWNER TO universibo;
+
+--
+-- Name: file_categoria_id_file_categoria_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: universibo
+--
+
+ALTER SEQUENCE file_categoria_id_file_categoria_seq OWNED BY file_categoria.id_file_categoria;
+
+
+--
+-- Name: file_id_file_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE file_id_file_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.file_id_file_seq OWNER TO universibo;
+
+--
+-- Name: file_inseriti_giorno; Type: VIEW; Schema: public; Owner: universibo
+--
+
+CREATE VIEW file_inseriti_giorno AS
+    SELECT max(date_part('dow'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((file.data_inserimento)::double precision * '00:00:01'::interval)))) AS giornos, date_part('day'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((file.data_inserimento)::double precision * '00:00:01'::interval))) AS giorno, date_part('month'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((file.data_inserimento)::double precision * '00:00:01'::interval))) AS mese, date_part('year'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((file.data_inserimento)::double precision * '00:00:01'::interval))) AS anno, count(file.id_file) AS totale_file FROM file GROUP BY date_part('year'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((file.data_inserimento)::double precision * '00:00:01'::interval))), date_part('month'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((file.data_inserimento)::double precision * '00:00:01'::interval))), date_part('day'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((file.data_inserimento)::double precision * '00:00:01'::interval))) ORDER BY date_part('year'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((file.data_inserimento)::double precision * '00:00:01'::interval))), date_part('month'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((file.data_inserimento)::double precision * '00:00:01'::interval))), date_part('day'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((file.data_inserimento)::double precision * '00:00:01'::interval)));
+
+
+ALTER TABLE public.file_inseriti_giorno OWNER TO universibo;
+
+--
+-- Name: VIEW file_inseriti_giorno; Type: COMMENT; Schema: public; Owner: universibo
+--
+
+COMMENT ON VIEW file_inseriti_giorno IS 'Seleziona i files inseriti in ogni giorno';
+
+
+--
+-- Name: file_inseriti_mese; Type: VIEW; Schema: public; Owner: universibo
+--
+
+CREATE VIEW file_inseriti_mese AS
+    SELECT file_inseriti_giorno.mese, file_inseriti_giorno.anno, sum(file_inseriti_giorno.totale_file) AS file_mese FROM file_inseriti_giorno GROUP BY file_inseriti_giorno.anno, file_inseriti_giorno.mese ORDER BY file_inseriti_giorno.anno DESC, file_inseriti_giorno.mese DESC;
+
+
+ALTER TABLE public.file_inseriti_mese OWNER TO universibo;
+
+--
+-- Name: VIEW file_inseriti_mese; Type: COMMENT; Schema: public; Owner: universibo
+--
+
+COMMENT ON VIEW file_inseriti_mese IS 'Seleziona i file inseriti in ogni mese in tutte le sezioni';
+
+
+--
+-- Name: file_keywords; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE file_keywords (
+    id_file integer NOT NULL,
+    keyword character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.file_keywords OWNER TO universibo;
+
+--
+-- Name: file_studente_canale; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE file_studente_canale (
+    id_file integer NOT NULL,
+    id_canale integer NOT NULL
+);
+
+
+ALTER TABLE public.file_studente_canale OWNER TO universibo;
+
+--
+-- Name: file_studente_commenti; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE file_studente_commenti (
+    id_commento integer NOT NULL,
+    id_file integer NOT NULL,
+    id_utente integer NOT NULL,
+    commento text NOT NULL,
+    voto integer NOT NULL,
+    eliminato character(1) NOT NULL
+);
+
+
+ALTER TABLE public.file_studente_commenti OWNER TO universibo;
+
+--
+-- Name: file_studente_commenti_id_commento_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE file_studente_commenti_id_commento_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.file_studente_commenti_id_commento_seq OWNER TO universibo;
+
+--
+-- Name: file_studente_commenti_id_commento_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: universibo
+--
+
+ALTER SEQUENCE file_studente_commenti_id_commento_seq OWNED BY file_studente_commenti.id_commento;
+
+
+--
+-- Name: file_tipo; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE file_tipo (
+    id_file_tipo integer NOT NULL,
+    descrizione character varying(128) NOT NULL,
+    pattern_riconoscimento character varying(128) NOT NULL,
+    icona character varying(256) NOT NULL,
+    info_aggiuntive text
+);
+
+
+ALTER TABLE public.file_tipo OWNER TO universibo;
+
+--
+-- Name: file_tipo_id_file_tipo_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE file_tipo_id_file_tipo_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.file_tipo_id_file_tipo_seq OWNER TO universibo;
+
+--
+-- Name: file_tipo_id_file_tipo_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: universibo
+--
+
+ALTER SEQUENCE file_tipo_id_file_tipo_seq OWNED BY file_tipo.id_file_tipo;
+
+
+--
+-- Name: forums_auth_id_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE forums_auth_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.forums_auth_id_seq OWNER TO universibo;
+
+--
+-- Name: fos_group_id_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE fos_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.fos_group_id_seq OWNER TO universibo;
+
+--
+-- Name: fos_group; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE fos_group (
+    id integer DEFAULT nextval('fos_group_id_seq'::regclass) NOT NULL,
+    name character varying(255) NOT NULL,
+    roles text NOT NULL
+);
+
+
+ALTER TABLE public.fos_group OWNER TO universibo;
+
+--
+-- Name: COLUMN fos_group.roles; Type: COMMENT; Schema: public; Owner: universibo
+--
+
+COMMENT ON COLUMN fos_group.roles IS '(DC2Type:array)';
+
+
+--
+-- Name: fos_user; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE fos_user (
+    id integer NOT NULL,
+    username character varying(255) NOT NULL,
+    username_canonical character varying(255) NOT NULL,
+    email character varying(255) NOT NULL,
+    email_canonical character varying(255) NOT NULL,
+    enabled boolean NOT NULL,
+    salt character varying(255) NOT NULL,
+    password character varying(255) NOT NULL,
+    last_login timestamp(0) without time zone DEFAULT NULL::timestamp without time zone,
+    locked boolean NOT NULL,
+    expired boolean NOT NULL,
+    expires_at timestamp(0) without time zone DEFAULT NULL::timestamp without time zone,
+    confirmation_token character varying(255) DEFAULT NULL::character varying,
+    password_requested_at timestamp(0) without time zone DEFAULT NULL::timestamp without time zone,
+    roles text NOT NULL,
+    credentials_expired boolean NOT NULL,
+    credentials_expire_at timestamp(0) without time zone DEFAULT NULL::timestamp without time zone,
+    phone character varying(15),
+    notifications integer NOT NULL,
+    groups integer DEFAULT 0 NOT NULL,
+    person_id integer,
+    username_locked boolean DEFAULT true NOT NULL,
+    encoder_name character varying(15) DEFAULT NULL::character varying,
+    forum_id integer
+);
+
+
+ALTER TABLE public.fos_user OWNER TO universibo;
+
+--
+-- Name: COLUMN fos_user.roles; Type: COMMENT; Schema: public; Owner: universibo
+--
+
+COMMENT ON COLUMN fos_user.roles IS '(DC2Type:array)';
+
+
+--
+-- Name: fos_user_group; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE fos_user_group (
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.fos_user_group OWNER TO universibo;
+
+--
+-- Name: fos_user_id_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE fos_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.fos_user_id_seq OWNER TO universibo;
+
+--
+-- Name: fos_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: universibo
+--
+
+ALTER SEQUENCE fos_user_id_seq OWNED BY fos_user.id;
+
+
+--
+-- Name: fos_user_ismemberof; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE fos_user_ismemberof (
+    user_id integer NOT NULL,
+    ismemberof_id integer NOT NULL
+);
+
+
+ALTER TABLE public.fos_user_ismemberof OWNER TO universibo;
+
+--
+-- Name: help; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE help (
+    id_help integer NOT NULL,
+    titolo character varying(255) NOT NULL,
+    contenuto text NOT NULL,
+    ultima_modifica integer NOT NULL,
+    indice integer NOT NULL
+);
+
+
+ALTER TABLE public.help OWNER TO universibo;
+
+--
+-- Name: help_id_help_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE help_id_help_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.help_id_help_seq OWNER TO universibo;
+
+--
+-- Name: help_id_help_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: universibo
+--
+
+ALTER SEQUENCE help_id_help_seq OWNED BY help.id_help;
+
+
+--
+-- Name: help_riferimento; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE help_riferimento (
+    riferimento character varying(32) NOT NULL,
+    id_help integer NOT NULL
+);
+
+
+ALTER TABLE public.help_riferimento OWNER TO universibo;
+
+--
+-- Name: help_topic; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE help_topic (
+    riferimento character varying(32) NOT NULL,
+    titolo character varying(256) NOT NULL,
+    indice integer NOT NULL
+);
+
+
+ALTER TABLE public.help_topic OWNER TO universibo;
+
+--
+-- Name: info_didattica; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE info_didattica (
+    id_canale integer NOT NULL,
+    programma text DEFAULT ''::text NOT NULL,
+    programma_link character varying(256) DEFAULT ''::character varying NOT NULL,
+    testi_consigliati text DEFAULT ''::text NOT NULL,
+    testi_consigliati_link character varying(256) DEFAULT ''::character varying NOT NULL,
+    modalita text DEFAULT ''::text NOT NULL,
+    modalita_link character varying(256) DEFAULT ''::character varying NOT NULL,
+    obiettivi_esame text DEFAULT ''::text NOT NULL,
+    obiettivi_esame_link character varying(256) DEFAULT ''::character varying NOT NULL,
+    appelli text DEFAULT ''::text NOT NULL,
+    appelli_link character varying(256) DEFAULT ''::character varying NOT NULL,
+    homepage_alternativa_link character varying(256) DEFAULT ''::character varying NOT NULL,
+    orario_ics_link character varying(256) DEFAULT ''::character varying NOT NULL
+);
+
+
+ALTER TABLE public.info_didattica OWNER TO universibo;
+
+--
+-- Name: informativa; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE informativa (
+    id_informativa integer DEFAULT nextval(('"informativa_id_informativa_seq"'::text)::regclass) NOT NULL,
+    data_pubblicazione integer NOT NULL,
+    data_fine integer,
+    testo text NOT NULL
+);
+
+
+ALTER TABLE public.informativa OWNER TO universibo;
+
+--
+-- Name: informativa_id_informativa_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE informativa_id_informativa_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.informativa_id_informativa_seq OWNER TO universibo;
+
+--
+-- Name: input_esami_attivi; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE input_esami_attivi (
+    anno_accademico numeric(4,0) NOT NULL,
+    cod_corso character varying(4) NOT NULL,
+    cod_ind character varying(3) NOT NULL,
+    cod_ori character varying(3) NOT NULL,
+    cod_materia character varying(5) NOT NULL,
+    anno_corso character varying(1) NOT NULL,
+    cod_materia_ins character varying(5) NOT NULL,
+    anno_corso_ins character varying(1) NOT NULL,
+    cod_ril character varying(3) NOT NULL,
+    cod_modulo character varying(5) NOT NULL,
+    cod_attivita character varying(5) DEFAULT 0 NOT NULL,
+    prog_cronologico smallint DEFAULT 0 NOT NULL,
+    cod_doc character varying(6) NOT NULL,
+    flag_titolare_modulo character(1) NOT NULL,
+    id_canale integer,
+    cod_orario smallint,
+    tipo_ciclo character(1) NOT NULL,
+    cod_ate character varying(3) DEFAULT '010'::character varying,
+    anno_corso_universibo character varying(1)
+);
+
+
+ALTER TABLE public.input_esami_attivi OWNER TO universibo;
+
+--
+-- Name: prg_insegnamento; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE prg_insegnamento (
+    anno_accademico numeric(4,0) NOT NULL,
+    cod_corso character varying(4) NOT NULL,
+    cod_ind character varying(3) NOT NULL,
+    cod_ori character varying(3) NOT NULL,
+    cod_materia character varying(5) NOT NULL,
+    anno_corso character varying(1) NOT NULL,
+    cod_materia_ins character varying(5) NOT NULL,
+    anno_corso_ins character varying(1) NOT NULL,
+    cod_ril character varying(3) NOT NULL,
+    cod_modulo character varying(5) NOT NULL,
+    cod_doc character varying(6) NOT NULL,
+    flag_titolare_modulo character(1) NOT NULL,
+    id_canale integer,
+    cod_orario smallint,
+    tipo_ciclo character(1) NOT NULL,
+    cod_ate character varying(3) DEFAULT '010'::character varying,
+    anno_corso_universibo character varying(1)
+);
+
+
+ALTER TABLE public.prg_insegnamento OWNER TO universibo;
+
+--
+-- Name: prg_sdoppiamento; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE prg_sdoppiamento (
+    cod_ril character varying(3) NOT NULL,
+    anno_accademico numeric(4,0) NOT NULL,
+    cod_corso character varying(4) NOT NULL,
+    cod_ind character varying(3) NOT NULL,
+    cod_ori character varying(3) NOT NULL,
+    cod_materia character varying(5) NOT NULL,
+    anno_corso character varying(1) NOT NULL,
+    cod_materia_ins character varying(5) NOT NULL,
+    anno_corso_ins character varying(1) NOT NULL,
+    flag_mutuato character(1) NOT NULL,
+    flag_comune character(1) NOT NULL,
+    tipo_ciclo character(1) NOT NULL,
+    anno_accademico_fis numeric(4,0),
+    cod_corso_fis character varying(4),
+    cod_ind_fis character varying(3),
+    cod_ori_fis character varying(3),
+    cod_materia_fis character varying(5),
+    anno_corso_fis character varying(1),
+    cod_materia_ins_fis character varying(5),
+    anno_corso_ins_fis character varying(1),
+    cod_ril_fis character varying(3),
+    cod_ate character varying(3) DEFAULT '010'::character varying,
+    cod_ate_fis character varying(3) DEFAULT '010'::character varying,
+    anno_corso_universibo character varying(1),
+    id_sdop integer DEFAULT nextval(('prg_sdop_id_sdop_seq'::text)::regclass) NOT NULL
+);
+
+
+ALTER TABLE public.prg_sdoppiamento OWNER TO universibo;
+
+--
+-- Name: insegnamenti; Type: VIEW; Schema: public; Owner: universibo
+--
+
+CREATE VIEW insegnamenti AS
+    SELECT prg_insegnamento.anno_accademico, prg_insegnamento.cod_corso, prg_insegnamento.cod_ind, prg_insegnamento.cod_ori, prg_insegnamento.cod_materia, prg_insegnamento.anno_corso, prg_insegnamento.cod_materia_ins, prg_insegnamento.anno_corso_ins, prg_insegnamento.cod_ril, prg_insegnamento.cod_modulo, prg_insegnamento.cod_doc, prg_insegnamento.flag_titolare_modulo, prg_insegnamento.id_canale, prg_insegnamento.cod_orario, prg_insegnamento.tipo_ciclo, prg_insegnamento.cod_ate, prg_insegnamento.anno_corso_universibo, 'N'::bpchar AS flag_mutuato, 'N'::bpchar AS flag_comune FROM prg_insegnamento UNION SELECT s.anno_accademico, s.cod_corso, s.cod_ind, s.cod_ori, s.cod_materia, s.anno_corso, s.cod_materia_ins, s.anno_corso_ins, s.cod_ril, i.cod_modulo, i.cod_doc, i.flag_titolare_modulo, i.id_canale, i.cod_orario, s.tipo_ciclo, s.cod_ate, s.anno_corso_universibo, s.flag_mutuato, s.flag_comune FROM prg_insegnamento i, prg_sdoppiamento s WHERE ((((((((((s.anno_accademico = i.anno_accademico) AND ((s.cod_corso_fis)::text = (i.cod_corso)::text)) AND ((s.cod_ind_fis)::text = (i.cod_ind)::text)) AND ((s.cod_ori_fis)::text = (i.cod_ori)::text)) AND ((s.cod_materia_fis)::text = (i.cod_materia)::text)) AND ((s.anno_corso_fis)::text = (i.anno_corso)::text)) AND ((s.cod_materia_ins_fis)::text = (i.cod_materia_ins)::text)) AND ((s.anno_corso_ins_fis)::text = (i.anno_corso_ins)::text)) AND ((s.cod_ril_fis)::text = (i.cod_ril)::text)) AND ((s.cod_ate_fis)::text = (i.cod_ate)::text));
+
+
+ALTER TABLE public.insegnamenti OWNER TO universibo;
+
+--
+-- Name: VIEW insegnamenti; Type: COMMENT; Schema: public; Owner: universibo
+--
+
+COMMENT ON VIEW insegnamenti IS 'Seleziona gli insegnamenti considerando anche il join con i comuni e i mutuati';
+
+
+--
+-- Name: ismemberof; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE ismemberof (
+    id integer NOT NULL,
+    name character varying(20) NOT NULL
+);
+
+
+ALTER TABLE public.ismemberof OWNER TO universibo;
+
+--
+-- Name: ismemberof_id_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE ismemberof_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.ismemberof_id_seq OWNER TO universibo;
+
+--
+-- Name: link; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE link (
+    id_link integer NOT NULL,
+    id_canale integer NOT NULL,
+    id_utente integer NOT NULL,
+    uri character varying(255) NOT NULL,
+    label character varying(128),
+    description text
+);
+
+
+ALTER TABLE public.link OWNER TO universibo;
+
+--
+-- Name: link_id_link_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE link_id_link_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.link_id_link_seq OWNER TO universibo;
+
+--
+-- Name: link_id_link_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: universibo
+--
+
+ALTER SEQUENCE link_id_link_seq OWNED BY link.id_link;
+
+
+--
+-- Name: loggati_168h; Type: VIEW; Schema: public; Owner: SbiellONE
+--
+
+CREATE VIEW loggati_168h AS
+    SELECT fos_user.id, fos_user.username, fos_user.username_canonical, fos_user.email, fos_user.email_canonical, fos_user.enabled, fos_user.salt, fos_user.password, fos_user.last_login, fos_user.locked, fos_user.expired, fos_user.expires_at, fos_user.confirmation_token, fos_user.password_requested_at, fos_user.roles, fos_user.credentials_expired, fos_user.credentials_expire_at, fos_user.phone, fos_user.notifications, fos_user.groups, fos_user.person_id, fos_user.username_locked, fos_user.encoder_name FROM fos_user WHERE (fos_user.last_login >= (SELECT max((fos_user.last_login - '168:00:00'::interval)) AS max FROM fos_user));
+
+
+ALTER TABLE public.loggati_168h OWNER TO "SbiellONE";
+
+--
+-- Name: loggati_168h_count; Type: VIEW; Schema: public; Owner: SbiellONE
+--
+
+CREATE VIEW loggati_168h_count AS
+    SELECT count(*) AS count FROM loggati_168h;
+
+
+ALTER TABLE public.loggati_168h_count OWNER TO "SbiellONE";
+
+--
+-- Name: loggati_24h; Type: VIEW; Schema: public; Owner: SbiellONE
+--
+
+CREATE VIEW loggati_24h AS
+    SELECT fos_user.id, fos_user.username, fos_user.username_canonical, fos_user.email, fos_user.email_canonical, fos_user.enabled, fos_user.salt, fos_user.password, fos_user.last_login, fos_user.locked, fos_user.expired, fos_user.expires_at, fos_user.confirmation_token, fos_user.password_requested_at, fos_user.roles, fos_user.credentials_expired, fos_user.credentials_expire_at, fos_user.phone, fos_user.notifications, fos_user.groups, fos_user.person_id, fos_user.username_locked, fos_user.encoder_name FROM fos_user WHERE (fos_user.last_login >= (SELECT max((fos_user.last_login - '24:00:00'::interval)) AS max FROM fos_user));
+
+
+ALTER TABLE public.loggati_24h OWNER TO "SbiellONE";
+
+--
+-- Name: loggati_24h_count; Type: VIEW; Schema: public; Owner: SbiellONE
+--
+
+CREATE VIEW loggati_24h_count AS
+    SELECT count(*) AS count FROM loggati_24h;
+
+
+ALTER TABLE public.loggati_24h_count OWNER TO "SbiellONE";
+
+--
+-- Name: loggati_mese; Type: VIEW; Schema: public; Owner: SbiellONE
+--
+
+CREATE VIEW loggati_mese AS
+    SELECT fos_user.id, fos_user.username, fos_user.username_canonical, fos_user.email, fos_user.email_canonical, fos_user.enabled, fos_user.salt, fos_user.password, fos_user.last_login, fos_user.locked, fos_user.expired, fos_user.expires_at, fos_user.confirmation_token, fos_user.password_requested_at, fos_user.roles, fos_user.credentials_expired, fos_user.credentials_expire_at, fos_user.phone, fos_user.notifications, fos_user.groups, fos_user.person_id, fos_user.username_locked, fos_user.encoder_name FROM fos_user WHERE (fos_user.last_login >= (SELECT max((fos_user.last_login - '30 days'::interval)) AS max FROM fos_user)) ORDER BY fos_user.last_login DESC;
+
+
+ALTER TABLE public.loggati_mese OWNER TO "SbiellONE";
+
+--
+-- Name: loggati_mese_count; Type: VIEW; Schema: public; Owner: SbiellONE
+--
+
+CREATE VIEW loggati_mese_count AS
+    SELECT count(*) AS count FROM loggati_mese;
+
+
+ALTER TABLE public.loggati_mese_count OWNER TO "SbiellONE";
+
+--
+-- Name: migration_versions; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE migration_versions (
+    version character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.migration_versions OWNER TO universibo;
+
+--
+-- Name: news; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE news (
+    id_news integer DEFAULT nextval(('"news_id_news_seq"'::text)::regclass) NOT NULL,
+    titolo character varying(150) NOT NULL,
+    data_inserimento integer NOT NULL,
+    data_scadenza integer,
+    notizia text,
+    id_utente integer NOT NULL,
+    eliminata character(1) DEFAULT 'N'::bpchar NOT NULL,
+    flag_urgente character(1) DEFAULT 'N'::bpchar NOT NULL,
+    data_modifica integer
+);
+
+
+ALTER TABLE public.news OWNER TO universibo;
+
+--
+-- Name: news_canale; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE news_canale (
+    id_news integer NOT NULL,
+    id_canale integer NOT NULL
+);
+
+
+ALTER TABLE public.news_canale OWNER TO universibo;
+
+--
+-- Name: news_id_news_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE news_id_news_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.news_id_news_seq OWNER TO universibo;
+
+--
+-- Name: news_inserite_giorno; Type: VIEW; Schema: public; Owner: universibo
+--
+
+CREATE VIEW news_inserite_giorno AS
+    SELECT max(date_part('dow'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((news.data_inserimento)::double precision * '00:00:01'::interval)))) AS giornos, date_part('day'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((news.data_inserimento)::double precision * '00:00:01'::interval))) AS giorno, date_part('month'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((news.data_inserimento)::double precision * '00:00:01'::interval))) AS mese, date_part('year'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((news.data_inserimento)::double precision * '00:00:01'::interval))) AS anno, count(news.id_news) AS totale_news FROM news GROUP BY date_part('year'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((news.data_inserimento)::double precision * '00:00:01'::interval))), date_part('month'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((news.data_inserimento)::double precision * '00:00:01'::interval))), date_part('day'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((news.data_inserimento)::double precision * '00:00:01'::interval))) ORDER BY date_part('year'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((news.data_inserimento)::double precision * '00:00:01'::interval))), date_part('month'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((news.data_inserimento)::double precision * '00:00:01'::interval))), date_part('day'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((news.data_inserimento)::double precision * '00:00:01'::interval)));
+
+
+ALTER TABLE public.news_inserite_giorno OWNER TO universibo;
+
+--
+-- Name: VIEW news_inserite_giorno; Type: COMMENT; Schema: public; Owner: universibo
+--
+
+COMMENT ON VIEW news_inserite_giorno IS 'Seleziona le news inserite per giorno';
+
+
+--
+-- Name: news_inserite_mese; Type: VIEW; Schema: public; Owner: universibo
+--
+
+CREATE VIEW news_inserite_mese AS
+    SELECT news_inserite_giorno.mese, news_inserite_giorno.anno, sum(news_inserite_giorno.totale_news) AS news_mese FROM news_inserite_giorno GROUP BY news_inserite_giorno.anno, news_inserite_giorno.mese ORDER BY news_inserite_giorno.anno DESC, news_inserite_giorno.mese DESC;
+
+
+ALTER TABLE public.news_inserite_mese OWNER TO universibo;
+
+--
+-- Name: VIEW news_inserite_mese; Type: COMMENT; Schema: public; Owner: universibo
+--
+
+COMMENT ON VIEW news_inserite_mese IS 'Seleziona le news inserite in ogni mese';
+
+
+--
+-- Name: nome_insegnamenti; Type: VIEW; Schema: public; Owner: universibo
+--
+
+CREATE VIEW nome_insegnamenti AS
+    SELECT i.id_canale, m.desc_materia, i.cod_ril, d.nome_doc, i.cod_corso, i.anno_accademico FROM insegnamenti i, classi_materie m, docente d WHERE (((i.cod_materia_ins)::text = (m.cod_materia)::text) AND ((i.cod_doc)::text = (d.cod_doc)::text));
+
+
+ALTER TABLE public.nome_insegnamenti OWNER TO universibo;
+
+--
+-- Name: notifica; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE notifica (
+    id_notifica integer NOT NULL,
+    urgente character(1) NOT NULL,
+    messaggio text NOT NULL,
+    titolo character varying(200) NOT NULL,
+    "timestamp" integer NOT NULL,
+    destinatario character varying(200) NOT NULL,
+    eliminata character(1) NOT NULL
+);
+
+
+ALTER TABLE public.notifica OWNER TO universibo;
+
+--
+-- Name: notifica_id_notifica_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE notifica_id_notifica_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.notifica_id_notifica_seq OWNER TO universibo;
+
+--
+-- Name: notifica_id_notifica_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: universibo
+--
+
+ALTER SEQUENCE notifica_id_notifica_seq OWNED BY notifica.id_notifica;
+
+
+--
+-- Name: people_id_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE people_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.people_id_seq OWNER TO universibo;
+
+--
+-- Name: people; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE people (
+    id integer DEFAULT nextval('people_id_seq'::regclass) NOT NULL,
+    unibo_id integer,
+    given_name character varying(160) NOT NULL,
+    surname character varying(160) DEFAULT NULL::character varying
+);
+
+
+ALTER TABLE public.people OWNER TO universibo;
+
+--
+-- Name: prg_sdop_id_sdop_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE prg_sdop_id_sdop_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.prg_sdop_id_sdop_seq OWNER TO universibo;
+
+--
+-- Name: prg_sdoppiamento_r_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE prg_sdoppiamento_r_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.prg_sdoppiamento_r_seq OWNER TO universibo;
+
+--
+-- Name: prg_sdoppiamento_rr_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE prg_sdoppiamento_rr_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.prg_sdoppiamento_rr_seq OWNER TO universibo;
+
+--
+-- Name: questionario; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE questionario (
+    id_questionario integer DEFAULT nextval(('"questionario_id_questionari_seq"'::text)::regclass) NOT NULL,
+    data integer NOT NULL,
+    nome character varying(50) NOT NULL,
+    cognome character varying(50) NOT NULL,
+    mail character varying(50) NOT NULL,
+    telefono character varying(50) NOT NULL,
+    tempo_disp smallint NOT NULL,
+    tempo_internet smallint NOT NULL,
+    attiv_offline character(1) DEFAULT 'N'::bpchar NOT NULL,
+    attiv_moderatore character(1) DEFAULT 'N'::bpchar NOT NULL,
+    attiv_contenuti character(1) DEFAULT 'N'::bpchar NOT NULL,
+    attiv_test character(1) DEFAULT 'N'::bpchar NOT NULL,
+    attiv_grafica character(1) DEFAULT 'N'::bpchar NOT NULL,
+    attiv_prog character(1) DEFAULT 'N'::bpchar NOT NULL,
+    altro text NOT NULL,
+    id_utente integer NOT NULL,
+    cdl character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.questionario OWNER TO universibo;
+
+--
+-- Name: questionario_id_questionari_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE questionario_id_questionari_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.questionario_id_questionari_seq OWNER TO universibo;
+
+--
+-- Name: rub_docente; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE rub_docente (
+    cod_doc character varying(6) NOT NULL,
+    nome character varying(30),
+    cognome character varying(40),
+    prefissonome character varying(15),
+    sesso smallint,
+    email character varying(50),
+    descrizionestruttura character varying(100),
+    flag_origine smallint
+);
+
+
+ALTER TABLE public.rub_docente OWNER TO universibo;
+
+--
+-- Name: sms_inviati; Type: VIEW; Schema: public; Owner: universibo
+--
+
+CREATE VIEW sms_inviati AS
+    SELECT notifica."timestamp", date_part('day'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((notifica."timestamp")::double precision * '00:00:01'::interval))) AS giorno, date_part('month'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((notifica."timestamp")::double precision * '00:00:01'::interval))) AS mese, date_part('year'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((notifica."timestamp")::double precision * '00:00:01'::interval))) AS anno, count(notifica."timestamp") AS count FROM notifica WHERE ((notifica.urgente = 'S'::bpchar) AND ("substring"((notifica.destinatario)::text, 1, 3) = 'sms'::text)) GROUP BY notifica."timestamp" ORDER BY date_part('year'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((notifica."timestamp")::double precision * '00:00:01'::interval))), date_part('month'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((notifica."timestamp")::double precision * '00:00:01'::interval))), date_part('day'::text, ('1970-01-01 00:00:00'::timestamp without time zone + ((notifica."timestamp")::double precision * '00:00:01'::interval))), notifica."timestamp";
+
+
+ALTER TABLE public.sms_inviati OWNER TO universibo;
+
+--
+-- Name: VIEW sms_inviati; Type: COMMENT; Schema: public; Owner: universibo
+--
+
+COMMENT ON VIEW sms_inviati IS 'Visualizza gli sms inviati ogni giorno';
+
+
+--
+-- Name: stat_accessi_id_accesso_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE stat_accessi_id_accesso_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.stat_accessi_id_accesso_seq OWNER TO universibo;
+
+--
+-- Name: stat_canale_file; Type: VIEW; Schema: public; Owner: universibo
+--
+
+CREATE VIEW stat_canale_file AS
+    SELECT c.id_canale, count(fic.id_file) AS canale_files, sum(fi.dimensione) AS canale_dimensione, sum(fi.download) AS canale_download FROM file_canale fic, canale c, file fi WHERE ((fic.id_canale = c.id_canale) AND (fi.id_file = fic.id_file)) GROUP BY c.id_canale;
+
+
+ALTER TABLE public.stat_canale_file OWNER TO universibo;
+
+--
+-- Name: VIEW stat_canale_file; Type: COMMENT; Schema: public; Owner: universibo
+--
+
+COMMENT ON VIEW stat_canale_file IS 'seleziona le statistiche sui files dei canali';
+
+
+--
+-- Name: stat_canale_info; Type: VIEW; Schema: public; Owner: universibo
+--
+
+CREATE VIEW stat_canale_info AS
+    SELECT info_didattica.id_canale, 1 AS flag_info FROM info_didattica WHERE (((((((((info_didattica.programma <> ''::text) OR ((info_didattica.programma_link)::text <> ''::text)) OR (info_didattica.testi_consigliati <> ''::text)) OR ((info_didattica.testi_consigliati_link)::text <> ''::text)) OR (info_didattica.modalita <> ''::text)) OR ((info_didattica.modalita_link)::text <> ''::text)) OR (info_didattica.obiettivi_esame <> ''::text)) OR ((info_didattica.obiettivi_esame_link)::text <> ''::text)) OR (info_didattica.appelli <> ''::text));
+
+
+ALTER TABLE public.stat_canale_info OWNER TO universibo;
+
+--
+-- Name: VIEW stat_canale_info; Type: COMMENT; Schema: public; Owner: universibo
+--
+
+COMMENT ON VIEW stat_canale_info IS 'Pone un flag_info=1 se vi sono informazioni nell''insegnamento';
+
+
+--
+-- Name: stat_canale_news; Type: VIEW; Schema: public; Owner: universibo
+--
+
+CREATE VIEW stat_canale_news AS
+    SELECT c.id_canale, count(nc.id_news) AS canale_news FROM canale c, news_canale nc WHERE (c.id_canale = nc.id_canale) GROUP BY c.id_canale ORDER BY count(nc.id_news) DESC;
+
+
+ALTER TABLE public.stat_canale_news OWNER TO universibo;
+
+--
+-- Name: VIEW stat_canale_news; Type: COMMENT; Schema: public; Owner: universibo
+--
+
+COMMENT ON VIEW stat_canale_news IS 'Seleziona il totale di news inserite in ogni canale';
+
+
+--
+-- Name: stat_download_id_download_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE stat_download_id_download_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.stat_download_id_download_seq OWNER TO universibo;
+
+--
+-- Name: stat_login_id_login_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE stat_login_id_login_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.stat_login_id_login_seq OWNER TO universibo;
+
+--
+-- Name: stat_visite_id_visita_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE stat_visite_id_visita_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.stat_visite_id_visita_seq OWNER TO universibo;
+
+--
+-- Name: step_id_step_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE step_id_step_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.step_id_step_seq OWNER TO universibo;
+
+--
+-- Name: step_log; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE step_log (
+    id_step integer DEFAULT nextval(('"step_id_step_seq"'::text)::regclass) NOT NULL,
+    id_utente integer NOT NULL,
+    data_ultima_interazione integer NOT NULL,
+    nome_classe character varying(255) NOT NULL,
+    esito_positivo character(1)
+);
+
+
+ALTER TABLE public.step_log OWNER TO universibo;
+
+--
+-- Name: step_parametri; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE step_parametri (
+    id_step integer NOT NULL,
+    callback_name character varying(255) NOT NULL,
+    param_name character varying(255) NOT NULL,
+    param_value character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.step_parametri OWNER TO universibo;
+
+--
+-- Name: studente_richi_id_argomento_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE studente_richi_id_argomento_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.studente_richi_id_argomento_seq OWNER TO universibo;
+
+--
+-- Name: studente_richiede_id_utente_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE studente_richiede_id_utente_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.studente_richiede_id_utente_seq OWNER TO universibo;
+
+--
+-- Name: utente_canale; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE utente_canale (
+    id_utente integer NOT NULL,
+    id_canale integer NOT NULL,
+    ultimo_accesso integer,
+    ruolo integer,
+    my_universibo character(1),
+    notifica integer,
+    nascosto character(1) DEFAULT 'N'::bpchar,
+    nome character varying(60)
+);
+
+
+ALTER TABLE public.utente_canale OWNER TO universibo;
+
+--
+-- Name: utente_richied_id_argomento_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE utente_richied_id_argomento_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.utente_richied_id_argomento_seq OWNER TO universibo;
+
+--
+-- Name: utente_richiede_a_id_utente_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE utente_richiede_a_id_utente_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.utente_richiede_a_id_utente_seq OWNER TO universibo;
+
+--
+-- Name: id_canale; Type: DEFAULT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY canale ALTER COLUMN id_canale SET DEFAULT nextval('canale_id_canale_seq'::regclass);
+
+
+--
+-- Name: id_file_categoria; Type: DEFAULT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY file_categoria ALTER COLUMN id_file_categoria SET DEFAULT nextval('file_categoria_id_file_categoria_seq'::regclass);
+
+
+--
+-- Name: id_commento; Type: DEFAULT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY file_studente_commenti ALTER COLUMN id_commento SET DEFAULT nextval('file_studente_commenti_id_commento_seq'::regclass);
+
+
+--
+-- Name: id_file_tipo; Type: DEFAULT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY file_tipo ALTER COLUMN id_file_tipo SET DEFAULT nextval('file_tipo_id_file_tipo_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY fos_user ALTER COLUMN id SET DEFAULT nextval('fos_user_id_seq'::regclass);
+
+
+--
+-- Name: id_help; Type: DEFAULT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY help ALTER COLUMN id_help SET DEFAULT nextval('help_id_help_seq'::regclass);
+
+
+--
+-- Name: id_link; Type: DEFAULT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY link ALTER COLUMN id_link SET DEFAULT nextval('link_id_link_seq'::regclass);
+
+
+--
+-- Name: id_notifica; Type: DEFAULT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY notifica ALTER COLUMN id_notifica SET DEFAULT nextval('notifica_id_notifica_seq'::regclass);
+
+
+--
+-- Name: canale_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY canale
+    ADD CONSTRAINT canale_pkey PRIMARY KEY (id_canale);
+
+
+--
+-- Name: classi_corsi_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY classi_corso
+    ADD CONSTRAINT classi_corsi_pkey PRIMARY KEY (cod_corso);
+
+
+--
+-- Name: classi_materie_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY classi_materie
+    ADD CONSTRAINT classi_materie_pkey PRIMARY KEY (cod_materia);
+
+
+--
+-- Name: collaboratore_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY collaboratore
+    ADD CONSTRAINT collaboratore_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: contacts_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY contacts
+    ADD CONSTRAINT contacts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: docente2_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY docente2
+    ADD CONSTRAINT docente2_pkey PRIMARY KEY (cod_doc);
+
+
+--
+-- Name: docente_contatti_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY docente_contatti
+    ADD CONSTRAINT docente_contatti_pkey PRIMARY KEY (cod_doc);
+
+
+--
+-- Name: docente_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY docente
+    ADD CONSTRAINT docente_pkey PRIMARY KEY (cod_doc);
+
+
+--
+-- Name: facolta_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY facolta
+    ADD CONSTRAINT facolta_pkey PRIMARY KEY (cod_fac);
+
+
+--
+-- Name: file_canale_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY file_canale
+    ADD CONSTRAINT file_canale_pkey PRIMARY KEY (id_file, id_canale);
+
+
+--
+-- Name: file_categoria_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY file_categoria
+    ADD CONSTRAINT file_categoria_pkey PRIMARY KEY (id_file_categoria);
+
+
+--
+-- Name: file_keywords_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY file_keywords
+    ADD CONSTRAINT file_keywords_pkey PRIMARY KEY (id_file, keyword);
+
+
+--
+-- Name: file_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY file
+    ADD CONSTRAINT file_pkey PRIMARY KEY (id_file);
+
+
+--
+-- Name: file_studente_canale_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY file_studente_canale
+    ADD CONSTRAINT file_studente_canale_pkey PRIMARY KEY (id_file);
+
+
+--
+-- Name: file_studente_commenti_id_file_key; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY file_studente_commenti
+    ADD CONSTRAINT file_studente_commenti_id_file_key UNIQUE (id_file, id_utente, id_commento);
+
+
+--
+-- Name: file_studente_commenti_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY file_studente_commenti
+    ADD CONSTRAINT file_studente_commenti_pkey PRIMARY KEY (id_commento);
+
+
+--
+-- Name: file_tipo_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY file_tipo
+    ADD CONSTRAINT file_tipo_pkey PRIMARY KEY (id_file_tipo);
+
+
+--
+-- Name: fos_group_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY fos_group
+    ADD CONSTRAINT fos_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: fos_user_ismemberof_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY fos_user_ismemberof
+    ADD CONSTRAINT fos_user_ismemberof_pkey PRIMARY KEY (user_id, ismemberof_id);
+
+
+--
+-- Name: fos_user_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY fos_user
+    ADD CONSTRAINT fos_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: fos_user_user_group_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY fos_user_group
+    ADD CONSTRAINT fos_user_user_group_pkey PRIMARY KEY (user_id, group_id);
+
+
+--
+-- Name: help_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY help
+    ADD CONSTRAINT help_pkey PRIMARY KEY (id_help);
+
+
+--
+-- Name: help_riferimento_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY help_riferimento
+    ADD CONSTRAINT help_riferimento_pkey PRIMARY KEY (riferimento, id_help);
+
+
+--
+-- Name: help_topic_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY help_topic
+    ADD CONSTRAINT help_topic_pkey PRIMARY KEY (riferimento);
+
+
+--
+-- Name: info_didattica_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY info_didattica
+    ADD CONSTRAINT info_didattica_pkey PRIMARY KEY (id_canale);
+
+
+--
+-- Name: informativa_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY informativa
+    ADD CONSTRAINT informativa_pkey PRIMARY KEY (id_informativa);
+
+
+--
+-- Name: ismemberof_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY ismemberof
+    ADD CONSTRAINT ismemberof_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: link_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY link
+    ADD CONSTRAINT link_pkey PRIMARY KEY (id_link);
+
+
+--
+-- Name: migration_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY migration_versions
+    ADD CONSTRAINT migration_versions_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: news_canale_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY news_canale
+    ADD CONSTRAINT news_canale_pkey PRIMARY KEY (id_news, id_canale);
+
+
+--
+-- Name: news_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY news
+    ADD CONSTRAINT news_pkey PRIMARY KEY (id_news);
+
+
+--
+-- Name: notifica_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY notifica
+    ADD CONSTRAINT notifica_pkey PRIMARY KEY (id_notifica);
+
+
+--
+-- Name: people_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY people
+    ADD CONSTRAINT people_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: questionario_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY questionario
+    ADD CONSTRAINT questionario_pkey PRIMARY KEY (id_questionario);
+
+
+--
+-- Name: rub_docente_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY rub_docente
+    ADD CONSTRAINT rub_docente_pkey PRIMARY KEY (cod_doc);
+
+
+--
+-- Name: sdoppiamenti_attivi_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY prg_sdoppiamento
+    ADD CONSTRAINT sdoppiamenti_attivi_pkey PRIMARY KEY (anno_accademico, anno_corso, anno_corso_ins, cod_corso, cod_ind, cod_materia, cod_materia_ins, cod_ori, cod_ril);
+
+
+--
+-- Name: step_log_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY step_log
+    ADD CONSTRAINT step_log_pkey PRIMARY KEY (id_step);
+
+
+--
+-- Name: step_parametri_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY step_parametri
+    ADD CONSTRAINT step_parametri_pkey PRIMARY KEY (id_step, callback_name, param_name);
+
+
+--
+-- Name: utente_argomento_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY utente_canale
+    ADD CONSTRAINT utente_argomento_pkey PRIMARY KEY (id_utente, id_canale);
+
+
+--
+-- Name: canale_id_canale_key; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE INDEX canale_id_canale_key ON canale USING btree (id_canale);
+
+
+--
+-- Name: classi_materie_cod_materia_key; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE INDEX classi_materie_cod_materia_key ON classi_materie USING btree (cod_materia);
+
+
+--
+-- Name: docente2_cod_doc_key; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE UNIQUE INDEX docente2_cod_doc_key ON docente2 USING btree (cod_doc);
+
+
+--
+-- Name: docente_cod_doc_key; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE UNIQUE INDEX docente_cod_doc_key ON docente USING btree (cod_doc);
+
+
+--
+-- Name: file_canale_id_canale_key; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE INDEX file_canale_id_canale_key ON file_canale USING btree (id_canale);
+
+
+--
+-- Name: file_canale_id_file_key; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE INDEX file_canale_id_file_key ON file_canale USING btree (id_file);
+
+
+--
+-- Name: file_studente_canale_id_file_key; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE INDEX file_studente_canale_id_file_key ON file_studente_canale USING btree (id_file);
+
+
+--
+-- Name: idx_33401573a76ed395; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE INDEX idx_33401573a76ed395 ON contacts USING btree (user_id);
+
+
+--
+-- Name: idx_957a6479217bbb47; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE INDEX idx_957a6479217bbb47 ON fos_user USING btree (person_id);
+
+
+--
+-- Name: idx_b3c77447a76ed395; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE INDEX idx_b3c77447a76ed395 ON fos_user_group USING btree (user_id);
+
+
+--
+-- Name: idx_b3c77447fe54d947; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE INDEX idx_b3c77447fe54d947 ON fos_user_group USING btree (group_id);
+
+
+--
+-- Name: idx_e352958d45e18be7; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE INDEX idx_e352958d45e18be7 ON fos_user_ismemberof USING btree (ismemberof_id);
+
+
+--
+-- Name: idx_e352958da76ed395; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE INDEX idx_e352958da76ed395 ON fos_user_ismemberof USING btree (user_id);
+
+
+--
+-- Name: news_canale_id_canale_key; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE INDEX news_canale_id_canale_key ON news_canale USING btree (id_canale);
+
+
+--
+-- Name: news_canale_id_news_key; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE INDEX news_canale_id_news_key ON news_canale USING btree (id_news);
+
+
+--
+-- Name: notifica_eliminata; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE INDEX notifica_eliminata ON notifica USING btree (eliminata);
+
+
+--
+-- Name: notifica_timestamp; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE INDEX notifica_timestamp ON notifica USING btree ("timestamp");
+
+
+--
+-- Name: questionario_id_questionario_ke; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE INDEX questionario_id_questionario_ke ON questionario USING btree (id_questionario);
+
+
+--
+-- Name: uniq_28166a266c57f6ed; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE UNIQUE INDEX uniq_28166a266c57f6ed ON people USING btree (unibo_id);
+
+
+--
+-- Name: uniq_4b019ddb5e237e06; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE UNIQUE INDEX uniq_4b019ddb5e237e06 ON fos_group USING btree (name);
+
+
+--
+-- Name: uniq_957a647992fc23a8; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE UNIQUE INDEX uniq_957a647992fc23a8 ON fos_user USING btree (username_canonical);
+
+
+--
+-- Name: uniq_957a6479a0d96fbf; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE UNIQUE INDEX uniq_957a6479a0d96fbf ON fos_user USING btree (email_canonical);
+
+
+--
+-- Name: uniq_b6092a05f872060d; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE UNIQUE INDEX uniq_b6092a05f872060d ON collaboratore USING btree (id_utente);
+
+
+--
+-- Name: uniq_df975e575e237e06; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE UNIQUE INDEX uniq_df975e575e237e06 ON ismemberof USING btree (name);
+
+
+--
+-- Name: classi_corso_id_canale_fkey; Type: FK CONSTRAINT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY classi_corso
+    ADD CONSTRAINT classi_corso_id_canale_fkey FOREIGN KEY (id_canale) REFERENCES canale(id_canale) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: docente_id_utente_fkey; Type: FK CONSTRAINT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY docente
+    ADD CONSTRAINT docente_id_utente_fkey FOREIGN KEY (id_utente) REFERENCES fos_user(id) ON DELETE SET NULL;
+
+
+--
+-- Name: facolta_id_canale_fkey; Type: FK CONSTRAINT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY facolta
+    ADD CONSTRAINT facolta_id_canale_fkey FOREIGN KEY (id_canale) REFERENCES canale(id_canale) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: fk_33401573a76ed395; Type: FK CONSTRAINT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY contacts
+    ADD CONSTRAINT fk_33401573a76ed395 FOREIGN KEY (user_id) REFERENCES fos_user(id);
+
+
+--
+-- Name: fk_957a6479217bbb47; Type: FK CONSTRAINT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY fos_user
+    ADD CONSTRAINT fk_957a6479217bbb47 FOREIGN KEY (person_id) REFERENCES people(id);
+
+
+--
+-- Name: fk_b3c77447a76ed395; Type: FK CONSTRAINT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY fos_user_group
+    ADD CONSTRAINT fk_b3c77447a76ed395 FOREIGN KEY (user_id) REFERENCES fos_user(id);
+
+
+--
+-- Name: fk_b3c77447fe54d947; Type: FK CONSTRAINT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY fos_user_group
+    ADD CONSTRAINT fk_b3c77447fe54d947 FOREIGN KEY (group_id) REFERENCES fos_group(id);
+
+
+--
+-- Name: fk_b6092a05f872060d; Type: FK CONSTRAINT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY collaboratore
+    ADD CONSTRAINT fk_b6092a05f872060d FOREIGN KEY (id_utente) REFERENCES fos_user(id);
+
+
+--
+-- Name: fk_e352958d45e18be7; Type: FK CONSTRAINT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY fos_user_ismemberof
+    ADD CONSTRAINT fk_e352958d45e18be7 FOREIGN KEY (ismemberof_id) REFERENCES ismemberof(id);
+
+
+--
+-- Name: fk_e352958da76ed395; Type: FK CONSTRAINT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY fos_user_ismemberof
+    ADD CONSTRAINT fk_e352958da76ed395 FOREIGN KEY (user_id) REFERENCES fos_user(id);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+SET search_path = public, pg_catalog;
+
+--
+-- Data for Name: migration_versions; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY migration_versions (version) FROM stdin;
+20120609002753
+20120919204917
+20120919210230
+20120921151004
+20120924000212
+20120924165745
+20121011120358
+20121011154244
+20121011175005
+20121026171424
+20121026172131
+20121030112258
+20121030125240
+20121030140048
+20121030222900
+20121031130458
+20121104114246
+20121104132749
+20121109124047
+20121113220954
+20121221214920
+20130102154033
+20130125021448
+\.
+
+
+--
+-- PostgreSQL database dump complete
+--
+
