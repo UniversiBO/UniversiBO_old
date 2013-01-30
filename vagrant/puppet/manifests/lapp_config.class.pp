@@ -14,6 +14,12 @@ class lapp_config
         password => 'universibo'
     }
 
+
+    service { 'varnish':
+        name    => 'varnish',
+        ensure  => running
+    }
+
     file { '/etc/apache2/conf.d/user':
         content => "User vagrant\nGroup vagrant"
     }
@@ -21,7 +27,15 @@ class lapp_config
     file { 'varnish-conf':
         path   => '/etc/varnish/default.vcl',
         ensure => present,
-        source => '/vagrant/vagrant/resources/app/etc/varnish/default.vcl'
+        source => '/vagrant/vagrant/resources/app/etc/varnish/default.vcl',
+        notify => Service['varnish']
+    }
+    
+     file { 'varnish-default':
+        path   => '/etc/default/varnish',
+        ensure => present,
+        source => '/vagrant/vagrant/resources/app/etc/default/varnish',
+        notify => Service['varnish']
     }
     
     file { 'apache-ports':
