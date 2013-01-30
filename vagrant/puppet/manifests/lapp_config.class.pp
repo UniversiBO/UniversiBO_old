@@ -1,11 +1,18 @@
+include postgresql::server
+
 class {'apache':  }
 
 class lapp_config
 {
-#    postgresql::db { 'universibo':
-#        user     => 'universibo',
-#        password => 'universibo'
-#    }
+    postgresql::db { 'universibo':
+        user     => 'universibo',
+        password => 'universibo'
+    }
+
+    postgresql::db { 'universibo_forum3':
+        user     => 'universibo',
+        password => 'universibo'
+    }
 
     file { '/etc/apache2/conf.d/user':
         content => "User vagrant\nGroup vagrant"
