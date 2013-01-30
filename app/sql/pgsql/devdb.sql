@@ -8,20 +8,6 @@ SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
 SET search_path = public, pg_catalog;
 
 --
@@ -1555,7 +1541,7 @@ SELECT pg_catalog.setval('argomento_set_id_argomento__seq', 1, false);
 --
 
 COPY canale (id_canale, tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo, files_studenti_attivo) FROM stdin;
-1	2	Home	\N	8	\N	127	 	\N	N	\N	\N	S	S
+1	2	Home	\N	19	\N	127	 	\N	N	\N	\N	S	S
 \.
 
 
@@ -1602,6 +1588,7 @@ SELECT pg_catalog.setval('collaboratore_id_seq', 1, false);
 --
 
 COPY contacts (id, user_id, value, verification_token, verification_sent_at, verified_at) FROM stdin;
+1	2	moderator@example.org	\N	\N	2013-01-30 14:48:47
 \.
 
 
@@ -1609,7 +1596,7 @@ COPY contacts (id, user_id, value, verification_token, verification_sent_at, ver
 -- Name: contacts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
 --
 
-SELECT pg_catalog.setval('contacts_id_seq', 1, false);
+SELECT pg_catalog.setval('contacts_id_seq', 1, true);
 
 
 --
@@ -1755,7 +1742,12 @@ SELECT pg_catalog.setval('fos_group_id_seq', 1, false);
 --
 
 COPY fos_user (id, username, username_canonical, email, email_canonical, enabled, salt, password, last_login, locked, expired, expires_at, confirmation_token, password_requested_at, roles, credentials_expired, credentials_expire_at, phone, notifications, groups, person_id, username_locked, encoder_name, forum_id) FROM stdin;
-1	admin	admin	admin@example.org	admin@example.org	t	w4frwrfdpsvm4'3r0iefwpocmzxoHwkrwer0	oQJgi8BRCtV60Iq7+g3iXr34Wn86i/VwpLG/LCw1MXpprs8gcxpHF+OWa6IzFzROdaD0sR+y9jmLhVZzzI1pmg==	\N	f	f	\N	\N	\N	a:1:{i:0;s:10:"ROLE_ADMIN";}	f	\N	\N	0	64	\N	t	\N	\N
+1	admin	admin	admin@example.org	admin@example.org	t	w4frwrfdpsvm4'3r0iefwpocmzxoHwkrwer0	oQJgi8BRCtV60Iq7+g3iXr34Wn86i/VwpLG/LCw1MXpprs8gcxpHF+OWa6IzFzROdaD0sR+y9jmLhVZzzI1pmg==	2013-01-30 14:41:24	f	f	\N	\N	\N	a:1:{i:0;s:10:"ROLE_ADMIN";}	f	\N	\N	0	64	\N	t	\N	\N
+3	professor	professor	professor@example.org	professor@example.org	t	XfXwfjsd,.mwre.WwAervBuZatBhax	hy+pZG2Gs6MG6cRmtod1uPGP2CmuC2UByhFG0ttl7eV4ujfmCbxYl5IG05CYUaMbioD84LCe3llcwz6QPG/PNw==	\N	f	f	\N	\N	\N	a:1:{i:0;s:14:"ROLE_PROFESSOR";}	f	\N	\N	0	16	\N	t	\N	\N
+2	moderator	moderator	moderator@example.org	moderator@example.org	t	WEFcdcdsv4252::edcqr32.exX,4534,m,	k69027W0fKS8GRwFd/AhVP1vs3yg53FPTxutplIwGFQeydHAjPk8l+5jxMvBh3paEVXIOa8j7YBu7SZZwAxFfA==	2013-01-30 14:57:05	f	f	\N	\N	\N	a:1:{i:0;s:14:"ROLE_MODERATOR";}	f	\N	\N	0	4	\N	t	\N	\N
+4	tutor	tutor	tutor@example.org	tutor@example.org	t	CcXcvwe#TewtX,.crtwet8342,',	82Q1V3vZQhDZEp83YGH0GiPwHisCcl8IILq0JNvelOcrrnUu24Ipp1VpB3O9dcnjZ+rgwXSHcoBIu7IfSEvquA==	\N	f	f	\N	\N	\N	a:1:{i:0;s:10:"ROLE_TUTOR";}	f	\N	\N	0	8	\N	t	\N	\N
+6	student	student	student@example.org	student@example.org	t	sdf"324##[]Ccd	pfA4ZXpBVJDQBIba3PkNuqbWyrMlMmUapjxLIRZLFnX9+NibweGVaCSLA/UE+587Fr9k+8pz873g1viEs8HhtQ==	\N	f	f	\N	\N	\N	a:1:{i:0;s:12:"ROLE_STUDENT";}	f	\N	\N	0	2	\N	t	\N	\N
+5	staff	staff	staff@example.org	staff@example.org	t	sdfSD4"323432#@][	C+NTFvThOFzAB21i7Pz+nhpeIPFpW3xRQTOqigCv4aPD93/Q1TRXiYEmTJrWfWvEZRS/wV/YtQRiZ4OGhJ8SwA==	\N	f	f	\N	\N	\N	a:1:{i:0;s:10:"ROLE_STAFF";}	f	\N	\N	0	32	\N	t	\N	\N
 \.
 
 
@@ -1771,7 +1763,7 @@ COPY fos_user_group (user_id, group_id) FROM stdin;
 -- Name: fos_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
 --
 
-SELECT pg_catalog.setval('fos_user_id_seq', 1, true);
+SELECT pg_catalog.setval('fos_user_id_seq', 6, true);
 
 
 --
@@ -1787,6 +1779,36 @@ COPY fos_user_ismemberof (user_id, ismemberof_id) FROM stdin;
 --
 
 COPY help (id_help, titolo, contenuto, ultima_modifica, indice) FROM stdin;
+7	Come faccio a registrarmi presso il Portale Unibo?	La registrazione al portale è automatica per tutti gli studenti. Se non sei ancora studente ma vuoi iscriverti all'università puoi farlo all'indirizzo [url]http://studenti.unibo.it/preregistrazione[/url]	1	50
+13	Cosa é My UniversiBO?	My UniversiBO è lo strumento fondamentale di personalizzazione del sito; è infatti [b]fondamentale[/b] per lo sfruttamento del servizio di [url=/help/#id16]news[/url]: [b]si possono ricevere le notizie esclusivamente degli esami/servizi inseriti all'interno della propria pagina My UniversiBO[/b]!!!!	1982198217	100
+35	Come posso modificare il ciclo e l'anno di corso	Basta inserire il dato corretto nell'apposita casella di testo (i valori possibili si trovano in basso nel box di correzione).	1117109715	330
+4	Cos'e' la mail d'ateneo?	E' una casella di posta elettronica fornita [b]gratuitamente[/b] dall'Università ad ogni studente.  Vi si puo' accedere dal sito [url]https://www.dsa.unibo.it/AccessoPostaStudenti/[/url].	19000	20
+10	Come faccio a loggarmi al sito?	Il login (procedura di identificazione e accesso al sistema) non è obbligatorio: è possibile navigare all'interno delle sezioni del sito anche senza essere loggati; tuttavia si accederà come esterni e quindi molte funzionalità saranno ridotte. Naturalmente possono effettuarlo solo gli utenti in possesso di una mail @unibo.it / @studio.unibo.it o @esterni.unibo.it.\r\nPer effettuare il login[list][*]cliccate sul link login in alto a destra a fianco del lucchetto;[*]quindi inserite, se richieste le vostre credenziali di ateneo.[/list] Il sistema a questo punto vi riconoscerà e leggerà i vostri diritti di accesso in base ai quali creerù dinamicamente le pagine e vi appariranno i relativi links.	111	80
+24	Chi puo' inserire una notizia on line?	Questa e' una prerogativa dei professori nelle loro pagine d'esame, dei collaboratori nelle pagine d'esame di cui sono referenti, e dei responsabili di certe sezioni del sito nelle aree di loro competenza.	282828	210
+32	Come posso inserire un messaggio in una discussione?	Per inserire un messaggio in una discussione gia' avviata e' sufficiente entrare nel thread e cliccare sul pulsante 'Reply'.  Comparira' una nuova finestra in cui, oltre ad un form per scrivere il nuovo post, scorrendo verso il basso si potranno vedere i messaggi che sono gia' stati inseriti nel thread.  Oltre a diverse opzioni utili per 'abbellire' il messaggio, per limitarsi ad inserirlo e' sufficiente scrivere il testo e cliccare su 'Invia'.  A fianco del pulsante 'Invia' c'e' l'opzione 'Anteprima', con la quale e' possibile vedere come apparira' il messaggio prima di spedirlo effettivamente.\r\nUna volta cliccato su 'Invia', comparira' una nuova finestra in cui verra' notificato che la procedura e' stata effettuata con successo, e comparira' la possibilita' di essere inviati alla discussione in cui si e' intervenuti, nel punto in cui si e' inserito il proprio messaggio, oppure di essere reindirizzati alla pagina generale della sezione del forum cui appartiene la discussione in cui si e' scritto.	13421312	270
+19	Le news vengono spedite sulla mia mail d'ateneo, come faccio a cambiare l'indirizzo in cui ricevere la posta?	Bisogna andare nella pagina delle  [url=/my/settings/]Impostazioni[/url], cliccare su 'Impostazioni Personali' e, nel popup che vi comparirà, andare a modificare il campo 'Indirizzo e-mail' con quello desiderato. 	125632367	150
+15	Come faccio a rimuovere una pagina dalla mia pagina My UniversiBO?	Si accede alla pagina d'interesse e si clicca sul link sotto al titolo della pagina "Rimuovi questa pagina da My UniversiBO". La pagina verrà tolta dal menù di sinistra e per accedere alla pagina sarà necessario passare attraverso il corso di laurea corrispondente o attraverso il menù Servizi.	1231231321	120
+23	Come faccio a scaricare un file da UniversiBO?	Una volta giunti alla pagina in cui e' contenuto il file, bisogna cliccare sull'icona che rappresenta il download del file, a fianco del titolo del file: si aprirà la finestra con cui salvare sul proprio computer il file desiderato.\r\nAlcuni files sono scaricabili solo se iscritti ad UniversiBO, altri solo tramite l'apposita password comunicata dal professore.	21786278	200
+26	Chi puo' inserire un file su UniversiBO?	Questa è una prerogativa dei professori nelle loro pagine d'esame, dei collaboratori nelle pagine d'esame di cui sono referenti, e dei responsabili di certe sezioni del sito nelle aree di loro competenza.\r\nGli utenti del sito hanno a disposizione uno spazio ove caricare i propri files (appunti, esercizi svolti).\r\n [b]E' severamente proibito caricare files con contenuto inadeguato (pornografico, razzista, pedofilo...): la responsabilità dei files caricati è dell'utente, ma i files vengolo controllati a campione e periodicamente. UniversiBO si riserva il diritto di cancellare quelli non conformi alle regole e di bannare l'utente.[/b]	2132131	160
+29	Come faccio ad eliminare una notizia?	Per eliminare una notizia (sempre che se ne abbia i diritti, ovvero se si è un collaboratore o un professore) bisogna cliccare sul link 'Elimina'. Si passerà ad una finestra dove verrà mostrata la notizia e dove si potranno selezionare le pagine da cui si può cancellarla. Una volta selezionato almeno una pagina, se si è sicuri di volere cancellare la notizia, cliccare su 'Elimina'.	1231231	240
+31	Che cos'e' un forum?	Un forum e' una bacheca virtuale in cui ogni utente puo' inserire ([b]postare[/b]) un messaggio ([b]post[/b]).\r\nUn forum e' organizzato in sezioni, a loro volta suddivise in discussioni ([b]threads[/b] o [b]topic[/b]).\r\nN.B.: per poter interagire attivamente nel forum [url=/help/#id10]bisogna essere loggati[/url].	23412314	260
+5	Perche' devo avere la mail di Ateneo per iscrivermi ad UniversiBO?	Perche' [url=/help/#id4]la mail di Ateneo[/url] viene assegnata univocamente dall'Universita' ad ogni singolo studente iscritto, e' dunque un metodo d'identificazione di ogni utente registrato al sito UniversiBO.	1000	30
+11	Come faccio a modificare la password?	È possibile cambiare la propria password attraverso il [url=https://www.dsa.unibo.it/]Directory Service d'Ateneo[/url].	11111	90
+14	Come faccio ad inserire un esame/servizio all'interno del My UniversiBO?	Per inserire un esame all'interno del [url=/help/#id13]My UniversiBO[/url] è necessario cercare l'esame stesso nel corso di laurea ad esso corrispondente, o il servizio interessato nell'apposito menù sulla sinistra, e una volta entrati nella pagina relativa, cliccare sul link che trovate sotto le informazioni dell'esame: 'Aggiungi questa pagina a My UniversiBO'.\r\nSi passerà a una pagina nella quale verrà richiesta il livello di notifica desiderato per le news (Tutti, Solo Urgenti o Nessuna: indica la tipologia di news che desideri ricevere nella tua casella di posta) ed eventualmente un nome personalizzato per la pagina, massimo 60 caratteri.\r\nCosì facendo, ad ogni accesso al sito, l'esame in questione/il servizio desiderato comparirà nel vostro menù di sinistra alla voce 'My UniversiBO', rendendo così più immediato e veloce l'accesso alla sezione relativa (vi sarà inoltre una scritta 'NEW' ad indicarvi se vi sono aggiornamenti dall'ultimo vostro accesso alla pagina).\r\nInoltre, cliccando sull'immagine in alto ""My UniversiBO"" accederete alla vostra pagina MyUniversiBO, dove potrete visualizzare le ultime 5 news e gli ultimi 5 files inseriti nelle pagine all'interno del vostro My UniversiBO, e i files che voi avete caricato su UniversiBO.	12632212	110
+21	Come faccio a modificare un file gia' inserito nella pagina?	Per Modificare un file già presente sul sito bisogna cliccare sull'apposita icona, posta di fianco al titolo del file (ovviamente l'icona comparirà solo se l'utente ha i diritti necessari, ovvero solo se è un collaboratore o un professore).\r\nSi passerà a una pagina analoga a quella utilizzata per [url=/help/#id20]caricare il file on line[/url] con le informazioni che sono già state inserite.\r\nEffettuate le modifiche necessarie, è sufficiente cliccare sul pulsante 'Modifica'.\r\nLe modifiche verranno apportate a tutte le pagine  in cui è stato inserito il file.\r\nPer inserire una password, selezionare 'Abilita password' e scrivere la password negli appositi campi: ricordate che [b]i campi password sono riservati solo ai professori o ai file che i professori chiedono al moderatore di caricare sulla pagina[/b].\r\nSe le modifiche avranno successo,si passerà ad una pagina dove saranno presenti i link per tornare alla scheda del file o all'insegnamento in cui era stato inserito.	123719263	180
+27	Come faccio ad inserire una notizia?	Il procedimento per caricare una notizia sul sito è questo:[list=1][*][url=/help/#id10]Accedere al sito con il proprio nome utente[/url] (username).[*][url=/help/#id3]Andare nella pagina[/url] in cui si desidera che compaia la notizia: scorrendo verso il basso si potranno anche vedere le news che sono già state caricate in quella pagina.[*]Cliccare su 'Scrivi una nuova notizia'. Così facendo si passerà a una pagina con il form per spedire una notizia. I campi da compilare sono:[list][*]Titolo: inserire un titolo significativo per la notizia.[*]Data e Ora di inserimento: questi campi vengono completati automaticamente; se lo si desidera, si puòcambiarle: ciò può essere molto utile nel caso in cui si voglia che la notizia non compaia prima di una certa data e ora in quanto [b]le news vengono visualizzate solo se la data attuale è posteriore a quella di inserimento[/b].\r\n[*]Notizia: bisogna inserire qui il testo della notizia cercando di essere il più sintetici possibile.[*]Attiva scadenza: selezionando questo campo e compilando quelli che indicano la data e l'ora di scadenza, si fisserà il momento in cui la notizia non sarà più visualizzata nella pagina.  è consigliabile inserire sempre una scadenza, se possibile: in tal modo si semplifica la manutenzione del sito che così diventa automatica, e la pagina non verrà appesantita da notizie che risulteranno inutili dopo una certa data e dunque non sarà più utile leggere.[*]Data e Ora di scadenza: nel caso sia stato attivato il servizio di scadenza, bisogna riempire questi campi per fissare il momento in cui la notizia diverrà inutile.\r\n[*]Invia il messaggio come urgente: selezionando questa opzione, la notizia giungerà ad un maggior numero di persone che hanno sia inserito l'insegnamento nei loro preferiti, sia inserito il proprio numero di cellulare nel profilo.\r\n[*]La notizia verrà inserita negli argomenti: qui vengono selezionati tutti gli insegnamenti/corsi in cui l'utente può inserire una notizia. Selezionando più di una casella, la notizia verrà inserita in tutte le pagine corrispondenti. [b]Attenzione! [url=/help/#id28]Se la notizia viene modificata[/url], la modifica comparirà in tutte le pagine dove è presente![/b]\r\n[/list][*]Cliccare su 'Inserisci'.[/list]Se la procedura è stata completata con successo, verrà visualizzata una pagina che confermerà che la notizia è stata inserita, quindi si può cliccare sul link ""Torna a..."" con cui si ritornerà alla pagina dove è stata inserita la notizia, che sarà presente in cima. Altrimenti si tornerà al form d'inserimento della notizia.	12321314	220
+28	Come faccio a modificare una notizia?	Per modificare una notizia già presente sul sito bisogna cliccare su link 'Modifica' che vi viene visualizzato al di sotto della notizia (ovviamente l'opzione comparira' solo se l'utente ha i diritti necessari, ovvero solo se è un collaboratore o un professore).\r\nSi passerà a una pagina analoga a quella per [url=/help/#id27]l'inserimento della notizia[/url] con la notizia come è ancora memorizzata in alto, e sotto il form con le informazioni che sono già state scritte. Effettuate le modifiche necessarie, è sufficiente cliccare sul pulsante 'Modifica'.\r\nSe la modifica ha avuto successo, comparirà una notifica. La modifica comparirà in tutte quelle pagine in cui era stata inserita precedentemente la notizia.	132123123	230
+20	Come faccio ad inserire un file su UniversiBO?	Il procedimento per caricare un file sul sito è questo:[list=1][*][url=/help/#id10]Accedere al sito col proprio nome utente[/url] (username)[*][url=/help/#id3]Andare nella pagina[/url] in cui si desidera che compaia il file: scorrendo verso il basso si potranno anche vedere i files che sono già stati caricati in quella pagina.[*]Cliccare su 'Invia nuovo file'.  Così facendo vi comparirà una nuova finestra con un certo numero di campi da compilare:[list][*]File.  In questo campo bisogna selezionare il percorso sul computer dell'utente per raggiungere il file che si desidera caricare.    Per rendere più veloce il processo di upload (e conseguentemente di download da parte degli utenti che desidereranno scaricare il file sul loro computer) è consigliabile comprimere il file.\r\nNB: si può caricare [b]un solo file alla volta[/b], quindi per mettere on line più files bisogna ripetere la procedura\r\n[*]Titolo: Il titolo serve per distinguere il file, ed è il testo che comparirà nella pagina dove sono presenti tutti i files, quindi deve essere significativo.\r\n[*]Descrizione.  Serve per dare una descrizione esauriente del contenuto del file.\r\n[*]Parole chiave: si possono inserire al massimo 4 parole chiave, separate da un Enter/Invio. Tramite le parole chiave, si facilita la ricerca del file.\r\n[*]Categoria: Tramite questo menù a discesa si può specificare se il file appartiene ad una determinata categoria (appunti/lucidi/esercitazioni...). Se non appartiene a nessuna di quelle presenti, lasciare ""altro"".\r\n[*]Data e ora d'inserimento. Questo campo apparira' gia' compilato con la data e l'ora correnti.  L'utente ha comunque la possibilità di modificarli, nel caso desideri che essi compaiano in un secondo momento: data e ora infatti determinano il momento in cui [b]diverranno visibili agli utenti[/b] i dati caricati.\r\n[*]Permessi download: Si può scegliere se il file è scaricabile da chiunque, o solo da persone iscritte al sito UniversiBO.\r\n[*]Password e conferma password: questi campi sono [b]riservati solo ai professori o ai file che i professori chiedono al moderatore di caricare sulla pagina[/b]. Attivandoli, il file sarà scaricabile solo se si è a conoscenza della password corretta.\r\n[*]Il file verrà inserito negli argomenti: qui vengono selezionati tutti gli insegnamenti/corsi in cui l'utente può inserire un file. Selezionando più di una casella, il file verrà inserito in tutte le pagine corrispondenti.[b] Attenzione!  [url=/help/#id21]Se il file viene modificato[/url], la modifica comparirà in tutte le pagine dove è presente![/b]\r\n[/list]\r\n[*]Cliccare su invia.\r\n[/list]Se la procedura è stata completata con successo, si passerà a un'ulteriore pagina che confermerà che il file è stato salvato. Cliccando sul link ""Torna a..."" si tornerà alla pagina dove è stato inserito	1276378	170
+16	A cosa serve il servizio di news di UniversiBO?	Il servizio di news di UniversiBO permette di essere avvisati in tempo reale via e-mail/sms di ogni notizia che viene inserita nella pagina dell'esame d'interesse: è [b]necessario[/b]  [url=/help/#id14]inserire l'esame nel proprio MyUniversiBO[/url] per potere sfruttare questo servizio.	113274632	130
+33	Cos'è "modifica didattica"?	""Modifica didattica"" è un tool che permette di modificare le informazioni su anno, ciclo, docente per ogni insegnamento e sdoppiamento di UniversiBO.\r\nNella tabella ""Insegnamento selezionato"" sono presenti le informazioni riguardanti l'insegnamento/sdoppiamento che si sta per modificare. Se si tratta di uno sdoppiamento, in fondo alla tabella è presente ""status: sdoppiato"", altrimenti non compare.	1117109715	310
+9	Come faccio ad iscrivermi ad UniversiBO?	È sufficiente essere in possesso di una mail @unibo.it / @studio.unibo.it / @esterni.unibo.it ed effettuare la procedura di login. All'accettazione del regolamento e dell'informativa sulla privacy l'iscrizione è completata.	100101	70
+3	Come faccio a navigare nel sito?	Le pagine del sito sono strutturate cosi':[list][*] in alto vi è l'intestazione di UniversiBO con una piccola barra di navigazione rapida;[*]il menu di sinistra di navigazione rimane più o meno lo stesso per tutte le pagine e vi guida anche all'esterno del sito;[*]la parte centrale corrisponde alla pagina attualmente navigata;[*]il menu di destra contiene il form per il login degli utenti, alcuni servizi riferiti alla parte centrale(ad esempio il calendario).[/list]Quando entrerete nel sito vi ritroverete nella homepage in cui vi saranno le informazioni riguardanti le novità sul sito.\r\n\r\nLa struttura delle pagine interne del sito è più o meno sempre la stessa e si basa sul concetto di argomento. I servizi e le informazioni vengono ricostruiti intorno all'argomento che può essere un esame o un corso di laurea.\r\nNel corpo centrale verranno visualizzati alcuni contenuti, i link principali interni all'argomento, le ultime news relative a quell'argomento, il forum (se presente in quell'argomento) e le news.\r\nNel menu di destra verrà visualizzato il calendario di quel particolare argomento.	10111111	10
+2	Come faccio a cercare un utente?	Oltre alla ricerca per username ed email esatte, si può cercare mediante l'uso di [b]caratteri speciali[/b]:\r\n[list]\r\n[*]%: Inserendo un simbolo di percentuale, ricerca un qualunque usernamente/email che inizia con i caratteri inseriti prima, e con una qualsiasi serie di caratteri che seguono.\r\n[*]_: tramite l'underscore, dopo la parte note, si ricerca qualunque username/email che proseguono con X caratteri di un qualunque tipo, con X il numero di underscore.\r\n[/list]\r\nEsempi:\r\n[list]\r\n[*]L%: ricerca tutti gli username/email che iniziano con L\r\n[*]b____: ricerca tutti gli username/email che iniziano con b e sono lunghi 5 caratteri\r\n[/list]	111111	300
+22	Come faccio ad eliminare un file?	Per eliminare un file (sempre che se ne abbia i diritti, ovvero se si è un collaboratore o un professore) bisogna cliccare sull'apposita icona, che si trova tra l'icona del modifica e quella per scaricare il file, di fianco al titolo del file.  Si passerà a una finestra per confermare la cancellazione. \r\nSi potrà scegliere da quali insegnamenti cancellare il file (almeno uno).\r\nSe si è sicuri di volerlo cancellare, cliccare su 'Elimina'.\r\nA questo punto nessuno potrà più accedere al file al di fuori degli amministratori. Infatti, per ragioni di [b]sicurezza[/b], verrà conservata una copia del file non accessibile dal web.	182791	190
+34	Cos'è uno sdoppiamento?	E' un insegnamento comune a più corsi di laurea (stesso docente, stesso orario, ecc. ). Avremo un insegnamento ""padre"" (nel corso di laurea che attiva l'insegnamento) e i relativi ""figli"" (gli sdoppiati, negli altri corsi di laurea).\r\nEsempio:\r\nSISTEMI DI TELECOMUNICAZIONI L-A è attivato da INGEGNERIA DELLE TELECOMUNICAZIONI specialistica (insegnamento padre).\r\nMa è presente anche nel corso di laurea INGEGNERIA INFORMATICA specialistica (insegnamento figlio).\r\nSe vi sono insegnamenti/sdoppiamenti correlati a quello che si sta modificando, viene visualizzata una lista dopo i box di modifica. Se nella lista è presente il ""padre"", sarà evidenziato in azzurro (se non c'è significa che il padre è quello selezionato inizialmente).\r\nE' possibile applicare le modifiche anche agli insegnamenti/sdoppiamenti correlati selezionando quelli di interesse.\r\nE' possibile spostarsi negli insegnamenti/sdoppiamenti correlati, cliccando su un insegnamento della lista.	1117109715	320
+37	Come rendo effettive le modifiche?	Cliccando sul tasto "Esegui". Una volta premuto, non è possibile interrompere l'operazione di modifica quindi prima di mandare in esecuzione una modifica, controllate due volte per non fare errori.	1117109715	360
+36	Come posso modificare il docente?	Inserendo il codice docente nell'apposita casella di testo: il docente può essere modificato solo nel caso in cui non sia ancora stato creato il forum dell'insegnamento e solo dall'insegnamento padre. Quindi se siete su uno sdoppiamento, cliccate sull'insegnamento evidenziato in azzurro per effettuare la modifica del docente. Il docente modificato, sarà cambiato anche per tutti gli insegnamenti correlati (padre/figli).\r\nNel caso in cui non si conosca il codice del docente è possibile effettuare una ricerca per username o per e-mail. Nella ricerca si possono utilizzare dei caratteri jolly:[list][*] % sostituisce un qualsiasi numero di caratteri (esempio: una ricerca e% nel campo username, trova tutti gli username che iniziano con la lettera e)[*] _ sostituisce un singolo carattere (esempio: una ricerca ner_ nel campo username, trova tutti gli username che iniziano per ner e terminano con qualsiasi lettera)[/list] 	1117109715	350
+17	Come faccio a personalizzare il servizio di news?	Una volta [url=/help/#id14]aggiunto l'esame (o il servizio) al proprio MyUniversiBO[/url], viene impostata automaticamente dal sistema la possibilità di ricevere tutte le  [url=/help/#id16]news[/url] che vengono inserite nella pagina dell'esame d'interesse.  Una volta [url=/help/#id10]loggati[/url], andando nella pagina [url=/my/settings/]'Impostazioni personali'[/url] (link in alto a sinistra) e  cliccando su 'Profilo', troverete un campo in cui è segnato il vostro indirizzo e-mail a cui verranno spedite le news, e la possibilità di scegliere quali notizie ricevere e quali no. E' inoltre possibile inserire il proprio numero di cellulare per ricevere gratuitamente le notifiche anche sul proprio telefonino.\r\nE' possibile scegliere tra i seguenti livelli di notifica [list][*] Tutti: tutte le news arriveranno sia via mail che via sms; [*] Solo urgenti: riceverete solo gli sms; [*] Nessuna: non riceverete nessuna notifica né via mail, né via sms [/list]\r\nè comunque sempre possibile modificare la scelta di notifica effettuata, ripetendo le operazioni sopra indicate.	1231232	140
 \.
 
 
@@ -1794,7 +1816,7 @@ COPY help (id_help, titolo, contenuto, ultima_modifica, indice) FROM stdin;
 -- Name: help_id_help_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
 --
 
-SELECT pg_catalog.setval('help_id_help_seq', 1, false);
+SELECT pg_catalog.setval('help_id_help_seq', 40, true);
 
 
 --
@@ -1802,6 +1824,41 @@ SELECT pg_catalog.setval('help_id_help_seq', 1, false);
 --
 
 COPY help_riferimento (riferimento, id_help) FROM stdin;
+newsutenti	24
+newscollabs	27
+newscollabs	28
+newscollabs	29
+newscollabs	30
+newsutenti	16
+newsutenti	17
+newsutenti	19
+filesutenti	26
+filesutenti	23
+filescollabs	20
+filescollabs	21
+filescollabs	22
+iscrizione	9
+iscrizione	11
+iscrizione	4
+iscrizione	5
+iscrizione	6
+iscrizione	7
+iscrizione	8
+suggerimentinav	10
+suggerimentinav	3
+myuniversibo	14
+myuniversibo	15
+myuniversibo	13
+ruoliadmin	1
+ruoliadmin	2
+didatticagestione	33
+didatticagestione	34
+didatticagestione	35
+didatticagestione	36
+didatticagestione	37
+filestudenti	20
+filestudenti	21
+filestudenti	22
 \.
 
 
@@ -1810,6 +1867,15 @@ COPY help_riferimento (riferimento, id_help) FROM stdin;
 --
 
 COPY help_topic (riferimento, titolo, indice) FROM stdin;
+iscrizione	Come faccio ad iscrivermi ad UniversiBO?	10
+suggerimentinav	Navigazione nel sito: i primi passi.	30
+filescollabs	Voglio mettere un file on line su UniversiBO: come posso fare?	70
+filesutenti	Come faccio a scaricare i files da UniversiBO?	60
+myuniversibo	Come personalizzare My UniversiBO.	40
+newsutenti	Cos'é e come gestire il servizio di News di UniversiBO.	50
+ruoliadmin	Cercare un utente e cambiare i diritti (solo Admin)	90
+newscollabs	Voglio inserire una notizia su UniversiBO: come posso fare?	80
+didatticagestione	Modificare un insegnamento e cercare un codice docente (solo admin e collaboratori)	100
 \.
 
 
@@ -2050,7 +2116,7 @@ SELECT pg_catalog.setval('stat_visite_id_visita_seq', 1, false);
 -- Name: step_id_step_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
 --
 
-SELECT pg_catalog.setval('step_id_step_seq', 1, false);
+SELECT pg_catalog.setval('step_id_step_seq', 2, true);
 
 
 --
@@ -2058,6 +2124,8 @@ SELECT pg_catalog.setval('step_id_step_seq', 1, false);
 --
 
 COPY step_log (id_step, id_utente, data_ultima_interazione, nome_classe, esito_positivo) FROM stdin;
+1	1	1359556896	Universibo\\Bundle\\LegacyBundle\\Command\\InteractiveCommand\\InformativaPrivacyInteractiveCommand	S
+2	2	1359557762	Universibo\\Bundle\\LegacyBundle\\Command\\InteractiveCommand\\InformativaPrivacyInteractiveCommand	S
 \.
 
 
@@ -2673,159 +2741,6 @@ REVOKE ALL ON SCHEMA public FROM PUBLIC;
 REVOKE ALL ON SCHEMA public FROM postgres;
 GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
-
-
---
--- PostgreSQL database dump complete
---
-
---
--- PostgreSQL database dump
---
-
-SET statement_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-
-SET search_path = public, pg_catalog;
-
---
--- Data for Name: help; Type: TABLE DATA; Schema: public; Owner: universibo
---
-
-COPY help (id_help, titolo, contenuto, ultima_modifica, indice) FROM stdin;
-7	Come faccio a registrarmi presso il Portale Unibo?	La registrazione al portale è automatica per tutti gli studenti. Se non sei ancora studente ma vuoi iscriverti all'università puoi farlo all'indirizzo [url]http://studenti.unibo.it/preregistrazione[/url]	1	50
-13	Cosa é My UniversiBO?	My UniversiBO è lo strumento fondamentale di personalizzazione del sito; è infatti [b]fondamentale[/b] per lo sfruttamento del servizio di [url=/help/#id16]news[/url]: [b]si possono ricevere le notizie esclusivamente degli esami/servizi inseriti all'interno della propria pagina My UniversiBO[/b]!!!!	1982198217	100
-35	Come posso modificare il ciclo e l'anno di corso	Basta inserire il dato corretto nell'apposita casella di testo (i valori possibili si trovano in basso nel box di correzione).	1117109715	330
-4	Cos'e' la mail d'ateneo?	E' una casella di posta elettronica fornita [b]gratuitamente[/b] dall'Università ad ogni studente.  Vi si puo' accedere dal sito [url]https://www.dsa.unibo.it/AccessoPostaStudenti/[/url].	19000	20
-10	Come faccio a loggarmi al sito?	Il login (procedura di identificazione e accesso al sistema) non è obbligatorio: è possibile navigare all'interno delle sezioni del sito anche senza essere loggati; tuttavia si accederà come esterni e quindi molte funzionalità saranno ridotte. Naturalmente possono effettuarlo solo gli utenti in possesso di una mail @unibo.it / @studio.unibo.it o @esterni.unibo.it.\r\nPer effettuare il login[list][*]cliccate sul link login in alto a destra a fianco del lucchetto;[*]quindi inserite, se richieste le vostre credenziali di ateneo.[/list] Il sistema a questo punto vi riconoscerà e leggerà i vostri diritti di accesso in base ai quali creerù dinamicamente le pagine e vi appariranno i relativi links.	111	80
-24	Chi puo' inserire una notizia on line?	Questa e' una prerogativa dei professori nelle loro pagine d'esame, dei collaboratori nelle pagine d'esame di cui sono referenti, e dei responsabili di certe sezioni del sito nelle aree di loro competenza.	282828	210
-32	Come posso inserire un messaggio in una discussione?	Per inserire un messaggio in una discussione gia' avviata e' sufficiente entrare nel thread e cliccare sul pulsante 'Reply'.  Comparira' una nuova finestra in cui, oltre ad un form per scrivere il nuovo post, scorrendo verso il basso si potranno vedere i messaggi che sono gia' stati inseriti nel thread.  Oltre a diverse opzioni utili per 'abbellire' il messaggio, per limitarsi ad inserirlo e' sufficiente scrivere il testo e cliccare su 'Invia'.  A fianco del pulsante 'Invia' c'e' l'opzione 'Anteprima', con la quale e' possibile vedere come apparira' il messaggio prima di spedirlo effettivamente.\r\nUna volta cliccato su 'Invia', comparira' una nuova finestra in cui verra' notificato che la procedura e' stata effettuata con successo, e comparira' la possibilita' di essere inviati alla discussione in cui si e' intervenuti, nel punto in cui si e' inserito il proprio messaggio, oppure di essere reindirizzati alla pagina generale della sezione del forum cui appartiene la discussione in cui si e' scritto.	13421312	270
-19	Le news vengono spedite sulla mia mail d'ateneo, come faccio a cambiare l'indirizzo in cui ricevere la posta?	Bisogna andare nella pagina delle  [url=/my/settings/]Impostazioni[/url], cliccare su 'Impostazioni Personali' e, nel popup che vi comparirà, andare a modificare il campo 'Indirizzo e-mail' con quello desiderato. 	125632367	150
-15	Come faccio a rimuovere una pagina dalla mia pagina My UniversiBO?	Si accede alla pagina d'interesse e si clicca sul link sotto al titolo della pagina "Rimuovi questa pagina da My UniversiBO". La pagina verrà tolta dal menù di sinistra e per accedere alla pagina sarà necessario passare attraverso il corso di laurea corrispondente o attraverso il menù Servizi.	1231231321	120
-23	Come faccio a scaricare un file da UniversiBO?	Una volta giunti alla pagina in cui e' contenuto il file, bisogna cliccare sull'icona che rappresenta il download del file, a fianco del titolo del file: si aprirà la finestra con cui salvare sul proprio computer il file desiderato.\r\nAlcuni files sono scaricabili solo se iscritti ad UniversiBO, altri solo tramite l'apposita password comunicata dal professore.	21786278	200
-26	Chi puo' inserire un file su UniversiBO?	Questa è una prerogativa dei professori nelle loro pagine d'esame, dei collaboratori nelle pagine d'esame di cui sono referenti, e dei responsabili di certe sezioni del sito nelle aree di loro competenza.\r\nGli utenti del sito hanno a disposizione uno spazio ove caricare i propri files (appunti, esercizi svolti).\r\n [b]E' severamente proibito caricare files con contenuto inadeguato (pornografico, razzista, pedofilo...): la responsabilità dei files caricati è dell'utente, ma i files vengolo controllati a campione e periodicamente. UniversiBO si riserva il diritto di cancellare quelli non conformi alle regole e di bannare l'utente.[/b]	2132131	160
-29	Come faccio ad eliminare una notizia?	Per eliminare una notizia (sempre che se ne abbia i diritti, ovvero se si è un collaboratore o un professore) bisogna cliccare sul link 'Elimina'. Si passerà ad una finestra dove verrà mostrata la notizia e dove si potranno selezionare le pagine da cui si può cancellarla. Una volta selezionato almeno una pagina, se si è sicuri di volere cancellare la notizia, cliccare su 'Elimina'.	1231231	240
-31	Che cos'e' un forum?	Un forum e' una bacheca virtuale in cui ogni utente puo' inserire ([b]postare[/b]) un messaggio ([b]post[/b]).\r\nUn forum e' organizzato in sezioni, a loro volta suddivise in discussioni ([b]threads[/b] o [b]topic[/b]).\r\nN.B.: per poter interagire attivamente nel forum [url=/help/#id10]bisogna essere loggati[/url].	23412314	260
-5	Perche' devo avere la mail di Ateneo per iscrivermi ad UniversiBO?	Perche' [url=/help/#id4]la mail di Ateneo[/url] viene assegnata univocamente dall'Universita' ad ogni singolo studente iscritto, e' dunque un metodo d'identificazione di ogni utente registrato al sito UniversiBO.	1000	30
-11	Come faccio a modificare la password?	È possibile cambiare la propria password attraverso il [url=https://www.dsa.unibo.it/]Directory Service d'Ateneo[/url].	11111	90
-14	Come faccio ad inserire un esame/servizio all'interno del My UniversiBO?	Per inserire un esame all'interno del [url=/help/#id13]My UniversiBO[/url] è necessario cercare l'esame stesso nel corso di laurea ad esso corrispondente, o il servizio interessato nell'apposito menù sulla sinistra, e una volta entrati nella pagina relativa, cliccare sul link che trovate sotto le informazioni dell'esame: 'Aggiungi questa pagina a My UniversiBO'.\r\nSi passerà a una pagina nella quale verrà richiesta il livello di notifica desiderato per le news (Tutti, Solo Urgenti o Nessuna: indica la tipologia di news che desideri ricevere nella tua casella di posta) ed eventualmente un nome personalizzato per la pagina, massimo 60 caratteri.\r\nCosì facendo, ad ogni accesso al sito, l'esame in questione/il servizio desiderato comparirà nel vostro menù di sinistra alla voce 'My UniversiBO', rendendo così più immediato e veloce l'accesso alla sezione relativa (vi sarà inoltre una scritta 'NEW' ad indicarvi se vi sono aggiornamenti dall'ultimo vostro accesso alla pagina).\r\nInoltre, cliccando sull'immagine in alto ""My UniversiBO"" accederete alla vostra pagina MyUniversiBO, dove potrete visualizzare le ultime 5 news e gli ultimi 5 files inseriti nelle pagine all'interno del vostro My UniversiBO, e i files che voi avete caricato su UniversiBO.	12632212	110
-21	Come faccio a modificare un file gia' inserito nella pagina?	Per Modificare un file già presente sul sito bisogna cliccare sull'apposita icona, posta di fianco al titolo del file (ovviamente l'icona comparirà solo se l'utente ha i diritti necessari, ovvero solo se è un collaboratore o un professore).\r\nSi passerà a una pagina analoga a quella utilizzata per [url=/help/#id20]caricare il file on line[/url] con le informazioni che sono già state inserite.\r\nEffettuate le modifiche necessarie, è sufficiente cliccare sul pulsante 'Modifica'.\r\nLe modifiche verranno apportate a tutte le pagine  in cui è stato inserito il file.\r\nPer inserire una password, selezionare 'Abilita password' e scrivere la password negli appositi campi: ricordate che [b]i campi password sono riservati solo ai professori o ai file che i professori chiedono al moderatore di caricare sulla pagina[/b].\r\nSe le modifiche avranno successo,si passerà ad una pagina dove saranno presenti i link per tornare alla scheda del file o all'insegnamento in cui era stato inserito.	123719263	180
-27	Come faccio ad inserire una notizia?	Il procedimento per caricare una notizia sul sito è questo:[list=1][*][url=/help/#id10]Accedere al sito con il proprio nome utente[/url] (username).[*][url=/help/#id3]Andare nella pagina[/url] in cui si desidera che compaia la notizia: scorrendo verso il basso si potranno anche vedere le news che sono già state caricate in quella pagina.[*]Cliccare su 'Scrivi una nuova notizia'. Così facendo si passerà a una pagina con il form per spedire una notizia. I campi da compilare sono:[list][*]Titolo: inserire un titolo significativo per la notizia.[*]Data e Ora di inserimento: questi campi vengono completati automaticamente; se lo si desidera, si puòcambiarle: ciò può essere molto utile nel caso in cui si voglia che la notizia non compaia prima di una certa data e ora in quanto [b]le news vengono visualizzate solo se la data attuale è posteriore a quella di inserimento[/b].\r\n[*]Notizia: bisogna inserire qui il testo della notizia cercando di essere il più sintetici possibile.[*]Attiva scadenza: selezionando questo campo e compilando quelli che indicano la data e l'ora di scadenza, si fisserà il momento in cui la notizia non sarà più visualizzata nella pagina.  è consigliabile inserire sempre una scadenza, se possibile: in tal modo si semplifica la manutenzione del sito che così diventa automatica, e la pagina non verrà appesantita da notizie che risulteranno inutili dopo una certa data e dunque non sarà più utile leggere.[*]Data e Ora di scadenza: nel caso sia stato attivato il servizio di scadenza, bisogna riempire questi campi per fissare il momento in cui la notizia diverrà inutile.\r\n[*]Invia il messaggio come urgente: selezionando questa opzione, la notizia giungerà ad un maggior numero di persone che hanno sia inserito l'insegnamento nei loro preferiti, sia inserito il proprio numero di cellulare nel profilo.\r\n[*]La notizia verrà inserita negli argomenti: qui vengono selezionati tutti gli insegnamenti/corsi in cui l'utente può inserire una notizia. Selezionando più di una casella, la notizia verrà inserita in tutte le pagine corrispondenti. [b]Attenzione! [url=/help/#id28]Se la notizia viene modificata[/url], la modifica comparirà in tutte le pagine dove è presente![/b]\r\n[/list][*]Cliccare su 'Inserisci'.[/list]Se la procedura è stata completata con successo, verrà visualizzata una pagina che confermerà che la notizia è stata inserita, quindi si può cliccare sul link ""Torna a..."" con cui si ritornerà alla pagina dove è stata inserita la notizia, che sarà presente in cima. Altrimenti si tornerà al form d'inserimento della notizia.	12321314	220
-28	Come faccio a modificare una notizia?	Per modificare una notizia già presente sul sito bisogna cliccare su link 'Modifica' che vi viene visualizzato al di sotto della notizia (ovviamente l'opzione comparira' solo se l'utente ha i diritti necessari, ovvero solo se è un collaboratore o un professore).\r\nSi passerà a una pagina analoga a quella per [url=/help/#id27]l'inserimento della notizia[/url] con la notizia come è ancora memorizzata in alto, e sotto il form con le informazioni che sono già state scritte. Effettuate le modifiche necessarie, è sufficiente cliccare sul pulsante 'Modifica'.\r\nSe la modifica ha avuto successo, comparirà una notifica. La modifica comparirà in tutte quelle pagine in cui era stata inserita precedentemente la notizia.	132123123	230
-20	Come faccio ad inserire un file su UniversiBO?	Il procedimento per caricare un file sul sito è questo:[list=1][*][url=/help/#id10]Accedere al sito col proprio nome utente[/url] (username)[*][url=/help/#id3]Andare nella pagina[/url] in cui si desidera che compaia il file: scorrendo verso il basso si potranno anche vedere i files che sono già stati caricati in quella pagina.[*]Cliccare su 'Invia nuovo file'.  Così facendo vi comparirà una nuova finestra con un certo numero di campi da compilare:[list][*]File.  In questo campo bisogna selezionare il percorso sul computer dell'utente per raggiungere il file che si desidera caricare.    Per rendere più veloce il processo di upload (e conseguentemente di download da parte degli utenti che desidereranno scaricare il file sul loro computer) è consigliabile comprimere il file.\r\nNB: si può caricare [b]un solo file alla volta[/b], quindi per mettere on line più files bisogna ripetere la procedura\r\n[*]Titolo: Il titolo serve per distinguere il file, ed è il testo che comparirà nella pagina dove sono presenti tutti i files, quindi deve essere significativo.\r\n[*]Descrizione.  Serve per dare una descrizione esauriente del contenuto del file.\r\n[*]Parole chiave: si possono inserire al massimo 4 parole chiave, separate da un Enter/Invio. Tramite le parole chiave, si facilita la ricerca del file.\r\n[*]Categoria: Tramite questo menù a discesa si può specificare se il file appartiene ad una determinata categoria (appunti/lucidi/esercitazioni...). Se non appartiene a nessuna di quelle presenti, lasciare ""altro"".\r\n[*]Data e ora d'inserimento. Questo campo apparira' gia' compilato con la data e l'ora correnti.  L'utente ha comunque la possibilità di modificarli, nel caso desideri che essi compaiano in un secondo momento: data e ora infatti determinano il momento in cui [b]diverranno visibili agli utenti[/b] i dati caricati.\r\n[*]Permessi download: Si può scegliere se il file è scaricabile da chiunque, o solo da persone iscritte al sito UniversiBO.\r\n[*]Password e conferma password: questi campi sono [b]riservati solo ai professori o ai file che i professori chiedono al moderatore di caricare sulla pagina[/b]. Attivandoli, il file sarà scaricabile solo se si è a conoscenza della password corretta.\r\n[*]Il file verrà inserito negli argomenti: qui vengono selezionati tutti gli insegnamenti/corsi in cui l'utente può inserire un file. Selezionando più di una casella, il file verrà inserito in tutte le pagine corrispondenti.[b] Attenzione!  [url=/help/#id21]Se il file viene modificato[/url], la modifica comparirà in tutte le pagine dove è presente![/b]\r\n[/list]\r\n[*]Cliccare su invia.\r\n[/list]Se la procedura è stata completata con successo, si passerà a un'ulteriore pagina che confermerà che il file è stato salvato. Cliccando sul link ""Torna a..."" si tornerà alla pagina dove è stato inserito	1276378	170
-16	A cosa serve il servizio di news di UniversiBO?	Il servizio di news di UniversiBO permette di essere avvisati in tempo reale via e-mail/sms di ogni notizia che viene inserita nella pagina dell'esame d'interesse: è [b]necessario[/b]  [url=/help/#id14]inserire l'esame nel proprio MyUniversiBO[/url] per potere sfruttare questo servizio.	113274632	130
-33	Cos'è "modifica didattica"?	""Modifica didattica"" è un tool che permette di modificare le informazioni su anno, ciclo, docente per ogni insegnamento e sdoppiamento di UniversiBO.\r\nNella tabella ""Insegnamento selezionato"" sono presenti le informazioni riguardanti l'insegnamento/sdoppiamento che si sta per modificare. Se si tratta di uno sdoppiamento, in fondo alla tabella è presente ""status: sdoppiato"", altrimenti non compare.	1117109715	310
-9	Come faccio ad iscrivermi ad UniversiBO?	È sufficiente essere in possesso di una mail @unibo.it / @studio.unibo.it / @esterni.unibo.it ed effettuare la procedura di login. All'accettazione del regolamento e dell'informativa sulla privacy l'iscrizione è completata.	100101	70
-3	Come faccio a navigare nel sito?	Le pagine del sito sono strutturate cosi':[list][*] in alto vi è l'intestazione di UniversiBO con una piccola barra di navigazione rapida;[*]il menu di sinistra di navigazione rimane più o meno lo stesso per tutte le pagine e vi guida anche all'esterno del sito;[*]la parte centrale corrisponde alla pagina attualmente navigata;[*]il menu di destra contiene il form per il login degli utenti, alcuni servizi riferiti alla parte centrale(ad esempio il calendario).[/list]Quando entrerete nel sito vi ritroverete nella homepage in cui vi saranno le informazioni riguardanti le novità sul sito.\r\n\r\nLa struttura delle pagine interne del sito è più o meno sempre la stessa e si basa sul concetto di argomento. I servizi e le informazioni vengono ricostruiti intorno all'argomento che può essere un esame o un corso di laurea.\r\nNel corpo centrale verranno visualizzati alcuni contenuti, i link principali interni all'argomento, le ultime news relative a quell'argomento, il forum (se presente in quell'argomento) e le news.\r\nNel menu di destra verrà visualizzato il calendario di quel particolare argomento.	10111111	10
-2	Come faccio a cercare un utente?	Oltre alla ricerca per username ed email esatte, si può cercare mediante l'uso di [b]caratteri speciali[/b]:\r\n[list]\r\n[*]%: Inserendo un simbolo di percentuale, ricerca un qualunque usernamente/email che inizia con i caratteri inseriti prima, e con una qualsiasi serie di caratteri che seguono.\r\n[*]_: tramite l'underscore, dopo la parte note, si ricerca qualunque username/email che proseguono con X caratteri di un qualunque tipo, con X il numero di underscore.\r\n[/list]\r\nEsempi:\r\n[list]\r\n[*]L%: ricerca tutti gli username/email che iniziano con L\r\n[*]b____: ricerca tutti gli username/email che iniziano con b e sono lunghi 5 caratteri\r\n[/list]	111111	300
-22	Come faccio ad eliminare un file?	Per eliminare un file (sempre che se ne abbia i diritti, ovvero se si è un collaboratore o un professore) bisogna cliccare sull'apposita icona, che si trova tra l'icona del modifica e quella per scaricare il file, di fianco al titolo del file.  Si passerà a una finestra per confermare la cancellazione. \r\nSi potrà scegliere da quali insegnamenti cancellare il file (almeno uno).\r\nSe si è sicuri di volerlo cancellare, cliccare su 'Elimina'.\r\nA questo punto nessuno potrà più accedere al file al di fuori degli amministratori. Infatti, per ragioni di [b]sicurezza[/b], verrà conservata una copia del file non accessibile dal web.	182791	190
-34	Cos'è uno sdoppiamento?	E' un insegnamento comune a più corsi di laurea (stesso docente, stesso orario, ecc. ). Avremo un insegnamento ""padre"" (nel corso di laurea che attiva l'insegnamento) e i relativi ""figli"" (gli sdoppiati, negli altri corsi di laurea).\r\nEsempio:\r\nSISTEMI DI TELECOMUNICAZIONI L-A è attivato da INGEGNERIA DELLE TELECOMUNICAZIONI specialistica (insegnamento padre).\r\nMa è presente anche nel corso di laurea INGEGNERIA INFORMATICA specialistica (insegnamento figlio).\r\nSe vi sono insegnamenti/sdoppiamenti correlati a quello che si sta modificando, viene visualizzata una lista dopo i box di modifica. Se nella lista è presente il ""padre"", sarà evidenziato in azzurro (se non c'è significa che il padre è quello selezionato inizialmente).\r\nE' possibile applicare le modifiche anche agli insegnamenti/sdoppiamenti correlati selezionando quelli di interesse.\r\nE' possibile spostarsi negli insegnamenti/sdoppiamenti correlati, cliccando su un insegnamento della lista.	1117109715	320
-37	Come rendo effettive le modifiche?	Cliccando sul tasto "Esegui". Una volta premuto, non è possibile interrompere l'operazione di modifica quindi prima di mandare in esecuzione una modifica, controllate due volte per non fare errori.	1117109715	360
-36	Come posso modificare il docente?	Inserendo il codice docente nell'apposita casella di testo: il docente può essere modificato solo nel caso in cui non sia ancora stato creato il forum dell'insegnamento e solo dall'insegnamento padre. Quindi se siete su uno sdoppiamento, cliccate sull'insegnamento evidenziato in azzurro per effettuare la modifica del docente. Il docente modificato, sarà cambiato anche per tutti gli insegnamenti correlati (padre/figli).\r\nNel caso in cui non si conosca il codice del docente è possibile effettuare una ricerca per username o per e-mail. Nella ricerca si possono utilizzare dei caratteri jolly:[list][*] % sostituisce un qualsiasi numero di caratteri (esempio: una ricerca e% nel campo username, trova tutti gli username che iniziano con la lettera e)[*] _ sostituisce un singolo carattere (esempio: una ricerca ner_ nel campo username, trova tutti gli username che iniziano per ner e terminano con qualsiasi lettera)[/list] 	1117109715	350
-17	Come faccio a personalizzare il servizio di news?	Una volta [url=/help/#id14]aggiunto l'esame (o il servizio) al proprio MyUniversiBO[/url], viene impostata automaticamente dal sistema la possibilità di ricevere tutte le  [url=/help/#id16]news[/url] che vengono inserite nella pagina dell'esame d'interesse.  Una volta [url=/help/#id10]loggati[/url], andando nella pagina [url=/my/settings/]'Impostazioni personali'[/url] (link in alto a sinistra) e  cliccando su 'Profilo', troverete un campo in cui è segnato il vostro indirizzo e-mail a cui verranno spedite le news, e la possibilità di scegliere quali notizie ricevere e quali no. E' inoltre possibile inserire il proprio numero di cellulare per ricevere gratuitamente le notifiche anche sul proprio telefonino.\r\nE' possibile scegliere tra i seguenti livelli di notifica [list][*] Tutti: tutte le news arriveranno sia via mail che via sms; [*] Solo urgenti: riceverete solo gli sms; [*] Nessuna: non riceverete nessuna notifica né via mail, né via sms [/list]\r\nè comunque sempre possibile modificare la scelta di notifica effettuata, ripetendo le operazioni sopra indicate.	1231232	140
-\.
-
-
---
--- Name: help_id_help_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
---
-
-SELECT pg_catalog.setval('help_id_help_seq', 40, true);
-
-
---
--- PostgreSQL database dump complete
---
-
---
--- PostgreSQL database dump
---
-
-SET statement_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-
-SET search_path = public, pg_catalog;
-
---
--- Data for Name: help_riferimento; Type: TABLE DATA; Schema: public; Owner: universibo
---
-
-COPY help_riferimento (riferimento, id_help) FROM stdin;
-newsutenti	24
-newscollabs	27
-newscollabs	28
-newscollabs	29
-newscollabs	30
-newsutenti	16
-newsutenti	17
-newsutenti	19
-filesutenti	26
-filesutenti	23
-filescollabs	20
-filescollabs	21
-filescollabs	22
-iscrizione	9
-iscrizione	11
-iscrizione	4
-iscrizione	5
-iscrizione	6
-iscrizione	7
-iscrizione	8
-suggerimentinav	10
-suggerimentinav	3
-myuniversibo	14
-myuniversibo	15
-myuniversibo	13
-ruoliadmin	1
-ruoliadmin	2
-didatticagestione	33
-didatticagestione	34
-didatticagestione	35
-didatticagestione	36
-didatticagestione	37
-filestudenti	20
-filestudenti	21
-filestudenti	22
-\.
-
-
---
--- PostgreSQL database dump complete
---
-
---
--- PostgreSQL database dump
---
-
-SET statement_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-
-SET search_path = public, pg_catalog;
-
---
--- Data for Name: help_topic; Type: TABLE DATA; Schema: public; Owner: universibo
---
-
-COPY help_topic (riferimento, titolo, indice) FROM stdin;
-iscrizione	Come faccio ad iscrivermi ad UniversiBO?	10
-suggerimentinav	Navigazione nel sito: i primi passi.	30
-filescollabs	Voglio mettere un file on line su UniversiBO: come posso fare?	70
-filesutenti	Come faccio a scaricare i files da UniversiBO?	60
-myuniversibo	Come personalizzare My UniversiBO.	40
-newsutenti	Cos'é e come gestire il servizio di News di UniversiBO.	50
-ruoliadmin	Cercare un utente e cambiare i diritti (solo Admin)	90
-newscollabs	Voglio inserire una notizia su UniversiBO: come posso fare?	80
-didatticagestione	Modificare un insegnamento e cercare un codice docente (solo admin e collaboratori)	100
-\.
 
 
 --
