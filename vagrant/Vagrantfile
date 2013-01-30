@@ -7,11 +7,11 @@ Vagrant::Config.run do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "universibo12"
+  config.vm.box = "precise32"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "https://www.universibo.unibo.it/linux/universibo12.box"
+  config.vm.box_url = "http://files.vagrantup.com/precise32.box"
 
   # Setting VM name and increasing RAM size
   config.vm.customize [
