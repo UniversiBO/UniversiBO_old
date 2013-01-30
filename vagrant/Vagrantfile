@@ -13,6 +13,9 @@ Vagrant::Config.run do |config|
   # doesn't already exist on the user's system.
   config.vm.box_url = "http://files.vagrantup.com/precise32.box"
 
+  # Fake hostname, but cool
+  config.vm.host_name = 'universibo-devkit.universibo.unibo.it'
+
   # Setting VM name and increasing RAM size
   config.vm.customize [
     "modifyvm", :id,
