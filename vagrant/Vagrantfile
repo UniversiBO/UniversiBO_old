@@ -41,6 +41,9 @@ Vagrant::Config.run do |config|
   # Changing default v-root to ..
   config.vm.share_folder "v-root", "/vagrant", ".."
 
+  # whithout this symlinks can't be created on the shared folder
+  config.vm.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
+
   # Launch shell command
   config.vm.provision :shell, :path => "bash/init.sh"
 
