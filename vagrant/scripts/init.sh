@@ -4,6 +4,11 @@ PUPPET_MODULES=/etc/puppet/modules
 
 sed 's/us\.archive/it\.archive/' -i /etc/apt/sources.list
 
+if [ `aptitude search $pkg | grep ^i | wc -l` -eq 0 ]; then
+    aptitude update
+    aptitude install python-software-properties --assume-yes
+fi
+
 add-apt-repository ppa:ondrej/php5
 aptitude update
 
