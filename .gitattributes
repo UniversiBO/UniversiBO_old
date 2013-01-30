@@ -1,5 +1,7 @@
 # Auto detect text files and perform LF normalization
 * text eol=lf
+*.vcl text eol=lf
+varnish text eol=lf
 composer.* text eol=lf
 
 *.jpg    binary
