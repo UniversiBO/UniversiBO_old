@@ -1,6 +1,6 @@
 include postgresql::server
 
-class {'apache':  }
+class {'apache': }
 
 class lapp_config
 {
@@ -16,6 +16,12 @@ class lapp_config
 
     file { '/etc/apache2/conf.d/user':
         content => "User vagrant\nGroup vagrant"
+    }
+
+    file { 'apache-ports':
+        path   => '/etc/apache2/ports.conf',
+        ensure => present,
+        source => '/vagrant/vagrant/resources/app/etc/apache2/ports.conf'
     }
 
     exec { 'allow-all':
@@ -44,7 +50,7 @@ class lapp_config
     apache::vhost { 'default':
         priority        => '10',
         vhost_name      => '*',
-        port            => '80',
+        port            => '8000',
         docroot         => '/vagrant/web',
         docroot_owner   => 'vagrant',
         docroot_group   => 'vagrant',
