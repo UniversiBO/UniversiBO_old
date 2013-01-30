@@ -3,6 +3,7 @@ class universibo_init
     exec {'composer install':
         cwd => '/vagrant',
         command => 'composer install --dev',
+        timeout => 1800,
 	logoutput => true
     }
  
