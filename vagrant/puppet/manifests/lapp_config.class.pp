@@ -46,8 +46,9 @@ class lapp_config
         vhost_name      => '*',
         port            => '80',
         docroot         => '/vagrant/web',
-        logroot         => '/vagrant/app/logs',
-        serveradmin     => 'webmaster@example.com',
+        docroot_owner   => 'vagrant',
+        docroot_group   => 'vagrant',
+        logroot         => '/var/log',
         override        => 'All'
     }
 }
