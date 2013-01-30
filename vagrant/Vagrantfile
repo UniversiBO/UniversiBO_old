@@ -45,7 +45,7 @@ Vagrant::Config.run do |config|
   config.vm.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
 
   # Launch shell command
-  config.vm.provision :shell, :path => "bash/init.sh"
+  config.vm.provision :shell, :path => "scripts/init.sh"
 
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.

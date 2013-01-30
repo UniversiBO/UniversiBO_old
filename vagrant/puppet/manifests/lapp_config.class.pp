@@ -22,6 +22,12 @@ class lapp_config
         command => "sed 's/.*allow from 127.*/Allow from All/i' -i /etc/apache2/conf.d/phppgadmin"
     }
 
+    exec { 'pgsql-md5-auth':
+        command => "sed 's/^local.*all.*all.*ident/local   all         all                               md5/' -i /etc/postgresql/9.1/main/pg_hba.conf",
+        notify => Service['postgresqld']
+    }
+
+
     exec { 'ports.conf':
         command => "sed '/^NameVirtualHost/d' /etc/apache2/ports.conf"
     }
