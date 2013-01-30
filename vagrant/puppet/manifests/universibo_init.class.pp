@@ -2,7 +2,8 @@ class universibo_init
 {
     exec {'composer install':
         cwd => '/vagrant',
-        command => 'composer install --dev'
+        command => 'composer install --dev',
+	logoutput => true
     }
  
     exec {'load-db':
