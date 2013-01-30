@@ -1,6 +1,7 @@
 # Auto detect text files and perform LF normalization
 *.sh text eol=lf
 *.php text eol=lf
+*.pp text eol=lf
 
 # Custom for Visual Studio
 *.cs     diff=csharp
