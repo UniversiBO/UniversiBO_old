@@ -7,6 +7,10 @@ class lapp_config
 #        password => 'universibo'
 #    }
 
+    file { '/etc/apache2/conf.d/user':
+        content => "User vagrant\nGroup vagrant"
+    }
+
     exec { 'allow-all':
         command => "sed 's/.*allow from 127.*/Allow from All/i' -i /etc/apache2/conf.d/phppgadmin"
     }
@@ -28,8 +32,8 @@ class lapp_config
         priority        => '10',
         vhost_name      => '192.168.33.10',
         port            => '80',
-        docroot         => '/vagrant/web/',
-        logroot         => '/vagrant/app/logs/',
+        docroot         => '/vagrant/web',
+        logroot         => '/vagrant/app/logs',
         serveradmin     => 'webmaster@example.com',
         override        => 'All'
     }
