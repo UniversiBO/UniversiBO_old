@@ -3,6 +3,8 @@
 PUPPET_MODULES=/etc/puppet/modules
 
 sed 's/us\.archive/it\.archive/' -i /etc/apt/sources.list
+
+add-apt-repository ppa:ondrej/php5
 aptitude update
 
 if [ `which git | wc -l` -eq 0 ]; then
