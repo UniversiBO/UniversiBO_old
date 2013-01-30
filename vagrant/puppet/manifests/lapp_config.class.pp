@@ -14,10 +14,10 @@ class lapp_config
         password => 'universibo'
     }
 
-
     service { 'varnish':
         ensure  => running,
-        enable => true
+        enable => true,
+        require => Package['varnish']
     }
 
     file { '/etc/apache2/conf.d/user':
@@ -52,7 +52,6 @@ class lapp_config
         command => "sed 's/^local.*all.*all.*ident/local   all         all                               md5/' -i /etc/postgresql/9.1/main/pg_hba.conf",
         notify => Service['postgresqld']
     }
-
 
     exec { 'ports.conf':
         command => "sed '/^NameVirtualHost/d' /etc/apache2/ports.conf"
