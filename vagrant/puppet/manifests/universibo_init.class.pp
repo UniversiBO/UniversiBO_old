@@ -1,5 +1,10 @@
 class universibo_init
 {
+    exec {'composer install':
+        cwd => '/vagrant',
+        command => 'composer install --dev'
+    }
+ 
     exec {'load-db':
         cwd => '/vagrant/app/sql/pgsql',
         command => "cat devdb.sql | sed 's/OWNER TO .*/OWNER TO universibo;/' | su - postgres -c 'psql universibo'",
