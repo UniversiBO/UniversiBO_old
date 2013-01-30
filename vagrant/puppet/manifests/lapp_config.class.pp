@@ -18,6 +18,12 @@ class lapp_config
         content => "User vagrant\nGroup vagrant"
     }
 
+    file { 'varnish-conf':
+        path   => '/etc/varnish/default.vcl',
+        ensure => present,
+        source => '/vagrant/vagrant/resources/app/etc/varnish/default.vcl'
+    }
+    
     file { 'apache-ports':
         path   => '/etc/apache2/ports.conf',
         ensure => present,
