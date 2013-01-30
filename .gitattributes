@@ -1,8 +1,10 @@
 # Auto detect text files and perform LF normalization
-*.sh text eol=lf
-*.php text eol=lf
-*.pp text eol=lf
+* text eol=lf
 composer.* text eol=lf
+
+*.jpg    binary
+*.png    binary
+*.gif    binary
 
 # Custom for Visual Studio
 *.cs     diff=csharp
