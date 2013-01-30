@@ -28,14 +28,18 @@ class lapp_config
         path   => '/etc/varnish/default.vcl',
         ensure => present,
         source => '/vagrant/vagrant/resources/app/etc/varnish/default.vcl',
-        notify => Service['varnish']
     }
     
-     file { 'varnish-default':
+    file { 'varnish-default':
         path   => '/etc/default/varnish',
         ensure => present,
         source => '/vagrant/vagrant/resources/app/etc/default/varnish',
-        notify => Service['varnish']
+    }
+
+    # Notify is not enough
+    exec { 'varnish-restart': 
+        command 'service varnish restart'
+        require => File['varnish-conf', 'varnish-default']
     }
     
     file { 'apache-ports':
