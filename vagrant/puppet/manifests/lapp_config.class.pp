@@ -35,10 +35,6 @@ class lapp_config
         require => Exec['allow-all', 'ports.conf', 'enable-modules']
     }
 
-    exec { 'init-db': 
-        command => "su - postgres -c 'psql -f /vagrant/vagrant/sql/init.sql'"
-    }
-
     apache::vhost { 'default':
         priority        => '10',
         vhost_name      => '*',
