@@ -20,7 +20,8 @@ Vagrant::Config.run do |config|
   config.vm.customize [
     "modifyvm", :id,
     "--memory", "1024",
-    "--name",   "UniversiBO Vagrant Kit"
+    "--cpus"  , "2", 
+    "--name"  , "UniversiBO Vagrant Kit"
   ]
 
   # Boot with a GUI so you can see the screen. (Default is headless)
