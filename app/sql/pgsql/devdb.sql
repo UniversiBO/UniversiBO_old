@@ -8,6 +8,20 @@ SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
 SET search_path = public, pg_catalog;
 
 --
@@ -899,64 +913,64 @@ ALTER SEQUENCE link_id_link_seq OWNED BY link.id_link;
 
 
 --
--- Name: loggati_168h; Type: VIEW; Schema: public; Owner: SbiellONE
+-- Name: loggati_168h; Type: VIEW; Schema: public; Owner: universibo
 --
 
 CREATE VIEW loggati_168h AS
     SELECT fos_user.id, fos_user.username, fos_user.username_canonical, fos_user.email, fos_user.email_canonical, fos_user.enabled, fos_user.salt, fos_user.password, fos_user.last_login, fos_user.locked, fos_user.expired, fos_user.expires_at, fos_user.confirmation_token, fos_user.password_requested_at, fos_user.roles, fos_user.credentials_expired, fos_user.credentials_expire_at, fos_user.phone, fos_user.notifications, fos_user.groups, fos_user.person_id, fos_user.username_locked, fos_user.encoder_name FROM fos_user WHERE (fos_user.last_login >= (SELECT max((fos_user.last_login - '168:00:00'::interval)) AS max FROM fos_user));
 
 
-ALTER TABLE public.loggati_168h OWNER TO "SbiellONE";
+ALTER TABLE public.loggati_168h OWNER TO universibo;
 
 --
--- Name: loggati_168h_count; Type: VIEW; Schema: public; Owner: SbiellONE
+-- Name: loggati_168h_count; Type: VIEW; Schema: public; Owner: universibo
 --
 
 CREATE VIEW loggati_168h_count AS
     SELECT count(*) AS count FROM loggati_168h;
 
 
-ALTER TABLE public.loggati_168h_count OWNER TO "SbiellONE";
+ALTER TABLE public.loggati_168h_count OWNER TO universibo;
 
 --
--- Name: loggati_24h; Type: VIEW; Schema: public; Owner: SbiellONE
+-- Name: loggati_24h; Type: VIEW; Schema: public; Owner: universibo
 --
 
 CREATE VIEW loggati_24h AS
     SELECT fos_user.id, fos_user.username, fos_user.username_canonical, fos_user.email, fos_user.email_canonical, fos_user.enabled, fos_user.salt, fos_user.password, fos_user.last_login, fos_user.locked, fos_user.expired, fos_user.expires_at, fos_user.confirmation_token, fos_user.password_requested_at, fos_user.roles, fos_user.credentials_expired, fos_user.credentials_expire_at, fos_user.phone, fos_user.notifications, fos_user.groups, fos_user.person_id, fos_user.username_locked, fos_user.encoder_name FROM fos_user WHERE (fos_user.last_login >= (SELECT max((fos_user.last_login - '24:00:00'::interval)) AS max FROM fos_user));
 
 
-ALTER TABLE public.loggati_24h OWNER TO "SbiellONE";
+ALTER TABLE public.loggati_24h OWNER TO universibo;
 
 --
--- Name: loggati_24h_count; Type: VIEW; Schema: public; Owner: SbiellONE
+-- Name: loggati_24h_count; Type: VIEW; Schema: public; Owner: universibo
 --
 
 CREATE VIEW loggati_24h_count AS
     SELECT count(*) AS count FROM loggati_24h;
 
 
-ALTER TABLE public.loggati_24h_count OWNER TO "SbiellONE";
+ALTER TABLE public.loggati_24h_count OWNER TO universibo;
 
 --
--- Name: loggati_mese; Type: VIEW; Schema: public; Owner: SbiellONE
+-- Name: loggati_mese; Type: VIEW; Schema: public; Owner: universibo
 --
 
 CREATE VIEW loggati_mese AS
     SELECT fos_user.id, fos_user.username, fos_user.username_canonical, fos_user.email, fos_user.email_canonical, fos_user.enabled, fos_user.salt, fos_user.password, fos_user.last_login, fos_user.locked, fos_user.expired, fos_user.expires_at, fos_user.confirmation_token, fos_user.password_requested_at, fos_user.roles, fos_user.credentials_expired, fos_user.credentials_expire_at, fos_user.phone, fos_user.notifications, fos_user.groups, fos_user.person_id, fos_user.username_locked, fos_user.encoder_name FROM fos_user WHERE (fos_user.last_login >= (SELECT max((fos_user.last_login - '30 days'::interval)) AS max FROM fos_user)) ORDER BY fos_user.last_login DESC;
 
 
-ALTER TABLE public.loggati_mese OWNER TO "SbiellONE";
+ALTER TABLE public.loggati_mese OWNER TO universibo;
 
 --
--- Name: loggati_mese_count; Type: VIEW; Schema: public; Owner: SbiellONE
+-- Name: loggati_mese_count; Type: VIEW; Schema: public; Owner: universibo
 --
 
 CREATE VIEW loggati_mese_count AS
     SELECT count(*) AS count FROM loggati_mese;
 
 
-ALTER TABLE public.loggati_mese_count OWNER TO "SbiellONE";
+ALTER TABLE public.loggati_mese_count OWNER TO universibo;
 
 --
 -- Name: migration_versions; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
@@ -1520,6 +1534,575 @@ ALTER TABLE ONLY link ALTER COLUMN id_link SET DEFAULT nextval('link_id_link_seq
 --
 
 ALTER TABLE ONLY notifica ALTER COLUMN id_notifica SET DEFAULT nextval('notifica_id_notifica_seq'::regclass);
+
+
+--
+-- Name: argomento_id_argomento_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('argomento_id_argomento_seq', 1, false);
+
+
+--
+-- Name: argomento_set_id_argomento__seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('argomento_set_id_argomento__seq', 1, false);
+
+
+--
+-- Data for Name: canale; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY canale (id_canale, tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo, files_studenti_attivo) FROM stdin;
+1	2	Home	\N	8	\N	127	 	\N	N	\N	\N	S	S
+\.
+
+
+--
+-- Name: canale_id_canale_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('canale_id_canale_seq', 1, true);
+
+
+--
+-- Data for Name: classi_corso; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY classi_corso (cod_corso, desc_corso, id_canale, cat_id, cod_doc, cod_fac, categoria) FROM stdin;
+\.
+
+
+--
+-- Data for Name: classi_materie; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY classi_materie (cod_materia, desc_materia) FROM stdin;
+\.
+
+
+--
+-- Data for Name: collaboratore; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY collaboratore (id_utente, intro, recapito, obiettivi, foto, ruolo, show, id) FROM stdin;
+\.
+
+
+--
+-- Name: collaboratore_id_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('collaboratore_id_seq', 1, false);
+
+
+--
+-- Data for Name: contacts; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY contacts (id, user_id, value, verification_token, verification_sent_at, verified_at) FROM stdin;
+\.
+
+
+--
+-- Name: contacts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('contacts_id_seq', 1, false);
+
+
+--
+-- Data for Name: docente; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY docente (id_utente, cod_doc, nome_doc, docente_contattato, id_mod) FROM stdin;
+\.
+
+
+--
+-- Data for Name: docente2; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY docente2 (cod_doc, email, nome_doc) FROM stdin;
+\.
+
+
+--
+-- Data for Name: docente_contatti; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY docente_contatti (cod_doc, stato, id_utente_assegnato, ultima_modifica, report, eliminato) FROM stdin;
+\.
+
+
+--
+-- Data for Name: facolta; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY facolta (cod_fac, desc_fac, url_facolta, id_canale, cod_doc) FROM stdin;
+\.
+
+
+--
+-- Data for Name: file; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY file (id_file, permessi_download, permessi_visualizza, id_utente, titolo, descrizione, data_inserimento, data_modifica, dimensione, download, nome_file, id_categoria, id_tipo_file, hash_file, password, eliminato) FROM stdin;
+\.
+
+
+--
+-- Data for Name: file_canale; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY file_canale (id_file, id_canale) FROM stdin;
+\.
+
+
+--
+-- Data for Name: file_categoria; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY file_categoria (id_file_categoria, descrizione) FROM stdin;
+\.
+
+
+--
+-- Name: file_categoria_id_file_categoria_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('file_categoria_id_file_categoria_seq', 1, false);
+
+
+--
+-- Name: file_id_file_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('file_id_file_seq', 1, false);
+
+
+--
+-- Data for Name: file_keywords; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY file_keywords (id_file, keyword) FROM stdin;
+\.
+
+
+--
+-- Data for Name: file_studente_canale; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY file_studente_canale (id_file, id_canale) FROM stdin;
+\.
+
+
+--
+-- Data for Name: file_studente_commenti; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY file_studente_commenti (id_commento, id_file, id_utente, commento, voto, eliminato) FROM stdin;
+\.
+
+
+--
+-- Name: file_studente_commenti_id_commento_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('file_studente_commenti_id_commento_seq', 1, false);
+
+
+--
+-- Data for Name: file_tipo; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY file_tipo (id_file_tipo, descrizione, pattern_riconoscimento, icona, info_aggiuntive) FROM stdin;
+\.
+
+
+--
+-- Name: file_tipo_id_file_tipo_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('file_tipo_id_file_tipo_seq', 1, false);
+
+
+--
+-- Name: forums_auth_id_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('forums_auth_id_seq', 1, false);
+
+
+--
+-- Data for Name: fos_group; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY fos_group (id, name, roles) FROM stdin;
+\.
+
+
+--
+-- Name: fos_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('fos_group_id_seq', 1, false);
+
+
+--
+-- Data for Name: fos_user; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY fos_user (id, username, username_canonical, email, email_canonical, enabled, salt, password, last_login, locked, expired, expires_at, confirmation_token, password_requested_at, roles, credentials_expired, credentials_expire_at, phone, notifications, groups, person_id, username_locked, encoder_name, forum_id) FROM stdin;
+1	admin	admin	admin@example.org	admin@example.org	t	w4frwrfdpsvm4'3r0iefwpocmzxoHwkrwer0	oQJgi8BRCtV60Iq7+g3iXr34Wn86i/VwpLG/LCw1MXpprs8gcxpHF+OWa6IzFzROdaD0sR+y9jmLhVZzzI1pmg==	\N	f	f	\N	\N	\N	a:1:{i:0;s:10:"ROLE_ADMIN";}	f	\N	\N	0	64	\N	t	\N	\N
+\.
+
+
+--
+-- Data for Name: fos_user_group; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY fos_user_group (user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Name: fos_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('fos_user_id_seq', 1, true);
+
+
+--
+-- Data for Name: fos_user_ismemberof; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY fos_user_ismemberof (user_id, ismemberof_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: help; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY help (id_help, titolo, contenuto, ultima_modifica, indice) FROM stdin;
+\.
+
+
+--
+-- Name: help_id_help_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('help_id_help_seq', 1, false);
+
+
+--
+-- Data for Name: help_riferimento; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY help_riferimento (riferimento, id_help) FROM stdin;
+\.
+
+
+--
+-- Data for Name: help_topic; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY help_topic (riferimento, titolo, indice) FROM stdin;
+\.
+
+
+--
+-- Data for Name: info_didattica; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY info_didattica (id_canale, programma, programma_link, testi_consigliati, testi_consigliati_link, modalita, modalita_link, obiettivi_esame, obiettivi_esame_link, appelli, appelli_link, homepage_alternativa_link, orario_ics_link) FROM stdin;
+\.
+
+
+--
+-- Data for Name: informativa; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY informativa (id_informativa, data_pubblicazione, data_fine, testo) FROM stdin;
+\.
+
+
+--
+-- Name: informativa_id_informativa_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('informativa_id_informativa_seq', 1, false);
+
+
+--
+-- Data for Name: input_esami_attivi; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY input_esami_attivi (anno_accademico, cod_corso, cod_ind, cod_ori, cod_materia, anno_corso, cod_materia_ins, anno_corso_ins, cod_ril, cod_modulo, cod_attivita, prog_cronologico, cod_doc, flag_titolare_modulo, id_canale, cod_orario, tipo_ciclo, cod_ate, anno_corso_universibo) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ismemberof; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY ismemberof (id, name) FROM stdin;
+\.
+
+
+--
+-- Name: ismemberof_id_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('ismemberof_id_seq', 1, false);
+
+
+--
+-- Data for Name: link; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY link (id_link, id_canale, id_utente, uri, label, description) FROM stdin;
+\.
+
+
+--
+-- Name: link_id_link_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('link_id_link_seq', 1, false);
+
+
+--
+-- Data for Name: migration_versions; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY migration_versions (version) FROM stdin;
+20120609002753
+20120919204917
+20120919210230
+20120921151004
+20120924000212
+20120924165745
+20121011120358
+20121011154244
+20121011175005
+20121026171424
+20121026172131
+20121030112258
+20121030125240
+20121030140048
+20121030222900
+20121031130458
+20121104114246
+20121104132749
+20121109124047
+20121113220954
+20121221214920
+20130102154033
+20130125021448
+\.
+
+
+--
+-- Data for Name: news; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY news (id_news, titolo, data_inserimento, data_scadenza, notizia, id_utente, eliminata, flag_urgente, data_modifica) FROM stdin;
+\.
+
+
+--
+-- Data for Name: news_canale; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY news_canale (id_news, id_canale) FROM stdin;
+\.
+
+
+--
+-- Name: news_id_news_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('news_id_news_seq', 1, false);
+
+
+--
+-- Data for Name: notifica; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY notifica (id_notifica, urgente, messaggio, titolo, "timestamp", destinatario, eliminata) FROM stdin;
+\.
+
+
+--
+-- Name: notifica_id_notifica_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('notifica_id_notifica_seq', 1, false);
+
+
+--
+-- Data for Name: people; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY people (id, unibo_id, given_name, surname) FROM stdin;
+\.
+
+
+--
+-- Name: people_id_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('people_id_seq', 1, false);
+
+
+--
+-- Data for Name: prg_insegnamento; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY prg_insegnamento (anno_accademico, cod_corso, cod_ind, cod_ori, cod_materia, anno_corso, cod_materia_ins, anno_corso_ins, cod_ril, cod_modulo, cod_doc, flag_titolare_modulo, id_canale, cod_orario, tipo_ciclo, cod_ate, anno_corso_universibo) FROM stdin;
+\.
+
+
+--
+-- Name: prg_sdop_id_sdop_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('prg_sdop_id_sdop_seq', 1, false);
+
+
+--
+-- Data for Name: prg_sdoppiamento; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY prg_sdoppiamento (cod_ril, anno_accademico, cod_corso, cod_ind, cod_ori, cod_materia, anno_corso, cod_materia_ins, anno_corso_ins, flag_mutuato, flag_comune, tipo_ciclo, anno_accademico_fis, cod_corso_fis, cod_ind_fis, cod_ori_fis, cod_materia_fis, anno_corso_fis, cod_materia_ins_fis, anno_corso_ins_fis, cod_ril_fis, cod_ate, cod_ate_fis, anno_corso_universibo, id_sdop) FROM stdin;
+\.
+
+
+--
+-- Name: prg_sdoppiamento_r_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('prg_sdoppiamento_r_seq', 1, false);
+
+
+--
+-- Name: prg_sdoppiamento_rr_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('prg_sdoppiamento_rr_seq', 1, false);
+
+
+--
+-- Data for Name: questionario; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY questionario (id_questionario, data, nome, cognome, mail, telefono, tempo_disp, tempo_internet, attiv_offline, attiv_moderatore, attiv_contenuti, attiv_test, attiv_grafica, attiv_prog, altro, id_utente, cdl) FROM stdin;
+\.
+
+
+--
+-- Name: questionario_id_questionari_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('questionario_id_questionari_seq', 1, false);
+
+
+--
+-- Data for Name: rub_docente; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY rub_docente (cod_doc, nome, cognome, prefissonome, sesso, email, descrizionestruttura, flag_origine) FROM stdin;
+\.
+
+
+--
+-- Name: stat_accessi_id_accesso_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('stat_accessi_id_accesso_seq', 1, false);
+
+
+--
+-- Name: stat_download_id_download_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('stat_download_id_download_seq', 1, false);
+
+
+--
+-- Name: stat_login_id_login_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('stat_login_id_login_seq', 1, false);
+
+
+--
+-- Name: stat_visite_id_visita_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('stat_visite_id_visita_seq', 1, false);
+
+
+--
+-- Name: step_id_step_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('step_id_step_seq', 1, false);
+
+
+--
+-- Data for Name: step_log; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY step_log (id_step, id_utente, data_ultima_interazione, nome_classe, esito_positivo) FROM stdin;
+\.
+
+
+--
+-- Data for Name: step_parametri; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY step_parametri (id_step, callback_name, param_name, param_value) FROM stdin;
+\.
+
+
+--
+-- Name: studente_richi_id_argomento_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('studente_richi_id_argomento_seq', 1, false);
+
+
+--
+-- Name: studente_richiede_id_utente_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('studente_richiede_id_utente_seq', 1, false);
+
+
+--
+-- Data for Name: utente_canale; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+COPY utente_canale (id_utente, id_canale, ultimo_accesso, ruolo, my_universibo, notifica, nascosto, nome) FROM stdin;
+\.
+
+
+--
+-- Name: utente_richied_id_argomento_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('utente_richied_id_argomento_seq', 1, false);
+
+
+--
+-- Name: utente_richiede_a_id_utente_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('utente_richiede_a_id_utente_seq', 1, false);
 
 
 --
@@ -2090,53 +2673,6 @@ REVOKE ALL ON SCHEMA public FROM PUBLIC;
 REVOKE ALL ON SCHEMA public FROM postgres;
 GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
-
-
---
--- PostgreSQL database dump complete
---
-
---
--- PostgreSQL database dump
---
-
-SET statement_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-
-SET search_path = public, pg_catalog;
-
---
--- Data for Name: migration_versions; Type: TABLE DATA; Schema: public; Owner: universibo
---
-
-COPY migration_versions (version) FROM stdin;
-20120609002753
-20120919204917
-20120919210230
-20120921151004
-20120924000212
-20120924165745
-20121011120358
-20121011154244
-20121011175005
-20121026171424
-20121026172131
-20121030112258
-20121030125240
-20121030140048
-20121030222900
-20121031130458
-20121104114246
-20121104132749
-20121109124047
-20121113220954
-20121221214920
-20130102154033
-20130125021448
-\.
 
 
 --
