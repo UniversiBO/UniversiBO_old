@@ -38,7 +38,7 @@ class lapp_config
 
     # Notify is not enough
     exec { 'varnish-restart': 
-        command 'service varnish restart'
+        command => 'service varnish restart',
         require => File['varnish-conf', 'varnish-default']
     }
     
