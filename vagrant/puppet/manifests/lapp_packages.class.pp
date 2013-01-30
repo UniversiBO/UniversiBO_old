@@ -15,6 +15,11 @@ class lapp_packages
         ensure => 'latest'
     }
 
+    $proxypkg = ['varnish']
+    package { $proxypkg :
+        ensure => 'latest'
+    }
+
     $javapkg = [ "openjdk-7-jre-headless" ]
     package { $javapkg: ensure => "latest" }
 }
