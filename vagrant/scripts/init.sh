@@ -22,10 +22,3 @@ function puppet_install {
 
 puppet_install 'puppetlabs/postgresql'
 puppet_install 'puppetlabs/apache'
-
-if [ -f /usr/local/bin/composer ]; then
-    composer self-update
-else
-    php -r "eval('?>'.file_get_contents('https://getcomposer.org/installer'));"
-    mv composer.phar /usr/local/bin/composer
-fi
