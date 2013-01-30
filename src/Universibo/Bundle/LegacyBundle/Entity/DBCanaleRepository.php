@@ -56,6 +56,10 @@ class DBCanaleRepository extends DBRepository
 
     public function findManyById(array $idCanale)
     {
+        if (count($idCanale) === 0) {
+            return array();
+        }
+
         $db = $this->getDb();
 
         array_walk($idCanale, array($db, 'quote'));
@@ -81,24 +85,23 @@ class DBCanaleRepository extends DBRepository
         return $elenco_canali;
     }
 
+    /**
+     * Finds channel ids given a type
+     *
+     * @param  integer   $type
+     * @return integer[]
+     */
     public function findManyByType($type)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT id_canale FROM canale WHERE tipo_canale = '.$db->quote($type);
-        $res = $db->query($query);
-        if (DB::isError($res))
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-        $rows = $res->numRows();
-        if( $rows == 0) return false;
+        $res = $db->executeQuery($query);
 
         $elenco_canali = array();
-        while ($row = $this->fetchRow($res)) {
-            //var_dump($row);
-            $elenco_canali[] = $row[0];
+        while (false !== ($id = $res->fetchColumn())) {
+            $elenco_canali[] = $id;
         }
-        $res->free();
 
         return $elenco_canali;
     }
