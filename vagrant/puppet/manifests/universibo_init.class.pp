@@ -4,7 +4,6 @@ class universibo_init
         cwd => '/vagrant/app/sql/pgsql',
         command => "cat devdb.sql | sed 's/OWNER TO .*/OWNER TO universibo;/' | su - postgres -c 'psql universibo'",
         unless => "test `/vagrant/vagrant/scripts/check.tables.php` -gt 0",
-        logoutput => true
     }
     
     exec {'load-forum':
