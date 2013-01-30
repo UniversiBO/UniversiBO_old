@@ -3,7 +3,7 @@
 aptitude update
 
 if [ `which git | wc -l` -eq 0 ]; then
-    aptitude install git
+    aptitude install git --assume-yes
 fi
 
 function puppet_install {
