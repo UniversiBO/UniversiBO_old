@@ -16,8 +16,8 @@ class lapp_config
 
 
     service { 'varnish':
-        name    => 'varnish',
-        ensure  => running
+        ensure  => running,
+        enable => true
     }
 
     file { '/etc/apache2/conf.d/user':
