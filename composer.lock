@@ -1,5 +1,5 @@
 {
-    "hash": "5cdb8eccb6f333be59bdb94c66e49c24",
+    "hash": "6972f147bcf3595e86e5e33184c50412",
     "packages": [
         {
             "name": "doctrine/common",
@@ -80,7 +80,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/50e7e644984f17038224f6fcd02c2b7c20147980",
+                "url": "https://github.com/doctrine/data-fixtures/archive/50e7e644984f17038224f6fcd02c2b7c20147980.zip",
                 "reference": "50e7e644984f17038224f6fcd02c2b7c20147980",
                 "shasum": ""
             },
