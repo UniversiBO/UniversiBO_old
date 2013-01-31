@@ -20,7 +20,6 @@ Vagrant::Config.run do |config|
   config.vm.customize [
     "modifyvm", :id,
     "--memory", "1024",
-    "--cpus"  , "2", 
     "--name"  , "UniversiBO Vagrant Kit"
   ]
 
