@@ -70,6 +70,17 @@ class CommonController extends Controller
     {
         return array('channelId' => $channel->getIdCanale());
     }
+    
+    /**
+     * @Template()
+     * @return array
+     */
+    public function analyticsAction()
+    {
+        $id = $this->container->getParameter('analytics_id');
+        
+        return array('trackingId' => $id);
+    }
 
     /**
      * @Template()

@@ -377,6 +377,13 @@ abstract class UniversiboCommand extends BaseCommand
 
         $assetsResponse = $this->forward('UniversiboWebsiteBundle:Common:assets');
         $template->assign('common_assets', $assetsResponse->getContent());
+        
+        if('prod' === $this->container->getParameter('kernel.environment')) {
+            $analyticsResponse = $this->forward('UniversiboWebsiteBundle:Common:analytics');
+            $template->assign('common_analytics', $analyticsResponse->getContent());
+        } else {
+            $template->assign('common_analytics', '');
+        }
 
         $template->assign('common_version', UniversiboWebsiteBundle::VERSION);
         $template->assign('common_showGoogle', $this->get('kernel')->getEnvironment() === 'prod');

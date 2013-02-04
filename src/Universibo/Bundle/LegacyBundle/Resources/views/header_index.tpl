@@ -8,6 +8,7 @@
 <meta lang="it" name="description" content="{$common_metaDescription|escape:"htmlall"}" />
 {$common_rss|default:""}
 {$common_assets}
+{$common_analytics}
 {if $common_showGoogle}
 {literal}
 <style type="text/css">
