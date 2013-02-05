@@ -69,6 +69,10 @@ fos_user:
     group:
       group_class: 'Universibo\Bundle\CoreBundle\Entity\Group'
 
+universibo_campus:
+  api:
+    url: 'http://campus.unibo.it/cgi/'
+
 universibo_shibboleth:
   idp_url:
     base: '%idp_url%'
