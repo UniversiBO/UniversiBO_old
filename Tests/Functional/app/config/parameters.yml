@@ -5,3 +5,4 @@ parameters:
   database_name:     universibo_forum_test
   database_user:     universibo_forum_test
   database_password: universibo
+  forum_api:         ~
