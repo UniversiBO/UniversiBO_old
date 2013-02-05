@@ -27,6 +27,7 @@
         "zendframework/zend-feed": ">=2.0.0,<2.1.0",
         "universibo/core-bundle": "dev-master",
         "universibo/forum-bundle": "dev-master",
+        "universibo/campus-bundle": "dev-master",
         "ornicar/apc-bundle": "@dev"
     },
     "replaces": {
@@ -40,6 +41,10 @@
         {
             "type": "vcs",
             "url": "http://github.com/UniversiBO/UniversiboForumBundle"
+        },
+        {
+            "type": "vcs",
+            "url": "http://github.com/UniversiBO/UniversiboCampusBundle"
         }
     ],
     "require-dev": {

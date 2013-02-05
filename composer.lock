@@ -1,5 +1,5 @@
 {
-    "hash": "6972f147bcf3595e86e5e33184c50412",
+    "hash": "7c41c0b4c7f127e0233a4224068ce9fe",
     "packages": [
         {
             "name": "doctrine/common",
@@ -319,7 +319,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/99c0192804134a8c1d0588777bd98bdbc2dbb554",
+                "url": "https://github.com/doctrine/DoctrineMigrationsBundle/archive/99c0192804134a8c1d0588777bd98bdbc2dbb554.zip",
                 "reference": "99c0192804134a8c1d0588777bd98bdbc2dbb554",
                 "shasum": ""
             },
@@ -372,7 +372,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/migrations/zipball/e1f6efcd94993b493de5c6a413cbc327ea9c0caa",
+                "url": "https://github.com/doctrine/migrations/archive/e1f6efcd94993b493de5c6a413cbc327ea9c0caa.zip",
                 "reference": "e1f6efcd94993b493de5c6a413cbc327ea9c0caa",
                 "shasum": ""
             },
@@ -722,7 +722,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -973,7 +973,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Wage",
+                    "name": "Jonathan H. Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/"
                 }
@@ -992,12 +992,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/kriswallsmith/assetic.git",
-                "reference": "5591252faa1c7f3299660daebffd63dee2746b7e"
+                "reference": "faf3b245977d8bc06c9da4710dbcad37756993a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/kriswallsmith/assetic/archive/5591252faa1c7f3299660daebffd63dee2746b7e.zip",
-                "reference": "5591252faa1c7f3299660daebffd63dee2746b7e",
+                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/faf3b245977d8bc06c9da4710dbcad37756993a9",
+                "reference": "faf3b245977d8bc06c9da4710dbcad37756993a9",
                 "shasum": ""
             },
             "require": {
@@ -1022,7 +1022,7 @@
                 "ptachoire/cssembed": "Assetic provides the integration with phpcssembed to embed data uris",
                 "leafo/scssphp-compass": "Assetic provides the integration with the SCSS compass plugin"
             },
-            "time": "2013-01-12 22:20:24",
+            "time": "2013-01-31 17:45:10",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1066,7 +1066,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/1.2.1",
+                "url": "https://github.com/Seldaek/monolog/zipball/1.2.1",
                 "reference": "1.2.1",
                 "shasum": ""
             },
@@ -1081,7 +1081,7 @@
                 "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
                 "ext-mongo": "Allow sending log messages to a MongoDB server"
             },
-            "time": "2012-08-29 11:53:20",
+            "time": "2012-08-29 04:53:20",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1710,6 +1710,61 @@
             ]
         },
         {
+            "name": "universibo/campus-bundle",
+            "version": "dev-master",
+            "target-dir": "Universibo/Bundle/CampusBundle",
+            "source": {
+                "type": "git",
+                "url": "http://github.com/UniversiBO/UniversiboCampusBundle",
+                "reference": "a1ef9c3f95e6043f40cd650181145823d1416b19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/UniversiBO/UniversiboCampusBundle/zipball/a1ef9c3f95e6043f40cd650181145823d1416b19",
+                "reference": "a1ef9c3f95e6043f40cd650181145823d1416b19",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/framework-bundle": "2.1.*",
+                "guzzle/guzzle": "3.1.*"
+            },
+            "require-dev": {
+                "symfony/yaml": "2.1.*",
+                "symfony/class-loader": "2.1.*"
+            },
+            "time": "2013-02-05 17:55:15",
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Universibo\\Bundle\\CampusBundle": ""
+                }
+            },
+            "license": [
+                "GPL"
+            ],
+            "authors": [
+                {
+                    "name": "Davide Bellettini",
+                    "email": "davide.bellettini@gmail.com"
+                },
+                {
+                    "name": "UniversiboCampusBundle Contributors",
+                    "homepage": "https://github.com/UniversiBO/UniversiboCampusBundle/graphs/contributors"
+                }
+            ],
+            "description": "UniversiBO CampusBundle",
+            "homepage": "http://github.com/UniversiBO",
+            "keywords": [
+                "university",
+                "eprints",
+                "json"
+            ],
+            "support": {
+                "source": "https://github.com/UniversiBO/UniversiboCampusBundle/tree/master",
+                "issues": "https://github.com/UniversiBO/UniversiboCampusBundle/issues"
+            }
+        },
+        {
             "name": "universibo/core-bundle",
             "version": "dev-master",
             "target-dir": "Universibo/Bundle/CoreBundle",
@@ -1770,12 +1825,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/UniversiBO/UniversiboForumBundle",
-                "reference": "67d05998777dd6aab5fed8aabac7470ee3255c1d"
+                "reference": "a24e6f75e598999f62638c3d80534a24470cb982"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UniversiBO/UniversiboForumBundle/zipball/67d05998777dd6aab5fed8aabac7470ee3255c1d",
-                "reference": "67d05998777dd6aab5fed8aabac7470ee3255c1d",
+                "url": "https://api.github.com/repos/UniversiBO/UniversiboForumBundle/zipball/a24e6f75e598999f62638c3d80534a24470cb982",
+                "reference": "a24e6f75e598999f62638c3d80534a24470cb982",
                 "shasum": ""
             },
             "require": {
@@ -1787,7 +1842,7 @@
                 "symfony/yaml": "2.1.*",
                 "symfony/class-loader": "2.1.*"
             },
-            "time": "2013-01-29 05:20:55",
+            "time": "2013-02-05 12:49:29",
             "type": "symfony-bundle",
             "autoload": {
                 "psr-0": {
@@ -2410,6 +2465,7 @@
         "jwage/easy-csv": 20,
         "universibo/core-bundle": 20,
         "universibo/forum-bundle": 20,
+        "universibo/campus-bundle": 20,
         "ornicar/apc-bundle": 20,
         "behat/behat": 0
     }
