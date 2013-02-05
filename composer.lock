@@ -1716,12 +1716,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/UniversiBO/UniversiboCampusBundle",
-                "reference": "a1ef9c3f95e6043f40cd650181145823d1416b19"
+                "reference": "6189980d3875a95f207ab688bac332a0fc9aee89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UniversiBO/UniversiboCampusBundle/zipball/a1ef9c3f95e6043f40cd650181145823d1416b19",
-                "reference": "a1ef9c3f95e6043f40cd650181145823d1416b19",
+                "url": "https://api.github.com/repos/UniversiBO/UniversiboCampusBundle/zipball/6189980d3875a95f207ab688bac332a0fc9aee89",
+                "reference": "6189980d3875a95f207ab688bac332a0fc9aee89",
                 "shasum": ""
             },
             "require": {
@@ -1732,7 +1732,7 @@
                 "symfony/yaml": "2.1.*",
                 "symfony/class-loader": "2.1.*"
             },
-            "time": "2013-02-05 17:55:15",
+            "time": "2013-02-05 18:15:10",
             "type": "symfony-bundle",
             "autoload": {
                 "psr-0": {
