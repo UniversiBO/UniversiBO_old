@@ -71,7 +71,7 @@ fos_user:
 
 universibo_campus:
   api:
-    url: 'http://campus.unibo.it/cgi/'
+    uri: 'http://campus.unibo.it/cgi/'
 
 universibo_shibboleth:
   idp_url:
