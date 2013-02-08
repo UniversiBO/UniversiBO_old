@@ -112,12 +112,6 @@ abstract class UniversiboCommand extends BaseCommand
         $temp_template_list = $tpsettings['styles'];
         $template_list = array();
         $i = 0;
-        foreach ($temp_template_list as $key => $value) {
-            $template_list[$i] = array('uri' => 'index.php?setTemplate=' . $key, 'label' => $key);
-            $i++;
-        }
-
-        $template->assign('common_templateList', $template_list);
 
         $request_protocol = (array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] == 'on') ? 'https' : 'http';
 

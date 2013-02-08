@@ -392,15 +392,6 @@ class FrontController
            //$set this->defaultCommand
            $this->_setDefaultCommand();
 
-           //set $this->dbinfo
-           $this->_setDbInfo();
-
-           //set $this->templateEngine
-           $this->_setTemplateEngineInfo();
-
-           //set $this->dbinfo
-           $this->_setMailerInfo();
-
            //set $this->languageInfo
            $this->_setLanguageInfo();
 
@@ -517,108 +508,6 @@ class FrontController
                 $this->defaultCommand = $iesimoFiglio->firstChild->nodeValue;
         }
         //var_dump($this->defaultCommand );
-    }
-
-    /**
-     * Sets the framework databaseConnections
-     *
-     * @access private
-     */
-    public function _setDbInfo()
-    {
-    }
-
-    /**
-     * Sets the framework templateEngine to be used from getTemplateEngine factory method
-     *
-     * @access private
-     */
-    public function _setTemplateEngineInfo()
-    {
-        $this->templateEngine=array();
-
-        $templateInfoNodes = $this->config->getElementsByTagName('templateInfo');
-        if ( $templateInfoNodes == NULL )
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` specificato l\'elemento templateInfo nel file di config','file'=>__FILE__,'line'=>__LINE__));
-        $templateInfoNode = $templateInfoNodes->item(0);
-        //		var_dump($templateInfoNode->attributes);
-        if ( $templateInfoNode == NULL )
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` specificato l\'elemento templateInfo nel file di config','file'=>__FILE__,'line'=>__LINE__));
-
-        if ( $templateInfoNode->getAttribute('type') != 'Smarty' )
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>'Al momento non sono supportati template engines diversi da Smarty','file'=>__FILE__,'line'=>__LINE__));
-
-        $this->templateEngine['debugging'] = ( $templateInfoNode->getAttribute('debugging') == 'on' );
-
-        $templateDirsNodes 	= $templateInfoNode->getElementsByTagName('template_dirs');
-        if ( $templateDirsNodes == NULL )
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` specificato l\'elemento template_dirs nel file di config','file'=>__FILE__,'line'=>__LINE__));
-        $templateDirsNode	= $templateDirsNodes->item(0);
-        if ( $templateDirsNode == NULL )
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` specificato l\'elemento template_dirs nel file di config','file'=>__FILE__,'line'=>__LINE__));
-
-        $figli = $templateDirsNode->childNodes;
-        for ($i=0; $i<$figli->length; $i++) {
-            $templateSetting = $figli->item($i);
-            if ($templateSetting->nodeType == XML_ELEMENT_NODE)
-                $this->templateEngine[$templateSetting->tagName] = $templateSetting->firstChild->nodeValue;
-        }
-
-        $templateStylesNodes = $templateInfoNode->getElementsByTagName('template_styles');
-        if($templateStylesNodes == NULL)
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` specificato l\'elemento template_styles nel file di config','file'=>__FILE__,'line'=>__LINE__));
-        $templateStylesNode	= $templateStylesNodes->item(0);
-        if($templateStylesNode == NULL)
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` specificato l\'elemento template_styles nel file di config','file'=>__FILE__,'line'=>__LINE__));
-
-        $figli = $templateStylesNode->childNodes;
-        for ($i=0; $i<$figli->length; $i++) {
-            $templateSetting = $figli->item($i);
-            if ($templateSetting->nodeType == XML_ELEMENT_NODE)
-                $this->templateEngine['styles'][$templateSetting->getAttribute('name')] = $templateSetting->getAttribute('dir');
-        }
-
-        $this->templateEngine['default_template'] = $templateStylesNode->getAttribute('default');
-
-        if (!array_key_exists($this->templateEngine['default_template'],$this->templateEngine['styles']))
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non esiste il template di default nel file di config','file'=>__FILE__,'line'=>__LINE__));
-
-        //assegno il template in uso
-        if (array_key_exists('setStyle', $_GET) && $_GET['setStyle']!=''
-                && array_key_exists($_GET['setStyle'],$this->templateEngine['styles']))
-        {
-            $this->setStyle($_GET['setStyle']);
-        }
-
-        if ( $this->getStyle()!='' ) {
-            $this->templateEngine['template_name'] = $this->getStyle();
-        } else {
-            $this->templateEngine['template_name'] = $this->templateEngine['default_template'];
-        }
-
-    }
-
-    /**
-     * Sets the framework mailer settings
-     *
-     * @access private
-     */
-    public function _setMailerInfo()
-    {
-        $mailerInfoNodes = $this->config->getElementsByTagName('mailerInfo');
-        if ($mailerInfoNodes == NULL)
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non esiste l\'elemento mailerInfo nel file di config','file'=>__FILE__,'line'=>__LINE__));
-
-        $mailerInfoNode = $mailerInfoNodes->item(0);
-        if ($mailerInfoNode == NULL)
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non esiste l\'elemento mailerInfo nel file di config','file'=>__FILE__,'line'=>__LINE__));
-
-        $figli = $mailerInfoNode->childNodes;
-        for ($i=0; $i<$figli->length; $i++) {
-            $aSetting = $figli->item($i);
-            if ($aSetting->nodeType == XML_ELEMENT_NODE)
-                $this->mailerInfo[$aSetting->tagName] = $aSetting->firstChild->nodeValue;
-        }
     }
 
     /**
@@ -838,23 +727,20 @@ class FrontController
         } else {
             //define('TEMPLATE_SINGLETON','on');
 
-            //			$templateEngine = new Smarty();
-
-            //mia aggiunta per tentativo di template "differenziali"
             $templateEngine = new MySmarty();
-
-            $templateEngine->default_template_dir  = $this->templateEngine['smarty_template'].$this->templateEngine['styles'][$this->templateEngine['default_template']];
             //fine mia aggiunta
 
+            $kernel = $this->getContainer()->get('kernel');
+            $root = $kernel->getRootDir();
+
             $templateEngine->template_dir  = realpath(__DIR__.'/../Resources/views/');
-            $templateEngine->compile_dir   = $this->templateEngine['smarty_compile'].$this->templateEngine['styles'][$this->templateEngine['template_name']];
-            $templateEngine->config_dir    = $this->templateEngine['smarty_config'].$this->templateEngine['styles'][$this->templateEngine['template_name']];
-            $templateEngine->cache_dir     = $this->templateEngine['smarty_cache'].$this->templateEngine['styles'][$this->templateEngine['template_name']];
+            $templateEngine->compile_dir   = $root . '/cache/smarty/compile';
+            $templateEngine->config_dir    = realpath(__DIR__.'/../Resources/views-config/');
+            $templateEngine->cache_dir     = $root . '/cache/smarty/cache';
             $templateEngine->compile_check = true;
-            $templateEngine->debugging     = $this->templateEngine['debugging'];
+            $templateEngine->debugging     = 'prod' !== $kernel->getEnvironment();
 
             return $templateEngine;
-
         }
     }
 

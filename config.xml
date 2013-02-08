@@ -290,20 +290,6 @@
 		<fromName>UniversiBO</fromName>
 	</mailerInfo>
 
-	<templateInfo type="Smarty" debugging="off">
-		<template_dirs>
-			<web_dir>tpl/</web_dir>
-			<smarty_dir>../framework/smarty/</smarty_dir>
-			<smarty_template>../universibo/templates/</smarty_template>
-			<smarty_compile>../universibo/templates_compile/</smarty_compile>
-			<smarty_config>../universibo/templates_config/</smarty_config>
-			<smarty_cache>../universibo/templates_cache/</smarty_cache>
-		</template_dirs>
-		<template_styles default="unibo">
-			<style name="unibo" dir="unibo/" />
-		</template_styles>
-	</templateInfo>
-
 	<langInfo>
 		<lang_dir>../universibo/lang/</lang_dir>
 		<lang_default>it</lang_default>
