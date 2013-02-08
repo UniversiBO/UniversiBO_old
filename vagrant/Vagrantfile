@@ -43,6 +43,9 @@ Vagrant::Config.run do |config|
 
   # Changing default v-root to ..
   config.vm.share_folder "v-root", "/vagrant", "..", :nfs => (RUBY_PLATFORM =~ /linux/ or RUBY_PLATFORM =~ /darwin/)
+  
+  # Sharing forum folder
+  config.vm.share_folder "v-forum", "/forum", "../../phpbb3", :nfs => (RUBY_PLATFORM =~ /linux/ or RUBY_PLATFORM =~ /darwin/), :create => true
 
   # whithout this symlinks can't be created on the shared folder
   config.vm.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
