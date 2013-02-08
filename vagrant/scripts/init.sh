@@ -23,3 +23,4 @@ function puppet_install {
 
 puppet_install 'puppetlabs/postgresql'
 puppet_install 'puppetlabs/apache'
+puppet_install 'attachmentgenie/locales'
