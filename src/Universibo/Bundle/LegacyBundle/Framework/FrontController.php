@@ -383,9 +383,6 @@ class FrontController
 
            $this->config = & $config;
 
-           //Set $this->rootFolder
-           $this->_setRootFolder();
-
            //Set $this->rootURL
            $this->_setRootUrl();
 
@@ -455,24 +452,6 @@ class FrontController
     {
         $handlers = new ErrorHandlers();
         $handlers->register();
-    }
-
-    /**
-     * Sets the RootFolder
-     *
-     * @access private
-     */
-    public function _setRootFolder()
-    {
-           $elementsFolder = $this->config->getElementsByTagName('rootFolder');
-           if ($elementsFolder == NULL)
-               Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` specificato l\'elemento rootFolder nel file di config','file'=>__FILE__,'line'=>__LINE__));
-           $elementFolderItem = $elementsFolder->item(0);
-           $elementFolderChild =& $elementFolderItem->firstChild;
-           $this->rootFolder = $elementFolderChild->nodeValue;
-           if(is_dir($this->rootFolder)) return;
-           else
-               Error::throwError(_ERROR_CRITICAL,array('msg'=>'rootFolder errata nel file di config','file'=>__FILE__,'line'=>__LINE__));
     }
 
     /**
