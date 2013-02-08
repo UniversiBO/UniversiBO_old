@@ -10,6 +10,7 @@
 /cache.properties
 /nbproject
 /web/bundles
+app/bootstrap.php.cache
 app/cache
 app/config/deploy.rb
 app/logs
