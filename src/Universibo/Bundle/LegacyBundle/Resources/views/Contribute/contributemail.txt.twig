@@ -4,11 +4,7 @@ Nome: {{ questionario.nome }} {{ questionario.cognome }}
 E-mail: {{ questionario.mail }}
 Telefono: {{ questionario.telefono }}
 CDL: {{ questionario.cdl }}
-{% if(user != null) %}
-Utente: {{ user.username }} (id: {{ questionario.idUtente }})
-{% else %}
-Utente: Anonimo
-{% endif %}
+Utente: {{ username }} (id: {{ questionario.idUtente }})
 Tempo disponibile: {{ questionario.tempoDisponibile }}
 Tempo internet: {{ questionario.tempoInternet }}
 Attività offline: {% if(questionario.attivitaOffline == 'S') %}sì{% else %}no{% endif %}

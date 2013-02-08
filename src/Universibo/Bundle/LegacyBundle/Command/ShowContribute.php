@@ -351,7 +351,8 @@ class ShowContribute extends UniversiboCommand
             $questionario->setCdl($q3_cdl);
 
             $templating = $this->getContainer()->get('templating');
-            $body = $templating->render('UniversiboLegacyBundle:Contribute:contributemail.txt.twig', array('questionario' => $questionario, 'user' => $session_user));
+            $username = $session_user instanceof User ? $session_user->getUsername() : 'Anonimo';
+            $body = $templating->render('UniversiboLegacyBundle:Contribute:contributemail.txt.twig', array('questionario' => $questionario, 'username' => $username));
 
             $notRepo = $this->getContainer()->get('universibo_legacy.repository.notifica.notifica_item');
 
