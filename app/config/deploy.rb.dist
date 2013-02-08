@@ -41,7 +41,7 @@ set :dev_only_files, [web_path + "/app_dev.php"]
 set :production, true
 
 after 'symfony:cache:warmup', 'pff:productify'
-after 'pff:productify', 'apc:clear'
+after 'deploy', 'apc:clear'
 
 namespace :apc do
   desc "Clears APC cache"
