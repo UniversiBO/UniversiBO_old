@@ -28,12 +28,17 @@
         "universibo/core-bundle": "dev-master",
         "universibo/forum-bundle": "dev-master",
         "universibo/campus-bundle": "dev-master",
+        "universibo/smarty": "dev-master",
         "ornicar/apc-bundle": "@dev"
     },
     "replaces": {
         "smarty/smarty": "v3.1.11"
     },
     "repositories": [
+        {
+            "type": "vcs",
+            "url": "http://github.com/UniversiBO/smarty"
+        },
         {
             "type": "vcs",
             "url": "http://github.com/UniversiBO/UniversiboCoreBundle"
