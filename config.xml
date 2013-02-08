@@ -2,7 +2,6 @@
 <config>
 
 	<!--Root Folder can be absolute or relative to receiver path -->
-	<rootFolder>../framework/</rootFolder>
 	<rootURL>universibo2devel/htmls/</rootURL>
 	<paths>
 		<application>../universibo/</application>
