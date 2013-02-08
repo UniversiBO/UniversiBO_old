@@ -858,8 +858,6 @@ class FrontController
             return $templateEngine ;
         } else {
             //define('TEMPLATE_SINGLETON','on');
-            require_once($this->templateEngine['smarty_dir'].'SmartyBC.class.php');
-            require_once($this->templateEngine['smarty_dir'].'MySmarty.class.php');
 
             //			$templateEngine = new Smarty();
 
