@@ -87,7 +87,7 @@ class User extends BaseUser implements EncoderAwareInterface
      * @deprecated
      * @var int
      */
-    protected $legacyGroups;
+    protected $legacyGroups = 0;
 
     /**
      * Person this account belongs to
