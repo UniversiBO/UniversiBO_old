@@ -1,5 +1,5 @@
 {
-    "hash": "ddbdf77b83b82a9bcd80c2087edd1cdf",
+    "hash": "7452d1200b45856d872a0955a100f293",
     "packages": [
         {
             "name": "doctrine/common",
@@ -80,7 +80,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/50e7e644984f17038224f6fcd02c2b7c20147980",
+                "url": "https://github.com/doctrine/data-fixtures/archive/50e7e644984f17038224f6fcd02c2b7c20147980.zip",
                 "reference": "50e7e644984f17038224f6fcd02c2b7c20147980",
                 "shasum": ""
             },
@@ -319,7 +319,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/99c0192804134a8c1d0588777bd98bdbc2dbb554",
+                "url": "https://github.com/doctrine/DoctrineMigrationsBundle/archive/99c0192804134a8c1d0588777bd98bdbc2dbb554.zip",
                 "reference": "99c0192804134a8c1d0588777bd98bdbc2dbb554",
                 "shasum": ""
             },
@@ -372,7 +372,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/migrations/zipball/e1f6efcd94993b493de5c6a413cbc327ea9c0caa",
+                "url": "https://github.com/doctrine/migrations/archive/e1f6efcd94993b493de5c6a413cbc327ea9c0caa.zip",
                 "reference": "e1f6efcd94993b493de5c6a413cbc327ea9c0caa",
                 "shasum": ""
             },
@@ -497,7 +497,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSAdvancedEncoderBundle/zipball/e3ef1f1317805195e6cbbba5fc9f69bfb35e9ddd",
+                "url": "https://github.com/FriendsOfSymfony/FOSAdvancedEncoderBundle/archive/e3ef1f1317805195e6cbbba5fc9f69bfb35e9ddd.zip",
                 "reference": "e3ef1f1317805195e6cbbba5fc9f69bfb35e9ddd",
                 "shasum": ""
             },
@@ -722,7 +722,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -953,7 +953,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jwage/easy-csv/zipball/63db136a176a0fac9340064a3188267a14508141",
+                "url": "https://github.com/jwage/easy-csv/archive/63db136a176a0fac9340064a3188267a14508141.zip",
                 "reference": "63db136a176a0fac9340064a3188267a14508141",
                 "shasum": ""
             },
@@ -973,7 +973,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Wage",
+                    "name": "Jonathan H. Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/"
                 }
@@ -1066,7 +1066,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/1.2.1",
+                "url": "https://github.com/Seldaek/monolog/zipball/1.2.1",
                 "reference": "1.2.1",
                 "shasum": ""
             },
@@ -1081,7 +1081,7 @@
                 "ext-mongo": "Allow sending log messages to a MongoDB server",
                 "mlehner/gelf-php": "Allow sending log messages to a GrayLog2 server"
             },
-            "time": "2012-08-29 11:53:20",
+            "time": "2012-08-29 04:53:20",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1123,7 +1123,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ornicar/ApcBundle/zipball/3b67a08a5fcba5b4077eeccbb5a4d22e84b9ff01",
+                "url": "https://github.com/ornicar/ApcBundle/archive/3b67a08a5fcba5b4077eeccbb5a4d22e84b9ff01.zip",
                 "reference": "3b67a08a5fcba5b4077eeccbb5a4d22e84b9ff01",
                 "shasum": ""
             },
@@ -1623,7 +1623,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig-extensions/zipball/5c2d515d4624bdd588226d688173cf0399a4d8cf",
+                "url": "https://github.com/fabpot/Twig-extensions/archive/5c2d515d4624bdd588226d688173cf0399a4d8cf.zip",
                 "reference": "5c2d515d4624bdd588226d688173cf0399a4d8cf",
                 "shasum": ""
             },
@@ -1884,7 +1884,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UniversiBO/UniversiboShibbolethBundle/zipball/7f88e2371d665ce79c9fd659881f592164427acb",
+                "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle/archive/7f88e2371d665ce79c9fd659881f592164427acb.zip",
                 "reference": "7f88e2371d665ce79c9fd659881f592164427acb",
                 "shasum": ""
             },
@@ -1968,7 +1968,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zf2/zipball/release-2.0.7",
+                "url": "https://github.com/zendframework/zf2/archive/release-2.0.7.zip",
                 "reference": "release-2.0.7",
                 "shasum": ""
             },
@@ -2036,7 +2036,7 @@
                 "zendframework/zendpdf": "ZendPdf for creating PDF representations of barcodes",
                 "zendframework/zendservice-recaptcha": "ZendService\\ReCaptcha for rendering ReCaptchas in Zend\\Captcha and/or Zend\\Form"
             },
-            "time": "2013-01-29 22:52:16",
+            "time": "2013-01-29 22:23:49",
             "bin": [
                 "bin/classmap_generator.php"
             ],
