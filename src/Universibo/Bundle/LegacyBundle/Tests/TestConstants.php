@@ -11,4 +11,5 @@ class TestConstants
     const TUTOR_USERNAME = 'dtiles';
     const DUMMY_PASSWORD = 'padrino';
     const DUMMY_PASSWORD2 = 'madrina';
+    const SELENIUM_URL = 'http://www.universibo.dev/app_dev.php';
 }
