@@ -57,25 +57,11 @@ abstract class BaseReceiver
     }
 
     /**
-     * Set PHP language settings (path, gpc, error_reporting)
-     */
-    public function _setPhpEnvirorment()
-    {
-        $pathDelimiter = PATH_SEPARATOR;
-
-
-        ini_set('include_path', $this->frameworkPath.$pathDelimiter.ini_get('include_path'));
-    }
-
-
-    /**
      * Main code for framework activation, includes Error definitions
      * and instantiates FrontController
      */
     public function main()
     {
-        $this->_setPhpEnvirorment();
-
         $fc= new FrontController($this, $this->do);
 
         $fc->setConfig( $this->configFile );
