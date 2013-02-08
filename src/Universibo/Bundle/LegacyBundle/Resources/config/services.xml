@@ -223,7 +223,7 @@
 
 		<service id="universibo_legacy.translator.role_name" class="Universibo\Bundle\LegacyBundle\Service\RoleNameTranslator"/>
 
-		<service id="universibo_legacy.message.sms" class="mobytSms">
+		<service id="universibo_legacy.message.sms" class="Universibo\Bundle\LegacyBundle\Framework\MobytSms">
 			<argument>%sms_user%</argument>
 			<argument>%sms_password%</argument>
 			<argument>%sms_from%</argument>
