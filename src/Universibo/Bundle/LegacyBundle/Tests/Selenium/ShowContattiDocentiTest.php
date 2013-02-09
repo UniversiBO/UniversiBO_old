@@ -3,7 +3,7 @@ namespace Universibo\Bundle\LegacyBundle\Tests\Selenium;
 
 use Universibo\Bundle\LegacyBundle\Tests\TestConstants;
 
-class ShowCcontattiDocentiTest extends UniversiBOSeleniumTestCase
+class ShowContattiDocentiTest extends UniversiBOSeleniumTestCase
 {
     protected function setUp()
     {
