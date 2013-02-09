@@ -10,9 +10,6 @@ namespace Universibo\Bundle\LegacyBundle\PearDB;
 use Doctrine\DBAL\Connection;
 use Universibo\Bundle\LegacyBundle\PearDB\ResultWrapper;
 
-// Ugly hack
-class_exists('DB');
-
 /**
  * Pear::DB connection wrapper
  */
