@@ -34,9 +34,6 @@
         "universibo/smarty": "dev-master",
         "ornicar/apc-bundle": "@dev"
     },
-    "replaces": {
-        "smarty/smarty": "v3.1.11"
-    },
     "repositories": [
         {
             "type": "vcs",
