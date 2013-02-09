@@ -1,18 +1,5 @@
 <?xml version="1.0"?>
 <config>
-
-	<!--Root Folder can be absolute or relative to receiver path -->
-	<rootURL>universibo2devel/htmls/</rootURL>
-	<paths>
-		<application>../universibo/</application>
-		<commands>../universibo/commands/</commands>
-	</paths>
-
-	<receivers>
-		<main>index.php</main>
-	</receivers>
-
-	<defaultCommand>ShowHome</defaultCommand>
 	<commands>
 		<ShowError class="ShowError">
 			<response type="template" name="default">error.tpl</response>
@@ -281,26 +268,6 @@
 			<response type="template" name="default">permalink_show.tpl</response>
 		</ShowPermalink>
 	</commands>
-
-	<mailerInfo>
-		<!-- leave smtp empty if don't want to use a smtp server -->
-		<smtp>---pippo.joker.ing.unibo.it</smtp>
-		<fromAddress>universibo@unibo.it</fromAddress>
-		<replyToAddress>universibo@unibo.it</replyToAddress>
-		<fromName>UniversiBO</fromName>
-	</mailerInfo>
-
-	<langInfo>
-		<lang_dir>../universibo/lang/</lang_dir>
-		<lang_default>it</lang_default>
-		<date_separator>/</date_separator>
-	</langInfo>
-
-	<smsMobyInfo>
-		<username>your_username</username>
-		<password>your_password</password>
-		<fromName>UniversiBO</fromName>
-	</smsMobyInfo>
 
 	<!-- appSettings is an optional node. You can place any thing here and access 
 		it from FrontController->getAppSetting() -->

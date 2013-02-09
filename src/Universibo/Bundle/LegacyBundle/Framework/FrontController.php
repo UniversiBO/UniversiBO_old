@@ -32,31 +32,10 @@ use Universibo\Bundle\LegacyBundle\App\ErrorHandlers;
  */
 class FrontController
 {
-
-    /**
-     * @access private
-     */
-    private $configFile;
-
-    /**
-     * @access private
-     */
-    private $config;
-
-    /**
-     * @access private
-     */
-    private $rootFolder;
-
     /**
      * @access private
      */
     private $rootUrl = '';
-
-    /**
-     * @access private
-     */
-    private $receiverId;
 
     /**
      * @access private
@@ -67,11 +46,6 @@ class FrontController
      * @access private
      */
     private $commandClass;
-
-    /**
-     * @access private
-     */
-    private $paths;
 
     /**
      * @access private
@@ -87,21 +61,6 @@ class FrontController
      * @access private
      */
     private $appSettings;
-
-    /**
-     * @access private
-     */
-    private $mailerInfo = array();
-
-    /**
-     * @access private
-     */
-    private $smsMobyInfo = array();
-
-    /**
-     * @access private
-     */
-    private $languageInfo = array();
 
     /**
      * @access private
@@ -366,58 +325,15 @@ class FrontController
      * @param string $configFile filename of FrontController configuration file
      * @access public
      */
-    public function setConfig( $configFile )
+    public function setConfig($configFile)
     {
+        $this->_setErrorHandler();
 
-           $this->_setErrorHandler();
-
-           //
-           //		$config = new XmlDoc();
-           //		$config->parse($configFile);
-
-           $config = new DOMDocument();
-           //var_dump($config);
-           $config->load($configFile);
-
-           //		if($config->isError()) die ($config->error);
-
-           $this->config = & $config;
-
-           //Set $this->rootURL
-           $this->_setRootUrl();
-
-           //set $this->receivers
-           $this->_setReceivers();
-
-           //$set this->defaultCommand
-           $this->_setDefaultCommand();
-
-           //set $this->languageInfo
-           $this->_setLanguageInfo();
-
-           //set $this->appSettings
-           $this->_appSettings();
-
-           //Set $this->paths[]
-           $this->_setPaths();
-
-           //Set $this->rootURL
-           //$this->_setWebUrl();
-
-           //temp
-           //var_dump($this->config);
-
-           //return;
-
-           //$elementTemplate = $this->config->root->getChild('templateEngine');
-           //$this->templateEngine = $elementTemplate->charData;
-
-           //set $this->commandClass must be placed after $this->_setDefaultCommand();
-           $this->_setCommandClass();
-
-           //		var_dump($this); die();
-
-           unset($this->config);
+        $config = new DOMDocument();
+        $config->load($configFile);
+           
+        $this->_appSettings($config);
+        $this->_setCommandClass($config);
     }
 
     /**
@@ -425,7 +341,7 @@ class FrontController
      */
     public function setStyle($style)
     {
-           $_SESSION['template_name'] = $style;
+        $_SESSION['template_name'] = $style;
     }
 
     /**
@@ -433,7 +349,7 @@ class FrontController
      */
     public function getStyle()
     {
-           return 'unibo';
+        return 'unibo';
     }
 
     /**
@@ -446,108 +362,17 @@ class FrontController
     }
 
     /**
-     * Sets the RootURL
-     *
-     * @access private
-     */
-    public function _setRootUrl()
-    {
-           $rootNode	=& $this->config->documentElement;
-           //var_dump($rootNode);
-           // @TODO o completare il MyDOMNodeList o trasformare il foreach in for
-           $figli =& $rootNode->childNodes;
-           //var_dump($figli);
-           for ( $i = 0; $i < $figli->length; $i++ )
-               if (($figlio = $figli->item($i)) != null) {
-                   if ($figlio->nodeType == XML_ELEMENT_NODE && $figlio->tagName == 'rootURL') {
-                       $testo		=& $figlio->firstChild;
-                       $elementURL =& $testo->nodeValue;
-                       //					var_dump($figlio);
-                       break;
-                   }
-               }
-               $this->rootUrl = $elementURL;
-               //var_dump($elementURL);
-    }
-
-    /**
-     * Sets the Receivers Array
-     *
-     * @access private
-     */
-    public function _setReceivers()
-    {
-           $this->receivers=array();
-           $nodeList = $this->config->getElementsByTagName('receivers');
-           $node = $nodeList->item(0);
-           $figli = $node->childNodes;
-           $n = $figli->length;
-
-           for ($i=0; $i<$n; $i++) {
-               $child	  = $figli->item($i);
-               if ($child->nodeType == XML_ELEMENT_NODE) {
-                   $charData =&  $child->firstChild->nodeValue;
-                   $this->receivers[$child->tagName] = $charData;
-               }
-           }
-           //var_dump($this->receivers);
-    }
-
-    /**
-     * Sets the framework defaultCommand
-     *
-     * @access private
-     */
-    public function _setDefaultCommand()
-    {
-        $figli = $this->config->documentElement->childNodes;
-        //		var_dump($figli);
-        for ($i = 0; $i < $figli->length; $i++) {
-            $iesimoFiglio = $figli->item($i);
-            if ($iesimoFiglio->nodeType == XML_ELEMENT_NODE && $iesimoFiglio->tagName == 'defaultCommand')
-                $this->defaultCommand = $iesimoFiglio->firstChild->nodeValue;
-        }
-        //var_dump($this->defaultCommand );
-    }
-
-    /**
-     * Sets the framework and application multilanguage info
-     *
-     * @access private
-     */
-    public function _setLanguageInfo()
-    {
-        $languageInfoNodes = $this->config->getElementsbyTagname('langInfo');
-        if ($languageInfoNodes == NULL)
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non esiste l\'elemento langInfo nel file di config','file'=>__FILE__,'line'=>__LINE__));
-        $languageInfoNode = $languageInfoNodes->item(0);
-        if ($languageInfoNode == NULL)
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non esiste l\'elemento langInfo nel file di config','file'=>__FILE__,'line'=>__LINE__));
-
-        $figli = $languageInfoNode->childNodes;
-        for ($i=0; $i < $figli->length; $i++) {
-            $aSetting = $figli->item($i);
-            if ($aSetting->nodeType == XML_ELEMENT_NODE)
-                $this->languageInfo[$aSetting->tagName] = $aSetting->firstChild->nodeValue;
-        }
-
-        //linguaggio corrente inpostato uguale a quello di default
-        //inserire la possibilit? di cambiarlo a run time.
-        $this->languageInfo['lang'] = $this->languageInfo['lang_default'];
-    }
-
-    /**
      * Sets the framework application own settings
      *
      * @access private
      */
-    public function _appSettings()
+    private function _appSettings(\DOMDocument $config)
     {
         $this->appSettings = array();
-        //		$appSettingNodes = &$this->config->getElementsByTagName("appSettings");
+        //		$appSettingNodes = &$config->getElementsByTagName("appSettings");
         //		var_dump($appSettingNodes);
 
-        $figli =& $this->config->documentElement->childNodes;
+        $figli =$config->documentElement->childNodes;
         //var_dump($figli);
         for ( $i = 0; $i < $figli->length; $i++ )
             if (($figlio = $figli->item($i)) != null) {
@@ -571,47 +396,17 @@ class FrontController
     }
 
     /**
-     * Sets the framework paths settings
-     *
-     * @access private
-     */
-    public function _setPaths()
-    {
-        $this->paths=array();
-        $nodes = $this->config->getElementsByTagName('paths');
-
-        if($nodes == NULL)
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` specificato l\'elemento path nel file di config','file'=>__FILE__,'line'=>__LINE__));
-
-        $node = $nodes->item(0);
-        //var_dump($node);
-        if($nodes == NULL)
-            Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` specificato l\'elemento path nel file di config','file'=>__FILE__,'line'=>__LINE__));
-
-        $figli = &$node->childNodes;
-        for ($i=0; $i < $figli->length; $i++) {
-            $child = $figli->item($i);
-            //			$this->paths[$child->name]=realpath($this->rootFolder.$child->charData);
-            if ($child->nodeType == XML_ELEMENT_NODE) {
-                $this->paths[$child->tagName] = $this->rootFolder.$child->firstChild->nodeValue;
-                //var_dump($child);
-            }
-        }
-
-    }
-
-    /**
         * Sets the framework current request command class
         *
         * @access private
         */
-    public function _setCommandClass()
+    public function _setCommandClass(\DOMDocument $config)
     {
         $commandString=$this->getCommandRequest();
         // @bug: qui il ->childNodes mi restituisce i figli di appsettings invce che dei figli di root
-        $figliRoot = $this->config->documentElement->childNodes;
+        $figliRoot = $config->documentElement->childNodes;
         //		var_dump($this);
-        //		$listaNodiCommands =& $this->config->getElementsByTagName("commands");
+        //		$listaNodiCommands =& $config->getElementsByTagName("commands");
         $cinfonode = null;
         for ($i = 0; $i < $figliRoot->length; $i++) {
             $iesimoFiglio = $figliRoot->item($i);
