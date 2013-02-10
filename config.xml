@@ -272,27 +272,16 @@
 	<!-- appSettings is an optional node. You can place any thing here and access 
 		it from FrontController->getAppSetting() -->
 	<appSettings>
-		<version>2.6.x-dev</version>
-		<logs>../app/logs</logs>
-		<notificheLock>../universibo/notifiche.lock</notificheLock>
+                <alertMessage></alertMessage>
 		<contactsPath>img/contacts/</contactsPath>
-		<langFile>/location/of/userLanguageFile.txt</langFile>
-		<filesPath>../app/data/uploads/</filesPath>
-		<filesTipoIconePath>img/icone_file/</filesTipoIconePath>
+      		<contattoDocentiAdmin>SbiellONE</contattoDocentiAdmin> <!-- un solo nome -->
+                <defaultAnnoAccademico>2011</defaultAnnoAccademico>
+                <filesPath>../app/data/uploads/</filesPath>
+                <infoEmail>info_universibo@mama.ing.unibo.it</infoEmail>
+                <modFileStudenti>brain</modFileStudenti>
+                <questionariReceiver>evaimitico@gmail.com;silvia.cereda@studio.unibo.it</questionariReceiver>
 		<rootUrl>https://www.universibo.unibo.it</rootUrl>
-		<fotoDefault>no_foto.png</fotoDefault>
-		<questionariReceiver>evaimitico@gmail.com;silvia.cereda@studio.unibo.it</questionariReceiver>
-		<passwordDocentiAdmin>sissi;spiff1281;brain;evaimitico</passwordDocentiAdmin>
-		<contattoDocentiAdmin>SbiellONE</contattoDocentiAdmin> <!-- un solo nome -->
-		<modFileStudenti>brain</modFileStudenti>
-		<programmazioneDidatticaAdmin>Elisa;brain;evaimitico;eagleone</programmazioneDidatticaAdmin>
-		<alertMessage></alertMessage>
-		<defaultStyle>unibo</defaultStyle>
 		<rootEmail>universibo@unibo.it</rootEmail>
-		<develEmail>dev_universibo@mama.ing.unibo.it</develEmail>
-		<infoEmail>info_universibo@mama.ing.unibo.it</infoEmail>
-		<regolamento>../universibo/files/regolamento.txt</regolamento>
 		<staffEmail>staff_universibo@mama.ing.unibo.it</staffEmail>
-		<defaultAnnoAccademico>2011</defaultAnnoAccademico>
 	</appSettings>
 </config>
