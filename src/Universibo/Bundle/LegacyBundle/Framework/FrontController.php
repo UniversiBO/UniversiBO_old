@@ -331,7 +331,7 @@ class FrontController
 
         $config = new DOMDocument();
         $config->load($configFile);
-           
+
         $this->_appSettings($config);
         $this->_setCommandClass($config);
     }

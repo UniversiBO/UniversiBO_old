@@ -43,7 +43,7 @@ class ShowContattiDocenti extends UniversiboCommand
 
             foreach ($lista_contatti as $contatto) {
                 $doc = Docente::selectDocenteFromCod($contatto->getCodDoc());
-                if($doc instanceof Docente) {
+                if ($doc instanceof Docente) {
                     $elenco[] = array('nome' => $doc->getNomeDoc(),
                             'URI' => $router->generate('universibo_legacy_contact_professor', array('cod_doc' => $doc->getCodDoc())),
                             'stato' => $contatto->getStatoDesc(),

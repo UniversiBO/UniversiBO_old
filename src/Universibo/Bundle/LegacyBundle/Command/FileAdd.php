@@ -445,7 +445,7 @@ class FileAdd extends FileCommon
 
                 $fullFileName = $frontcontroller->getAppSetting('filesPath') . $nomeFile;
                 $antivirus = $this->get('universibo_legacy.antivirus');
-                
+
                 if ($antivirus->checkFile($fullFileName)) {
                     $transaction->rollback();
                     Error::throwError(_ERROR_DEFAULT, array(

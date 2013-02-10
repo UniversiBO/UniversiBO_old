@@ -13,23 +13,23 @@ class Clamav
 {
     /**
      * Command line options
-     * 
-     * @var type 
+     *
+     * @var type
      */
     private $opts = '';
 
     /**
      * Clamav command
-     * 
+     *
      * @var string
      */
     private $cmd  = '';
 
     /**
      * class constructor
-     * 
-     * @param string $cmd
-     * @param string $opts
+     *
+     * @param string  $cmd
+     * @param string  $opts
      * @param boolean $enabled
      */
     public function __construct($cmd, $opts, $enabled)
@@ -44,10 +44,10 @@ class Clamav
      */
     public function checkFile($filename)
     {
-        if(!$this->enabled) {
+        if (!$this->enabled) {
             return false;
         }
-        
+
         $filename = escapeshellarg($filename);
 
         $fullCommand =  $this->cmd.' '.$this->opts.' '.$filename;
@@ -56,7 +56,7 @@ class Clamav
         $returnval = null;
 
         exec ( $fullCommand, $output, $returnval );
-        
+
         return $returnval != 0;
     }
 }
