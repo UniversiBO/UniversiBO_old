@@ -272,7 +272,6 @@
 	<!-- appSettings is an optional node. You can place any thing here and access 
 		it from FrontController->getAppSetting() -->
 	<appSettings>
-                <alertMessage></alertMessage>
 		<contactsPath>img/contacts/</contactsPath>
       		<contattoDocentiAdmin>SbiellONE</contattoDocentiAdmin> <!-- un solo nome -->
                 <defaultAnnoAccademico>2011</defaultAnnoAccademico>

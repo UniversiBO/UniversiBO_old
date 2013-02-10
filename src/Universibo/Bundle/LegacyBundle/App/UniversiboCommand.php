@@ -128,9 +128,10 @@ abstract class UniversiboCommand extends BaseCommand
         // /path_universibo2/receiver.php?du=SomeCommand
         @ $template->assign('common_shortUri', $_SERVER['REQUEST_URI']);
 
+        $container = $this->getContainer();
 
-        $router = $this->get('router');
-        $forumRouter = $this->get('universibo_forum.router');
+        $router = $container->get('router');
+        $forumRouter = $container->get('universibo_forum.router');
 
         $template->assign('common_forum', 'Forum');
         $template->assign('common_forumDir', 'forum/');
@@ -142,7 +143,7 @@ abstract class UniversiboCommand extends BaseCommand
         $template->assign('common_rootEmail', $fc->getAppSetting('rootEmail'));
         $template->assign('common_infoEmail', $fc->getAppSetting('infoEmail'));
         $template->assign('common_staffEmail', $fc->getAppSetting('staffEmail'));
-        $template->assign('common_alert', $fc->getAppSetting('alertMessage'));
+        $template->assign('common_alert', $container->getParameter('alert_message'));
 
         //generali
         $template->assign('common_universibo', 'UniversiBO');
