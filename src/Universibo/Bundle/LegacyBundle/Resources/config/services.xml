@@ -99,6 +99,13 @@
 			<argument type="service" id="universibo_legacy.db.connection.main" />
 			<argument>true</argument>
 		</service>
+                
+                <service id="universibo_legacy.antivirus"
+			class="Universibo\Bundle\LegacyBundle\App\AntiVirus\Clamav">
+			<argument>%antivirus_cmd%</argument>
+                        <argument>%antivirus_opts%</argument>
+                        <argument>%antivirus_enabled%</argument>
+		</service>
 
 		<service id="universibo_legacy.repository.facolta"
 			class="Universibo\Bundle\LegacyBundle\Entity\DBFacoltaRepository">

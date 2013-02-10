@@ -294,11 +294,5 @@
 		<regolamento>../universibo/files/regolamento.txt</regolamento>
 		<staffEmail>staff_universibo@mama.ing.unibo.it</staffEmail>
 		<defaultAnnoAccademico>2011</defaultAnnoAccademico>
-
-		<!--<antiVirusEnable>true</antiVirusEnable> -->
-		<antiVirusEnable>false</antiVirusEnable>
-		<antiVirusType>clamav</antiVirusType>
-		<antiVirusClamavCmd>/usr/local/bin/clamscan</antiVirusClamavCmd>
-		<antiVirusClamavOpts>--quiet --recursive</antiVirusClamavOpts>
 	</appSettings>
 </config>

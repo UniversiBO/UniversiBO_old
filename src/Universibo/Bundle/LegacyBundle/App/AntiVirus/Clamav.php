@@ -4,23 +4,39 @@ namespace Universibo\Bundle\LegacyBundle\App\AntiVirus;
 /**
  * Classe antivirus per clamav
  *
- * @package universibo
  * @author Ilias Bartolini <brain79@virgilio.it>
+ * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @license GPL, http://www.opensource.org/licenses/gpl-license.php
- * @copyright CopyLeft UniversiBO 2001-2005
+ * @copyright CopyLeft UniversiBO 2001-2013
  */
-
 class Clamav
 {
-
+    /**
+     * Command line options
+     * 
+     * @var type 
+     */
     private $opts = '';
 
+    /**
+     * Clamav command
+     * 
+     * @var string
+     */
     private $cmd  = '';
 
-    public function __construct($cmd, $opts)
+    /**
+     * class constructor
+     * 
+     * @param string $cmd
+     * @param string $opts
+     * @param boolean $enabled
+     */
+    public function __construct($cmd, $opts, $enabled)
     {
-        $this->cmd = $cmd;
-        $this->opts = $opts;
+        $this->cmd     = $cmd;
+        $this->opts    = $opts;
+        $this->enabled = $enabled;
     }
 
     /**
@@ -28,18 +44,19 @@ class Clamav
      */
     public function checkFile($filename)
     {
+        if(!$this->enabled) {
+            return false;
+        }
+        
         $filename = escapeshellarg($filename);
 
         $fullCommand =  $this->cmd.' '.$this->opts.' '.$filename;
 
         $output = array();
-        unset($output);
         $returnval = null;
 
         exec ( $fullCommand, $output, $returnval );
-
-        if ($returnval == 1) return true;
-        if ($returnval == 0) return false;
-
+        
+        return $returnval != 0;
     }
 }

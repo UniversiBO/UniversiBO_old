@@ -410,21 +410,18 @@ class FileStudentiAdd extends UniversiboCommand
                         'file' => __FILE__, 'line' => __LINE__));
                 }
 
-                //controllo antivirus
-                if ($antiVirus = AntiVirusFactory::getAntiVirus(
-                                $frontcontroller)) {
-                    if ($antiVirus
-                                    ->checkFile(
-                                            $frontcontroller
-                                            ->getAppSetting('filesPath')
-                                            . $nomeFile) === true) {
-                        $transaction->rollback();
-                        Error::throwError(_ERROR_DEFAULT, array('id_utente' => $user->getId(),
-                            'msg' => 'ATTENZIONE: Il file inviato e\' risultato positivo al controllo antivirus!',
-                            'file' => __FILE__, 'line' => __LINE__,
-                            'log' => false,
-                            'template_engine' => &$template));
-                    }
+                $fullFileName = $frontcontroller->getAppSetting('filesPath') . $nomeFile;
+                $antivirus = $this->get('universibo_legacy.antivirus');
+                
+                if ($antivirus->checkFile($fullFileName)) {
+                    $transaction->rollback();
+                    Error::throwError(_ERROR_DEFAULT, array(
+                        'id_utente' => $user->getId(),
+                        'msg' => 'ATTENZIONE: Il file inviato e\' risultato positivo al controllo antivirus!',
+                        'file' => __FILE__, 'line' => __LINE__,
+                        'log' => false,
+                        'template_engine' => &$template
+                    ));
                 }
 
                 //$num_canali = count($f23_canale);

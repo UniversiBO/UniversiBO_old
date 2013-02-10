@@ -4,7 +4,6 @@ namespace Universibo\Bundle\LegacyBundle\Command;
 use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
-use Universibo\Bundle\LegacyBundle\App\AntiVirus\AntiVirusFactory;
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
@@ -444,22 +443,18 @@ class FileAdd extends FileCommon
                                     'file' => __FILE__, 'line' => __LINE__));
                 }
 
-                $antiVirus = AntiVirusFactory::getAntiVirus($frontcontroller);
-                //controllo antivirus
-                if ($antiVirus) {
-                    if ($antiVirus
-                            ->checkFile(
-                                    $frontcontroller
-                                            ->getAppSetting('filesPath')
-                                            . $nomeFile) === true) {
-                        $transaction->rollback();
-                        Error::throwError(_ERROR_DEFAULT,
-                                array('id_utente' => $user->getId(),
-                                        'msg' => 'ATTENZIONE: Il file inviato e\' risultato positivo al controllo antivirus!',
-                                        'file' => __FILE__, 'line' => __LINE__,
-                                        'log' => false,
-                                        'template_engine' => &$template));
-                    }
+                $fullFileName = $frontcontroller->getAppSetting('filesPath') . $nomeFile;
+                $antivirus = $this->get('universibo_legacy.antivirus');
+                
+                if ($antivirus->checkFile($fullFileName)) {
+                    $transaction->rollback();
+                    Error::throwError(_ERROR_DEFAULT, array(
+                        'id_utente' => $user->getId(),
+                        'msg' => 'ATTENZIONE: Il file inviato e\' risultato positivo al controllo antivirus!',
+                        'file' => __FILE__, 'line' => __LINE__,
+                        'log' => false,
+                        'template_engine' => &$template
+                    ));
                 }
 
                 $contactService = $this->get('universibo_core.contact.service');
