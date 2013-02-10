@@ -1,0 +1,7 @@
+parameters:
+  universibo:
+    antivirus:
+      enabled: false
+      type:    clamav
+      cmd:     /usr/bin/clamscan
+      opts:    '--quiet --recursive'
