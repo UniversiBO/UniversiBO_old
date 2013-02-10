@@ -10,7 +10,7 @@ class ShowPermalinkTest extends UniversiBOSeleniumTestCase
                 'UniversiBO cerca nuovi collaboratori'
         ));
     }
-    
+
     /**
      * @ticket 251
      */
