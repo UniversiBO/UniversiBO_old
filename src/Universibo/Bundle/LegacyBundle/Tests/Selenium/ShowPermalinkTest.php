@@ -10,4 +10,13 @@ class ShowPermalinkTest extends UniversiBOSeleniumTestCase
                 'UniversiBO cerca nuovi collaboratori'
         ));
     }
+    
+    /**
+     * @ticket 251
+     */
+    public function testExpiredNewsShouldNotBeFound()
+    {
+        $this->openPrefix('/permalink/11134');
+        $this->assertSentence('Not Found');
+    }
 }
