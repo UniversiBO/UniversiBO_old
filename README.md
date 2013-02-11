@@ -17,8 +17,8 @@ You can get a working copy of UniversiBO in 6 easy steps:
 6. Open your browser at http://localhost:8888/app_dev.php 
 
 ## Contributing
-Feel free to fork us and send a pull request. 
-For further information contact @dbellettini
+Feel free to fork us and send a pull request, contributed code *must* follow
+PSR-2 standards, you can achieve that using this tool http://cs.sensiolabs.org/
 
 ## License
 Copyright (C) \<2002-2012\>  Associazione UniversiBO
