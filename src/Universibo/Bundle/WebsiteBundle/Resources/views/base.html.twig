@@ -64,6 +64,7 @@ input.gsc-search-button {
 <td>
 	{#<p id="seiIn">sei in: <a href="">Home</a></p>#}
 	<div id="content"> {# COLONNA MENU CENtrALE #}
+        {% render 'UniversiboWebsiteBundle:Common:alert' %}
 	{% if showGoogle|default(false) %}
 	{# BEGIN GOOGLE CUSTOM SEARCH ENGINE #}
 	{% raw %}

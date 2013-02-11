@@ -28,6 +28,15 @@ class CommonController extends Controller
        return $response;
     }
 
+    public function alertAction()
+    {
+        $message = $this->container->getParameter('alert_message');
+        
+        $body = empty($message) ? '' : '<div id="alert">' . $message .'</div>';
+        
+        return new Response($body);
+    }
+    
     /**
      * @return Response
      */
