@@ -7,6 +7,15 @@ UniversiBO is a Web Community joined by Students, Professors and Staff in Alma M
 * Since version 2 we migrated to eocene framework  (http://sourceforge.net/projects/eocene-php/)
 * Version 3 will be a porting to Symfony 2.1 framework (http://symfony.com/)
 
+How to install UniversiBO
+-------------------------
+1. Install virtualbox https://www.virtualbox.org/
+2. Install Vagrant http://vagrantup.com/
+3. Run ```vagrant gem install vagrant-vbguest```
+4. Fork this repository and clone it
+5. Run ```cd vagrant && vagrant up``` and wait
+6. Visit http://localhost:8888/app_dev.php 
+
 License
 -------
 Copyright (C) \<2002-2012\>  Associazione UniversiBO
