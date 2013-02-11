@@ -1,23 +1,26 @@
 UniversiBO
 ==========
-Abstract
---------
+## What is UniversiBO?
 UniversiBO is a Web Community joined by Students, Professors and Staff in Alma Mater Studiorum - University of Bologna, Italy since 2002.
 * Version 1 was a PHP-PostgreSQL "old style" application
 * Since version 2 we migrated to eocene framework  (http://sourceforge.net/projects/eocene-php/)
 * Version 3 will be a porting to Symfony 2.1 framework (http://symfony.com/)
 
-How to run UniversiBO
--------------------------
+## Running UniversiBO
+You can get a working copy of UniversiBO in 6 easy steps:
+
 1. Install virtualbox https://www.virtualbox.org/
 2. Install Vagrant http://vagrantup.com/
 3. Run ```vagrant gem install vagrant-vbguest```
 4. Fork this repository and clone it
 5. Run ```cd vagrant && vagrant up``` and wait for Vagrant doing all the magic
-6. Visit http://localhost:8888/app_dev.php 
+6. Open your browser at http://localhost:8888/app_dev.php 
 
-License
--------
+## Contributing
+Feel free to fork us and send a pull request. 
+For further information contact @dbellettini
+
+## License
 Copyright (C) \<2002-2012\>  Associazione UniversiBO
 
 
