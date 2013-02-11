@@ -1,6 +1,7 @@
 {
     "name": "UniversiBO/UniversiBO",
     "description": "UniversiBO Web Portal",
+    "license": "GPLv2",
     "autoload": {
         "psr-0": { "": "src/" }
     },
