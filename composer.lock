@@ -1,5 +1,5 @@
 {
-    "hash": "dd16736a0684207d640b4ebf73246469",
+    "hash": "16e87d7de861c106ea63a3d4e9164620",
     "packages": [
         {
             "name": "doctrine/common",
@@ -992,12 +992,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/kriswallsmith/assetic.git",
-                "reference": "cebaadc9042be0c34a5bd89dcc456cba8d235538"
+                "reference": "077a35b75c63d9594bacaa0652995275720e3d16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/cebaadc9042be0c34a5bd89dcc456cba8d235538",
-                "reference": "cebaadc9042be0c34a5bd89dcc456cba8d235538",
+                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/077a35b75c63d9594bacaa0652995275720e3d16",
+                "reference": "077a35b75c63d9594bacaa0652995275720e3d16",
                 "shasum": ""
             },
             "require": {
@@ -1012,6 +1012,7 @@
                 "leafo/scssphp": "*",
                 "leafo/scssphp-compass": "*",
                 "mrclay/minify": "*",
+                "phpunit/phpunit": "3.7.*",
                 "ptachoire/cssembed": "*",
                 "twig/twig": ">=1.6.0,<2.0"
             },
@@ -1022,7 +1023,7 @@
                 "ptachoire/cssembed": "Assetic provides the integration with phpcssembed to embed data uris",
                 "twig/twig": "Assetic provides the integration with the Twig templating engine"
             },
-            "time": "2013-02-11 01:33:49",
+            "time": "2013-02-11 15:22:09",
             "type": "library",
             "extra": {
                 "branch-alias": {
