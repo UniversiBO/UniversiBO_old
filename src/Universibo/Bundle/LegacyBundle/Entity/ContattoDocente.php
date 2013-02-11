@@ -156,6 +156,19 @@ class ContattoDocente
         return $this->cod_doc;
     }
 
+    /**
+     * Assignee ID setter
+     *
+     * @param  integer         $idUtenteAssegnato
+     * @return ContattoDocente
+     */
+    public function setIdUtenteAssegnato($idUtenteAssegnato)
+    {
+        $this->id_utente_assegnato = $idUtenteAssegnato;
+
+        return $this;
+    }
+
     public function getIdUtenteAssegnato()
     {
         if(null !== $this->id_utente_assegnato &&
@@ -164,19 +177,6 @@ class ContattoDocente
         }
 
         return $this->id_utente_assegnato;
-    }
-
-    /**
-     * @param int idUtenteMaster id di chi esegue la modifica della assegnamento
-     * @param int newIdUtente nuovo collaboratore assegnato
-     *
-     */
-    public function assegna($newIdUtente, $idUtenteMaster)
-    {
-        $text = User::getUsernameFromId($idUtenteMaster).': assegnato docente a '.User::getUsernameFromId($newIdUtente);
-        $this->appendReport($text);
-        $this->id_utente_assegnato = $newIdUtente;
-
     }
 
     public function updateContattoDocente()

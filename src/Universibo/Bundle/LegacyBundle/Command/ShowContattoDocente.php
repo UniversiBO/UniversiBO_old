@@ -154,7 +154,7 @@ class ShowContattoDocente extends UniversiboCommand
             if ($f35_id_username != $contatto->getIdUtenteAssegnato()) {
                 if ($f35_id_username != 'null') {
                     $notifica_mod = true;
-                    $contatto->assegna($f35_id_username, $user->getId());
+                    $this->assegna($contatto, $f35_id_username, $user->getId());
                 }
             }
 
@@ -184,7 +184,8 @@ Link: ' . $router->generate('universibo_legacy_contact_professor', array('cod_do
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~';
 
             if ($notifica_mod) {
-                $notifica_user = User::selectUser($f35_id_username);
+                $userRepo = $this->get('universibo_core.repository.user');
+                $notifica_user = $userRepo->findOneByUsername($f35_id_username);
 
                 if ($notifica_user instanceof User) {
                     $contactService = $this->get('universibo_core.contact.service');
@@ -238,5 +239,22 @@ Link: ' . $router->generate('universibo_legacy_contact_professor', array('cod_do
         $userRepo = $this->getContainer()->get('universibo_legacy.repository.user');
 
         return $userRepo->findCollaborators();
+    }
+
+    /**
+     * @param int idUtenteMaster id di chi esegue la modifica della assegnamento
+     * @param int newIdUtente nuovo collaboratore assegnato
+     *
+     */
+    private function assegna(ContattoDocente $contact, $newIdUtente, $idUtenteMaster)
+    {
+        $userRepo = $this->get('universibo_core.repository.user');
+
+        $newUser = $userRepo->find($newIdUtente);
+        $masterUser = $userRepo->find($idUtenteMaster);
+
+        $text = $masterUser->getUsername() .': assegnato docente a '.$newUser->getUsername();
+        $contact->appendReport($text);
+        $contact->setIdUtenteAssegnato($newUser->getId());
     }
 }
