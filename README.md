@@ -13,7 +13,7 @@ How to install UniversiBO
 2. Install Vagrant http://vagrantup.com/
 3. Run ```vagrant gem install vagrant-vbguest```
 4. Fork this repository and clone it
-5. Run ```cd vagrant && vagrant up``` and wait
+5. Run ```cd vagrant && vagrant up``` and wait for Vagrant doing all the magic
 6. Visit http://localhost:8888/app_dev.php 
 
 License
