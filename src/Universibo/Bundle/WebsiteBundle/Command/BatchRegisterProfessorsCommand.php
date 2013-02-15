@@ -96,9 +96,9 @@ class BatchRegisterProfessorsCommand extends ContainerAwareCommand
             } else {
                 $output->writeln('User: '.$username.' exists, won\'t register it.');
             }
-
-            $db->commit();
-            $forumDb->commit();
         }
+
+        $db->commit();
+        $forumDb->commit();
     }
 }
