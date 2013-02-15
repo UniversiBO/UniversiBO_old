@@ -3,7 +3,6 @@ namespace Universibo\Bundle\LegacyBundle\Notification;
 
 use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
 use Universibo\Bundle\LegacyBundle\Framework\MobytSms;
-use Universibo\Bundle\LegacyBundle\Framework\MobytSms as MobytSms2;
 
 /**
  * SMS Notification Sender
@@ -33,7 +32,7 @@ class MobytSender extends AbstractSender
      * @param MobytSms $mobyt
      * @param int      $ttl
      */
-    public function __construct(MobytSms2 $mobyt, $ttl = self::DEFAULT_TTL)
+    public function __construct(MobytSms $mobyt, $ttl = self::DEFAULT_TTL)
     {
         $this->mobyt = $mobyt;
         $this->ttl = intval($ttl);
