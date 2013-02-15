@@ -57,7 +57,7 @@ class DBDocenteRepository extends DBRepository implements MergeableRepositoryInt
 
     public function insert(Docente $docente)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = <<<EOT
 
@@ -70,10 +70,7 @@ VALUES
         {$db->quote($docente->getNomeDoc())}
     )
 EOT;
-        $db->execute($query);
-        if (DB::isError($res)) {
-            throw new DBALException(DB::errorMessage($res));
-        }
+        $db->executeUpdate($query);
     }
 
     public function getInfo(Docente $docente)
