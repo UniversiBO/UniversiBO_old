@@ -38,12 +38,12 @@ class Docente
     /**
      * @access private
      */
-    public $userCache = null;
+    private $userCache = null;
 
     /**
      * @access private
      */
-    public $rubricaCache = null;
+    private $rubricaCache = null;
 
     public function __construct($idUtente = 0, $cod_doc ='', $nome_doc='',
             $rubrica = null)
@@ -77,6 +77,13 @@ class Docente
     public function getNomeDoc()
     {
         return $this->nomeDoc;
+    }
+
+    public function setNomeDoc($nomeDoc)
+    {
+        $this->nomeDoc = $nomeDoc;
+
+        return $this;
     }
 
     public function getHomepageDocente()
