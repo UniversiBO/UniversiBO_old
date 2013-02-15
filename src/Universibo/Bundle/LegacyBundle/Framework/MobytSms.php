@@ -1,136 +1,137 @@
 <?php
+namespace
+{
+    /**
+     * Libreria per l'invio di SMS tramite il servizio SMS-Web offerto da Mobyt Srl
+     *
+     * - <b>Versione 1.2.0</b>
+     * - Aggiunto supporto alle nuova {@link mobytSms::setQualityAuto() qualit� automatica}
+     * - Aggiunto supporto agli sms con {@link mobytSms::setQualityAutoNotify() notifica}
+     * - Aggiunto supporto agli sms {@link mobytWapPush Wap/Push}
+     * - <b>Versione 1.2.1</b>
+     * - Aggiunto supporto alle suonerie in {@link mobytRTTTL formato RTTTL}
+     * - <b>Versione 1.2.2</b>
+     * - Bugfix: la versione, utile per motivi di debug, non veniva inviata correttamente al server
+     * - <b>Versione 1.2.3</b>
+     * - Bugfix: corretto un problema nell'invio di messaggi Wap/Push
+     * - <b>Versione 1.2.4</b>
+     * - Aggiunta possibilit� di ottenere il {@link mobytSms::getAvailableNotifies() numero di notifiche disponibili}
+     * - <b>Versione 1.2.5</b>
+     * - Aggiunto supporto per l'invio multiplo tramite SMS-Batch (FTP)
+     * - <b>Versione 1.3.0</b>
+     * - Classe aggiornata alla nuova documentazione
+     * - <b>Versione 1.3.1</b>
+     * - Aggiunto supporto ai messaggi Flash
+     * - Aggiunta compatibilit� con register_long_arrays off (opzione PHP5) in sms-relay.php
+     * - <b>Versione 1.3.2</b>
+     * - Risolto problema nella scelta della qualit� se la classe viene inclusa all'interno di una funzione
+     * - <b>Versione 1.3.3</b>
+     * - Aggiunto supporto al servizio {@link mobytMnc MNC (Mobyt Number Check)}
+     * - <b>Versione 1.4.0</b>
+     * - Aggiunto supporto al servizio {@link mobytMMS MMS}
+     * - <b>Versione 1.4.1</b>
+     * - Risolti problemi nell'utilizzo del servizio MNC
+     * - <b>Versione 1.4.2</b>
+     * - Risolti problemi nell'esempio MNC
+     *
+     * @version 1.4.2
+     * @package Mobyt-SmsWeb
+     * @author  Matteo Beccati - matteo.beccati@mobyt.it
+     * @copyright (C) 2003-2005 Mobyt srl
+     * @license https://www.mobyt.it/bsd-license.html BSD License
+     *
+     */
 
-/**
- * Libreria per l'invio di SMS tramite il servizio SMS-Web offerto da Mobyt Srl
- *
- * - <b>Versione 1.2.0</b>
- * - Aggiunto supporto alle nuova {@link mobytSms::setQualityAuto() qualit� automatica}
- * - Aggiunto supporto agli sms con {@link mobytSms::setQualityAutoNotify() notifica}
- * - Aggiunto supporto agli sms {@link mobytWapPush Wap/Push}
- * - <b>Versione 1.2.1</b>
- * - Aggiunto supporto alle suonerie in {@link mobytRTTTL formato RTTTL}
- * - <b>Versione 1.2.2</b>
- * - Bugfix: la versione, utile per motivi di debug, non veniva inviata correttamente al server
- * - <b>Versione 1.2.3</b>
- * - Bugfix: corretto un problema nell'invio di messaggi Wap/Push
- * - <b>Versione 1.2.4</b>
- * - Aggiunta possibilit� di ottenere il {@link mobytSms::getAvailableNotifies() numero di notifiche disponibili}
- * - <b>Versione 1.2.5</b>
- * - Aggiunto supporto per l'invio multiplo tramite SMS-Batch (FTP)
- * - <b>Versione 1.3.0</b>
- * - Classe aggiornata alla nuova documentazione
- * - <b>Versione 1.3.1</b>
- * - Aggiunto supporto ai messaggi Flash
- * - Aggiunta compatibilit� con register_long_arrays off (opzione PHP5) in sms-relay.php
- * - <b>Versione 1.3.2</b>
- * - Risolto problema nella scelta della qualit� se la classe viene inclusa all'interno di una funzione
- * - <b>Versione 1.3.3</b>
- * - Aggiunto supporto al servizio {@link mobytMnc MNC (Mobyt Number Check)}
- * - <b>Versione 1.4.0</b>
- * - Aggiunto supporto al servizio {@link mobytMMS MMS}
- * - <b>Versione 1.4.1</b>
- * - Risolti problemi nell'utilizzo del servizio MNC
- * - <b>Versione 1.4.2</b>
- * - Risolti problemi nell'esempio MNC
- *
- * @version 1.4.2
- * @package Mobyt-SmsWeb
- * @author  Matteo Beccati - matteo.beccati@mobyt.it
- * @copyright (C) 2003-2005 Mobyt srl
- * @license https://www.mobyt.it/bsd-license.html BSD License
- *
- */
+    /**#@+
+     * @access	private
+     */
+    /**
+     * Versione della classe
+     */
+    define('MOBYT_PHPSMS_VERSION',	'1.4.2');
+    /**
+     * Tipo di autenticazione basata su MD5, con password <b>non</b> inviata in chiaro
+     */
+    define('MOBYT_AUTH_MD5',	1);
+    /**
+     * Tipo di autenticazione basata su IP, con password inviata in chiaro
+     */
+    define('MOBYT_AUTH_PLAIN',	2);
 
-/**#@+
- * @access	private
- */
-/**
- * Versione della classe
- */
-define('MOBYT_PHPSMS_VERSION',	'1.4.2');
-/**
- * Tipo di autenticazione basata su MD5, con password <b>non</b> inviata in chiaro
- */
-define('MOBYT_AUTH_MD5',	1);
-/**
- * Tipo di autenticazione basata su IP, con password inviata in chiaro
- */
-define('MOBYT_AUTH_PLAIN',	2);
+    /**
+     * Qualità messaggi in base al valore di default dell'account
+     */
+    define('MOBYT_QUALITY_DEFAULT',	0);
+    /**
+     * Qualità messaggi bassa (LQS)
+     */
+    define('MOBYT_QUALITY_LQS',	1);
+    /**
+     * Qualità messaggi media (MQS)
+     */
+    define('MOBYT_QUALITY_MQS',	2);
+    /**
+     * Qualit� messaggi alta (HQS)
+     */
+    define('MOBYT_QUALITY_HQS',	3);
+    /**
+     * Qualit� messaggi automatica
+     */
+    define('MOBYT_QUALITY_AUTO',	4);
+    /**
+     * Qualit� messaggi automatica con notifica
+     */
+    define('MOBYT_QUALITY_AUTO_NY',	5);
 
-/**
- * Qualità messaggi in base al valore di default dell'account
- */
-define('MOBYT_QUALITY_DEFAULT',	0);
-/**
- * Qualità messaggi bassa (LQS)
- */
-define('MOBYT_QUALITY_LQS',	1);
-/**
- * Qualità messaggi media (MQS)
- */
-define('MOBYT_QUALITY_MQS',	2);
-/**
- * Qualit� messaggi alta (HQS)
- */
-define('MOBYT_QUALITY_HQS',	3);
-/**
- * Qualit� messaggi automatica
- */
-define('MOBYT_QUALITY_AUTO',	4);
-/**
- * Qualit� messaggi automatica con notifica
- */
-define('MOBYT_QUALITY_AUTO_NY',	5);
+    /**
+     * Tipo operazione TEXT
+     */
+    define('MOBYT_OPERATION_TEXT',	0);
+    /**
+     * Tipo operazione RING
+     */
+    define('MOBYT_OPERATION_RING',	1);
+    /**
+     * Tipo operazione Logo Operatore
+     */
+    define('MOBYT_OPERATION_OLGO',	2);
+    /**
+     * Tipo operazione Logo Gruppo
+     */
+    define('MOBYT_OPERATION_GLGO',	3);
+    /**
+     * Tipo operazione 8 bit
+     */
+    define('MOBYT_OPERATION_8BIT',	4);
+    /**
+     * Tipo operazione Flash
+     */
+    define('MOBYT_OPERATION_FLASH',	5);
 
-/**
- * Tipo operazione TEXT
- */
-define('MOBYT_OPERATION_TEXT',	0);
-/**
- * Tipo operazione RING
- */
-define('MOBYT_OPERATION_RING',	1);
-/**
- * Tipo operazione Logo Operatore
- */
-define('MOBYT_OPERATION_OLGO',	2);
-/**
- * Tipo operazione Logo Gruppo
- */
-define('MOBYT_OPERATION_GLGO',	3);
-/**
- * Tipo operazione 8 bit
- */
-define('MOBYT_OPERATION_8BIT',	4);
-/**
- * Tipo operazione Flash
- */
-define('MOBYT_OPERATION_FLASH',	5);
+    /**
+     * @global array Array di conversione per le qualit�
+     */
+    $GLOBALS['mobyt_qty'] = array(
+            MOBYT_QUALITY_LQS		=> 'll',
+            MOBYT_QUALITY_MQS		=> 'l',
+            MOBYT_QUALITY_HQS		=> 'h',
+            MOBYT_QUALITY_AUTO		=> 'a',
+            MOBYT_QUALITY_AUTO_NY	=> 'a'
+    );
 
-/**
- * @global array Array di conversione per le qualit�
- */
-$GLOBALS['mobyt_qty'] = array(
-        MOBYT_QUALITY_LQS		=> 'll',
-        MOBYT_QUALITY_MQS		=> 'l',
-        MOBYT_QUALITY_HQS		=> 'h',
-        MOBYT_QUALITY_AUTO		=> 'a',
-        MOBYT_QUALITY_AUTO_NY	=> 'a'
-);
-
-/**
- * @global array Array di conversione per l'operazione
- */
-$GLOBALS['mobyt_ops'] = array(
-        MOBYT_OPERATION_TEXT	=> 'TEXT',
-        MOBYT_OPERATION_RING	=> 'RING',
-        MOBYT_OPERATION_OLGO	=> 'OLGO',
-        MOBYT_OPERATION_GLGO	=> 'GLGO',
-        MOBYT_OPERATION_8BIT	=> '8BIT',
-        MOBYT_OPERATION_FLASH	=> 'FLASH'
-);
-/**#@-*/
-
+    /**
+     * @global array Array di conversione per l'operazione
+     */
+    $GLOBALS['mobyt_ops'] = array(
+            MOBYT_OPERATION_TEXT	=> 'TEXT',
+            MOBYT_OPERATION_RING	=> 'RING',
+            MOBYT_OPERATION_OLGO	=> 'OLGO',
+            MOBYT_OPERATION_GLGO	=> 'GLGO',
+            MOBYT_OPERATION_8BIT	=> '8BIT',
+            MOBYT_OPERATION_FLASH	=> 'FLASH'
+    );
+    /**#@-*/
+}
 namespace Universibo\Bundle\LegacyBundle\Framework
 {
     /**
