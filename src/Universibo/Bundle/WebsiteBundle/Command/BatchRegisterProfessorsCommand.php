@@ -80,7 +80,7 @@ class BatchRegisterProfessorsCommand extends ContainerAwareCommand
                 $user->setNotifications(Constants::NOTIFICA_NONE);
                 $user->setLegacyGroups(LegacyRoles::DOCENTE);
                 $user->setPassword('x');
-                $user->setEnabled();
+                $user->setEnabled(true);
 
                 $userManager->updateUser($user);
                 $forumUserDAO->create($user);
