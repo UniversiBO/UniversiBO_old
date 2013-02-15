@@ -83,7 +83,7 @@ class BatchRegisterProfessorsCommand extends ContainerAwareCommand
                 $user->setEnabled(true);
 
                 $userManager->updateUser($user);
-                $forumUserDAO->create($user);
+                $forumUserDAO->findOrCreate($user);
 
                 $docente = new Docente();
                 $docente->setIdUtente($user->getId());
