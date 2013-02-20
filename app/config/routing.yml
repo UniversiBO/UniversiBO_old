@@ -1,3 +1,7 @@
+universibo_dashboard:
+    resource: "@UniversiboDashboardBundle/Resources/config/routing.yml"
+    prefix:   /
+
 UniversiboCoreBundle:
     resource: "@UniversiboCoreBundle/Resources/config/routing.yml"
     prefix:   /

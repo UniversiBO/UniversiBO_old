@@ -1,0 +1,7 @@
+parameters:
+#    universibo_dashboard.example.class: Universibo\Bundle\DashboardBundle\Example
+
+services:
+#    universibo_dashboard.example:
+#        class: %universibo_dashboard.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
