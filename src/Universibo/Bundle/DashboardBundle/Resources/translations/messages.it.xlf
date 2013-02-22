@@ -16,7 +16,8 @@
             </trans-unit>
             <trans-unit id="4">
                 <source>udb_home_desc</source>
-                <target>Benvenuto nel cruscotto del potere :)</target>
+                <target>Il cruscotto è il centro di monitoraggio e gestione per
+                i moderatori ed amministratori di UniversiBO</target>
             </trans-unit>
             <trans-unit id="5">
                 <source>udb_users</source>
@@ -26,6 +27,15 @@
                 <source>udb_users_active</source>
                 <target>Registrati e attivi</target>
             </trans-unit>
+            <trans-unit id="7">
+                <source>udb_users_logged_24h</source>
+                <target>Loggati ultime 24 ore</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>udb_users_logged_week'</source>
+                <target>Loggati ultima settimana</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
+
