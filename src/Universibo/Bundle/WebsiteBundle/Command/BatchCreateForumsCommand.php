@@ -256,7 +256,7 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
     {
         $client = $this->getContainer()->get('universibo_forum.api.client');
 
-        $name = $subject->getNomeCanale();
+        $name = trim($subject->getNomeCanale());
 
         $found = $client
             ->get('forum/'.$name)
