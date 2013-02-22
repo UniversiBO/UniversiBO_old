@@ -259,7 +259,7 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
         $name = $subject->getNomeCanale();
 
         $found = $client
-            ->get('forum/'.urlencode($name))
+            ->get('forum/'.$name)
             ->send()
             ->json()
         ;
