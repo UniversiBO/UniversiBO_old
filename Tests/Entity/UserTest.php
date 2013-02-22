@@ -43,7 +43,7 @@ class UserTest extends EntityTest
         $this->assertSame($this->user, $this->user->setNotifications($notifications));
         $this->assertEquals($notifications, $this->user->getNotifications());
     }
-    
+
     public function testForumIdAccessors()
     {
         $forumId = 4431;

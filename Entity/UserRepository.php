@@ -165,4 +165,25 @@ EOT;
 
         return $user;
     }
+
+    /**
+     * Counts active and not locked users
+     *
+     * @return integer
+     */
+    public function countActive()
+    {
+        $result = $this
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('COUNT(u)')
+            ->from('UniversiboCoreBundle:User', 'u')
+            ->andWhere('u.enabled = true')
+            ->andWhere('u.locked = false')
+            ->getQuery()
+            ->getScalarResult()
+        ;
+
+        return $result[0][1];
+    }
 }

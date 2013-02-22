@@ -24,7 +24,7 @@ class User extends BaseUser implements EncoderAwareInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
      * User forum id
      *
@@ -458,26 +458,28 @@ class User extends BaseUser implements EncoderAwareInterface
 
         return $this;
     }
-    
+
     /**
      * Gets forum user table id
-     * 
+     *
      * @return integer
      */
-    public function getForumId() {
+    public function getForumId()
+    {
         return $this->forumId;
     }
 
     /**
      * Sets forum user table id
-     * 
-     * @param integer $forumId
+     *
+     * @param  integer $forumId
      * @return User
      */
-    public function setForumId($forumId) {
+    public function setForumId($forumId)
+    {
         $this->forumId = $forumId;
+
         return $this;
     }
-
 
 }
