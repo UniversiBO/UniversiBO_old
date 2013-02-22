@@ -20,8 +20,13 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+        $statService = $this->get('universibo_dashboard.statistics');
         $userRepo = $this->get('universibo_core.repository.user');
 
-        return array('activeUsers' => $userRepo->countActive());
+        return array(
+            'activeUsers' => $userRepo->countActive(),
+            'logged24h'   => $statService->getLoggedUsers24h(),
+            'loggedWeek'  => $statService->getLoggedUsersWeek()
+        );
     }
 }
