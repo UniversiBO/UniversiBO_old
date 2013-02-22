@@ -4,7 +4,7 @@
         <body>
             <trans-unit id="1">
                 <source>udb_default_title</source>
-                <target>Dashboard di UniversiBO</target>
+                <target>Cruscotto UniversiBO</target>
             </trans-unit>
             <trans-unit id="2">
                 <source>udb_dashboard_title</source>
@@ -54,4 +54,5 @@
         </body>
     </file>
 </xliff>
+
 
