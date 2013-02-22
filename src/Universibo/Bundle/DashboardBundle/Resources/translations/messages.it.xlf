@@ -32,7 +32,7 @@
                 <target>Loggati ultime 24 ore</target>
             </trans-unit>
             <trans-unit id="8">
-                <source>udb_users_logged_week'</source>
+                <source>udb_users_logged_week</source>
                 <target>Loggati ultima settimana</target>
             </trans-unit>
         </body>
