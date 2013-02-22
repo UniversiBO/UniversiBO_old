@@ -22,6 +22,10 @@
                 <source>udb_users</source>
                 <target>Utenti</target>
             </trans-unit>
+            <trans-unit id="6">
+                <source>udb_users_active</source>
+                <target>Registrati e attivi</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
