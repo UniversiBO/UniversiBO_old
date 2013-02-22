@@ -56,4 +56,35 @@ class StatisticsService
             ->fetchColumn('SELECT * FROM loggati_24h_count')
         ;
     }
+
+    /**
+     * Gets the logged users since academic year beginning
+     *
+     * @return integer
+     */
+    public function getLoggedAcademic()
+    {
+        $query = <<<EOT
+SELECT COUNT(*)
+   FROM fos_user
+   WHERE last_login >= ?
+EOT;
+
+        $october1st = new \DateTime('October 1st');
+        $now = new \DateTime();
+
+        if ($october1st > $now) {
+            $october1st->setDate(date('Y') - 1, 10, 1);
+        }
+
+        $stmt = $this
+            ->connection
+            ->prepare($query)
+        ;
+
+        $stmt->bindValue(1, $october1st, 'datetime');
+        $stmt->execute();
+
+        return $stmt->fetchColumn();
+    }
 }

@@ -24,9 +24,10 @@ class DefaultController extends Controller
         $userRepo = $this->get('universibo_core.repository.user');
 
         return array(
-            'activeUsers' => $userRepo->countActive(),
-            'logged24h'   => $statService->getLoggedUsers24h(),
-            'loggedWeek'  => $statService->getLoggedUsersWeek()
+            'activeUsers'    => $userRepo->countActive(),
+            'logged24h'      => $statService->getLoggedUsers24h(),
+            'loggedWeek'     => $statService->getLoggedUsersWeek(),
+            'loggedAcademic' => $statService->getLoggedAcademic(),
         );
     }
 }
