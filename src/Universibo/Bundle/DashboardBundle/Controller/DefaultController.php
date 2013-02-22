@@ -20,6 +20,8 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return array();
+        $userRepo = $this->get('universibo_core.repository.user');
+
+        return array('activeUsers' => $userRepo->countActive());
     }
 }
