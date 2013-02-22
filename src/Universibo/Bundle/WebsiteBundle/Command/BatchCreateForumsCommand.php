@@ -6,6 +6,7 @@
 namespace Universibo\Bundle\WebsiteBundle\Command;
 
 use Exception;
+use Guzzle\Http\Client;
 use LogicException;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -181,16 +182,7 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
 
         $client = $this->getContainer()->get('universibo_forum.api.client');
 
-        $data = $client
-            ->post('forum', null, array (
-                'name' => $code . ' - ' . $degreeCourse->getNome(),
-                'description' => 'Forum riservato alla discussione generale sul CdL '.$code,
-                'parent_id' => $parentId,
-                'type' => Forum::TYPE_FORUM
-            ))
-            ->send()
-            ->json()
-        ;
+        $data = $this->createForum($client, $code . ' - ' . $degreeCourse->getNome(), 'Forum riservato alla discussione generale sul CdL '.$code, $parentId, Forum::TYPE_FORUM);
 
         $forumId = $data['forum_id'];
 
@@ -262,15 +254,19 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
 
         $client = $this->getContainer()->get('universibo_forum.api.client');
 
-        $data = $client
-            ->post('forum', null, array (
-                'name' => $subject->getNomeCanale(),
-                'parent_id' => $parentId,
-                'type' => Forum::TYPE_FORUM
-            ))
+        $name = $subject->getNomeCanale();
+
+        $found = $client
+            ->get('forum/'.$name)
             ->send()
             ->json()
         ;
+
+        if (count($found) > 0) {
+            list($data) = $found;
+        } else {
+            $data = $this->createForum($client, $name, '', $parentId, Forum::TYPE_FORUM);
+        }
 
         $subject->setForumForumId($data['forum_id']);
     }
@@ -345,5 +341,29 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
         $id = $channel->getForumForumId();
 
         return $id > 0 && $forumRepo->find($id) !== null;
+    }
+
+    /**
+     * Creates a forum using a client
+     *
+     * @param  Client  $client
+     * @param  string  $name
+     * @param  string  $description
+     * @param  integer $parentId
+     * @param  integer $type
+     * @return array
+     */
+    private function createForum(Client $client, $name, $description, $parentId, $type)
+    {
+        return $client
+            ->post('forum/', null, array (
+                    'name' => $name,
+                    'description' => $description,
+                    'parent_id' => $parentId,
+                    'type' => $type
+            ))
+            ->send()
+            ->json()
+        ;
     }
 }
