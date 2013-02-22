@@ -55,13 +55,13 @@ class ContattoDocente
      */
     public $report;
 
-    public $legend = array (
+    public static $legend = array (
             self::CHIUSO => 'chiuso - non ci sono compiti da eseguire',
             self::APERTO => 'aperto - ci sono compiti da eseguire',
             self::KILLED => 'killed - non ne vuole sapere di universibo',
             self::CRITIC => 'critic - è un pezzo grosso, non è da contattare',
             self::INATTIVO => 'inattivo - non ha corsi attivi nell\'A.A. corrente',
-             );
+    );
 
     public function __construct($coddoc, $state, $id, $mod, $report)
     {
@@ -102,7 +102,7 @@ class ContattoDocente
 
     public function getStatoDesc()
     {
-        return $this->legend[$this->stato];
+        return self::$legend[$this->stato];
     }
     public function getReport()
     {

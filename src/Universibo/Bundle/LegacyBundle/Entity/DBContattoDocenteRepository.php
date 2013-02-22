@@ -180,4 +180,33 @@ class DBContattoDocenteRepository extends DBRepository
             }
         }
     }
+
+    /**
+     * Gets the status summary
+     *
+     * @return array
+     */
+    public function getStatusSummary()
+    {
+        $query = <<<EOT
+SELECT stato AS status, COUNT(*) as "count"
+    FROM docente_contatti
+    WHERE eliminato = 'N'
+    GROUP BY stato
+    ORDER BY "count" DESC
+EOT;
+        $result = $this
+            ->getConnection()
+            ->executeQuery($query)
+        ;
+
+        $summary = array();
+
+        while (false !== ($row = $result->fetch())) {
+            $row['status'] = ContattoDocente::$legend[$row['status']];
+            $summary[] = $row;
+        }
+
+        return $summary;
+    }
 }

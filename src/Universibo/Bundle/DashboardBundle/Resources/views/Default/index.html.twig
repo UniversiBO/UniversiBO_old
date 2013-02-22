@@ -23,6 +23,12 @@
   </div>
   <div class="span3">
     <h2>{% trans %}udb_professors{% endtrans %}</h2>
+    <ul>
+      {% for current in professorStatus %}
+         <li><strong>{{ current.status }}</strong>: {{ current.count }}</li>
+      {% endfor %}
+    </ul>
+    <a href="{{ path('universibo_legacy_contact_professors') }}" target="_blank">&Gt; {% trans %}udb_professors_contacts{% endtrans %}</a>
   </div>
   <div class="span3">
     <h2>{% trans %}udb_forums{% endtrans %}</h2>

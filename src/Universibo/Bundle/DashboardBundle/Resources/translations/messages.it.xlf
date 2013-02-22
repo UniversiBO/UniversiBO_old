@@ -55,6 +55,10 @@
                 <source>udb_files_count</source>
                 <target>Numero file</target>
             </trans-unit>
+            <trans-unit id="14">
+                <source>udb_professors_contacts</source>
+                <target>Contatto docenti</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

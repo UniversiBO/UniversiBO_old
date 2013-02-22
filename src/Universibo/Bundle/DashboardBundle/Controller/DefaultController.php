@@ -21,15 +21,17 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $statService = $this->get('universibo_dashboard.statistics');
-        $userRepo = $this->get('universibo_core.repository.user');
-        $fileRepo = $this->get('universibo_legacy.repository.files.file_item');
+        $userRepo    = $this->get('universibo_core.repository.user');
+        $fileRepo    = $this->get('universibo_legacy.repository.files.file_item');
+        $contactRepo = $this->get('universibo_legacy.repository.contatto_docente');
 
         return array(
-            'activeUsers'    => $userRepo->countActive(),
-            'logged24h'      => $statService->getLoggedUsers24h(),
-            'loggedWeek'     => $statService->getLoggedUsersWeek(),
-            'loggedAcademic' => $statService->getLoggedAcademic(),
-            'filesCount'     => $fileRepo->count()
+            'activeUsers'     => $userRepo->countActive(),
+            'logged24h'       => $statService->getLoggedUsers24h(),
+            'loggedWeek'      => $statService->getLoggedUsersWeek(),
+            'loggedAcademic'  => $statService->getLoggedAcademic(),
+            'filesCount'      => $fileRepo->count(),
+            'professorStatus' => $contactRepo->getStatusSummary(),
         );
     }
 }
