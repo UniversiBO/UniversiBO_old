@@ -9,14 +9,17 @@
   <div class="span3">
     <h2>{% trans %}udb_users{% endtrans %}</h2>
     <ul>
-        <li><strong>{% trans %}udb_users_active{% endtrans %}</strong>: {{ activeUsers }}</li>
-        <li><strong>{% trans %}udb_users_logged_24h{% endtrans %}</strong>: {{ logged24h }}</li>
-        <li><strong>{% trans %}udb_users_logged_week{% endtrans %}</strong>: {{ loggedWeek }}</li>
-        <li><strong>{% trans %}udb_users_logged_academic{% endtrans %}</strong>: {{ loggedAcademic }}</li>
+      <li><strong>{% trans %}udb_users_active{% endtrans %}</strong>: {{ activeUsers }}</li>
+      <li><strong>{% trans %}udb_users_logged_24h{% endtrans %}</strong>: {{ logged24h }}</li>
+      <li><strong>{% trans %}udb_users_logged_week{% endtrans %}</strong>: {{ loggedWeek }}</li>
+      <li><strong>{% trans %}udb_users_logged_academic{% endtrans %}</strong>: {{ loggedAcademic }}</li>
     </ul>
   </div>
   <div class="span3">
     <h2>{% trans %}udb_files{% endtrans %}</h2>
+    <ul>
+      <li><strong>{% trans %}udb_files_count{% endtrans %}</strong>: {{ filesCount }}</li>
+    </ul>
   </div>
   <div class="span3">
     <h2>{% trans %}udb_professors{% endtrans %}</h2>

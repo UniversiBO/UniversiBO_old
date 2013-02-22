@@ -51,6 +51,10 @@
                 <source>udb_users_logged_academic</source>
                 <target>Loggati da inizio anno accademico</target>
             </trans-unit>
+            <trans-unit id="13">
+                <source>udb_files_count</source>
+                <target>Numero file</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -43,6 +43,14 @@ class DBFileItemRepository extends DBRepository implements MergeableRepositoryIn
         return is_array($ids) ? $this->findManyById($ids) : $ids;
     }
 
+    public function count()
+    {
+        return $this
+            ->getConnection()
+            ->fetchColumn('SELECT COUNT(*) FROM file')
+        ;
+    }
+
     public function countByChannel($channelId)
     {
         $db = $this->getDb();

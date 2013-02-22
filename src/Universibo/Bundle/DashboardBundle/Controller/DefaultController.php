@@ -22,12 +22,14 @@ class DefaultController extends Controller
     {
         $statService = $this->get('universibo_dashboard.statistics');
         $userRepo = $this->get('universibo_core.repository.user');
+        $fileRepo = $this->get('universibo_legacy.repository.files.file_item');
 
         return array(
             'activeUsers'    => $userRepo->countActive(),
             'logged24h'      => $statService->getLoggedUsers24h(),
             'loggedWeek'     => $statService->getLoggedUsersWeek(),
             'loggedAcademic' => $statService->getLoggedAcademic(),
+            'filesCount'     => $fileRepo->count()
         );
     }
 }
