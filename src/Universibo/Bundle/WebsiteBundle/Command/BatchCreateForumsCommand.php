@@ -226,7 +226,7 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
                     $similar = $similarId !== null ? $subjectRepo->findByChannelId($similarId) : null;
 
                     if ($similar === null || !$this->checkForum($similar, $forumRepository)) {
-                        $forumName = $subject->getNomeCanale();
+                        $forumName = trim($subject->getNomeCanale());
 
                         if (empty($forumName)) {
                             $output->writeln('Subject with empty name, channel id = '.$channelId);
@@ -259,7 +259,7 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
         $name = $subject->getNomeCanale();
 
         $found = $client
-            ->get('forum/'.$name)
+            ->get('forum/'.urlencode($name))
             ->send()
             ->json()
         ;
