@@ -226,8 +226,14 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
                     $similar = $similarId !== null ? $subjectRepo->findByChannelId($similarId) : null;
 
                     if ($similar === null || !$this->checkForum($similar, $forumRepository)) {
-                        $output->writeln('Creating subject forum for '. $subject->getNomeCanale());
-                        $this->createNewSubjectForum($subject, $courseForumId, $forumRepository);
+                        $forumName = $subject->getNomeCanale();
+
+                        if (empty($forumName)) {
+                            $output->writeln('Subject with empty name, channel id = '.$channelId);
+                        } else {
+                            $output->writeln('Creating subject forum for '. $forumName);
+                            $this->createNewSubjectForum($subject, $courseForumId, $forumRepository);
+                        }
                     } else {
                         $this->setSimilarForum($similar, $subject, $forumRepository, $nameGenerator);
                     }
@@ -248,10 +254,6 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
     private function createNewSubjectForum(Insegnamento $subject, $parentId,
             ForumRepository $forumRepository)
     {
-        static $i = 0;
-
-        echo ++$i, PHP_EOL;
-
         $client = $this->getContainer()->get('universibo_forum.api.client');
 
         $name = $subject->getNomeCanale();
