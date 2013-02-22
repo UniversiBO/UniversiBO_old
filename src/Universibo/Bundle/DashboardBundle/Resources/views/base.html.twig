@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>{% block title %}{% trans %}udb_default_title{% endtrans %}{% endblock title %}</title>
+    {% stylesheets 'bundles/universibowebsite/bootstrap/css/bootstrap.css'
+       'bundles/universibowebsite/bootstrap/css/bootstrap-responsive.css'
+       'bundles/universibodashboard/css/screen.css' %}
+      <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">{% trans %}udb_dashboard_title{% endtrans %}</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    <div class="container">
+    {% block content %}
+    {% endblock content %}
+    </div>
+    {% javascripts 'bundles/universibowebsite/js/00*'
+       'bundles/universibowebsite/bootstrap/js/bootstrap.js'
+       'bundles/universibodashboard/js/*.js' %}
+      <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+  </body>
+</html>

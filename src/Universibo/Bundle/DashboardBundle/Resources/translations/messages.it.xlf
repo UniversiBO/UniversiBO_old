@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="">
+        <body>
+            <trans-unit id="1">
+                <source>udb_default_title</source>
+                <target>Dashboard di UniversiBO</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>udb_dashboard_title</source>
+                <target>Cruscotto UniversiBO</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>udb_welcome</source>
+                <target>Benvenuto nel cruscotto del potere :)</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>udb_home_desc</source>
+                <target>Benvenuto nel cruscotto del potere :)</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>udb_users</source>
+                <target>Utenti</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

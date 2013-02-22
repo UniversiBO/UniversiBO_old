@@ -1,1 +1,13 @@
-Hello {{ name }}!
+{% extends 'UniversiboDashboardBundle::base.html.twig' %}
+{% block content %}
+<h1>{% trans %}udb_welcome{% endtrans %}</h1>
+<p>{% trans %}udb_home_desc{% endtrans %}</p>
+<div class="row-fluid">
+  <div class="span3">
+    <h2>{% trans %}udb_users{% endtrans %}</h2>
+    <ul>
+        <li><strong>{% trans %}udb_users_active{% endtrans %}</strong>: N</li>
+    </ul>
+  </div>
+</div>
+{% endblock %}
