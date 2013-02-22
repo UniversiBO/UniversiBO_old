@@ -50,7 +50,7 @@ security:
       - { path: \bdelete\b, roles: IS_AUTHENTICATED_FULLY }
       - { path: \bedit\b, roles: IS_AUTHENTICATED_FULLY }
       - { path: ^/admin, roles: ROLE_ADMIN }
-      - { path: ^/dashboard, roles: ROLE_ADMIN }
+      - { path: ^/dashboard, roles: ROLE_MODERATOR }
       - { path: ^/gestione, roles: ROLE_MODERATOR }
       - { path: ^/docente, roles: ROLE_MODERATOR }
       - { path: ^/forumlogin, roles: IS_AUTHENTICATED_FULLY }
