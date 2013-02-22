@@ -17,7 +17,7 @@
             <trans-unit id="4">
                 <source>udb_home_desc</source>
                 <target>Il cruscotto è il centro di monitoraggio e gestione per
-                i moderatori ed amministratori di UniversiBO</target>
+                i moderatori ed amministratori di UniversiBO.</target>
             </trans-unit>
             <trans-unit id="5">
                 <source>udb_users</source>
