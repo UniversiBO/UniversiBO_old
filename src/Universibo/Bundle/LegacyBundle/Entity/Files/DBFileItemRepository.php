@@ -1,14 +1,15 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Files;
 
-use Universibo\Bundle\LegacyBundle\PearDB\DB;
-use Universibo\Bundle\LegacyBundle\Framework\Error;
+use PDO;
 use Universibo\Bundle\CoreBundle\Entity\MergeableRepositoryInterface;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
+use Universibo\Bundle\LegacyBundle\PearDB\DB;
 
 /**
  * DBNewsItem repository
@@ -58,7 +59,7 @@ class DBFileItemRepository extends DBRepository implements MergeableRepositoryIn
         $query = 'SELECT count(A.id_file) FROM file A, file_canale B
         WHERE A.id_file = B.id_file AND eliminato!='
         . $db->quote(FileItem::ELIMINATO) . 'AND B.id_canale = '
-        . $db->quote($id_canale) . '';
+        . $db->quote($channelId) . '';
         $res = $db->getOne($query);
 
         if (DB::isError($res)) {
@@ -69,6 +70,36 @@ class DBFileItemRepository extends DBRepository implements MergeableRepositoryIn
         }
 
         return $res;
+    }
+
+    /**
+     * Finds latest files
+     *
+     * @param  integer $maxResults
+     * @return array
+     */
+    public function findLatest($maxResults)
+    {
+        $db = $this->getConnection();
+
+        $query = $db
+            ->createQueryBuilder()
+            ->select('f.id_file')
+            ->from('file', 'f')
+            ->orderBy('f.data_inserimento', 'DESC')
+            ->setMaxResults($maxResults)
+        ;
+
+        $ids = $query
+            ->execute()
+            ->fetchAll(PDO::FETCH_NUM)
+        ;
+
+        array_walk($ids, function(&$array) {
+            $array = $array[0];
+        });
+
+        return $this->findManyById($ids);
     }
 
     public function findLatestByChannels(array $channelIds, $limit)
@@ -95,8 +126,6 @@ class DBFileItemRepository extends DBRepository implements MergeableRepositoryIn
                             'msg' => DB::errorMessage($res), 'file' => __FILE__,
                             'line' => __LINE__));
         }
-
-        $rows = $res->numRows();
 
         $ids = array();
 

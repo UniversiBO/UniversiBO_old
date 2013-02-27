@@ -20,6 +20,12 @@
     <ul>
       <li><strong>{% trans %}udb_files_count{% endtrans %}</strong>: {{ filesCount }}</li>
     </ul>
+    <h3>{% trans %}udb_files_latest{% endtrans %}</h3>
+    <ul>
+      {% for file in filesLatest %}
+      <li><a href="{{ path('universibo_legacy_file', {id_file : file.idFile }) }}" target="_blank">{{file.titolo}}</a></li>
+      {% endfor %}
+    </ul>
   </div>
   <div class="span2">
     <h2>{% trans %}udb_professors{% endtrans %}</h2>

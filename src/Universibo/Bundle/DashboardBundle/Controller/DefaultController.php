@@ -31,6 +31,7 @@ class DefaultController extends Controller
             'loggedWeek'      => $statService->getLoggedUsersWeek(),
             'loggedAcademic'  => $statService->getLoggedAcademic(),
             'filesCount'      => $fileRepo->count(),
+            'filesLatest'     => $fileRepo->findLatest(10),
             'professorStatus' => $contactRepo->getStatusSummary(),
         );
     }

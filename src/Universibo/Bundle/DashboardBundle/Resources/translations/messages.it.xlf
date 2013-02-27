@@ -55,7 +55,11 @@
                 <source>udb_files_count</source>
                 <target>Numero file</target>
             </trans-unit>
-            <trans-unit id="14">
+             <trans-unit id="14">
+                <source>udb_files_latest</source>
+                <target>Ultimi file inseriti</target>
+            </trans-unit>
+            <trans-unit id="15">
                 <source>udb_professors_contacts</source>
                 <target>Contatto docenti</target>
             </trans-unit>
