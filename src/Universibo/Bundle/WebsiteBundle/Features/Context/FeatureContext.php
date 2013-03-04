@@ -21,7 +21,7 @@ use Behat\Gherkin\Node\PyStringNode,
 /**
  * Feature context.
  */
-class FeatureContext extends BehatContext //MinkContext if you want to test web
+class FeatureContext extends MinkContext
                   implements KernelAwareInterface
 {
     private $kernel;
@@ -48,16 +48,58 @@ class FeatureContext extends BehatContext //MinkContext if you want to test web
         $this->kernel = $kernel;
     }
 
-//
-// Place your definition and hook methods here:
-//
-//    /**
-//     * @Given /^I have done something with "([^"]*)"$/
-//     */
-//    public function iHaveDoneSomethingWith($argument)
-//    {
-//        $container = $this->kernel->getContainer();
-//        $container->get('some_service')->doSomethingWith($argument);
-//    }
-//
+    /**
+     * @Given /^I\'m not logged in$/
+     */
+    public function iMNotLoggedIn()
+    {
+        $this
+            ->getSession()
+            ->visit('/logout')
+        ;
+    }
+
+    /**
+     * @When /^I click on "([^"]*)" link$/
+     */
+    public function iClickOnLink($link)
+    {
+        $this
+            ->getSession()
+            ->getPage()
+            ->clickLink($link)
+        ;
+    }
+
+    /**
+     * @Given /^I type "([^"]*)" on "([^"]*)" field$/
+     */
+    public function iTypeOnField($value, $fieldName)
+    {
+        $this
+            ->getSession()
+            ->getPage()
+            ->fillField($fieldName, $value)
+        ;
+    }
+
+    /**
+     * @Given /^I click on "([^"]*)" button$/
+     */
+    public function iClickOnButton($button)
+    {
+        $this
+            ->getSession()
+            ->getPage()
+            ->pressButton($button)
+        ;
+    }
+
+    /**
+     * @Then /^Text "([^"]*)" should be present$/
+     */
+    public function textShouldBePresent($text)
+    {
+        $this->assertPageContainsText($text);
+    }
 }
