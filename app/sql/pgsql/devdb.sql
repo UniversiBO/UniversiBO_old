@@ -11,17 +11,6 @@ SET client_min_messages = warning;
 SET search_path = public, pg_catalog;
 
 --
--- Name: plpgsql_call_handler(); Type: FUNCTION; Schema: public; Owner: universibo
---
-
-CREATE FUNCTION plpgsql_call_handler() RETURNS language_handler
-    LANGUAGE c
-    AS '$libdir/plpgsql', 'plpgsql_call_handler';
-
-
-ALTER FUNCTION public.plpgsql_call_handler() OWNER TO universibo;
-
---
 -- Name: argomento_id_argomento_seq; Type: SEQUENCE; Schema: public; Owner: universibo
 --
 
