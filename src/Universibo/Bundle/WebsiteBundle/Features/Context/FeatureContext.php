@@ -2,21 +2,9 @@
 
 namespace Universibo\Bundle\WebsiteBundle\Features\Context;
 
-use Symfony\Component\HttpKernel\KernelInterface;
-use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Behat\MinkExtension\Context\MinkContext;
-
-use Behat\Behat\Context\BehatContext,
-    Behat\Behat\Exception\PendingException;
-use Behat\Gherkin\Node\PyStringNode,
-    Behat\Gherkin\Node\TableNode;
-
-//
-// Require 3rd-party libraries here:
-//
-//   require_once 'PHPUnit/Autoload.php';
-//   require_once 'PHPUnit/Framework/Assert/Functions.php';
-//
+use Behat\Symfony2Extension\Context\KernelAwareInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * Feature context.
@@ -49,6 +37,32 @@ class FeatureContext extends MinkContext
     }
 
     /**
+     * @Given /^I\'m logged in as "([^"]*)"$/
+     */
+    public function iMLoggedInAs($username)
+    {
+        $this->iMNotLoggedIn();
+
+        $session = $this->getSession();
+
+        $session->visit('/login');
+        $page = $session->getPage();
+
+        $page->fillField('username', $username);
+        $page->fillField('password', 'padrino');
+        $page->pressButton('Login');
+
+        if (preg_match('/regolamento/', $session->getCurrentUrl())) {
+            $page->checkField('accept_check');
+            $page->pressButton('Accetto');
+
+            $this->assertPageNotMatchesText('/Non hai accettato il regolamento/');
+        }
+
+        $this->assertPageContainsText('Benvenuto '.$username);
+    }
+
+    /**
      * @Given /^I\'m not logged in$/
      */
     public function iMNotLoggedIn()
@@ -68,6 +82,17 @@ class FeatureContext extends MinkContext
             ->getSession()
             ->getPage()
             ->clickLink($link)
+        ;
+    }
+
+    /**
+     * @When /^I visit "([^"]*)"$/
+     */
+    public function iVisit($url)
+    {
+        $this
+            ->getSession()
+            ->visit($url)
         ;
     }
 

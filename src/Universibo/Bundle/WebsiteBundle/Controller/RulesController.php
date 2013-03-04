@@ -76,7 +76,7 @@ class RulesController extends Controller
         // TODO begin transaction
         $error = false;
 
-        if ('on' !== $this->getRequest()->request->get('accept_check')) {
+        if (!$this->getRequest()->request->get('accept_check')) {
             $flashBag->add('error', 'Non hai accettato il regolamento!');
             $error = true;
         }
