@@ -10,7 +10,7 @@ Feature: Login
     And I type "padrino" on "password" field
     And I click on "Login" button
     Then Text "Benvenuto admin" should be present
-    And Text "Admin" should be present
+    And Text "Il tuo livello di utenza è Admin" should be present
 
   Scenario: Logging in as a Moderator
     Given I'm not logged in
@@ -19,7 +19,7 @@ Feature: Login
     And I type "padrino" on "password" field
     And I click on "Login" button
     Then Text "Benvenuto moderator" should be present
-    And Text "Collaboratore" should be present
+    And Text "Il tuo livello di utenza è Collaboratore" should be present
 
   Scenario: Logging in as a Student
     Given I'm not logged in
@@ -28,7 +28,7 @@ Feature: Login
     And I type "padrino" on "password" field
     And I click on "Login" button
     Then Text "Benvenuto student" should be present
-    And Text "Studente" should be present
+    And Text "Il tuo livello di utenza è Studente" should be present
 
   Scenario: Logging in as a Professor
     Given I'm not logged in
@@ -37,7 +37,7 @@ Feature: Login
     And I type "padrino" on "password" field
     And I click on "Login" button
     Then Text "Benvenuto professor" should be present
-    And Text "Docente" should be present
+    And Text "Il tuo livello di utenza è Docente" should be present
 
   Scenario: Logging in as a Tutor
     Given I'm not logged in
@@ -46,7 +46,7 @@ Feature: Login
     And I type "padrino" on "password" field
     And I click on "Login" button
     Then Text "Benvenuto tutor" should be present
-    And Text "Tutor" should be present
+    And Text "Il tuo livello di utenza è Tutor" should be present
 
   Scenario: Logging in as a non-teaching staff member
     Given I'm not logged in
@@ -55,4 +55,4 @@ Feature: Login
     And I type "padrino" on "password" field
     And I click on "Login" button
     Then Text "Benvenuto staff" should be present
-    And Text "Personale non docente" should be present
+    And Text "Il tuo livello di utenza è Personale non docente" should be present
