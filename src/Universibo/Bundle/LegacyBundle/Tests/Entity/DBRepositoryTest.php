@@ -25,15 +25,6 @@ abstract class DBRepositoryTest extends ContainerAwareTest
         Error::setHandler(ErrorHandlers::LEVEL_CRITICAL, function ($param) {
             throw new Exception($param['msg']);
         });
-
-        $kernel = self::createKernel();
-        $kernel->boot();
-        $db = $kernel->getContainer()->get('universibo_legacy.db.connection.main');
-
-        $db->query(file_get_contents(__DIR__.'/../../../../../../app/sql/pgsql/testdb.sql'));
-
-        $kernel->shutdown();
-        restore_error_handler();
     }
 
     protected function setUp()

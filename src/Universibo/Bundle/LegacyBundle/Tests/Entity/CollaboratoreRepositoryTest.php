@@ -15,8 +15,6 @@ class CollaboratoreRepositoryTest extends DBRepositoryTest
         parent::setUp();
 
         $container = static::$kernel->getContainer();
-
-        $userRepo = $container->get('universibo_core.repository.user');
         $this->repository = $container->get('universibo_legacy.repository.collaboratore');
     }
 
@@ -26,9 +24,9 @@ class CollaboratoreRepositoryTest extends DBRepositoryTest
 
         $this->assertInstanceOf('Universibo\\Bundle\\LegacyBundle\\Entity\\Collaboratore', $collaboratore);
 
-        $this->assertEquals(1, $collaboratore->getIdUtente());
-        $this->assertEquals('9999999999', $collaboratore->getRecapito());
-        $this->assertEquals('1_brain.jpg', $collaboratore->getFotoFilename());
-        $this->assertEquals('fondatore - progettista software', $collaboratore->getRuolo());
+        $this->assertEquals(2, $collaboratore->getIdUtente());
+        $this->assertEquals('lorem ipsum', $collaboratore->getRecapito());
+        $this->assertEquals('no_foto.png', $collaboratore->getFotoFilename());
+        $this->assertEquals('lorem ipsum', $collaboratore->getRuolo());
     }
 }

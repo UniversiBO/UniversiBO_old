@@ -10,6 +10,178 @@ SET client_min_messages = warning;
 
 SET search_path = public, pg_catalog;
 
+ALTER TABLE ONLY public.fos_user_ismemberof DROP CONSTRAINT fk_e352958da76ed395;
+ALTER TABLE ONLY public.fos_user_ismemberof DROP CONSTRAINT fk_e352958d45e18be7;
+ALTER TABLE ONLY public.collaboratore DROP CONSTRAINT fk_b6092a05f872060d;
+ALTER TABLE ONLY public.fos_user_group DROP CONSTRAINT fk_b3c77447fe54d947;
+ALTER TABLE ONLY public.fos_user_group DROP CONSTRAINT fk_b3c77447a76ed395;
+ALTER TABLE ONLY public.fos_user DROP CONSTRAINT fk_957a6479217bbb47;
+ALTER TABLE ONLY public.contacts DROP CONSTRAINT fk_33401573a76ed395;
+ALTER TABLE ONLY public.facolta DROP CONSTRAINT facolta_id_canale_fkey;
+ALTER TABLE ONLY public.docente DROP CONSTRAINT docente_id_utente_fkey;
+ALTER TABLE ONLY public.classi_corso DROP CONSTRAINT classi_corso_id_canale_fkey;
+DROP INDEX public.uniq_df975e575e237e06;
+DROP INDEX public.uniq_b6092a05f872060d;
+DROP INDEX public.uniq_957a6479a0d96fbf;
+DROP INDEX public.uniq_957a647992fc23a8;
+DROP INDEX public.uniq_4b019ddb5e237e06;
+DROP INDEX public.uniq_28166a266c57f6ed;
+DROP INDEX public.questionario_id_questionario_ke;
+DROP INDEX public.notifica_timestamp;
+DROP INDEX public.notifica_eliminata;
+DROP INDEX public.news_canale_id_news_key;
+DROP INDEX public.news_canale_id_canale_key;
+DROP INDEX public.idx_e352958da76ed395;
+DROP INDEX public.idx_e352958d45e18be7;
+DROP INDEX public.idx_b3c77447fe54d947;
+DROP INDEX public.idx_b3c77447a76ed395;
+DROP INDEX public.idx_957a6479217bbb47;
+DROP INDEX public.idx_33401573a76ed395;
+DROP INDEX public.file_studente_canale_id_file_key;
+DROP INDEX public.file_canale_id_file_key;
+DROP INDEX public.file_canale_id_canale_key;
+DROP INDEX public.docente_cod_doc_key;
+DROP INDEX public.docente2_cod_doc_key;
+DROP INDEX public.classi_materie_cod_materia_key;
+DROP INDEX public.canale_id_canale_key;
+ALTER TABLE ONLY public.utente_canale DROP CONSTRAINT utente_argomento_pkey;
+ALTER TABLE ONLY public.step_parametri DROP CONSTRAINT step_parametri_pkey;
+ALTER TABLE ONLY public.step_log DROP CONSTRAINT step_log_pkey;
+ALTER TABLE ONLY public.prg_sdoppiamento DROP CONSTRAINT sdoppiamenti_attivi_pkey;
+ALTER TABLE ONLY public.rub_docente DROP CONSTRAINT rub_docente_pkey;
+ALTER TABLE ONLY public.questionario DROP CONSTRAINT questionario_pkey;
+ALTER TABLE ONLY public.people DROP CONSTRAINT people_pkey;
+ALTER TABLE ONLY public.notifica DROP CONSTRAINT notifica_pkey;
+ALTER TABLE ONLY public.news DROP CONSTRAINT news_pkey;
+ALTER TABLE ONLY public.news_canale DROP CONSTRAINT news_canale_pkey;
+ALTER TABLE ONLY public.migration_versions DROP CONSTRAINT migration_versions_pkey;
+ALTER TABLE ONLY public.link DROP CONSTRAINT link_pkey;
+ALTER TABLE ONLY public.ismemberof DROP CONSTRAINT ismemberof_pkey;
+ALTER TABLE ONLY public.informativa DROP CONSTRAINT informativa_pkey;
+ALTER TABLE ONLY public.info_didattica DROP CONSTRAINT info_didattica_pkey;
+ALTER TABLE ONLY public.help_topic DROP CONSTRAINT help_topic_pkey;
+ALTER TABLE ONLY public.help_riferimento DROP CONSTRAINT help_riferimento_pkey;
+ALTER TABLE ONLY public.help DROP CONSTRAINT help_pkey;
+ALTER TABLE ONLY public.fos_user_group DROP CONSTRAINT fos_user_user_group_pkey;
+ALTER TABLE ONLY public.fos_user DROP CONSTRAINT fos_user_pkey;
+ALTER TABLE ONLY public.fos_user_ismemberof DROP CONSTRAINT fos_user_ismemberof_pkey;
+ALTER TABLE ONLY public.fos_group DROP CONSTRAINT fos_group_pkey;
+ALTER TABLE ONLY public.file_tipo DROP CONSTRAINT file_tipo_pkey;
+ALTER TABLE ONLY public.file_studente_commenti DROP CONSTRAINT file_studente_commenti_pkey;
+ALTER TABLE ONLY public.file_studente_commenti DROP CONSTRAINT file_studente_commenti_id_file_key;
+ALTER TABLE ONLY public.file_studente_canale DROP CONSTRAINT file_studente_canale_pkey;
+ALTER TABLE ONLY public.file DROP CONSTRAINT file_pkey;
+ALTER TABLE ONLY public.file_keywords DROP CONSTRAINT file_keywords_pkey;
+ALTER TABLE ONLY public.file_categoria DROP CONSTRAINT file_categoria_pkey;
+ALTER TABLE ONLY public.file_canale DROP CONSTRAINT file_canale_pkey;
+ALTER TABLE ONLY public.facolta DROP CONSTRAINT facolta_pkey;
+ALTER TABLE ONLY public.docente DROP CONSTRAINT docente_pkey;
+ALTER TABLE ONLY public.docente_contatti DROP CONSTRAINT docente_contatti_pkey;
+ALTER TABLE ONLY public.docente2 DROP CONSTRAINT docente2_pkey;
+ALTER TABLE ONLY public.contacts DROP CONSTRAINT contacts_pkey;
+ALTER TABLE ONLY public.collaboratore DROP CONSTRAINT collaboratore_pkey;
+ALTER TABLE ONLY public.classi_materie DROP CONSTRAINT classi_materie_pkey;
+ALTER TABLE ONLY public.classi_corso DROP CONSTRAINT classi_corsi_pkey;
+ALTER TABLE ONLY public.canale DROP CONSTRAINT canale_pkey;
+ALTER TABLE public.notifica ALTER COLUMN id_notifica DROP DEFAULT;
+ALTER TABLE public.link ALTER COLUMN id_link DROP DEFAULT;
+ALTER TABLE public.help ALTER COLUMN id_help DROP DEFAULT;
+ALTER TABLE public.fos_user ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.file_tipo ALTER COLUMN id_file_tipo DROP DEFAULT;
+ALTER TABLE public.file_studente_commenti ALTER COLUMN id_commento DROP DEFAULT;
+ALTER TABLE public.file_categoria ALTER COLUMN id_file_categoria DROP DEFAULT;
+ALTER TABLE public.canale ALTER COLUMN id_canale DROP DEFAULT;
+DROP SEQUENCE public.utente_richiede_a_id_utente_seq;
+DROP SEQUENCE public.utente_richied_id_argomento_seq;
+DROP TABLE public.utente_canale;
+DROP SEQUENCE public.studente_richiede_id_utente_seq;
+DROP SEQUENCE public.studente_richi_id_argomento_seq;
+DROP TABLE public.step_parametri;
+DROP TABLE public.step_log;
+DROP SEQUENCE public.step_id_step_seq;
+DROP SEQUENCE public.stat_visite_id_visita_seq;
+DROP SEQUENCE public.stat_login_id_login_seq;
+DROP SEQUENCE public.stat_download_id_download_seq;
+DROP VIEW public.stat_canale_news;
+DROP VIEW public.stat_canale_info;
+DROP VIEW public.stat_canale_file;
+DROP SEQUENCE public.stat_accessi_id_accesso_seq;
+DROP VIEW public.sms_inviati;
+DROP TABLE public.rub_docente;
+DROP SEQUENCE public.questionario_id_questionari_seq;
+DROP TABLE public.questionario;
+DROP SEQUENCE public.prg_sdoppiamento_rr_seq;
+DROP SEQUENCE public.prg_sdoppiamento_r_seq;
+DROP SEQUENCE public.prg_sdop_id_sdop_seq;
+DROP TABLE public.people;
+DROP SEQUENCE public.people_id_seq;
+DROP SEQUENCE public.notifica_id_notifica_seq;
+DROP TABLE public.notifica;
+DROP VIEW public.nome_insegnamenti;
+DROP VIEW public.news_inserite_mese;
+DROP VIEW public.news_inserite_giorno;
+DROP SEQUENCE public.news_id_news_seq;
+DROP TABLE public.news_canale;
+DROP TABLE public.news;
+DROP TABLE public.migration_versions;
+DROP VIEW public.loggati_mese_count;
+DROP VIEW public.loggati_mese;
+DROP VIEW public.loggati_24h_count;
+DROP VIEW public.loggati_24h;
+DROP VIEW public.loggati_168h_count;
+DROP VIEW public.loggati_168h;
+DROP SEQUENCE public.link_id_link_seq;
+DROP TABLE public.link;
+DROP SEQUENCE public.ismemberof_id_seq;
+DROP TABLE public.ismemberof;
+DROP VIEW public.insegnamenti;
+DROP TABLE public.prg_sdoppiamento;
+DROP TABLE public.prg_insegnamento;
+DROP TABLE public.input_esami_attivi;
+DROP SEQUENCE public.informativa_id_informativa_seq;
+DROP TABLE public.informativa;
+DROP TABLE public.info_didattica;
+DROP TABLE public.help_topic;
+DROP TABLE public.help_riferimento;
+DROP SEQUENCE public.help_id_help_seq;
+DROP TABLE public.help;
+DROP TABLE public.fos_user_ismemberof;
+DROP SEQUENCE public.fos_user_id_seq;
+DROP TABLE public.fos_user_group;
+DROP TABLE public.fos_user;
+DROP TABLE public.fos_group;
+DROP SEQUENCE public.fos_group_id_seq;
+DROP SEQUENCE public.forums_auth_id_seq;
+DROP SEQUENCE public.file_tipo_id_file_tipo_seq;
+DROP TABLE public.file_tipo;
+DROP SEQUENCE public.file_studente_commenti_id_commento_seq;
+DROP TABLE public.file_studente_commenti;
+DROP TABLE public.file_studente_canale;
+DROP TABLE public.file_keywords;
+DROP VIEW public.file_inseriti_mese;
+DROP VIEW public.file_inseriti_giorno;
+DROP SEQUENCE public.file_id_file_seq;
+DROP SEQUENCE public.file_categoria_id_file_categoria_seq;
+DROP TABLE public.file_categoria;
+DROP TABLE public.file_canale;
+DROP TABLE public.file;
+DROP TABLE public.facolta;
+DROP TABLE public.docente_contatti;
+DROP TABLE public.docente2;
+DROP TABLE public.docente;
+DROP TABLE public.contacts;
+DROP SEQUENCE public.contacts_id_seq;
+DROP TABLE public.collaboratore;
+DROP SEQUENCE public.collaboratore_id_seq;
+DROP TABLE public.classi_materie;
+DROP TABLE public.classi_corso;
+DROP VIEW public.canale_noforum;
+DROP SEQUENCE public.canale_id_canale_seq;
+DROP TABLE public.canale;
+DROP SEQUENCE public.argomento_set_id_argomento__seq;
+DROP SEQUENCE public.argomento_id_argomento_seq;
+
+--
 --
 -- Name: argomento_id_argomento_seq; Type: SEQUENCE; Schema: public; Owner: universibo
 --
@@ -1529,7 +1701,7 @@ SELECT pg_catalog.setval('argomento_set_id_argomento__seq', 1, false);
 -- Data for Name: canale; Type: TABLE DATA; Schema: public; Owner: universibo
 --
 
-INSERT INTO canale VALUES (1, 2, 'Home', NULL, 19, NULL, 127, ' ', NULL, 'N', NULL, NULL, 'S', 'S');
+INSERT INTO canale VALUES (1, 2, 'Home', NULL, 36, NULL, 127, ' ', NULL, 'N', NULL, NULL, 'S', 'S');
 
 
 --
@@ -1555,13 +1727,14 @@ SELECT pg_catalog.setval('canale_id_canale_seq', 1, true);
 -- Data for Name: collaboratore; Type: TABLE DATA; Schema: public; Owner: universibo
 --
 
+INSERT INTO collaboratore VALUES (2, 'lorem ipsum', 'lorem ipsum', 'lorem ipsum', NULL, 'lorem ipsum', 'N', 1);
 
 
 --
 -- Name: collaboratore_id_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
 --
 
-SELECT pg_catalog.setval('collaboratore_id_seq', 1, false);
+SELECT pg_catalog.setval('collaboratore_id_seq', 1, true);
 
 
 --
@@ -1696,12 +1869,12 @@ SELECT pg_catalog.setval('fos_group_id_seq', 1, false);
 -- Data for Name: fos_user; Type: TABLE DATA; Schema: public; Owner: universibo
 --
 
-INSERT INTO fos_user VALUES (1, 'admin', 'admin', 'admin@example.org', 'admin@example.org', true, 'w4frwrfdpsvm4''3r0iefwpocmzxoHwkrwer0', 'oQJgi8BRCtV60Iq7+g3iXr34Wn86i/VwpLG/LCw1MXpprs8gcxpHF+OWa6IzFzROdaD0sR+y9jmLhVZzzI1pmg==', '2013-01-30 14:41:24', false, false, NULL, NULL, NULL, 'a:1:{i:0;s:10:"ROLE_ADMIN";}', false, NULL, NULL, 0, 64, NULL, true, NULL, NULL);
-INSERT INTO fos_user VALUES (3, 'professor', 'professor', 'professor@example.org', 'professor@example.org', true, 'XfXwfjsd,.mwre.WwAervBuZatBhax', 'hy+pZG2Gs6MG6cRmtod1uPGP2CmuC2UByhFG0ttl7eV4ujfmCbxYl5IG05CYUaMbioD84LCe3llcwz6QPG/PNw==', NULL, false, false, NULL, NULL, NULL, 'a:1:{i:0;s:14:"ROLE_PROFESSOR";}', false, NULL, NULL, 0, 16, NULL, true, NULL, NULL);
-INSERT INTO fos_user VALUES (2, 'moderator', 'moderator', 'moderator@example.org', 'moderator@example.org', true, 'WEFcdcdsv4252::edcqr32.exX,4534,m,', 'k69027W0fKS8GRwFd/AhVP1vs3yg53FPTxutplIwGFQeydHAjPk8l+5jxMvBh3paEVXIOa8j7YBu7SZZwAxFfA==', '2013-01-30 14:57:05', false, false, NULL, NULL, NULL, 'a:1:{i:0;s:14:"ROLE_MODERATOR";}', false, NULL, NULL, 0, 4, NULL, true, NULL, NULL);
-INSERT INTO fos_user VALUES (4, 'tutor', 'tutor', 'tutor@example.org', 'tutor@example.org', true, 'CcXcvwe#TewtX,.crtwet8342,'',', '82Q1V3vZQhDZEp83YGH0GiPwHisCcl8IILq0JNvelOcrrnUu24Ipp1VpB3O9dcnjZ+rgwXSHcoBIu7IfSEvquA==', NULL, false, false, NULL, NULL, NULL, 'a:1:{i:0;s:10:"ROLE_TUTOR";}', false, NULL, NULL, 0, 8, NULL, true, NULL, NULL);
-INSERT INTO fos_user VALUES (6, 'student', 'student', 'student@example.org', 'student@example.org', true, 'sdf"324##[]Ccd', 'pfA4ZXpBVJDQBIba3PkNuqbWyrMlMmUapjxLIRZLFnX9+NibweGVaCSLA/UE+587Fr9k+8pz873g1viEs8HhtQ==', NULL, false, false, NULL, NULL, NULL, 'a:1:{i:0;s:12:"ROLE_STUDENT";}', false, NULL, NULL, 0, 2, NULL, true, NULL, NULL);
-INSERT INTO fos_user VALUES (5, 'staff', 'staff', 'staff@example.org', 'staff@example.org', true, 'sdfSD4"323432#@][', 'C+NTFvThOFzAB21i7Pz+nhpeIPFpW3xRQTOqigCv4aPD93/Q1TRXiYEmTJrWfWvEZRS/wV/YtQRiZ4OGhJ8SwA==', NULL, false, false, NULL, NULL, NULL, 'a:1:{i:0;s:10:"ROLE_STAFF";}', false, NULL, NULL, 0, 32, NULL, true, NULL, NULL);
+INSERT INTO fos_user VALUES (1, 'admin', 'admin', 'admin@example.org', 'admin@example.org', true, 'w4frwrfdpsvm4''3r0iefwpocmzxoHwkrwer0', 'oQJgi8BRCtV60Iq7+g3iXr34Wn86i/VwpLG/LCw1MXpprs8gcxpHF+OWa6IzFzROdaD0sR+y9jmLhVZzzI1pmg==', '2013-03-04 22:54:05', false, false, NULL, NULL, NULL, 'a:1:{i:0;s:10:"ROLE_ADMIN";}', false, NULL, NULL, 0, 64, NULL, true, NULL, 61);
+INSERT INTO fos_user VALUES (2, 'moderator', 'moderator', 'moderator@example.org', 'moderator@example.org', true, 'WEFcdcdsv4252::edcqr32.exX,4534,m,', 'k69027W0fKS8GRwFd/AhVP1vs3yg53FPTxutplIwGFQeydHAjPk8l+5jxMvBh3paEVXIOa8j7YBu7SZZwAxFfA==', '2013-03-04 22:54:10', false, false, NULL, NULL, NULL, 'a:1:{i:0;s:14:"ROLE_MODERATOR";}', false, NULL, NULL, 0, 4, NULL, true, NULL, 62);
+INSERT INTO fos_user VALUES (6, 'student', 'student', 'student@example.org', 'student@example.org', true, 'sdf"324##[]Ccd', 'pfA4ZXpBVJDQBIba3PkNuqbWyrMlMmUapjxLIRZLFnX9+NibweGVaCSLA/UE+587Fr9k+8pz873g1viEs8HhtQ==', '2013-03-04 22:54:12', false, false, NULL, NULL, NULL, 'a:1:{i:0;s:12:"ROLE_STUDENT";}', false, NULL, NULL, 0, 2, NULL, true, NULL, NULL);
+INSERT INTO fos_user VALUES (3, 'professor', 'professor', 'professor@example.org', 'professor@example.org', true, 'XfXwfjsd,.mwre.WwAervBuZatBhax', 'hy+pZG2Gs6MG6cRmtod1uPGP2CmuC2UByhFG0ttl7eV4ujfmCbxYl5IG05CYUaMbioD84LCe3llcwz6QPG/PNw==', '2013-03-04 22:54:15', false, false, NULL, NULL, NULL, 'a:1:{i:0;s:14:"ROLE_PROFESSOR";}', false, NULL, NULL, 0, 16, NULL, true, NULL, NULL);
+INSERT INTO fos_user VALUES (4, 'tutor', 'tutor', 'tutor@example.org', 'tutor@example.org', true, 'CcXcvwe#TewtX,.crtwet8342,'',', '82Q1V3vZQhDZEp83YGH0GiPwHisCcl8IILq0JNvelOcrrnUu24Ipp1VpB3O9dcnjZ+rgwXSHcoBIu7IfSEvquA==', '2013-03-04 22:54:17', false, false, NULL, NULL, NULL, 'a:1:{i:0;s:10:"ROLE_TUTOR";}', false, NULL, NULL, 0, 8, NULL, true, NULL, NULL);
+INSERT INTO fos_user VALUES (5, 'staff', 'staff', 'staff@example.org', 'staff@example.org', true, 'sdfSD4"323432#@][', 'C+NTFvThOFzAB21i7Pz+nhpeIPFpW3xRQTOqigCv4aPD93/Q1TRXiYEmTJrWfWvEZRS/wV/YtQRiZ4OGhJ8SwA==', '2013-03-04 22:54:19', false, false, NULL, NULL, NULL, 'a:1:{i:0;s:10:"ROLE_STAFF";}', false, NULL, NULL, 0, 32, NULL, true, NULL, NULL);
 
 
 --
@@ -2090,7 +2263,7 @@ SELECT pg_catalog.setval('stat_visite_id_visita_seq', 1, false);
 -- Name: step_id_step_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
 --
 
-SELECT pg_catalog.setval('step_id_step_seq', 2, true);
+SELECT pg_catalog.setval('step_id_step_seq', 8, true);
 
 
 --
