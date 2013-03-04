@@ -22,7 +22,7 @@ use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class ShowLinksExtended extends PluginCommand
+class ShowLinksExtended extends ShowLinksCommon
 {
     /**
      * Esegue il plugin
@@ -79,7 +79,7 @@ class ShowLinksExtended extends PluginCommand
             $elenco_links_tpl[$i]['userlink']    = $router->generate('universibo_legacy_user', array('id_utente' => $links->getIdUtente()));
             $elenco_links_tpl[$i]['user']    = $links->getUsername();
 
-            $elenco_links_tpl[$i]['tipo'] = ($links->isInternalLink()) ? "interno" : "esterno";
+            $elenco_links_tpl[$i]['tipo'] = ($this->isInternalLink($links)) ? "interno" : "esterno";
 
             if (($this->get('security.context')->isGranted('ROLE_ADMIN') || $referente || ($moderatore && $links->getIdUtente()==$user->getId()))) {
                 $elenco_links_tpl[$i]['modifica']="Modifica";

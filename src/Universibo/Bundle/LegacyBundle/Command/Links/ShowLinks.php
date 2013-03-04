@@ -3,7 +3,6 @@ namespace Universibo\Bundle\LegacyBundle\Command\Links;
 
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Entity\Links\Link;
-use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
 
 /**
  * ShowLinks è un'implementazione di PluginCommand.
@@ -19,7 +18,7 @@ use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}
  */
 
-class ShowLinks extends PluginCommand
+class ShowLinks extends ShowLinksCommon
 {
     /**
      * Esegue il plugin
@@ -68,12 +67,10 @@ class ShowLinks extends PluginCommand
 
             $elenco_links_tpl[$i]['uri']       		= $link->getUri();
             $elenco_links_tpl[$i]['label']      	= $link->getLabel();
-            if ($link->isInternalLink())
+            if ($this->isInternalLink($link))
                 $elenco_links_tpl[$i]['tipo'] = "interno";
-
             else
                 $elenco_links_tpl[$i]['tipo'] = "esterno";
-
         }
 
         $template->assign('showLinks_linksList', $elenco_links_tpl);

@@ -251,20 +251,6 @@ class Link
     }
 
     /**
-     * La funzione verifica se il link è interno o meno
-     * @return boolean
-     */
-    public function isInternalLink()
-    {
-        $request_protocol = (array_key_exists('HTTPS', $_SERVER)
-                && $_SERVER['HTTPS'] == 'on') ? 'https' : 'http';
-        $uri = $request_protocol . '://' . $_SERVER['HTTP_HOST'];
-        //	  	var_dump($uri);
-        return preg_match('/^' . str_replace('/', '\\/', $uri) . '.*$/',
-                $this->getUri());
-    }
-
-    /**
      * @return DBLinkRepository
      */
     private static function getRepository()
