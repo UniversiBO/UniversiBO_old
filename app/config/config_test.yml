@@ -12,6 +12,3 @@ web_profiler:
 
 swiftmailer:
     disable_delivery: true
-
-parameters:
-    database_name: 'universibo_test'
