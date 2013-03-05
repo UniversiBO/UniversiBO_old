@@ -14,7 +14,7 @@ class ShowUserTest extends UniversiBOSeleniumTestCase
     {
         $this->login(TestConstants::STUDENT_USERNAME);
 
-        $this->openPrefix('/user/105');
+        $this->openPrefix('/user/1');
 
         $this->assertSentence('Non ti e` permesso visualizzare la scheda dell\'utente');
     }
@@ -22,8 +22,8 @@ class ShowUserTest extends UniversiBOSeleniumTestCase
     public function testAllowed()
     {
         $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openPrefix('/user/105');
+        $this->openPrefix('/user/1');
 
-        $this->assertSentences(array('Utente: fgiardini', 'Livello: Admin'));
+        $this->assertSentences(array('Utente: admin', 'Livello: Admin'));
     }
 }
