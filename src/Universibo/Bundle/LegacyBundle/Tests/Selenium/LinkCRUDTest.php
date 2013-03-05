@@ -36,14 +36,14 @@ class LinkCRUDTest extends UniversiBOSeleniumTestCase
     public function testLinkEditNotLogged()
     {
         $this->logout();
-        $this->openPrefix('/link/107/edit/1/');
+        $this->openPrefix('/link/1/edit/1/');
         $this->assertLoginRequired();
     }
 
     public function testLinkEditLogged()
     {
         $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openPrefix('/link/107/edit/1/');
+        $this->openPrefix('/link/1/edit/1/');
 
         $this->type('name=f31_URI', 'http://www.unibo.it/Portale/Ateneo/Strutture/Strutture+di+servizio/80080/AlmaWIFI/default.htm');
         $this->type('name=f31_Label', 'AlmaWIFI - Info');
@@ -64,7 +64,7 @@ class LinkCRUDTest extends UniversiBOSeleniumTestCase
     {
         $this->login(TestConstants::ADMIN_USERNAME);
         $this->openPrefix('/link/admin/1/');
-        $this->assertSentences(array('Gestione Links','fgiardini', 'Google Italy', 'AlmaWIFI'));
+        $this->assertSentences(array('Gestione Links','admin', 'Google Italy', 'AlmaWIFI'));
         $this->markTestIncomplete('Just stubbed');
     }
 }
