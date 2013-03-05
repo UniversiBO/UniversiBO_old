@@ -8,6 +8,20 @@ SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
 SET search_path = public, pg_catalog;
 
 --
@@ -1529,15 +1543,16 @@ SELECT pg_catalog.setval('argomento_set_id_argomento__seq', 1, false);
 -- Data for Name: canale; Type: TABLE DATA; Schema: public; Owner: universibo
 --
 
-INSERT INTO canale VALUES (1, 2, 'Home', NULL, 40, NULL, 127, ' ', NULL, 'N', NULL, NULL, 'S', 'S');
 INSERT INTO canale VALUES (2, 1, 'Test channel', NULL, 9, 1362511864, 127, 'S', 'S', 'N', NULL, NULL, 'S', 'S');
+INSERT INTO canale VALUES (1, 2, 'Home', NULL, 41, NULL, 127, ' ', NULL, 'N', NULL, NULL, 'S', 'S');
+INSERT INTO canale VALUES (3, 3, '', '', 1, NULL, 127, 'N', 'S', 'N', NULL, NULL, 'S', 'N');
 
 
 --
 -- Name: canale_id_canale_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
 --
 
-SELECT pg_catalog.setval('canale_id_canale_seq', 2, true);
+SELECT pg_catalog.setval('canale_id_canale_seq', 3, true);
 
 
 --
@@ -1606,6 +1621,7 @@ INSERT INTO docente_contatti VALUES ('012345', 1, NULL, NULL, '
 -- Data for Name: facolta; Type: TABLE DATA; Schema: public; Owner: universibo
 --
 
+INSERT INTO facolta VALUES ('0021', 'INGEGNERIA', 'http://www.ing.unibo.it/Ingegneria/default.htm', 3, NULL);
 
 
 --
