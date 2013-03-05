@@ -13,7 +13,7 @@ class MyUniversiBOCRUDTest extends UniversiBOSeleniumTestCase
     public function testAddNotLogged()
     {
         $this->logout();
-        $this->openPrefix('/my/universibo/add/23/');
+        $this->openPrefix('/my/universibo/add/2/');
         $this->assertLoginRequired();
     }
 
@@ -27,7 +27,7 @@ class MyUniversiBOCRUDTest extends UniversiBOSeleniumTestCase
     public function testAdd()
     {
         $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openPrefix('/my/universibo/add/23/');
+        $this->openPrefix('/my/universibo/add/2/');
         $this->assertSentence('Aggiungi una nuova pagina al tuo MyUniversiBO');
         $this->clickAndWait('name=f15_submit');
         $this->assertSentence('stata inserita con successo');
@@ -36,7 +36,7 @@ class MyUniversiBOCRUDTest extends UniversiBOSeleniumTestCase
     public function testEdit()
     {
         $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openPrefix('/my/universibo/edit/23/');
+        $this->openPrefix('/my/universibo/edit/2/');
         $this->assertSentence('Modifica una pagina del tuo MyUniversiBO');
         $this->clickAndWait('name=f19_submit');
         $this->assertSentence('stata modificata con successo');
@@ -45,7 +45,7 @@ class MyUniversiBOCRUDTest extends UniversiBOSeleniumTestCase
     public function testRemove()
     {
         $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openPrefix('/my/universibo/remove/23');
+        $this->openPrefix('/my/universibo/remove/2/');
         $this->assertSentence('stata rimossa con successo');
     }
 }
