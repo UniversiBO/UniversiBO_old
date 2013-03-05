@@ -11,6 +11,7 @@ before_script:
   - echo "GRANT ALL PRIVILEGES ON DATABASE universibo TO universibo" | psql -U postgres
   - echo "GRANT ALL PRIVILEGES ON DATABASE universibo_forum3 TO universibo" | psql -U postgres
   - cat app/sql/pgsql/devdb.sql | psql -U postgres universibo
+  - cat vendor/universibo/forum-bundle/Universibo/Bundle/ForumBundle/Tests/Resources/sql/{structure,data}-postgres.sql | psql -U postgres universibo_forum3
 
 script:
   - phpunit -c app
