@@ -26,7 +26,7 @@
 			{/foreach}
 			</li>
 		{foreachelse}
-		<p>Non si � referente di alcuna pagina attiva</p>
+		<p>Non si è referente di alcuna pagina attiva</p>
 		{/foreach}
 		</ul>
 	</fieldset>

@@ -44,7 +44,7 @@ class FileDocenteAdmin extends UniversiboCommand
         $template->assign('common_langCanaleNome', 'indietro');
 
         // valori default form
-        $f40_files = '';
+        $f40_files = array();
         $f40_canale = array();
 
         $elenco_canali = array();
