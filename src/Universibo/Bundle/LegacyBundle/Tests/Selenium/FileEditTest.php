@@ -24,7 +24,7 @@ class FileEditTest extends UniversiBOSeleniumTestCase
         );
 
         $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openPrefix('/file/15051/edit');
+        $this->openPrefix('/file/1/edit');
 
         $this->assertSentences($sentences);
 
@@ -37,7 +37,7 @@ class FileEditTest extends UniversiBOSeleniumTestCase
 
         $this->assertSentences(array_merge(array($text), $keywords));
 
-        $this->openPrefix('/file/15051/edit');
+        $this->openPrefix('/file/1/edit');
         $this->type('id=f13_parole_chiave', $keywords = 'robots');
         $this->clickAndWait('name=f13_submit');
         $this->clickAndWait('link=Torna ai dettagli del file');
@@ -48,7 +48,7 @@ class FileEditTest extends UniversiBOSeleniumTestCase
     public function testAddPassword()
     {
         $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openPrefix('/file/15051/edit');
+        $this->openPrefix('/file/1/edit');
 
         if (!$this->isChecked($checkbox = 'name=f13_password_enable')) {
             $this->click($checkbox);
