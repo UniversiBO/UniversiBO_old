@@ -64,7 +64,7 @@ class LinkCRUDTest extends UniversiBOSeleniumTestCase
     {
         $this->login(TestConstants::ADMIN_USERNAME);
         $this->openPrefix('/link/admin/1/');
-        $this->assertSentences(array('Gestione Links','admin', 'Google Italy', 'AlmaWIFI'));
+        $this->assertSentences(array('Gestione Links','admin', 'AlmaWIFI'));
         $this->markTestIncomplete('Just stubbed');
     }
 }
