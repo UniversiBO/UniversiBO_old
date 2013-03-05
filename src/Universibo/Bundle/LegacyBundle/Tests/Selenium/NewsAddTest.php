@@ -1,6 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Tests\Selenium;
 
+use Universibo\Bundle\LegacyBundle\Tests\TestConstants;
+
 class NewsAddTest extends UniversiBOSeleniumTestCase
 {
     protected function setUp()
@@ -10,10 +12,9 @@ class NewsAddTest extends UniversiBOSeleniumTestCase
 
     public function testInsertNews()
     {
-        // user who reported an issue on this
-        $this->login('lgalli');
+        $this->login(TestConstants::ADMIN_USERNAME);
 
-        $this->openPrefix('/news/add/11162');
+        $this->openPrefix('/news/add/2');
 
         $this->type('name=f7_titolo', 'News title');
         $this->type('name=f7_testo', 'News text');

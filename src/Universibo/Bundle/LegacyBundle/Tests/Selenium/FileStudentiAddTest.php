@@ -20,7 +20,7 @@ class FileStudentiAddTest extends UniversiBOSeleniumTestCase
     private function fileCommon($file)
     {
         $this->login(TestConstants::STUDENT_USERNAME);
-        $this->openPrefix('/file/studenti/add/10294');
+        $this->openPrefix('/file/studenti/add/2');
         $this->type('name=f23_file', $file);
         $this->type('name=f23_titolo', 'File title');
         $this->type('name=f23_abstract', 'File abstract');
