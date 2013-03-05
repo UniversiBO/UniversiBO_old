@@ -13,7 +13,7 @@ class FileEditTest extends UniversiBOSeleniumTestCase
     public function testNotLogged()
     {
         $this->logout();
-        $this->openPrefix('/file/15051/edit');
+        $this->openPrefix('/file/1/edit');
         $this->assertLoginRequired();
     }
 
