@@ -14,15 +14,16 @@ class RuoliAdminEditTest extends UniversiBOSeleniumTestCase
 
     public function testEditStudentHomepage()
     {
-            $this->login(TestConstants::ADMIN_USERNAME);
+        $this->login(TestConstants::ADMIN_USERNAME);
 
         $this->openPrefix('/role/search/1/');
         $this->assertSentences(array(
                 'Modifica i diritti nella pagina',
-                'Area collaboratori'
+                'Home'
         ));
 
         $this->type('id=f16_username', '%tudent');
+        $this->clickAndWait('id=f16_submit');
 
         $this->assertSentences(array('Studenti', 'student'));
     }
