@@ -1546,14 +1546,15 @@ SELECT pg_catalog.setval('argomento_set_id_argomento__seq', 1, false);
 INSERT INTO canale VALUES (2, 1, 'Test channel', NULL, 9, 1362511864, 127, 'S', 'S', 'N', NULL, NULL, 'S', 'S');
 INSERT INTO canale VALUES (1, 2, 'Home', NULL, 42, NULL, 127, ' ', NULL, 'N', NULL, NULL, 'S', 'S');
 INSERT INTO canale VALUES (3, 3, '', '', 4, NULL, 127, 'N', 'S', 'N', NULL, NULL, 'S', 'N');
-INSERT INTO canale VALUES (4, 4, '', '', 1, NULL, 127, 'N', 'S', 'N', NULL, NULL, 'S', 'N');
+INSERT INTO canale VALUES (4, 4, '', '', 3, NULL, 127, 'N', 'S', 'N', NULL, NULL, 'S', 'N');
+INSERT INTO canale VALUES (5, 5, '', '', 0, NULL, 127, 'S', 'S', 'N', NULL, NULL, 'S', 'S');
 
 
 --
 -- Name: canale_id_canale_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
 --
 
-SELECT pg_catalog.setval('canale_id_canale_seq', 4, true);
+SELECT pg_catalog.setval('canale_id_canale_seq', 5, true);
 
 
 --
@@ -1567,6 +1568,7 @@ INSERT INTO classi_corso VALUES ('0937', 'INGEGNERIA INFORMATICA', 4, NULL, NULL
 -- Data for Name: classi_materie; Type: TABLE DATA; Schema: public; Owner: universibo
 --
 
+INSERT INTO classi_materie VALUES ('35262', 'SISTEMI MOBILI M');
 
 
 --
@@ -2128,6 +2130,7 @@ SELECT pg_catalog.setval('people_id_seq', 1, false);
 -- Data for Name: prg_insegnamento; Type: TABLE DATA; Schema: public; Owner: universibo
 --
 
+INSERT INTO prg_insegnamento VALUES (2012, '0937', '000', '000', '35262', '0', '35262', '0', 'A-Z', '0', '012345', 'S', 5, NULL, '2', '010', '2');
 
 
 --
