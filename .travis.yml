@@ -1,0 +1,18 @@
+language: php
+
+php:
+  - 5.4
+
+before_script: 
+  - echo 'CREATE DATABASE universibo' | psql -U postgres
+  - echo "CREATE USER universibo WITH PASSWORD 'universibo'" | psql -U postgres
+  - echo "GRANT ALL PRIVILEGES ON DATABASE universibo TO universibo" | psql -U postgres
+  - cat app/sql/pgsql/devdb.sql | psql -U postgres universibo
+  - composer install --dev
+
+script:
+  - phpunit -c app
+  - bin/behat @UniversiboWebsiteBundle -v
+
+notifications:
+  email: dev_universibo@mama.ing.unibo.it
