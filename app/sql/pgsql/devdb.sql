@@ -2714,3 +2714,39 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 -- PostgreSQL database dump complete
 --
 
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+SET search_path = public, pg_catalog;
+
+--
+-- Data for Name: file_categoria; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+INSERT INTO file_categoria VALUES (1, 'Dispense');
+INSERT INTO file_categoria VALUES (2, 'Esercitazioni');
+INSERT INTO file_categoria VALUES (3, 'Lucidi');
+INSERT INTO file_categoria VALUES (4, 'Appunti studenti');
+INSERT INTO file_categoria VALUES (5, 'Altro');
+INSERT INTO file_categoria VALUES (6, 'Manifesti e volantini');
+INSERT INTO file_categoria VALUES (7, 'Temi d''esame');
+
+
+--
+-- Name: file_categoria_id_file_categoria_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('file_categoria_id_file_categoria_seq', 7, true);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
