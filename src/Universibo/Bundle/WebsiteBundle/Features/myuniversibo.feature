@@ -6,5 +6,5 @@ Feature: ShowMyUniversiBO
   Scenario: Plain test
   Given I'm logged in as "student"
   When I visit "/my/universibo"
-  Then Text "My News" should be present
-  And Text "My Files" should be present
+  Then text "My News" should be present
+  And text "My Files" should be present

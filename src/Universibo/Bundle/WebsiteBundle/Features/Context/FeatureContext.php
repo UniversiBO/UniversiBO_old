@@ -2,9 +2,11 @@
 
 namespace Universibo\Bundle\WebsiteBundle\Features\Context;
 
+use Behat\Behat\Exception\PendingException;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
 /**
  * Feature context.
@@ -14,6 +16,7 @@ class FeatureContext extends MinkContext
 {
     private $kernel;
     private $parameters;
+    private $channelId;
 
     /**
      * Initializes context with parameters from behat.yml.
@@ -121,10 +124,62 @@ class FeatureContext extends MinkContext
     }
 
     /**
-     * @Then /^Text "([^"]*)" should be present$/
+     * @Then /^text "([^"]*)" should be present$/
      */
     public function textShouldBePresent($text)
     {
         $this->assertPageContainsText($text);
+    }
+
+    /**
+     * @Given /^there is a channel with file service$/
+     */
+    public function thereIsAChannelWithFileService()
+    {
+        $container = $this->kernel->getContainer();
+
+        $db = $container->get('doctrine.dbal.default_connection');
+
+        $query = $db
+            ->createQueryBuilder()
+            ->select('c.id_canale')
+            ->from('canale', 'c')
+            ->where('c.files_attivo = ?')
+            ->setMaxResults(1)
+            ->setParameter(1, 'S')
+            ->execute()
+        ;
+
+        $id = $query->fetchColumn();
+
+        if (false === $id) {
+            $channel = new Canale();
+            $channelRepo = $container->get('universibo_legacy.repository.canale');
+
+            $id = $channel->getIdCanale();
+            $channel->setServizioFiles(true);
+
+            $channelRepo->save($channel);
+        }
+
+        $this->channelId = $id;
+
+        throw new PendingException();
+    }
+
+    /**
+     * @When /^I visit that channel$/
+     */
+    public function iVisitThatChannel()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Given /^I select a PHP file for upload$/
+     */
+    public function iSelectAPhpFileForUpload()
+    {
+        throw new PendingException();
     }
 }

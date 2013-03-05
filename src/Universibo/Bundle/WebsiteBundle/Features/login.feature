@@ -9,7 +9,7 @@ Feature: Login
     And I type "admin" on "username" field
     And I type "padrino" on "password" field
     And I click on "Login" button
-    Then Text "Benvenuto admin" should be present
+    Then text "Benvenuto admin" should be present
     And Text "Il tuo livello di utenza è Admin" should be present
 
   Scenario: Logging in as a Moderator
@@ -18,7 +18,7 @@ Feature: Login
     And I type "moderator" on "username" field
     And I type "padrino" on "password" field
     And I click on "Login" button
-    Then Text "Benvenuto moderator" should be present
+    Then text "Benvenuto moderator" should be present
     And Text "Il tuo livello di utenza è Collaboratore" should be present
 
   Scenario: Logging in as a Student
@@ -27,7 +27,7 @@ Feature: Login
     And I type "student" on "username" field
     And I type "padrino" on "password" field
     And I click on "Login" button
-    Then Text "Benvenuto student" should be present
+    Then text "Benvenuto student" should be present
     And Text "Il tuo livello di utenza è Studente" should be present
 
   Scenario: Logging in as a Professor
@@ -36,7 +36,7 @@ Feature: Login
     And I type "professor" on "username" field
     And I type "padrino" on "password" field
     And I click on "Login" button
-    Then Text "Benvenuto professor" should be present
+    Then text "Benvenuto professor" should be present
     And Text "Il tuo livello di utenza è Docente" should be present
 
   Scenario: Logging in as a Tutor
@@ -45,7 +45,7 @@ Feature: Login
     And I type "tutor" on "username" field
     And I type "padrino" on "password" field
     And I click on "Login" button
-    Then Text "Benvenuto tutor" should be present
+    Then text "Benvenuto tutor" should be present
     And Text "Il tuo livello di utenza è Tutor" should be present
 
   Scenario: Logging in as a non-teaching staff member
@@ -54,5 +54,5 @@ Feature: Login
     And I type "staff" on "username" field
     And I type "padrino" on "password" field
     And I click on "Login" button
-    Then Text "Benvenuto staff" should be present
+    Then text "Benvenuto staff" should be present
     And Text "Il tuo livello di utenza è Personale non docente" should be present
