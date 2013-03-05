@@ -2724,3 +2724,63 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 -- PostgreSQL database dump complete
 --
 
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+SET search_path = public, pg_catalog;
+
+--
+-- Data for Name: file_tipo; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+INSERT INTO file_tipo VALUES (1, 'altro', '', 'formato_.gif', '');
+INSERT INTO file_tipo VALUES (11, 'ppt', '/.ppt$/', 'formato_ppt.gif', 'Microsoft Power Point
+Per visualizzare correttamente questo tipo di file avrete bisogno del software propietario [url=http://office.microsoft.com/]Microsoft Office[/url]
+Alternativamente potete utilizzare il software libero [url=http://www.openoffice.org/]OpenOffice[/url]');
+INSERT INTO file_tipo VALUES (7, 'mp3', '/.mp3$/', 'formato_mp3.gif', 'MPEG-1 Audio Layer III - tecnologia per la compressione/decompressione di file audio
+Per ascoltare questo formato audio potete utilizzare il software libero [url=http://www.videolan.org/]Videolan[/url]');
+INSERT INTO file_tipo VALUES (4, 'gif', '/.gif$/', 'formato_gif.gif', 'Graphic Interchange Format');
+INSERT INTO file_tipo VALUES (6, 'jpeg', '/.jp(e)?g$/', 'formato_jpg.gif', 'Joint Photographic Experts Group');
+INSERT INTO file_tipo VALUES (13, 'tex', '/.tex$/', 'formato_tex.gif', 'TeX Document');
+INSERT INTO file_tipo VALUES (14, 'txt', '/.txt$/', 'formato_txt.gif', 'File di testo');
+INSERT INTO file_tipo VALUES (16, 'bmp', '/.bmp$/', 'formato_bmp.gif', 'Bitmap');
+INSERT INTO file_tipo VALUES (3, 'doc', '/.doc$/', 'formato_doc.gif', 'Microsoft Word
+Per visualizzare correttamente questo tipo di file avrete bisogno del software propietario [url=http://office.microsoft.com/]Microsoft Office[/url]
+Alternativamente potete utilizzare il software libero [url=http://www.openoffice.org/]OpenOffice[/url]');
+INSERT INTO file_tipo VALUES (15, 'xls', '/.xls$/', 'formato_xls.gif', 'Microsoft Excel
+Per visualizzare correttamente questo tipo di file avrete bisogno del software propietario [url=http://office.microsoft.com/]Microsoft Office[/url]
+Alternativamente potete utilizzare il software libero [url=http://www.openoffice.org/]OpenOffice[/url]');
+INSERT INTO file_tipo VALUES (2, 'pdf', '/.pdf$/', 'formato_pdf.gif', 'Adobe Portable Document Format
+Per visualizzare questo formato di file avrete bisogno di [url=http://www.adobe.com/products/acrobat/readermain.html]Adobe Reader[/url]
+Alternativamente potete utilizzare il software libero [url=http://www.cs.wisc.edu/~ghost/]Ghostview o GSview[/url] basati su Ghostscript');
+INSERT INTO file_tipo VALUES (12, 'rtf', '/.rtf$/', 'formato_rtf.gif', 'Rich Text Format - Formato aperto sviluppato da Microsoft.
+Potrete visualizzare questo tipo di file utilizzando un word processor come il software propietario [url=http://office.microsoft.com/]Microsoft Word[/url]
+Alternativamente potete utilizzare il software libero [url=http://www.openoffice.org/]OpenOffice[/url]');
+INSERT INTO file_tipo VALUES (5, 'html', '/.htm(l)?$/', 'formato_html.gif', 'HyperText Mark-Up Language - Formato aperto definito dal [url=http://www.w3c.org/]World Wide Web Consortium (W3C)[/url]
+Potete visualizzarlo utilizzando qualsiasi browser web come [url=http://www.mozilla.org/products/firefox/]Mozilla Firefox[/url] o [url=http://www.microsoft.com/windows/ie/]Microsoft Internet Explorer[/url]');
+INSERT INTO file_tipo VALUES (8, 'sxw', '/.sxw$/', 'formato_sxw.gif', 'Open Office Writer
+Per visualizzare correttamente questo tipo di file avrete bisogno del software libero [url=http://www.openoffice.org/]OpenOffice[/url]');
+INSERT INTO file_tipo VALUES (10, 'sxi', '/.sxi$/', 'formato_sxi.gif', 'Open Office Impress
+Per visualizzare correttamente questo tipo di file avrete bisogno del software libero [url=http://www.openoffice.org/]OpenOffice[/url]');
+INSERT INTO file_tipo VALUES (9, 'sxc', '/.sxc$/', 'formato_sxc.gif', 'Open Office Calc
+Per visualizzare correttamente questo tipo di file avrete bisogno del software libero [url=http://www.openoffice.org/]OpenOffice[/url]');
+
+
+--
+-- Name: file_tipo_id_file_tipo_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('file_tipo_id_file_tipo_seq', 1, false);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
