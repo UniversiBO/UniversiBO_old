@@ -4,5 +4,5 @@ default:
       mink_driver: true 
     Behat\MinkExtension\Extension:
       default_session: symfony2
-      base_url:        'http://www.universibo.local/app_dev.php'
+      base_url:        'http://www.universibo.dev/app_dev.php'
       selenium:        ~ 
