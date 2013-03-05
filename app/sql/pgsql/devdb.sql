@@ -8,6 +8,8 @@ SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 
+SET search_path = public, pg_catalog;
+
 --
 -- Name: argomento_id_argomento_seq; Type: SEQUENCE; Schema: public; Owner: universibo
 --
@@ -1527,14 +1529,15 @@ SELECT pg_catalog.setval('argomento_set_id_argomento__seq', 1, false);
 -- Data for Name: canale; Type: TABLE DATA; Schema: public; Owner: universibo
 --
 
-INSERT INTO canale VALUES (1, 2, 'Home', NULL, 38, NULL, 127, ' ', NULL, 'N', NULL, NULL, 'S', 'S');
+INSERT INTO canale VALUES (1, 2, 'Home', NULL, 39, NULL, 127, ' ', NULL, 'N', NULL, NULL, 'S', 'S');
+INSERT INTO canale VALUES (2, 1, 'Test channel', NULL, 1, NULL, 127, 'S', 'S', 'N', NULL, NULL, 'S', 'S');
 
 
 --
 -- Name: canale_id_canale_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
 --
 
-SELECT pg_catalog.setval('canale_id_canale_seq', 1, true);
+SELECT pg_catalog.setval('canale_id_canale_seq', 2, true);
 
 
 --
@@ -1617,13 +1620,20 @@ SELECT pg_catalog.setval('contacts_id_seq', 1, true);
 -- Data for Name: file_categoria; Type: TABLE DATA; Schema: public; Owner: universibo
 --
 
+INSERT INTO file_categoria VALUES (1, 'Dispense');
+INSERT INTO file_categoria VALUES (2, 'Esercitazioni');
+INSERT INTO file_categoria VALUES (3, 'Lucidi');
+INSERT INTO file_categoria VALUES (4, 'Appunti studenti');
+INSERT INTO file_categoria VALUES (5, 'Altro');
+INSERT INTO file_categoria VALUES (6, 'Manifesti e volantini');
+INSERT INTO file_categoria VALUES (7, 'Temi d''esame');
 
 
 --
 -- Name: file_categoria_id_file_categoria_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
 --
 
-SELECT pg_catalog.setval('file_categoria_id_file_categoria_seq', 1, false);
+SELECT pg_catalog.setval('file_categoria_id_file_categoria_seq', 7, true);
 
 
 --
@@ -2708,42 +2718,6 @@ REVOKE ALL ON SCHEMA public FROM PUBLIC;
 REVOKE ALL ON SCHEMA public FROM postgres;
 GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
-
-
---
--- PostgreSQL database dump complete
---
-
---
--- PostgreSQL database dump
---
-
-SET statement_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-
-SET search_path = public, pg_catalog;
-
---
--- Data for Name: file_categoria; Type: TABLE DATA; Schema: public; Owner: universibo
---
-
-INSERT INTO file_categoria VALUES (1, 'Dispense');
-INSERT INTO file_categoria VALUES (2, 'Esercitazioni');
-INSERT INTO file_categoria VALUES (3, 'Lucidi');
-INSERT INTO file_categoria VALUES (4, 'Appunti studenti');
-INSERT INTO file_categoria VALUES (5, 'Altro');
-INSERT INTO file_categoria VALUES (6, 'Manifesti e volantini');
-INSERT INTO file_categoria VALUES (7, 'Temi d''esame');
-
-
---
--- Name: file_categoria_id_file_categoria_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
---
-
-SELECT pg_catalog.setval('file_categoria_id_file_categoria_seq', 7, true);
 
 
 --
