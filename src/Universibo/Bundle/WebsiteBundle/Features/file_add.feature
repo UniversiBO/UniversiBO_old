@@ -9,5 +9,6 @@ Feature: Publish a file
     When I visit that channel
     And I click on "Invia un nuovo file" link
     And I select a PHP file for upload
-    And I click on "xxx" button
-    Then text "vietato" should be present
+    And I type "Title" on "f12_titolo" field
+    And I click on "Invia" button
+    Then text "severamente vietato inserire file con estensione" should be present

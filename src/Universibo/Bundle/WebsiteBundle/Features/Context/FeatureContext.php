@@ -2,10 +2,10 @@
 
 namespace Universibo\Bundle\WebsiteBundle\Features\Context;
 
-use Behat\Behat\Exception\PendingException;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
 /**
@@ -16,7 +16,7 @@ class FeatureContext extends MinkContext
 {
     private $kernel;
     private $parameters;
-    private $channelId;
+    private $channel;
 
     /**
      * Initializes context with parameters from behat.yml.
@@ -62,7 +62,7 @@ class FeatureContext extends MinkContext
             $this->assertPageNotMatchesText('/Non hai accettato il regolamento/');
         }
 
-        $this->assertPageContainsText('Benvenuto '.$username);
+        //$this->assertPageContainsText('Benvenuto '.$username);
     }
 
     /**
@@ -152,19 +152,14 @@ class FeatureContext extends MinkContext
 
         $id = $query->fetchColumn();
 
-        if (false === $id) {
-            $channel = new Canale();
+        if (false !== $id) {
+            $channelRepo = $container->get('universibo_legacy.repository.canale2');
+            $this->channel = $channelRepo->find($id);
+        } else {
+            $this->channel = $channel = new Canale(0, LegacyRoles::ALL, 0, Canale::CDEFAULT, '', 'Test channel', 0, false, true, false, 0, 0, false, false);
             $channelRepo = $container->get('universibo_legacy.repository.canale');
-
-            $id = $channel->getIdCanale();
-            $channel->setServizioFiles(true);
-
-            $channelRepo->save($channel);
+            $channelRepo->insert($channel);
         }
-
-        $this->channelId = $id;
-
-        throw new PendingException();
     }
 
     /**
@@ -172,7 +167,14 @@ class FeatureContext extends MinkContext
      */
     public function iVisitThatChannel()
     {
-        throw new PendingException();
+        $container = $this->kernel->getContainer();
+
+        $channelRouter = $container->get('universibo_legacy.routing.channel');
+
+        $this
+            ->getSession()
+            ->visit($channelRouter->generate($this->channel))
+        ;
     }
 
     /**
@@ -180,6 +182,11 @@ class FeatureContext extends MinkContext
      */
     public function iSelectAPhpFileForUpload()
     {
-        throw new PendingException();
+        $this
+            ->getSession()
+            ->getPage()
+            ->findField('f12_file')
+            ->attachFile(__FILE__)
+        ;
     }
 }
