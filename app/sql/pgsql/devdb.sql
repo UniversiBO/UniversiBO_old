@@ -1543,8 +1543,8 @@ SELECT pg_catalog.setval('argomento_set_id_argomento__seq', 1, false);
 -- Data for Name: canale; Type: TABLE DATA; Schema: public; Owner: universibo
 --
 
-INSERT INTO canale VALUES (1, 2, 'Home', NULL, 39, NULL, 127, ' ', NULL, 'N', NULL, NULL, 'S', 'S');
-INSERT INTO canale VALUES (2, 1, 'Test channel', NULL, 1, 1362507166, 127, 'S', 'S', 'N', NULL, NULL, 'S', 'S');
+INSERT INTO canale VALUES (1, 2, 'Home', NULL, 40, NULL, 127, ' ', NULL, 'N', NULL, NULL, 'S', 'S');
+INSERT INTO canale VALUES (2, 1, 'Test channel', NULL, 9, 1362511864, 127, 'S', 'S', 'N', NULL, NULL, 'S', 'S');
 
 
 --
@@ -1752,12 +1752,12 @@ SELECT pg_catalog.setval('fos_group_id_seq', 1, false);
 -- Data for Name: fos_user; Type: TABLE DATA; Schema: public; Owner: universibo
 --
 
-INSERT INTO fos_user VALUES (1, 'admin', 'admin', 'admin@example.org', 'admin@example.org', true, 'w4frwrfdpsvm4''3r0iefwpocmzxoHwkrwer0', 'oQJgi8BRCtV60Iq7+g3iXr34Wn86i/VwpLG/LCw1MXpprs8gcxpHF+OWa6IzFzROdaD0sR+y9jmLhVZzzI1pmg==', '2013-03-04 22:54:05', false, false, NULL, NULL, NULL, 'a:1:{i:0;s:10:"ROLE_ADMIN";}', false, NULL, NULL, 0, 64, NULL, true, NULL, 61);
 INSERT INTO fos_user VALUES (2, 'moderator', 'moderator', 'moderator@example.org', 'moderator@example.org', true, 'WEFcdcdsv4252::edcqr32.exX,4534,m,', 'k69027W0fKS8GRwFd/AhVP1vs3yg53FPTxutplIwGFQeydHAjPk8l+5jxMvBh3paEVXIOa8j7YBu7SZZwAxFfA==', '2013-03-04 22:54:10', false, false, NULL, NULL, NULL, 'a:1:{i:0;s:14:"ROLE_MODERATOR";}', false, NULL, NULL, 0, 4, NULL, true, NULL, 62);
 INSERT INTO fos_user VALUES (6, 'student', 'student', 'student@example.org', 'student@example.org', true, 'sdf"324##[]Ccd', 'pfA4ZXpBVJDQBIba3PkNuqbWyrMlMmUapjxLIRZLFnX9+NibweGVaCSLA/UE+587Fr9k+8pz873g1viEs8HhtQ==', '2013-03-04 22:54:12', false, false, NULL, NULL, NULL, 'a:1:{i:0;s:12:"ROLE_STUDENT";}', false, NULL, NULL, 0, 2, NULL, true, NULL, NULL);
 INSERT INTO fos_user VALUES (3, 'professor', 'professor', 'professor@example.org', 'professor@example.org', true, 'XfXwfjsd,.mwre.WwAervBuZatBhax', 'hy+pZG2Gs6MG6cRmtod1uPGP2CmuC2UByhFG0ttl7eV4ujfmCbxYl5IG05CYUaMbioD84LCe3llcwz6QPG/PNw==', '2013-03-04 22:54:15', false, false, NULL, NULL, NULL, 'a:1:{i:0;s:14:"ROLE_PROFESSOR";}', false, NULL, NULL, 0, 16, NULL, true, NULL, NULL);
 INSERT INTO fos_user VALUES (4, 'tutor', 'tutor', 'tutor@example.org', 'tutor@example.org', true, 'CcXcvwe#TewtX,.crtwet8342,'',', '82Q1V3vZQhDZEp83YGH0GiPwHisCcl8IILq0JNvelOcrrnUu24Ipp1VpB3O9dcnjZ+rgwXSHcoBIu7IfSEvquA==', '2013-03-04 22:54:17', false, false, NULL, NULL, NULL, 'a:1:{i:0;s:10:"ROLE_TUTOR";}', false, NULL, NULL, 0, 8, NULL, true, NULL, NULL);
 INSERT INTO fos_user VALUES (5, 'staff', 'staff', 'staff@example.org', 'staff@example.org', true, 'sdfSD4"323432#@][', 'C+NTFvThOFzAB21i7Pz+nhpeIPFpW3xRQTOqigCv4aPD93/Q1TRXiYEmTJrWfWvEZRS/wV/YtQRiZ4OGhJ8SwA==', '2013-03-04 22:54:19', false, false, NULL, NULL, NULL, 'a:1:{i:0;s:10:"ROLE_STAFF";}', false, NULL, NULL, 0, 32, NULL, true, NULL, NULL);
+INSERT INTO fos_user VALUES (1, 'admin', 'admin', 'admin@example.org', 'admin@example.org', true, 'w4frwrfdpsvm4''3r0iefwpocmzxoHwkrwer0', 'oQJgi8BRCtV60Iq7+g3iXr34Wn86i/VwpLG/LCw1MXpprs8gcxpHF+OWa6IzFzROdaD0sR+y9jmLhVZzzI1pmg==', '2013-03-05 20:28:57', false, false, NULL, NULL, NULL, 'a:1:{i:0;s:10:"ROLE_ADMIN";}', false, NULL, NULL, 0, 64, NULL, true, NULL, 61);
 
 
 --
@@ -2021,19 +2021,23 @@ INSERT INTO migration_versions VALUES ('20130125021448');
 -- Data for Name: news; Type: TABLE DATA; Schema: public; Owner: universibo
 --
 
+INSERT INTO news VALUES (1, 'Test news', 1362511740, NULL, 'Test content', 1, 'N', 'N', 1362511740);
+INSERT INTO news VALUES (2, 'Expired news', 1362511740, 1362511800, 'Expired news', 1, 'N', 'N', 1362511740);
 
 
 --
 -- Data for Name: news_canale; Type: TABLE DATA; Schema: public; Owner: universibo
 --
 
+INSERT INTO news_canale VALUES (1, 2);
+INSERT INTO news_canale VALUES (2, 2);
 
 
 --
 -- Name: news_id_news_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
 --
 
-SELECT pg_catalog.setval('news_id_news_seq', 1, false);
+SELECT pg_catalog.setval('news_id_news_seq', 2, true);
 
 
 --
@@ -2058,13 +2062,45 @@ INSERT INTO notifica VALUES (1, 'N', '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                             e modifica il tuo profilo personale nella dopo aver eseguito il login
                             Per altri problemi contattare lo staff di UniversiBO
                             info_universibo@mama.ing.unibo.it', 'Nuovo file inserito in Test channel', 1362507120, 'mail://universibo@unibo.it', 'N');
+INSERT INTO notifica VALUES (2, 'N', '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Titolo: Test news
+
+Testo: Test content
+
+Autore: admin
+
+Link: http://www.universibo.dev/app_dev.php/canale/2/
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Informazioni per la cancellazione:
+
+Per rimuoverti, vai all''indirizzo:
+https://www.universibo.unibo.it
+e modifica il tuo profilo personale nella dopo aver eseguito il login
+Per altri problemi contattare lo staff di UniversiBO
+info_universibo@mama.ing.unibo.it', 'Nuova notizia inserita in Test channel', 1362511740, 'mail://universibo@unibo.it', 'N');
+INSERT INTO notifica VALUES (3, 'N', '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Titolo: Expired news
+
+Testo: Expired news
+
+Autore: admin
+
+Link: http://www.universibo.dev/app_dev.php/canale/2/
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Informazioni per la cancellazione:
+
+Per rimuoverti, vai all''indirizzo:
+https://www.universibo.unibo.it
+e modifica il tuo profilo personale nella dopo aver eseguito il login
+Per altri problemi contattare lo staff di UniversiBO
+info_universibo@mama.ing.unibo.it', 'Nuova notizia inserita in Test channel', 1362511740, 'mail://universibo@unibo.it', 'N');
 
 
 --
 -- Name: notifica_id_notifica_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
 --
 
-SELECT pg_catalog.setval('notifica_id_notifica_seq', 1, true);
+SELECT pg_catalog.setval('notifica_id_notifica_seq', 3, true);
 
 
 --

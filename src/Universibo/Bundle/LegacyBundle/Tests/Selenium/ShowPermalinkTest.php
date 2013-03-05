@@ -5,9 +5,10 @@ class ShowPermalinkTest extends UniversiBOSeleniumTestCase
 {
     public function testSimple()
     {
-        $this->openPrefix('/permalink/10815');
+        $this->openPrefix('/permalink/1');
         $this->assertSentences(array(
-                'UniversiBO cerca nuovi collaboratori'
+                'Test news',
+                'Test content'
         ));
     }
 
@@ -16,7 +17,7 @@ class ShowPermalinkTest extends UniversiBOSeleniumTestCase
      */
     public function testExpiredNewsShouldNotBeFound()
     {
-        $this->openPrefix('/permalink/11134');
+        $this->openPrefix('/permalink/2');
         $this->assertSentence('Not Found');
     }
 }

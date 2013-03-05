@@ -260,7 +260,7 @@ class NewsAdd extends CanaleCommand
                     $f7_data_scad_mm = $_POST['f7_data_scad_mm'];
 
                 //f7_data_scad_aa
-                if (!ereg('^([0-9]{4})$', $_POST['f7_data_scad_aa'])) {
+                if (!preg_match('/^([0-9]{4})$/', $_POST['f7_data_scad_aa'])) {
                     Error::throwError(_ERROR_NOTICE,
                             array('id_utente' => $user->getId(),
                                     'msg' => 'Il formato del campo anno di inserimento non \u00e8 valido',
