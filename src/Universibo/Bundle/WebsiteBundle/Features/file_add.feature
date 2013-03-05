@@ -10,5 +10,5 @@ Feature: Publish a file
     And I click on "Invia un nuovo file" link
     And I select a PHP file for upload
     And I type "Title" on "f12_titolo" field
-    And I click on "Invia" button
+    And I click on "f12_submit" button
     Then text "severamente vietato inserire file con estensione" should be present

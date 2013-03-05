@@ -62,7 +62,7 @@ class FeatureContext extends MinkContext
             $this->assertPageNotMatchesText('/Non hai accettato il regolamento/');
         }
 
-        //$this->assertPageContainsText('Benvenuto '.$username);
+        $this->assertPageContainsText('Benvenuto '.$username);
     }
 
     /**
@@ -140,17 +140,16 @@ class FeatureContext extends MinkContext
 
         $db = $container->get('doctrine.dbal.default_connection');
 
-        $query = $db
+        $sql = $db
             ->createQueryBuilder()
             ->select('c.id_canale')
             ->from('canale', 'c')
             ->where('c.files_attivo = ?')
             ->setMaxResults(1)
-            ->setParameter(1, 'S')
-            ->execute()
+            ->getSql()
         ;
 
-        $id = $query->fetchColumn();
+        $id = $db->fetchColumn($sql, array('S'));
 
         if (false !== $id) {
             $channelRepo = $container->get('universibo_legacy.repository.canale2');
@@ -185,7 +184,7 @@ class FeatureContext extends MinkContext
         $this
             ->getSession()
             ->getPage()
-            ->findField('f12_file')
+            ->findById('f12_file')
             ->attachFile(__FILE__)
         ;
     }
