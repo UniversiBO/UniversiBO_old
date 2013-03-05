@@ -11,11 +11,11 @@ class ShowCollaboratoreTest extends UniversiBOSeleniumTestCase
     public function testSimple()
     {
         $sentences = array (
-                'Scheda Informativa di Antares',
-                'Il mio obiettivo è trovarmi una donna ad Ingegneria. Come un ago in un pagliaio.'
+                'Scheda Informativa di moderator',
+                'lorem ipsum'
         );
 
-        $this->openPrefix('/chi-siamo/Antares');
+        $this->openPrefix('/chi-siamo/moderator');
         $this->assertSentences($sentences);
     }
 }
