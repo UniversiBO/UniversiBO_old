@@ -1547,7 +1547,7 @@ INSERT INTO canale VALUES (2, 1, 'Test channel', NULL, 9, 1362511864, 127, 'S', 
 INSERT INTO canale VALUES (1, 2, 'Home', NULL, 42, NULL, 127, ' ', NULL, 'N', NULL, NULL, 'S', 'S');
 INSERT INTO canale VALUES (3, 3, '', '', 4, NULL, 127, 'N', 'S', 'N', NULL, NULL, 'S', 'N');
 INSERT INTO canale VALUES (4, 4, '', '', 3, NULL, 127, 'N', 'S', 'N', NULL, NULL, 'S', 'N');
-INSERT INTO canale VALUES (5, 5, '', '', 1, NULL, 127, 'S', 'S', 'N', NULL, NULL, 'S', 'S');
+INSERT INTO canale VALUES (5, 5, '', '', 4, NULL, 127, 'S', 'S', 'N', NULL, NULL, 'S', 'S');
 
 
 --
@@ -1767,7 +1767,7 @@ INSERT INTO fos_user VALUES (6, 'student', 'student', 'student@example.org', 'st
 INSERT INTO fos_user VALUES (3, 'professor', 'professor', 'professor@example.org', 'professor@example.org', true, 'XfXwfjsd,.mwre.WwAervBuZatBhax', 'hy+pZG2Gs6MG6cRmtod1uPGP2CmuC2UByhFG0ttl7eV4ujfmCbxYl5IG05CYUaMbioD84LCe3llcwz6QPG/PNw==', '2013-03-04 22:54:15', false, false, NULL, NULL, NULL, 'a:1:{i:0;s:14:"ROLE_PROFESSOR";}', false, NULL, NULL, 0, 16, NULL, true, NULL, NULL);
 INSERT INTO fos_user VALUES (4, 'tutor', 'tutor', 'tutor@example.org', 'tutor@example.org', true, 'CcXcvwe#TewtX,.crtwet8342,'',', '82Q1V3vZQhDZEp83YGH0GiPwHisCcl8IILq0JNvelOcrrnUu24Ipp1VpB3O9dcnjZ+rgwXSHcoBIu7IfSEvquA==', '2013-03-04 22:54:17', false, false, NULL, NULL, NULL, 'a:1:{i:0;s:10:"ROLE_TUTOR";}', false, NULL, NULL, 0, 8, NULL, true, NULL, NULL);
 INSERT INTO fos_user VALUES (5, 'staff', 'staff', 'staff@example.org', 'staff@example.org', true, 'sdfSD4"323432#@][', 'C+NTFvThOFzAB21i7Pz+nhpeIPFpW3xRQTOqigCv4aPD93/Q1TRXiYEmTJrWfWvEZRS/wV/YtQRiZ4OGhJ8SwA==', '2013-03-04 22:54:19', false, false, NULL, NULL, NULL, 'a:1:{i:0;s:10:"ROLE_STAFF";}', false, NULL, NULL, 0, 32, NULL, true, NULL, NULL);
-INSERT INTO fos_user VALUES (1, 'admin', 'admin', 'admin@example.org', 'admin@example.org', true, 'w4frwrfdpsvm4''3r0iefwpocmzxoHwkrwer0', 'oQJgi8BRCtV60Iq7+g3iXr34Wn86i/VwpLG/LCw1MXpprs8gcxpHF+OWa6IzFzROdaD0sR+y9jmLhVZzzI1pmg==', '2013-03-05 21:22:06', false, false, NULL, NULL, NULL, 'a:1:{i:0;s:10:"ROLE_ADMIN";}', false, NULL, NULL, 0, 64, NULL, true, NULL, 61);
+INSERT INTO fos_user VALUES (1, 'admin', 'admin', 'admin@example.org', 'admin@example.org', true, 'w4frwrfdpsvm4''3r0iefwpocmzxoHwkrwer0', 'oQJgi8BRCtV60Iq7+g3iXr34Wn86i/VwpLG/LCw1MXpprs8gcxpHF+OWa6IzFzROdaD0sR+y9jmLhVZzzI1pmg==', '2013-03-06 00:25:28', false, false, NULL, NULL, NULL, 'a:1:{i:0;s:10:"ROLE_ADMIN";}', false, NULL, NULL, 0, 64, NULL, true, NULL, 61);
 
 
 --
@@ -1951,7 +1951,7 @@ INSERT INTO help_topic VALUES ('didatticagestione', 'Modificare un insegnamento 
 -- Data for Name: info_didattica; Type: TABLE DATA; Schema: public; Owner: universibo
 --
 
-INSERT INTO info_didattica VALUES (5, '', '', '', '', '', '', '', '', '', '', '', '');
+INSERT INTO info_didattica VALUES (5, 'Lorem ipsum', '', 'Lorem ipsum', '', 'Lorem ipsum', '', 'Lorem ipsum', '', 'Lorem ipsum', '', '', '');
 
 
 --

@@ -12,9 +12,9 @@ class ShowInfoDidatticaTest extends UniversiBOSeleniumTestCase
     {
         $sentences = array (
                 'INSEGNAMENTO DI',
-                'GESTIONE DELL\'INNOVAZIONE E DEI PROGETTI M',
-                'aa. 2011/2012',
-                'MUNARI FEDERICO',
+                'SISTEMI MOBILI M aa. 2012/2013',
+                'aa. 2012/2013',
+                'LAST NAME GIVEN NAME',
                 'Obiettivi del corso',
                 'Programma d\'esame',
                 'Materiale didattico e testi consigliati',
@@ -22,7 +22,7 @@ class ShowInfoDidatticaTest extends UniversiBOSeleniumTestCase
                 'Appelli d\'esame',
         );
 
-        $this->openPrefix('/insegnamento/10507/info');
+        $this->openPrefix('/insegnamento/5/info');
         $this->assertSentences($sentences);
     }
 }
