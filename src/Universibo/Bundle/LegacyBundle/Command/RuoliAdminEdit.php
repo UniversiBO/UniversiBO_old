@@ -49,6 +49,11 @@ class RuoliAdminEdit extends UniversiboCommand
 
         $targetUserId = $request->get('id_utente');
         $target_user = $userRepo->find($targetUserId);
+
+        if (!$target_user instanceof User) {
+            throw new NotFoundHttpException('User not found');
+        }
+
         $target_username = $target_user->getUsername();
         $target_userUri = $router->generate('universibo_legacy_user', array('id_utente' => $target_user->getId()));
 

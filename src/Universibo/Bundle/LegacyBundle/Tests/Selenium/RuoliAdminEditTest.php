@@ -8,22 +8,22 @@ class RuoliAdminEditTest extends UniversiBOSeleniumTestCase
     public function testNotLogged()
     {
         $this->logout();
-        $this->openPrefix('/role/edit/1/81/');
+        $this->openPrefix('/role/edit/1/1/');
         $this->assertLoginRequired();
     }
 
-    public function testEditBrainHomepage()
+    public function testEditStudentHomepage()
     {
             $this->login(TestConstants::ADMIN_USERNAME);
 
-        $this->openPrefix('/role/search/1415/');
+        $this->openPrefix('/role/search/1/');
         $this->assertSentences(array(
                 'Modifica i diritti nella pagina',
                 'Area collaboratori'
         ));
 
-        $this->type('id=f16_username', '%giardini');
+        $this->type('id=f16_username', '%tudent');
 
-        $this->assertSentences(array('Studenti', 'fgiardini'));
+        $this->assertSentences(array('Studenti', 'student'));
     }
 }
