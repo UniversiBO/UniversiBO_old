@@ -11,13 +11,13 @@ class FileShowInfoTest extends UniversiBOSeleniumTestCase
     public function testSimple()
     {
         $sentences = array (
-                'Inserito da: mrscalas',
-                'Inserito il: 18/11/2011',
-                'Titolo: robots SEO',
+                'Inserito da: admin',
+                'Inserito il: 5/03/2013',
+                'Titolo: Test file',
                 'Descrizione/abstract: robots SEO',
         );
 
-        $this->openPrefix('/file/15051/');
+        $this->openPrefix('/file/1/');
 
         $this->assertSentences($sentences);
     }
