@@ -24,5 +24,8 @@ if (!function_exists('intl_get_error_code')) {
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 AnnotationRegistry::registerFile(__DIR__.'/../vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php');
 
-$loader = new ApcClassLoader('sf2', $loader);
+if (extension_loaded('apc')) {
+    $loader = new ApcClassLoader('sf2', $loader);
+}
+
 $loader->register(true);
