@@ -13,7 +13,7 @@ class RuoliAdminSearchTest extends UniversiBOSeleniumTestCase
     public function testNotLogged()
     {
         $this->logout();
-        $this->openPrefix('/role/search/1415/');
+        $this->openPrefix('/role/search/2/');
         $this->assertLoginRequired();
     }
 
@@ -21,26 +21,27 @@ class RuoliAdminSearchTest extends UniversiBOSeleniumTestCase
     {
         $this->login(TestConstants::ADMIN_USERNAME);
 
-        $this->openPrefix('/role/search/1415/');
+        $this->openPrefix('/role/search/2/');
         $this->assertSentences(array(
                 'Modifica i diritti nella pagina',
-                'Area collaboratori'
+                'Test channel'
         ));
 
-        $this->type('id=f16_username', '%giardini');
+        $this->type('id=f16_username', '%dmin');
+        $this->clickAndWait('id=f16_submit');
 
-        $this->assertSentences(array('Studenti', 'fgiardini'));
+        $this->assertSentences(array('Studenti', 'admin'));
     }
 
     public function testBackLink()
     {
         $this->login(TestConstants::ADMIN_USERNAME);
 
-        $this->openPrefix('/role/search/1415/');
-        $this->clickAndWait('link=Torna a Area collaboratori');
+        $this->openPrefix('/role/search/2/');
+        $this->clickAndWait('link=Torna a Test channel');
 
-        $expected = $this->base .'/canale/1415/';
+        $expected = $this->base .'/canale/2/';
         $this->assertEquals($expected, strstr($this->getLocation(), $expected));
-        $this->assertSentence('Area collaboratori');
+        $this->assertSentence('Test channel');
     }
 }
