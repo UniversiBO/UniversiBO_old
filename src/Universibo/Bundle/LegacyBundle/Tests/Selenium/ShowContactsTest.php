@@ -11,8 +11,8 @@ class ShowContactsTest extends UniversiBOSeleniumTestCase
     public function testSimple()
     {
         $sentences = array (
-                'SbiellONE',
-                'bulbis',
+                'admin',
+                'moderator',
         );
 
         $this->openPrefix('/chi-siamo');
