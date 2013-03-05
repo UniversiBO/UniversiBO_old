@@ -1547,7 +1547,7 @@ INSERT INTO canale VALUES (2, 1, 'Test channel', NULL, 9, 1362511864, 127, 'S', 
 INSERT INTO canale VALUES (1, 2, 'Home', NULL, 42, NULL, 127, ' ', NULL, 'N', NULL, NULL, 'S', 'S');
 INSERT INTO canale VALUES (3, 3, '', '', 4, NULL, 127, 'N', 'S', 'N', NULL, NULL, 'S', 'N');
 INSERT INTO canale VALUES (4, 4, '', '', 3, NULL, 127, 'N', 'S', 'N', NULL, NULL, 'S', 'N');
-INSERT INTO canale VALUES (5, 5, '', '', 0, NULL, 127, 'S', 'S', 'N', NULL, NULL, 'S', 'S');
+INSERT INTO canale VALUES (5, 5, '', '', 1, NULL, 127, 'S', 'S', 'N', NULL, NULL, 'S', 'S');
 
 
 --
@@ -1951,6 +1951,7 @@ INSERT INTO help_topic VALUES ('didatticagestione', 'Modificare un insegnamento 
 -- Data for Name: info_didattica; Type: TABLE DATA; Schema: public; Owner: universibo
 --
 
+INSERT INTO info_didattica VALUES (5, '', '', '', '', '', '', '', '', '', '', '', '');
 
 
 --

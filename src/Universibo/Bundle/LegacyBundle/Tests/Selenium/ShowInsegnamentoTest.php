@@ -12,10 +12,10 @@ class ShowInsegnamentoTest extends UniversiBOSeleniumTestCase
     {
         $this->logout();
         $sentences = array (
-                'INSEGNAMENTO DI ANALISI MATEMATICA T-1 aa. 2011/2012 OBRECHT ENRICO',
+                'INSEGNAMENTO DI SISTEMI MOBILI M aa. 2012/2013 LAST NAME GIVEN NAME',
         );
 
-        $this->openPrefix('/insegnamento/10271');
+        $this->openPrefix('/insegnamento/5');
         $this->assertSentences($sentences);
     }
 }
