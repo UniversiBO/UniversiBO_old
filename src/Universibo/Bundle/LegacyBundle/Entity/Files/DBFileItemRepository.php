@@ -186,7 +186,7 @@ EOT;
     {
         $result = $this->findManyById(array($id));
 
-        return is_array($result) ? $result[0] : $result;
+        return count($result) > 0 ? $result[0] : null;
     }
 
     public function findManyById(array $ids)
@@ -234,8 +234,6 @@ EOT;
                     $row[10], $row[11], $row[12], $row[13], $row[14],
                     $username, $row[15], $row[16], $row[17], $row[18]);
         }
-
-        $res->free();
 
         return $files_list;
     }
