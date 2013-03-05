@@ -134,7 +134,7 @@ class ContattoDocente
 
     public function getLegend()
     {
-        return $this->legend;
+        return self::$legend;
     }
 
     /**

@@ -16,8 +16,7 @@ class ShowContattiDocentiTest extends UniversiBOSeleniumTestCase
         $this->openPrefix('/docente/contatti/');
 
         $sentences = array (
-                'FERRI MASSIMO',
-                'FERRARI EMILIO',
+                'LAST NAME GIVEN NAME',
         );
 
         $this->assertSentences($sentences);

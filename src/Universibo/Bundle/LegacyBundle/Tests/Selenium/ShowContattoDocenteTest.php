@@ -13,11 +13,11 @@ class ShowContattoDocenteTest extends UniversiBOSeleniumTestCase
     public function testShow()
     {
         $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openPrefix('/docente/012768/contatto/');
+        $this->openPrefix('/docente/012345/contatto/');
 
         $sentences = array (
-                'Prof. Paolo Amadesi',
-                'paolo.amadesi@unibo.it',
+                'LAST NAME GIVEN NAME',
+                'professor@example.org',
         );
 
         $this->assertSentences($sentences);
@@ -26,7 +26,7 @@ class ShowContattoDocenteTest extends UniversiBOSeleniumTestCase
     public function testUpdate()
     {
         $this->login(TestConstants::ADMIN_USERNAME);
-        $this->openPrefix('/docente/012768/contatto/');
+        $this->openPrefix('/docente/012345/contatto/');
 
         $report = sha1(rand());
         $this->type('name=f35_report', $report);

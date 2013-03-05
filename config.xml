@@ -273,7 +273,7 @@
 		it from FrontController->getAppSetting() -->
 	<appSettings>
 		<contactsPath>img/contacts/</contactsPath>
-      		<contattoDocentiAdmin>SbiellONE</contattoDocentiAdmin> <!-- un solo nome -->
+      		<contattoDocentiAdmin>admin</contattoDocentiAdmin> <!-- un solo nome -->
                 <defaultAnnoAccademico>2011</defaultAnnoAccademico>
                 <filesPath>../app/data/uploads/</filesPath>
                 <infoEmail>info_universibo@mama.ing.unibo.it</infoEmail>
