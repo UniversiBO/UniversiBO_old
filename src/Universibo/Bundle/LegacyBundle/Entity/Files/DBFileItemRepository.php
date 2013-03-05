@@ -222,19 +222,6 @@ EOT;
 
         $res = $db->query($query);
 
-        //echo $query;
-
-        if (DB::isError($res)) {
-            $this
-                    ->throwError('_ERROR_CRITICAL',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-        }
-
-        $rows = $res->numRows();
-
-        if ($rows == 0)
-            return false;
         $files_list = array();
 
         $userRepo = $this->userRepository;
