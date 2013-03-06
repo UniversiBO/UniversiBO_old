@@ -19,7 +19,10 @@ You can get a working copy of UniversiBO in 6 easy steps:
 ## Contributing
 Feel free to fork us and send a pull request, contributed code *must* follow
 PSR-2 standards, you can achieve that using this tool http://cs.sensiolabs.org/
-[![Build Status](https://travis-ci.org/UniversiBO/UniversiBO.png?branch=master)](https://travis-ci.org/UniversiBO/UniversiBO)
+
+## Continuous integration
+UniversiBO uses Travis CI [![Build Status](https://travis-ci.org/UniversiBO/UniversiBO.png?branch=master)](https://travis-ci.org/UniversiBO/UniversiBO)
+
 ## License
 Copyright (C) \<2002-2012\>  Associazione UniversiBO
 
