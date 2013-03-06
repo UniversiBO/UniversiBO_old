@@ -3,6 +3,10 @@ language: php
 php:
   - 5.4
 
+before_install:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+
 before_script: 
   - composer install --dev
   - echo 'CREATE DATABASE universibo' | psql -U postgres
@@ -14,7 +18,7 @@ before_script:
   - cat vendor/universibo/forum-bundle/Universibo/Bundle/ForumBundle/Tests/Resources/sql/{structure,data}-postgres.sql | sed 's/OWNER TO.*/OWNER TO universibo;/' | psql -U postgres universibo_forum3
 
 script:
-  - phpunit -c app
+  - bin/phpunit -c app
   - bin/behat @UniversiboWebsiteBundle -v
 
 notifications:
