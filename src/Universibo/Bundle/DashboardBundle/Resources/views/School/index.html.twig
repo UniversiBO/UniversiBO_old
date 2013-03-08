@@ -1,12 +1,6 @@
-{% extends 'UniversiboDashboardBundle::base.html.twig' %}
-{% block title %}Home - {{ parent() }}{% endblock %}
-{% block content %}
-<div>
-  <h2>{% trans %}udb_schools{% endtrans %}</h2>
-  <ul>
-    {% for current in schools %}
-      <li><a href="{{ current.url }}" target="_blank">{{ current.name }}</a></li>
-    {% endfor %}
-  </ul>
-</div>
-{% endblock %}
+<h2>{% trans %}udb_schools{% endtrans %}</h2>
+<ul>
+  {% for current in schools %}
+    <li><a href="{{ current.url }}" target="_blank">{{ current.name }}</a></li>
+  {% endfor %}
+</ul>

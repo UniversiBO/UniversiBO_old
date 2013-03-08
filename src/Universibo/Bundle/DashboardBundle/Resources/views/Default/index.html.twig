@@ -6,7 +6,7 @@
   <p>{% trans %}udb_home_desc{% endtrans %}</p>
 </div>
 <div class="row-fluid">
-  <div class="span2">
+  <div class="span3">
     <h2>{% trans %}udb_users{% endtrans %}</h2>
     <ul>
       <li><strong>{% trans %}udb_users_active{% endtrans %}</strong>: {{ activeUsers }}</li>
@@ -31,7 +31,7 @@
       {% endfor %}
     </ul>
   </div>
-  <div class="span2">
+  <div class="span3">
     <h2>{% trans %}udb_professors{% endtrans %}</h2>
     <ul>
       {% for current in professorStatus %}
@@ -40,8 +40,8 @@
     </ul>
     <a href="{{ path('universibo_legacy_contact_professors') }}" target="_blank">&Gt; {% trans %}udb_professors_contacts{% endtrans %}</a>
   </div>
-  <div class="span2">
-    <h2>{% trans %}udb_forums{% endtrans %}</h2>
+  <div class="span3">
+    {{ render(url('universibo_dashboard_schools')) }}
   </div>
 </div>
 {% endblock %}
