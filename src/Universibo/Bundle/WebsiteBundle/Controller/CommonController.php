@@ -75,6 +75,35 @@ class CommonController extends Controller
      * @Template()
      * @return array
      */
+    public function headerAction()
+    {
+        //solo nella pagine index
+        $curr_mday = date("j");  //inizializzo giorno corrente
+        $curr_mese = date("n");  //inizializzo mese corrente
+        $curr_anno = date("Y");  //inizializzo anno corrente
+        $logoType = 'default';
+        if ($curr_mese == 8)
+            $logoType = 'estate';
+        elseif ($curr_mday == 8 && $curr_mese == 3)
+        $logoType = '8marzo';
+        elseif ($curr_mday == 31 && $curr_mese == 10)
+        $logoType = 'halloween';
+        elseif ($curr_mday == 14 && $curr_mese == 2)
+        $logoType = 'svalentino';
+        elseif (($curr_mese == 12 && $curr_mday >= 8) || ($curr_mese == 1 && $curr_mday <= 7))
+        $logoType = 'natale';
+        elseif ((easter_date($curr_anno) == mktime(0, 0, 0, $curr_mese, $curr_mday, $curr_anno) ) || (easter_date($curr_anno) == mktime(0, 0, 0, $curr_mese, $curr_mday - 1, $curr_anno) ))
+        $logoType = 'pasqua';
+        elseif (false)
+        $logoType = 'carnevale';
+
+        return array('logoType' => $logoType);
+    }
+
+    /**
+     * @Template()
+     * @return array
+     */
     public function rssAction($channel)
     {
         return array('channelId' => $channel->getIdCanale());

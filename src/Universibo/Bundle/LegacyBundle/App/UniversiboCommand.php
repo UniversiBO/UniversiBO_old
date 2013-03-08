@@ -246,6 +246,9 @@ abstract class UniversiboCommand extends BaseCommand
         elseif (false)
         $logoType = 'carnevale';  //cambiare questa riga a carnevale o trovare il modo per calcolarlo
 
+        $headerResponse = $this->forward('UniversiboWebsiteBundle:Common:header');
+        $template->assign('common_header', $headerResponse->getContent());
+
         $template->assign('common_logoType', $logoType); //estate/natale/8marzo/pasqua/carnevale/svalentino/halloween/ecc...
         $template->assign('common_logo', 'Logo UniversiBO');
 
