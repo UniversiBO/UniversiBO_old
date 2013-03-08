@@ -63,6 +63,10 @@
                 <source>udb_professors_contacts</source>
                 <target>Contatto docenti</target>
             </trans-unit>
+            <trans-unit id="16">
+                <source>udb_schools</source>
+                <target>Scuole</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
