@@ -189,6 +189,8 @@ abstract class UniversiboCommand extends BaseCommand
     {
         $template = $this->frontController->getTemplateEngine();
         $channelRouter = $this->get('universibo_legacy.routing.channel');
+        $channelRepo = $this->get('universibo_legacy.repository.canale2');
+
         $router = $this->get('router');
 
         $session_user = $this->get('security.context')->getToken()->getUser();
@@ -208,7 +210,7 @@ abstract class UniversiboCommand extends BaseCommand
                 if ($ruolo->isMyUniversibo()) {
                     //$attivaMyUniversibo = true;
 
-                    $canale = Canale::retrieveCanale($ruolo->getIdCanale());
+                    $canale = $channelRepo->find($ruolo->getIdCanale());
                     $myCanali = array();
                     $myCanali['uri'] = $channelRouter->generate($canale);
                     $myCanali['tipo'] = $canale->getTipoCanale();
@@ -299,8 +301,8 @@ abstract class UniversiboCommand extends BaseCommand
         $common_servicesLinks = array();
 
         // servizi per i quali l'utente ha i diritti di accesso
-        $list_id_canali = Canale::selectCanaliTipo(CANALE_DEFAULT);
-        $list_canali = Canale::selectCanali($list_id_canali);
+        $list_id_canali = $channelRepo->findManyByType(Canale::CDEFAULT);
+        $list_canali = $channelRepo->findManyById($list_id_canali);
         $keys = array_keys($list_canali);
         foreach ($keys as $key) {
             $my_canale = $list_canali[$key];

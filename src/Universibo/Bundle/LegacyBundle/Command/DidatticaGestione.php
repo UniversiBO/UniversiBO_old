@@ -55,6 +55,8 @@ class DidatticaGestione extends UniversiboCommand
 
         $idSdop = $request->get('id_sdop', '');
 
+        $channelRepo = $this->get('universibo_legacy.repository.canale2');
+
         // controllo se è stato scelta un'attività sdoppiata
         if (preg_match('/^([0-9]{1,9})$/', $idSdop)) {
             $prg_sdop = PrgAttivitaDidattica::selectPrgAttivitaDidatticaSdoppiata(
@@ -89,9 +91,9 @@ class DidatticaGestione extends UniversiboCommand
             //			if (!preg_match('/^([0-9]{1,9})$/', $channelId))
             //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non e` valido', 'file' => __FILE__, 'line' => __LINE__));
 
-            if (Canale::getTipoCanaleFromId($channelId)
+            if ($channelRepo->getTipoCanaleFromId($channelId)
                     == CANALE_INSEGNAMENTO) {
-                $canale = Canale::retrieveCanale(intval($channelId));
+                $canale = $channelRepo->find(intval($channelId));
                 $channelId = $canale->getIdCanale();
                 if ($edit == 'false') {
                     $f41_cur_sel['insegnamento'] = $canale->getTitolo();
@@ -136,8 +138,8 @@ class DidatticaGestione extends UniversiboCommand
         // controllo facolta` scelta
         if (preg_match('/^([0-9]{1,9})$/',$facultyId)) {
             $facultyId = intval($facultyId);
-            if (Canale::getTipoCanaleFromId($facultyId) == Canale::FACOLTA) {
-                $fac = Canale::retrieveCanale($facultyId);
+            if ($channelRepo->getTipoCanaleFromId($facultyId) == Canale::FACOLTA) {
+                $fac = $channelRepo->find($facultyId);
                 $id_facolta = $fac->getIdCanale();
                 $f41_cur_sel['facolta'] = $fac->getTitolo();
             }
@@ -146,8 +148,8 @@ class DidatticaGestione extends UniversiboCommand
         $cdlId = $request->get('id_cdl');
         // controllo cdl
         if (preg_match('/^([0-9]{1,9})$/', $cdlId)) {
-            if (Canale::getTipoCanaleFromId($cdlId) == CANALE_CDL) {
-                $cdl = Canale::retrieveCanale(intval($cdlId));
+            if ($channelRepo->getTipoCanaleFromId($cdlId) == Canale::CDL) {
+                $cdl = $channelRepo->find(intval($cdlId));
                 // controllo coerenza tra facolta`, cdl e insegnamento
                 if ($id_facolta != '')
                     if ($cdl->getCodiceFacoltaPadre()
@@ -253,7 +255,7 @@ class DidatticaGestione extends UniversiboCommand
                             $prgs[] = PrgAttivitaDidattica::selectPrgAttivitaDidatticaSdoppiata(
                                     (int) $idSdoppiamento);
                         } else {
-                            $channel = Canale::retrieveCanale($key);
+                            $channel = $channelRepo->find($key);
                             $atts = $channel->getElencoAttivitaPadre();
                             $prgs[] = $atts[0];
                         }
