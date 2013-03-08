@@ -23,7 +23,7 @@ class CollaboratoreTest extends EntityTest
         $this->collaboratore->setIntro('intro intro');
         $this->collaboratore->setRecapito('3381407176');
         $this->collaboratore->setObiettivi('obiettivi obiettivi');
-        $this->collaboratore->setFotoFilename('test.png');
+        $this->assertSame($this->collaboratore, $this->collaboratore->setFotoFilename('test.png'));
         $this->collaboratore->setRuolo('ruolo ruolo');
 
         $user = new User();
@@ -91,7 +91,6 @@ class CollaboratoreTest extends EntityTest
                 array('obiettivi', 'find a girlfriend'),
                 array('ruolo', 'aaaa'),
                 array('user', new User()),
-                array('fotoFilename', 'test.png')
         );
     }
 }
