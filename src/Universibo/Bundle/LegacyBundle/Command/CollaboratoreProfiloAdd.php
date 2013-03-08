@@ -35,7 +35,7 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
         }
 
         $collabRepo = $this->get('universibo_legacy.repository.collaboratore');
-        if ($collabRepo->find($id_coll) instanceof Collaboratore) {
+        if ($collabRepo->findOneByUser($collabUser) instanceof Collaboratore) {
             return $this->redirectProfile($collabUser);
         }
 
