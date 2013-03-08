@@ -1,4 +1,9 @@
 services:
+  universibo_didactics.repository.school:
+    class: Universibo\Bundle\DidacticsBundle\Entity\SchoolRepository
+    factory_service: doctrine.orm.entity_manager
+    factory_method: getRepository
+    arguments: ['Universibo\Bundle\DidacticsBundle\Entity\School']
   universibo_didactics.repository.subject:
     class: Universibo\Bundle\DidacticsBundle\Entity\SubjectRepository
     factory_service: doctrine.orm.entity_manager
