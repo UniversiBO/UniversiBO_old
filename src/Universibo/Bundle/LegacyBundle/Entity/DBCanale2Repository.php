@@ -2,8 +2,7 @@
 
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
-use Universibo\Bundle\LegacyBundle\PearDB\DB;
-use Exception;
+use Doctrine\DBAL\DBALException;
 use Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
 
 /**
@@ -76,23 +75,22 @@ class DBCanale2Repository extends DBRepository
     }
 
     /**
-     * @param  int       $id
-     * @throws Exception
+     * @param  int           $id
+     * @throws DBALException
      * @return Canale
      */
     public function find($id)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
-        $sql = 'SELECT tipo_canale FROM canale WHERE id_canale = ' . $db->quote($id);
+        $sql = 'SELECT tipo_canale FROM canale WHERE id_canale = ?';
+        $type = $db->fetchColumn($sql, array($id));
 
-        $res = $db->query($sql);
-        if (DB::isError($res)) {
-            throw new Exception($res->getMessage());
+        if (false === $type) {
+            return null;
         }
 
-        $row = $this->fetchRow($res);
-        switch ($row[0]) {
+        switch ($type) {
             case Canale::FACOLTA:
                 return $this->facultyRepository->find($id);
             case Canale::CDL:
