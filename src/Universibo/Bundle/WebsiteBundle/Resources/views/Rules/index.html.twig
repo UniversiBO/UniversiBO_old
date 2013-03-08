@@ -30,9 +30,9 @@
 </form>
 {% endif %}
 <a name="privacy"><h2>Informativa sulla privacy</h2></a>
-{% render 'UniversiboWebsiteBundle:Rules:privacyBox' with {}, {standalone:true} %}
+{{ render_esi(controller('UniversiboWebsiteBundle:Rules:privacyBox')) }}
 <a name="rules"><h2>Regolamento per l'utilizzo dei servizi del sito</h2></a>
-{% render 'UniversiboWebsiteBundle:Rules:mainBox'  with {}, {standalone:true} %}
+{{ render_esi(controller('UniversiboWebsiteBundle:Rules:mainBox')) }}
 <a name="forumRules"><h2>Regolamento per l'utilizzo del forum</h2></a>
-{% render 'UniversiboWebsiteBundle:Rules:forumBox' with {}, {standalone:true} %}
+{{ render_esi(controller('UniversiboWebsiteBundle:Rules:forumBox')) }}
 {% endblock %}
