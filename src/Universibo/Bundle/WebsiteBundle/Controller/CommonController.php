@@ -97,7 +97,13 @@ class CommonController extends Controller
         elseif (false)
         $logoType = 'carnevale';
 
-        return array('logoType' => $logoType);
+        $response = $this->render('UniversiboWebsiteBundle:Common:header.html.twig', array(
+            'logoType' => $logoType
+        ));
+        $response->setPublic();
+        $response->setExpires(new DateTime('tomorrow'));
+
+        return $response;
     }
 
     /**
