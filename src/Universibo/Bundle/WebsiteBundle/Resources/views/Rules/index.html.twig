@@ -10,9 +10,9 @@
 
 <form action="{{ path('universibo_website_rules_accept') }}" method="POST"
       class="accept-form">
-    {% if app.session.hasFlash('error') %}
-<p class="error">{{app.session.flash('error')}}</p>
-{% endif %}
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <p class="error">{{ flashMessage }}</p>
+    {% endfor %}
     {% if not user.usernameLocked %}
     <label for="username">Scegli un nome utente, non ti sarà possibile cambiarlo
         in futuro</label>
