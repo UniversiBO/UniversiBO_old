@@ -103,4 +103,16 @@ class DBCanale2Repository extends DBRepository
                 return $this->channelRepository->find($id);
         }
     }
+
+    /**
+     * DBCanaleRepository fallback
+     *
+     * @param  string $name
+     * @param  array  $arguments
+     * @return mixed
+     */
+    public function __call($name, $arguments)
+    {
+        return call_user_func_array(array($this->channelRepository, $name), $arguments);
+    }
 }
