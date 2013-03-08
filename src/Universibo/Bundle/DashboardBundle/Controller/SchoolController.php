@@ -7,8 +7,8 @@
  */
 namespace Universibo\Bundle\DashboardBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Controller for dashboard school page
@@ -20,14 +20,19 @@ class SchoolController extends Controller
     /**
      * Dashboard index action
      *
-     * @Template
+     * @return Response
      */
     public function indexAction()
     {
         $schoolRepo = $this->get('universibo_didactics.repository.school');
 
-        return array (
+        $response = $this->render('UniversiboDashboardBundle:School:index.html.twig', array (
             'schools' => $schoolRepo->findAll()
-        );
+        ));
+
+        $response->setPublic();
+        $response->setSharedMaxAge(30);
+
+        return $response;
     }
 }
