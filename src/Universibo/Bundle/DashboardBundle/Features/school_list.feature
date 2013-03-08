@@ -5,7 +5,7 @@ Feature: Add a school
 
   Scenario: Standard list
     Given I'm logged in as "moderator"
-    When I visit "/dashboard/schools"
+    When I visit "/dashboard/didactics/schools"
     Then text "Agraria e Medicina veterinaria" should be present
     And text "Economia, Management e Statistica" should be present
     And text "Farmacia, Biotecnologie e Scienze motorie" should be present
