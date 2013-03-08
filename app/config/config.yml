@@ -14,6 +14,7 @@ framework:
     templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
     default_locale: "%locale%"
     session: ~
+    fragments:       { path: /_fragment }
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
