@@ -1,13 +1,11 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Tests\Entity\Help;
 
+use Universibo\Bundle\CoreBundle\Tests\Entity\EntityTest;
+use Universibo\Bundle\LegacyBundle\Entity\Help\Item;
 use Universibo\Bundle\LegacyBundle\Entity\Help\Reference;
 
-use Universibo\Bundle\LegacyBundle\Entity\Help\Item;
-
-use Universibo\Bundle\LegacyBundle\Tests\Entity\UniversiBOEntityTest;
-
-class ReferenceTest extends UniversiBOEntityTest
+class ReferenceTest extends EntityTest
 {
     /**
      * @var Item

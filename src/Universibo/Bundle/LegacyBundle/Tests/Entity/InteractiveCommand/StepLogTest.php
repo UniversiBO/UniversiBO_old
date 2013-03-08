@@ -1,10 +1,10 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Tests\Entity\InteractiveCommand;
 
-use Universibo\Bundle\LegacyBundle\Tests\Entity\UniversiBOEntityTest;
+use Universibo\Bundle\CoreBundle\Tests\Entity\EntityTest;
 use Universibo\Bundle\LegacyBundle\Entity\InteractiveCommand\StepLog;
 
-class StepLogTest extends UniversiBOEntityTest
+class StepLogTest extends EntityTest
 {
     /**
      * @var StepLog

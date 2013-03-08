@@ -1,11 +1,11 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Tests\Entity\Files;
 
-use Universibo\Bundle\LegacyBundle\Tests\Entity\UniversiBOEntityTest;
-
+use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\CoreBundle\Tests\Entity\EntityTest;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 
-class FileItemTest extends UniversiBOEntityTest
+class FileItemTest extends EntityTest
 {
     /**
      * @var User

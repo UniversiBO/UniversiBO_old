@@ -2,15 +2,15 @@
 
 namespace Universibo\Bundle\LegacyBundle\Tests\Entity\Notifica;
 
+use Universibo\Bundle\CoreBundle\Tests\Entity\EntityTest;
 use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
-use Universibo\Bundle\LegacyBundle\Tests\Entity\UniversiBOEntityTest;
 
 /**
  * Description of NotificaItemTest
  *
  * @author davide
  */
-class NotificaItemTest extends UniversiBOEntityTest
+class NotificaItemTest extends EntityTest
 {
     private $notifica;
 

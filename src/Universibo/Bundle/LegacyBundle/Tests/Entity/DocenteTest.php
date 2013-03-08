@@ -1,11 +1,11 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Tests\Entity;
 
+use Universibo\Bundle\CoreBundle\Tests\Entity\EntityTest;
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Docente;
 
-use Universibo\Bundle\LegacyBundle\Entity\Canale;
-
-class DocenteTest extends UniversiBOEntityTest
+class DocenteTest extends EntityTest
 {
     /**
      * @var Canale
