@@ -1,16 +1,15 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Command\DidatticaGestione;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Cdl;
-use Universibo\Bundle\LegacyBundle\Entity\Docente;
 use Universibo\Bundle\LegacyBundle\Entity\Facolta;
 use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
 use Universibo\Bundle\LegacyBundle\Entity\Ruolo;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 use Universibo\Bundle\LegacyBundle\Framework\LogHandler;
 
@@ -93,7 +92,7 @@ class DidatticaGestione extends UniversiboCommand
             //				Error :: throwError (_ERROR_DEFAULT, array ('msg' => 'L\'id del canale richiesto non e` valido', 'file' => __FILE__, 'line' => __LINE__));
 
             if ($channelRepo->getTipoCanaleFromId($channelId)
-                    == CANALE_INSEGNAMENTO) {
+                    == Canale::INSEGNAMENTO) {
                 $canale = $channelRepo->find(intval($channelId));
                 $channelId = $canale->getIdCanale();
                 if ($edit == 'false') {

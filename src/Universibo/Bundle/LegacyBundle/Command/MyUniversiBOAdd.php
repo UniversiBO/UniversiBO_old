@@ -106,7 +106,7 @@ class MyUniversiBOAdd extends UniversiboCommand
                     $ruolo->insertRuolo();
                 }
 
-                if ($canale->getTipoCanale() == CANALE_INSEGNAMENTO) {
+                if ($canale->getTipoCanale() == Canale::INSEGNAMENTO) {
                     //trover? un modo per ottenere il cdl! lo giuro!!!
                 }
 

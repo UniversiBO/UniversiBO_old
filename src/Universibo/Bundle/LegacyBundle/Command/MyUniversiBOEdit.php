@@ -101,7 +101,7 @@ class MyUniversiBOEdit extends UniversiboCommand
                     $ruolo->updateRuolo();
                     $canale = Canale::retrieveCanale($id_canale);
                     $template->assign('showUser', $router->generate('universibo_legacy_user', array('id_utente' => $utente->getId())));
-                    if ($canale->getTipoCanale() == CANALE_INSEGNAMENTO) {
+                    if ($canale->getTipoCanale() == Canale::INSEGNAMENTO) {
                         //troverò un modo per ottenere il cdl! lo giuro!!!
                         // ^ peccato che tu non ti sia firmato... SbiellONE
                     }

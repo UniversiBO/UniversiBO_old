@@ -92,13 +92,6 @@ class Canale
     /**
      * Crea un oggetto canale
      *
-     * $tipo_canale:
-     *  define('CANALE_DEFAULT'      ,1);
-     *  define('CANALE_HOME'         ,2);
-     *  define('CANALE_FACOLTA'      ,3);
-     *  define('CANALE_CDL'          ,4);
-     *  define('CANALE_INSEGNAMENTO' ,5);
-     *
      * @see factoryCanale
      * @see selectCanale
      * @param  int     $id_canale       identificativo del canae su database
@@ -185,14 +178,6 @@ class Canale
     /**
      * Ritorna il tipo di canale
      *
-     * es: $tipo_canale:
-     *  define('CANALE_DEFAULT'   ,1);
-     *  define('CANALE_HOME'      ,2);
-     *  define('CANALE_FACOLTA'   ,3);
-     *  define('CANALE_CDL'       ,4);
-     *  define('CANALE_INSEGNAMENTO' ,5);
-     *
-     * @static
      * @param  int $id_canale numero identificativo del canale
      * @return int intero (tipo_canale) se eseguita con successo, false se il canale non esiste
      */
@@ -697,10 +682,3 @@ class Canale
         return self::$repository;
     }
 }
-
-define('CANALE_DEFAULT'      ,Canale::CDEFAULT);
-define('CANALE_HOME'         ,Canale::HOME);
-define('CANALE_FACOLTA'      ,Canale::FACOLTA);
-define('CANALE_CDL'          ,Canale::CDL);
-define('CANALE_INSEGNAMENTO' ,Canale::INSEGNAMENTO);
-//define('CANALE_ESAME_ECO'    ,6);
