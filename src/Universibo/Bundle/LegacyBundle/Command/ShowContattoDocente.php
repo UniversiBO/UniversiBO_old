@@ -59,10 +59,8 @@ class ShowContattoDocente extends UniversiboCommand
         if (!$utente_docente) {
             throw new NotFoundHttpException('Professor user not found');
         }
-        //		var_dump($docente);
 
-        $rub_docente = $docente->getInfoRubrica();
-
+        $rub_docente = $docenteRepo->getInfo($docente);
         $rub_presente = true;
 
         if (!$rub_docente) {

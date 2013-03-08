@@ -23,6 +23,7 @@ class ShowUser extends UniversiboCommand
         $template = $frontcontroller->getTemplateEngine();
         $context = $this->get('security.context');
         $current_user = $context->getToken()->getUser();
+        $professorRepo = $this->get('universibo_legacy.repository.docente');
 
         $userId = $this->getRequest()->attributes->get('id_utente');
         $user = $this->get('universibo_website.repository.user')->find($userId);
@@ -93,10 +94,8 @@ class ShowUser extends UniversiboCommand
 
         $template->assign('showUser_UserHomepage', '');
         if ($user->hasRole('ROLE_PROFESSOR')) {
-            $doc = Docente::selectDocente($user->getId());
-            $template
-                    ->assign('showUser_UserHomepage',
-                            $doc->getHomepageDocente());
+            $doc = $professorRepo->findByUserId($user->getId());
+            $template->assign('showUser_UserHomepage', $doc->getHomepageDocente());
         }
         $template->assign('showSettings', $router->generate('universibo_legacy_settings'));
 

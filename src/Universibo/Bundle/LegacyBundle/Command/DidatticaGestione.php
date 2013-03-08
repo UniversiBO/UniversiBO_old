@@ -30,7 +30,8 @@ class DidatticaGestione extends UniversiboCommand
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
         $router = $this->get('router');
-        $request = $this->getREquest();
+        $request = $this->getRequest();
+        $professorRepo = $this->get('universibo_legacy.repository.docente');
 
         $user = $this->get('security.context')->getToken()->getUser();
 
@@ -209,7 +210,7 @@ class DidatticaGestione extends UniversiboCommand
 
                 foreach ($users_search as $v)
                     if ($v->hasRole('ROLE_PROFESSOR')) {
-                        $doc = Docente::selectDocente($v->getId());
+                        $doc = $professorRepo->findByUserId($v->getId());
                         if ($doc != false)
                             $listaDocenti[] = array(
                                     'nome' => $doc->getNomeDoc(),
@@ -266,7 +267,7 @@ class DidatticaGestione extends UniversiboCommand
                 if (array_key_exists('codice docente', $tmpEdit)) {
                     if (!preg_match('/^([0-9]{1,9})$/',
                             $tmpEdit['codice docente'])
-                            || !Docente::selectDocenteFromCod(
+                            || !$professorRepo->find(
                                     $tmpEdit['codice docente'])) {
                         Error::throwError(_ERROR_NOTICE,
                                 array(
@@ -305,7 +306,7 @@ class DidatticaGestione extends UniversiboCommand
                 if (array_key_exists('anno', $tmpEdit)) {
                     // l'anno puo` essere 0 per gli esami opzionali di economia
                     if (!preg_match('/^([0-5]{1})$/', $tmpEdit['anno'])
-                            || Docente::selectDocenteFromCod($tmpEdit['anno'])) {
+                            || $professorRepo->find($tmpEdit['anno'])) {
                         Error::throwError(_ERROR_NOTICE,
                                 array(
                                         'msg' => 'Anno invalido, nessuna modifica effettuata',
@@ -349,7 +350,7 @@ class DidatticaGestione extends UniversiboCommand
                                         $id_facolta, $idSdop, $mods[$i]);
                     //aggiorno il referente della materia in caso di modifica docente
                     if (array_key_exists('doc', $mods[$i])) {
-                        $doc = Docente::selectDocenteFromCod(
+                        $doc = $professorRepo->find(
                                 $mods[$i]['doc']['old']);
                         $ruoli = $doc->getRuoli();
                         if (array_key_exists($prgs[$i]->getIdCanale(), $ruoli)) {
@@ -371,8 +372,7 @@ class DidatticaGestione extends UniversiboCommand
                             unset($ruoli);
 
                             // aggiungiamo il nuovo referente
-                            $doc = Docente::selectDocenteFromCod(
-                                    $mods[$i]['doc']['new']);
+                            $doc = $professorRepo->find($mods[$i]['doc']['new']);
                             $ruoli = $doc->getRuoli();
                             if (array_key_exists($prgs[$i]->getIdCanale(),
                                     $ruoli)) {

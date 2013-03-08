@@ -2,7 +2,6 @@
 
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\ContattoDocente;
 use Universibo\Bundle\LegacyBundle\Entity\Docente;
@@ -25,15 +24,12 @@ class ShowContattiDocenti extends UniversiboCommand
     {
         $frontcontroller = $this->getFrontController();
         $template = $frontcontroller->getTemplateEngine();
-        $user = $this->get('security.context')->getToken()->getUser();
         $router = $this->get('router');
+        $professorRepo = $this->get('universibo_legacy.repository.docente');
 
-        if (!$user->hasRole('ROLE_MODERATOR') && !$this->get('security.context')->isGranted('ROLE_ADMIN'))
-            Error::throwError(_ERROR_DEFAULT,
-                    array('id_utente' => $user->getId(),
-                            'msg' => 'Non hai i diritti necessari per visualizzare la pagina',
-                            'file' => __FILE__, 'line' => __LINE__,
-                            'template_engine' => &$template));
+        if (!$this->get('security.context')->isGranted('ROLE_MODERATOR')) {
+            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
+        }
 
         $lista_contatti = ContattoDocente::getAllContattoDocente();
 
@@ -42,7 +38,7 @@ class ShowContattiDocenti extends UniversiboCommand
         if ($lista_contatti) {
 
             foreach ($lista_contatti as $contatto) {
-                $doc = Docente::selectDocenteFromCod($contatto->getCodDoc());
+                $doc = $professorRepo->find($contatto->getCodDoc());
                 if ($doc instanceof Docente) {
                     $elenco[] = array('nome' => $doc->getNomeDoc(),
                             'URI' => $router->generate('universibo_legacy_contact_professor', array('cod_doc' => $doc->getCodDoc())),
