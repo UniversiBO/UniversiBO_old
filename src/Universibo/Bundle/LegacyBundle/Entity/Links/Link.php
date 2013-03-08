@@ -1,16 +1,14 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\Links;
-use \DB;
-use Universibo\Bundle\LegacyBundle\Framework\Error;
+
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
 
 /**
  * Link class
  *
- * @package universibo
- * @version 2.0.0
+ * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @author Ilias Bartolini <i.bartolini@reply.it>
- * @license GPL, @link http://www.opensource.org/licenses/gpl-license.php
+ * @license GPL, @link http://opensource.org/licenses/GPL-2.0
  */
 class Link
 {
@@ -179,6 +177,7 @@ class Link
     /**
      * Inserisce su Db le informazioni riguardanti un NUOVO link
      *
+     * @deprecated
      * @return boolean
      */
     public function insertLink()
@@ -189,6 +188,7 @@ class Link
     /**
      * Recupera un link
      *
+     * @deprecated
      * @param  int  $id_link id del link
      * @return Link / false
      */
@@ -200,6 +200,7 @@ class Link
     /**
      * Recupera un elenco di link dal database
      *
+     * @deprecated
      * @param  array $id_links array elenco di id dei link
      * @return Link  array di Link
      */
@@ -211,6 +212,7 @@ class Link
     /**
      * Aggiorna il contenuto su DB riguardante le informazioni del link
      *
+     * @deprecated
      * @return boolean true se avvenua con successo, altrimenti false e throws Error object
      */
     public function updateLink()
@@ -221,6 +223,7 @@ class Link
     /**
      * Aggiorna il contenuto su DB eliminando un Link
      *
+     * @deprecated
      * @return boolean true se avvenua con successo, altrimenti false e throws Error object
      */
     public function deleteLink()
@@ -231,6 +234,7 @@ class Link
     /**
      * Recupera un elenco di link riferiti ad un canale dal database
      *
+     * @deprecated
      * @param  array $id_canale id del canale
      * @return Link  array di Link
      */
@@ -242,7 +246,8 @@ class Link
     /**
      * Restituisce il nick dello user
      *
-     * @return il nickname
+     * @deprecated
+     * @return string nickname
      */
 
     public function getUsername()

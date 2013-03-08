@@ -68,8 +68,6 @@ abstract class UniversiboCommand extends BaseCommand
         while (($current_error = Error::retrieve(_ERROR_CRITICAL)) !== false) {
             echo $current_error->throwError();
         }
-
-        $fc = $this->getFrontController();
     }
 
     /**
@@ -106,12 +104,6 @@ abstract class UniversiboCommand extends BaseCommand
 
         //riferimenti per ottimizzare gli accessi
         $fc = $this->getFrontController();
-
-
-        $tpsettings = $this->frontController->getTemplateEngineSettings();
-        $temp_template_list = $tpsettings['styles'];
-        $template_list = array();
-        $i = 0;
 
         $request_protocol = (array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] == 'on') ? 'https' : 'http';
 
@@ -301,8 +293,7 @@ abstract class UniversiboCommand extends BaseCommand
         $common_servicesLinks = array();
 
         // servizi per i quali l'utente ha i diritti di accesso
-        $list_id_canali = $channelRepo->findManyByType(Canale::CDEFAULT);
-        $list_canali = $channelRepo->findManyById($list_id_canali);
+        $list_canali = $channelRepo->findManyByType(Canale::CDEFAULT);
         $keys = array_keys($list_canali);
         foreach ($keys as $key) {
             $my_canale = $list_canali[$key];
