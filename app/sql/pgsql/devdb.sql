@@ -8,6 +8,20 @@ SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
 SET search_path = public, pg_catalog;
 
 --
@@ -2148,6 +2162,7 @@ INSERT INTO migration_versions VALUES ('20121221214920');
 INSERT INTO migration_versions VALUES ('20130102154033');
 INSERT INTO migration_versions VALUES ('20130125021448');
 INSERT INTO migration_versions VALUES ('20130308194214');
+INSERT INTO migration_versions VALUES ('20130308203542');
 
 
 --
@@ -2306,13 +2321,24 @@ SELECT pg_catalog.setval('questionario_id_questionari_seq', 1, false);
 -- Data for Name: schools; Type: TABLE DATA; Schema: public; Owner: universibo
 --
 
+INSERT INTO schools VALUES (1, 'Agraria e Medicina veterinaria', 'http://www.unibo.it/Portale/ScuolaAgrariaMedicinaVeterinaria.htm');
+INSERT INTO schools VALUES (2, 'Economia, Management e Statistica', 'http://www.unibo.it/Portale/ScuolaEconomiaManagementStatistica.htm');
+INSERT INTO schools VALUES (3, 'Farmacia, Biotecnologie e Scienze motorie', 'http://www.unibo.it/Portale/ScuolaFarmaciaBiotecnologieScienzeMotorie.htm');
+INSERT INTO schools VALUES (4, 'Giurisprudenza', 'http://www.unibo.it/Portale/ScuolaGiurisprudenza.htm');
+INSERT INTO schools VALUES (5, 'Ingegneria e Architettura', 'http://www.unibo.it/Portale/ScuolaIngegneriaArchitettura.htm');
+INSERT INTO schools VALUES (6, 'Lettere e Beni culturali', 'http://www.unibo.it/Portale/ScuolaLettereBeniCulturali.htm');
+INSERT INTO schools VALUES (7, 'Lingue e Letterature, Traduzione e Interpretazione', 'http://www.unibo.it/Portale/ScuolaLingueLetteratureTraduzioneInterpretazione.htm');
+INSERT INTO schools VALUES (8, 'Medicina e Chirurgia', 'http://www.unibo.it/Portale/ScuolaMedicinaChirurgia.htm');
+INSERT INTO schools VALUES (9, 'Psicologia e Scienze della Formazione', 'http://www.unibo.it/Portale/ScuolaPsicologiaScienzeFormazione.htm');
+INSERT INTO schools VALUES (10, 'Scienze', 'http://www.unibo.it/Portale/ScuolaScienze.htm');
+INSERT INTO schools VALUES (11, 'Scienze politiche', 'http://www.unibo.it/Portale/ScuolaScienzePolitiche.htm');
 
 
 --
 -- Name: schools_id_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
 --
 
-SELECT pg_catalog.setval('schools_id_seq', 1, false);
+SELECT pg_catalog.setval('schools_id_seq', 11, true);
 
 
 --
@@ -2852,6 +2878,13 @@ CREATE UNIQUE INDEX uniq_28166a266c57f6ed ON people USING btree (unibo_id);
 
 
 --
+-- Name: uniq_47443bd55e237e06; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE UNIQUE INDEX uniq_47443bd55e237e06 ON schools USING btree (name);
+
+
+--
 -- Name: uniq_4b019ddb5e237e06; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
 --
 
@@ -2979,14 +3012,4 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
-INSERT INTO schools (id, name, url) VALUES (nextval('schools_id_seq'),'Agraria e Medicina veterinaria', 'http://www.unibo.it/Portale/ScuolaAgrariaMedicinaVeterinaria.htm');
-INSERT INTO schools (id, name, url) VALUES (nextval('schools_id_seq'),'Economia, Management e Statistica', 'http://www.unibo.it/Portale/ScuolaEconomiaManagementStatistica.htm');
-INSERT INTO schools (id, name, url) VALUES (nextval('schools_id_seq'),'Farmacia, Biotecnologie e Scienze motorie', 'http://www.unibo.it/Portale/ScuolaFarmaciaBiotecnologieScienzeMotorie.htm');
-INSERT INTO schools (id, name, url) VALUES (nextval('schools_id_seq'),'Giurisprudenza', 'http://www.unibo.it/Portale/ScuolaGiurisprudenza.htm');
-INSERT INTO schools (id, name, url) VALUES (nextval('schools_id_seq'),'Ingegneria e Architettura', 'http://www.unibo.it/Portale/ScuolaIngegneriaArchitettura.htm');
-INSERT INTO schools (id, name, url) VALUES (nextval('schools_id_seq'),'Lettere e Beni culturali', 'http://www.unibo.it/Portale/ScuolaLettereBeniCulturali.htm');
-INSERT INTO schools (id, name, url) VALUES (nextval('schools_id_seq'),'Lingue e Letterature, Traduzione e Interpretazione', 'http://www.unibo.it/Portale/ScuolaLingueLetteratureTraduzioneInterpretazione.htm');
-INSERT INTO schools (id, name, url) VALUES (nextval('schools_id_seq'),'Medicina e Chirurgia', 'http://www.unibo.it/Portale/ScuolaMedicinaChirurgia.htm');
-INSERT INTO schools (id, name, url) VALUES (nextval('schools_id_seq'),'Psicologia e Scienze della Formazione', 'http://www.unibo.it/Portale/ScuolaPsicologiaScienzeFormazione.htm');
-INSERT INTO schools (id, name, url) VALUES (nextval('schools_id_seq'),'Scienze', 'http://www.unibo.it/Portale/ScuolaScienze.htm');
-INSERT INTO schools (id, name, url) VALUES (nextval('schools_id_seq'),'Scienze politiche', 'http://www.unibo.it/Portale/ScuolaScienzePolitiche.htm');
+
