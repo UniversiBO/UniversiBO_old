@@ -2980,3 +2980,14 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 -- PostgreSQL database dump complete
 --
 
+INSERT INTO school (name, url) VALUES ('Agraria e Medicina veterinaria', 'http://www.unibo.it/Portale/ScuolaAgrariaMedicinaVeterinaria.htm');
+INSERT INTO school (name, url) VALUES ('Economia, Management e Statistica', 'http://www.unibo.it/Portale/ScuolaEconomiaManagementStatistica.htm');
+INSERT INTO school (name, url) VALUES ('Farmacia, Biotecnologie e Scienze motorie', 'http://www.unibo.it/Portale/ScuolaFarmaciaBiotecnologieScienzeMotorie.htm');
+INSERT INTO school (name, url) VALUES ('Giurisprudenza', 'http://www.unibo.it/Portale/ScuolaGiurisprudenza.htm');
+INSERT INTO school (name, url) VALUES ('Ingegneria e Architettura', 'http://www.unibo.it/Portale/ScuolaIngegneriaArchitettura.htm');
+INSERT INTO school (name, url) VALUES ('Lettere e Beni culturali', 'http://www.unibo.it/Portale/ScuolaLettereBeniCulturali.htm');
+INSERT INTO school (name, url) VALUES ('Lingue e Letterature, Traduzione e Interpretazione', 'http://www.unibo.it/Portale/ScuolaLingueLetteratureTraduzioneInterpretazione.htm');
+INSERT INTO school (name, url) VALUES ('Medicina e Chirurgia', 'http://www.unibo.it/Portale/ScuolaMedicinaChirurgia.htm');
+INSERT INTO school (name, url) VALUES ('Psicologia e Scienze della Formazione', 'http://www.unibo.it/Portale/ScuolaPsicologiaScienzeFormazione.htm');
+INSERT INTO school (name, url) VALUES ('Scienze', 'http://www.unibo.it/Portale/ScuolaScienze.htm');
+INSERT INTO school (name, url) VALUES ('Scienze politiche', 'http://www.unibo.it/Portale/ScuolaScienzePolitiche.htm');
