@@ -4,7 +4,8 @@
     <title>{% block title %}{% trans %}udb_default_title{% endtrans %}{% endblock title %}</title>
     {% stylesheets 'bundles/universibowebsite/bootstrap/css/bootstrap.css'
        'bundles/universibowebsite/bootstrap/css/bootstrap-responsive.css'
-       'bundles/universibodashboard/css/screen.css' %}
+       'bundles/universibodashboard/css/screen.css'
+       output="css/compiled/dashboard.css" filter='cssrewrite,?yui_css' %}
       <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" />
     {% endstylesheets %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -34,7 +35,8 @@
     </div>
     {% javascripts 'bundles/universibowebsite/js/00*'
        'bundles/universibowebsite/bootstrap/js/bootstrap.js'
-       'bundles/universibodashboard/js/*.js' %}
+       'bundles/universibodashboard/js/*.js'
+        output='js/compiled/dashboard.js' filter='?yui_js' %}
       <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
   </body>
