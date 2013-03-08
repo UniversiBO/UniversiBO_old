@@ -1,5 +1,7 @@
 <?php
 /**
+ * Symfony2 controller file
+ *
  * @copyright (c) 2013, Associazione UniversiBO
  * @license GPLv2
  */
@@ -16,6 +18,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class DefaultController extends Controller
 {
     /**
+     * Dashboard index action
+     *
      * @Template
      */
     public function indexAction()
