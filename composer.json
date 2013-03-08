@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "symfony/framework-bundle": "2.1.*",
+        "symfony/framework-bundle": ">=2.1.0,<2.3-dev",
         "doctrine/doctrine-bundle": ">=1.0.0,<1.1.0",
         "guzzle/guzzle": "3.1.*"
     },
