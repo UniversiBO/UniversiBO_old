@@ -93,6 +93,8 @@ class Collaboratore
     public function setIntro($intro)
     {
         $this->intro = $intro;
+
+        return $this;
     }
 
     public function getRuolo()
@@ -103,6 +105,8 @@ class Collaboratore
     public function setRuolo($ruolo)
     {
         $this->ruolo = $ruolo;
+
+        return $this;
     }
 
     public function getRecapito()
@@ -113,6 +117,8 @@ class Collaboratore
     public function setRecapito($recapito)
     {
         $this->recapito = $recapito;
+
+        return $this;
     }
 
     public function getObiettivi()
@@ -123,6 +129,8 @@ class Collaboratore
     public function setObiettivi($obiettivi)
     {
         $this->obiettivi = $obiettivi;
+
+        return $this;
     }
 
     public function getFotoFilename()
@@ -139,11 +147,15 @@ class Collaboratore
     public function setFotoFilename($foto)
     {
         $this->foto = $foto;
+
+        return $this;
     }
 
     public function setUser(User $user)
     {
         $this->user = $user;
+
+        return $this;
     }
 
     /**
