@@ -8,20 +8,6 @@ SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
 SET search_path = public, pg_catalog;
 
 --
@@ -1229,6 +1215,33 @@ CREATE TABLE rub_docente (
 ALTER TABLE public.rub_docente OWNER TO universibo;
 
 --
+-- Name: schools; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE schools (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    url character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.schools OWNER TO universibo;
+
+--
+-- Name: schools_id_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE schools_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.schools_id_seq OWNER TO universibo;
+
+--
 -- Name: sms_inviati; Type: VIEW; Schema: public; Owner: universibo
 --
 
@@ -1958,6 +1971,114 @@ INSERT INTO info_didattica VALUES (5, 'Lorem ipsum', '', 'Lorem ipsum', '', 'Lor
 -- Data for Name: informativa; Type: TABLE DATA; Schema: public; Owner: universibo
 --
 
+INSERT INTO informativa VALUES (1, 1147431647, 1308674484, 'INFORMATIVA AI SENSI DELLA LEGGE 31 DICEMBRE 1996 N. 675/96
+Ai sensi e per gli effetti dell''art.13 L.675/96 informiamo di quanto segue:
+
+1. In relazione al trattamento di dati personali l''interessato ha diritto:   a) di conoscere, mediante accesso gratuito al registro di cui all''articolo 31, comma 1, lettera a), l''esistenza di trattamenti di dati che possono riguardarlo;
+  b) di essere informato su quanto indicato all''articolo 7, comma 4, lettere a), b) e h);
+  c) di ottenere, a cura del titolare o del responsabile, senza ritardo:
+    1) la conferma dell''esistenza o meno di dati personali che lo riguardano, anche se non ancora registrati, e la comunicazione in forma intelligibile dei medesimi dati e della loro origine, nonch&#232; della logica e delle finalit&#224; su cui si basa il trattamento; la richiesta pu&#242; essere rinnovata, salva l''esistenza di giustificati motivi, con intervallo non minore di novanta giorni;
+    2) la cancellazione, la trasformazione in forma anonima o il blocco dei dati trattati in violazione di legge, compresi quelli di cui non &#232; necessaria la conservazione in relazione agli scopi per i quali i dati sono stati raccolti o successivamente trattati;
+    3) l''aggiornamento, la rettificazione ovvero, qualora vi abbia interesse, l''integrazione dei dati;
+    4) l''attestazione che le operazioni di cui ai numeri 2) e 3) sono state portate a conoscenza, anche per quanto riguarda il loro contenuto, di coloro ai quali i dati sono stati comunicati o diffusi, eccettuato il caso in cui tale adempimento si riveli impossibile o comporti un impiego di mezzi manifestamente sproporzionato rispetto al diritto tutelato;
+  d) di opporsi, in tutto o in parte, per motivi legittimi, al trattamento dei dati personali che lo riguardano, ancorch&#232; pertinenti allo scopo della raccolta;
+  e) di opporsi, in tutto o in parte, al trattamento di dati personali che lo riguardano, previsto a fini di informazione commerciale o di invio di materiale pubblicitario o di vendita diretta ovvero per il compimento di ricerche di mercato o di comunicazione commerciale interattiva e di essere informato dal titolare, non oltre il momento in cui i dati sono comunicati o diffusi, della possibilit&#224; di esercitare gratuitamente tale diritto.
+
+2. Per ciascuna richiesta di cui al comma 1, lettera c), numero 1), pu&#242; essere chiesto all''interessato, ove non risulti confermata l?esistenza di dati che lo riguardano, un contributo spese, non superiore ai costi effettivamente sopportati, secondo le modalit&#224; ed entro i limiti stabiliti dal regolamento di cui all''articolo 33, comma 3.
+
+3. I diritti di cui al comma 1 riferiti ai dati personali concernenti persone decedute possono essere esercitati da chiunque vi abbia interesse.
+
+4. Nell''esercizio dei diritti di cui al comma 1 l''interessato pu&#242; conferire, per iscritto, delega o procura a persone fisiche o ad associazioni.
+
+5. Restano ferme le norme sul segreto professionale degli esercenti la professione di giornalista, limitatamente alla fonte della notizia
+');
+INSERT INTO informativa VALUES (2, 1308674484, 1359995427, 'Informativa sul trattamento dei dati personali
+
+I dati personali raccolti per l''utilizzo dei servizi offerti sono trattati nel rispetto e secondo le prescrizioni dettate dal d. lgs. n. 196/2003 in materia di privacy.
+
+a) Il trattamento dei dati personali da parte di UniversiBO e'' finalizzato al pieno godimento dei servizi offerti e a realizzare l''interazione fra gli studenti iscritti ad UniversiBO, con particolare riguardo alla partecipazione al Forum.
+I dati sono trattati con sistemi informatizzati e vengono altresi'' utilizzati per fini statistici e di sicurezza.
+
+b) Il conferimento dei dati da parte dell''utente e'' facoltativo.
+
+c) Il mancato conferimento dei dati da parte dell''utente non consente di usufruire pienamente dei servizi offerti da UniversiBO.
+
+d) I dati personali trattati da UniversiBO non saranno oggetto di comunicazione e diffusione alcuna.
+e) L''interessato ha diritto di ottenere la conferma dell''esistenza o meno di dati personali che lo riguardano, anche se non ancora registrati, e la loro comunicazione in forma intelligibile.
+Ha altresi'' il diritto di ottenere l''indicazione:
+a) dell''origine dei dati personali;
+b) delle finalita'' e modalita'' del trattamento;
+c) della logica applicata in caso di trattamento effettuato con l''ausilio di strumenti elettronici;
+d) degli estremi identificativi del titolare, dei responsabili e del rappresentante designato ai sensi dell''articolo 5, comma 2;
+e) dei soggetti o delle categorie di soggetti ai quali i dati personali possono essere comunicati o che possono venirne a conoscenza in qualita'' di rappresentante designato nel territorio dello Stato, di responsabili o incaricati.
+L''interessato ha diritto di ottenere:
+a) l''aggiornamento, la rettificazione ovvero, quando vi ha interesse, l''integrazione dei dati;
+b) la cancellazione, la trasformazione in forma anonima o il blocco dei dati trattati in violazione di legge, compresi quelli di cui non e'' necessaria la conservazione in relazione agli scopi per i quali i dati sono stati raccolti o successivamente trattati. Per ragioni di sicurezza ed in relazione ad eventuali responsabilita'' civili e/o penali, in caso di richiesta di cancellazione del profilo utente, saranno comunque conservati da UniversiBO, per un periodo non inferiore ai cinque anni, i dati personali dell''autore del materiale pubblicato sul sito stesso. I contributi forniti alla Comunita'' di UniversiBO (messaggi sul forum, appunti) saranno mantenuti anche a fronte della cancellazione dell''utente.
+c) l''attestazione che le operazioni di cui alle lettere a) e b) sono state portate a conoscenza, anche per quanto riguarda il loro contenuto, di coloro ai quali i dati sono stati comunicati o diffusi, eccettuato il caso in cui tale adempimento si rivela impossibile o comporta un impiego di mezzi manifestamente sproporzionato rispetto al diritto tutelato.
+L''interessato ha diritto di opporsi, in tutto o in parte:
+a) per motivi legittimi al trattamento dei dati personali che lo riguardano, ancorche'' pertinenti allo scopo della raccolta;
+b) al trattamento di dati personali che lo riguardano a fini di invio di materiale pubblicitario o di vendita diretta o per il compimento di ricerche di mercato o di comunicazione commerciale.
+f) Titolare del trattamento dei dati e'' l''associazione UniversiBO, che ha sede in Dozza (BO), via Caduti di via Fani n. 12. ');
+INSERT INTO informativa VALUES (3, 1359995427, NULL, '﻿Informativa sul trattamento dei dati personali
+
+
+I dati personali raccolti per l''utilizzo dei servizi offerti sono trattati nel rispetto e secondo le prescrizioni dettate dal d. lgs. n. 196/2003 in materia di privacy.
+ 
+Natura dei dati trattati da UniversiBO e del conferimento
+ 
+UniversiBO tratta:
+ 
+Dati di navigazione
+I sistemi informatici e le procedure software preposte al funzionamento del Portale UniversiBO acquisiscono, nel corso del loro normale esercizio, alcuni dati personali la cui trasmissione è implicita nell’uso dei protocolli di comunicazione di Internet o è utilizzata per migliorare la qualità del servizio offerto.
+
+Si tratta di informazioni che non sono raccolte per essere associate a interessati identificati, ma che per loro stessa natura potrebbero, attraverso elaborazioni ed associazioni, permettere di identificare gli utenti.
+
+In questa categoria di dati rientrano, a titolo esemplificativo, gli indirizzi IP o i nomi a dominio dei computer utilizzati dagli utenti che si connettono al sito, gli indirizzi in notazione URI (Uniform Resource Identifier) delle risorse richieste, l''orario della richiesta, il metodo utilizzato nel sottoporre la richiesta al server, la dimensione del file ottenuto in risposta, il codice numerico indicante lo stato della risposta data dal server (buon fine, errore, ecc.) ed altri parametri relativi al sistema operativo e all''ambiente informatico dell''utente.
+
+
+Questi dati vengono utilizzati al solo fine di ricavare informazioni statistiche anonime sull''uso del sito e per controllarne il corretto funzionamento e vengono cancellati periodicamente. I dati potrebbero essere utilizzati inoltre per l’accertamento di responsabilità in caso di ipotetici reati informatici ai danni di UniversiBO o di terzi.
+ 
+1.  Dati personali forniti volontariamente dall’utente
+Il trattamento dei dati personali che conferisce a UniversiBO e'' finalizzato al pieno godimento dei servizi offerti ed alla realizzazione dell''interazione fra gli studenti iscritti ad UniversiBO, con particolare riguardo alla partecipazione al Forum.
+Nel caso in cui l’interessato intenda iscriversi al sito, tramite autenticazione svolta con credenziali di Ateneo, l’utente conferisce ad UniversiBO automaticamente i seguenti dati:
+
+1. Nome
+2. Cognome
+3. indirizzo e-mail istituzionale
+4. Tipologia di utente (Studente, Docente, Personale Tecnico-amministrativo, ecc)
+
+
+Oltre a tali dati conferiti dall’utente tramite il semplice login, l’interessato può conferire ad UniversiBO i seguenti dati trattati per fini specifici:
+
+
+1) Numero di cellulare: che consente all’interessato di ricevere gratuitamente via SMS notifica delle news inserite su UniversiBO. Sono inviate tramite SMS le news identificate come “urgenti”  dal docente (poiché relative ad insegnamenti/corsi di laurea) oppure le notifiche di informazioni inserite su UniversiBO nei vari canali presenti. In entrambi i casi è l’utente che dovrà provvedere ad inserire la pagina nel “My UniversiBO” ed indicare l’intenzione di ricevere tutte le notifiche tramite l’apposito menù a tendina. 
+        Il servizio di SMS viene offerto utilizzando la piattaforma Mobyt (www.mobyt.it). La società fornitrice del servizio Mobyt è Responsabile del trattamento dei numeri di telefono conferiti dall’interessato.
+L’Associazione UniversiBO, titolare del trattamento, si impegna ad utilizzare il dato per le finalità sopra esposte.
+
+
+2) Pseudonimo (nickname): l’utente al primo accesso ad UniversiBO può scegliere un nickname da utilizzare all’interno del sito. Tale nickname non potrà essere modificato in quanto identificativo dell’utente all’interno del sito. 
+
+
+Tutti i dati sono trattati con sistemi informatizzati e vengono altresì utilizzati per fini statistici, di sicurezza o per il miglioramento del sito.
+
+
+I dati di navigazione ed i dati conferiti al momento del login sono obbligatori affinché sia possibile all’utente navigare all’interno del sito. E’ invece facoltativo il conferimento di ulteriori dati da parte dell’utente (es: numero di cellulare, inserimento di messaggi personali nel profilo, espressione della propria opinione sul forum, ecc..)
+
+
+Il mancato conferimento di tali dati da parte dell''utente non consente di usufruire pienamente dei servizi offerti da UniversiBO.
+
+
+I dati di navigazione ed i dati conferiti al momento del login possono essere oggetto di comunicazione e/o diffusione solo in forma aggregata e/o anonima.
+I dati personali trattati da UniversiBO e conferiti all’utente nelle pagine pubbliche del sito (esempio: forum,...) sono invece oggetto di diffusione.
+
+
+Responsabilità ed esercizio dei diritti di cui all’art. 7 del d.lgs. 196/03
+
+
+Sono riconosciuti all’interessato i diritti di cui all’art. 7 del d.lgs. 196/03. Tali diritti possono essere esercitati dall’interessato contattando l’Associazione UniversiBO all’indirizzo associazione.universibo@unibo.it        
+
+
+Titolare del trattamento dei dati: Associazione UniversiBO, che ha sede in via Caduti di via Fani n. 12, Dozza (BO).');
 
 
 --
@@ -2026,6 +2147,7 @@ INSERT INTO migration_versions VALUES ('20121113220954');
 INSERT INTO migration_versions VALUES ('20121221214920');
 INSERT INTO migration_versions VALUES ('20130102154033');
 INSERT INTO migration_versions VALUES ('20130125021448');
+INSERT INTO migration_versions VALUES ('20130308194214');
 
 
 --
@@ -2178,6 +2300,19 @@ SELECT pg_catalog.setval('questionario_id_questionari_seq', 1, false);
 -- Data for Name: rub_docente; Type: TABLE DATA; Schema: public; Owner: universibo
 --
 
+
+
+--
+-- Data for Name: schools; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+
+
+--
+-- Name: schools_id_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('schools_id_seq', 1, false);
 
 
 --
@@ -2544,6 +2679,14 @@ ALTER TABLE ONLY rub_docente
 
 
 --
+-- Name: schools_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY schools
+    ADD CONSTRAINT schools_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: sdoppiamenti_attivi_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
 --
 
@@ -2831,136 +2974,6 @@ REVOKE ALL ON SCHEMA public FROM PUBLIC;
 REVOKE ALL ON SCHEMA public FROM postgres;
 GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
-
-
---
--- PostgreSQL database dump complete
---
-
---
--- PostgreSQL database dump
---
-
-SET statement_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-
-SET search_path = public, pg_catalog;
-
---
--- Data for Name: informativa; Type: TABLE DATA; Schema: public; Owner: universibo
---
-
-INSERT INTO informativa VALUES (1, 1147431647, 1308674484, 'INFORMATIVA AI SENSI DELLA LEGGE 31 DICEMBRE 1996 N. 675/96
-Ai sensi e per gli effetti dell''art.13 L.675/96 informiamo di quanto segue:
-
-1. In relazione al trattamento di dati personali l''interessato ha diritto:   a) di conoscere, mediante accesso gratuito al registro di cui all''articolo 31, comma 1, lettera a), l''esistenza di trattamenti di dati che possono riguardarlo;
-  b) di essere informato su quanto indicato all''articolo 7, comma 4, lettere a), b) e h);
-  c) di ottenere, a cura del titolare o del responsabile, senza ritardo:
-    1) la conferma dell''esistenza o meno di dati personali che lo riguardano, anche se non ancora registrati, e la comunicazione in forma intelligibile dei medesimi dati e della loro origine, nonch&#232; della logica e delle finalit&#224; su cui si basa il trattamento; la richiesta pu&#242; essere rinnovata, salva l''esistenza di giustificati motivi, con intervallo non minore di novanta giorni;
-    2) la cancellazione, la trasformazione in forma anonima o il blocco dei dati trattati in violazione di legge, compresi quelli di cui non &#232; necessaria la conservazione in relazione agli scopi per i quali i dati sono stati raccolti o successivamente trattati;
-    3) l''aggiornamento, la rettificazione ovvero, qualora vi abbia interesse, l''integrazione dei dati;
-    4) l''attestazione che le operazioni di cui ai numeri 2) e 3) sono state portate a conoscenza, anche per quanto riguarda il loro contenuto, di coloro ai quali i dati sono stati comunicati o diffusi, eccettuato il caso in cui tale adempimento si riveli impossibile o comporti un impiego di mezzi manifestamente sproporzionato rispetto al diritto tutelato;
-  d) di opporsi, in tutto o in parte, per motivi legittimi, al trattamento dei dati personali che lo riguardano, ancorch&#232; pertinenti allo scopo della raccolta;
-  e) di opporsi, in tutto o in parte, al trattamento di dati personali che lo riguardano, previsto a fini di informazione commerciale o di invio di materiale pubblicitario o di vendita diretta ovvero per il compimento di ricerche di mercato o di comunicazione commerciale interattiva e di essere informato dal titolare, non oltre il momento in cui i dati sono comunicati o diffusi, della possibilit&#224; di esercitare gratuitamente tale diritto.
-
-2. Per ciascuna richiesta di cui al comma 1, lettera c), numero 1), pu&#242; essere chiesto all''interessato, ove non risulti confermata l?esistenza di dati che lo riguardano, un contributo spese, non superiore ai costi effettivamente sopportati, secondo le modalit&#224; ed entro i limiti stabiliti dal regolamento di cui all''articolo 33, comma 3.
-
-3. I diritti di cui al comma 1 riferiti ai dati personali concernenti persone decedute possono essere esercitati da chiunque vi abbia interesse.
-
-4. Nell''esercizio dei diritti di cui al comma 1 l''interessato pu&#242; conferire, per iscritto, delega o procura a persone fisiche o ad associazioni.
-
-5. Restano ferme le norme sul segreto professionale degli esercenti la professione di giornalista, limitatamente alla fonte della notizia
-');
-INSERT INTO informativa VALUES (2, 1308674484, 1359995427, 'Informativa sul trattamento dei dati personali
-
-I dati personali raccolti per l''utilizzo dei servizi offerti sono trattati nel rispetto e secondo le prescrizioni dettate dal d. lgs. n. 196/2003 in materia di privacy.
-
-a) Il trattamento dei dati personali da parte di UniversiBO e'' finalizzato al pieno godimento dei servizi offerti e a realizzare l''interazione fra gli studenti iscritti ad UniversiBO, con particolare riguardo alla partecipazione al Forum.
-I dati sono trattati con sistemi informatizzati e vengono altresi'' utilizzati per fini statistici e di sicurezza.
-
-b) Il conferimento dei dati da parte dell''utente e'' facoltativo.
-
-c) Il mancato conferimento dei dati da parte dell''utente non consente di usufruire pienamente dei servizi offerti da UniversiBO.
-
-d) I dati personali trattati da UniversiBO non saranno oggetto di comunicazione e diffusione alcuna.
-e) L''interessato ha diritto di ottenere la conferma dell''esistenza o meno di dati personali che lo riguardano, anche se non ancora registrati, e la loro comunicazione in forma intelligibile.
-Ha altresi'' il diritto di ottenere l''indicazione:
-a) dell''origine dei dati personali;
-b) delle finalita'' e modalita'' del trattamento;
-c) della logica applicata in caso di trattamento effettuato con l''ausilio di strumenti elettronici;
-d) degli estremi identificativi del titolare, dei responsabili e del rappresentante designato ai sensi dell''articolo 5, comma 2;
-e) dei soggetti o delle categorie di soggetti ai quali i dati personali possono essere comunicati o che possono venirne a conoscenza in qualita'' di rappresentante designato nel territorio dello Stato, di responsabili o incaricati.
-L''interessato ha diritto di ottenere:
-a) l''aggiornamento, la rettificazione ovvero, quando vi ha interesse, l''integrazione dei dati;
-b) la cancellazione, la trasformazione in forma anonima o il blocco dei dati trattati in violazione di legge, compresi quelli di cui non e'' necessaria la conservazione in relazione agli scopi per i quali i dati sono stati raccolti o successivamente trattati. Per ragioni di sicurezza ed in relazione ad eventuali responsabilita'' civili e/o penali, in caso di richiesta di cancellazione del profilo utente, saranno comunque conservati da UniversiBO, per un periodo non inferiore ai cinque anni, i dati personali dell''autore del materiale pubblicato sul sito stesso. I contributi forniti alla Comunita'' di UniversiBO (messaggi sul forum, appunti) saranno mantenuti anche a fronte della cancellazione dell''utente.
-c) l''attestazione che le operazioni di cui alle lettere a) e b) sono state portate a conoscenza, anche per quanto riguarda il loro contenuto, di coloro ai quali i dati sono stati comunicati o diffusi, eccettuato il caso in cui tale adempimento si rivela impossibile o comporta un impiego di mezzi manifestamente sproporzionato rispetto al diritto tutelato.
-L''interessato ha diritto di opporsi, in tutto o in parte:
-a) per motivi legittimi al trattamento dei dati personali che lo riguardano, ancorche'' pertinenti allo scopo della raccolta;
-b) al trattamento di dati personali che lo riguardano a fini di invio di materiale pubblicitario o di vendita diretta o per il compimento di ricerche di mercato o di comunicazione commerciale.
-f) Titolare del trattamento dei dati e'' l''associazione UniversiBO, che ha sede in Dozza (BO), via Caduti di via Fani n. 12. ');
-INSERT INTO informativa VALUES (3, 1359995427, NULL, '﻿Informativa sul trattamento dei dati personali
-
-
-I dati personali raccolti per l''utilizzo dei servizi offerti sono trattati nel rispetto e secondo le prescrizioni dettate dal d. lgs. n. 196/2003 in materia di privacy.
- 
-Natura dei dati trattati da UniversiBO e del conferimento
- 
-UniversiBO tratta:
- 
-Dati di navigazione
-I sistemi informatici e le procedure software preposte al funzionamento del Portale UniversiBO acquisiscono, nel corso del loro normale esercizio, alcuni dati personali la cui trasmissione è implicita nell’uso dei protocolli di comunicazione di Internet o è utilizzata per migliorare la qualità del servizio offerto.
-
-Si tratta di informazioni che non sono raccolte per essere associate a interessati identificati, ma che per loro stessa natura potrebbero, attraverso elaborazioni ed associazioni, permettere di identificare gli utenti.
-
-In questa categoria di dati rientrano, a titolo esemplificativo, gli indirizzi IP o i nomi a dominio dei computer utilizzati dagli utenti che si connettono al sito, gli indirizzi in notazione URI (Uniform Resource Identifier) delle risorse richieste, l''orario della richiesta, il metodo utilizzato nel sottoporre la richiesta al server, la dimensione del file ottenuto in risposta, il codice numerico indicante lo stato della risposta data dal server (buon fine, errore, ecc.) ed altri parametri relativi al sistema operativo e all''ambiente informatico dell''utente.
-
-
-Questi dati vengono utilizzati al solo fine di ricavare informazioni statistiche anonime sull''uso del sito e per controllarne il corretto funzionamento e vengono cancellati periodicamente. I dati potrebbero essere utilizzati inoltre per l’accertamento di responsabilità in caso di ipotetici reati informatici ai danni di UniversiBO o di terzi.
- 
-1.  Dati personali forniti volontariamente dall’utente
-Il trattamento dei dati personali che conferisce a UniversiBO e'' finalizzato al pieno godimento dei servizi offerti ed alla realizzazione dell''interazione fra gli studenti iscritti ad UniversiBO, con particolare riguardo alla partecipazione al Forum.
-Nel caso in cui l’interessato intenda iscriversi al sito, tramite autenticazione svolta con credenziali di Ateneo, l’utente conferisce ad UniversiBO automaticamente i seguenti dati:
-
-1. Nome
-2. Cognome
-3. indirizzo e-mail istituzionale
-4. Tipologia di utente (Studente, Docente, Personale Tecnico-amministrativo, ecc)
-
-
-Oltre a tali dati conferiti dall’utente tramite il semplice login, l’interessato può conferire ad UniversiBO i seguenti dati trattati per fini specifici:
-
-
-1) Numero di cellulare: che consente all’interessato di ricevere gratuitamente via SMS notifica delle news inserite su UniversiBO. Sono inviate tramite SMS le news identificate come “urgenti”  dal docente (poiché relative ad insegnamenti/corsi di laurea) oppure le notifiche di informazioni inserite su UniversiBO nei vari canali presenti. In entrambi i casi è l’utente che dovrà provvedere ad inserire la pagina nel “My UniversiBO” ed indicare l’intenzione di ricevere tutte le notifiche tramite l’apposito menù a tendina. 
-        Il servizio di SMS viene offerto utilizzando la piattaforma Mobyt (www.mobyt.it). La società fornitrice del servizio Mobyt è Responsabile del trattamento dei numeri di telefono conferiti dall’interessato.
-L’Associazione UniversiBO, titolare del trattamento, si impegna ad utilizzare il dato per le finalità sopra esposte.
-
-
-2) Pseudonimo (nickname): l’utente al primo accesso ad UniversiBO può scegliere un nickname da utilizzare all’interno del sito. Tale nickname non potrà essere modificato in quanto identificativo dell’utente all’interno del sito. 
-
-
-Tutti i dati sono trattati con sistemi informatizzati e vengono altresì utilizzati per fini statistici, di sicurezza o per il miglioramento del sito.
-
-
-I dati di navigazione ed i dati conferiti al momento del login sono obbligatori affinché sia possibile all’utente navigare all’interno del sito. E’ invece facoltativo il conferimento di ulteriori dati da parte dell’utente (es: numero di cellulare, inserimento di messaggi personali nel profilo, espressione della propria opinione sul forum, ecc..)
-
-
-Il mancato conferimento di tali dati da parte dell''utente non consente di usufruire pienamente dei servizi offerti da UniversiBO.
-
-
-I dati di navigazione ed i dati conferiti al momento del login possono essere oggetto di comunicazione e/o diffusione solo in forma aggregata e/o anonima.
-I dati personali trattati da UniversiBO e conferiti all’utente nelle pagine pubbliche del sito (esempio: forum,...) sono invece oggetto di diffusione.
-
-
-Responsabilità ed esercizio dei diritti di cui all’art. 7 del d.lgs. 196/03
-
-
-Sono riconosciuti all’interessato i diritti di cui all’art. 7 del d.lgs. 196/03. Tali diritti possono essere esercitati dall’interessato contattando l’Associazione UniversiBO all’indirizzo associazione.universibo@unibo.it        
-
-
-Titolare del trattamento dei dati: Associazione UniversiBO, che ha sede in via Caduti di via Fani n. 12, Dozza (BO).');
 
 
 --
