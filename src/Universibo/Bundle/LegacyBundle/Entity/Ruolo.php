@@ -488,7 +488,3 @@ class Ruolo
         return self::$repository;
     }
 }
-
-define('RUOLO_NONE'      , Ruolo::NONE);
-define('RUOLO_MODERATORE', Ruolo::MODERATORE);
-define('RUOLO_REFERENTE' , Ruolo::REFERENTE);

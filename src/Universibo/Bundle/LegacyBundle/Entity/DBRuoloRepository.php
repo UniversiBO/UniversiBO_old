@@ -327,7 +327,7 @@ class DBRuoloRepository extends DBRepository implements
 
         $res->fetchInto($row);
         $ruolo = new Ruolo($idUtente, $idCanale, $row[4], $row[0],
-                $row[1] == RUOLO_MODERATORE, $row[1] == Ruolo::REFERENTE,
+                $row[1] == Ruolo::MODERATORE, $row[1] == Ruolo::REFERENTE,
                 $row[2] == 'S', $row[3], $row[5] == 'S');
 
         return $ruolo;
