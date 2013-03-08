@@ -2,13 +2,11 @@
 
 namespace Universibo\Bundle\DashboardBundle\Features\Context;
 
-use Symfony\Component\HttpKernel\KernelInterface;
-use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Behat\MinkExtension\Context\MinkContext;
-
-    Behat\Behat\Exception\PendingException;
-use Behat\Gherkin\Node\PyStringNode,
-    Behat\Gherkin\Node\TableNode;
+use Behat\Symfony2Extension\Context\KernelAwareInterface;
+use PHPUnit_Framework_Assert;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 /**
  * Feature context.
@@ -38,5 +36,44 @@ class FeatureContext extends MinkContext
     public function setKernel(KernelInterface $kernel)
     {
         $this->kernel = $kernel;
+    }
+
+        /**
+     * @Given /^I\'m logged in as "([^"]*)"$/
+     */
+    public function iMLoggedInAs($username)
+    {
+        $container = $this->kernel->getContainer();
+
+        $user = $container
+            ->get('fos_user.user_manager')
+            ->findUserByUsername($username)
+        ;
+
+        PHPUnit_Framework_Assert::assertInstanceOf('Universibo\\Bundle\\CoreBundle\\Entity\\User', $user);
+
+        $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+        $container->get('security.context')->setToken($token);
+    }
+
+    /**
+     * @When /^I visit "([^"]*)"$/
+     */
+    public function iVisit($url)
+    {
+        $this
+            ->getSession()
+            ->visit($url)
+        ;
+    }
+
+    /**
+     * @Then /^text "([^"]*)" should be present$/
+     */
+    public function textShouldBePresent($text)
+    {
+        $this
+            ->assertPageContainsText($text)
+        ;
     }
 }

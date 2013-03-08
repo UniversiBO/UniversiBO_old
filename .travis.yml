@@ -15,6 +15,7 @@ before_script:
 
 script:
   - bin/phpunit -c app
+  - bin/behat @UniversiboDashboardBundle -v
   - bin/behat @UniversiboWebsiteBundle -v
 
 notifications:

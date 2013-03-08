@@ -1,3 +1,7 @@
 universibo_dashboard_home:
   pattern: /
   defaults: { _controller: 'UniversiboDashboardBundle:Default:index' }
+
+universibo_dashboard_home:
+  pattern: /schools
+  defaults: { _controller: 'UniversiboDashboardBundle:School:index' }
