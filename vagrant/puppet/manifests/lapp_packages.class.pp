@@ -20,6 +20,10 @@ class lapp_packages
         ensure => 'latest'
     }
 
+    package { 'rabbitmq-server' :
+        ensure => 'latest'
+    }
+
     package { 'curl' :
         ensure => 'latest'
     }
