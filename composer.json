@@ -34,7 +34,8 @@
         "universibo/campus-bundle": "dev-master",
         "universibo/smarty": "dev-master",
         "ornicar/apc-bundle": "@dev",
-        "imagine/Imagine": "0.4.*"
+        "imagine/Imagine": "0.4.*",
+        "facebook/php-sdk": "3.2.*"
     },
     "repositories": [
         {
