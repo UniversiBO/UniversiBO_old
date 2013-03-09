@@ -12,7 +12,6 @@ use Swift_Mailer;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Universibo\Bundle\LegacyBundle\App\ErrorHandlers;
 
 /**
  * It is a front controller.
@@ -357,7 +356,7 @@ class FrontController
      */
     private function _setErrorHandler()
     {
-        $handlers = new ErrorHandlers();
+        $handlers = $this->getContainer()->get('universibo_legacy.error.handlers');
         $handlers->register();
     }
 

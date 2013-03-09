@@ -11,7 +11,6 @@ use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
 use Universibo\Bundle\LegacyBundle\Entity\Ruolo;
 use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
-use Universibo\Bundle\LegacyBundle\Framework\LogHandler;
 
 /**
  * -DidatticaGestione: per le correzioni didattiche
@@ -487,16 +486,13 @@ class DidatticaGestione extends UniversiboCommand
     public function _log($id_utente, $channelId, $id_cdl, $id_facolta, $idSdop,
             $modified)
     {
-        $log_definition = array(0 => 'timestamp', 1 => 'date', 2 => 'time',
-                3 => 'id_utente', 4 => 'ip_utente', 5 => 'messaggio');
         $desc = '';
         foreach (array('doc', 'ciclo', 'anno') as $k)
             $desc .= (array_key_exists($k, $modified)) ? $k . ' '
                             . $modified[$k]['old'] . ' -> '
                             . $modified[$k]['new'] . '; ' : '';
 
-        $log = new LogHandler('modificaDidattica',
-                '../universibo/log-universibo/', $log_definition);
+        $logger = $this->get('logger');
 
         $log_array = array('timestamp' => time(),
                 'date' => date("Y-m-d", time()), 'time' => date("H:i", time()),
@@ -504,7 +500,7 @@ class DidatticaGestione extends UniversiboCommand
                 'ip_utente' => (isset($_SERVER)
                         && array_key_exists('REMOTE_ADDR', $_SERVER)) ? $_SERVER['REMOTE_ADDR']
                         : '0.0.0.0', 'messaggio' => $desc);
-        $log->addLogEntry($log_array);
+        $logger->info($log_array);
     }
 
     /**
