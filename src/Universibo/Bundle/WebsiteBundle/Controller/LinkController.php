@@ -3,13 +3,15 @@
 namespace Universibo\Bundle\WebsiteBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
 /**
  */
 class LinkController extends Controller
 {
-    public function boxAction(array $channel = null)
+    public function boxAction($channelId)
     {
         $user = $this->getUser();
         if ($user instanceof User) {
@@ -17,8 +19,12 @@ class LinkController extends Controller
 
             $channelObj = $this
                 ->get('universibo_legacy.repository.canale')
-                ->find($channel['id_canale'])
+                ->find($channelId)
             ;
+
+            if (!$channelObj instanceof Canale) {
+                throw new NotFoundHttpException('Channel not found');
+            }
 
             $addAllowed = $acl->canDoAction('links.edit', $user, $channelObj);
         } else {
@@ -26,12 +32,12 @@ class LinkController extends Controller
         }
 
         $linkRepo = $this->get('universibo_legacy.repository.links.link');
-        $links = $linkRepo->findByChannelId($channel['id_canale']);
+        $links = $linkRepo->findByChannelId($channelId);
 
         $response = $this->render('UniversiboWebsiteBundle:Link:box.html.twig', array(
             'addAllowed' => $addAllowed,
             'links' => $links,
-            'channelId' => $channel['id_canale']
+            'channelId' => $channelId
         ));
 
         $response->setSharedMaxAge(10);
