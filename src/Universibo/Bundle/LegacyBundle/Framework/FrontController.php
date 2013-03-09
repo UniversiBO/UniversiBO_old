@@ -6,12 +6,14 @@ define('MAIL_KEEPALIVE_ALIVE', 1);
 define('MAIL_KEEPALIVE_CLOSE', 2);
 
 use DOMDocument;
+use Error;
 use MySmarty;
 use Smarty;
 use Swift_Mailer;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
 
 /**
  * It is a front controller.
@@ -134,7 +136,7 @@ class FrontController
 
             return array (
                 'content' => $templateEngine->fetch($template),
-                'channel' => $command->getRequestCanale(false),
+                'channel' => $command instanceof CanaleCommand ? $command->getRequestCanale(false) : null,
                 'title'   => $templateEngine->getVariable('common_title')
             );
         }

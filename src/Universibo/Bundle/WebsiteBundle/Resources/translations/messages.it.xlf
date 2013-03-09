@@ -38,6 +38,10 @@
                 <source>ub_forum_lastmsg</source>
                 <target>Ultimi messaggi dal forum</target>
             </trans-unit>
+            <trans-unit id="10">
+                <source>ub_roles_edit</source>
+                <target>Modifica diritti</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
