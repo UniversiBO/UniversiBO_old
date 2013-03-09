@@ -22,7 +22,7 @@ class ForumController extends Controller
         foreach ($postDao->getLatestPosts($forumId, 10) as $post) {
             $posts[] = array(
                 'title' => $post['topic_title'],
-                'uri'   => $forumRouter->getPostUri($post['post_id'])
+                'uri'   => $forumRouter->getPostUri($post['min'])
             );
         }
 
