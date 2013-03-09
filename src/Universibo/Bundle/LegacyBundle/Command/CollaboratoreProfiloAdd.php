@@ -1,12 +1,15 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
-use Universibo\Bundle\LegacyBundle\Framework\Error;
+use Imagine\Gd\Imagine;
+use Imagine\Image\Box;
+use Imagine\Image\ImageInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Collaboratore;
+use Universibo\Bundle\LegacyBundle\Framework\Error;
 
 /**
  * CollaboratoreProfiloAdd: si occupa dell'inserimento del profilo di un collaboratore
@@ -160,9 +163,9 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
                     $dir = $path = $this->get('kernel')->getRootDir() . '/../web/img/contacts/';
                     $collaboratore->setFotoFilename($collabUser->getUsername() .'.png');
 
-                    $imagine = new \Imagine\Gd\Imagine();
-                    $size    = new \Imagine\Image\Box(60, 80);
-                    $mode    = \Imagine\Image\ImageInterface::THUMBNAIL_INSET;
+                    $imagine = new Imagine();
+                    $size    = new Box(60, 80);
+                    $mode    = ImageInterface::THUMBNAIL_INSET;
 
                     $imagine
                         ->open($photo->getPathname())
