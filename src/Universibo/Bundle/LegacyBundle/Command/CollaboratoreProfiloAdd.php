@@ -23,6 +23,7 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
 
     public function execute()
     {
+        $request = $this->getRequest();
         $context = $this->get('security.context');
         $user = $context->getToken()->getUser();
         $id_coll = $this->getRequest()->get('id_coll');
@@ -134,10 +135,7 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
             } else
                 $f36_obiettivi = $_POST['f36_obiettivi'];
 
-            //foto
-            if (array_key_exists('f36_foto', $_POST)) {
-                $f36_foto = $_POST['f36_foto'];
-            }
+            $photo = $request->files->get('f36_foto');
 
             //email
             if (array_key_exists('f36_email', $_POST)) {
@@ -157,7 +155,22 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
                 $collaboratore->setIntro($f36_intro);
                 $collaboratore->setRecapito($f36_recapito);
                 $collaboratore->setObiettivi($f36_obiettivi);
-                $collaboratore->setFotoFilename($f36_foto);
+
+                if (null !== $photo) {
+                    $dir = $path = $this->get('kernel')->getRootDir() . '/../web/img/contacts/';
+                    $collaboratore->setFotoFilename($collabUser->getUsername() .'.png');
+
+                    $imagine = new \Imagine\Gd\Imagine();
+                    $size    = new \Imagine\Image\Box(60, 80);
+                    $mode    = \Imagine\Image\ImageInterface::THUMBNAIL_INSET;
+
+                    $imagine
+                        ->open($photo->getPathname())
+                        ->thumbnail($size, $mode)
+                        ->save($dir . $collaboratore->getFotoFilename())
+                    ;
+                }
+
                 $collaboratore->setRuolo($f36_ruolo);
                 $collabRepo->insert($collaboratore);
 

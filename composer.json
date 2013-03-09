@@ -33,7 +33,8 @@
         "universibo/forum-bundle": "dev-master",
         "universibo/campus-bundle": "dev-master",
         "universibo/smarty": "dev-master",
-        "ornicar/apc-bundle": "@dev"
+        "ornicar/apc-bundle": "@dev",
+        "imagine/Imagine": "0.4.*"
     },
     "repositories": [
         {
