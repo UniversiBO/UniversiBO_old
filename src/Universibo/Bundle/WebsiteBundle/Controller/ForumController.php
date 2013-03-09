@@ -3,14 +3,19 @@
 namespace Universibo\Bundle\WebsiteBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
 /**
  */
 class ForumController extends Controller
 {
-    public function boxAction(array $channel)
+    public function boxAction($channelId)
     {
-        $channel = $this->get('universibo_legacy.repository.canale2')->find($channel['id_canale']);
+        $channel = $this->get('universibo_legacy.repository.canale2')->find($channelId);
+        if (!$channel instanceof Canale) {
+            throw new NotFoundHttpException('Channel not found');
+        }
 
         $postDao = $this->get('universibo_forum.dao.post');
         $forumRouter = $this->get('universibo_forum.router');

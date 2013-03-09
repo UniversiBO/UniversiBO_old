@@ -9,10 +9,10 @@ use Universibo\Bundle\CoreBundle\Entity\User;
  */
 class RoleController extends Controller
 {
-    public function boxAction(array $channel)
+    public function boxAction($channelId)
     {
         $roleRepo = $this->get('universibo_legacy.repository.ruolo');
-        $roles = $roleRepo->findByIdCanale($channel['id_canale']);
+        $roles = $roleRepo->findByIdCanale($channelId);
 
         $userRepo = $this->get('universibo_core.repository.user');
         $loggedUser = $this->getUser();
@@ -42,7 +42,7 @@ class RoleController extends Controller
         $response = $this->render('UniversiboWebsiteBundle:Role:box.html.twig', array(
             'display' => count($viewRoles) > 0 || $editAllowed,
             'roles' => $viewRoles,
-            'channelId' => $channel['id_canale'],
+            'channelId' => $channelId,
             'editAllowed' => $editAllowed
         ));
 

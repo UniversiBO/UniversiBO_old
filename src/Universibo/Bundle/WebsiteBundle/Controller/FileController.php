@@ -8,16 +8,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class FileController extends Controller
 {
-    public function studentBoxAction(array $channel)
+    public function studentBoxAction($channelId)
     {
         $fileRepo = $this->get('universibo_legacy.repository.files.file_item_studenti');
 
-        $ids = $fileRepo->findIdByChannel($channel['id_canale']);
+        $ids = $fileRepo->findIdByChannel($channelId);
         $files = $fileRepo->findMany($ids);
 
         $response = $this->render('UniversiboWebsiteBundle:File:studentBox.html.twig', array(
             'files' => $files,
-            'channelId' => $channel['id_canale']
+            'channelId' => $channelId
         ));
 
         $response->setSharedMaxAge(30);
