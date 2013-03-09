@@ -39,12 +39,12 @@ input.gsc-search-button {
 			<ul>
 				<li><a href="{{ path('universibo_legacy_home') }}">Homepage</a></li>
 				<li>Facoltà
-					<ul>{{ render(controller('UniversiboWebsiteBundle:ChannelMenu:index', { type:3 })) }}</ul>
+					<ul>{{ render_esi(controller('UniversiboWebsiteBundle:ChannelMenu:index', { type:3 })) }}</ul>
 				</li>
 			</ul>
 			<ul>
 				<li>Servizi
-                                    <ul>{{ render(controller('UniversiboWebsiteBundle:ChannelMenu:index', { type:1 })) }}</ul>
+                                    <ul>{{ render_esi(controller('UniversiboWebsiteBundle:ChannelMenu:index', { type:1 })) }}</ul>
 				</li>
 			</ul>
 			<ul class="lastElemento">

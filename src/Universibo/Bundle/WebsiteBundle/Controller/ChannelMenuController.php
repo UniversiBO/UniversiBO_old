@@ -3,13 +3,17 @@
 namespace Universibo\Bundle\WebsiteBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Response;
 
 class ChannelMenuController extends Controller
 {
 
     /**
-     * @Template()
+     * Index action
+     *
+     * @param  integer  $type
+     * @param  array    $allowed
+     * @return Response
      */
     public function indexAction($type, $allowed = array())
     {
@@ -38,6 +42,13 @@ class ChannelMenuController extends Controller
             return strcmp($a['name'], $b['name']);
         });
 
-        return array('links' => $allowed);
+        $response = $this->render('UniversiboWebsiteBundle:ChannelMenu:index.html.twig', array(
+            'links' => $allowed
+        ));
+
+        $response->setPrivate();
+        $response->setMaxAge(120);
+
+        return $response;
     }
 }

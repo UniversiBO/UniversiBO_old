@@ -37,7 +37,7 @@ class ForumController extends Controller
             'channelId' => $channel->getIdCanale()
         ));
 
-        $response->setSharedMaxAge(30);
+        $response->setSharedMaxAge(60);
         $response->setPublic();
 
         return $response;
