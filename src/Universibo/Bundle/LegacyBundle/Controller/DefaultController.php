@@ -33,7 +33,7 @@ class DefaultController extends Controller
             return $result;
         }
 
-        return new Response($result);
+        return $this->render('UniversiboLegacyBundle:Default:index.html.twig', $result);
     }
 
     /**

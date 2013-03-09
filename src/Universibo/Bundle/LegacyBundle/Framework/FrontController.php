@@ -132,9 +132,11 @@ class FrontController
                 Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` presente il file relativo al template specificato: "'.$template.'"','file'=>__FILE__,'line'=>__LINE__));
             }
 
-            return $templateEngine->fetch($template);
+            return array (
+                'content' => $templateEngine->fetch($template),
+                'title'   => $templateEngine->getVariable('common_title')
+            );
         }
-
     }
 
 
