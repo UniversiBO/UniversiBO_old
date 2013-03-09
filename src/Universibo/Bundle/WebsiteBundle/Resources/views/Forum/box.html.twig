@@ -1,0 +1,12 @@
+<div class="box">
+    <h3>{% trans %}ub_forum_lastmsg{% endtrans %}</h3>
+    <div class="contenuto">
+        {% for post in posts %}
+        <p><img src="{{asset('bundles/universibolegacy/images/freccia.gif')}}" width="11"
+             height="10" alt=""><a href="{{ post.uri }}">{{ p.title }}</a></p>
+        {% else %}
+        <p>{% trans %}ub_forum_noposts{% endtrans %}</p>
+        {% endfor %}
+        <a href="{{ forumUri }}">{% trans %}ub_forum_visit{% endtrans %}</a>
+    </div>
+</div>

@@ -26,6 +26,19 @@ class UniversiBOAcl
                 'canaleReadHandler');
         $this->handlers[self::BASE . 'Files\\FileItem']['read'] = array($this,
                 'fileReadHandler');
+
+        $this->handlers[self::BASE . 'Canale']['links.edit'] = function(User $user = null, Canale $channel) {
+            if ($user === null) {
+                return false;
+            }
+            $role = $this->ruoloRepository->find($user->getId(), $channel->getIdCanale());
+
+            if ($role === null) {
+                return false;
+            }
+
+            return $role->isReferente() || $role->isModeratore();
+        };
     }
 
     public function canRead(User $user = null, $object)

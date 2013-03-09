@@ -1,0 +1,18 @@
+{% if display %}
+<div class="box">
+    <h3>{% trans %}ub_contacts{% endtrans %}</h3>
+    <div class="contenuto">
+        {% for roleLabel, roleList in roles %}
+            <p>{{ roleLabel }}</p>
+            {% for role in roleList %}
+                <a href="{{ path('universibo_legacy_user', {id_utente:role.userId}) }}">{{ role.username }}</a>
+                {% if role.referente %}
+                    <img src="{{ asset('bundles/universibolegacy/images/icona_r.gif') }}" width="9" height="9" alt="Referente" title="Referente">
+                {% elseif role.moderatore %}
+                    <img src="{{ asset('bundles/universibolegacy/images/icona_m.gif') }}" width="9" height="9" alt="Moderatore" title="Moderatore">
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

@@ -1,0 +1,14 @@
+<div class="box">
+    <h3>{% trans %}ub_student_files{% endtrans %}</h3>
+    <div class="contenuto">
+        {% for file in files %}
+        <p><img src="{{asset('bundles/universibolegacy/images/freccia.gif')}}" width="11"
+             height="10" alt="">&nbsp;<a href="{{ path('universibo_legacy_file', {id_file: file.idFile}) }}">{{ file.titolo }}</a></p>
+        {% else %}
+            <p>{% trans %}ub_student_files_empty{% endtrans %}</p>
+        {% endfor %}
+        {% if is_granted('ROLE_USER') %}
+            <a href="{{ path('universibo_legacy_file_studenti_add', { id_canale: channelId }) }}">{% trans %}ub_student_files_add{% endtrans %}</a>
+        {% endif %}
+    </div>
+</div>

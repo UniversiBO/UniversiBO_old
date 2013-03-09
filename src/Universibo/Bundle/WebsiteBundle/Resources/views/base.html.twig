@@ -91,8 +91,20 @@ input.gsc-search-button {
     {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
         {{ render(controller('UniversiboWebsiteBundle:UserBox:index')) }}
     {% endif %}
+    {% if channel|default(false) %}
+        {{ render_esi(controller('UniversiboWebsiteBundle:Role:box', {channel: channel})) }}
+    {% endif %}
+    {% if channel|default(false) and channel.servizioForum %}
+        {{ render_esi(controller('UniversiboWebsiteBundle:Forum:box', {channel: channel})) }}
+    {% endif %}
+    {% if channel|default(false) and channel.servizioLinks %}
+        {{ render_esi(controller('UniversiboWebsiteBundle:Link:box', {channel: channel})) }}
+    {% endif %}
+    {% if channel|default(false) and channel.servizioFilesStudenti %}
+        {{ render_esi(controller('UniversiboWebsiteBundle:File:studentBox', {channel: channel})) }}
+    {% endif %}
     {{ render_esi(controller('UniversiboWebsiteBundle:Common:calendar')) }}
-    {{ render_esi(controller('UniversiboWebsiteBundle:Common:version')) }}
+    {{ render(controller('UniversiboWebsiteBundle:Common:version')) }}
 </td></tr> {# FINE MENU DI DESTRA#}
 <tr>
 	<td colspan="2">

@@ -134,6 +134,7 @@ class FrontController
 
             return array (
                 'content' => $templateEngine->fetch($template),
+                'channel' => $command->getRequestCanale(false),
                 'title'   => $templateEngine->getVariable('common_title')
             );
         }
