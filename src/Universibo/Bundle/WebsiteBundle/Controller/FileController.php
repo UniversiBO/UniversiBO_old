@@ -20,8 +20,8 @@ class FileController extends Controller
             'channelId' => $channelId
         ));
 
-        $response->setSharedMaxAge(30);
-        $response->setPublic();
+        $response->setMaxAge(30);
+        $response->setPrivate();
 
         return $response;
     }

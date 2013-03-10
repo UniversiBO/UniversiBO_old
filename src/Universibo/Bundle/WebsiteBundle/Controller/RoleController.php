@@ -46,8 +46,8 @@ class RoleController extends Controller
             'editAllowed' => $editAllowed
         ));
 
-        $response->setSharedMaxAge(30);
-        $response->setPublic();
+        $response->setMaxAge(30);
+        $response->setPrivate();
 
         return $response;
     }

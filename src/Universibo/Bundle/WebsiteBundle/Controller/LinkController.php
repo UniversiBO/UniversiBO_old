@@ -40,8 +40,8 @@ class LinkController extends Controller
             'channelId' => $channelId
         ));
 
-        $response->setSharedMaxAge(10);
-        $response->setPublic();
+        $response->setMaxAge(10);
+        $response->setPrivate();
 
         return $response;
     }
