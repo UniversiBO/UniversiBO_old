@@ -66,15 +66,6 @@ class CommonController extends Controller
      * @Template()
      * @return array
      */
-    public function assetsAction()
-    {
-        return array();
-    }
-
-    /**
-     * @Template()
-     * @return array
-     */
     public function headerAction()
     {
         //solo nella pagine index

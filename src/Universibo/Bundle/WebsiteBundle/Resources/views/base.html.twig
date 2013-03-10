@@ -3,8 +3,12 @@
 <head>
 <title>{% block title %}UniversiBO - Il sito degli studenti per gli studenti{% endblock %}</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-{{ render(controller('UniversiboWebsiteBundle:Common:assets')) }}
-{{ render(controller('UniversiboWebsiteBundle:Common:analytics')) }}
+{% stylesheets
+    'bundles/universibolegacy/css/*'
+    'bundles/universibowebsite/css/*'
+    output="css/compiled/main.css" filter='cssrewrite,?yui_css'%}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+{% endstylesheets %}
 {% if showGoogle|default(false) %}
 {% raw %}
 <style type="text/css">
@@ -114,5 +118,12 @@ input.gsc-search-button {
 	</td>
 </tr>
 </table>
+{% javascripts
+'@UniversiboLegacyBundle/Resources/public/js/*'
+'@UniversiboWebsiteBundle/Resources/public/js/*'
+ output='js/compiled/main.js' filter='?yui_js'%}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{{ render(controller('UniversiboWebsiteBundle:Common:analytics')) }}
 </body>
 </html>
