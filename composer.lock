@@ -1,5 +1,5 @@
 {
-    "hash": "9b46812237a595df068cf2e216308db7",
+    "hash": "fa3d15a7b44721160c228dd41e9ade30",
     "packages": [
         {
             "name": "doctrine/common",
@@ -2171,17 +2171,17 @@
         },
         {
             "name": "universibo/shibboleth-bundle",
-            "version": "dev-master",
+            "version": "0.1.x-dev",
             "target-dir": "Universibo/Bundle/ShibbolethBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle.git",
-                "reference": "6fecd87dbe04d914098d3d42c984937bbe1e11b8"
+                "reference": "v0.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UniversiBO/UniversiboShibbolethBundle/zipball/6fecd87dbe04d914098d3d42c984937bbe1e11b8",
-                "reference": "6fecd87dbe04d914098d3d42c984937bbe1e11b8",
+                "url": "https://api.github.com/repos/UniversiBO/UniversiboShibbolethBundle/zipball/v0.1.0",
+                "reference": "v0.1.0",
                 "shasum": ""
             },
             "require": {
