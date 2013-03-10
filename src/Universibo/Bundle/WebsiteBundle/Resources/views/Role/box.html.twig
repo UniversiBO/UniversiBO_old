@@ -6,7 +6,7 @@
             <p>{{ roleLabel }}</p>
             {% for role in roleList %}
                 <p>
-                <img src="{{ asset('bundles/universibolegacy/images/pallino1.gif') }}" width="11" height="10" alt="">
+                <img src="{{ asset('bundles/universibolegacy/images/pallino1.gif') }}" width="11" height="10" alt=""/>
                 <a href="{{ path('universibo_legacy_user', {id_utente:role.userId}) }}">{{ role.username }}</a>
 
                 {% if role.referente %}
