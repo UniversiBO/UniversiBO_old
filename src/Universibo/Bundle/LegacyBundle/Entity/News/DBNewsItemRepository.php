@@ -420,6 +420,9 @@ EOT;
             ->fetchColumn($statement, array($channel->getIdCanale()))
         ;
 
-        return new DateTime($date);
+        $dateTime = new DateTime();
+        $dateTime->setTimestamp($date);
+
+        return $dateTime;
     }
 }

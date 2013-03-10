@@ -3,16 +3,20 @@
 namespace Universibo\Bundle\WebsiteBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
 class RssController extends Controller
 {
     /**
-     * @todo ACL
-     * @todo manage Facoltà
+     * Index action
+     *
+     * @param  Request  $request
+     * @param  integer  $idCanale
+     * @return Response
      */
-    public function indexAction($idCanale)
+    public function indexAction(Request $request, $idCanale)
     {
         $canaleRepo = $this->get('universibo_legacy.repository.canale2');
         $channel = $canaleRepo->find($idCanale);
@@ -21,17 +25,32 @@ class RssController extends Controller
             throw $this->createNotFoundException('Canale not found');
         }
 
-        $context = $this->get('security.context');
+        $response = new Response();
+        $response->setMaxAge(60);
 
         $acl = $this->get('universibo_legacy.acl');
-        $user = $context->isGranted('IS_AUTHENTICATED_FULLY') ? $context
-        ->getToken()->getUser() : null;
+        $public = $acl->canRead(null, $channel);
+        if ($public) {
+            $response->setPublic();
+        }
 
-        if (!$acl->canRead($user, $channel)) {
-            $response = new Response();
-            $response->setStatusCode(403);
-            $response->setContent('403 Forbidden');
+        if (!$public) {
+            $context = $this->get('security.context');
 
+            $user = $context->isGranted('IS_AUTHENTICATED_FULLY') ? $context
+            ->getToken()->getUser() : null;
+
+            if (!$acl->canRead($user, $channel)) {
+                $response->setStatusCode(403);
+                $response->setContent('403 Forbidden');
+
+                return $response;
+            }
+        }
+
+        $newsRepo = $this->get('universibo_legacy.repository.news.news_item');
+        $response->setLastModified($newsRepo->getLastModificationDate($channel));
+        if ($response->isNotModified($request)) {
             return $response;
         }
 
@@ -39,12 +58,8 @@ class RssController extends Controller
 
         $feed = $generator->generateFeed($channel);
 
-        $response = new Response();
-        $response->headers
-                ->set('Content-Type', 'application/rss+xml; charset=utf-8');
+        $response->headers->set('Content-Type', 'application/rss+xml; charset=utf-8');
         $response->setContent($feed->export('rss'));
-        $response->setPublic();
-        $response->setSharedMaxAge(60);
 
         return $response;
     }
