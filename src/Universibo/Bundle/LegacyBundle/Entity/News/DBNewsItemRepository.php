@@ -1,13 +1,15 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity\News;
 
-use Universibo\Bundle\LegacyBundle\PearDB\DB;
+use DateTime;
 use Universibo\Bundle\CoreBundle\Entity\MergeableRepositoryInterface;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\CoreBundle\Entity\UserRepository;
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
 use Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
+use Universibo\Bundle\LegacyBundle\PearDB\DB;
 
 /**
  * DBNewsItem repository
@@ -180,23 +182,12 @@ EOT;
 
         $res = $db->query($sql);
 
-        if (DB::isError($res)) {
-            $this
-                    ->throwError('_ERROR_DEFAULT',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-        }
-
         $news = array();
         while ($row = $this->fetchRow($res)) {
-            $userRepository = $this->userRepository;
-
             $news[] = new NewsItem($row[7], $row[0], $row[1], $row[2], $row[3],
                     $row[8], ($row[4] == NewsItem::URGENTE),
                     ($row[5] == NewsItem::ELIMINATA), $row[9], $row[6]);
         }
-
-        $res->free();
 
         return $news;
     }
@@ -412,5 +403,23 @@ EOT;
         }
 
         return $db->affectedRows();
+    }
+
+    /**
+     * Gets last modification date for channel
+     *
+     * @param  Canale   $channel
+     * @return DateTime
+     */
+    public function getLastModificationDate(Canale $channel)
+    {
+        $statement = 'SELECT MAX(data_modifica) FROM news n, news_canale nc WHERE n.id_news = nc.id_news AND nc.id_canale = ?';
+        $db = $this->getConnection();
+
+        $date = $db
+            ->fetchColumn($statement, array($channel->getIdCanale()))
+        ;
+
+        return new DateTime($date);
     }
 }

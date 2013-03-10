@@ -1,11 +1,10 @@
 <?php
 
 namespace Universibo\Bundle\WebsiteBundle\Controller;
-use Universibo\Bundle\LegacyBundle\Entity\Canale;
-
-use Symfony\Component\HttpFoundation\Response;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
 class RssController extends Controller
 {
@@ -38,8 +37,7 @@ class RssController extends Controller
 
         $generator = $this->get('universibo_website.feed.feed_generator');
 
-        $feed = $generator
-                ->generateFeed($channel, $this->get('router'), true);
+        $feed = $generator->generateFeed($channel);
 
         $response = new Response();
         $response->headers

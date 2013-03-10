@@ -33,7 +33,10 @@ abstract class DBRepositoryTest extends ContainerAwareTest
         $kernel->boot();
 
         $this->db = $kernel->getContainer()->get('universibo_legacy.db.connection.main');
-        $this->db->autocommit(false);
+
+        if (!$this->db->unwrap()->isTransactionActive()) {
+            $this->db->unwrap()->beginTransaction();
+        }
     }
 
     protected function assertPreConditions()
@@ -43,9 +46,10 @@ abstract class DBRepositoryTest extends ContainerAwareTest
 
     protected function tearDown()
     {
-        if ($this->db instanceof ConnectionWrapper) {
-            $this->db->rollback();
-            $this->db->disconnect();
+        $db = $this->db instanceof ConnectionWrapper ? $this->db->unwrap() : $this->db;
+
+        if ($db->isTransactionActive()) {
+            $db->rollback();
         }
 
         static::$kernel->shutdown();

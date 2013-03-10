@@ -1,12 +1,10 @@
 <?php
 namespace Universibo\Bundle\WebsiteBundle\Feed;
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
-use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
-
+use Symfony\Component\Routing\RouterInterface;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\News\DBNewsItemRepository;
-
+use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
 use Zend\Feed\Writer\Feed;
 
 /**
@@ -23,12 +21,21 @@ class FeedGenerator
     private $repository;
 
     /**
-     * Class constructor
-     * @param DBNewsItemRepository $repository
+     *
+     * @var RouterInterface
      */
-    public function __construct(DBNewsItemRepository $repository)
+    private $router;
+
+    /**
+     * Class constructor
+     *
+     * @param DBNewsItemRepository $repository
+     * @param RouterInterface      $router
+     */
+    public function __construct(DBNewsItemRepository $repository, RouterInterface $router)
     {
         $this->repository = $repository;
+        $this->router = $router;
     }
 
     /**
@@ -36,34 +43,26 @@ class FeedGenerator
      * @param  Canale $canale
      * @return Feed
      */
-    public function generateFeed(Canale $canale, Router $router, $legacy = true)
+    public function generateFeed(Canale $canale)
     {
-        $context = $router->getContext();
-
         $idCanale = $canale->getIdCanale();
 
         $feed = new Feed();
         $feed->setTitle($nome = $canale->getTitolo());
         $feed->setDescription('Feed ' . $nome);
-        $feed
-                ->setLink(
-                        $router
-                                ->generate('rss',
-                                        array('idCanale' => $idCanale), true));
+        $feed->setLink($this->router->generate('rss', array('idCanale' => $idCanale), true));
 
         $newsRepository = $this->repository;
         $news = $newsRepository->findByCanale($idCanale, 20);
-        $news = is_array($news) ? $news : array();
 
         foreach ($news as $item) {
-            $this->newsToEntry($feed, $item, $router, $legacy);
+            $this->newsToEntry($feed, $item);
         }
 
         return $feed;
     }
 
-    private function newsToEntry(Feed $feed, NewsItem $item,
-            Router $router)
+    private function newsToEntry(Feed $feed, NewsItem $item)
     {
         $entry = $feed->createEntry();
         $title = $item->getTitolo();
@@ -74,7 +73,7 @@ class FeedGenerator
         $entry->setContent(empty($content) ? 'Nessun testo' : $content);
 
         $id = $item->getIdNotizia();
-        $link = $router->generate('universibo_legacy_permalink', array('id_notizia' => $id), true);
+        $link = $this->router->generate('universibo_legacy_permalink', array('id_notizia' => $id), true);
 
         $entry->setLink($link);
         $entry->addAuthor(array('name' => $item->getUsername()));
