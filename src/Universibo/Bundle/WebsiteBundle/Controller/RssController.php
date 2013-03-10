@@ -29,18 +29,15 @@ class RssController extends Controller
         $response->setMaxAge(60);
 
         $acl = $this->get('universibo_legacy.acl');
-        $public = $acl->canRead(null, $channel);
-        if ($public) {
+        if ($acl->canRead(null, $channel)) {
             $response->setPublic();
-        }
-
-        if (!$public) {
+        } else {
             $context = $this->get('security.context');
 
             $user = $context->isGranted('IS_AUTHENTICATED_FULLY') ? $context
             ->getToken()->getUser() : null;
 
-            if (!$acl->canRead($user, $channel)) {
+            if ($user == null || !$acl->canRead($user, $channel)) {
                 $response->setStatusCode(403);
                 $response->setContent('403 Forbidden');
 
