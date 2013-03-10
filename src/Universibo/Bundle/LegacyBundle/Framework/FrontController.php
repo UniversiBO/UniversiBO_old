@@ -12,6 +12,7 @@ use Swift_Mailer;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
 
 /**
  * It is a front controller.
@@ -132,9 +133,12 @@ class FrontController
                 Error::throwError(_ERROR_CRITICAL,array('msg'=>'Non e` presente il file relativo al template specificato: "'.$template.'"','file'=>__FILE__,'line'=>__LINE__));
             }
 
-            return $templateEngine->fetch($template);
+            return array (
+                'content' => $templateEngine->fetch($template),
+                'channel' => $command instanceof CanaleCommand ? $command->getRequestCanale(false) : null,
+                'title'   => $templateEngine->getVariable('common_title')
+            );
         }
-
     }
 
 

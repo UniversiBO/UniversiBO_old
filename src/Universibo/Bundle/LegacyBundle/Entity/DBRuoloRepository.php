@@ -1,9 +1,10 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
-use Universibo\Bundle\LegacyBundle\PearDB\DB;
+use PDO;
 use Universibo\Bundle\CoreBundle\Entity\MergeableRepositoryInterface;
 use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\LegacyBundle\PearDB\DB;
 
 /**
  * Ruolo repository
@@ -16,18 +17,10 @@ class DBRuoloRepository extends DBRepository implements
 {
     public function delete(Ruolo $ruolo)
     {
-        $db = $this->getDb();
-        $query = 'DELETE FROM utente_canale WHERE id_utente = '
-                . $db->quote($ruolo->getId()) . ' AND id_canale = '
-                . $db->quote($ruolo->getIdCanale());
-        $res = $db->query($query);
-        if (DB::isError($res))
-            $this
-                    ->throwError('_ERROR_CRITICAL',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
+        $db = $this->getConnection();
+        $query = 'DELETE FROM utente_canale WHERE id_utente = ? AND id_canale = ?';
 
-        return true;
+        return $db->executeUpdate($query, array($ruolo->getId(), $ruolo->getIdCanale())) > 0;
     }
 
     public function insert(Ruolo $ruolo)
@@ -303,35 +296,22 @@ class DBRuoloRepository extends DBRepository implements
 
     public function find($idUtente, $idCanale)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT ultimo_accesso, ruolo, my_universibo, notifica, nome, nascosto FROM utente_canale WHERE id_utente = '
                 . $db->quote($idUtente) . ' AND id_canale= '
                 . $db->quote($idCanale);
         $res = $db->query($query);
-        if (DB::isError($res))
-            $this
-                    ->throwError('_ERROR_CRITICAL',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
 
-        $rows = $res->numRows();
-        if ($rows > 1)
-            $this
-                    ->throwError('_ERROR_CRITICAL',
-                            array(
-                                    'msg' => 'Errore generale database: ruolo non unico',
-                                    'file' => __FILE__, 'line' => __LINE__));
-        if ($rows == 0)
-            return false;
+        $row = $res->fetch(PDO::FETCH_NUM);
 
-        $res->fetchInto($row);
-        $ruolo = new Ruolo($idUtente, $idCanale, $row[4], $row[0],
+        if ($row === false) {
+            return null;
+        }
+
+        return new Ruolo($idUtente, $idCanale, $row[4], $row[0],
                 $row[1] == Ruolo::MODERATORE, $row[1] == Ruolo::REFERENTE,
                 $row[2] == 'S', $row[3], $row[5] == 'S');
-
-        return $ruolo;
-
     }
 
     public function exists($idUtente, $idCanale)

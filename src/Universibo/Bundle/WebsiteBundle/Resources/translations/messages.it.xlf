@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="">
+        <body>
+            <trans-unit id="1">
+                <source>ub_contacts</source>
+                <target>Contatti</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>ub_links</source>
+                <target>Link</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>ub_nolinks</source>
+                <target>Nessun link presente</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>ub_student_files</source>
+                <target>File studenti</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>ub_student_files_add</source>
+                <target>Aggiungi il tuo contributo</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>ub_student_files_empty</source>
+                <target>Nessun contributo disponibile</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>ub_forum_noposts</source>
+                <target>Non ci sono post nel forum</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>ub_forum_visit</source>
+                <target>Visita il forum</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>ub_forum_lastmsg</source>
+                <target>Ultimi messaggi dal forum</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>ub_roles_edit</source>
+                <target>Modifica diritti</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
+
+

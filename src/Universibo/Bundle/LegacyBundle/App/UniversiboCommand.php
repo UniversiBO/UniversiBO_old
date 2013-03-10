@@ -9,7 +9,6 @@ use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Facolta;
 use Universibo\Bundle\LegacyBundle\Framework\BaseCommand;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
-use Universibo\Bundle\WebsiteBundle\UniversiboWebsiteBundle;
 /**
  * UniversiboCommand is the abstract super class of all command classes
  * used in the universibo application.
@@ -226,32 +225,6 @@ abstract class UniversiboCommand extends BaseCommand
             $template->assign('common_myLinksAvailable', 'false');
         }
 
-        //solo nella pagine index
-        $curr_mday = date("j");  //inizializzo giorno corrente
-        $curr_mese = date("n");  //inizializzo mese corrente
-        $curr_anno = date("Y");  //inizializzo anno corrente
-        $logoType = 'default';
-        if ($curr_mese == 8)
-            $logoType = 'estate';
-        elseif ($curr_mday == 8 && $curr_mese == 3)
-        $logoType = '8marzo';
-        elseif ($curr_mday == 31 && $curr_mese == 10)
-        $logoType = 'halloween';
-        elseif ($curr_mday == 14 && $curr_mese == 2)
-        $logoType = 'svalentino';
-        elseif (($curr_mese == 12 && $curr_mday >= 8) || ($curr_mese == 1 && $curr_mday <= 7))
-        $logoType = 'natale';
-        elseif ((easter_date($curr_anno) == mktime(0, 0, 0, $curr_mese, $curr_mday, $curr_anno) ) || (easter_date($curr_anno) == mktime(0, 0, 0, $curr_mese, $curr_mday - 1, $curr_anno) ))
-        $logoType = 'pasqua';
-        elseif (false)
-        $logoType = 'carnevale';  //cambiare questa riga a carnevale o trovare il modo per calcolarlo
-
-        $headerResponse = $this->forward('UniversiboWebsiteBundle:Common:header');
-        $template->assign('common_header', $headerResponse->getContent());
-
-        $template->assign('common_logoType', $logoType); //estate/natale/8marzo/pasqua/carnevale/svalentino/halloween/ecc...
-        $template->assign('common_logo', 'Logo UniversiBO');
-
         $template->assign('common_setHomepage', 'Imposta Homepage');
         $template->assign('common_addBookmarks', 'Aggiungi ai preferiti');
 
@@ -348,36 +321,7 @@ abstract class UniversiboCommand extends BaseCommand
         $template->assign('common_docSf', 'Documentazione');
         $template->assign('common_docSfUri', 'https://wiki.universibo.unibo.it/');
 
-        $loginResponse = $this->forward('_universibo_sso.controller.userbox:indexAction');
-
-        $template->assign('common_loginBox', $loginResponse->getContent());
-        //$template->assign('common_project', 'UniversiBO Open Source Project');
-        //$template->assign('common_projectUri', 'http://universibo.sourceforge.net/');
-
-
-        $template->assign('common_disclaimer', array('Le informazioni contenute nel sito non hanno carattere di ufficialità.',
-                'I contenuti sono mantenuti in maniera volontaria dai partecipanti alla comunità di studenti e docenti di UniversiBO. L\'Università di Bologna - Alma Mater Studiorum non può essere considerata legalmente responsabile di alcun contenuto di questo sito.',
-                'Ogni marchio citato in queste pagine appartiene al legittimo proprietario.' .
-                'Con il contenuto delle pagine appartenenti a questo sito non si è voluto ledere i diritti di nessuno, quindi nel malaugurato caso che questo possa essere avvenuto, vi invitiamo a contattarci affinché le parti in discussione vengano eliminate o chiarite.'));
-
         $template->assign('common_isSetVisite', 'N');
-
-        //calendario
-        $calendarResponse = $this->forward('UniversiboWebsiteBundle:Common:calendar');
-        $template->assign('common_calendarBox', $calendarResponse->getContent());
-
-        $assetsResponse = $this->forward('UniversiboWebsiteBundle:Common:assets');
-        $template->assign('common_assets', $assetsResponse->getContent());
-
-        if ('prod' === $this->container->getParameter('kernel.environment')) {
-            $analyticsResponse = $this->forward('UniversiboWebsiteBundle:Common:analytics');
-            $template->assign('common_analytics', $analyticsResponse->getContent());
-        } else {
-            $template->assign('common_analytics', '');
-        }
-
-        $template->assign('common_version', UniversiboWebsiteBundle::VERSION);
-        $template->assign('common_showGoogle', $this->get('kernel')->getEnvironment() === 'prod');
     }
 
     /**
