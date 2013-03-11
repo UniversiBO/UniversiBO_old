@@ -2,11 +2,12 @@
 /**
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
-namespace Universibo\Bundle\LegacyBundle\Tests\Entity;
+namespace Universibo\Bundle\LegacyBundle\Tests\Entity\News;
 
 use DateTime;
 use Universibo\Bundle\LegacyBundle\Entity\News\DBNewsItemRepository;
 use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
+use Universibo\Bundle\LegacyBundle\Tests\Entity\DBRepositoryTest;
 
 class DBNewsItemRepositoryTest extends DBRepositoryTest
 {
@@ -25,10 +26,6 @@ class DBNewsItemRepositoryTest extends DBRepositoryTest
 
         $this->repository = $container->get('universibo_legacy.repository.news.news_item');
         $this->channelRepo = $container->get('universibo_legacy.repository.canale2');
-
-        if (!$this->db->unwrap()->isTransactionActive()) {
-            $this->db->unwrap()->beginTransaction();
-        }
     }
 
     public function testGetLastModificationDate()
@@ -37,8 +34,8 @@ class DBNewsItemRepositoryTest extends DBRepositoryTest
         $nowt = $now->getTimestamp();
 
         $news = new NewsItem(0, 'test', 'body', $nowt, null, $nowt, false, false, 1, 'admin');
-        $news->setIdCanali(array(1));
         $this->repository->insert($news);
+        $this->repository->addToChannel($news,1);
 
         $this->assertEquals($now, $this->repository->getLastModificationDate($this->channelRepo->find(1)));
     }

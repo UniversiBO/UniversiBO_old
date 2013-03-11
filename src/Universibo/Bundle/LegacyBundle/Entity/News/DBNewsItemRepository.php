@@ -194,12 +194,10 @@ EOT;
 
     public function insert(NewsItem $newsItem)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
+        $next_id = $db->fetchColumn('SELECT nextval(\'news_id_news_seq\')');
+        $newsItem->setIdNotizia($next_id);
 
-        ignore_user_abort(1);
-        $db->autoCommit(false);
-        $next_id = $db->nextID('news_id_news');
-        $return = true;
         $scadenza = ($newsItem->getDataScadenza() == NULL) ? ' NULL '
                 : $db->quote($newsItem->getDataScadenza());
         $eliminata = ($newsItem->isEliminata()) ? NewsItem::ELIMINATA
@@ -213,23 +211,10 @@ EOT;
                 . ' , ' . $db->quote($newsItem->getIdUtente()) . ' , '
                 . $db->quote($eliminata) . ' , ' . $db->quote($flag_urgente)
                 . ' , ' . $db->quote($newsItem->getUltimaModifica()) . ' )';
-        $res = $db->query($query);
-        //var_dump($query);
-        if (DB::isError($res)) {
-            $db->rollback();
-            $this
-                    ->throwError('_ERROR_CRITICAL',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-        }
 
-        $newsItem->setIdNotizia($next_id);
+        $db->executeUpdate($query);
 
-        $db->commit();
-        $db->autoCommit(true);
-        ignore_user_abort(0);
-
-        return $return;
+        return true;
     }
 
     public function getChannelIdList(NewsItem $news)
@@ -292,7 +277,7 @@ EOT;
             return false;
         }
 
-        $ids = $news->getIdCanali();
+        $ids = $this->getChannelIdList($news);
         $ids[] = $channelId;
         $news->setIdCanali($ids);
 
