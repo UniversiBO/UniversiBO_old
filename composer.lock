@@ -1,5 +1,5 @@
 {
-    "hash": "fa3d15a7b44721160c228dd41e9ade30",
+    "hash": "9b46812237a595df068cf2e216308db7",
     "packages": [
         {
             "name": "doctrine/common",
@@ -76,12 +76,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/data-fixtures.git",
-                "reference": "689bc2ae2a41dff1107d9d50e2daa4c349222869"
+                "reference": "eef10f6b92706bdae2841a8fdeb45ad8999b15b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/689bc2ae2a41dff1107d9d50e2daa4c349222869",
-                "reference": "689bc2ae2a41dff1107d9d50e2daa4c349222869",
+                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/eef10f6b92706bdae2841a8fdeb45ad8999b15b3",
+                "reference": "eef10f6b92706bdae2841a8fdeb45ad8999b15b3",
                 "shasum": ""
             },
             "require": {
@@ -123,7 +123,7 @@
             "keywords": [
                 "database"
             ],
-            "time": "2013-02-12 02:52:36"
+            "time": "2013-03-11 00:25:48"
         },
         {
             "name": "doctrine/dbal",
@@ -2171,26 +2171,28 @@
         },
         {
             "name": "universibo/shibboleth-bundle",
-            "version": "0.1.x-dev",
+            "version": "dev-master",
             "target-dir": "Universibo/Bundle/ShibbolethBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle.git",
-                "reference": "v0.1.0"
+                "reference": "bac4482ad48c0ea5e0d49c25bf1af42d9a749fe1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UniversiBO/UniversiboShibbolethBundle/zipball/v0.1.0",
-                "reference": "v0.1.0",
+                "url": "https://api.github.com/repos/UniversiBO/UniversiboShibbolethBundle/zipball/bac4482ad48c0ea5e0d49c25bf1af42d9a749fe1",
+                "reference": "bac4482ad48c0ea5e0d49c25bf1af42d9a749fe1",
                 "shasum": ""
             },
             "require": {
+                "friendsofsymfony/user-bundle": "*",
                 "symfony/framework-bundle": ">=2.1.0,<2.3-dev",
                 "symfony/security-bundle": ">=2.1.0,<2.3-dev",
                 "zendframework/zend-uri": ">=2.0.0,<2.1.0"
             },
             "require-dev": {
-                "symfony/yaml": "2.1.*"
+                "phpunit/phpunit": "3.7.*",
+                "symfony/yaml": "2.2.*"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -2212,12 +2214,13 @@
                     "homepage": "https://github.com/UniversiBO/UniversiboShibbolethBundle/graphs/contributors"
                 }
             ],
-            "description": "UniversiBO ShibbolethBundle",
+            "description": "Shibboleth Integration for FOSUserBundle",
             "homepage": "http://github.com/UniversiBO",
             "keywords": [
+                "Authentication",
                 "shibboleth"
             ],
-            "time": "2013-03-08 14:52:34"
+            "time": "2013-03-11 09:24:22"
         },
         {
             "name": "universibo/smarty",
