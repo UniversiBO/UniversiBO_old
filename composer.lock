@@ -2176,12 +2176,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle.git",
-                "reference": "bac4482ad48c0ea5e0d49c25bf1af42d9a749fe1"
+                "reference": "39d6c9251bfd5f3a50f1953ae9009b4fa5efde15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UniversiBO/UniversiboShibbolethBundle/zipball/bac4482ad48c0ea5e0d49c25bf1af42d9a749fe1",
-                "reference": "bac4482ad48c0ea5e0d49c25bf1af42d9a749fe1",
+                "url": "https://api.github.com/repos/UniversiBO/UniversiboShibbolethBundle/zipball/39d6c9251bfd5f3a50f1953ae9009b4fa5efde15",
+                "reference": "39d6c9251bfd5f3a50f1953ae9009b4fa5efde15",
                 "shasum": ""
             },
             "require": {
@@ -2220,7 +2220,7 @@
                 "Authentication",
                 "shibboleth"
             ],
-            "time": "2013-03-11 09:24:22"
+            "time": "2013-03-11 10:48:27"
         },
         {
             "name": "universibo/smarty",
