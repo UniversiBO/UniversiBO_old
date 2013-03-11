@@ -89,12 +89,20 @@ class CommonController extends Controller
         $logoType = 'carnevale';
 
         $response = $this->render('UniversiboWebsiteBundle:Common:header.html.twig', array(
-            'logoType' => $logoType
+            'logoType' => $logoType,
         ));
+
         $response->setPublic();
         $response->setExpires(new DateTime('tomorrow'));
 
         return $response;
+    }
+
+    public function navbarAction()
+    {
+        return $this->render('UniversiboWebsiteBundle:Common:navbar.html.twig', array(
+            'forumUri' => $this->get('universibo_forum.router')->getRootUri(),
+        ));
     }
 
     /**

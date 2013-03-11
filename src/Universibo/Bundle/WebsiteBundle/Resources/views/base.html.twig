@@ -32,10 +32,8 @@ input.gsc-search-button {
 <tr>
     <td colspan="3"> {# barra in alto, gif di sinistra LOGO a sfondo BIANCO di dimensioni 150x92,gif per il TITOLO a sfondo del colore della tabella con data e menu di navigazione di dimensioni 600x100 #}
 		{{ render_esi(controller('UniversiboWebsiteBundle:Common:header')) }}
-		<div id="menubar">
-                    <p id="Menu">&nbsp;<a href="{{ path('universibo_legacy_help_topic') }}">Help</a>&nbsp;|&nbsp;<a href="/forum/" accesskey="2">Forum</a>&nbsp;|&nbsp;<a href="{{ path('universibo_legacy_contacts') }}">Chi&nbsp;Siamo</a>&nbsp;|&nbsp;<a href="{{ path('universibo_legacy_contribute') }}">Collabora</a>&nbsp;|&nbsp;<a href="{{ path('universibo_legacy_accessibility') }}">Accessibilità</a>{% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}&nbsp;|&nbsp;<a href="{{ path('universibo_legacy_settings') }}">Impostazioni personali</a>{% endif %}</p>
-                    <span id="loginbox">{{ render(controller('_universibo_sso.controller.userbox:indexAction')) }}</span>
-		</div> {# /menubar #}
+      		{{ render_esi(controller('UniversiboWebsiteBundle:Common:navbar')) }}
+
 </td></tr>
 <tr valign="top"> {# INIZIO DEL CORPO CENTRALE DELLA PAGINA (MENU DX E SX E PAG CENTRO) #}
 	<td id="navigazione" class="evidenzia" rowspan="2" width="200">

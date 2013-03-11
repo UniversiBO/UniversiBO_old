@@ -1,0 +1,4 @@
+		<div id="menubar">
+                    <p id="Menu">&nbsp;<a href="{{ path('universibo_legacy_help_topic') }}">Help</a>&nbsp;|&nbsp;<a href="{{ forumUri }}" accesskey="2">Forum</a>&nbsp;|&nbsp;<a href="{{ path('universibo_legacy_contacts') }}">Chi&nbsp;Siamo</a>&nbsp;|&nbsp;<a href="{{ path('universibo_legacy_contribute') }}">Collabora</a>&nbsp;|&nbsp;<a href="{{ path('universibo_legacy_accessibility') }}">Accessibilità</a>{% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}&nbsp;|&nbsp;<a href="{{ path('universibo_legacy_settings') }}">Impostazioni personali</a>{% endif %}</p>
+                    <span id="loginbox">{{ render(controller('_universibo_sso.controller.userbox:indexAction')) }}</span>
+		</div> {# /menubar #}
