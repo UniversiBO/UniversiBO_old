@@ -2121,12 +2121,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/UniversiBO/UniversiboForumBundle.git",
-                "reference": "7c72150c3d50d66d7f4577bc7eb5d4bc06edaede"
+                "reference": "3fd6be8c9787e0cec9408bd45baf140848df5dce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UniversiBO/UniversiboForumBundle/zipball/7c72150c3d50d66d7f4577bc7eb5d4bc06edaede",
-                "reference": "7c72150c3d50d66d7f4577bc7eb5d4bc06edaede",
+                "url": "https://api.github.com/repos/UniversiBO/UniversiboForumBundle/zipball/3fd6be8c9787e0cec9408bd45baf140848df5dce",
+                "reference": "3fd6be8c9787e0cec9408bd45baf140848df5dce",
                 "shasum": ""
             },
             "require": {
@@ -2167,7 +2167,7 @@
                 "source": "https://github.com/UniversiBO/UniversiboForumBundle/tree/master",
                 "issues": "https://github.com/UniversiBO/UniversiboForumBundle/issues"
             },
-            "time": "2013-03-11 11:01:10"
+            "time": "2013-03-11 11:26:46"
         },
         {
             "name": "universibo/shibboleth-bundle",
