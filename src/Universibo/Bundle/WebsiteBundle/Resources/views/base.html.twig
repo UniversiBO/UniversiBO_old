@@ -4,6 +4,7 @@
 <title>{% block title %}UniversiBO - Il sito degli studenti per gli studenti{% endblock %}</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 {% stylesheets
+    'bundles/universibowebsite/bootstrap/css/bootstrap.css'
     'bundles/universibolegacy/css/*'
     'bundles/universibowebsite/css/*'
     output="css/compiled/main.css" filter='cssrewrite,?yui_css'%}
@@ -117,6 +118,7 @@ input.gsc-search-button {
 </tr>
 </table>
 {% javascripts
+'bundles/universibowebsite/bootstrap/js/bootstrap.js'
 '@UniversiboLegacyBundle/Resources/public/js/*'
 '@UniversiboWebsiteBundle/Resources/public/js/*'
  output='js/compiled/main.js' filter='?yui_js'%}
