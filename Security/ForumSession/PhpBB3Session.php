@@ -94,7 +94,8 @@ class PhpBB3Session implements ForumSessionInterface
     private function createNewSession($userId, Request $request,
             Response $response, $upn)
     {
-        $ip = $request->server->get('REMOTE_ADDR');
+        // $request->server returns 127.0.0.1 despite mod_rpaf
+        $ip = $_SERVER['REMOTE_ADDR'];
         $userAgent = $request->server->get('HTTP_USER_AGENT');
 
         $domain = $this->configDAO->getValue('cookie_domain');
