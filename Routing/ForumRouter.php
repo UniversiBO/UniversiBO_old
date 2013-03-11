@@ -53,7 +53,7 @@ class ForumRouter
      */
     public function getRootUri()
     {
-        return $this->addSid('/forum/');
+        return $this->addSid('/forum/', '?');
     }
 
     /**
