@@ -51,6 +51,17 @@ class ForumRouter
      * @param  integer $forumId
      * @return string
      */
+    public function getRootUri()
+    {
+        return $this->addSid('/forum/');
+    }
+
+    /**
+     * Gets a forum uri
+     *
+     * @param  integer $forumId
+     * @return string
+     */
     public function getIndexUri()
     {
         return $this->addSid('/forum/index.php', '?');
