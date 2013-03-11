@@ -1,5 +1,5 @@
 {
-    "hash": "9b46812237a595df068cf2e216308db7",
+    "hash": "fbc97274561a7ae663a1e9a959fe6c88",
     "packages": [
         {
             "name": "doctrine/common",
@@ -2171,28 +2171,26 @@
         },
         {
             "name": "universibo/shibboleth-bundle",
-            "version": "dev-master",
+            "version": "v0.1.0",
             "target-dir": "Universibo/Bundle/ShibbolethBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle.git",
-                "reference": "91584e49beb86b8ea38b130d1019200ff5aea24c"
+                "reference": "v0.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UniversiBO/UniversiboShibbolethBundle/zipball/91584e49beb86b8ea38b130d1019200ff5aea24c",
-                "reference": "91584e49beb86b8ea38b130d1019200ff5aea24c",
+                "url": "https://api.github.com/repos/UniversiBO/UniversiboShibbolethBundle/zipball/v0.1.0",
+                "reference": "v0.1.0",
                 "shasum": ""
             },
             "require": {
-                "friendsofsymfony/user-bundle": "*",
                 "symfony/framework-bundle": ">=2.1.0,<2.3-dev",
                 "symfony/security-bundle": ">=2.1.0,<2.3-dev",
                 "zendframework/zend-uri": ">=2.0.0,<2.1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.*",
-                "symfony/yaml": "2.2.*"
+                "symfony/yaml": "2.1.*"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -2214,13 +2212,12 @@
                     "homepage": "https://github.com/UniversiBO/UniversiboShibbolethBundle/graphs/contributors"
                 }
             ],
-            "description": "Shibboleth Integration for FOSUserBundle",
+            "description": "UniversiBO ShibbolethBundle",
             "homepage": "http://github.com/UniversiBO",
             "keywords": [
-                "Authentication",
                 "shibboleth"
             ],
-            "time": "2013-03-11 10:58:27"
+            "time": "2013-03-08 14:52:34"
         },
         {
             "name": "universibo/smarty",
@@ -3466,7 +3463,6 @@
         "doctrine/doctrine-migrations-bundle": 20,
         "friendsofsymfony/advanced-encoder-bundle": 20,
         "kriswallsmith/assetic": 20,
-        "universibo/shibboleth-bundle": 20,
         "jwage/easy-csv": 20,
         "universibo/core-bundle": 20,
         "universibo/forum-bundle": 20,

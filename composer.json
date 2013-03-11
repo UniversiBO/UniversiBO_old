@@ -26,7 +26,7 @@
         "jms/di-extra-bundle": "1.3.*",
         "kriswallsmith/assetic": "dev-master",
         "twig/extensions": ">=1.0.0,<1.1-dev",
-        "universibo/shibboleth-bundle": "@dev",
+        "universibo/shibboleth-bundle": "0.1.*",
         "jwage/easy-csv": "@dev",
         "zendframework/zend-feed": ">=2.0.0,<2.1.0",
         "universibo/core-bundle": "dev-master",
