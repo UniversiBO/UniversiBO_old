@@ -48,12 +48,13 @@ class ForumRouter
     /**
      * Gets a forum uri
      *
+     * @deprecated
      * @param  integer $forumId
      * @return string
      */
     public function getRootUri()
     {
-        return $this->addSid('/forum/', '?');
+        return $this->getIndexUri();
     }
 
     /**
