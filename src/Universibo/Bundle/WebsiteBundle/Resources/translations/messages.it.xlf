@@ -46,6 +46,10 @@
                 <source>ub_dashboard</source>
                 <target>Cruscotto</target>
             </trans-unit>
+            <trans-unit id="12">
+                <source>ub_login</source>
+                <target>Login</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
