@@ -2121,12 +2121,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/UniversiBO/UniversiboForumBundle.git",
-                "reference": "037b8b661abd0abb9044353a7bc0e17a184d1f74"
+                "reference": "cb7d3dd9a84de96c73b876f3b527975d788293fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UniversiBO/UniversiboForumBundle/zipball/037b8b661abd0abb9044353a7bc0e17a184d1f74",
-                "reference": "037b8b661abd0abb9044353a7bc0e17a184d1f74",
+                "url": "https://api.github.com/repos/UniversiBO/UniversiboForumBundle/zipball/cb7d3dd9a84de96c73b876f3b527975d788293fd",
+                "reference": "cb7d3dd9a84de96c73b876f3b527975d788293fd",
                 "shasum": ""
             },
             "require": {
@@ -2167,7 +2167,7 @@
                 "source": "https://github.com/UniversiBO/UniversiboForumBundle/tree/master",
                 "issues": "https://github.com/UniversiBO/UniversiboForumBundle/issues"
             },
-            "time": "2013-03-11 11:57:07"
+            "time": "2013-03-12 20:08:48"
         },
         {
             "name": "universibo/shibboleth-bundle",
@@ -2176,12 +2176,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle.git",
-                "reference": "09703c4bd66d6aaeb168c7a65546c9052abe3bec"
+                "reference": "e3b12ad68e7ed0e611f253bfce0a0bcfbc792e47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UniversiBO/UniversiboShibbolethBundle/zipball/09703c4bd66d6aaeb168c7a65546c9052abe3bec",
-                "reference": "09703c4bd66d6aaeb168c7a65546c9052abe3bec",
+                "url": "https://api.github.com/repos/UniversiBO/UniversiboShibbolethBundle/zipball/e3b12ad68e7ed0e611f253bfce0a0bcfbc792e47",
+                "reference": "e3b12ad68e7ed0e611f253bfce0a0bcfbc792e47",
                 "shasum": ""
             },
             "require": {
@@ -2220,7 +2220,7 @@
                 "Authentication",
                 "shibboleth"
             ],
-            "time": "2013-03-12 18:35:37"
+            "time": "2013-03-12 22:58:48"
         },
         {
             "name": "universibo/smarty",
