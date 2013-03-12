@@ -95,7 +95,7 @@ class PhpBB3Session implements ForumSessionInterface
             Response $response, $upn)
     {
         // $request->server returns 127.0.0.1 despite mod_rpaf
-        $ip = $_SERVER['REMOTE_ADDR'];
+        $ip = array_key_exists('REMOTE_ADDR', $_SERVER) ? $_SERVER['REMOTE_ADDR']) : $request->server->get('REMOTE_ADDR');
         $userAgent = $request->server->get('HTTP_USER_AGENT');
 
         $domain = $this->configDAO->getValue('cookie_domain');
