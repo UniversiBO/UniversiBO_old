@@ -42,6 +42,10 @@
                 <source>ub_roles_edit</source>
                 <target>Modifica diritti</target>
             </trans-unit>
+            <trans-unit id="11">
+                <source>ub_dashboard</source>
+                <target>Cruscotto</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

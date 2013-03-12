@@ -53,3 +53,7 @@
 .flash-error {
     color: red;
 }
+
+body {
+    padding-top: 40px;
+}

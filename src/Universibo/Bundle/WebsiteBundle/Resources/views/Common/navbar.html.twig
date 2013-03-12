@@ -1,4 +1,22 @@
-		<div id="menubar">
-                    <p id="Menu">&nbsp;<a href="{{ path('universibo_legacy_help_topic') }}">Help</a>&nbsp;|&nbsp;<a href="{{ forumUri }}" accesskey="2">Forum</a>&nbsp;|&nbsp;<a href="{{ path('universibo_legacy_contacts') }}">Chi&nbsp;Siamo</a>&nbsp;|&nbsp;<a href="{{ path('universibo_legacy_contribute') }}">Collabora</a>&nbsp;|&nbsp;<a href="{{ path('universibo_legacy_accessibility') }}">Accessibilità</a>{% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}&nbsp;|&nbsp;<a href="{{ path('universibo_legacy_settings') }}">Impostazioni personali</a>{% endif %}</p>
-                    <span id="loginbox">{{ render(controller('_universibo_sso.controller.userbox:indexAction')) }}</span>
-		</div> {# /menubar #}
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="brand" href="{{ path('homepage') }}">UniversiBO</a>
+        <div class="nav-collapse collapse">
+          <ul class="nav">
+            <li class="active"><a href="#">Home</a></li>
+            {% if is_granted('ROLE_MODERATOR') %}
+                <li class=""><a href="{{ path('universibo_dashboard_home') }}">{%trans%}ub_dashboard{%endtrans%}</a></li>
+            {% endif %}
+            <li class=""><a href="#">Forum</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+        <div class="navbar-text pull-right">{{ render(controller('universibo_sso.controller.userbox:indexAction')) }}</div>
+      </div>
+    </div>
+  </div>

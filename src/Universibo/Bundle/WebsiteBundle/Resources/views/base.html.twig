@@ -28,12 +28,11 @@ input.gsc-search-button {
 {#<!--[if IE]><style type="text/css">#header ul.hide {ldelim}display: none !important;{rdelim}</style><![endif]-->#}
 </head>
 <body>
+{{ render(controller('UniversiboWebsiteBundle:Common:navbar')) }}
 {# inizio tabella di impaginazione GENERALE  #}
 <table width="100%" border="0" cellspacing="0" cellpadding="0" summary="">
 <tr>
     <td colspan="3"> {# barra in alto, gif di sinistra LOGO a sfondo BIANCO di dimensioni 150x92,gif per il TITOLO a sfondo del colore della tabella con data e menu di navigazione di dimensioni 600x100 #}
-		{{ render_esi(controller('UniversiboWebsiteBundle:Common:header')) }}
-      		{{ render(controller('UniversiboWebsiteBundle:Common:navbar')) }}
 
 </td></tr>
 <tr valign="top"> {# INIZIO DEL CORPO CENTRALE DELLA PAGINA (MENU DX E SX E PAG CENTRO) #}
@@ -106,8 +105,6 @@ input.gsc-search-button {
     {% if channel|default(false) and channel.servizioFilesStudenti %}
         {{ render_esi(controller('UniversiboWebsiteBundle:File:studentBox', {channelId: channel.idCanale})) }}
     {% endif %}
-    {{ render_esi(controller('UniversiboWebsiteBundle:Common:calendar')) }}
-    {{ render(controller('UniversiboWebsiteBundle:Common:version')) }}
 </td></tr> {# FINE MENU DI DESTRA#}
 <tr>
 	<td colspan="2">
