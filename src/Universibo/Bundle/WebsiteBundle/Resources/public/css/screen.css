@@ -57,3 +57,6 @@
 body {
     padding-top: 40px;
 }
+#home-container {
+    margin-top: -40px;
+}

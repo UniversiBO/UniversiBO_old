@@ -194,7 +194,7 @@ universibo_legacy_user:
 # Last by choice
 universibo_legacy_home:
     pattern: /
-    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowHome' }
+#    defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowHome' }
 universibo_legacy_home_v2:
     pattern: /v2.php
     defaults: { _controller: 'UniversiboLegacyBundle:Default:index', do: 'ShowHome', redirect: true }

@@ -28,6 +28,7 @@ input.gsc-search-button {
 {#<!--[if IE]><style type="text/css">#header ul.hide {ldelim}display: none !important;{rdelim}</style><![endif]-->#}
 </head>
 <body>
+{% block body %}
 {{ render(controller('UniversiboWebsiteBundle:Common:navbar')) }}
 {# inizio tabella di impaginazione GENERALE  #}
 <table width="100%" border="0" cellspacing="0" cellpadding="0" summary="">
@@ -114,6 +115,7 @@ input.gsc-search-button {
 	</td>
 </tr>
 </table>
+{% endblock body %}
 {% javascripts
 'bundles/universibowebsite/bootstrap/js/bootstrap.js'
 '@UniversiboLegacyBundle/Resources/public/js/*'
