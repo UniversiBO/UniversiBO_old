@@ -55,7 +55,7 @@
                 {
                     "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -375,7 +375,7 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/doctrine/migrations",
+                "url": "https://github.com/doctrine/migrations.git",
                 "reference": "e1f6efcd94993b493de5c6a413cbc327ea9c0caa"
             },
             "dist": {
@@ -407,7 +407,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Wage",
+                    "name": "Jonathan H. Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/"
                 },
@@ -543,7 +543,7 @@
             "target-dir": "FOS/AdvancedEncoderBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/FriendsOfSymfony/FOSAdvancedEncoderBundle",
+                "url": "https://github.com/FriendsOfSymfony/FOSAdvancedEncoderBundle.git",
                 "reference": "e3ef1f1317805195e6cbbba5fc9f69bfb35e9ddd"
             },
             "dist": {
@@ -866,7 +866,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -908,7 +908,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -1016,7 +1016,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -1164,7 +1164,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Wage",
+                    "name": "Jonathan H. Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/"
                 }
@@ -1317,7 +1317,7 @@
             "target-dir": "Ornicar/ApcBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ornicar/ApcBundle",
+                "url": "https://github.com/ornicar/ApcBundle.git",
                 "reference": "3b67a08a5fcba5b4077eeccbb5a4d22e84b9ff01"
             },
             "dist": {
@@ -2176,19 +2176,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle.git",
-                "reference": "91584e49beb86b8ea38b130d1019200ff5aea24c"
+                "reference": "6c80604520bb0bb162aa3bfb8727eb6ec2a54d73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UniversiBO/UniversiboShibbolethBundle/zipball/91584e49beb86b8ea38b130d1019200ff5aea24c",
-                "reference": "91584e49beb86b8ea38b130d1019200ff5aea24c",
+                "url": "https://api.github.com/repos/UniversiBO/UniversiboShibbolethBundle/zipball/6c80604520bb0bb162aa3bfb8727eb6ec2a54d73",
+                "reference": "6c80604520bb0bb162aa3bfb8727eb6ec2a54d73",
                 "shasum": ""
             },
             "require": {
                 "friendsofsymfony/user-bundle": "*",
                 "symfony/framework-bundle": ">=2.1.0,<2.3-dev",
                 "symfony/security-bundle": ">=2.1.0,<2.3-dev",
-                "zendframework/zend-uri": ">=2.0.0,<2.1.0"
+                "zendframework/zend-validator": ">=2.0.0,<2.1.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "3.7.*",
@@ -2220,14 +2220,14 @@
                 "Authentication",
                 "shibboleth"
             ],
-            "time": "2013-03-11 10:58:27"
+            "time": "2013-03-12 14:09:38"
         },
         {
             "name": "universibo/smarty",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "http://github.com/UniversiBO/smarty",
+                "url": "https://github.com/UniversiBO/smarty.git",
                 "reference": "2cf69ac619ebcce39d45de04a04bb4dfe1547ded"
             },
             "dist": {
