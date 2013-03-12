@@ -81,7 +81,6 @@ universibo_shibboleth:
     logout: 'prelogout.aspx'
   route:
     after_login:  'universibo_legacy_myuniversibo'
-    after_logout:  'universibo_legacy_myuniversibo'
   claims:
     - eppn
     - givenName
