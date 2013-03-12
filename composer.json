@@ -84,7 +84,7 @@
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
-        "symfony-assets-install": "copy"
+        "symfony-assets-install": "symlink"
     },
     "minimum-stability": "stable",
     "authors": [
