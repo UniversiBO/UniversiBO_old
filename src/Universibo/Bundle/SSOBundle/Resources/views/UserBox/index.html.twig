@@ -4,7 +4,7 @@
   {% endif %}
   <a href="{{ infoUrl }}"><img src="{{ asset('bundles/universibosso/images/ssologo18x18.png') }}" alt="{% trans %}universibo_sso.info{% endtrans %}" title="{% trans %}universibo_sso.info{% endtrans %}"/></a>
   {% if (showEppn) %}
-    <a href="{{ logoutUrl }}">{% trans %}ub_logout{% endtrans %}</a>
+    <a href="{{ logoutUrl }}">{% trans %}security.logout{% endtrans %}</a>
   {% else %}
     <a href="{{ path('login') }}" title="{% trans %}universibo_sso.login_title{% endtrans %}">{% trans %}security.login{% endtrans %}</a>
   {% endif %}

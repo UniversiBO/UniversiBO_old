@@ -1,2 +1,7 @@
 security:
   login: Login
+  logout: Logout
+navbar:
+  dashboard: Cruscotto
+  forum: Forum
+  home: Home
