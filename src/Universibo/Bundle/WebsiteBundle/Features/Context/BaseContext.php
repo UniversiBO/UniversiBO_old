@@ -188,4 +188,28 @@ class BaseContext extends MinkContext
             ->attachFile(__FILE__)
         ;
     }
+
+    /**
+     * @Given /^user "([^"]*)" has accepted privacy policy$/
+     */
+    public function userHasAcceptedPrivacyPolicy($username)
+    {
+        $userRepo = $this->get('universibo_core.repository.user');
+        $user = $userRepo->findOneByUsername($username);
+
+        if (null === $user) {
+            throw new \InvalidArgumentException('User not found');
+        }
+
+        $privacyService = $this->get('universibo_legacy.service.privacy');
+
+        if (!$privacyService->hasAcceptedPrivacy($user)) {
+            $privacyService->markAccepted($user);
+        }
+    }
+
+    private function get($id)
+    {
+        return $this->kernel->getContainer()->get($id);
+    }
 }
