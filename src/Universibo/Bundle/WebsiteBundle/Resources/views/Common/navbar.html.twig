@@ -11,9 +11,9 @@
           <ul class="nav">
             <li class="active"><a href="#">Home</a></li>
             {% if is_granted('ROLE_MODERATOR') %}
-                <li class=""><a href="{{ path('universibo_dashboard_home') }}">{%trans%}ub_dashboard{%endtrans%}</a></li>
+                <li class=""><a href="{{ path('universibo_dashboard_home') }}">{% trans %}ub_dashboard{% endtrans %}</a></li>
             {% endif %}
-            <li class=""><a href="#">Forum</a></li>
+            <li class=""><a href="#">{% trans %}ub_home{% endtrans %}</a></li>
           </ul>
         </div><!--/.nav-collapse -->
         <div class="navbar-text pull-right">{{ render(controller('universibo_sso.controller.userbox:indexAction')) }}</div>
