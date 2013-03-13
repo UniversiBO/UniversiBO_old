@@ -57,7 +57,7 @@ class ShowMyNews extends PluginCommand
 
         $elenco_news_tpl = array();
 
-        if ($elenco_news ==! false) {
+        if ($elenco_news) {
 
             $ret_news = count($elenco_news);
 
@@ -69,7 +69,7 @@ class ShowMyNews extends PluginCommand
                 $elenco_news_tpl[$i]['data']         = $krono->k_date('%j/%m/%Y', $news->getDataIns());
                 //echo $personalizza,"-" ,$ultimo_accesso,"-", $news->getUltimaModifica()," -- ";
                 $elenco_news_tpl[$i]['autore']       = $news->getUsername();
-                $elenco_news_tpl[$i]['autore_link']  = 'ShowUser&id_utente='.$news->getIdUtente();
+                $elenco_news_tpl[$i]['autore_link']  = $router->generate('universibo_legacy_user', array('id_utente' => $news->getIdUtente()));
                 $elenco_news_tpl[$i]['id_autore']    = $news->getIdUtente();
 
                 $elenco_news_tpl[$i]['scadenza']     = '';
