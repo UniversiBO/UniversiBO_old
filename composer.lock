@@ -40,7 +40,7 @@
                     "homepage": "http://www.jwage.com/"
                 },
                 {
-                    "name": "Christoph Dorn",
+                    "name": "Guilherme Blanco",
                     "email": "guilhermeblanco@gmail.com",
                     "homepage": "http://www.instaclick.com"
                 },
@@ -53,7 +53,7 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes M. Schmitt",
+                    "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
                     "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
@@ -113,7 +113,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Wage",
+                    "name": "Jonathan H. Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/"
                 }
@@ -165,7 +165,7 @@
                     "homepage": "http://www.jwage.com/"
                 },
                 {
-                    "name": "Christoph Dorn",
+                    "name": "Guilherme Blanco",
                     "email": "guilhermeblanco@gmail.com",
                     "homepage": "http://www.instaclick.com"
                 },
@@ -407,7 +407,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Wage",
+                    "name": "Jonathan H. Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/"
                 },
@@ -473,7 +473,7 @@
                     "homepage": "http://www.jwage.com/"
                 },
                 {
-                    "name": "Christoph Dorn",
+                    "name": "Guilherme Blanco",
                     "email": "guilhermeblanco@gmail.com",
                     "homepage": "http://www.instaclick.com"
                 },
@@ -1164,7 +1164,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Wage",
+                    "name": "Jonathan H. Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/"
                 }
@@ -2121,12 +2121,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/UniversiBO/UniversiboForumBundle.git",
-                "reference": "3fd6be8c9787e0cec9408bd45baf140848df5dce"
+                "reference": "cb7d3dd9a84de96c73b876f3b527975d788293fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UniversiBO/UniversiboForumBundle/zipball/3fd6be8c9787e0cec9408bd45baf140848df5dce",
-                "reference": "3fd6be8c9787e0cec9408bd45baf140848df5dce",
+                "url": "https://api.github.com/repos/UniversiBO/UniversiboForumBundle/zipball/cb7d3dd9a84de96c73b876f3b527975d788293fd",
+                "reference": "cb7d3dd9a84de96c73b876f3b527975d788293fd",
                 "shasum": ""
             },
             "require": {
@@ -2167,7 +2167,7 @@
                 "source": "https://github.com/UniversiBO/UniversiboForumBundle/tree/master",
                 "issues": "https://github.com/UniversiBO/UniversiboForumBundle/issues"
             },
-            "time": "2013-03-11 11:26:46"
+            "time": "2013-03-12 20:08:48"
         },
         {
             "name": "universibo/shibboleth-bundle",
