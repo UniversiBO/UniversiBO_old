@@ -1,4 +1,4 @@
-Feature: Add a school
+Feature: List schools
   In order to know which schools are available
   As moderator
   I need to list schools

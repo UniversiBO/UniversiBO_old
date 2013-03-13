@@ -4,6 +4,7 @@ namespace Universibo\Bundle\WebsiteBundle\Features\Context;
 
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
+use InvalidArgumentException;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
@@ -45,6 +46,7 @@ class BaseContext extends MinkContext
     public function iMLoggedInAs($username)
     {
         $this->iMNotLoggedIn();
+        $this->userHasAcceptedPrivacyPolicy($username);
 
         $session = $this->getSession();
 
@@ -55,13 +57,7 @@ class BaseContext extends MinkContext
         $page->fillField('password', 'padrino');
         $page->pressButton('Login');
 
-        if (preg_match('/regolamento/', $session->getCurrentUrl())) {
-            $page->checkField('accept_check');
-            $page->pressButton('Accetto');
-
-            $this->assertPageNotMatchesText('/Non hai accettato il regolamento/');
-        }
-
+        $session->visit('/my/universibo');
         $this->assertPageContainsText('Benvenuto '.$username);
     }
 
@@ -198,7 +194,7 @@ class BaseContext extends MinkContext
         $user = $userRepo->findOneByUsername($username);
 
         if (null === $user) {
-            throw new \InvalidArgumentException('User not found');
+            throw new InvalidArgumentException('User not found');
         }
 
         $privacyService = $this->get('universibo_legacy.service.privacy');
