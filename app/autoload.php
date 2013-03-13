@@ -25,7 +25,8 @@ AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 AnnotationRegistry::registerFile(__DIR__.'/../vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php');
 
 if (extension_loaded('apc')) {
-    $loader = new ApcClassLoader('sf2', $loader);
+    $prefix = 'universibo-'.md5(dirname(__DIR__));
+    $loader = new ApcClassLoader($prefix, $loader);
 }
 
 $loader->register(true);
