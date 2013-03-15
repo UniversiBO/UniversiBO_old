@@ -1,5 +1,5 @@
 {
-    "hash": "94dc11a9e9f54a0822c6495c81e5553a",
+    "hash": "5cac5ac3591e552103e6ad49c2028e1f",
     "packages": [
         {
             "name": "doctrine/common",
@@ -40,7 +40,7 @@
                     "homepage": "http://www.jwage.com/"
                 },
                 {
-                    "name": "Guilherme Blanco",
+                    "name": "Christoph Dorn",
                     "email": "guilhermeblanco@gmail.com",
                     "homepage": "http://www.instaclick.com"
                 },
@@ -53,7 +53,7 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes Schmitt",
+                    "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
                     "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
@@ -165,7 +165,7 @@
                     "homepage": "http://www.jwage.com/"
                 },
                 {
-                    "name": "Guilherme Blanco",
+                    "name": "Christoph Dorn",
                     "email": "guilhermeblanco@gmail.com",
                     "homepage": "http://www.instaclick.com"
                 },
@@ -407,7 +407,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan H. Wage",
+                    "name": "Jonathan Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/"
                 },
@@ -473,7 +473,7 @@
                     "homepage": "http://www.jwage.com/"
                 },
                 {
-                    "name": "Guilherme Blanco",
+                    "name": "Christoph Dorn",
                     "email": "guilhermeblanco@gmail.com",
                     "homepage": "http://www.instaclick.com"
                 },
@@ -1164,7 +1164,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan H. Wage",
+                    "name": "Jonathan Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/"
                 }
@@ -1177,6 +1177,119 @@
                 "write"
             ],
             "time": "2013-02-17 01:03:41"
+        },
+        {
+            "name": "knplabs/knp-menu",
+            "version": "v1.1.2",
+            "source": {
+                "type": "git",
+                "url": "http://github.com/KnpLabs/KnpMenu.git",
+                "reference": "v1.1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/KnpLabs/KnpMenu/zipball/v1.1.2",
+                "reference": "v1.1.2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "pimple/pimple": "*",
+                "silex/silex": "1.0.*",
+                "twig/twig": ">=1.2,<2.0-dev"
+            },
+            "suggest": {
+                "pimple/pimple": "for the built-in implementations of the menu provider and renderer provider",
+                "silex/silex": "for the integration with your silex application",
+                "twig/twig": "for the TwigRenderer and the integration with your templates"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Knp\\Menu\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christophe Coevoet",
+                    "email": "stof@notk.org"
+                },
+                {
+                    "name": "KnpLabs",
+                    "homepage": "http://knplabs.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://github.com/KnpLabs/KnpMenu/contributors"
+                }
+            ],
+            "description": "An object oriented menu library",
+            "homepage": "http://knplabs.com",
+            "keywords": [
+                "menu",
+                "tree"
+            ],
+            "time": "2012-06-10 09:20:40"
+        },
+        {
+            "name": "knplabs/knp-menu-bundle",
+            "version": "v1.1.1",
+            "target-dir": "Knp/Bundle/MenuBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/KnpLabs/KnpMenuBundle.git",
+                "reference": "v1.1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/KnpLabs/KnpMenuBundle/zipball/v1.1.1",
+                "reference": "v1.1.1",
+                "shasum": ""
+            },
+            "require": {
+                "knplabs/knp-menu": "1.1.*",
+                "symfony/framework-bundle": ">=2.0,<2.3-dev"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Knp\\Bundle\\MenuBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christophe Coevoet",
+                    "email": "stof@notk.org"
+                },
+                {
+                    "name": "Knplabs",
+                    "homepage": "http://knplabs.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://github.com/KnpLabs/KnpMenuBundle/contributors"
+                }
+            ],
+            "description": "This bundle provides an integration of the KnpMenu library",
+            "keywords": [
+                "menu"
+            ],
+            "time": "2012-11-28 20:05:09"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -2176,12 +2289,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/UniversiBO/UniversiboShibbolethBundle.git",
-                "reference": "ba8f9ea8386b326d37198001eccc3266a7e94db4"
+                "reference": "a4a000fbcdebbb25c9117b9f5c0661659de10c5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UniversiBO/UniversiboShibbolethBundle/zipball/ba8f9ea8386b326d37198001eccc3266a7e94db4",
-                "reference": "ba8f9ea8386b326d37198001eccc3266a7e94db4",
+                "url": "https://api.github.com/repos/UniversiBO/UniversiboShibbolethBundle/zipball/a4a000fbcdebbb25c9117b9f5c0661659de10c5b",
+                "reference": "a4a000fbcdebbb25c9117b9f5c0661659de10c5b",
                 "shasum": ""
             },
             "require": {
@@ -2195,6 +2308,11 @@
                 "symfony/yaml": "2.2.*"
             },
             "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "Universibo\\Bundle\\ShibbolethBundle": ""
@@ -2220,7 +2338,7 @@
                 "Authentication",
                 "shibboleth"
             ],
-            "time": "2013-03-12 23:11:17"
+            "time": "2013-03-13 10:21:39"
         },
         {
             "name": "universibo/smarty",

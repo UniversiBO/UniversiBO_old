@@ -28,10 +28,11 @@ class AppKernel extends Kernel
                 new FOS\UserBundle\FOSUserBundle(),
                 new FOS\AdvancedEncoderBundle\FOSAdvancedEncoderBundle(),
                 new Ornicar\ApcBundle\OrnicarApcBundle(),
-            new Universibo\Bundle\ImportBundle\UniversiboImportBundle(),
-            new Universibo\Bundle\DidacticsBundle\UniversiboDidacticsBundle(),
-            new Universibo\Bundle\CampusBundle\UniversiboCampusBundle(),
-            new Universibo\Bundle\DashboardBundle\UniversiboDashboardBundle(),
+                new Universibo\Bundle\ImportBundle\UniversiboImportBundle(),
+                new Universibo\Bundle\DidacticsBundle\UniversiboDidacticsBundle(),
+                new Universibo\Bundle\CampusBundle\UniversiboCampusBundle(),
+                new Universibo\Bundle\DashboardBundle\UniversiboDashboardBundle(),
+                new Knp\Bundle\MenuBundle\KnpMenuBundle(),
                 );
        
 
