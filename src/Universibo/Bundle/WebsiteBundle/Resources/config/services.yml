@@ -21,7 +21,7 @@ services:
       -  { name: monolog.logger, channel: shibboleth }
   universibo_website.listener.privacy:
     class: Universibo\Bundle\WebsiteBundle\Listener\PrivacyListener
-    arguments: 
+    arguments:
       - '@security.context'
       - '@router'
       - '@universibo_legacy.service.privacy'
@@ -68,3 +68,20 @@ services:
       - '%mailer_from_name%'
       - '@templating'
       - '@doctrine.orm.entity_manager'
+  universibo_website.menu_builder:
+    class: Universibo\Bundle\WebsiteBundle\Menu\MenuBuilder
+    scope: request
+    arguments:
+      - '@knp_menu.factory'
+      - '@security.context'
+      - '@universibo_forum.router'
+
+  universibo_website.menu.main:
+    class: Knp\Menu\MenuItem
+    factory_service: universibo_website.menu_builder
+    factory_method: createMainMenu
+    arguments:
+      - '@request'
+    scope: request
+    tags:
+      - { name: knp_menu.menu, alias: main }
