@@ -4,9 +4,14 @@
 namespace Universibo\Bundle\WebsiteBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
+use Knp\Menu\MenuItem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Universibo\Bundle\ForumBundle\Routing\ForumRouter;
+use Universibo\Bundle\LegacyBundle\Auth\UniversiBOAcl;
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
+use Universibo\Bundle\LegacyBundle\Entity\DBCanale2Repository;
+use Universibo\Bundle\LegacyBundle\Routing\ChannelRouter;
 
 class MenuBuilder
 {
@@ -32,13 +37,47 @@ class MenuBuilder
     private $forumRouter;
 
     /**
-     * @param FactoryInterface $factory
+     * ACL
+     *
+     * @var UniversiBOAcl
      */
-    public function __construct(FactoryInterface $factory, SecurityContextInterface $securityContext, ForumRouter $forumRouter)
+    private $acl;
+
+    /**
+     * Channel router
+     *
+     * @var ChannelRouter
+     */
+    private $channelRouter;
+
+    /**
+     * Channel repository
+     *
+     * @var DBCanale2Repository
+     */
+    private $channelRepo;
+
+    /**
+     * Constructor
+     *
+     * @param FactoryInterface         $factory
+     * @param SecurityContextInterface $securityContext
+     * @param ForumRouter              $forumRouter
+     * @param UniversiBOAcl            $acl
+     * @param ChannelRouter            $channelRouter
+     * @param DBCanale2Repository      $channelRepo
+     */
+    public function __construct(FactoryInterface $factory,
+            SecurityContextInterface $securityContext, ForumRouter $forumRouter,
+            UniversiBOAcl $acl, ChannelRouter $channelRouter,
+            DBCanale2Repository $channelRepo)
     {
         $this->factory = $factory;
         $this->securityContext = $securityContext;
         $this->forumRouter = $forumRouter;
+        $this->acl = $acl;
+        $this->channelRouter = $channelRouter;
+        $this->channelRepo = $channelRepo;
     }
 
     public function createMainMenu(Request $request)
@@ -48,9 +87,26 @@ class MenuBuilder
 
         $menu->addChild('Home', array('route' => 'homepage'));
         $menu['Home']->setAttribute('dropdown', true);
+        $this->addChannelChildren($menu['Home'], Canale::FACOLTA);
+        $this->addChannelChildren($menu['Home'], Canale::CDEFAULT);
+
+        if ($this->securityContext->isGranted('ROLE_MODERATOR')) {
+            $menu->addChild('Dashboard', array('route' => 'universibo_dashboard_home'));
+        }
 
         $menu->addChild('Forum', array('uri' => $this->forumRouter->getIndexUri()));
 
         return $menu;
+    }
+
+    /**
+     * Adds channel menu items
+     * @todo incomplete
+     * @param MenuItem $item
+     * @param integer  $channelType
+     */
+    private function addChannelChildren(MenuItem $item, $channelType)
+    {
+
     }
 }

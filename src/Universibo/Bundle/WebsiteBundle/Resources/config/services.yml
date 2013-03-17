@@ -75,6 +75,9 @@ services:
       - '@knp_menu.factory'
       - '@security.context'
       - '@universibo_forum.router'
+      - '@universibo_legacy.acl'
+      - '@universibo_legacy.routing.channel'
+      - '@universibo_legacy.repository.canale2'
 
   universibo_website.menu.main:
     class: Knp\Menu\MenuItem
