@@ -78,6 +78,7 @@ services:
       - '@universibo_legacy.acl'
       - '@universibo_legacy.routing.channel'
       - '@universibo_legacy.repository.canale2'
+      - '@universibo_legacy.repository.ruolo'
 
   universibo_website.menu.main:
     class: Knp\Menu\MenuItem

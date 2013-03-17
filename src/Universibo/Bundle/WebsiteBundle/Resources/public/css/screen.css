@@ -60,3 +60,12 @@ body {
 #home-container {
     margin-top: -40px;
 }
+
+
+#informativa, .rulebox {
+	height: 300px;
+	overflow: auto;
+}
+
+.sidemenu {
+}

@@ -1,7 +1,21 @@
 security:
   login: Login
   logout: Logout
+home:
+  anonymous: anonimo
+  community:
+    title: Community
+    text: Oltre 3000 studenti utilizzano UniversiBO.
+  iprefer: Preferisco accedere come
+  login: Entra
+  text: |
+        Benvenuti nella nuova versione del sito web "Fatto per gli studenti"
+        Il team di UniversiBO è composto da studenti bla bla bla, yada
 navbar:
   dashboard: Cruscotto
   forum: Forum
   home: Home
+  about: Informazioni
+  rules: Regolamento & Privacy
+  credits: Credits
+  manifesto: Manifesto

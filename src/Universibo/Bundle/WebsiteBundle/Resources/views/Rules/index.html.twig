@@ -29,10 +29,10 @@
     <p><input id="accept_submit" type="submit" value="Accetto"/></p>
 </form>
 {% endif %}
-<a name="privacy"><h2>Informativa sulla privacy</h2></a>
+<h2>Informativa sulla privacy</h2><a name="privacy"></a>
 {{ render_esi(controller('UniversiboWebsiteBundle:Rules:privacyBox')) }}
-<a name="rules"><h2>Regolamento per l'utilizzo dei servizi del sito</h2></a>
+<h2>Regolamento per l'utilizzo dei servizi del sito</h2><a name="rules"></a>
 {{ render_esi(controller('UniversiboWebsiteBundle:Rules:mainBox')) }}
-<a name="forumRules"><h2>Regolamento per l'utilizzo del forum</h2></a>
+<h2>Regolamento per l'utilizzo del forum</h2><a name="forumRules"></a>
 {{ render_esi(controller('UniversiboWebsiteBundle:Rules:forumBox')) }}
 {% endblock %}

@@ -42,48 +42,6 @@ h4 {
 	font-size: 13px;
 }
 
-form input {
-	font-size: 11px;
-	height: 13px;
-	border: solid 1px #999;
-}
-
-form textarea {
-	font-size: 11px;
-	height: 80px;
-	width: 350px;
-	border: solid 1px #999;
-}
-
-form input.submit {
-	font-size: 11px;
-	height: 17px;
-	border: solid 1px #999;
-}
-
-form fieldset {
-	margin: 12px 0;
-}
-
-form p {
-	vertical-align: top;
-	clear: both;
-}
-/*
-form fieldset .casella
-{
-	float: right;
-	text-align: left;
-	display: inline;	
-}*/
-form .label {
-	float: left;
-	width: 90px;
-	padding-right: 15px !important;
-	text-align: right;
-	display: inline;
-}
-
 /**
  *	Tips per accessibilit�
  */
@@ -593,22 +551,6 @@ td.evidenzia {
 	margin: 6px;
 }
 
-.box form input,.box form label {
-	margin: 2px;
-	text-align: center;
-	font-size: 10px;
-	vertical-align: text-top;
-}
-
-.box form label {
-	font-weight: bold;
-}
-
-.box form {
-	text-align: center;
-	margin: 4px;
-}
-
 .box p,.box a,.box li,.box h3 {
 	font-size: 10px !important;
 }
@@ -955,14 +897,4 @@ span>p.comandi {
 #informativa, .rulebox {
 	height: 300px;
 	overflow: auto;
-}
-
-.accept-form {
-    border: 1px dotted;
-    margin: auto;
-}
-
-.accept-form input[type=submit]{
-    height: 20px;
-    
 }

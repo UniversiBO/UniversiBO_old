@@ -18,6 +18,11 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+        $securityContext = $this->get('security.context');
+        if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirect($this->generateUrl('universibo_legacy_home'));
+        }
+
         return $this->render('UniversiboWebsiteBundle:Default:index.html.twig');
     }
 }

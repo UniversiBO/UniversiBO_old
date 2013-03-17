@@ -11,6 +11,7 @@ use Universibo\Bundle\ForumBundle\Routing\ForumRouter;
 use Universibo\Bundle\LegacyBundle\Auth\UniversiBOAcl;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\DBCanale2Repository;
+use Universibo\Bundle\LegacyBundle\Entity\DBRuoloRepository;
 use Universibo\Bundle\LegacyBundle\Routing\ChannelRouter;
 
 class MenuBuilder
@@ -58,6 +59,13 @@ class MenuBuilder
     private $channelRepo;
 
     /**
+     * Role repository
+     *
+     * @var DBRuoloRepository
+     */
+    private $roleRepo;
+
+    /**
      * Constructor
      *
      * @param FactoryInterface         $factory
@@ -66,11 +74,12 @@ class MenuBuilder
      * @param UniversiBOAcl            $acl
      * @param ChannelRouter            $channelRouter
      * @param DBCanale2Repository      $channelRepo
+     * @param DBRuoloRepository        $roleRepo
      */
     public function __construct(FactoryInterface $factory,
             SecurityContextInterface $securityContext, ForumRouter $forumRouter,
             UniversiBOAcl $acl, ChannelRouter $channelRouter,
-            DBCanale2Repository $channelRepo)
+            DBCanale2Repository $channelRepo, DBRuoloRepository $roleRepo)
     {
         $this->factory = $factory;
         $this->securityContext = $securityContext;
@@ -78,6 +87,7 @@ class MenuBuilder
         $this->acl = $acl;
         $this->channelRouter = $channelRouter;
         $this->channelRepo = $channelRepo;
+        $this->roleRepo = $roleRepo;
     }
 
     public function createMainMenu(Request $request)
@@ -85,16 +95,22 @@ class MenuBuilder
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav');
 
-        $menu->addChild('Home', array('route' => 'homepage'));
-        $menu['Home']->setAttribute('dropdown', true);
-        $this->addChannelChildren($menu['Home'], Canale::FACOLTA);
-        $this->addChannelChildren($menu['Home'], Canale::CDEFAULT);
+        $home = $menu->addChild('Canali');
+        $home->setAttribute('dropdown', true);
+        $this->addChannelChildren($home, 'Facoltà', Canale::FACOLTA)->setAttribute('divider_append', true);
+        $this->addChannelChildren($home, 'Servizi', Canale::CDEFAULT)->setAttribute('divider_append', true);
 
-        if ($this->securityContext->isGranted('ROLE_MODERATOR')) {
-            $menu->addChild('Dashboard', array('route' => 'universibo_dashboard_home'));
+        if ($this->securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $userId = $this->securityContext->getToken()->getUser()->getId();
+            $this->addMyUniversiboChildren($menu, $userId);
+
+            if ($this->securityContext->isGranted('ROLE_MODERATOR')) {
+                $menu->addChild('navbar.dashboard', array('route' => 'universibo_dashboard_home'));
+            }
         }
 
         $menu->addChild('Forum', array('uri' => $this->forumRouter->getIndexUri()));
+        $this->addAboutChildren($home);
 
         return $menu;
     }
@@ -105,8 +121,9 @@ class MenuBuilder
      * @param MenuItem $item
      * @param integer  $channelType
      */
-    private function addChannelChildren(MenuItem $menuItem, $channelType)
+    private function addChannelChildren(MenuItem $menu, $label, $channelType)
     {
+        $menuItem = $menu->addChild($label);
         $scontext = $this->securityContext;
         $token = $scontext->getToken();
 
@@ -117,14 +134,13 @@ class MenuBuilder
             $user = null;
         }
 
-        $acl = $this->acl;
-        $router = $this->channelRouter;
-        $channelRepo = $this->channelRepo;
-
         $allowed = array();
-        foreach ($channelRepo->findManyByType($channelType) as $item) {
-            if ($acl->canRead($user, $item)) {
-                $allowed[] = array('name' => $item->getNome(), 'uri' => $router->generate($item));
+        foreach ($this->channelRepo->findManyByType($channelType) as $item) {
+            if ($this->acl->canRead($user, $item)) {
+                $allowed[] = array(
+                    'name' => $item->getNome(),
+                    'uri'  => $this->channelRouter->generate($item)
+                );
             }
         }
 
@@ -135,5 +151,43 @@ class MenuBuilder
         foreach ($allowed as $channel) {
             $menuItem->addChild($channel['name'], array('uri' => $channel['uri']));
         }
+
+        return $menuItem;
+    }
+
+    private function addMyUniversiboChildren(MenuItem $menu, $userId)
+    {
+        $myUniversibo = $menu->addChild('MyUniversiBO');
+        $myUniversibo->setAttribute('dropdown', true);
+
+        $last = null;
+        foreach ($this->roleRepo->findByIdUtente($userId) as $role) {
+            if ($role->isMyUniversibo()) {
+                $channel = $this->channelRepo->find($role->getIdCanale());
+
+                $last = $myUniversibo->addChild($role->getNome() ?: $channel->getTitolo(), array(
+                    'uri' => $this->channelRouter->generate($channel)
+                ));
+            }
+        }
+
+        if (null !== $last) {
+            $last->setAttribute('divider_append', true);
+        }
+
+        $myUniversibo->addChild('Modifica', array(
+            'route' => 'universibo_legacy_user',
+            'routeParameters' => array(
+                'id_utente' => $userId
+            )
+        ));
+    }
+
+    private function addAboutChildren(MenuItem $menu)
+    {
+        $menuItem = $menu->addChild('navbar.about');
+        $menuItem->addChild('navbar.rules', array('route' => 'universibo_website_rules'));
+        $menuItem->addChild('navbar.manifesto', array('route' => 'universibo_legacy_manifesto'));
+        $menuItem->addChild('navbar.credits', array('route' => 'universibo_legacy_credits'));
     }
 }
