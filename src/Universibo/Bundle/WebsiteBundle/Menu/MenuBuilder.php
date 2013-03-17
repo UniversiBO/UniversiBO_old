@@ -105,8 +105,35 @@ class MenuBuilder
      * @param MenuItem $item
      * @param integer  $channelType
      */
-    private function addChannelChildren(MenuItem $item, $channelType)
+    private function addChannelChildren(MenuItem $menuItem, $channelType)
     {
+        $scontext = $this->securityContext;
+        $token = $scontext->getToken();
 
+        if ($token !== null) {
+            $user = $scontext->isGranted('IS_AUTHENTICATED_FULLY') ?
+                    $token->getUser() : null;
+        } else {
+            $user = null;
+        }
+
+        $acl = $this->acl;
+        $router = $this->channelRouter;
+        $channelRepo = $this->channelRepo;
+
+        $allowed = array();
+        foreach ($channelRepo->findManyByType($channelType) as $item) {
+            if ($acl->canRead($user, $item)) {
+                $allowed[] = array('name' => $item->getNome(), 'uri' => $router->generate($item));
+            }
+        }
+
+        usort($allowed, function($a, $b) {
+            return strcmp($a['name'], $b['name']);
+        });
+
+        foreach ($allowed as $channel) {
+            $menuItem->addChild($channel['name'], array('uri' => $channel['uri']));
+        }
     }
 }
