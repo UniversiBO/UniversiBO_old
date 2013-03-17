@@ -3,18 +3,7 @@
 <div class="titoloPagina">
 <h2>Profilo</h2>
 </div>
-<div class="flash-notice-container">
-{% for flashMessage in app.session.flashbag.get('notice') %}
-    <span class="flash-notice">
-        {{ flashMessage }}
-    </span>
-{% endfor %}
-{% for flashMessage in app.session.flashbag.get('error') %}
-    <span class="flash-error">
-        {{ flashMessage }}
-    </span>
-{% endfor %}
-</div>
+{% include 'UniversiboWebsiteBundle:Common:flash.html.twig' %}
 <p>In questa pagina potete modificare gli indirizzi email (massimo 3) e il numero di
     cellulare dove volete ricevere le notifiche, di cui potete specificare il livello.
 Rimuovendo tutti gli indirizzi la mail di contatto sarà reimpostata a
