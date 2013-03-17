@@ -26,7 +26,7 @@ class ShowUser extends UniversiboCommand
         $professorRepo = $this->get('universibo_legacy.repository.docente');
 
         $userId = $this->getRequest()->attributes->get('id_utente');
-        $user = $this->get('universibo_website.repository.user')->find($userId);
+        $user = $this->get('universibo_core.repository.user')->find($userId);
 
         if (!$context->isGranted('IS_AUTHENTICATED_FULLY')) {
             Error::throwError(_ERROR_DEFAULT,

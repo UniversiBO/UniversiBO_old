@@ -26,7 +26,7 @@ class ShowCollaboratore extends UniversiboCommand
         $user = $this->get('security.context')->getToken()->getUser();
 
         $username = $this->getRequest()->attributes->get('username');
-        $userRepo = $this->get('universibo_website.repository.user');
+        $userRepo = $this->get('universibo_core.repository.user');
 
         $collabUser = $userRepo->findOneByUsername($username);
 

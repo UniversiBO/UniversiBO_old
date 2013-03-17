@@ -430,7 +430,7 @@ class FileStudentiAdd extends UniversiboCommand
 
                 //Ricerco solo i referenti/moderatori per il canale
 
-                $userRepo = $this->get('universibo_website.repository.user');
+                $userRepo = $this->get('universibo_core.repository.user');
                 $contactService = $this->get('universibo_core.contact.service');
 
                 $arrayRuoli = $canale->getRuoli();

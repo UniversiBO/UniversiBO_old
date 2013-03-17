@@ -153,7 +153,7 @@ abstract class CanaleCommand extends UniversiboCommand
                     if ($ruolo->isReferente() && $ruolo->getId() == $userId)
                         $attivaModificaDiritti = true;
 
-                    $user_temp = $this->get('universibo_website.repository.user')->find($ruolo->getId());
+                    $user_temp = $this->get('universibo_core.repository.user')->find($ruolo->getId());
                     if (!$user_temp instanceof User) {
                         continue;
                     }

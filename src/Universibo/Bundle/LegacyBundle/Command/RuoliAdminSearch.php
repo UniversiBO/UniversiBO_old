@@ -121,7 +121,7 @@ class RuoliAdminSearch extends UniversiboCommand
                 if ($canale_ruoli[$key]->isReferente() || $canale_ruoli[$key]->isModeratore() ) {
                     $ruoli[] = $canale_ruoli[$key];
 
-                    $user = $this->get('universibo_website.repository.user')->find($canale_ruoli[$key]->getId());
+                    $user = $this->get('universibo_core.repository.user')->find($canale_ruoli[$key]->getId());
                     //var_dump($user);
                     $contactUser = array();
                     $contactUser['utente_link']  = $router->generate('universibo_legacy_user', array('id_utente' => $user->getId()));

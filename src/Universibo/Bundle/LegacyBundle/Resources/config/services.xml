@@ -112,7 +112,7 @@
         <service id="universibo_legacy.repository.files.file_item"
                          class="Universibo\Bundle\LegacyBundle\Entity\Files\DBFileItemRepository">
             <argument type="service" id="universibo_legacy.db.connection.main" />
-            <argument type="service" id="universibo_legacy.repository.user" />
+            <argument type="service" id="universibo_core.repository.user" />
             <argument type="service" id="universibo_legacy.repository.canale" />
             <argument>true</argument>
         </service>
@@ -120,7 +120,7 @@
         <service id="universibo_legacy.repository.files.file_item_studenti"
                          class="Universibo\Bundle\LegacyBundle\Entity\Files\DBFileItemStudentiRepository">
             <argument type="service" id="universibo_legacy.db.connection.main" />
-            <argument type="service" id="universibo_legacy.repository.user" />
+            <argument type="service" id="universibo_core.repository.user" />
             <argument type="service" id="universibo_legacy.repository.canale" />
             <argument>true</argument>
         </service>
@@ -168,14 +168,14 @@
         <service id="universibo_legacy.repository.links.link"
                          class="Universibo\Bundle\LegacyBundle\Entity\Links\DBLinkRepository">
             <argument type="service" id="universibo_legacy.db.connection.main" />
-            <argument type="service" id="universibo_legacy.repository.user" />
+            <argument type="service" id="universibo_core.repository.user" />
             <argument>true</argument>
         </service>
 
         <service id="universibo_legacy.repository.news.news_item"
                          class="Universibo\Bundle\LegacyBundle\Entity\News\DBNewsItemRepository">
             <argument type="service" id="universibo_legacy.db.connection.main" />
-            <argument type="service" id="universibo_legacy.repository.user" />
+            <argument type="service" id="universibo_core.repository.user" />
             <argument type="service" id="universibo_legacy.repository.canale" />
             <argument>true</argument>
         </service>
@@ -198,8 +198,6 @@
             <argument>true</argument>
         </service>
 
-        <service id="universibo_legacy.repository.user" alias="universibo_website.repository.user"/>
-
         <service id="universibo_legacy.routing.channel" public="true"
                          class="Universibo\Bundle\LegacyBundle\Routing\ChannelRouter">
             <argument type="service" id="router" />
@@ -213,7 +211,7 @@
         <service id="universibo_legacy.security.authentication.provider"
                          class="Universibo\Bundle\LegacyBundle\Auth\UniversiBOProvider"
                          public="false">
-            <argument type="service" id="universibo_legacy.repository.user" />
+            <argument type="service" id="universibo_core.repository.user" />
         </service>
 
         <service id="universibo_legacy.security.authentication.listener"

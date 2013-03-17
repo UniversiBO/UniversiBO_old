@@ -200,7 +200,7 @@ Link: ' . $router->generate('universibo_legacy_contact_professor', array('cod_do
             }
 
             //ultima notifica al responsabile contatto docenti
-            $notifica_user = $this->get('universibo_website.repository.user')->findOneByUsername($frontcontroller->getAppSetting('contattoDocentiAdmin'));
+            $notifica_user = $this->get('universibo_core.repository.user')->findOneByUsername($frontcontroller->getAppSetting('contattoDocentiAdmin'));
             $notifica_destinatario = 'mail://' . $notifica_user->getEmail();
             $notifica = new NotificaItem(0, $notifica_titolo,
                     $notifica_messaggio, $notifica_dataIns, $notifica_urgente,
@@ -234,7 +234,7 @@ Link: ' . $router->generate('universibo_legacy_contact_professor', array('cod_do
 
     public function _getCollaboratoriUniversibo()
     {
-        $userRepo = $this->getContainer()->get('universibo_legacy.repository.user');
+        $userRepo = $this->getContainer()->get('universibo_core.repository.user');
 
         return $userRepo->findCollaborators();
     }

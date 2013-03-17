@@ -461,7 +461,7 @@ Per altri problemi contattare lo staff di UniversiBO
                             substr_replace($notifica_messaggio_sms, '..', 158),
                             0, 160);
 
-                    $userRepo = $this->get('universibo_website.repository.user');
+                    $userRepo = $this->get('universibo_core.repository.user');
                     $ruoli_canale = $add_canale->getRuoli();
                     foreach ($ruoli_canale as $ruolo_canale) {
                         //la seguente riga l'ho copiata dal diff del deploy precedente

@@ -33,7 +33,7 @@ class ShowContacts extends UniversiboCommand
         $contacts_path = $this->frontController->getAppSetting('contactsPath');
         $template->assign('contacts_path', $contacts_path);
 
-        $infoCollaboratori = $this->get('universibo_website.repository.user')->findCollaborators();
+        $infoCollaboratori = $this->get('universibo_core.repository.user')->findCollaborators();
         $collabRepo = $this->get('universibo_legacy.repository.collaboratore');
         foreach ($infoCollaboratori as $collaboratore) {
             $username = $collaboratore->getUsername();
