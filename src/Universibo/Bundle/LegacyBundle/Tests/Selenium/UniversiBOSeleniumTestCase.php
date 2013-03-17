@@ -34,7 +34,7 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
             $this->clickAndWait('id=accept_submit');
         }
 
-        $this->assertTrue($this->isTextPresent('Benvenuto '.$username), 'Welcome text must be present');
+        $this->assertTrue($this->isTextPresent('[ '. $username. ' ]'), 'Username text must be present');
     }
 
     protected function openPrefix($url)
@@ -45,7 +45,7 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
     protected function logout()
     {
         $this->openPrefix('/logout');
-        $this->assertTrue($this->isTextPresent('I servizi personalizzati sono disponibili solo agli utenti che hanno effettuato il login'));
+        $this->assertTrue($this->isTextPresent('UniversiBO'));
     }
 
     protected function assertSentence($sentence)
@@ -77,7 +77,6 @@ abstract class UniversiBOSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTe
         $location = $this->base . '/login';
         $this->assertEquals($location, strstr($this->getLocation(), $location));
         $this->assertSentences(array (
-            'Login',
             'Username:',
             'Password:'
         ));

@@ -30,10 +30,10 @@ input.gsc-search-button {
 <body>
 {% block body %}
 {{ render(controller('UniversiboWebsiteBundle:Common:navbar')) }}
+{{ render(controller('UniversiboWebsiteBundle:Common:alert')) }}
 <div class="container-fluid">
     <div class="row-fluid">
-        <div id="content" class="span10">
-            {{ render(controller('UniversiboWebsiteBundle:Common:alert')) }}
+        <div id="content" class="span9">
             {% if showGoogle|default(false) %}
             {# BEGIN GOOGLE CUSTOM SEARCH ENGINE #}
             {% raw %}
@@ -55,7 +55,7 @@ input.gsc-search-button {
         {% endif %}
         {% block content %}{% endblock %}
         </div>
-        <div id="right" class="span2 sidemenu">
+        <div id="right" class="span3 sidemenu">
             {% if channel|default(false) %}
                 {{ render_esi(controller('UniversiboWebsiteBundle:Role:box', {channelId: channel.idCanale})) }}
             {% endif %}

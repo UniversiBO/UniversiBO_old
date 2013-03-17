@@ -32,7 +32,7 @@ class CommonController extends Controller
     {
         $message = $this->container->getParameter('alert_message');
 
-        $body = empty($message) ? '' : '<div id="alert">' . $message .'</div>';
+        $body = empty($message) ? '' : '<div class="alert">' . $message .'</div>';
 
         return new Response($body);
     }
