@@ -89,3 +89,23 @@ services:
     scope: request
     tags:
       - { name: knp_menu.menu, alias: main }
+
+  universibo_website.menu.left:
+    class: Knp\Menu\MenuItem
+    factory_service: universibo_website.menu_builder
+    factory_method: createLeftMenu
+    arguments:
+      - '@request'
+    scope: request
+    tags:
+      - { name: knp_menu.menu, alias: left }
+
+  universibo_website.menu.myuniversibo:
+    class: Knp\Menu\MenuItem
+    factory_service: universibo_website.menu_builder
+    factory_method: createMyUniversiBOMenu
+    arguments:
+      - '@request'
+    scope: request
+    tags:
+      - { name: knp_menu.menu, alias: myuniversibo }

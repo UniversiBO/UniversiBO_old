@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Universibo\Bundle\ForumBundle\Routing\ForumRouter;
 use Universibo\Bundle\LegacyBundle\Auth\UniversiBOAcl;
-use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\DBCanale2Repository;
 use Universibo\Bundle\LegacyBundle\Entity\DBRuoloRepository;
 use Universibo\Bundle\LegacyBundle\Routing\ChannelRouter;
@@ -90,27 +89,28 @@ class MenuBuilder
         $this->roleRepo = $roleRepo;
     }
 
+    public function createLeftMenu(Request $request)
+    {
+        $menu = $this->factory->createItem('root');
+
+        $this->addChannelChildren($menu, 'navbar.faculty', 3);
+        $this->addChannelChildren($menu, 'navbar.services', 1);
+        $this->addAboutChildren($menu);
+
+        return $menu;
+    }
+
     public function createMainMenu(Request $request)
     {
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav');
 
-        $home = $menu->addChild('Canali');
-        $home->setAttribute('dropdown', true);
-        $this->addChannelChildren($home, 'Facoltà', Canale::FACOLTA)->setAttribute('divider_append', true);
-        $this->addChannelChildren($home, 'Servizi', Canale::CDEFAULT)->setAttribute('divider_append', true);
-
-        if ($this->securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
-            $userId = $this->securityContext->getToken()->getUser()->getId();
-            $this->addMyUniversiboChildren($menu, $userId);
-
-            if ($this->securityContext->isGranted('ROLE_MODERATOR')) {
-                $menu->addChild('navbar.dashboard', array('route' => 'universibo_dashboard_home'));
-            }
+        if ($this->securityContext->isGranted('ROLE_MODERATOR')) {
+            $menu->addChild('navbar.dashboard', array('route' => 'universibo_dashboard_home'));
         }
 
-        $menu->addChild('Forum', array('uri' => $this->forumRouter->getIndexUri()));
-        $this->addAboutChildren($home);
+        $menu->addChild('navbar.forum', array('uri' => $this->forumRouter->getIndexUri()));
+        $menu->addChild('navbar.contribute', array('route' => 'universibo_legacy_contribute'));
 
         return $menu;
     }
@@ -155,32 +155,33 @@ class MenuBuilder
         return $menuItem;
     }
 
-    private function addMyUniversiboChildren(MenuItem $menu, $userId)
+    public function createMyUniversiBOMenu(Request $request)
     {
-        $myUniversibo = $menu->addChild('MyUniversiBO');
-        $myUniversibo->setAttribute('dropdown', true);
+        $menu = $this->factory->createItem('root');
 
-        $last = null;
-        foreach ($this->roleRepo->findByIdUtente($userId) as $role) {
-            if ($role->isMyUniversibo()) {
-                $channel = $this->channelRepo->find($role->getIdCanale());
+        if ($this->securityContext->isGranted('ROLE_USER')) {
+            $userId = $this->securityContext->getToken()->getUser()->getId();
 
-                $last = $myUniversibo->addChild($role->getNome() ?: $channel->getTitolo(), array(
-                    'uri' => $this->channelRouter->generate($channel)
-                ));
+            $myUniversibo = $menu->addChild('MyUniversiBO', array('route' => 'universibo_legacy_myuniversibo'));
+            $myUniversibo->setAttribute('dropdown', true);
+
+            $last = null;
+            foreach ($this->roleRepo->findByIdUtente($userId) as $role) {
+                if ($role->isMyUniversibo()) {
+                    $channel = $this->channelRepo->find($role->getIdCanale());
+
+                    $last = $myUniversibo->addChild($role->getNome() ?: $channel->getTitolo(), array(
+                        'uri' => $this->channelRouter->generate($channel)
+                    ));
+                }
+            }
+
+            if (null !== $last) {
+                $last->setAttribute('divider_append', true);
             }
         }
 
-        if (null !== $last) {
-            $last->setAttribute('divider_append', true);
-        }
-
-        $myUniversibo->addChild('Modifica', array(
-            'route' => 'universibo_legacy_user',
-            'routeParameters' => array(
-                'id_utente' => $userId
-            )
-        ));
+        return $menu;
     }
 
     private function addAboutChildren(MenuItem $menu)
@@ -189,5 +190,7 @@ class MenuBuilder
         $menuItem->addChild('navbar.rules', array('route' => 'universibo_website_rules'));
         $menuItem->addChild('navbar.manifesto', array('route' => 'universibo_legacy_manifesto'));
         $menuItem->addChild('navbar.credits', array('route' => 'universibo_legacy_credits'));
+
+        return $menuItem;
     }
 }

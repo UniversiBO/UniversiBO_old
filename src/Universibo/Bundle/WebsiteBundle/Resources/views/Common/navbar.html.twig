@@ -8,7 +8,7 @@
         </button>
         <a class="brand" href="{{ path('universibo_legacy_home') }}">UniversiBO</a>
         <div class="nav-collapse collapse">
-          {{ knp_menu_render('main', {'currentClass': 'active', 'template': 'UniversiboWebsiteBundle:Menu:knp_menu.html.twig'}) }}
+          {{ knp_menu_render('main', {'currentClass': 'active', 'template': 'UniversiboWebsiteBundle:Menu:knp_navbar.html.twig'}) }}
         </div><!--/.nav-collapse -->
         <div class="navbar-text pull-right">
             {{ render(controller('universibo_sso.controller.userbox:indexAction')) }}
