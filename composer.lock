@@ -2289,12 +2289,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/UniversiBO/UniversiboLoginActionBundle.git",
-                "reference": "8857dd20c269bb5bcfe6196c67140715ec4d417c"
+                "reference": "c703ed92f9ac3a5685aa207fc4ad301662ce00c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UniversiBO/UniversiboLoginActionBundle/zipball/8857dd20c269bb5bcfe6196c67140715ec4d417c",
-                "reference": "8857dd20c269bb5bcfe6196c67140715ec4d417c",
+                "url": "https://api.github.com/repos/UniversiBO/UniversiboLoginActionBundle/zipball/c703ed92f9ac3a5685aa207fc4ad301662ce00c0",
+                "reference": "c703ed92f9ac3a5685aa207fc4ad301662ce00c0",
                 "shasum": ""
             },
             "require": {
@@ -2321,7 +2321,7 @@
                 }
             ],
             "description": "Ask user for actions after login (e.g. wizard)",
-            "time": "2013-03-18 12:03:47"
+            "time": "2013-03-18 12:31:01"
         },
         {
             "name": "universibo/shibboleth-bundle",
