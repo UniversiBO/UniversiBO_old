@@ -33,7 +33,17 @@ input.gsc-search-button {
 {{ render(controller('UniversiboWebsiteBundle:Common:alert')) }}
 <div class="container-fluid">
     <div class="row-fluid">
-        <div id="content" class="span10">
+        <div id="left" class="span2">
+            <div id="leftmenu">
+                {{ knp_menu_render('left', {'currentClass': 'active', 'template': 'UniversiboWebsiteBundle:Menu:knp_menu.html.twig'}) }}
+            </div>
+            {% if(is_granted('ROLE_USER')) %}
+            <div id="myuniversibo">
+                {{ knp_menu_render('myuniversibo', {'currentClass': 'active', 'template': 'UniversiboWebsiteBundle:Menu:knp_menu.html.twig'}) }}
+            </div>
+            {% endif %}
+        </div>
+        <div id="content" class="span8">
             {% if showGoogle|default(false) %}
             {# BEGIN GOOGLE CUSTOM SEARCH ENGINE #}
             {% raw %}

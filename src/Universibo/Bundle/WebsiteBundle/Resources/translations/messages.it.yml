@@ -19,10 +19,13 @@ home:
     mezzo di interazione semplice e veloce con i docenti che partecipano
     all'iniziativa.
 navbar:
+  about: Informazioni
+  contribute: Collabora
+  credits: Credits
   dashboard: Cruscotto
+  faculty: Facoltà
   forum: Forum
   home: Home
-  about: Informazioni
-  rules: Regolamento & Privacy
-  credits: Credits
   manifesto: Manifesto
+  rules: Regolamento & Privacy
+  services: Servizi
