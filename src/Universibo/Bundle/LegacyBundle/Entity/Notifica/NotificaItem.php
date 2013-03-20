@@ -10,8 +10,6 @@ use Universibo\Bundle\LegacyBundle\Framework\FrontController;
  *
  * Rappresenta una singola Notifica.
  *
- * @package universibo
- * @subpackage Notifica
  * @version 2.0.0
  * @author GNU/Mel <gnu.mel@gmail.com>
  * @author Ilias Bartolini <brain79@virgilio.it>

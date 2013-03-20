@@ -11,8 +11,6 @@ use Universibo\Bundle\LegacyBundle\Framework\FrontController;
  * ShowFacolta: mostra una facolt?
  * Mostra i collegamenti a tutti i corsi di laurea attivi nella facolt?
  *
- * @package universibo
- * @subpackage commands
  * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}

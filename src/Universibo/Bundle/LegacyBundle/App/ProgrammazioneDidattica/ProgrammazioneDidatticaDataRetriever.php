@@ -6,7 +6,6 @@ namespace Universibo\Bundle\LegacyBundle\App\ProgrammazioneDidattica;
  * Classe interfaccia per descrivere un oggetto che permetta
  * di recuperare i dati della programmazione didattica
  *
- * @package universibo
  * @version 2.1.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, @link http://www.opensource.org/licenses/gpl-license.php

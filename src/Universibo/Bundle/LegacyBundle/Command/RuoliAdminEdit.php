@@ -12,8 +12,6 @@ use Universibo\Bundle\LegacyBundle\Entity\Ruolo;
  * RuoliAdminEdit: modifica il ruolo di un utente in un canale
  *
  *
- * @package universibo
- * @subpackage commands
  * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}

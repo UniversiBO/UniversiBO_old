@@ -11,8 +11,6 @@ use Universibo\Bundle\LegacyBundle\Entity\Links\Link;
 /**
  * LinkAdd: si occupa dell'inserimento di un link in un canale
  *
- * @package universibo
- * @subpackage commands
  * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @author Daniele Tiles

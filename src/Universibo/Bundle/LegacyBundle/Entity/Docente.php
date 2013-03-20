@@ -4,7 +4,6 @@ namespace Universibo\Bundle\LegacyBundle\Entity;
 /**
  * Docente class, modella le informazioni relative ai docenti
  *
- * @package universibo
  * @version 2.0.0
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  * @author Ilias Bartolini <brain79@virgilio.it>

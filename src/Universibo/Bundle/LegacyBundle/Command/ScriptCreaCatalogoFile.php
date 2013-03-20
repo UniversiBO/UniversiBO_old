@@ -12,8 +12,6 @@ use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
  *
  * Si occupa della creazione del catalogo dei file per la condivisione con altre community
  *
- * @package universibo
- * @subpackage commands
  * @version 2.0.0
  * @author Fabrizio Pinto evaimitico@gmail.com
  * @author magoviz

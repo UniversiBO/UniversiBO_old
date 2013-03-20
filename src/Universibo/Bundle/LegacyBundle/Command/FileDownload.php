@@ -10,8 +10,6 @@ use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 /**
  * FileDownload: si occupa del download di un file
  *
- * @package universibo
- * @subpackage commands
  * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @author Daniele Tiles

@@ -6,8 +6,6 @@ use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 /**
  * ShowError: mostra una pagina con la descrizione dell'errore per gli ErrorDefault
  *
- * @package universibo
- * @subpackage commands
  * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}

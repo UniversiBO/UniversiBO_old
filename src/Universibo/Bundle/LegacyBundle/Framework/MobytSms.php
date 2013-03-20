@@ -35,7 +35,6 @@ namespace
      * - Risolti problemi nell'esempio MNC
      *
      * @version 1.4.2
-     * @package Mobyt-SmsWeb
      * @author  Matteo Beccati - matteo.beccati@mobyt.it
      * @copyright (C) 2003-2005 Mobyt srl
      * @license https://www.mobyt.it/bsd-license.html BSD License
@@ -142,7 +141,6 @@ namespace Universibo\Bundle\LegacyBundle\Framework
      * - Autenticazione: <b>MD5</b>
      * - Qualit�: <b>Non impostata</b> - Il default � l'utilizzo della modalit� automatica
      *
-     * @package Mobyt-SmsWeb
      * @example sms-single.php Invio di un singolo sms in alta qualit� con autenticazione MD5
      */
     class MobytSms

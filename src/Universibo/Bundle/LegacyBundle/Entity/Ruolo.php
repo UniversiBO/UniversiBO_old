@@ -15,7 +15,6 @@ define('NOTIFICA_ALL'    ,2);
  * i diritti di accesso (moderatore, referente, ecc...)
  * l'istante dell'ultimo accesso, l'inserimento o meno tra i bookmark/preferiti/my_universibo
  *
- * @package universibo
  * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}

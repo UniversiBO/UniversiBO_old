@@ -12,8 +12,6 @@ use Universibo\Bundle\LegacyBundle\Entity\Questionario;
  *
  * It shows Contribute page
  *
- * @package universibo
- * @subpackage commands
  * @version 2.0.0
  * @author Fabrizio Pinto
  * @author Ilias Bartolini <brain79@virgilio.it>

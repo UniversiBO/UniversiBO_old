@@ -11,8 +11,6 @@ use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
  * Il BaseCommand che chiama questo plugin deve essere un'implementazione di CanaleCommand.
  * Nel parametro di ingresso del plugin deve essere specificato l'id_help da visualizzare.
  *
- * @package universibo
- * @subpackage Help
  * @version 2.0.0
  * @author Fabrizio Pinto
  * @author Ilias Bartolini <brain79@virgilio.it>

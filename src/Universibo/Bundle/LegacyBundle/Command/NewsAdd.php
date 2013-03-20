@@ -11,8 +11,6 @@ use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
 /**
  * NewsAdd: si occupa dell'inserimento di una news in un canale
  *
- * @package universibo
- * @subpackage commands
  * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @author GNU/Mel <gnu.mel@gmail.com>

@@ -16,7 +16,6 @@ $_Error_repository = array();
 /**
  * Error class for error creation, handling, collecting and retrieving
  *
- * @package framework
  * @version 1.0.0
  * @author  Ilias Bartolini
  * @author  Fabrizio Pinto

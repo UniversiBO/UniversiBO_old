@@ -10,7 +10,6 @@ use Symfony\Component\DependencyInjection\ContainerAware;
  * Usually they are associated to a (sub)template that must be included in
  * the main template
  *
- * @package framework
  * @version 1.1.0
  * @author  Ilias Bartolini <brain79@virgilio.it>
  * @license {@link http://www.opensource.org/licenses/gpl-license.php}

@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 /**
  * BaseCommand is the abstract super class of all command classes.
  *
- * @package framework
  * @version 1.1.0
  * @author  Ilias Bartolini <brain79@virgilio.it>
  * @license {@link http://www.opensource.org/licenses/gpl-license.php}

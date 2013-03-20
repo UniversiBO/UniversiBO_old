@@ -13,8 +13,6 @@ use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
  * NewsDelete: elimina una notizia, mostra il form e gestisce la cancellazione
  *
  *
- * @package universibo
- * @subpackage commands
  * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @author Daniele Tiles

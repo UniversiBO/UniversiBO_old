@@ -13,8 +13,6 @@ use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
  * Il BaseCommand che chiama questo plugin deve essere un'implementazione di UniversiBOCommand.
  * Nel parametro di ingresso del deve essere specificato l'id del canale da cui viene invocato il plugin.
  *
- * @package universibo
- * @subpackage Links
  * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @author Fabrizio Pinto

@@ -43,7 +43,6 @@ http://www.fsf.org
 * @link http://www.holosoft.it/  Holosoft Home Page
 * @link http://www.phpclasses.org/browse.html/package/943.html KronoClass Home at phpclasses
 * @link http://freshmeat.net/projects/kronoclass/?topic_id=914 KronoClass Home at freshmeat
-* @package kronos
 */
 class Krono
 {

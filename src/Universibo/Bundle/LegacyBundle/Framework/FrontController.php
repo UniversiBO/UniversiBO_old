@@ -21,7 +21,6 @@ use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
  * It calls the execute method of an appropriate command controller
  * defined in the config file.
  *
- * @package framework
  * @version 1.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @author Fabrizio Pinto

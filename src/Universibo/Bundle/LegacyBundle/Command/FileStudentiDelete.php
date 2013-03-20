@@ -12,8 +12,6 @@ use Universibo\Bundle\LegacyBundle\Entity\Ruolo;
  * FileStudentiDelete: elimina un file studente, mostra il form e gestisce la cancellazione
  *
  *
- * @package universibo
- * @subpackage commands
  * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @author Daniele Tiles

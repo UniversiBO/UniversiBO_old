@@ -12,8 +12,6 @@ use Universibo\Bundle\LegacyBundle\Entity\Canale;
  * Mostra la MyUniversiBO dell'utente loggato, con le ultime 5 notizie e
  * gli ultimi 5 files presenti nei canali da lui aggiunti...
  *
- * @package universibo
- * @subpackage commands
  * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @author Daniele Tiles

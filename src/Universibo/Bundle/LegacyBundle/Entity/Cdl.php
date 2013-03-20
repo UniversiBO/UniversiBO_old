@@ -15,7 +15,6 @@ define('CDL_VECCHIO_ORDINAMENTO' ,3);
  * Fornisce metodi statici che permettono l'accesso
  * ottimizzato alle istanze di Facolt?
  *
- * @package universibo
  * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, @link http://www.opensource.org/licenses/gpl-license.php

@@ -11,8 +11,6 @@ use Universibo\Bundle\LegacyBundle\Entity\Links\Link;
  * Il BaseCommand che chiama questo plugin deve essere un'implementazione di CanaleCommand.
  * Nel parametro di ingresso del plugin deve essere specificato il numero dei link da visualizzare e il canale da cui il plugin viene invocato.
  *
- * @package universibo
- * @subpackage Links
  * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}

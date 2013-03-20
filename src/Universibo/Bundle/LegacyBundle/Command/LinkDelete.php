@@ -12,8 +12,6 @@ use Universibo\Bundle\LegacyBundle\Entity\Canale;
  * LinkDelete: elimina un link, mostra il form e gestisce la cancellazione
  *
  *
- * @package universibo
- * @subpackage commands
  * @version 2.0.0
  * @author Fabrizio Pinto
  * @author Cristina Valent

@@ -11,8 +11,6 @@ use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
 /**
  * NewsEdit: si occupa della modifica di una news in un canale
  *
- * @package universibo
- * @subpackage commands
  * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @author Fabrizio Pinto

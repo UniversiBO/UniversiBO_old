@@ -13,8 +13,6 @@ use Universibo\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
 /**
  * FileStudentiCommentEdit: Modifica un commento di un File Studente
  *
- * @package universibo
- * @subpackage commands
  * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @author Fabrizio Pinto

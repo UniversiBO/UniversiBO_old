@@ -6,7 +6,6 @@ namespace Universibo\Bundle\LegacyBundle\Framework;
  * Code to activate the framework system.
  * One application can be built by multiple receivers.
  *
- * @package framework
  * @version 1.0.0
  * @author Deepak Dutta, http://www.eocene.net,
  * @author Ilias Bartolini <brain79@virgilio.it>

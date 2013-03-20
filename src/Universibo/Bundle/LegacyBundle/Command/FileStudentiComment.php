@@ -10,8 +10,6 @@ use Universibo\Bundle\LegacyBundle\Entity\Files\FileItemStudenti;
 /**
  * FileStudentiComment: si occupa dell'inserimento di un nuovo commento per il File Studente
  *
- * @package universibo
- * @subpackage commands
  * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @author Daniele Tiles

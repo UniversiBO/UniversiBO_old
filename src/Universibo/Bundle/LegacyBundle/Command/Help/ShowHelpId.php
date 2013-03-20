@@ -11,8 +11,6 @@ use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
  * Nel parametro di ingresso del plugin deve essere specificato l'id_help da visualizzare.
  * E' associato al template help_id.tpl
  *
- * @package universibo
- * @subpackage Help
  * @version 2.0.0
  * @author Fabrizio Pinto
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}

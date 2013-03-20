@@ -13,8 +13,6 @@ use Universibo\Bundle\LegacyBundle\Framework\PluginCommand;
  * Il BaseCommand che chiama questo plugin deve essere un'implementazione di CanaleCommand.
  *
  *
- * @package universibo
- * @subpackage News
  * @version 2.0.0
  * @author Fabrizio Pinto
  * @author Davide Bellettini <davide.bellettini@gmail.com>

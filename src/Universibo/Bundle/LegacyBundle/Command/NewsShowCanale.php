@@ -8,8 +8,6 @@ use Universibo\Bundle\LegacyBundle\App\CanaleCommand;
 /**
  * NewsAdd: si occupa dell'inserimento di una news in un canale
  *
- * @package universibo
- * @subpackage commands
  * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @author Daniele Tiles

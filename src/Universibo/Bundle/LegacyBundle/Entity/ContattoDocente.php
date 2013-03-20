@@ -8,8 +8,6 @@ use Universibo\Bundle\LegacyBundle\Framework\FrontController;
  * contatto di un docente
  *
  * @todo eliminato accessors
- * @package universibo
- * @subpackage class
  * @version 2.2.0
  * @author Fabrizio Pinto
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}

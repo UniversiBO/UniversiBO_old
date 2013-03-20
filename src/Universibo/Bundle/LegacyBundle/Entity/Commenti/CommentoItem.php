@@ -8,8 +8,6 @@ use Universibo\Bundle\LegacyBundle\Framework\FrontController;
  *
  * Rappresenta un singolo commento su un FileStudente.
  *
- * @package universibo
- * @subpackage Commenti
  * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @author Fabio Crisci <fabioc83@yahoo.it>

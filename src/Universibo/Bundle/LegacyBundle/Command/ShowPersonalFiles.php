@@ -9,8 +9,6 @@ use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
  * files studenti presenti su UniversiBO
  *
  *
- * @package universibo
- * @subpackage commands
  * @version 2.0.0
  * @author barto
  * @author evaimitico

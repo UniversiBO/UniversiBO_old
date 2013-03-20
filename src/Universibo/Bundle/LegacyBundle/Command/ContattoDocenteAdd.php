@@ -15,8 +15,6 @@ use Universibo\Bundle\LegacyBundle\Entity\Docente;
  *
  * permette di aggiungere un contatto docente, se non presente
  *
- * @package universibo
- * @subpackage commands
  * @version 2.2.0
  * @author Fabrizio Pinto
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}

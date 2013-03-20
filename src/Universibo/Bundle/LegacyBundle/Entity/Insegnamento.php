@@ -10,7 +10,6 @@ use Universibo\Bundle\LegacyBundle\Framework\FrontController;
  * Modella un insegnamento e le informazioni associate.
  * Ad un insegnamento possono essere associate da 1 a n attività didattiche (PrgAttivitaDidattica).
  *
- * @package universibo
  * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @license GPL, @link http://www.opensource.org/licenses/gpl-license.php

@@ -11,8 +11,6 @@ use Universibo\Bundle\LegacyBundle\Framework\FrontController;
  * ShowCdl: mostra un corso di laurea
  * Mostra i collegamenti a tutti gli insegnamenti attivi nel corso di laurea
  *
- * @package universibo
- * @subpackage commands
  * @version 2.0.0
  * @author Ilias Bartolini <brain79@virgilio.it>
  * @author Davide Bellettini <davide.bellettini@gmail.com>

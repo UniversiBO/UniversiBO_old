@@ -8,8 +8,6 @@ use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
  * files studenti presenti su UniversiBO
  *
  *
- * @package universibo
- * @subpackage commands
  * @version 2.0.0
  * @author Daniele Tiles <daniele.tiles@gmail.com>
  * @license GPL, {@link http://www.opensource.org/licenses/gpl-license.php}

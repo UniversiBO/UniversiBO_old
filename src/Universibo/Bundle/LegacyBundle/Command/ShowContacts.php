@@ -10,8 +10,6 @@ use Universibo\Bundle\LegacyBundle\Entity\Collaboratore;
  *
  * It shows Contacts page
  *
- * @package universibo
- * @subpackage commands
  * @version 2.0.0
  * @author Fabrizio Pinto
  * @author Ilias Bartolini <brain79@virgilio.it>

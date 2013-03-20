@@ -8,8 +8,6 @@ use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
  *
  * It shows manifesto page
  *
- * @package universibo
- * @subpackage commands
  * @version 2.0.0
  * @author Fabrizio Pinto
  * @author Ilias Bartolini <brain79@virgilio.it>
