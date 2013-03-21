@@ -8,7 +8,7 @@ use Knp\Menu\MenuItem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Universibo\Bundle\ForumBundle\Routing\ForumRouter;
-use Universibo\Bundle\LegacyBundle\Auth\UniversiBOAcl;
+use Universibo\Bundle\LegacyBundle\Auth\UniversiboAcl;
 use Universibo\Bundle\LegacyBundle\Entity\DBCanale2Repository;
 use Universibo\Bundle\LegacyBundle\Entity\DBRuoloRepository;
 use Universibo\Bundle\LegacyBundle\Routing\ChannelRouter;
@@ -39,7 +39,7 @@ class MenuBuilder
     /**
      * ACL
      *
-     * @var UniversiBOAcl
+     * @var UniversiboAcl
      */
     private $acl;
 
@@ -70,14 +70,14 @@ class MenuBuilder
      * @param FactoryInterface         $factory
      * @param SecurityContextInterface $securityContext
      * @param ForumRouter              $forumRouter
-     * @param UniversiBOAcl            $acl
+     * @param UniversiboAcl            $acl
      * @param ChannelRouter            $channelRouter
      * @param DBCanale2Repository      $channelRepo
      * @param DBRuoloRepository        $roleRepo
      */
     public function __construct(FactoryInterface $factory,
             SecurityContextInterface $securityContext, ForumRouter $forumRouter,
-            UniversiBOAcl $acl, ChannelRouter $channelRouter,
+            UniversiboAcl $acl, ChannelRouter $channelRouter,
             DBCanale2Repository $channelRepo, DBRuoloRepository $roleRepo)
     {
         $this->factory = $factory;

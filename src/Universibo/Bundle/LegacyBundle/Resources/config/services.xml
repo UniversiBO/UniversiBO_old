@@ -230,7 +230,7 @@
         </service>
 
         <service id="universibo_legacy.acl"
-                         class="Universibo\Bundle\LegacyBundle\Auth\UniversiBOAcl">
+                         class="Universibo\Bundle\LegacyBundle\Auth\UniversiboAcl">
             <argument type="service" id="universibo_legacy.repository.ruolo" />
         </service>
     </services>

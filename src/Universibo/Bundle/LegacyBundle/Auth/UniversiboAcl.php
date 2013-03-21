@@ -7,7 +7,7 @@ use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\DBRuoloRepository;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 
-class UniversiBOAcl
+class UniversiboAcl
 {
     const BASE = 'UniversiBO\\Bundle\\LegacyBundle\\Entity\\';
 
