@@ -52,6 +52,16 @@ services:
       -  { name: kernel.event_listener, event: universibo_shibboleth.auth_failed, method: onAuthenticationFailed }
   universibo_main.privacy.logout_handler:
     class: Universibo\Bundle\MainBundle\Security\Http\Logout\PrivacyLogoutHandler
+  universibo_main.repository.channel:
+    class: Universibo\Bundle\MainBundle\Entity\ChannelRepository
+    factory_service: doctrine.orm.entity_manager
+    factory_method: getRepository
+    arguments: ['Universibo\Bundle\MainBundle\Entity\Channel']
+  universibo_main.repository.channel_service:
+    class: Universibo\Bundle\MainBundle\Entity\ChannelServiceRepository
+    factory_service: doctrine.orm.entity_manager
+    factory_method: getRepository
+    arguments: ['Universibo\Bundle\MainBundle\Entity\ChannelService']
   universibo_main.encoder.md5:
     class: Universibo\Bundle\MainBundle\Security\Encoder\Md5Encoder
   universibo_main.encoder.sha1:
