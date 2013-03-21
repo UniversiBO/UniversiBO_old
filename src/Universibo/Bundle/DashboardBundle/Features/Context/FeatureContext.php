@@ -2,7 +2,7 @@
 
 namespace Universibo\Bundle\DashboardBundle\Features\Context;
 
-use Universibo\Bundle\WebsiteBundle\Features\Context\BaseContext;
+use Universibo\Bundle\MainBundle\Features\Context\BaseContext;
 
 /**
  * Feature context.

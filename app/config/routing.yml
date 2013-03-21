@@ -10,8 +10,8 @@ UniversiboForumBundle:
     resource: "@UniversiboForumBundle/Resources/config/routing.yml"
     prefix:   /   
 
-UniversiboWebsiteBundle:
-    resource: "@UniversiboWebsiteBundle/Resources/config/routing.yml"
+UniversiboMainBundle:
+    resource: "@UniversiboMainBundle/Resources/config/routing.yml"
     prefix:   /
     
 UniversiboLegacyBundle:

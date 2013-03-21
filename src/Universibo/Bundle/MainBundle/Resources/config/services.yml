@@ -1,0 +1,111 @@
+services:
+  universibo_main.feed.feed_generator:
+    class: Universibo\Bundle\MainBundle\Feed\FeedGenerator
+    arguments:
+      - '@universibo_legacy.repository.news.news_item'
+      - '@router'
+  universibo_main.twig.extension:
+    class: Universibo\Bundle\MainBundle\Twig\UniversiboExtension
+    tags:
+      -  { name: twig.extension }
+  universibo_main.user.provider:
+    class: Universibo\Bundle\MainBundle\Security\User\UniversiboUserProvider
+    arguments:
+      - '@doctrine.orm.entity_manager'
+      - '@universibo_core.repository.person'
+      - '@universibo_core.repository.user'
+      - '@fos_user.user_manager'
+      - '@universibo_core.repository.unibo_group'
+      - '@logger'
+    tags:
+      -  { name: monolog.logger, channel: shibboleth }
+  universibo_main.listener.privacy:
+    class: Universibo\Bundle\MainBundle\Listener\PrivacyListener
+    arguments:
+      - '@security.context'
+      - '@router'
+      - '@universibo_legacy.service.privacy'
+      - '@universibo_forum.session'
+      - '@universibo_main.contact.verification'
+      - '@fos_user.user_manager'
+    tags:
+      -  { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+  universibo_main.listener.auth.failure:
+    class: Universibo\Bundle\MainBundle\Listener\AuthenticationFailedListener
+    arguments:
+      - '@mailer'
+      - '@logger'
+      - '@router'
+      - '@templating'
+      - '%mailer_from%'
+      - '%mailer_from_name%'
+      - '%mailer_dev%'
+      - '%mailer_info%'
+      -  { name: kernel.event_listener, event: universibo_shibboleth.auth_failed, method: onAuthenticationFailed }
+  universibo_main.privacy.logout_handler:
+    class: Universibo\Bundle\MainBundle\Security\Http\Logout\PrivacyLogoutHandler
+  universibo_main.encoder.md5:
+    class: Universibo\Bundle\MainBundle\Security\Encoder\Md5Encoder
+  universibo_main.encoder.sha1:
+    class: Universibo\Bundle\MainBundle\Security\Encoder\Sha1Encoder
+  universibo_main.merge.user:
+    class: Universibo\Bundle\MainBundle\Entity\Merge\UserMerger
+    arguments:
+      - '@universibo_core.repository.user'
+      - '@universibo_legacy.repository.files.file_item'
+      - '@universibo_legacy.repository.commenti.commento_item'
+      - '@universibo_legacy.repository.news.news_item'
+      - '@universibo_legacy.repository.links.link'
+      - '@universibo_legacy.repository.ruolo'
+      - '@universibo_legacy.repository.docente'
+      - '@universibo_forum.dao.post'
+      - '@universibo_forum.dao.user'
+  universibo_main.contact.verification:
+    class: Universibo\Bundle\MainBundle\Contact\VerificationService
+    arguments:
+      - '@mailer'
+      - '%mailer_from%'
+      - '%mailer_from_name%'
+      - '@templating'
+      - '@doctrine.orm.entity_manager'
+  universibo_main.menu_builder:
+    class: Universibo\Bundle\MainBundle\Menu\MenuBuilder
+    scope: request
+    arguments:
+      - '@knp_menu.factory'
+      - '@security.context'
+      - '@universibo_forum.router'
+      - '@universibo_legacy.acl'
+      - '@universibo_legacy.routing.channel'
+      - '@universibo_legacy.repository.canale2'
+      - '@universibo_legacy.repository.ruolo'
+
+  universibo_main.menu.main:
+    class: Knp\Menu\MenuItem
+    factory_service: universibo_main.menu_builder
+    factory_method: createMainMenu
+    arguments:
+      - '@request'
+    scope: request
+    tags:
+      - { name: knp_menu.menu, alias: main }
+
+  universibo_main.menu.left:
+    class: Knp\Menu\MenuItem
+    factory_service: universibo_main.menu_builder
+    factory_method: createLeftMenu
+    arguments:
+      - '@request'
+    scope: request
+    tags:
+      - { name: knp_menu.menu, alias: left }
+
+  universibo_main.menu.myuniversibo:
+    class: Knp\Menu\MenuItem
+    factory_service: universibo_main.menu_builder
+    factory_method: createMyUniversiBOMenu
+    arguments:
+      - '@request'
+    scope: request
+    tags:
+      - { name: knp_menu.menu, alias: myuniversibo }

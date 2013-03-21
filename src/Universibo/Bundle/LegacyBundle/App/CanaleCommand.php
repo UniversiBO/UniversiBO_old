@@ -209,7 +209,7 @@ abstract class CanaleCommand extends UniversiboCommand
             }
         }
 
-        $rssResponse = $this->forward('UniversiboWebsiteBundle:Common:rss', array('channel' => $canale));
+        $rssResponse = $this->forward('UniversiboMainBundle:Common:rss', array('channel' => $canale));
         $template->assign('common_rss', $rssResponse->getContent());
 
         $this->updateUltimoAccesso();

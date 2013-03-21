@@ -304,7 +304,7 @@ abstract class UniversiboCommand extends BaseCommand
         $template->assign('common_helpByTopic', 'Help per argomenti');
         $template->assign('common_helpByTopicUri', $router->generate('universibo_legacy_help_topic'));
         $template->assign('common_rules', 'Regolamento');
-        $template->assign('common_rulesUri', $router->generate('universibo_website_rules'));
+        $template->assign('common_rulesUri', $router->generate('universibo_main_rules'));
         $template->assign('common_contacts', 'Chi siamo');
         $template->assign('common_contactsUri', $router->generate('universibo_legacy_contacts'));
         $template->assign('common_contribute', 'Collabora');

@@ -29,17 +29,17 @@ input.gsc-search-button {
 </head>
 <body>
 {% block body %}
-{{ render(controller('UniversiboWebsiteBundle:Common:navbar')) }}
-{{ render(controller('UniversiboWebsiteBundle:Common:alert')) }}
+{{ render(controller('UniversiboMainBundle:Common:navbar')) }}
+{{ render(controller('UniversiboMainBundle:Common:alert')) }}
 <div class="container-fluid">
     <div class="row-fluid">
         <div id="left" class="span2">
             <div id="leftmenu">
-                {{ knp_menu_render('left', {'currentClass': 'active', 'template': 'UniversiboWebsiteBundle:Menu:knp_menu.html.twig'}) }}
+                {{ knp_menu_render('left', {'currentClass': 'active', 'template': 'UniversiboMainBundle:Menu:knp_menu.html.twig'}) }}
             </div>
             {% if(is_granted('ROLE_USER')) %}
             <div id="myuniversibo">
-                {{ knp_menu_render('myuniversibo', {'currentClass': 'active', 'template': 'UniversiboWebsiteBundle:Menu:knp_menu.html.twig'}) }}
+                {{ knp_menu_render('myuniversibo', {'currentClass': 'active', 'template': 'UniversiboMainBundle:Menu:knp_menu.html.twig'}) }}
             </div>
             {% endif %}
         </div>
@@ -67,22 +67,22 @@ input.gsc-search-button {
         </div>
         <div id="right" class="span2 sidemenu">
             {% if channel|default(false) %}
-                {{ render_esi(controller('UniversiboWebsiteBundle:Role:box', {channelId: channel.idCanale})) }}
+                {{ render_esi(controller('UniversiboMainBundle:Role:box', {channelId: channel.idCanale})) }}
             {% endif %}
             {% if channel|default(false) and channel.servizioForum %}
-                {{ render_esi(controller('UniversiboWebsiteBundle:Forum:box', {channelId: channel.idCanale})) }}
+                {{ render_esi(controller('UniversiboMainBundle:Forum:box', {channelId: channel.idCanale})) }}
             {% endif %}
             {% if channel|default(false) and channel.servizioLinks %}
-                {{ render_esi(controller('UniversiboWebsiteBundle:Link:box', {channelId: channel.idCanale})) }}
+                {{ render_esi(controller('UniversiboMainBundle:Link:box', {channelId: channel.idCanale})) }}
             {% endif %}
             {% if channel|default(false) and channel.servizioFilesStudenti %}
-                {{ render_esi(controller('UniversiboWebsiteBundle:File:studentBox', {channelId: channel.idCanale})) }}
+                {{ render_esi(controller('UniversiboMainBundle:File:studentBox', {channelId: channel.idCanale})) }}
             {% endif %}
         </div>
     </div>
     <hr/>
     <div class="span12 disclaimer">
-    {{ render_esi(controller('UniversiboWebsiteBundle:Common:disclaimer')) }}
+    {{ render_esi(controller('UniversiboMainBundle:Common:disclaimer')) }}
     </div>
 </div>
 {% endblock body %}
@@ -92,6 +92,6 @@ input.gsc-search-button {
  output='js/compiled/main.js' filter='?yui_js'%}
         <script src="{{ asset_url }}" type="text/javascript"></script>
 {% endjavascripts %}
-{{ render(controller('UniversiboWebsiteBundle:Common:analytics')) }}
+{{ render(controller('UniversiboMainBundle:Common:analytics')) }}
 </body>
 </html>

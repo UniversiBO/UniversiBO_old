@@ -1,0 +1,38 @@
+{% extends 'UniversiboMainBundle::base.html.twig' %}
+{% block title %}UniversiBO :: Informativa sulla Privacy{% endblock %}
+{% block content %}
+{% if not is_granted('IS_AUTHENTICATED_FULLY') or user.usernameLocked %}
+<h1>Regolamento e informativa</h1>
+{% else %}
+<h1>Registrazione</h1>
+{% endif %}
+{% if mustAccept %}
+
+<form action="{{ path('universibo_main_rules_accept') }}" method="POST"
+      class="accept-form">
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <p class="error">{{ flashMessage }}</p>
+    {% endfor %}
+    {% if not user.usernameLocked %}
+    <label for="username">Scegli un nome utente, non ti sarà possibile cambiarlo
+        in futuro</label>
+    <input id="username" name="username" value="{{ user.username }}"/>
+    {% else %}
+    <p>Per proseguire è necessario
+        accettare regolamento e informativa sulla privacy</p>
+    {% endif %}
+    <p><input type="checkbox" id="accept_check" name="accept_check"/>
+    <label for="accept_check">Ho letto e accetto
+        l'<a href="#privacy">Informativa sulla privacy</a>, il
+        <a href="#rules">Regolamento per l'utilizzo dei servizi</a> e del
+        <a href="#forumRules">forum</a>.</label></p>
+    <p><input id="accept_submit" type="submit" value="Accetto"/></p>
+</form>
+{% endif %}
+<h2>Informativa sulla privacy</h2><a name="privacy"></a>
+{{ render_esi(controller('UniversiboMainBundle:Rules:privacyBox')) }}
+<h2>Regolamento per l'utilizzo dei servizi del sito</h2><a name="rules"></a>
+{{ render_esi(controller('UniversiboMainBundle:Rules:mainBox')) }}
+<h2>Regolamento per l'utilizzo del forum</h2><a name="forumRules"></a>
+{{ render_esi(controller('UniversiboMainBundle:Rules:forumBox')) }}
+{% endblock %}

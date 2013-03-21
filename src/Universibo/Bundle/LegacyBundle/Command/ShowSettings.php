@@ -42,7 +42,7 @@ class ShowSettings extends UniversiboCommand
 
         $preferences = array (
                 '[url='.$router->generate('universibo_legacy_personal_files').']I miei file[/url]',
-                '[url='.$router->generate('universibo_website_profile_edit').']Profilo[/url]',
+                '[url='.$router->generate('universibo_main_profile_edit').']Profilo[/url]',
                 '[url='.$router->generate('universibo_legacy_user', array('id_utente' => $utente->getId())).']Modifica MyUniversiBO[/url]',
                 '[url=https://www.dsa.unibo.it/AccessoPostaStudenti type=extern]Mail di ateneo[/url]',
         );

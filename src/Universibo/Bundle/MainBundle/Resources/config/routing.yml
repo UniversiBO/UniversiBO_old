@@ -1,0 +1,35 @@
+universibo_main_homepage:
+  pattern: /
+  defaults: { _controller: 'UniversiboMainBundle:Default:index' }
+rss:
+  pattern: /rss/{idCanale}/
+  defaults: { _controller: 'UniversiboMainBundle:Rss:index' }
+  requirements: { idCanale: \d+ }
+universibo_main_auth_failed:
+  pattern: /auth-failed/
+  defaults: { _controller: 'UniversiboMainBundle:AuthFailed:index' }
+universibo_main_rules:
+  pattern: /regolamento/
+  defaults: { _controller: 'UniversiboMainBundle:Rules:index' }
+universibo_main_rules_accept:
+  pattern: /regolamento/accetta/
+  defaults: { _controller: 'UniversiboMainBundle:Rules:accept' }
+  requirements: { _method: POST }
+universibo_main_profile_edit:
+  pattern: /my/profile/
+  defaults: { _controller: 'UniversiboMainBundle:Profile:edit' }
+universibo_main_profile_update:
+  pattern: /my/profile/update/
+  defaults: { _controller: 'UniversiboMainBundle:Profile:update' }
+  requirements: { _method: POST }
+universibo_main_sitemap:
+  pattern: /sitemap.xml
+  defaults: { _controller: 'UniversiboMainBundle:Sitemap:index' }
+universibo_main_contact_verify:
+  pattern: /my/email/verify/{token}/
+  defaults: { _controller: 'UniversiboMainBundle:Contact:verify' }
+  requirements: { _method: GET }
+universibo_main_contact_cancel:
+  pattern: /my/email/cancel/{token}/
+  defaults: { _controller: 'UniversiboMainBundle:Contact:cancel' }
+  requirements: { _method: GET }

@@ -19,7 +19,7 @@ class AppKernel extends Kernel
                 new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
                 new JMS\AopBundle\JMSAopBundle(),
                 new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-                new Universibo\Bundle\WebsiteBundle\UniversiboWebsiteBundle(),
+                new Universibo\Bundle\MainBundle\UniversiboMainBundle(),
                 new Universibo\Bundle\LegacyBundle\UniversiboLegacyBundle(),
                 new Universibo\Bundle\ForumBundle\UniversiboForumBundle(),
                 new Universibo\Bundle\SSOBundle\UniversiboSSOBundle(),

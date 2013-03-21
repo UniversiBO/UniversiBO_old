@@ -87,7 +87,7 @@ universibo_shibboleth:
     - idAnagraficaUnica
     - isMemberOf
     - sn
-  user_provider: universibo_website.user.provider
+  user_provider: universibo_main.user.provider
 
 ornicar_apc:
   host: %apc_host%

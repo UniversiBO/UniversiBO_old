@@ -111,7 +111,7 @@ class ShowCdl extends CanaleCommand
 
         $template -> assign('cdl_langYear', 'anno accademico' );
 
-        $response = $this->forward('UniversiboWebsiteBundle:Didactics:academicYear', array(
+        $response = $this->forward('UniversiboMainBundle:Didactics:academicYear', array(
                 'min' => $minYear,
                 'max' => $maxYear,
                 'current' => $academicYear,

@@ -1,9 +1,9 @@
 fos_advanced_encoder:
   encoders:
     md5:
-      id: universibo_website.encoder.md5
+      id: universibo_main.encoder.md5
     sha1:
-      id: universibo_website.encoder.sha1
+      id: universibo_main.encoder.sha1
       
 security:
     encoders:
@@ -39,7 +39,7 @@ security:
                 handler:
                   - universibo_shibboleth.logout_handler
                   - universibo_forum.logout_handler
-                  - universibo_website.privacy.logout_handler
+                  - universibo_main.privacy.logout_handler
                 invalidate_session: false
             shibboleth: ~
     access_control:

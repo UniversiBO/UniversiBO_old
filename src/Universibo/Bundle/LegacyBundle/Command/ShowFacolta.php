@@ -61,7 +61,7 @@ class ShowFacolta extends CanaleCommand
                 throw new NotFoundHttpException('Academic Year Not found');
             }
 
-            $response = $this->forward('UniversiboWebsiteBundle:Didactics:academicYear', array(
+            $response = $this->forward('UniversiboMainBundle:Didactics:academicYear', array(
                 'min' => $minYear,
                 'max' => $maxYear,
                 'current' => $currentYear,
