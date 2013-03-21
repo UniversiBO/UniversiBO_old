@@ -5,6 +5,7 @@
  */
 namespace Universibo\Bundle\DashboardBundle\Service;
 
+use DateTime;
 use Doctrine\DBAL\Connection;
 
 /**
@@ -70,8 +71,8 @@ SELECT COUNT(*)
    WHERE last_login >= ?
 EOT;
 
-        $october1st = new \DateTime('October 1st');
-        $now = new \DateTime();
+        $october1st = new DateTime('October 1st');
+        $now = new DateTime();
 
         if ($october1st > $now) {
             $october1st->setDate(date('Y') - 1, 10, 1);
