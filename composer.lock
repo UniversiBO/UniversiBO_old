@@ -1,5 +1,5 @@
 {
-    "hash": "05e836c80cb4c2451510a45b82312627",
+    "hash": "8eebf15ed4c2adfcfe239cbe04027f87",
     "packages": [
         {
             "name": "doctrine/common",
@@ -1297,12 +1297,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kriswallsmith/assetic.git",
-                "reference": "fcee205a5a3a859c009d976ba3acfe67958e912c"
+                "reference": "89e9837425ec32dedf1c90bb3cc48056b9315113"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/fcee205a5a3a859c009d976ba3acfe67958e912c",
-                "reference": "fcee205a5a3a859c009d976ba3acfe67958e912c",
+                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/89e9837425ec32dedf1c90bb3cc48056b9315113",
+                "reference": "89e9837425ec32dedf1c90bb3cc48056b9315113",
                 "shasum": ""
             },
             "require": {
@@ -1360,7 +1360,7 @@
                 "compression",
                 "minification"
             ],
-            "time": "2013-03-05 17:56:54"
+            "time": "2013-03-20 02:05:59"
         },
         {
             "name": "monolog/monolog",
@@ -2289,12 +2289,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/UniversiBO/UniversiboLoginActionBundle.git",
-                "reference": "c703ed92f9ac3a5685aa207fc4ad301662ce00c0"
+                "reference": "3b8026e65c1727a1bcca10a578ac610867c9a3ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UniversiBO/UniversiboLoginActionBundle/zipball/c703ed92f9ac3a5685aa207fc4ad301662ce00c0",
-                "reference": "c703ed92f9ac3a5685aa207fc4ad301662ce00c0",
+                "url": "https://api.github.com/repos/UniversiBO/UniversiboLoginActionBundle/zipball/3b8026e65c1727a1bcca10a578ac610867c9a3ea",
+                "reference": "3b8026e65c1727a1bcca10a578ac610867c9a3ea",
                 "shasum": ""
             },
             "require": {
@@ -2321,7 +2321,7 @@
                 }
             ],
             "description": "Ask user for actions after login (e.g. wizard)",
-            "time": "2013-03-18 12:31:01"
+            "time": "2013-03-18 16:18:03"
         },
         {
             "name": "universibo/shibboleth-bundle",
@@ -3636,7 +3636,7 @@
         "behat/behat": 0
     },
     "platform": {
-        "php": ">=5.3.3"
+        "php": ">=5.4.0"
     },
     "platform-dev": [
 
