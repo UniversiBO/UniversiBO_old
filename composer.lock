@@ -1,5 +1,5 @@
 {
-    "hash": "8eebf15ed4c2adfcfe239cbe04027f87",
+    "hash": "bd78cf6bad676fc8031b0230b93c6e42",
     "packages": [
         {
             "name": "doctrine/common",
@@ -3636,7 +3636,7 @@
         "behat/behat": 0
     },
     "platform": {
-        "php": ">=5.4.0"
+        "php": ">5.4.0"
     },
     "platform-dev": [
 
