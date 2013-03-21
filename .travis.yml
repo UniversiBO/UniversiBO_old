@@ -16,7 +16,7 @@ before_script:
 script:
   - bin/phpunit -c app
   - bin/behat @UniversiboDashboardBundle -v
-  - bin/behat @UniversiboWebsiteBundle -v
+  - bin/behat @UniversiboMainBundle -v
 
 notifications:
   email: dev_universibo@mama.ing.unibo.it
