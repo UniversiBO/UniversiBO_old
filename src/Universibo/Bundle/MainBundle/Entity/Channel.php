@@ -2,8 +2,10 @@
 
 namespace Universibo\Bundle\MainBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use Universibo\Bundle\CoreBundle\Entity\User;
 
 /**
  * Universibo\Bundle\MainBundle\Entity\Channel
@@ -49,6 +51,32 @@ class Channel
      * @ORM\Column(name="hits", type="integer")
      */
     private $hits;
+
+    /**
+     * Updated at
+     *
+     * @var DateTime
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    private $updatedAt;
+
+    /**
+     * Legacy groups
+     *
+     * @ORM\Column(type="integer", name="groups")
+     * @deprecated
+     * @var int
+     */
+    private $legacyGroups = 0;
+
+    /**
+     * Legacy groups
+     *
+     * @ORM\Column(type="integer", name="forum_id", nullable=true)
+     * @deprecated
+     * @var int
+     */
+    private $forumId = 0;
 
     /**
      * @ORM\ManyToMany(targetEntity="ChannelService")
@@ -143,6 +171,77 @@ class Channel
     public function getHits()
     {
         return $this->hits;
+    }
+
+    /**
+     * Updated at getter
+     *
+     * @return DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Updated at setter
+     *
+     * @param  DateTime $updatedAt
+     * @return Channel
+     */
+    public function setUpdatedAt(DateTime $updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Legacy groups (bitwise) getter
+     *
+     * @deprecated
+     * @return integer
+     */
+    public function getLegacyGroups()
+    {
+        return $this->legacyGroups;
+    }
+
+    /**
+     * Legacy (bitwise) groups setter
+     *
+     * @deprecated
+     * @param  int  $legacyGroups
+     * @return User
+     */
+    public function setLegacyGroups($legacyGroups)
+    {
+        $this->legacyGroups = $legacyGroups;
+
+        return $this;
+    }
+
+    /**
+     * Forum id getter
+     *
+     * @return integer
+     */
+    public function getForumId()
+    {
+        return $this->forumId;
+    }
+
+    /**
+     * Forum id setter
+     *
+     * @param  integer $forumId
+     * @return Channel
+     */
+    public function setForumId($forumId)
+    {
+        $this->forumId = $forumId;
+
+        return $this;
     }
 
     /**
