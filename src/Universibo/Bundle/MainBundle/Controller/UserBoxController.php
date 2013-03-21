@@ -2,22 +2,74 @@
 
 namespace Universibo\Bundle\MainBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
+ * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
-class UserBoxController extends Controller
+class UserBoxController
 {
+    private $infoUrl;
+
+    private $logoutUrl;
+
+    private $templating;
+
     /**
-     * @Template()
+     * @var RouterInterface
      */
-    public function indexAction()
+    private $router;
+
+    /**
+     * @var SecurityContextInterface
+     */
+    private $securityContext;
+
+    public function __construct($infoUrl, $logoutUrl, $templating,
+            RouterInterface $router, SecurityContextInterface $securityContext)
     {
-        $user = $this->getUser();
+        $this->infoUrl = $infoUrl;
+        $this->logoutUrl = $logoutUrl;
+        $this->templating = $templating;
+        $this->router = $router;
+        $this->securityContext = $securityContext;
+    }
 
-        $roleTranslator = $this->get('universibo_legacy.translator.role_name');
+    public function indexAction(Request $request)
+    {
+        $context = $this->securityContext;
+        $claims = $request->getSession()->get('shibbolethClaims', array());
 
-        return array('user' => $user, 'level' => $roleTranslator->translate($user->getRoles()));
+        $hasClaims = count($claims) > 0;
+        $logged = $context->isGranted('IS_AUTHENTICATED_FULLY');
+        $failed = $hasClaims && !$logged;
+        $shibDisabled = $logged && !$hasClaims;
+
+        if ($shibDisabled) {
+            $logoutUrl = $this->router->generate('universibo_shibboleth_logout');
+        } else {
+            $wreply = '?wreply='.urlencode($this->router->generate('universibo_shibboleth_logout', array(), true));
+            $logoutUrl = $failed ? $this->logoutUrl.$wreply :
+            $this->router->generate('universibo_shibboleth_prelogout');
+        }
+
+        if ($hasClaims) {
+            $eppn = $claims['eppn'];
+        } elseif ($logged) {
+            $eppn = $context->getToken()->getUser()->getEmail();
+        } else {
+            $eppn = '';
+        }
+
+        $data = array (
+            'eppn' => $eppn,
+            'showEppn' => $eppn !== '',
+            'logoutUrl' => $logoutUrl,
+            'infoUrl' => $this->infoUrl
+        ) ;
+
+        return $this->templating->renderResponse('UniversiboMainBundle:UserBox:index.html.twig', $data);
     }
 }

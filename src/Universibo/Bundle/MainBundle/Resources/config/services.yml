@@ -1,4 +1,12 @@
 services:
+  universibo_main.controller.userbox:
+    class: Universibo\Bundle\MainBundle\Controller\UserBoxController
+    arguments:
+      - '%universibo_shibboleth.idp_url.info%'
+      - '%universibo_shibboleth.idp_url.logout%'
+      - '@templating'
+      - '@router'
+      - '@security.context'
   universibo_main.feed.feed_generator:
     class: Universibo\Bundle\MainBundle\Feed\FeedGenerator
     arguments:

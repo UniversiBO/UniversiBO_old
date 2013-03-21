@@ -29,3 +29,6 @@ navbar:
   manifesto: Manifesto
   rules: Regolamento & Privacy
   services: Servizi
+sso:
+  info_title: Informazioni sul Single Sign-On di Ateneo
+  login_title: Accesso Utenti Registrati
