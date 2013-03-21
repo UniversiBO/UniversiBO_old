@@ -8,20 +8,6 @@ SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
 SET search_path = public, pg_catalog;
 
 --
@@ -112,6 +98,20 @@ CREATE VIEW canale_noforum AS
 ALTER TABLE public.canale_noforum OWNER TO universibo;
 
 --
+-- Name: classi_corso_id_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE classi_corso_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.classi_corso_id_seq OWNER TO universibo;
+
+--
 -- Name: classi_corso; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
 --
 
@@ -122,7 +122,8 @@ CREATE TABLE classi_corso (
     cat_id integer,
     cod_doc character varying(6),
     cod_fac character varying(4),
-    categoria integer
+    categoria integer,
+    id integer DEFAULT nextval('classi_corso_id_seq'::regclass) NOT NULL
 );
 
 
@@ -1242,6 +1243,18 @@ CREATE TABLE schools (
 ALTER TABLE public.schools OWNER TO universibo;
 
 --
+-- Name: schools_degree_courses; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE schools_degree_courses (
+    school_id integer NOT NULL,
+    degree_course_id integer NOT NULL
+);
+
+
+ALTER TABLE public.schools_degree_courses OWNER TO universibo;
+
+--
 -- Name: schools_id_seq; Type: SEQUENCE; Schema: public; Owner: universibo
 --
 
@@ -1588,7 +1601,14 @@ SELECT pg_catalog.setval('canale_id_canale_seq', 5, true);
 -- Data for Name: classi_corso; Type: TABLE DATA; Schema: public; Owner: universibo
 --
 
-INSERT INTO classi_corso VALUES ('0937', 'INGEGNERIA INFORMATICA', 4, NULL, NULL, '0021', 5);
+INSERT INTO classi_corso VALUES ('0937', 'INGEGNERIA INFORMATICA', 4, NULL, NULL, '0021', 5, 1);
+
+
+--
+-- Name: classi_corso_id_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('classi_corso_id_seq', 1, true);
 
 
 --
@@ -2163,6 +2183,8 @@ INSERT INTO migration_versions VALUES ('20130102154033');
 INSERT INTO migration_versions VALUES ('20130125021448');
 INSERT INTO migration_versions VALUES ('20130308194214');
 INSERT INTO migration_versions VALUES ('20130308203542');
+INSERT INTO migration_versions VALUES ('20130321202621');
+INSERT INTO migration_versions VALUES ('20130321204109');
 
 
 --
@@ -2335,6 +2357,12 @@ INSERT INTO schools VALUES (11, 'Scienze politiche', 'http://www.unibo.it/Portal
 
 
 --
+-- Data for Name: schools_degree_courses; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+
+
+--
 -- Name: schools_id_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
 --
 
@@ -2433,11 +2461,19 @@ ALTER TABLE ONLY canale
 
 
 --
--- Name: classi_corsi_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+-- Name: classi_corso_cod_corso_key; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
 --
 
 ALTER TABLE ONLY classi_corso
-    ADD CONSTRAINT classi_corsi_pkey PRIMARY KEY (cod_corso);
+    ADD CONSTRAINT classi_corso_cod_corso_key UNIQUE (cod_corso);
+
+
+--
+-- Name: classi_corso_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY classi_corso
+    ADD CONSTRAINT classi_corso_pkey PRIMARY KEY (id);
 
 
 --
@@ -2705,6 +2741,14 @@ ALTER TABLE ONLY rub_docente
 
 
 --
+-- Name: schools_degree_courses_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY schools_degree_courses
+    ADD CONSTRAINT schools_degree_courses_pkey PRIMARY KEY (school_id, degree_course_id);
+
+
+--
 -- Name: schools_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
 --
 
@@ -2819,6 +2863,20 @@ CREATE INDEX idx_b3c77447a76ed395 ON fos_user_group USING btree (user_id);
 --
 
 CREATE INDEX idx_b3c77447fe54d947 ON fos_user_group USING btree (group_id);
+
+
+--
+-- Name: idx_c6a63c1c25b2bc80; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE INDEX idx_c6a63c1c25b2bc80 ON schools_degree_courses USING btree (degree_course_id);
+
+
+--
+-- Name: idx_c6a63c1cc32a47ee; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE INDEX idx_c6a63c1cc32a47ee ON schools_degree_courses USING btree (school_id);
 
 
 --
@@ -2981,6 +3039,22 @@ ALTER TABLE ONLY fos_user_group
 
 ALTER TABLE ONLY collaboratore
     ADD CONSTRAINT fk_b6092a05f872060d FOREIGN KEY (id_utente) REFERENCES fos_user(id);
+
+
+--
+-- Name: fk_c6a63c1c25b2bc80; Type: FK CONSTRAINT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY schools_degree_courses
+    ADD CONSTRAINT fk_c6a63c1c25b2bc80 FOREIGN KEY (degree_course_id) REFERENCES classi_corso(id);
+
+
+--
+-- Name: fk_c6a63c1cc32a47ee; Type: FK CONSTRAINT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY schools_degree_courses
+    ADD CONSTRAINT fk_c6a63c1cc32a47ee FOREIGN KEY (school_id) REFERENCES schools(id);
 
 
 --
