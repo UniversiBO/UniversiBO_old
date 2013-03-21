@@ -1,15 +1,17 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Controller;
 
+/**
+ * DefaultController class file
+ */
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
 use Universibo\Bundle\LegacyBundle\Framework\DefaultReceiver;
 
-use Symfony\Component\HttpFoundation\Response;
-
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 /**
+ * Default controller: routes all request to legacy framework
+ *
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
 class DefaultController extends Controller
