@@ -2,8 +2,8 @@
 <html>
   <head>
     <title>{% block title %}{% trans %}udb_default_title{% endtrans %}{% endblock title %}</title>
-    {% stylesheets 'bundles/universibowebsite/bootstrap/css/bootstrap.css'
-       'bundles/universibowebsite/bootstrap/css/bootstrap-responsive.css'
+    {% stylesheets 'bundles/universibodesign/bootstrap/css/bootstrap.css'
+       'bundles/universibodesign/bootstrap/css/bootstrap-responsive.css'
        'bundles/universibodashboard/css/screen.css'
        output="css/compiled/dashboard.css" filter='cssrewrite,?yui_css' %}
       <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" />
@@ -16,8 +16,8 @@
     {% block content %}
     {% endblock content %}
     </div>
-    {% javascripts 'bundles/universibowebsite/js/00*'
-       'bundles/universibowebsite/bootstrap/js/bootstrap.js'
+    {% javascripts 'bundles/universibodesign/js/00*'
+       'bundles/universibodesign/bootstrap/js/bootstrap.js'
        'bundles/universibodashboard/js/*.js'
         output='js/compiled/dashboard.js' filter='?yui_js' %}
       <script src="{{ asset_url }}"></script>
