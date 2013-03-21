@@ -2,7 +2,7 @@
     <h3>{% trans %}ub_student_files{% endtrans %}</h3>
     <div class="contenuto">
         {% for file in files %}
-        <p><img src="{{ asset('bundles/universibolegacy/images/pallino1.gif') }}" width="11" height="10" alt=""/>
+        <p><img src="{{ asset('bundles/universibodesign/images/pallino1.gif') }}" width="11" height="10" alt=""/>
              <a href="{{ path('universibo_legacy_file', {id_file: file.idFile}) }}">{{ file.titolo }}</a></p>
         {% else %}
             <p>{% trans %}ub_student_files_empty{% endtrans %}</p>

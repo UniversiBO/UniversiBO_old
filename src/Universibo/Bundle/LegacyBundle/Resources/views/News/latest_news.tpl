@@ -2,14 +2,14 @@
 
 <div class="comandi">
     {if $showNewsLatest_addNewsFlag == "true" || $showNewsLatest_langNewsShowOthers != ""}
-        {if $showNewsLatest_addNewsFlag == "true"}<img src="{$common_basePath}/bundles/universibolegacy/images/news_new.gif" width="15" height="15" alt="" />
+        {if $showNewsLatest_addNewsFlag == "true"}<img src="{$common_basePath}/bundles/universibodesign/images/news_new.gif" width="15" height="15" alt="" />
             <a href="{$showNewsLatest_addNewsUri|escape:"htmlall"}">{$showNewsLatest_addNews|escape:"htmlall"|bbcode2html|nl2br}</a>
         {/if}
-        {if $showNewsLatest_langNewsShowOthers != ""}<img src="{$common_basePath}/bundles/universibolegacy/images/news_all.gif" width="15" height="15" alt="" />
+        {if $showNewsLatest_langNewsShowOthers != ""}<img src="{$common_basePath}/bundles/universibodesign/images/news_all.gif" width="15" height="15" alt="" />
             <a href="{$showNewsLatest_langNewsShowOthersUri|escape:"htmlall"}">{$showNewsLatest_langNewsShowOthers|escape:"htmlall"|bbcode2html|nl2br}</a>
         {/if}
     {/if}
-    {if ($showNewsLatest_rss|default:"") != ""}<img src="{$common_basePath}/bundles/universibolegacy/images/rss.gif" width="15" height="15" alt="" />
+    {if ($showNewsLatest_rss|default:"") != ""}<img src="{$common_basePath}/bundles/universibodesign/images/rss.gif" width="15" height="15" alt="" />
         <a href="{$showNewsLatest_rss|escape:"htmlall"}">RSS</a>
     {/if}
 </div>

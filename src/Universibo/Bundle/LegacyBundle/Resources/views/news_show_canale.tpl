@@ -6,10 +6,10 @@
 {include file="avviso_notice.tpl"}
 <div class="comandi">
 
-{if $NewsShowCanale_addNewsFlag == "true"}<p><a href="{$NewsShowCanale_addNewsUri|escape:"htmlall"}"><img src="{$common_basePath}/bundles/universibolegacy/images/news_new.gif" width="15" height="15" alt="" />
+{if $NewsShowCanale_addNewsFlag == "true"}<p><a href="{$NewsShowCanale_addNewsUri|escape:"htmlall"}"><img src="{$common_basePath}/bundles/universibodesign/images/news_new.gif" width="15" height="15" alt="" />
 	{$NewsShowCanale_addNews|escape:"htmlall"|bbcode2html|nl2br}</a></p>
 {/if}    
-{if ($showNews_rss|default:"") != ""}<img src="{$common_basePath}/bundles/universibolegacy/images/rss.gif" width="15" height="15" alt="" />
+{if ($showNews_rss|default:"") != ""}<img src="{$common_basePath}/bundles/universibodesign/images/rss.gif" width="15" height="15" alt="" />
 	<a href="{$showNews_rss|escape:"htmlall"}">RSS</a>
 {/if}
 {if $NewsShowCanale_numPagineFlag == "true"}

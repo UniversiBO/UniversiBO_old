@@ -9,8 +9,8 @@
 {cycle name=t_class values="even,odd" print=false advance=false}
 <div class="elenco">
 	<p class="{cycle name=t_class}">&nbsp;{$item.data|escape:"htmlall"} | {$item.nome|escape:"htmlall"} | {$item.dimensione|escape:"htmlall"} KB | 
-	<a href="{$item.editUri|escape:"htmlall"}"><img src="{$common_basePath}/bundles/universibolegacy/images/file_edit_32.gif" border="0" width="15" height="15" alt="modifica" title="modifica" hspace="1"/></a>
-	<a href="{$item.downloadUri|escape:"htmlall"}"><img src="{$common_basePath}/bundles/universibolegacy/images/file_download.gif" border="0" width="15" height="15" alt="download" title="download" hspace="1"/></a>
+	<a href="{$item.editUri|escape:"htmlall"}"><img src="{$common_basePath}/bundles/universibodesign/images/file_edit_32.gif" border="0" width="15" height="15" alt="modifica" title="modifica" hspace="1"/></a>
+	<a href="{$item.downloadUri|escape:"htmlall"}"><img src="{$common_basePath}/bundles/universibodesign/images/file_download.gif" border="0" width="15" height="15" alt="download" title="download" hspace="1"/></a>
 	</p>
 </div> 
 {/foreach}
