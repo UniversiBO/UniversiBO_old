@@ -217,7 +217,7 @@ EOT;
 
     public function findByChannelId($channelId)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $id_canale = $db->quote($channelId);
         //attenzione!!! ...c'? il distinct anche su sdoppiato!!
@@ -225,22 +225,22 @@ EOT;
         FROM (
         SELECT DISTINCT ON (id_canale, anno_accademico, cod_corso, cod_materia, anno_corso, cod_materia_ins, anno_corso_ins, cod_ril, cod_doc, tipo_ciclo, cod_ate, anno_corso_universibo, sdoppiato ) *
         FROM (
-        SELECT i.tipo_canale, i.anno_accademico, i.cod_corso, i.cod_ind, i.cod_ori, i.cod_materia, m1.desc_materia, i.anno_corso, i.cod_materia_ins, m2.desc_materia AS desc_materia_ins, i.anno_corso_ins, i.cod_ril, i.cod_modulo, i.cod_doc, d.nome_doc, i.flag_titolare_modulo, i.tipo_ciclo, i.cod_ate, i.anno_corso_universibo, '
+        SELECT i.id_canale, i.anno_accademico, i.cod_corso, i.cod_ind, i.cod_ori, i.cod_materia, m1.desc_materia, i.anno_corso, i.cod_materia_ins, m2.desc_materia AS desc_materia_ins, i.anno_corso_ins, i.cod_ril, i.cod_modulo, i.cod_doc, d.nome_doc, i.flag_titolare_modulo, i.tipo_ciclo, i.cod_ate, i.anno_corso_universibo, '
                 . $db->quote('N')
                 . ' AS sdoppiato, null AS id_sdop
-        FROM canale c, prg_insegnamento i, classi_materie m1, classi_materie m2, docente d
-        WHERE c.id_canale = i.id_canale
+        FROM prg_insegnamento i, classi_materie m1, classi_materie m2, docente d
+        WHERE 1=1
         AND i.cod_materia=m1.cod_materia
         AND i.cod_materia_ins=m2.cod_materia
         AND i.cod_doc=d.cod_doc
-        AND c.id_canale=' . $id_canale
+        AND i.id_canale=' . $id_canale
                 . '
         UNION
-        SELECT i.tipo_canale, s.anno_accademico, s.cod_corso, s.cod_ind, s.cod_ori, s.cod_materia, m1.desc_materia, i.anno_corso, s.cod_materia_ins, m2.desc_materia AS desc_materia_ins, s.anno_corso_ins, s.cod_ril, i.cod_modulo, i.cod_doc, d.nome_doc, i.flag_titolare_modulo, s.tipo_ciclo, s.cod_ate, s.anno_corso_universibo, '
+        SELECT i.id_canale, s.anno_accademico, s.cod_corso, s.cod_ind, s.cod_ori, s.cod_materia, m1.desc_materia, i.anno_corso, s.cod_materia_ins, m2.desc_materia AS desc_materia_ins, s.anno_corso_ins, s.cod_ril, i.cod_modulo, i.cod_doc, d.nome_doc, i.flag_titolare_modulo, s.tipo_ciclo, s.cod_ate, s.anno_corso_universibo, '
                 . $db->quote('S')
                 . ' AS sdoppiato, id_sdop
-        FROM canale i, prg_insegnamento i, prg_sdoppiamento s, classi_materie m1, classi_materie m2, docente d
-        WHERE c.id_canale = i.id_canale
+        FROM prg_insegnamento i, prg_sdoppiamento s, classi_materie m1, classi_materie m2, docente d
+        WHERE 1=1
         AND i.anno_accademico=s.anno_accademico_fis
         AND i.cod_corso=s.cod_corso_fis
         AND i.cod_ind=s.cod_ind_fis
@@ -253,44 +253,36 @@ EOT;
         AND i.anno_corso_ins=s.anno_corso_ins_fis
         AND i.cod_ril=s.cod_ril_fis
         AND i.cod_doc=d.cod_doc
-        AND c.id_canale=' . $id_canale
+        AND i.id_canale=' . $id_canale
                 . '
         ) AS cdl
         ) AS cdl1
         ORDER BY 19, 17, 10';
-        /**
-         * @todo ATTENZIONE! ...questa query non ? portabile.
-         * bisogna cambiarla ed eventualmente gestire i duplicati via PHP
-         */
-        $res = $db->query($query);
-        if (DB::isError($res)) {
-            $this
-                    ->throwError('_ERROR_CRITICAL',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-        }
 
-        $rows = $res->numRows();
+        $res = $db->executeQuery($query);
 
-        if ($rows == 0) {
-            $ret = array();
-
-            return $ret;
-        }
         $elenco = array();
-        while ($row = $this->fetchRow($res)) {
-            $prgAtt = new PrgAttivitaDidattica($row[13], $row[5], $row[4],
-                    $row[0], $row[2], $row[1], $row[3], $row[7] == 'S',
-                    $row[6] == 'S', $row[8] == 'S', $row[9], $row[10],
-                    $row[11] == 'S', $row[12] == 'S', $row[14], $row[15],
-                    $row[16], $row[17], $row[18], $row[19], $row[20], $row[21],
-                    $row[22], $row[23], $row[24], $row[25], $row[26], $row[27],
-                    $row[28], $row[29], $row[30], $row[31], $row[32] == 'S',
-                    $row[33]);
+        while (false !== ($row = $res->fetch())) {
+            $channel = $this->channelRepository->find($row['id_canale']);
+
+            $ultima_modifica = $channel->getUpdatedAt() ? $channel->getUpdatedAt()->getTimestamp() : 0;
+
+            $prgAtt = new PrgAttivitaDidattica($channel->getId(), $channel->getLegacyGroups(),
+                    $ultima_modifica, $channel->getType(), '', $channel->getName(),
+                    $channel->getHits(), $channel->hasService('news'), $channel->hasService('files'),
+                    $channel->hasService('forum'), $channel->getForumId(),
+                    $channel->getForumGroupId(), $channel->hasService('links'),
+                    $channel->hasService('student_files'), $row['anno_accademico'],
+                    $row['cod_corso'], 0, 0, $row['cod_materia'], $row['desc_materia'],
+                    $row['anno_corso'], $row['cod_materia_ins'], $row['desc_materia_ins'],
+                    $row['anno_corso_ins'], $row['cod_ril'], $row['cod_modulo'],
+                    $row['cod_doc'], $row['nome_doc'], $row['flag_titolare_modulo'],
+                    $row['tipo_ciclo'], $row['cod_ate'], $row['anno_corso_universibo'],
+                    $row['sdoppiato'] === 'S', $row['id_sdop']
+            );
 
             $elenco[] = $prgAtt;
         }
-        $res->free();
 
         return $elenco;
     }
