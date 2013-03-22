@@ -176,12 +176,18 @@ class DBCanaleRepository
 
     private function hasService(Channel $channel, $serviceName)
     {
-        foreach ($channel->getServices() as $service) {
-            if ($service->getName() === $serviceName) {
-                return true;
-            }
-        }
+        return $channel->hasService($serviceName);
+    }
 
-        return false;
+    /**
+     * ChannelRepository fallback
+     *
+     * @param  string $name
+     * @param  array  $arguments
+     * @return mixed
+     */
+    public function __call($name, $arguments)
+    {
+        return call_user_func_array(array($this->channelRepository, $name), $arguments);
     }
 }

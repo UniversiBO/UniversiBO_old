@@ -255,4 +255,21 @@ class Channel
 
         return $this->services;
     }
+
+    /**
+     * Returns true if channel has service
+     *
+     * @param  string  $name
+     * @return boolean
+     */
+    public function hasService($name)
+    {
+        foreach ($this->getServices() as $service) {
+            if ($service->getName() === $name) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

@@ -1,8 +1,9 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
-use Universibo\Bundle\LegacyBundle\PearDB\DB;
 use Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
+use Universibo\Bundle\LegacyBundle\PearDB\DB;
+use Universibo\Bundle\MainBundle\Entity\ChannelRepository;
 
 /**
  * Facolta repository
@@ -17,11 +18,27 @@ class DBFacoltaRepository extends DBRepository
      */
     private $canaleRepository;
 
-    public function __construct(ConnectionWrapper $db, DBCanaleRepository $canaleRepository, $convert = false)
+    /**
+     * Channel repository
+     *
+     * @var ChannelRepository
+     */
+    private $channelRepository;
+
+    /**
+     * Constructor
+     *
+     * @param ConnectionWrapper  $db
+     * @param DBCanaleRepository $canaleRepository
+     * @param ChannelRepository  $channelRepository
+     */
+    public function __construct(ConnectionWrapper $db, DBCanaleRepository $canaleRepository,
+            ChannelRepository $channelRepository)
     {
-        parent::__construct($db, $convert);
+        parent::__construct($db);
 
         $this->canaleRepository = $canaleRepository;
+        $this->channelRepository = $channelRepository;
     }
 
     /**
@@ -29,35 +46,32 @@ class DBFacoltaRepository extends DBRepository
      */
     public function find($id)
     {
-        $db = $this->getDb();
-
-        $query = 'SELECT tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo, files_studenti_attivo, a.id_canale, cod_fac, desc_fac, url_facolta FROM canale a , facolta b WHERE a.id_canale = b.id_canale AND a.id_canale = '
-                . $db->quote($id) . ' ORDER BY 16';
-        $res = $db->query($query);
-
-        if (DB::isError($res)) {
-            $this
-                    ->throwError('_ERROR_DEFAULT',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
+        $channel = $this->channelRepository->find($id);
+        if (null === $channel) {
+            return null;
         }
 
-        if ($res->numRows() === 0) {
-            return array();
+        $db = $this->getConnection();
+
+        $query = 'SELECT id_canale, cod_fac, desc_fac, url_facolta FROM facolta b WHERE b.id_canale = ?';
+        $res = $db->executeQuery($query, array($id));
+        $row = $res->fetch();
+
+        if (!$row) {
+            return null;
         }
 
-        $facolta = null;
+        $ultima_modifica = $channel->getUpdatedAt() ? $channel->getUpdatedAt()->getTimestamp() : 0;
 
-        if ($row = $this->fetchRow($res)) {
-            $facolta = new Facolta($row[13], $row[5], $row[4], $row[0],
-                    $row[2], $row[1], $row[3], $row[7] == 'S', $row[6] == 'S',
-                    $row[8] == 'S', $row[9], $row[10], $row[11] == 'S',
-                    $row[12] == 'S', $row[14], $row[15], $row[16]);
-        }
-
-        $res->free();
-
-        return $facolta;
+        return new Facolta(
+            $channel->getId(), $channel->getLegacyGroups(),
+            $ultima_modifica, (int) $channel->getType(), '',
+            $channel->getName(), $channel->getHits(),
+            $channel->hasService('news'), $channel->hasService('files'),
+            $channel->hasService('forum'), $channel->getForumId(), 0,
+            $channel->hasService('links'), $channel->hasService('student_files'),
+            $row['cod_fac'], $row['desc_fac'], $row['url_facolta']
+        );
     }
 
     /**
@@ -65,32 +79,28 @@ class DBFacoltaRepository extends DBRepository
      */
     public function findAll()
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
-        $query = 'SELECT tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo, files_studenti_attivo, a.id_canale, cod_fac, desc_fac, url_facolta FROM canale a , facolta b WHERE a.id_canale = b.id_canale ORDER BY 16';
-        $res = $db->query($query);
-
-        if (DB::isError($res)) {
-            $this
-                    ->throwError('_ERROR_DEFAULT',
-                            array('msg' => DB::errorMessage($res),
-                                    'file' => __FILE__, 'line' => __LINE__));
-        }
-
-        if ($res->numRows() === 0) {
-            return array();
-        }
+        $query = 'SELECT id_canale, cod_fac, desc_fac, url_facolta FROM facolta b ORDER BY desc_fac';
+        $res = $db->executeQuery($query);
 
         $facolta = array();
 
-        while ($res->fetchInto($row)) {
-            $facolta[] = new Facolta($row[13], $row[5], $row[4], $row[0],
-                    $row[2], $row[1], $row[3], $row[7] == 'S', $row[6] == 'S',
-                    $row[8] == 'S', $row[9], $row[10], $row[11] == 'S',
-                    $row[12] == 'S', $row[14], $row[15], $row[16]);
+        while (false !== ($row = $res->fetch())) {
+            $channel = $this->channelRepository->find($row['id_canale']);
+            if (null !== $channel) {
+                $ultima_modifica = $channel->getUpdatedAt() ? $channel->getUpdatedAt()->getTimestamp() : 0;
+                $facolta[] = new Facolta(
+                    $channel->getId(), $channel->getLegacyGroups(),
+                    $ultima_modifica, (int) $channel->getType(), '',
+                    $channel->getName(), $channel->getHits(),
+                    $channel->hasService('news'), $channel->hasService('files'),
+                    $channel->hasService('forum'), $channel->getForumId(), 0,
+                    $channel->hasService('links'), $channel->hasService('student_files'),
+                    $row['cod_fac'], $row['desc_fac'], $row['url_facolta']
+                );
+            }
         }
-
-        $res->free();
 
         return $facolta;
     }

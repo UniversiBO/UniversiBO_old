@@ -69,7 +69,7 @@
         <service id="universibo_legacy.repository.cdl"
                          class="Universibo\Bundle\LegacyBundle\Entity\DBCdlRepository">
             <argument type="service" id="universibo_legacy.db.connection.main" />
-            <argument>true</argument>
+            <argument type="service" id="universibo_main.repository.channel" />
         </service>
 
         <service id="universibo_legacy.repository.collaboratore"
@@ -106,7 +106,7 @@
                          class="Universibo\Bundle\LegacyBundle\Entity\DBFacoltaRepository">
             <argument type="service" id="universibo_legacy.db.connection.main" />
             <argument type="service" id="universibo_legacy.repository.canale" />
-            <argument>true</argument>
+            <argument type="service" id="universibo_main.repository.channel" />
         </service>
 
         <service id="universibo_legacy.repository.files.file_item"
@@ -122,7 +122,7 @@
             <argument type="service" id="universibo_legacy.db.connection.main" />
             <argument type="service" id="universibo_core.repository.user" />
             <argument type="service" id="universibo_legacy.repository.canale" />
-            <argument>true</argument>
+            <argument type="service" id="universibo_main.repository.channel" />
         </service>
 
         <service id="universibo_legacy.repository.help.item"
@@ -177,7 +177,7 @@
             <argument type="service" id="universibo_legacy.db.connection.main" />
             <argument type="service" id="universibo_core.repository.user" />
             <argument type="service" id="universibo_legacy.repository.canale" />
-            <argument>true</argument>
+            <argument type="service" id="universibo_main.repository.channel" />
         </service>
 
         <service id="universibo_legacy.repository.notifica.notifica_item"

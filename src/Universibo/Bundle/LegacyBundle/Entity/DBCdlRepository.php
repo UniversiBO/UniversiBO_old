@@ -2,7 +2,9 @@
 
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
+use Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
 use Universibo\Bundle\LegacyBundle\PearDB\DB;
+use Universibo\Bundle\MainBundle\Entity\ChannelRepository;
 
 /**
  * Canale repository
@@ -12,6 +14,20 @@ use Universibo\Bundle\LegacyBundle\PearDB\DB;
  */
 class DBCdlRepository extends DBRepository
 {
+    /**
+     * Channel repository
+     *
+     * @var ChannelRepository
+     */
+    private $channelRepository;
+
+    public function __construct(ConnectionWrapper $db, ChannelRepository $channelRepository)
+    {
+        parent::__construct($db);
+
+        $this->channelRepository = $channelRepository;
+    }
+
     /**
      * @return boolean|Cdl[]
      */
@@ -39,25 +55,33 @@ class DBCdlRepository extends DBRepository
         return $elencoCdl;
     }
 
-    public function findByIdCanale($idCanale)
+    public function findByIdCanale($id)
     {
-        $db = $this->getDb();
+        $channel = $this->channelRepository->find($id);
+        if (null === $channel) {
+            return null;
+        }
 
-        $query = 'SELECT tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo,files_studenti_attivo,
-        a.id_canale, cod_corso, desc_corso, categoria, cod_fac, cod_doc, cat_id FROM canale a , classi_corso b WHERE a.id_canale = b.id_canale AND a.id_canale = '.$db->quote($idCanale);
+        $db = $this->getConnection();
+        $query = 'SELECT cod_corso, desc_corso, categoria, cod_fac, cod_doc, cat_id FROM classi_corso WHERE id_canale = ?';
 
-        $res = $db->query($query);
-        if (DB::isError($res))
-            $this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-        //		var_dump($res);
-        $rows = $res->numRows();
+        $result = $db->executeQuery($query, [$id]);
+        $row = $result->fetch();
 
-        if( $rows == 0) return false;
+        if (!$row) {
+            return null;
+        }
 
-        $row = $this->fetchRow($res);
+        $ultima_modifica = $channel->getUpdatedAt() ? $channel->getUpdatedAt()->getTimestam() : 0;
 
-        return new Cdl($row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
-                $row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S', $row[14], $row[15], $row[16], $row[17], $row[18], $row[19]);
+        return new Cdl($id, $channel->getLegacyGroups(), $ultima_modifica,
+                (int) $channel->getType(), '', $channel->getName(), $channel->getHits(),
+                $channel->hasService('news'), $channel->hasService('files'),
+                $channel->hasService('forum'), $channel->getForumId(), 0,
+                $channel->hasService('links'), $channel->hasService('student_files'),
+                $row['cod_cdl'], $row['desc_corso'], $row['cat_id'], $row['cod_fac'],
+                $row['cod_doc'], $row['cat_id']
+        );
     }
 
     public function findByCodice($codice)
