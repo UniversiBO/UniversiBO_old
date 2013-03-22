@@ -16,6 +16,7 @@ class Version20130322002508 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != "postgresql", "Migration can only be executed safely on 'postgresql'.");
                 
         $this->addSql("ALTER TABLE channels ALTER updated_at DROP NOT NULL");
+        $this->addSql("ALTER TABLE channels ADD forum_group_id INT DEFAULT NULL");
         
         $sql = "INSERT INTO channels (id, type, name, slug, hits, updated_at, groups, forum_id) SELECT id_canale, tipo_canale, nome_canale, '', visite, to_timestamp(ultima_modifica), permessi_groups, id_forum FROM canale";
         $this->addSql($sql);
@@ -105,5 +106,6 @@ EOT
         $this->addSql('DROP SEQUENCE channel_services_id_seq');
         $this->addSql('CREATE SEQUENCE channel_services_id_seq');
         $this->addSql("ALTER TABLE channels ALTER updated_at SET NOT NULL");
+        $this->addSql("ALTER TABLE channels DROP forum_group_id");
     }
 }

@@ -70,13 +70,20 @@ class Channel
     private $legacyGroups = 0;
 
     /**
-     * Legacy groups
+     * Forum id
      *
      * @ORM\Column(type="integer", name="forum_id", nullable=true)
-     * @deprecated
      * @var int
      */
     private $forumId = 0;
+
+    /**
+     * Forum group
+     *
+     * @ORM\Column(type="integer", name="forum_group_id", nullable=true)
+     * @var int
+     */
+    private $forumGroupId = 0;
 
     /**
      * @ORM\ManyToMany(targetEntity="ChannelService")
@@ -240,6 +247,29 @@ class Channel
     public function setForumId($forumId)
     {
         $this->forumId = $forumId;
+
+        return $this;
+    }
+
+    /**
+     * Forum group id getter
+     *
+     * @return integer
+     */
+    public function getForumGroupId()
+    {
+        return $this->forumGroupId;
+    }
+
+    /**
+     * Forum group id setter
+     *
+     * @param  integer $forumGroupId
+     * @return Channel
+     */
+    public function setForumGroupId($forumGroupId)
+    {
+        $this->forumGroupId = $forumGroupId;
 
         return $this;
     }

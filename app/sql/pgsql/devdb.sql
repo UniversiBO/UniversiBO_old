@@ -8,6 +8,20 @@ SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
 SET search_path = public, pg_catalog;
 
 --
@@ -43,34 +57,34 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: canale; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+-- Name: channel_channelservice; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
 --
 
-CREATE TABLE canale (
-    id_canale integer NOT NULL,
-    tipo_canale integer NOT NULL,
-    nome_canale character varying(200),
-    immagine character varying(50),
-    visite integer NOT NULL,
-    ultima_modifica integer,
-    permessi_groups integer,
-    files_attivo character(1),
-    news_attivo character(1),
-    forum_attivo character(1),
-    id_forum integer,
-    group_id integer,
-    links_attivo character(1),
-    files_studenti_attivo character(1)
+CREATE TABLE channel_channelservice (
+    channel_id integer NOT NULL,
+    channelservice_id integer NOT NULL
 );
 
 
-ALTER TABLE public.canale OWNER TO universibo;
+ALTER TABLE public.channel_channelservice OWNER TO universibo;
 
 --
--- Name: canale_id_canale_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+-- Name: channel_services; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
 --
 
-CREATE SEQUENCE canale_id_canale_seq
+CREATE TABLE channel_services (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.channel_services OWNER TO universibo;
+
+--
+-- Name: channel_services_id_seq; Type: SEQUENCE; Schema: public; Owner: universibo
+--
+
+CREATE SEQUENCE channel_services_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -78,24 +92,40 @@ CREATE SEQUENCE canale_id_canale_seq
     CACHE 1;
 
 
-ALTER TABLE public.canale_id_canale_seq OWNER TO universibo;
+ALTER TABLE public.channel_services_id_seq OWNER TO universibo;
 
 --
--- Name: canale_id_canale_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: universibo
+-- Name: channels; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
 --
 
-ALTER SEQUENCE canale_id_canale_seq OWNED BY canale.id_canale;
+CREATE TABLE channels (
+    id integer NOT NULL,
+    type character varying(50) NOT NULL,
+    name character varying(255) NOT NULL,
+    slug character varying(255) NOT NULL,
+    hits integer NOT NULL,
+    updated_at timestamp(0) without time zone,
+    groups integer NOT NULL,
+    forum_id integer,
+    forum_group_id integer
+);
 
+
+ALTER TABLE public.channels OWNER TO universibo;
 
 --
--- Name: canale_noforum; Type: VIEW; Schema: public; Owner: universibo
+-- Name: channels_id_seq; Type: SEQUENCE; Schema: public; Owner: universibo
 --
 
-CREATE VIEW canale_noforum AS
-    SELECT canale.id_canale, canale.tipo_canale, canale.nome_canale, canale.immagine, canale.visite, canale.ultima_modifica, canale.permessi_groups, canale.files_attivo, canale.news_attivo, canale.forum_attivo, canale.id_forum, canale.group_id, canale.links_attivo, canale.files_studenti_attivo FROM canale WHERE (canale.forum_attivo = 'N'::bpchar);
+CREATE SEQUENCE channels_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
 
-ALTER TABLE public.canale_noforum OWNER TO universibo;
+ALTER TABLE public.channels_id_seq OWNER TO universibo;
 
 --
 -- Name: classi_corso_id_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -1300,23 +1330,6 @@ CREATE SEQUENCE stat_accessi_id_accesso_seq
 ALTER TABLE public.stat_accessi_id_accesso_seq OWNER TO universibo;
 
 --
--- Name: stat_canale_file; Type: VIEW; Schema: public; Owner: universibo
---
-
-CREATE VIEW stat_canale_file AS
-    SELECT c.id_canale, count(fic.id_file) AS canale_files, sum(fi.dimensione) AS canale_dimensione, sum(fi.download) AS canale_download FROM file_canale fic, canale c, file fi WHERE ((fic.id_canale = c.id_canale) AND (fi.id_file = fic.id_file)) GROUP BY c.id_canale;
-
-
-ALTER TABLE public.stat_canale_file OWNER TO universibo;
-
---
--- Name: VIEW stat_canale_file; Type: COMMENT; Schema: public; Owner: universibo
---
-
-COMMENT ON VIEW stat_canale_file IS 'seleziona le statistiche sui files dei canali';
-
-
---
 -- Name: stat_canale_info; Type: VIEW; Schema: public; Owner: universibo
 --
 
@@ -1331,23 +1344,6 @@ ALTER TABLE public.stat_canale_info OWNER TO universibo;
 --
 
 COMMENT ON VIEW stat_canale_info IS 'Pone un flag_info=1 se vi sono informazioni nell''insegnamento';
-
-
---
--- Name: stat_canale_news; Type: VIEW; Schema: public; Owner: universibo
---
-
-CREATE VIEW stat_canale_news AS
-    SELECT c.id_canale, count(nc.id_news) AS canale_news FROM canale c, news_canale nc WHERE (c.id_canale = nc.id_canale) GROUP BY c.id_canale ORDER BY count(nc.id_news) DESC;
-
-
-ALTER TABLE public.stat_canale_news OWNER TO universibo;
-
---
--- Name: VIEW stat_canale_news; Type: COMMENT; Schema: public; Owner: universibo
---
-
-COMMENT ON VIEW stat_canale_news IS 'Seleziona il totale di news inserite in ogni canale';
 
 
 --
@@ -1510,13 +1506,6 @@ CREATE SEQUENCE utente_richiede_a_id_utente_seq
 ALTER TABLE public.utente_richiede_a_id_utente_seq OWNER TO universibo;
 
 --
--- Name: id_canale; Type: DEFAULT; Schema: public; Owner: universibo
---
-
-ALTER TABLE ONLY canale ALTER COLUMN id_canale SET DEFAULT nextval('canale_id_canale_seq'::regclass);
-
-
---
 -- Name: id_file_categoria; Type: DEFAULT; Schema: public; Owner: universibo
 --
 
@@ -1580,21 +1569,59 @@ SELECT pg_catalog.setval('argomento_set_id_argomento__seq', 1, false);
 
 
 --
--- Data for Name: canale; Type: TABLE DATA; Schema: public; Owner: universibo
+-- Data for Name: channel_channelservice; Type: TABLE DATA; Schema: public; Owner: universibo
 --
 
-INSERT INTO canale VALUES (2, 1, 'Test channel', NULL, 9, 1362511864, 127, 'S', 'S', 'N', NULL, NULL, 'S', 'S');
-INSERT INTO canale VALUES (1, 2, 'Home', NULL, 42, NULL, 127, ' ', NULL, 'N', NULL, NULL, 'S', 'S');
-INSERT INTO canale VALUES (3, 3, '', '', 4, NULL, 127, 'N', 'S', 'N', NULL, NULL, 'S', 'N');
-INSERT INTO canale VALUES (4, 4, '', '', 3, NULL, 127, 'N', 'S', 'N', NULL, NULL, 'S', 'N');
-INSERT INTO canale VALUES (5, 5, '', '', 4, NULL, 127, 'S', 'S', 'N', NULL, NULL, 'S', 'S');
+INSERT INTO channel_channelservice VALUES (2, 1);
+INSERT INTO channel_channelservice VALUES (5, 1);
+INSERT INTO channel_channelservice VALUES (2, 3);
+INSERT INTO channel_channelservice VALUES (1, 3);
+INSERT INTO channel_channelservice VALUES (3, 3);
+INSERT INTO channel_channelservice VALUES (4, 3);
+INSERT INTO channel_channelservice VALUES (5, 3);
+INSERT INTO channel_channelservice VALUES (2, 4);
+INSERT INTO channel_channelservice VALUES (3, 4);
+INSERT INTO channel_channelservice VALUES (4, 4);
+INSERT INTO channel_channelservice VALUES (5, 4);
+INSERT INTO channel_channelservice VALUES (2, 5);
+INSERT INTO channel_channelservice VALUES (1, 5);
+INSERT INTO channel_channelservice VALUES (5, 5);
 
 
 --
--- Name: canale_id_canale_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+-- Data for Name: channel_services; Type: TABLE DATA; Schema: public; Owner: universibo
 --
 
-SELECT pg_catalog.setval('canale_id_canale_seq', 5, true);
+INSERT INTO channel_services VALUES (1, 'files');
+INSERT INTO channel_services VALUES (2, 'forum');
+INSERT INTO channel_services VALUES (3, 'links');
+INSERT INTO channel_services VALUES (4, 'news');
+INSERT INTO channel_services VALUES (5, 'student_files');
+
+
+--
+-- Name: channel_services_id_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('channel_services_id_seq', 5, true);
+
+
+--
+-- Data for Name: channels; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+INSERT INTO channels VALUES (2, '1', 'Test channel', '', 9, '2013-03-05 20:31:04', 127, NULL, NULL);
+INSERT INTO channels VALUES (1, '2', 'Home', '', 42, NULL, 127, NULL, NULL);
+INSERT INTO channels VALUES (3, '3', '', '', 4, NULL, 127, NULL, NULL);
+INSERT INTO channels VALUES (4, '4', '', '', 3, NULL, 127, NULL, NULL);
+INSERT INTO channels VALUES (5, '5', '', '', 4, NULL, 127, NULL, NULL);
+
+
+--
+-- Name: channels_id_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
+--
+
+SELECT pg_catalog.setval('channels_id_seq', 1, false);
 
 
 --
@@ -2185,6 +2212,9 @@ INSERT INTO migration_versions VALUES ('20130308194214');
 INSERT INTO migration_versions VALUES ('20130308203542');
 INSERT INTO migration_versions VALUES ('20130321202621');
 INSERT INTO migration_versions VALUES ('20130321204109');
+INSERT INTO migration_versions VALUES ('20130321223226');
+INSERT INTO migration_versions VALUES ('20130321233752');
+INSERT INTO migration_versions VALUES ('20130322002508');
 
 
 --
@@ -2453,11 +2483,27 @@ SELECT pg_catalog.setval('utente_richiede_a_id_utente_seq', 1, false);
 
 
 --
--- Name: canale_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+-- Name: channel_channelservice_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
 --
 
-ALTER TABLE ONLY canale
-    ADD CONSTRAINT canale_pkey PRIMARY KEY (id_canale);
+ALTER TABLE ONLY channel_channelservice
+    ADD CONSTRAINT channel_channelservice_pkey PRIMARY KEY (channel_id, channelservice_id);
+
+
+--
+-- Name: channel_services_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY channel_services
+    ADD CONSTRAINT channel_services_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: channels_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY channels
+    ADD CONSTRAINT channels_pkey PRIMARY KEY (id);
 
 
 --
@@ -2789,13 +2835,6 @@ ALTER TABLE ONLY utente_canale
 
 
 --
--- Name: canale_id_canale_key; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
---
-
-CREATE INDEX canale_id_canale_key ON canale USING btree (id_canale);
-
-
---
 -- Name: classi_materie_cod_materia_key; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
 --
 
@@ -2835,6 +2874,20 @@ CREATE INDEX file_canale_id_file_key ON file_canale USING btree (id_file);
 --
 
 CREATE INDEX file_studente_canale_id_file_key ON file_studente_canale USING btree (id_file);
+
+
+--
+-- Name: idx_2a60ad5972f5a1aa; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE INDEX idx_2a60ad5972f5a1aa ON channel_channelservice USING btree (channel_id);
+
+
+--
+-- Name: idx_2a60ad59fbda3c4; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE INDEX idx_2a60ad59fbda3c4 ON channel_channelservice USING btree (channelservice_id);
 
 
 --
@@ -2982,7 +3035,7 @@ CREATE UNIQUE INDEX uniq_df975e575e237e06 ON ismemberof USING btree (name);
 --
 
 ALTER TABLE ONLY classi_corso
-    ADD CONSTRAINT classi_corso_id_canale_fkey FOREIGN KEY (id_canale) REFERENCES canale(id_canale) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT classi_corso_id_canale_fkey FOREIGN KEY (id_canale) REFERENCES channels(id);
 
 
 --
@@ -2998,7 +3051,23 @@ ALTER TABLE ONLY docente
 --
 
 ALTER TABLE ONLY facolta
-    ADD CONSTRAINT facolta_id_canale_fkey FOREIGN KEY (id_canale) REFERENCES canale(id_canale) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT facolta_id_canale_fkey FOREIGN KEY (id_canale) REFERENCES channels(id);
+
+
+--
+-- Name: fk_2a60ad5972f5a1aa; Type: FK CONSTRAINT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY channel_channelservice
+    ADD CONSTRAINT fk_2a60ad5972f5a1aa FOREIGN KEY (channel_id) REFERENCES channels(id) ON DELETE CASCADE;
+
+
+--
+-- Name: fk_2a60ad59fbda3c4; Type: FK CONSTRAINT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY channel_channelservice
+    ADD CONSTRAINT fk_2a60ad59fbda3c4 FOREIGN KEY (channelservice_id) REFERENCES channel_services(id) ON DELETE CASCADE;
 
 
 --
