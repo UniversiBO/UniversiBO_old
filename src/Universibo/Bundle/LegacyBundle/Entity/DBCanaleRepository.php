@@ -16,19 +16,13 @@ use Universibo\Bundle\MainBundle\Entity\ChannelServiceRepository;
 class DBCanaleRepository
 {
     private $channelRepository;
+    private $channelServiceRepository;
     private $serviceMap;
 
     public function __construct(ChannelRepository $channelRepository, ChannelServiceRepository $channelServiceRepository)
     {
         $this->channelRepository = $channelRepository;
-
-        $this->serviceMap = [
-            'getServizioFiles'         => $channelServiceRepository->findOneByName('files'),
-            'getServizioForum'         => $channelServiceRepository->findOneByName('forum'),
-            'getServizioLinks'         => $channelServiceRepository->findOneByName('links'),
-            'getServizioNews'          => $channelServiceRepository->findOneByName('news'),
-            'getServizioFilesStudenti' => $channelServiceRepository->findOneByName('student_files'),
-        ];
+        $this->channelServiceRepositor = $channelServiceRepository;
     }
 
     public function getTipoCanaleFromId($id)
@@ -108,7 +102,7 @@ class DBCanaleRepository
     private function setChannelFields(Canale $canale, Channel $channel)
     {
         $services = $channel->getServices();
-        foreach ($this->serviceMap as $methodName => $service) {
+        foreach ($this->getServiceMap() as $methodName => $service) {
             if (call_user_func(array($canale, $methodName))) {
                 $services->add($service);
             } else {
@@ -189,5 +183,22 @@ class DBCanaleRepository
     public function __call($name, $arguments)
     {
         return call_user_func_array(array($this->channelRepository, $name), $arguments);
+    }
+
+    private function getServiceMap()
+    {
+        $channelServiceRepository = $this->channelServiceRepository;
+
+        if (is_null($this->serviceMap)) {
+            $this->serviceMap = [
+                'getServizioFiles'         => $channelServiceRepository->findOneByName('files'),
+                'getServizioForum'         => $channelServiceRepository->findOneByName('forum'),
+                'getServizioLinks'         => $channelServiceRepository->findOneByName('links'),
+                'getServizioNews'          => $channelServiceRepository->findOneByName('news'),
+                'getServizioFilesStudenti' => $channelServiceRepository->findOneByName('student_files'),
+            ];
+        }
+
+        return $this->serviceMap;
     }
 }
