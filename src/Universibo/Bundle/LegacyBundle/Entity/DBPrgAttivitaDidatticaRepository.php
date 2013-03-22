@@ -3,9 +3,11 @@
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
 use Doctrine\DBAL\DBALException;
+use PDO;
 use Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica;
-use Universibo\Bundle\LegacyBundle\Framework\Error;
+use Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
 use Universibo\Bundle\LegacyBundle\PearDB\DB;
+use Universibo\Bundle\MainBundle\Entity\ChannelRepository;
 
 /**
  * Canale repository
@@ -15,6 +17,21 @@ use Universibo\Bundle\LegacyBundle\PearDB\DB;
  */
 class DBPrgAttivitaDidatticaRepository extends DBRepository
 {
+    private $channelRepository;
+
+    /**
+     * Constructor
+     *
+     * @param ConnectionWrapper $db
+     * @param ChannelRepository $channelRepository
+     */
+    public function __construct(ConnectionWrapper $db, ChannelRepository $channelRepository)
+    {
+        parent::__construct($db);
+
+        $this->channelRepository = $channelRepository;
+    }
+
     public function findMaxAcademicYearFacolta($cod_fac)
     {
         return $this->findAcademicYearFacolta($cod_fac, 'MAX');
@@ -83,7 +100,7 @@ EOT;
 
     public function findByCdlAndYear($cod_cdl, $anno_accademico)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $cod_cdl         = $db->quote($cod_cdl);
         $anno_accademico = $db->quote($anno_accademico);
@@ -92,18 +109,18 @@ EOT;
         FROM (
         SELECT DISTINCT ON (id_canale, anno_accademico, cod_corso, cod_materia, anno_corso, cod_materia_ins, anno_corso_ins, cod_ril, cod_doc, tipo_ciclo, cod_ate, anno_corso_universibo ) *
         FROM (
-        SELECT c.tipo_canale, c.nome_canale, c.immagine, c.visite, c.ultima_modifica, c.permessi_groups, c.files_attivo, c.news_attivo, c.forum_attivo, c.id_forum, c.group_id, c.links_attivo,c.files_studenti_attivo, c.id_canale, i.anno_accademico, i.cod_corso, i.cod_ind, i.cod_ori, i.cod_materia, m1.desc_materia, i.anno_corso, i.cod_materia_ins, m2.desc_materia AS desc_materia_ins, i.anno_corso_ins, i.cod_ril, i.cod_modulo, i.cod_doc, d.nome_doc, i.flag_titolare_modulo, i.tipo_ciclo, i.cod_ate, i.anno_corso_universibo, '.$db->quote('N').' AS sdoppiato, null AS id_sdop
-        FROM canale c, prg_insegnamento i, classi_materie m1, classi_materie m2, docente d
-        WHERE c.id_canale = i.id_canale
+        SELECT i.id_canale, i.anno_accademico, i.cod_corso, i.cod_ind, i.cod_ori, i.cod_materia, m1.desc_materia, i.anno_corso, i.cod_materia_ins, m2.desc_materia AS desc_materia_ins, i.anno_corso_ins, i.cod_ril, i.cod_modulo, i.cod_doc, d.nome_doc, i.flag_titolare_modulo, i.tipo_ciclo, i.cod_ate, i.anno_corso_universibo, '.$db->quote('N').' AS sdoppiato, null AS id_sdop
+        FROM prg_insegnamento i, classi_materie m1, classi_materie m2, docente d
+        WHERE 1=1
         AND i.cod_materia=m1.cod_materia
         AND i.cod_materia_ins=m2.cod_materia
         AND i.cod_doc=d.cod_doc
         AND i.anno_accademico='.$anno_accademico.'
         AND cod_corso='.$cod_cdl.'
         UNION
-        SELECT c.tipo_canale, c.nome_canale, c.immagine, c.visite, c.ultima_modifica, c.permessi_groups, c.files_attivo, c.news_attivo, c.forum_attivo, c.id_forum, c.group_id, c.links_attivo,c.files_studenti_attivo, c.id_canale, s.anno_accademico, s.cod_corso, s.cod_ind, s.cod_ori, s.cod_materia, m1.desc_materia, i.anno_corso, s.cod_materia_ins, m2.desc_materia AS desc_materia_ins, s.anno_corso_ins, s.cod_ril, i.cod_modulo, i.cod_doc, d.nome_doc, i.flag_titolare_modulo, s.tipo_ciclo, s.cod_ate, s.anno_corso_universibo,  '.$db->quote('S').' AS sdoppiato, id_sdop
-        FROM canale c, prg_insegnamento i, prg_sdoppiamento s, classi_materie m1, classi_materie m2, docente d
-        WHERE c.id_canale = i.id_canale
+        SELECT i.id_canale, s.anno_accademico, s.cod_corso, s.cod_ind, s.cod_ori, s.cod_materia, m1.desc_materia, i.anno_corso, s.cod_materia_ins, m2.desc_materia AS desc_materia_ins, s.anno_corso_ins, s.cod_ril, i.cod_modulo, i.cod_doc, d.nome_doc, i.flag_titolare_modulo, s.tipo_ciclo, s.cod_ate, s.anno_corso_universibo,  '.$db->quote('S').' AS sdoppiato, id_sdop
+        FROM prg_insegnamento i, prg_sdoppiamento s, classi_materie m1, classi_materie m2, docente d
+        WHERE 1=1
         AND i.anno_accademico=s.anno_accademico_fis
         AND i.cod_corso=s.cod_corso_fis
         AND i.cod_ind=s.cod_ind_fis
@@ -120,33 +137,37 @@ EOT;
         AND s.anno_accademico='.$anno_accademico.'
         ) AS cdl
         ) AS cdl1
-        ORDER BY 32, 30, 23';
+        ORDER BY 19, 17, 10';
         /**
          * @todo ATTENZIONE! ...questa query non ? portabile.
          * bisogna cambiarla ed eventualmente gestire i duplicati via PHP
          */
 
-        $res = $db->query($query);
-        if (DB::isError($res)) {
-            Error::throwError(_ERROR_DEFAULT,array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        /**
+         * public function __construct($id_canale, $permessi, $ultima_modifica, $tipo_canale, $immagine,
+    $nome, $visite, $news_attivo, $files_attivo, $forum_attivo,
+    $forum_forum_id, $forum_group_id, $links_attivo,$files_studenti_attivo, $annoAccademico, $codiceCdl,
+    $codInd, $codOri, $codMateria, $nomeMateria, $annoCorso,
+    $codMateriaIns, $nomeMateriaIns, $annoCorsoIns, $codRil, $codModulo,
+    $codDoc, $nomeDoc, $flagTitolareModulo, $tipoCiclo, $codAte,
+    $annoCorsoUniversibo, $sdoppiato, $id_sdop)
+         */
 
-            return false;
-        }
-
-        $rows = $res->numRows();
-
-        if ($rows == 0) {
-            $array = array();
-
-            return $array;
-        }
+        $res = $db->executeQuery($query);
         $elenco = array();
-        while (	$res->fetchInto($row) ) {
-            $prgAtt = new PrgAttivitaDidattica( $row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
-                    $row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S',
-                    $row[14], $row[15], $row[16], $row[17], $row[18], $row[19], $row[20], $row[21],
-                    $row[22], $row[23], $row[24], $row[25], $row[26], $row[27], $row[28], $row[29],
-                    $row[30], $row[31], $row[32]=='S' , $row[33]);
+        while (false !== ($row = $res->fetch(PDO::FETCH_NUM))) {
+            $channel = $this->channelRepository->find($row[0]);
+            $ultima_modifica = $channel->getUpdatedAt() ? $channel->getUpdatedAt()->getTimestamp() : 0;
+
+            $prgAtt = new PrgAttivitaDidattica($channel->getId(), $channel->getLegacyGroups(),
+                    $ultima_modifica, (int) $channel->getType(), '', $channel->getName(),
+                    $channel->getHits(), $channel->hasService('news'),
+                    $channel->hasService('files'), $channel->hasService('forum'),
+                    $channel->getForumId(), $channel->getForumGroupId(),
+                    $channel->hasService('links'), $channel->hasService('student_files'),
+                    $row[1], $row[2], $row[3], $row[4], $row[5], $row[6], $row[7], $row[8],
+                    $row[9], $row[10], $row[11], $row[12], $row[13], $row[14], $row[15], $row[16],
+                    $row[17], $row[18], $row[19]=='S' , $row[20]);
 
             $elenco[] = $prgAtt;
         }
@@ -346,7 +367,7 @@ EOT;
         $result = $db->executeQuery($query);
 
         $elenco = array();
-        while (false !== ($row = $result->fetch(\PDO::FETCH_NUM))) {
+        while (false !== ($row = $result->fetch(PDO::FETCH_NUM))) {
             $channel = $this->channelRepository->find($row[0]);
 
             $prgAtt = new PrgAttivitaDidattica( $row[0], $channel->getLegacyGroups(),
@@ -364,6 +385,11 @@ EOT;
         return $elenco;
     }
 
+    /**
+     * @todo incomplete
+     * @param  type                                                              $id_sdop
+     * @return array|\Universibo\Bundle\LegacyBundle\Entity\PrgAttivitaDidattica
+     */
     public function findByIdSdoppiamento($id_sdop)
     {
         $db = $this->getDb();
@@ -375,9 +401,9 @@ EOT;
         SELECT DISTINCT ON (id_canale, anno_accademico, cod_corso, cod_materia, anno_corso, cod_materia_ins, anno_corso_ins, cod_ril, cod_doc, tipo_ciclo, cod_ate, anno_corso_universibo) *
         FROM (
 
-        SELECT c.tipo_canale, c.nome_canale, c.immagine, c.visite, c.ultima_modifica, c.permessi_groups, c.files_attivo, c.news_attivo, c.forum_attivo, c.id_forum, c.group_id, c.links_attivo,c.files_studenti_attivo, c.id_canale, s.anno_accademico, s.cod_corso, s.cod_ind, s.cod_ori, s.cod_materia, m1.desc_materia, i.anno_corso, s.cod_materia_ins, m2.desc_materia AS desc_materia_ins, s.anno_corso_ins, s.cod_ril, i.cod_modulo, i.cod_doc, d.nome_doc, i.flag_titolare_modulo, s.tipo_ciclo, s.cod_ate, s.anno_corso_universibo, id_sdop
-        FROM canale c, prg_insegnamento i, prg_sdoppiamento s, classi_materie m1, classi_materie m2, docente d
-        WHERE c.id_canale = i.id_canale
+        SELECT i.id_canale, s.anno_accademico, s.cod_corso, s.cod_ind, s.cod_ori, s.cod_materia, m1.desc_materia, i.anno_corso, s.cod_materia_ins, m2.desc_materia AS desc_materia_ins, s.anno_corso_ins, s.cod_ril, i.cod_modulo, i.cod_doc, d.nome_doc, i.flag_titolare_modulo, s.tipo_ciclo, s.cod_ate, s.anno_corso_universibo, id_sdop
+        FROM prg_insegnamento i, prg_sdoppiamento s, classi_materie m1, classi_materie m2, docente d
+        WHERE 1=1
         AND i.anno_accademico=s.anno_accademico_fis
         AND i.cod_corso=s.cod_corso_fis
         AND i.cod_ind=s.cod_ind_fis
@@ -393,7 +419,7 @@ EOT;
         AND s.id_sdop='.$db->quote($id_sdop).'
         ) AS cdl
         ) AS cdl1
-        ORDER BY 32, 30, 23';
+        ORDER BY 19, 17, 10';
         /**
          * @todo ATTENZIONE! ...questa query non ? portabile.
          * bisogna cambiarla ed eventualmente gestire i duplicati via PHP
