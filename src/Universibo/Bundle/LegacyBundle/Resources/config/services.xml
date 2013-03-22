@@ -151,7 +151,7 @@
                          class="Universibo\Bundle\LegacyBundle\Entity\DBInsegnamentoRepository">
             <argument type="service" id="universibo_legacy.db.connection.main" />
             <argument type="service" id="universibo_legacy.repository.programma" />
-            <argument>true</argument>
+            <argument type="service" id="universibo_main.repository.channel" />
         </service>
 
         <service id="universibo_legacy.repository.interactivecommand.step_log"

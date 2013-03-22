@@ -4,6 +4,7 @@ namespace Universibo\Bundle\LegacyBundle\Entity;
 
 use Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
 use Universibo\Bundle\LegacyBundle\PearDB\DB;
+use Universibo\Bundle\MainBundle\Entity\ChannelRepository;
 
 /**
  * Canale repository
@@ -19,17 +20,26 @@ class DBInsegnamentoRepository extends DBRepository
     private $programmaRepository;
 
     /**
-     * Class constructor
+     * Channel repository
+     *
+     * @var ChannelRepository
+     */
+    private $channelRepository;
+
+    /**
+     * Constructor
      *
      * @param ConnectionWrapper                $db
      * @param DBPrgAttivitaDidatticaRepository $programmaRepository
-     * @param boolean                          $convert
+     * @param ChannelRepository                $channelRepository
      */
-    public function __construct(ConnectionWrapper $db, DBPrgAttivitaDidatticaRepository $programmaRepository, $convert = false)
+    public function __construct(ConnectionWrapper $db, DBPrgAttivitaDidatticaRepository $programmaRepository,
+            ChannelRepository $channelRepository)
     {
-        parent::__construct($db, $convert);
+        parent::__construct($db);
 
         $this->programmaRepository = $programmaRepository;
+        $this->channelRepository = $channelRepository;
     }
 
     /**
@@ -82,46 +92,21 @@ class DBInsegnamentoRepository extends DBRepository
      */
     public function findAll($full = false)
     {
-        $query = <<<EOT
-SELECT
-    nome_canale,
-    immagine,
-    visite,
-    ultima_modifica,
-    permessi_groups,
-    files_attivo,
-    news_attivo,
-    forum_attivo,
-    id_forum,
-    group_id,
-    links_attivo,
-    id_canale,
-    files_studenti_attivo
-FROM
-    canale
-WHERE
-    tipo_canale = ?
-EOT;
+        $channels = $this->channelRepository->findByType(self::INSEGNAMENTO);
 
-        $stmt = $this
-            ->getConnection()
-            ->executeQuery($query, array(
-                 Canale::INSEGNAMENTO
-            ))
-        ;
+        foreach ($channels as $channel) {
+            $channelId = $channel->getId();
+            $attivita = $full ? $this->programmaRepository->findByChannelId($channelId) : array();
 
-        $insegnamenti = array();
+            $ultima_modifica = $channel->getUpdatedAt() ? $channel->getUpdatedAt()->getTimestamp() : 0;
 
-        while (false !== ($row = $stmt->fetch())) {
-            $attivita = $full ? $this->programmaRepository->findByChannelId($row['id_canale']) : array();
-
-            $insegnamenti[] = new Insegnamento($row['id_canale'],
-                    $row['permessi_groups'], $row['ultima_modifica'],
-                    Canale::INSEGNAMENTO, $row['immagine'], $row['nome_canale'],
-                    $row['visite'], $row['news_attivo'], $row['files_attivo'],
-                    $row['forum_attivo'], $row['id_forum'],
-                    $row['group_id'], $row['links_attivo'],
-                    $row['files_studenti_attivo'], $attivita);
+            $insegnamenti[] = new Insegnamento($channelId,
+                    $channel->getLegacyGroups(), $ultima_modifica,
+                    Canale::INSEGNAMENTO, '', $channel->getName(),
+                    $channel->getHits(), $channel->hasService('news'),
+                    $channel->hasService('files'), $channel->hasService('forum'),
+                    $channel->getForumId(), $channel->getForumId(),0,
+                    $channel->hasService('links'), $channel->hasService('student_files'),$attivita);
         }
 
         return $insegnamenti;
