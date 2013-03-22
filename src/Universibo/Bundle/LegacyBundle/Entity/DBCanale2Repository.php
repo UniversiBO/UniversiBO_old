@@ -83,7 +83,7 @@ class DBCanale2Repository extends DBRepository
     {
         $db = $this->getConnection();
 
-        $sql = 'SELECT tipo_canale FROM canale WHERE id_canale = ?';
+        $sql = 'SELECT type FROM channels WHERE id = ?';
         $type = $db->fetchColumn($sql, array($id));
 
         if (false === $type) {

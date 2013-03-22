@@ -12,4 +12,29 @@ use Doctrine\ORM\EntityRepository;
  */
 class ChannelRepository extends EntityRepository
 {
+    /**
+     * Saves a channel
+     *
+     * @param  Channel $channel
+     * @return Channel
+     */
+    public function save(Channel $channel)
+    {
+        $em = $this->getEntityManager();
+        $channel = $em->merge($channel);
+        $em->flush($channel);
+
+        return $channel;
+    }
+
+    public function findManyById(array $ids)
+    {
+        return $this
+            ->createQueryBuilder('c')
+            ->where('c.id IN (:ids)')
+            ->setParameter('ids', $ids)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
