@@ -5,6 +5,7 @@ namespace Universibo\Bundle\MainBundle\Entity;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Universibo\Bundle\CoreBundle\Entity\User;
 
 /**
@@ -44,7 +45,8 @@ class Channel
     /**
      * @var string $slug
      *
-     * @ORM\Column(name="slug", type="string", length=255)
+     * @Gedmo\Slug(fields={"name"}, updatable=false, separator="-")
+     * @ORM\Column(name="slug", type="string", length=100, unique=true, nullable=true)
      */
     private $slug;
 

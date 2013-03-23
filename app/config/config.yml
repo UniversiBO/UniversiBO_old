@@ -92,3 +92,9 @@ universibo_shibboleth:
 ornicar_apc:
   host: %apc_host%
   web_dir: %kernel.root_dir%/../web
+
+stof_doctrine_extensions:
+    default_locale: it_IT
+    orm:
+      default:
+        sluggable: true

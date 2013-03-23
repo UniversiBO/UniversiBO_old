@@ -35,6 +35,7 @@ class AppKernel extends Kernel
                 new Universibo\Bundle\DesignBundle\UniversiboDesignBundle(),
                 new Universibo\Bundle\MigrationBundle\UniversiboMigrationBundle(),
                 new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+                new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle()
                 );
        
 
