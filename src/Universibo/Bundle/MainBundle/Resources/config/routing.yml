@@ -33,3 +33,6 @@ universibo_main_contact_cancel:
   pattern: /my/email/cancel/{token}/
   defaults: { _controller: 'UniversiboMainBundle:Contact:cancel' }
   requirements: { _method: GET }
+universibo_main_school:
+  pattern: /scuole/{slug}/
+  defaults: { _controller: 'UniversiboMainBundle:School:index' }

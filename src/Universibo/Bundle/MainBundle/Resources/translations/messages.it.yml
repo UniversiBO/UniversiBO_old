@@ -29,6 +29,10 @@ navbar:
   manifesto: Manifesto
   rules: Regolamento & Privacy
   services: Servizi
+  schools: Scuole
+  channels: Canali
 sso:
   info_title: Informazioni sul Single Sign-On di Ateneo
   login_title: Accesso Utenti Registrati
+school:
+  title: Scuola di %name%

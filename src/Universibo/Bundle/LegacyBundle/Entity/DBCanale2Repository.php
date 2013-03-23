@@ -60,17 +60,21 @@ class DBCanale2Repository extends DBRepository
 
     public function findManyByType($type)
     {
-        switch ($type) {
-            case Canale::FACOLTA:
-                return $this->facultyRepository->findAll();
-            case Canale::CDL:
-                return $this->cdlRepository->findAll();
-            case Canale::INSEGNAMENTO:
-                return $this->subjectRepository->findAll();
-            default:
-                $ids = $this->channelRepository->findManyByType($type);
+        if (preg_match('/\\d+/', $type)) {
+            switch ($type) {
+                case Canale::FACOLTA:
+                    return $this->facultyRepository->findAll();
+                case Canale::CDL:
+                    return $this->cdlRepository->findAll();
+                case Canale::INSEGNAMENTO:
+                    return $this->subjectRepository->findAll();
+                default:
+                    $ids = $this->channelRepository->findManyByType($type);
 
-                return $this->channelRepository->findManyById($ids);
+                    return $this->channelRepository->findManyById($ids);
+            }
+        } else {
+            return $this->channelRepository->findByType($type);
         }
     }
 

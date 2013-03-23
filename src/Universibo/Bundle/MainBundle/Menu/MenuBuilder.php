@@ -12,6 +12,7 @@ use Universibo\Bundle\LegacyBundle\Auth\UniversiboAcl;
 use Universibo\Bundle\LegacyBundle\Entity\DBCanale2Repository;
 use Universibo\Bundle\LegacyBundle\Entity\DBRuoloRepository;
 use Universibo\Bundle\LegacyBundle\Routing\ChannelRouter;
+use Universibo\Bundle\MainBundle\Entity\Channel;
 
 class MenuBuilder
 {
@@ -93,7 +94,7 @@ class MenuBuilder
     {
         $menu = $this->factory->createItem('root');
 
-        $this->addChannelChildren($menu, 'navbar.faculty', 3);
+        $this->addChannelChildren($menu, 'navbar.schools', 'school');
         $this->addChannelChildren($menu, 'navbar.services', 1);
         $this->addAboutChildren($menu);
 
@@ -146,7 +147,7 @@ class MenuBuilder
         foreach ($this->channelRepo->findManyByType($channelType) as $item) {
             if ($this->acl->canRead($user, $item)) {
                 $allowed[] = array(
-                    'name' => $item->getNome(),
+                    'name' => $item instanceof Channel ? $item->getName() : $item->getNome(),
                     'uri'  => $this->channelRouter->generate($item)
                 );
             }

@@ -3,6 +3,7 @@ namespace Universibo\Bundle\LegacyBundle\Routing;
 
 use Symfony\Component\Routing\RouterInterface;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
+use Universibo\Bundle\MainBundle\Entity\Channel;
 
 /**
  * Channel router
@@ -12,6 +13,7 @@ use Universibo\Bundle\LegacyBundle\Entity\Canale;
 class ChannelRouter
 {
     const BASE = 'UniversiBO\\Bundle\\LegacyBundle\\Entity\\';
+    const BASE2 = 'UniversiBO\\Bundle\\MainBundle\\Entity\\';
 
     /**
      * @var RouterInterface
@@ -34,7 +36,19 @@ class ChannelRouter
             self::BASE . 'Facolta' => 'universibo_legacy_facolta',
             self::BASE . 'Insegnamento' => 'universibo_legacy_insegnamento',
             self::BASE . 'PrgattivitaDidattica' => 'universibo_legacy_show_insegnamento',
+            self::BASE2 . 'SchoolChannel' => 'universibo_main_school',
         );
+    }
+
+    public function generate($channel, $absolute = false)
+    {
+        if ($channel instanceof Canale) {
+            return $this->generateCanale($channel);
+        }
+
+        if ($channel instanceof Channel) {
+            return $this->generateChannel($channel);
+        }
     }
 
     /**
@@ -44,7 +58,7 @@ class ChannelRouter
      * @param  boolean $absolute
      * @return string
      */
-    public function generate(Canale $channel, $absolute = false)
+    private function generateCanale(Canale $channel, $absolute = false)
     {
         if ($channel->getTipoCanale() == Canale::HOME) {
             return $this->router->generate('universibo_legacy_home');
@@ -58,11 +72,21 @@ class ChannelRouter
         ;
     }
 
+    private function generateChannel(Channel $channel, $absolute = false)
+    {
+        $route = $this->getRoute($channel);
+
+        return $this
+            ->router
+            ->generate($route, array('slug' => $channel->getSlug()), $absolute)
+        ;
+    }
+
     /**
      * @param  Canale $channel
      * @return string
      */
-    private function getRoute(Canale $channel)
+    private function getRoute($channel)
     {
         foreach ($this->routes as $class => $route) {
             if ($channel instanceof $class) {

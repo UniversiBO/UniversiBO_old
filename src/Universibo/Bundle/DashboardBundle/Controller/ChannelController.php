@@ -68,6 +68,7 @@ class ChannelController extends Controller
             $channel->setName($school->getName());
             $channel->setSlug('');
             $channel->setHits(0);
+            $channel->setLegacyGroups(127);
 
             $em->persist($channel);
             $em->flush();
