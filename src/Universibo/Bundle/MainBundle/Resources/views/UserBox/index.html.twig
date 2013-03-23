@@ -3,8 +3,7 @@
 {% endif %}
 <a href="{{ infoUrl }}"><img src="{{ asset('bundles/universibodesign/images/ssologo18x18.png') }}" alt="{% trans %}sso.info_title{% endtrans %}" title="{% trans %}sso.info_title{% endtrans %}"/></a>
 {% if (showEppn) %}
-    <a href="{{ logoutUrl }}">{% trans %}security.logout{% endtrans %}</a> [ {{ app.user.username }} ]
-    <a href="{{ path('universibo_legacy_settings') }}"><i class="icon-wrench icon-white"></i></a>
+    <a href="{{ logoutUrl }}">{% trans %}security.logout{% endtrans %}</a>
 {% else %}
     <a href="{{ path('login') }}" title="{% trans %}sso.login_title{% endtrans %}">{% trans %}security.login{% endtrans %}</a>
 {% endif %}

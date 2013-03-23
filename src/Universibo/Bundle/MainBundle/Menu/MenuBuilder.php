@@ -107,6 +107,7 @@ class MenuBuilder
         $menu->setChildrenAttribute('class', 'nav');
 
         $securityContext = $this->securityContext;
+
         if ($securityContext->isGranted('ROLE_MODERATOR')) {
             $dashboard = $menu->addChild('navbar.dashboard');
             $dashboard->setAttribute('dropdown', true);
@@ -120,6 +121,33 @@ class MenuBuilder
 
         $menu->addChild('navbar.forum', array('uri' => $this->forumRouter->getIndexUri()));
         $menu->addChild('navbar.contribute', array('route' => 'universibo_legacy_contribute'));
+
+        return $menu;
+    }
+
+    public function createTopRightMenu(Request $request)
+    {
+        $menu = $this->factory->createItem('root');
+        $menu->setChildrenAttribute('class', 'nav');
+
+        $securityContext = $this->securityContext;
+
+        if ($securityContext->isGranted('ROLE_USER')) {
+            $user = $securityContext->getToken()->getUser();
+
+            $username = $menu->addChild('[ '. $user->getUsername() .' ]');
+            $username->setAttribute('dropdown', true);
+
+            $username->addChild('navbar.profile');
+            $username->addChild('navbar.myfiles');
+            $username->addChild('navbar.myuniversibo.edit');
+
+            if (preg_match('/@studio.unibo.it$/', $user->getEmail())) {
+                $username->addChild('navbar.unibo_mail');
+            }
+
+            // TODO contatto docenti
+        }
 
         return $menu;
     }
