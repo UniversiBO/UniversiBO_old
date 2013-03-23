@@ -12,6 +12,7 @@ before_script:
   - echo "GRANT ALL PRIVILEGES ON DATABASE universibo_forum3 TO universibo" | psql -U postgres
   - cat app/sql/pgsql/devdb.sql | psql -U postgres universibo
   - cat vendor/universibo/forum-bundle/Universibo/Bundle/ForumBundle/Tests/Resources/sql/{structure,data}-postgres.sql | sed 's/OWNER TO.*/OWNER TO universibo;/' | psql -U postgres universibo_forum3
+  - app/console doctrine:migrations:migrate --no-interaction
 
 script:
   - bin/phpunit -c app
