@@ -1,5 +1,7 @@
 {% extends '::base.html.twig' %}
+{% block title %}{% trans with {'%name%': school.name} %}school.title{% endtrans %} - UniversiBO{% endblock title %}
 {% block content %}
 <h1>{% trans with {'%name%': school.name} %}school.title{% endtrans %}</h1>
-<p><a href="{{ school.url}}" target="_blank">{{school.url}}</a></p>
-{% endblock %}
+<p>{% trans %}school.url{% endtrans %} <a href="{{ school.url}}" target="_blank">{{school.url}}</a></p>
+<h2>{% trans %}school.courses{% endtrans %}</h2>
+{% endblock content %}

@@ -36,3 +36,5 @@ sso:
   login_title: Accesso Utenti Registrati
 school:
   title: Scuola di %name%
+  url: 'Pagina ufficiale della scuola:'
+  courses: Corsi di laurea
