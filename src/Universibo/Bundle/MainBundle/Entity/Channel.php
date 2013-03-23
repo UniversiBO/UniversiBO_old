@@ -12,8 +12,11 @@ use Universibo\Bundle\CoreBundle\Entity\User;
  *
  * @ORM\Table(name="channels")
  * @ORM\Entity(repositoryClass="Universibo\Bundle\MainBundle\Entity\ChannelRepository")
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"default" = "Channel", "school" = "SchoolChannel"})
  */
-class Channel
+abstract class Channel
 {
     /**
      * @var integer $id
