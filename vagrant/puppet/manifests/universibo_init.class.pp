@@ -15,7 +15,7 @@ class universibo_init
     }
     
     exec {'load-forum':
-        cwd => '/vagrant/vendor/universibo/forum-bundle/Universibo/Bundle/ForumBundle/Tests/Resources/sql/',
+        cwd => '/vagrant/src/Universibo/Bundle/ForumBundle/Tests/Resources/sql/',
         command => "cat structure-postgres.sql data-postgres.sql | sed 's/OWNER TO .*/OWNER TO universibo;/' | su - postgres -c 'psql universibo_forum3'",
         unless => "test `/vagrant/vagrant/scripts/check.forumtables.php` -gt 0",
 	require => Exec['composer install']
@@ -23,7 +23,7 @@ class universibo_init
 
     exec {'migrate-db':
         cwd => '/vagrant',
-        command => "app/console doctrine:migrations:migrate --no-interaction",
+        command => "php app/console doctrine:migrations:migrate --no-interaction",
 	require => Exec['load-db']
     }
 }
