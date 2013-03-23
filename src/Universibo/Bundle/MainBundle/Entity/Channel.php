@@ -16,7 +16,7 @@ use Universibo\Bundle\CoreBundle\Entity\User;
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"default" = "Channel", "school" = "SchoolChannel"})
  */
-abstract class Channel
+class Channel
 {
     /**
      * @var integer $id
