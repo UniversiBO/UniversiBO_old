@@ -20,4 +20,10 @@ class universibo_init
         unless => "test `/vagrant/vagrant/scripts/check.forumtables.php` -gt 0",
 	require => Exec['composer install']
     }
+
+    exec {'migrate-db':
+        cwd => '/vagrant',
+        command => "app/console doctrine:migrations:migrate --no-interaction",
+	require => Exec['load-db']
+    }
 }
