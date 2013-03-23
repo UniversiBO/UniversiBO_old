@@ -9,7 +9,7 @@
     output="css/compiled/main.css" filter='cssrewrite,?yui_css'%}
     <link rel="stylesheet" href="{{ asset_url }}" />
 {% endstylesheets %}
-{% if showGoogle|default(false) %}
+{% if app.environment == 'prod' %}
 {% raw %}
 <style type="text/css">
 input.gsc-input {
@@ -67,7 +67,7 @@ input.gsc-search-button {
 	{#<p id="seiIn">sei in: <a href="">Home</a></p>#}
 	<div id="content"> {# COLONNA MENU CENtrALE #}
         {{ render(controller('UniversiboWebsiteBundle:Common:alert')) }}
-	{% if showGoogle|default(false) %}
+	{% if app.environment == 'prod' %}
 	{# BEGIN GOOGLE CUSTOM SEARCH ENGINE #}
 	{% raw %}
     <div id="cse-search-form" style="width: 100%;">Loading</div>
