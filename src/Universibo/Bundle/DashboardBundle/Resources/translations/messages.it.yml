@@ -1,0 +1,5 @@
+dashboard:
+  channels:
+    title: Canali
+    schools_channel: Scuole con canale
+    schools_nochannel: Scuole senza canale

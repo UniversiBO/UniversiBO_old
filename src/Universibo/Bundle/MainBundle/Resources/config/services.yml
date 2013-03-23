@@ -57,6 +57,11 @@ services:
     factory_service: doctrine.orm.entity_manager
     factory_method: getRepository
     arguments: ['Universibo\Bundle\MainBundle\Entity\Channel']
+  universibo_main.repository.channel.school:
+    class: Universibo\Bundle\MainBundle\Entity\SchoolChannelRepository
+    factory_service: doctrine.orm.entity_manager
+    factory_method: getRepository
+    arguments: ['Universibo\Bundle\MainBundle\Entity\SchoolChannel']
   universibo_main.repository.channel_service:
     class: Universibo\Bundle\MainBundle\Entity\ChannelServiceRepository
     factory_service: doctrine.orm.entity_manager

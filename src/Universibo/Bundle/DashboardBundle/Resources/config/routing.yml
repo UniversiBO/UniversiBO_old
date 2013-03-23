@@ -5,3 +5,11 @@ universibo_dashboard_home:
 universibo_dashboard_schools:
   pattern: /didactics/schools
   defaults: { _controller: 'UniversiboDashboardBundle:School:index' }
+
+universibo_dashboard_admin_channels:
+  pattern: /admin/channels
+  defaults: { _controller: 'UniversiboDashboardBundle:Channel:index' }
+universibo_dashboard_admin_channels_create_school:
+  pattern: /admin/channels/create/school/{schoolId}
+  defaults: { _controller: 'UniversiboDashboardBundle:Channel:schoolCreate' }
+  requirements: { schoolId: \d+ }

@@ -105,8 +105,16 @@ class MenuBuilder
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav');
 
-        if ($this->securityContext->isGranted('ROLE_MODERATOR')) {
-            $menu->addChild('navbar.dashboard', array('route' => 'universibo_dashboard_home'));
+        $securityContext = $this->securityContext;
+        if ($securityContext->isGranted('ROLE_MODERATOR')) {
+            $dashboard = $menu->addChild('navbar.dashboard');
+            $dashboard->setAttribute('dropdown', true);
+            $dashboard->addChild('navbar.home', array('route' => 'universibo_dashboard_home'));
+
+            if ($securityContext->isGranted('ROLE_ADMIN')) {
+
+                $dashboard->addChild('navbar.channels', ['route' => 'universibo_dashboard_admin_channels']);
+            }
         }
 
         $menu->addChild('navbar.forum', array('uri' => $this->forumRouter->getIndexUri()));

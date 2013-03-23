@@ -9,7 +9,7 @@ use Universibo\Bundle\DidacticsBundle\Entity\School;
  * Universibo\Bundle\MainBundle\Entity\Channel
  *
  * @ORM\Table(name="channels_schools")
- * @ORM\Entity(repositoryClass="Universibo\Bundle\MainBundle\Entity\ChannelRepository")
+ * @ORM\Entity(repositoryClass="Universibo\Bundle\MainBundle\Entity\SchoolChannelRepository")
  */
 class SchoolChannel extends Channel
 {

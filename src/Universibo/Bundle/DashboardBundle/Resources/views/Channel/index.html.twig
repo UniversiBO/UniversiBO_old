@@ -1,0 +1,32 @@
+{% extends 'UniversiboDashboardBundle::base.html.twig' %}
+{% block title %}Home - {{ parent() }}{% endblock %}
+{% block content %}
+<h1>{% trans %}dashboard.channels.title{% endtrans %}</h1>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3">
+            <h2>{% trans %}dashboard.channels.schools_nochannel{% endtrans %}</h2>
+            <ul>
+                {% for school in schools.noChannel %}
+                    <li>
+                        {{ school.name }}
+                        <a href="{{ path('universibo_dashboard_admin_channels_create_school', {schoolId: school.id})}}" title="{% trans %}dashboard.channels.create{% endtrans %}">
+                            <i class="icon-plus-sign"></i>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="span3">
+            <h2>{% trans %}dashboard.channels.schools_channel{% endtrans %}</h2>
+            <ul>
+                {% for school in schools.channel %}
+                    <li>
+                        {{ school.name }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
