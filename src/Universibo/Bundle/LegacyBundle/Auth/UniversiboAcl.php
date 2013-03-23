@@ -6,10 +6,12 @@ use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\DBRuoloRepository;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
+use Universibo\Bundle\MainBundle\Entity\Channel;
 
 class UniversiboAcl
 {
-    const BASE = 'UniversiBO\\Bundle\\LegacyBundle\\Entity\\';
+    const BASE = 'Universibo\\Bundle\\LegacyBundle\\Entity\\';
+    const BASE2 = 'Universibo\\Bundle\\MainBundle\\Entity\\';
 
     private $handlers = array();
 
@@ -24,6 +26,8 @@ class UniversiboAcl
 
         $this->handlers[self::BASE . 'Canale']['read'] = array($this,
                 'canaleReadHandler');
+        $this->handlers[self::BASE2 . 'Channel']['read'] = array($this,
+                'channelReadHandler');
         $this->handlers[self::BASE . 'Files\\FileItem']['read'] = array($this,
                 'fileReadHandler');
 
@@ -65,6 +69,11 @@ class UniversiboAcl
     private function fileReadHandler(User $user = null, FileItem $file)
     {
         return ($file->getPermessiVisualizza() & $this->getLegacyGroups($user)) !== 0;
+    }
+
+    private function channelReadHandler(User $user = null, Channel $canale)
+    {
+        return ($canale->getLegacyGroups() & $this->getLegacyGroups($user)) !== 0;
     }
 
     private function canaleReadHandler(User $user = null, Canale $canale)
