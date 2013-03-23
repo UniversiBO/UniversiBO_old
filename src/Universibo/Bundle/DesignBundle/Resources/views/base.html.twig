@@ -10,7 +10,7 @@
     output="css/compiled/main.css" filter='cssrewrite,?yui_css'%}
     <link rel="stylesheet" href="{{ asset_url }}" />
 {% endstylesheets %}
-{% if showGoogle|default(false) %}
+{% if app.environment == 'prod' %}
 {% raw %}
 <style type="text/css">
 input.gsc-input {
@@ -44,7 +44,7 @@ input.gsc-search-button {
             {% endif %}
         </div>
         <div id="content" class="span8">
-            {% if showGoogle|default(false) %}
+            {% if app.environment == 'prod' %}
             {# BEGIN GOOGLE CUSTOM SEARCH ENGINE #}
             {% raw %}
                 <div id="cse-search-form" style="width: 100%;">Loading</div>
