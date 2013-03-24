@@ -25,6 +25,11 @@ class SchoolController extends Controller
             throw $this->createNotFoundException('Channel not found or wrong type');
         }
 
-        return ['school' => $channel->getSchool()];
+        $school = $channel->getSchool();
+
+        $courseRepo = $this->get('universibo_legacy.repository.cdl');
+        $courses = $courseRepo->findBySchool($school);
+
+        return ['school' => $school, 'courses' => $courses];
     }
 }
