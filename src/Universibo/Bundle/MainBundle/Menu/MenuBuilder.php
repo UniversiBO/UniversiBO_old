@@ -114,16 +114,12 @@ class MenuBuilder
             $username = $menu->addChild($user->getUsername());
             $username->setAttribute('dropdown', true);
 
-            $username->addChild('navbar.profile', ['route' => 'universibo_main_profile_edit']);
             $username->addChild('navbar.myfiles', ['route' => 'universibo_legacy_personal_files']);
             $username->addChild('navbar.myuniversibo.edit', [
                 'route' => 'universibo_legacy_user',
                 'routeParameters' => ['id_utente' => $user->getId()]
             ]);
-
-            if (preg_match('/@studio.unibo.it$/', $user->getEmail())) {
-                $username->addChild('navbar.unibo_mail');
-            }
+            $username->addChild('navbar.profile', ['route' => 'universibo_main_profile_edit']);
 
             if ($securityContext->isGranted('ROLE_MODERATOR')) {
                 $username->addChild('navbar.professor_contacts', ['route' => 'universibo_legacy_contact_professors']);
