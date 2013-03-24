@@ -23,16 +23,29 @@
     {% endif %}
     <p><input type="checkbox" id="accept_check" name="accept_check"/>
     <label for="accept_check">Ho letto e accetto
-        l'<a href="#privacy">Informativa sulla privacy</a>, il
-        <a href="#rules">Regolamento per l'utilizzo dei servizi</a> e del
-        <a href="#forumRules">forum</a>.</label></p>
+        l'<a href="#tabprivacy"  data-toggle="tab">Informativa sulla privacy</a>, il
+        <a href="#tabmain" data-toggle="tab">Regolamento per l'utilizzo dei servizi</a> e del
+        <a href="#tabforum" data-toggle="tab">forum</a>.</label></p>
     <p><input id="accept_submit" type="submit" value="Accetto"/></p>
 </form>
 {% endif %}
-<h2>Informativa sulla privacy</h2><a name="privacy"></a>
-{{ render_esi(controller('UniversiboMainBundle:Rules:privacyBox')) }}
-<h2>Regolamento per l'utilizzo dei servizi del sito</h2><a name="rules"></a>
-{{ render_esi(controller('UniversiboMainBundle:Rules:mainBox')) }}
-<h2>Regolamento per l'utilizzo del forum</h2><a name="forumRules"></a>
-{{ render_esi(controller('UniversiboMainBundle:Rules:forumBox')) }}
+
+<div class="tabbable"> <!-- Only required for left/right tabs -->
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tabprivacy" data-toggle="tab">{% trans %}rules.privacy{% endtrans %}</a></li>
+    <li><a href="#tabmain" data-toggle="tab">{% trans %}rules.main{% endtrans %}</a></li>
+    <li><a href="#tabforum" data-toggle="tab">{% trans %}rules.forum{% endtrans %}</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tabprivacy">
+      {{ render_esi(controller('UniversiboMainBundle:Rules:privacyBox')) }}
+    </div>
+    <div class="tab-pane" id="tabmain">
+      {{ render_esi(controller('UniversiboMainBundle:Rules:mainBox')) }}
+    </div>
+    <div class="tab-pane" id="tabforum">
+      {{ render_esi(controller('UniversiboMainBundle:Rules:forumBox')) }}
+    </div>
+  </div>
+</div>
 {% endblock %}

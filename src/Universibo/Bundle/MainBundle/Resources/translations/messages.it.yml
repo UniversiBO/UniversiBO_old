@@ -36,7 +36,10 @@ navbar:
   services: Servizi
   schools: Scuole
   channels: Canali
-
+rules:
+  privacy: Informativa sulla Privacy
+  main: Regolamento del sito
+  forum: Regolamento del forum
 sso:
   info_title: Informazioni sul Single Sign-On di Ateneo
   login_title: Accesso Utenti Registrati

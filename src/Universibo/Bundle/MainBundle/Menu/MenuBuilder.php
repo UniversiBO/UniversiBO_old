@@ -94,6 +94,7 @@ class MenuBuilder
     {
         $menu = $this->factory->createItem('root');
 
+        $menu->setChildrenAttribute('class', 'nav nav-list');
         $this->addChannelChildren($menu, 'navbar.schools', 'school');
         $this->addChannelChildren($menu, 'navbar.services', 1);
         $this->addAboutChildren($menu);
@@ -150,7 +151,8 @@ class MenuBuilder
      */
     private function addChannelChildren(MenuItem $menu, $label, $channelType)
     {
-        $menuItem = $menu->addChild($label);
+        $menuItem = $menu;
+        $menu->addChild($label)->setAttribute('class', 'nav-header');
         $scontext = $this->securityContext;
         $token = $scontext->getToken();
 
@@ -213,7 +215,8 @@ class MenuBuilder
 
     private function addAboutChildren(MenuItem $menu)
     {
-        $menuItem = $menu->addChild('navbar.about');
+        $menuItem = $menu;
+        $menu->addChild('navbar.about')->setAttribute('class', 'nav-header');
         $menuItem->addChild('navbar.rules', array('route' => 'universibo_main_rules'));
         $menuItem->addChild('navbar.manifesto', array('route' => 'universibo_legacy_manifesto'));
         $menuItem->addChild('navbar.credits', array('route' => 'universibo_legacy_credits'));
