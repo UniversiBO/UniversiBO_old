@@ -115,11 +115,10 @@ class MenuBuilder
             $username = $menu->addChild($user->getUsername());
             $username->setAttribute('dropdown', true);
 
-            $username->addChild('navbar.myfiles', ['route' => 'universibo_legacy_personal_files']);
-            $username->addChild('navbar.myuniversibo.edit', [
-                'route' => 'universibo_legacy_user',
-                'routeParameters' => ['id_utente' => $user->getId()]
+            $username->addChild('navbar.myuniversibo.show', [
+                'route' => 'universibo_legacy_myuniversibo',
             ]);
+            $username->addChild('navbar.myfiles', ['route' => 'universibo_legacy_personal_files']);
             $username->addChild('navbar.profile', ['route' => 'universibo_main_profile_edit']);
 
             if ($securityContext->isGranted('ROLE_MODERATOR')) {
