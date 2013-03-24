@@ -24,9 +24,8 @@ class ShowPersonalFiles extends UniversiboCommand
         $user = $this->get('security.context')->getToken()->getUser();
         $router = $this->get('router');
 
-        $idUtente = $user->getId();
-
-        $listaFile = FileItem::selectFileItemsByIdUtente($idUtente, true);
+        $fileRepo = $this->get('universibo_legacy.repository.files.file_item');
+        $listaFile = $fileRepo->findByUserId($user->getId());
 
         $files = array();
         foreach ($listaFile as $item) {

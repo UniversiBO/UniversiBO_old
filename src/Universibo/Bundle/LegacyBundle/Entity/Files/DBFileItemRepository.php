@@ -454,7 +454,7 @@ EOT;
 
     public function findByUserId($userId, $order = false)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'SELECT id_file, permessi_download, permessi_visualizza, A.id_utente, titolo,
         A.descrizione, data_inserimento, data_modifica, dimensione, download,
@@ -469,27 +469,15 @@ EOT;
 
         //echo $query;
 
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_CRITICAL',
-                    array('msg' => DB::errorMessage($res), 'file' => __FILE__,
-                            'line' => __LINE__));
-        }
-
-        $rows = $res->numRows();
-
-        if ($rows == 0)
-            return false;
         $files_list = array();
 
-        while ($row = $this->fetchRow($res)) {
+        while (false !== ($row = $res->fetch(PDO::FETCH_NUM))) {
             $username = $this->userRepository->getUsernameFromId($row[3]);
             $files_list[] = new FileItem($row[0], $row[1], $row[2], $row[3],
                     $row[4], $row[5], $row[6], $row[7], $row[8], $row[9],
                     $row[10], $row[11], $row[12], $row[13], $row[14],
                     $username, $row[15], $row[16], $row[17], $row[18]);
         }
-
-        $res->free();
 
         return $files_list;
     }
