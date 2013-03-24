@@ -58,7 +58,7 @@ class BaseContext extends MinkContext
         $page->pressButton('Login');
 
         $session->visit('/my/universibo');
-        $this->assertPageContainsText('[ '.$username . ' ]');
+        $this->assertPageContainsText($username);
     }
 
     /**

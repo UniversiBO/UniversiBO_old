@@ -10,7 +10,7 @@ Feature: Login
     And I type "admin" on "username" field
     And I type "padrino" on "password" field
     And I click on "Login" button
-    Then text "[ admin ]" should be present
+    Then text "admin" should be present
 
   Scenario: Logging in as a Moderator
     Given I'm not logged in
@@ -19,7 +19,7 @@ Feature: Login
     And I type "moderator" on "username" field
     And I type "padrino" on "password" field
     And I click on "Login" button
-    Then text "[ moderator ]" should be present
+    Then text "moderator" should be present
 
   Scenario: Logging in as a Student
     Given I'm not logged in
@@ -28,7 +28,7 @@ Feature: Login
     And I type "student" on "username" field
     And I type "padrino" on "password" field
     And I click on "Login" button
-    Then text "[ student ]" should be present
+    Then text "student" should be present
 
   Scenario: Logging in as a Professor
     Given I'm not logged in
@@ -37,7 +37,7 @@ Feature: Login
     And I type "professor" on "username" field
     And I type "padrino" on "password" field
     And I click on "Login" button
-    Then text "[ professor ]" should be present
+    Then text "professor" should be present
 
   Scenario: Logging in as a Tutor
     Given I'm not logged in
@@ -46,7 +46,7 @@ Feature: Login
     And I type "tutor" on "username" field
     And I type "padrino" on "password" field
     And I click on "Login" button
-    Then text "[ tutor ]" should be present
+    Then text "tutor" should be present
 
   Scenario: Logging in as a non-teaching staff member
     Given I'm not logged in
@@ -55,4 +55,4 @@ Feature: Login
     And I type "staff" on "username" field
     And I type "padrino" on "password" field
     And I click on "Login" button
-    Then text "[ staff ]" should be present
+    Then text "staff" should be present
