@@ -27,10 +27,16 @@ navbar:
   forum: Forum
   home: Home
   manifesto: Manifesto
+  myfiles: I miei file
+  myuniversibo:
+    edit: Modifica MyUniversiBO
+  professor_contacts: Contatto docenti
+  profile: Profilo
   rules: Regolamento & Privacy
   services: Servizi
   schools: Scuole
   channels: Canali
+
 sso:
   info_title: Informazioni sul Single Sign-On di Ateneo
   login_title: Accesso Utenti Registrati

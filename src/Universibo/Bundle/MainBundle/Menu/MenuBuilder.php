@@ -108,46 +108,40 @@ class MenuBuilder
 
         $securityContext = $this->securityContext;
 
-        if ($securityContext->isGranted('ROLE_MODERATOR')) {
-            $dashboard = $menu->addChild('navbar.dashboard');
-            $dashboard->setAttribute('dropdown', true);
-            $dashboard->addChild('navbar.home', array('route' => 'universibo_dashboard_home'));
-
-            if ($securityContext->isGranted('ROLE_ADMIN')) {
-
-                $dashboard->addChild('navbar.channels', ['route' => 'universibo_dashboard_admin_channels']);
-            }
-        }
-
-        $menu->addChild('navbar.forum', array('uri' => $this->forumRouter->getIndexUri()));
-        $menu->addChild('navbar.contribute', array('route' => 'universibo_legacy_contribute'));
-
-        return $menu;
-    }
-
-    public function createTopRightMenu(Request $request)
-    {
-        $menu = $this->factory->createItem('root');
-        $menu->setChildrenAttribute('class', 'nav');
-
-        $securityContext = $this->securityContext;
-
         if ($securityContext->isGranted('ROLE_USER')) {
             $user = $securityContext->getToken()->getUser();
 
-            $username = $menu->addChild('[ '. $user->getUsername() .' ]');
+            $username = $menu->addChild($user->getUsername());
             $username->setAttribute('dropdown', true);
 
-            $username->addChild('navbar.profile');
-            $username->addChild('navbar.myfiles');
-            $username->addChild('navbar.myuniversibo.edit');
+            $username->addChild('navbar.profile', ['route' => 'universibo_main_profile_edit']);
+            $username->addChild('navbar.myfiles', ['route' => 'universibo_legacy_personal_files']);
+            $username->addChild('navbar.myuniversibo.edit', [
+                'route' => 'universibo_legacy_user',
+                'routeParameters' => ['id_utente' => $user->getId()]
+            ]);
 
             if (preg_match('/@studio.unibo.it$/', $user->getEmail())) {
                 $username->addChild('navbar.unibo_mail');
             }
 
-            // TODO contatto docenti
+            if ($securityContext->isGranted('ROLE_MODERATOR')) {
+                $username->addChild('navbar.professor_contacts', ['route' => 'universibo_legacy_contact_professors']);
+
+                $dashboard = $menu->addChild('navbar.dashboard');
+                $dashboard->setAttribute('dropdown', true);
+                $dashboard->addChild('navbar.home', array('route' => 'universibo_dashboard_home'));
+
+                if ($securityContext->isGranted('ROLE_ADMIN')) {
+                    $dashboard->addChild('navbar.channels', ['route' => 'universibo_dashboard_admin_channels']);
+                }
+            }
         }
+
+            // TODO contatto docenti
+
+        $menu->addChild('navbar.forum', array('uri' => $this->forumRouter->getIndexUri()));
+        $menu->addChild('navbar.contribute', array('route' => 'universibo_legacy_contribute'));
 
         return $menu;
     }

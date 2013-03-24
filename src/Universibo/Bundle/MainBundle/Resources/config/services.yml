@@ -122,15 +122,6 @@ services:
     scope: request
     tags:
       - { name: knp_menu.menu, alias: left }
-  universibo_main.menu.topright:
-    class: Knp\Menu\MenuItem
-    factory_service: universibo_main.menu_builder
-    factory_method: createTopRightMenu
-    arguments:
-      - '@request'
-    scope: request
-    tags:
-      - { name: knp_menu.menu, alias: topright }
 
   universibo_main.menu.myuniversibo:
     class: Knp\Menu\MenuItem
