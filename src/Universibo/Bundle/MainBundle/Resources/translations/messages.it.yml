@@ -48,3 +48,4 @@ school:
   title: Scuola di %name%
   url: 'Pagina ufficiale della scuola:'
   courses: Corsi di laurea
+  nocourse: Nessun corso di laurea inserito.

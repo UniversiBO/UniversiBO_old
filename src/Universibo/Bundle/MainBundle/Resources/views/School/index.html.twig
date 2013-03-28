@@ -4,4 +4,16 @@
 <h1>{% trans with {'%name%': school.name} %}school.title{% endtrans %}</h1>
 <p>{% trans %}school.url{% endtrans %} <a href="{{ school.url}}" target="_blank">{{school.url}}</a></p>
 <h2>{% trans %}school.courses{% endtrans %}</h2>
+{% if courses|length > 0 %}
+    <ul class="nav nav-pills nav-stacked">
+        {% for category, courselist in courses %}
+            <li class="nav-header">{{ category }}</li>
+            {% for course in courselist %}
+                <li><a href="{{ path('universibo_legacy_cdl', {id_canale: course.idCanale}) }}">{{ course.nome }}</a></li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>{% trans %}school.nocourse{% endtrans %}</p>
+{% endif %}
 {% endblock content %}
