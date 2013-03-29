@@ -17,8 +17,9 @@ class Version20130322002508 extends AbstractMigration
                 
         $this->addSql("ALTER TABLE channels ALTER updated_at DROP NOT NULL");
         $this->addSql("ALTER TABLE channels ADD forum_group_id INT DEFAULT NULL");
-        
-        $sql = "INSERT INTO channels (id, type, name, slug, hits, updated_at, groups, forum_id) SELECT id_canale, tipo_canale, '' || nome_canale, '', visite, to_timestamp(ultima_modifica), permessi_groups, id_forum FROM canale";
+       
+        $this->addSql("UPDATE canale SET nome_canale = '' WHERE nome_canale IS NULL");
+        $sql = "INSERT INTO channels (id, type, name, slug, hits, updated_at, groups, forum_id) SELECT id_canale, tipo_canale, nome_canale, '', visite, to_timestamp(ultima_modifica), permessi_groups, id_forum FROM canale";
         $this->addSql($sql);
         $this->addSql("SELECT setval('channels_id_seq', (SELECT MAX(id) FROM channels))");
         
