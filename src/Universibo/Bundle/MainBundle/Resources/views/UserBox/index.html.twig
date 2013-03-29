@@ -5,5 +5,5 @@
 {% if (showEppn) %}
     <a href="{{ logoutUrl }}">{% trans %}security.logout{% endtrans %}</a>
 {% else %}
-    <a href="{{ path('login', {target: target|default(null)}) }}" title="{% trans %}sso.login_title{% endtrans %}">{% trans %}security.login{% endtrans %}</a>
+    <a href="{{ path('login', {wreply: target|default(null)}) }}" title="{% trans %}sso.login_title{% endtrans %}">{% trans %}security.login{% endtrans %}</a>
 {% endif %}
