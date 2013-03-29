@@ -67,8 +67,7 @@ class UserBoxController
             'eppn' => $eppn,
             'showEppn' => $eppn !== '',
             'logoutUrl' => $logoutUrl,
-            'infoUrl' => $this->infoUrl,
-            'target' =>  $request->getSession()->get('_security.main.target_path')
+            'infoUrl' => $this->infoUrl
         ) ;
 
         return $this->templating->renderResponse('UniversiboMainBundle:UserBox:index.html.twig', $data);
