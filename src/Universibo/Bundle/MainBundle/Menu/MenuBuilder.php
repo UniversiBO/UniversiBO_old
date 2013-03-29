@@ -118,23 +118,23 @@ class MenuBuilder
             $username->addChild('navbar.myuniversibo.show', [
                 'route' => 'universibo_legacy_myuniversibo',
             ]);
+
             $username->addChild('navbar.myfiles', ['route' => 'universibo_legacy_personal_files']);
+            $username->addChild('navbar.student_files.all', ['route' => 'universibo_legacy_file_studenti']);
             $username->addChild('navbar.profile', ['route' => 'universibo_main_profile_edit']);
 
             if ($securityContext->isGranted('ROLE_MODERATOR')) {
-                $username->addChild('navbar.professor_contacts', ['route' => 'universibo_legacy_contact_professors']);
-
                 $dashboard = $menu->addChild('navbar.dashboard');
                 $dashboard->setAttribute('dropdown', true);
                 $dashboard->addChild('navbar.home', array('route' => 'universibo_dashboard_home'));
+                $professors = $dashboard->addChild('navbar.professor_contacts', ['route' => 'universibo_legacy_contact_professors']);
 
                 if ($securityContext->isGranted('ROLE_ADMIN')) {
+                    $professors->setAttribute('divider_append', true);
                     $dashboard->addChild('navbar.channels', ['route' => 'universibo_dashboard_admin_channels']);
                 }
             }
         }
-
-            // TODO contatto docenti
 
         $menu->addChild('navbar.forum', array('uri' => $this->forumRouter->getIndexUri()));
         $menu->addChild('navbar.contribute', array('route' => 'universibo_legacy_contribute'));

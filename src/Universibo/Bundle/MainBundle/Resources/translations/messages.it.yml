@@ -36,6 +36,8 @@ navbar:
   rules: Regolamento & Privacy
   services: Servizi
   schools: Scuole
+  student_files:
+    all: Tutti i file studenti
   channels: Canali
 rules:
   privacy: Informativa sulla Privacy
