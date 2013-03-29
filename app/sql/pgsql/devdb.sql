@@ -102,12 +102,13 @@ CREATE TABLE channels (
     id integer NOT NULL,
     type character varying(50) NOT NULL,
     name character varying(255) NOT NULL,
-    slug character varying(255) NOT NULL,
+    slug character varying(100),
     hits integer NOT NULL,
     updated_at timestamp(0) without time zone,
     groups integer NOT NULL,
     forum_id integer,
-    forum_group_id integer
+    forum_group_id integer,
+    discr character varying(255) NOT NULL
 );
 
 
@@ -126,6 +127,18 @@ CREATE SEQUENCE channels_id_seq
 
 
 ALTER TABLE public.channels_id_seq OWNER TO universibo;
+
+--
+-- Name: channels_schools; Type: TABLE; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE TABLE channels_schools (
+    id integer NOT NULL,
+    school_id integer NOT NULL
+);
+
+
+ALTER TABLE public.channels_schools OWNER TO universibo;
 
 --
 -- Name: classi_corso_id_seq; Type: SEQUENCE; Schema: public; Owner: universibo
@@ -1610,18 +1623,46 @@ SELECT pg_catalog.setval('channel_services_id_seq', 5, true);
 -- Data for Name: channels; Type: TABLE DATA; Schema: public; Owner: universibo
 --
 
-INSERT INTO channels VALUES (2, '1', 'Test channel', '', 9, '2013-03-05 20:31:04', 127, NULL, NULL);
-INSERT INTO channels VALUES (1, '2', 'Home', '', 42, NULL, 127, NULL, NULL);
-INSERT INTO channels VALUES (3, '3', '', '', 4, NULL, 127, NULL, NULL);
-INSERT INTO channels VALUES (4, '4', '', '', 3, NULL, 127, NULL, NULL);
-INSERT INTO channels VALUES (5, '5', '', '', 4, NULL, 127, NULL, NULL);
+INSERT INTO channels VALUES (2, '1', 'Test channel', NULL, 9, '2013-03-05 20:31:04', 127, NULL, NULL, 'default');
+INSERT INTO channels VALUES (1, '2', 'Home', NULL, 42, NULL, 127, NULL, NULL, 'default');
+INSERT INTO channels VALUES (3, '3', '', NULL, 4, NULL, 127, NULL, NULL, 'default');
+INSERT INTO channels VALUES (4, '4', '', NULL, 3, NULL, 127, NULL, NULL, 'default');
+INSERT INTO channels VALUES (5, '5', '', NULL, 4, NULL, 127, NULL, NULL, 'default');
+INSERT INTO channels VALUES (6, 'school', 'Agraria e Medicina veterinaria', 'agraria-e-medicina-veterinaria', 0, NULL, 127, 0, 0, 'school');
+INSERT INTO channels VALUES (7, 'school', 'Economia, Management e Statistica', 'economia-management-e-statistica', 0, NULL, 127, 0, 0, 'school');
+INSERT INTO channels VALUES (8, 'school', 'Farmacia, Biotecnologie e Scienze motorie', 'farmacia-biotecnologie-e-scienze-motorie', 0, NULL, 127, 0, 0, 'school');
+INSERT INTO channels VALUES (9, 'school', 'Giurisprudenza', 'giurisprudenza', 0, NULL, 127, 0, 0, 'school');
+INSERT INTO channels VALUES (10, 'school', 'Ingegneria e Architettura', 'ingegneria-e-architettura', 0, NULL, 127, 0, 0, 'school');
+INSERT INTO channels VALUES (11, 'school', 'Lettere e Beni culturali', 'lettere-e-beni-culturali', 0, NULL, 127, 0, 0, 'school');
+INSERT INTO channels VALUES (12, 'school', 'Lingue e Letterature, Traduzione e Interpretazione', 'lingue-e-letterature-traduzione-e-interpretazione', 0, NULL, 127, 0, 0, 'school');
+INSERT INTO channels VALUES (13, 'school', 'Medicina e Chirurgia', 'medicina-e-chirurgia', 0, NULL, 127, 0, 0, 'school');
+INSERT INTO channels VALUES (14, 'school', 'Psicologia e Scienze della Formazione', 'psicologia-e-scienze-della-formazione', 0, NULL, 127, 0, 0, 'school');
+INSERT INTO channels VALUES (15, 'school', 'Scienze', 'scienze', 0, NULL, 127, 0, 0, 'school');
+INSERT INTO channels VALUES (16, 'school', 'Scienze politiche', 'scienze-politiche', 0, NULL, 127, 0, 0, 'school');
 
 
 --
 -- Name: channels_id_seq; Type: SEQUENCE SET; Schema: public; Owner: universibo
 --
 
-SELECT pg_catalog.setval('channels_id_seq', 1, false);
+SELECT pg_catalog.setval('channels_id_seq', 16, true);
+
+
+--
+-- Data for Name: channels_schools; Type: TABLE DATA; Schema: public; Owner: universibo
+--
+
+INSERT INTO channels_schools VALUES (6, 1);
+INSERT INTO channels_schools VALUES (7, 2);
+INSERT INTO channels_schools VALUES (8, 3);
+INSERT INTO channels_schools VALUES (9, 4);
+INSERT INTO channels_schools VALUES (10, 5);
+INSERT INTO channels_schools VALUES (11, 6);
+INSERT INTO channels_schools VALUES (12, 7);
+INSERT INTO channels_schools VALUES (13, 8);
+INSERT INTO channels_schools VALUES (14, 9);
+INSERT INTO channels_schools VALUES (15, 10);
+INSERT INTO channels_schools VALUES (16, 11);
 
 
 --
@@ -2215,6 +2256,8 @@ INSERT INTO migration_versions VALUES ('20130321204109');
 INSERT INTO migration_versions VALUES ('20130321223226');
 INSERT INTO migration_versions VALUES ('20130321233752');
 INSERT INTO migration_versions VALUES ('20130322002508');
+INSERT INTO migration_versions VALUES ('20130323165858');
+INSERT INTO migration_versions VALUES ('20130323202611');
 
 
 --
@@ -2390,6 +2433,7 @@ INSERT INTO schools VALUES (11, 'Scienze politiche', 'http://www.unibo.it/Portal
 -- Data for Name: schools_degree_courses; Type: TABLE DATA; Schema: public; Owner: universibo
 --
 
+INSERT INTO schools_degree_courses VALUES (5, 1);
 
 
 --
@@ -2504,6 +2548,14 @@ ALTER TABLE ONLY channel_services
 
 ALTER TABLE ONLY channels
     ADD CONSTRAINT channels_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: channels_schools_pkey; Type: CONSTRAINT; Schema: public; Owner: universibo; Tablespace: 
+--
+
+ALTER TABLE ONLY channels_schools
+    ADD CONSTRAINT channels_schools_pkey PRIMARY KEY (id);
 
 
 --
@@ -2982,6 +3034,13 @@ CREATE INDEX questionario_id_questionario_ke ON questionario USING btree (id_que
 
 
 --
+-- Name: uniq_2079d8b6c32a47ee; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE UNIQUE INDEX uniq_2079d8b6c32a47ee ON channels_schools USING btree (school_id);
+
+
+--
 -- Name: uniq_28166a266c57f6ed; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
 --
 
@@ -2993,6 +3052,13 @@ CREATE UNIQUE INDEX uniq_28166a266c57f6ed ON people USING btree (unibo_id);
 --
 
 CREATE UNIQUE INDEX uniq_47443bd55e237e06 ON schools USING btree (name);
+
+
+--
+-- Name: uniq_48292c05e237e06; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE UNIQUE INDEX uniq_48292c05e237e06 ON channel_services USING btree (name);
 
 
 --
@@ -3031,6 +3097,13 @@ CREATE UNIQUE INDEX uniq_df975e575e237e06 ON ismemberof USING btree (name);
 
 
 --
+-- Name: uniq_f314e2b6989d9b62; Type: INDEX; Schema: public; Owner: universibo; Tablespace: 
+--
+
+CREATE UNIQUE INDEX uniq_f314e2b6989d9b62 ON channels USING btree (slug);
+
+
+--
 -- Name: classi_corso_id_canale_fkey; Type: FK CONSTRAINT; Schema: public; Owner: universibo
 --
 
@@ -3052,6 +3125,22 @@ ALTER TABLE ONLY docente
 
 ALTER TABLE ONLY facolta
     ADD CONSTRAINT facolta_id_canale_fkey FOREIGN KEY (id_canale) REFERENCES channels(id);
+
+
+--
+-- Name: fk_2079d8b6bf396750; Type: FK CONSTRAINT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY channels_schools
+    ADD CONSTRAINT fk_2079d8b6bf396750 FOREIGN KEY (id) REFERENCES channels(id) ON DELETE CASCADE;
+
+
+--
+-- Name: fk_2079d8b6c32a47ee; Type: FK CONSTRAINT; Schema: public; Owner: universibo
+--
+
+ALTER TABLE ONLY channels_schools
+    ADD CONSTRAINT fk_2079d8b6c32a47ee FOREIGN KEY (school_id) REFERENCES schools(id);
 
 
 --
