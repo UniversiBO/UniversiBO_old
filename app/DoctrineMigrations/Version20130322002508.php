@@ -20,6 +20,7 @@ class Version20130322002508 extends AbstractMigration
         
         $sql = "INSERT INTO channels (id, type, name, slug, hits, updated_at, groups, forum_id) SELECT id_canale, tipo_canale, '' || nome_canale, '', visite, to_timestamp(ultima_modifica), permessi_groups, id_forum FROM canale";
         $this->addSql($sql);
+        $this->addSql("SELECT setval('channels_id_seq', (SELECT MAX(id) FROM channels))");
         
         $this->addSql("DELETE FROM channel_channelservice");
         $this->addSql("DELETE FROM channel_services");
