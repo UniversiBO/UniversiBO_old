@@ -74,7 +74,7 @@ class DBCdlRepository extends DBRepository
             return null;
         }
 
-        $ultima_modifica = $channel->getUpdatedAt() ? $channel->getUpdatedAt()->getTimestam() : 0;
+        $ultima_modifica = $channel->getUpdatedAt() ? $channel->getUpdatedAt()->getTimestamp() : 0;
 
         return new Cdl($id, $channel->getLegacyGroups(), $ultima_modifica,
                 (int) $channel->getType(), '', $channel->getName(), $channel->getHits(),
