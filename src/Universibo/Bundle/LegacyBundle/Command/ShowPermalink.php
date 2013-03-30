@@ -6,6 +6,7 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\News\NewsItem;
 
@@ -33,9 +34,34 @@ class ShowPermalink extends UniversiboCommand
             throw new NotFoundHttpException('News not found');
         }
 
+        $user = $this->get('security.context')->getToken()->getUser();
+        if (!$user instanceof User) {
+            $user = null;
+        }
+
+        $acl = $this->get('universibo_legacy.acl');
+        $channelIds = $newsRepo->getChannelIdList($news);
+
+        $channelRepo = $this->get('universibo_legacy.repository.canale2');
+        $channels = $channelRepo->findManyById($channelIds);
+
+        $channelRouter = $this->get('universibo_legacy.routing.channel');
+
+        $channelList = array();
+
+        foreach ($channels as $channel) {
+            if ($acl->canRead($user, $channel)) {
+                $channelList[] = [
+                    'name' => $channel->getNome(),
+                    'uri' => $channelRouter->generate($channel)
+                ];
+            }
+        }
+
         $template = $this->getFrontController()->getTemplateEngine();
         $template->assign('common_title', $news->getTitolo() . ' :: UniversiBO');
         $template->assign('news', $this->_newsToArray($news));
+        $template->assign('channels', $channelList);
     }
 
     /**
