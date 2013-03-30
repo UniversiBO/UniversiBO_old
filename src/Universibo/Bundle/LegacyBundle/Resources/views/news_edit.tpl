@@ -7,7 +7,7 @@
 {include file="avviso_notice.tpl"}
 
 <form method="post">
-	<p><label class="label" for="f8_titolo">Titolo:</label>
+	<p><label for="f8_titolo">Titolo:</label>
 		<input type="text" class="casella" id="f8_titolo" name="f8_titolo" size="65" maxlength="130" value="{$f8_titolo|escape:"htmlall"}" /></p>
 	<p><fieldset>
 		<legend>Data Inserimento:</legend>

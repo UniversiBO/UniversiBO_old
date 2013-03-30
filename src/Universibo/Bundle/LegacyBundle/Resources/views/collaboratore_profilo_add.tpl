@@ -5,17 +5,17 @@
 </div>
 {include file="avviso_notice.tpl"}
 <form method="post" enctype="multipart/form-data">
-	<p><label class="label" for="f36_ruolo">Ruolo:</label>
+	<p><label for="f36_ruolo">Ruolo:</label>
 		<input type="text" class="casella" id="f36_ruolo" name="f36_ruolo" size="65" maxlength="130" value="{$f36_ruolo|escape:"htmlall"}" />
 	</p>
-	<p><label class="label" for="f36_email">Email:</label>
+	<p><label for="f36_email">Email:</label>
 		<input type="text" class="casella" id="f36_email" name="f36_email" size="65" maxlength="130" value="{$f36_email|escape:"htmlall"}" />
 	</p>
-	<p><label class="label" for="f36_recapito">Recapito:</label>
+	<p><label for="f36_recapito">Recapito:</label>
 		<input type="text" class="casella" id="f36_recapito" name="f36_recapito" size="65" maxlength="130" value="{$f36_recapito|escape:"htmlall"}" />
 	</p>
 	
-	<p><label class="label" for="f36_foto">Foto:</label>
+	<p><label for="f36_foto">Foto:</label>
         <input class="submit" type="file" name="f36_foto" id="f36_foto" size="65" value="{$f36_foto|escape:"htmlall"}" />	
 	</p>
 	

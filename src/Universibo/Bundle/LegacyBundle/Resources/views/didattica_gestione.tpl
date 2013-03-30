@@ -47,12 +47,12 @@
 	<fieldset>
 		<legend>Modifica:</legend>
 		{foreach name=edit item=val key=key from=$f41_edit_sel}
-			<p><label class="label" for="{$key}">{$key|escape:"htmlall"}:</label>
+			<p><label for="{$key}">{$key|escape:"htmlall"}:</label>
 		<input class="casella" type="text" name="f41_edit_sel[{$key}]" id="{$key}" size="65" value="{$val|escape:"htmlall"}" /></p>
 
-{*			<p><label class="label" for="f41_codDoc">Codice docente:</label>
+{*			<p><label for="f41_codDoc">Codice docente:</label>
 		<input class="casella" type="text" name="f41_codDoc" id="f41_codDoc" size="65" value="{$f41_codDoc|escape:"htmlall"}" /></p>
-	<p><label class="label" for="f41_ciclo">Ciclo:</label>
+	<p><label for="f41_ciclo">Ciclo:</label>
 		<input type="text" class="casella" id="f41_ciclo" name="f41_ciclo" size="65" maxlength="130" value="{$f41_ciclo|escape:"htmlall"}" /></p>
 	<p><span><label for="f41_Description"><p>Descrizione<br /> del link:<br />(max 1000 caratteri)</p></label>
 		<textarea cols="50" rows="10" id="f41_Description" name="f41_Description">{$f41_Description|escape:"htmlall"}</textarea></span></p>*}
@@ -64,9 +64,9 @@
 	{if $DidatticaGestione_docenteEdit}
 	<fieldset>
 	<legend>Ricerca docente</legend>
-		<p><label class="label" for="f41_username">per&nbsp;username: </label>
+		<p><label for="f41_username">per&nbsp;username: </label>
 		<input name="f41_username" id="f41_username" type="text" value="" /></p>
-	<p><label class="label" for="f41_email">per e-mail: </label>
+	<p><label for="f41_email">per e-mail: </label>
 		<input name="f41_email" id="f41_email" type="text" value="" /></p>
 	<p><input class="submit" name="f41_search" id="f41_search" type="submit" value="Cerca" /></p>
 	{if $DidatticaGestione_docs != ''}

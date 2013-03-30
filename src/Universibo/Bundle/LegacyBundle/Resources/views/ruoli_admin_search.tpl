@@ -18,9 +18,9 @@
 <h3>{$ruoliAdminSearch_langSearch|escape:"htmlall"}</h3>
 
 <form method="post">
-	<p><label class="label" for="f16_username">Cerca per username: </label>
+	<p><label for="f16_username">Cerca per username: </label>
 		<input name="f16_username" id="f16_username" type="text" value="" /></p>
-	<p><label class="label" for="f16_email">Cerca per e-mail: </label>
+	<p><label for="f16_email">Cerca per e-mail: </label>
 		<input name="f16_email" id="f16_email" type="text" value="" /></p>
 	<p><input class="submit" name="f16_submit" id="f16_submit" type="submit" value="Cerca" /></p>
 </form>

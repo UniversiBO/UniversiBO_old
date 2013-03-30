@@ -4,7 +4,7 @@
 </div>
 {include file="avviso_notice.tpl"}
 <form method="post" enctype="multipart/form-data">
-	<p><label class="label" for="f13_titolo">Titolo:</label>
+	<p><label for="f13_titolo">Titolo:</label>
 		<input type="text" class="casella" id="f13_titolo" name="f13_titolo" size="65" maxlength="130" value="{$f13_titolo|escape:"htmlall"}" /></p>
 	<p><span><label for="f13_abstract"><p>Abstract/descrizione<br /> del file:<br />(max 3000 caratteri)</p></label>
 		<textarea cols="50" rows="10" id="f13_abstract" name="f13_abstract">{$f13_abstract|escape:"htmlall"}</textarea></span></p>

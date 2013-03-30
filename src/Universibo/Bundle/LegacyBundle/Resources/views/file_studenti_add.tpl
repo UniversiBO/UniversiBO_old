@@ -4,10 +4,10 @@
 </div>
 {include file="avviso_notice.tpl"}
 <form method="post" enctype="multipart/form-data">
-	<p><label class="label" for="f23_file">File:</label>
+	<p><label for="f23_file">File:</label>
 		<input class="submit" type="file" name="f23_file" id="f23_file" size="65" value="{$f23_file|escape:"htmlall"}" />
  		<input type="hidden" name="MAX_FILE_SIZE" value="20971520" /></p>
-	<p><label class="label" for="f23_titolo">Titolo:</label>
+	<p><label for="f23_titolo">Titolo:</label>
 		<input type="text" class="casella" id="f23_titolo" name="f23_titolo" size="65" maxlength="130" value="{$f23_titolo|escape:"htmlall"}" /></p>
 	<p><span><label for="f23_abstract"><p>Abstract/descrizione<br /> del file:<br />(max 3000 caratteri)</p></label>
 		<textarea cols="50" rows="10" id="f23_abstract" name="f23_abstract">{$f23_abstract|escape:"htmlall"}</textarea></span></p>
