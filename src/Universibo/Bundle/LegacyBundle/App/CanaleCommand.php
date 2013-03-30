@@ -2,7 +2,7 @@
 
 namespace Universibo\Bundle\LegacyBundle\App;
 
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
@@ -58,7 +58,7 @@ abstract class CanaleCommand extends UniversiboCommand
         $groups = $user instanceof User ? $user->getLegacyGroups() : 1;
 
         if (!$canale->isGroupAllowed($groups)) {
-            throw new AccessDeniedException('Not allowed id_canale = ' . $canale->getIdCanale() . ', groups = ' . $groups);
+            throw new AccessDeniedHttpException('Not allowed id_canale = ' . $canale->getIdCanale() . ', groups = ' . $groups);
         }
 
         $canale->addVisite();
