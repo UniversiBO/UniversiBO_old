@@ -34,14 +34,14 @@ input.gsc-search-button {
 <div class="container-fluid">
     <div class="row-fluid">
         <div id="left" class="span2">
-            <div id="leftmenu">
-                {{ knp_menu_render('left', {'currentClass': 'active', 'template': 'UniversiboMainBundle:Menu:knp_menu.html.twig'}) }}
-            </div>
             {% if(is_granted('ROLE_USER')) %}
             <div id="myuniversibo">
                 {{ knp_menu_render('myuniversibo', {'currentClass': 'active', 'template': 'UniversiboMainBundle:Menu:knp_menu.html.twig'}) }}
             </div>
             {% endif %}
+            <div id="leftmenu">
+                {{ knp_menu_render('left', {'currentClass': 'active', 'template': 'UniversiboMainBundle:Menu:knp_menu.html.twig'}) }}
+            </div>
         </div>
         <div id="content" class="span8">
             {% if app.environment == 'prod' %}

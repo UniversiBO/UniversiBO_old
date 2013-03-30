@@ -186,19 +186,21 @@ class MenuBuilder
     public function createMyUniversiBOMenu(Request $request)
     {
         $menu = $this->factory->createItem('root');
+        $menu->setChildrenAttribute('class', 'nav nav-list');
 
         if ($this->securityContext->isGranted('ROLE_USER')) {
             $userId = $this->securityContext->getToken()->getUser()->getId();
 
-            $myUniversibo = $menu->addChild('MyUniversiBO', array('route' => 'universibo_legacy_myuniversibo'));
-            $myUniversibo->setAttribute('dropdown', true);
+            $myUniversibo = $menu->addChild('MyUniversiBO');
+            $myUniversibo->setAttribute('class', 'nav-header');
+            $myUniversibo->setChildrenAttribute('class', 'nav nav-list');
 
             $last = null;
             foreach ($this->roleRepo->findByIdUtente($userId) as $role) {
                 if ($role->isMyUniversibo()) {
                     $channel = $this->channelRepo->find($role->getIdCanale());
 
-                    $last = $myUniversibo->addChild($role->getNome() ?: $channel->getTitolo(), array(
+                    $last = $menu->addChild($role->getNome() ?: $channel->getTitolo(), array(
                         'uri' => $this->channelRouter->generate($channel)
                     ));
                 }
