@@ -2,8 +2,8 @@
 <div class="titoloPagina">
 <h2>Password file</h2>
 </div>
-<p class="Normal">Il file richiesto � stato protetto dall'autore con una password,<br />
-Per per proseguire con il download � necessario inserirla nel seguente form.</p>
+<p class="Normal">Il file richiesto è stato protetto dall'autore con una password,<br />
+Per per proseguire con il download è necessario inserirla nel seguente form.</p>
 {include file="avviso_notice.tpl"}
 
 <form method="post">
