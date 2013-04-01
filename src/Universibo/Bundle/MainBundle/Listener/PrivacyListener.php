@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Universibo\Bundle\MainBundle\Entity\User;
@@ -85,26 +84,19 @@ class PrivacyListener
     /**
      * @param GetResponseEvent $event
      */
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onLoginActionRequest(GetResponseEvent $event)
     {
-        if ($event->getRequestType() === HttpKernelInterface::SUB_REQUEST) {
-            return;
-        }
-
         $request = $event->getRequest();
 
         $session = $request->getSession();
         $key = 'privacy_check_result';
 
-        if($session->get($key, false) ||
-                !$this->securityContext->getToken() ||
-                !$this->securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if ($session->get($key, false)) {
             return;
         }
 
         $controller = $request->attributes->get('_controller');
-        if (preg_match('/rules/i', $controller) ||
-                preg_match('/logout/', $request->getRequestUri())) {
+        if (preg_match('/rules/i', $controller)) {
             return;
         }
 

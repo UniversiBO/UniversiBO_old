@@ -44,7 +44,7 @@ services:
       - '@universibo_main.contact.verification'
       - '@fos_user.user_manager'
     tags:
-      -  { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+      -  { name: kernel.event_listener, event: universibo_main.login_action, method: onLoginActionRequest }
   universibo_main.listener.auth.failure:
     class: Universibo\Bundle\MainBundle\Listener\AuthenticationFailedListener
     arguments:
