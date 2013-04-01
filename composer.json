@@ -30,7 +30,6 @@
         "jwage/easy-csv": "@dev",
         "zendframework/zend-feed": ">=2.0.0,<2.1.0",
         "universibo/campus-bundle": "dev-master",
-        "universibo/login-action-bundle": "dev-master",
         "universibo/smarty": "dev-master",
         "ornicar/apc-bundle": "@dev",
         "imagine/Imagine": "0.4.*",

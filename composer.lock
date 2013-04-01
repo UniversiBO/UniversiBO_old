@@ -1,5 +1,5 @@
 {
-    "hash": "6cdaa5435caf310ecae0c7396c1b69f9",
+    "hash": "eae79d76472925022eb28044777421a3",
     "packages": [
         {
             "name": "doctrine/common",
@@ -2323,47 +2323,6 @@
             "time": "2013-03-05 17:06:52"
         },
         {
-            "name": "universibo/login-action-bundle",
-            "version": "dev-master",
-            "target-dir": "Universibo/Bundle/LoginActionBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/UniversiBO/UniversiboLoginActionBundle.git",
-                "reference": "3b8026e65c1727a1bcca10a578ac610867c9a3ea"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/UniversiBO/UniversiboLoginActionBundle/zipball/3b8026e65c1727a1bcca10a578ac610867c9a3ea",
-                "reference": "3b8026e65c1727a1bcca10a578ac610867c9a3ea",
-                "shasum": ""
-            },
-            "require": {
-                "symfony/framework-bundle": "2.2.*",
-                "symfony/security-bundle": "2.2.*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Universibo\\Bundle\\LoginActionBundle": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Davide Bellettini",
-                    "email": "davide.bellettini@gmail.com"
-                }
-            ],
-            "description": "Ask user for actions after login (e.g. wizard)",
-            "time": "2013-03-18 16:18:03"
-        },
-        {
             "name": "universibo/shibboleth-bundle",
             "version": "dev-master",
             "target-dir": "Universibo/Bundle/ShibbolethBundle",
@@ -3668,7 +3627,6 @@
         "universibo/shibboleth-bundle": 20,
         "jwage/easy-csv": 20,
         "universibo/campus-bundle": 20,
-        "universibo/login-action-bundle": 20,
         "universibo/smarty": 20,
         "ornicar/apc-bundle": 20,
         "stof/doctrine-extensions-bundle": 20,

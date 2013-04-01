@@ -27,6 +27,13 @@ services:
       - '@logger'
     tags:
       -  { name: monolog.logger, channel: shibboleth }
+  universibo_main.listener.login_action:
+    class: Universibo\Bundle\MainBundle\Listener\LoginActionListener
+    arguments:
+      - '@security.context'
+      - '@event_dispatcher'
+    tags:
+      -  { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
   universibo_main.listener.privacy:
     class: Universibo\Bundle\MainBundle\Listener\PrivacyListener
     arguments:
