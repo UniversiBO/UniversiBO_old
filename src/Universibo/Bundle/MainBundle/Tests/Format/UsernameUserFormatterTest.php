@@ -25,11 +25,11 @@ class UsernameUserFormatterTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests if username mode is supported
+     * Tests if name matches
      */
-    public function testSupportsUsernameMode()
+    public function testGetName()
     {
-        $this->assertTrue($this->formatter->supports('username'), 'Formatter should support username mode');
+        $this->assertEquals('username', $this->formatter->getName(), 'Formatter name should match');
     }
 
     /**
@@ -42,6 +42,6 @@ class UsernameUserFormatterTest extends PHPUnit_Framework_TestCase
         $user = new User();
         $user->setUsername($username);
 
-        $this->assertEquals($username, $this->formatter->format($user, 'username'), 'Username should match');
+        $this->assertEquals($username, $this->formatter->format($user), 'Username should match');
     }
 }

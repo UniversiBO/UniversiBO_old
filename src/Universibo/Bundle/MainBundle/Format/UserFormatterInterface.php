@@ -13,19 +13,17 @@ use Universibo\Bundle\CoreBundle\Entity\User;
 interface UserFormatterInterface
 {
     /**
-     * Returns true if a mode is supported, false otherwise
+     * Returns the format name
      *
-     * @param  boolean $mode
-     * @return boolean
+     * @return string
      */
-    public function supports($mode);
+    public function getName();
 
     /**
      * Converts a User to string according to $mode
      *
      * @param  User   $user
-     * @param  string $mode
      * @return string
      */
-    public function format(User $user, $mode);
+    public function format(User $user);
 }

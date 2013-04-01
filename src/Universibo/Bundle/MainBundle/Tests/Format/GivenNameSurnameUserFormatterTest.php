@@ -26,11 +26,11 @@ class GivenNameSurnameUserFormatterTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests if username mode is supported
+     * Tests if name matches
      */
-    public function testSupportsMode()
+    public function testGetName()
     {
-        $this->assertTrue($this->formatter->supports('given_name_surname'), 'Formatter should support given_name_surname mode');
+        $this->assertEquals('given_name_surname', $this->formatter->getName(), 'Formatter name should match');
     }
 
     /**
@@ -45,6 +45,6 @@ class GivenNameSurnameUserFormatterTest extends PHPUnit_Framework_TestCase
         $person->setSurname('Rossi');
 
         $expected = 'Mario Rossi';
-        $this->assertEquals($expected, $this->formatter->format($user, 'given_name_surname'), 'Formatted string should match');
+        $this->assertEquals($expected, $this->formatter->format($user), 'Formatted string should match');
     }
 }
