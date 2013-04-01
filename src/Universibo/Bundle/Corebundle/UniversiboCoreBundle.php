@@ -1,6 +1,6 @@
 <?php
 
-namespace Universibo\Bundle\CoreBundle;
+namespace Universibo\Bundle\Corebundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

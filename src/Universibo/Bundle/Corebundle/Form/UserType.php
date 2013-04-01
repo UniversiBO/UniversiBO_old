@@ -1,6 +1,6 @@
 <?php
 
-namespace Universibo\Bundle\CoreBundle\Form;
+namespace Universibo\Bundle\Corebundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

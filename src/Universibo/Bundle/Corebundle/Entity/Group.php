@@ -1,5 +1,5 @@
 <?php
-namespace Universibo\Bundle\CoreBundle\Entity;
+namespace Universibo\Bundle\Corebundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Entity\Group as BaseGroup;

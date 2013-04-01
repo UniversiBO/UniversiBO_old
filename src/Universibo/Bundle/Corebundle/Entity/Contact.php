@@ -2,7 +2,7 @@
 /**
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
-namespace Universibo\Bundle\CoreBundle\Entity;
+namespace Universibo\Bundle\Corebundle\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;

@@ -1,5 +1,5 @@
 <?php
-namespace Universibo\Bundle\CoreBundle\Entity;
+namespace Universibo\Bundle\Corebundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

@@ -2,7 +2,7 @@
 /**
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
-namespace Universibo\Bundle\CoreBundle\DependencyInjection;
+namespace Universibo\Bundle\Corebundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
