@@ -1,0 +1,3 @@
+universibo_forum_login:
+  pattern: /forumlogin
+  defaults: { _controller: 'UniversiboForumBundle:Security:login' }

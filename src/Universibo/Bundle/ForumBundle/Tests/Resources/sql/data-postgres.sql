@@ -1,0 +1,1 @@
+INSERT INTO phpbb_config (config_name, config_value) VALUES ('test', 1);

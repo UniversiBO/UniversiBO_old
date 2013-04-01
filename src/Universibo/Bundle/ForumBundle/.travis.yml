@@ -1,0 +1,13 @@
+language: php
+
+php:
+  - 5.4
+
+before_script: 
+  - cat Tests/Resources/sql/init-postgres.sql | psql -U postgres
+  - cat Tests/Resources/sql/structure-postgres.sql | psql -U postgres universibo_forum_test
+  - cat Tests/Resources/sql/data-postgres.sql | psql -U postgres universibo_forum_test
+  - composer install --dev
+
+notifications:
+  email: dev_universibo@mama.ing.unibo.it
