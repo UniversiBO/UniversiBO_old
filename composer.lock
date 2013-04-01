@@ -1,5 +1,5 @@
 {
-    "hash": "09e065be1f06de13dbe246a4ebf351ac",
+    "hash": "6cdaa5435caf310ecae0c7396c1b69f9",
     "packages": [
         {
             "name": "doctrine/common",
@@ -2323,61 +2323,6 @@
             "time": "2013-03-05 17:06:52"
         },
         {
-            "name": "universibo/forum-bundle",
-            "version": "dev-master",
-            "target-dir": "Universibo/Bundle/ForumBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/UniversiBO/UniversiboForumBundle.git",
-                "reference": "cb7d3dd9a84de96c73b876f3b527975d788293fd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/UniversiBO/UniversiboForumBundle/zipball/cb7d3dd9a84de96c73b876f3b527975d788293fd",
-                "reference": "cb7d3dd9a84de96c73b876f3b527975d788293fd",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/doctrine-bundle": ">=1.0.0,<1.3-dev",
-                "guzzle/guzzle": "3.1.*",
-                "symfony/framework-bundle": ">=2.1.0,<2.3-dev"
-            },
-            "require-dev": {
-                "symfony/class-loader": "2.1.*",
-                "symfony/yaml": "2.1.*"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-0": {
-                    "Universibo\\Bundle\\ForumBundle": ""
-                }
-            },
-            "license": [
-                "GPL"
-            ],
-            "authors": [
-                {
-                    "name": "Davide Bellettini",
-                    "email": "davide.bellettini@gmail.com"
-                },
-                {
-                    "name": "UniversiboForumBundle Contributors",
-                    "homepage": "https://github.com/UniversiBO/UniversiboForumBundle/graphs/contributors"
-                }
-            ],
-            "description": "UniversiBO ForumBundle",
-            "homepage": "http://github.com/UniversiBO",
-            "keywords": [
-                "phpbb3",
-                "university"
-            ],
-            "support": {
-                "source": "https://github.com/UniversiBO/UniversiboForumBundle/tree/master",
-                "issues": "https://github.com/UniversiBO/UniversiboForumBundle/issues"
-            },
-            "time": "2013-03-12 20:08:48"
-        },
-        {
             "name": "universibo/login-action-bundle",
             "version": "dev-master",
             "target-dir": "Universibo/Bundle/LoginActionBundle",
@@ -3722,7 +3667,6 @@
         "kriswallsmith/assetic": 20,
         "universibo/shibboleth-bundle": 20,
         "jwage/easy-csv": 20,
-        "universibo/forum-bundle": 20,
         "universibo/campus-bundle": 20,
         "universibo/login-action-bundle": 20,
         "universibo/smarty": 20,
