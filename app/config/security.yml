@@ -7,7 +7,7 @@ fos_advanced_encoder:
       
 security:
     encoders:
-        Universibo\Bundle\CoreBundle\Entity\User: sha512
+        Universibo\Bundle\MainBundle\Entity\User: sha512
 
     role_hierarchy:
         ROLE_ADMIN:

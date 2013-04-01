@@ -2,10 +2,6 @@ universibo_dashboard:
     resource: "@UniversiboDashboardBundle/Resources/config/routing.yml"
     prefix:   /dashboard
 
-UniversiboCoreBundle:
-    resource: "@UniversiboCoreBundle/Resources/config/routing.yml"
-    prefix:   /
-    
 UniversiboForumBundle:
     resource: "@UniversiboForumBundle/Resources/config/routing.yml"
     prefix:   /   

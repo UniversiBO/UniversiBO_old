@@ -65,10 +65,10 @@ doctrine:
 
 fos_user:
     db_driver: orm
-    user_class: 'Universibo\Bundle\CoreBundle\Entity\User'
+    user_class: 'Universibo\Bundle\MainBundle\Entity\User'
     firewall_name: main
     group:
-      group_class: 'Universibo\Bundle\CoreBundle\Entity\Group'
+      group_class: 'Universibo\Bundle\MainBundle\Entity\Group'
 
 universibo_campus:
   api:

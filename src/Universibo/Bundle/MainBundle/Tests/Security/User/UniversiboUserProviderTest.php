@@ -70,10 +70,10 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->objectManager = $this->getMock('Doctrine\\Common\\Persistence\\ObjectManager');
-        $this->personRepository = $this->getMock('Universibo\\Bundle\\CoreBundle\\Entity\\PersonRepository', array('findOneByUniboId'), array(), '', false);
-        $this->userRepository = $this->getMock('Universibo\\Bundle\\CoreBundle\\Entity\\UserRepository', array('findOneByEmail', 'findOneAllowedToLogin'), array(), '', false);
+        $this->personRepository = $this->getMock('Universibo\\Bundle\\MainBundle\\Entity\\PersonRepository', array('findOneByUniboId'), array(), '', false);
+        $this->userRepository = $this->getMock('Universibo\\Bundle\\MainBundle\\Entity\\UserRepository', array('findOneByEmail', 'findOneAllowedToLogin'), array(), '', false);
         $this->userManager = $this->getMock('FOS\\UserBundle\\Model\\UserManagerInterface');
-        $this->uniboGroupRepository = $this->getMock('Universibo\\Bundle\\CoreBundle\\Entity\\UniboGroupRepository', array('findOrCreate'), array(), '', false);
+        $this->uniboGroupRepository = $this->getMock('Universibo\\Bundle\\MainBundle\\Entity\\UniboGroupRepository', array('findOrCreate'), array(), '', false);
         $this->logger = $this->getMock('Symfony\\Component\\HttpKernel\\Log\\LoggerInterface');
 
         $this->provider = new UniversiboUserProvider($this->objectManager,
@@ -177,7 +177,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
 
         $user = $this->provider->loadUserByClaims($claims);
 
-        $this->assertInstanceOf('Universibo\\Bundle\\CoreBundle\\Entity\\User', $user);
+        $this->assertInstanceOf('Universibo\\Bundle\\MainBundle\\Entity\\User', $user);
         $this->assertEquals($mockedUser, $user);
 
         $this->assertGroup($user, $claims['isMemberOf']);
@@ -239,7 +239,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
 
         $user = $this->provider->loadUserByClaims($claims);
 
-        $this->assertInstanceOf('Universibo\\Bundle\\CoreBundle\\Entity\\User', $user);
+        $this->assertInstanceOf('Universibo\\Bundle\\MainBundle\\Entity\\User', $user);
         $this->assertEquals($mockedUser, $user);
 
         $this->assertGroup($user, 'Docente');
@@ -315,7 +315,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
 
         $user = $this->provider->loadUserByClaims($claims);
 
-        $this->assertInstanceOf('Universibo\\Bundle\\CoreBundle\\Entity\\User', $user);
+        $this->assertInstanceOf('Universibo\\Bundle\\MainBundle\\Entity\\User', $user);
         $this->assertEquals($claims['eppn'], $user->getEmail());
         $this->assertEquals($legacyGroups, $user->getLegacyGroups());
         $this->assertEquals($usernameLocked, $user->isUsernameLocked());
@@ -533,7 +533,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
 
         $user = $this->provider->loadUserByClaims($claims);
 
-        $this->assertInstanceOf('Universibo\\Bundle\\CoreBundle\\Entity\\User', $user);
+        $this->assertInstanceOf('Universibo\\Bundle\\MainBundle\\Entity\\User', $user);
         $this->assertEquals($mockedUser, $user);
         $this->assertEquals($claims['eppn'], $user->getEmail());
 
@@ -694,7 +694,7 @@ class UniversiboUserProviderTest extends \PHPUnit_Framework_TestCase
 
     private function personAssertions(Person $person, array $claims)
     {
-        $this->assertInstanceOf('Universibo\\Bundle\\CoreBundle\\Entity\\Person', $person);
+        $this->assertInstanceOf('Universibo\\Bundle\\MainBundle\\Entity\\Person', $person);
         $this->assertEquals($claims['idAnagraficaUnica'], $person->getUniboId());
         $this->assertEquals($claims['givenName'], $person->getGivenName());
         $this->assertEquals($claims['sn'], $person->getSurname());
