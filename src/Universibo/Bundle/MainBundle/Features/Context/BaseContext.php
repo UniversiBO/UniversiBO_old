@@ -190,7 +190,7 @@ class BaseContext extends MinkContext
      */
     public function userHasAcceptedPrivacyPolicy($username)
     {
-        $userRepo = $this->get('universibo_core.repository.user');
+        $userRepo = $this->get('universibo_main.repository.user');
         $user = $userRepo->findOneByUsername($username);
 
         if (null === $user) {

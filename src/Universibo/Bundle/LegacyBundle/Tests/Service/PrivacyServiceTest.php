@@ -3,7 +3,7 @@
 namespace Universibo\Bundle\LegacyBundle\Tests\Service;
 
 use ReflectionProperty;
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Service\PrivacyService;
 use Universibo\Bundle\LegacyBundle\Tests\Entity\DoctrineRepositoryTest;
 

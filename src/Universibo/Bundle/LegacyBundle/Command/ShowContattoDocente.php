@@ -5,7 +5,7 @@ use DateTime;
 use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\ContattoDocente;
@@ -52,7 +52,7 @@ class ShowContattoDocente extends UniversiboCommand
             throw new NotFoundHttpException('Professor contact not found');
         }
 
-        $utente_docente = $this->get('universibo_core.repository.user')->find($docente->getIdUtente());
+        $utente_docente = $this->get('universibo_main.repository.user')->find($docente->getIdUtente());
 
         if (!$utente_docente) {
             throw new NotFoundHttpException('Professor user not found');
@@ -180,11 +180,11 @@ Link: ' . $router->generate('universibo_legacy_contact_professor', array('cod_do
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~';
 
             if ($notifica_mod) {
-                $userRepo = $this->get('universibo_core.repository.user');
+                $userRepo = $this->get('universibo_main.repository.user');
                 $notifica_user = $userRepo->findOneByUsername($f35_id_username);
 
                 if ($notifica_user instanceof User) {
-                    $contactService = $this->get('universibo_core.contact.service');
+                    $contactService = $this->get('universibo_main.contact.service');
                     foreach ($contactService->getUserEmails($notifica_user) as $email) {
                         $notifica_destinatario = 'mail://' . $email;
                         $notifica = new NotificaItem(0, $notifica_titolo,
@@ -198,7 +198,7 @@ Link: ' . $router->generate('universibo_legacy_contact_professor', array('cod_do
             }
 
             //ultima notifica al responsabile contatto docenti
-            $notifica_user = $this->get('universibo_core.repository.user')->findOneByUsername($frontcontroller->getAppSetting('contattoDocentiAdmin'));
+            $notifica_user = $this->get('universibo_main.repository.user')->findOneByUsername($frontcontroller->getAppSetting('contattoDocentiAdmin'));
             $notifica_destinatario = 'mail://' . $notifica_user->getEmail();
             $notifica = new NotificaItem(0, $notifica_titolo,
                     $notifica_messaggio, $notifica_dataIns, $notifica_urgente,
@@ -232,7 +232,7 @@ Link: ' . $router->generate('universibo_legacy_contact_professor', array('cod_do
 
     public function _getCollaboratoriUniversibo()
     {
-        $userRepo = $this->getContainer()->get('universibo_core.repository.user');
+        $userRepo = $this->getContainer()->get('universibo_main.repository.user');
 
         return $userRepo->findCollaborators();
     }
@@ -244,7 +244,7 @@ Link: ' . $router->generate('universibo_legacy_contact_professor', array('cod_do
      */
     private function assegna(ContattoDocente $contact, $newIdUtente, $idUtenteMaster)
     {
-        $userRepo = $this->get('universibo_core.repository.user');
+        $userRepo = $this->get('universibo_main.repository.user');
 
         $newUser = $userRepo->find($newIdUtente);
         $masterUser = $userRepo->find($idUtenteMaster);

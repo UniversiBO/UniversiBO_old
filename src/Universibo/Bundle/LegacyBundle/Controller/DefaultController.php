@@ -69,7 +69,7 @@ class DefaultController extends Controller
             case 'ShowCredits':
                 return $this->redirect($router->generate('universibo_legacy_credits', array(), true), 301);
             case 'ShowCollaboratore':
-                $userRepo = $this->get('universibo_core.repository.user');
+                $userRepo = $this->get('universibo_main.repository.user');
                 $userId = $this->getRequest()->query->get('id_coll');
                 $user = $userRepo->find($userId);
                 if ($user === null) {

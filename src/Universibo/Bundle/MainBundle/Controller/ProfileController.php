@@ -56,7 +56,7 @@ class ProfileController extends Controller
             }
         }
 
-        $contactService = $this->get('universibo_core.contact.service');
+        $contactService = $this->get('universibo_main.contact.service');
 
         $form->bind($request);
         if ($form->isValid()) {

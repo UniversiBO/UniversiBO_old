@@ -9,7 +9,7 @@ namespace Universibo\Bundle\LegacyBundle\Service;
  */
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\User;
 
 class RoleNameTranslator
 {

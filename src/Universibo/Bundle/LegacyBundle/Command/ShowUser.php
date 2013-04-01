@@ -3,7 +3,7 @@ namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Docente;
@@ -26,7 +26,7 @@ class ShowUser extends UniversiboCommand
         $professorRepo = $this->get('universibo_legacy.repository.docente');
 
         $userId = $this->getRequest()->attributes->get('id_utente');
-        $user = $this->get('universibo_core.repository.user')->find($userId);
+        $user = $this->get('universibo_main.repository.user')->find($userId);
 
         if (!$context->isGranted('IS_AUTHENTICATED_FULLY')) {
             Error::throwError(_ERROR_DEFAULT,

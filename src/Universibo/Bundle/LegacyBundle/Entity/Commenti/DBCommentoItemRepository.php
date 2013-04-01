@@ -2,8 +2,8 @@
 namespace Universibo\Bundle\LegacyBundle\Entity\Commenti;
 
 use Universibo\Bundle\LegacyBundle\PearDB\DB;
-use Universibo\Bundle\CoreBundle\Entity\MergeableRepositoryInterface;
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\MergeableRepositoryInterface;
+use Universibo\Bundle\MainBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
 
 /**

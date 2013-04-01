@@ -3,7 +3,7 @@
 namespace Universibo\Bundle\LegacyBundle\App;
 
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Framework\FrontController;
@@ -152,7 +152,7 @@ abstract class CanaleCommand extends UniversiboCommand
                     if ($ruolo->isReferente() && $ruolo->getId() == $userId)
                         $attivaModificaDiritti = true;
 
-                    $user_temp = $this->get('universibo_core.repository.user')->find($ruolo->getId());
+                    $user_temp = $this->get('universibo_main.repository.user')->find($ruolo->getId());
                     if (!$user_temp instanceof User) {
                         continue;
                     }

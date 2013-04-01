@@ -3,9 +3,9 @@
 namespace Universibo\Bundle\MainBundle\Entity\Merge;
 
 use LogicException;
-use Universibo\Bundle\CoreBundle\Entity\Person;
-use Universibo\Bundle\CoreBundle\Entity\User;
-use Universibo\Bundle\CoreBundle\Entity\UserRepository;
+use Universibo\Bundle\MainBundle\Entity\Person;
+use Universibo\Bundle\MainBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\UserRepository;
 use Universibo\Bundle\ForumBundle\DAO\PostDAOInterface;
 use Universibo\Bundle\ForumBundle\DAO\UserDAOInterface;
 use Universibo\Bundle\LegacyBundle\Entity\Commenti\DBCommentoItemRepository;
@@ -178,7 +178,7 @@ class UserMerger implements UserMergerInterface
     /**
      * Ensures that email starts with user.merged
      *
-     * @param \Universibo\Bundle\CoreBundle\Entity\User $user
+     * @param \Universibo\Bundle\MainBundle\Entity\User $user
      */
     private function ensureMergedPrefix(User $user)
     {

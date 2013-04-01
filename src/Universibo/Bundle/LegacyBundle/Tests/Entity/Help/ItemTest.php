@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Tests\Entity\Help;
 
-use Universibo\Bundle\CoreBundle\Tests\Entity\EntityTest;
+use Universibo\Bundle\MainBundle\Tests\Entity\EntityTest;
 use Universibo\Bundle\LegacyBundle\Entity\Help\Item;
 
 class ItemTest extends EntityTest

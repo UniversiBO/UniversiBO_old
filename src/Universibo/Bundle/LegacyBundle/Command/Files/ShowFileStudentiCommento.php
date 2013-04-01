@@ -31,7 +31,7 @@ class ShowFileStudentiCommento extends PluginCommand
         $template = $fc->getTemplateEngine();
 
         $commentRepo = $this->get('universibo_legacy.repository.commenti.commento_item');
-        $userRepo = $this->get('universibo_core.repository.user');
+        $userRepo = $this->get('universibo_main.repository.user');
         $comment = $commentRepo->find($param['id_commento']);
 
         $comment_tpl = array();

@@ -4,7 +4,7 @@ namespace Universibo\Bundle\LegacyBundle\Command;
 use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 
@@ -53,7 +53,7 @@ class RuoliAdminSearch extends UniversiboCommand
             throw new AccessDeniedHttpException('Not allowed to manage roles');
         }
 
-        $userRepo = $this->get('universibo_core.repository.user');
+        $userRepo = $this->get('universibo_main.repository.user');
 
         $translator = $this->get('universibo_legacy.translator.role_name');
 
@@ -119,7 +119,7 @@ class RuoliAdminSearch extends UniversiboCommand
                 if ($canale_ruoli[$key]->isReferente() || $canale_ruoli[$key]->isModeratore() ) {
                     $ruoli[] = $canale_ruoli[$key];
 
-                    $user = $this->get('universibo_core.repository.user')->find($canale_ruoli[$key]->getId());
+                    $user = $this->get('universibo_main.repository.user')->find($canale_ruoli[$key]->getId());
                     //var_dump($user);
                     $contactUser = array();
                     $contactUser['utente_link']  = $router->generate('universibo_legacy_user', array('id_utente' => $user->getId()));

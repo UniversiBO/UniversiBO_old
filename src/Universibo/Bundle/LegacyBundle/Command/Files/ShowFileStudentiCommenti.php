@@ -77,7 +77,7 @@ class ShowFileStudentiCommenti extends PluginCommand
 //		var_dump($elenco_commenti);
 //	    die();
 
-        $userRepo = $this->get('universibo_core.repository.user');
+        $userRepo = $this->get('universibo_main.repository.user');
 
         if ($elenco_commenti ==! false) {
             for ($i = 0; $i < $num_commenti; $i++) {

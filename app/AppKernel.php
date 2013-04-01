@@ -22,7 +22,6 @@ class AppKernel extends Kernel
                 new Universibo\Bundle\MainBundle\UniversiboMainBundle(),
                 new Universibo\Bundle\LegacyBundle\UniversiboLegacyBundle(),
                 new Universibo\Bundle\ForumBundle\UniversiboForumBundle(),
-                new Universibo\Bundle\CoreBundle\UniversiboCoreBundle(),
                 new Universibo\Bundle\ShibbolethBundle\UniversiboShibbolethBundle(),
                 new FOS\UserBundle\FOSUserBundle(),
                 new FOS\AdvancedEncoderBundle\FOSAdvancedEncoderBundle(),

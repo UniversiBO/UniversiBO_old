@@ -2,9 +2,9 @@
 namespace Universibo\Bundle\LegacyBundle\Entity\Links;
 
 use Universibo\Bundle\LegacyBundle\PearDB\DB;
-use Universibo\Bundle\CoreBundle\Entity\MergeableRepositoryInterface;
-use Universibo\Bundle\CoreBundle\Entity\User;
-use Universibo\Bundle\CoreBundle\Entity\UserRepository;
+use Universibo\Bundle\MainBundle\Entity\MergeableRepositoryInterface;
+use Universibo\Bundle\MainBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\UserRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;
 use Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
 

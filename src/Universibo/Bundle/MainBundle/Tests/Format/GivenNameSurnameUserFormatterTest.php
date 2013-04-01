@@ -5,8 +5,8 @@
 namespace Universibo\Bundle\MainBundle\Tests\Format;
 
 use PHPUnit_Framework_TestCase;
-use Universibo\Bundle\CoreBundle\Entity\Person;
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\Person;
+use Universibo\Bundle\MainBundle\Entity\User;
 use Universibo\Bundle\MainBundle\Format\GivenNameSurnameUserFormatter;
 
 /**

@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\User;
 use Universibo\Bundle\ForumBundle\Security\ForumSession\ForumSessionInterface;
 use Universibo\Bundle\LegacyBundle\Service\PrivacyService;
 use Universibo\Bundle\MainBundle\Contact\VerificationService;

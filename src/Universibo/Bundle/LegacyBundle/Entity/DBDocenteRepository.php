@@ -4,8 +4,8 @@ namespace Universibo\Bundle\LegacyBundle\Entity;
 use Universibo\Bundle\LegacyBundle\PearDB\DB;
 use Doctrine\DBAL\DBALException;
 use Universibo\Bundle\LegacyBundle\Framework\Error;
-use Universibo\Bundle\CoreBundle\Entity\MergeableRepositoryInterface;
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\MergeableRepositoryInterface;
+use Universibo\Bundle\MainBundle\Entity\User;
 
 /**
  * Canale repository

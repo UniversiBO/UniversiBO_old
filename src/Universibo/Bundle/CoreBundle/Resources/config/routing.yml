@@ -1,3 +1,0 @@
-universibo_core_username_available:
-    pattern: /user/{username}/available
-    defaults: { _controller: 'UniversiboCoreBundle:User:available' }

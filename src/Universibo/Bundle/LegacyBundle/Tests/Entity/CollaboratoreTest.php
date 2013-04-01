@@ -2,8 +2,8 @@
 namespace Universibo\Bundle\LegacyBundle\Tests\Entity;
 
 use ReflectionProperty;
-use Universibo\Bundle\CoreBundle\Entity\User;
-use Universibo\Bundle\CoreBundle\Tests\Entity\EntityTest;
+use Universibo\Bundle\MainBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Tests\Entity\EntityTest;
 use Universibo\Bundle\LegacyBundle\Entity\Collaboratore;
 
 class CollaboratoreTest extends EntityTest

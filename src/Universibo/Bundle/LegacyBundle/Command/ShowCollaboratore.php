@@ -2,7 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 /**
  * ShowContacts is an extension of UniversiboCommand class.
@@ -24,7 +24,7 @@ class ShowCollaboratore extends UniversiboCommand
         $user = $this->get('security.context')->getToken()->getUser();
 
         $username = $this->getRequest()->attributes->get('username');
-        $userRepo = $this->get('universibo_core.repository.user');
+        $userRepo = $this->get('universibo_main.repository.user');
 
         $collabUser = $userRepo->findOneByUsername($username);
 
@@ -49,7 +49,7 @@ class ShowCollaboratore extends UniversiboCommand
             $modifica = "";
         }
 
-        $contactService = $this->get('universibo_core.contact.service');
+        $contactService = $this->get('universibo_main.contact.service');
         list($email) = $contactService->getUserEmails($curr_user);
 
         $arrayContatti = array('username' => $curr_user->getUsername(),

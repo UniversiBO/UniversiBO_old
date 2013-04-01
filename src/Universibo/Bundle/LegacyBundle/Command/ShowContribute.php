@@ -2,7 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Universibo\Bundle\LegacyBundle\Framework\Error;
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
 use Universibo\Bundle\LegacyBundle\Entity\Questionario;

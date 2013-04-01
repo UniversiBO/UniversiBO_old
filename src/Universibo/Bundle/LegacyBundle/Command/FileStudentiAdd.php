@@ -4,7 +4,7 @@ namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
@@ -428,8 +428,8 @@ class FileStudentiAdd extends UniversiboCommand
 
                 //Ricerco solo i referenti/moderatori per il canale
 
-                $userRepo = $this->get('universibo_core.repository.user');
-                $contactService = $this->get('universibo_core.contact.service');
+                $userRepo = $this->get('universibo_main.repository.user');
+                $contactService = $this->get('universibo_main.contact.service');
 
                 $arrayRuoli = $canale->getRuoli();
                 $keys = array_keys($arrayRuoli);

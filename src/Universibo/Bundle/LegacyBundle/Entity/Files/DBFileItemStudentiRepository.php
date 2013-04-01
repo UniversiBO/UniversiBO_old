@@ -2,7 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Entity\Files;
 
 use Universibo\Bundle\LegacyBundle\PearDB\DB;
-use Universibo\Bundle\CoreBundle\Entity\UserRepository;
+use Universibo\Bundle\MainBundle\Entity\UserRepository;
 use Universibo\Bundle\LegacyBundle\Entity\Commenti\CommentoItem;
 use Universibo\Bundle\LegacyBundle\Entity\DBCanaleRepository;
 use Universibo\Bundle\LegacyBundle\Entity\DBRepository;

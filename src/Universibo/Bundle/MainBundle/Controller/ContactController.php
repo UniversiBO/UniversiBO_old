@@ -16,7 +16,7 @@ class ContactController extends Controller
      */
     public function verifyAction($token)
     {
-        $contactRepo = $this->get('universibo_core.repository.contact');
+        $contactRepo = $this->get('universibo_main.repository.contact');
         $contact = $contactRepo->findOneByVerificationToken($token);
 
         if ($contact === null) {
@@ -50,7 +50,7 @@ class ContactController extends Controller
      */
     public function cancelAction($token)
     {
-        $contactRepo = $this->get('universibo_core.repository.contact');
+        $contactRepo = $this->get('universibo_main.repository.contact');
         $contact = $contactRepo->findOneByVerificationToken($token);
 
         if ($contact === null) {

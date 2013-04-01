@@ -25,7 +25,7 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $statService = $this->get('universibo_dashboard.statistics');
-        $userRepo    = $this->get('universibo_core.repository.user');
+        $userRepo    = $this->get('universibo_main.repository.user');
         $fileRepo    = $this->get('universibo_legacy.repository.files.file_item');
         $contactRepo = $this->get('universibo_legacy.repository.contatto_docente');
 

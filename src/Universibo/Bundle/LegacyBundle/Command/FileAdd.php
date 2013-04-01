@@ -3,7 +3,7 @@ namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
@@ -455,12 +455,12 @@ class FileAdd extends FileCommon
                     ));
                 }
 
-                $contactService = $this->get('universibo_core.contact.service');
+                $contactService = $this->get('universibo_main.contact.service');
 
                 //$num_canali = count($f12_canale);
                 //var_dump($f12_canale);
                 if (array_key_exists('f12_canale', $_POST))
-                    $userRepo = $this->get('universibo_core.repository.user');
+                    $userRepo = $this->get('universibo_main.repository.user');
                     foreach ($_POST['f12_canale'] as $key => $value) {
                         $newFile->addCanale($key);
                         $canale = Canale::retrieveCanale($key);

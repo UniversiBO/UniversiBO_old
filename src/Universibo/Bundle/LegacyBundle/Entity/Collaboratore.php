@@ -8,7 +8,7 @@
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\User;
 
 /**
  * Collaborator entity
@@ -64,7 +64,7 @@ class Collaboratore
     private $show = 'N';
 
     /**
-     * @ORM\OneToOne(targetEntity="Universibo\Bundle\CoreBundle\Entity\User")
+     * @ORM\OneToOne(targetEntity="Universibo\Bundle\MainBundle\Entity\User")
      * @ORM\JoinColumn(name="id_utente", referencedColumnName="id")
      * @var User
      */

@@ -20,10 +20,10 @@ services:
     class: Universibo\Bundle\MainBundle\Security\User\UniversiboUserProvider
     arguments:
       - '@doctrine.orm.entity_manager'
-      - '@universibo_core.repository.person'
-      - '@universibo_core.repository.user'
+      - '@universibo_main.repository.person'
+      - '@universibo_main.repository.user'
       - '@fos_user.user_manager'
-      - '@universibo_core.repository.unibo_group'
+      - '@universibo_main.repository.unibo_group'
       - '@logger'
     tags:
       -  { name: monolog.logger, channel: shibboleth }
@@ -74,7 +74,7 @@ services:
   universibo_main.merge.user:
     class: Universibo\Bundle\MainBundle\Entity\Merge\UserMerger
     arguments:
-      - '@universibo_core.repository.user'
+      - '@universibo_main.repository.user'
       - '@universibo_legacy.repository.files.file_item'
       - '@universibo_legacy.repository.commenti.commento_item'
       - '@universibo_legacy.repository.news.news_item'
@@ -132,3 +132,33 @@ services:
     scope: request
     tags:
       - { name: knp_menu.menu, alias: myuniversibo }
+
+  universibo_main.repository.contact:
+    class: Universibo\Bundle\MainBundle\Entity\UserRepository
+    factory_service: doctrine.orm.entity_manager
+    factory_method: getRepository
+    arguments: ['Universibo\Bundle\MainBundle\Entity\Contact']
+  universibo_main.repository.group:
+    class: Universibo\Bundle\MainBundle\Entity\GroupRepository
+    factory_service: doctrine.orm.entity_manager
+    factory_method: getRepository
+    arguments: ['Universibo\Bundle\MainBundle\Entity\Group']
+  universibo_main.repository.person:
+    class: Universibo\Bundle\MainBundle\Entity\UserRepository
+    factory_service: doctrine.orm.entity_manager
+    factory_method: getRepository
+    arguments: ['Universibo\Bundle\MainBundle\Entity\Person']
+  universibo_main.repository.unibo_group:
+    class: Universibo\Bundle\MainBundle\Entity\UniboGroupRepository
+    factory_service: doctrine.orm.entity_manager
+    factory_method: getRepository
+    arguments: ['Universibo\Bundle\MainBundle\Entity\UniboGroup']
+  universibo_main.repository.user:
+    class: Universibo\Bundle\MainBundle\Entity\UserRepository
+    factory_service: doctrine.orm.entity_manager
+    factory_method: getRepository
+    arguments: ['Universibo\Bundle\MainBundle\Entity\User']
+  universibo_main.contact.service:
+    class: Universibo\Bundle\MainBundle\Contact\ContactService
+    arguments:
+      - '@doctrine.orm.entity_manager'

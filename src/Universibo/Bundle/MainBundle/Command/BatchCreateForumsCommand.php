@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\User;
 use Universibo\Bundle\ForumBundle\DAO\GroupDAOInterface;
 use Universibo\Bundle\ForumBundle\Entity\Forum;
 use Universibo\Bundle\ForumBundle\Entity\ForumRepository;

@@ -3,7 +3,7 @@
 namespace Universibo\Bundle\MainBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\User;
 
 /**
  */
@@ -14,7 +14,7 @@ class RoleController extends Controller
         $roleRepo = $this->get('universibo_legacy.repository.ruolo');
         $roles = $roleRepo->findByIdCanale($channelId);
 
-        $userRepo = $this->get('universibo_core.repository.user');
+        $userRepo = $this->get('universibo_main.repository.user');
         $loggedUser = $this->getUser();
         $loggedUserId = $loggedUser instanceof User ? $loggedUser->getId() : null;
 

@@ -2,7 +2,7 @@
 
 namespace Universibo\Bundle\LegacyBundle\Tests\Entity\Notifica;
 
-use Universibo\Bundle\CoreBundle\Tests\Entity\EntityTest;
+use Universibo\Bundle\MainBundle\Tests\Entity\EntityTest;
 use Universibo\Bundle\LegacyBundle\Entity\Notifica\NotificaItem;
 
 /**

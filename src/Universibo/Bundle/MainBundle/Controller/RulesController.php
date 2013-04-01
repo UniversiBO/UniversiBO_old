@@ -88,7 +88,7 @@ class RulesController extends Controller
                 $flashBag->add('error', 'Username non valido!');
                 $error = true;
             } elseif ($username !== $user->getUsername() &&
-                    $this->get('universibo_core.repository.user')
+                    $this->get('universibo_main.repository.user')
                     ->usernameExists($username)) {
                 $flashBag->add('error', $username.': username non disponibile!');
                 $error = true;

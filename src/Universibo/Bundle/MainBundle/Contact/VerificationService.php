@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManager;
 use Swift_Mailer;
 use Swift_Message;
 use Symfony\Component\Templating\EngineInterface;
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\User;
 
 class VerificationService
 {

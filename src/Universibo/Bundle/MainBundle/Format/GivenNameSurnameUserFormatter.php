@@ -2,7 +2,7 @@
 
 namespace Universibo\Bundle\MainBundle\Format;
 
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\User;
 
 class GivenNameSurnameUserFormatter implements UserFormatterInterface
 {

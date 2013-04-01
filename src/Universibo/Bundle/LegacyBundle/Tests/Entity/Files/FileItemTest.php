@@ -1,8 +1,8 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Tests\Entity\Files;
 
-use Universibo\Bundle\CoreBundle\Entity\User;
-use Universibo\Bundle\CoreBundle\Tests\Entity\EntityTest;
+use Universibo\Bundle\MainBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Tests\Entity\EntityTest;
 use Universibo\Bundle\LegacyBundle\Entity\Files\FileItem;
 
 class FileItemTest extends EntityTest

@@ -2,8 +2,8 @@
 namespace Universibo\Bundle\MainBundle\Entity\Merge;
 
 use LogicException;
-use Universibo\Bundle\CoreBundle\Entity\Person;
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\Person;
+use Universibo\Bundle\MainBundle\Entity\User;
 
 interface UserMergerInterface
 {

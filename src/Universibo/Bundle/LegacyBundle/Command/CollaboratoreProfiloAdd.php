@@ -6,7 +6,7 @@ use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\User;
 use Universibo\Bundle\LegacyBundle\App\UniversiboCommand;
 use Universibo\Bundle\LegacyBundle\Entity\Collaboratore;
 use Universibo\Bundle\LegacyBundle\Framework\Error;
@@ -29,7 +29,7 @@ class CollaboratoreProfiloAdd extends UniversiboCommand
         $user = $context->getToken()->getUser();
         $id_coll = $this->getRequest()->get('id_coll');
 
-        $userRepo = $this->get('universibo_core.repository.user');
+        $userRepo = $this->get('universibo_main.repository.user');
         $collabUser = $userRepo->find($id_coll);
 
         if (!$collabUser instanceof User) {
