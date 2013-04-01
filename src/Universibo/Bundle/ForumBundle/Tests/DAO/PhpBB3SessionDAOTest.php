@@ -5,7 +5,7 @@
 namespace Universibo\Bundle\ForumBundle\Tests\DAO;
 
 use Universibo\Bundle\ForumBundle\DAO\PhpBB3SessionDAO;
-use Universibo\Bundle\ForumBundle\Tests\Functional\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class PhpBB3SessionDAOTest extends WebTestCase
 {
@@ -14,26 +14,29 @@ class PhpBB3SessionDAOTest extends WebTestCase
      *
      * @var PhpBB3SessionDAO
      */
-    private static $sessionDAO;
+    private $sessionDAO;
 
-    public static function setUpBeforeClass()
+    protected function setUp()
     {
-        self::$sessionDAO = static::getContainer()->get('universibo_forum.dao.session');
+        $this->markTestSkipped();
+
+        static::createClient();
+        $this->sessionDAO = static::$kernel->getContainer()->get('universibo_forum.dao.session');
     }
 
     public function testUnexistent()
     {
-        $this->assertFalse(self::$sessionDAO->exists('foobar'));
+        $this->assertFalse($this->sessionDAO->exists('foobar'));
     }
 
     public function testCreateDelete()
     {
-        $id = self::$sessionDAO->create(1, '127.0.0.1', 'User agent');
+        $id = $this->sessionDAO->create(1, '127.0.0.1', 'User agent');
 
-        $this->assertTrue(self::$sessionDAO->exists($id));
+        $this->assertTrue($this->sessionDAO->exists($id));
 
-        self::$sessionDAO->delete($id);
+        $this->sessionDAO->delete($id);
 
-        $this->assertFalse(self::$sessionDAO->exists($id));
+        $this->assertFalse($this->sessionDAO->exists($id));
     }
 }

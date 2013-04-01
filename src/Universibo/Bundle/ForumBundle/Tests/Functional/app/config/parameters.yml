@@ -1,8 +1,0 @@
-parameters:
-  database_driver:   pdo_pgsql
-  database_host:     localhost
-  database_port:     ~
-  database_name:     universibo_forum_test
-  database_user:     universibo_forum_test
-  database_password: universibo
-  forum_api:         ~

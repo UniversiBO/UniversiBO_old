@@ -6,7 +6,7 @@ namespace Universibo\Bundle\ForumBundle\Tests\Repository;
 
 use Universibo\Bundle\ForumBundle\Entity\Forum;
 use Universibo\Bundle\ForumBundle\Entity\ForumRepository;
-use Universibo\Bundle\ForumBundle\Tests\Functional\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class PhpBB3ForumRepositoryTest extends WebTestCase
 {
@@ -15,16 +15,19 @@ class PhpBB3ForumRepositoryTest extends WebTestCase
      *
      * @var ForumRepository
      */
-    private static $forumRepository;
+    private $forumRepository;
 
-    public static function setUpBeforeClass()
+    protected function setUp()
     {
-        self::$forumRepository = static::getContainer()->get('universibo_forum.repository.forum');
+        $this->markTestSkipped();
+
+        static::createClient();
+        $this->forumRepository = static::$kernel->getContainer()->get('universibo_forum.repository.forum');
     }
 
     public function testCreate()
     {
-        $repo = self::$forumRepository;
+        $repo = $this->forumRepository;
 
         $forum = new Forum();
 
@@ -50,12 +53,12 @@ class PhpBB3ForumRepositoryTest extends WebTestCase
 
     public function testMaxId()
     {
-        $this->assertGreaterThan(0, self::$forumRepository->getMaxId());
+        $this->assertGreaterThan(0, $this->forumRepository->getMaxId());
     }
 
     public function testUpdate()
     {
-        $repo = self::$forumRepository;
+        $repo = $this->forumRepository;
 
         $id = $repo->getMaxId();
 
@@ -79,7 +82,7 @@ class PhpBB3ForumRepositoryTest extends WebTestCase
 
     public function testFindOneByName()
     {
-        $repo = self::$forumRepository;
+        $repo = $this->forumRepository;
 
         $name = 'Forum name';
 

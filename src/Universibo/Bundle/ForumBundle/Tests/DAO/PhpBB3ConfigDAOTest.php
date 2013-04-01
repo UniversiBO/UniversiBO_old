@@ -5,7 +5,7 @@
 namespace Universibo\Bundle\ForumBundle\Tests\DAO;
 
 use Universibo\Bundle\ForumBundle\DAO\PhpBB3ConfigDAO;
-use Universibo\Bundle\ForumBundle\Tests\Functional\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class PhpBB3ConfigDAOTest extends WebTestCase
 {
@@ -13,20 +13,23 @@ class PhpBB3ConfigDAOTest extends WebTestCase
      *
      * @var PhpBB3ConfigDAO
      */
-    private static $configDAO;
+    private $configDAO;
 
-    public static function setUpBeforeClass()
+    protected function setUp()
     {
-        self::$configDAO = static::getContainer()->get('universibo_forum.dao.config');
+        $this->markTestSkipped();
+
+        static::createClient();
+        $this->configDAO = static::$kernel->getContainer()->get('universibo_forum.dao.config');
     }
 
     public function testNotFoundReturnsNull()
     {
-        $this->assertNull(self::$configDAO->getValue('foobar'));
+        $this->assertNull($this->configDAO->getValue('foobar'));
     }
 
     public function testSimple()
     {
-        $this->assertEquals(1, self::$configDAO->getValue('test'));
+        $this->assertEquals(1, $this->configDAO->getValue('test'));
     }
 }
