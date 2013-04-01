@@ -2,7 +2,7 @@
 /**
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
-namespace Universibo\Bundle\Corebundle\Entity;
+namespace Universibo\Bundle\CoreBundle\Entity;
 
 /**
  * Interface implemented by repositories which want to merge entities

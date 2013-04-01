@@ -2,7 +2,7 @@
 /**
  * @author Davide Bellettini <davide.bellettini@gmail.com>
  */
-namespace Universibo\Bundle\Corebundle\DependencyInjection;
+namespace Universibo\Bundle\CoreBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

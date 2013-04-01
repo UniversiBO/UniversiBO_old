@@ -1,6 +1,6 @@
 <?php
 
-namespace Universibo\Bundle\Corebundle\Contact;
+namespace Universibo\Bundle\CoreBundle\Contact;
 
 use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
