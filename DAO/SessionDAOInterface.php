@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\ForumBundle\DAO;
 
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\User;
 
 /**
  * @author Davide Bellettini <davide.bellettini@gmail.com>

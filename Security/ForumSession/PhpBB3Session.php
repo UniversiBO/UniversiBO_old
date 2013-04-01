@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\User;
 use Universibo\Bundle\ForumBundle\DAO\ConfigDAOInterface;
 use Universibo\Bundle\ForumBundle\DAO\SessionDAOInterface;
 use Universibo\Bundle\ForumBundle\DAO\UserDAOInterface;

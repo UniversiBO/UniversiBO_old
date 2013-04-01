@@ -4,7 +4,7 @@ namespace Universibo\Bundle\ForumBundle\Security\ForumSession;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\User;
 
 /**
  * Login and logout management interface

@@ -1,7 +1,7 @@
 <?php
 namespace Universibo\Bundle\ForumBundle\DAO;
 
-use Universibo\Bundle\CoreBundle\Entity\MergeableRepositoryInterface;
+use Universibo\Bundle\MainBundle\Entity\MergeableRepositoryInterface;
 
 /**
  * @author Davide Bellettini <davide.bellettini@gmail.com>

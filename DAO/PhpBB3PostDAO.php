@@ -3,7 +3,7 @@
 namespace Universibo\Bundle\ForumBundle\DAO;
 
 use Doctrine\DBAL\Connection;
-use Universibo\Bundle\CoreBundle\Entity\User;
+use Universibo\Bundle\MainBundle\Entity\User;
 
 /**
  * @author Davide Bellettini <davide.bellettini@gmail.com>
