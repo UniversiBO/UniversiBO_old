@@ -29,7 +29,6 @@
         "universibo/shibboleth-bundle": "@dev",
         "jwage/easy-csv": "@dev",
         "zendframework/zend-feed": ">=2.0.0,<2.1.0",
-        "universibo/core-bundle": "dev-master",
         "universibo/forum-bundle": "dev-master",
         "universibo/campus-bundle": "dev-master",
         "universibo/login-action-bundle": "dev-master",
@@ -44,10 +43,6 @@
         {
             "type": "vcs",
             "url": "http://github.com/UniversiBO/smarty"
-        },
-        {
-            "type": "vcs",
-            "url": "http://github.com/UniversiBO/UniversiboCoreBundle"
         },
         {
             "type": "vcs",
