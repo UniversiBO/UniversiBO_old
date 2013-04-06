@@ -1,3 +1,5 @@
+include nodejs
+
 class lapp_packages
 {
     $phppkg = ['php-apc', 'php-pear', 'php5-curl', 'php5-gd', 'php5-intl', 'php5-pgsql', 'php5-xdebug']
@@ -26,6 +28,11 @@ class lapp_packages
 
     package { 'curl' :
         ensure => 'latest'
+    }
+    
+    package { 'less' :
+        ensure => 'present',
+        provider => 'npm'
     }
 
     $javapkg = [ "openjdk-7-jre-headless" ]
