@@ -4,10 +4,9 @@
 <title>{% block title %}UniversiBO - Il sito degli studenti per gli studenti{% endblock %}</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 {% stylesheets
-    '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
-    '@MopaBootstrapBundle/Resources/bootstrap/less/responsive.less'
+    '@UniversiboDesignBundle/Resources/public/less/main.less'
     'bundles/universibodesign/css/*'
-    output="css/compiled/main.css" filter='cssrewrite,less,?yui_css'%}
+    output="css/compiled/main.css" filter='less,cssrewrite,?yui_css'%}
     <link rel="stylesheet" href="{{ asset_url }}" />
 {% endstylesheets %}
 {% if app.environment == 'prod' %}
