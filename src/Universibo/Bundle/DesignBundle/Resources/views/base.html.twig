@@ -4,8 +4,8 @@
 <title>{% block title %}UniversiBO - Il sito degli studenti per gli studenti{% endblock %}</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 {% stylesheets
-    'bundles/universibodesign/bootstrap/css/bootstrap.css'
-    'bundles/universibodesign/bootstrap/css/bootstrap-responsive.css'
+    '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
+    '@MopaBootstrapBundle/Resources/bootstrap/less/responsive.less'
     'bundles/universibodesign/css/*'
     output="css/compiled/main.css" filter='cssrewrite,less,?yui_css'%}
     <link rel="stylesheet" href="{{ asset_url }}" />
@@ -88,7 +88,7 @@ input.gsc-search-button {
 {% endblock body %}
 {% javascripts
 'bundles/universibodesign/js/*'
-'bundles/universibodesign/bootstrap/js/bootstrap.js'
+'@MopaBootstrapBundle/Resources/bootstrap/js/*.js'
  output='js/compiled/main.js' filter='?yui_js'%}
         <script src="{{ asset_url }}" type="text/javascript"></script>
 {% endjavascripts %}

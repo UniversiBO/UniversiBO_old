@@ -2,10 +2,9 @@
 <html>
   <head>
     <title>{% block title %}{% trans %}udb_default_title{% endtrans %}{% endblock title %}</title>
-    {% stylesheets 'bundles/universibodesign/bootstrap/css/bootstrap.css'
-       'bundles/universibodesign/bootstrap/css/bootstrap-responsive.css'
+    {% stylesheets '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
        'bundles/universibodashboard/css/screen.css'
-       output="css/compiled/dashboard.css" filter='cssrewrite,?yui_css' %}
+       output="css/compiled/dashboard.css" filter='less,?yui_css' %}
       <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" />
     {% endstylesheets %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -17,8 +16,8 @@
     {% endblock content %}
     </div>
     {% javascripts 'bundles/universibodesign/js/00*'
-       'bundles/universibodesign/bootstrap/js/bootstrap.js'
-       'bundles/universibodesign/js/hinclude.js'
+    '@MopaBootstrapBundle/Resources/bootstrap/js/*.js'
+    'bundles/universibodesign/js/hinclude.js'
         output='js/compiled/dashboard.js' filter='?yui_js' %}
       <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
