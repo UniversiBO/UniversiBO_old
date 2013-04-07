@@ -2,6 +2,8 @@ import 'lapp_packages.class.pp'
 import 'lapp_config.class.pp'
 import 'universibo_init.class.pp'
 
+include nodejs
+
 group { "puppet":
   ensure => "present",
 }
@@ -20,7 +22,7 @@ class { 'locales' :
 
 Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/sbin", "/usr/local/bin", "/opt/vagrant_ruby/bin" ] }
 
-Class['locales']->Class['lapp_packages']->Class['lapp_config']->Class['universibo_init']
+Class['locales']->Class['nodejs']->Class['lapp_packages']->Class['lapp_config']->Class['universibo_init']
 
 include lapp_packages
 include lapp_config
