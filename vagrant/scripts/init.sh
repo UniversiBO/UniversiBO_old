@@ -2,9 +2,6 @@
 
 PUPPET_MODULES=/etc/puppet/modules
 
-sed 's/us\.archive/it\.archive/' -i /etc/apt/sources.list
-apt-key add /vagrant/vagrant/resources/keyring/*
-cp /vagrant/vagrant/resources/app/etc/apt/sources.list.d/*.list /etc/apt/sources.list.d/
 aptitude update
 
 if [ `which git | wc -l` -eq 0 ]; then

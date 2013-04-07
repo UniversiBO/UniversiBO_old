@@ -32,7 +32,7 @@ assetic:
       yui_js:
         jar: "%kernel.root_dir%/Resources/java/yuicompressor.jar"
       less:
-        node: /usr/bin/node
+        node: /usr/bin/nodejs
         node_paths:
           - /usr/local/lib/node_modules/
 # Doctrine Configuration
