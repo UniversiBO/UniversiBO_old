@@ -16,7 +16,7 @@ role :app,        domain, :primary => true       # This may be the same as your 
 role :db,         domain                         # This is where Rails migrations will run
 
 set  :shared_files,    [web_path + "/.htaccess", app_path + "/config/parameters.yml", app_path + "/config/mailer.yml", "config.xml"]
-set  :shared_children, [app_path + "/logs", web_path + "/img/contacts", web_path + "/uploads", app_path + "/data", web_path + "/linux", web_path + "/latex", app_path + "/Resources/java"]
+set  :shared_children, [app_path + "/logs", web_path + "/img/contacts", web_path + "/uploads", app_path + "/data", web_path + "/linux", web_path + "/latex"]
 
 set  :update_vendors, false
 set  :use_composer,   true
