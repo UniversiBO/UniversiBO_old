@@ -41,17 +41,6 @@ set :dev_only_files, [web_path + "/app_dev.php"]
 set :production, true
 
 after 'symfony:cache:warmup', 'pff:productify'
-after 'deploy', 'apc:clear'
-
-namespace :apc do
-  desc "Clears APC cache"
-  task :clear, :roles => :app,  :except => { :no_release => true } do
-    capifony_pretty_print "--> Clearing APC Cache"
-
-    run "#{try_sudo} sh -c 'cd #{latest_release} && #{php_bin} #{symfony_console} apc:clear --env=#{symfony_env_prod} --no-debug'"
-  capifony_puts_ok
-  end
-end
 
 namespace :pff do
   desc "Remove app_dev.php, check.php and config.php from production deployment"
