@@ -75,4 +75,10 @@ class lapp_config
         logroot         => '/var/log',
         override        => 'All'
     }
+
+    exec {'xdebug-nesting':
+        cwd => '/etc/php5/mods-available/',
+        command => "echo 'xdebug.max_nesting_level = 250' | tee -a xdebug.ini",
+        unless => "test `grep nesting xdebug.ini | wc -l` -gt 0",
+    }
 }

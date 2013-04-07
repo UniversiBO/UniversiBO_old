@@ -7,7 +7,7 @@
     'bundles/universibodesign/bootstrap/css/bootstrap.css'
     'bundles/universibodesign/bootstrap/css/bootstrap-responsive.css'
     'bundles/universibodesign/css/*'
-    output="css/compiled/main.css" filter='cssrewrite,?yui_css'%}
+    output="css/compiled/main.css" filter='cssrewrite,less,?yui_css'%}
     <link rel="stylesheet" href="{{ asset_url }}" />
 {% endstylesheets %}
 {% if app.environment == 'prod' %}
