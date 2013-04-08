@@ -72,7 +72,14 @@ fos_user:
     firewall_name: main
     group:
       group_class: 'Universibo\Bundle\MainBundle\Entity\Group'
-
+      
+fos_comment:
+  db_driver: orm
+  class:
+    model:
+      comment: 'Universibo\Bundle\MainBundle\Entity\Comment'
+      thread: 'Universibo\Bundle\MainBundle\Entity\Thread'
+  
 universibo_campus:
   api:
     uri: 'http://campus.unibo.it/cgi/'

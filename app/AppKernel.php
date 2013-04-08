@@ -35,7 +35,10 @@ class AppKernel extends Kernel
                 new Knp\Bundle\MenuBundle\KnpMenuBundle(),
                 new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
                 new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
-                );
+                new FOS\RestBundle\FOSRestBundle(),
+                new JMS\SerializerBundle\JMSSerializerBundle(),
+                new FOS\CommentBundle\FOSCommentBundle(),
+        );
        
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
