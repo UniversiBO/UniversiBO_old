@@ -5,7 +5,20 @@ home:
   anonymous: anonimo
   community:
     title: Community
-    text: Oltre 3000 studenti utilizzano UniversiBO.
+    text: |
+      22000 utenti registrati, oltre 3000 attivi.
+      La registrazione è automatica, accedi con le credenziali dell'Università
+  forum:
+    title: Forum
+    text: Sul forum puoi confrontarti con gli altri studenti e anche con i docenti.
+  social:
+    title: Be social!
+    text: Siamo presenti su Facebook e Twitter
+  notes:
+    title: Appunti
+    text: |
+      Scambia gratuitamente i tuoi appunti con gli altri studenti.
+      Sono di carta? Ci pensiamo noi con il nostro scanner automatico!
   iprefer: Preferisco accedere come
   login: Entra
   text1: |

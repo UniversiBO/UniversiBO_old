@@ -77,7 +77,9 @@ input.gsc-search-button {
             {% if channel|default(false) and channel.servizioFilesStudenti %}
                 {{ render_esi(controller('UniversiboMainBundle:File:studentBox', {channelId: channel.idCanale})) }}
             {% endif %}
+            {% block likebox %}
             <div class="fb-like-box" data-href="http://www.facebook.com/UniversiBO" data-show-faces="true" data-stream="true" data-header="true"></div>
+            {% endblock likebox %}
         </div>
     </div>
     <hr/>
