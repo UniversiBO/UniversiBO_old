@@ -42,7 +42,7 @@ input.gsc-search-button {
                 {{ knp_menu_render('left', {'currentClass': 'active', 'template': 'UniversiboMainBundle:Menu:knp_menu.html.twig'}) }}
             </div>
         </div>
-        <div id="content" class="span8">
+        <div id="content" class="span7">
             {% if app.environment == 'prod' %}
             {# BEGIN GOOGLE CUSTOM SEARCH ENGINE #}
             {% raw %}
@@ -64,7 +64,7 @@ input.gsc-search-button {
         {% endif %}
         {% block content %}{% endblock %}
         </div>
-        <div id="right" class="span2 sidemenu">
+        <div id="right" class="span3 sidemenu">
             {% if channel|default(false) %}
                 {{ render_esi(controller('UniversiboMainBundle:Role:box', {channelId: channel.idCanale})) }}
             {% endif %}
@@ -77,6 +77,7 @@ input.gsc-search-button {
             {% if channel|default(false) and channel.servizioFilesStudenti %}
                 {{ render_esi(controller('UniversiboMainBundle:File:studentBox', {channelId: channel.idCanale})) }}
             {% endif %}
+            <div class="fb-like-box" data-href="http://www.facebook.com/UniversiBO" data-show-faces="true" data-stream="true" data-header="true"></div>
         </div>
     </div>
     <hr/>
@@ -92,5 +93,13 @@ input.gsc-search-button {
         <script src="{{ asset_url }}" type="text/javascript"></script>
 {% endjavascripts %}
 {{ render(controller('UniversiboMainBundle:Common:analytics')) }}
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/it_IT/all.js#xfbml=1&appId=231127170345763";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 </body>
 </html>
