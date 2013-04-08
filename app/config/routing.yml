@@ -21,6 +21,12 @@ UniversiboShibbolethBundle:
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
+fos_comment_api:
+    type: rest
+    resource: "@FOSCommentBundle/Resources/config/routing.yml"
+    prefix: /api
+    defaults: { _format: html }
+
 login:
     pattern: /login
     
