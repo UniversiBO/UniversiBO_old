@@ -2,19 +2,67 @@
 {% block title %}UniversiBO{% endblock title %}
 {% block body %}
 <div id="home-container">
-    <div class="container">
-        <div class="hero-unit">
-            <h1>UniversiBO</h1>
-            <p>{% trans %}home.text1{% endtrans %}</p>
-            <p>{% trans %}home.text2{% endtrans %}</p>
-            <p><a href="{{ path('login') }}" class="btn btn-primary btn-large">{% trans %}home.login{% endtrans %}</a></p>
+    <!-- NAVBAR ================================================== -->
+    <div class="navbar-wrapper">
+        <!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
+        <div class="container">
 
-            <p class="pull-right">{% trans %}home.iprefer{% endtrans %} <a href="{{ path('universibo_legacy_home') }}">{% trans %}home.anonymous{% endtrans %}</a></p>
+            <div class="navbar navbar-inverse">
+                <div class="navbar-inner">
+                    <a class="brand" href="{{ path('universibo_legacy_home') }}"><img alt="" src="{{ asset('bundles/universibodesign/images/smallogo.png') }}" class="navbar-text"/> UniversiBO</a>
+                    <div class="navbar-text pull-right">
+                        {{ render(controller('universibo_main.controller.userbox:indexAction')) }}
+                    </div>
+                </div><!-- /.navbar-inner -->
+            </div><!-- /.navbar -->
+
+        </div> <!-- /.container -->
+    </div><!-- /.navbar-wrapper -->
+
+    <!-- Carousel ================================================== -->
+    <div id="myCarousel" class="carousel slide">
+        <div class="carousel-inner">
+            <div class="item active">
+                <img src="{{ asset('bundles/universibodesign/images/carousel-01.jpg') }}" alt="">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>{% trans %}home.title1{% endtrans %}</h1>
+                        <p class="lead">{% trans %}home.text1{% endtrans %}</p>
+                        <a href="{{ path('login') }}" class="btn btn-primary btn-large">{% trans %}home.login{% endtrans %}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="{{ asset('bundles/universibodesign/images/solidarieta.png') }}" alt="">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>{% trans %}home.title2{% endtrans %}</h1>
+                        <p class="lead">{{ 'home.text2' | trans() | nl2br}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="{{ asset('bundles/universibodesign/images/carousel-01.jpg') }}" alt="">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>{% trans %}home.title3{% endtrans %}</h1>
+                        <p class="lead">{% trans %}home.text3{% endtrans %}</p>
+                    </div>
+                </div>
+            </div>
         </div>
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div><!-- /.carousel -->
+
+
+    <div class="container">
         <div class="row">
             <div class="span3">
                 <h2>{% trans %}home.community.title{% endtrans %}</h2>
                 <p>{% trans %}home.community.text{% endtrans %}</p>
+                <p><a href="{{ path('login') }}" class="btn btn-primary">{% trans %}home.login{% endtrans %}</a>
+                <a href="{{ path('universibo_legacy_home') }}" class="btn">{% trans %}home.anonymous{% endtrans %}</a></p>
             </div>
             <div class="span3">
                 <h2>{% trans %}home.notes.title{% endtrans %}</h2>
@@ -36,3 +84,13 @@
     </div>
 </div>
 {% endblock body %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        !function ($) {
+            $(function() {
+                $('.carousel').carousel({ interval: 3000 })
+            });
+        }(window.jQuery);
+    </script>
+{% endblock javascripts%}

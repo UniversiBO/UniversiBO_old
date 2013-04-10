@@ -1,7 +1,9 @@
 @import "../../../../../../../vendor/mopa/bootstrap-bundle/Mopa/Bundle/BootstrapBundle/Resources/public/less/mopabootstrapbundle.less";
 @import "../../../../../../../vendor/mopa/bootstrap-bundle/Mopa/Bundle/BootstrapBundle/Resources/bootstrap/less/responsive.less";
+@import "carousel.less";
 
 @boxMarginBottom: 10px;
+@navbarHeight: 44px;
 
 .disclaimer {
     font-size: x-small;
@@ -9,4 +11,19 @@
 
 .box {
     margin-bottom: @boxMarginBottom;
+}
+
+.brand > img {
+  margin-top: -10px;
+  margin-bottom: -10px;
+}
+
+@media (min-width: 978px) {
+  body {
+    padding-top: @navbarHeight;
+  }
+}
+
+#home-container {
+  margin-top: -@navbarHeight;
 }

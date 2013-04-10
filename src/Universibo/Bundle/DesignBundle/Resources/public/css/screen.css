@@ -17,15 +17,7 @@
     color: red;
 }
 
-@media (min-width: 978px) {
-    body {
-        padding-top: 40px;
-    }
-}
 
-#home-container {
-    margin-top: -40px;
-}
 
 
 #informativa, .rulebox {

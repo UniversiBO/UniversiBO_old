@@ -88,6 +88,7 @@ input.gsc-search-button {
     </div>
 </div>
 {% endblock body %}
+{% block javascripts %}
 {% javascripts
 'bundles/universibodesign/js/*'
 '@MopaBootstrapBundle/Resources/bootstrap/js/*.js'
@@ -103,5 +104,6 @@ input.gsc-search-button {
   js.src = "//connect.facebook.net/it_IT/all.js#xfbml=1&appId=231127170345763";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
+{% endblock javascripts %}
 </body>
 </html>
