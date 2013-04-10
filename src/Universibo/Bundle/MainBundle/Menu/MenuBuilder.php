@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Universibo\Bundle\ForumBundle\Routing\ForumRouter;
 use Universibo\Bundle\LegacyBundle\Auth\UniversiboAcl;
+use Universibo\Bundle\LegacyBundle\Entity\Canale;
 use Universibo\Bundle\LegacyBundle\Entity\DBCanale2Repository;
 use Universibo\Bundle\LegacyBundle\Entity\DBRuoloRepository;
 use Universibo\Bundle\LegacyBundle\Routing\ChannelRouter;
@@ -95,8 +96,8 @@ class MenuBuilder
         $menu = $this->factory->createItem('root');
 
         $menu->setChildrenAttribute('class', 'nav nav-list');
-        $this->addChannelChildren($menu, 'navbar.schools', 'school');
-        $this->addChannelChildren($menu, 'navbar.services', 1);
+        $this->addChannelChildren($menu, 'navbar.faculty', Canale::FACOLTA);
+        $this->addChannelChildren($menu, 'navbar.services', Canale::CDEFAULT);
         $this->addAboutChildren($menu);
 
         return $menu;
@@ -165,8 +166,9 @@ class MenuBuilder
         $allowed = array();
         foreach ($this->channelRepo->findManyByType($channelType) as $item) {
             if ($this->acl->canRead($user, $item)) {
+                $name = $item instanceof Channel ? $item->getName() : $item->getNome();
                 $allowed[] = array(
-                    'name' => $item instanceof Channel ? $item->getName() : $item->getNome(),
+                    'name' => ucwords(strtolower($name)),
                     'uri'  => $this->channelRouter->generate($item)
                 );
             }

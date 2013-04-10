@@ -33,9 +33,9 @@ universibo_main_contact_cancel:
   pattern: /my/email/cancel/{token}/
   defaults: { _controller: 'UniversiboMainBundle:Contact:cancel' }
   requirements: { _method: GET }
-universibo_main_school:
-  pattern: /scuole/{slug}/
-  defaults: { _controller: 'UniversiboMainBundle:School:index' }
+#universibo_main_school:
+#  pattern: /scuole/{slug}/
+#  defaults: { _controller: 'UniversiboMainBundle:School:index' }
 universibo_main_username_available:
     pattern: /user/{username}/available
     defaults: { _controller: 'UniversiboMainBundle:User:available' }
