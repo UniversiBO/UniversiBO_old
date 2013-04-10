@@ -86,13 +86,17 @@ class Insegnamento extends Canale
         //inizializza l'elenco delle attivit? padre/non sdoppiate
         //var_dump($elenco_attivita);
         $this->elencoAttivita = $elenco_attivita;
-        $num = count($elenco_attivita);
         $this->elencoCodiciCDL = array();
-        for ($i = 0; $i < $num; $i++) {
-            if ($elenco_attivita[$i]->isSdoppiato() == false) {
-                $this->elencoAttivitaPadre[] = $elenco_attivita[$i];
+
+        if (!is_array($elenco_attivita)) {
+            var_dump($elenco_attivita); die;
+        }
+
+        foreach ($elenco_attivita as $attivita) {
+            if ($attivita->isSdoppiato() == false) {
+                $this->elencoAttivitaPadre[] = $attivita;
             }
-            $this->elencoCodiciCDL[] = $elenco_attivita[$i]->getCodiceCdl();
+            $this->elencoCodiciCDL[] = $attivita->getCodiceCdl();
         }
 
         //var_dump($this->elencoAttivitaPadre);

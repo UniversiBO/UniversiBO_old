@@ -88,28 +88,37 @@ class DBCdlRepository extends DBRepository
 
     public function findByCodice($codice)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         // LA PRIMA QUERY E' QUELLA CHE VA BENE, MA BISOGNA ALTRIMENTI SISTEMARE IL DB
         //E VERIFICARE CHE METTENDO DIRITTI = 0 IL CANALE NON VENGA VISUALIZZATO
         //$query = 'SELECT tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo,
         //			 a.id_canale, cod_corso, desc_corso, categoria, cod_fac, cod_doc, cat_id FROM canale a , classi_corso b WHERE a.id_canale = b.id_canale AND b.cod_corso = '.$db->quote($codice);
 
-        $query = 'SELECT tipo_canale, nome_canale, immagine, visite, ultima_modifica, permessi_groups, files_attivo, news_attivo, forum_attivo, id_forum, group_id, links_attivo,files_studenti_attivo,
-        a.id_canale, cod_corso, desc_corso, categoria, cod_fac, cod_doc, cat_id FROM  classi_corso b LEFT OUTER JOIN canale a ON a.id_canale = b.id_canale WHERE b.cod_corso = '.$db->quote($codice);
-        $res = $db->query($query);
-        if (DB::isError($res))
-            $this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
+        $query = 'SELECT id_canale, cod_corso, desc_corso, categoria, cod_fac, cod_doc, cat_id FROM  classi_corso WHERE cod_corso = ?';
+        $stmt = $db->executeQuery($query, [$codice]);
 
-        $rows = $res->numRows();
+        $row = $stmt->fetch();
 
-        if( $rows == 0) return false;
+        if (!$row) {
+            return null;
+        }
 
-        $row = $this->fetchRow($res);
-        $cdl = new Cdl($row[13], $row[5], $row[4], $row[0], $row[2], $row[1], $row[3],
-                $row[7]=='S', $row[6]=='S', $row[8]=='S', $row[9], $row[10], $row[11]=='S',$row[12]=='S', $row[14], $row[15], $row[16], $row[17], $row[18], $row[19]);
+        $channel = $this->channelRepository->find($id = (int) $row['id_canale']);
+        if (null === $channel) {
+            return null;
+        }
 
-        return $cdl;
+        $ultima_modifica = $channel->getUpdatedAt() ? $channel->getUpdatedAt()->getTimestamp() : 0;
+
+        return new Cdl($id, $channel->getLegacyGroups(), $ultima_modifica,
+                (int) $channel->getType(), '', $channel->getName(), $channel->getHits(),
+                $channel->hasService('news'), $channel->hasService('files'),
+                $channel->hasService('forum'), $channel->getForumId(), 0,
+                $channel->hasService('links'), $channel->hasService('student_files'),
+                $row['cod_corso'], $row['desc_corso'], $row['cat_id'], $row['cod_fac'],
+                $row['cod_doc'], $row['cat_id']
+        );
     }
 
     public function findBySchool($school, $annoAccademico = null)

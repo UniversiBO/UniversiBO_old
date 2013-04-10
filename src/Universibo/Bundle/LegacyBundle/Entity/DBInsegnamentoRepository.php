@@ -3,7 +3,6 @@
 namespace Universibo\Bundle\LegacyBundle\Entity;
 
 use Universibo\Bundle\LegacyBundle\PearDB\ConnectionWrapper;
-use Universibo\Bundle\LegacyBundle\PearDB\DB;
 use Universibo\Bundle\MainBundle\Entity\ChannelRepository;
 
 /**
@@ -74,7 +73,7 @@ class DBInsegnamentoRepository extends DBRepository
      */
     public function findAll($full = false)
     {
-        $channels = $this->channelRepository->findByType(self::INSEGNAMENTO);
+        $channels = $this->channelRepository->findByType(Canale::INSEGNAMENTO);
 
         foreach ($channels as $channel) {
             $channelId = $channel->getId();
@@ -87,7 +86,7 @@ class DBInsegnamentoRepository extends DBRepository
                     Canale::INSEGNAMENTO, '', $channel->getName(),
                     $channel->getHits(), $channel->hasService('news'),
                     $channel->hasService('files'), $channel->hasService('forum'),
-                    $channel->getForumId(), $channel->getForumId(),0,
+                    $channel->getForumId(), $channel->getForumGroupId(),
                     $channel->hasService('links'), $channel->hasService('student_files'),$attivita);
         }
 
