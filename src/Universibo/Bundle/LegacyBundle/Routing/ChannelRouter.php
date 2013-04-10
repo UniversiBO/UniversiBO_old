@@ -43,11 +43,11 @@ class ChannelRouter
     public function generate($channel, $absolute = false)
     {
         if ($channel instanceof Canale) {
-            return $this->generateCanale($channel);
+            return $this->generateCanale($channel, $absolute);
         }
 
         if ($channel instanceof Channel) {
-            return $this->generateChannel($channel);
+            return $this->generateChannel($channel, $absolute);
         }
     }
 
