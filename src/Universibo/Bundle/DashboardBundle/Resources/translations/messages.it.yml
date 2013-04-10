@@ -3,3 +3,23 @@ dashboard:
     title: Canali
     schools_channel: Scuole con canale
     schools_nochannel: Scuole senza canale
+  files:
+    title: File
+    count: Numero file
+    latest: Ultimi file inseriti
+  home:
+    description: |
+      Il cruscotto è il centro di monitoraggio e gestione per
+      i moderatori ed amministratori di UniversiBO.
+  professors:
+    title: Docenti
+    contacts: Contatto docenti
+  schools:
+    title: Scuole
+  users:
+    active: Registrati e attivi
+    logged_24h: Loggati ultime 24 ore
+    logged_week: Loggati ultima settimana
+    logged_academic: Loggati da inizio anno accademico
+    title: Utenti
+  welcome: Benvenuto nel cruscotto del potere :)

@@ -2,25 +2,25 @@
 {% block title %}Home - {{ parent() }}{% endblock %}
 {% block content %}
 <div class="hero-unit">
-  <h1>{% trans %}udb_welcome{% endtrans %}</h1>
-  <p>{% trans %}udb_home_desc{% endtrans %}</p>
+  <h1>{% trans %}dashboard.welcome{% endtrans %}</h1>
+  <p>{% trans %}dashboard.home.description{% endtrans %}</p>
 </div>
 <div class="row-fluid">
   <div class="span3">
-    <h2>{% trans %}udb_users{% endtrans %}</h2>
+    <h2>{% trans %}dashboard.users.title{% endtrans %}</h2>
     <ul>
-      <li><strong>{% trans %}udb_users_active{% endtrans %}</strong>: {{ activeUsers }}</li>
-      <li><strong>{% trans %}udb_users_logged_24h{% endtrans %}</strong>: {{ logged24h }}</li>
-      <li><strong>{% trans %}udb_users_logged_week{% endtrans %}</strong>: {{ loggedWeek }}</li>
-      <li><strong>{% trans %}udb_users_logged_academic{% endtrans %}</strong>: {{ loggedAcademic }}</li>
+      <li><strong>{% trans %}dashboard.users.active{% endtrans %}</strong>: {{ activeUsers }}</li>
+      <li><strong>{% trans %}dashboard.users.logged_24h{% endtrans %}</strong>: {{ logged24h }}</li>
+      <li><strong>{% trans %}dashboard.users.logged_week{% endtrans %}</strong>: {{ loggedWeek }}</li>
+      <li><strong>{% trans %}dashboard.users.logged_academic{% endtrans %}</strong>: {{ loggedAcademic }}</li>
     </ul>
   </div>
   <div class="span3">
-    <h2>{% trans %}udb_files{% endtrans %}</h2>
+    <h2>{% trans %}dashboard.files.title{% endtrans %}</h2>
     <ul>
-      <li><strong>{% trans %}udb_files_count{% endtrans %}</strong>: {{ filesCount }}</li>
+      <li><strong>{% trans %}dashboard.files.count{% endtrans %}</strong>: {{ filesCount }}</li>
     </ul>
-    <h3>{% trans %}udb_files_latest{% endtrans %}</h3>
+    <h3>{% trans %}dashboard.files.latest{% endtrans %}</h3>
     <ul>
       {% for file in filesLatest %}
       <li>
@@ -32,13 +32,13 @@
     </ul>
   </div>
   <div class="span3">
-    <h2>{% trans %}udb_professors{% endtrans %}</h2>
+    <h2>{% trans %}dashboard.professors.title{% endtrans %}</h2>
     <ul>
       {% for current in professorStatus %}
          <li><strong>{{ current.status }}</strong>: {{ current.count }}</li>
       {% endfor %}
     </ul>
-    <a href="{{ path('universibo_legacy_contact_professors') }}" target="_blank">&Gt; {% trans %}udb_professors_contacts{% endtrans %}</a>
+    <a href="{{ path('universibo_legacy_contact_professors') }}" target="_blank">&Gt; {% trans %}dashboard.professors.contacts{% endtrans %}</a>
   </div>
   <div class="span3">
     {{ render_esi(url('universibo_dashboard_schools')) }}
