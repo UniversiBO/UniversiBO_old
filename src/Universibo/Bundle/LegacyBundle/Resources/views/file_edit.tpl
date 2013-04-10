@@ -3,7 +3,7 @@
 <h2>Modifica il file</h2>
 </div>
 {include file="avviso_notice.tpl"}
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" class="legacy-form">
 	<p><label for="f13_titolo">Titolo:</label>
 		<input type="text" class="casella" id="f13_titolo" name="f13_titolo" size="65" maxlength="130" value="{$f13_titolo|escape:"htmlall"}" /></p>
 	<p><span><label for="f13_abstract"><p>Abstract/descrizione<br /> del file:<br />(max 3000 caratteri)</p></label>
@@ -20,7 +20,7 @@
 		</select></p>
 	<p><fieldset>
 		<legend>Data Inserimento:</legend>
-			<p><span><label for="f13_data_ins_gg">Giorno:</label>&nbsp;
+			<p><span class="legacy-date"><label for="f13_data_ins_gg">Giorno:</label>&nbsp;
 				<input type="text" id="f13_data_ins_gg" name="f13_data_ins_gg" size="2" maxlength="2" value="{$f13_data_ins_gg|escape:"htmlall"}" />
 			<label for="f13_data_ins_mm">Mese:</label>&nbsp;
 				<input type="text"id="f13_data_ins_mm" name="f13_data_ins_mm" size="2" maxlength="2" value="{$f13_data_ins_mm|escape:"htmlall"}" />

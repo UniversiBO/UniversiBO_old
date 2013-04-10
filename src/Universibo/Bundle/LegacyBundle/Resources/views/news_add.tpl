@@ -4,12 +4,12 @@
 <h2>Aggiungi una nuova notizia</h2>
 </div>
 {include file="avviso_notice.tpl"}
-<form method="post">
+<form method="post" class="legacy-form">
 	<p><label for="f7_titolo">Titolo:</label>
 		<input type="text" class="casella" id="f7_titolo" name="f7_titolo" size="65" maxlength="130" value="{$f7_titolo|escape:"htmlall"}" /></p>
 	<p><fieldset>
 		<legend>Data Inserimento:</legend>
-			<span><label for="f7_data_ins_gg">Giorno:</label>&nbsp;
+			<span class="legacy-date"><label for="f7_data_ins_gg">Giorno:</label>&nbsp;
 				<input type="text" id="f7_data_ins_gg" name="f7_data_ins_gg" size="2" maxlength="2" value="{$f7_data_ins_gg|escape:"htmlall"}" />
 			<label for="f7_data_ins_mm">Mese:</label>&nbsp;
 				<input type="text" id="f7_data_ins_mm" name="f7_data_ins_mm" size="2" maxlength="2" value="{$f7_data_ins_mm|escape:"htmlall"}" />
@@ -21,12 +21,12 @@
 				<input type="text" id="f7_data_ins_min" name="f7_data_ins_min" size="2" maxlength="2" value="{$f7_data_ins_min|escape:"htmlall"}" />
 			</span>
 	</fieldset></p>
-	<p><span><label for="f7_testo"><p> Notizia:<br />(max 2500 <br />caratteri)</p></label>
+	<p><span><label for="f7_testo"><p> Notizia (max 2500 caratteri)</p></label>
 		<textarea cols="50" rows="10" id="f7_testo" name="f7_testo">{$f7_testo|escape:"htmlall"}</textarea></span></p>
 	<p><label for="f7_scadenza"><input type="checkbox" id="f7_scadenza" name="f7_scadenza" {if $f7_scadenza=='true'}checked="checked"{/if} />&nbsp;Attiva Scadenza</label></p>
 	<p><fieldset>
 	<legend>Data Scadenza:</legend>
-		<span><label for="f7_data_scad_gg">Giorno:</label>&nbsp;
+		<span class="legacy-date"><label for="f7_data_scad_gg">Giorno:</label>&nbsp;
 			<input type="text" id="f7_data_scad_gg" name="f7_data_scad_gg" size="2" maxlength="2" value="{$f7_data_scad_gg|escape:"htmlall"}" />
 		<label for="f7_data_scad_mm">Mese:</label>&nbsp;
 			<input type="text" id="f7_data_scad_mm" name="f7_data_scad_mm" size="2" maxlength="2" value="{$f7_data_scad_mm|escape:"htmlall"}" />

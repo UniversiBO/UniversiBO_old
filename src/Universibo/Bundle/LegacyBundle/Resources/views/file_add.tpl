@@ -3,7 +3,7 @@
 <h2>Aggiungi un nuovo file</h2>
 </div>
 {include file="avviso_notice.tpl"}
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" class="legacy-form">
 	<p><label for="f12_file">File:</label>
 		<input class="submit" type="file" name="f12_file" id="f12_file" size="65" value="{$f12_file|escape:"htmlall"}" />
  		<input type="hidden" name="MAX_FILE_SIZE" value="20971520" /></p>
@@ -23,7 +23,7 @@
 		</select></p>
 	<p><fieldset>
 		<legend>Data Inserimento:</legend>
-		<p><span><label for="f12_data_ins_gg">Giorno:</label>&nbsp;
+		<p><span class="legacy-date"><label for="f12_data_ins_gg">Giorno:</label>&nbsp;
 			<input type="text" id="f12_data_ins_gg" name="f12_data_ins_gg" size="2" maxlength="2" value="{$f12_data_ins_gg|escape:"htmlall"}" />
 		<label for="f12_data_ins_mm">Mese:</label>&nbsp;
 			<input type="text" id="f12_data_ins_mm" name="f12_data_ins_mm" size="2" maxlength="2" value="{$f12_data_ins_mm|escape:"htmlall"}" />

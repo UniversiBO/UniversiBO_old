@@ -3,7 +3,7 @@
 <h2>Aggiungi un nuovo link</h2>
 </div>
 {include file="avviso_notice.tpl"}
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" class="legacy-form">
 	<p><label for="f29_URI">Indirizzo:</label>
 		<input class="submit" type="text" name="f29_URI" id="f29_URI" size="65" value="{$f29_URI|escape:"htmlall"}" />
 	<p><label for="f29_Label">Etichetta:</label>

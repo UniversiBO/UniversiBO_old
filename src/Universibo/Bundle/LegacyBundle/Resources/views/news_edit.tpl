@@ -6,12 +6,12 @@
 
 {include file="avviso_notice.tpl"}
 
-<form method="post">
+<form method="post" class="legacy-form">
 	<p><label for="f8_titolo">Titolo:</label>
 		<input type="text" class="casella" id="f8_titolo" name="f8_titolo" size="65" maxlength="130" value="{$f8_titolo|escape:"htmlall"}" /></p>
 	<p><fieldset>
 		<legend>Data Inserimento:</legend>
-		<p><span><label for="f8_data_ins_gg">Giorno:</label>&nbsp;
+		<p><span class="legacy-date"><label for="f8_data_ins_gg">Giorno:</label>&nbsp;
 			<input type="text" id="f8_data_ins_gg" name="f8_data_ins_gg" size="2" maxlength="2" value="{$f8_data_ins_gg|escape:"htmlall"}" />
 		<label for="f8_data_ins_mm">Mese:</label>&nbsp;
 			<input type="text" id="f8_data_ins_mm" name="f8_data_ins_mm" size="2" maxlength="2" value="{$f8_data_ins_mm|escape:"htmlall"}" />
@@ -27,7 +27,7 @@
 	<p><label for="f8_scadenza"><input type="checkbox" id="f8_scadenza" name="f8_scadenza" {if $f8_scadenza=='true'}checked="checked"{/if} />&nbsp;Attiva Scadenza</label></p>
 	<p><fieldset>
 		<legend>Data Scadenza:</legend>
-		<p><span><label for="f8_data_scad_gg">Giorno:</label>&nbsp;
+		<p><span class="legacy-date"><label for="f8_data_scad_gg">Giorno:</label>&nbsp;
 			<input type="text" id="f8_data_scad_gg" name="f8_data_scad_gg" size="2" maxlength="2" value="{$f8_data_scad_gg|escape:"htmlall"}" />
 		<label for="f8_data_scad_mm">Mese:</label>&nbsp;
 			<input type="text" id="f8_data_scad_mm" name="f8_data_scad_mm" size="2" maxlength="2" value="{$f8_data_scad_mm|escape:"htmlall"}" />
