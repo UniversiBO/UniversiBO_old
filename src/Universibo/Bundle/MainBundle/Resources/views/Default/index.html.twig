@@ -86,11 +86,4 @@
 {% endblock body %}
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript">
-        !function ($) {
-            $(function() {
-                $('.carousel').carousel({ interval: 3000 })
-            });
-        }(window.jQuery);
-    </script>
 {% endblock javascripts%}
