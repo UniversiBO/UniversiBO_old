@@ -4,6 +4,7 @@
 
 @boxMarginBottom: 10px;
 @navbarHeight: 44px;
+@bodyPaddingTop: @navbarHeight + 4px;
 
 .disclaimer {
     font-size: x-small;
@@ -18,14 +19,14 @@
   margin-bottom: -10px;
 }
 
-@media (min-width: 978px) {
+@media (min-width: @navbarCollapseWidth) {
   body {
-    padding-top: @navbarHeight;
+    padding-top: @bodyPaddingTop;
   }
 }
 
 #home-container {
-  margin-top: -@navbarHeight;
+  margin-top: -@bodyPaddingTop;
 }
 
 .legacy-form {
