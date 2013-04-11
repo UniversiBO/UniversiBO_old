@@ -61,5 +61,6 @@ security:
       # Remove these lines when leaving beta
       - { path: ^/logout, roles: IS_AUTHENTICATED_ANONYMOUSLY }
       - { path: ^/shiblogout, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/greencheck, roles: IS_AUTHENTICATED_ANONYMOUSLY }
       - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
       - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
