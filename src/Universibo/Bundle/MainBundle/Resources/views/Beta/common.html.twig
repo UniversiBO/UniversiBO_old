@@ -1,7 +1,15 @@
 {% extends '::base.html.twig' %}
 {% block body %}
-    <div class="container">
-        <div class="hero-unit" id="home-container">
+    <div class="container"  id="home-container">
+        <div class="navbar navbar-inverse">
+            <div class="navbar-inner">
+                <a class="brand" href="{{ path('universibo_legacy_home') }}"><img alt="" src="{{ asset('bundles/universibodesign/images/smallogo.png') }}" class="navbar-text"/> UniversiBO <span class="beta">BETA</span></a>
+                <div class="navbar-text pull-right">
+                    {{ render(controller('universibo_main.controller.userbox:indexAction')) }}
+                </div>
+            </div><!-- /.navbar-inner -->
+        </div><!-- /.navbar -->
+        <div class="hero-unit">
             {% block content %}{% endblock content %}
         </div>
         <div class="row">
