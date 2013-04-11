@@ -58,5 +58,8 @@ security:
       - { path: ^/role, roles: IS_AUTHENTICATED_FULLY }
       - { path: ^/user, roles: IS_AUTHENTICATED_FULLY }
       - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+      # Remove these lines when leaving beta
+      - { path: ^/logout, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/shiblogout, roles: IS_AUTHENTICATED_ANONYMOUSLY }
       - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-      - { path: ^/, roles: IS_AUTHENTICATED_FULLY } # Remove this when leaving beta
+      - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
