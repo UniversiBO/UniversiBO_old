@@ -20,11 +20,12 @@ home:
   community:
     title: Community
     text: |
-      22000 utenti registrati, oltre 3000 attivi.
+      22000 utenti registrati, fino a 100 contemporanei, oltre 62mila post sul forum.
       La registrazione è automatica, accedi con le credenziali dell'Università
   forum:
     title: Forum
-    text: Sul forum puoi confrontarti con gli altri studenti e anche con i docenti.
+    text: |
+      Comunica con gli altri studenti e docenti in maniera rapida ed efficace.
   social:
     title: Be social!
     text: Siamo presenti su Facebook e Twitter
