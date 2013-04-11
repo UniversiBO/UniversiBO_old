@@ -2,7 +2,7 @@
 *debuglog.txt
 *~
 .idea
-.vagrant
+.vagrant*
 /bin/
 /build.xml
 /build/
@@ -11,7 +11,7 @@
 /web/bundles
 app/bootstrap.php.cache
 app/cache
-app/config/deploy.rb
+app/config/*.rb
 app/logs
 app/phpunit.xml
 app/uploads/*

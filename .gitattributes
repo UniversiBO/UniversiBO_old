@@ -6,6 +6,7 @@ varnish text eol=lf
 composer.* text eol=lf
 
 *.jpg    binary
+*.jar    binary
 *.png    binary
 *.gif    binary
 
