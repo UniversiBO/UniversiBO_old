@@ -1,5 +1,5 @@
 {
-    "hash": "49e8cb8065e4b2aacbc9d28f3ef019ef",
+    "hash": "0ed540ced5d859c716fa8466e432388e",
     "packages": [
         {
             "name": "doctrine/common",
@@ -1842,12 +1842,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phiamo/MopaBootstrapBundle.git",
-                "reference": "c5d957ec782efe4b322ef98a6a950f6715f48236"
+                "reference": "99adecdcd9"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/c5d957ec782efe4b322ef98a6a950f6715f48236",
-                "reference": "c5d957ec782efe4b322ef98a6a950f6715f48236",
+                "reference": "99adecdcd9",
                 "shasum": ""
             },
             "require": {
@@ -1895,7 +1895,7 @@
                 "form",
                 "template"
             ],
-            "time": "2013-04-11 10:05:24"
+            "time": "2013-04-11 09:29:13"
         },
         {
             "name": "mopa/composer-bridge",
