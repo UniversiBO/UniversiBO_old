@@ -1,0 +1,6 @@
+{% extends 'UniversiboMainBundle:Beta:common.html.twig' %}
+{% block title %}{% trans %}beta.pending.title{% endtrans %}{% endblock title %}
+{% block content %}
+    <h1>{% trans %}beta.pending.title{% endtrans %}</h1>
+    {{ 'beta.pending.text' | trans({'%email%': app.user.email, '%website%': 'https://www.universibo.unibo.it/my/universibo/'}) | raw }}
+{% endblock content %}

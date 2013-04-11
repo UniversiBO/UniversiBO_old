@@ -1,0 +1,11 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="hero-unit" id="home-container">
+            {% block content %}{% endblock content %}
+        </div>
+        <div class="row">
+            <div class="span12">{% trans %}beta.footer{% endtrans %}</div>
+        </div>
+    </div>
+{% endblock body %}

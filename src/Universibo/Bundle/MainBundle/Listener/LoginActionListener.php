@@ -64,6 +64,10 @@ class LoginActionListener
             return;
         }
 
-        $this->eventDispatcher->dispatch('universibo_main.login_action', $event);
+        $dispatched = $this->eventDispatcher->dispatch('universibo_main.login_action', clone $event);
+
+        if ($dispatched->hasResponse()) {
+            $event->setResponse($dispatched->getResponse());
+        }
     }
 }

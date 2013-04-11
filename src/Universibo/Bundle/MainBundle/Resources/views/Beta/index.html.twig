@@ -1,0 +1,8 @@
+{% extends 'UniversiboMainBundle:Beta:common.html.twig' %}
+{% block title %}{% trans %}beta.index.title{% endtrans %}{% endblock title %}
+{% block content %}
+    <h1>{% trans %}beta.index.title{% endtrans %}</h1>
+    <p>{% trans %}beta.index.text{% endtrans %}
+        <a href="{{ path('universibo_main_beta_confirm') }}" class="btn btn-large btn-primary">{% trans %}beta.index.request{% endtrans %}</a>
+    </p>
+{% endblock content %}

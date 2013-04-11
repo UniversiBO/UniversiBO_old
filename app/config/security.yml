@@ -15,8 +15,9 @@ security:
           - ROLE_MODERATOR
           - ROLE_PROFESSOR
           - ROLE_STAFF
+        ROLE_MODERATOR: [ROLE_BETA]
         ROLE_PROFESSOR: [ROLE_TUTOR]
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
         
     providers:
         fos_userbundle:
@@ -57,3 +58,5 @@ security:
       - { path: ^/role, roles: IS_AUTHENTICATED_FULLY }
       - { path: ^/user, roles: IS_AUTHENTICATED_FULLY }
       - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/, roles: IS_AUTHENTICATED_FULLY } # Remove this when leaving beta

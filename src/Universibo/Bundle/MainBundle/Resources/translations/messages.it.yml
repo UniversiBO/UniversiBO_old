@@ -1,3 +1,17 @@
+beta:
+  index:
+    title: Beta privata
+    text: La nuova beta di UniversiBO è accessibile solo su invito
+    request: Richiedi invito
+  pending:
+    title: Grazie!
+    text: |
+      <p>La tua richiesta è stata registrata.<br/>
+      Non appena sararai selezionato per provare in anteprima il nuovo UniversiBO<br/>
+      riceverai una mail sulla tua casella <strong>%email%</strong>.<br/>
+      Nel frattempo puoi utilizzare <a href="%website%">la versione corrente</a>.</p>
+      <p>Buona attesa e a presto!</p>
+  footer: UniversiBO - Fatto dagli studenti, per gli studenti
 security:
   login: Login
   logout: Logout
@@ -20,7 +34,7 @@ home:
       Scambia gratuitamente i tuoi appunti con gli altri studenti.
       Sono di carta? Ci pensiamo noi con il nostro scanner automatico!
   iprefer: Preferisco accedere come
-  login: Entra
+  login: Richiedi un invito
   title1: UniversiBO
   text1: |
     Questa è la nuova versione della community e degli strumenti per la

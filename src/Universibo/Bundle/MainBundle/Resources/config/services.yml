@@ -34,6 +34,13 @@ services:
       - '@event_dispatcher'
     tags:
       -  { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+  universibo_main.listener.beta:
+    class: Universibo\Bundle\MainBundle\Listener\BetaListener
+    arguments:
+      - '@security.context'
+      - '@router'
+    tags:
+      -  { name: kernel.event_listener, event: universibo_main.login_action, method: onLoginActionRequest }
   universibo_main.listener.privacy:
     class: Universibo\Bundle\MainBundle\Listener\PrivacyListener
     arguments:
@@ -59,6 +66,11 @@ services:
       -  { name: kernel.event_listener, event: universibo_shibboleth.auth_failed, method: onAuthenticationFailed }
   universibo_main.privacy.logout_handler:
     class: Universibo\Bundle\MainBundle\Security\Http\Logout\PrivacyLogoutHandler
+  universibo_main.repository.beta_request:
+    class: Universibo\Bundle\MainBundle\Entity\BetaRequestRepository
+    factory_service: doctrine.orm.entity_manager
+    factory_method: getRepository
+    arguments: ['Universibo\Bundle\MainBundle\Entity\BetaRequest']
   universibo_main.repository.channel:
     class: Universibo\Bundle\MainBundle\Entity\ChannelRepository
     factory_service: doctrine.orm.entity_manager

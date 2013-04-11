@@ -39,3 +39,12 @@ universibo_main_contact_cancel:
 universibo_main_username_available:
     pattern: /user/{username}/available
     defaults: { _controller: 'UniversiboMainBundle:User:available' }
+universibo_main_beta_index:
+  pattern: /beta/
+  defaults: { _controller: 'UniversiboMainBundle:Beta:index' }
+universibo_main_beta_pending:
+  pattern: /beta/pending
+  defaults: { _controller: 'UniversiboMainBundle:Beta:pending' }
+universibo_main_beta_confirm:
+  pattern: /beta/confirm
+  defaults: { _controller: 'UniversiboMainBundle:Beta:confirm' }
