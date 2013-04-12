@@ -1,9 +1,5 @@
 {
-    "_readme": [
-        "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
-    ],
-    "hash": "49e8cb8065e4b2aacbc9d28f3ef019ef",
+    "hash": "e8dfd285d48b0e10359f697aa5b4accc",
     "packages": [
         {
             "name": "doctrine/common",
@@ -80,12 +76,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/data-fixtures.git",
-                "reference": "6924952026b77ff492da559b04ad166d25c611cb"
+                "reference": "eef10f6b92706bdae2841a8fdeb45ad8999b15b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/6924952026b77ff492da559b04ad166d25c611cb",
-                "reference": "6924952026b77ff492da559b04ad166d25c611cb",
+                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/eef10f6b92706bdae2841a8fdeb45ad8999b15b3",
+                "reference": "eef10f6b92706bdae2841a8fdeb45ad8999b15b3",
                 "shasum": ""
             },
             "require": {
@@ -127,7 +123,7 @@
             "keywords": [
                 "database"
             ],
-            "time": "2013-04-11 23:14:04"
+            "time": "2013-03-11 00:25:48"
         },
         {
             "name": "doctrine/dbal",
@@ -1846,12 +1842,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phiamo/MopaBootstrapBundle.git",
-                "reference": "587ac8cc21a1bdeedcc7966f01ade0be897d4d6c"
+                "reference": "337daba837d6316de3c5f3ed3166cf57144255ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/587ac8cc21a1bdeedcc7966f01ade0be897d4d6c",
-                "reference": "587ac8cc21a1bdeedcc7966f01ade0be897d4d6c",
+                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/c5d957ec782efe4b322ef98a6a950f6715f48236",
+                "reference": "337daba837d6316de3c5f3ed3166cf57144255ee",
                 "shasum": ""
             },
             "require": {
@@ -1899,7 +1895,7 @@
                 "form",
                 "template"
             ],
-            "time": "2013-04-11 14:44:14"
+            "time": "2013-04-10 23:41:58"
         },
         {
             "name": "mopa/composer-bridge",
