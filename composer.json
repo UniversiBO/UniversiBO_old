@@ -39,7 +39,7 @@
         "facebook/php-sdk": "3.2.*",
         "knplabs/knp-menu-bundle": "1.1.*",
         "stof/doctrine-extensions-bundle": "1.1.*@dev",
-        "mopa/bootstrap-bundle": "dev-master#337daba837d6316de3c5f3ed3166cf57144255ee",
+        "mopa/bootstrap-bundle": "2.1.*@dev",
         "twitter/bootstrap": "2.3.*",
         "friendsofsymfony/rest-bundle": "0.*",
         "friendsofsymfony/comment-bundle": "2.0.*"
