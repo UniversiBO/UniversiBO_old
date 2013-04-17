@@ -10,6 +10,8 @@
 namespace Universibo\Bundle\MainBundle\Beta;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\EventDispatcher\Event;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Universibo\Bundle\MainBundle\Entity\BetaRequest;
 use Universibo\Bundle\MainBundle\Entity\BetaRequestRepository;
 use Universibo\Bundle\MainBundle\Entity\User;
@@ -27,15 +29,23 @@ class BetaService
     private $objectManager;
 
     /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
+    /**
      * Constructor
      *
-     * @param ObjectManager         $objectManager
-     * @param BetaRequestRepository $betaRequestRepository
+     * @param ObjectManager            $objectManager
+     * @param BetaRequestRepository    $betaRequestRepository
+     * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(ObjectManager $objectManager, BetaRequestRepository $betaRequestRepository)
+    public function __construct(ObjectManager $objectManager, BetaRequestRepository $betaRequestRepository,
+        EventDispatcherInterface $eventDispatcher)
     {
         $this->objectManager = $objectManager;
         $this->betaRequestRepository = $betaRequestRepository;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -74,6 +84,9 @@ class BetaService
         $om->merge($user);
         $om->merge($request);
         $om->flush();
+
+        $event = new BetaApprovedEvent($user);
+        $this->eventDispatcher->dispatch('universibo_main.beta.approved', $event);
     }
 
     /**

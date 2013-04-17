@@ -4,6 +4,7 @@ services:
     arguments:
       - '@doctrine.orm.entity_manager'
       - '@universibo_main.repository.beta_request'
+      - '@event_dispatcher'
   universibo_main.controller.userbox:
     class: Universibo\Bundle\MainBundle\Controller\UserBoxController
     arguments:

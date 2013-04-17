@@ -17,11 +17,11 @@
                     <td>{{ request.id }}</td>
                     <td>{{ request.requestedBy.username }}</td>
                     <td>{{ request.requestedAt | date}}</td>
-                    <td><a href="#" class="btn">{% trans %}dashboard.beta.approve{% endtrans %}</a></td>
+                    <td><a href="{{ path('universibo_dashboard_beta_request_approve', {id: request.requestedBy.id}) }}" class="btn">{% trans %}dashboard.beta.approve{% endtrans %}</a></td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="3">{% trans %}dashboard.beta.no_request{% endtrans %}</td>
+                    <td colspan="4">{% trans %}dashboard.beta.no_request{% endtrans %}</td>
                 </tr>
             {% endfor %}
         </tbody>

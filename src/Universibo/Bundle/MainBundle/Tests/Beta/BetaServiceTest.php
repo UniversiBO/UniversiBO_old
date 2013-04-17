@@ -4,6 +4,8 @@ namespace Universibo\Bundle\MainBundle\Tests\Beta;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\EventDispatcher\Event;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Universibo\Bundle\MainBundle\Beta\BetaService;
 use Universibo\Bundle\MainBundle\Entity\BetaRequestRepository;
 use Universibo\Bundle\MainBundle\Entity\User;
@@ -31,6 +33,11 @@ class BetaServiceTest extends WebTestCase
      */
     private $userRepo;
 
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
     protected function setUp()
     {
         static::createClient();
@@ -40,6 +47,7 @@ class BetaServiceTest extends WebTestCase
         $this->betaRequestRepo = $container->get('universibo_main.repository.beta_request');
         $this->userRepo = $container->get('universibo_main.repository.user');
         $this->em = $container->get('doctrine.orm.entity_manager');
+        $this->eventDispatcher = $container->get('event_dispatcher');
     }
 
     public function testNoRequest()
@@ -54,6 +62,7 @@ class BetaServiceTest extends WebTestCase
     {
         $user = $this->userRepo->find(1);
         $this->ensureNoRequest($user);
+        $user->removeRole('ROLE_BETA');
 
         return $user;
     }
@@ -74,6 +83,20 @@ class BetaServiceTest extends WebTestCase
         $this->assertInstanceOf('DateTime', $request->getRequestedAt());
         $this->assertNull($request->getApprovedBy(), 'approvedBy should be null');
         $this->assertNull($request->getApprovedAt(), 'approvedAt should be null');
+    }
+
+    public function testApproveDispatchsEvent()
+    {
+        $dispatched = false;
+        $this->eventDispatcher->addListener('universibo_main.beta.approved', $listener = function(Event $event) use (&$dispatched) {
+            $dispatched = true;
+        });
+
+        $user = $this->getCleanUser();
+        $this->betaService->request($user);
+        $this->betaService->approve($user, $user);
+
+        $this->assertTrue($dispatched, 'Event should be dispatched');
     }
 
     /**
