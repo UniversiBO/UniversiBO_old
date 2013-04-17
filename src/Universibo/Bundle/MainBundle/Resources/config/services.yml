@@ -9,6 +9,8 @@ services:
     class: Universibo\Bundle\MainBundle\Beta\BetaMailer
     arguments:
       - '@mailer'
+      - '%mailer_from_name%'
+      - '%mailer_from%'
       - '@translator'
       - '@templating'
       - '@router'

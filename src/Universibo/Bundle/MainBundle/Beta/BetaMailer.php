@@ -18,6 +18,11 @@ class BetaMailer
     private $mailer;
 
     /**
+     * @var array
+     */
+    private $from;
+
+    /**
      * @var TranslatorInterface
      */
     private $translator;
@@ -32,10 +37,11 @@ class BetaMailer
      */
     private $router;
 
-    public function __construct(\Swift_Mailer $mailer, TranslatorInterface $translator, EngineInterface $engine,
-        RouterInterface $router)
+    public function __construct(\Swift_Mailer $mailer, $fromName, $fromAddress, TranslatorInterface $translator,
+        EngineInterface $engine, RouterInterface $router)
     {
         $this->mailer = $mailer;
+        $this->from = [$fromAddress => $fromName];
         $this->translator = $translator;
         $this->engine = $engine;
         $this->router = $router;
@@ -58,6 +64,7 @@ class BetaMailer
 
         $message = \Swift_Message::newInstance($subject, $body);
         $message->setTo($user->getEmail());
+        $message->setFrom($this->from);
 
         $this->mailer->send($message);
     }
