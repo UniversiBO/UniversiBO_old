@@ -19,12 +19,9 @@ class BetaController extends Controller
      */
     public function indexAction()
     {
-        $context = $this->get('security.context');
-
-        if ($context->isGranted('ROLE_BETA')) {
-            $url = $this->generateUrl('universibo_legacy_home');
-
-            return $this->redirect($url);
+        $roleBeta = $this->redirectIfHasRoleBeta();
+        if ($roleBeta) {
+            return $roleBeta;
         }
 
         $pending = $this->redirectIfPending();
@@ -69,6 +66,11 @@ class BetaController extends Controller
      */
     public function pendingAction()
     {
+        $roleBeta = $this->redirectIfHasRoleBeta();
+        if ($roleBeta) {
+            return $roleBeta;
+        }
+
         $betaService = $this->get('universibo_main.beta.service');
         $request = $betaService->find($this->getUser());
 
@@ -77,5 +79,16 @@ class BetaController extends Controller
         }
 
         return ['requestDate' => $request->getRequestedAt()];
+    }
+
+    private function redirectIfHasRoleBeta()
+    {
+        $context = $this->get('security.context');
+
+        if ($context->isGranted('ROLE_BETA')) {
+            $url = $this->generateUrl('universibo_legacy_home');
+
+            return $this->redirect($url);
+        }
     }
 }
