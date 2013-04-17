@@ -6,7 +6,6 @@ namespace Universibo\Bundle\MainBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Universibo\Bundle\MainBundle\Entity\BetaRequest;
 
 /**
  * Class InviteController
@@ -20,12 +19,9 @@ class BetaController extends Controller
      */
     public function indexAction()
     {
-        $context = $this->get('security.context');
-
-        if ($context->isGranted('ROLE_BETA')) {
-            $url = $this->generateUrl('universibo_legacy_home');
-
-            return $this->redirect($url);
+        $roleBeta = $this->redirectIfHasRoleBeta();
+        if ($roleBeta) {
+            return $roleBeta;
         }
 
         $pending = $this->redirectIfPending();
@@ -41,9 +37,9 @@ class BetaController extends Controller
      */
     private function redirectIfPending()
     {
-        $requestRepo = $this->get('universibo_main.repository.beta_request');
+        $betaService = $this->get('universibo_main.beta.service');
 
-        if ($requestRepo->findOneByRequestedBy($this->getUser()) !== null) {
+        if ($betaService->find($this->getUser()) !== null) {
             $url = $this->generateUrl('universibo_main_beta_pending');
 
             return $this->redirect($url);
@@ -57,22 +53,12 @@ class BetaController extends Controller
             return $pending;
         }
 
-        $request = new BetaRequest();
-        $request->setRequestedAt(new \DateTime());
-        $request->setRequestedBy($this->getUser());
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($request);
-        $em->flush();
+        $betaService = $this->get('universibo_main.beta.service');
+        $betaService->request($this->getUser());
 
         $url = $this->generateUrl('universibo_main_beta_pending');
 
         return $this->redirect($url);
-    }
-
-    public function approveAction(Request $request)
-    {
-
     }
 
     /**
@@ -80,13 +66,29 @@ class BetaController extends Controller
      */
     public function pendingAction()
     {
-        $requestRepo = $this->get('universibo_main.repository.beta_request');
-        $request = $requestRepo->findOneByRequestedBy($this->getUser());
+        $roleBeta = $this->redirectIfHasRoleBeta();
+        if ($roleBeta) {
+            return $roleBeta;
+        }
+
+        $betaService = $this->get('universibo_main.beta.service');
+        $request = $betaService->find($this->getUser());
 
         if ($request === null) {
             throw $this->createNotFoundException('No request found');
         }
 
         return ['requestDate' => $request->getRequestedAt()];
+    }
+
+    private function redirectIfHasRoleBeta()
+    {
+        $context = $this->get('security.context');
+
+        if ($context->isGranted('ROLE_BETA')) {
+            $url = $this->generateUrl('universibo_legacy_home');
+
+            return $this->redirect($url);
+        }
     }
 }

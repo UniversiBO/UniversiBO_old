@@ -1,4 +1,12 @@
 dashboard:
+  beta:
+    actions: Azioni
+    approve: Approva
+    id: ID
+    no_request: Nessuna richiesta in attesa.
+    requested_at: Richiesto il
+    title: Richieste di invito
+    user: Utente
   channels:
     title: Canali
     schools_channel: Scuole con canale

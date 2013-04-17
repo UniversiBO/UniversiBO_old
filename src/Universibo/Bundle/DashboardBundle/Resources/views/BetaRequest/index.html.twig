@@ -1,0 +1,29 @@
+{% extends 'UniversiboDashboardBundle::base.html.twig' %}
+{% block title %}{% trans %}dashboard.beta.title{% endtrans %} - {{ parent() }}{% endblock title %}
+{% block content %}
+    <h1>{% trans %}dashboard.beta.title{% endtrans %}</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{% trans %}dashboard.beta.id{% endtrans %}</th>
+                <th>{% trans %}dashboard.beta.user{% endtrans %}</th>
+                <th>{% trans %}dashboard.beta.requested_at{% endtrans %}</th>
+                <th>{% trans %}dashboard.beta.actions{% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in requests %}
+                <tr>
+                    <td>{{ request.id }}</td>
+                    <td>{{ request.requestedBy.username }}</td>
+                    <td>{{ request.requestedAt | date}}</td>
+                    <td><a href="{{ path('universibo_dashboard_beta_request_approve', {id: request.requestedBy.id}) }}" class="btn">{% trans %}dashboard.beta.approve{% endtrans %}</a></td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">{% trans %}dashboard.beta.no_request{% endtrans %}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

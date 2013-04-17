@@ -28,7 +28,7 @@ class RoleNameTranslator
      */
     public function translate(array $roles)
     {
-        $roles = array_diff($roles, array('ROLE_USER'));
+        $roles = array_intersect($roles, array_keys(self::$translation));
         $role = array_pop($roles);
 
         return self::$translation[$role];

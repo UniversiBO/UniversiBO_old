@@ -12,4 +12,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class BetaRequestRepository extends EntityRepository
 {
+    /**
+     * @return array
+     */
+    public function findPending()
+    {
+        return $this->findByApprovedAt(null);
+    }
 }
