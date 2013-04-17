@@ -2,6 +2,10 @@ universibo_dashboard_home:
   pattern: /
   defaults: { _controller: 'UniversiboDashboardBundle:Default:index' }
 
+universibo_dashboard_beta_request:
+  pattern: /beta
+  defaults: { _controller: 'UniversiboDashboardBundle:BetaRequest:index' }
+
 universibo_dashboard_schools:
   pattern: /didactics/schools
   defaults: { _controller: 'UniversiboDashboardBundle:School:index' }
