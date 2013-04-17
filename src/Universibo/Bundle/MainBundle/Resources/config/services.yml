@@ -1,4 +1,9 @@
 services:
+  universibo_main.beta.service:
+    class: Universibo\Bundle\MainBundle\Beta\BetaService
+    arguments:
+      - '@doctrine.orm.entity_manager'
+      - '@universibo_main.repository.beta_request'
   universibo_main.controller.userbox:
     class: Universibo\Bundle\MainBundle\Controller\UserBoxController
     arguments:
