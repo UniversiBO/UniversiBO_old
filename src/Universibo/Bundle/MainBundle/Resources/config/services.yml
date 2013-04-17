@@ -1,4 +1,21 @@
 services:
+  universibo_main.beta.service:
+    class: Universibo\Bundle\MainBundle\Beta\BetaService
+    arguments:
+      - '@doctrine.orm.entity_manager'
+      - '@universibo_main.repository.beta_request'
+      - '@event_dispatcher'
+  universibo_main.beta.mailer:
+    class: Universibo\Bundle\MainBundle\Beta\BetaMailer
+    arguments:
+      - '@mailer'
+      - '%mailer_from_name%'
+      - '%mailer_from%'
+      - '@translator'
+      - '@templating'
+      - '@router'
+    tags:
+      -  { name: kernel.event_listener, event: universibo_main.beta.approved, method: onBetaApproved }
   universibo_main.controller.userbox:
     class: Universibo\Bundle\MainBundle\Controller\UserBoxController
     arguments:
