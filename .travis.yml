@@ -4,6 +4,8 @@ php:
   - 5.4
 
 before_script: 
+  - "mkdir -p ~/.composer"
+  - cp .travis.composer.config.json ~/.composer/config.json
   - composer install --dev
   - echo 'CREATE DATABASE universibo' | psql -U postgres
   - echo 'CREATE DATABASE universibo_forum3' | psql -U postgres
