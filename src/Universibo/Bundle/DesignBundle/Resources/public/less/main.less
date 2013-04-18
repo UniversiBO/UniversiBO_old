@@ -7,11 +7,11 @@
 @bodyPaddingTop: @navbarHeight + 4px;
 
 .disclaimer {
-    font-size: x-small;
+  font-size: x-small;
 }
 
 .box {
-    margin-bottom: @boxMarginBottom;
+  margin-bottom: @boxMarginBottom;
 }
 
 .brand > img {
@@ -29,25 +29,30 @@
   margin-top: -@bodyPaddingTop;
 }
 
+.bigform {
+  textarea {
+    width: 100%;
+    min-height: 200px;
+  }
+
+  input[type=text] {
+    width: 100%;
+  }
+}
+
 .legacy-form {
-    textarea {
-        width: 100%;
-    }
+  .bigform;
 
+  .legacy-date {
+    label {
+      display: inline;
+    }
     input[type=text] {
-        width: 100%;
+      display: inline;
+      clear: none;
+      width: 40px;
     }
-
-    .legacy-date {
-        label {
-            display: inline;
-        }
-        input[type=text] {
-            display: inline;
-            clear: none;
-            width: 40px;
-        }
-    }
+  }
 }
 
 .navbar .brand .beta {

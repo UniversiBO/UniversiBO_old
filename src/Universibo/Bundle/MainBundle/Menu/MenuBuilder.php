@@ -110,7 +110,7 @@ class MenuBuilder
 
         $securityContext = $this->securityContext;
 
-        if ($securityContext->isGranted('ROLE_USER')) {
+        if ($logged = $securityContext->isGranted('ROLE_USER')) {
             $user = $securityContext->getToken()->getUser();
 
             $username = $menu->addChild($user->getUsername());
@@ -139,6 +139,10 @@ class MenuBuilder
 
         $menu->addChild('navbar.forum', array('uri' => $this->forumRouter->getIndexUri()));
         $menu->addChild('navbar.contribute', array('route' => 'universibo_legacy_contribute'));
+
+        if ($logged) {
+            $menu->addChild('navbar.suggestion', array('route' => 'universibo_main_suggestion_new'));
+        }
 
         return $menu;
     }

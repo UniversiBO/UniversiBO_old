@@ -1,0 +1,17 @@
+{% extends '::base.html.twig' %}
+{% block content %}
+    <h1>{% trans %}suggestion.title{% endtrans %}</h1>
+    <p>{% trans %}suggestion.form.intro{% endtrans %}</p>
+    <form class="bigform" action="{{ path('universibo_main_suggestion_new') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_label(form.title) }}
+        {{ form_widget(form.title) }}
+
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description) }}
+
+        {{ form_widget(form.wouldHelp) }}
+
+        {{ form_rest(form) }}
+        <input type="submit" value="{% trans %}suggestion.form.submit{% endtrans %}" />
+    </form>
+{% endblock content %}

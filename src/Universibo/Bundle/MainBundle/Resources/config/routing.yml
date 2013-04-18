@@ -15,6 +15,12 @@ universibo_main_rules_accept:
   pattern: /regolamento/accetta/
   defaults: { _controller: 'UniversiboMainBundle:Rules:accept' }
   requirements: { _method: POST }
+universibo_main_suggestion_new:
+  pattern: /suggerimento/
+  defaults: { _controller: 'UniversiboMainBundle:Suggestion:new' }
+universibo_main_suggestion_success:
+  pattern: /suggerimento/grazie/
+  defaults: { _controller: 'UniversiboMainBundle:Suggestion:success' }
 universibo_main_profile_edit:
   pattern: /my/profile/
   defaults: { _controller: 'UniversiboMainBundle:Profile:edit' }

@@ -13,6 +13,8 @@ beta:
       Nel frattempo puoi utilizzare <a href="%website%">la versione corrente</a>.</p>
       <p>Buona attesa e a presto!</p>
   footer: UniversiBO - Fatto dagli studenti, per gli studenti
+common:
+  staff: Lo staff di UniversiBO
 security:
   login: Login
   logout: Logout
@@ -70,6 +72,7 @@ navbar:
   schools: Scuole
   student_files:
     all: Tutti i file studenti
+  suggestion: Invia suggerimento
   channels: Canali
 rules:
   privacy: Informativa sulla Privacy
@@ -78,6 +81,16 @@ rules:
 sso:
   info_title: Informazioni sul Single Sign-On di Ateneo
   login_title: Accesso Utenti Registrati
+suggestion:
+  success: Il tuo suggerimento è stato ricevuto. Ti risponderemo sulla tua mail appena possibile.
+  thanks: Grazie!
+  title: Invia un suggerimento
+  form:
+    title: Titolo
+    intro: Questo sito è in continua evoluzione, inviaci i suggerimento per migliorarlo insieme a te :)
+    description: Descrizione
+    would_help: 'Vorrei darvi una mano per metterlo in pratica'
+    submit: Invia
 school:
   title: Scuola di %name%
   url: 'Pagina ufficiale della scuola:'

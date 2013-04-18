@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Universibo\Bundle\LegacyBundle\Auth\LegacyRoles;
 use Universibo\Bundle\LegacyBundle\Entity\Canale;
+use Universibo\Bundle\MainBundle\Entity\User;
 
 /**
  * Feature context.
@@ -190,12 +191,7 @@ class BaseContext extends MinkContext
      */
     public function userHasAcceptedPrivacyPolicy($username)
     {
-        $userRepo = $this->get('universibo_main.repository.user');
-        $user = $userRepo->findOneByUsername($username);
-
-        if (null === $user) {
-            throw new InvalidArgumentException('User not found');
-        }
+        $user = $this->getUser($username);
 
         $privacyService = $this->get('universibo_legacy.service.privacy');
 
@@ -207,5 +203,35 @@ class BaseContext extends MinkContext
     private function get($id)
     {
         return $this->kernel->getContainer()->get($id);
+    }
+
+    /**
+     * @param $username
+     * @return User
+     * @throws \InvalidArgumentException
+     */
+    public function getUser($username)
+    {
+        $userRepo = $this->get('universibo_main.repository.user');
+        $user = $userRepo->findOneByUsername($username);
+
+        if (null === $user) {
+            throw new InvalidArgumentException('User not found');
+        }
+
+        return $user;
+    }
+
+    /**
+     * @Given /^user "([^"]*)" has role "([^"]*)"$/
+     */
+    public function userHasRole($username, $role)
+    {
+        $user = $this->getUser($username);
+        $user->addRole($role);
+        $em = $this->get('doctrine.orm.entity_manager');
+
+        $em->merge($user);
+        $em->flush();
     }
 }
