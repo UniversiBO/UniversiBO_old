@@ -37,30 +37,32 @@ class lapp_config
     }
 
     # Notify is not enough
-    exec { 'varnish-restart': 
+    exec {'varnish-restart':
         command => 'service varnish restart',
         require => File['varnish-conf', 'varnish-default']
     }
     
-    file { 'apache-ports':
+    file {'apache-ports':
         path   => '/etc/apache2/ports.conf',
         ensure => present,
         source => '/vagrant/vagrant/resources/app/etc/apache2/ports.conf'
     }
 
-    exec { 'allow-all':
+    exec {'allow-all':
         command => "sed 's/.*allow from 127.*/Allow from All/i' -i /etc/apache2/conf.d/phppgadmin"
     }
 
-    exec { 'ports.conf':
-        command => "sed '/^NameVirtualHost/d' /etc/apache2/ports.conf"
+    exec {'ports.conf':
+        command => "sed '/^NameVirtualHost/d' -i /etc/apache2/ports.conf",
+        unless => "test `grep ^NameVirtualHost /etc/apache2/ports.conf | wc -l` -eq 0",
+        notify  => Service["apache2"]
     }
 
-    exec { 'enable-modules':
+    exec {'enable-modules':
         command => 'a2enmod rewrite rpaf' 
     }
 
-    exec { 'reload':
+    exec {'reload':
         command => 'apache2ctl graceful',
         require => Exec['allow-all', 'ports.conf', 'enable-modules']
     }
@@ -76,9 +78,25 @@ class lapp_config
         override        => 'All'
     }
 
+    exec {'timezone':
+        command => "sed 's/;date.timezone.*/date.timezone = Europe\\/Rome/' -i /etc/php5/*/php.ini",
+        unless => "test `grep timezone /etc/php5/*/php.ini | grep Rome | wc -l` -gt 0",
+        notify  => Service["apache2"],
+        require => Class["apache::mod::php"]
+    }
+
+    exec {'short_open_tag':
+        command => "sed 's/short_open_tag = On/short_open_tag = Off/' -i /etc/php5/*/php.ini",
+        unless => "test `grep short_open_tag /etc/php5/*/php.ini | grep On | wc -l` -eq 0",
+        notify  => Service["apache2"],
+        require => Class["apache::mod::php"]
+    }
+
     exec {'xdebug-nesting':
         cwd => '/etc/php5/mods-available/',
         command => "echo 'xdebug.max_nesting_level = 250' | tee -a xdebug.ini",
         unless => "test `grep nesting xdebug.ini | wc -l` -gt 0",
+        notify  => Service["apache2"],
+        require => Class["apache::mod::php"]
     }
 }
