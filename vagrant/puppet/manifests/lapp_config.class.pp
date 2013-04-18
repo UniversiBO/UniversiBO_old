@@ -82,14 +82,12 @@ class lapp_config
         command => "sed 's/;date.timezone.*/date.timezone = Europe\\/Rome/' -i /etc/php5/*/php.ini",
         unless => "test `grep timezone /etc/php5/*/php.ini | grep Rome | wc -l` -gt 0",
         notify  => Service["apache2"],
-        require => Class["apache::mod::php"]
     }
 
     exec {'short_open_tag':
         command => "sed 's/short_open_tag = On/short_open_tag = Off/' -i /etc/php5/*/php.ini",
         unless => "test `grep short_open_tag /etc/php5/*/php.ini | grep On | wc -l` -eq 0",
         notify  => Service["apache2"],
-        require => Class["apache::mod::php"]
     }
 
     exec {'xdebug-nesting':
@@ -97,6 +95,5 @@ class lapp_config
         command => "echo 'xdebug.max_nesting_level = 250' | tee -a xdebug.ini",
         unless => "test `grep nesting xdebug.ini | wc -l` -gt 0",
         notify  => Service["apache2"],
-        require => Class["apache::mod::php"]
     }
 }
