@@ -48,6 +48,7 @@ class BaseContext extends MinkContext
     {
         $this->iMNotLoggedIn();
         $this->userHasAcceptedPrivacyPolicy($username);
+        $this->userHasRole($username, 'ROLE_BETA');
 
         $session = $this->getSession();
 
