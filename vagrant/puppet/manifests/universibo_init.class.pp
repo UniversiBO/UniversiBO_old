@@ -4,7 +4,7 @@ class universibo_init
         cwd => '/vagrant',
         command => 'composer install -o --dev',
         timeout => 1800,
-	logoutput => true
+	    logoutput => true
     }
  
     exec {'load-db':
@@ -24,6 +24,6 @@ class universibo_init
     exec {'migrate-db':
         cwd => '/vagrant',
         command => "php app/console doctrine:migrations:migrate --no-interaction",
-	require => Exec['load-db']
+	    require => Exec['load-db']
     }
 }
