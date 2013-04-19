@@ -74,7 +74,7 @@ class ShowFacolta extends CanaleCommand
         }
 
         $cdlRepo = $this->get('universibo_legacy.repository.cdl');
-        $elencoCdl = $cdlRepo->findByFacolta($codFac, $currentYear);
+        $elencoCdl = $cdlRepo->findByFaculty($codFac, $currentYear);
 
         $num_cdl = count($elencoCdl);
         $cdlType = NULL;

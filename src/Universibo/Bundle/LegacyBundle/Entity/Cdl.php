@@ -286,7 +286,7 @@ class Cdl extends Canale
      */
     public static function selectCdlElencoFacolta($codiceFacolta)
     {
-        return self::getRepository()->findByFacolta($codiceFacolta);
+        return self::getRepository()->findByFaculty($codiceFacolta);
     }
 
     /**

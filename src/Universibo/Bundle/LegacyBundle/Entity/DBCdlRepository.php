@@ -35,23 +35,13 @@ class DBCdlRepository extends DBRepository
      */
     public function findAll()
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
+        $stmt = $db->executeQuery('SELECT cod_corso FROM classi_corso');
 
-        $query = 'SELECT cod_corso FROM classi_corso WHERE 1 = 1';
+        $elencoCdl = [];
 
-        $res = $db->query($query);
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_DEFAULT',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
-
-            return false;
-        }
-
-        $elencoCdl = array();
-
-        while ($row = $this->fetchRow($res)) {
-            //echo $row[0];
-            if ( ($elencoCdl[] = $this->findByCodice($row[0]) ) === false )
-                return false;
+        while (false !== ($row = $stmt->fetch())) {
+            $elencoCdl[] = $row['cod_corso'];
         }
 
         return $elencoCdl;
@@ -121,6 +111,11 @@ class DBCdlRepository extends DBRepository
         );
     }
 
+    /**
+     * @param  integer|School $school
+     * @param  integer        $annoAccademico
+     * @return array
+     */
     public function findBySchool($school, $annoAccademico = null)
     {
         if ($school instanceof School) {
@@ -129,19 +124,6 @@ class DBCdlRepository extends DBRepository
 
         $db = $this->getConnection();
 
-        if ($annoAccademico !== null) {
-            $and = <<<EOT
-AND EXISTS (
-    SELECT p.*
-    FROM prg_insegnamento p
-    WHERE
-            b.cod_corso = p.cod_corso
-        AND p.anno_accademico = {$db->quote($annoAccademico)}
-)
-EOT;
-        } else {
-            $and = '';
-        }
 
         $query = <<<EOT
 SELECT
@@ -153,40 +135,49 @@ SELECT
             AND sdc.school_id = ?
 EOT;
 
-        $res = $db->executeQuery($query, array($school));
+        $res = $db->executeQuery($this->addAcademicYearCondition($annoAccademico, $db, $query), array($school));
 
         /*public function __construct($id_canale, $permessi, $ultima_modifica, $tipo_canale, $immagine, $nome, $visite,
                  $news_attivo, $files_attivo, $forum_attivo, $forum_forum_id, $forum_group_id, $links_attivo,$files_studenti_attivo,
                  $cod_cdl, $nome_cdl, $categoria_cdl, $cod_facolta_padre, $cod_doc, $forum_cat_id)*/
 
-        $elenco = array();
-        while (false !== ($row = $res->fetch(PDO::FETCH_NUM))) {
-            $channel = $this->channelRepository->find($row[0]);
+        return $this->statementToArray($res);
+    }
 
-            $ultima_modifica = $channel->getUpdatedAt() ? $channel->getUpdatedAt()->getTimestamp() : 0;
-            $cdl = new Cdl($channel->getId(), $channel->getLegacyGroups(), $ultima_modifica,
-                    (int) $channel->getType(), '', $channel->getName(), $channel->getHits(),
-                    $channel->hasService('news'), $channel->hasService('files'),
-                    $channel->hasService('forum'), $channel->getForumId(),
-                    $channel->getForumGroupId(), $channel->hasService('links'),
-                    $channel->hasService('student_files'),
-                    $row[1], $row[2], $row[3], $row[4], $row[5], $row[6]);
+    /**
+     * Finds a Cdl from faculty
+     *
+     * @param string       $facultyCode
+     * @param integer|null $academicYear
+     */
+    public function findByFaculty($facultyCode, $academicYear = null)
+    {
+        $db = $this->getConnection();
 
-            $elenco[] = $cdl;
-        }
+        $query = <<<EOT
+SELECT
+    b.id_canale, cod_corso, desc_corso, categoria, cod_fac, cod_doc, cat_id
 
-        return $elenco;
+    FROM classi_corso b
+        WHERE
+                b.cod_fac = ?
+EOT;
+
+        $res = $db->executeQuery($this->addAcademicYearCondition($academicYear, $db, $query), [$facultyCode]);
+
+        return $this->statementToArray($res);
     }
 
     /**
      * Updates a cdl
      *
      * @todo create canale
-     * @param Cdl $cdl
+     * @param  Cdl     $cdl
+     * @return integer
      */
     public function update(Cdl $cdl)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'UPDATE classi_corso SET cat_id = '.$db->quote($cdl->getForumCatId()).
         ', cod_corso = '.$db->quote($cdl->getCodiceCdl()).
@@ -196,15 +187,12 @@ EOT;
         ', cod_doc =' .$db->quote($cdl->getCodDocente()).
         ' WHERE id_canale = '.$db->quote($cdl->getIdCanale());
 
-        $res = $db->query($query);
-        //		$rows =  $db->affectedRows();
-        if (DB::isError($res))
-            $this->throwError('_ERROR_DEFAULT',array('msg'=>$query,'file'=>__FILE__,'line'=>__LINE__));
+        return $db->executeUpdate($query);
     }
 
     public function insert(Cdl $cdl)
     {
-        $db = $this->getDb();
+        $db = $this->getConnection();
 
         $query = 'INSERT INTO classi_corso (cod_corso, desc_corso, categoria, cod_doc, cod_fac, id_canale) VALUES ('.
                 $db->quote($cdl->getCodiceCdl()).' , '.
@@ -213,13 +201,63 @@ EOT;
                 $db->quote($cdl->getCodDocente()).' , '.
                 $db->quote($cdl->getCodiceFacoltaPadre()).' , '.
                 $db->quote($cdl->getIdCanale()).' )';
-        $res = $db->query($query);
-        if (DB::isError($res)) {
-            $this->throwError('_ERROR_CRITICAL',array('msg'=>DB::errorMessage($res),'file'=>__FILE__,'line'=>__LINE__));
 
-            return false;
+        return $db->executeUpdate($query);
+    }
+
+    /**
+     * @param $row
+     * @return Cdl
+     */
+    private function rowToCdl($row)
+    {
+        $channel = $this->channelRepository->find($row[0]);
+
+        $ultima_modifica = $channel->getUpdatedAt() ? $channel->getUpdatedAt()->getTimestamp() : 0;
+        $cdl = new Cdl($channel->getId(), $channel->getLegacyGroups(), $ultima_modifica,
+            (int) $channel->getType(), '', $channel->getName(), $channel->getHits(),
+            $channel->hasService('news'), $channel->hasService('files'),
+            $channel->hasService('forum'), $channel->getForumId(),
+            $channel->getForumGroupId(), $channel->hasService('links'),
+            $channel->hasService('student_files'),
+            $row[1], $row[2], $row[3], $row[4], $row[5], $row[6]);
+
+        return $cdl;
+    }
+
+    /**
+     * @param $annoAccademico
+     * @param $db
+     */
+    private function addAcademicYearCondition($annoAccademico, $db, $sql)
+    {
+        if ($annoAccademico !== null) {
+            $sql .= <<<EOT
+AND EXISTS (
+    SELECT p.*
+    FROM prg_insegnamento p
+    WHERE
+            b.cod_corso = p.cod_corso
+        AND p.anno_accademico = {$db->quote($annoAccademico)}
+)
+EOT;
+
         }
 
-        return true;
+        return $sql;
+    }
+
+    /**
+     * @param $res
+     * @return array
+     */
+    private function statementToArray($res)
+    {
+        $elenco = array();
+        while (false !== ($row = $res->fetch(PDO::FETCH_NUM))) {
+            $elenco[] = $this->rowToCdl($row);
+        }
+
+        return $elenco;
     }
 }
