@@ -82,9 +82,11 @@ input.gsc-search-button {
             {% endblock likebox %}
         </div>
     </div>
-    <hr/>
-    <div class="span12 disclaimer">
-    {{ render_esi(controller('UniversiboMainBundle:Common:disclaimer')) }}
+    <div class="row-fluid">
+        <div class="span12 disclaimer">
+            <hr/>
+            {{ render_esi(controller('UniversiboMainBundle:Common:disclaimer')) }}
+        </div>
     </div>
 </div>
 {% endblock body %}
