@@ -133,6 +133,7 @@ class MenuBuilder
                 if ($securityContext->isGranted('ROLE_ADMIN')) {
                     $professors->setAttribute('divider_append', true);
                     $dashboard->addChild('navbar.channels', ['route' => 'universibo_dashboard_admin_channels']);
+                    $dashboard->addChild('navbar.beta_requests', ['route' => 'universibo_dashboard_beta_request']);
                 }
             }
         }

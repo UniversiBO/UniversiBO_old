@@ -3,7 +3,7 @@ universibo_dashboard_home:
   defaults: { _controller: 'UniversiboDashboardBundle:Default:index' }
 
 universibo_dashboard_beta_request:
-  pattern: /beta
+  pattern: /beta/
   defaults: { _controller: 'UniversiboDashboardBundle:BetaRequest:index' }
 
 universibo_dashboard_beta_request_approve:
