@@ -2,10 +2,7 @@
 
 <div class="titoloPagina">
 <h2>{$showCanale_titolo|escape:"htmlall"}</h2>
-{if $common_langCanaleMyUniversiBO != '' }
-	<div class="comandi">
-	{if $common_canaleMyUniversiBO == "remove"}<img src="{$common_basePath}/bundles/universibodesign/images/esame_myuniversibo_del.gif" width="15" height="15" alt="" />&nbsp;{else}<img src="{$common_basePath}/bundles/universibodesign/images/esame_myuniversibo_add.gif" width="15" height="15" alt="" />&nbsp;{/if}<a href="{$common_canaleMyUniversiBOUri|escape:"htmlall"}">{$common_langCanaleMyUniversiBO|escape:"htmlall"}</a></div>
-{/if}
+{include file="bookmark_channel.tpl"}
 </div>
 
 {if $showCanale_newsFlag == 'true'}

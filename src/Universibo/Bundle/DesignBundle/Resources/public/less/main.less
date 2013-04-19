@@ -1,10 +1,8 @@
 @import "../../../../../../../vendor/mopa/bootstrap-bundle/Mopa/Bundle/BootstrapBundle/Resources/public/less/mopabootstrapbundle.less";
 @import "../../../../../../../vendor/mopa/bootstrap-bundle/Mopa/Bundle/BootstrapBundle/Resources/bootstrap/less/responsive.less";
 @import "carousel.less";
-
-@boxMarginBottom: 10px;
-@navbarHeight: 44px;
-@bodyPaddingTop: @navbarHeight + 4px;
+@import "news.less";
+@import "variables.less";
 
 .disclaimer {
   font-size: x-small;
@@ -57,4 +55,14 @@
 
 .navbar .brand .beta {
   font-size: xx-small;
+}
+
+.comandi {
+  text-align: center;
+}
+
+.table {
+  .odd {
+    background-color: @grayLighter;
+  }
 }

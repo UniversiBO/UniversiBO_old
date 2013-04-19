@@ -8,7 +8,7 @@
 {if $showFileStudentiTitoli_langFileAvailableFlag=="true"}
 {foreach name=listacategorie from=$showFileStudentiTitoli_fileList item=temp_categoria}
 	<div class="elencoFile">
-		<table width="100%" border="0" cellspacing="0" cellpadding="0" summary="">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" summary="" class="table">
 			<tr><th colspan="8">{$temp_categoria.desc|escape:"htmlall"}</th></tr>
 			{foreach name=listafile from=$temp_categoria.file item=temp_file}
 				<tr class="{cycle values="even,odd"}">
