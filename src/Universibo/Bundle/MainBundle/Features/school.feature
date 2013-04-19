@@ -4,6 +4,7 @@ Feature: Show School
   I need to list school's degree courses
 
   Scenario: List Ingegneria e rchitettura
+  Given I'm logged in as "student"
   When I visit "/scuole/ingegneria-e-architettura/"
   Then text "Scuola di Ingegneria e Architettura" should be present
   And text "Corsi di laurea" should be present
