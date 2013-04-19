@@ -31,7 +31,7 @@
         "twig/extensions": ">=1.0.0,<1.1-dev",
         "universibo/shibboleth-bundle": "@dev",
         "jwage/easy-csv": "@dev",
-        "zendframework/zend-feed": ">=2.0.0,<2.1.0",
+        "zendframework/zend-feed": "2.1.*",
         "universibo/campus-bundle": "dev-master",
         "universibo/smarty": "dev-master",
         "ornicar/apc-bundle": "@dev",
