@@ -116,7 +116,7 @@ class MenuBuilder
             $username = $menu->addChild($user->getUsername());
             $username->setAttribute('dropdown', true);
 
-            $username->addChild('navbar.myuniversibo.show', [
+            $myUniversibo = $username->addChild('navbar.myuniversibo.show', [
                 'route' => 'universibo_legacy_myuniversibo',
             ]);
 
@@ -130,11 +130,11 @@ class MenuBuilder
                 $dashboard->addChild('navbar.home', array('route' => 'universibo_dashboard_home'));
                 $professors = $dashboard->addChild('navbar.professor_contacts', ['route' => 'universibo_legacy_contact_professors']);
 
-                if ($securityContext->isGranted('ROLE_ADMIN')) {
+                $this->addIfRole('ROLE_ADMIN', function() use ($professors, $dashboard) {
                     $professors->setAttribute('divider_append', true);
                     $dashboard->addChild('navbar.channels', ['route' => 'universibo_dashboard_admin_channels']);
                     $dashboard->addChild('navbar.beta_requests', ['route' => 'universibo_dashboard_beta_request']);
-                }
+                });
             }
         }
 
@@ -230,5 +230,12 @@ class MenuBuilder
         $menuItem->addChild('navbar.credits', array('route' => 'universibo_legacy_credits'));
 
         return $menuItem;
+    }
+
+    private function addIfRole($role, \Closure $function)
+    {
+        if ($this->securityContext->isGranted($role)) {
+            $function($this->securityContext->getToken()->getUser());
+        }
     }
 }
