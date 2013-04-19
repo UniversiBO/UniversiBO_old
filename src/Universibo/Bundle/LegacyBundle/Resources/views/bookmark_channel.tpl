@@ -2,7 +2,7 @@
     <div class="comandi">
         <a href="{$common_canaleMyUniversiBOUri|escape:"htmlall"}">
             {if $common_canaleMyUniversiBO == "remove"}
-                <i class="icon-remove"></i>
+                <i class="icon-trash"></i>
             {else}
                 <i class="icon-bookmark"></i>
             {/if}
