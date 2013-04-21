@@ -141,10 +141,9 @@ class MenuBuilder
         $menu->addChild('navbar.forum', array('uri' => $this->forumRouter->getIndexUri()));
         $menu->addChild('navbar.contribute', array('route' => 'universibo_legacy_contribute'));
 
-        if ($logged) {
-            $menu->addChild('navbar.suggestion', array('route' => 'universibo_main_suggestion_new'));
-        }
-
+//        if ($logged) {
+//            $menu->addChild('navbar.suggestion', array('route' => 'universibo_main_suggestion_new'));
+//        }
         return $menu;
     }
 
