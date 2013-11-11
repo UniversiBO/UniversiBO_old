@@ -24,7 +24,6 @@
         "friendsofsymfony/advanced-encoder-bundle": "~1.0",
         "jms/security-extra-bundle": "1.5.*",
         "jms/di-extra-bundle": "1.4.*",
-        "kriswallsmith/assetic": "dev-master",
         "twig/extensions": "1.0.*",
         "universibo/shibboleth-bundle": "0.1.*",
         "jwage/easy-csv": "@dev",
