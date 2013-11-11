@@ -1,15 +1,17 @@
 include postgresql::server
 
-class {'apache': }
+class {'apache': 
+    default_vhost => false
+}
 
 class lapp_config
 {
-    postgresql::db { 'universibo':
+    postgresql::server::db { 'universibo':
         user     => 'universibo',
         password => 'universibo'
     }
 
-    postgresql::db { 'universibo_forum3':
+    postgresql::server::db { 'universibo_forum3':
         user     => 'universibo',
         password => 'universibo'
     }
@@ -42,11 +44,11 @@ class lapp_config
         require => File['varnish-conf', 'varnish-default']
     }
     
-    file { 'apache-ports':
-        path   => '/etc/apache2/ports.conf',
-        ensure => present,
-        source => '/vagrant/vagrant/resources/app/etc/apache2/ports.conf'
-    }
+#    file { 'apache-ports':
+#        path   => '/etc/apache2/ports.conf',
+#        ensure => present,
+#        source => '/vagrant/vagrant/resources/app/etc/apache2/ports.conf'
+#    }
 
     exec { 'allow-all':
         command => "sed 's/.*allow from 127.*/Allow from All/i' -i /etc/apache2/conf.d/phppgadmin"
