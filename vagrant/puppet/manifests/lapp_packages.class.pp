@@ -5,11 +5,6 @@ class lapp_packages
         ensure => 'latest'
     }
     
-    $apachepkg = ['apache2-mpm-prefork', 'libapache2-mod-php5', 'libapache2-mod-rpaf']
-    package { $apachepkg :
-        ensure => 'latest'
-    }
-
     $pgpkg = ['postgresql', 'phppgadmin']
     package { $pgpkg :
         ensure => 'latest'

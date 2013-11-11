@@ -1,8 +1,13 @@
 include postgresql::server
 
 class {'apache': 
-    default_vhost => false
+    default_vhost => false,
+    mpm_module => 'prefork'
 }
+
+class { 'apache::mod::php': }
+apache::mod { 'rpaf': }
+apache::mod { 'rewrite': }
 
 class lapp_config
 {
@@ -50,21 +55,18 @@ class lapp_config
 #        source => '/vagrant/vagrant/resources/app/etc/apache2/ports.conf'
 #    }
 
-    exec { 'allow-all':
-        command => "sed 's/.*allow from 127.*/Allow from All/i' -i /etc/apache2/conf.d/phppgadmin"
-    }
+#    exec { 'allow-all':
+#        command => "sed 's/.*allow from 127.*/Allow from All/i' -i /etc/apache2/conf.d/phppgadmin"
+#    }
 
     exec { 'ports.conf':
         command => "sed '/^NameVirtualHost/d' /etc/apache2/ports.conf"
     }
 
-    exec { 'enable-modules':
-        command => 'a2enmod rewrite rpaf' 
-    }
-
     exec { 'reload':
         command => 'apache2ctl graceful',
-        require => Exec['allow-all', 'ports.conf', 'enable-modules']
+#        require => Exec['allow-all', 'ports.conf', 'enable-modules']
+        require => Exec['ports.conf']
     }
 
     apache::vhost { 'default':
