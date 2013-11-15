@@ -1,6 +1,7 @@
 <?php
 namespace Universibo\Bundle\LegacyBundle\Command;
 
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
@@ -98,33 +99,10 @@ class FileDownload extends UniversiboCommand
 
             $file->addDownload();
 
-            if (strstr($_SERVER['HTTP_USER_AGENT'], "MSIE 5.5")) {
-                // had to make it MSIE 5.5 because if 6 has no "attachment;"
-                // in it defaults to "inline"
-                $attachment = "";
-            } else {
-                $attachment = "attachment;";
-            }
-            header('Content-Type: application/octet-stream');
-            header('Cache-Control: private');
-            header('Pragma: dummy-pragma');
-            header("Expires: " . gmdate("D, d M Y H:i:s") . " GMT"); // Date in the past
-            header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // always modified
-            header("Content-Length: " . @filesize($nomeFile));
-            ////header("Content-type: application/force-download");
-            header("Content-type: application/octet-stream");
-            header("Content-Transfer-Encoding: binary");
-            header(
-                    "Content-disposition: $attachment filename="
-                            . basename($nomeFile));
+            $response = new BinaryFileResponse($nomeFile);
+            $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, basename($nomeFile));
 
-            //echo $nomeFile;
-            readfile($nomeFile);
-
-            exit();
-
-            return;
-
+            return $response;
         }
 
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
