@@ -102,6 +102,7 @@ class FileDownload extends UniversiboCommand
 
             $nomeFile = realpath($nomeFile);
             $response = new BinaryFileResponse($nomeFile);
+            $response->prepare($this->getRequest());
             $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, basename($nomeFile));
 
             return $response;
