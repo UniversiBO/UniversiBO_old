@@ -2,6 +2,7 @@
 namespace Universibo\Bundle\LegacyBundle\Command;
 
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Universibo\Bundle\LegacyBundle\Framework\Error;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Universibo\Bundle\CoreBundle\Entity\User;
@@ -99,7 +100,9 @@ class FileDownload extends UniversiboCommand
 
             $file->addDownload();
 
+            $nomeFile = realpath($nomeFile);
             $response = new BinaryFileResponse($nomeFile);
+            $response->prepare($this->getRequest());
             $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, basename($nomeFile));
 
             return $response;
