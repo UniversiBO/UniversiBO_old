@@ -21,11 +21,13 @@ Feel free to fork us and send a pull request, contributed code *must* follow
 PSR-2 standards, you can achieve that using this tool http://cs.sensiolabs.org/
 
 ## Continuous integration
-UniversiBO uses Travis CI [![Build Status](https://travis-ci.org/UniversiBO/UniversiBO.png?branch=master)](https://travis-ci.org/UniversiBO/UniversiBO)
+UniversiBO uses Travis and Scrutinizer
+[![Build Status](https://travis-ci.org/UniversiBO/UniversiBO.png?branch=master)](https://travis-ci.org/UniversiBO/UniversiBO)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/UniversiBO/UniversiBO/badges/quality-score.png?s=845b48fffede63a081c6cf03bba85ef3e7fede59)](https://scrutinizer-ci.com/g/UniversiBO/UniversiBO/)
+[![Code Coverage](https://scrutinizer-ci.com/g/UniversiBO/UniversiBO/badges/coverage.png?s=6ce13ce595f42cfb5a92f70b070e9c19689e03f3)](https://scrutinizer-ci.com/g/UniversiBO/UniversiBO/)
 
 ## License
-Copyright (C) \<2002-2012\>  Associazione UniversiBO
-
+Copyright (C) \<2002-2013\>  Associazione UniversiBO
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
