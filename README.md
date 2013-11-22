@@ -11,7 +11,7 @@ You can get a working copy of UniversiBO in 6 easy steps:
 
 1. Install virtualbox https://www.virtualbox.org/
 2. Install Vagrant http://vagrantup.com/
-3. Run ```vagrant gem install vagrant-vbguest```
+3. Run ```vagrant plugin install vagrant-vbguest```
 4. Fork this repository and clone it
 5. Run ```cd vagrant && vagrant up``` and wait for Vagrant doing all the magic
 6. Open your browser at http://localhost:8888/app_dev.php 
