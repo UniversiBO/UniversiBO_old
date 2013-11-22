@@ -14,9 +14,13 @@ before_script:
   - cat vendor/universibo/forum-bundle/Universibo/Bundle/ForumBundle/Tests/Resources/sql/{structure,data}-postgres.sql | sed 's/OWNER TO.*/OWNER TO universibo;/' | psql -U postgres universibo_forum3
 
 script:
-  - bin/phpunit -c app
+  - bin/phpunit -c app --coverage-clover=coverage.clover
   - bin/behat @UniversiboDashboardBundle -v
   - bin/behat @UniversiboWebsiteBundle -v
 
 notifications:
   email: dev_universibo@mama.ing.unibo.it
+
+after_script:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover

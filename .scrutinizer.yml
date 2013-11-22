@@ -1,6 +1,5 @@
-before_commands:
-    - "composer install --dev --prefer-source"
-
 tools:
-    php_code_coverage:
-        test_command: bin/phpunit -c app
+    external_code_coverage: true
+
+filter:
+    paths: [src/*]
