@@ -79,7 +79,7 @@ class ContattoDocente
      *  @param int coddoc è il codice del docente di cui si vuole avere informazioni
      *  @return mixed resituisce ContattoDocente se esiste il contatto, false altrimenti
      */
-    public static function getContattoDocente ($codDocente)
+    public static function getContattoDocente($codDocente)
     {
         return self::getRepository()->findByCodDocente($codDocente);
     }

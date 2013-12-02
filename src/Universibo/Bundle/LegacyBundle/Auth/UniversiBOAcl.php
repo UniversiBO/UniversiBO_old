@@ -27,7 +27,7 @@ class UniversiBOAcl
         $this->handlers[self::BASE . 'Files\\FileItem']['read'] = array($this,
                 'fileReadHandler');
 
-        $this->handlers[self::BASE . 'Canale']['links.edit'] = function(User $user = null, Canale $channel) {
+        $this->handlers[self::BASE . 'Canale']['links.edit'] = function (User $user = null, Canale $channel) {
             if ($user === null) {
                 return false;
             }

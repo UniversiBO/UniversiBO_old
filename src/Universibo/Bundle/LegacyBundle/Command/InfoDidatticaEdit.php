@@ -82,7 +82,7 @@ class InfoDidatticaEdit extends UniversiboCommand
 
         $zendUri = new Uri(array('allowRelative' => false));
 
-        $valid = function($uri) use ($zendUri) {
+        $valid = function ($uri) use ($zendUri) {
             return $uri === '' || $zendUri->isValid($uri);
         };
 

@@ -38,7 +38,7 @@ class ChannelMenuController extends Controller
             }
         }
 
-        usort($allowed, function($a, $b) {
+        usort($allowed, function ($a, $b) {
             return strcmp($a['name'], $b['name']);
         });
 

@@ -352,7 +352,7 @@ class NewsItem
      * @param  int      $id_notizia id della news
      * @return NewsItem
      */
-    public static function selectNewsItem ($id_notizia)
+    public static function selectNewsItem($id_notizia)
     {
         return self::getRepository()->find($id_notizia);
     }
@@ -364,7 +364,7 @@ class NewsItem
      * @param  array $id_notizie array elenco di id della news
      * @return array NewsItems
      */
-    public static function selectNewsItems (array $ids)
+    public static function selectNewsItems(array $ids)
     {
         return self::getRepository()->findMany($ids);
     }

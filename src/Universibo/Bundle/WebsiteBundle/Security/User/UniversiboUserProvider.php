@@ -96,18 +96,18 @@ class UniversiboUserProvider implements ShibbolethUserProviderInterface
         $this->uniboGroupRepository = $uniboGroupRepository;
         $this->logger = $logger;
 
-        $this->memberOfHandlers['Docente'] = function($user) {
+        $this->memberOfHandlers['Docente'] = function ($user) {
             $user->setLegacyGroups(LegacyRoles::DOCENTE);
         };
 
-        $this->memberOfHandlers['Studente'] = function($user) {
+        $this->memberOfHandlers['Studente'] = function ($user) {
             $user->setLegacyGroups(LegacyRoles::STUDENTE);
         };
 
         $this->memberOfHandlers['Laureato'] = $this->memberOfHandlers['Studente'];
         $this->memberOfHandlers['Preiscritto'] = $this->memberOfHandlers['Studente'];
 
-        $this->memberOfHandlers['default'] = function($user) {
+        $this->memberOfHandlers['default'] = function ($user) {
             $user->setLegacyGroups(LegacyRoles::PERSONALE);
         };
     }

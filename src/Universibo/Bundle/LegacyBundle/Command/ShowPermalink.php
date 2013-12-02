@@ -25,7 +25,7 @@ class ShowPermalink extends UniversiboCommand
         $newsRepo = $this->getContainer()->get('universibo_legacy.repository.news.news_item');
         $news = $newsRepo->find($id_notizia = $this->getRequest()->attributes->get('id_notizia'));
 
-        $isExpired = function(NewsItem $news) {
+        $isExpired = function (NewsItem $news) {
             return $news->getDataScadenza() > 0 && $news->getDataScadenza() < time();
         };
 
