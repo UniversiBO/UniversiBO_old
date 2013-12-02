@@ -95,7 +95,7 @@ class DBFileItemRepository extends DBRepository implements MergeableRepositoryIn
             ->fetchAll(PDO::FETCH_NUM)
         ;
 
-        array_walk($ids, function(&$array) {
+        array_walk($ids, function (&$array) {
             $array = $array[0];
         });
 

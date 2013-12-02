@@ -175,7 +175,7 @@ class FrontController
      * @access public
      * @return array list of available plugin for current requested command
      */
-    public function getAvailablePlugins ()
+    public function getAvailablePlugins()
     {
         $list = array();
         foreach ($this->plugins as $pc) {
@@ -236,7 +236,7 @@ class FrontController
      * @access private
      * @return array plugin values
      */
-    public function _parsePluginInfo ($plugin)
+    public function _parsePluginInfo($plugin)
     {
            $pc = $plugin['class'];
            $explodedPc = explode(".",$pc);
@@ -487,7 +487,7 @@ class FrontController
         * @return string text content of XML tag
         * @access public
         */
-    public function getAppSetting( $identifier )
+    public function getAppSetting($identifier)
     {
         return $this->appSettings[$identifier];
     }

@@ -203,7 +203,7 @@ class BatchCreateForumsCommand extends ContainerAwareCommand
      * @param DBInsegnamentoRepository         $subjectRepo
      * @param DBCanaleRepository               $channelRepo
      */
-    private function createSubjectForums( OutputInterface $output,
+    private function createSubjectForums(OutputInterface $output,
             Cdl $degreeCourse, $courseForumId, ForumRepository $forumRepository,
             DBPrgAttivitaDidatticaRepository $activityRepo,
             DBInsegnamentoRepository $subjectRepo, DBCanaleRepository $channelRepo)

@@ -83,7 +83,7 @@ class CancellazioneUtente
         $this->db = FrontController::getDbConnection('main');
     }
 
-    public function cancellaUtente( $idUtente)
+    public function cancellaUtente($idUtente)
     {
 
         $db = FrontController::getDbConnection('main');
@@ -111,7 +111,7 @@ class CancellazioneUtente
      * @access private
      * @return array 'esito' -> esito dell'operazione, 'msg' -> eventuale messaggio di errore
      */
-    public function sospendiUtente ($idUtente)
+    public function sospendiUtente($idUtente)
     {
         $user = User::selectUser($idUtente);
            if ( $user->hasRole('ROLE_PROFESSOR') || $user->hasRole('ROLE_TUTOR') || $user->hasRole('ROLE_MODERATOR') || $user->hasRole('ROLE_ADMIN') || $user->hasRole('ROLE_STAFF')  ) {
@@ -134,7 +134,7 @@ class CancellazioneUtente
      * @access private
      * @return array 'esito' -> esito dell'operazione, 'msg' -> eventuale messaggio di errore
      */
-    public function anonimizeForumUser ($idUtente)
+    public function anonimizeForumUser($idUtente)
     {
         // TODO valutare bene cosa settare per user_level e per user_rank
         $query = 'UPDATE phpbb_users SET username = '.$this->db->quote(User::NICK_ELIMINATO).', user_email = \'\', user_icq = \'\', ' .
@@ -217,7 +217,7 @@ class CancellazioneUtente
     /**
      * @return integer restituisce l'id di un admin, possibilmente appartenente al gruppo
      */
-    public function _getFirstAdminInGroup ($groupId)
+    public function _getFirstAdminInGroup($groupId)
     {
         $list = User::getIdsFromDesiredGroups(array('ROLE_ADMIN'));
         $sql = 'SELECT user_id' .
