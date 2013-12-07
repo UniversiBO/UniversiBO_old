@@ -20,6 +20,22 @@ You can get a working copy of UniversiBO in 6 easy steps:
 Feel free to fork us and send a pull request, contributed code *must* follow
 PSR-2 standards, you can achieve that using this tool http://cs.sensiolabs.org/
 
+## Past contributors
+Unfortunately we couldn't migrate the whole history from our [Subversion Repository](https://sourceforge.net/p/universibo/svn/)
+A special thank to @iliasbartolini who founded and led the project in its first years of development (560 commits) together with
+Andrea and Matteo who worked hard on management side and to the other (around) 200 people involved in this project over the years.
+
+### Contributors from Subversion history (SourceForge username)
+* evaimitico / evaimitico-good (394 commits)
+* lasthope83 (137 commits)
+* dvbellet / @dbellettini (100 commits)
+* roby_46 (24 commits)
+* mel82 (4 commits)
+* tntimo (4 commits)
+* greatkris (4 commits)
+* giorgitus (1 commit)
+* iceblack (1 commit)
+
 ## Continuous integration
 UniversiBO uses Travis and Scrutinizer
 [![Build Status](https://travis-ci.org/UniversiBO/UniversiBO.png?branch=master)](https://travis-ci.org/UniversiBO/UniversiBO)
