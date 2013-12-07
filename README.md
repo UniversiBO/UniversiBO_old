@@ -26,7 +26,7 @@ A special thank to [iliasbartolini](https://github.com/iliasbartolini) who found
 Andrea and Matteo who worked hard on management side and to the other (around) 200 people involved in this project over the years.
 
 ### Contributors from Subversion history (SourceForge username)
-* [iliasbartolini](https://github.com/iliasbartolini)
+* [iliasbartolini](https://github.com/iliasbartolini) (560 commits)
 * evaimitico / evaimitico-good (394 commits)
 * lasthope83 (137 commits)
 * dvbellet / [dbellettini](https://github.com/dbellettini) (100 commits)
