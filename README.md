@@ -4,7 +4,7 @@ UniversiBO
 UniversiBO is a Web Community joined by Students, Professors and Staff in Alma Mater Studiorum - University of Bologna, Italy since 2002.
 * Version 1 was a PHP-PostgreSQL "old style" application
 * Since version 2 we migrated to eocene framework  (http://sourceforge.net/projects/eocene-php/)
-* Version 3 will be a porting to Symfony 2.3 framework (http://symfony.com/)
+* We're working on version 3 which is a porting to Symfony 2.3 framework (http://symfony.com/), we still have a lot of legacy code :(
 
 ## Running UniversiBO
 You can get a working copy of UniversiBO in 6 easy steps:
