@@ -22,7 +22,7 @@ PSR-2 standards, you can achieve that using this tool http://cs.sensiolabs.org/
 
 ## Past contributors
 Unfortunately we couldn't migrate the whole history from our [Subversion Repository](https://sourceforge.net/p/universibo/svn/)
-A special thank to @iliasbartolini who founded and led the project in its first years of development (560 commits) together with
+A special thank to [iliasbartolini](https://github.com/iliasbartolini) who founded and led the project in its first years of development (560 commits) together with
 Andrea and Matteo who worked hard on management side and to the other (around) 200 people involved in this project over the years.
 
 ### Contributors from Subversion history (SourceForge username)
