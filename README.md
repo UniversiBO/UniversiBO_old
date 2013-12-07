@@ -35,7 +35,7 @@ Andrea and Matteo who worked hard on management side and to the other (around) 2
 * roby_46 (24 commits)
 * mel82 (4 commits)
 * tntimo (4 commits)
-* greatkris (4 commits)
+* greatkris (3 commits)
 * giorgitus (1 commit)
 * iceblack (1 commit)
 
