@@ -18,9 +18,8 @@ You can get a working copy of UniversiBO in 6 easy steps:
 
 ## Contributing
 Feel free to fork us and send a pull request, contributed code *must* follow
-PSR-2 standards, you can achieve that using this [PHP Coding Standards Fixer](http://cs.sensiolabs.org/)
-
-You can automate coding standard fixing tasks just copying hooks/pre-commit file to your .git/hooks directory; this will prevent you from committing non-compliant code.
+PSR-2 standards, you can use [PHP Coding Standards Fixer](http://cs.sensiolabs.org/) to check your code.
+You can automate that task just copying hooks/pre-commit file to your .git/hooks directory: this will prevent you from committing non-compliant code (not working on Windows).
 
 ## Past contributors
 Unfortunately we couldn't migrate the whole history from our [Subversion Repository](https://sourceforge.net/p/universibo/svn/)
