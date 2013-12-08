@@ -17,9 +17,10 @@ You can get a working copy of UniversiBO in 6 easy steps:
 6. Open your browser at http://localhost:8888/app_dev.php 
 
 ## Contributing
-Feel free to fork us and send a pull request, contributed code *must* follow
-PSR-2 standards, you can use [PHP Coding Standards Fixer](http://cs.sensiolabs.org/) to check your code.
+Feel free to [fork this repository](https://help.github.com/articles/fork-a-repo) and send us pull request, 
+contributed code *must* follow PSR-2 standards, you can use [PHP Coding Standards Fixer](http://cs.sensiolabs.org/) to check your code.
 You can automate that task just copying hooks/pre-commit file to your .git/hooks directory: this will prevent you from committing non-compliant code (not working on Windows).
+This project is currently licensed under GPLv2, since we're considering a license switch, by contributing you accept that code might be licensed under GPLv3 or Affero GPL later.
 
 ## Past contributors
 Unfortunately we couldn't migrate the whole history from our [Subversion Repository](https://sourceforge.net/p/universibo/svn/)
